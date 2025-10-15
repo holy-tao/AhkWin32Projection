@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSDATAFORMAT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include .\KS_VIDEO_STREAM_CONFIG_CAPS.ahk
 #Include ..\..\Foundation\RECT.ahk
@@ -30,19 +31,25 @@ class KS_DATARANGE_MPEG2_VIDEO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bFixedSizeSamples {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    bFixedSizeSamples{
+        get {
+            if(!this.HasProp("__bFixedSizeSamples"))
+                this.__bFixedSizeSamples := BOOL(this.ptr + 48)
+            return this.__bFixedSizeSamples
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bTemporalCompression {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    bTemporalCompression{
+        get {
+            if(!this.HasProp("__bTemporalCompression"))
+                this.__bTemporalCompression := BOOL(this.ptr + 52)
+            return this.__bTemporalCompression
+        }
     }
 
     /**

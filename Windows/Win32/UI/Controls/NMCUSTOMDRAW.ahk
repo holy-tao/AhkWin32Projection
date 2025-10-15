@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code.
@@ -46,11 +49,14 @@ class NMCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to the control's device context. Use this HDC to perform any GDI functions.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdc {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hdc{
+        get {
+            if(!this.HasProp("__hdc"))
+                this.__hdc := HDC(this.ptr + 32)
+            return this.__hdc
+        }
     }
 
     /**
@@ -238,10 +244,13 @@ class NMCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Application-defined item data.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lItemlParam {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    lItemlParam{
+        get {
+            if(!this.HasProp("__lItemlParam"))
+                this.__lItemlParam := LPARAM(this.ptr + 72)
+            return this.__lItemlParam
+        }
     }
 }

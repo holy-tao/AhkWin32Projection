@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The hostent structure is used by functions to store information about a given host, such as host name, IPv4 address, and so forth.
@@ -28,11 +29,14 @@ class HOSTENT extends Win32Struct
 
     /**
      * The official name of the host (PC). If using the DNS or similar resolution system, it is the Fully Qualified Domain Name (FQDN) that caused the server to return a reply. If using a local hosts file, it is the first entry after the IPv4 address.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    h_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    h_name{
+        get {
+            if(!this.HasProp("__h_name"))
+                this.__h_name := PSTR(this.ptr + 0)
+            return this.__h_name
+        }
     }
 
     /**

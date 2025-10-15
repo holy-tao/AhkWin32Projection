@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The REGFILTERPINS structure contains pin information for registering a filter.
@@ -26,47 +28,62 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * Name of the pin. (Obsolete.)
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    strName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    strName{
+        get {
+            if(!this.HasProp("__strName"))
+                this.__strName := PWSTR(this.ptr + 0)
+            return this.__strName
+        }
     }
 
     /**
      * If <b>TRUE</b>, the filter renders the input from this pin. (Applies only to input pins. For output pins, the value is always <b>FALSE</b>.)
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bRendered {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    bRendered{
+        get {
+            if(!this.HasProp("__bRendered"))
+                this.__bRendered := BOOL(this.ptr + 8)
+            return this.__bRendered
+        }
     }
 
     /**
      * If <b>TRUE</b>, this pin is an output pin. Otherwise, the pin is an input pin.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bOutput {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    bOutput{
+        get {
+            if(!this.HasProp("__bOutput"))
+                this.__bOutput := BOOL(this.ptr + 12)
+            return this.__bOutput
+        }
     }
 
     /**
      * If <b>TRUE</b>, the filter can have zero instances of this pin.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bZero {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    bZero{
+        get {
+            if(!this.HasProp("__bZero"))
+                this.__bZero := BOOL(this.ptr + 16)
+            return this.__bZero
+        }
     }
 
     /**
      * If <b>TRUE</b>, the filter can create more than one instance of this type of pin.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bMany {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    bMany{
+        get {
+            if(!this.HasProp("__bMany"))
+                this.__bMany := BOOL(this.ptr + 20)
+            return this.__bMany
+        }
     }
 
     /**
@@ -80,11 +97,14 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * Name of the pin to which this pin connects. (Obsolete.)
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    strConnectsToPin {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    strConnectsToPin{
+        get {
+            if(!this.HasProp("__strConnectsToPin"))
+                this.__strConnectsToPin := PWSTR(this.ptr + 32)
+            return this.__strConnectsToPin
+        }
     }
 
     /**

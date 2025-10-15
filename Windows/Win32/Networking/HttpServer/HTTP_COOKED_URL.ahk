@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a validated, canonical, UTF-16 Unicode-encoded URL request string together with pointers into it and element lengths.
@@ -56,37 +57,49 @@ class HTTP_COOKED_URL extends Win32Struct
 
     /**
      * Pointer to the scheme element at the beginning of the URL (must be either "http://..." or "https://...").
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pFullUrl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pFullUrl{
+        get {
+            if(!this.HasProp("__pFullUrl"))
+                this.__pFullUrl := PWSTR(this.ptr + 8)
+            return this.__pFullUrl
+        }
     }
 
     /**
      * Pointer to the first character in the host element, immediately following the double slashes at the end of the scheme element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pHost {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pHost{
+        get {
+            if(!this.HasProp("__pHost"))
+                this.__pHost := PWSTR(this.ptr + 16)
+            return this.__pHost
+        }
     }
 
     /**
      * Pointer to the third forward slash ("/") in the string. In a UrlPrefix string, this is the slash immediately preceding the relativeUri element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pAbsPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pAbsPath{
+        get {
+            if(!this.HasProp("__pAbsPath"))
+                this.__pAbsPath := PWSTR(this.ptr + 24)
+            return this.__pAbsPath
+        }
     }
 
     /**
      * Pointer to the first question mark (?) in the string, or <b>NULL</b> if there is none.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pQueryString {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pQueryString{
+        get {
+            if(!this.HasProp("__pQueryString"))
+                this.__pQueryString := PWSTR(this.ptr + 32)
+            return this.__pQueryString
+        }
     }
 }

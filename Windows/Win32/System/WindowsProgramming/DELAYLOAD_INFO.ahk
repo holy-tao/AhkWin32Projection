@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\DELAYLOAD_PROC_DESCRIPTOR.ahk
 
 /**
@@ -37,11 +38,14 @@ class DELAYLOAD_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    TargetDllName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    TargetDllName{
+        get {
+            if(!this.HasProp("__TargetDllName"))
+                this.__TargetDllName := PSTR(this.ptr + 24)
+            return this.__TargetDllName
+        }
     }
 
     /**

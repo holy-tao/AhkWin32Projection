@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DHCP_POLICY structure defines a DHCP server policy.
@@ -15,20 +17,26 @@ class DHCP_POLICY extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server policy name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PolicyName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    PolicyName{
+        get {
+            if(!this.HasProp("__PolicyName"))
+                this.__PolicyName := PWSTR(this.ptr + 0)
+            return this.__PolicyName
+        }
     }
 
     /**
      * <b>TRUE</b> if the DHCP server policy is global. Otherwise, it is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsGlobalPolicy {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    IsGlobalPolicy{
+        get {
+            if(!this.HasProp("__IsGlobalPolicy"))
+                this.__IsGlobalPolicy := BOOL(this.ptr + 8)
+            return this.__IsGlobalPolicy
+        }
     }
 
     /**
@@ -78,19 +86,25 @@ class DHCP_POLICY extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the description of the DHCP server policy.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Description {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    Description{
+        get {
+            if(!this.HasProp("__Description"))
+                this.__Description := PWSTR(this.ptr + 48)
+            return this.__Description
+        }
     }
 
     /**
      * <b>TRUE</b> if the policy is enabled. Otherwise, it is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Enabled {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    Enabled{
+        get {
+            if(!this.HasProp("__Enabled"))
+                this.__Enabled := BOOL(this.ptr + 56)
+            return this.__Enabled
+        }
     }
 }

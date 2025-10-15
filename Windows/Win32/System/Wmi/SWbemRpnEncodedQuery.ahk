@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SWbemRpnEncodedQuery structure contains information from the IWbemQuery::GetAnalysis method when you use the WMIQ_ANALYSIS_RPN_SEQUENCE analysis type. Not all the fields in the structure are used actively, because some are reserved for future use.
@@ -87,11 +88,14 @@ class SWbemRpnEncodedQuery extends Win32Struct
 
     /**
      * Optional FROM path. If not used this field is <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    m_pszOptionalFromPath {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    m_pszOptionalFromPath{
+        get {
+            if(!this.HasProp("__m_pszOptionalFromPath"))
+                this.__m_pszOptionalFromPath := PWSTR(this.ptr + 56)
+            return this.__m_pszOptionalFromPath
+        }
     }
 
     /**
@@ -105,7 +109,7 @@ class SWbemRpnEncodedQuery extends Win32Struct
 
     /**
      * Pointer to a list of strings. Each string is one element of the FROM clause of a SELECT statement.  For example, in the statement <c>SELECT * FROM a, b</c>, the list  contains the strings "a" and "b".
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     m_ppszFromList {
         get => NumGet(this, 72, "ptr")
@@ -163,7 +167,7 @@ class SWbemRpnEncodedQuery extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     m_ppszOrderByList {
         get => NumGet(this, 120, "ptr")

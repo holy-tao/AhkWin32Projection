@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -12,18 +13,24 @@ class CONFIG_INFO_0 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    cfgi0_key {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    cfgi0_key{
+        get {
+            if(!this.HasProp("__cfgi0_key"))
+                this.__cfgi0_key := PWSTR(this.ptr + 0)
+            return this.__cfgi0_key
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    cfgi0_data {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    cfgi0_data{
+        get {
+            if(!this.HasProp("__cfgi0_data"))
+                this.__cfgi0_data := PWSTR(this.ptr + 8)
+            return this.__cfgi0_data
+        }
     }
 }

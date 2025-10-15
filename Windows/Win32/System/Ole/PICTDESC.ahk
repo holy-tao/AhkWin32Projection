@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\..\Graphics\Gdi\HMETAFILE.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 
 /**
  * Contains parameters to create a picture object through the OleCreatePictureIndirect function.
@@ -36,19 +41,25 @@ class PICTDESC extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HBITMAP}
          */
-        hbitmap {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        hbitmap{
+            get {
+                if(!this.HasProp("__hbitmap"))
+                    this.__hbitmap := HBITMAP(this.ptr + 0)
+                return this.__hbitmap
+            }
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HPALETTE}
          */
-        hpal {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        hpal{
+            get {
+                if(!this.HasProp("__hpal"))
+                    this.__hpal := HPALETTE(this.ptr + 8)
+                return this.__hpal
+            }
         }
     
     }
@@ -58,11 +69,14 @@ class PICTDESC extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HMETAFILE}
          */
-        hmeta {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        hmeta{
+            get {
+                if(!this.HasProp("__hmeta"))
+                    this.__hmeta := HMETAFILE(this.ptr + 0)
+                return this.__hmeta
+            }
         }
     
         /**
@@ -79,6 +93,40 @@ class PICTDESC extends Win32Struct
         yExt {
             get => NumGet(this, 12, "int")
             set => NumPut("int", value, this, 12)
+        }
+    
+    }
+
+    class _icon extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {HICON}
+         */
+        hicon{
+            get {
+                if(!this.HasProp("__hicon"))
+                    this.__hicon := HICON(this.ptr + 0)
+                return this.__hicon
+            }
+        }
+    
+    }
+
+    class _emf extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {HENHMETAFILE}
+         */
+        hemf{
+            get {
+                if(!this.HasProp("__hemf"))
+                    this.__hemf := HENHMETAFILE(this.ptr + 0)
+                return this.__hemf
+            }
         }
     
     }
@@ -106,18 +154,24 @@ class PICTDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_icon}
      */
-    icon {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    icon{
+        get {
+            if(!this.HasProp("__icon"))
+                this.__icon := %this.__Class%._icon(this.ptr + 8)
+            return this.__icon
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_emf}
      */
-    emf {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    emf{
+        get {
+            if(!this.HasProp("__emf"))
+                this.__emf := %this.__Class%._emf(this.ptr + 8)
+            return this.__emf
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -36,10 +37,13 @@ class KSSTREAM_SEGMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    CompletionEvent {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    CompletionEvent{
+        get {
+            if(!this.HasProp("__CompletionEvent"))
+                this.__CompletionEvent := HANDLE(this.ptr + 24)
+            return this.__CompletionEvent
+        }
     }
 }

@@ -200,10 +200,20 @@ class EVENT_PROPERTY_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Tags
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 20, "uint")
         set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Tags {
+        get => (this._bitfield >> 0) & 0xFFFFFFF
+        set => this._bitfield := ((value & 0xFFFFFFF) << 0) | (this._bitfield & ~(0xFFFFFFF << 0))
     }
 }

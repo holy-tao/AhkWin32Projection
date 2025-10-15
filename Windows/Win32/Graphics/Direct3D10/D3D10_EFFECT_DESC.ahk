@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes an effect.
@@ -22,11 +23,14 @@ class D3D10_EFFECT_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the effect is a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-performance">child effect</a>; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsChildEffect {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    IsChildEffect{
+        get {
+            if(!this.HasProp("__IsChildEffect"))
+                this.__IsChildEffect := BOOL(this.ptr + 0)
+            return this.__IsChildEffect
+        }
     }
 
     /**

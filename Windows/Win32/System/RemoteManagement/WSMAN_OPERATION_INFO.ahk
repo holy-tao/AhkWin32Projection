@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_FRAGMENT.ahk
 #Include .\WSMAN_FILTER.ahk
 #Include .\WSMAN_SELECTOR_SET.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\WSMAN_OPTION_SET.ahk
 
 /**

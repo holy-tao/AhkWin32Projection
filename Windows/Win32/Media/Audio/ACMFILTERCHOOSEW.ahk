@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -29,11 +33,14 @@ class ACMFILTERCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(this.ptr + 8)
+            return this.__hwndOwner
+        }
     }
 
     /**
@@ -53,11 +60,14 @@ class ACMFILTERCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszTitle{
+        get {
+            if(!this.HasProp("__pszTitle"))
+                this.__pszTitle := PWSTR(this.ptr + 32)
+            return this.__pszTitle
+        }
     }
 
     /**
@@ -77,11 +87,14 @@ class ACMFILTERCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszName {
-        get => NumGet(this, 392, "ptr")
-        set => NumPut("ptr", value, this, 392)
+    pszName{
+        get {
+            if(!this.HasProp("__pszName"))
+                this.__pszName := PWSTR(this.ptr + 392)
+            return this.__pszName
+        }
     }
 
     /**
@@ -109,27 +122,36 @@ class ACMFILTERCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 416, "ptr")
-        set => NumPut("ptr", value, this, 416)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(this.ptr + 416)
+            return this.__hInstance
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszTemplateName {
-        get => NumGet(this, 424, "ptr")
-        set => NumPut("ptr", value, this, 424)
+    pszTemplateName{
+        get {
+            if(!this.HasProp("__pszTemplateName"))
+                this.__pszTemplateName := PWSTR(this.ptr + 424)
+            return this.__pszTemplateName
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 432, "ptr")
-        set => NumPut("ptr", value, this, 432)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(this.ptr + 432)
+            return this.__lCustData
+        }
     }
 
     /**

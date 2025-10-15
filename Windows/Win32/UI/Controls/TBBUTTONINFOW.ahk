@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains or receives information for a specific button in a toolbar.
@@ -113,11 +114,14 @@ class TBBUTTONINFOW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Address of a character buffer that contains or receives the button text.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszText {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszText{
+        get {
+            if(!this.HasProp("__pszText"))
+                this.__pszText := PWSTR(this.ptr + 32)
+            return this.__pszText
+        }
     }
 
     /**

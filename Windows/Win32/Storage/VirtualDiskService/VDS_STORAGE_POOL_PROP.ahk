@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of a storage pool object.
@@ -93,20 +94,26 @@ class VDS_STORAGE_POOL_PROP extends Win32Struct
 
     /**
      * A string that specifies the name of the storage pool.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszName{
+        get {
+            if(!this.HasProp("__pwszName"))
+                this.__pwszName := PWSTR(this.ptr + 24)
+            return this.__pwszName
+        }
     }
 
     /**
      * A string that contains a description of the storage pool.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszDescription {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwszDescription{
+        get {
+            if(!this.HasProp("__pwszDescription"))
+                this.__pwszDescription := PWSTR(this.ptr + 32)
+            return this.__pwszDescription
+        }
     }
 
     /**

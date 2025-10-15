@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about part of a calendar control.
@@ -81,11 +83,14 @@ class MCGRIDINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If <b>dwPart</b> is MCGIP_CALENDARCELL, indicates if the cell described by <b>iRow</b> and <b>iCol</b> is currently selected.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bSelected {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    bSelected{
+        get {
+            if(!this.HasProp("__bSelected"))
+                this.__bSelected := BOOL(this.ptr + 24)
+            return this.__bSelected
+        }
     }
 
     /**
@@ -141,11 +146,14 @@ class MCGRIDINFO extends Win32Struct
      * <li>MCGIP_CALENDARCELL: Returns the text of the cell indicated by <b>iRow</b> and <b>iCol</b>, for instance "11" if the 11th day was specified.</li>
      * <li>MCGIP_CALENDARHEADER: Returns the text of what it says in the calendar header, for instance "July, 2006".</li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    pszName{
+        get {
+            if(!this.HasProp("__pszName"))
+                this.__pszName := PWSTR(this.ptr + 80)
+            return this.__pszName
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about the background image of a list-view control. This structure is used for both setting and retrieving background image information.
@@ -128,11 +130,14 @@ class LVBKIMAGEA extends Win32Struct
      * The handle of the background bitmap. This member is valid only if the 
      * 					<b>LVBKIF_SOURCE_HBITMAP</b> flag is set in 
      * 					<b>ulFlags</b>.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbm {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hbm{
+        get {
+            if(!this.HasProp("__hbm"))
+                this.__hbm := HBITMAP(this.ptr + 8)
+            return this.__hbm
+        }
     }
 
     /**
@@ -141,11 +146,14 @@ class LVBKIMAGEA extends Win32Struct
      * Address of a NULL-terminated string that contains the URL of the background image. This member is valid only if the 
      * 					<b>LVBKIF_SOURCE_URL</b> flag is set in 
      * 					<b>ulFlags</b>. This member must be initialized to point to the buffer that contains or receives the text before sending the message.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszImage {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszImage{
+        get {
+            if(!this.HasProp("__pszImage"))
+                this.__pszImage := PSTR(this.ptr + 16)
+            return this.__pszImage
+        }
     }
 
     /**

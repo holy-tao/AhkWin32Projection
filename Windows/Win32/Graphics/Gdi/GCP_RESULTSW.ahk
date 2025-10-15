@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The GCP_RESULTS structure contains information about characters in a string. This structure receives the results of the GetCharacterPlacement function. For some languages, the first element in the arrays may contain more, language-dependent information.
@@ -40,11 +42,14 @@ class GCP_RESULTSW extends Win32Struct
 
     /**
      * A pointer to the buffer that receives the output string or is <b>NULL</b> if the output string is not needed. The output string is a version of the original string that is in the order that will be displayed on a specified device. Typically the output string is identical to the original string, but may be different if the string needs reordering and the GCP_REORDER flag is set or if the original string exceeds the maximum extent and the GCP_MAXEXTENT flag is set.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpOutString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpOutString{
+        get {
+            if(!this.HasProp("__lpOutString"))
+                this.__lpOutString := PWSTR(this.ptr + 8)
+            return this.__lpOutString
+        }
     }
 
     /**
@@ -90,11 +95,14 @@ class GCP_RESULTSW extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpClass {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lpClass{
+        get {
+            if(!this.HasProp("__lpClass"))
+                this.__lpClass := PSTR(this.ptr + 40)
+            return this.__lpClass
+        }
     }
 
     /**
@@ -107,11 +115,14 @@ class GCP_RESULTSW extends Win32Struct
      * When GCP_LIGATE is used, you can limit the number of characters that will be ligated together. (In Arabic for example, three-character ligations are common). This is done by setting the maximum required in lpGcpResults-&gt;lpGlyphs[0]. If no maximum is required, you should set this field to zero.
      * 
      * For languages such as Arabic, where <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getfontlanguageinfo">GetFontLanguageInfo</a> returns the GCP_GLYPHSHAPE flag, the glyphs for a character will be different depending on whether the character is at the beginning, middle, or end of a word. Typically, the first character in the input string will also be the first character in a word, and the last character in the input string will be treated as the last character in a word. However, if the displayed string is a subset of the complete string, such as when displaying a section of scrolled text, this may not be true. In these cases, it is desirable to force the first or last characters to be shaped as not being initial or final forms. To do this, again, the first location in the <b>lpGlyphs</b> array is used by performing an OR operation of the ligation value above with the values GCPGLYPH_LINKBEFORE and/or GCPGLYPH_LINKAFTER. For example, a value of GCPGLYPH_LINKBEFORE | 2 means that two-character ligatures are the maximum required, and the first character in the string should be treated as if it is in the middle of a word.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpGlyphs {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lpGlyphs{
+        get {
+            if(!this.HasProp("__lpGlyphs"))
+                this.__lpGlyphs := PWSTR(this.ptr + 48)
+            return this.__lpGlyphs
+        }
     }
 
     /**

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -29,35 +32,47 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(this.ptr + 8)
+            return this.__hwnd
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpVerbString {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpVerbString{
+        get {
+            if(!this.HasProp("__lpVerbString"))
+                this.__lpVerbString := PSTR(this.ptr + 16)
+            return this.__lpVerbString
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpParameters {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpParameters{
+        get {
+            if(!this.HasProp("__lpParameters"))
+                this.__lpParameters := PSTR(this.ptr + 24)
+            return this.__lpParameters
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpDirectory {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lpDirectory{
+        get {
+            if(!this.HasProp("__lpDirectory"))
+                this.__lpDirectory := PSTR(this.ptr + 32)
+            return this.__lpDirectory
+        }
     }
 
     /**
@@ -77,43 +92,58 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpTitle {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lpTitle{
+        get {
+            if(!this.HasProp("__lpTitle"))
+                this.__lpTitle := PSTR(this.ptr + 48)
+            return this.__lpTitle
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpVerbWString {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    lpVerbWString{
+        get {
+            if(!this.HasProp("__lpVerbWString"))
+                this.__lpVerbWString := PWSTR(this.ptr + 56)
+            return this.__lpVerbWString
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpParametersW {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    lpParametersW{
+        get {
+            if(!this.HasProp("__lpParametersW"))
+                this.__lpParametersW := PWSTR(this.ptr + 64)
+            return this.__lpParametersW
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpDirectoryW {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    lpDirectoryW{
+        get {
+            if(!this.HasProp("__lpDirectoryW"))
+                this.__lpDirectoryW := PWSTR(this.ptr + 72)
+            return this.__lpDirectoryW
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpTitleW {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    lpTitleW{
+        get {
+            if(!this.HasProp("__lpTitleW"))
+                this.__lpTitleW := PWSTR(this.ptr + 80)
+            return this.__lpTitleW
+        }
     }
 
     /**

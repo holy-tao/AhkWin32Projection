@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -55,19 +57,25 @@ class SPEVENTEX extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(this.ptr + 16)
+            return this.__wParam
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 24)
+            return this.__lParam
+        }
     }
 
     /**

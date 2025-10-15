@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include .\HTREEITEM.ahk
 
 /**
  * Contains information about an NM_TVSTATEIMAGECHANGING notification code.
@@ -33,11 +35,14 @@ class NMTVSTATEIMAGECHANGING extends Win32Struct
      * Type: <b>HTREEITEM</b>
      * 
      * Handle to the tree-view item whose state image is changing.
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
-    hti {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hti{
+        get {
+            if(!this.HasProp("__hti"))
+                this.__hti := HTREEITEM(this.ptr + 24)
+            return this.__hti
+        }
     }
 
     /**

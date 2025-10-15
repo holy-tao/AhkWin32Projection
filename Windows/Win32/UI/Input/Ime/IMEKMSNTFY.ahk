@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\HIMC.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -20,19 +22,25 @@ class IMEKMSNTFY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HIMC}
      */
-    hIMC {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hIMC{
+        get {
+            if(!this.HasProp("__hIMC"))
+                this.__hIMC := HIMC(this.ptr + 8)
+            return this.__hIMC
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSelect {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    fSelect{
+        get {
+            if(!this.HasProp("__fSelect"))
+                this.__fSelect := BOOL(this.ptr + 16)
+            return this.__fSelect
+        }
     }
 
     /**

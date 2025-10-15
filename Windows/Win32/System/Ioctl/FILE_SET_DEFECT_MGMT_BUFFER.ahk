@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Specifies the defect management state to be set.
@@ -15,10 +16,13 @@ class FILE_SET_DEFECT_MGMT_BUFFER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, indicates that defect management is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Disable {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    Disable{
+        get {
+            if(!this.HasProp("__Disable"))
+                this.__Disable := BOOLEAN(this.ptr + 0)
+            return this.__Disable
+        }
     }
 }

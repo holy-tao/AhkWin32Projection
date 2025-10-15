@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -42,77 +43,98 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the fax number of the recipient of the fax transmission. This member is required.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    RecipientNumber {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    RecipientNumber{
+        get {
+            if(!this.HasProp("__RecipientNumber"))
+                this.__RecipientNumber := PWSTR(this.ptr + 8)
+            return this.__RecipientNumber
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    RecipientName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    RecipientName{
+        get {
+            if(!this.HasProp("__RecipientName"))
+                this.__RecipientName := PWSTR(this.ptr + 16)
+            return this.__RecipientName
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the transmitting station identifier (TSID). This identifier is usually a telephone number. Only printable characters such as English letters, numeric symbols, and punctuation marks (ASCII range 0x20 to 0x7F) can be used in a TSID.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Tsid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Tsid{
+        get {
+            if(!this.HasProp("__Tsid"))
+                this.__Tsid := PWSTR(this.ptr + 24)
+            return this.__Tsid
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the sender who initiated the fax transmission.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SenderName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    SenderName{
+        get {
+            if(!this.HasProp("__SenderName"))
+                this.__SenderName := PWSTR(this.ptr + 32)
+            return this.__SenderName
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the company name of the sender who initiated the fax transmission.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SenderCompany {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    SenderCompany{
+        get {
+            if(!this.HasProp("__SenderCompany"))
+                this.__SenderCompany := PWSTR(this.ptr + 40)
+            return this.__SenderCompany
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the department name of the sender who initiated the fax transmission.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SenderDept {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    SenderDept{
+        get {
+            if(!this.HasProp("__SenderDept"))
+                this.__SenderDept := PWSTR(this.ptr + 48)
+            return this.__SenderDept
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that indicates an application- or server-specific billing code that applies to the fax transmission. The fax server uses the string to generate an entry in the fax event log. Billing codes are optional.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    BillingCode {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    BillingCode{
+        get {
+            if(!this.HasProp("__BillingCode"))
+                this.__BillingCode := PWSTR(this.ptr + 56)
+            return this.__BillingCode
+        }
     }
 
     /**
@@ -155,22 +177,28 @@ class FAX_JOB_PARAMW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string. If the <b>DeliveryReportType</b> member is equal to <b>DRT_EMAIL</b>, the string is the address to which the DR or NDR should be sent. If the <b>DeliveryReportType</b> member is equal to <b>DRT_NONE</b>, this member must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DeliveryReportAddress {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    DeliveryReportAddress{
+        get {
+            if(!this.HasProp("__DeliveryReportAddress"))
+                this.__DeliveryReportAddress := PWSTR(this.ptr + 96)
+            return this.__DeliveryReportAddress
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string to associate with the fax document. This is the user-friendly name that appears in the print spooler.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DocumentName {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    DocumentName{
+        get {
+            if(!this.HasProp("__DocumentName"))
+                this.__DocumentName := PWSTR(this.ptr + 104)
+            return this.__DocumentName
+        }
     }
 
     /**

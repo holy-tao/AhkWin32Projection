@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines a time stamp request structure that corresponds to the Abstract Syntax Notation One (ASN.1) definition of a TimeStampReq type.
@@ -50,11 +52,14 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated string that specifies the Time Stamping Authority (TSA) policy under which the time stamp token should be provided.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszTSAPolicyId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pszTSAPolicyId{
+        get {
+            if(!this.HasProp("__pszTSAPolicyId"))
+                this.__pszTSAPolicyId := PSTR(this.ptr + 48)
+            return this.__pszTSAPolicyId
+        }
     }
 
     /**
@@ -72,11 +77,14 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
 
     /**
      * A Boolean value that indicates whether the TSA must include the certificates used to sign the time stamp token in the response.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCertReq {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+    fCertReq{
+        get {
+            if(!this.HasProp("__fCertReq"))
+                this.__fCertReq := BOOL(this.ptr + 72)
+            return this.__fCertReq
+        }
     }
 
     /**

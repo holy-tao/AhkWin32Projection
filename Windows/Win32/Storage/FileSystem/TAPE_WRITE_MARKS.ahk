@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes the type and number of tapemarks to write.
@@ -33,10 +34,13 @@ class TAPE_WRITE_MARKS extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, return as soon as the operation begins. Otherwise, return after the operation has completed.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Immediate {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    Immediate{
+        get {
+            if(!this.HasProp("__Immediate"))
+                this.__Immediate := BOOLEAN(this.ptr + 8)
+            return this.__Immediate
+        }
     }
 }

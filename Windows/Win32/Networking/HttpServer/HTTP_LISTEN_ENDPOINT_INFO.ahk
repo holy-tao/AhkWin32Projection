@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_PROPERTY_FLAGS.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Controls whether IP-based URLs should listen on the specific IP address or on a wildcard.
@@ -15,19 +17,25 @@ class HTTP_LISTEN_ENDPOINT_INFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure that specifies if the property is present.
-     * @type {Integer}
+     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := HTTP_PROPERTY_FLAGS(this.ptr + 0)
+            return this.__Flags
+        }
     }
 
     /**
      * A Boolean value that specifies whether sharing is enabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    EnableSharing {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    EnableSharing{
+        get {
+            if(!this.HasProp("__EnableSharing"))
+                this.__EnableSharing := BOOLEAN(this.ptr + 4)
+            return this.__EnableSharing
+        }
     }
 }

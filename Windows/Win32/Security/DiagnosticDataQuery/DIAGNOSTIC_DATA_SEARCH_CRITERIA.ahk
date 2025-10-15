@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * This resource contains details of the search criteria when fetching a diagnostic data record.
@@ -21,7 +23,7 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
     /**
      * Type: **[LPCWSTR\*](/windows/desktop/winprog/windows-data-types)**
      * List of producer names to search for. A diagnostic data record that matches at least one of the producer names is included as a result in this search criteria. Use `nullptr` for this value to indicate no filter by producers.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     producerNames {
         get => NumGet(this, 0, "ptr")
@@ -41,11 +43,14 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
     /**
      * Type: **[LPCWSTR](/windows/desktop/winprog/windows-data-types)**
      * The sub-string to search for within diagnostic data records. This text is case insensitive.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    textToMatch {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    textToMatch{
+        get {
+            if(!this.HasProp("__textToMatch"))
+                this.__textToMatch := PWSTR(this.ptr + 16)
+            return this.__textToMatch
+        }
     }
 
     /**
@@ -91,10 +96,13 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
     /**
      * Type: **[BOOL](/windows/desktop/winprog/windows-data-types)**
      * `TRUE` to filter search results to only core data. `FALSE` to return both core and non-core data.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    coreDataOnly {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    coreDataOnly{
+        get {
+            if(!this.HasProp("__coreDataOnly"))
+                this.__coreDataOnly := BOOL(this.ptr + 52)
+            return this.__coreDataOnly
+        }
     }
 }

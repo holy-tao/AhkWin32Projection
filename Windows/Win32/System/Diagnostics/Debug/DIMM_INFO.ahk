@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DIMM_ADDRESS.ahk
+#Include .\DIMM_ADDR_VALID_BITS_DDR4.ahk
+#Include .\DIMM_ADDR_VALID_BITS_DDR5.ahk
 #Include .\DIMM_ADDR_VALID_BITS.ahk
 
 /**

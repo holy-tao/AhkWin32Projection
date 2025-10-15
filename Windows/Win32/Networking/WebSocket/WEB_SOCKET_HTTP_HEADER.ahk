@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains an HTTP header.
@@ -17,11 +18,14 @@ class WEB_SOCKET_HTTP_HEADER extends Win32Struct
      * Type: <b>PCHAR</b>
      * 
      * A pointer to the HTTP header name. The name must not  contain a colon character.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pcName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pcName{
+        get {
+            if(!this.HasProp("__pcName"))
+                this.__pcName := PSTR(this.ptr + 0)
+            return this.__pcName
+        }
     }
 
     /**
@@ -39,11 +43,14 @@ class WEB_SOCKET_HTTP_HEADER extends Win32Struct
      * Type: <b>PCHAR</b>
      * 
      * A pointer to the HTTP header value.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pcValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pcValue{
+        get {
+            if(!this.HasProp("__pcValue"))
+                this.__pcValue := PSTR(this.ptr + 16)
+            return this.__pcValue
+        }
     }
 
     /**

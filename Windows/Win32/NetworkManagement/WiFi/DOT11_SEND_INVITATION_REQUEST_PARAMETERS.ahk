@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
+#Include .\DOT11_WFD_INVITATION_FLAGS.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DOT11_WFD_CHANNEL.ahk
 #Include .\DOT11_SSID.ahk
 #Include .\DOT11_WFD_GROUP_ID.ahk
@@ -66,11 +68,14 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_WFD_INVITATION_FLAGS}
      */
-    InvitationFlags {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
+    InvitationFlags{
+        get {
+            if(!this.HasProp("__InvitationFlags"))
+                this.__InvitationFlags := DOT11_WFD_INVITATION_FLAGS(this.ptr + 18)
+            return this.__InvitationFlags
+        }
     }
 
     /**
@@ -85,11 +90,14 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bUseGroupBSSID {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
+    bUseGroupBSSID{
+        get {
+            if(!this.HasProp("__bUseGroupBSSID"))
+                this.__bUseGroupBSSID := BOOLEAN(this.ptr + 25)
+            return this.__bUseGroupBSSID
+        }
     }
 
     /**
@@ -104,11 +112,14 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bUseSpecifiedOperatingChannel {
-        get => NumGet(this, 35, "char")
-        set => NumPut("char", value, this, 35)
+    bUseSpecifiedOperatingChannel{
+        get {
+            if(!this.HasProp("__bUseSpecifiedOperatingChannel"))
+                this.__bUseSpecifiedOperatingChannel := BOOLEAN(this.ptr + 35)
+            return this.__bUseSpecifiedOperatingChannel
+        }
     }
 
     /**
@@ -123,11 +134,14 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bLocalGO {
-        get => NumGet(this, 88, "char")
-        set => NumPut("char", value, this, 88)
+    bLocalGO{
+        get {
+            if(!this.HasProp("__bLocalGO"))
+                this.__bLocalGO := BOOLEAN(this.ptr + 88)
+            return this.__bLocalGO
+        }
     }
 
     /**

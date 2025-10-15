@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
@@ -36,19 +37,25 @@ class CLSIDDATA2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    m_pwszAppName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    m_pwszAppName{
+        get {
+            if(!this.HasProp("__m_pwszAppName"))
+                this.__m_pwszAppName := PWSTR(this.ptr + 24)
+            return this.__m_pwszAppName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    m_pwszCtxName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    m_pwszCtxName{
+        get {
+            if(!this.HasProp("__m_pwszCtxName"))
+                this.__m_pwszCtxName := PWSTR(this.ptr + 32)
+            return this.__m_pwszCtxName
+        }
     }
 
     /**

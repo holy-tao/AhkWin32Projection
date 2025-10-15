@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about the capabilities of an interface.
@@ -24,11 +25,14 @@ class WLAN_INTERFACE_CAPABILITY extends Win32Struct
 
     /**
      * Indicates whether 802.11d is supported by the interface.  If <b>TRUE</b>, 802.11d is supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bDot11DSupported {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    bDot11DSupported{
+        get {
+            if(!this.HasProp("__bDot11DSupported"))
+                this.__bDot11DSupported := BOOL(this.ptr + 4)
+            return this.__bDot11DSupported
+        }
     }
 
     /**

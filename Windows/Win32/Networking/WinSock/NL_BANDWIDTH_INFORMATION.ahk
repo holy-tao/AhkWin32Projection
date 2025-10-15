@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains read-only information on the available bandwidth estimates and associated variance as determined by the TCP/IP stack.
@@ -40,10 +41,13 @@ class NL_BANDWIDTH_INFORMATION extends Win32Struct
      * A value that indicates if the bandwidth estimate in the <b>Bandwidth</b> member has peaked and reached its maximum value for the given network conditions. 
      * 
      * The TCP/IP stack uses a heuristic to set this variable. Until this variable is set, there is no guarantee that the true available maximum bandwidth is not higher than the estimated bandwidth in the <b>Bandwidth</b> member. However, it is safe to assume that maximum available bandwidth is not lower than the estimate reported in the <b>Bandwidth</b> member.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    BandwidthPeaked {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    BandwidthPeaked{
+        get {
+            if(!this.HasProp("__BandwidthPeaked"))
+                this.__BandwidthPeaked := BOOLEAN(this.ptr + 16)
+            return this.__BandwidthPeaked
+        }
     }
 }

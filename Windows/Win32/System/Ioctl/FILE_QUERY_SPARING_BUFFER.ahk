@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains defect management properties.
@@ -24,11 +25,14 @@ class FILE_QUERY_SPARING_BUFFER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, indicates that sparing behavior is software-based; if <b>FALSE</b>, it is hardware-based.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    SoftwareSparing {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    SoftwareSparing{
+        get {
+            if(!this.HasProp("__SoftwareSparing"))
+                this.__SoftwareSparing := BOOLEAN(this.ptr + 4)
+            return this.__SoftwareSparing
+        }
     }
 
     /**

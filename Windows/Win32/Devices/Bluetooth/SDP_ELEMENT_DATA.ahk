@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SDP_LARGE_INTEGER_16.ahk
+#Include ..\..\Foundation\CHAR.ahk
 #Include .\SDP_ULARGE_INTEGER_16.ahk
 
 /**
@@ -181,11 +182,14 @@ class SDP_ELEMENT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
-    int8 {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    int8{
+        get {
+            if(!this.HasProp("__int8"))
+                this.__int8 := CHAR(this.ptr + 8)
+            return this.__int8
+        }
     }
 
     /**

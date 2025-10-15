@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -12,10 +13,13 @@ class FOCUS_EVENT_RECORD extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bSetFocus {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    bSetFocus{
+        get {
+            if(!this.HasProp("__bSetFocus"))
+                this.__bSetFocus := BOOL(this.ptr + 0)
+            return this.__bSetFocus
+        }
     }
 }

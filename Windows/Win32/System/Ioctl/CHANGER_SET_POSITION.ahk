@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information needed by the IOCTL_CHANGER_SET_POSITION control code to set the changer's robotic transport mechanism to the specified element address.
@@ -42,10 +43,13 @@ class CHANGER_SET_POSITION extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the media currently carried by <b>Transport</b> should be flipped. Otherwise, it should not. This member is valid only if the <b>Features0</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_MEDIUM_FLIP.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Flip {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    Flip{
+        get {
+            if(!this.HasProp("__Flip"))
+                this.__Flip := BOOLEAN(this.ptr + 16)
+            return this.__Flip
+        }
     }
 }

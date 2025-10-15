@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines an individual network binding for the DHCP server. A single DHCP server can contain multiple bindings and serve multiple networks.
@@ -42,11 +44,14 @@ class DHCP_BIND_ELEMENT extends Win32Struct
 
     /**
      * Specifies whether or not this binding is set on the DHCP server. If <b>TRUE</b>, the binding is set; if <b>FALSE</b>, it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fBoundToDHCPServer {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fBoundToDHCPServer{
+        get {
+            if(!this.HasProp("__fBoundToDHCPServer"))
+                this.__fBoundToDHCPServer := BOOL(this.ptr + 4)
+            return this.__fBoundToDHCPServer
+        }
     }
 
     /**
@@ -69,11 +74,14 @@ class DHCP_BIND_ELEMENT extends Win32Struct
 
     /**
      * Unicode string that specifies the name assigned to this network interface device.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    IfDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    IfDescription{
+        get {
+            if(!this.HasProp("__IfDescription"))
+                this.__IfDescription := PWSTR(this.ptr + 16)
+            return this.__IfDescription
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -20,11 +21,14 @@ class CERT_CHAIN_FIND_BY_ISSUER_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszUsageIdentifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszUsageIdentifier{
+        get {
+            if(!this.HasProp("__pszUsageIdentifier"))
+                this.__pszUsageIdentifier := PSTR(this.ptr + 8)
+            return this.__pszUsageIdentifier
+        }
     }
 
     /**

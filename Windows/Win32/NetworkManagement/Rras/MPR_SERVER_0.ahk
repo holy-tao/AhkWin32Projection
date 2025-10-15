@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The MPR_SERVER_0 structure is used to retrieve information about a device.
@@ -15,11 +16,14 @@ class MPR_SERVER_0 extends Win32Struct
 
     /**
      * A <b>BOOL</b> that specifies whether the Demand Dial Manager (DDM) is running on the device. If <b>TRUE</b>, the DDM is not running on the device. Otherwise, it is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fLanOnlyMode {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    fLanOnlyMode{
+        get {
+            if(!this.HasProp("__fLanOnlyMode"))
+                this.__fLanOnlyMode := BOOL(this.ptr + 0)
+            return this.__fLanOnlyMode
+        }
     }
 
     /**

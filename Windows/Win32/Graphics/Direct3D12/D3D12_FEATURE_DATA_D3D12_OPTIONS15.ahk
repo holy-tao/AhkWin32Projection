@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -12,18 +13,24 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS15 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    TriangleFanSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    TriangleFanSupported{
+        get {
+            if(!this.HasProp("__TriangleFanSupported"))
+                this.__TriangleFanSupported := BOOL(this.ptr + 0)
+            return this.__TriangleFanSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    DynamicIndexBufferStripCutSupported {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    DynamicIndexBufferStripCutSupported{
+        get {
+            if(!this.HasProp("__DynamicIndexBufferStripCutSupported"))
+                this.__DynamicIndexBufferStripCutSupported := BOOL(this.ptr + 4)
+            return this.__DynamicIndexBufferStripCutSupported
+        }
     }
 }

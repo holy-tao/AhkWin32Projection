@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\LIFE_TIME.ahk
 #Include .\DIAG_SOCKADDR.ahk
@@ -21,11 +23,14 @@ class HELPER_ATTRIBUTE extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszName{
+        get {
+            if(!this.HasProp("__pwszName"))
+                this.__pwszName := PWSTR(this.ptr + 0)
+            return this.__pwszName
+        }
     }
 
     /**
@@ -40,11 +45,14 @@ class HELPER_ATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Boolean {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    Boolean{
+        get {
+            if(!this.HasProp("__Boolean"))
+                this.__Boolean := BOOL(this.ptr + 16)
+            return this.__Boolean
+        }
     }
 
     /**
@@ -112,11 +120,14 @@ class HELPER_ATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PWStr {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    PWStr{
+        get {
+            if(!this.HasProp("__PWStr"))
+                this.__PWStr := PWSTR(this.ptr + 16)
+            return this.__PWStr
+        }
     }
 
     /**

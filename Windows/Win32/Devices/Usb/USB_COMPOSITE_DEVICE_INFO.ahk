@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_DEVICE_DESCRIPTOR.ahk
 #Include .\USB_CONFIGURATION_DESCRIPTOR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\USB_COMPOSITE_FUNCTION_INFO.ahk
 
 /**

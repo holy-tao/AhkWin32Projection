@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NVME_SANITIZE_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
@@ -20,11 +21,14 @@ class NVME_SANITIZE_STATUS_LOG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_SANITIZE_STATUS}
      */
-    SSTAT {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    SSTAT{
+        get {
+            if(!this.HasProp("__SSTAT"))
+                this.__SSTAT := NVME_SANITIZE_STATUS(this.ptr + 2)
+            return this.__SSTAT
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains virtual disk open request parameters.
@@ -54,24 +55,44 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    class _Version2 extends Win32Struct {
+    class _Version1 extends Win32Struct {
         static sizeof => 24
         static packingSize => 8
 
         /**
          * @type {Integer}
          */
-        GetInfoOnly {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
+        RWDepth {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
+    class _Version2 extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {BOOL}
+         */
+        GetInfoOnly{
+            get {
+                if(!this.HasProp("__GetInfoOnly"))
+                    this.__GetInfoOnly := BOOL(this.ptr + 0)
+                return this.__GetInfoOnly
+            }
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        ReadOnly {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        ReadOnly{
+            get {
+                if(!this.HasProp("__ReadOnly"))
+                    this.__ReadOnly := BOOL(this.ptr + 4)
+                return this.__ReadOnly
+            }
         }
     
         /**
@@ -89,19 +110,25 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        GetInfoOnly {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
+        GetInfoOnly{
+            get {
+                if(!this.HasProp("__GetInfoOnly"))
+                    this.__GetInfoOnly := BOOL(this.ptr + 0)
+                return this.__GetInfoOnly
+            }
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        ReadOnly {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        ReadOnly{
+            get {
+                if(!this.HasProp("__ReadOnly"))
+                    this.__ReadOnly := BOOL(this.ptr + 4)
+                return this.__ReadOnly
+            }
         }
     
         /**
@@ -123,11 +150,14 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Version1}
      */
-    Version1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Version1{
+        get {
+            if(!this.HasProp("__Version1"))
+                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+            return this.__Version1
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\TYPEDESC.ahk
 #Include .\IDLDESC.ahk
 
@@ -62,11 +63,14 @@ class TYPEATTR extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpstrSchema {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpstrSchema{
+        get {
+            if(!this.HasProp("__lpstrSchema"))
+                this.__lpstrSchema := PWSTR(this.ptr + 24)
+            return this.__lpstrSchema
+        }
     }
 
     /**

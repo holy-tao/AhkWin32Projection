@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\DDEML_MSG_HOOK_DATA.ahk
 
 /**
@@ -29,11 +33,14 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that receives the DDE message.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndTo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndTo{
+        get {
+            if(!this.HasProp("__hwndTo"))
+                this.__hwndTo := HWND(this.ptr + 8)
+            return this.__hwndTo
+        }
     }
 
     /**
@@ -51,11 +58,14 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) containing the window that receives the DDE message.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hTask {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hTask{
+        get {
+            if(!this.HasProp("__hTask"))
+                this.__hTask := HANDLE(this.ptr + 24)
+            return this.__hTask
+        }
     }
 
     /**
@@ -73,22 +83,28 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>WPARAM</b>
      * 
      * The <b>wParam</b> parameter of the DDE message.
-     * @type {Pointer}
+     * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(this.ptr + 40)
+            return this.__wParam
+        }
     }
 
     /**
      * Type: <b>LPARAM</b>
      * 
      * The <b>lParam</b> parameter of the DDE message.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 48)
+            return this.__lParam
+        }
     }
 
     /**

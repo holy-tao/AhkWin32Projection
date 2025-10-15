@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the registry key and value names associated with the installable driver.
@@ -24,19 +25,25 @@ class DRVCONFIGINFO extends Win32Struct
 
     /**
      * Address of a null-terminated, wide-character string specifying the name of the registry key associated with the driver.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszDCISectionName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszDCISectionName{
+        get {
+            if(!this.HasProp("__lpszDCISectionName"))
+                this.__lpszDCISectionName := PWSTR(this.ptr + 8)
+            return this.__lpszDCISectionName
+        }
     }
 
     /**
      * Address of a null-terminated, wide-character string specifying the name of the registry value associated with the driver.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszDCIAliasName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpszDCIAliasName{
+        get {
+            if(!this.HasProp("__lpszDCIAliasName"))
+                this.__lpszDCIAliasName := PWSTR(this.ptr + 16)
+            return this.__lpszDCIAliasName
+        }
     }
 }

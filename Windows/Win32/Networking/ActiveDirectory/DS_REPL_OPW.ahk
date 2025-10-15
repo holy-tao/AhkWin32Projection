@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DS_REPL_OP structure describes a replication task currently executing or pending execution, as returned by the DsReplicaGetInfo or DsReplicaGetInfo2 function.
@@ -71,29 +72,38 @@ class DS_REPL_OPW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the distinguished name of the naming context associated with this operation. For example, the naming context to be synchronized for <b>DS_REPL_OP_TYPE_SYNC</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszNamingContext {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszNamingContext{
+        get {
+            if(!this.HasProp("__pszNamingContext"))
+                this.__pszNamingContext := PWSTR(this.ptr + 24)
+            return this.__pszNamingContext
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the distinguished name of the directory system agent object associated with the remote server corresponding to this operation. For example, the server from which to request changes for <b>DS_REPL_OP_TYPE_SYNC</b>. This can be  <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDsaDN {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszDsaDN{
+        get {
+            if(!this.HasProp("__pszDsaDN"))
+                this.__pszDsaDN := PWSTR(this.ptr + 32)
+            return this.__pszDsaDN
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the transport-specific network address of the remote server associated with this operation. For example, the DNS or SMTP address of the server from which to request changes for <b>DS_REPL_OP_TYPE_SYNC</b>. This can be  <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDsaAddress {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pszDsaAddress{
+        get {
+            if(!this.HasProp("__pszDsaAddress"))
+                this.__pszDsaAddress := PWSTR(this.ptr + 40)
+            return this.__pszDsaAddress
+        }
     }
 
     /**

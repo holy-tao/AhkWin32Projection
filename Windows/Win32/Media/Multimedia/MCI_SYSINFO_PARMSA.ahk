@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -21,11 +22,14 @@ class MCI_SYSINFO_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrReturn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpstrReturn{
+        get {
+            if(!this.HasProp("__lpstrReturn"))
+                this.__lpstrReturn := PSTR(this.ptr + 8)
+            return this.__lpstrReturn
+        }
     }
 
     /**

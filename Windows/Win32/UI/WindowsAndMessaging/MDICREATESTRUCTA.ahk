@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information about the class, title, owner, location, and size of a multiple-document interface (MDI) child window.
@@ -32,33 +35,42 @@ class MDICREATESTRUCTA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the window class of the MDI child window. The class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    szClass {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    szClass{
+        get {
+            if(!this.HasProp("__szClass"))
+                this.__szClass := PSTR(this.ptr + 0)
+            return this.__szClass
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * The title of the MDI child window. The system displays the title in the child window's title bar.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    szTitle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    szTitle{
+        get {
+            if(!this.HasProp("__szTitle"))
+                this.__szTitle := PSTR(this.ptr + 8)
+            return this.__szTitle
+        }
     }
 
     /**
      * Type: <b>HANDLE</b>
      * 
      * A handle to the instance of the application creating the MDI client window.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hOwner {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hOwner{
+        get {
+            if(!this.HasProp("__hOwner"))
+                this.__hOwner := HANDLE(this.ptr + 16)
+            return this.__hOwner
+        }
     }
 
     /**
@@ -118,10 +130,13 @@ class MDICREATESTRUCTA extends Win32Struct
      * Type: <b>LPARAM</b>
      * 
      * An application-defined value.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 48)
+            return this.__lParam
+        }
     }
 }

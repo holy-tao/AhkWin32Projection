@@ -14,7 +14,7 @@ class NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER extends Win32Struct
     /**
      * @type {Integer}
      */
-    Anonymous {
+    HMDLUA {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
     }

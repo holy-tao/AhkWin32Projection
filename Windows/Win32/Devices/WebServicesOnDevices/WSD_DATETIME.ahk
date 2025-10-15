@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a timestamp.
@@ -15,11 +16,14 @@ class WSD_DATETIME extends Win32Struct
 
     /**
      * <b>TRUE</b> if <i>year</i> value is positive.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    isPositive {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    isPositive{
+        get {
+            if(!this.HasProp("__isPositive"))
+                this.__isPositive := BOOL(this.ptr + 0)
+            return this.__isPositive
+        }
     }
 
     /**
@@ -87,20 +91,26 @@ class WSD_DATETIME extends Win32Struct
 
     /**
      * <b>TRUE</b> if date and time are based on the local time zone, <b>FALSE</b> if UTC + offset.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    TZIsLocal {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    TZIsLocal{
+        get {
+            if(!this.HasProp("__TZIsLocal"))
+                this.__TZIsLocal := BOOL(this.ptr + 20)
+            return this.__TZIsLocal
+        }
     }
 
     /**
      * <b>TRUE</b> if time zone offset specified by  <i>TZHour</i> and <i>TZMinute</i> is positive relative to UTC, <b>FALSE</b> if offset is negative. Not valid if <i>TZIsLocal</i> is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    TZIsPositive {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    TZIsPositive{
+        get {
+            if(!this.HasProp("__TZIsPositive"))
+                this.__TZIsPositive := BOOL(this.ptr + 24)
+            return this.__TZIsPositive
+        }
     }
 
     /**

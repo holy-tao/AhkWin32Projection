@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ISCSI_UNIQUE_SESSION_ID.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
@@ -24,19 +25,25 @@ class ISCSI_SESSION_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    InitialR2t {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    InitialR2t{
+        get {
+            if(!this.HasProp("__InitialR2t"))
+                this.__InitialR2t := BOOLEAN(this.ptr + 16)
+            return this.__InitialR2t
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ImmediateData {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+    ImmediateData{
+        get {
+            if(!this.HasProp("__ImmediateData"))
+                this.__ImmediateData := BOOLEAN(this.ptr + 17)
+            return this.__ImmediateData
+        }
     }
 
     /**
@@ -48,19 +55,25 @@ class ISCSI_SESSION_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    DataSequenceInOrder {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
+    DataSequenceInOrder{
+        get {
+            if(!this.HasProp("__DataSequenceInOrder"))
+                this.__DataSequenceInOrder := BOOLEAN(this.ptr + 19)
+            return this.__DataSequenceInOrder
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    DataPduInOrder {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
+    DataPduInOrder{
+        get {
+            if(!this.HasProp("__DataPduInOrder"))
+                this.__DataPduInOrder := BOOLEAN(this.ptr + 20)
+            return this.__DataPduInOrder
+        }
     }
 
     /**

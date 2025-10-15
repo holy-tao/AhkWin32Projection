@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
@@ -12,11 +13,14 @@ class FILTER_REPLY_HEADER extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
-    Status {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    Status{
+        get {
+            if(!this.HasProp("__Status"))
+                this.__Status := NTSTATUS(this.ptr + 0)
+            return this.__Status
+        }
     }
 
     /**

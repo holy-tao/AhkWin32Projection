@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\FWP_BYTE_BLOB.ahk
 
 /**
@@ -78,11 +79,14 @@ class FWPM_NET_EVENT_CLASSIFY_DROP2 extends Win32Struct
 
     /**
      * Indicates whether the packet originated from (or was heading to) the loopback adapter.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    isLoopback {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    isLoopback{
+        get {
+            if(!this.HasProp("__isLoopback"))
+                this.__isLoopback := BOOL(this.ptr + 28)
+            return this.__isLoopback
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -16,20 +17,26 @@ class ApplicationProcessRecycleInfo extends Win32Struct
 
     /**
      * Indicates whether the process is one that can be recycled. For example, only COM+ server applications can be recycled, and applications running as Windows services cannot be recycled.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsRecyclable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    IsRecyclable{
+        get {
+            if(!this.HasProp("__IsRecyclable"))
+                this.__IsRecyclable := BOOL(this.ptr + 0)
+            return this.__IsRecyclable
+        }
     }
 
     /**
      * Indicates whether the process is a COM+ server application instance that has been recycled.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsRecycled {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    IsRecycled{
+        get {
+            if(!this.HasProp("__IsRecycled"))
+                this.__IsRecycled := BOOL(this.ptr + 4)
+            return this.__IsRecycled
+        }
     }
 
     /**
@@ -67,20 +74,26 @@ class ApplicationProcessRecycleInfo extends Win32Struct
 
     /**
      * Indicates whether a paused COM+ server application instance has met the conditions for automatic recycling. If so, the application instance will be recycled when it is resumed.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsPendingRecycle {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    IsPendingRecycle{
+        get {
+            if(!this.HasProp("__IsPendingRecycle"))
+                this.__IsPendingRecycle := BOOL(this.ptr + 28)
+            return this.__IsPendingRecycle
+        }
     }
 
     /**
      * Indicates whether the process is an instance of a COM+ server application that has been configured for automatic recycling based on lifetime.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    HasAutomaticLifetimeRecycling {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    HasAutomaticLifetimeRecycling{
+        get {
+            if(!this.HasProp("__HasAutomaticLifetimeRecycling"))
+                this.__HasAutomaticLifetimeRecycling := BOOL(this.ptr + 32)
+            return this.__HasAutomaticLifetimeRecycling
+        }
     }
 
     /**

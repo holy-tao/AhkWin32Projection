@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\HCRYPTPROV_LEGACY.ahk
 
 /**
  * Contains information about a message recipient that is using key agreement key management.
@@ -72,11 +74,14 @@ class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO extends Win32Struct
      * This member is not used and should be set to <b>NULL</b>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function. This member is optional and can be <b>NULL</b>.This member's data type is <b>HCRYPTPROV</b>.
-     * @type {Pointer}
+     * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    hCryptProv{
+        get {
+            if(!this.HasProp("__hCryptProv"))
+                this.__hCryptProv := HCRYPTPROV_LEGACY(this.ptr + 72)
+            return this.__hCryptProv
+        }
     }
 
     /**

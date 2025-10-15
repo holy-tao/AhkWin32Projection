@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -44,18 +45,24 @@ class DDHAL_SETMODEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    inexcl {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    inexcl{
+        get {
+            if(!this.HasProp("__inexcl"))
+                this.__inexcl := BOOL(this.ptr + 24)
+            return this.__inexcl
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    useRefreshRate {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    useRefreshRate{
+        get {
+            if(!this.HasProp("__useRefreshRate"))
+                this.__useRefreshRate := BOOL(this.ptr + 28)
+            return this.__useRefreshRate
+        }
     }
 }

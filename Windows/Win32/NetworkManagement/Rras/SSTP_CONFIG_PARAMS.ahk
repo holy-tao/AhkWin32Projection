@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 #Include .\SSTP_CERT_INFO.ahk
 
@@ -96,11 +97,14 @@ class SSTP_CONFIG_PARAMS extends Win32Struct
 
     /**
      * A value that is <b>TRUE</b> if HTTPS is used and <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    isUseHttps {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    isUseHttps{
+        get {
+            if(!this.HasProp("__isUseHttps"))
+                this.__isUseHttps := BOOL(this.ptr + 8)
+            return this.__isUseHttps
+        }
     }
 
     /**

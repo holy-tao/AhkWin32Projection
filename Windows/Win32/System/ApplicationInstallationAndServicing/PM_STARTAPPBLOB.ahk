@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -28,27 +30,36 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    AppTitle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    AppTitle{
+        get {
+            if(!this.HasProp("__AppTitle"))
+                this.__AppTitle := BSTR(this.ptr + 16)
+            return this.__AppTitle
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    IconPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    IconPath{
+        get {
+            if(!this.HasProp("__IconPath"))
+                this.__IconPath := BSTR(this.ptr + 24)
+            return this.__IconPath
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsUninstallable {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    IsUninstallable{
+        get {
+            if(!this.HasProp("__IsUninstallable"))
+                this.__IsUninstallable := BOOL(this.ptr + 32)
+            return this.__IsUninstallable
+        }
     }
 
     /**
@@ -76,19 +87,25 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsModern {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    IsModern{
+        get {
+            if(!this.HasProp("__IsModern"))
+                this.__IsModern := BOOL(this.ptr + 52)
+            return this.__IsModern
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsModernLightUp {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    IsModernLightUp{
+        get {
+            if(!this.HasProp("__IsModernLightUp"))
+                this.__IsModernLightUp := BOOL(this.ptr + 56)
+            return this.__IsModernLightUp
+        }
     }
 
     /**

@@ -106,6 +106,20 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     
     }
 
+    class _Fingerprint extends Win32Struct {
+        static sizeof => 1084
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     class _Iris extends Win32Struct {
         static sizeof => 1084
         static packingSize => 8
@@ -142,6 +156,20 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     
     }
 
+    class _Voice extends Win32Struct {
+        static sizeof => 1084
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -162,11 +190,14 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Fingerprint}
      */
-    Fingerprint {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Fingerprint{
+        get {
+            if(!this.HasProp("__Fingerprint"))
+                this.__Fingerprint := %this.__Class%._Fingerprint(this.ptr + 8)
+            return this.__Fingerprint
+        }
     }
 
     /**
@@ -181,10 +212,13 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Voice}
      */
-    Voice {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Voice{
+        get {
+            if(!this.HasProp("__Voice"))
+                this.__Voice := %this.__Class%._Voice(this.ptr + 8)
+            return this.__Voice
+        }
     }
 }

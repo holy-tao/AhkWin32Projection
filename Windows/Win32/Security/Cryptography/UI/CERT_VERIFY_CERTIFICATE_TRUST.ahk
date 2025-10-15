@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -52,11 +54,14 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszUsageOid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszUsageOid{
+        get {
+            if(!this.HasProp("__pszUsageOid"))
+                this.__pszUsageOid := PSTR(this.ptr + 32)
+            return this.__pszUsageOid
+        }
     }
 
     /**
@@ -76,7 +81,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreRoots {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +97,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreCAs {
         get => NumGet(this, 72, "ptr")
@@ -108,7 +113,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreTrust {
         get => NumGet(this, 88, "ptr")
@@ -116,11 +121,14 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(this.ptr + 96)
+            return this.__lCustData
+        }
     }
 
     /**

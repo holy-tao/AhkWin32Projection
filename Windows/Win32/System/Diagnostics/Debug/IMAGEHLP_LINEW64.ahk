@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a source file line.
@@ -50,11 +51,14 @@ class IMAGEHLP_LINEW64 extends Win32Struct
 
     /**
      * The name of the file, including the full path.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FileName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    FileName{
+        get {
+            if(!this.HasProp("__FileName"))
+                this.__FileName := PWSTR(this.ptr + 24)
+            return this.__FileName
+        }
     }
 
     /**

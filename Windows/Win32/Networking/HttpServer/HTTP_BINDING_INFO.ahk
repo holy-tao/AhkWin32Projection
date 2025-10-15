@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_PROPERTY_FLAGS.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Used to associate a URL Group with a request queue.
@@ -15,19 +17,25 @@ class HTTP_BINDING_INFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure specifying whether the property is present.
-     * @type {Integer}
+     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := HTTP_PROPERTY_FLAGS(this.ptr + 0)
+            return this.__Flags
+        }
     }
 
     /**
      * The request queue that is associated with the URL group. The structure can be used to remove an existing binding by setting this parameter to <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    RequestQueueHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    RequestQueueHandle{
+        get {
+            if(!this.HasProp("__RequestQueueHandle"))
+                this.__RequestQueueHandle := HANDLE(this.ptr + 8)
+            return this.__RequestQueueHandle
+        }
     }
 }

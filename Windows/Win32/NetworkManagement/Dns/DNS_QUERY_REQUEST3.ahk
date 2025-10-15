@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -20,11 +22,14 @@ class DNS_QUERY_REQUEST3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    QueryName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    QueryName{
+        get {
+            if(!this.HasProp("__QueryName"))
+                this.__QueryName := PWSTR(this.ptr + 8)
+            return this.__QueryName
+        }
     }
 
     /**
@@ -76,11 +81,14 @@ class DNS_QUERY_REQUEST3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsNetworkQueryRequired {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    IsNetworkQueryRequired{
+        get {
+            if(!this.HasProp("__IsNetworkQueryRequired"))
+                this.__IsNetworkQueryRequired := BOOL(this.ptr + 64)
+            return this.__IsNetworkQueryRequired
+        }
     }
 
     /**

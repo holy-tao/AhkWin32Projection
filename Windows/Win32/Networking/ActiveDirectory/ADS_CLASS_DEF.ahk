@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The ADS_CLASS_DEF structure is used only as a part of IDirectorySchemaMgmt, which is an obsolete interface. The information that follows is provided for legacy purposes only. The ADS_CLASS_DEF structure holds the definitions of an object class.
@@ -15,11 +17,14 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * The null-terminated Unicode string that specifies the class name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszClassName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszClassName{
+        get {
+            if(!this.HasProp("__pszClassName"))
+                this.__pszClassName := PWSTR(this.ptr + 0)
+            return this.__pszClassName
+        }
     }
 
     /**
@@ -33,7 +38,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of  null-terminated Unicode strings that contain the names of the mandatory attributes.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppszMandatoryAttrs {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +56,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated Unicode strings that contain the names of the optional attributes.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppszOptionalAttrs {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +74,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated Unicode strings that contain the names of the naming attributes.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppszNamingAttrs {
         get => NumGet(this, 48, "ptr")
@@ -87,7 +92,7 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated Unicode strings that contain the names of the super classes.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppszSuperClasses {
         get => NumGet(this, 64, "ptr")
@@ -96,10 +101,13 @@ class ADS_CLASS_DEF extends Win32Struct
 
     /**
      * Flags that indicate the object of the class is a container when it is <b>TRUE</b> and not a container when <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIsContainer {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+    fIsContainer{
+        get {
+            if(!this.HasProp("__fIsContainer"))
+                this.__fIsContainer := BOOL(this.ptr + 72)
+            return this.__fIsContainer
+        }
     }
 }

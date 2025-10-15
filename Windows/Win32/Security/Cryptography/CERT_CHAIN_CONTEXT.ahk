@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_TRUST_STATUS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains an array of simple certificate chains and a trust status structure that indicates summary validity data on all of the connected simple chains.
@@ -79,11 +80,14 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
 
     /**
      * A Boolean value set to <b>TRUE</b> if <b>dwRevocationFreshnessTime</b> is available.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fHasRevocationFreshnessTime {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    fHasRevocationFreshnessTime{
+        get {
+            if(!this.HasProp("__fHasRevocationFreshnessTime"))
+                this.__fHasRevocationFreshnessTime := BOOL(this.ptr + 48)
+            return this.__fHasRevocationFreshnessTime
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
@@ -44,18 +45,24 @@ class SERIAL_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    EofReceived {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    EofReceived{
+        get {
+            if(!this.HasProp("__EofReceived"))
+                this.__EofReceived := BOOLEAN(this.ptr + 16)
+            return this.__EofReceived
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    WaitForImmediate {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+    WaitForImmediate{
+        get {
+            if(!this.HasProp("__WaitForImmediate"))
+                this.__WaitForImmediate := BOOLEAN(this.ptr + 17)
+            return this.__WaitForImmediate
+        }
     }
 }

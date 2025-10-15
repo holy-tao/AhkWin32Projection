@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -94,11 +95,14 @@ class DIACTIONFORMATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstString {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hInstString{
+        get {
+            if(!this.HasProp("__hInstString"))
+                this.__hInstString := HINSTANCE(this.ptr + 48)
+            return this.__hInstString
+        }
     }
 
     /**

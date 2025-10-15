@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_BUFFER_UAV.ahk
+#Include .\D3D11_TEX1D_UAV.ahk
 #Include .\D3D11_TEX1D_ARRAY_UAV.ahk
 #Include .\D3D11_TEX2D_UAV1.ahk
 #Include .\D3D11_TEX2D_ARRAY_UAV1.ahk
@@ -53,11 +54,14 @@ class D3D11_UNORDERED_ACCESS_VIEW_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D11_TEX1D_UAV}
      */
-    Texture1D {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Texture1D{
+        get {
+            if(!this.HasProp("__Texture1D"))
+                this.__Texture1D := D3D11_TEX1D_UAV(this.ptr + 8)
+            return this.__Texture1D
+        }
     }
 
     /**

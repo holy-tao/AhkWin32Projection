@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -12,11 +13,14 @@ class netent extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    n_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    n_name{
+        get {
+            if(!this.HasProp("__n_name"))
+                this.__n_name := PSTR(this.ptr + 0)
+            return this.__n_name
+        }
     }
 
     /**

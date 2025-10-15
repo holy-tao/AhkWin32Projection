@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ASSEMBLY_FILE_DETAILED_INFORMATION structure is used by the QueryActCtxW function.
@@ -119,19 +120,25 @@ class ASSEMBLY_FILE_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Null-terminated string that specifies the name of the file.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpFileName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpFileName{
+        get {
+            if(!this.HasProp("__lpFileName"))
+                this.__lpFileName := PWSTR(this.ptr + 16)
+            return this.__lpFileName
+        }
     }
 
     /**
      * Null-terminated string that specifies the path to the file named in <b>lpFileName</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpFilePath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpFilePath{
+        get {
+            if(!this.HasProp("__lpFilePath"))
+                this.__lpFilePath := PWSTR(this.ptr + 24)
+            return this.__lpFilePath
+        }
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -12,11 +14,14 @@ class HSE_CUSTOM_ERROR_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszStatus {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszStatus{
+        get {
+            if(!this.HasProp("__pszStatus"))
+                this.__pszStatus := PSTR(this.ptr + 0)
+            return this.__pszStatus
+        }
     }
 
     /**
@@ -28,10 +33,13 @@ class HSE_CUSTOM_ERROR_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAsync {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    fAsync{
+        get {
+            if(!this.HasProp("__fAsync"))
+                this.__fAsync := BOOL(this.ptr + 12)
+            return this.__fAsync
+        }
     }
 }

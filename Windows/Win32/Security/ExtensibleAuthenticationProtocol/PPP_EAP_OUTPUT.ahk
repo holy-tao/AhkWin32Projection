@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The authentication protocol uses the PPP_EAP_OUTPUT structure to communicate requests and status information to the Connection Manager on return from calls to RasEapMakeMessage.
@@ -85,11 +86,14 @@ class PPP_EAP_OUTPUT extends Win32Struct
     /**
      * Specifies whether RAS should invoke the authentication protocol's interactive UI. If the authentication protocol sets this member to <b>TRUE</b>, RAS invokes the interactive UI, by calling the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/raseapif/nf-raseapif-raseapinvokeinteractiveui">RasEapInvokeInteractiveUI</a> function provided by the authentication protocol.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fInvokeInteractiveUI {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fInvokeInteractiveUI{
+        get {
+            if(!this.HasProp("__fInvokeInteractiveUI"))
+                this.__fInvokeInteractiveUI := BOOL(this.ptr + 24)
+            return this.__fInvokeInteractiveUI
+        }
     }
 
     /**
@@ -115,11 +119,14 @@ class PPP_EAP_OUTPUT extends Win32Struct
 
     /**
      * Specifies whether RAS should save the information pointed to by the <b>pConnectionData</b> member. If <b>fSaveConnectionData</b> is <b>TRUE</b>, RAS will save the data in the phone book. Only valid for the process that is being authenticated.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSaveConnectionData {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    fSaveConnectionData{
+        get {
+            if(!this.HasProp("__fSaveConnectionData"))
+                this.__fSaveConnectionData := BOOL(this.ptr + 44)
+            return this.__fSaveConnectionData
+        }
     }
 
     /**
@@ -143,11 +150,14 @@ class PPP_EAP_OUTPUT extends Win32Struct
 
     /**
      * Specifies whether RAS should save the user data pointed to by the <b>pUserData</b> member. If this parameter is <b>TRUE</b>, RAS saves the user-specific data in the registry under <b>HKEY_CURRENT_USER</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSaveUserData {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    fSaveUserData{
+        get {
+            if(!this.HasProp("__fSaveUserData"))
+                this.__fSaveUserData := BOOL(this.ptr + 60)
+            return this.__fSaveUserData
+        }
     }
 
     /**
@@ -180,10 +190,13 @@ class PPP_EAP_OUTPUT extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSaveToCredMan {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+    fSaveToCredMan{
+        get {
+            if(!this.HasProp("__fSaveToCredMan"))
+                this.__fSaveToCredMan := BOOL(this.ptr + 88)
+            return this.__fSaveToCredMan
+        }
     }
 }

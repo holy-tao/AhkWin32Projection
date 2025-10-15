@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DVD_VideoAttributes structure describes the attributes of the video stream for the current title or menu.
@@ -20,20 +21,26 @@ class DVD_VideoAttributes extends Win32Struct
 
     /**
      * <b>TRUE</b> means the picture can be shown as pan-scan if the display aspect ratio is 4 x 3.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fPanscanPermitted {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    fPanscanPermitted{
+        get {
+            if(!this.HasProp("__fPanscanPermitted"))
+                this.__fPanscanPermitted := BOOL(this.ptr + 0)
+            return this.__fPanscanPermitted
+        }
     }
 
     /**
      * <b>TRUE</b> means the picture can be shown as letterbox if the display aspect ratio is 4 x 3.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fLetterboxPermitted {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fLetterboxPermitted{
+        get {
+            if(!this.HasProp("__fLetterboxPermitted"))
+                this.__fLetterboxPermitted := BOOL(this.ptr + 4)
+            return this.__fLetterboxPermitted
+        }
     }
 
     /**
@@ -83,20 +90,26 @@ class DVD_VideoAttributes extends Win32Struct
 
     /**
      * <b>TRUE</b> means there is user data in line 21, field 1.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fLine21Field1InGOP {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    fLine21Field1InGOP{
+        get {
+            if(!this.HasProp("__fLine21Field1InGOP"))
+                this.__fLine21Field1InGOP := BOOL(this.ptr + 28)
+            return this.__fLine21Field1InGOP
+        }
     }
 
     /**
      * <b>TRUE</b> means there is user data in line 21, field 2.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fLine21Field2InGOP {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    fLine21Field2InGOP{
+        get {
+            if(!this.HasProp("__fLine21Field2InGOP"))
+                this.__fLine21Field2InGOP := BOOL(this.ptr + 32)
+            return this.__fLine21Field2InGOP
+        }
     }
 
     /**
@@ -119,19 +132,25 @@ class DVD_VideoAttributes extends Win32Struct
 
     /**
      * <b>TRUE</b> means the source video is in letterbox format. Subpictures and menu buttons can only be displayed in the active video area.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIsSourceLetterboxed {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    fIsSourceLetterboxed{
+        get {
+            if(!this.HasProp("__fIsSourceLetterboxed"))
+                this.__fIsSourceLetterboxed := BOOL(this.ptr + 44)
+            return this.__fIsSourceLetterboxed
+        }
     }
 
     /**
      * For 625/50 Hz systems, <b>TRUE</b> means "film mode" and <b>FALSE</b> means "camera mode."
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIsFilmMode {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    fIsFilmMode{
+        get {
+            if(!this.HasProp("__fIsFilmMode"))
+                this.__fIsFilmMode := BOOL(this.ptr + 48)
+            return this.__fIsFilmMode
+        }
     }
 }

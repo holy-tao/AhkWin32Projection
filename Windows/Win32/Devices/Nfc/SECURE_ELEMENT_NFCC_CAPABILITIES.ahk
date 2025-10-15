@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
@@ -20,26 +21,35 @@ class SECURE_ELEMENT_NFCC_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsAidRoutingSupported {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+    IsAidRoutingSupported{
+        get {
+            if(!this.HasProp("__IsAidRoutingSupported"))
+                this.__IsAidRoutingSupported := BOOLEAN(this.ptr + 2)
+            return this.__IsAidRoutingSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsProtocolRoutingSupported {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
+    IsProtocolRoutingSupported{
+        get {
+            if(!this.HasProp("__IsProtocolRoutingSupported"))
+                this.__IsProtocolRoutingSupported := BOOLEAN(this.ptr + 3)
+            return this.__IsProtocolRoutingSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsTechRoutingSupported {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    IsTechRoutingSupported{
+        get {
+            if(!this.HasProp("__IsTechRoutingSupported"))
+                this.__IsTechRoutingSupported := BOOLEAN(this.ptr + 4)
+            return this.__IsTechRoutingSupported
+        }
     }
 }

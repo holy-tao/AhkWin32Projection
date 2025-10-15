@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKET.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -20,12 +21,12 @@ class FD_SET extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<SOCKET>}
      */
     fd_array{
         get {
             if(!this.HasProp("__fd_arrayProxyArray"))
-                this.__fd_arrayProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "ptr")
+                this.__fd_arrayProxyArray := Win32FixedArray(this.ptr + 8, 64, SOCKET, "")
             return this.__fd_arrayProxyArray
         }
     }

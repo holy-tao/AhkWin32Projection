@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DOT11_WFD_CHANNEL.ahk
 
 /**
@@ -91,11 +92,14 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bUseGroupBSSID {
-        get => NumGet(this, 38, "char")
-        set => NumPut("char", value, this, 38)
+    bUseGroupBSSID{
+        get {
+            if(!this.HasProp("__bUseGroupBSSID"))
+                this.__bUseGroupBSSID := BOOLEAN(this.ptr + 38)
+            return this.__bUseGroupBSSID
+        }
     }
 
     /**
@@ -110,11 +114,14 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bUseSpecifiedOperatingChannel {
-        get => NumGet(this, 45, "char")
-        set => NumPut("char", value, this, 45)
+    bUseSpecifiedOperatingChannel{
+        get {
+            if(!this.HasProp("__bUseSpecifiedOperatingChannel"))
+                this.__bUseSpecifiedOperatingChannel := BOOLEAN(this.ptr + 45)
+            return this.__bUseSpecifiedOperatingChannel
+        }
     }
 
     /**

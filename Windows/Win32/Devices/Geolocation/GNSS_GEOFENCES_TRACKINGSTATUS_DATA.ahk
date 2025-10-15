@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -29,11 +30,14 @@ class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
-    Status {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    Status{
+        get {
+            if(!this.HasProp("__Status"))
+                this.__Status := NTSTATUS(this.ptr + 8)
+            return this.__Status
+        }
     }
 
     /**

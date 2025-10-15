@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains more detailed information about an image logotype.
@@ -76,10 +77,13 @@ class CERT_LOGOTYPE_IMAGE_INFO extends Win32Struct
 
     /**
      * The address of a null-terminated IA5 string that contains the RFC 3066 language identifier that specifies the language of the image. This member is optional and may be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszLanguage {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszLanguage{
+        get {
+            if(!this.HasProp("__pwszLanguage"))
+                this.__pwszLanguage := PWSTR(this.ptr + 24)
+            return this.__pwszLanguage
+        }
     }
 }

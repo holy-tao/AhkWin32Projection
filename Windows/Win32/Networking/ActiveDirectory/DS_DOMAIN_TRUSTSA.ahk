@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Security\PSID.ahk
 
 /**
  * Used with the DsEnumerateDomainTrusts function to contain trust data for a domain.
@@ -21,20 +23,26 @@ class DS_DOMAIN_TRUSTSA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the NetBIOS name of the domain.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    NetbiosDomainName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    NetbiosDomainName{
+        get {
+            if(!this.HasProp("__NetbiosDomainName"))
+                this.__NetbiosDomainName := PSTR(this.ptr + 0)
+            return this.__NetbiosDomainName
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the DNS name of the domain. This member may be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    DnsDomainName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    DnsDomainName{
+        get {
+            if(!this.HasProp("__DnsDomainName"))
+                this.__DnsDomainName := PSTR(this.ptr + 8)
+            return this.__DnsDomainName
+        }
     }
 
     /**
@@ -80,11 +88,14 @@ class DS_DOMAIN_TRUSTSA extends Win32Struct
 
     /**
      * Contains the security identifier of the domain represented by this structure.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    DomainSid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    DomainSid{
+        get {
+            if(!this.HasProp("__DomainSid"))
+                this.__DomainSid := PSID(this.ptr + 32)
+            return this.__DomainSid
+        }
     }
 
     /**

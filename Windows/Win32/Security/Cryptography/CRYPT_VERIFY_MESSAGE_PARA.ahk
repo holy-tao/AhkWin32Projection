@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCRYPTPROV_LEGACY.ahk
 
 /**
  * The CRYPT_VERIFY_MESSAGE_PARA structure contains information needed to verify signed messages.
@@ -66,11 +67,14 @@ class CRYPT_VERIFY_MESSAGE_PARA extends Win32Struct
      * <b>Windows Server 2003 and Windows XP:  </b>A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> to be used to verify a signed message. The CSP identified by this handle is used for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashing</a> and for signature verification.Unless there is a strong reason for using a specific cryptographic provider, set to  zero to use the default RSA or DSS provider.
      * 
      * This member's data type is <b>HCRYPTPROV</b>.
-     * @type {Pointer}
+     * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hCryptProv{
+        get {
+            if(!this.HasProp("__hCryptProv"))
+                this.__hCryptProv := HCRYPTPROV_LEGACY(this.ptr + 8)
+            return this.__hCryptProv
+        }
     }
 
     /**

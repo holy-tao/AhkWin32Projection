@@ -1,5 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include .\HCONVLIST.ahk
+#Include .\HCONV.ahk
+#Include .\HDDEDATA.ahk
+#Include .\HSZ.ahk
+#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
@@ -382,7 +389,7 @@ class DataExchange {
 ;@region Methods
     /**
      * Specifies the quality of service (QOS) a raw Dynamic Data Exchange (DDE) application desires for future DDE conversations it initiates.
-     * @param {Pointer<Void>} hwndClient Type: <b>HWND</b>
+     * @param {HWND} hwndClient Type: <b>HWND</b>
      * 
      * A handle to the DDE client window that specifies the source of <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-dde-initiate">WM_DDE_INITIATE</a> messages a client will send to start DDE conversations.
      * @param {Pointer<SECURITY_QUALITY_OF_SERVICE>} pqosNew Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_quality_of_service">SECURITY_QUALITY_OF_SERVICE</a>*</b>
@@ -397,7 +404,7 @@ class DataExchange {
      * This parameter is optional. If an application has no interest in 
      * 					<i>hwndClient</i>'s previous QOS values, it should set 
      * 					<i>pqosPrev</i> to <b>NULL</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -406,9 +413,11 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeSetQualityOfService(hwndClient, pqosNew, pqosPrev) {
+        hwndClient := hwndClient is Win32Handle ? NumGet(hwndClient, "ptr") : hwndClient
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DdeSetQualityOfService", "ptr", hwndClient, "ptr", pqosNew, "ptr", pqosPrev, "int")
+        result := DllCall("USER32.dll\DdeSetQualityOfService", "ptr", hwndClient, "ptr", pqosNew, "ptr", pqosPrev, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -417,14 +426,14 @@ class DataExchange {
 
     /**
      * Enables a Dynamic Data Exchange (DDE) server application to impersonate a DDE client application's security context. This protects secure server data from unauthorized DDE clients.
-     * @param {Pointer<Void>} hWndClient Type: <b>HWND</b>
+     * @param {HWND} hWndClient Type: <b>HWND</b>
      * 
      * A handle to the DDE client window to be impersonated. The client window must have established a DDE conversation with the server window identified by the 
      * 					<i>hWndServer</i> parameter.
-     * @param {Pointer<Void>} hWndServer Type: <b>HWND</b>
+     * @param {HWND} hWndServer Type: <b>HWND</b>
      * 
      * A handle to the DDE server window. An application must create the server window before calling this function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -433,9 +442,12 @@ class DataExchange {
      * @since windows5.0
      */
     static ImpersonateDdeClientWindow(hWndClient, hWndServer) {
+        hWndClient := hWndClient is Win32Handle ? NumGet(hWndClient, "ptr") : hWndClient
+        hWndServer := hWndServer is Win32Handle ? NumGet(hWndServer, "ptr") : hWndServer
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ImpersonateDdeClientWindow", "ptr", hWndClient, "ptr", hWndServer, "int")
+        result := DllCall("USER32.dll\ImpersonateDdeClientWindow", "ptr", hWndClient, "ptr", hWndServer, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -453,7 +465,7 @@ class DataExchange {
      * @param {Pointer} uiHi Type: <b>UINT_PTR</b>
      * 
      * A value that corresponds to the 16-bit Windows high-order word of an <i>lParam</i> parameter for the DDE message being posted.
-     * @returns {Pointer} Type: <b>LPARAM</b>
+     * @returns {LPARAM} Type: <b>LPARAM</b>
      * 
      * The return value is the <i>lParam</i> value.
      * @see https://docs.microsoft.com/windows/win32/api//dde/nf-dde-packddelparam
@@ -469,7 +481,7 @@ class DataExchange {
      * @param {Integer} msg Type: <b>UINT</b>
      * 
      * The posted DDE message.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * The 
      * 					<i>lParam</i> parameter of the posted DDE message that was received. The application must free the memory object specified by the 
@@ -482,7 +494,7 @@ class DataExchange {
      * 
      * A pointer to a variable that receives the high-order word of 
      * 					<i>lParam</i>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -491,7 +503,7 @@ class DataExchange {
      * @since windows5.0
      */
     static UnpackDDElParam(msg, lParam, puiLo, puiHi) {
-        result := DllCall("USER32.dll\UnpackDDElParam", "uint", msg, "ptr", lParam, "ptr*", puiLo, "ptr*", puiHi, "int")
+        result := DllCall("USER32.dll\UnpackDDElParam", "uint", msg, "ptr", lParam, "ptr*", puiLo, "ptr*", puiHi, "ptr")
         return result
     }
 
@@ -500,11 +512,11 @@ class DataExchange {
      * @param {Integer} msg Type: <b>UINT</b>
      * 
      * The posted DDE message.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * The 
      * 					<i>lParam</i> parameter of the posted DDE message.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -513,13 +525,13 @@ class DataExchange {
      * @since windows5.0
      */
     static FreeDDElParam(msg, lParam) {
-        result := DllCall("USER32.dll\FreeDDElParam", "uint", msg, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\FreeDDElParam", "uint", msg, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Enables an application to reuse a packed Dynamic Data Exchange (DDE) lParam parameter, rather than allocating a new packed lParam. Using this function reduces reallocations for applications that pass packed DDE messages.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * The 
      * 					<i>lParam</i> parameter of the posted DDE message being reused.
@@ -538,7 +550,7 @@ class DataExchange {
      * 
      * The value to be packed into the high-order word of the reused 
      * 					<i>lParam</i> parameter.
-     * @returns {Pointer} Type: <b>LPARAM</b>
+     * @returns {LPARAM} Type: <b>LPARAM</b>
      * 
      * The return value is the new 
      * 						<i>lParam</i> value.
@@ -617,7 +629,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -626,7 +638,7 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeUninitialize(idInst) {
-        result := DllCall("USER32.dll\DdeUninitialize", "uint", idInst, "int")
+        result := DllCall("USER32.dll\DdeUninitialize", "uint", idInst, "ptr")
         return result
     }
 
@@ -635,13 +647,13 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Void>} hszService Type: <b>HSZ</b>
+     * @param {HSZ} hszService Type: <b>HSZ</b>
      * 
      * A handle to the string that specifies the service name of the server application with which a conversation is to be established. If this parameter is 0L, the system attempts to establish conversations with all available servers that support the specified topic name.
-     * @param {Pointer<Void>} hszTopic Type: <b>HSZ</b>
+     * @param {HSZ} hszTopic Type: <b>HSZ</b>
      * 
      * A handle to the string that specifies the name of the topic on which a conversation is to be established. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function. If this parameter is 0L, the system will attempt to establish conversations on all topics supported by the selected server (or servers).
-     * @param {Pointer<Void>} hConvList Type: <b>HCONVLIST</b>
+     * @param {HCONVLIST} hConvList Type: <b>HCONVLIST</b>
      * 
      * A handle to the conversation list to be enumerated. This parameter should be 0L if a new conversation list is to be established.
      * @param {Pointer<CONVCONTEXT>} pCC Type: <b>PCONVCONTEXT</b>
@@ -649,7 +661,7 @@ class DataExchange {
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/ns-ddeml-convcontext">CONVCONTEXT</a> structure that contains conversation-context information. If this parameter is <b>NULL</b>, the server receives the default <b>CONVCONTEXT</b> structure during the 
      * 					<a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-connect">XTYP_CONNECT</a> or 
      * 					<a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-wildconnect">XTYP_WILDCONNECT</a> transaction.
-     * @returns {Pointer<Void>} Type: <b>HCONVLIST</b>
+     * @returns {HCONVLIST} Type: <b>HCONVLIST</b>
      * 
      * If the function succeeds, the return value is the handle to a new conversation list.
      * 
@@ -660,35 +672,42 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeConnectList(idInst, hszService, hszTopic, hConvList, pCC) {
+        hszService := hszService is Win32Handle ? NumGet(hszService, "ptr") : hszService
+        hszTopic := hszTopic is Win32Handle ? NumGet(hszTopic, "ptr") : hszTopic
+        hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
+
         result := DllCall("USER32.dll\DdeConnectList", "uint", idInst, "ptr", hszService, "ptr", hszTopic, "ptr", hConvList, "ptr", pCC, "ptr")
-        return result
+        return HCONVLIST({Value: result}, True)
     }
 
     /**
      * Retrieves the next conversation handle in the specified conversation list.
-     * @param {Pointer<Void>} hConvList Type: <b>HCONVLIST</b>
+     * @param {HCONVLIST} hConvList Type: <b>HCONVLIST</b>
      * 
      * A handle to the conversation list. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnectlist">DdeConnectList</a> function.
-     * @param {Pointer<Void>} hConvPrev Type: <b>HCONV</b>
+     * @param {HCONV} hConvPrev Type: <b>HCONV</b>
      * 
      * A handle to the conversation handle previously returned by this function. If this parameter is 0L, the function returns the first conversation handle in the list.
-     * @returns {Pointer<Void>} Type: <b>HCONV</b>
+     * @returns {HCONV} Type: <b>HCONV</b>
      * 
      * If the list contains any more conversation handles, the return value is the next conversation handle in the list; otherwise, it is 0L.
      * @see https://docs.microsoft.com/windows/win32/api//ddeml/nf-ddeml-ddequerynextserver
      * @since windows5.0
      */
     static DdeQueryNextServer(hConvList, hConvPrev) {
+        hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
+        hConvPrev := hConvPrev is Win32Handle ? NumGet(hConvPrev, "ptr") : hConvPrev
+
         result := DllCall("USER32.dll\DdeQueryNextServer", "ptr", hConvList, "ptr", hConvPrev, "ptr")
-        return result
+        return HCONV({Value: result}, True)
     }
 
     /**
      * Destroys the specified conversation list and terminates all conversations associated with the list.
-     * @param {Pointer<Void>} hConvList Type: <b>HCONVLIST</b>
+     * @param {HCONVLIST} hConvList Type: <b>HCONVLIST</b>
      * 
      * A handle to the conversation list. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnectlist">DdeConnectList</a> function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -699,7 +718,9 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeDisconnectList(hConvList) {
-        result := DllCall("USER32.dll\DdeDisconnectList", "ptr", hConvList, "int")
+        hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
+
+        result := DllCall("USER32.dll\DdeDisconnectList", "ptr", hConvList, "ptr")
         return result
     }
 
@@ -708,10 +729,10 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Void>} hszService Type: <b>HSZ</b>
+     * @param {HSZ} hszService Type: <b>HSZ</b>
      * 
      * A handle to the string that specifies the service name of the server application with which a conversation is to be established. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function. If this parameter is 0L, a conversation is established with any available server.
-     * @param {Pointer<Void>} hszTopic Type: <b>HSZ</b>
+     * @param {HSZ} hszTopic Type: <b>HSZ</b>
      * 
      * A handle to the string that specifies the name of the topic on which a conversation is to be established. This handle must have been created by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a>. If this parameter is 0L, a conversation on any topic supported by the selected server is established.
      * @param {Pointer<CONVCONTEXT>} pCC Type: <b>PCONVCONTEXT</b>
@@ -719,7 +740,7 @@ class DataExchange {
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/ns-ddeml-convcontext">CONVCONTEXT</a> structure that contains conversation context information. If this parameter is <b>NULL</b>, the server receives the default <b>CONVCONTEXT</b> structure during the 
      * 					<a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-connect">XTYP_CONNECT</a> or 
      * 					<a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-wildconnect">XTYP_WILDCONNECT</a> transaction.
-     * @returns {Pointer<Void>} Type: <b>HCONV</b>
+     * @returns {HCONV} Type: <b>HCONV</b>
      * 
      * If the function succeeds, the return value is the handle to the established conversation.
      * 
@@ -730,16 +751,19 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeConnect(idInst, hszService, hszTopic, pCC) {
+        hszService := hszService is Win32Handle ? NumGet(hszService, "ptr") : hszService
+        hszTopic := hszTopic is Win32Handle ? NumGet(hszTopic, "ptr") : hszTopic
+
         result := DllCall("USER32.dll\DdeConnect", "uint", idInst, "ptr", hszService, "ptr", hszTopic, "ptr", pCC, "ptr")
-        return result
+        return HCONV({Value: result}, True)
     }
 
     /**
      * Terminates a conversation started by either the DdeConnect or DdeConnectList function and invalidates the specified conversation handle.
-     * @param {Pointer<Void>} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv Type: <b>HCONV</b>
      * 
      * A handle to the active conversation to be terminated.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -750,16 +774,18 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeDisconnect(hConv) {
-        result := DllCall("USER32.dll\DdeDisconnect", "ptr", hConv, "int")
+        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+
+        result := DllCall("USER32.dll\DdeDisconnect", "ptr", hConv, "ptr")
         return result
     }
 
     /**
      * Enables a client Dynamic Data Exchange Management Library (DDEML) application to attempt to reestablish a conversation with a service that has terminated a conversation with the client.
-     * @param {Pointer<Void>} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv Type: <b>HCONV</b>
      * 
      * A handle to the conversation to be reestablished. A client must have obtained the conversation handle by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnect">DdeConnect</a> function or from an <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-disconnect">XTYP_DISCONNECT</a> transaction.
-     * @returns {Pointer<Void>} Type: <b>HCONV</b>
+     * @returns {HCONV} Type: <b>HCONV</b>
      * 
      * If the function succeeds, the return value is the handle to the reestablished conversation.
      * 
@@ -770,13 +796,15 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeReconnect(hConv) {
+        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+
         result := DllCall("USER32.dll\DdeReconnect", "ptr", hConv, "ptr")
-        return result
+        return HCONV({Value: result}, True)
     }
 
     /**
      * Retrieves information about a Dynamic Data Exchange (DDE) transaction and about the conversation in which the transaction takes place.
-     * @param {Pointer<Void>} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv Type: <b>HCONV</b>
      * 
      * A handle to the conversation.
      * @param {Integer} idTransaction Type: <b>DWORD</b>
@@ -797,13 +825,15 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeQueryConvInfo(hConv, idTransaction, pConvInfo) {
+        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+
         result := DllCall("USER32.dll\DdeQueryConvInfo", "ptr", hConv, "uint", idTransaction, "ptr", pConvInfo, "uint")
         return result
     }
 
     /**
      * Associates an application-defined value with a conversation handle or a transaction identifier. This is useful for simplifying the processing of asynchronous transactions. An application can use the DdeQueryConvInfo function to retrieve this value.
-     * @param {Pointer<Void>} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv Type: <b>HCONV</b>
      * 
      * A handle to the conversation.
      * @param {Integer} id Type: <b>DWORD</b>
@@ -815,7 +845,7 @@ class DataExchange {
      * @param {Pointer} hUser Type: <b>DWORD_PTR</b>
      * 
      * The value to be associated with the conversation handle.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -826,7 +856,9 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeSetUserHandle(hConv, id, hUser) {
-        result := DllCall("USER32.dll\DdeSetUserHandle", "ptr", hConv, "uint", id, "ptr", hUser, "int")
+        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+
+        result := DllCall("USER32.dll\DdeSetUserHandle", "ptr", hConv, "uint", id, "ptr", hUser, "ptr")
         return result
     }
 
@@ -835,14 +867,14 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Void>} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv Type: <b>HCONV</b>
      * 
      * A handle to the conversation in which the transaction was initiated. If this parameter is 0L, all transactions are abandoned (that is, the 
      * 					<i>idTransaction</i> parameter is ignored).
      * @param {Integer} idTransaction Type: <b>DWORD</b>
      * 
      * The identifier of the transaction to be abandoned. If this parameter is 0L, all active transactions in the specified conversation are abandoned.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -853,7 +885,9 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeAbandonTransaction(idInst, hConv, idTransaction) {
-        result := DllCall("USER32.dll\DdeAbandonTransaction", "uint", idInst, "ptr", hConv, "uint", idTransaction, "int")
+        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+
+        result := DllCall("USER32.dll\DdeAbandonTransaction", "uint", idInst, "ptr", hConv, "uint", idTransaction, "ptr")
         return result
     }
 
@@ -862,13 +896,13 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Void>} hszTopic Type: <b>HSZ</b>
+     * @param {HSZ} hszTopic Type: <b>HSZ</b>
      * 
      * A handle to a string that specifies the topic name. To send notifications for all topics with active advise loops, an application can set this parameter to 0L.
-     * @param {Pointer<Void>} hszItem Type: <b>HSZ</b>
+     * @param {HSZ} hszItem Type: <b>HSZ</b>
      * 
      * A handle to a string that specifies the item name. To send notifications for all items with active advise loops, an application can set this parameter to 0L.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -879,7 +913,10 @@ class DataExchange {
      * @since windows5.0
      */
     static DdePostAdvise(idInst, hszTopic, hszItem) {
-        result := DllCall("USER32.dll\DdePostAdvise", "uint", idInst, "ptr", hszTopic, "ptr", hszItem, "int")
+        hszTopic := hszTopic is Win32Handle ? NumGet(hszTopic, "ptr") : hszTopic
+        hszItem := hszItem is Win32Handle ? NumGet(hszItem, "ptr") : hszItem
+
+        result := DllCall("USER32.dll\DdePostAdvise", "uint", idInst, "ptr", hszTopic, "ptr", hszItem, "ptr")
         return result
     }
 
@@ -888,11 +925,11 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application-instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Void>} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv Type: <b>HCONV</b>
      * 
      * A handle to the conversation to enable or disable. If this parameter is <b>NULL</b>, the function affects all conversations.
      * @param {Integer} wCmd Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -906,16 +943,18 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeEnableCallback(idInst, hConv, wCmd) {
-        result := DllCall("USER32.dll\DdeEnableCallback", "uint", idInst, "ptr", hConv, "uint", wCmd, "int")
+        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+
+        result := DllCall("USER32.dll\DdeEnableCallback", "uint", idInst, "ptr", hConv, "uint", wCmd, "ptr")
         return result
     }
 
     /**
      * Impersonates a Dynamic Data Exchange (DDE) client application in a DDE client conversation.
-     * @param {Pointer<Void>} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv Type: <b>HCONV</b>
      * 
      * A handle to the DDE client conversation to be impersonated.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -924,9 +963,11 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeImpersonateClient(hConv) {
+        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DdeImpersonateClient", "ptr", hConv, "int")
+        result := DllCall("USER32.dll\DdeImpersonateClient", "ptr", hConv, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -938,14 +979,14 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Void>} hsz1 Type: <b>HSZ</b>
+     * @param {HSZ} hsz1 Type: <b>HSZ</b>
      * 
      * A handle to the string that specifies the service name the server is registering or unregistering. An application that is unregistering all of its service names should set this parameter to 0L.
-     * @param {Pointer<Void>} hsz2 Type: <b>HSZ</b>
+     * @param {HSZ} hsz2 Type: <b>HSZ</b>
      * 
      * Reserved; should be set to 0L.
      * @param {Integer} afCmd Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HDDEDATA</b>
+     * @returns {HDDEDATA} Type: <b>HDDEDATA</b>
      * 
      * If the function succeeds, it returns a nonzero value. That value is not a true <b>HDDEDATA</b> value, merely a Boolean indicator of success. The function is typed <b>HDDEDATA</b> to allow for possible future expansion of the function and a more sophisticated return value. 
      * 
@@ -956,8 +997,11 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeNameService(idInst, hsz1, hsz2, afCmd) {
+        hsz1 := hsz1 is Win32Handle ? NumGet(hsz1, "ptr") : hsz1
+        hsz2 := hsz2 is Win32Handle ? NumGet(hsz2, "ptr") : hsz2
+
         result := DllCall("USER32.dll\DdeNameService", "uint", idInst, "ptr", hsz1, "ptr", hsz2, "uint", afCmd, "ptr")
-        return result
+        return HDDEDATA({Value: result}, True)
     }
 
     /**
@@ -978,10 +1022,10 @@ class DataExchange {
      * The length, in bytes, of the data pointed to by the 
      * 					<i>pData</i> parameter, including the terminating <b>NULL</b>, if the data is a string. A value of -1 indicates that 
      * 					<i>pData</i> is a data handle that identifies the data being sent.
-     * @param {Pointer<Void>} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv Type: <b>HCONV</b>
      * 
      * A handle to the conversation in which the transaction is to take place.
-     * @param {Pointer<Void>} hszItem Type: <b>HSZ</b>
+     * @param {HSZ} hszItem Type: <b>HSZ</b>
      * 
      * A handle to the data item for which data is being exchanged during the transaction. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function. This parameter is ignored (and should be set to 0L) if the 
      * 					<i>wType</i> parameter is 
@@ -1005,7 +1049,7 @@ class DataExchange {
      * @param {Pointer<UInt32>} pdwResult Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that receives the result of the transaction. An application that does not check the result can use <b>NULL</b> for this value. For synchronous transactions, the low-order word of this variable contains any applicable DDE_ flags resulting from the transaction. This provides support for applications dependent on <b>DDE_APPSTATUS</b> bits. It is, however, recommended that applications no longer use these bits because they may not be supported in future versions of the <a href="https://docs.microsoft.com/windows/desktop/dataxchg/dynamic-data-exchange-management-library">Dynamic Data Exchange Management Library</a> (DDEML). For asynchronous transactions, this variable is filled with a unique transaction identifier for use with the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeabandontransaction">DdeAbandonTransaction</a> function and the <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-xact-complete">XTYP_XACT_COMPLETE</a> transaction.
-     * @returns {Pointer<Void>} Type: <b>HDDEDATA</b>
+     * @returns {HDDEDATA} Type: <b>HDDEDATA</b>
      * 
      * If the function succeeds, the return value is a data handle that identifies the data for successful synchronous transactions in which the client expects data from the server. The return value is nonzero for successful asynchronous transactions and for synchronous transactions in which the client does not expect data. The return value is zero for all unsuccessful transactions. 
      * 
@@ -1014,8 +1058,11 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeClientTransaction(pData, cbData, hConv, hszItem, wFmt, wType, dwTimeout, pdwResult) {
+        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+        hszItem := hszItem is Win32Handle ? NumGet(hszItem, "ptr") : hszItem
+
         result := DllCall("USER32.dll\DdeClientTransaction", "char*", pData, "uint", cbData, "ptr", hConv, "ptr", hszItem, "uint", wFmt, "uint", wType, "uint", dwTimeout, "uint*", pdwResult, "ptr")
-        return result
+        return HDDEDATA({Value: result}, True)
     }
 
     /**
@@ -1035,7 +1082,7 @@ class DataExchange {
      * 
      * An offset, in bytes, from the beginning of the buffer pointed to by the 
      * 					<i>pSrc</i> parameter. The data beginning at this offset is copied from the buffer to the DDE object.
-     * @param {Pointer<Void>} hszItem Type: <b>HSZ</b>
+     * @param {HSZ} hszItem Type: <b>HSZ</b>
      * 
      * A handle to the string that specifies the data item corresponding to the DDE object. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function. If the data handle is to be used in an <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-execute">XTYP_EXECUTE</a> transaction, this parameter must be 0L.
      * @param {Integer} wFmt Type: <b>UINT</b>
@@ -1044,7 +1091,7 @@ class DataExchange {
      * @param {Integer} afCmd Type: <b>UINT</b>
      * 
      * The creation flags. This parameter can be <b>HDATA_APPOWNED</b>, which specifies that the server application calling the <b>DdeCreateDataHandle</b> function owns the data handle this function creates. This flag enables the application to share the data handle with other DDEML applications rather than creating a separate handle to pass to each application. If this flag is specified, the application must eventually free the shared memory object associated with the handle by using the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddefreedatahandle">DdeFreeDataHandle</a> function. If this flag is not specified, the handle becomes invalid in the application that created the handle after the data handle is returned by the application's DDE callback function or is used as a parameter in another DDEML function.
-     * @returns {Pointer<Void>} Type: <b>HDDEDATA</b>
+     * @returns {HDDEDATA} Type: <b>HDDEDATA</b>
      * 
      * If the function succeeds, the return value is a data handle.
      * 
@@ -1055,13 +1102,15 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeCreateDataHandle(idInst, pSrc, cb, cbOff, hszItem, wFmt, afCmd) {
+        hszItem := hszItem is Win32Handle ? NumGet(hszItem, "ptr") : hszItem
+
         result := DllCall("USER32.dll\DdeCreateDataHandle", "uint", idInst, "ptr", pSrc, "uint", cb, "uint", cbOff, "ptr", hszItem, "uint", wFmt, "uint", afCmd, "ptr")
-        return result
+        return HDDEDATA({Value: result}, True)
     }
 
     /**
      * Adds data to the specified Dynamic Data Exchange (DDE) object.
-     * @param {Pointer<Void>} hData Type: <b>HDDEDATA</b>
+     * @param {HDDEDATA} hData Type: <b>HDDEDATA</b>
      * 
      * A handle to the DDE object that receives additional data.
      * @param {Pointer} pSrc Type: <b>LPBYTE</b>
@@ -1073,7 +1122,7 @@ class DataExchange {
      * @param {Integer} cbOff Type: <b>DWORD</b>
      * 
      * An offset, in bytes, from the beginning of the DDE object. The additional data is copied to the object beginning at this offset.
-     * @returns {Pointer<Void>} Type: <b>HDDEDATA</b>
+     * @returns {HDDEDATA} Type: <b>HDDEDATA</b>
      * 
      * If the function succeeds, the return value is a new handle to the DDE object. The new handle is used in all references to the object. 
      * 
@@ -1084,13 +1133,15 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeAddData(hData, pSrc, cb, cbOff) {
+        hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
+
         result := DllCall("USER32.dll\DdeAddData", "ptr", hData, "ptr", pSrc, "uint", cb, "uint", cbOff, "ptr")
-        return result
+        return HDDEDATA({Value: result}, True)
     }
 
     /**
      * Copies data from the specified Dynamic Data Exchange (DDE) object to the specified local buffer.
-     * @param {Pointer<Void>} hData Type: <b>HDDEDATA</b>
+     * @param {HDDEDATA} hData Type: <b>HDDEDATA</b>
      * 
      * A handle to the DDE object that contains the data to copy.
      * @param {Pointer} pDst Type: <b>LPBYTE</b>
@@ -1118,13 +1169,15 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeGetData(hData, pDst, cbMax, cbOff) {
+        hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
+
         result := DllCall("USER32.dll\DdeGetData", "ptr", hData, "ptr", pDst, "uint", cbMax, "uint", cbOff, "uint")
         return result
     }
 
     /**
      * Provides access to the data in the specified Dynamic Data Exchange (DDE) object. An application must call the DdeUnaccessData function when it has finished accessing the data in the object.
-     * @param {Pointer<Void>} hData Type: <b>HDDEDATA</b>
+     * @param {HDDEDATA} hData Type: <b>HDDEDATA</b>
      * 
      * A handle to the DDE object to be accessed.
      * @param {Pointer<UInt32>} pcbDataSize Type: <b>LPDWORD</b>
@@ -1142,16 +1195,18 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeAccessData(hData, pcbDataSize) {
+        hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
+
         result := DllCall("USER32.dll\DdeAccessData", "ptr", hData, "uint*", pcbDataSize, "char*")
         return result
     }
 
     /**
      * Unaccesses a Dynamic Data Exchange (DDE) object. An application must call this function after it has finished accessing the object.
-     * @param {Pointer<Void>} hData Type: <b>HDDEDATA</b>
+     * @param {HDDEDATA} hData Type: <b>HDDEDATA</b>
      * 
      * A handle to the DDE object.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1162,16 +1217,18 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeUnaccessData(hData) {
-        result := DllCall("USER32.dll\DdeUnaccessData", "ptr", hData, "int")
+        hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
+
+        result := DllCall("USER32.dll\DdeUnaccessData", "ptr", hData, "ptr")
         return result
     }
 
     /**
      * Frees a Dynamic Data Exchange (DDE) object and deletes the data handle associated with the object.
-     * @param {Pointer<Void>} hData Type: <b>HDDEDATA</b>
+     * @param {HDDEDATA} hData Type: <b>HDDEDATA</b>
      * 
      * A handle to the DDE object to be freed. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatedatahandle">DdeCreateDataHandle</a> function or returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeclienttransaction">DdeClientTransaction</a> function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1182,7 +1239,9 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeFreeDataHandle(hData) {
-        result := DllCall("USER32.dll\DdeFreeDataHandle", "ptr", hData, "int")
+        hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
+
+        result := DllCall("USER32.dll\DdeFreeDataHandle", "ptr", hData, "ptr")
         return result
     }
 
@@ -1440,13 +1499,13 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Byte>} psz Type: <b>LPTSTR</b>
+     * @param {PSTR} psz Type: <b>LPTSTR</b>
      * 
      * The null-terminated string for which a handle is to be created. This string can be up to 255 characters. The reason for this limit is that DDEML string management functions are implemented using atoms.
      * @param {Integer} iCodePage Type: <b>int</b>
      * 
      * The code page to be used to render the string. This value should be either <b>CP_WINANSI</b> (the default code page) or CP_WINUNICODE, depending on whether the ANSI or Unicode version of <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> was called by the client application.
-     * @returns {Pointer<Void>} Type: <b>HSZ</b>
+     * @returns {HSZ} Type: <b>HSZ</b>
      * 
      * If the function succeeds, the return value is a string handle.
      * 
@@ -1457,10 +1516,10 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeCreateStringHandleA(idInst, psz, iCodePage) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("USER32.dll\DdeCreateStringHandleA", "uint", idInst, "ptr", psz, "int", iCodePage, "ptr")
-        return result
+        return HSZ({Value: result}, True)
     }
 
     /**
@@ -1468,13 +1527,13 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Char>} psz Type: <b>LPTSTR</b>
+     * @param {PWSTR} psz Type: <b>LPTSTR</b>
      * 
      * The null-terminated string for which a handle is to be created. This string can be up to 255 characters. The reason for this limit is that DDEML string management functions are implemented using atoms.
      * @param {Integer} iCodePage Type: <b>int</b>
      * 
      * The code page to be used to render the string. This value should be either <b>CP_WINANSI</b> (the default code page) or CP_WINUNICODE, depending on whether the ANSI or Unicode version of <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> was called by the client application.
-     * @returns {Pointer<Void>} Type: <b>HSZ</b>
+     * @returns {HSZ} Type: <b>HSZ</b>
      * 
      * If the function succeeds, the return value is a string handle.
      * 
@@ -1485,10 +1544,10 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeCreateStringHandleW(idInst, psz, iCodePage) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("USER32.dll\DdeCreateStringHandleW", "uint", idInst, "ptr", psz, "int", iCodePage, "ptr")
-        return result
+        return HSZ({Value: result}, True)
     }
 
     /**
@@ -1496,10 +1555,10 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Void>} hsz Type: <b>HSZ</b>
+     * @param {HSZ} hsz Type: <b>HSZ</b>
      * 
      * A handle to the string to copy. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
-     * @param {Pointer<Byte>} psz Type: <b>LPTSTR</b>
+     * @param {PSTR} psz Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the string. To obtain the length of the string, this parameter should be set to <b>NULL</b>.
      * @param {Integer} cchMax Type: <b>DWORD</b>
@@ -1523,7 +1582,8 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeQueryStringA(idInst, hsz, psz, cchMax, iCodePage) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
+        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
 
         result := DllCall("USER32.dll\DdeQueryStringA", "uint", idInst, "ptr", hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
         return result
@@ -1534,10 +1594,10 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Void>} hsz Type: <b>HSZ</b>
+     * @param {HSZ} hsz Type: <b>HSZ</b>
      * 
      * A handle to the string to copy. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
-     * @param {Pointer<Char>} psz Type: <b>LPTSTR</b>
+     * @param {PWSTR} psz Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the string. To obtain the length of the string, this parameter should be set to <b>NULL</b>.
      * @param {Integer} cchMax Type: <b>DWORD</b>
@@ -1561,7 +1621,8 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeQueryStringW(idInst, hsz, psz, cchMax, iCodePage) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
+        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
 
         result := DllCall("USER32.dll\DdeQueryStringW", "uint", idInst, "ptr", hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
         return result
@@ -1572,10 +1633,10 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Void>} hsz Type: <b>HSZ</b>
+     * @param {HSZ} hsz Type: <b>HSZ</b>
      * 
      * A handle to the string handle to be freed. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1584,7 +1645,9 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeFreeStringHandle(idInst, hsz) {
-        result := DllCall("USER32.dll\DdeFreeStringHandle", "uint", idInst, "ptr", hsz, "int")
+        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+
+        result := DllCall("USER32.dll\DdeFreeStringHandle", "uint", idInst, "ptr", hsz, "ptr")
         return result
     }
 
@@ -1593,10 +1656,10 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer<Void>} hsz Type: <b>HSZ</b>
+     * @param {HSZ} hsz Type: <b>HSZ</b>
      * 
      * A handle to the string handle to be saved.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1605,16 +1668,18 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeKeepStringHandle(idInst, hsz) {
-        result := DllCall("USER32.dll\DdeKeepStringHandle", "uint", idInst, "ptr", hsz, "int")
+        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+
+        result := DllCall("USER32.dll\DdeKeepStringHandle", "uint", idInst, "ptr", hsz, "ptr")
         return result
     }
 
     /**
      * Compares the values of two string handles. The value of a string handle is not related to the case of the associated string.
-     * @param {Pointer<Void>} hsz1 Type: <b>HSZ</b>
+     * @param {HSZ} hsz1 Type: <b>HSZ</b>
      * 
      * A handle to the first string.
-     * @param {Pointer<Void>} hsz2 Type: <b>HSZ</b>
+     * @param {HSZ} hsz2 Type: <b>HSZ</b>
      * 
      * A handle to the second string.
      * @returns {Integer} Type: <b>int</b>
@@ -1664,6 +1729,9 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeCmpStringHandles(hsz1, hsz2) {
+        hsz1 := hsz1 is Win32Handle ? NumGet(hsz1, "ptr") : hsz1
+        hsz2 := hsz2 is Win32Handle ? NumGet(hsz2, "ptr") : hsz2
+
         result := DllCall("USER32.dll\DdeCmpStringHandles", "ptr", hsz1, "ptr", hsz2, "int")
         return result
     }
@@ -1672,25 +1740,27 @@ class DataExchange {
      * The SetWinMetaFileBits function converts a metafile from the older Windows format to the new enhanced format and stores the new metafile in memory.
      * @param {Integer} nSize The size, in bytes, of the buffer that contains the Windows-format metafile.
      * @param {Pointer} lpMeta16Data A pointer to a buffer that contains the Windows-format metafile data. (It is assumed that the data was obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getmetafilebitsex">GetMetaFileBitsEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getwinmetafilebits">GetWinMetaFileBits</a> function.)
-     * @param {Pointer<Void>} hdcRef A handle to a reference device context.
+     * @param {HDC} hdcRef A handle to a reference device context.
      * @param {Pointer<METAFILEPICT>} lpMFP A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-metafilepict">METAFILEPICT</a> structure that contains the suggested size of the metafile picture and the mapping mode that was used when the picture was created.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a memory-based enhanced metafile.
+     * @returns {HENHMETAFILE} If the function succeeds, the return value is a handle to a memory-based enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setwinmetafilebits
      * @since windows5.0
      */
     static SetWinMetaFileBits(nSize, lpMeta16Data, hdcRef, lpMFP) {
+        hdcRef := hdcRef is Win32Handle ? NumGet(hdcRef, "ptr") : hdcRef
+
         result := DllCall("GDI32.dll\SetWinMetaFileBits", "uint", nSize, "ptr", lpMeta16Data, "ptr", hdcRef, "ptr", lpMFP, "ptr")
-        return result
+        return HENHMETAFILE({Value: result}, True)
     }
 
     /**
      * Opens the clipboard for examination and prevents other applications from modifying the clipboard content.
-     * @param {Pointer<Void>} hWndNewOwner Type: <b>HWND</b>
+     * @param {HWND} hWndNewOwner Type: <b>HWND</b>
      * 
      * A handle to the window to be associated with the open clipboard. If this parameter is <b>NULL</b>, the open clipboard is associated with the current task.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1699,9 +1769,11 @@ class DataExchange {
      * @since windows5.0
      */
     static OpenClipboard(hWndNewOwner) {
+        hWndNewOwner := hWndNewOwner is Win32Handle ? NumGet(hWndNewOwner, "ptr") : hWndNewOwner
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\OpenClipboard", "ptr", hWndNewOwner, "int")
+        result := DllCall("USER32.dll\OpenClipboard", "ptr", hWndNewOwner, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1710,7 +1782,7 @@ class DataExchange {
 
     /**
      * Closes the clipboard.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1721,7 +1793,7 @@ class DataExchange {
     static CloseClipboard() {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CloseClipboard", "int")
+        result := DllCall("USER32.dll\CloseClipboard", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1743,7 +1815,7 @@ class DataExchange {
 
     /**
      * Retrieves the window handle of the current owner of the clipboard.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the window that owns the clipboard. 
      * 
@@ -1758,33 +1830,35 @@ class DataExchange {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Adds the specified window to the chain of clipboard viewers. Clipboard viewer windows receive a WM_DRAWCLIPBOARD message whenever the content of the clipboard changes. This function is used for backward compatibility with earlier versions of Windows.
-     * @param {Pointer<Void>} hWndNewViewer Type: <b>HWND</b>
+     * @param {HWND} hWndNewViewer Type: <b>HWND</b>
      * 
      * A handle to the window to be added to the clipboard chain.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value identifies the next window in the clipboard viewer chain. If an error occurs or there are no other windows in the clipboard viewer chain, the return value is NULL. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setclipboardviewer
      * @since windows5.0
      */
     static SetClipboardViewer(hWndNewViewer) {
+        hWndNewViewer := hWndNewViewer is Win32Handle ? NumGet(hWndNewViewer, "ptr") : hWndNewViewer
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetClipboardViewer", "ptr", hWndNewViewer, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves the handle to the first window in the clipboard viewer chain.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the first window in the clipboard viewer chain. 
      * 
@@ -1799,26 +1873,29 @@ class DataExchange {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Removes a specified window from the chain of clipboard viewers.
-     * @param {Pointer<Void>} hWndRemove Type: <b>HWND</b>
+     * @param {HWND} hWndRemove Type: <b>HWND</b>
      * 
      * A handle to the window to be removed from the chain. The handle must have been passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setclipboardviewer">SetClipboardViewer</a> function.
-     * @param {Pointer<Void>} hWndNewNext Type: <b>HWND</b>
+     * @param {HWND} hWndNewNext Type: <b>HWND</b>
      * 
      * A handle to the window that follows the 
      *      <i>hWndRemove</i> window in the clipboard viewer chain. (This is the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setclipboardviewer">SetClipboardViewer</a>, unless the sequence was changed in response to a <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-changecbchain">WM_CHANGECBCHAIN</a> message.)
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value indicates the result of passing the <a href="/windows/desktop/dataxchg/wm-changecbchain">WM_CHANGECBCHAIN</a> message to the windows in the clipboard viewer chain. Because a window in the chain typically returns <b>FALSE</b> when it processes <b>WM_CHANGECBCHAIN</b>, the return value from <b>ChangeClipboardChain</b> is typically <b>FALSE</b>. If there is only one window in the chain, the return value is typically <b>TRUE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-changeclipboardchain
      * @since windows5.0
      */
     static ChangeClipboardChain(hWndRemove, hWndNewNext) {
-        result := DllCall("USER32.dll\ChangeClipboardChain", "ptr", hWndRemove, "ptr", hWndNewNext, "int")
+        hWndRemove := hWndRemove is Win32Handle ? NumGet(hWndRemove, "ptr") : hWndRemove
+        hWndNewNext := hWndNewNext is Win32Handle ? NumGet(hWndNewNext, "ptr") : hWndNewNext
+
+        result := DllCall("USER32.dll\ChangeClipboardChain", "ptr", hWndRemove, "ptr", hWndNewNext, "ptr")
         return result
     }
 
@@ -1827,12 +1904,12 @@ class DataExchange {
      * @param {Integer} uFormat Type: <b>UINT</b>
      * 
      * The clipboard format. This parameter can be a registered format or any of the standard clipboard formats. For more information, see <a href="https://docs.microsoft.com/windows/desktop/dataxchg/standard-clipboard-formats">Standard Clipboard Formats</a> and <a href="https://docs.microsoft.com/windows/desktop/dataxchg/clipboard-formats">Registered Clipboard Formats</a>.
-     * @param {Pointer<Void>} hMem Type: <b>HANDLE</b>
+     * @param {HANDLE} hMem Type: <b>HANDLE</b>
      * 
      * A handle to the data in the specified format. This parameter can be <b>NULL</b>, indicating that the window provides data in the specified clipboard format (renders the format) upon request; this is known as [delayed rendering](/windows/win32/dataxchg/clipboard-operations#delayed-rendering). If a window delays rendering, it must process the [WM_RENDERFORMAT](/windows/win32/dataxchg/wm-renderformat) and [WM_RENDERALLFORMATS](/windows/win32/dataxchg/wm-renderallformats) messages.
      * 
      * If <b>SetClipboardData</b> succeeds, the system owns the object identified by the <i>hMem</i> parameter. The application may not write to or free the data once ownership has been transferred to the system, but it can lock and read from the data until the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-closeclipboard">CloseClipboard</a> function is called. (The memory must be unlocked before the Clipboard is closed.) If the <i>hMem</i> parameter identifies a memory object, the object must have been allocated using the function with the <b>GMEM_MOVEABLE</b> flag.
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is the handle to the data.
      * 
@@ -1841,13 +1918,15 @@ class DataExchange {
      * @since windows5.0
      */
     static SetClipboardData(uFormat, hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetClipboardData", "uint", uFormat, "ptr", hMem, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -1855,7 +1934,7 @@ class DataExchange {
      * @param {Integer} uFormat Type: <b>UINT</b>
      * 
      * A clipboard format. For a description of the standard clipboard formats, see <a href="https://docs.microsoft.com/windows/desktop/dataxchg/clipboard-formats">Standard Clipboard Formats</a>.
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is the handle to a clipboard object in the specified format.
      * 
@@ -1870,12 +1949,12 @@ class DataExchange {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, False)
     }
 
     /**
      * Registers a new clipboard format. This format can then be used as a valid clipboard format.
-     * @param {Pointer<Byte>} lpszFormat Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpszFormat Type: <b>LPCTSTR</b>
      * 
      * The name of the new format.
      * @returns {Integer} Type: <b>UINT</b>
@@ -1887,7 +1966,7 @@ class DataExchange {
      * @since windows5.0
      */
     static RegisterClipboardFormatA(lpszFormat) {
-        lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
+        lpszFormat := lpszFormat is String ? StrPtr(lpszFormat) : lpszFormat
 
         A_LastError := 0
 
@@ -1900,7 +1979,7 @@ class DataExchange {
 
     /**
      * Registers a new clipboard format. This format can then be used as a valid clipboard format.
-     * @param {Pointer<Char>} lpszFormat Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpszFormat Type: <b>LPCTSTR</b>
      * 
      * The name of the new format.
      * @returns {Integer} Type: <b>UINT</b>
@@ -1912,7 +1991,7 @@ class DataExchange {
      * @since windows5.0
      */
     static RegisterClipboardFormatW(lpszFormat) {
-        lpszFormat := lpszFormat is String? StrPtr(lpszFormat) : lpszFormat
+        lpszFormat := lpszFormat is String ? StrPtr(lpszFormat) : lpszFormat
 
         A_LastError := 0
 
@@ -1980,7 +2059,7 @@ class DataExchange {
      * @param {Integer} format Type: <b>UINT</b>
      * 
      * The type of format to be retrieved. This parameter must not specify any of the predefined clipboard formats.
-     * @param {Pointer<Byte>} lpszFormatName Type: <b>LPTSTR</b>
+     * @param {PSTR} lpszFormatName Type: <b>LPTSTR</b>
      * 
      * The buffer that is to receive the format name.
      * @param {Integer} cchMaxCount Type: <b>int</b>
@@ -1997,7 +2076,7 @@ class DataExchange {
      * @since windows5.0
      */
     static GetClipboardFormatNameA(format, lpszFormatName, cchMaxCount) {
-        lpszFormatName := lpszFormatName is String? StrPtr(lpszFormatName) : lpszFormatName
+        lpszFormatName := lpszFormatName is String ? StrPtr(lpszFormatName) : lpszFormatName
 
         A_LastError := 0
 
@@ -2013,7 +2092,7 @@ class DataExchange {
      * @param {Integer} format Type: <b>UINT</b>
      * 
      * The type of format to be retrieved. This parameter must not specify any of the predefined clipboard formats.
-     * @param {Pointer<Char>} lpszFormatName Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpszFormatName Type: <b>LPTSTR</b>
      * 
      * The buffer that is to receive the format name.
      * @param {Integer} cchMaxCount Type: <b>int</b>
@@ -2030,7 +2109,7 @@ class DataExchange {
      * @since windows5.0
      */
     static GetClipboardFormatNameW(format, lpszFormatName, cchMaxCount) {
-        lpszFormatName := lpszFormatName is String? StrPtr(lpszFormatName) : lpszFormatName
+        lpszFormatName := lpszFormatName is String ? StrPtr(lpszFormatName) : lpszFormatName
 
         A_LastError := 0
 
@@ -2043,7 +2122,7 @@ class DataExchange {
 
     /**
      * Empties the clipboard and frees handles to data in the clipboard. The function then assigns ownership of the clipboard to the window that currently has the clipboard open.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -2054,7 +2133,7 @@ class DataExchange {
     static EmptyClipboard() {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EmptyClipboard", "int")
+        result := DllCall("USER32.dll\EmptyClipboard", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2066,7 +2145,7 @@ class DataExchange {
      * @param {Integer} format Type: <b>UINT</b>
      * 
      * A standard or registered clipboard format. For a description of the standard clipboard formats, see <a href="https://docs.microsoft.com/windows/desktop/dataxchg/standard-clipboard-formats">Standard Clipboard Formats</a> .
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the clipboard format is available, the return value is nonzero.
      * 
@@ -2077,7 +2156,7 @@ class DataExchange {
     static IsClipboardFormatAvailable(format) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\IsClipboardFormatAvailable", "uint", format, "int")
+        result := DllCall("USER32.dll\IsClipboardFormatAvailable", "uint", format, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2111,7 +2190,7 @@ class DataExchange {
 
     /**
      * Retrieves the handle to the window that currently has the clipboard open.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the window that has the clipboard open. If no window has the clipboard open, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getopenclipboardwindow
@@ -2124,24 +2203,26 @@ class DataExchange {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Places the given window in the system-maintained clipboard format listener list.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window to be placed in the clipboard format listener list.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise. Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional details.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-addclipboardformatlistener
      * @since windows6.0.6000
      */
     static AddClipboardFormatListener(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\AddClipboardFormatListener", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\AddClipboardFormatListener", "ptr", hwnd, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2150,19 +2231,21 @@ class DataExchange {
 
     /**
      * Removes the given window from the system-maintained clipboard format listener list.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window to remove from the clipboard format listener list.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise. Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional details.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-removeclipboardformatlistener
      * @since windows6.0.6000
      */
     static RemoveClipboardFormatListener(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RemoveClipboardFormatListener", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\RemoveClipboardFormatListener", "ptr", hwnd, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2180,7 +2263,7 @@ class DataExchange {
      * @param {Pointer<UInt32>} pcFormatsOut Type: <b>PUINT</b>
      * 
      * The actual number of clipboard formats in the array pointed to by <i>lpuiFormats</i>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional details.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getupdatedclipboardformats
@@ -2189,7 +2272,7 @@ class DataExchange {
     static GetUpdatedClipboardFormats(lpuiFormats, cFormats, pcFormatsOut) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetUpdatedClipboardFormats", "uint*", lpuiFormats, "uint", cFormats, "uint*", pcFormatsOut, "int")
+        result := DllCall("USER32.dll\GetUpdatedClipboardFormats", "uint*", lpuiFormats, "uint", cFormats, "uint*", pcFormatsOut, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2227,7 +2310,7 @@ class DataExchange {
      * 
      * To achieve better performance, specify a prime number in 
      * 					<i>nSize</i>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -2236,7 +2319,7 @@ class DataExchange {
      * @since windows5.0
      */
     static InitAtomTable(nSize) {
-        result := DllCall("KERNEL32.dll\InitAtomTable", "uint", nSize, "int")
+        result := DllCall("KERNEL32.dll\InitAtomTable", "uint", nSize, "ptr")
         return result
     }
 
@@ -2266,7 +2349,7 @@ class DataExchange {
 
     /**
      * Adds a character string to the global atom table and returns a unique value (an atom) identifying the string.
-     * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be added. The string can have a maximum size of 255 bytes. Strings that differ only in case are considered identical. The case of the first string of this name added to the table is preserved and returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalgetatomnamea">GlobalGetAtomName</a> function.
      * 
@@ -2280,7 +2363,7 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalAddAtomA(lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -2293,7 +2376,7 @@ class DataExchange {
 
     /**
      * Adds a character string to the global atom table and returns a unique value (an atom) identifying the string.
-     * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be added. The string can have a maximum size of 255 bytes. Strings that differ only in case are considered identical. The case of the first string of this name added to the table is preserved and returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalgetatomnamea">GlobalGetAtomName</a> function.
      * 
@@ -2307,7 +2390,7 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalAddAtomW(lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -2320,7 +2403,7 @@ class DataExchange {
 
     /**
      * Adds a character string to the global atom table and returns a unique value (an atom) identifying the string.
-     * @param {Pointer<Byte>} lpString The null-terminated string to be added. The string can have a maximum size of 255 bytes. Strings that differ only in case are considered identical. The case of the first string of this name added to the table is preserved and returned by the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-globalgetatomnamea">GlobalGetAtomName</a> function.
+     * @param {PSTR} lpString The null-terminated string to be added. The string can have a maximum size of 255 bytes. Strings that differ only in case are considered identical. The case of the first string of this name added to the table is preserved and returned by the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-globalgetatomnamea">GlobalGetAtomName</a> function.
      * 
      * Alternatively, you can use an integer atom that has been converted using the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-makeintatom">MAKEINTATOM</a> macro. See the Remarks for more information.
      * @param {Integer} Flags 
@@ -2330,7 +2413,7 @@ class DataExchange {
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-globaladdatomexa
      */
     static GlobalAddAtomExA(lpString, Flags) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -2343,7 +2426,7 @@ class DataExchange {
 
     /**
      * Adds a character string to the global atom table and returns a unique value (an atom) identifying the string.
-     * @param {Pointer<Char>} lpString The null-terminated string to be added. The string can have a maximum size of 255 bytes. Strings that differ only in case are considered identical. The case of the first string of this name added to the table is preserved and returned by the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-globalgetatomnamea">GlobalGetAtomName</a> function.
+     * @param {PWSTR} lpString The null-terminated string to be added. The string can have a maximum size of 255 bytes. Strings that differ only in case are considered identical. The case of the first string of this name added to the table is preserved and returned by the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-globalgetatomnamea">GlobalGetAtomName</a> function.
      * 
      * Alternatively, you can use an integer atom that has been converted using the <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-makeintatom">MAKEINTATOM</a> macro. See the Remarks for more information.
      * @param {Integer} Flags 
@@ -2353,7 +2436,7 @@ class DataExchange {
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-globaladdatomexw
      */
     static GlobalAddAtomExW(lpString, Flags) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -2366,7 +2449,7 @@ class DataExchange {
 
     /**
      * Searches the global atom table for the specified character string and retrieves the global atom associated with that string.
-     * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The null-terminated character string for which to search. 
      * 
@@ -2380,7 +2463,7 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalFindAtomA(lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -2393,7 +2476,7 @@ class DataExchange {
 
     /**
      * Searches the global atom table for the specified character string and retrieves the global atom associated with that string.
-     * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The null-terminated character string for which to search. 
      * 
@@ -2407,7 +2490,7 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalFindAtomW(lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -2423,7 +2506,7 @@ class DataExchange {
      * @param {Integer} nAtom Type: <b>ATOM</b>
      * 
      * The global atom associated with the character string to be retrieved.
-     * @param {Pointer<Byte>} lpBuffer Type: <b>LPTSTR</b>
+     * @param {PSTR} lpBuffer Type: <b>LPTSTR</b>
      * 
      * The buffer for the character string.
      * @param {Integer} nSize Type: <b>int</b>
@@ -2440,7 +2523,7 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalGetAtomNameA(nAtom, lpBuffer, nSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -2456,7 +2539,7 @@ class DataExchange {
      * @param {Integer} nAtom Type: <b>ATOM</b>
      * 
      * The global atom associated with the character string to be retrieved.
-     * @param {Pointer<Char>} lpBuffer Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpBuffer Type: <b>LPTSTR</b>
      * 
      * The buffer for the character string.
      * @param {Integer} nSize Type: <b>int</b>
@@ -2473,7 +2556,7 @@ class DataExchange {
      * @since windows5.0
      */
     static GlobalGetAtomNameW(nAtom, lpBuffer, nSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -2486,7 +2569,7 @@ class DataExchange {
 
     /**
      * Adds a character string to the local atom table and returns a unique value (an atom) identifying the string.
-     * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be added. The string can have a maximum size of 255 bytes. Strings differing only in case are considered identical. The case of the first string added is preserved and returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getatomnamea">GetAtomName</a> function. 
      * 
@@ -2500,7 +2583,7 @@ class DataExchange {
      * @since windows5.0
      */
     static AddAtomA(lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -2513,7 +2596,7 @@ class DataExchange {
 
     /**
      * Adds a character string to the local atom table and returns a unique value (an atom) identifying the string.
-     * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be added. The string can have a maximum size of 255 bytes. Strings differing only in case are considered identical. The case of the first string added is preserved and returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getatomnamea">GetAtomName</a> function. 
      * 
@@ -2527,7 +2610,7 @@ class DataExchange {
      * @since windows5.0
      */
     static AddAtomW(lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -2540,7 +2623,7 @@ class DataExchange {
 
     /**
      * Searches the local atom table for the specified character string and retrieves the atom associated with that string.
-     * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The character string for which to search.
      * 
@@ -2554,7 +2637,7 @@ class DataExchange {
      * @since windows5.0
      */
     static FindAtomA(lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -2567,7 +2650,7 @@ class DataExchange {
 
     /**
      * Searches the local atom table for the specified character string and retrieves the atom associated with that string.
-     * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The character string for which to search.
      * 
@@ -2581,7 +2664,7 @@ class DataExchange {
      * @since windows5.0
      */
     static FindAtomW(lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -2597,7 +2680,7 @@ class DataExchange {
      * @param {Integer} nAtom Type: <b>ATOM</b>
      * 
      * The local atom that identifies the character string to be retrieved.
-     * @param {Pointer<Byte>} lpBuffer Type: <b>LPTSTR</b>
+     * @param {PSTR} lpBuffer Type: <b>LPTSTR</b>
      * 
      * The character string.
      * @param {Integer} nSize Type: <b>int</b>
@@ -2614,7 +2697,7 @@ class DataExchange {
      * @since windows5.0
      */
     static GetAtomNameA(nAtom, lpBuffer, nSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -2630,7 +2713,7 @@ class DataExchange {
      * @param {Integer} nAtom Type: <b>ATOM</b>
      * 
      * The local atom that identifies the character string to be retrieved.
-     * @param {Pointer<Char>} lpBuffer Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpBuffer Type: <b>LPTSTR</b>
      * 
      * The character string.
      * @param {Integer} nSize Type: <b>int</b>
@@ -2647,7 +2730,7 @@ class DataExchange {
      * @since windows5.0
      */
     static GetAtomNameW(nAtom, lpBuffer, nSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 

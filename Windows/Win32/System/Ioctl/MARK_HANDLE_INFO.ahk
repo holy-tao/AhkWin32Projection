@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information that is used to mark a specified file or directory, and its update sequence number (USN) change journal record with data about changes.
@@ -49,11 +50,14 @@ class MARK_HANDLE_INFO extends Win32Struct
      * 
      * The caller must have the <b>SE_MANAGE_VOLUME_NAME</b> privilege. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privileges">Privileges</a>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    VolumeHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    VolumeHandle{
+        get {
+            if(!this.HasProp("__VolumeHandle"))
+                this.__VolumeHandle := HANDLE(this.ptr + 8)
+            return this.__VolumeHandle
+        }
     }
 
     /**

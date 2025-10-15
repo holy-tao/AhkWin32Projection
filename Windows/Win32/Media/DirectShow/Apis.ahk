@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
@@ -4328,13 +4328,13 @@ class DirectShow {
     /**
      * The AMGetErrorText function retrieves the error message for a given return code, using the current language setting.
      * @param {HRESULT} hr <b>HRESULT</b> value.
-     * @param {Pointer<Byte>} pbuffer Pointer to a character buffer that receives the error message.
+     * @param {PSTR} pbuffer Pointer to a character buffer that receives the error message.
      * @param {Integer} MaxLen Number of characters in <i>pBuffer</i>.
      * @returns {Integer} Returns the number of characters returned in the buffer, or zero if an error occurred.
      * @see https://docs.microsoft.com/windows/win32/api//errors/nf-errors-amgeterrortexta
      */
     static AMGetErrorTextA(hr, pbuffer, MaxLen) {
-        pbuffer := pbuffer is String? StrPtr(pbuffer) : pbuffer
+        pbuffer := pbuffer is String ? StrPtr(pbuffer) : pbuffer
 
         result := DllCall("QUARTZ.dll\AMGetErrorTextA", "int", hr, "ptr", pbuffer, "uint", MaxLen, "uint")
         return result
@@ -4343,13 +4343,13 @@ class DirectShow {
     /**
      * The AMGetErrorText function retrieves the error message for a given return code, using the current language setting.
      * @param {HRESULT} hr <b>HRESULT</b> value.
-     * @param {Pointer<Char>} pbuffer Pointer to a character buffer that receives the error message.
+     * @param {PWSTR} pbuffer Pointer to a character buffer that receives the error message.
      * @param {Integer} MaxLen Number of characters in <i>pBuffer</i>.
      * @returns {Integer} Returns the number of characters returned in the buffer, or zero if an error occurred.
      * @see https://docs.microsoft.com/windows/win32/api//errors/nf-errors-amgeterrortextw
      */
     static AMGetErrorTextW(hr, pbuffer, MaxLen) {
-        pbuffer := pbuffer is String? StrPtr(pbuffer) : pbuffer
+        pbuffer := pbuffer is String ? StrPtr(pbuffer) : pbuffer
 
         result := DllCall("QUARTZ.dll\AMGetErrorTextW", "int", hr, "ptr", pbuffer, "uint", MaxLen, "uint")
         return result

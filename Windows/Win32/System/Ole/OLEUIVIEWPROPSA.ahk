@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information that is used to initialize the View tab of the Object properties dialog box.
@@ -97,11 +98,14 @@ class OLEUIVIEWPROPSA extends Win32Struct
 
     /**
      * Custom data to pass to the hook (not used in this dialog box).
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(this.ptr + 24)
+            return this.__lCustData
+        }
     }
 
     /**

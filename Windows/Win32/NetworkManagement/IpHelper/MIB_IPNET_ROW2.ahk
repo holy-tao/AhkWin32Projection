@@ -215,11 +215,30 @@ class MIB_IPNET_ROW2 extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - IsRouter
+     * - IsUnreachable
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 128, "char")
         set => NumPut("char", value, this, 128)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IsRouter {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IsUnreachable {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
 
     /**

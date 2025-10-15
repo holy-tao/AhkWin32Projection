@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents the properties of a cluster resource. This structure is used to enumerate cluster resources in the ClusterResourceEnumEx function.
@@ -33,11 +34,14 @@ class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct
 
     /**
      * The ID of the cluster resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszId{
+        get {
+            if(!this.HasProp("__lpszId"))
+                this.__lpszId := PWSTR(this.ptr + 8)
+            return this.__lpszId
+        }
     }
 
     /**
@@ -51,11 +55,14 @@ class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct
 
     /**
      * The name of the cluster resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpszName{
+        get {
+            if(!this.HasProp("__lpszName"))
+                this.__lpszName := PWSTR(this.ptr + 24)
+            return this.__lpszName
+        }
     }
 
     /**
@@ -69,11 +76,14 @@ class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct
 
     /**
      * The name of the cluster resource that  hosts the group.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszOwnerGroupName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lpszOwnerGroupName{
+        get {
+            if(!this.HasProp("__lpszOwnerGroupName"))
+                this.__lpszOwnerGroupName := PWSTR(this.ptr + 40)
+            return this.__lpszOwnerGroupName
+        }
     }
 
     /**
@@ -87,11 +97,14 @@ class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct
 
     /**
      * The group ID of the cluster group for the resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszOwnerGroupId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    lpszOwnerGroupId{
+        get {
+            if(!this.HasProp("__lpszOwnerGroupId"))
+                this.__lpszOwnerGroupId := PWSTR(this.ptr + 56)
+            return this.__lpszOwnerGroupId
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
@@ -116,10 +117,13 @@ class DML_ROI_ALIGN1_OPERATOR_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    AlignRegionsToCorners {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+    AlignRegionsToCorners{
+        get {
+            if(!this.HasProp("__AlignRegionsToCorners"))
+                this.__AlignRegionsToCorners := BOOL(this.ptr + 68)
+            return this.__AlignRegionsToCorners
+        }
     }
 }

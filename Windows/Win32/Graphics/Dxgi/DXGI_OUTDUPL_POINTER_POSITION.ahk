@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DXGI_OUTDUPL_POINTER_POSITION structure describes the position of the hardware cursor.
@@ -33,10 +34,13 @@ class DXGI_OUTDUPL_POINTER_POSITION extends Win32Struct
 
     /**
      * Specifies whether the hardware cursor is visible. <b>TRUE</b> if visible; otherwise, <b>FALSE</b>. If the hardware cursor is not visible, the calling application does not display the cursor in the client.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Visible {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    Visible{
+        get {
+            if(!this.HasProp("__Visible"))
+                this.__Visible := BOOL(this.ptr + 8)
+            return this.__Visible
+        }
     }
 }

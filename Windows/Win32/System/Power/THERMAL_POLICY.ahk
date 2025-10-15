@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
@@ -20,35 +21,47 @@ class THERMAL_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    WaitForUpdate {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    WaitForUpdate{
+        get {
+            if(!this.HasProp("__WaitForUpdate"))
+                this.__WaitForUpdate := BOOLEAN(this.ptr + 4)
+            return this.__WaitForUpdate
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Hibernate {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+    Hibernate{
+        get {
+            if(!this.HasProp("__Hibernate"))
+                this.__Hibernate := BOOLEAN(this.ptr + 5)
+            return this.__Hibernate
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Critical {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+    Critical{
+        get {
+            if(!this.HasProp("__Critical"))
+                this.__Critical := BOOLEAN(this.ptr + 6)
+            return this.__Critical
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ThermalStandby {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+    ThermalStandby{
+        get {
+            if(!this.HasProp("__ThermalStandby"))
+                this.__ThermalStandby := BOOLEAN(this.ptr + 7)
+            return this.__ThermalStandby
+        }
     }
 
     /**
@@ -76,10 +89,13 @@ class THERMAL_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    OverThrottled {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
+    OverThrottled{
+        get {
+            if(!this.HasProp("__OverThrottled"))
+                this.__OverThrottled := BOOLEAN(this.ptr + 20)
+            return this.__OverThrottled
+        }
     }
 }

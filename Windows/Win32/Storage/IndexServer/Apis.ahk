@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
@@ -742,7 +742,7 @@ class IndexServer {
 ;@region Methods
     /**
      * Retrieves IFilter from path name for object.
-     * @param {Pointer<Char>} pwcsPath A pointer to the full path of an object for which an <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer is to be returned. The path can include a full filename or only the file name extension; for example, ".ext".
+     * @param {PWSTR} pwcsPath A pointer to the full path of an object for which an <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer is to be returned. The path can include a full filename or only the file name extension; for example, ".ext".
      * @param {Pointer<IUnknown>} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this storage object exists.
      * @param {Pointer<Void>} ppIUnk A pointer to a variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
      * @returns {HRESULT} This function can return one of these values.
@@ -823,7 +823,7 @@ class IndexServer {
      * @since windows5.0
      */
     static LoadIFilter(pwcsPath, pUnkOuter, ppIUnk) {
-        pwcsPath := pwcsPath is String? StrPtr(pwcsPath) : pwcsPath
+        pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
         result := DllCall("query.dll\LoadIFilter", "ptr", pwcsPath, "ptr", pUnkOuter, "ptr", ppIUnk, "int")
         if(result != 0)
@@ -834,14 +834,14 @@ class IndexServer {
 
     /**
      * 
-     * @param {Pointer<Char>} pwcsPath 
+     * @param {PWSTR} pwcsPath 
      * @param {Integer} dwFlags 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppIUnk 
      * @returns {HRESULT} 
      */
     static LoadIFilterEx(pwcsPath, dwFlags, riid, ppIUnk) {
-        pwcsPath := pwcsPath is String? StrPtr(pwcsPath) : pwcsPath
+        pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
         result := DllCall("query.dll\LoadIFilterEx", "ptr", pwcsPath, "uint", dwFlags, "ptr", riid, "ptr", ppIUnk, "int")
         if(result != 0)

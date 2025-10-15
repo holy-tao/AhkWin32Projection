@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -13,26 +14,35 @@ class DOC_INFO_1W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDocName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pDocName{
+        get {
+            if(!this.HasProp("__pDocName"))
+                this.__pDocName := PWSTR(this.ptr + 0)
+            return this.__pDocName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pOutputFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pOutputFile{
+        get {
+            if(!this.HasProp("__pOutputFile"))
+                this.__pOutputFile := PWSTR(this.ptr + 8)
+            return this.__pOutputFile
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDatatype {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pDatatype{
+        get {
+            if(!this.HasProp("__pDatatype"))
+                this.__pDatatype := PWSTR(this.ptr + 16)
+            return this.__pDatatype
+        }
     }
 }

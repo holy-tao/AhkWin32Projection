@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Sip
@@ -28,11 +29,14 @@ class SIP_CAP_SET_V3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    isMultiSign {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    isMultiSign{
+        get {
+            if(!this.HasProp("__isMultiSign"))
+                this.__isMultiSign := BOOL(this.ptr + 8)
+            return this.__isMultiSign
+        }
     }
 
     /**

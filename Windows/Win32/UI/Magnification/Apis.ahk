@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.UI.Magnification
  * @version v4.0.30319
@@ -42,132 +42,142 @@ class Magnification {
 ;@region Methods
     /**
      * Creates and initializes the magnifier run-time objects.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if initialization was successful; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-maginitialize
      * @since windows6.0.6000
      */
     static MagInitialize() {
-        result := DllCall("MAGNIFICATION.dll\MagInitialize", "int")
+        result := DllCall("MAGNIFICATION.dll\MagInitialize", "ptr")
         return result
     }
 
     /**
      * Destroys the magnifier run-time objects.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-maguninitialize
      * @since windows6.0.6000
      */
     static MagUninitialize() {
-        result := DllCall("MAGNIFICATION.dll\MagUninitialize", "int")
+        result := DllCall("MAGNIFICATION.dll\MagUninitialize", "ptr")
         return result
     }
 
     /**
      * Sets the source rectangle for the magnification window.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The magnification window.
-     * @param {Pointer} rect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
+     * @param {RECT} rect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * The rectangle to be magnified, in desktop coordinates.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-magsetwindowsource
      * @since windows6.0.6000
      */
     static MagSetWindowSource(hwnd, rect) {
-        result := DllCall("MAGNIFICATION.dll\MagSetWindowSource", "ptr", hwnd, "ptr", rect, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("MAGNIFICATION.dll\MagSetWindowSource", "ptr", hwnd, "ptr", rect, "ptr")
         return result
     }
 
     /**
      * Gets the rectangle of the area that is being magnified.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The magnification window.
      * @param {Pointer<RECT>} pRect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * The rectangle that is being magnified, in desktop coordinates.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-maggetwindowsource
      * @since windows6.0.6000
      */
     static MagGetWindowSource(hwnd, pRect) {
-        result := DllCall("MAGNIFICATION.dll\MagGetWindowSource", "ptr", hwnd, "ptr", pRect, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("MAGNIFICATION.dll\MagGetWindowSource", "ptr", hwnd, "ptr", pRect, "ptr")
         return result
     }
 
     /**
      * Sets the transformation matrix for a magnifier control.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The magnification window.
      * @param {Pointer<MAGTRANSFORM>} pTransform Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/magnification/ns-magnification-magtransform">PMAGTRANSFORM</a></b>
      * 
      * A transformation matrix.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-magsetwindowtransform
      * @since windows6.0.6000
      */
     static MagSetWindowTransform(hwnd, pTransform) {
-        result := DllCall("MAGNIFICATION.dll\MagSetWindowTransform", "ptr", hwnd, "ptr", pTransform, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("MAGNIFICATION.dll\MagSetWindowTransform", "ptr", hwnd, "ptr", pTransform, "ptr")
         return result
     }
 
     /**
      * Retrieves the transformation matrix associated with a magnifier control.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The magnification window.
      * @param {Pointer<MAGTRANSFORM>} pTransform Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/magnification/ns-magnification-magtransform">PMAGTRANSFORM</a></b>
      * 
      * The transformation matrix.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-maggetwindowtransform
      * @since windows6.0.6000
      */
     static MagGetWindowTransform(hwnd, pTransform) {
-        result := DllCall("MAGNIFICATION.dll\MagGetWindowTransform", "ptr", hwnd, "ptr", pTransform, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("MAGNIFICATION.dll\MagGetWindowTransform", "ptr", hwnd, "ptr", pTransform, "ptr")
         return result
     }
 
     /**
      * Sets the list of windows to be magnified or the list of windows to be excluded from magnification.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle of the magnification window.
      * @param {Integer} dwFilterMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of window handles in the list.
-     * @param {Pointer<Void>} pHWND Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
+     * @param {Pointer<HWND>} pHWND Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
      * 
      * The list of window handles.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-magsetwindowfilterlist
      * @since windows6.0.6000
      */
     static MagSetWindowFilterList(hwnd, dwFilterMode, count, pHWND) {
-        result := DllCall("MAGNIFICATION.dll\MagSetWindowFilterList", "ptr", hwnd, "uint", dwFilterMode, "int", count, "ptr", pHWND, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("MAGNIFICATION.dll\MagSetWindowFilterList", "ptr", hwnd, "uint", dwFilterMode, "int", count, "ptr", pHWND, "ptr")
         return result
     }
 
     /**
      * Retrieves the list of windows that are magnified or excluded from magnification.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The magnification window.
      * @param {Pointer<UInt32>} pdwFilterMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
@@ -176,7 +186,7 @@ class Magnification {
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of windows to retrieve, or 0 to retrieve a count of windows in the filter list.
-     * @param {Pointer<Void>} pHWND Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
+     * @param {Pointer<HWND>} pHWND Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
      * 
      * The list of window handles.
      * @returns {Integer} Type: <b>int</b>
@@ -186,32 +196,36 @@ class Magnification {
      * @since windows6.0.6000
      */
     static MagGetWindowFilterList(hwnd, pdwFilterMode, count, pHWND) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("MAGNIFICATION.dll\MagGetWindowFilterList", "ptr", hwnd, "uint*", pdwFilterMode, "int", count, "ptr", pHWND, "int")
         return result
     }
 
     /**
      * Sets the callback function for external image filtering and scaling.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle of the magnification window.
      * @param {Pointer<MagImageScalingCallback>} callback Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/magnification/nc-magnification-magimagescalingcallback">MagImageScalingCallback</a></b>
      * 
      * The callback function, or <b>NULL</b> to remove a callback that was previously set.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-magsetimagescalingcallback
      * @since windows6.0.6000
      */
     static MagSetImageScalingCallback(hwnd, callback) {
-        result := DllCall("MAGNIFICATION.dll\MagSetImageScalingCallback", "ptr", hwnd, "ptr", callback, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("MAGNIFICATION.dll\MagSetImageScalingCallback", "ptr", hwnd, "ptr", callback, "ptr")
         return result
     }
 
     /**
      * Retrieves the registered callback function that implements a custom transform for image scaling.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The magnification window.
      * @returns {Pointer<MagImageScalingCallback>} Type: <b><a href="/previous-versions/windows/desktop/api/magnification/nc-magnification-magimagescalingcallback">MagImageScalingCallback</a></b>
@@ -221,45 +235,51 @@ class Magnification {
      * @since windows6.0.6000
      */
     static MagGetImageScalingCallback(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("MAGNIFICATION.dll\MagGetImageScalingCallback", "ptr", hwnd, "ptr")
         return result
     }
 
     /**
      * Sets the color transformation matrix for a magnifier control.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The magnification window.
      * @param {Pointer<MAGCOLOREFFECT>} pEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/magnification/ns-magnification-magcoloreffect">PMAGCOLOREFFECT</a></b>
      * 
      * The color transformation matrix, or <b>NULL</b> to remove the current color effect, if any.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-magsetcoloreffect
      * @since windows6.0.6000
      */
     static MagSetColorEffect(hwnd, pEffect) {
-        result := DllCall("MAGNIFICATION.dll\MagSetColorEffect", "ptr", hwnd, "ptr", pEffect, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("MAGNIFICATION.dll\MagSetColorEffect", "ptr", hwnd, "ptr", pEffect, "ptr")
         return result
     }
 
     /**
      * Gets the color transformation matrix for a magnifier control.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The magnification window.
      * @param {Pointer<MAGCOLOREFFECT>} pEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/magnification/ns-magnification-magcoloreffect">PMAGCOLOREFFECT</a></b>
      * 
      * The color transformation matrix, or <b>NULL</b> if no color effect has been set.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-maggetcoloreffect
      * @since windows6.0.6000
      */
     static MagGetColorEffect(hwnd, pEffect) {
-        result := DllCall("MAGNIFICATION.dll\MagGetColorEffect", "ptr", hwnd, "ptr", pEffect, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("MAGNIFICATION.dll\MagGetColorEffect", "ptr", hwnd, "ptr", pEffect, "ptr")
         return result
     }
 
@@ -274,14 +294,14 @@ class Magnification {
      * @param {Integer} yOffset Type: **int**
      * 
      * The new y-coordinate offset, in pixels, for the upper-left corner of the magnified view.  The offset is relative to the upper-left corner of the primary monitor, in unmagnified coordinates. The minimum value of the parameter is -262144, and the maximum value is 262144.
-     * @returns {Integer} Type: **BOOL**
+     * @returns {BOOL} Type: **BOOL**
      * 
      * Returns TRUE if successful. Otherwise, FALSE.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-magsetfullscreentransform
      * @since windows8.0
      */
     static MagSetFullscreenTransform(magLevel, xOffset, yOffset) {
-        result := DllCall("MAGNIFICATION.dll\MagSetFullscreenTransform", "float", magLevel, "int", xOffset, "int", yOffset, "int")
+        result := DllCall("MAGNIFICATION.dll\MagSetFullscreenTransform", "float", magLevel, "int", xOffset, "int", yOffset, "ptr")
         return result
     }
 
@@ -296,14 +316,14 @@ class Magnification {
      * @param {Pointer<Int32>} pyOffset Type: <b>int*</b>
      * 
      * The y-coordinate offset for the upper-left corner of the unmagnified view.  The offset is relative to the upper-left corner of the primary monitor, in unmagnified coordinates.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns TRUE if successful, or FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-maggetfullscreentransform
      * @since windows8.0
      */
     static MagGetFullscreenTransform(pMagLevel, pxOffset, pyOffset) {
-        result := DllCall("MAGNIFICATION.dll\MagGetFullscreenTransform", "float*", pMagLevel, "int*", pxOffset, "int*", pyOffset, "int")
+        result := DllCall("MAGNIFICATION.dll\MagGetFullscreenTransform", "float*", pMagLevel, "int*", pxOffset, "int*", pyOffset, "ptr")
         return result
     }
 
@@ -312,14 +332,14 @@ class Magnification {
      * @param {Pointer<MAGCOLOREFFECT>} pEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/magnification/ns-magnification-magcoloreffect">PMAGCOLOREFFECT</a></b>
      * 
      * The new color transformation matrix. This parameter must not be NULL.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns TRUE if successful, or FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-magsetfullscreencoloreffect
      * @since windows8.0
      */
     static MagSetFullscreenColorEffect(pEffect) {
-        result := DllCall("MAGNIFICATION.dll\MagSetFullscreenColorEffect", "ptr", pEffect, "int")
+        result := DllCall("MAGNIFICATION.dll\MagSetFullscreenColorEffect", "ptr", pEffect, "ptr")
         return result
     }
 
@@ -328,20 +348,20 @@ class Magnification {
      * @param {Pointer<MAGCOLOREFFECT>} pEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/magnification/ns-magnification-magcoloreffect">PMAGCOLOREFFECT</a></b>
      * 
      * The color transformation matrix, or the identity matrix if no color effect has been set.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns TRUE if successful, or FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-maggetfullscreencoloreffect
      * @since windows8.0
      */
     static MagGetFullscreenColorEffect(pEffect) {
-        result := DllCall("MAGNIFICATION.dll\MagGetFullscreenColorEffect", "ptr", pEffect, "int")
+        result := DllCall("MAGNIFICATION.dll\MagGetFullscreenColorEffect", "ptr", pEffect, "ptr")
         return result
     }
 
     /**
      * Sets the current active input transformation for pen and touch input, represented as a source rectangle and a destination rectangle.
-     * @param {Integer} fEnabled Type: **[BOOL](/windows/win32/WinProg/windows-data-types)**
+     * @param {BOOL} fEnabled Type: **[BOOL](/windows/win32/WinProg/windows-data-types)**
      * 
      * TRUE to enable input transformation, or FALSE to disable it.
      * @param {Pointer<RECT>} pRectSource Type: **const [LPRECT](../windef/ns-windef-rect.md)**
@@ -350,7 +370,7 @@ class Magnification {
      * @param {Pointer<RECT>} pRectDest Type: **const [LPRECT](../windef/ns-windef-rect.md)**
      * 
      *  The new destination rectangle, in unmagnified screen coordinates, that defines the area of the screen where the magnified screen content is displayed. Pen and touch input in this rectangle is mapped to the source rectangle. This parameter is ignored if *bEnabled* is FALSE.
-     * @returns {Integer} Type: **[BOOL](/windows/win32/WinProg/windows-data-types)**
+     * @returns {BOOL} Type: **[BOOL](/windows/win32/WinProg/windows-data-types)**
      * 
      * Returns TRUE if successful, or FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-magsetinputtransform
@@ -359,7 +379,7 @@ class Magnification {
     static MagSetInputTransform(fEnabled, pRectSource, pRectDest) {
         A_LastError := 0
 
-        result := DllCall("MAGNIFICATION.dll\MagSetInputTransform", "int", fEnabled, "ptr", pRectSource, "ptr", pRectDest, "int")
+        result := DllCall("MAGNIFICATION.dll\MagSetInputTransform", "ptr", fEnabled, "ptr", pRectSource, "ptr", pRectDest, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -368,7 +388,7 @@ class Magnification {
 
     /**
      * Retrieves the current input transformation for pen and touch input, represented as a source rectangle and a destination rectangle.
-     * @param {Pointer<Int32>} pfEnabled Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
+     * @param {Pointer<BOOL>} pfEnabled Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * TRUE  if input translation is enabled, or FALSE if not.
      * @param {Pointer<RECT>} pRectSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">LPRECT</a></b>
@@ -377,30 +397,30 @@ class Magnification {
      * @param {Pointer<RECT>} pRectDest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">LPRECT</a></b>
      * 
      * The destination rectangle, in screen coordinates, that defines the area of the screen where the magnified screen content is displayed. Pen and touch input in this rectangle is mapped to the source rectangle.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns TRUE if successful, or FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-maggetinputtransform
      * @since windows8.0
      */
     static MagGetInputTransform(pfEnabled, pRectSource, pRectDest) {
-        result := DllCall("MAGNIFICATION.dll\MagGetInputTransform", "int*", pfEnabled, "ptr", pRectSource, "ptr", pRectDest, "int")
+        result := DllCall("MAGNIFICATION.dll\MagGetInputTransform", "ptr", pfEnabled, "ptr", pRectSource, "ptr", pRectDest, "ptr")
         return result
     }
 
     /**
      * Shows or hides the system cursor.
-     * @param {Integer} fShowCursor Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @param {BOOL} fShowCursor Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * TRUE to show the system cursor, or FALSE to hide it.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns TRUE if successful, or FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//magnification/nf-magnification-magshowsystemcursor
      * @since windows8.0
      */
     static MagShowSystemCursor(fShowCursor) {
-        result := DllCall("MAGNIFICATION.dll\MagShowSystemCursor", "int", fShowCursor, "int")
+        result := DllCall("MAGNIFICATION.dll\MagShowSystemCursor", "ptr", fShowCursor, "ptr")
         return result
     }
 

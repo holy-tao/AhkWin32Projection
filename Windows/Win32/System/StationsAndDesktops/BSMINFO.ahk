@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HDESK.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\LUID.ahk
 
 /**
@@ -30,22 +32,28 @@ class BSMINFO extends Win32Struct
      * 
      * A desktop handle to the window specified by 
      * 					<b>hwnd</b>. This value is returned only if <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-broadcastsystemmessageexa">BroadcastSystemMessageEx</a> specifies <b>BSF_RETURNHDESK</b> and <b>BSF_QUERY</b>.
-     * @type {Pointer<Void>}
+     * @type {HDESK}
      */
-    hdesk {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hdesk{
+        get {
+            if(!this.HasProp("__hdesk"))
+                this.__hdesk := HDESK(this.ptr + 8)
+            return this.__hdesk
+        }
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that denied the request. This value is returned if <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-broadcastsystemmessageexa">BroadcastSystemMessageEx</a> specifies <b>BSF_QUERY</b>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(this.ptr + 16)
+            return this.__hwnd
+        }
     }
 
     /**

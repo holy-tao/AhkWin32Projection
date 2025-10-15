@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\SL_ACTIVATION_INFO_HEADER.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies information used for the retail or Active Directory phone activation of a license.
@@ -33,19 +34,25 @@ class SL_AD_ACTIVATION_INFO extends Win32Struct
 
     /**
      * The product key.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszProductKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszProductKey{
+        get {
+            if(!this.HasProp("__pwszProductKey"))
+                this.__pwszProductKey := PWSTR(this.ptr + 8)
+            return this.__pwszProductKey
+        }
     }
 
     /**
      * The name of the activation object.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszActivationObjectName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszActivationObjectName{
+        get {
+            if(!this.HasProp("__pwszActivationObjectName"))
+                this.__pwszActivationObjectName := PWSTR(this.ptr + 16)
+            return this.__pwszActivationObjectName
+        }
     }
 }

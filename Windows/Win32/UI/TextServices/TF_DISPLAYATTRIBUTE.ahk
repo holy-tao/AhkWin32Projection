@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include .\TF_DA_COLOR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The TF_DISPLAYATTRIBUTE structure contains display attribute data for rendering text.
@@ -49,11 +51,14 @@ class TF_DISPLAYATTRIBUTE extends Win32Struct
 
     /**
      * A BOOL value that specifies if the underline should be bold or normal weight. If this value is nonzero, the underline should be bold. If this value is zero, the underline should be normal.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fBoldLine {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    fBoldLine{
+        get {
+            if(!this.HasProp("__fBoldLine"))
+                this.__fBoldLine := BOOL(this.ptr + 20)
+            return this.__fBoldLine
+        }
     }
 
     /**

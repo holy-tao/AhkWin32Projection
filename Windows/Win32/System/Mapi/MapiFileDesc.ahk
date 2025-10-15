@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * A MapiFileDesc structure contains information about a file containing a message attachment stored as a temporary file.
@@ -98,20 +99,26 @@ class MapiFileDesc extends Win32Struct
 
     /**
      * Pointer to the fully qualified path of the attached file. This path should include the disk drive letter and directory name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszPathName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpszPathName{
+        get {
+            if(!this.HasProp("__lpszPathName"))
+                this.__lpszPathName := PSTR(this.ptr + 16)
+            return this.__lpszPathName
+        }
     }
 
     /**
      * Pointer to the attachment filename seen by the recipient, which may differ from the filename in the <b>lpszPathName</b> member if temporary files are being used. If the <b>lpszFileName</b> member is empty or <b>NULL</b>, the filename from <b>lpszPathName</b> is used.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszFileName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpszFileName{
+        get {
+            if(!this.HasProp("__lpszFileName"))
+                this.__lpszFileName := PSTR(this.ptr + 24)
+            return this.__lpszFileName
+        }
     }
 
     /**

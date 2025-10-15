@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCRYPTPROV_LEGACY.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
@@ -48,11 +50,14 @@ class CRYPT_HASH_MESSAGE_PARA extends Win32Struct
      * <b>Windows Server 2003 and Windows XP:  </b>A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) to be used.Unless there is a strong reason for passing in a specific cryptographic provider in <b>hCryptProv</b>, pass zero to use the default RSA or DSS provider.
      * 
      * This member's data type is <b>HCRYPTPROV</b>.
-     * @type {Pointer}
+     * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hCryptProv{
+        get {
+            if(!this.HasProp("__hCryptProv"))
+                this.__hCryptProv := HCRYPTPROV_LEGACY(this.ptr + 8)
+            return this.__hCryptProv
+        }
     }
 
     /**

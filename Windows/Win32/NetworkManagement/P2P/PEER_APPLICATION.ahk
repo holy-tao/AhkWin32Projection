@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PEER_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_APPLICATION structure contains data describing a locally installed software application or component that can be registered and shared with trusted contacts within a peer collaboration network.
@@ -45,10 +46,13 @@ class PEER_APPLICATION extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains an optional  description of the local application. This description is limited to 255 unicode characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwzDescription{
+        get {
+            if(!this.HasProp("__pwzDescription"))
+                this.__pwzDescription := PWSTR(this.ptr + 24)
+            return this.__pwzDescription
+        }
     }
 }

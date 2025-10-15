@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SERVER_INFO_1538 structure specifies whether several MS-DOS File Control Blocks (FCBs) are placed in a single location.
@@ -15,10 +16,13 @@ class SERVER_INFO_1538 extends Win32Struct
 
     /**
      * Specifies whether several MS-DOS File Control Blocks (FCBs) are placed in a single location accessible to the server.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv1538_enablefcbopens {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    sv1538_enablefcbopens{
+        get {
+            if(!this.HasProp("__sv1538_enablefcbopens"))
+                this.__sv1538_enablefcbopens := BOOL(this.ptr + 0)
+            return this.__sv1538_enablefcbopens
+        }
     }
 }

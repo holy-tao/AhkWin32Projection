@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used to specify the permissions associated with a particular record in the URL namespace reservation store.
@@ -28,10 +29,13 @@ class HTTP_SERVICE_CONFIG_URLACL_PARAM extends Win32Struct
     /**
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor Definition Language (SDDL) string</a> that contains the permissions associated with this URL namespace reservation record.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pStringSecurityDescriptor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pStringSecurityDescriptor{
+        get {
+            if(!this.HasProp("__pStringSecurityDescriptor"))
+                this.__pStringSecurityDescriptor := PWSTR(this.ptr + 0)
+            return this.__pStringSecurityDescriptor
+        }
     }
 }

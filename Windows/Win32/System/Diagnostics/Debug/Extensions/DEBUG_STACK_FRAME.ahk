@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -74,11 +75,14 @@ class DEBUG_STACK_FRAME extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Virtual {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+    Virtual{
+        get {
+            if(!this.HasProp("__Virtual"))
+                this.__Virtual := BOOL(this.ptr + 120)
+            return this.__Virtual
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the new global debug configuration for XAudio2. Used with the SetDebugConfiguration function.
@@ -117,37 +118,49 @@ class XAUDIO2_DEBUG_CONFIGURATION extends Win32Struct
 
     /**
      * Indicates whether to log the thread ID with each message.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    LogThreadID {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    LogThreadID{
+        get {
+            if(!this.HasProp("__LogThreadID"))
+                this.__LogThreadID := BOOL(this.ptr + 8)
+            return this.__LogThreadID
+        }
     }
 
     /**
      * Indicates whether to log source files and line numbers.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    LogFileline {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    LogFileline{
+        get {
+            if(!this.HasProp("__LogFileline"))
+                this.__LogFileline := BOOL(this.ptr + 12)
+            return this.__LogFileline
+        }
     }
 
     /**
      * Indicates whether to log function names.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    LogFunctionName {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    LogFunctionName{
+        get {
+            if(!this.HasProp("__LogFunctionName"))
+                this.__LogFunctionName := BOOL(this.ptr + 16)
+            return this.__LogFunctionName
+        }
     }
 
     /**
      * Indicates whether to log message timestamps.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    LogTiming {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    LogTiming{
+        get {
+            if(!this.HasProp("__LogTiming"))
+                this.__LogTiming := BOOL(this.ptr + 20)
+            return this.__LogTiming
+        }
     }
 }

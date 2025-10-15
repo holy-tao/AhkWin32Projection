@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_SERVICE_BINDING_BASE.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * HTTP_SERVICE_BINDING_A.
@@ -29,11 +30,14 @@ class HTTP_SERVICE_BINDING_A extends Win32Struct
 
     /**
      * A pointer to a buffer that represents the SPN.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Buffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Buffer{
+        get {
+            if(!this.HasProp("__Buffer"))
+                this.__Buffer := PSTR(this.ptr + 8)
+            return this.__Buffer
+        }
     }
 
     /**

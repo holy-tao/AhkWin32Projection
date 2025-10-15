@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -32,18 +33,24 @@ class DOT11_PHY_STATE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bHardwarePhyState {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    bHardwarePhyState{
+        get {
+            if(!this.HasProp("__bHardwarePhyState"))
+                this.__bHardwarePhyState := BOOLEAN(this.ptr + 8)
+            return this.__bHardwarePhyState
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bSoftwarePhyState {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    bSoftwarePhyState{
+        get {
+            if(!this.HasProp("__bSoftwarePhyState"))
+                this.__bSoftwarePhyState := BOOLEAN(this.ptr + 9)
+            return this.__bSoftwarePhyState
+        }
     }
 }

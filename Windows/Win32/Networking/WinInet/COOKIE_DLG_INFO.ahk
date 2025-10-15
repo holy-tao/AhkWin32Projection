@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -12,11 +13,14 @@ class COOKIE_DLG_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszServer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszServer{
+        get {
+            if(!this.HasProp("__pszServer"))
+                this.__pszServer := PWSTR(this.ptr + 0)
+            return this.__pszServer
+        }
     }
 
     /**
@@ -52,11 +56,14 @@ class COOKIE_DLG_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszHeader {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszHeader{
+        get {
+            if(!this.HasProp("__pszHeader"))
+                this.__pszHeader := PWSTR(this.ptr + 32)
+            return this.__pszHeader
+        }
     }
 
     /**

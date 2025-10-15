@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\PSID.ahk
 
 /**
  * Contains the security information associated with an object.
@@ -52,19 +53,25 @@ class SECURITY_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    Owner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Owner{
+        get {
+            if(!this.HasProp("__Owner"))
+                this.__Owner := PSID(this.ptr + 8)
+            return this.__Owner
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    Group {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Group{
+        get {
+            if(!this.HasProp("__Group"))
+                this.__Group := PSID(this.ptr + 16)
+            return this.__Group
+        }
     }
 
     /**

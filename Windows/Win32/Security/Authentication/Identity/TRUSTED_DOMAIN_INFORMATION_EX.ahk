@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include ..\..\PSID.ahk
 
 /**
  * Used to retrieve extended information about a trusted domain.
@@ -41,11 +43,14 @@ class TRUSTED_DOMAIN_INFORMATION_EX extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the trusted domain. For non-Microsoft trusted domains, this member can be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    Sid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    Sid{
+        get {
+            if(!this.HasProp("__Sid"))
+                this.__Sid := PSID(this.ptr + 32)
+            return this.__Sid
+        }
     }
 
     /**

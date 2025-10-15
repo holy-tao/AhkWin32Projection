@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\ISCSI_TARGET_PORTALW.ahk
 #Include .\ISCSI_LOGIN_OPTIONS.ahk
 
@@ -43,11 +44,14 @@ class PERSISTENT_ISCSI_LOGIN_INFOW extends Win32Struct
      * A management application can still access targets not enumerated by the system via the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsiinquiry">SendScsiInquiry</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireportluns">SendScsiReportLuns</a>, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireadcapacity">SendScsiReadCapcity</a> functions.
      * 
      * If set <b>FALSE</b>, the LUNs on the target are reported to the Plug and Play manager for enumeration.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsInformationalSession {
-        get => NumGet(this, 448, "char")
-        set => NumPut("char", value, this, 448)
+    IsInformationalSession{
+        get {
+            if(!this.HasProp("__IsInformationalSession"))
+                this.__IsInformationalSession := BOOLEAN(this.ptr + 448)
+            return this.__IsInformationalSession
+        }
     }
 
     /**

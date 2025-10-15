@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
@@ -112,23 +112,25 @@ class Dwm {
 ;@region Methods
     /**
      * Default window procedure for Desktop Window Manager (DWM) hit testing within the non-client area.
-     * @param {Pointer<Void>} hWnd A handle to the window procedure that received the message.
+     * @param {HWND} hWnd A handle to the window procedure that received the message.
      * @param {Integer} msg The message.
-     * @param {Pointer} wParam Specifies additional message information. The content of this parameter depends on the value of the <i>msg</i> parameter.
-     * @param {Pointer} lParam Specifies additional message information. The content of this parameter depends on the value of the <i>msg</i> parameter.
-     * @param {Pointer<IntPtr>} plResult A pointer to an <b>LRESULT</b> value that, when this method returns successfully,receives the result of the hit test.
-     * @returns {Integer} <b>TRUE</b> if <b>DwmDefWindowProc</b> handled the message; otherwise, <b>FALSE</b>.
+     * @param {WPARAM} wParam Specifies additional message information. The content of this parameter depends on the value of the <i>msg</i> parameter.
+     * @param {LPARAM} lParam Specifies additional message information. The content of this parameter depends on the value of the <i>msg</i> parameter.
+     * @param {Pointer<LRESULT>} plResult A pointer to an <b>LRESULT</b> value that, when this method returns successfully,receives the result of the hit test.
+     * @returns {BOOL} <b>TRUE</b> if <b>DwmDefWindowProc</b> handled the message; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmdefwindowproc
      * @since windows6.0.6000
      */
     static DwmDefWindowProc(hWnd, msg, wParam, lParam, plResult) {
-        result := DllCall("dwmapi.dll\DwmDefWindowProc", "ptr", hWnd, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr*", plResult, "int")
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
+        result := DllCall("dwmapi.dll\DwmDefWindowProc", "ptr", hWnd, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr", plResult, "ptr")
         return result
     }
 
     /**
      * Enables the blur effect on a specified window.
-     * @param {Pointer<Void>} hWnd The handle to the window on which the blur-behind data is applied.
+     * @param {HWND} hWnd The handle to the window on which the blur-behind data is applied.
      * @param {Pointer<DWM_BLURBEHIND>} pBlurBehind `[in]`
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_blurbehind">DWM_BLURBEHIND</a> structure that provides blur-behind data.
@@ -137,6 +139,8 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmEnableBlurBehindWindow(hWnd, pBlurBehind) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("dwmapi.dll\DwmEnableBlurBehindWindow", "ptr", hWnd, "ptr", pBlurBehind, "int")
         if(result != 0)
             throw OSError(result)
@@ -165,13 +169,13 @@ class Dwm {
 
     /**
      * Notifies the Desktop Window Manager (DWM) to opt in to or out of Multimedia Class Schedule Service (MMCSS) scheduling while the calling process is alive.
-     * @param {Integer} fEnableMMCSS <b>TRUE</b> to instruct DWM to participate in MMCSS scheduling; <b>FALSE</b> to opt out or end participation in MMCSS scheduling.
+     * @param {BOOL} fEnableMMCSS <b>TRUE</b> to instruct DWM to participate in MMCSS scheduling; <b>FALSE</b> to opt out or end participation in MMCSS scheduling.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmenablemmcss
      * @since windows6.0.6000
      */
     static DwmEnableMMCSS(fEnableMMCSS) {
-        result := DllCall("dwmapi.dll\DwmEnableMMCSS", "int", fEnableMMCSS, "int")
+        result := DllCall("dwmapi.dll\DwmEnableMMCSS", "ptr", fEnableMMCSS, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -180,13 +184,15 @@ class Dwm {
 
     /**
      * Extends the window frame into the client area.
-     * @param {Pointer<Void>} hWnd The handle to the window in which the frame will be extended into the client area.
+     * @param {HWND} hWnd The handle to the window in which the frame will be extended into the client area.
      * @param {Pointer<MARGINS>} pMarInset A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-margins">MARGINS</a> structure that describes the margins to use when extending the frame into the client area.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmextendframeintoclientarea
      * @since windows6.0.6000
      */
     static DwmExtendFrameIntoClientArea(hWnd, pMarInset) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("dwmapi.dll\DwmExtendFrameIntoClientArea", "ptr", hWnd, "ptr", pMarInset, "int")
         if(result != 0)
             throw OSError(result)
@@ -197,13 +203,13 @@ class Dwm {
     /**
      * Retrieves the current color used for Desktop Window Manager (DWM) glass composition.
      * @param {Pointer<UInt32>} pcrColorization A pointer to a value that, when this function returns successfully, receives the current color used for glass composition. The color format of the value is 0xAARRGGBB.
-     * @param {Pointer<Int32>} pfOpaqueBlend A pointer to a value that, when this function returns successfully, indicates whether the color is an opaque blend. <b>TRUE</b> if the color is an opaque blend; otherwise, <b>FALSE</b>.
+     * @param {Pointer<BOOL>} pfOpaqueBlend A pointer to a value that, when this function returns successfully, indicates whether the color is an opaque blend. <b>TRUE</b> if the color is an opaque blend; otherwise, <b>FALSE</b>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmgetcolorizationcolor
      * @since windows6.0.6000
      */
     static DwmGetColorizationColor(pcrColorization, pfOpaqueBlend) {
-        result := DllCall("dwmapi.dll\DwmGetColorizationColor", "uint*", pcrColorization, "int*", pfOpaqueBlend, "int")
+        result := DllCall("dwmapi.dll\DwmGetColorizationColor", "uint*", pcrColorization, "ptr", pfOpaqueBlend, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -212,7 +218,7 @@ class Dwm {
 
     /**
      * Retrieves the current composition timing information for a specified window.
-     * @param {Pointer<Void>} hwnd The handle to the window for which the composition timing information should be retrieved.
+     * @param {HWND} hwnd The handle to the window for which the composition timing information should be retrieved.
      *         
      *                         
      * 
@@ -223,6 +229,8 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmGetCompositionTimingInfo(hwnd, pTimingInfo) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dwmapi.dll\DwmGetCompositionTimingInfo", "ptr", hwnd, "ptr", pTimingInfo, "int")
         if(result != 0)
             throw OSError(result)
@@ -232,7 +240,7 @@ class Dwm {
 
     /**
      * Retrieves the current value of a specified Desktop Window Manager (DWM) attribute applied to a window.
-     * @param {Pointer<Void>} hwnd The handle to the window from which the attribute value is to be retrieved.
+     * @param {HWND} hwnd The handle to the window from which the attribute value is to be retrieved.
      * @param {Integer} dwAttribute A flag describing which value to retrieve, specified as a value of the [DWMWINDOWATTRIBUTE](/windows/desktop/api/dwmapi/ne-dwmapi-dwmwindowattribute) enumeration. This parameter specifies which attribute to retrieve, and the *pvAttribute* parameter points to an object into which the attribute value is retrieved.
      * @param {Pointer} pvAttribute A pointer to a value which, when this function returns successfully, receives the current value of the attribute. The type of the retrieved value depends on the value of the *dwAttribute* parameter. The [**DWMWINDOWATTRIBUTE**](/windows/desktop/api/Dwmapi/ne-dwmapi-dwmwindowattribute) enumeration topic indicates, in the row for each flag, what type of value you should pass a pointer to in the *pvAttribute* parameter.
      * @param {Integer} cbAttribute The size, in bytes, of the attribute value being received via the *pvAttribute* parameter. The type of the retrieved value, and therefore its size in bytes, depends on the value of the *dwAttribute* parameter.
@@ -243,6 +251,8 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmGetWindowAttribute(hwnd, dwAttribute, pvAttribute, cbAttribute) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dwmapi.dll\DwmGetWindowAttribute", "ptr", hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "int")
         if(result != 0)
             throw OSError(result)
@@ -252,7 +262,7 @@ class Dwm {
 
     /**
      * Obtains a value that indicates whether Desktop Window Manager (DWM) composition is enabled. Applications on machines running Windows 7 or earlier can listen for composition state changes by handling the WM_DWMCOMPOSITIONCHANGED notification.
-     * @param {Pointer<Int32>} pfEnabled A pointer to a value that, when this function returns successfully, receives <b>TRUE</b> if DWM composition is enabled; otherwise, <b>FALSE</b>.
+     * @param {Pointer<BOOL>} pfEnabled A pointer to a value that, when this function returns successfully, receives <b>TRUE</b> if DWM composition is enabled; otherwise, <b>FALSE</b>.
      * 
      *                         
      * 
@@ -264,7 +274,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmIsCompositionEnabled(pfEnabled) {
-        result := DllCall("dwmapi.dll\DwmIsCompositionEnabled", "int*", pfEnabled, "int")
+        result := DllCall("dwmapi.dll\DwmIsCompositionEnabled", "ptr", pfEnabled, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -273,15 +283,17 @@ class Dwm {
 
     /**
      * Changes the number of monitor refreshes through which the previous frame will be displayed. DwmModifyPreviousDxFrameDuration is no longer supported. Starting with Windows 8.1, calls to DwmModifyPreviousDxFrameDuration always return E_NOTIMPL.
-     * @param {Pointer<Void>} hwnd The handle to the window for which the new duration is applied to the previous frame.
+     * @param {HWND} hwnd The handle to the window for which the new duration is applied to the previous frame.
      * @param {Integer} cRefreshes The number of refreshes to apply to the previous frame.
-     * @param {Integer} fRelative <b>TRUE</b> if the value given in <i>cRefreshes</i> is relative to the current value (added to or subtracted from it); <b>FALSE</b> if the value replaces the current value.
+     * @param {BOOL} fRelative <b>TRUE</b> if the value given in <i>cRefreshes</i> is relative to the current value (added to or subtracted from it); <b>FALSE</b> if the value replaces the current value.
      * @returns {HRESULT} This function always returns S_OK, even when DWM is not running.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmmodifypreviousdxframeduration
      * @since windows6.0.6000
      */
     static DwmModifyPreviousDxFrameDuration(hwnd, cRefreshes, fRelative) {
-        result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "int", fRelative, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "ptr", fRelative, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -306,14 +318,17 @@ class Dwm {
 
     /**
      * Creates a Desktop Window Manager (DWM) thumbnail relationship between the destination and source windows.
-     * @param {Pointer<Void>} hwndDestination The handle to the window that will use the DWM thumbnail. Setting the destination window handle to anything other than a top-level window type will result in a return value of E_INVALIDARG.
-     * @param {Pointer<Void>} hwndSource The handle to the window to use as the thumbnail source. Setting the source window handle to anything other than a top-level window type will result in a return value of E_INVALIDARG.
+     * @param {HWND} hwndDestination The handle to the window that will use the DWM thumbnail. Setting the destination window handle to anything other than a top-level window type will result in a return value of E_INVALIDARG.
+     * @param {HWND} hwndSource The handle to the window to use as the thumbnail source. Setting the source window handle to anything other than a top-level window type will result in a return value of E_INVALIDARG.
      * @param {Pointer<IntPtr>} phThumbnailId A pointer to a handle that, when this function returns successfully, represents the registration of the DWM thumbnail.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmregisterthumbnail
      * @since windows6.0.6000
      */
     static DwmRegisterThumbnail(hwndDestination, hwndSource, phThumbnailId) {
+        hwndDestination := hwndDestination is Win32Handle ? NumGet(hwndDestination, "ptr") : hwndDestination
+        hwndSource := hwndSource is Win32Handle ? NumGet(hwndSource, "ptr") : hwndSource
+
         result := DllCall("dwmapi.dll\DwmRegisterThumbnail", "ptr", hwndDestination, "ptr", hwndSource, "ptr*", phThumbnailId, "int")
         if(result != 0)
             throw OSError(result)
@@ -323,13 +338,15 @@ class Dwm {
 
     /**
      * Sets the number of monitor refreshes through which to display the presented frame. DwmSetDxFrameDuration is no longer supported. Starting with Windows 8.1, calls to DwmSetDxFrameDuration always return E_NOTIMPL.
-     * @param {Pointer<Void>} hwnd The handle to the window that displays the presented frame.
+     * @param {HWND} hwnd The handle to the window that displays the presented frame.
      * @param {Integer} cRefreshes The number of refreshes through which to display the presented frame.
      * @returns {HRESULT} This function always returns S_OK, even when the frame duration is not changed or DWM is not running.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmsetdxframeduration
      * @since windows6.0.6000
      */
     static DwmSetDxFrameDuration(hwnd, cRefreshes) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dwmapi.dll\DwmSetDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "int")
         if(result != 0)
             throw OSError(result)
@@ -339,13 +356,15 @@ class Dwm {
 
     /**
      * Sets the present parameters for frame composition. DwmSetPresentParameters is no longer supported. Starting with Windows 8.1, calls to DwmSetPresentParameters always return E_NOTIMPL.
-     * @param {Pointer<Void>} hwnd The handle to the window where the present parameters are applied.
+     * @param {HWND} hwnd The handle to the window where the present parameters are applied.
      * @param {Pointer<DWM_PRESENT_PARAMETERS>} pPresentParams A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/ns-dwmapi-dwm_present_parameters">DWM_PRESENT_PARAMETERS</a> structure that contains DWM video frame parameters for frame composition.
      * @returns {HRESULT} This function always returns S_OK.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmsetpresentparameters
      * @since windows6.0.6000
      */
     static DwmSetPresentParameters(hwnd, pPresentParams) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dwmapi.dll\DwmSetPresentParameters", "ptr", hwnd, "ptr", pPresentParams, "int")
         if(result != 0)
             throw OSError(result)
@@ -355,7 +374,7 @@ class Dwm {
 
     /**
      * Sets the value of Desktop Window Manager (DWM) non-client rendering attributes for a window.
-     * @param {Pointer<Void>} hwnd The handle to the window for which the attribute value is to be set.
+     * @param {HWND} hwnd The handle to the window for which the attribute value is to be set.
      * @param {Integer} dwAttribute A flag describing which value to set, specified as a value of the [DWMWINDOWATTRIBUTE](/windows/desktop/api/dwmapi/ne-dwmapi-dwmwindowattribute) enumeration. This parameter specifies which attribute to set, and the *pvAttribute* parameter points to an object containing the attribute value.
      * @param {Pointer} pvAttribute A pointer to an object containing the attribute value to set. The type of the value set depends on the value of the *dwAttribute* parameter. The [**DWMWINDOWATTRIBUTE**](/windows/desktop/api/Dwmapi/ne-dwmapi-dwmwindowattribute) enumeration topic indicates, in the row for each flag, what type of value you should pass a pointer to in the *pvAttribute* parameter.
      * @param {Integer} cbAttribute The size, in bytes, of the attribute value being set via the *pvAttribute* parameter. The type of the value set, and therefore its size in bytes, depends on the value of the *dwAttribute* parameter.
@@ -368,6 +387,8 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmSetWindowAttribute(hwnd, dwAttribute, pvAttribute, cbAttribute) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dwmapi.dll\DwmSetWindowAttribute", "ptr", hwnd, "uint", dwAttribute, "ptr", pvAttribute, "uint", cbAttribute, "int")
         if(result != 0)
             throw OSError(result)
@@ -408,14 +429,17 @@ class Dwm {
 
     /**
      * Sets a static, iconic bitmap on a window or tab to use as a thumbnail representation. The taskbar can use this bitmap as a thumbnail switch target for the window or tab.
-     * @param {Pointer<Void>} hwnd A handle to the window or tab. This window must belong to the calling process.
-     * @param {Pointer<Void>} hbmp A handle to the bitmap to represent the window that <i>hwnd</i> specifies.
+     * @param {HWND} hwnd A handle to the window or tab. This window must belong to the calling process.
+     * @param {HBITMAP} hbmp A handle to the bitmap to represent the window that <i>hwnd</i> specifies.
      * @param {Integer} dwSITFlags 
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmseticonicthumbnail
      * @since windows6.1
      */
     static DwmSetIconicThumbnail(hwnd, hbmp, dwSITFlags) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
+
         result := DllCall("dwmapi.dll\DwmSetIconicThumbnail", "ptr", hwnd, "ptr", hbmp, "uint", dwSITFlags, "int")
         if(result != 0)
             throw OSError(result)
@@ -425,8 +449,8 @@ class Dwm {
 
     /**
      * Sets a static, iconic bitmap to display a live preview (also known as a Peek preview) of a window or tab. The taskbar can use this bitmap to show a full-sized preview of a window or tab.
-     * @param {Pointer<Void>} hwnd A handle to the window. This window must belong to the calling process.
-     * @param {Pointer<Void>} hbmp A handle to the bitmap to represent the window that <i>hwnd</i> specifies.
+     * @param {HWND} hwnd A handle to the window. This window must belong to the calling process.
+     * @param {HBITMAP} hbmp A handle to the bitmap to represent the window that <i>hwnd</i> specifies.
      * @param {Pointer<POINT>} pptClient The offset of a tab window's <i>client region</i> (the content area inside the client window frame) from the host window's frame. This offset enables the tab window's contents to be drawn correctly in a live preview  when it is drawn without its frame.
      * @param {Integer} dwSITFlags The display options for the live preview. This parameter can be 0 or the following value.
      * @returns {HRESULT} Returns <b>S_OK</b> if the function succeeds, or an error value otherwise. Note that because this bitmap is not cached, if the window is not being previewed when an application calls this function, the function returns a success code but the bitmap is discarded and not used.
@@ -434,6 +458,9 @@ class Dwm {
      * @since windows6.1
      */
     static DwmSetIconicLivePreviewBitmap(hwnd, hbmp, pptClient, dwSITFlags) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hbmp := hbmp is Win32Handle ? NumGet(hbmp, "ptr") : hbmp
+
         result := DllCall("dwmapi.dll\DwmSetIconicLivePreviewBitmap", "ptr", hwnd, "ptr", hbmp, "ptr", pptClient, "uint", dwSITFlags, "int")
         if(result != 0)
             throw OSError(result)
@@ -443,12 +470,14 @@ class Dwm {
 
     /**
      * Called by an application to indicate that all previously provided iconic bitmaps from a window, both thumbnails and peek representations, should be refreshed.
-     * @param {Pointer<Void>} hwnd A handle to the window or tab whose bitmaps are being invalidated through this call. This window must belong to the calling process.
+     * @param {HWND} hwnd A handle to the window or tab whose bitmaps are being invalidated through this call. This window must belong to the calling process.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwminvalidateiconicbitmaps
      * @since windows6.1
      */
     static DwmInvalidateIconicBitmaps(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dwmapi.dll\DwmInvalidateIconicBitmaps", "ptr", hwnd, "int")
         if(result != 0)
             throw OSError(result)
@@ -458,12 +487,14 @@ class Dwm {
 
     /**
      * This function is not implemented.
-     * @param {Pointer<Void>} hwnd 
+     * @param {HWND} hwnd 
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmattachmilcontent
      * @since windows6.0.6000
      */
     static DwmAttachMilContent(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dwmapi.dll\DwmAttachMilContent", "ptr", hwnd, "int")
         if(result != 0)
             throw OSError(result)
@@ -473,12 +504,14 @@ class Dwm {
 
     /**
      * This function is not implemented.
-     * @param {Pointer<Void>} hwnd 
+     * @param {HWND} hwnd 
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmdetachmilcontent
      * @since windows6.0.6000
      */
     static DwmDetachMilContent(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dwmapi.dll\DwmDetachMilContent", "ptr", hwnd, "int")
         if(result != 0)
             throw OSError(result)
@@ -534,15 +567,15 @@ class Dwm {
 
     /**
      * Retrieves transport attributes.
-     * @param {Pointer<Int32>} pfIsRemoting A pointer to a <b>BOOL</b> value that indicates whether the transport supports remoting. <b>TRUE</b> if the transport supports remoting; otherwise, <b>FALSE</b>.
-     * @param {Pointer<Int32>} pfIsConnected A pointer to a <b>BOOL</b> value that indicates whether the transport is connected. <b>TRUE</b> if the transport is connected; otherwise, <b>FALSE</b>.
+     * @param {Pointer<BOOL>} pfIsRemoting A pointer to a <b>BOOL</b> value that indicates whether the transport supports remoting. <b>TRUE</b> if the transport supports remoting; otherwise, <b>FALSE</b>.
+     * @param {Pointer<BOOL>} pfIsConnected A pointer to a <b>BOOL</b> value that indicates whether the transport is connected. <b>TRUE</b> if the transport is connected; otherwise, <b>FALSE</b>.
      * @param {Pointer<UInt32>} pDwGeneration A pointer to a <b>DWORD</b> that receives a generation value for the transport.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmgettransportattributes
      * @since windows6.0.6000
      */
     static DwmGetTransportAttributes(pfIsRemoting, pfIsConnected, pDwGeneration) {
-        result := DllCall("dwmapi.dll\DwmGetTransportAttributes", "int*", pfIsRemoting, "int*", pfIsConnected, "uint*", pDwGeneration, "int")
+        result := DllCall("dwmapi.dll\DwmGetTransportAttributes", "ptr", pfIsRemoting, "ptr", pfIsConnected, "uint*", pDwGeneration, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -551,13 +584,15 @@ class Dwm {
 
     /**
      * Coordinates the animations of tool windows with the Desktop Window Manager (DWM).
-     * @param {Pointer<Void>} hwnd Handle to the window.
+     * @param {HWND} hwnd Handle to the window.
      * @param {Integer} target 
      * @returns {HRESULT} 
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmtransitionownedwindow
      * @since windows8.0
      */
     static DwmTransitionOwnedWindow(hwnd, target) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dwmapi.dll\DwmTransitionOwnedWindow", "ptr", hwnd, "int", target, "int")
         if(result != 0)
             throw OSError(result)
@@ -586,14 +621,14 @@ class Dwm {
     /**
      * Enables the graphical feedback of touch and drag interactions to the user.
      * @param {Integer} dwPointerID The pointer ID.
-     * @param {Integer} fEnable Indicates whether the contact is enabled.
-     * @param {Pointer} ptTether The tether.
+     * @param {BOOL} fEnable Indicates whether the contact is enabled.
+     * @param {POINT} ptTether The tether.
      * @returns {HRESULT} 
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmtethercontact
      * @since windows8.0
      */
     static DwmTetherContact(dwPointerID, fEnable, ptTether) {
-        result := DllCall("dwmapi.dll\DwmTetherContact", "uint", dwPointerID, "int", fEnable, "ptr", ptTether, "int")
+        result := DllCall("dwmapi.dll\DwmTetherContact", "uint", dwPointerID, "ptr", fEnable, "ptr", ptTether, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -618,13 +653,15 @@ class Dwm {
 
     /**
      * Note  This function is publically available, but nonfunctional, for Windows 10, version 1803.Checks the requirements needed to get tabs in the application title bar for the specified window.
-     * @param {Pointer<Void>} appWindow The handle of the window to check.
+     * @param {HWND} appWindow The handle of the window to check.
      * @param {Pointer<Int32>} value 
      * @returns {HRESULT} 
      * @see https://docs.microsoft.com/windows/win32/api//dwmapi/nf-dwmapi-dwmgetunmettabrequirements
      * @since windows10.0.17134
      */
     static DwmGetUnmetTabRequirements(appWindow, value) {
+        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
+
         result := DllCall("dwmapi.dll\DwmGetUnmetTabRequirements", "ptr", appWindow, "int*", value, "int")
         if(result != 0)
             throw OSError(result)

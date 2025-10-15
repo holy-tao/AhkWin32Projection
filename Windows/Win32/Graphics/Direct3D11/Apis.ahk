@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
@@ -2627,7 +2627,7 @@ class Direct3D11 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE</a>, which represents the driver type to create.
-     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {HMODULE} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * A handle to a DLL that implements a software rasterizer.
      *             If <i>DriverType</i> is <i>D3D_DRIVER_TYPE_SOFTWARE</i>,
@@ -2689,6 +2689,8 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-d3d11createdevice
      */
     static D3D11CreateDevice(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, ppDevice, pFeatureLevel, ppImmediateContext) {
+        Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
+
         result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", ppDevice, "int*", pFeatureLevel, "ptr", ppImmediateContext, "int")
         if(result != 0)
             throw OSError(result)
@@ -2709,7 +2711,7 @@ class Direct3D11 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE</a>, which represents the driver type to create.
-     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {HMODULE} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * A handle to a DLL that implements a software rasterizer.
      *             If <i>DriverType</i> is <i>D3D_DRIVER_TYPE_SOFTWARE</i>, <i>Software</i> must not be <b>NULL</b>. Get the handle by
@@ -2782,6 +2784,8 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-d3d11createdeviceandswapchain
      */
     static D3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice, pFeatureLevel, ppImmediateContext) {
+        Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
+
         result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr", ppSwapChain, "ptr", ppDevice, "int*", pFeatureLevel, "ptr", ppImmediateContext, "int")
         if(result != 0)
             throw OSError(result)

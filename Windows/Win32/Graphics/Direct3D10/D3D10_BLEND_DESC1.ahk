@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D10_RENDER_TARGET_BLEND_DESC1.ahk
 
 /**
@@ -77,22 +78,28 @@ class D3D10_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Determines whether or not to use the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-blend-state">alpha-to-coverage</a>multisampling technique when setting a render-target pixel.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    AlphaToCoverageEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    AlphaToCoverageEnable{
+        get {
+            if(!this.HasProp("__AlphaToCoverageEnable"))
+                this.__AlphaToCoverageEnable := BOOL(this.ptr + 0)
+            return this.__AlphaToCoverageEnable
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Set to <b>TRUE</b> to enable independent blending in simultaneous render targets. If set to <b>FALSE</b>, only the RenderTarget[0] members are used. RenderTarget[1..7] are ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IndependentBlendEnable {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    IndependentBlendEnable{
+        get {
+            if(!this.HasProp("__IndependentBlendEnable"))
+                this.__IndependentBlendEnable := BOOL(this.ptr + 4)
+            return this.__IndependentBlendEnable
+        }
     }
 
     /**

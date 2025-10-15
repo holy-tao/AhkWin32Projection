@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains event collector data (subscription data) or property values.
@@ -14,11 +16,14 @@ class EC_VARIANT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    BooleanVal {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    BooleanVal{
+        get {
+            if(!this.HasProp("__BooleanVal"))
+                this.__BooleanVal := BOOL(this.ptr + 0)
+            return this.__BooleanVal
+        }
     }
 
     /**
@@ -38,11 +43,14 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    StringVal {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    StringVal{
+        get {
+            if(!this.HasProp("__StringVal"))
+                this.__StringVal := PWSTR(this.ptr + 0)
+            return this.__StringVal
+        }
     }
 
     /**
@@ -54,7 +62,7 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     BooleanArr {
         get => NumGet(this, 0, "ptr")
@@ -70,7 +78,7 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     StringArr {
         get => NumGet(this, 0, "ptr")

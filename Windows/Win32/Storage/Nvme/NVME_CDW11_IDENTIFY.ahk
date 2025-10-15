@@ -28,11 +28,39 @@ class NVME_CDW11_IDENTIFY extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - CNSID
+     * - Reserved2
+     * - CSI
      * @type {Integer}
      */
-    Anonymous2 {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CNSID {
+        get => (this._bitfield >> 0) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved2 {
+        get => (this._bitfield >> 16) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 16) | (this._bitfield & ~(0xFF << 16))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CSI {
+        get => (this._bitfield >> 24) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
     }
 
     /**

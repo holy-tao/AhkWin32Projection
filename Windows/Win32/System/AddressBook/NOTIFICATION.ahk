@@ -5,7 +5,9 @@
 #Include .\OBJECT_NOTIFICATION.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\SBinary.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SShortArray.ahk
 #Include .\SLongArray.ahk
 #Include .\SRealArray.ahk

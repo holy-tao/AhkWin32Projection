@@ -3,6 +3,7 @@
 #Include .\WER_REPORT_PARAMETER.ahk
 #Include .\WER_REPORT_SIGNATURE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
@@ -101,11 +102,14 @@ class WER_REPORT_METADATA_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FileNames {
-        get => NumGet(this, 792, "ptr")
-        set => NumPut("ptr", value, this, 792)
+    FileNames{
+        get {
+            if(!this.HasProp("__FileNames"))
+                this.__FileNames := PWSTR(this.ptr + 792)
+            return this.__FileNames
+        }
     }
 
     /**

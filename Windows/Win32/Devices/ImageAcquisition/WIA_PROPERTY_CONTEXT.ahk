@@ -28,7 +28,7 @@ class WIA_PROPERTY_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     pChanged {
         get => NumGet(this, 16, "ptr")

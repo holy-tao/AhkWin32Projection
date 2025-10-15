@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Sums the elements of a tensor along an axis, writing the running tally of the summation into the output tensor.
@@ -65,10 +66,13 @@ class DML_CUMULATIVE_SUMMATION_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If **TRUE**, then the value of the current element is excluded when writing the running tally to the output tensor. If **FALSE**, then the value of the current element is included in the running tally.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    HasExclusiveSum {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    HasExclusiveSum{
+        get {
+            if(!this.HasProp("__HasExclusiveSum"))
+                this.__HasExclusiveSum := BOOL(this.ptr + 24)
+            return this.__HasExclusiveSum
+        }
     }
 }

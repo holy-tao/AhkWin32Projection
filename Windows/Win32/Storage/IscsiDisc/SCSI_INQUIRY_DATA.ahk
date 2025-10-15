@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
@@ -36,11 +37,14 @@ class SCSI_INQUIRY_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    DeviceClaimed {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
+    DeviceClaimed{
+        get {
+            if(!this.HasProp("__DeviceClaimed"))
+                this.__DeviceClaimed := BOOLEAN(this.ptr + 3)
+            return this.__DeviceClaimed
+        }
     }
 
     /**

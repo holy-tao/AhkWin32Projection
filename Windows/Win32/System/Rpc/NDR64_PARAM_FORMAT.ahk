@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDR64_PARAM_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -20,11 +21,14 @@ class NDR64_PARAM_FORMAT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDR64_PARAM_FLAGS}
      */
-    Attributes {
-        get => NumGet(this, 8, "ushort")
-        set => NumPut("ushort", value, this, 8)
+    Attributes{
+        get {
+            if(!this.HasProp("__Attributes"))
+                this.__Attributes := NDR64_PARAM_FLAGS(this.ptr + 8)
+            return this.__Attributes
+        }
     }
 
     /**

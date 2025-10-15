@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include Common\DXGI_RATIONAL.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes full-screen mode for a swap chain.
@@ -51,10 +52,13 @@ class DXGI_SWAP_CHAIN_FULLSCREEN_DESC extends Win32Struct
 
     /**
      * A Boolean value that specifies whether the swap chain is in windowed mode. <b>TRUE</b> if the swap chain is in windowed mode; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Windowed {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    Windowed{
+        get {
+            if(!this.HasProp("__Windowed"))
+                this.__Windowed := BOOL(this.ptr + 16)
+            return this.__Windowed
+        }
     }
 }

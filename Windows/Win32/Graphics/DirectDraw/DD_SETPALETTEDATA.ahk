@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DD_SETPALETTEDATA structure contains information necessary to set a palette for a specific surface.
@@ -33,7 +34,7 @@ class DD_SETPALETTEDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_palette_global">DD_PALETTE_GLOBAL</a> structure that specifies the palette to set to the surface.
-     * @type {Pointer<UIntPtr>}
+     * @type {Pointer<DD_PALETTE_GLOBAL>}
      */
     lpDDPalette {
         get => NumGet(this, 16, "ptr")
@@ -60,10 +61,13 @@ class DD_SETPALETTEDATA extends Win32Struct
 
     /**
      * Indicates whether to attach this palette to the surface.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Attach {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    Attach{
+        get {
+            if(!this.HasProp("__Attach"))
+                this.__Attach := BOOL(this.ptr + 40)
+            return this.__Attach
+        }
     }
 }

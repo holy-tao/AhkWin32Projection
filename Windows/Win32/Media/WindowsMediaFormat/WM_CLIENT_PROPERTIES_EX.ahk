@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WM_CLIENT_PROPERTIES_EX structure holds extended client information.
@@ -24,29 +25,38 @@ class WM_CLIENT_PROPERTIES_EX extends Win32Struct
 
     /**
      * String containing the client's IP address in dot notation (for example, "192.168.10.2").
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszIPAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszIPAddress{
+        get {
+            if(!this.HasProp("__pwszIPAddress"))
+                this.__pwszIPAddress := PWSTR(this.ptr + 8)
+            return this.__pwszIPAddress
+        }
     }
 
     /**
      * String containing the client's port number.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszPort {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszPort{
+        get {
+            if(!this.HasProp("__pwszPort"))
+                this.__pwszPort := PWSTR(this.ptr + 16)
+            return this.__pwszPort
+        }
     }
 
     /**
      * String containing the client's name on the domain name server (DNS), if known.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszDNSName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszDNSName{
+        get {
+            if(!this.HasProp("__pwszDNSName"))
+                this.__pwszDNSName := PWSTR(this.ptr + 24)
+            return this.__pwszDNSName
+        }
     }
 
     /**

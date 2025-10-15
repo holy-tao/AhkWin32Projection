@@ -12,11 +12,30 @@ class NVME_CDW0_FEATURE_ERROR_INJECTION extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - NUM
+     * - Reserved0
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NUM {
+        get => (this._bitfield >> 0) & 0x7F
+        set => this._bitfield := ((value & 0x7F) << 0) | (this._bitfield & ~(0x7F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 7) & 0x1FFFFFF
+        set => this._bitfield := ((value & 0x1FFFFFF) << 7) | (this._bitfield & ~(0x1FFFFFF << 7))
     }
 
     /**

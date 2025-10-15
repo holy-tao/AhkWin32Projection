@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a function parameter.
@@ -22,22 +23,28 @@ class D3D11_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the function parameter.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := PSTR(this.ptr + 0)
+            return this.__Name
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The HLSL <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">semantic</a> that is associated with this function parameter. This name includes the index, for example, SV_Target[n].
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    SemanticName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    SemanticName{
+        get {
+            if(!this.HasProp("__SemanticName"))
+                this.__SemanticName := PSTR(this.ptr + 8)
+            return this.__SemanticName
+        }
     }
 
     /**

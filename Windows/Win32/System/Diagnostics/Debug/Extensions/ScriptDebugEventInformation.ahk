@@ -42,19 +42,53 @@ class ScriptDebugEventInformation extends Win32Struct
         }
     }
 
-    /**
-     * @type {Integer}
-     */
-    ExceptionInformation {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+    class _ExceptionInformation extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        IsUncaught {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
+    class _BreakpointInformation extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        BreakpointId {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_ExceptionInformation}
      */
-    BreakpointInformation {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    ExceptionInformation{
+        get {
+            if(!this.HasProp("__ExceptionInformation"))
+                this.__ExceptionInformation := %this.__Class%._ExceptionInformation(this.ptr + 24)
+            return this.__ExceptionInformation
+        }
+    }
+
+    /**
+     * @type {_BreakpointInformation}
+     */
+    BreakpointInformation{
+        get {
+            if(!this.HasProp("__BreakpointInformation"))
+                this.__BreakpointInformation := %this.__Class%._BreakpointInformation(this.ptr + 24)
+            return this.__BreakpointInformation
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -16,38 +17,50 @@ class DS_REPL_NEIGHBORW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the naming context to which this replication state data pertains. Each naming context is replicated independently and has different associated neighbor data, even if the naming contexts are replicated from the same source server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszNamingContext {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszNamingContext{
+        get {
+            if(!this.HasProp("__pszNamingContext"))
+                this.__pszNamingContext := PWSTR(this.ptr + 0)
+            return this.__pszNamingContext
+        }
     }
 
     /**
      * Pointer to  a null-terminated string that contains the distinguished name of the directory service agent corresponding to the source server to which this replication state data pertains.  Each source server has different associated neighbor data.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszSourceDsaDN {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszSourceDsaDN{
+        get {
+            if(!this.HasProp("__pszSourceDsaDN"))
+                this.__pszSourceDsaDN := PWSTR(this.ptr + 8)
+            return this.__pszSourceDsaDN
+        }
     }
 
     /**
      * Pointer to  a null-terminated string that contains the transport-specific network address of the source server. That is, a directory name service name for RPC/IP replication, or an SMTP address for an SMTP replication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszSourceDsaAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszSourceDsaAddress{
+        get {
+            if(!this.HasProp("__pszSourceDsaAddress"))
+                this.__pszSourceDsaAddress := PWSTR(this.ptr + 16)
+            return this.__pszSourceDsaAddress
+        }
     }
 
     /**
      * Pointer to  a null-terminated string that contains the distinguished name of the <b>interSiteTransport</b> object that corresponds to the transport over which replication is performed. This member contains <b>NULL</b> for RPC/IP replication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszAsyncIntersiteTransportDN {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszAsyncIntersiteTransportDN{
+        get {
+            if(!this.HasProp("__pszAsyncIntersiteTransportDN"))
+                this.__pszAsyncIntersiteTransportDN := PWSTR(this.ptr + 24)
+            return this.__pszAsyncIntersiteTransportDN
+        }
     }
 
     /**

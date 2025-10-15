@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -12,18 +14,24 @@ class DOT11EXT_IHV_SECURITY_PROFILE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszXmlFragmentIhvSecurity {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszXmlFragmentIhvSecurity{
+        get {
+            if(!this.HasProp("__pszXmlFragmentIhvSecurity"))
+                this.__pszXmlFragmentIhvSecurity := PWSTR(this.ptr + 0)
+            return this.__pszXmlFragmentIhvSecurity
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bUseMSOnex {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    bUseMSOnex{
+        get {
+            if(!this.HasProp("__bUseMSOnex"))
+                this.__bUseMSOnex := BOOL(this.ptr + 8)
+            return this.__bUseMSOnex
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -45,11 +46,14 @@ class AUTO_SCROLL_DATA extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that is used to determine whether the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-dad_autoscroll">DAD_AutoScroll</a> function should succeed. This parameter is set to <b>TRUE</b> when the <b>iNextSample</b> parameter is equal to NUM_POINTS.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bFull {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    bFull{
+        get {
+            if(!this.HasProp("__bFull"))
+                this.__bFull := BOOL(this.ptr + 8)
+            return this.__bFull
+        }
     }
 
     /**

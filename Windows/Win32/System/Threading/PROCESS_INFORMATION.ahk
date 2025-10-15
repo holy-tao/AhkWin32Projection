@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a newly created process and its primary thread. It is used with the CreateProcess, CreateProcessAsUser, CreateProcessWithLogonW, or CreateProcessWithTokenW function.
@@ -21,20 +22,26 @@ class PROCESS_INFORMATION extends Win32Struct
 
     /**
      * A handle to the newly created process. The handle is used to specify the process in all functions that perform operations on the process object.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hProcess {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hProcess{
+        get {
+            if(!this.HasProp("__hProcess"))
+                this.__hProcess := HANDLE(this.ptr + 0)
+            return this.__hProcess
+        }
     }
 
     /**
      * A handle to the primary thread of the newly created process. The handle is used to specify the thread in all functions that perform operations on the thread object.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hThread {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hThread{
+        get {
+            if(!this.HasProp("__hThread"))
+                this.__hThread := HANDLE(this.ptr + 8)
+            return this.__hThread
+        }
     }
 
     /**

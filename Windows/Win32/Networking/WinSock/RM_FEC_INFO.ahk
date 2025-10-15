@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The RM_FEC_INFO structure specifies settings for using forward error correction (FEC) with Reliable Multicast. This structure is used with the RM_USE_FEC socket option.
@@ -54,10 +55,13 @@ class RM_FEC_INFO extends Win32Struct
 
     /**
      * Specifies whether the sender is enabled for sending parity repair packets. When <b>TRUE</b>, receivers should only request parity repair packets.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    fFECOnDemandParityEnabled {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+    fFECOnDemandParityEnabled{
+        get {
+            if(!this.HasProp("__fFECOnDemandParityEnabled"))
+                this.__fFECOnDemandParityEnabled := BOOLEAN(this.ptr + 5)
+            return this.__fFECOnDemandParityEnabled
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Kernel
  * @version v4.0.30319
@@ -56,7 +56,7 @@ class Kernel {
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list. This structure is for system use only. 
      * 
      * The list must  be previously initialized with the <a href="https://docs.microsoft.com/windows/desktop/api/interlockedapi/nf-interlockedapi-initializeslisthead">InitializeSListHead</a> function.
-     * @returns {Pointer<TypeHandle>} The return value is a pointer to the first entry in the list. If the list is empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the first entry in the list. If the list is empty, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlfirstentryslist
      * @since windows5.1.2600
      */
@@ -68,7 +68,7 @@ class Kernel {
     /**
      * Removes an item from the front of a singly linked list. Access to the list is synchronized on a multiprocessor system.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list.
-     * @returns {Pointer<TypeHandle>} The return value is a pointer to the item removed from the list. If the list is empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the item removed from the list. If the list is empty, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlinterlockedpopentryslist
      * @since windows5.1.2600
      */
@@ -80,9 +80,9 @@ class Kernel {
     /**
      * Inserts an item at the front of a singly linked list. Access to the list is synchronized on a multiprocessor system.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list.
-     * @param {Pointer<TypeHandle>} ListEntry A pointer to an 
+     * @param {Pointer<SLIST_ENTRY>} ListEntry A pointer to an 
      * [SLIST_ENTRY](./ns-winnt-slist_entry.md) structure that represents an item in a singly linked list.
-     * @returns {Pointer<TypeHandle>} The return value is the previous first item in the list. If the list was previously empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<SLIST_ENTRY>} The return value is the previous first item in the list. If the list was previously empty, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlinterlockedpushentryslist
      * @since windows5.1.2600
      */
@@ -94,10 +94,10 @@ class Kernel {
     /**
      * 
      * @param {Pointer<SLIST_HEADER>} ListHead 
-     * @param {Pointer<TypeHandle>} List 
-     * @param {Pointer<TypeHandle>} ListEnd 
+     * @param {Pointer<SLIST_ENTRY>} List 
+     * @param {Pointer<SLIST_ENTRY>} ListEnd 
      * @param {Integer} Count 
-     * @returns {Pointer<TypeHandle>} 
+     * @returns {Pointer<SLIST_ENTRY>} 
      */
     static RtlInterlockedPushListSListEx(ListHead, List, ListEnd, Count) {
         result := DllCall("ntdll.dll\RtlInterlockedPushListSListEx", "ptr", ListHead, "ptr", List, "ptr", ListEnd, "uint", Count, "ptr")
@@ -107,7 +107,7 @@ class Kernel {
     /**
      * Removes all items from a singly linked list. Access to the list is synchronized on a multiprocessor system.
      * @param {Pointer<SLIST_HEADER>} ListHead A pointer to an <b>SLIST_HEADER</b> structure that represents the head of the singly linked list. This structure is for system use only.
-     * @returns {Pointer<TypeHandle>} The return value is a pointer to the items removed from the list. If the list is empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the items removed from the list. If the list is empty, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlinterlockedflushslist
      * @since windows5.1.2600
      */

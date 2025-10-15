@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The BTH_LE_UUID structure contains information about a Bluetooth Low Energy (LE) Universally Unique Identifier (UUID).
@@ -15,11 +16,14 @@ class BTH_LE_UUID extends Win32Struct
 
     /**
      * Indicates if the Low Energy (LE) UUID a 16-bit shortened value, or if it is the long 128-bit value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsShortUuid {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    IsShortUuid{
+        get {
+            if(!this.HasProp("__IsShortUuid"))
+                this.__IsShortUuid := BOOLEAN(this.ptr + 0)
+            return this.__IsShortUuid
+        }
     }
 
     /**

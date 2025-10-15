@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -12,11 +13,14 @@ class ImgErrorInfo extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    description {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    description{
+        get {
+            if(!this.HasProp("__description"))
+                this.__description := BSTR(this.ptr + 0)
+            return this.__description
+        }
     }
 
     /**
@@ -36,27 +40,36 @@ class ImgErrorInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    helpFile {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    helpFile{
+        get {
+            if(!this.HasProp("__helpFile"))
+                this.__helpFile := BSTR(this.ptr + 24)
+            return this.__helpFile
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    source {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    source{
+        get {
+            if(!this.HasProp("__source"))
+                this.__source := BSTR(this.ptr + 32)
+            return this.__source
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    devDescription {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    devDescription{
+        get {
+            if(!this.HasProp("__devDescription"))
+                this.__devDescription := BSTR(this.ptr + 40)
+            return this.__devDescription
+        }
     }
 
     /**
@@ -76,7 +89,7 @@ class ImgErrorInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<BSTR>}
      */
     aUserParameters {
         get => NumGet(this, 64, "ptr")
@@ -84,11 +97,14 @@ class ImgErrorInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    userFallback {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    userFallback{
+        get {
+            if(!this.HasProp("__userFallback"))
+                this.__userFallback := BSTR(this.ptr + 72)
+            return this.__userFallback
+        }
     }
 
     /**

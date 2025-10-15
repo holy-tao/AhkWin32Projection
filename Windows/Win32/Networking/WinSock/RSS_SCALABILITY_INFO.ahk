@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -12,10 +13,13 @@ class RSS_SCALABILITY_INFO extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    RssEnabled {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    RssEnabled{
+        get {
+            if(!this.HasProp("__RssEnabled"))
+                this.__RssEnabled := BOOLEAN(this.ptr + 0)
+            return this.__RssEnabled
+        }
     }
 }

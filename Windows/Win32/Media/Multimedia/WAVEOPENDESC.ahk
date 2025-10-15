@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Audio\HWAVE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -12,11 +13,14 @@ class WAVEOPENDESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWAVE}
      */
-    hWave {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hWave{
+        get {
+            if(!this.HasProp("__hWave"))
+                this.__hWave := HWAVE(this.ptr + 0)
+            return this.__hWave
+        }
     }
 
     /**

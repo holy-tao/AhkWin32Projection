@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DNS_WINSR_DATA structure represents a DNS Windows Internet Name Service reverse-lookup (WINSR) record.
@@ -84,10 +85,13 @@ class DNS_WINSR_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the domain name to append to the name returned by a WINS reverse-lookup.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pNameResultDomain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pNameResultDomain{
+        get {
+            if(!this.HasProp("__pNameResultDomain"))
+                this.__pNameResultDomain := PWSTR(this.ptr + 16)
+            return this.__pNameResultDomain
+        }
     }
 }

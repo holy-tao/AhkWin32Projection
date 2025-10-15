@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_PROPERTY_FLAGS.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS.ahk
 #Include .\HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS.ahk
 
@@ -22,11 +25,14 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure that specifies if the property is present.
-     * @type {Integer}
+     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := HTTP_PROPERTY_FLAGS(this.ptr + 0)
+            return this.__Flags
+        }
     }
 
     /**
@@ -109,31 +115,40 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
      * A Boolean value that indicates, if <b>True</b>, that the client application receives the server credentials for mutual authentication with the authenticated request. If <b>False</b>, the client application does not receive the credentials.
      * 
      * Be aware that this option is set for all  requests served by the associated request queue.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ReceiveMutualAuth {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    ReceiveMutualAuth{
+        get {
+            if(!this.HasProp("__ReceiveMutualAuth"))
+                this.__ReceiveMutualAuth := BOOLEAN(this.ptr + 8)
+            return this.__ReceiveMutualAuth
+        }
     }
 
     /**
      * A Boolean value that indicates, if <b>True</b>, that the finalized client context is serialized and passed to the application with the request. If <b>False</b>, the application does not receive the context. This handle can be used to query context attributes.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ReceiveContextHandle {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    ReceiveContextHandle{
+        get {
+            if(!this.HasProp("__ReceiveContextHandle"))
+                this.__ReceiveContextHandle := BOOLEAN(this.ptr + 9)
+            return this.__ReceiveContextHandle
+        }
     }
 
     /**
      * A Boolean value that indicates, if <b>True</b>, that the NTLM credentials are not cached. If <b>False</b>, the default behavior is preserved.
      * 
      * By default,  HTTP caches the client context for Keep Alive (KA) connections for the NTLM scheme if the request did not originate from a proxy.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    DisableNTLMCredentialCaching {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
+    DisableNTLMCredentialCaching{
+        get {
+            if(!this.HasProp("__DisableNTLMCredentialCaching"))
+                this.__DisableNTLMCredentialCaching := BOOLEAN(this.ptr + 10)
+            return this.__DisableNTLMCredentialCaching
+        }
     }
 
     /**

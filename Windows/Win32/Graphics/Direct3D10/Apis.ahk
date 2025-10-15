@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
@@ -1524,7 +1524,7 @@ class Direct3D10 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The device-driver type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>). The driver type determines the type of device you will create.
-     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {HMODULE} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * Reserved. Set to <b>NULL</b>.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -1543,6 +1543,8 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10misc/nf-d3d10misc-d3d10createdevice
      */
     static D3D10CreateDevice(pAdapter, DriverType, Software, Flags, SDKVersion, ppDevice) {
+        Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
+
         result := DllCall("d3d10.dll\D3D10CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "uint", SDKVersion, "ptr", ppDevice, "int")
         if(result != 0)
             throw OSError(result)
@@ -1558,7 +1560,7 @@ class Direct3D10 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The type of driver for the device. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>.
-     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {HMODULE} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * A handle to the DLL that implements a software rasterizer. Must be <b>NULL</b> if DriverType is non-software. The HMODULE of a DLL can be obtained with <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a>.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -1582,6 +1584,8 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10misc/nf-d3d10misc-d3d10createdeviceandswapchain
      */
     static D3D10CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice) {
+        Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
+
         result := DllCall("d3d10.dll\D3D10CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr", ppSwapChain, "ptr", ppDevice, "int")
         if(result != 0)
             throw OSError(result)
@@ -1618,7 +1622,7 @@ class Direct3D10 {
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Size of pSrcData, in bytes.
-     * @param {Pointer<Byte>} pFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the file that contains the shader code.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D10_SHADER_MACRO</a>*</b>
@@ -1629,10 +1633,10 @@ class Direct3D10 {
      * @param {Pointer<ID3DInclude>} pInclude Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173775(v=vs.85)">LPD3D10INCLUDE</a>*</b>
      * 
      * Optional. Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173775(v=vs.85)">ID3D10Include Interface</a> interface for handling include files. Setting this to <b>NULL</b> will cause a compile error if a shader contains a #include.
-     * @param {Pointer<Byte>} pFunctionName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pFunctionName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Name of the shader-entry point function where shader execution begins.
-     * @param {Pointer<Byte>} pProfile Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pProfile Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that specifies the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-models">shader profile</a> or shader model.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -1650,9 +1654,9 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10compileshader
      */
     static D3D10CompileShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, pFunctionName, pProfile, Flags, ppShader, ppErrorMsgs) {
-        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
-        pFunctionName := pFunctionName is String? StrPtr(pFunctionName) : pFunctionName
-        pProfile := pProfile is String? StrPtr(pProfile) : pProfile
+        pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
+        pFunctionName := pFunctionName is String ? StrPtr(pFunctionName) : pFunctionName
+        pProfile := pProfile is String ? StrPtr(pProfile) : pProfile
 
         result := DllCall("d3d10.dll\D3D10CompileShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", pFunctionName, "ptr", pProfile, "uint", Flags, "ptr", ppShader, "ptr", ppErrorMsgs, "int")
         if(result != 0)
@@ -1669,10 +1673,10 @@ class Direct3D10 {
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * The size of pShader.
-     * @param {Integer} EnableColorCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @param {BOOL} EnableColorCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Include HTML tags in the output to color code the result.
-     * @param {Pointer<Byte>} pComments Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pComments Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The comment string at the top of the shader that identifies the shader constants and variables.
      * @param {Pointer<ID3DBlob>} ppDisassembly Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
@@ -1684,9 +1688,9 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10disassembleshader
      */
     static D3D10DisassembleShader(pShader, BytecodeLength, EnableColorCode, pComments, ppDisassembly) {
-        pComments := pComments is String? StrPtr(pComments) : pComments
+        pComments := pComments is String ? StrPtr(pComments) : pComments
 
-        result := DllCall("d3d10.dll\D3D10DisassembleShader", "ptr", pShader, "ptr", BytecodeLength, "int", EnableColorCode, "ptr", pComments, "ptr", ppDisassembly, "int")
+        result := DllCall("d3d10.dll\D3D10DisassembleShader", "ptr", pShader, "ptr", BytecodeLength, "ptr", EnableColorCode, "ptr", pComments, "ptr", ppDisassembly, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1698,13 +1702,13 @@ class Direct3D10 {
      * @param {Pointer<ID3D10Device>} pDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>*</b>
      * 
      * Pointer to the device (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device Interface</a>).
-     * @returns {Pointer<Byte>} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @returns {PSTR} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The shader profile.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getpixelshaderprofile
      */
     static D3D10GetPixelShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetPixelShaderProfile", "ptr", pDevice, "char*")
+        result := DllCall("d3d10.dll\D3D10GetPixelShaderProfile", "ptr", pDevice, "ptr")
         return result
     }
 
@@ -1713,13 +1717,13 @@ class Direct3D10 {
      * @param {Pointer<ID3D10Device>} pDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>*</b>
      * 
      * Pointer to the device (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device Interface</a>).
-     * @returns {Pointer<Byte>} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @returns {PSTR} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The shader profile.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getvertexshaderprofile
      */
     static D3D10GetVertexShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetVertexShaderProfile", "ptr", pDevice, "char*")
+        result := DllCall("d3d10.dll\D3D10GetVertexShaderProfile", "ptr", pDevice, "ptr")
         return result
     }
 
@@ -1728,13 +1732,13 @@ class Direct3D10 {
      * @param {Pointer<ID3D10Device>} pDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>*</b>
      * 
      * Pointer to the device (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device Interface</a>).
-     * @returns {Pointer<Byte>} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @returns {PSTR} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The shader profile.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getgeometryshaderprofile
      */
     static D3D10GetGeometryShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetGeometryShaderProfile", "ptr", pDevice, "char*")
+        result := DllCall("d3d10.dll\D3D10GetGeometryShaderProfile", "ptr", pDevice, "ptr")
         return result
     }
 
@@ -1770,7 +1774,7 @@ class Direct3D10 {
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Size of pSrcData, in bytes.
-     * @param {Pointer<Byte>} pFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the file that contains the shader code.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D10_SHADER_MACRO</a>*</b>
@@ -1793,7 +1797,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10preprocessshader
      */
     static D3D10PreprocessShader(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, ppShaderText, ppErrorMsgs) {
-        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
+        pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
         result := DllCall("d3d10.dll\D3D10PreprocessShader", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", ppShaderText, "ptr", ppErrorMsgs, "int")
         if(result != 0)
@@ -2071,13 +2075,13 @@ class Direct3D10 {
      * @param {Integer} Entry Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The entry within the device state. This is only relevant for state types that have more than one entry, such as D3D10_DST_GS_SAMPLERS.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Returns true if the specified feature is allowed by the mask for capturing and applying, and false otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-d3d10stateblockmaskgetsetting
      */
     static D3D10StateBlockMaskGetSetting(pMask, StateType, Entry) {
-        result := DllCall("d3d10.dll\D3D10StateBlockMaskGetSetting", "ptr", pMask, "int", StateType, "uint", Entry, "int")
+        result := DllCall("d3d10.dll\D3D10StateBlockMaskGetSetting", "ptr", pMask, "int", StateType, "uint", Entry, "ptr")
         return result
     }
 
@@ -2113,7 +2117,7 @@ class Direct3D10 {
      * @param {Pointer} DataLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Length of <i>pData</i>.
-     * @param {Pointer<Byte>} pSrcFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pSrcFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the effect file.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D10_SHADER_MACRO</a>*</b>
@@ -2140,7 +2144,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-d3d10compileeffectfrommemory
      */
     static D3D10CompileEffectFromMemory(pData, DataLength, pSrcFileName, pDefines, pInclude, HLSLFlags, FXFlags, ppCompiledEffect, ppErrors) {
-        pSrcFileName := pSrcFileName is String? StrPtr(pSrcFileName) : pSrcFileName
+        pSrcFileName := pSrcFileName is String ? StrPtr(pSrcFileName) : pSrcFileName
 
         result := DllCall("d3d10.dll\D3D10CompileEffectFromMemory", "ptr", pData, "ptr", DataLength, "ptr", pSrcFileName, "ptr", pDefines, "ptr", pInclude, "uint", HLSLFlags, "uint", FXFlags, "ptr", ppCompiledEffect, "ptr", ppErrors, "int")
         if(result != 0)
@@ -2217,7 +2221,7 @@ class Direct3D10 {
      * @param {Pointer<ID3D10Effect>} pEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect Interface</a>, which contains the compiled effect.
-     * @param {Integer} EnableColorCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @param {BOOL} EnableColorCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Include HTML tags in the output to color code the result.
      * @param {Pointer<ID3DBlob>} ppDisassembly Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
@@ -2229,7 +2233,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-d3d10disassembleeffect
      */
     static D3D10DisassembleEffect(pEffect, EnableColorCode, ppDisassembly) {
-        result := DllCall("d3d10.dll\D3D10DisassembleEffect", "ptr", pEffect, "int", EnableColorCode, "ptr", ppDisassembly, "int")
+        result := DllCall("d3d10.dll\D3D10DisassembleEffect", "ptr", pEffect, "ptr", EnableColorCode, "ptr", ppDisassembly, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2246,7 +2250,7 @@ class Direct3D10 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The device-driver type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>). The driver type determines the type of device you will create.
-     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {HMODULE} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * This is set to <b>NULL</b> except for D3D10_DRIVER_TYPE_SOFTWARE driver types.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2268,6 +2272,8 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10_1/nf-d3d10_1-d3d10createdevice1
      */
     static D3D10CreateDevice1(pAdapter, DriverType, Software, Flags, HardwareLevel, SDKVersion, ppDevice) {
+        Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
+
         result := DllCall("d3d10_1.dll\D3D10CreateDevice1", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int", HardwareLevel, "uint", SDKVersion, "ptr", ppDevice, "int")
         if(result != 0)
             throw OSError(result)
@@ -2283,7 +2289,7 @@ class Direct3D10 {
      * @param {Integer} DriverType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a></b>
      * 
      * The type of driver for the device. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/ne-d3d10misc-d3d10_driver_type">D3D10_DRIVER_TYPE</a>.
-     * @param {Pointer<Void>} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
+     * @param {HMODULE} Software Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMODULE</a></b>
      * 
      * A handle to the DLL that implements a software rasterizer. Must be <b>NULL</b> if DriverType is non-software. 
      *         The HMODULE of a DLL can be obtained with <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, 
@@ -2314,6 +2320,8 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10_1/nf-d3d10_1-d3d10createdeviceandswapchain1
      */
     static D3D10CreateDeviceAndSwapChain1(pAdapter, DriverType, Software, Flags, HardwareLevel, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice) {
+        Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
+
         result := DllCall("d3d10_1.dll\D3D10CreateDeviceAndSwapChain1", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int", HardwareLevel, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr", ppSwapChain, "ptr", ppDevice, "int")
         if(result != 0)
             throw OSError(result)

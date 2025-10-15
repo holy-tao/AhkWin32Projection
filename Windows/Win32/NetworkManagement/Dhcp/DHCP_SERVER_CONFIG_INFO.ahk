@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DHCP_SERVER_CONFIG_INFO structure defines the data used to configure the DHCP server.
@@ -64,29 +65,38 @@ class DHCP_SERVER_CONFIG_INFO extends Win32Struct
 
     /**
      * Unicode string that specifies the  file name of the client lease JET database.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DatabaseName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    DatabaseName{
+        get {
+            if(!this.HasProp("__DatabaseName"))
+                this.__DatabaseName := PWSTR(this.ptr + 8)
+            return this.__DatabaseName
+        }
     }
 
     /**
      * Unicode string that specifies the absolute path to <b>DatabaseName</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DatabasePath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    DatabasePath{
+        get {
+            if(!this.HasProp("__DatabasePath"))
+                this.__DatabasePath := PWSTR(this.ptr + 16)
+            return this.__DatabasePath
+        }
     }
 
     /**
      * Unicode string that specifies the absolute path and file name of the backup client lease JET database.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    BackupPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    BackupPath{
+        get {
+            if(!this.HasProp("__BackupPath"))
+                this.__BackupPath := PWSTR(this.ptr + 24)
+            return this.__BackupPath
+        }
     }
 
     /**

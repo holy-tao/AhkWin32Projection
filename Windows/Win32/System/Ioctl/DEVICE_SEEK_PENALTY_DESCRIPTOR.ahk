@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY request to retrieve the seek penalty descriptor data for a device.
@@ -35,10 +36,13 @@ class DEVICE_SEEK_PENALTY_DESCRIPTOR extends Win32Struct
 
     /**
      * Specifies whether the device incurs a seek penalty.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IncursSeekPenalty {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    IncursSeekPenalty{
+        get {
+            if(!this.HasProp("__IncursSeekPenalty"))
+                this.__IncursSeekPenalty := BOOLEAN(this.ptr + 8)
+            return this.__IncursSeekPenalty
+        }
     }
 }

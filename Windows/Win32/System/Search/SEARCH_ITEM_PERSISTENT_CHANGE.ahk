@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the kind of change that has occurred in an item to be indexed. This structure is used with the ISearchPersistentItemsChangedSink::OnItemsChanged method to pass information to the indexer about what has changed.
@@ -32,20 +33,26 @@ class SEARCH_ITEM_PERSISTENT_CHANGE extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the URL of the item in a SEARCH_CHANGE_ADD, SEARCH_CHANGE_MODIFY, or SEARCH_CHANGE_DELETE notification. In the case of a move, this member contains the new URL of the item.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    URL {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    URL{
+        get {
+            if(!this.HasProp("__URL"))
+                this.__URL := PWSTR(this.ptr + 8)
+            return this.__URL
+        }
     }
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    OldURL {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    OldURL{
+        get {
+            if(!this.HasProp("__OldURL"))
+                this.__OldURL := PWSTR(this.ptr + 16)
+            return this.__OldURL
+        }
     }
 
     /**

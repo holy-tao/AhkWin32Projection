@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes Direct3D 9 shadow support in the current graphics driver.
@@ -29,10 +30,13 @@ class D3D11_FEATURE_DATA_D3D9_SHADOW_SUPPORT extends Win32Struct
 
     /**
      * Specifies whether the driver supports the shadowing feature with the comparison-filtering mode set to less than or equal to. The runtime sets this member to <b>TRUE</b> for hardware at Direct3D 10 and higher <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a>.  For hardware at Direct3D 9.3 and lower feature levels, the runtime sets this member to <b>TRUE</b> only if the hardware and driver support the shadowing feature; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SupportsDepthAsTextureWithLessEqualComparisonFilter {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    SupportsDepthAsTextureWithLessEqualComparisonFilter{
+        get {
+            if(!this.HasProp("__SupportsDepthAsTextureWithLessEqualComparisonFilter"))
+                this.__SupportsDepthAsTextureWithLessEqualComparisonFilter := BOOL(this.ptr + 0)
+            return this.__SupportsDepthAsTextureWithLessEqualComparisonFilter
+        }
     }
 }

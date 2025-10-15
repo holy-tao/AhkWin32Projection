@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY request to retrieve the trim descriptor data for a device.
@@ -35,10 +36,13 @@ class DEVICE_TRIM_DESCRIPTOR extends Win32Struct
 
     /**
      * Specifies whether trim is enabled for the device.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    TrimEnabled {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    TrimEnabled{
+        get {
+            if(!this.HasProp("__TrimEnabled"))
+                this.__TrimEnabled := BOOLEAN(this.ptr + 8)
+            return this.__TrimEnabled
+        }
     }
 }

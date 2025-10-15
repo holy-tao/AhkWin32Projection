@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the information necessary to advertise a service using [DnsServiceRegister](../windns/nf-windns-dnsserviceregister.md), or to stop advertising it using [DnsServiceDeRegister](../windns/nf-windns-dnsservicederegister.md).
@@ -63,19 +65,25 @@ class DNS_SERVICE_REGISTER_REQUEST extends Win32Struct
 
     /**
      * Not used.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hCredentials {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hCredentials{
+        get {
+            if(!this.HasProp("__hCredentials"))
+                this.__hCredentials := HANDLE(this.ptr + 32)
+            return this.__hCredentials
+        }
     }
 
     /**
      * `true` if the DNS protocol should be used to advertise the service; `false` if the mDNS protocol should be used.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    unicastEnabled {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    unicastEnabled{
+        get {
+            if(!this.HasProp("__unicastEnabled"))
+                this.__unicastEnabled := BOOL(this.ptr + 40)
+            return this.__unicastEnabled
+        }
     }
 }

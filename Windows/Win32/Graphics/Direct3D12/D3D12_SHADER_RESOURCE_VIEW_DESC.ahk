@@ -5,10 +5,12 @@
 #Include .\D3D12_TEX1D_ARRAY_SRV.ahk
 #Include .\D3D12_TEX2D_SRV.ahk
 #Include .\D3D12_TEX2D_ARRAY_SRV.ahk
+#Include .\D3D12_TEX2DMS_SRV.ahk
 #Include .\D3D12_TEX2DMS_ARRAY_SRV.ahk
 #Include .\D3D12_TEX3D_SRV.ahk
 #Include .\D3D12_TEXCUBE_SRV.ahk
 #Include .\D3D12_TEXCUBE_ARRAY_SRV.ahk
+#Include .\D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV.ahk
 
 /**
  * Describes a shader-resource view.
@@ -114,11 +116,14 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_TEX2DMS_SRV}
      */
-    Texture2DMS {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    Texture2DMS{
+        get {
+            if(!this.HasProp("__Texture2DMS"))
+                this.__Texture2DMS := D3D12_TEX2DMS_SRV(this.ptr + 16)
+            return this.__Texture2DMS
+        }
     }
 
     /**
@@ -166,10 +171,13 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV}
      */
-    RaytracingAccelerationStructure {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    RaytracingAccelerationStructure{
+        get {
+            if(!this.HasProp("__RaytracingAccelerationStructure"))
+                this.__RaytracingAccelerationStructure := D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV(this.ptr + 16)
+            return this.__RaytracingAccelerationStructure
+        }
     }
 }

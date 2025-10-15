@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CERT_ALT_NAME_ENTRY.ahk
 
@@ -27,11 +29,14 @@ class CERT_ACCESS_DESCRIPTION extends Win32Struct
      * <li>szOID_PKIX_TIME_STAMPING</li>
      * </ul>
      * The default provider does not support the szOID_PKIX_TIME_STAMPING method.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszAccessMethod {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszAccessMethod{
+        get {
+            if(!this.HasProp("__pszAccessMethod"))
+                this.__pszAccessMethod := PSTR(this.ptr + 0)
+            return this.__pszAccessMethod
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_SHELL_STARTUP_INFO_V10.ahk
 
 /**
@@ -24,10 +25,13 @@ class WSMAN_SHELL_STARTUP_INFO_V11 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    name {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    name{
+        get {
+            if(!this.HasProp("__name"))
+                this.__name := PWSTR(this.ptr + 40)
+            return this.__name
+        }
     }
 }

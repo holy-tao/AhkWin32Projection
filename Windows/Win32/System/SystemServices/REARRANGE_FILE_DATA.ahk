@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -28,11 +29,14 @@ class REARRANGE_FILE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    SourceFileHandle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    SourceFileHandle{
+        get {
+            if(!this.HasProp("__SourceFileHandle"))
+                this.__SourceFileHandle := HANDLE(this.ptr + 16)
+            return this.__SourceFileHandle
+        }
     }
 
     /**

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\Win32Handle.ahk
+#Include .\BSTR.ahk
+#Include .\HGLOBAL.ahk
+#Include .\HLOCAL.ahk
 /**
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
@@ -34647,21 +34650,21 @@ class Foundation {
 ;@region Methods
     /**
      * Allocates a new string and copies the passed string into it.
-     * @param {Pointer<Char>} psz The string to copy.
-     * @returns {Pointer<Char>} If successful, returns the string. If <i>psz</i> is a zero-length string, returns a zero-length <b>BSTR</b>. If <i>psz</i> is NULL or insufficient memory exists, returns NULL.
+     * @param {PWSTR} psz The string to copy.
+     * @returns {BSTR} If successful, returns the string. If <i>psz</i> is a zero-length string, returns a zero-length <b>BSTR</b>. If <i>psz</i> is NULL or insufficient memory exists, returns NULL.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-sysallocstring
      */
     static SysAllocString(psz) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("OLEAUT32.dll\SysAllocString", "ptr", psz, "char*")
-        return result
+        result := DllCall("OLEAUT32.dll\SysAllocString", "ptr", psz, "ptr")
+        return BSTR({Value: result}, True)
     }
 
     /**
      * Reallocates a previously allocated string to be the size of a second string and copies the second string into the reallocated memory.
-     * @param {Pointer<Char>} pbstr The previously allocated string.
-     * @param {Pointer<Char>} psz The string to copy.
+     * @param {Pointer<BSTR>} pbstr The previously allocated string.
+     * @param {PWSTR} psz The string to copy.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -34694,7 +34697,7 @@ class Foundation {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-sysreallocstring
      */
     static SysReAllocString(pbstr, psz) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("OLEAUT32.dll\SysReAllocString", "ptr", pbstr, "ptr", psz, "int")
         return result
@@ -34702,22 +34705,22 @@ class Foundation {
 
     /**
      * Allocates a new string, copies the specified number of characters from the passed string, and appends a null-terminating character.
-     * @param {Pointer<Char>} strIn The input string.
+     * @param {PWSTR} strIn The input string.
      * @param {Integer} ui The number of characters to copy. A null character is placed afterwards, allocating a total of <i>ui</i> plus one characters.
-     * @returns {Pointer<Char>} A copy of the string, or <b>NULL</b> if there is insufficient memory to complete the operation.
+     * @returns {BSTR} A copy of the string, or <b>NULL</b> if there is insufficient memory to complete the operation.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-sysallocstringlen
      */
     static SysAllocStringLen(strIn, ui) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\SysAllocStringLen", "ptr", strIn, "uint", ui, "char*")
-        return result
+        result := DllCall("OLEAUT32.dll\SysAllocStringLen", "ptr", strIn, "uint", ui, "ptr")
+        return BSTR({Value: result}, True)
     }
 
     /**
      * Creates a new BSTR containing a specified number of characters from an old BSTR, and frees the old BSTR.
-     * @param {Pointer<Char>} pbstr The previously allocated string.
-     * @param {Pointer<Char>} psz The string from which to copy <i>len</i> characters, or NULL to keep the string uninitialized.
+     * @param {Pointer<BSTR>} pbstr The previously allocated string.
+     * @param {PWSTR} psz The string from which to copy <i>len</i> characters, or NULL to keep the string uninitialized.
      * @param {Integer} len The number of characters to copy. A null character is placed afterward, allocating a total of <i>len</i> plus one characters.
      * @returns {Integer} <table>
      * <tr>
@@ -34751,7 +34754,7 @@ class Foundation {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-sysreallocstringlen
      */
     static SysReAllocStringLen(pbstr, psz, len) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("OLEAUT32.dll\SysReAllocStringLen", "ptr", pbstr, "ptr", psz, "uint", len, "int")
         return result
@@ -34759,13 +34762,15 @@ class Foundation {
 
     /**
      * Increases the pinning reference count for the specified string by one.
-     * @param {Pointer<Char>} bstrString The string for which the pinning reference count should increase. While that count remains greater than 0, the memory for the string is prevented from being freed by calls to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * @param {BSTR} bstrString The string for which the pinning reference count should increase. While that count remains greater than 0, the memory for the string is prevented from being freed by calls to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-sysaddrefstring
      * @since windows5.1.2600
      */
     static SysAddRefString(bstrString) {
-        result := DllCall("OLEAUT32.dll\SysAddRefString", "char*", bstrString, "int")
+        bstrString := bstrString is Win32Handle ? NumGet(bstrString, "ptr") : bstrString
+
+        result := DllCall("OLEAUT32.dll\SysAddRefString", "ptr", bstrString, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -34779,65 +34784,73 @@ class Foundation {
      * A call to the <b>SysReleaseString</b> function should match every previous call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysaddrefstring">SysAddRefString</a> function.
      * 
      * 
-     * @param {Pointer<Char>} bstrString The string for which the  pinning reference count should decrease.
+     * @param {BSTR} bstrString The string for which the  pinning reference count should decrease.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-sysreleasestring
      * @since windows5.1.2600
      */
     static SysReleaseString(bstrString) {
-        DllCall("OLEAUT32.dll\SysReleaseString", "char*", bstrString)
+        bstrString := bstrString is Win32Handle ? NumGet(bstrString, "ptr") : bstrString
+
+        DllCall("OLEAUT32.dll\SysReleaseString", "ptr", bstrString)
     }
 
     /**
      * Deallocates a string allocated previously by SysAllocString, SysAllocStringByteLen, SysReAllocString, SysAllocStringLen, or SysReAllocStringLen.
-     * @param {Pointer<Char>} bstrString The previously allocated string. If this parameter is <b>NULL</b>, the function simply returns.
+     * @param {BSTR} bstrString The previously allocated string. If this parameter is <b>NULL</b>, the function simply returns.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-sysfreestring
      */
     static SysFreeString(bstrString) {
-        DllCall("OLEAUT32.dll\SysFreeString", "char*", bstrString)
+        bstrString := bstrString is Win32Handle ? NumGet(bstrString, "ptr") : bstrString
+
+        DllCall("OLEAUT32.dll\SysFreeString", "ptr", bstrString)
     }
 
     /**
      * Returns the length of a BSTR.
-     * @param {Pointer<Char>} pbstr A previously allocated string.
+     * @param {BSTR} pbstr A previously allocated string.
      * @returns {Integer} The number of characters in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-sysstringlen
      */
     static SysStringLen(pbstr) {
-        result := DllCall("OLEAUT32.dll\SysStringLen", "char*", pbstr, "uint")
+        pbstr := pbstr is Win32Handle ? NumGet(pbstr, "ptr") : pbstr
+
+        result := DllCall("OLEAUT32.dll\SysStringLen", "ptr", pbstr, "uint")
         return result
     }
 
     /**
      * Returns the length (in bytes) of a BSTR.
-     * @param {Pointer<Char>} bstr A previously allocated string.
+     * @param {BSTR} bstr A previously allocated string.
      * @returns {Integer} The number of bytes in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-sysstringbytelen
      */
     static SysStringByteLen(bstr) {
-        result := DllCall("OLEAUT32.dll\SysStringByteLen", "char*", bstr, "uint")
+        bstr := bstr is Win32Handle ? NumGet(bstr, "ptr") : bstr
+
+        result := DllCall("OLEAUT32.dll\SysStringByteLen", "ptr", bstr, "uint")
         return result
     }
 
     /**
      * Takes an ANSI string as input, and returns a BSTR that contains an ANSI string. Does not perform any ANSI-to-Unicode translation.
-     * @param {Pointer<Byte>} psz The string to copy, or NULL to keep the string uninitialized.
+     * @param {PSTR} psz The string to copy, or NULL to keep the string uninitialized.
      * @param {Integer} len The number of bytes to copy. A null character is placed afterwards, allocating a total of <i>len</i> plus the size of <b>OLECHAR</b> bytes.
-     * @returns {Pointer<Char>} A copy of the string, or NULL if there is insufficient memory to complete the operation.
+     * @returns {BSTR} A copy of the string, or NULL if there is insufficient memory to complete the operation.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-sysallocstringbytelen
      */
     static SysAllocStringByteLen(psz, len) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("OLEAUT32.dll\SysAllocStringByteLen", "ptr", psz, "uint", len, "char*")
-        return result
+        result := DllCall("OLEAUT32.dll\SysAllocStringByteLen", "ptr", psz, "uint", len, "ptr")
+        return BSTR({Value: result}, True)
     }
 
     /**
      * Closes an open object handle.
-     * @param {Pointer<Void>} hObject A valid handle to an open object.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} hObject A valid handle to an open object.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -34849,9 +34862,11 @@ class Foundation {
      * @since windows5.0
      */
     static CloseHandle(hObject) {
+        hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CloseHandle", "ptr", hObject, "int")
+        result := DllCall("KERNEL32.dll\CloseHandle", "ptr", hObject, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34860,18 +34875,18 @@ class Foundation {
 
     /**
      * Duplicates an object handle.
-     * @param {Pointer<Void>} hSourceProcessHandle A handle to the process with the handle to be duplicated. 
+     * @param {HANDLE} hSourceProcessHandle A handle to the process with the handle to be duplicated. 
      * 
      * 
      * 
      * 
      * The handle must have the PROCESS_DUP_HANDLE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<Void>} hSourceHandle The handle to be duplicated. This is an open object handle that is valid in the context of the source process. For a list of objects whose handles can be duplicated, see the following Remarks section.
-     * @param {Pointer<Void>} hTargetProcessHandle A handle to the process that is to receive the duplicated handle. The handle must have the PROCESS_DUP_HANDLE access right.
+     * @param {HANDLE} hSourceHandle The handle to be duplicated. This is an open object handle that is valid in the context of the source process. For a list of objects whose handles can be duplicated, see the following Remarks section.
+     * @param {HANDLE} hTargetProcessHandle A handle to the process that is to receive the duplicated handle. The handle must have the PROCESS_DUP_HANDLE access right.
      * 
      * This parameter is optional and can be specified as NULL if the **DUPLICATE_CLOSE_SOURCE** flag is set in _Options_.
-     * @param {Pointer<Void>} lpTargetHandle A pointer to a variable that receives the duplicate handle. This handle value is valid in the context of the target process. 
+     * @param {Pointer<HANDLE>} lpTargetHandle A pointer to a variable that receives the duplicate handle. This handle value is valid in the context of the target process. 
      * 
      * If <i>hSourceHandle</i> is a pseudo handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> or <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentthread">GetCurrentThread</a>, <b>DuplicateHandle</b> converts it to a real handle to a process or thread, respectively.
      * 
@@ -34883,11 +34898,11 @@ class Foundation {
      * This parameter is ignored if the <i>dwOptions</i> parameter specifies the DUPLICATE_SAME_ACCESS flag. Otherwise, the flags that can be specified depend on the type of object whose handle is to be duplicated.
      * 
      * This parameter is ignored if _hTargetProcessHandle_ is **NULL**.
-     * @param {Integer} bInheritHandle A variable that indicates whether the handle is inheritable. If <b>TRUE</b>, the duplicate handle can be inherited by new processes created by the target process. If <b>FALSE</b>, the new handle cannot be inherited.
+     * @param {BOOL} bInheritHandle A variable that indicates whether the handle is inheritable. If <b>TRUE</b>, the duplicate handle can be inherited by new processes created by the target process. If <b>FALSE</b>, the new handle cannot be inherited.
      * 
      * This parameter is ignored if _hTargetProcessHandle_ is **NULL**.
      * @param {Integer} dwOptions 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -34895,9 +34910,13 @@ class Foundation {
      * @since windows5.0
      */
     static DuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle, lpTargetHandle, dwDesiredAccess, bInheritHandle, dwOptions) {
+        hSourceProcessHandle := hSourceProcessHandle is Win32Handle ? NumGet(hSourceProcessHandle, "ptr") : hSourceProcessHandle
+        hSourceHandle := hSourceHandle is Win32Handle ? NumGet(hSourceHandle, "ptr") : hSourceHandle
+        hTargetProcessHandle := hTargetProcessHandle is Win32Handle ? NumGet(hTargetProcessHandle, "ptr") : hTargetProcessHandle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DuplicateHandle", "ptr", hSourceProcessHandle, "ptr", hSourceHandle, "ptr", hTargetProcessHandle, "ptr", lpTargetHandle, "uint", dwDesiredAccess, "int", bInheritHandle, "uint", dwOptions, "int")
+        result := DllCall("KERNEL32.dll\DuplicateHandle", "ptr", hSourceProcessHandle, "ptr", hSourceHandle, "ptr", hTargetProcessHandle, "ptr", lpTargetHandle, "uint", dwDesiredAccess, "ptr", bInheritHandle, "uint", dwOptions, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34906,20 +34925,23 @@ class Foundation {
 
     /**
      * Compares two object handles to determine if they refer to the same underlying kernel object.
-     * @param {Pointer<Void>} hFirstObjectHandle The first object handle to compare.
-     * @param {Pointer<Void>} hSecondObjectHandle The second object handle to compare.
-     * @returns {Integer} A Boolean value that indicates if the two handles refer to the same underlying kernel object. TRUE if the same, otherwise FALSE.
+     * @param {HANDLE} hFirstObjectHandle The first object handle to compare.
+     * @param {HANDLE} hSecondObjectHandle The second object handle to compare.
+     * @returns {BOOL} A Boolean value that indicates if the two handles refer to the same underlying kernel object. TRUE if the same, otherwise FALSE.
      * @see https://docs.microsoft.com/windows/win32/api//handleapi/nf-handleapi-compareobjecthandles
      * @since windows10.0.10240
      */
     static CompareObjectHandles(hFirstObjectHandle, hSecondObjectHandle) {
-        result := DllCall("api-ms-win-core-handle-l1-1-0.dll\CompareObjectHandles", "ptr", hFirstObjectHandle, "ptr", hSecondObjectHandle, "int")
+        hFirstObjectHandle := hFirstObjectHandle is Win32Handle ? NumGet(hFirstObjectHandle, "ptr") : hFirstObjectHandle
+        hSecondObjectHandle := hSecondObjectHandle is Win32Handle ? NumGet(hSecondObjectHandle, "ptr") : hSecondObjectHandle
+
+        result := DllCall("api-ms-win-core-handle-l1-1-0.dll\CompareObjectHandles", "ptr", hFirstObjectHandle, "ptr", hSecondObjectHandle, "ptr")
         return result
     }
 
     /**
      * Retrieves certain properties of an object handle.
-     * @param {Pointer<Void>} hObject A handle to an object whose information is to be retrieved. 
+     * @param {HANDLE} hObject A handle to an object whose information is to be retrieved. 
      * 
      * 
      * 
@@ -34959,7 +34981,7 @@ class Foundation {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -34967,9 +34989,11 @@ class Foundation {
      * @since windows5.0
      */
     static GetHandleInformation(hObject, lpdwFlags) {
+        hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetHandleInformation", "ptr", hObject, "uint*", lpdwFlags, "int")
+        result := DllCall("KERNEL32.dll\GetHandleInformation", "ptr", hObject, "uint*", lpdwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -34978,7 +35002,7 @@ class Foundation {
 
     /**
      * Sets certain properties of an object handle.
-     * @param {Pointer<Void>} hObject A handle to an object whose information is to be set. 
+     * @param {HANDLE} hObject A handle to an object whose information is to be set. 
      * 
      * 
      * 
@@ -34986,7 +35010,7 @@ class Foundation {
      * You can specify a handle to one of the following types of objects: access token, console input buffer, console screen buffer, event, file, file mapping, job, mailslot, mutex, pipe, printer, process, registry key, semaphore, serial communication device, socket, thread, or waitable timer.
      * @param {Integer} dwMask A mask that specifies the bit flags to be changed. Use the same constants shown in the description of <i>dwFlags</i>.
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -34994,9 +35018,11 @@ class Foundation {
      * @since windows5.0
      */
     static SetHandleInformation(hObject, dwMask, dwFlags) {
+        hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetHandleInformation", "ptr", hObject, "uint", dwMask, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\SetHandleInformation", "ptr", hObject, "uint", dwMask, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -35005,10 +35031,10 @@ class Foundation {
 
     /**
      * Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count.
-     * @param {Pointer<Void>} hLibModule A handle to the loaded library module. The 
+     * @param {HMODULE} hLibModule A handle to the loaded library module. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>,  
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandleexa">GetModuleHandleEx</a> function returns this handle.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -35016,9 +35042,11 @@ class Foundation {
      * @since windows5.1.2600
      */
     static FreeLibrary(hLibModule) {
+        hLibModule := hLibModule is Win32Handle ? NumGet(hLibModule, "ptr") : hLibModule
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FreeLibrary", "ptr", hLibModule, "int")
+        result := DllCall("KERNEL32.dll\FreeLibrary", "ptr", hLibModule, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -35101,10 +35129,10 @@ class Foundation {
 
     /**
      * Frees the specified global memory object and invalidates its handle.
-     * @param {Pointer<Void>} hMem A handle to the global memory object. This handle is returned by either the 
+     * @param {HGLOBAL} hMem A handle to the global memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalrealloc">GlobalReAlloc</a> function. It is not safe to free memory allocated with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is <b>NULL</b>.
+     * @returns {HGLOBAL} If the function succeeds, the return value is <b>NULL</b>.
      * 
      * If the function fails, the return value is equal to a handle to the global memory object. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -35112,21 +35140,23 @@ class Foundation {
      * @since windows5.1.2600
      */
     static GlobalFree(hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalFree", "ptr", hMem, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HGLOBAL({Value: result}, True)
     }
 
     /**
      * Frees the specified local memory object and invalidates its handle.
-     * @param {Pointer<Void>} hMem A handle to the local memory object. This handle is returned by either the 
+     * @param {HLOCAL} hMem A handle to the local memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localrealloc">LocalReAlloc</a> function. It is not safe to free memory allocated with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is <b>NULL</b>.
+     * @returns {HLOCAL} If the function succeeds, the return value is <b>NULL</b>.
      * 
      * If the function fails, the return value is equal to a handle to the local memory object. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -35134,24 +35164,26 @@ class Foundation {
      * @since windows5.1.2600
      */
     static LocalFree(hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LocalFree", "ptr", hMem, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HLOCAL({Value: result}, True)
     }
 
     /**
      * Converts the specified NTSTATUS code to its equivalent system error code.
-     * @param {Integer} Status The NTSTATUS code to be converted.
+     * @param {NTSTATUS} Status The NTSTATUS code to be converted.
      * @returns {Integer} The function returns the corresponding <a href="/windows/desktop/Debug/system-error-codes">system error code</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtlntstatustodoserror
      * @since windows5.1.2600
      */
     static RtlNtStatusToDosError(Status) {
-        result := DllCall("ntdll.dll\RtlNtStatusToDosError", "int", Status, "uint")
+        result := DllCall("ntdll.dll\RtlNtStatusToDosError", "ptr", Status, "uint")
         return result
     }
 

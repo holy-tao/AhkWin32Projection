@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * This structure is passed to the Control Panel Endpoint Extension property page through IShellPropSheetExt::AddPages and is used to create endpoint PropertyPages.
@@ -15,11 +16,14 @@ class AudioExtensionParams extends Win32Struct
 
     /**
      * The add page param.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    AddPageParam {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    AddPageParam{
+        get {
+            if(!this.HasProp("__AddPageParam"))
+                this.__AddPageParam := LPARAM(this.ptr + 0)
+            return this.__AddPageParam
+        }
     }
 
     /**

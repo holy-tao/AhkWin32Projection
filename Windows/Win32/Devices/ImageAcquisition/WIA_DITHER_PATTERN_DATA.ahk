@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The WIA_DITHER_PATTERN_DATA structure specifies a dither pattern for scanners. It is used in conjunction with the scanner device property constant WIA_DPS_DITHER_PATTERN_DATA.
@@ -28,11 +29,14 @@ class WIA_DITHER_PATTERN_DATA extends Win32Struct
      * Type: <b>BSTR</b>
      * 
      * Specifies a string that contains the name of this dither pattern.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrPatternName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    bstrPatternName{
+        get {
+            if(!this.HasProp("__bstrPatternName"))
+                this.__bstrPatternName := BSTR(this.ptr + 8)
+            return this.__bstrPatternName
+        }
     }
 
     /**

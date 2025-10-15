@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include .\VIDMEMINFO.ahk
+#Include .\DDSCAPS.ahk
 #Include .\DDCORECAPS.ahk
 
 /**

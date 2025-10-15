@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a function.
@@ -30,11 +32,14 @@ class D3D12_FUNCTION_DESC extends Win32Struct
 
     /**
      * The name of the originator of the function.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Creator {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Creator{
+        get {
+            if(!this.HasProp("__Creator"))
+                this.__Creator := PSTR(this.ptr + 8)
+            return this.__Creator
+        }
     }
 
     /**
@@ -273,11 +278,14 @@ class D3D12_FUNCTION_DESC extends Win32Struct
 
     /**
      * The name of the function.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Name {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := PSTR(this.ptr + 128)
+            return this.__Name
+        }
     }
 
     /**
@@ -291,28 +299,37 @@ class D3D12_FUNCTION_DESC extends Win32Struct
 
     /**
      * Indicates whether the function returns a value. <b>TRUE</b> indicates it returns a value; otherwise, <b>FALSE</b> (it is a subroutine).
-     * @type {Integer}
+     * @type {BOOL}
      */
-    HasReturn {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
+    HasReturn{
+        get {
+            if(!this.HasProp("__HasReturn"))
+                this.__HasReturn := BOOL(this.ptr + 140)
+            return this.__HasReturn
+        }
     }
 
     /**
      * Indicates whether there is a Direct3D 10Level9 vertex shader blob. <b>TRUE</b> indicates there is a 10Level9 vertex shader blob; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Has10Level9VertexShader {
-        get => NumGet(this, 144, "int")
-        set => NumPut("int", value, this, 144)
+    Has10Level9VertexShader{
+        get {
+            if(!this.HasProp("__Has10Level9VertexShader"))
+                this.__Has10Level9VertexShader := BOOL(this.ptr + 144)
+            return this.__Has10Level9VertexShader
+        }
     }
 
     /**
      * Indicates whether there is a Direct3D 10Level9 pixel shader blob. <b>TRUE</b> indicates there is a 10Level9 pixel shader blob; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Has10Level9PixelShader {
-        get => NumGet(this, 148, "int")
-        set => NumPut("int", value, this, 148)
+    Has10Level9PixelShader{
+        get {
+            if(!this.HasProp("__Has10Level9PixelShader"))
+                this.__Has10Level9PixelShader := BOOL(this.ptr + 148)
+            return this.__Has10Level9PixelShader
+        }
     }
 }

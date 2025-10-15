@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes the data used to initialize a browse dialog box in the directory service query.
@@ -40,46 +41,61 @@ class DSQUERYINITPARAMS extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the ADsPath of the default scope for the search. Set this member to <b>NULL</b> if no default search scope is specified.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDefaultScope {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pDefaultScope{
+        get {
+            if(!this.HasProp("__pDefaultScope"))
+                this.__pDefaultScope := PWSTR(this.ptr + 8)
+            return this.__pDefaultScope
+        }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the default file system path where searches will be saved. This member is ignored if the <b>dwFlags</b> member does not contain <b>DSQPF_SAVELOCATION</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDefaultSaveLocation {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pDefaultSaveLocation{
+        get {
+            if(!this.HasProp("__pDefaultSaveLocation"))
+                this.__pDefaultSaveLocation := PWSTR(this.ptr + 16)
+            return this.__pDefaultSaveLocation
+        }
     }
 
     /**
      * Pointer to a  null-terminated Unicode string that contains the user name in the valid domain notation, for example, "fabrikam\jeffsmith".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pUserName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pUserName{
+        get {
+            if(!this.HasProp("__pUserName"))
+                this.__pUserName := PWSTR(this.ptr + 24)
+            return this.__pUserName
+        }
     }
 
     /**
      * Pointer to a  null-terminated Unicode string that contains the password of the user specified by the <b>pUserName</b> member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pPassword {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pPassword{
+        get {
+            if(!this.HasProp("__pPassword"))
+                this.__pPassword := PWSTR(this.ptr + 32)
+            return this.__pPassword
+        }
     }
 
     /**
      * Pointer to  a  null-terminated Unicode string that contains the name of the server from which the list of trusted domains is read. The list is used to populate the <b>In:</b> drop-down list in the dialog box.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pServer {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pServer{
+        get {
+            if(!this.HasProp("__pServer"))
+                this.__pServer := PWSTR(this.ptr + 40)
+            return this.__pServer
+        }
     }
 }

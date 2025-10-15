@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Registry
@@ -13,11 +14,14 @@ class PVALUEW extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pv_valuename {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pv_valuename{
+        get {
+            if(!this.HasProp("__pv_valuename"))
+                this.__pv_valuename := PWSTR(this.ptr + 0)
+            return this.__pv_valuename
+        }
     }
 
     /**

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HIMAGELIST.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information about an image list draw operation and is used with the IImageList::Draw function.
@@ -36,11 +39,14 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
      * Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list that contains the image to be drawn.
-     * @type {Pointer}
+     * @type {HIMAGELIST}
      */
-    himl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    himl{
+        get {
+            if(!this.HasProp("__himl"))
+                this.__himl := HIMAGELIST(this.ptr + 8)
+            return this.__himl
+        }
     }
 
     /**
@@ -58,11 +64,14 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A handle to the destination device context.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdcDst {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hdcDst{
+        get {
+            if(!this.HasProp("__hdcDst"))
+                this.__hdcDst := HDC(this.ptr + 24)
+            return this.__hdcDst
+        }
     }
 
     /**
@@ -133,20 +142,26 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    rgbBk {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    rgbBk{
+        get {
+            if(!this.HasProp("__rgbBk"))
+                this.__rgbBk := COLORREF(this.ptr + 56)
+            return this.__rgbBk
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    rgbFg {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+    rgbFg{
+        get {
+            if(!this.HasProp("__rgbFg"))
+                this.__rgbFg := COLORREF(this.ptr + 60)
+            return this.__rgbFg
+        }
     }
 
     /**
@@ -358,11 +373,14 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * A color used for the <b>glow</b> and <b>shadow</b> effects. You must use comctl32.dll version 6 to use this member. See the Remarks.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crEffect {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+    crEffect{
+        get {
+            if(!this.HasProp("__crEffect"))
+                this.__crEffect := COLORREF(this.ptr + 80)
+            return this.__crEffect
+        }
     }
 
     /**

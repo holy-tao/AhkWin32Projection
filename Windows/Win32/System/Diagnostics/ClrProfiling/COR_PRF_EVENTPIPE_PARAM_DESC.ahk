@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -28,10 +29,13 @@ class COR_PRF_EVENTPIPE_PARAM_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    name{
+        get {
+            if(!this.HasProp("__name"))
+                this.__name := PWSTR(this.ptr + 8)
+            return this.__name
+        }
     }
 }

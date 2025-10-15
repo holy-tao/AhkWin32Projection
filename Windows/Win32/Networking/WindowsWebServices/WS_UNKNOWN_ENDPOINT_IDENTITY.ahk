@@ -29,7 +29,7 @@ class WS_UNKNOWN_ENDPOINT_IDENTITY extends Win32Struct
     /**
      * An XML buffer containing a single XML Element which corresponds to the
      *                     identity element that was not understood.  This field may not be <b>NULL</b>.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WS_XML_BUFFER>}
      */
     element {
         get => NumGet(this, 8, "ptr")

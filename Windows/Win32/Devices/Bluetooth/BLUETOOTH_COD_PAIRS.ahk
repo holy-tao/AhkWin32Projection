@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The BLUETOOTH_COD_PAIRS structure provides for specification and retrieval of Bluetooth Class Of Device (COD) information.
@@ -32,10 +33,13 @@ class BLUETOOTH_COD_PAIRS extends Win32Struct
 
     /**
      * Descriptive string of the mask.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcszDescription {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pcszDescription{
+        get {
+            if(!this.HasProp("__pcszDescription"))
+                this.__pcszDescription := PWSTR(this.ptr + 8)
+            return this.__pcszDescription
+        }
     }
 }

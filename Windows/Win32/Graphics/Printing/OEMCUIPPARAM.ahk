@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -28,35 +30,47 @@ class OEMCUIPPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hPrinter {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hPrinter{
+        get {
+            if(!this.HasProp("__hPrinter"))
+                this.__hPrinter := HANDLE(this.ptr + 16)
+            return this.__hPrinter
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pPrinterName{
+        get {
+            if(!this.HasProp("__pPrinterName"))
+                this.__pPrinterName := PWSTR(this.ptr + 24)
+            return this.__pPrinterName
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hModule {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hModule{
+        get {
+            if(!this.HasProp("__hModule"))
+                this.__hModule := HANDLE(this.ptr + 32)
+            return this.__hModule
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hOEMHeap {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hOEMHeap{
+        get {
+            if(!this.HasProp("__hOEMHeap"))
+                this.__hOEMHeap := HANDLE(this.ptr + 40)
+            return this.__hOEMHeap
+        }
     }
 
     /**

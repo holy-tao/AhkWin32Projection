@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\RASEAPINFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\RASDEVSPECIFICINFO.ahk
 
 /**
@@ -30,11 +32,14 @@ class RASDIALEXTENSIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(this.ptr + 8)
+            return this.__hwndParent
+        }
     }
 
     /**
@@ -65,11 +70,14 @@ class RASDIALEXTENSIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSkipPppAuth {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    fSkipPppAuth{
+        get {
+            if(!this.HasProp("__fSkipPppAuth"))
+                this.__fSkipPppAuth := BOOL(this.ptr + 48)
+            return this.__fSkipPppAuth
+        }
     }
 
     /**

@@ -11,6 +11,48 @@ class WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY extends Win32Struct
 
     static packingSize => 8
 
+    class _Flags extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - MinTransferSizeToAchieveValues
+         * - NonSequentialTransfers
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MinTransferSizeToAchieveValues {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NonSequentialTransfers {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 2) & 0x3F
+            set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -36,11 +78,14 @@ class WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Flags}
      */
-    Flags {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := %this.__Class%._Flags(this.ptr + 9)
+            return this.__Flags
+        }
     }
 
     /**

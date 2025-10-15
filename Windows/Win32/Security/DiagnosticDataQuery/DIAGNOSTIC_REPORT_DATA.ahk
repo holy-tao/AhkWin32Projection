@@ -3,6 +3,7 @@
 #Include .\DIAGNOSTIC_REPORT_PARAMETER.ahk
 #Include .\DIAGNOSTIC_REPORT_SIGNATURE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * This resource contains information about a diagnostic report.
@@ -81,11 +82,14 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The ID for the cab.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    cabId {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
+    cabId{
+        get {
+            if(!this.HasProp("__cabId"))
+                this.__cabId := PWSTR(this.ptr + 248)
+            return this.__cabId
+        }
     }
 
     /**
@@ -111,7 +115,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR\*](/windows/win32/winprog/windows-data-types)**
      * A pointer to hold the names of the files included in the report.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     fileNames {
         get => NumGet(this, 272, "ptr")
@@ -131,51 +135,66 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The display name of the application event.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    friendlyEventName {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
+    friendlyEventName{
+        get {
+            if(!this.HasProp("__friendlyEventName"))
+                this.__friendlyEventName := PWSTR(this.ptr + 288)
+            return this.__friendlyEventName
+        }
     }
 
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The name of the application.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    applicationName {
-        get => NumGet(this, 296, "ptr")
-        set => NumPut("ptr", value, this, 296)
+    applicationName{
+        get {
+            if(!this.HasProp("__applicationName"))
+                this.__applicationName := PWSTR(this.ptr + 296)
+            return this.__applicationName
+        }
     }
 
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The file path of the application.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    applicationPath {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
+    applicationPath{
+        get {
+            if(!this.HasProp("__applicationPath"))
+                this.__applicationPath := PWSTR(this.ptr + 304)
+            return this.__applicationPath
+        }
     }
 
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The description of the problem.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    description {
-        get => NumGet(this, 312, "ptr")
-        set => NumPut("ptr", value, this, 312)
+    description{
+        get {
+            if(!this.HasProp("__description"))
+                this.__description := PWSTR(this.ptr + 312)
+            return this.__description
+        }
     }
 
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The bucket ID as a string (possibly truncated).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    bucketIdString {
-        get => NumGet(this, 320, "ptr")
-        set => NumPut("ptr", value, this, 320)
+    bucketIdString{
+        get {
+            if(!this.HasProp("__bucketIdString"))
+                this.__bucketIdString := PWSTR(this.ptr + 320)
+            return this.__bucketIdString
+        }
     }
 
     /**
@@ -191,10 +210,13 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The report key.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    reportKey {
-        get => NumGet(this, 336, "ptr")
-        set => NumPut("ptr", value, this, 336)
+    reportKey{
+        get {
+            if(!this.HasProp("__reportKey"))
+                this.__reportKey := PWSTR(this.ptr + 336)
+            return this.__reportKey
+        }
     }
 }

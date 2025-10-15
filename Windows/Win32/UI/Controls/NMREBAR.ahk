@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information used in handling various rebar notifications.
@@ -79,10 +81,13 @@ class NMREBAR extends Win32Struct
      * 
      * Application-defined value associated with the band. This member is only valid if 
      * 					<b>dwMask</b> contains RBNM_LPARAM.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 40)
+            return this.__lParam
+        }
     }
 }

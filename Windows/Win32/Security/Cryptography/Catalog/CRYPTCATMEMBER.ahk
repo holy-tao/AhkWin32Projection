@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -25,20 +27,26 @@ class CRYPTCATMEMBER extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the reference tag value.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszReferenceTag {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszReferenceTag{
+        get {
+            if(!this.HasProp("__pwszReferenceTag"))
+                this.__pwszReferenceTag := PWSTR(this.ptr + 8)
+            return this.__pwszReferenceTag
+        }
     }
 
     /**
      * A pointer to a null-terminated string that contains the file name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszFileName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszFileName{
+        get {
+            if(!this.HasProp("__pwszFileName"))
+                this.__pwszFileName := PWSTR(this.ptr + 16)
+            return this.__pwszFileName
+        }
     }
 
     /**
@@ -88,11 +96,14 @@ class CRYPTCATMEMBER extends Win32Struct
 
     /**
      * Reserved; do not use.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hReserved {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hReserved{
+        get {
+            if(!this.HasProp("__hReserved"))
+                this.__hReserved := HANDLE(this.ptr + 56)
+            return this.__hReserved
+        }
     }
 
     /**

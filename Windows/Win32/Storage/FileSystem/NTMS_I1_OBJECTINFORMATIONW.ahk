@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\NTMS_DRIVEINFORMATIONW.ahk
 #Include .\NTMS_DRIVETYPEINFORMATIONW.ahk
 #Include .\NTMS_I1_LIBRARYINFORMATION.ahk
@@ -75,11 +76,14 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Enabled {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    Enabled{
+        get {
+            if(!this.HasProp("__Enabled"))
+                this.__Enabled := BOOL(this.ptr + 48)
+            return this.__Enabled
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DVD_VideoAttributes.ahk
 #Include .\DVD_AudioAttributes.ahk
 #Include .\DVD_SubpictureAttributes.ahk
@@ -12,7 +13,7 @@
  */
 class DVD_MenuAttributes extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 184
 
     static packingSize => 8
 
@@ -21,12 +22,12 @@ class DVD_MenuAttributes extends Win32Struct
      * 
      * <div class="alert"><b>Important</b>  A value of 0 (<b>FALSE</b>) indicates that the region is compatible (permitted). A value of 1 (<b>TRUE</b>) indicates that the region is not compatible. This member should have been named <i>fIncompatibleRegion</i>.</div>
      * <div> </div>
-     * @type {Array<Int32>}
+     * @type {Array<BOOL>}
      */
     fCompatibleRegion{
         get {
             if(!this.HasProp("__fCompatibleRegionProxyArray"))
-                this.__fCompatibleRegionProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "int")
+                this.__fCompatibleRegionProxyArray := Win32FixedArray(this.ptr + 0, 8, BOOL, "")
             return this.__fCompatibleRegionProxyArray
         }
     }
@@ -38,18 +39,21 @@ class DVD_MenuAttributes extends Win32Struct
     VideoAttributes{
         get {
             if(!this.HasProp("__VideoAttributes"))
-                this.__VideoAttributes := DVD_VideoAttributes(this.ptr + 32)
+                this.__VideoAttributes := DVD_VideoAttributes(this.ptr + 64)
             return this.__VideoAttributes
         }
     }
 
     /**
      * A variable of type BOOL indicating whether the menu has an audio stream.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAudioPresent {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+    fAudioPresent{
+        get {
+            if(!this.HasProp("__fAudioPresent"))
+                this.__fAudioPresent := BOOL(this.ptr + 116)
+            return this.__fAudioPresent
+        }
     }
 
     /**
@@ -59,18 +63,21 @@ class DVD_MenuAttributes extends Win32Struct
     AudioAttributes{
         get {
             if(!this.HasProp("__AudioAttributes"))
-                this.__AudioAttributes := DVD_AudioAttributes(this.ptr + 88)
+                this.__AudioAttributes := DVD_AudioAttributes(this.ptr + 120)
             return this.__AudioAttributes
         }
     }
 
     /**
      * A variable of type BOOL indicating whether the menu has a subpicture stream.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSubpicturePresent {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
+    fSubpicturePresent{
+        get {
+            if(!this.HasProp("__fSubpicturePresent"))
+                this.__fSubpicturePresent := BOOL(this.ptr + 160)
+            return this.__fSubpicturePresent
+        }
     }
 
     /**
@@ -80,7 +87,7 @@ class DVD_MenuAttributes extends Win32Struct
     SubpictureAttributes{
         get {
             if(!this.HasProp("__SubpictureAttributes"))
-                this.__SubpictureAttributes := DVD_SubpictureAttributes(this.ptr + 136)
+                this.__SubpictureAttributes := DVD_SubpictureAttributes(this.ptr + 168)
             return this.__SubpictureAttributes
         }
     }

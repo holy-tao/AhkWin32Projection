@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
@@ -29,11 +30,14 @@ class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct
 
     /**
      * If <b>TRUE</b>, downsampling is enabled<b></b>. Otherwise, downsampling is disabled and the <b>Size</b> member is ignored. The default state value is <b>FALSE</b> (downsampling is disabled).
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    Enable{
+        get {
+            if(!this.HasProp("__Enable"))
+                this.__Enable := BOOL(this.ptr + 0)
+            return this.__Enable
+        }
     }
 
     /**

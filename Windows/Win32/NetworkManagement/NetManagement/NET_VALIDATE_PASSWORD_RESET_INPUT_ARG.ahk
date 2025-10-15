@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\NET_VALIDATE_PERSISTED_FIELDS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\NET_VALIDATE_PASSWORD_HASH.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * A client application passes the NET_VALIDATE_PASSWORD_RESET_INPUT_ARG structure to the NetValidatePasswordPolicy function when the application requests a password reset validation.
@@ -30,20 +32,26 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the new password, in plaintext format.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClearPassword {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    ClearPassword{
+        get {
+            if(!this.HasProp("__ClearPassword"))
+                this.__ClearPassword := PWSTR(this.ptr + 48)
+            return this.__ClearPassword
+        }
     }
 
     /**
      * Pointer to a Unicode string specifying the name of the user account.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    UserAccountName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    UserAccountName{
+        get {
+            if(!this.HasProp("__UserAccountName"))
+                this.__UserAccountName := PWSTR(this.ptr + 56)
+            return this.__UserAccountName
+        }
     }
 
     /**
@@ -60,19 +68,25 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
 
     /**
      * BOOLEAN value that indicates whether the user must change his or her password at the next logon. If this parameter is <b>TRUE</b>, the user must change the password at the next logon.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    PasswordMustChangeAtNextLogon {
-        get => NumGet(this, 80, "char")
-        set => NumPut("char", value, this, 80)
+    PasswordMustChangeAtNextLogon{
+        get {
+            if(!this.HasProp("__PasswordMustChangeAtNextLogon"))
+                this.__PasswordMustChangeAtNextLogon := BOOLEAN(this.ptr + 80)
+            return this.__PasswordMustChangeAtNextLogon
+        }
     }
 
     /**
      * BOOLEAN value that can reset the "lockout state" of the user account. If this member is <b>TRUE</b>,  the account will no longer be locked out.  Note that an application cannot directly lock out an account.  An account can be locked out only as a result of exceeding the maximum number of invalid password authentications allowed for the account.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ClearLockout {
-        get => NumGet(this, 81, "char")
-        set => NumPut("char", value, this, 81)
+    ClearLockout{
+        get {
+            if(!this.HasProp("__ClearLockout"))
+                this.__ClearLockout := BOOLEAN(this.ptr + 81)
+            return this.__ClearLockout
+        }
     }
 }

@@ -11,12 +11,66 @@ class NVME_FIRMWARE_SLOT_INFO_LOG extends Win32Struct
 
     static packingSize => 8
 
+    class _AFI extends Win32Struct {
+        static sizeof => 512
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - ActiveSlot
+         * - Reserved0
+         * - PendingActivateSlot
+         * - Reserved1
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ActiveSlot {
+            get => (this._bitfield >> 0) & 0x7
+            set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved0 {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PendingActivateSlot {
+            get => (this._bitfield >> 4) & 0x7
+            set => this._bitfield := ((value & 0x7) << 4) | (this._bitfield & ~(0x7 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved1 {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+    }
+
     /**
-     * @type {Integer}
+     * @type {_AFI}
      */
-    AFI {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    AFI{
+        get {
+            if(!this.HasProp("__AFI"))
+                this.__AFI := %this.__Class%._AFI(this.ptr + 0)
+            return this.__AFI
+        }
     }
 
     /**

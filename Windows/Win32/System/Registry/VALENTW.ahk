@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a registry value. The RegQueryMultipleValues function uses this structure.
@@ -22,11 +23,14 @@ class VALENTW extends Win32Struct
     /**
      * The name of the value to be retrieved. Be sure to set this member before calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regquerymultiplevaluesa">RegQueryMultipleValues</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ve_valuename {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    ve_valuename{
+        get {
+            if(!this.HasProp("__ve_valuename"))
+                this.__ve_valuename := PWSTR(this.ptr + 0)
+            return this.__ve_valuename
+        }
     }
 
     /**

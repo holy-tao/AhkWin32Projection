@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_BUFFER_RTV.ahk
+#Include .\D3D11_TEX1D_RTV.ahk
 #Include .\D3D11_TEX1D_ARRAY_RTV.ahk
 #Include .\D3D11_TEX2D_RTV1.ahk
 #Include .\D3D11_TEX2D_ARRAY_RTV1.ahk
+#Include .\D3D11_TEX2DMS_RTV.ahk
 #Include .\D3D11_TEX2DMS_ARRAY_RTV.ahk
 #Include .\D3D11_TEX3D_RTV.ahk
 
@@ -62,11 +64,14 @@ class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D11_TEX1D_RTV}
      */
-    Texture1D {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Texture1D{
+        get {
+            if(!this.HasProp("__Texture1D"))
+                this.__Texture1D := D3D11_TEX1D_RTV(this.ptr + 8)
+            return this.__Texture1D
+        }
     }
 
     /**
@@ -103,11 +108,14 @@ class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D11_TEX2DMS_RTV}
      */
-    Texture2DMS {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Texture2DMS{
+        get {
+            if(!this.HasProp("__Texture2DMS"))
+                this.__Texture2DMS := D3D11_TEX2DMS_RTV(this.ptr + 8)
+            return this.__Texture2DMS
+        }
     }
 
     /**

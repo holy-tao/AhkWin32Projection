@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
@@ -60,11 +61,14 @@ class WNODE_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    KernelHandle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    KernelHandle{
+        get {
+            if(!this.HasProp("__KernelHandle"))
+                this.__KernelHandle := HANDLE(this.ptr + 16)
+            return this.__KernelHandle
+        }
     }
 
     /**

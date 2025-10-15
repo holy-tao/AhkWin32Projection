@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about the SerialKeys accessibility feature, which interprets data from a communication aid attached to a serial port as commands causing the system to simulate keyboard and mouse input.
@@ -50,22 +51,28 @@ class SERIALKEYSA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPSTR</a></b>
      * 
      * Points to a string that contains the name of the serial port that receives input from the communication aid when the SerialKeys feature is on. If no port is being used, this member is <b>NULL</b>. If this member is "Auto", the system watches all unused serial ports for input from communication aids.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszActivePort {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszActivePort{
+        get {
+            if(!this.HasProp("__lpszActivePort"))
+                this.__lpszActivePort := PSTR(this.ptr + 8)
+            return this.__lpszActivePort
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPSTR</a></b>
      * 
      * Reserved; must be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszPort {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpszPort{
+        get {
+            if(!this.HasProp("__lpszPort"))
+                this.__lpszPort := PSTR(this.ptr + 16)
+            return this.__lpszPort
+        }
     }
 
     /**

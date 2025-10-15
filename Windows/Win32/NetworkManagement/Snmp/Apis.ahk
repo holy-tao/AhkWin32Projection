@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319
@@ -773,12 +773,12 @@ class Snmp {
      * The SnmpUtilOidToA function converts an object identifier (OID) to a null-terminated string. This function is an element of the SNMP Utility API.
      * @param {Pointer<AsnObjectIdentifier>} Oid Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to convert.
-     * @returns {Pointer<Byte>} The function returns a null-terminated string of characters that contains the string representation of the object identifier pointed to by the <i>Oid</i> parameter.
+     * @returns {PSTR} The function returns a null-terminated string of characters that contains the string representation of the object identifier pointed to by the <i>Oid</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputiloidtoa
      * @since windows5.0
      */
     static SnmpUtilOidToA(Oid) {
-        result := DllCall("snmpapi.dll\SnmpUtilOidToA", "ptr", Oid, "char*")
+        result := DllCall("snmpapi.dll\SnmpUtilOidToA", "ptr", Oid, "ptr")
         return result
     }
 
@@ -791,7 +791,7 @@ class Snmp {
      * 
      * For more information, see the following Return Values and Remarks sections.
      * @param {Integer} IdLength Specifies the number of elements in the array pointed to by the <i>Ids</i> parameter.
-     * @returns {Pointer<Byte>} The function returns a null-terminated string that contains the string representation of the array of numbers pointed to by the <i>Ids</i> parameter. The string contains a sequence of numbers separated by periods ('.'); for example, 1.3.6.1.4.1.311.
+     * @returns {PSTR} The function returns a null-terminated string that contains the string representation of the array of numbers pointed to by the <i>Ids</i> parameter. The string contains a sequence of numbers separated by periods ('.'); for example, 1.3.6.1.4.1.311.
      * 
      * If the <i>Ids</i> parameter is null, or if the <i>IdLength</i> parameter specifies zero, the function returns the string "&lt;null oid&gt;".
      * 
@@ -800,7 +800,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpUtilIdsToA(Ids, IdLength) {
-        result := DllCall("snmpapi.dll\SnmpUtilIdsToA", "uint*", Ids, "uint", IdLength, "char*")
+        result := DllCall("snmpapi.dll\SnmpUtilIdsToA", "uint*", Ids, "uint", IdLength, "ptr")
         return result
     }
 
@@ -864,21 +864,21 @@ class Snmp {
     /**
      * The SnmpUtilDbgPrint function enables debugging output from the SNMP service. This function is an element of the SNMP Utility API.
      * @param {Integer} nLogLevel 
-     * @param {Pointer<Byte>} szFormat Pointer to a null-terminated format string that is similar to the standard C library function <b>printf</b> style.
+     * @param {PSTR} szFormat Pointer to a null-terminated format string that is similar to the standard C library function <b>printf</b> style.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//snmp/nf-snmp-snmputildbgprint
      * @since windows5.0
      */
     static SnmpUtilDbgPrint(nLogLevel, szFormat) {
-        szFormat := szFormat is String? StrPtr(szFormat) : szFormat
+        szFormat := szFormat is String ? StrPtr(szFormat) : szFormat
 
         DllCall("snmpapi.dll\SnmpUtilDbgPrint", "int", nLogLevel, "ptr", szFormat, "CDecl ")
     }
 
     /**
      * The SnmpMgrOpen function initializes communications sockets and data structures, allowing communications with the specified SNMP agent. This function is an element of the SNMP Management API.
-     * @param {Pointer<Byte>} lpAgentAddress Pointer to a <b>null</b>-terminated string that specifies a host name or an IP address. The host name must resolve to an IP address, an IPX address (in 8.12 notation), or an ethernet address. See the Remarks section for the acceptable forms for host names and IP addresses.
-     * @param {Pointer<Byte>} lpAgentCommunity Pointer to a <b>null</b>-terminated string that specifies the SNMP community name to use when communicating with the agent that is identified by the <i>lpAgentAddress</i> parameter.
+     * @param {PSTR} lpAgentAddress Pointer to a <b>null</b>-terminated string that specifies a host name or an IP address. The host name must resolve to an IP address, an IPX address (in 8.12 notation), or an ethernet address. See the Remarks section for the acceptable forms for host names and IP addresses.
+     * @param {PSTR} lpAgentCommunity Pointer to a <b>null</b>-terminated string that specifies the SNMP community name to use when communicating with the agent that is identified by the <i>lpAgentAddress</i> parameter.
      * @param {Integer} nTimeOut Specifies the communications time-out in milliseconds.
      * @param {Integer} nRetries Specifies the communications retry count. The time-out that is specified in the <i>nTimeOut</i> parameter is doubled each time that a retry attempt is transmitted.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to an <b>LPSNMP_MGR_SESSION</b> structure. This structure is used internally and the programmer should not alter it. For more information, see the following Remarks section.
@@ -891,8 +891,8 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrOpen(lpAgentAddress, lpAgentCommunity, nTimeOut, nRetries) {
-        lpAgentAddress := lpAgentAddress is String? StrPtr(lpAgentAddress) : lpAgentAddress
-        lpAgentCommunity := lpAgentCommunity is String? StrPtr(lpAgentCommunity) : lpAgentCommunity
+        lpAgentAddress := lpAgentAddress is String ? StrPtr(lpAgentAddress) : lpAgentAddress
+        lpAgentCommunity := lpAgentCommunity is String ? StrPtr(lpAgentCommunity) : lpAgentCommunity
 
         A_LastError := 0
 
@@ -927,7 +927,7 @@ class Snmp {
      * @param {Pointer<Void>} lpvOUTBuffer Pointer to the buffer that receives the operation's output data.
      * @param {Integer} cbOUTBuffer Specifies the size, in bytes, of the buffer pointed to by the <i>lpvOutBuffer</i> parameter.
      * @param {Pointer<UInt32>} lpcbBytesReturned Pointer to a variable that receives the actual size, in bytes, of the data stored in the buffer pointed to by the <i>lpvOutBuffer</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> can also return one of the following error codes.
@@ -977,7 +977,7 @@ class Snmp {
     static SnmpMgrCtl(session, dwCtlCode, lpvInBuffer, cbInBuffer, lpvOUTBuffer, cbOUTBuffer, lpcbBytesReturned) {
         A_LastError := 0
 
-        result := DllCall("mgmtapi.dll\SnmpMgrCtl", "ptr", session, "uint", dwCtlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOUTBuffer, "uint", cbOUTBuffer, "uint*", lpcbBytesReturned, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrCtl", "ptr", session, "uint", dwCtlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOUTBuffer, "uint", cbOUTBuffer, "uint*", lpcbBytesReturned, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -987,7 +987,7 @@ class Snmp {
     /**
      * The SnmpMgrClose function closes the communications sockets and data structures that are associated with the specified session. This function is an element of the SNMP Management API.
      * @param {Pointer<Void>} session Pointer to an internal structure that specifies the session to close. For more information, see the following Remarks section.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * 
@@ -996,7 +996,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrClose(session) {
-        result := DllCall("mgmtapi.dll\SnmpMgrClose", "ptr", session, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrClose", "ptr", session, "ptr")
         return result
     }
 
@@ -1067,41 +1067,41 @@ class Snmp {
 
     /**
      * The SnmpMgrStrToOid function converts the string format of an object identifier to its internal object identifier structure. This function is an element of the SNMP Management API.
-     * @param {Pointer<Byte>} string Pointer to a null-terminated string to convert.
+     * @param {PSTR} string Pointer to a null-terminated string to convert.
      * @param {Pointer<AsnObjectIdentifier>} oid Pointer to an object identifier variable to receive the converted value.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgrstrtooid
      * @since windows5.0
      */
     static SnmpMgrStrToOid(string, oid) {
-        string := string is String? StrPtr(string) : string
+        string := string is String ? StrPtr(string) : string
 
-        result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", "ptr", string, "ptr", oid, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", "ptr", string, "ptr", oid, "ptr")
         return result
     }
 
     /**
      * The SnmpMgrOidToStr function converts an internal object identifier structure to its string representation. This function is an element of the SNMP Management API.
      * @param {Pointer<AsnObjectIdentifier>} oid Pointer to an object identifier variable to convert.
-     * @param {Pointer<Byte>} string Pointer to a null-terminated string to receive the converted value.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {Pointer<PSTR>} string Pointer to a null-terminated string to receive the converted value.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//mgmtapi/nf-mgmtapi-snmpmgroidtostr
      * @since windows5.0
      */
     static SnmpMgrOidToStr(oid, string) {
-        result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, "ptr", string, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, "ptr", string, "ptr")
         return result
     }
 
     /**
      * The SnmpMgrTrapListen function registers the ability of an SNMP manager application to receive SNMP traps from the SNMP Trap Service. This function is an element of the SNMP Management API.
-     * @param {Pointer<Void>} phTrapAvailable Pointer to an event handle to receive an indication that there are traps available, and that the application should call the 
+     * @param {Pointer<HANDLE>} phTrapAvailable Pointer to an event handle to receive an indication that there are traps available, and that the application should call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgmtapi/nf-mgmtapi-snmpmgrgettrap">SnmpMgrGetTrap</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which may return any of the following error codes.
@@ -1154,7 +1154,7 @@ class Snmp {
     static SnmpMgrTrapListen(phTrapAvailable) {
         A_LastError := 0
 
-        result := DllCall("mgmtapi.dll\SnmpMgrTrapListen", "ptr", phTrapAvailable, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrTrapListen", "ptr", phTrapAvailable, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1171,7 +1171,7 @@ class Snmp {
      * @param {Pointer<UInt32>} timeStamp Pointer to a variable to receive the time stamp.
      * @param {Pointer<SnmpVarBindList>} variableBindings Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the variable bindings list.
-     * @returns {Integer} If the function returns a trap, the return value is <b>TRUE</b>. The code for the error can be retrieved by calling <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> immediately after the call.
+     * @returns {BOOL} If the function returns a trap, the return value is <b>TRUE</b>. The code for the error can be retrieved by calling <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> immediately after the call.
      * 
      * You should call the 
      * <b>SnmpMgrGetTrap</b> function repeatedly until it returns <b>FALSE</b> (zero). The function may also return the following error codes.
@@ -1219,7 +1219,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrGetTrap(enterprise, IPAddress, genericTrap, specificTrap, timeStamp, variableBindings) {
-        result := DllCall("mgmtapi.dll\SnmpMgrGetTrap", "ptr", enterprise, "ptr", IPAddress, "uint*", genericTrap, "int*", specificTrap, "uint*", timeStamp, "ptr", variableBindings, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrGetTrap", "ptr", enterprise, "ptr", IPAddress, "uint*", genericTrap, "int*", specificTrap, "uint*", timeStamp, "ptr", variableBindings, "ptr")
         return result
     }
 
@@ -1236,7 +1236,7 @@ class Snmp {
      * @param {Pointer<UInt32>} timeStamp Pointer to a variable to receive the time stamp.
      * @param {Pointer<SnmpVarBindList>} variableBindings Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the variable bindings list.
-     * @returns {Integer} If the function returns a trap, the return value is nonzero.
+     * @returns {BOOL} If the function returns a trap, the return value is nonzero.
      * 
      * You should call the 
      * <b>SnmpMgrGetTrapEx</b> function repeatedly until it returns zero. The function may also return the following error codes.
@@ -1284,7 +1284,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrGetTrapEx(enterprise, agentAddress, sourceAddress, genericTrap, specificTrap, community, timeStamp, variableBindings) {
-        result := DllCall("mgmtapi.dll\SnmpMgrGetTrapEx", "ptr", enterprise, "ptr", agentAddress, "ptr", sourceAddress, "uint*", genericTrap, "int*", specificTrap, "ptr", community, "uint*", timeStamp, "ptr", variableBindings, "int")
+        result := DllCall("mgmtapi.dll\SnmpMgrGetTrapEx", "ptr", enterprise, "ptr", agentAddress, "ptr", sourceAddress, "uint*", genericTrap, "int*", specificTrap, "ptr", community, "uint*", timeStamp, "ptr", variableBindings, "ptr")
         return result
     }
 
@@ -2042,7 +2042,7 @@ class Snmp {
 
     /**
      * The SnmpOpen function requests the Microsoft WinSNMP implementation to open a session for the WinSNMP application.
-     * @param {Pointer<Void>} hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs.
+     * @param {HWND} hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs.
      * @param {Integer} wMsg Specifies an unsigned integer that identifies the notification message to send to the WinSNMP application window.
      * @returns {Pointer} If the function succeeds, the return value is a handle that identifies the WinSNMP session that the implementation opens for the calling application.
      * 
@@ -2105,6 +2105,8 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpOpen(hWnd, wMsg) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("wsnmp32.dll\SnmpOpen", "ptr", hWnd, "uint", wMsg, "ptr")
         return result
     }
@@ -2747,7 +2749,7 @@ class Snmp {
 
     /**
      * The SnmpCreateSession function requests the Microsoft WinSNMP implementation to open a session for the WinSNMP application.
-     * @param {Pointer<Void>} hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs. This parameter is required for window notification messages for the session.
+     * @param {HWND} hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs. This parameter is required for window notification messages for the session.
      * @param {Integer} wMsg Specifies an unsigned integer that identifies the notification message to send to the WinSNMP application window. This parameter is required for window notification messages for the session.
      * @param {Pointer<SNMPAPI_CALLBACK>} fCallBack Specifies the address of an application-defined, session-specific 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nc-winsnmp-snmpapi_callback">SNMPAPI_CALLBACK</a> function. The implementation will call this function to inform the WinSNMP session when notifications are available. 
@@ -2851,6 +2853,8 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpCreateSession(hWnd, wMsg, fCallBack, lpClientData) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("wsnmp32.dll\SnmpCreateSession", "ptr", hWnd, "uint", wMsg, "ptr", fCallBack, "ptr", lpClientData, "ptr")
         return result
     }
@@ -3203,7 +3207,7 @@ class Snmp {
     /**
      * The WinSNMP SnmpStrToEntity function returns a handle to information about an SNMP management entity that is specific to the Microsoft WinSNMP implementation.
      * @param {Pointer} session Handle to the WinSNMP session.
-     * @param {Pointer<Byte>} string Pointer to a null-terminated string that identifies the SNMP management entity of interest. The current setting of the entity and context translation mode determines the manner in which 
+     * @param {PSTR} string Pointer to a null-terminated string that identifies the SNMP management entity of interest. The current setting of the entity and context translation mode determines the manner in which 
      * <b>SnmpStrToEntity</b> interprets the input string as follows. 
      * 
      * 
@@ -3316,7 +3320,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpStrToEntity(session, string) {
-        string := string is String? StrPtr(string) : string
+        string := string is String ? StrPtr(string) : string
 
         result := DllCall("wsnmp32.dll\SnmpStrToEntity", "ptr", session, "ptr", string, "ptr")
         return result
@@ -3326,7 +3330,7 @@ class Snmp {
      * The WinSNMP SnmpEntityToStr function returns a string that identifies an SNMP management entity.
      * @param {Pointer} entity Handle to the SNMP management entity of interest.
      * @param {Integer} size Specifies the size, in bytes, of the buffer pointed to by the <i>string</i> parameter. The WinSNMP application must allocate a buffer that is large enough to contain the output string.
-     * @param {Pointer<Byte>} string Pointer to a buffer to receive the null-terminated string that identifies the SNMP management entity of interest.
+     * @param {PSTR} string Pointer to a buffer to receive the null-terminated string that identifies the SNMP management entity of interest.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes, including a terminating null byte, that 
      * <b>SnmpEntityToStr</b> returns in the <i>string</i> buffer. This value can be less than or equal to the value of the <i>size</i> parameter, but it cannot be greater.
      * 
@@ -3400,7 +3404,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpEntityToStr(entity, size, string) {
-        string := string is String? StrPtr(string) : string
+        string := string is String ? StrPtr(string) : string
 
         result := DllCall("wsnmp32.dll\SnmpEntityToStr", "ptr", entity, "uint", size, "ptr", string, "uint")
         return result
@@ -5043,7 +5047,7 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpStrToOid function converts the dotted numeric string format of an SNMP object identifier, for example, &quot;1.2.3.4.5.6&quot;, to its internal binary representation.
-     * @param {Pointer<Byte>} string Pointer to a <b>null</b>-terminated object identifier string to convert.
+     * @param {PSTR} string Pointer to a <b>null</b>-terminated object identifier string to convert.
      * @param {Pointer<smiOID>} dstOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure that receives the converted value.
      * @returns {Integer} If the function succeeds, the return value is the number of subidentifiers in the converted object identifier. This number is also the value of the <b>len</b> member of the 
@@ -5108,7 +5112,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpStrToOid(string, dstOID) {
-        string := string is String? StrPtr(string) : string
+        string := string is String ? StrPtr(string) : string
 
         result := DllCall("wsnmp32.dll\SnmpStrToOid", "ptr", string, "ptr", dstOID, "uint")
         return result
@@ -5119,7 +5123,7 @@ class Snmp {
      * @param {Pointer<smiOID>} srcOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure with an object identifier to convert.
      * @param {Integer} size Specifies the size, in bytes, of the buffer indicated by the <i>string</i> parameter. For more information, see the following Remarks section.
-     * @param {Pointer<Byte>} string Pointer to a buffer to receive the converted string object identifier that specifies the SNMP management entity.
+     * @param {PSTR} string Pointer to a buffer to receive the converted string object identifier that specifies the SNMP management entity.
      * @returns {Integer} If the function succeeds, the return value is the length, in bytes, of the string that the WinSNMP application writes to the <i>string</i> parameter. The return value includes a <b>null</b>-terminating byte. This value may be less than or equal to the value of the <i>size</i> parameter, but it may not be greater.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -5203,7 +5207,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpOidToStr(srcOID, size, string) {
-        string := string is String? StrPtr(string) : string
+        string := string is String ? StrPtr(string) : string
 
         result := DllCall("wsnmp32.dll\SnmpOidToStr", "ptr", srcOID, "uint", size, "ptr", string, "uint")
         return result

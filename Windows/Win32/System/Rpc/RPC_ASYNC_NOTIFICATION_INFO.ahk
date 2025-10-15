@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains notification information for asynchronous remote procedure calls. This notification information can be configured for I/O completion ports (IOC), Windows asynchronous procedure calls (APC), Windows messaging, and Windows event notification.
@@ -31,11 +33,14 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hThread {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        hThread{
+            get {
+                if(!this.HasProp("__hThread"))
+                    this.__hThread := HANDLE(this.ptr + 8)
+                return this.__hThread
+            }
         }
     
     }
@@ -45,11 +50,14 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hIOPort {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        hIOPort{
+            get {
+                if(!this.HasProp("__hIOPort"))
+                    this.__hIOPort := HANDLE(this.ptr + 0)
+                return this.__hIOPort
+            }
         }
     
         /**
@@ -83,11 +91,14 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HWND}
          */
-        hWnd {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        hWnd{
+            get {
+                if(!this.HasProp("__hWnd"))
+                    this.__hWnd := HWND(this.ptr + 0)
+                return this.__hWnd
+            }
         }
     
         /**
@@ -137,11 +148,14 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
 
     /**
      * Handle used for notification by an event.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hEvent {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hEvent{
+        get {
+            if(!this.HasProp("__hEvent"))
+                this.__hEvent := HANDLE(this.ptr + 0)
+            return this.__hEvent
+        }
     }
 
     /**

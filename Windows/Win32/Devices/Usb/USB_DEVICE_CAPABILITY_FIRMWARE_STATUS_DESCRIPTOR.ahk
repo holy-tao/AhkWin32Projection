@@ -52,10 +52,38 @@ class USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - GetFirmwareImageHashSupport
+     * - DisallowFirmwareUpdateSupport
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 4, "uint")
         set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    GetFirmwareImageHashSupport {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DisallowFirmwareUpdateSupport {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 2) & 0x3FFFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -44,11 +45,14 @@ class CONFIG_CI_PROV_INFO_RESULT2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    fIsExplicitDeny {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    fIsExplicitDeny{
+        get {
+            if(!this.HasProp("__fIsExplicitDeny"))
+                this.__fIsExplicitDeny := BOOLEAN(this.ptr + 16)
+            return this.__fIsExplicitDeny
+        }
     }
 
     /**

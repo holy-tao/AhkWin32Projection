@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -24,10 +25,13 @@ class DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bEnabled {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    bEnabled{
+        get {
+            if(!this.HasProp("__bEnabled"))
+                this.__bEnabled := BOOLEAN(this.ptr + 4)
+            return this.__bEnabled
+        }
     }
 }

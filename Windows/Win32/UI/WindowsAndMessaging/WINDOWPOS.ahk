@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about the size and position of a window.
@@ -17,22 +18,28 @@ class WINDOWPOS extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(this.ptr + 0)
+            return this.__hwnd
+        }
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * The position of the window in Z order (front-to-back position). This member can be a handle to the window behind which this window is placed, or can be one of the special values listed with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowpos">SetWindowPos</a> function.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndInsertAfter {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndInsertAfter{
+        get {
+            if(!this.HasProp("__hwndInsertAfter"))
+                this.__hwndInsertAfter := HWND(this.ptr + 8)
+            return this.__hwndInsertAfter
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\GNSS_AGNSS_INJECTTIME.ahk
 #Include .\GNSS_FIXDATA_BASIC.ahk
@@ -42,11 +43,14 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
-    InjectionStatus {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    InjectionStatus{
+        get {
+            if(!this.HasProp("__InjectionStatus"))
+                this.__InjectionStatus := NTSTATUS(this.ptr + 12)
+            return this.__InjectionStatus
+        }
     }
 
     /**

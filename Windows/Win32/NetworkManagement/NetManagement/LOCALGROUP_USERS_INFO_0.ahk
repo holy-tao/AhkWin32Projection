@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The LOCALGROUP_USERS_INFO_0 structure contains local group member information.
@@ -20,10 +21,13 @@ class LOCALGROUP_USERS_INFO_0 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the name of a local group to which the user belongs.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lgrui0_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lgrui0_name{
+        get {
+            if(!this.HasProp("__lgrui0_name"))
+                this.__lgrui0_name := PWSTR(this.ptr + 0)
+            return this.__lgrui0_name
+        }
     }
 }

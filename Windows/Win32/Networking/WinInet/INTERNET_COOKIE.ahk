@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -20,35 +21,47 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszName{
+        get {
+            if(!this.HasProp("__pszName"))
+                this.__pszName := PSTR(this.ptr + 8)
+            return this.__pszName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszData {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszData{
+        get {
+            if(!this.HasProp("__pszData"))
+                this.__pszData := PSTR(this.ptr + 16)
+            return this.__pszData
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszDomain {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszDomain{
+        get {
+            if(!this.HasProp("__pszDomain"))
+                this.__pszDomain := PSTR(this.ptr + 24)
+            return this.__pszDomain
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszPath {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszPath{
+        get {
+            if(!this.HasProp("__pszPath"))
+                this.__pszPath := PSTR(this.ptr + 32)
+            return this.__pszPath
+        }
     }
 
     /**
@@ -68,19 +81,25 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszUrl {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pszUrl{
+        get {
+            if(!this.HasProp("__pszUrl"))
+                this.__pszUrl := PSTR(this.ptr + 56)
+            return this.__pszUrl
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszP3PPolicy {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pszP3PPolicy{
+        get {
+            if(!this.HasProp("__pszP3PPolicy"))
+                this.__pszP3PPolicy := PSTR(this.ptr + 64)
+            return this.__pszP3PPolicy
+        }
     }
 
     /**

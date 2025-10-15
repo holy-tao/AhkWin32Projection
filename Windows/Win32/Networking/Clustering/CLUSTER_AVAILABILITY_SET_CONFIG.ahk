@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -36,10 +37,13 @@ class CLUSTER_AVAILABILITY_SET_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bReserveSpareNode {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    bReserveSpareNode{
+        get {
+            if(!this.HasProp("__bReserveSpareNode"))
+                this.__bReserveSpareNode := BOOL(this.ptr + 12)
+            return this.__bReserveSpareNode
+        }
     }
 }

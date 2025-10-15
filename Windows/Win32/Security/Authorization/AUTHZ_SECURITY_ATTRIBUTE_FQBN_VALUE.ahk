@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies a fully qualified binary name value associated with a security attribute.
@@ -24,10 +25,13 @@ class AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE extends Win32Struct
 
     /**
      * A pointer to strings that specify the names of the publisher, the product, and the original binary file of the value.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PWSTR(this.ptr + 8)
+            return this.__pName
+        }
     }
 }

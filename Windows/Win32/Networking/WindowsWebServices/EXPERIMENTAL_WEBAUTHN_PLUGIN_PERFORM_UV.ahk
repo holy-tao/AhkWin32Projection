@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -12,11 +14,14 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(this.ptr + 0)
+            return this.__hwnd
+        }
     }
 
     /**
@@ -36,18 +41,24 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszUsername {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszUsername{
+        get {
+            if(!this.HasProp("__pwszUsername"))
+                this.__pwszUsername := PWSTR(this.ptr + 24)
+            return this.__pwszUsername
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszContext {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwszContext{
+        get {
+            if(!this.HasProp("__pwszContext"))
+                this.__pwszContext := PWSTR(this.ptr + 32)
+            return this.__pwszContext
+        }
     }
 }

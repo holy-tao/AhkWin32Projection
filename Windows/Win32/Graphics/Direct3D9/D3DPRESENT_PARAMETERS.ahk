@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -68,27 +70,36 @@ class D3DPRESENT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hDeviceWindow {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hDeviceWindow{
+        get {
+            if(!this.HasProp("__hDeviceWindow"))
+                this.__hDeviceWindow := HWND(this.ptr + 32)
+            return this.__hDeviceWindow
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Windowed {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    Windowed{
+        get {
+            if(!this.HasProp("__Windowed"))
+                this.__Windowed := BOOL(this.ptr + 40)
+            return this.__Windowed
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    EnableAutoDepthStencil {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    EnableAutoDepthStencil{
+        get {
+            if(!this.HasProp("__EnableAutoDepthStencil"))
+                this.__EnableAutoDepthStencil := BOOL(this.ptr + 44)
+            return this.__EnableAutoDepthStencil
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_DEPTH_STENCILOP_DESC1.ahk
 
 /**
@@ -13,11 +14,14 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    DepthEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    DepthEnable{
+        get {
+            if(!this.HasProp("__DepthEnable"))
+                this.__DepthEnable := BOOL(this.ptr + 0)
+            return this.__DepthEnable
+        }
     }
 
     /**
@@ -37,11 +41,14 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    StencilEnable {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    StencilEnable{
+        get {
+            if(!this.HasProp("__StencilEnable"))
+                this.__StencilEnable := BOOL(this.ptr + 12)
+            return this.__StencilEnable
+        }
     }
 
     /**
@@ -67,10 +74,13 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    DepthBoundsTestEnable {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    DepthBoundsTestEnable{
+        get {
+            if(!this.HasProp("__DepthBoundsTestEnable"))
+                this.__DepthBoundsTestEnable := BOOL(this.ptr + 60)
+            return this.__DepthBoundsTestEnable
+        }
     }
 }

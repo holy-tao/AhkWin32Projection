@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains user credential information used for server and proxy authentication.
@@ -23,29 +24,38 @@ class WINHTTP_CREDS_EX extends Win32Struct
 
     /**
      * Pointer to a buffer that contains username.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszUserName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lpszUserName{
+        get {
+            if(!this.HasProp("__lpszUserName"))
+                this.__lpszUserName := PSTR(this.ptr + 0)
+            return this.__lpszUserName
+        }
     }
 
     /**
      * Pointer to a buffer that contains password.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszPassword {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszPassword{
+        get {
+            if(!this.HasProp("__lpszPassword"))
+                this.__lpszPassword := PSTR(this.ptr + 8)
+            return this.__lpszPassword
+        }
     }
 
     /**
      * Pointer to a buffer that contains realm.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszRealm {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpszRealm{
+        get {
+            if(!this.HasProp("__lpszRealm"))
+                this.__lpszRealm := PSTR(this.ptr + 16)
+            return this.__lpszRealm
+        }
     }
 
     /**
@@ -59,11 +69,14 @@ class WINHTTP_CREDS_EX extends Win32Struct
 
     /**
      * Pointer to a buffer that contains hostname.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszHostName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lpszHostName{
+        get {
+            if(!this.HasProp("__lpszHostName"))
+                this.__lpszHostName := PSTR(this.ptr + 32)
+            return this.__lpszHostName
+        }
     }
 
     /**
@@ -77,10 +90,13 @@ class WINHTTP_CREDS_EX extends Win32Struct
 
     /**
      * Pointer to a buffer that contains target URL.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszUrl {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lpszUrl{
+        get {
+            if(!this.HasProp("__lpszUrl"))
+                this.__lpszUrl := PSTR(this.ptr + 48)
+            return this.__lpszUrl
+        }
     }
 }

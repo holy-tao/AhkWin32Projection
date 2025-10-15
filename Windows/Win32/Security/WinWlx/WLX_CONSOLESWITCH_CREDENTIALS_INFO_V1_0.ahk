@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\LUID.ahk
 #Include ..\QUOTA_LIMITS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the client credentials returned by a call to WlxGetConsoleSwitchCredentials.
@@ -26,11 +29,14 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * Handle of the users token.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    UserToken {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    UserToken{
+        get {
+            if(!this.HasProp("__UserToken"))
+                this.__UserToken := HANDLE(this.ptr + 8)
+            return this.__UserToken
+        }
     }
 
     /**
@@ -59,20 +65,26 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * User's name as a string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    UserName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    UserName{
+        get {
+            if(!this.HasProp("__UserName"))
+                this.__UserName := PWSTR(this.ptr + 72)
+            return this.__UserName
+        }
     }
 
     /**
      * User's domain as a string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Domain {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    Domain{
+        get {
+            if(!this.HasProp("__Domain"))
+                this.__Domain := PWSTR(this.ptr + 80)
+            return this.__Domain
+        }
     }
 
     /**
@@ -86,11 +98,14 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <b>TRUE</b> if the logon was done by SmartCard.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SmartCardLogon {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
+    SmartCardLogon{
+        get {
+            if(!this.HasProp("__SmartCardLogon"))
+                this.__SmartCardLogon := BOOL(this.ptr + 96)
+            return this.__SmartCardLogon
+        }
     }
 
     /**
@@ -191,56 +206,74 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the relative path to the account's logon script.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    LogonScript {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
+    LogonScript{
+        get {
+            if(!this.HasProp("__LogonScript"))
+                this.__LogonScript := PWSTR(this.ptr + 160)
+            return this.__LogonScript
+        }
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the home directory for the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    HomeDirectory {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+    HomeDirectory{
+        get {
+            if(!this.HasProp("__HomeDirectory"))
+                this.__HomeDirectory := PWSTR(this.ptr + 168)
+            return this.__HomeDirectory
+        }
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the full name of the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FullName {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+    FullName{
+        get {
+            if(!this.HasProp("__FullName"))
+                this.__FullName := PWSTR(this.ptr + 176)
+            return this.__FullName
+        }
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> specifying the path to the user's roaming profile if the user has a roaming profile. For example: \\SomeServer\SomeShare\MyUserName
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ProfilePath {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+    ProfilePath{
+        get {
+            if(!this.HasProp("__ProfilePath"))
+                this.__ProfilePath := PWSTR(this.ptr + 184)
+            return this.__ProfilePath
+        }
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the drive letter (for example, C:\ or D:\) of the home directory.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    HomeDirectoryDrive {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+    HomeDirectoryDrive{
+        get {
+            if(!this.HasProp("__HomeDirectoryDrive"))
+                this.__HomeDirectoryDrive := PWSTR(this.ptr + 192)
+            return this.__HomeDirectoryDrive
+        }
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the server that processed the logon request.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    LogonServer {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+    LogonServer{
+        get {
+            if(!this.HasProp("__LogonServer"))
+                this.__LogonServer := PWSTR(this.ptr + 200)
+            return this.__LogonServer
+        }
     }
 
     /**

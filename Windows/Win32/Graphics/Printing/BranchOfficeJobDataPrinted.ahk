@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -20,43 +21,58 @@ class BranchOfficeJobDataPrinted extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDocumentName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pDocumentName{
+        get {
+            if(!this.HasProp("__pDocumentName"))
+                this.__pDocumentName := PWSTR(this.ptr + 8)
+            return this.__pDocumentName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pUserName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pUserName{
+        get {
+            if(!this.HasProp("__pUserName"))
+                this.__pUserName := PWSTR(this.ptr + 16)
+            return this.__pUserName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pMachineName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pMachineName{
+        get {
+            if(!this.HasProp("__pMachineName"))
+                this.__pMachineName := PWSTR(this.ptr + 24)
+            return this.__pMachineName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pPrinterName{
+        get {
+            if(!this.HasProp("__pPrinterName"))
+                this.__pPrinterName := PWSTR(this.ptr + 32)
+            return this.__pPrinterName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pPortName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pPortName{
+        get {
+            if(!this.HasProp("__pPortName"))
+                this.__pPortName := PWSTR(this.ptr + 40)
+            return this.__pPortName
+        }
     }
 
     /**

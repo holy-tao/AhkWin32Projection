@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\NDIS_TIMESTAMP_CAPABILITY_FLAGS.ahk
 
 /**
@@ -33,11 +34,14 @@ class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    CrossTimestamp {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    CrossTimestamp{
+        get {
+            if(!this.HasProp("__CrossTimestamp"))
+                this.__CrossTimestamp := BOOLEAN(this.ptr + 16)
+            return this.__CrossTimestamp
+        }
     }
 
     /**

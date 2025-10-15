@@ -5,6 +5,7 @@
 #Include ..\..\Foundation\RECT.ahk
 #Include .\D3D12_VIDEO_PROCESS_TRANSFORM.ahk
 #Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIDEO_PROCESS_ALPHA_BLENDING.ahk
 
 /**

@@ -41,10 +41,9 @@ class CLAIM_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct
     }
 
     /**
-     * The actual attribute.
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<CLAIM_SECURITY_ATTRIBUTE_V1>}
      */
-    Attribute {
+    pAttributeV1 {
         get => NumGet(this, 8, "ptr")
         set => NumPut("ptr", value, this, 8)
     }

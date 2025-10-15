@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WMT_WATERMARK_ENTRY structure contains information describing a watermarking system.
@@ -42,10 +43,13 @@ class WMT_WATERMARK_ENTRY extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the display name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszDisplayName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszDisplayName{
+        get {
+            if(!this.HasProp("__pwszDisplayName"))
+                this.__pwszDisplayName := PWSTR(this.ptr + 24)
+            return this.__pwszDisplayName
+        }
     }
 }

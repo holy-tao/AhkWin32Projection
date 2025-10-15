@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the information that the GetOpenCardName function uses to initialize a smart card Select Card dialog box.
@@ -30,11 +32,14 @@ class OPENCARDNAMEA extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> for desktop default.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(this.ptr + 8)
+            return this.__hwndOwner
+        }
     }
 
     /**
@@ -50,11 +55,14 @@ class OPENCARDNAMEA extends Win32Struct
 
     /**
      * A pointer to a buffer that contains null-terminated group name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a group of cards that is to be included in the search. If <b>lpstrGroupNames</b> is <b>NULL</b>, the default group (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Scard$DefaultReaders</a>) is searched.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrGroupNames {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpstrGroupNames{
+        get {
+            if(!this.HasProp("__lpstrGroupNames"))
+                this.__lpstrGroupNames := PSTR(this.ptr + 24)
+            return this.__lpstrGroupNames
+        }
     }
 
     /**
@@ -68,11 +76,14 @@ class OPENCARDNAMEA extends Win32Struct
 
     /**
      * A pointer to a buffer that contains null-terminated card name strings. The last string in the buffer must be terminated by two null characters. Each string is the name of a card that is to be located.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrCardNames {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lpstrCardNames{
+        get {
+            if(!this.HasProp("__lpstrCardNames"))
+                this.__lpstrCardNames := PSTR(this.ptr + 40)
+            return this.__lpstrCardNames
+        }
     }
 
     /**
@@ -104,11 +115,14 @@ class OPENCARDNAMEA extends Win32Struct
 
     /**
      * If the card is located, the <b>lpstrRdr</b> buffer contains the name of the reader that contains the located card. The buffer should be at least 256 characters long.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrRdr {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    lpstrRdr{
+        get {
+            if(!this.HasProp("__lpstrRdr"))
+                this.__lpstrRdr := PSTR(this.ptr + 72)
+            return this.__lpstrRdr
+        }
     }
 
     /**
@@ -123,11 +137,14 @@ class OPENCARDNAMEA extends Win32Struct
 
     /**
      * If the card is located, the <b>lpstrCard</b> buffer contains the name of the located card. The buffer should be at least 256 characters long.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrCard {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    lpstrCard{
+        get {
+            if(!this.HasProp("__lpstrCard"))
+                this.__lpstrCard := PSTR(this.ptr + 88)
+            return this.__lpstrCard
+        }
     }
 
     /**
@@ -141,11 +158,14 @@ class OPENCARDNAMEA extends Win32Struct
 
     /**
      * A pointer to a string to be placed in the title bar of the dialog box. If this member is <b>NULL</b>, the system uses the default title "Select Card:".
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrTitle {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    lpstrTitle{
+        get {
+            if(!this.HasProp("__lpstrTitle"))
+                this.__lpstrTitle := PSTR(this.ptr + 104)
+            return this.__lpstrTitle
+        }
     }
 
     /**

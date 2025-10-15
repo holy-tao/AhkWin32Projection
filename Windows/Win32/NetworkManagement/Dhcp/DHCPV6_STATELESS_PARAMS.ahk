@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DHCPV6_STATELESS_PARAMS structure defines the DHCPv6 stateless client inventory configuration settings at server and scope level.
@@ -15,11 +16,14 @@ class DHCPV6_STATELESS_PARAMS extends Win32Struct
 
     /**
      * If <b>TRUE</b> the stateless client inventory is maintained by the DHCPv6 server. Otherwise, it is  <b>FALSE</b>. The default value is <b>FALSE</b>, which indicates that the stateless client inventory is disabled and is not maintained the by the server.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Status {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    Status{
+        get {
+            if(!this.HasProp("__Status"))
+                this.__Status := BOOL(this.ptr + 0)
+            return this.__Status
+        }
     }
 
     /**

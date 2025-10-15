@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IP_ADDRESS_STRING.ahk
 #Include .\IP_ADDR_STRING.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a particular network adapter on the local computer.
@@ -279,11 +280,14 @@ class IP_ADAPTER_INFO extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * An option value that specifies whether this adapter uses the Windows Internet Name Service (WINS).
-     * @type {Integer}
+     * @type {BOOL}
      */
-    HaveWins {
-        get => NumGet(this, 1072, "int")
-        set => NumPut("int", value, this, 1072)
+    HaveWins{
+        get {
+            if(!this.HasProp("__HaveWins"))
+                this.__HaveWins := BOOL(this.ptr + 1072)
+            return this.__HaveWins
+        }
     }
 
     /**

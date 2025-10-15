@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDCOLORKEY.ahk
 #Include .\DDPIXELFORMAT.ahk
+#Include .\DDSCAPS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -173,10 +174,13 @@ class DDSURFACEDESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    ddsCaps {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+    ddsCaps{
+        get {
+            if(!this.HasProp("__ddsCaps"))
+                this.__ddsCaps := DDSCAPS(this.ptr + 112)
+            return this.__ddsCaps
+        }
     }
 }

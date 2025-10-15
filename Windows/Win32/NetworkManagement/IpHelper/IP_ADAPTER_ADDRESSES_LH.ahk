@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
+#Include ..\Ndis\NET_IF_COMPARTMENT_ID.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -46,11 +49,14 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    AdapterName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    AdapterName{
+        get {
+            if(!this.HasProp("__AdapterName"))
+                this.__AdapterName := PSTR(this.ptr + 16)
+            return this.__AdapterName
+        }
     }
 
     /**
@@ -86,27 +92,36 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DnsSuffix {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    DnsSuffix{
+        get {
+            if(!this.HasProp("__DnsSuffix"))
+                this.__DnsSuffix := PWSTR(this.ptr + 56)
+            return this.__DnsSuffix
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Description {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    Description{
+        get {
+            if(!this.HasProp("__Description"))
+                this.__Description := PWSTR(this.ptr + 64)
+            return this.__Description
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FriendlyName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    FriendlyName{
+        get {
+            if(!this.HasProp("__FriendlyName"))
+                this.__FriendlyName := PWSTR(this.ptr + 72)
+            return this.__FriendlyName
+        }
     }
 
     /**
@@ -137,11 +152,102 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - DdnsEnabled
+     * - RegisterAdapterSuffix
+     * - Dhcpv4Enabled
+     * - ReceiveOnly
+     * - NoMulticast
+     * - Ipv6OtherStatefulConfig
+     * - NetbiosOverTcpipEnabled
+     * - Ipv4Enabled
+     * - Ipv6Enabled
+     * - Ipv6ManagedAddressConfigurationSupported
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 92, "uint")
         set => NumPut("uint", value, this, 92)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DdnsEnabled {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    RegisterAdapterSuffix {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Dhcpv4Enabled {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReceiveOnly {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NoMulticast {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Ipv6OtherStatefulConfig {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NetbiosOverTcpipEnabled {
+        get => (this._bitfield >> 6) & 0x1
+        set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Ipv4Enabled {
+        get => (this._bitfield >> 7) & 0x1
+        set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Ipv6Enabled {
+        get => (this._bitfield >> 8) & 0x1
+        set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Ipv6ManagedAddressConfigurationSupported {
+        get => (this._bitfield >> 9) & 0x1
+        set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
     }
 
     /**
@@ -266,11 +372,14 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NET_IF_COMPARTMENT_ID}
      */
-    CompartmentId {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
+    CompartmentId{
+        get {
+            if(!this.HasProp("__CompartmentId"))
+                this.__CompartmentId := NET_IF_COMPARTMENT_ID(this.ptr + 256)
+            return this.__CompartmentId
+        }
     }
 
     /**

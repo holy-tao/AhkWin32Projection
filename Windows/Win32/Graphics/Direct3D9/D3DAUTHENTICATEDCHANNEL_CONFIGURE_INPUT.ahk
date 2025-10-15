@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -32,11 +33,14 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hChannel {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hChannel{
+        get {
+            if(!this.HasProp("__hChannel"))
+                this.__hChannel := HANDLE(this.ptr + 24)
+            return this.__hChannel
+        }
     }
 
     /**

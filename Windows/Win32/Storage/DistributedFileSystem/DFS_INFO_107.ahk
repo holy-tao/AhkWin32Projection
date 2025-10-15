@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Contains information about a DFS root or link, including the comment, state, time-out, property flags, and link reparse point security descriptor.
@@ -16,11 +18,14 @@ class DFS_INFO_107 extends Win32Struct
     /**
      * Pointer to a null-terminated Unicode string that contains a comment associated with the DFS root or 
      *       link.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Comment {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Comment{
+        get {
+            if(!this.HasProp("__Comment"))
+                this.__Comment := PWSTR(this.ptr + 0)
+            return this.__Comment
+        }
     }
 
     /**
@@ -80,10 +85,13 @@ class DFS_INFO_107 extends Win32Struct
      * Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> 
      *       structure that specifies a self-relative security descriptor to be associated with the DFS link's reparse point. 
      *       This field is valid for DFS links only.
-     * @type {Pointer<Void>}
+     * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pSecurityDescriptor{
+        get {
+            if(!this.HasProp("__pSecurityDescriptor"))
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 32)
+            return this.__pSecurityDescriptor
+        }
     }
 }

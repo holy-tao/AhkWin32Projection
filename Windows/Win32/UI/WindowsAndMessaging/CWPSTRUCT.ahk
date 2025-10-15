@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Defines the message parameters passed to a WH_CALLWNDPROC hook procedure, CallWndProc.
@@ -18,11 +21,14 @@ class CWPSTRUCT extends Win32Struct
      * 
      * Additional information about the message. The exact meaning depends on the 
      * 					<b>message</b> value.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 0)
+            return this.__lParam
+        }
     }
 
     /**
@@ -30,11 +36,14 @@ class CWPSTRUCT extends Win32Struct
      * 
      * Additional information about the message. The exact meaning depends on the 
      * 					<b>message</b> value.
-     * @type {Pointer}
+     * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(this.ptr + 8)
+            return this.__wParam
+        }
     }
 
     /**
@@ -52,10 +61,13 @@ class CWPSTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window to receive the message.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(this.ptr + 24)
+            return this.__hwnd
+        }
     }
 }

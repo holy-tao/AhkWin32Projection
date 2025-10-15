@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
@@ -282,11 +283,28 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
         }
     
         /**
+         * @type {BOOL}
+         */
+        StopCaptureAndShowCriticalFeedback{
+            get {
+                if(!this.HasProp("__StopCaptureAndShowCriticalFeedback"))
+                    this.__StopCaptureAndShowCriticalFeedback := BOOL(this.ptr + 88)
+                return this.__StopCaptureAndShowCriticalFeedback
+            }
+        }
+    
+    }
+
+    class _Voice extends Win32Struct {
+        static sizeof => 348
+        static packingSize => 8
+
+        /**
          * @type {Integer}
          */
-        StopCaptureAndShowCriticalFeedback {
-            get => NumGet(this, 88, "int")
-            set => NumPut("int", value, this, 88)
+        Reserved {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
         }
     
     }
@@ -333,10 +351,13 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Voice}
      */
-    Voice {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    Voice{
+        get {
+            if(!this.HasProp("__Voice"))
+                this.__Voice := %this.__Class%._Voice(this.ptr + 24)
+            return this.__Voice
+        }
     }
 }

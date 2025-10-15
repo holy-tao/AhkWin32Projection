@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\BCRYPT_KEY_HANDLE.ahk
 
 /**
  * Encapsulates key information data.
@@ -24,11 +26,14 @@ class CRYPT_XML_KEY_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated wide character string that specifies the value of the <b>ID</b> attribute of the key information element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    wszId{
+        get {
+            if(!this.HasProp("__wszId"))
+                this.__wszId := PWSTR(this.ptr + 8)
+            return this.__wszId
+        }
     }
 
     /**
@@ -51,11 +56,14 @@ class CRYPT_XML_KEY_INFO extends Win32Struct
 
     /**
      * Optional. The handle of data  derived from the first key value.
-     * @type {Pointer<Void>}
+     * @type {BCRYPT_KEY_HANDLE}
      */
-    hVerifyKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hVerifyKey{
+        get {
+            if(!this.HasProp("__hVerifyKey"))
+                this.__hVerifyKey := BCRYPT_KEY_HANDLE(this.ptr + 32)
+            return this.__hVerifyKey
+        }
     }
 
     /**

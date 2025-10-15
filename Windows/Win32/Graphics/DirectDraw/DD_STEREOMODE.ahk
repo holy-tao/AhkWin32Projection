@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DD_STEREOMODE structure is used by the runtime with GUID_DDStereoMode in a DdGetDriverInfo call to query whether the driver supports stereo for a given video display mode.
@@ -67,10 +68,13 @@ class DD_STEREOMODE extends Win32Struct
 
     /**
      * Driver sets to <b>TRUE</b> if stereo is supported with the specified display mode, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bSupported {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    bSupported{
+        get {
+            if(!this.HasProp("__bSupported"))
+                this.__bSupported := BOOL(this.ptr + 20)
+            return this.__bSupported
+        }
     }
 }

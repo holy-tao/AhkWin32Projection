@@ -25,11 +25,48 @@ class DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - isSpecializationEnabled
+     * - isSpecializationAvailableForMonitor
+     * - isSpecializationAvailableForSystem
+     * - reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    isSpecializationEnabled {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    isSpecializationAvailableForMonitor {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    isSpecializationAvailableForSystem {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    reserved {
+        get => (this._bitfield >> 3) & 0x1FFFFFFF
+        set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
     }
 
     /**

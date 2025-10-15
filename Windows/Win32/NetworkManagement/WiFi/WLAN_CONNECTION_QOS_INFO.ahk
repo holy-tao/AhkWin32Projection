@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\WLAN_QOS_CAPABILITIES.ahk
 
 /**
@@ -24,19 +25,25 @@ class WLAN_CONNECTION_QOS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bMSCSConfigured {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    bMSCSConfigured{
+        get {
+            if(!this.HasProp("__bMSCSConfigured"))
+                this.__bMSCSConfigured := BOOL(this.ptr + 16)
+            return this.__bMSCSConfigured
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bDSCPToUPMappingConfigured {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    bDSCPToUPMappingConfigured{
+        get {
+            if(!this.HasProp("__bDSCPToUPMappingConfigured"))
+                this.__bDSCPToUPMappingConfigured := BOOL(this.ptr + 20)
+            return this.__bDSCPToUPMappingConfigured
+        }
     }
 
     /**

@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Com\CY.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\CHAR.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 #Include ..\..\..\Foundation\DECIMAL.ahk
 #Include ..\..\Variant\VARIANT.ahk
 
@@ -23,35 +28,47 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszName{
+        get {
+            if(!this.HasProp("__pszName"))
+                this.__pszName := PWSTR(this.ptr + 8)
+            return this.__pszName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszType{
+        get {
+            if(!this.HasProp("__pszType"))
+                this.__pszType := PWSTR(this.ptr + 16)
+            return this.__pszType
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszValue {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszValue{
+        get {
+            if(!this.HasProp("__pszValue"))
+                this.__pszValue := PWSTR(this.ptr + 24)
+            return this.__pszValue
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszFullName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszFullName{
+        get {
+            if(!this.HasProp("__pszFullName"))
+                this.__pszFullName := PWSTR(this.ptr + 32)
+            return this.__pszFullName
+        }
     }
 
     /**

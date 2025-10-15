@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
@@ -4852,127 +4852,133 @@ class Jet {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<UIntPtr>} pinstance 
+     * @param {Pointer<JET_INSTANCE>} pinstance 
      * @returns {Integer} 
      */
     static JetInit(pinstance) {
-        result := DllCall("ESENT.dll\JetInit", "ptr*", pinstance, "int")
+        result := DllCall("ESENT.dll\JetInit", "ptr", pinstance, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UIntPtr>} pinstance 
+     * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetInit2(pinstance, grbit) {
-        result := DllCall("ESENT.dll\JetInit2", "ptr*", pinstance, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetInit2", "ptr", pinstance, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UIntPtr>} pinstance 
+     * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<JET_RSTINFO_A>} prstInfo 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetInit3A(pinstance, prstInfo, grbit) {
-        result := DllCall("ESENT.dll\JetInit3A", "ptr*", pinstance, "ptr", prstInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetInit3A", "ptr", pinstance, "ptr", prstInfo, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UIntPtr>} pinstance 
+     * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<JET_RSTINFO_W>} prstInfo 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetInit3W(pinstance, prstInfo, grbit) {
-        result := DllCall("ESENT.dll\JetInit3W", "ptr*", pinstance, "ptr", prstInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetInit3W", "ptr", pinstance, "ptr", prstInfo, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UIntPtr>} pinstance 
+     * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<SByte>} szInstanceName 
      * @returns {Integer} 
      */
     static JetCreateInstanceA(pinstance, szInstanceName) {
-        result := DllCall("ESENT.dll\JetCreateInstanceA", "ptr*", pinstance, "char*", szInstanceName, "int")
+        result := DllCall("ESENT.dll\JetCreateInstanceA", "ptr", pinstance, "char*", szInstanceName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UIntPtr>} pinstance 
+     * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<UInt16>} szInstanceName 
      * @returns {Integer} 
      */
     static JetCreateInstanceW(pinstance, szInstanceName) {
-        result := DllCall("ESENT.dll\JetCreateInstanceW", "ptr*", pinstance, "ushort*", szInstanceName, "int")
+        result := DllCall("ESENT.dll\JetCreateInstanceW", "ptr", pinstance, "ushort*", szInstanceName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UIntPtr>} pinstance 
+     * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<SByte>} szInstanceName 
      * @param {Pointer<SByte>} szDisplayName 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetCreateInstance2A(pinstance, szInstanceName, szDisplayName, grbit) {
-        result := DllCall("ESENT.dll\JetCreateInstance2A", "ptr*", pinstance, "char*", szInstanceName, "char*", szDisplayName, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetCreateInstance2A", "ptr", pinstance, "char*", szInstanceName, "char*", szDisplayName, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UIntPtr>} pinstance 
+     * @param {Pointer<JET_INSTANCE>} pinstance 
      * @param {Pointer<UInt16>} szInstanceName 
      * @param {Pointer<UInt16>} szDisplayName 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetCreateInstance2W(pinstance, szInstanceName, szDisplayName, grbit) {
-        result := DllCall("ESENT.dll\JetCreateInstance2W", "ptr*", pinstance, "ushort*", szInstanceName, "ushort*", szDisplayName, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetCreateInstance2W", "ptr", pinstance, "ushort*", szInstanceName, "ushort*", szDisplayName, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      */
     static JetGetInstanceMiscInfo(instance, pvResult, cbMax, InfoLevel) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetGetInstanceMiscInfo", "ptr", instance, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @returns {Integer} 
      */
     static JetTerm(instance) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetTerm", "ptr", instance, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetTerm2(instance, grbit) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetTerm2", "ptr", instance, "uint", grbit, "int")
         return result
     }
@@ -4988,21 +4994,25 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @returns {Integer} 
      */
     static JetStopServiceInstance(instance) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetStopServiceInstance", "ptr", instance, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetStopServiceInstance2(instance, grbit) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetStopServiceInstance2", "ptr", instance, "uint", grbit, "int")
         return result
     }
@@ -5018,69 +5028,83 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @returns {Integer} 
      */
     static JetStopBackupInstance(instance) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetStopBackupInstance", "ptr", instance, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UIntPtr>} pinstance 
-     * @param {Pointer} sesid 
+     * @param {Pointer<JET_INSTANCE>} pinstance 
+     * @param {JET_SESID} sesid 
      * @param {Integer} paramid 
-     * @param {Pointer} lParam 
+     * @param {JET_API_PTR} lParam 
      * @param {Pointer<SByte>} szParam 
      * @returns {Integer} 
      */
     static JetSetSystemParameterA(pinstance, sesid, paramid, lParam, szParam) {
-        result := DllCall("ESENT.dll\JetSetSystemParameterA", "ptr*", pinstance, "ptr", sesid, "uint", paramid, "ptr", lParam, "char*", szParam, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        lParam := lParam is Win32Handle ? NumGet(lParam, "ptr") : lParam
+
+        result := DllCall("ESENT.dll\JetSetSystemParameterA", "ptr", pinstance, "ptr", sesid, "uint", paramid, "ptr", lParam, "char*", szParam, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UIntPtr>} pinstance 
-     * @param {Pointer} sesid 
+     * @param {Pointer<JET_INSTANCE>} pinstance 
+     * @param {JET_SESID} sesid 
      * @param {Integer} paramid 
-     * @param {Pointer} lParam 
+     * @param {JET_API_PTR} lParam 
      * @param {Pointer<UInt16>} szParam 
      * @returns {Integer} 
      */
     static JetSetSystemParameterW(pinstance, sesid, paramid, lParam, szParam) {
-        result := DllCall("ESENT.dll\JetSetSystemParameterW", "ptr*", pinstance, "ptr", sesid, "uint", paramid, "ptr", lParam, "ushort*", szParam, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        lParam := lParam is Win32Handle ? NumGet(lParam, "ptr") : lParam
+
+        result := DllCall("ESENT.dll\JetSetSystemParameterW", "ptr", pinstance, "ptr", sesid, "uint", paramid, "ptr", lParam, "ushort*", szParam, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
-     * @param {Pointer} sesid 
+     * @param {JET_INSTANCE} instance 
+     * @param {JET_SESID} sesid 
      * @param {Integer} paramid 
-     * @param {Pointer<UIntPtr>} plParam 
+     * @param {Pointer<JET_API_PTR>} plParam 
      * @param {Pointer} szParam 
      * @param {Integer} cbMax 
      * @returns {Integer} 
      */
     static JetGetSystemParameterA(instance, sesid, paramid, plParam, szParam, cbMax) {
-        result := DllCall("ESENT.dll\JetGetSystemParameterA", "ptr", instance, "ptr", sesid, "uint", paramid, "ptr*", plParam, "ptr", szParam, "uint", cbMax, "int")
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
+        result := DllCall("ESENT.dll\JetGetSystemParameterA", "ptr", instance, "ptr", sesid, "uint", paramid, "ptr", plParam, "ptr", szParam, "uint", cbMax, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
-     * @param {Pointer} sesid 
+     * @param {JET_INSTANCE} instance 
+     * @param {JET_SESID} sesid 
      * @param {Integer} paramid 
-     * @param {Pointer<UIntPtr>} plParam 
+     * @param {Pointer<JET_API_PTR>} plParam 
      * @param {Pointer} szParam 
      * @param {Integer} cbMax 
      * @returns {Integer} 
      */
     static JetGetSystemParameterW(instance, sesid, paramid, plParam, szParam, cbMax) {
-        result := DllCall("ESENT.dll\JetGetSystemParameterW", "ptr", instance, "ptr", sesid, "uint", paramid, "ptr*", plParam, "ptr", szParam, "uint", cbMax, "int")
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
+        result := DllCall("ESENT.dll\JetGetSystemParameterW", "ptr", instance, "ptr", sesid, "uint", paramid, "ptr", plParam, "ptr", szParam, "uint", cbMax, "int")
         return result
     }
 
@@ -5121,77 +5145,89 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} instance 
-     * @param {Pointer<UIntPtr>} psesid 
+     * @param {JET_INSTANCE} instance 
+     * @param {Pointer<JET_SESID>} psesid 
      * @param {Pointer<SByte>} szUserName 
      * @param {Pointer<SByte>} szPassword 
      * @returns {Integer} 
      */
     static JetBeginSessionA(instance, psesid, szUserName, szPassword) {
-        result := DllCall("ESENT.dll\JetBeginSessionA", "ptr", instance, "ptr*", psesid, "char*", szUserName, "char*", szPassword, "int")
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
+        result := DllCall("ESENT.dll\JetBeginSessionA", "ptr", instance, "ptr", psesid, "char*", szUserName, "char*", szPassword, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
-     * @param {Pointer<UIntPtr>} psesid 
+     * @param {JET_INSTANCE} instance 
+     * @param {Pointer<JET_SESID>} psesid 
      * @param {Pointer<UInt16>} szUserName 
      * @param {Pointer<UInt16>} szPassword 
      * @returns {Integer} 
      */
     static JetBeginSessionW(instance, psesid, szUserName, szPassword) {
-        result := DllCall("ESENT.dll\JetBeginSessionW", "ptr", instance, "ptr*", psesid, "ushort*", szUserName, "ushort*", szPassword, "int")
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
+        result := DllCall("ESENT.dll\JetBeginSessionW", "ptr", instance, "ptr", psesid, "ushort*", szUserName, "ushort*", szPassword, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer<UIntPtr>} psesid 
+     * @param {JET_SESID} sesid 
+     * @param {Pointer<JET_SESID>} psesid 
      * @returns {Integer} 
      */
     static JetDupSession(sesid, psesid) {
-        result := DllCall("ESENT.dll\JetDupSession", "ptr", sesid, "ptr*", psesid, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
+        result := DllCall("ESENT.dll\JetDupSession", "ptr", sesid, "ptr", psesid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetEndSession(sesid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetEndSession", "ptr", sesid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt32>} pwVersion 
      * @returns {Integer} 
      */
     static JetGetVersion(sesid, pwVersion) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGetVersion", "ptr", sesid, "uint*", pwVersion, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetIdle(sesid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetIdle", "ptr", sesid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<SByte>} szFilename 
      * @param {Pointer<SByte>} szConnect 
      * @param {Pointer<UInt32>} pdbid 
@@ -5199,13 +5235,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetCreateDatabaseA(sesid, szFilename, szConnect, pdbid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateDatabaseA", "ptr", sesid, "char*", szFilename, "char*", szConnect, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt16>} szFilename 
      * @param {Pointer<UInt16>} szConnect 
      * @param {Pointer<UInt32>} pdbid 
@@ -5213,13 +5251,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetCreateDatabaseW(sesid, szFilename, szConnect, pdbid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateDatabaseW", "ptr", sesid, "ushort*", szFilename, "ushort*", szConnect, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<SByte>} szFilename 
      * @param {Integer} cpgDatabaseSizeMax 
      * @param {Pointer<UInt32>} pdbid 
@@ -5227,13 +5267,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetCreateDatabase2A(sesid, szFilename, cpgDatabaseSizeMax, pdbid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateDatabase2A", "ptr", sesid, "char*", szFilename, "uint", cpgDatabaseSizeMax, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt16>} szFilename 
      * @param {Integer} cpgDatabaseSizeMax 
      * @param {Pointer<UInt32>} pdbid 
@@ -5241,109 +5283,127 @@ class Jet {
      * @returns {Integer} 
      */
     static JetCreateDatabase2W(sesid, szFilename, cpgDatabaseSizeMax, pdbid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateDatabase2W", "ptr", sesid, "ushort*", szFilename, "uint", cpgDatabaseSizeMax, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<SByte>} szFilename 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetAttachDatabaseA(sesid, szFilename, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetAttachDatabaseA", "ptr", sesid, "char*", szFilename, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt16>} szFilename 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetAttachDatabaseW(sesid, szFilename, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetAttachDatabaseW", "ptr", sesid, "ushort*", szFilename, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<SByte>} szFilename 
      * @param {Integer} cpgDatabaseSizeMax 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetAttachDatabase2A(sesid, szFilename, cpgDatabaseSizeMax, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetAttachDatabase2A", "ptr", sesid, "char*", szFilename, "uint", cpgDatabaseSizeMax, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt16>} szFilename 
      * @param {Integer} cpgDatabaseSizeMax 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetAttachDatabase2W(sesid, szFilename, cpgDatabaseSizeMax, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetAttachDatabase2W", "ptr", sesid, "ushort*", szFilename, "uint", cpgDatabaseSizeMax, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<SByte>} szFilename 
      * @returns {Integer} 
      */
     static JetDetachDatabaseA(sesid, szFilename) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDetachDatabaseA", "ptr", sesid, "char*", szFilename, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt16>} szFilename 
      * @returns {Integer} 
      */
     static JetDetachDatabaseW(sesid, szFilename) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDetachDatabaseW", "ptr", sesid, "ushort*", szFilename, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<SByte>} szFilename 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetDetachDatabase2A(sesid, szFilename, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDetachDatabase2A", "ptr", sesid, "char*", szFilename, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt16>} szFilename 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetDetachDatabase2W(sesid, szFilename, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDetachDatabase2W", "ptr", sesid, "ushort*", szFilename, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Integer} objtyp 
      * @param {Pointer<SByte>} szContainerName 
@@ -5354,13 +5414,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetObjectInfoA(sesid, dbid, objtyp, szContainerName, szObjectName, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGetObjectInfoA", "ptr", sesid, "uint", dbid, "uint", objtyp, "char*", szContainerName, "char*", szObjectName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Integer} objtyp 
      * @param {Pointer<UInt16>} szContainerName 
@@ -5371,218 +5433,254 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetObjectInfoW(sesid, dbid, objtyp, szContainerName, szObjectName, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGetObjectInfoW", "ptr", sesid, "uint", dbid, "uint", objtyp, "ushort*", szContainerName, "ushort*", szObjectName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      */
     static JetGetTableInfoA(sesid, tableid, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetTableInfoA", "ptr", sesid, "ptr", tableid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      */
     static JetGetTableInfoW(sesid, tableid, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetTableInfoW", "ptr", sesid, "ptr", tableid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @param {Integer} lPages 
      * @param {Integer} lDensity 
-     * @param {Pointer<UIntPtr>} ptableid 
+     * @param {Pointer<JET_TABLEID>} ptableid 
      * @returns {Integer} 
      */
     static JetCreateTableA(sesid, dbid, szTableName, lPages, lDensity, ptableid) {
-        result := DllCall("ESENT.dll\JetCreateTableA", "ptr", sesid, "uint", dbid, "char*", szTableName, "uint", lPages, "uint", lDensity, "ptr*", ptableid, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
+        result := DllCall("ESENT.dll\JetCreateTableA", "ptr", sesid, "uint", dbid, "char*", szTableName, "uint", lPages, "uint", lDensity, "ptr", ptableid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Integer} lPages 
      * @param {Integer} lDensity 
-     * @param {Pointer<UIntPtr>} ptableid 
+     * @param {Pointer<JET_TABLEID>} ptableid 
      * @returns {Integer} 
      */
     static JetCreateTableW(sesid, dbid, szTableName, lPages, lDensity, ptableid) {
-        result := DllCall("ESENT.dll\JetCreateTableW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "uint", lPages, "uint", lDensity, "ptr*", ptableid, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
+        result := DllCall("ESENT.dll\JetCreateTableW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "uint", lPages, "uint", lDensity, "ptr", ptableid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE_A>} ptablecreate 
      * @returns {Integer} 
      */
     static JetCreateTableColumnIndexA(sesid, dbid, ptablecreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateTableColumnIndexA", "ptr", sesid, "uint", dbid, "ptr", ptablecreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE_W>} ptablecreate 
      * @returns {Integer} 
      */
     static JetCreateTableColumnIndexW(sesid, dbid, ptablecreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateTableColumnIndexW", "ptr", sesid, "uint", dbid, "ptr", ptablecreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE2_A>} ptablecreate 
      * @returns {Integer} 
      */
     static JetCreateTableColumnIndex2A(sesid, dbid, ptablecreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateTableColumnIndex2A", "ptr", sesid, "uint", dbid, "ptr", ptablecreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE2_W>} ptablecreate 
      * @returns {Integer} 
      */
     static JetCreateTableColumnIndex2W(sesid, dbid, ptablecreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateTableColumnIndex2W", "ptr", sesid, "uint", dbid, "ptr", ptablecreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE3_A>} ptablecreate 
      * @returns {Integer} 
      */
     static JetCreateTableColumnIndex3A(sesid, dbid, ptablecreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateTableColumnIndex3A", "ptr", sesid, "uint", dbid, "ptr", ptablecreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE3_W>} ptablecreate 
      * @returns {Integer} 
      */
     static JetCreateTableColumnIndex3W(sesid, dbid, ptablecreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateTableColumnIndex3W", "ptr", sesid, "uint", dbid, "ptr", ptablecreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE4_A>} ptablecreate 
      * @returns {Integer} 
      */
     static JetCreateTableColumnIndex4A(sesid, dbid, ptablecreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateTableColumnIndex4A", "ptr", sesid, "uint", dbid, "ptr", ptablecreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<JET_TABLECREATE4_W>} ptablecreate 
      * @returns {Integer} 
      */
     static JetCreateTableColumnIndex4W(sesid, dbid, ptablecreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCreateTableColumnIndex4W", "ptr", sesid, "uint", dbid, "ptr", ptablecreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @returns {Integer} 
      */
     static JetDeleteTableA(sesid, dbid, szTableName) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDeleteTableA", "ptr", sesid, "uint", dbid, "char*", szTableName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @returns {Integer} 
      */
     static JetDeleteTableW(sesid, dbid, szTableName) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDeleteTableW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szName 
      * @param {Pointer<SByte>} szNameNew 
      * @returns {Integer} 
      */
     static JetRenameTableA(sesid, dbid, szName, szNameNew) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetRenameTableA", "ptr", sesid, "uint", dbid, "char*", szName, "char*", szNameNew, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szName 
      * @param {Pointer<UInt16>} szNameNew 
      * @returns {Integer} 
      */
     static JetRenameTableW(sesid, dbid, szName, szNameNew) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetRenameTableW", "ptr", sesid, "uint", dbid, "ushort*", szName, "ushort*", szNameNew, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szColumnName 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
@@ -5590,14 +5688,17 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetTableColumnInfoA(sesid, tableid, szColumnName, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetTableColumnInfoA", "ptr", sesid, "ptr", tableid, "char*", szColumnName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szColumnName 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
@@ -5605,13 +5706,16 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetTableColumnInfoW(sesid, tableid, szColumnName, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetTableColumnInfoW", "ptr", sesid, "ptr", tableid, "ushort*", szColumnName, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @param {Pointer<SByte>} pColumnNameOrId 
@@ -5621,13 +5725,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetColumnInfoA(sesid, dbid, szTableName, pColumnNameOrId, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGetColumnInfoA", "ptr", sesid, "uint", dbid, "char*", szTableName, "char*", pColumnNameOrId, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Pointer<UInt16>} pwColumnNameOrId 
@@ -5637,14 +5743,16 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetColumnInfoW(sesid, dbid, szTableName, pwColumnNameOrId, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGetColumnInfoW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "ushort*", pwColumnNameOrId, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szColumnName 
      * @param {Pointer<JET_COLUMNDEF>} pcolumndef 
      * @param {Pointer} pvDefault 
@@ -5653,14 +5761,17 @@ class Jet {
      * @returns {Integer} 
      */
     static JetAddColumnA(sesid, tableid, szColumnName, pcolumndef, pvDefault, cbDefault, pcolumnid) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetAddColumnA", "ptr", sesid, "ptr", tableid, "char*", szColumnName, "ptr", pcolumndef, "ptr", pvDefault, "uint", cbDefault, "uint*", pcolumnid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szColumnName 
      * @param {Pointer<JET_COLUMNDEF>} pcolumndef 
      * @param {Pointer} pvDefault 
@@ -5669,91 +5780,112 @@ class Jet {
      * @returns {Integer} 
      */
     static JetAddColumnW(sesid, tableid, szColumnName, pcolumndef, pvDefault, cbDefault, pcolumnid) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetAddColumnW", "ptr", sesid, "ptr", tableid, "ushort*", szColumnName, "ptr", pcolumndef, "ptr", pvDefault, "uint", cbDefault, "uint*", pcolumnid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szColumnName 
      * @returns {Integer} 
      */
     static JetDeleteColumnA(sesid, tableid, szColumnName) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetDeleteColumnA", "ptr", sesid, "ptr", tableid, "char*", szColumnName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szColumnName 
      * @returns {Integer} 
      */
     static JetDeleteColumnW(sesid, tableid, szColumnName) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetDeleteColumnW", "ptr", sesid, "ptr", tableid, "ushort*", szColumnName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szColumnName 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetDeleteColumn2A(sesid, tableid, szColumnName, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetDeleteColumn2A", "ptr", sesid, "ptr", tableid, "char*", szColumnName, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szColumnName 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetDeleteColumn2W(sesid, tableid, szColumnName, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetDeleteColumn2W", "ptr", sesid, "ptr", tableid, "ushort*", szColumnName, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szName 
      * @param {Pointer<SByte>} szNameNew 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetRenameColumnA(sesid, tableid, szName, szNameNew, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetRenameColumnA", "ptr", sesid, "ptr", tableid, "char*", szName, "char*", szNameNew, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szName 
      * @param {Pointer<UInt16>} szNameNew 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetRenameColumnW(sesid, tableid, szName, szNameNew, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetRenameColumnW", "ptr", sesid, "ptr", tableid, "ushort*", szName, "ushort*", szNameNew, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @param {Pointer<SByte>} szColumnName 
@@ -5763,13 +5895,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetSetColumnDefaultValueA(sesid, dbid, szTableName, szColumnName, pvData, cbData, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetSetColumnDefaultValueA", "ptr", sesid, "uint", dbid, "char*", szTableName, "char*", szColumnName, "ptr", pvData, "uint", cbData, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Pointer<UInt16>} szColumnName 
@@ -5779,14 +5913,16 @@ class Jet {
      * @returns {Integer} 
      */
     static JetSetColumnDefaultValueW(sesid, dbid, szTableName, szColumnName, pvData, cbData, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetSetColumnDefaultValueW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "ushort*", szColumnName, "ptr", pvData, "uint", cbData, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szIndexName 
      * @param {Pointer} pvResult 
      * @param {Integer} cbResult 
@@ -5794,14 +5930,17 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetTableIndexInfoA(sesid, tableid, szIndexName, pvResult, cbResult, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetTableIndexInfoA", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szIndexName 
      * @param {Pointer} pvResult 
      * @param {Integer} cbResult 
@@ -5809,13 +5948,16 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetTableIndexInfoW(sesid, tableid, szIndexName, pvResult, cbResult, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetTableIndexInfoW", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @param {Pointer<SByte>} szIndexName 
@@ -5825,13 +5967,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetIndexInfoA(sesid, dbid, szTableName, szIndexName, pvResult, cbResult, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGetIndexInfoA", "ptr", sesid, "uint", dbid, "char*", szTableName, "char*", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Pointer<UInt16>} szIndexName 
@@ -5841,14 +5985,16 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetIndexInfoW(sesid, dbid, szTableName, szIndexName, pvResult, cbResult, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGetIndexInfoW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "ushort*", szIndexName, "ptr", pvResult, "uint", cbResult, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szIndexName 
      * @param {Integer} grbit 
      * @param {Pointer} szKey 
@@ -5857,14 +6003,17 @@ class Jet {
      * @returns {Integer} 
      */
     static JetCreateIndexA(sesid, tableid, szIndexName, grbit, szKey, cbKey, lDensity) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetCreateIndexA", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szIndexName 
      * @param {Integer} grbit 
      * @param {Pointer} szKey 
@@ -5873,183 +6022,222 @@ class Jet {
      * @returns {Integer} 
      */
     static JetCreateIndexW(sesid, tableid, szIndexName, grbit, szKey, cbKey, lDensity) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetCreateIndexW", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "uint", grbit, "ptr", szKey, "uint", cbKey, "uint", lDensity, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE_A>} pindexcreate 
      * @param {Integer} cIndexCreate 
      * @returns {Integer} 
      */
     static JetCreateIndex2A(sesid, tableid, pindexcreate, cIndexCreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetCreateIndex2A", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE_W>} pindexcreate 
      * @param {Integer} cIndexCreate 
      * @returns {Integer} 
      */
     static JetCreateIndex2W(sesid, tableid, pindexcreate, cIndexCreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetCreateIndex2W", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE2_A>} pindexcreate 
      * @param {Integer} cIndexCreate 
      * @returns {Integer} 
      */
     static JetCreateIndex3A(sesid, tableid, pindexcreate, cIndexCreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetCreateIndex3A", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE2_W>} pindexcreate 
      * @param {Integer} cIndexCreate 
      * @returns {Integer} 
      */
     static JetCreateIndex3W(sesid, tableid, pindexcreate, cIndexCreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetCreateIndex3W", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE3_A>} pindexcreate 
      * @param {Integer} cIndexCreate 
      * @returns {Integer} 
      */
     static JetCreateIndex4A(sesid, tableid, pindexcreate, cIndexCreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetCreateIndex4A", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEXCREATE3_W>} pindexcreate 
      * @param {Integer} cIndexCreate 
      * @returns {Integer} 
      */
     static JetCreateIndex4W(sesid, tableid, pindexcreate, cIndexCreate) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetCreateIndex4W", "ptr", sesid, "ptr", tableid, "ptr", pindexcreate, "uint", cIndexCreate, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szIndexName 
      * @returns {Integer} 
      */
     static JetDeleteIndexA(sesid, tableid, szIndexName) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetDeleteIndexA", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szIndexName 
      * @returns {Integer} 
      */
     static JetDeleteIndexW(sesid, tableid, szIndexName) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetDeleteIndexW", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @returns {Integer} 
      */
     static JetBeginTransaction(sesid) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetBeginTransaction", "ptr", sesid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetBeginTransaction2(sesid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetBeginTransaction2", "ptr", sesid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} trxid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetBeginTransaction3(sesid, trxid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetBeginTransaction3", "ptr", sesid, "int64", trxid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetCommitTransaction(sesid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCommitTransaction", "ptr", sesid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @param {Integer} cmsecDurableCommit 
      * @param {Pointer<JET_COMMIT_ID>} pCommitId 
      * @returns {Integer} 
      */
     static JetCommitTransaction2(sesid, grbit, cmsecDurableCommit, pCommitId) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCommitTransaction2", "ptr", sesid, "uint", grbit, "uint", cmsecDurableCommit, "ptr", pCommitId, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetRollback(sesid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetRollback", "ptr", sesid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
@@ -6057,13 +6245,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetDatabaseInfoA(sesid, dbid, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGetDatabaseInfoA", "ptr", sesid, "uint", dbid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
@@ -6071,6 +6261,8 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetDatabaseInfoW(sesid, dbid, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGetDatabaseInfoW", "ptr", sesid, "uint", dbid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
@@ -6103,7 +6295,7 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<SByte>} szFilename 
      * @param {Pointer<SByte>} szConnect 
      * @param {Pointer<UInt32>} pdbid 
@@ -6111,13 +6303,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetOpenDatabaseA(sesid, szFilename, szConnect, pdbid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetOpenDatabaseA", "ptr", sesid, "char*", szFilename, "char*", szConnect, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt16>} szFilename 
      * @param {Pointer<UInt16>} szConnect 
      * @param {Pointer<UInt32>} pdbid 
@@ -6125,118 +6319,141 @@ class Jet {
      * @returns {Integer} 
      */
     static JetOpenDatabaseW(sesid, szFilename, szConnect, pdbid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetOpenDatabaseW", "ptr", sesid, "ushort*", szFilename, "ushort*", szConnect, "uint*", pdbid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetCloseDatabase(sesid, dbid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCloseDatabase", "ptr", sesid, "uint", dbid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @param {Pointer} pvParameters 
      * @param {Integer} cbParameters 
      * @param {Integer} grbit 
-     * @param {Pointer<UIntPtr>} ptableid 
+     * @param {Pointer<JET_TABLEID>} ptableid 
      * @returns {Integer} 
      */
     static JetOpenTableA(sesid, dbid, szTableName, pvParameters, cbParameters, grbit, ptableid) {
-        result := DllCall("ESENT.dll\JetOpenTableA", "ptr", sesid, "uint", dbid, "char*", szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, "ptr*", ptableid, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
+        result := DllCall("ESENT.dll\JetOpenTableA", "ptr", sesid, "uint", dbid, "char*", szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, "ptr", ptableid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Pointer} pvParameters 
      * @param {Integer} cbParameters 
      * @param {Integer} grbit 
-     * @param {Pointer<UIntPtr>} ptableid 
+     * @param {Pointer<JET_TABLEID>} ptableid 
      * @returns {Integer} 
      */
     static JetOpenTableW(sesid, dbid, szTableName, pvParameters, cbParameters, grbit, ptableid) {
-        result := DllCall("ESENT.dll\JetOpenTableW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, "ptr*", ptableid, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
+        result := DllCall("ESENT.dll\JetOpenTableW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "ptr", pvParameters, "uint", cbParameters, "uint", grbit, "ptr", ptableid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetSetTableSequential(sesid, tableid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetTableSequential", "ptr", sesid, "ptr", tableid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetResetTableSequential(sesid, tableid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetResetTableSequential", "ptr", sesid, "ptr", tableid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @returns {Integer} 
      */
     static JetCloseTable(sesid, tableid) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetCloseTable", "ptr", sesid, "ptr", tableid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @returns {Integer} 
      */
     static JetDelete(sesid, tableid) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetDelete", "ptr", sesid, "ptr", tableid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvBookmark 
      * @param {Integer} cbBookmark 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      */
     static JetUpdate(sesid, tableid, pvBookmark, cbBookmark, pcbActual) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetUpdate", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbBookmark, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvBookmark 
      * @param {Integer} cbBookmark 
      * @param {Pointer<UInt32>} pcbActual 
@@ -6244,14 +6461,17 @@ class Jet {
      * @returns {Integer} 
      */
     static JetUpdate2(sesid, tableid, pvBookmark, cbBookmark, pcbActual, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetUpdate2", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbBookmark, "uint*", pcbActual, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} columnid 
      * @param {Pointer} pv 
      * @param {Integer} cbMax 
@@ -6262,14 +6482,17 @@ class Jet {
      * @returns {Integer} 
      */
     static JetEscrowUpdate(sesid, tableid, columnid, pv, cbMax, pvOld, cbOldMax, pcbOldActual, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetEscrowUpdate", "ptr", sesid, "ptr", tableid, "uint", columnid, "ptr", pv, "uint", cbMax, "ptr", pvOld, "uint", cbOldMax, "uint*", pcbOldActual, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} columnid 
      * @param {Pointer} pvData 
      * @param {Integer} cbData 
@@ -6279,27 +6502,33 @@ class Jet {
      * @returns {Integer} 
      */
     static JetRetrieveColumn(sesid, tableid, columnid, pvData, cbData, pcbActual, grbit, pretinfo) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetRetrieveColumn", "ptr", sesid, "ptr", tableid, "uint", columnid, "ptr", pvData, "uint", cbData, "uint*", pcbActual, "uint", grbit, "ptr", pretinfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_RETRIEVECOLUMN>} pretrievecolumn 
      * @param {Integer} cretrievecolumn 
      * @returns {Integer} 
      */
     static JetRetrieveColumns(sesid, tableid, pretrievecolumn, cretrievecolumn) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetRetrieveColumns", "ptr", sesid, "ptr", tableid, "ptr", pretrievecolumn, "uint", cretrievecolumn, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} cEnumColumnId 
      * @param {Pointer<JET_ENUMCOLUMNID>} rgEnumColumnId 
      * @param {Pointer<UInt32>} pcEnumColumn 
@@ -6311,40 +6540,49 @@ class Jet {
      * @returns {Integer} 
      */
     static JetEnumerateColumns(sesid, tableid, cEnumColumnId, rgEnumColumnId, pcEnumColumn, prgEnumColumn, pfnRealloc, pvReallocContext, cbDataMost, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetEnumerateColumns", "ptr", sesid, "ptr", tableid, "uint", cEnumColumnId, "ptr", rgEnumColumnId, "uint*", pcEnumColumn, "ptr", prgEnumColumn, "ptr", pfnRealloc, "ptr", pvReallocContext, "uint", cbDataMost, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_RECSIZE>} precsize 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetGetRecordSize(sesid, tableid, precsize, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetRecordSize", "ptr", sesid, "ptr", tableid, "ptr", precsize, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_RECSIZE2>} precsize 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetGetRecordSize2(sesid, tableid, precsize, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetRecordSize2", "ptr", sesid, "ptr", tableid, "ptr", precsize, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} columnid 
      * @param {Pointer} pvData 
      * @param {Integer} cbData 
@@ -6353,195 +6591,240 @@ class Jet {
      * @returns {Integer} 
      */
     static JetSetColumn(sesid, tableid, columnid, pvData, cbData, grbit, psetinfo) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetColumn", "ptr", sesid, "ptr", tableid, "uint", columnid, "ptr", pvData, "uint", cbData, "uint", grbit, "ptr", psetinfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_SETCOLUMN>} psetcolumn 
      * @param {Integer} csetcolumn 
      * @returns {Integer} 
      */
     static JetSetColumns(sesid, tableid, psetcolumn, csetcolumn) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetColumns", "ptr", sesid, "ptr", tableid, "ptr", psetcolumn, "uint", csetcolumn, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} prep 
      * @returns {Integer} 
      */
     static JetPrepareUpdate(sesid, tableid, prep) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetPrepareUpdate", "ptr", sesid, "ptr", tableid, "uint", prep, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} precpos 
      * @param {Integer} cbRecpos 
      * @returns {Integer} 
      */
     static JetGetRecordPosition(sesid, tableid, precpos, cbRecpos) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetRecordPosition", "ptr", sesid, "ptr", tableid, "ptr", precpos, "uint", cbRecpos, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_RECPOS>} precpos 
      * @returns {Integer} 
      */
     static JetGotoPosition(sesid, tableid, precpos) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGotoPosition", "ptr", sesid, "ptr", tableid, "ptr", precpos, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvResult 
      * @param {Integer} cbMax 
      * @param {Integer} InfoLevel 
      * @returns {Integer} 
      */
     static JetGetCursorInfo(sesid, tableid, pvResult, cbMax, InfoLevel) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetCursorInfo", "ptr", sesid, "ptr", tableid, "ptr", pvResult, "uint", cbMax, "uint", InfoLevel, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
-     * @param {Pointer<UIntPtr>} ptableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
+     * @param {Pointer<JET_TABLEID>} ptableid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetDupCursor(sesid, tableid, ptableid, grbit) {
-        result := DllCall("ESENT.dll\JetDupCursor", "ptr", sesid, "ptr", tableid, "ptr*", ptableid, "uint", grbit, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
+        result := DllCall("ESENT.dll\JetDupCursor", "ptr", sesid, "ptr", tableid, "ptr", ptableid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} szIndexName 
      * @param {Integer} cbIndexName 
      * @returns {Integer} 
      */
     static JetGetCurrentIndexA(sesid, tableid, szIndexName, cbIndexName) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetCurrentIndexA", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", cbIndexName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} szIndexName 
      * @param {Integer} cbIndexName 
      * @returns {Integer} 
      */
     static JetGetCurrentIndexW(sesid, tableid, szIndexName, cbIndexName) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetCurrentIndexW", "ptr", sesid, "ptr", tableid, "ptr", szIndexName, "uint", cbIndexName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szIndexName 
      * @returns {Integer} 
      */
     static JetSetCurrentIndexA(sesid, tableid, szIndexName) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetCurrentIndexA", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szIndexName 
      * @returns {Integer} 
      */
     static JetSetCurrentIndexW(sesid, tableid, szIndexName) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetCurrentIndexW", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szIndexName 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetSetCurrentIndex2A(sesid, tableid, szIndexName, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetCurrentIndex2A", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szIndexName 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetSetCurrentIndex2W(sesid, tableid, szIndexName, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetCurrentIndex2W", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szIndexName 
      * @param {Integer} grbit 
      * @param {Integer} itagSequence 
      * @returns {Integer} 
      */
     static JetSetCurrentIndex3A(sesid, tableid, szIndexName, grbit, itagSequence) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetCurrentIndex3A", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "uint", grbit, "uint", itagSequence, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szIndexName 
      * @param {Integer} grbit 
      * @param {Integer} itagSequence 
      * @returns {Integer} 
      */
     static JetSetCurrentIndex3W(sesid, tableid, szIndexName, grbit, itagSequence) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetCurrentIndex3W", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "uint", grbit, "uint", itagSequence, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<SByte>} szIndexName 
      * @param {Pointer<JET_INDEXID>} pindexid 
      * @param {Integer} grbit 
@@ -6549,14 +6832,17 @@ class Jet {
      * @returns {Integer} 
      */
     static JetSetCurrentIndex4A(sesid, tableid, szIndexName, pindexid, grbit, itagSequence) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetCurrentIndex4A", "ptr", sesid, "ptr", tableid, "char*", szIndexName, "ptr", pindexid, "uint", grbit, "uint", itagSequence, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt16>} szIndexName 
      * @param {Pointer<JET_INDEXID>} pindexid 
      * @param {Integer} grbit 
@@ -6564,79 +6850,97 @@ class Jet {
      * @returns {Integer} 
      */
     static JetSetCurrentIndex4W(sesid, tableid, szIndexName, pindexid, grbit, itagSequence) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetCurrentIndex4W", "ptr", sesid, "ptr", tableid, "ushort*", szIndexName, "ptr", pindexid, "uint", grbit, "uint", itagSequence, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} cRow 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetMove(sesid, tableid, cRow, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetMove", "ptr", sesid, "ptr", tableid, "int", cRow, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEX_COLUMN>} rgColumnFilters 
      * @param {Integer} cColumnFilters 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetSetCursorFilter(sesid, tableid, rgColumnFilters, cColumnFilters, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSetCursorFilter", "ptr", sesid, "ptr", tableid, "ptr", rgColumnFilters, "uint", cColumnFilters, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetGetLock(sesid, tableid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetLock", "ptr", sesid, "ptr", tableid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvData 
      * @param {Integer} cbData 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetMakeKey(sesid, tableid, pvData, cbData, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetMakeKey", "ptr", sesid, "ptr", tableid, "ptr", pvData, "uint", cbData, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetSeek(sesid, tableid, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetSeek", "ptr", sesid, "ptr", tableid, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<Void>} rgpvKeys 
      * @param {Pointer<UInt32>} rgcbKeys 
      * @param {Integer} ckeys 
@@ -6645,14 +6949,17 @@ class Jet {
      * @returns {Integer} 
      */
     static JetPrereadKeys(sesid, tableid, rgpvKeys, rgcbKeys, ckeys, pckeysPreread, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetPrereadKeys", "ptr", sesid, "ptr", tableid, "ptr", rgpvKeys, "uint*", rgcbKeys, "int", ckeys, "int*", pckeysPreread, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<JET_INDEX_RANGE>} rgIndexRanges 
      * @param {Integer} cIndexRanges 
      * @param {Pointer<UInt32>} pcRangesPreread 
@@ -6662,28 +6969,34 @@ class Jet {
      * @returns {Integer} 
      */
     static JetPrereadIndexRanges(sesid, tableid, rgIndexRanges, cIndexRanges, pcRangesPreread, rgcolumnidPreread, ccolumnidPreread, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetPrereadIndexRanges", "ptr", sesid, "ptr", tableid, "ptr", rgIndexRanges, "uint", cIndexRanges, "uint*", pcRangesPreread, "uint*", rgcolumnidPreread, "uint", ccolumnidPreread, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvBookmark 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      */
     static JetGetBookmark(sesid, tableid, pvBookmark, cbMax, pcbActual) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvSecondaryKey 
      * @param {Integer} cbSecondaryKeyMax 
      * @param {Pointer<UInt32>} pcbSecondaryKeyActual 
@@ -6694,13 +7007,16 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetSecondaryIndexBookmark(sesid, tableid, pvSecondaryKey, cbSecondaryKeyMax, pcbSecondaryKeyActual, pvPrimaryBookmark, cbPrimaryBookmarkMax, pcbPrimaryBookmarkActual, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGetSecondaryIndexBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvSecondaryKey, "uint", cbSecondaryKeyMax, "uint*", pcbSecondaryKeyActual, "ptr", pvPrimaryBookmark, "uint", cbPrimaryBookmarkMax, "uint*", pcbPrimaryBookmarkActual, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<SByte>} szDatabaseSrc 
      * @param {Pointer<SByte>} szDatabaseDest 
      * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
@@ -6709,13 +7025,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetCompactA(sesid, szDatabaseSrc, szDatabaseDest, pfnStatus, pconvert, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCompactA", "ptr", sesid, "char*", szDatabaseSrc, "char*", szDatabaseDest, "ptr", pfnStatus, "ptr", pconvert, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt16>} szDatabaseSrc 
      * @param {Pointer<UInt16>} szDatabaseDest 
      * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
@@ -6724,13 +7042,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetCompactW(sesid, szDatabaseSrc, szDatabaseDest, pfnStatus, pconvert, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetCompactW", "ptr", sesid, "ushort*", szDatabaseSrc, "ushort*", szDatabaseDest, "ptr", pfnStatus, "ptr", pconvert, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @param {Pointer<UInt32>} pcPasses 
@@ -6739,13 +7059,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetDefragmentA(sesid, dbid, szTableName, pcPasses, pcSeconds, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDefragmentA", "ptr", sesid, "uint", dbid, "char*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Pointer<UInt32>} pcPasses 
@@ -6754,13 +7076,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetDefragmentW(sesid, dbid, szTableName, pcPasses, pcSeconds, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDefragmentW", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<SByte>} szTableName 
      * @param {Pointer<UInt32>} pcPasses 
@@ -6770,13 +7094,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetDefragment2A(sesid, dbid, szTableName, pcPasses, pcSeconds, callback, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDefragment2A", "ptr", sesid, "uint", dbid, "char*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "ptr", callback, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Pointer<UInt32>} pcPasses 
@@ -6786,13 +7112,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetDefragment2W(sesid, dbid, szTableName, pcPasses, pcSeconds, callback, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDefragment2W", "ptr", sesid, "uint", dbid, "ushort*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "ptr", callback, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<SByte>} szDatabaseName 
      * @param {Pointer<SByte>} szTableName 
      * @param {Pointer<UInt32>} pcPasses 
@@ -6803,13 +7131,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetDefragment3A(sesid, szDatabaseName, szTableName, pcPasses, pcSeconds, callback, pvContext, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDefragment3A", "ptr", sesid, "char*", szDatabaseName, "char*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "ptr", callback, "ptr", pvContext, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt16>} szDatabaseName 
      * @param {Pointer<UInt16>} szTableName 
      * @param {Pointer<UInt32>} pcPasses 
@@ -6820,52 +7150,60 @@ class Jet {
      * @returns {Integer} 
      */
     static JetDefragment3W(sesid, szDatabaseName, szTableName, pcPasses, pcSeconds, callback, pvContext, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetDefragment3W", "ptr", sesid, "ushort*", szDatabaseName, "ushort*", szTableName, "uint*", pcPasses, "uint*", pcSeconds, "ptr", callback, "ptr", pvContext, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<SByte>} szDatabaseName 
      * @param {Integer} cpg 
      * @param {Pointer<UInt32>} pcpgReal 
      * @returns {Integer} 
      */
     static JetSetDatabaseSizeA(sesid, szDatabaseName, cpg, pcpgReal) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetSetDatabaseSizeA", "ptr", sesid, "char*", szDatabaseName, "uint", cpg, "uint*", pcpgReal, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<UInt16>} szDatabaseName 
      * @param {Integer} cpg 
      * @param {Pointer<UInt32>} pcpgReal 
      * @returns {Integer} 
      */
     static JetSetDatabaseSizeW(sesid, szDatabaseName, cpg, pcpgReal) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetSetDatabaseSizeW", "ptr", sesid, "ushort*", szDatabaseName, "uint", cpg, "uint*", pcpgReal, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Integer} cpg 
      * @param {Pointer<UInt32>} pcpgReal 
      * @returns {Integer} 
      */
     static JetGrowDatabase(sesid, dbid, cpg, pcpgReal) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGrowDatabase", "ptr", sesid, "uint", dbid, "uint", cpg, "uint*", pcpgReal, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} dbid 
      * @param {Integer} cpgTarget 
      * @param {Pointer<UInt32>} pcpgActual 
@@ -6873,48 +7211,58 @@ class Jet {
      * @returns {Integer} 
      */
     static JetResizeDatabase(sesid, dbid, cpgTarget, pcpgActual, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetResizeDatabase", "ptr", sesid, "uint", dbid, "uint", cpgTarget, "uint*", pcpgActual, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} ulContext 
+     * @param {JET_SESID} sesid 
+     * @param {JET_API_PTR} ulContext 
      * @returns {Integer} 
      */
     static JetSetSessionContext(sesid, ulContext) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        ulContext := ulContext is Win32Handle ? NumGet(ulContext, "ptr") : ulContext
+
         result := DllCall("ESENT.dll\JetSetSessionContext", "ptr", sesid, "ptr", ulContext, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @returns {Integer} 
      */
     static JetResetSessionContext(sesid) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetResetSessionContext", "ptr", sesid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvBookmark 
      * @param {Integer} cbBookmark 
      * @returns {Integer} 
      */
     static JetGotoBookmark(sesid, tableid, pvBookmark, cbBookmark) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGotoBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvBookmark, "uint", cbBookmark, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvSecondaryKey 
      * @param {Integer} cbSecondaryKey 
      * @param {Pointer} pvPrimaryBookmark 
@@ -6923,13 +7271,16 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGotoSecondaryIndexBookmark(sesid, tableid, pvSecondaryKey, cbSecondaryKey, pvPrimaryBookmark, cbPrimaryBookmark, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetGotoSecondaryIndexBookmark", "ptr", sesid, "ptr", tableid, "ptr", pvSecondaryKey, "uint", cbSecondaryKey, "ptr", pvPrimaryBookmark, "uint", cbPrimaryBookmark, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<JET_INDEXRANGE>} rgindexrange 
      * @param {Integer} cindexrange 
      * @param {Pointer<JET_RECORDLIST>} precordlist 
@@ -6937,86 +7288,101 @@ class Jet {
      * @returns {Integer} 
      */
     static JetIntersectIndexes(sesid, rgindexrange, cindexrange, precordlist, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetIntersectIndexes", "ptr", sesid, "ptr", rgindexrange, "uint", cindexrange, "ptr", precordlist, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @returns {Integer} 
      */
     static JetComputeStats(sesid, tableid) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetComputeStats", "ptr", sesid, "ptr", tableid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
      * @param {Integer} ccolumn 
      * @param {Integer} grbit 
-     * @param {Pointer<UIntPtr>} ptableid 
+     * @param {Pointer<JET_TABLEID>} ptableid 
      * @param {Pointer<UInt32>} prgcolumnid 
      * @returns {Integer} 
      */
     static JetOpenTempTable(sesid, prgcolumndef, ccolumn, grbit, ptableid, prgcolumnid) {
-        result := DllCall("ESENT.dll\JetOpenTempTable", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "uint", grbit, "ptr*", ptableid, "uint*", prgcolumnid, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
+        result := DllCall("ESENT.dll\JetOpenTempTable", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "uint", grbit, "ptr", ptableid, "uint*", prgcolumnid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
      * @param {Integer} ccolumn 
      * @param {Integer} lcid 
      * @param {Integer} grbit 
-     * @param {Pointer<UIntPtr>} ptableid 
+     * @param {Pointer<JET_TABLEID>} ptableid 
      * @param {Pointer<UInt32>} prgcolumnid 
      * @returns {Integer} 
      */
     static JetOpenTempTable2(sesid, prgcolumndef, ccolumn, lcid, grbit, ptableid, prgcolumnid) {
-        result := DllCall("ESENT.dll\JetOpenTempTable2", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "uint", lcid, "uint", grbit, "ptr*", ptableid, "uint*", prgcolumnid, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
+        result := DllCall("ESENT.dll\JetOpenTempTable2", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "uint", lcid, "uint", grbit, "ptr", ptableid, "uint*", prgcolumnid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<JET_COLUMNDEF>} prgcolumndef 
      * @param {Integer} ccolumn 
      * @param {Pointer<JET_UNICODEINDEX>} pidxunicode 
      * @param {Integer} grbit 
-     * @param {Pointer<UIntPtr>} ptableid 
+     * @param {Pointer<JET_TABLEID>} ptableid 
      * @param {Pointer<UInt32>} prgcolumnid 
      * @returns {Integer} 
      */
     static JetOpenTempTable3(sesid, prgcolumndef, ccolumn, pidxunicode, grbit, ptableid, prgcolumnid) {
-        result := DllCall("ESENT.dll\JetOpenTempTable3", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "ptr", pidxunicode, "uint", grbit, "ptr*", ptableid, "uint*", prgcolumnid, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
+        result := DllCall("ESENT.dll\JetOpenTempTable3", "ptr", sesid, "ptr", prgcolumndef, "uint", ccolumn, "ptr", pidxunicode, "uint", grbit, "ptr", ptableid, "uint*", prgcolumnid, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<JET_OPENTEMPORARYTABLE>} popentemporarytable 
      * @returns {Integer} 
      */
     static JetOpenTemporaryTable(sesid, popentemporarytable) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetOpenTemporaryTable", "ptr", sesid, "ptr", popentemporarytable, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Pointer<JET_OPENTEMPORARYTABLE2>} popentemporarytable 
      * @returns {Integer} 
      */
     static JetOpenTemporaryTable2(sesid, popentemporarytable) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetOpenTemporaryTable2", "ptr", sesid, "ptr", popentemporarytable, "int")
         return result
     }
@@ -7047,26 +7413,30 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer<SByte>} szBackupPath 
      * @param {Integer} grbit 
      * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
      * @returns {Integer} 
      */
     static JetBackupInstanceA(instance, szBackupPath, grbit, pfnStatus) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetBackupInstanceA", "ptr", instance, "char*", szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer<UInt16>} szBackupPath 
      * @param {Integer} grbit 
      * @param {Pointer<JET_PFNSTATUS>} pfnStatus 
      * @returns {Integer} 
      */
     static JetBackupInstanceW(instance, szBackupPath, grbit, pfnStatus) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetBackupInstanceW", "ptr", instance, "ushort*", szBackupPath, "uint", grbit, "ptr", pfnStatus, "int")
         return result
     }
@@ -7119,59 +7489,69 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer<SByte>} sz 
      * @param {Pointer<SByte>} szDest 
      * @param {Pointer<JET_PFNSTATUS>} pfn 
      * @returns {Integer} 
      */
     static JetRestoreInstanceA(instance, sz, szDest, pfn) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetRestoreInstanceA", "ptr", instance, "char*", sz, "char*", szDest, "ptr", pfn, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer<UInt16>} sz 
      * @param {Pointer<UInt16>} szDest 
      * @param {Pointer<JET_PFNSTATUS>} pfn 
      * @returns {Integer} 
      */
     static JetRestoreInstanceW(instance, sz, szDest, pfn) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetRestoreInstanceW", "ptr", instance, "ushort*", sz, "ushort*", szDest, "ptr", pfn, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableidSrc 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableidSrc 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetSetIndexRange(sesid, tableidSrc, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableidSrc := tableidSrc is Win32Handle ? NumGet(tableidSrc, "ptr") : tableidSrc
+
         result := DllCall("ESENT.dll\JetSetIndexRange", "ptr", sesid, "ptr", tableidSrc, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer<UInt32>} pcrec 
      * @param {Integer} crecMax 
      * @returns {Integer} 
      */
     static JetIndexRecordCount(sesid, tableid, pcrec, crecMax) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetIndexRecordCount", "ptr", sesid, "ptr", tableid, "uint*", pcrec, "uint", crecMax, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Pointer} pvKey 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
@@ -7179,6 +7559,9 @@ class Jet {
      * @returns {Integer} 
      */
     static JetRetrieveKey(sesid, tableid, pvKey, cbMax, pcbActual, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
         result := DllCall("ESENT.dll\JetRetrieveKey", "ptr", sesid, "ptr", tableid, "ptr", pvKey, "uint", cbMax, "uint*", pcbActual, "uint", grbit, "int")
         return result
     }
@@ -7195,11 +7578,13 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetBeginExternalBackupInstance(instance, grbit) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetBeginExternalBackupInstance", "ptr", instance, "uint", grbit, "int")
         return result
     }
@@ -7230,26 +7615,30 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer} szzDatabases 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      */
     static JetGetAttachInfoInstanceA(instance, szzDatabases, cbMax, pcbActual) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetGetAttachInfoInstanceA", "ptr", instance, "ptr", szzDatabases, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer} szzDatabases 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      */
     static JetGetAttachInfoInstanceW(instance, szzDatabases, cbMax, pcbActual) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetGetAttachInfoInstanceW", "ptr", instance, "ptr", szzDatabases, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
@@ -7257,101 +7646,115 @@ class Jet {
     /**
      * 
      * @param {Pointer<SByte>} szFileName 
-     * @param {Pointer<UIntPtr>} phfFile 
+     * @param {Pointer<JET_HANDLE>} phfFile 
      * @param {Pointer<UInt32>} pulFileSizeLow 
      * @param {Pointer<UInt32>} pulFileSizeHigh 
      * @returns {Integer} 
      */
     static JetOpenFileA(szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        result := DllCall("ESENT.dll\JetOpenFileA", "char*", szFileName, "ptr*", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
+        result := DllCall("ESENT.dll\JetOpenFileA", "char*", szFileName, "ptr", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UInt16>} szFileName 
-     * @param {Pointer<UIntPtr>} phfFile 
+     * @param {Pointer<JET_HANDLE>} phfFile 
      * @param {Pointer<UInt32>} pulFileSizeLow 
      * @param {Pointer<UInt32>} pulFileSizeHigh 
      * @returns {Integer} 
      */
     static JetOpenFileW(szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        result := DllCall("ESENT.dll\JetOpenFileW", "ushort*", szFileName, "ptr*", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
+        result := DllCall("ESENT.dll\JetOpenFileW", "ushort*", szFileName, "ptr", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer<SByte>} szFileName 
-     * @param {Pointer<UIntPtr>} phfFile 
+     * @param {Pointer<JET_HANDLE>} phfFile 
      * @param {Pointer<UInt32>} pulFileSizeLow 
      * @param {Pointer<UInt32>} pulFileSizeHigh 
      * @returns {Integer} 
      */
     static JetOpenFileInstanceA(instance, szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        result := DllCall("ESENT.dll\JetOpenFileInstanceA", "ptr", instance, "char*", szFileName, "ptr*", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
+        result := DllCall("ESENT.dll\JetOpenFileInstanceA", "ptr", instance, "char*", szFileName, "ptr", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer<UInt16>} szFileName 
-     * @param {Pointer<UIntPtr>} phfFile 
+     * @param {Pointer<JET_HANDLE>} phfFile 
      * @param {Pointer<UInt32>} pulFileSizeLow 
      * @param {Pointer<UInt32>} pulFileSizeHigh 
      * @returns {Integer} 
      */
     static JetOpenFileInstanceW(instance, szFileName, phfFile, pulFileSizeLow, pulFileSizeHigh) {
-        result := DllCall("ESENT.dll\JetOpenFileInstanceW", "ptr", instance, "ushort*", szFileName, "ptr*", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
+        result := DllCall("ESENT.dll\JetOpenFileInstanceW", "ptr", instance, "ushort*", szFileName, "ptr", phfFile, "uint*", pulFileSizeLow, "uint*", pulFileSizeHigh, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} hfFile 
+     * @param {JET_HANDLE} hfFile 
      * @param {Pointer} pv 
      * @param {Integer} cb 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      */
     static JetReadFile(hfFile, pv, cb, pcbActual) {
+        hfFile := hfFile is Win32Handle ? NumGet(hfFile, "ptr") : hfFile
+
         result := DllCall("ESENT.dll\JetReadFile", "ptr", hfFile, "ptr", pv, "uint", cb, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
-     * @param {Pointer} hfFile 
+     * @param {JET_INSTANCE} instance 
+     * @param {JET_HANDLE} hfFile 
      * @param {Pointer} pv 
      * @param {Integer} cb 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      */
     static JetReadFileInstance(instance, hfFile, pv, cb, pcbActual) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+        hfFile := hfFile is Win32Handle ? NumGet(hfFile, "ptr") : hfFile
+
         result := DllCall("ESENT.dll\JetReadFileInstance", "ptr", instance, "ptr", hfFile, "ptr", pv, "uint", cb, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} hfFile 
+     * @param {JET_HANDLE} hfFile 
      * @returns {Integer} 
      */
     static JetCloseFile(hfFile) {
+        hfFile := hfFile is Win32Handle ? NumGet(hfFile, "ptr") : hfFile
+
         result := DllCall("ESENT.dll\JetCloseFile", "ptr", hfFile, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
-     * @param {Pointer} hfFile 
+     * @param {JET_INSTANCE} instance 
+     * @param {JET_HANDLE} hfFile 
      * @returns {Integer} 
      */
     static JetCloseFileInstance(instance, hfFile) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+        hfFile := hfFile is Win32Handle ? NumGet(hfFile, "ptr") : hfFile
+
         result := DllCall("ESENT.dll\JetCloseFileInstance", "ptr", instance, "ptr", hfFile, "int")
         return result
     }
@@ -7382,33 +7785,37 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      */
     static JetGetLogInfoInstanceA(instance, szzLogs, cbMax, pcbActual) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetGetLogInfoInstanceA", "ptr", instance, "ptr", szzLogs, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer} wszzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      */
     static JetGetLogInfoInstanceW(instance, wszzLogs, cbMax, pcbActual) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetGetLogInfoInstanceW", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
@@ -7416,13 +7823,15 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetLogInfoInstance2A(instance, szzLogs, cbMax, pcbActual, pLogInfo) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetGetLogInfoInstance2A", "ptr", instance, "ptr", szzLogs, "uint", cbMax, "uint*", pcbActual, "ptr", pLogInfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer} wszzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
@@ -7430,32 +7839,38 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetLogInfoInstance2W(instance, wszzLogs, cbMax, pcbActual, pLogInfo) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetGetLogInfoInstance2W", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, "uint*", pcbActual, "ptr", pLogInfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer} szzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      */
     static JetGetTruncateLogInfoInstanceA(instance, szzLogs, cbMax, pcbActual) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetGetTruncateLogInfoInstanceA", "ptr", instance, "ptr", szzLogs, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Pointer} wszzLogs 
      * @param {Integer} cbMax 
      * @param {Pointer<UInt32>} pcbActual 
      * @returns {Integer} 
      */
     static JetGetTruncateLogInfoInstanceW(instance, wszzLogs, cbMax, pcbActual) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetGetTruncateLogInfoInstanceW", "ptr", instance, "ptr", wszzLogs, "uint", cbMax, "uint*", pcbActual, "int")
         return result
     }
@@ -7471,10 +7886,12 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @returns {Integer} 
      */
     static JetTruncateLogInstance(instance) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetTruncateLogInstance", "ptr", instance, "int")
         return result
     }
@@ -7490,21 +7907,25 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @returns {Integer} 
      */
     static JetEndExternalBackupInstance(instance) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetEndExternalBackupInstance", "ptr", instance, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} instance 
+     * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetEndExternalBackupInstance2(instance, grbit) {
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetEndExternalBackupInstance2", "ptr", instance, "uint", grbit, "int")
         return result
     }
@@ -7583,28 +8004,35 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} cbtyp 
      * @param {Pointer<JET_CALLBACK>} pCallback 
      * @param {Pointer<Void>} pvContext 
-     * @param {Pointer<UIntPtr>} phCallbackId 
+     * @param {Pointer<JET_HANDLE>} phCallbackId 
      * @returns {Integer} 
      */
     static JetRegisterCallback(sesid, tableid, cbtyp, pCallback, pvContext, phCallbackId) {
-        result := DllCall("ESENT.dll\JetRegisterCallback", "ptr", sesid, "ptr", tableid, "uint", cbtyp, "ptr", pCallback, "ptr", pvContext, "ptr*", phCallbackId, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
+        result := DllCall("ESENT.dll\JetRegisterCallback", "ptr", sesid, "ptr", tableid, "uint", cbtyp, "ptr", pCallback, "ptr", pvContext, "ptr", phCallbackId, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
      * @param {Integer} cbtyp 
-     * @param {Pointer} hCallbackId 
+     * @param {JET_HANDLE} hCallbackId 
      * @returns {Integer} 
      */
     static JetUnregisterCallback(sesid, tableid, cbtyp, hCallbackId) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+        hCallbackId := hCallbackId is Win32Handle ? NumGet(hCallbackId, "ptr") : hCallbackId
+
         result := DllCall("ESENT.dll\JetUnregisterCallback", "ptr", sesid, "ptr", tableid, "uint", cbtyp, "ptr", hCallbackId, "int")
         return result
     }
@@ -7643,157 +8071,186 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
-     * @param {Pointer} ls 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
+     * @param {JET_LS} ls 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetSetLS(sesid, tableid, ls, grbit) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+        ls := ls is Win32Handle ? NumGet(ls, "ptr") : ls
+
         result := DllCall("ESENT.dll\JetSetLS", "ptr", sesid, "ptr", tableid, "ptr", ls, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
-     * @param {Pointer} tableid 
-     * @param {Pointer<UIntPtr>} pls 
+     * @param {JET_SESID} sesid 
+     * @param {JET_TABLEID} tableid 
+     * @param {Pointer<JET_LS>} pls 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetGetLS(sesid, tableid, pls, grbit) {
-        result := DllCall("ESENT.dll\JetGetLS", "ptr", sesid, "ptr", tableid, "ptr*", pls, "uint", grbit, "int")
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+        tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
+
+        result := DllCall("ESENT.dll\JetGetLS", "ptr", sesid, "ptr", tableid, "ptr", pls, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UIntPtr>} psnapId 
+     * @param {Pointer<JET_OSSNAPID>} psnapId 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotPrepare(psnapId, grbit) {
-        result := DllCall("ESENT.dll\JetOSSnapshotPrepare", "ptr*", psnapId, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOSSnapshotPrepare", "ptr", psnapId, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} snapId 
-     * @param {Pointer} instance 
+     * @param {JET_OSSNAPID} snapId 
+     * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotPrepareInstance(snapId, instance, grbit) {
+        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetOSSnapshotPrepareInstance", "ptr", snapId, "ptr", instance, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} snapId 
+     * @param {JET_OSSNAPID} snapId 
      * @param {Pointer<UInt32>} pcInstanceInfo 
      * @param {Pointer<JET_INSTANCE_INFO_A>} paInstanceInfo 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotFreezeA(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
+        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
+
         result := DllCall("ESENT.dll\JetOSSnapshotFreezeA", "ptr", snapId, "uint*", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} snapId 
+     * @param {JET_OSSNAPID} snapId 
      * @param {Pointer<UInt32>} pcInstanceInfo 
      * @param {Pointer<JET_INSTANCE_INFO_W>} paInstanceInfo 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotFreezeW(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
+        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
+
         result := DllCall("ESENT.dll\JetOSSnapshotFreezeW", "ptr", snapId, "uint*", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} snapId 
+     * @param {JET_OSSNAPID} snapId 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotThaw(snapId, grbit) {
+        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
+
         result := DllCall("ESENT.dll\JetOSSnapshotThaw", "ptr", snapId, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} snapId 
+     * @param {JET_OSSNAPID} snapId 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotAbort(snapId, grbit) {
+        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
+
         result := DllCall("ESENT.dll\JetOSSnapshotAbort", "ptr", snapId, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} snapId 
+     * @param {JET_OSSNAPID} snapId 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotTruncateLog(snapId, grbit) {
+        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
+
         result := DllCall("ESENT.dll\JetOSSnapshotTruncateLog", "ptr", snapId, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} snapId 
-     * @param {Pointer} instance 
+     * @param {JET_OSSNAPID} snapId 
+     * @param {JET_INSTANCE} instance 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotTruncateLogInstance(snapId, instance, grbit) {
+        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
+        instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
+
         result := DllCall("ESENT.dll\JetOSSnapshotTruncateLogInstance", "ptr", snapId, "ptr", instance, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} snapId 
+     * @param {JET_OSSNAPID} snapId 
      * @param {Pointer<UInt32>} pcInstanceInfo 
      * @param {Pointer<JET_INSTANCE_INFO_A>} paInstanceInfo 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotGetFreezeInfoA(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
+        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
+
         result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoA", "ptr", snapId, "uint*", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} snapId 
+     * @param {JET_OSSNAPID} snapId 
      * @param {Pointer<UInt32>} pcInstanceInfo 
      * @param {Pointer<JET_INSTANCE_INFO_W>} paInstanceInfo 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotGetFreezeInfoW(snapId, pcInstanceInfo, paInstanceInfo, grbit) {
+        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
+
         result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoW", "ptr", snapId, "uint*", pcInstanceInfo, "ptr", paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} snapId 
+     * @param {JET_OSSNAPID} snapId 
      * @param {Integer} grbit 
      * @returns {Integer} 
      */
     static JetOSSnapshotEnd(snapId, grbit) {
+        snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
+
         result := DllCall("ESENT.dll\JetOSSnapshotEnd", "ptr", snapId, "uint", grbit, "int")
         return result
     }
@@ -7824,20 +8281,22 @@ class Jet {
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} sesparamid 
      * @param {Pointer} pvParam 
      * @param {Integer} cbParam 
      * @returns {Integer} 
      */
     static JetSetSessionParameter(sesid, sesparamid, pvParam, cbParam) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetSetSessionParameter", "ptr", sesid, "uint", sesparamid, "ptr", pvParam, "uint", cbParam, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} sesid 
+     * @param {JET_SESID} sesid 
      * @param {Integer} sesparamid 
      * @param {Pointer<Void>} pvParam 
      * @param {Integer} cbParamMax 
@@ -7845,6 +8304,8 @@ class Jet {
      * @returns {Integer} 
      */
     static JetGetSessionParameter(sesid, sesparamid, pvParam, cbParamMax, pcbParamActual) {
+        sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
+
         result := DllCall("ESENT.dll\JetGetSessionParameter", "ptr", sesid, "uint", sesparamid, "ptr", pvParam, "uint", cbParamMax, "uint*", pcbParamActual, "int")
         return result
     }

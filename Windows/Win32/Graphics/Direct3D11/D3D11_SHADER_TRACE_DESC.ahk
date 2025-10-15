@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_VERTEX_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_HULL_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_DOMAIN_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_GEOMETRY_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_PIXEL_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_COMPUTE_SHADER_TRACE_DESC.ahk
 
@@ -54,35 +58,47 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D11_VERTEX_SHADER_TRACE_DESC}
      */
-    VertexShaderTraceDesc {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    VertexShaderTraceDesc{
+        get {
+            if(!this.HasProp("__VertexShaderTraceDesc"))
+                this.__VertexShaderTraceDesc := D3D11_VERTEX_SHADER_TRACE_DESC(this.ptr + 8)
+            return this.__VertexShaderTraceDesc
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D11_HULL_SHADER_TRACE_DESC}
      */
-    HullShaderTraceDesc {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    HullShaderTraceDesc{
+        get {
+            if(!this.HasProp("__HullShaderTraceDesc"))
+                this.__HullShaderTraceDesc := D3D11_HULL_SHADER_TRACE_DESC(this.ptr + 8)
+            return this.__HullShaderTraceDesc
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D11_DOMAIN_SHADER_TRACE_DESC}
      */
-    DomainShaderTraceDesc {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    DomainShaderTraceDesc{
+        get {
+            if(!this.HasProp("__DomainShaderTraceDesc"))
+                this.__DomainShaderTraceDesc := D3D11_DOMAIN_SHADER_TRACE_DESC(this.ptr + 8)
+            return this.__DomainShaderTraceDesc
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D11_GEOMETRY_SHADER_TRACE_DESC}
      */
-    GeometryShaderTraceDesc {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    GeometryShaderTraceDesc{
+        get {
+            if(!this.HasProp("__GeometryShaderTraceDesc"))
+                this.__GeometryShaderTraceDesc := D3D11_GEOMETRY_SHADER_TRACE_DESC(this.ptr + 8)
+            return this.__GeometryShaderTraceDesc
+        }
     }
 
     /**

@@ -12,11 +12,30 @@ class NVME_CDW10_ABORT extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - SQID
+     * - CID
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SQID {
+        get => (this._bitfield >> 0) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CID {
+        get => (this._bitfield >> 8) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 8) | (this._bitfield & ~(0xFFFF << 8))
     }
 
     /**

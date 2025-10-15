@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Security.AppLocker
@@ -28,19 +32,25 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ImagePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ImagePath{
+        get {
+            if(!this.HasProp("__ImagePath"))
+                this.__ImagePath := PWSTR(this.ptr + 8)
+            return this.__ImagePath
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hImageFileHandle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hImageFileHandle{
+        get {
+            if(!this.HasProp("__hImageFileHandle"))
+                this.__hImageFileHandle := HANDLE(this.ptr + 16)
+            return this.__hImageFileHandle
+        }
     }
 
     /**
@@ -95,11 +105,14 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWndParent {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+    hWndParent{
+        get {
+            if(!this.HasProp("__hWndParent"))
+                this.__hWndParent := HWND(this.ptr + 120)
+            return this.__hWndParent
+        }
     }
 
     /**
@@ -111,27 +124,36 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PackageMoniker {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    PackageMoniker{
+        get {
+            if(!this.HasProp("__PackageMoniker"))
+                this.__PackageMoniker := PWSTR(this.ptr + 136)
+            return this.__PackageMoniker
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PackagePublisher {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+    PackagePublisher{
+        get {
+            if(!this.HasProp("__PackagePublisher"))
+                this.__PackagePublisher := PWSTR(this.ptr + 144)
+            return this.__PackagePublisher
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PackageName {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+    PackageName{
+        get {
+            if(!this.HasProp("__PackageName"))
+                this.__PackageName := PWSTR(this.ptr + 152)
+            return this.__PackageName
+        }
     }
 
     /**
@@ -143,11 +165,14 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PackageIsFramework {
-        get => NumGet(this, 168, "int")
-        set => NumPut("int", value, this, 168)
+    PackageIsFramework{
+        get {
+            if(!this.HasProp("__PackageIsFramework"))
+                this.__PackageIsFramework := BOOL(this.ptr + 168)
+            return this.__PackageIsFramework
+        }
     }
 
     /**

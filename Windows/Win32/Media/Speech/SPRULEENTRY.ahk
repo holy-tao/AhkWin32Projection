@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPRULEHANDLE.ahk
+#Include .\SPSTATEHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -12,19 +14,25 @@ class SPRULEENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {SPRULEHANDLE}
      */
-    hRule {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hRule{
+        get {
+            if(!this.HasProp("__hRule"))
+                this.__hRule := SPRULEHANDLE(this.ptr + 0)
+            return this.__hRule
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {SPSTATEHANDLE}
      */
-    hInitialState {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hInitialState{
+        get {
+            if(!this.HasProp("__hInitialState"))
+                this.__hInitialState := SPSTATEHANDLE(this.ptr + 8)
+            return this.__hInitialState
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a thermal event.
@@ -65,10 +66,13 @@ class THERMAL_EVENT extends Win32Struct
 
     /**
      * A pointer to a NULL-terminated, wide-character string that identifies the sensor whose threshold was crossed.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Initiator {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Initiator{
+        get {
+            if(!this.HasProp("__Initiator"))
+                this.__Initiator := PWSTR(this.ptr + 24)
+            return this.__Initiator
+        }
     }
 }

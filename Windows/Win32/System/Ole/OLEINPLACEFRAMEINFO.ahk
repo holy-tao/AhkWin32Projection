@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\UI\WindowsAndMessaging\HACCEL.ahk
 
 /**
  * Contains information about the accelerators supported by a container during an in-place session. The structure is used in the IOleInPlaceSite::GetWindowContext method and the OleTranslateAccelerator function.
@@ -29,29 +32,38 @@ class OLEINPLACEFRAMEINFO extends Win32Struct
 
     /**
      * Indicates whether the container is an MDI application.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMDIApp {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fMDIApp{
+        get {
+            if(!this.HasProp("__fMDIApp"))
+                this.__fMDIApp := BOOL(this.ptr + 4)
+            return this.__fMDIApp
+        }
     }
 
     /**
      * A handle to the container's top-level frame window.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndFrame {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndFrame{
+        get {
+            if(!this.HasProp("__hwndFrame"))
+                this.__hwndFrame := HWND(this.ptr + 8)
+            return this.__hwndFrame
+        }
     }
 
     /**
      * A handle to the accelerator table that the container wants to use during an in-place editing session.
-     * @type {Pointer<Void>}
+     * @type {HACCEL}
      */
-    haccel {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    haccel{
+        get {
+            if(!this.HasProp("__haccel"))
+                this.__haccel := HACCEL(this.ptr + 16)
+            return this.__haccel
+        }
     }
 
     /**

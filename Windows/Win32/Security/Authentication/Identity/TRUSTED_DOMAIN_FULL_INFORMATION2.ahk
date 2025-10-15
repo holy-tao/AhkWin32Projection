@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include ..\..\PSID.ahk
 #Include .\TRUSTED_DOMAIN_INFORMATION_EX2.ahk
+#Include .\TRUSTED_POSIX_OFFSET_INFO.ahk
 #Include .\TRUSTED_DOMAIN_AUTH_INFORMATION.ahk
 
 /**
@@ -26,11 +29,14 @@ class TRUSTED_DOMAIN_FULL_INFORMATION2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {TRUSTED_POSIX_OFFSET_INFO}
      */
-    PosixOffset {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+    PosixOffset{
+        get {
+            if(!this.HasProp("__PosixOffset"))
+                this.__PosixOffset := TRUSTED_POSIX_OFFSET_INFO(this.ptr + 64)
+            return this.__PosixOffset
+        }
     }
 
     /**

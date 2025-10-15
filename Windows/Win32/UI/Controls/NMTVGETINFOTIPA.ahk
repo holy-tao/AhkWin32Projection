@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\HTREEITEM.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains and receives tree-view item information needed to display a tooltip for an item. This structure is used with the TVN_GETINFOTIP notification code.
@@ -40,11 +44,14 @@ class NMTVGETINFOTIPA extends Win32Struct
      * 
      * Address of a character buffer that contains the text to be displayed. If you want to change the text displayed in the tooltip, you will need to modify the contents of this buffer. The size of this buffer is specified by the 
      * 					<b>cchTextMax</b> structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszText{
+        get {
+            if(!this.HasProp("__pszText"))
+                this.__pszText := PSTR(this.ptr + 24)
+            return this.__pszText
+        }
     }
 
     /**
@@ -63,21 +70,27 @@ class NMTVGETINFOTIPA extends Win32Struct
      * Type: <b>HTREEITEM</b>
      * 
      * Tree handle to the item for which the tooltip is being displayed.
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
-    hItem {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hItem{
+        get {
+            if(!this.HasProp("__hItem"))
+                this.__hItem := HTREEITEM(this.ptr + 40)
+            return this.__hItem
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Application-defined data associated with the item for which the tooltip is being displayed.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 48)
+            return this.__lParam
+        }
     }
 }

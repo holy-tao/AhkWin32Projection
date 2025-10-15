@@ -3,6 +3,7 @@
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
 #Include .\CERT_ID.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
 /**

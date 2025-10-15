@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
+#Include .\VBICODECFILTERING_CC_SUBSTREAMS.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -24,10 +25,13 @@ class KSPROPERTY_VBICODECFILTERING_CC_SUBSTREAMS_S extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VBICODECFILTERING_CC_SUBSTREAMS}
      */
-    Substreams {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    Substreams{
+        get {
+            if(!this.HasProp("__Substreams"))
+                this.__Substreams := VBICODECFILTERING_CC_SUBSTREAMS(this.ptr + 16)
+            return this.__Substreams
+        }
     }
 }

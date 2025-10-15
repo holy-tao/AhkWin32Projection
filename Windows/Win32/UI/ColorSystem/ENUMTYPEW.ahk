@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information that defines the profile enumeration constraints.
@@ -80,11 +81,14 @@ class ENUMTYPEW extends Win32Struct
 
     /**
      * User friendly name of the device.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDeviceName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pDeviceName{
+        get {
+            if(!this.HasProp("__pDeviceName"))
+                this.__pDeviceName := PWSTR(this.ptr + 16)
+            return this.__pDeviceName
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -12,18 +13,24 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS10 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    VariableRateShadingSumCombinerSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    VariableRateShadingSumCombinerSupported{
+        get {
+            if(!this.HasProp("__VariableRateShadingSumCombinerSupported"))
+                this.__VariableRateShadingSumCombinerSupported := BOOL(this.ptr + 0)
+            return this.__VariableRateShadingSumCombinerSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    MeshShaderPerPrimitiveShadingRateSupported {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    MeshShaderPerPrimitiveShadingRateSupported{
+        get {
+            if(!this.HasProp("__MeshShaderPerPrimitiveShadingRateSupported"))
+                this.__MeshShaderPerPrimitiveShadingRateSupported := BOOL(this.ptr + 4)
+            return this.__MeshShaderPerPrimitiveShadingRateSupported
+        }
     }
 }

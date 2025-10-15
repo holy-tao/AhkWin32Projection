@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
 #Include .\D3D12_DEPTH_STENCIL_VALUE.ahk
 #Include .\D3D12_CLEAR_VALUE.ahk
 #Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS.ahk
 #Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS_PRESERVE_LOCAL_PARAMETERS.ahk
 #Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS.ahk
 #Include .\D3D12_RENDER_PASS_ENDING_ACCESS_PRESERVE_LOCAL_PARAMETERS.ahk
 #Include .\D3D12_RENDER_PASS_ENDING_ACCESS.ahk
@@ -23,11 +25,14 @@ class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle">D3D12_CPU_DESCRIPTOR_HANDLE</a>. The CPU descriptor handle corresponding to the depth stencil view (DSV).
-     * @type {Pointer}
+     * @type {D3D12_CPU_DESCRIPTOR_HANDLE}
      */
-    cpuDescriptor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    cpuDescriptor{
+        get {
+            if(!this.HasProp("__cpuDescriptor"))
+                this.__cpuDescriptor := D3D12_CPU_DESCRIPTOR_HANDLE(this.ptr + 0)
+            return this.__cpuDescriptor
+        }
     }
 
     /**

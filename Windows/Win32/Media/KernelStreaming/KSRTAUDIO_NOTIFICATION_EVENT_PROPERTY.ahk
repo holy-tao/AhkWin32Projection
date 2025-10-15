@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -24,10 +25,13 @@ class KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    NotificationEvent {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    NotificationEvent{
+        get {
+            if(!this.HasProp("__NotificationEvent"))
+                this.__NotificationEvent := HANDLE(this.ptr + 16)
+            return this.__NotificationEvent
+        }
     }
 }

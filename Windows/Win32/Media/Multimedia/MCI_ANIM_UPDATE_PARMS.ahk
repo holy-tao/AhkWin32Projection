@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -32,10 +33,13 @@ class MCI_ANIM_UPDATE_PARMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hDC {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hDC{
+        get {
+            if(!this.HasProp("__hDC"))
+                this.__hDC := HDC(this.ptr + 24)
+            return this.__hDC
+        }
     }
 }

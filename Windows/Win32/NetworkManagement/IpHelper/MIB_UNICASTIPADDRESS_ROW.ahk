@@ -7,6 +7,7 @@
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Stores information about a unicast IP address.
@@ -291,11 +292,14 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * This member specifies if the address can be used as an IP source address.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    SkipAsSource {
-        get => NumGet(this, 101, "char")
-        set => NumPut("char", value, this, 101)
+    SkipAsSource{
+        get {
+            if(!this.HasProp("__SkipAsSource"))
+                this.__SkipAsSource := BOOLEAN(this.ptr + 101)
+            return this.__SkipAsSource
+        }
     }
 
     /**

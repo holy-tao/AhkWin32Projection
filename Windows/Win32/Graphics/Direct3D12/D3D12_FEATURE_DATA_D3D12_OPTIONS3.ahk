@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates the level of support that the adapter provides for timestamp queries, format-casting, immediate write, view instancing, and barycentrics.
@@ -15,20 +16,26 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS3 extends Win32Struct
 
     /**
      * Indicates whether timestamp queries are supported on copy queues.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    CopyQueueTimestampQueriesSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    CopyQueueTimestampQueriesSupported{
+        get {
+            if(!this.HasProp("__CopyQueueTimestampQueriesSupported"))
+                this.__CopyQueueTimestampQueriesSupported := BOOL(this.ptr + 0)
+            return this.__CopyQueueTimestampQueriesSupported
+        }
     }
 
     /**
      * Indicates whether casting from one fully typed format to another, compatible, format is supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    CastingFullyTypedFormatSupported {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    CastingFullyTypedFormatSupported{
+        get {
+            if(!this.HasProp("__CastingFullyTypedFormatSupported"))
+                this.__CastingFullyTypedFormatSupported := BOOL(this.ptr + 4)
+            return this.__CastingFullyTypedFormatSupported
+        }
     }
 
     /**
@@ -51,10 +58,13 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS3 extends Win32Struct
 
     /**
      * Indicates whether barycentrics are supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    BarycentricsSupported {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    BarycentricsSupported{
+        get {
+            if(!this.HasProp("__BarycentricsSupported"))
+                this.__BarycentricsSupported := BOOL(this.ptr + 16)
+            return this.__BarycentricsSupported
+        }
     }
 }

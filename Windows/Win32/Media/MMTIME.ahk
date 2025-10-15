@@ -84,6 +84,20 @@ class MMTIME extends Win32Struct
     
     }
 
+    class _midi extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 1
+
+        /**
+         * @type {Integer}
+         */
+        songptrpos {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -128,10 +142,13 @@ class MMTIME extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_midi}
      */
-    midi {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    midi{
+        get {
+            if(!this.HasProp("__midi"))
+                this.__midi := %this.__Class%._midi(this.ptr + 8)
+            return this.__midi
+        }
     }
 }

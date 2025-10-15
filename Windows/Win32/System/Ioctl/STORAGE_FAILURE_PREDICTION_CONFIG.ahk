@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -28,19 +29,25 @@ class STORAGE_FAILURE_PREDICTION_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Set {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    Set{
+        get {
+            if(!this.HasProp("__Set"))
+                this.__Set := BOOLEAN(this.ptr + 8)
+            return this.__Set
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Enabled {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    Enabled{
+        get {
+            if(!this.HasProp("__Enabled"))
+                this.__Enabled := BOOLEAN(this.ptr + 9)
+            return this.__Enabled
+        }
     }
 
     /**

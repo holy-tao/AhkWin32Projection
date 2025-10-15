@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PTP_POOL.ahk
+#Include .\PTP_CLEANUP_GROUP.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
@@ -20,19 +22,25 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {PTP_POOL}
      */
-    Pool {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Pool{
+        get {
+            if(!this.HasProp("__Pool"))
+                this.__Pool := PTP_POOL(this.ptr + 8)
+            return this.__Pool
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {PTP_CLEANUP_GROUP}
      */
-    CleanupGroup {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    CleanupGroup{
+        get {
+            if(!this.HasProp("__CleanupGroup"))
+                this.__CleanupGroup := PTP_CLEANUP_GROUP(this.ptr + 16)
+            return this.__CleanupGroup
+        }
     }
 
     /**
@@ -67,6 +75,48 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
         set => NumPut("ptr", value, this, 48)
     }
 
+    class _s extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * This bitfield backs the following members:
+         * - LongFunction
+         * - Persistent
+         * - Private
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LongFunction {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Persistent {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Private {
+            get => (this._bitfield >> 2) & 0x3FFFFFFF
+            set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -76,11 +126,14 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_s}
      */
-    s {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    s{
+        get {
+            if(!this.HasProp("__s"))
+                this.__s := %this.__Class%._s(this.ptr + 56)
+            return this.__s
+        }
     }
 
     /**

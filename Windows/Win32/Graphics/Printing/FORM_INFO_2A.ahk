@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 
@@ -23,11 +24,14 @@ class FORM_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PSTR(this.ptr + 8)
+            return this.__pName
+        }
     }
 
     /**
@@ -53,11 +57,14 @@ class FORM_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pKeyword {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pKeyword{
+        get {
+            if(!this.HasProp("__pKeyword"))
+                this.__pKeyword := PSTR(this.ptr + 40)
+            return this.__pKeyword
+        }
     }
 
     /**
@@ -69,11 +76,14 @@ class FORM_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pMuiDll {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pMuiDll{
+        get {
+            if(!this.HasProp("__pMuiDll"))
+                this.__pMuiDll := PSTR(this.ptr + 56)
+            return this.__pMuiDll
+        }
     }
 
     /**
@@ -85,11 +95,14 @@ class FORM_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pDisplayName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pDisplayName{
+        get {
+            if(!this.HasProp("__pDisplayName"))
+                this.__pDisplayName := PSTR(this.ptr + 72)
+            return this.__pDisplayName
+        }
     }
 
     /**

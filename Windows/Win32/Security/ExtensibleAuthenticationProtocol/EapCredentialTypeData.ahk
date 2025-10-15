@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\EapUsernamePasswordCredential.ahk
 #Include .\EapCertificateCredential.ahk
+#Include .\EapSimCredential.ahk
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -36,10 +38,13 @@ class EapCredentialTypeData extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {EapSimCredential}
      */
-    sim {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    sim{
+        get {
+            if(!this.HasProp("__sim"))
+                this.__sim := EapSimCredential(this.ptr + 0)
+            return this.__sim
+        }
     }
 }

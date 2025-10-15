@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a method that is supported by a custom control pattern.
@@ -17,22 +19,28 @@ class UIAutomationMethodInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the method (a non-localizable string).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pProgrammaticName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pProgrammaticName{
+        get {
+            if(!this.HasProp("__pProgrammaticName"))
+                this.__pProgrammaticName := PWSTR(this.ptr + 0)
+            return this.__pProgrammaticName
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if UI Automation should set the focus on the object before calling the method; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    doSetFocus {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    doSetFocus{
+        get {
+            if(!this.HasProp("__doSetFocus"))
+                this.__doSetFocus := BOOL(this.ptr + 8)
+            return this.__doSetFocus
+        }
     }
 
     /**
@@ -72,7 +80,7 @@ class UIAutomationMethodInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a>*</b>
      * 
      * A pointer to an array containing the parameter names (non-localizable strings).
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     pParameterNames {
         get => NumGet(this, 32, "ptr")

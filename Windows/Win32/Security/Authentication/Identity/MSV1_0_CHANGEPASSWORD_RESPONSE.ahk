@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include .\DOMAIN_PASSWORD_INFORMATION.ahk
 
 /**
@@ -21,11 +22,14 @@ class MSV1_0_CHANGEPASSWORD_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    PasswordInfoValid {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    PasswordInfoValid{
+        get {
+            if(!this.HasProp("__PasswordInfoValid"))
+                this.__PasswordInfoValid := BOOLEAN(this.ptr + 4)
+            return this.__PasswordInfoValid
+        }
     }
 
     /**

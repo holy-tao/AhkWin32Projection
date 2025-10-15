@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\NORMALIZEDRECT.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The VMRALPHABITMAP structure is used in the VMR-7 filter's IVMRMixerBitmap methods when the application is providing a static alpha-blended bitmap to be displayed on the composited video frame.
@@ -93,11 +95,14 @@ class VMRALPHABITMAP extends Win32Struct
 
     /**
      * The handle to the device context for the bitmap. Specify <b>NULL</b> if the bitmap is located in a DirectDraw surface.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hdc{
+        get {
+            if(!this.HasProp("__hdc"))
+                this.__hdc := HDC(this.ptr + 8)
+            return this.__hdc
+        }
     }
 
     /**
@@ -145,10 +150,13 @@ class VMRALPHABITMAP extends Win32Struct
 
     /**
      * Specifies the source color key.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    clrSrcKey {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+    clrSrcKey{
+        get {
+            if(!this.HasProp("__clrSrcKey"))
+                this.__clrSrcKey := COLORREF(this.ptr + 60)
+            return this.__clrSrcKey
+        }
     }
 }

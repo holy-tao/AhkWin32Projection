@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\FAX_TIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The FAX_CONFIGURATION structure contains information about the global configuration settings of a fax server.
@@ -75,44 +77,56 @@ class FAX_CONFIGURATIONW extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Specifies a Boolean variable that indicates whether the fax server should generate a brand (banner) at the top of outgoing fax transmissions. If this member is <b>TRUE</b>, the fax server generates a brand that contains transmission-related information like the transmitting station identifier, date, time, and page count.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Branding {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    Branding{
+        get {
+            if(!this.HasProp("__Branding"))
+                this.__Branding := BOOL(this.ptr + 16)
+            return this.__Branding
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Specifies a Boolean variable that indicates whether the fax server will use the device's transmitting station identifier instead of the value specified in the <b>Tsid</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_job_parama">FAX_JOB_PARAM</a> structure. If this member is <b>TRUE</b>, the server uses the device's transmitting station identifier.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    UseDeviceTsid {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    UseDeviceTsid{
+        get {
+            if(!this.HasProp("__UseDeviceTsid"))
+                this.__UseDeviceTsid := BOOL(this.ptr + 20)
+            return this.__UseDeviceTsid
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Specifies a Boolean variable that indicates whether fax client applications can include a user-designed cover page with the fax transmission. If this member is <b>TRUE</b>, the client must use a common cover page stored on the fax server. If this member is <b>FALSE</b>, the client can use a personal cover page file.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    ServerCp {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    ServerCp{
+        get {
+            if(!this.HasProp("__ServerCp"))
+                this.__ServerCp := BOOL(this.ptr + 24)
+            return this.__ServerCp
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Specifies a Boolean variable that indicates whether the fax server has paused the fax job queue. If this member is <b>TRUE</b>, the queue has been paused.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PauseServerQueue {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    PauseServerQueue{
+        get {
+            if(!this.HasProp("__PauseServerQueue"))
+                this.__PauseServerQueue := BOOL(this.ptr + 28)
+            return this.__PauseServerQueue
+        }
     }
 
     /**
@@ -147,30 +161,39 @@ class FAX_CONFIGURATIONW extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Specifies a Boolean variable that indicates whether the fax server should archive outgoing fax transmissions. If this member is <b>TRUE</b>, the server archives outgoing transmissions in the directory specified by the <b>ArchiveDirectory</b> member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    ArchiveOutgoingFaxes {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    ArchiveOutgoingFaxes{
+        get {
+            if(!this.HasProp("__ArchiveOutgoingFaxes"))
+                this.__ArchiveOutgoingFaxes := BOOL(this.ptr + 40)
+            return this.__ArchiveOutgoingFaxes
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that contains the fully qualified path of the directory in which outgoing fax transmissions will be archived. The path can be a UNC path or a path beginning with a drive letter. The fax server ignores this member if the <b>ArchiveOutgoingFaxes</b> member is <b>FALSE</b>. This member can be <b>NULL</b> if the <b>ArchiveOutgoingFaxes</b> member is <b>FALSE</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ArchiveDirectory {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    ArchiveDirectory{
+        get {
+            if(!this.HasProp("__ArchiveDirectory"))
+                this.__ArchiveDirectory := PWSTR(this.ptr + 48)
+            return this.__ArchiveDirectory
+        }
     }
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Reserved {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    Reserved{
+        get {
+            if(!this.HasProp("__Reserved"))
+                this.__Reserved := PWSTR(this.ptr + 56)
+            return this.__Reserved
+        }
     }
 }

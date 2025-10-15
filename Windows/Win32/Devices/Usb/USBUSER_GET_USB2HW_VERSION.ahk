@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USBUSER_REQUEST_HEADER.ahk
+#Include .\USB_USB2HW_VERSION_PARAMETERS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -24,10 +25,13 @@ class USBUSER_GET_USB2HW_VERSION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_USB2HW_VERSION_PARAMETERS}
      */
-    Parameters {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    Parameters{
+        get {
+            if(!this.HasProp("__Parameters"))
+                this.__Parameters := USB_USB2HW_VERSION_PARAMETERS(this.ptr + 16)
+            return this.__Parameters
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents an NSEC resource record (RR) as specified in section 4 of RFC 4034.
@@ -30,11 +31,14 @@ class DNS_NSEC_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the authoritative owner name of the next domain in the canonical ordering of the zone as specified in section 4.1.1 of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pNextDomainName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pNextDomainName{
+        get {
+            if(!this.HasProp("__pNextDomainName"))
+                this.__pNextDomainName := PWSTR(this.ptr + 0)
+            return this.__pNextDomainName
+        }
     }
 
     /**

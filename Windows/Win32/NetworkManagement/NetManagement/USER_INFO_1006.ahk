@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_1006 structure contains the user's home directory path. This information level is valid only when you call the NetUserSetInfo function.
@@ -16,10 +17,13 @@ class USER_INFO_1006 extends Win32Struct
     /**
      * Pointer to a Unicode string specifying the path of the home directory for the user account specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function. The string can be null.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri1006_home_dir {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    usri1006_home_dir{
+        get {
+            if(!this.HasProp("__usri1006_home_dir"))
+                this.__usri1006_home_dir := PWSTR(this.ptr + 0)
+            return this.__usri1006_home_dir
+        }
     }
 }

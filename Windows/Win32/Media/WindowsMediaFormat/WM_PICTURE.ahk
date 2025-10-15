@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WM_PICTURE structure is used as the data item for the WM/Picture complex metadata attribute.
@@ -15,11 +16,14 @@ class WM_PICTURE extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the multipurpose Internet mail extension (MIME) type of the picture.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszMIMEType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszMIMEType{
+        get {
+            if(!this.HasProp("__pwszMIMEType"))
+                this.__pwszMIMEType := PWSTR(this.ptr + 0)
+            return this.__pwszMIMEType
+        }
     }
 
     /**
@@ -33,11 +37,14 @@ class WM_PICTURE extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing a description of the picture.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszDescription{
+        get {
+            if(!this.HasProp("__pwszDescription"))
+                this.__pwszDescription := PWSTR(this.ptr + 16)
+            return this.__pwszDescription
+        }
     }
 
     /**

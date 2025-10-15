@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -16,20 +17,26 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the LDAP display name of the attribute corresponding to this metadata.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszAttributeName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszAttributeName{
+        get {
+            if(!this.HasProp("__pszAttributeName"))
+                this.__pszAttributeName := PWSTR(this.ptr + 0)
+            return this.__pszAttributeName
+        }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name of the object that this attribute belongs to.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszObjectDn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszObjectDn{
+        get {
+            if(!this.HasProp("__pszObjectDn"))
+                this.__pszObjectDn := PWSTR(this.ptr + 8)
+            return this.__pszObjectDn
+        }
     }
 
     /**
@@ -126,11 +133,14 @@ class DS_REPL_VALUE_META_DATA_EXT extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name of the directory system agent server that originated the last replication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszLastOriginatingDsaDN {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    pszLastOriginatingDsaDN{
+        get {
+            if(!this.HasProp("__pszLastOriginatingDsaDN"))
+                this.__pszLastOriginatingDsaDN := PWSTR(this.ptr + 88)
+            return this.__pszLastOriginatingDsaDN
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\SERVICE_STATUS_PROCESS.ahk
 
 /**
@@ -425,11 +426,14 @@ class SERVICE_CONTROL_STATUS_REASON_PARAMSA extends Win32Struct
 
     /**
      * An optional string that provides additional information about the service stop. This string is stored in the event log along with the stop reason code. This member must be <b>NULL</b> or a valid string that is less than 128 characters, including the terminating null character.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszComment {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszComment{
+        get {
+            if(!this.HasProp("__pszComment"))
+                this.__pszComment := PSTR(this.ptr + 8)
+            return this.__pszComment
+        }
     }
 
     /**

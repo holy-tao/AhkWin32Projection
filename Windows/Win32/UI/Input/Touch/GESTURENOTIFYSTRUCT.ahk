@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINTS.ahk
 
 /**
@@ -34,11 +35,14 @@ class GESTURENOTIFYSTRUCT extends Win32Struct
 
     /**
      * The target window for the gesture notification.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndTarget {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndTarget{
+        get {
+            if(!this.HasProp("__hwndTarget"))
+                this.__hwndTarget := HWND(this.ptr + 8)
+            return this.__hwndTarget
+        }
     }
 
     /**

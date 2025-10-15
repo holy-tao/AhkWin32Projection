@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -80,10 +81,13 @@ class DOT11_WFD_DISCOVER_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bForceScanLegacyNetworks {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
+    bForceScanLegacyNetworks{
+        get {
+            if(!this.HasProp("__bForceScanLegacyNetworks"))
+                this.__bForceScanLegacyNetworks := BOOLEAN(this.ptr + 32)
+            return this.__bForceScanLegacyNetworks
+        }
     }
 }

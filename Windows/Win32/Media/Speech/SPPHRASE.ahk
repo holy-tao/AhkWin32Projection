@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SPPHRASERULE.ahk
 #Include .\SPPHRASE_50.ahk
 
@@ -25,11 +26,14 @@ class SPPHRASE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pSML {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+    pSML{
+        get {
+            if(!this.HasProp("__pSML"))
+                this.__pSML := PWSTR(this.ptr + 152)
+            return this.__pSML
+        }
     }
 
     /**

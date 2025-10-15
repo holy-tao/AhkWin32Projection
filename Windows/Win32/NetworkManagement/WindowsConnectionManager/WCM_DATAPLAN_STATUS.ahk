@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\WCM_USAGE_DATA.ahk
 #Include .\WCM_TIME_INTERVAL.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\WCM_BILLING_CYCLE_INFO.ahk
 
 /**

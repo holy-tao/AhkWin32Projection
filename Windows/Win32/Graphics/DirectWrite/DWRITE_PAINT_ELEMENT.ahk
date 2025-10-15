@@ -19,6 +19,20 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         static sizeof => 240
         static packingSize => 8
 
+        class PAINT_LAYERS extends Win32Struct {
+            static sizeof => 232
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            childCount {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
         class PAINT_SOLID_GLYPH extends Win32Struct {
             static sizeof => 232
             static packingSize => 8
@@ -238,6 +252,20 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         
         }
     
+        class PAINT_GLYPH extends Win32Struct {
+            static sizeof => 232
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            glyphIndex {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
         class PAINT_COLOR_GLYPH extends Win32Struct {
             static sizeof => 232
             static packingSize => 8
@@ -278,11 +306,14 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {PAINT_LAYERS}
          */
-        layers {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        layers{
+            get {
+                if(!this.HasProp("__layers"))
+                    this.__layers := %this.__Class%.PAINT_LAYERS(this.ptr + 0)
+                return this.__layers
+            }
         }
     
         /**
@@ -341,11 +372,14 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {PAINT_GLYPH}
          */
-        glyph {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        glyph{
+            get {
+                if(!this.HasProp("__glyph"))
+                    this.__glyph := %this.__Class%.PAINT_GLYPH(this.ptr + 0)
+                return this.__glyph
+            }
         }
     
         /**

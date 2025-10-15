@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\INET_PORT_RANGE.ahk
+#Include .\INET_PORT_RESERVATION_TOKEN.ahk
 
 /**
  * Contains a port reservation and a token for a block of TCP or UDP ports.
@@ -37,10 +38,13 @@ class INET_PORT_RESERVATION_INSTANCE extends Win32Struct
 
     /**
      * A port reservation token for a block of TCP or UDP ports.
-     * @type {Integer}
+     * @type {INET_PORT_RESERVATION_TOKEN}
      */
-    Token {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Token{
+        get {
+            if(!this.HasProp("__Token"))
+                this.__Token := INET_PORT_RESERVATION_TOKEN(this.ptr + 8)
+            return this.__Token
+        }
     }
 }

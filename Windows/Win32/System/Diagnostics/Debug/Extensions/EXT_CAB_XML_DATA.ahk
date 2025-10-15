@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -16,27 +17,36 @@ class EXT_CAB_XML_DATA extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        SubTag {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        SubTag{
+            get {
+                if(!this.HasProp("__SubTag"))
+                    this.__SubTag := PWSTR(this.ptr + 0)
+                return this.__SubTag
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        MatchPattern {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        MatchPattern{
+            get {
+                if(!this.HasProp("__MatchPattern"))
+                    this.__MatchPattern := PWSTR(this.ptr + 8)
+                return this.__MatchPattern
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        ReturnText {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        ReturnText{
+            get {
+                if(!this.HasProp("__ReturnText"))
+                    this.__ReturnText := PWSTR(this.ptr + 16)
+                return this.__ReturnText
+            }
         }
     
         /**
@@ -93,11 +103,14 @@ class EXT_CAB_XML_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    XmlObjectTag {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    XmlObjectTag{
+        get {
+            if(!this.HasProp("__XmlObjectTag"))
+                this.__XmlObjectTag := PWSTR(this.ptr + 8)
+            return this.__XmlObjectTag
+        }
     }
 
     /**

@@ -113,11 +113,93 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
         }
     
         /**
+         * This bitfield backs the following members:
+         * - SegmentType
+         * - NonSystemSegment
+         * - DescriptorPrivilegeLevel
+         * - Present
+         * - Reserved
+         * - Available
+         * - Long
+         * - Default
+         * - Granularity
          * @type {Integer}
          */
-        Anonymous {
+        _bitfield {
             get => NumGet(this, 14, "ushort")
             set => NumPut("ushort", value, this, 14)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SegmentType {
+            get => (this._bitfield >> 0) & 0xF
+            set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NonSystemSegment {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DescriptorPrivilegeLevel {
+            get => (this._bitfield >> 5) & 0x3
+            set => this._bitfield := ((value & 0x3) << 5) | (this._bitfield & ~(0x3 << 5))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Present {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 8) & 0xF
+            set => this._bitfield := ((value & 0xF) << 8) | (this._bitfield & ~(0xF << 8))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Available {
+            get => (this._bitfield >> 12) & 0x1
+            set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Long {
+            get => (this._bitfield >> 13) & 0x1
+            set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Default {
+            get => (this._bitfield >> 14) & 0x1
+            set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Granularity {
+            get => (this._bitfield >> 15) & 0x1
+            set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
     
     }

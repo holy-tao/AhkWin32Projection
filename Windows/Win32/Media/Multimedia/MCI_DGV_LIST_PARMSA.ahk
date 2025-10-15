@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The MCI_DGV_LIST_PARMS structure contains the information for the MCI_LIST command for digital-video devices.
@@ -37,11 +38,14 @@ class MCI_DGV_LIST_PARMSA extends Win32Struct
 
     /**
      * Buffer for return string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrReturn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpstrReturn{
+        get {
+            if(!this.HasProp("__lpstrReturn"))
+                this.__lpstrReturn := PSTR(this.ptr + 8)
+            return this.__lpstrReturn
+        }
     }
 
     /**
@@ -73,10 +77,13 @@ class MCI_DGV_LIST_PARMSA extends Win32Struct
 
     /**
      * String containing algorithm name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrAlgorithm {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lpstrAlgorithm{
+        get {
+            if(!this.HasProp("__lpstrAlgorithm"))
+                this.__lpstrAlgorithm := PSTR(this.ptr + 32)
+            return this.__lpstrAlgorithm
+        }
     }
 }

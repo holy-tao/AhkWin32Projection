@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\D3D12_VERSION_NUMBER.ahk
 
 /**
@@ -13,19 +14,25 @@ class D3D12_APPLICATION_DESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pExeFilename {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pExeFilename{
+        get {
+            if(!this.HasProp("__pExeFilename"))
+                this.__pExeFilename := PWSTR(this.ptr + 0)
+            return this.__pExeFilename
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PWSTR(this.ptr + 8)
+            return this.__pName
+        }
     }
 
     /**
@@ -40,11 +47,14 @@ class D3D12_APPLICATION_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pEngineName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pEngineName{
+        get {
+            if(!this.HasProp("__pEngineName"))
+                this.__pEngineName := PWSTR(this.ptr + 32)
+            return this.__pEngineName
+        }
     }
 
     /**

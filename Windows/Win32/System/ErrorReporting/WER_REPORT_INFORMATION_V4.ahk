@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
@@ -20,11 +22,14 @@ class WER_REPORT_INFORMATION_V4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hProcess {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hProcess{
+        get {
+            if(!this.HasProp("__hProcess"))
+                this.__hProcess := HANDLE(this.ptr + 8)
+            return this.__hProcess
+        }
     }
 
     /**
@@ -68,11 +73,14 @@ class WER_REPORT_INFORMATION_V4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 2200, "ptr")
-        set => NumPut("ptr", value, this, 2200)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(this.ptr + 2200)
+            return this.__hwndParent
+        }
     }
 
     /**
@@ -103,18 +111,24 @@ class WER_REPORT_INFORMATION_V4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hSnapshot {
-        get => NumGet(this, 2480, "ptr")
-        set => NumPut("ptr", value, this, 2480)
+    hSnapshot{
+        get {
+            if(!this.HasProp("__hSnapshot"))
+                this.__hSnapshot := HANDLE(this.ptr + 2480)
+            return this.__hSnapshot
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hDeleteFilesImpersonationToken {
-        get => NumGet(this, 2488, "ptr")
-        set => NumPut("ptr", value, this, 2488)
+    hDeleteFilesImpersonationToken{
+        get {
+            if(!this.HasProp("__hDeleteFilesImpersonationToken"))
+                this.__hDeleteFilesImpersonationToken := HANDLE(this.ptr + 2488)
+            return this.__hDeleteFilesImpersonationToken
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -20,11 +21,14 @@ class PM_UPDATEINFO_LEGACY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    PackagePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    PackagePath{
+        get {
+            if(!this.HasProp("__PackagePath"))
+                this.__PackagePath := BSTR(this.ptr + 8)
+            return this.__PackagePath
+        }
     }
 
     /**
@@ -52,10 +56,13 @@ class PM_UPDATEINFO_LEGACY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    MarketplaceAppVersion {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    MarketplaceAppVersion{
+        get {
+            if(!this.HasProp("__MarketplaceAppVersion"))
+                this.__MarketplaceAppVersion := BSTR(this.ptr + 40)
+            return this.__MarketplaceAppVersion
+        }
     }
 }

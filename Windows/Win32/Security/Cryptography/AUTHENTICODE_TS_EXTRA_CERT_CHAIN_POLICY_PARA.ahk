@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA structure contains time stamp policy information that can be used in certificate chain verification of files.
@@ -150,11 +151,14 @@ class AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
 
     /**
      * BOOL flag. If <b>TRUE</b>, a signer has been verified by a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) as meeting certain minimum financial standards.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCommercial {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fCommercial{
+        get {
+            if(!this.HasProp("__fCommercial"))
+                this.__fCommercial := BOOL(this.ptr + 8)
+            return this.__fCommercial
+        }
     }
 
     /**

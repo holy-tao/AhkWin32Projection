@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a client session on a Remote Desktop Session Host (RD Session Host) server.
@@ -30,11 +31,14 @@ class WTS_SESSION_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the WinStation name of this session. The WinStation name is a name that Windows associates with the session, for example, "services", "console", or "RDP-Tcp#0".
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pWinStationName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pWinStationName{
+        get {
+            if(!this.HasProp("__pWinStationName"))
+                this.__pWinStationName := PSTR(this.ptr + 8)
+            return this.__pWinStationName
+        }
     }
 
     /**

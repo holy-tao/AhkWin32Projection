@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -13,43 +14,58 @@ class SOURCE_MEDIA_W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Reserved {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Reserved{
+        get {
+            if(!this.HasProp("__Reserved"))
+                this.__Reserved := PWSTR(this.ptr + 0)
+            return this.__Reserved
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Tagfile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Tagfile{
+        get {
+            if(!this.HasProp("__Tagfile"))
+                this.__Tagfile := PWSTR(this.ptr + 8)
+            return this.__Tagfile
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Description {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Description{
+        get {
+            if(!this.HasProp("__Description"))
+                this.__Description := PWSTR(this.ptr + 16)
+            return this.__Description
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SourcePath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    SourcePath{
+        get {
+            if(!this.HasProp("__SourcePath"))
+                this.__SourcePath := PWSTR(this.ptr + 24)
+            return this.__SourcePath
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SourceFile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    SourceFile{
+        get {
+            if(!this.HasProp("__SourceFile"))
+                this.__SourceFile := PWSTR(this.ptr + 32)
+            return this.__SourceFile
+        }
     }
 
     /**

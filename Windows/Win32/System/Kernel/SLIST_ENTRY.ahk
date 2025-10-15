@@ -22,7 +22,7 @@ class SLIST_ENTRY extends Win32Struct
     /**
      * A pointer to an 
      * <b>SLIST_ENTRY</b> structure that represents the next item in a singly linked list.
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<SLIST_ENTRY>}
      */
     Next {
         get => NumGet(this, 0, "ptr")

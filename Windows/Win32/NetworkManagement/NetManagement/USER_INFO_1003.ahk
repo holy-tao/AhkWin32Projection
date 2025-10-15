@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_1003 structure contains a user password. This information level is valid only when you call the NetUserSetInfo function.
@@ -21,10 +22,13 @@ class USER_INFO_1003 extends Win32Struct
     /**
      * Specifies a Unicode string that contains the password for the user account specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function. The length cannot exceed PWLEN bytes.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri1003_password {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    usri1003_password{
+        get {
+            if(!this.HasProp("__usri1003_password"))
+                this.__usri1003_password := PWSTR(this.ptr + 0)
+            return this.__usri1003_password
+        }
     }
 }

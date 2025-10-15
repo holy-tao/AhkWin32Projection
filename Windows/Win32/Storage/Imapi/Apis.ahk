@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
@@ -1449,17 +1449,17 @@ class Imapi {
      * 
      * @param {Pointer<IMalloc>} lpMalloc 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IntPtr>} lppMsgSess 
+     * @param {Pointer<LPMSGSESS>} lppMsgSess 
      * @returns {Integer} 
      */
     static OpenIMsgSession(lpMalloc, ulFlags, lppMsgSess) {
-        result := DllCall("MAPI32.dll\OpenIMsgSession", "ptr", lpMalloc, "uint", ulFlags, "ptr*", lppMsgSess, "int")
+        result := DllCall("MAPI32.dll\OpenIMsgSession", "ptr", lpMalloc, "uint", ulFlags, "ptr", lppMsgSess, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} lpMsgSess 
+     * @param {LPMSGSESS} lpMsgSess 
      * @returns {String} Nothing - always returns an empty string
      */
     static CloseIMsgSession(lpMsgSess) {
@@ -1468,7 +1468,7 @@ class Imapi {
 
     /**
      * 
-     * @param {Pointer} lpMsgSess 
+     * @param {LPMSGSESS} lpMsgSess 
      * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer 
      * @param {Pointer<LPALLOCATEMORE>} lpAllocateMore 
      * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer 

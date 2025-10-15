@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a resource that can be assigned to users in RemoteApp and Desktop Connection.
@@ -33,11 +34,14 @@ class pluginResource extends Win32Struct
 
     /**
      * The contents of the resource file. The plug-in should allocate memory for this member by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    resourceFileContents {
-        get => NumGet(this, 1024, "ptr")
-        set => NumPut("ptr", value, this, 1024)
+    resourceFileContents{
+        get {
+            if(!this.HasProp("__resourceFileContents"))
+                this.__resourceFileContents := PWSTR(this.ptr + 1024)
+            return this.__resourceFileContents
+        }
     }
 
     /**

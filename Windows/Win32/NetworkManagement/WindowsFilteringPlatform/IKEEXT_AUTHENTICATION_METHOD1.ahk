@@ -4,6 +4,8 @@
 #Include .\IKEEXT_PRESHARED_KEY_AUTHENTICATION1.ahk
 #Include .\IKEEXT_CERTIFICATE_AUTHENTICATION1.ahk
 #Include .\IKEEXT_KERBEROS_AUTHENTICATION0.ahk
+#Include .\IKEEXT_NTLM_V2_AUTHENTICATION0.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\IKEEXT_IPV6_CGA_AUTHENTICATION0.ahk
 #Include .\IKEEXT_EAP_AUTHENTICATION0.ahk
@@ -63,11 +65,14 @@ class IKEEXT_AUTHENTICATION_METHOD1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IKEEXT_NTLM_V2_AUTHENTICATION0}
      */
-    ntlmV2Authentication {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    ntlmV2Authentication{
+        get {
+            if(!this.HasProp("__ntlmV2Authentication"))
+                this.__ntlmV2Authentication := IKEEXT_NTLM_V2_AUTHENTICATION0(this.ptr + 8)
+            return this.__ntlmV2Authentication
+        }
     }
 
     /**

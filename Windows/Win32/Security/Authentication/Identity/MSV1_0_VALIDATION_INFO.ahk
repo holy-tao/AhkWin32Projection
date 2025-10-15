@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include ..\..\..\System\PasswordManagement\CYPHER_BLOCK.ahk
 #Include .\USER_SESSION_KEY.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -64,11 +66,14 @@ class MSV1_0_VALIDATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Authoritative {
-        get => NumGet(this, 64, "char")
-        set => NumPut("char", value, this, 64)
+    Authoritative{
+        get {
+            if(!this.HasProp("__Authoritative"))
+                this.__Authoritative := BOOLEAN(this.ptr + 64)
+            return this.__Authoritative
+        }
     }
 
     /**

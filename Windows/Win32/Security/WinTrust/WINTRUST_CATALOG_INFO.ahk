@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The WINTRUST_CATALOG_INFO structure is used when calling WinVerifyTrust to verify a member of a Microsoft catalog.
@@ -33,38 +35,50 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
 
     /**
      * The full path and file name of the catalog file that contains the member to be verified.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszCatalogFilePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pcwszCatalogFilePath{
+        get {
+            if(!this.HasProp("__pcwszCatalogFilePath"))
+                this.__pcwszCatalogFilePath := PWSTR(this.ptr + 8)
+            return this.__pcwszCatalogFilePath
+        }
     }
 
     /**
      * Tag of a member file to be verified.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszMemberTag {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pcwszMemberTag{
+        get {
+            if(!this.HasProp("__pcwszMemberTag"))
+                this.__pcwszMemberTag := PWSTR(this.ptr + 16)
+            return this.__pcwszMemberTag
+        }
     }
 
     /**
      * The full path and file name of the catalog member file to be verified.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszMemberFilePath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pcwszMemberFilePath{
+        get {
+            if(!this.HasProp("__pcwszMemberFilePath"))
+                this.__pcwszMemberFilePath := PWSTR(this.ptr + 24)
+            return this.__pcwszMemberFilePath
+        }
     }
 
     /**
      * Optional. Handle of the open catalog member file to be verified. The handle must be to a file with at least read permissions.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hMemberFile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hMemberFile{
+        get {
+            if(!this.HasProp("__hMemberFile"))
+                this.__hMemberFile := HANDLE(this.ptr + 32)
+            return this.__hMemberFile
+        }
     }
 
     /**

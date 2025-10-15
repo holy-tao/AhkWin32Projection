@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function when a certificate is the object being exported.
@@ -33,39 +35,51 @@ class CRYPTUI_WIZ_EXPORT_CERTCONTEXT_INFO extends Win32Struct
 
     /**
      * Indicates whether the certificate chain should be exported in addition to the certificate. Contains nonzero to export the chain or zero to not export the chain.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fExportChain {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fExportChain{
+        get {
+            if(!this.HasProp("__fExportChain"))
+                this.__fExportChain := BOOL(this.ptr + 8)
+            return this.__fExportChain
+        }
     }
 
     /**
      * Indicates whether the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> should be exported in addition to the certificate. Contains nonzero to export the private key or zero to not export the private key.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fExportPrivateKeys {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    fExportPrivateKeys{
+        get {
+            if(!this.HasProp("__fExportPrivateKeys"))
+                this.__fExportPrivateKeys := BOOL(this.ptr + 12)
+            return this.__fExportPrivateKeys
+        }
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the password used to access the private key.  This is required if <b>fExportPrivateKeys</b> is nonzero and is otherwise ignored.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszPassword {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszPassword{
+        get {
+            if(!this.HasProp("__pwszPassword"))
+                this.__pwszPassword := PWSTR(this.ptr + 16)
+            return this.__pwszPassword
+        }
     }
 
     /**
      * Indicates whether strong encryption should be used in the export process. Contains nonzero to use strong encryption or zero to use weak encryption. This must be nonzero if <b>dwExportFormat</b> is <b>CRYPTUI_WIZ_EXPORT_FORMAT_PFX</b>. If this is nonzero, the PFX <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> produced is not compatible with Internet Explorer 4.0 or earlier versions.
      * 
      * <b>Note</b>  We recommend that you set this to nonzero; otherwise, a substantially weaker encryption algorithm is used in the export process.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fStrongEncryption {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fStrongEncryption{
+        get {
+            if(!this.HasProp("__fStrongEncryption"))
+                this.__fStrongEncryption := BOOL(this.ptr + 24)
+            return this.__fStrongEncryption
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes compute shader support, which is an option on D3D10 feature level.
@@ -19,10 +20,13 @@ class D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS extends Win32Struct
 
     /**
      * Shader model 4 compute shaders are supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x{
+        get {
+            if(!this.HasProp("__computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x"))
+                this.__computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x := BOOL(this.ptr + 0)
+            return this.__computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x
+        }
     }
 }

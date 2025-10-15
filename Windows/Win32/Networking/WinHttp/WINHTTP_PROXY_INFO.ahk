@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WINHTTP_PROXY_INFO structure contains the session or default proxy configuration.
@@ -45,19 +46,25 @@ class WINHTTP_PROXY_INFO extends Win32Struct
 
     /**
      * Pointer to a string value that contains the proxy server list.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszProxy {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszProxy{
+        get {
+            if(!this.HasProp("__lpszProxy"))
+                this.__lpszProxy := PWSTR(this.ptr + 8)
+            return this.__lpszProxy
+        }
     }
 
     /**
      * Pointer to a string value that contains the proxy bypass list.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszProxyBypass {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpszProxyBypass{
+        get {
+            if(!this.HasProp("__lpszProxyBypass"))
+                this.__lpszProxyBypass := PWSTR(this.ptr + 16)
+            return this.__lpszProxyBypass
+        }
     }
 }

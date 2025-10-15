@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains authentication results returned by an EAP authenticator method.
@@ -15,11 +16,14 @@ class EAP_METHOD_AUTHENTICATOR_RESULT extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the supplicant was successfully authenticated; if <b>FALSE</b>, it was not.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIsSuccess {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    fIsSuccess{
+        get {
+            if(!this.HasProp("__fIsSuccess"))
+                this.__fIsSuccess := BOOL(this.ptr + 0)
+            return this.__fIsSuccess
+        }
     }
 
     /**

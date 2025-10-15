@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -60,10 +61,13 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INTRA_REFRESH_MODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsSupported {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    IsSupported{
+        get {
+            if(!this.HasProp("__IsSupported"))
+                this.__IsSupported := BOOL(this.ptr + 44)
+            return this.__IsSupported
+        }
     }
 }

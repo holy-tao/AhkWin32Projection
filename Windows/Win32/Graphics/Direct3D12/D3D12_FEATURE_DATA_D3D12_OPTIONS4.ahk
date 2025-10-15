@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates the level of support for 64KB-aligned MSAA textures, cross-API sharing, and native 16-bit shader operations.
@@ -20,11 +21,14 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS4 extends Win32Struct
      * Type: **[BOOL](/windows/desktop/winprog/windows-data-types)**
      * 
      * Indicates whether 64KB-aligned MSAA textures are supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    MSAA64KBAlignedTextureSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    MSAA64KBAlignedTextureSupported{
+        get {
+            if(!this.HasProp("__MSAA64KBAlignedTextureSupported"))
+                this.__MSAA64KBAlignedTextureSupported := BOOL(this.ptr + 0)
+            return this.__MSAA64KBAlignedTextureSupported
+        }
     }
 
     /**
@@ -42,10 +46,13 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS4 extends Win32Struct
      * Type: **[BOOL](/windows/desktop/winprog/windows-data-types)**
      * 
      * Indicates native 16-bit shader operations are supported. These operations require shader model 6_2. For more information, see the [16-Bit Scalar Types](https://github.com/microsoft/DirectXShaderCompiler/wiki/16-Bit-Scalar-Types) HLSL reference.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Native16BitShaderOpsSupported {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    Native16BitShaderOpsSupported{
+        get {
+            if(!this.HasProp("__Native16BitShaderOpsSupported"))
+                this.__Native16BitShaderOpsSupported := BOOL(this.ptr + 8)
+            return this.__Native16BitShaderOpsSupported
+        }
     }
 }

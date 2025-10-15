@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the name of the shared resource.
@@ -15,10 +16,13 @@ class SHARE_INFO_0 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the share name of a resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    shi0_netname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    shi0_netname{
+        get {
+            if(!this.HasProp("__shi0_netname"))
+                this.__shi0_netname := PWSTR(this.ptr + 0)
+            return this.__shi0_netname
+        }
     }
 }

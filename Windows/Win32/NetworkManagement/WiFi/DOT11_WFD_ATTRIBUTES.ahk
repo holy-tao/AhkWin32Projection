@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -48,27 +49,36 @@ class DOT11_WFD_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bServiceDiscoverySupported {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    bServiceDiscoverySupported{
+        get {
+            if(!this.HasProp("__bServiceDiscoverySupported"))
+                this.__bServiceDiscoverySupported := BOOLEAN(this.ptr + 16)
+            return this.__bServiceDiscoverySupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bClientDiscoverabilitySupported {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+    bClientDiscoverabilitySupported{
+        get {
+            if(!this.HasProp("__bClientDiscoverabilitySupported"))
+                this.__bClientDiscoverabilitySupported := BOOLEAN(this.ptr + 17)
+            return this.__bClientDiscoverabilitySupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bInfrastructureManagementSupported {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
+    bInfrastructureManagementSupported{
+        get {
+            if(!this.HasProp("__bInfrastructureManagementSupported"))
+                this.__bInfrastructureManagementSupported := BOOLEAN(this.ptr + 18)
+            return this.__bInfrastructureManagementSupported
+        }
     }
 
     /**

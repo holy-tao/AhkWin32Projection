@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies the activation parameters for an ISpatialAudioRenderStreamForHrtf.
@@ -60,11 +61,14 @@ class SpatialAudioHrtfActivationParams extends Win32Struct
 
     /**
      * The event that will signal the client to provide more audio data. This handle will be duplicated internally before it is used.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    EventHandle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    EventHandle{
+        get {
+            if(!this.HasProp("__EventHandle"))
+                this.__EventHandle := HANDLE(this.ptr + 24)
+            return this.__EventHandle
+        }
     }
 
     /**

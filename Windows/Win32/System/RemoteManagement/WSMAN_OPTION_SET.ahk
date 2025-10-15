@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a set of options.
@@ -33,10 +34,13 @@ class WSMAN_OPTION_SET extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the plug-in must return an error if any of the options are not understood.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    optionsMustUnderstand {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    optionsMustUnderstand{
+        get {
+            if(!this.HasProp("__optionsMustUnderstand"))
+                this.__optionsMustUnderstand := BOOL(this.ptr + 16)
+            return this.__optionsMustUnderstand
+        }
     }
 }

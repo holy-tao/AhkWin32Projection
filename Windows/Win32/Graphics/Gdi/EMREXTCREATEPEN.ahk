@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include .\EXTLOGPEN32.ahk
 
 /**

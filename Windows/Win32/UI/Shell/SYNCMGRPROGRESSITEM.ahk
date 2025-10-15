@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides status information while a synchronization is in progress. This structure is used with the ISyncMgrSynchronizeCallback::Progress method and corresponds to a single synchronization item.
@@ -39,11 +40,14 @@ class SYNCMGRPROGRESSITEM extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Status text.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpcStatusText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpcStatusText{
+        get {
+            if(!this.HasProp("__lpcStatusText"))
+                this.__lpcStatusText := PWSTR(this.ptr + 8)
+            return this.__lpcStatusText
+        }
     }
 
     /**

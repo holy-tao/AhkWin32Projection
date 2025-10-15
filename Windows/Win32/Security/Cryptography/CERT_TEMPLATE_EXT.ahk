@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * A certificate template.
@@ -15,11 +17,14 @@ class CERT_TEMPLATE_EXT extends Win32Struct
 
     /**
      * <b>LPSTR</b> object identifier (OID).
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszObjId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszObjId{
+        get {
+            if(!this.HasProp("__pszObjId"))
+                this.__pszObjId := PSTR(this.ptr + 0)
+            return this.__pszObjId
+        }
     }
 
     /**
@@ -33,11 +38,14 @@ class CERT_TEMPLATE_EXT extends Win32Struct
 
     /**
      * <b>BOOL</b> flag set to <b>TRUE</b> if there is a minor version number.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMinorVersion {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    fMinorVersion{
+        get {
+            if(!this.HasProp("__fMinorVersion"))
+                this.__fMinorVersion := BOOL(this.ptr + 12)
+            return this.__fMinorVersion
+        }
     }
 
     /**

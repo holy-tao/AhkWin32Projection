@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage adapter descriptor data for a device.
@@ -118,11 +119,14 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      * If this member is <b>TRUE</b>, the storage adapter uses programmed I/O (PIO) and 
      *       requires the use of system-space virtual addresses mapped to physical memory for data buffers. When this member 
      *       is <b>FALSE</b>, the storage adapter does not use PIO.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    AdapterUsesPio {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
+    AdapterUsesPio{
+        get {
+            if(!this.HasProp("__AdapterUsesPio"))
+                this.__AdapterUsesPio := BOOLEAN(this.ptr + 20)
+            return this.__AdapterUsesPio
+        }
     }
 
     /**
@@ -130,11 +134,14 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      *       the storage adapter begins scanning with the highest device number rather than the lowest. When this member is 
      *       <b>FALSE</b>, the storage adapter begins scanning with the lowest device number. This member 
      *       is reserved for legacy miniport drivers.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    AdapterScansDown {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
+    AdapterScansDown{
+        get {
+            if(!this.HasProp("__AdapterScansDown"))
+                this.__AdapterScansDown := BOOLEAN(this.ptr + 21)
+            return this.__AdapterScansDown
+        }
     }
 
     /**
@@ -142,22 +149,28 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      *       per-logical-unit internal queues, or the non-SCSI equivalent. When this member is 
      *       <b>FALSE</b>, the storage adapter neither supports SCSI-tagged queuing nor per-logical-unit 
      *       internal queues.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    CommandQueueing {
-        get => NumGet(this, 22, "char")
-        set => NumPut("char", value, this, 22)
+    CommandQueueing{
+        get {
+            if(!this.HasProp("__CommandQueueing"))
+                this.__CommandQueueing := BOOLEAN(this.ptr + 22)
+            return this.__CommandQueueing
+        }
     }
 
     /**
      * If this member is <b>TRUE</b>, the storage adapter supports synchronous transfers as a 
      *       way of speeding up I/O. When this member is <b>FALSE</b>, the storage adapter does not 
      *       support synchronous transfers as a way of speeding up I/O.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    AcceleratedTransfer {
-        get => NumGet(this, 23, "char")
-        set => NumPut("char", value, this, 23)
+    AcceleratedTransfer{
+        get {
+            if(!this.HasProp("__AcceleratedTransfer"))
+                this.__AcceleratedTransfer := BOOLEAN(this.ptr + 23)
+            return this.__AcceleratedTransfer
+        }
     }
 
     /**

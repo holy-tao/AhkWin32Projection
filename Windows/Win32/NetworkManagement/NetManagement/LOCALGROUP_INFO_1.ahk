@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The LOCALGROUP_INFO_1 structure contains a local group name and a comment describing the local group.
@@ -26,19 +27,25 @@ class LOCALGROUP_INFO_1 extends Win32Struct
      * 
      * This member is ignored when you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netlocalgroupsetinfo">NetLocalGroupSetInfo</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lgrpi1_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lgrpi1_name{
+        get {
+            if(!this.HasProp("__lgrpi1_name"))
+                this.__lgrpi1_name := PWSTR(this.ptr + 0)
+            return this.__lgrpi1_name
+        }
     }
 
     /**
      * Pointer to a Unicode string that contains a remark associated with the local group. This member can be a null string. The comment can have as many as MAXCOMMENTSZ characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lgrpi1_comment {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lgrpi1_comment{
+        get {
+            if(!this.HasProp("__lgrpi1_comment"))
+                this.__lgrpi1_comment := PWSTR(this.ptr + 8)
+            return this.__lgrpi1_comment
+        }
     }
 }

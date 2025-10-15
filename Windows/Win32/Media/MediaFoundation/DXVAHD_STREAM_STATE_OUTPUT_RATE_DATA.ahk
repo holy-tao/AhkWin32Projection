@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DXVAHD_RATIONAL.ahk
 
 /**
@@ -48,11 +49,14 @@ class DXVAHD_STREAM_STATE_OUTPUT_RATE_DATA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {BOOL}
      */
-    RepeatFrame {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    RepeatFrame{
+        get {
+            if(!this.HasProp("__RepeatFrame"))
+                this.__RepeatFrame := BOOL(this.ptr + 0)
+            return this.__RepeatFrame
+        }
     }
 
     /**

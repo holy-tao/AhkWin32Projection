@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes an effect variable.
@@ -22,22 +23,28 @@ class D3D10_EFFECT_VARIABLE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that contains the variable name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := PSTR(this.ptr + 0)
+            return this.__Name
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The semantic attached to the variable; otherwise <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Semantic {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Semantic{
+        get {
+            if(!this.HasProp("__Semantic"))
+                this.__Semantic := PSTR(this.ptr + 8)
+            return this.__Semantic
+        }
     }
 
     /**

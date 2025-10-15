@@ -1,10 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\NTSTATUS.ahk
 #Include .\EXCEPTION_RECORD.ahk
 #Include .\EXCEPTION_DEBUG_INFO.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\CREATE_THREAD_DEBUG_INFO.ahk
 #Include .\CREATE_PROCESS_DEBUG_INFO.ahk
+#Include .\EXIT_THREAD_DEBUG_INFO.ahk
+#Include .\EXIT_PROCESS_DEBUG_INFO.ahk
 #Include .\LOAD_DLL_DEBUG_INFO.ahk
+#Include .\UNLOAD_DLL_DEBUG_INFO.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 #Include .\OUTPUT_DEBUG_STRING_INFO.ahk
 #Include .\RIP_INFO.ahk
 
@@ -95,19 +101,25 @@ class DEBUG_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {EXIT_THREAD_DEBUG_INFO}
      */
-    ExitThread {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    ExitThread{
+        get {
+            if(!this.HasProp("__ExitThread"))
+                this.__ExitThread := EXIT_THREAD_DEBUG_INFO(this.ptr + 16)
+            return this.__ExitThread
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {EXIT_PROCESS_DEBUG_INFO}
      */
-    ExitProcess {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    ExitProcess{
+        get {
+            if(!this.HasProp("__ExitProcess"))
+                this.__ExitProcess := EXIT_PROCESS_DEBUG_INFO(this.ptr + 16)
+            return this.__ExitProcess
+        }
     }
 
     /**
@@ -122,11 +134,14 @@ class DEBUG_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {UNLOAD_DLL_DEBUG_INFO}
      */
-    UnloadDll {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    UnloadDll{
+        get {
+            if(!this.HasProp("__UnloadDll"))
+                this.__UnloadDll := UNLOAD_DLL_DEBUG_INFO(this.ptr + 16)
+            return this.__UnloadDll
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HIMAGELIST.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
@@ -81,11 +82,14 @@ class BUTTON_SPLITINFO extends Win32Struct
      * Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list. The provider retains ownership of the image list and is ultimately responsible for its disposal.
-     * @type {Pointer}
+     * @type {HIMAGELIST}
      */
-    himlGlyph {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    himlGlyph{
+        get {
+            if(!this.HasProp("__himlGlyph"))
+                this.__himlGlyph := HIMAGELIST(this.ptr + 8)
+            return this.__himlGlyph
+        }
     }
 
     /**

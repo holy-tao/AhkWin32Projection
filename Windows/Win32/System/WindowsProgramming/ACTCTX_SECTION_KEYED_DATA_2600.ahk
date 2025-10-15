@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -76,11 +77,14 @@ class ACTCTX_SECTION_KEYED_DATA_2600 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hActCtx {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hActCtx{
+        get {
+            if(!this.HasProp("__hActCtx"))
+                this.__hActCtx := HANDLE(this.ptr + 56)
+            return this.__hActCtx
+        }
     }
 
     /**

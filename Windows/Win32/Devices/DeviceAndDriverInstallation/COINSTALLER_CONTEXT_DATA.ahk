@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -12,11 +13,14 @@ class COINSTALLER_CONTEXT_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PostProcessing {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    PostProcessing{
+        get {
+            if(!this.HasProp("__PostProcessing"))
+                this.__PostProcessing := BOOL(this.ptr + 0)
+            return this.__PostProcessing
+        }
     }
 
     /**

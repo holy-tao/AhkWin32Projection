@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes how to prepare the tape.
@@ -24,10 +25,13 @@ class TAPE_PREPARE extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Immediate {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    Immediate{
+        get {
+            if(!this.HasProp("__Immediate"))
+                this.__Immediate := BOOLEAN(this.ptr + 4)
+            return this.__Immediate
+        }
     }
 }

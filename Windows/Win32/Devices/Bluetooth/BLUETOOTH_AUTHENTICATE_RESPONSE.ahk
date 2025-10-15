@@ -3,6 +3,8 @@
 #Include .\BLUETOOTH_ADDRESS.ahk
 #Include .\BLUETOOTH_PIN_INFO.ahk
 #Include .\BLUETOOTH_OOB_DATA_INFO.ahk
+#Include .\BLUETOOTH_NUMERIC_COMPARISON_INFO.ahk
+#Include .\BLUETOOTH_PASSKEY_INFO.ahk
 
 /**
  * BLUETOOTH_AUTHENTICATE_RESPONSE structure contains information passed in response to a BTH_REMOTE_AUTHENTICATE_REQUEST event.
@@ -66,19 +68,25 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BLUETOOTH_NUMERIC_COMPARISON_INFO}
      */
-    numericCompInfo {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    numericCompInfo{
+        get {
+            if(!this.HasProp("__numericCompInfo"))
+                this.__numericCompInfo := BLUETOOTH_NUMERIC_COMPARISON_INFO(this.ptr + 24)
+            return this.__numericCompInfo
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BLUETOOTH_PASSKEY_INFO}
      */
-    passkeyInfo {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    passkeyInfo{
+        get {
+            if(!this.HasProp("__passkeyInfo"))
+                this.__passkeyInfo := BLUETOOTH_PASSKEY_INFO(this.ptr + 24)
+            return this.__passkeyInfo
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides information about a published application to the Add/Remove Programs Control Panel utility.
@@ -39,64 +40,82 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a string that contains the application display name. Memory for this string must be allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDisplayName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszDisplayName{
+        get {
+            if(!this.HasProp("__pszDisplayName"))
+                this.__pszDisplayName := PWSTR(this.ptr + 8)
+            return this.__pszDisplayName
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszVersion {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszVersion{
+        get {
+            if(!this.HasProp("__pszVersion"))
+                this.__pszVersion := PWSTR(this.ptr + 16)
+            return this.__pszVersion
+        }
     }
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszPublisher {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
-    }
-
-    /**
-     * Type: <b>LPWSTR</b>
-     * 
-     * Not applicable to published applications.
-     * @type {Pointer<Char>}
-     */
-    pszProductID {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszPublisher{
+        get {
+            if(!this.HasProp("__pszPublisher"))
+                this.__pszPublisher := PWSTR(this.ptr + 24)
+            return this.__pszPublisher
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszRegisteredOwner {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pszProductID{
+        get {
+            if(!this.HasProp("__pszProductID"))
+                this.__pszProductID := PWSTR(this.ptr + 32)
+            return this.__pszProductID
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszRegisteredCompany {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pszRegisteredOwner{
+        get {
+            if(!this.HasProp("__pszRegisteredOwner"))
+                this.__pszRegisteredOwner := PWSTR(this.ptr + 40)
+            return this.__pszRegisteredOwner
+        }
+    }
+
+    /**
+     * Type: <b>LPWSTR</b>
+     * 
+     * Not applicable to published applications.
+     * @type {PWSTR}
+     */
+    pszRegisteredCompany{
+        get {
+            if(!this.HasProp("__pszRegisteredCompany"))
+                this.__pszRegisteredCompany := PWSTR(this.ptr + 48)
+            return this.__pszRegisteredCompany
+        }
     }
 
     /**
@@ -107,132 +126,168 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszLanguage {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pszLanguage{
+        get {
+            if(!this.HasProp("__pszLanguage"))
+                this.__pszLanguage := PWSTR(this.ptr + 56)
+            return this.__pszLanguage
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A URL to support information. This string is displayed as a link with the application name in Control Panel Add/Remove Programs. Memory for this string must be allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszSupportUrl {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pszSupportUrl{
+        get {
+            if(!this.HasProp("__pszSupportUrl"))
+                this.__pszSupportUrl := PWSTR(this.ptr + 64)
+            return this.__pszSupportUrl
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszSupportTelephone {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pszSupportTelephone{
+        get {
+            if(!this.HasProp("__pszSupportTelephone"))
+                this.__pszSupportTelephone := PWSTR(this.ptr + 72)
+            return this.__pszSupportTelephone
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszHelpLink {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    pszHelpLink{
+        get {
+            if(!this.HasProp("__pszHelpLink"))
+                this.__pszHelpLink := PWSTR(this.ptr + 80)
+            return this.__pszHelpLink
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszInstallLocation {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    pszInstallLocation{
+        get {
+            if(!this.HasProp("__pszInstallLocation"))
+                this.__pszInstallLocation := PWSTR(this.ptr + 88)
+            return this.__pszInstallLocation
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszInstallSource {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    pszInstallSource{
+        get {
+            if(!this.HasProp("__pszInstallSource"))
+                this.__pszInstallSource := PWSTR(this.ptr + 96)
+            return this.__pszInstallSource
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszInstallDate {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    pszInstallDate{
+        get {
+            if(!this.HasProp("__pszInstallDate"))
+                this.__pszInstallDate := PWSTR(this.ptr + 104)
+            return this.__pszInstallDate
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszContact {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+    pszContact{
+        get {
+            if(!this.HasProp("__pszContact"))
+                this.__pszContact := PWSTR(this.ptr + 112)
+            return this.__pszContact
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszComments {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+    pszComments{
+        get {
+            if(!this.HasProp("__pszComments"))
+                this.__pszComments := PWSTR(this.ptr + 120)
+            return this.__pszComments
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszImage {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    pszImage{
+        get {
+            if(!this.HasProp("__pszImage"))
+                this.__pszImage := PWSTR(this.ptr + 128)
+            return this.__pszImage
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszReadmeUrl {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    pszReadmeUrl{
+        get {
+            if(!this.HasProp("__pszReadmeUrl"))
+                this.__pszReadmeUrl := PWSTR(this.ptr + 136)
+            return this.__pszReadmeUrl
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszUpdateInfoUrl {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+    pszUpdateInfoUrl{
+        get {
+            if(!this.HasProp("__pszUpdateInfoUrl"))
+                this.__pszUpdateInfoUrl := PWSTR(this.ptr + 144)
+            return this.__pszUpdateInfoUrl
+        }
     }
 
     /**

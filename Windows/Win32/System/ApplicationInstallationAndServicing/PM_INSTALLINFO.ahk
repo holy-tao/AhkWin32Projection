@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -20,11 +22,14 @@ class PM_INSTALLINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    PackagePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    PackagePath{
+        get {
+            if(!this.HasProp("__PackagePath"))
+                this.__PackagePath := BSTR(this.ptr + 8)
+            return this.__PackagePath
+        }
     }
 
     /**
@@ -52,11 +57,14 @@ class PM_INSTALLINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsUninstallDisabled {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    IsUninstallDisabled{
+        get {
+            if(!this.HasProp("__IsUninstallDisabled"))
+                this.__IsUninstallDisabled := BOOL(this.ptr + 36)
+            return this.__IsUninstallDisabled
+        }
     }
 
     /**
@@ -76,10 +84,13 @@ class PM_INSTALLINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    MarketplaceAppVersion {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    MarketplaceAppVersion{
+        get {
+            if(!this.HasProp("__MarketplaceAppVersion"))
+                this.__MarketplaceAppVersion := BSTR(this.ptr + 56)
+            return this.__MarketplaceAppVersion
+        }
     }
 }

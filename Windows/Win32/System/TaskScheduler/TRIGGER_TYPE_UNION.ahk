@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DAILY.ahk
 #Include .\WEEKLY.ahk
 #Include .\MONTHLYDATE.ahk
 #Include .\MONTHLYDOW.ahk
@@ -25,11 +26,14 @@ class TRIGGER_TYPE_UNION extends Win32Struct
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-daily">DAILY</a> structure that specifies the number of days between invocations of a task.
-     * @type {Integer}
+     * @type {DAILY}
      */
-    Daily {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
+    Daily{
+        get {
+            if(!this.HasProp("__Daily"))
+                this.__Daily := DAILY(this.ptr + 0)
+            return this.__Daily
+        }
     }
 
     /**

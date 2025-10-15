@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USE_INFO_2 structure contains information about a connection between a local computer and a shared resource, including connection type, connection status, user name, and domain name.
@@ -25,11 +26,14 @@ class USE_INFO_2 extends Win32Struct
      * A pointer to a string that contains the local device name (for example, drive E or LPT1) being redirected to the shared resource. The constant DEVLEN specifies the maximum number of characters in the string. This member can be <b>NULL</b>. For more information, see the following Remarks section.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ui2_local {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    ui2_local{
+        get {
+            if(!this.HasProp("__ui2_local"))
+                this.__ui2_local := PWSTR(this.ptr + 0)
+            return this.__ui2_local
+        }
     }
 
     /**
@@ -43,11 +47,14 @@ class USE_INFO_2 extends Win32Struct
      * <pre class="syntax" xml:space="preserve"><code>\\servername\sharename
      * </code></pre>
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ui2_remote {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ui2_remote{
+        get {
+            if(!this.HasProp("__ui2_remote"))
+                this.__ui2_remote := PWSTR(this.ptr + 8)
+            return this.__ui2_remote
+        }
     }
 
     /**
@@ -56,11 +63,14 @@ class USE_INFO_2 extends Win32Struct
      * A pointer to a string that contains the password needed to establish a session with a specific workstation.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ui2_password {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    ui2_password{
+        get {
+            if(!this.HasProp("__ui2_password"))
+                this.__ui2_password := PWSTR(this.ptr + 16)
+            return this.__ui2_password
+        }
     }
 
     /**
@@ -192,11 +202,14 @@ class USE_INFO_2 extends Win32Struct
      * A pointer to a string that contains the name of the user who initiated the connection.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ui2_username {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    ui2_username{
+        get {
+            if(!this.HasProp("__ui2_username"))
+                this.__ui2_username := PWSTR(this.ptr + 40)
+            return this.__ui2_username
+        }
     }
 
     /**
@@ -205,10 +218,13 @@ class USE_INFO_2 extends Win32Struct
      * A pointer to a string that contains the domain name of the remote resource.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ui2_domainname {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    ui2_domainname{
+        get {
+            if(!this.HasProp("__ui2_domainname"))
+                this.__ui2_domainname := PWSTR(this.ptr + 48)
+            return this.__ui2_domainname
+        }
     }
 }

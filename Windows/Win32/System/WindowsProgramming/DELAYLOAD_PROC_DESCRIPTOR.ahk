@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -20,11 +21,14 @@ class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := PSTR(this.ptr + 8)
+            return this.__Name
+        }
     }
 
     /**

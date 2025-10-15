@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\PEER_DATA.ahk
 
 /**
@@ -21,51 +23,66 @@ class PEER_CONTACT extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains the peer name of the contact. This is the unique identifier for a contact.  There can only be a single contact associated with any given peername.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzPeerName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwzPeerName{
+        get {
+            if(!this.HasProp("__pwzPeerName"))
+                this.__pwzPeerName := PWSTR(this.ptr + 0)
+            return this.__pwzPeerName
+        }
     }
 
     /**
      * Zero-terminated Unicode string that contains the nickname of the contact and can be modified at any time. This is used when the peer collaboration scope is set to People Near Me. It is advertised in People Near Me and seen by recipients of sent invitations. 
      * 
      * This member is limited to 255 unicode characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzNickName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwzNickName{
+        get {
+            if(!this.HasProp("__pwzNickName"))
+                this.__pwzNickName := PWSTR(this.ptr + 8)
+            return this.__pwzNickName
+        }
     }
 
     /**
      * Zero-terminated Unicode string that contains the display name of the contact. This corresponds to the display name seen for the contact in a peer's contacts folder.
      * 
      * This member is limited to 255 unicode characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzDisplayName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwzDisplayName{
+        get {
+            if(!this.HasProp("__pwzDisplayName"))
+                this.__pwzDisplayName := PWSTR(this.ptr + 16)
+            return this.__pwzDisplayName
+        }
     }
 
     /**
      * Zero-terminated Unicode string that contains the email address of the contact.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzEmailAddress {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwzEmailAddress{
+        get {
+            if(!this.HasProp("__pwzEmailAddress"))
+                this.__pwzEmailAddress := PWSTR(this.ptr + 24)
+            return this.__pwzEmailAddress
+        }
     }
 
     /**
      * If true, the contact is watched by the peer; if false, it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fWatch {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    fWatch{
+        get {
+            if(!this.HasProp("__fWatch"))
+                this.__fWatch := BOOL(this.ptr + 32)
+            return this.__fWatch
+        }
     }
 
     /**

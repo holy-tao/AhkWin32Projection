@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates the level of support that the adapter provides for variable-rate shading (VRS), and indicates whether or not background processing is supported.
@@ -20,22 +21,28 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS6 extends Win32Struct
      * Type: <b>[BOOL](/windows/desktop/winprog/windows-data-types)</b>
      * 
      * Indicates whether 2x4, 4x2, and 4x4 coarse pixel sizes are supported for single-sampled rendering; and whether coarse pixel size 2x4 is supported for 2x MSAA. `true` if those sizes are supported, otherwise `false`.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    AdditionalShadingRatesSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    AdditionalShadingRatesSupported{
+        get {
+            if(!this.HasProp("__AdditionalShadingRatesSupported"))
+                this.__AdditionalShadingRatesSupported := BOOL(this.ptr + 0)
+            return this.__AdditionalShadingRatesSupported
+        }
     }
 
     /**
      * Type: <b>[BOOL](/windows/desktop/winprog/windows-data-types)</b>
      * 
      * Indicates whether the per-provoking-vertex (also known as per-primitive) rate can be used with more than one viewport. If so, then, in that case, that rate can be used when `SV_ViewportIndex` is written to. `true` if that rate can be used with more than one viewport, otherwise `false`.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PerPrimitiveShadingRateSupportedWithViewportIndexing {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    PerPrimitiveShadingRateSupportedWithViewportIndexing{
+        get {
+            if(!this.HasProp("__PerPrimitiveShadingRateSupportedWithViewportIndexing"))
+                this.__PerPrimitiveShadingRateSupportedWithViewportIndexing := BOOL(this.ptr + 4)
+            return this.__PerPrimitiveShadingRateSupportedWithViewportIndexing
+        }
     }
 
     /**
@@ -64,10 +71,13 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS6 extends Win32Struct
      * Type: <b>[BOOL](/windows/desktop/winprog/windows-data-types)</b>
      * 
      * Indicates whether or not background processing is supported. `true` if background processing is supported, otherwise `false`. For more info, see the [Direct3D 12 background processing spec](https://microsoft.github.io/DirectX-Specs/d3d/BackgroundProcessing.html).
-     * @type {Integer}
+     * @type {BOOL}
      */
-    BackgroundProcessingSupported {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    BackgroundProcessingSupported{
+        get {
+            if(!this.HasProp("__BackgroundProcessingSupported"))
+                this.__BackgroundProcessingSupported := BOOL(this.ptr + 16)
+            return this.__BackgroundProcessingSupported
+        }
     }
 }

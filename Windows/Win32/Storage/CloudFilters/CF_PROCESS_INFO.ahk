@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a user process.
@@ -33,40 +34,52 @@ class CF_PROCESS_INFO extends Win32Struct
 
     /**
      * The absolute path of the main executable file including the volume name in the format of NT file path. If the platform failed to retrieve the image path, “UNKNOWN” will be returned.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ImagePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ImagePath{
+        get {
+            if(!this.HasProp("__ImagePath"))
+                this.__ImagePath := PWSTR(this.ptr + 8)
+            return this.__ImagePath
+        }
     }
 
     /**
      * Used for modern applications. The app package name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PackageName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    PackageName{
+        get {
+            if(!this.HasProp("__PackageName"))
+                this.__PackageName := PWSTR(this.ptr + 16)
+            return this.__PackageName
+        }
     }
 
     /**
      * Used for modern applications. The application ID.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ApplicationId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ApplicationId{
+        get {
+            if(!this.HasProp("__ApplicationId"))
+                this.__ApplicationId := PWSTR(this.ptr + 24)
+            return this.__ApplicationId
+        }
     }
 
     /**
      * <b>Note</b>  This member was added in Windows 10, version 1803.
      * 
      * Used to start the process. If the platform failed to retrieve the command line, “UNKNOWN” will be returned.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    CommandLine {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    CommandLine{
+        get {
+            if(!this.HasProp("__CommandLine"))
+                this.__CommandLine := PWSTR(this.ptr + 32)
+            return this.__CommandLine
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains module information.
@@ -167,69 +168,90 @@ class IMAGEHLP_MODULEW64 extends Win32Struct
 
     /**
      * A value that indicates whether the loaded PDB is unmatched.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PdbUnmatched {
-        get => NumGet(this, 3220, "int")
-        set => NumPut("int", value, this, 3220)
+    PdbUnmatched{
+        get {
+            if(!this.HasProp("__PdbUnmatched"))
+                this.__PdbUnmatched := BOOL(this.ptr + 3220)
+            return this.__PdbUnmatched
+        }
     }
 
     /**
      * A value that indicates whether the loaded DBG is unmatched.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    DbgUnmatched {
-        get => NumGet(this, 3224, "int")
-        set => NumPut("int", value, this, 3224)
+    DbgUnmatched{
+        get {
+            if(!this.HasProp("__DbgUnmatched"))
+                this.__DbgUnmatched := BOOL(this.ptr + 3224)
+            return this.__DbgUnmatched
+        }
     }
 
     /**
      * A value that indicates whether line number information is available.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    LineNumbers {
-        get => NumGet(this, 3228, "int")
-        set => NumPut("int", value, this, 3228)
+    LineNumbers{
+        get {
+            if(!this.HasProp("__LineNumbers"))
+                this.__LineNumbers := BOOL(this.ptr + 3228)
+            return this.__LineNumbers
+        }
     }
 
     /**
      * A value that indicates whether symbol information is available.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    GlobalSymbols {
-        get => NumGet(this, 3232, "int")
-        set => NumPut("int", value, this, 3232)
+    GlobalSymbols{
+        get {
+            if(!this.HasProp("__GlobalSymbols"))
+                this.__GlobalSymbols := BOOL(this.ptr + 3232)
+            return this.__GlobalSymbols
+        }
     }
 
     /**
      * A value that indicates whether type information is available.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    TypeInfo {
-        get => NumGet(this, 3236, "int")
-        set => NumPut("int", value, this, 3236)
+    TypeInfo{
+        get {
+            if(!this.HasProp("__TypeInfo"))
+                this.__TypeInfo := BOOL(this.ptr + 3236)
+            return this.__TypeInfo
+        }
     }
 
     /**
      * A value that indicates whether the .pdb supports the source server.
      * 
      * <b>DbgHelp 6.1 and earlier:  </b>This member is not supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SourceIndexed {
-        get => NumGet(this, 3240, "int")
-        set => NumPut("int", value, this, 3240)
+    SourceIndexed{
+        get {
+            if(!this.HasProp("__SourceIndexed"))
+                this.__SourceIndexed := BOOL(this.ptr + 3240)
+            return this.__SourceIndexed
+        }
     }
 
     /**
      * A value that indicates whether the module contains public symbols.
      * 
      * <b>DbgHelp 6.1 and earlier:  </b>This member is not supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Publics {
-        get => NumGet(this, 3244, "int")
-        set => NumPut("int", value, this, 3244)
+    Publics{
+        get {
+            if(!this.HasProp("__Publics"))
+                this.__Publics := BOOL(this.ptr + 3244)
+            return this.__Publics
+        }
     }
 
     /**

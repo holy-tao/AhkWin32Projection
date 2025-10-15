@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Retrieves the number of past and future reference frames required for the specified deinterlace mode, filter, rate conversion, or auto processing features.
@@ -79,11 +80,14 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_REFERENCE_INFO extends Win32Struct
 
     /**
      * True if autoprocessing will be used; otherwise, false.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    EnableAutoProcessing {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    EnableAutoProcessing{
+        get {
+            if(!this.HasProp("__EnableAutoProcessing"))
+                this.__EnableAutoProcessing := BOOL(this.ptr + 32)
+            return this.__EnableAutoProcessing
+        }
     }
 
     /**

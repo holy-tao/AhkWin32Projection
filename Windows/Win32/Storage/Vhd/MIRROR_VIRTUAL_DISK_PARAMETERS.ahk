@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains virtual hard disk (VHD) mirror request parameters.
@@ -23,11 +24,31 @@ class MIRROR_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
+    class _Version1 extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {PWSTR}
+         */
+        MirrorVirtualDiskPath{
+            get {
+                if(!this.HasProp("__MirrorVirtualDiskPath"))
+                    this.__MirrorVirtualDiskPath := PWSTR(this.ptr + 0)
+                return this.__MirrorVirtualDiskPath
+            }
+        }
+    
+    }
+
     /**
-     * @type {Pointer<Char>}
+     * @type {_Version1}
      */
-    Anonymous {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Version1{
+        get {
+            if(!this.HasProp("__Version1"))
+                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+            return this.__Version1
+        }
     }
 }

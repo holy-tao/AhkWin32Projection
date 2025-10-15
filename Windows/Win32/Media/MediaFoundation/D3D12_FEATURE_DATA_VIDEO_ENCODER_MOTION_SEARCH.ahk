@@ -6,6 +6,7 @@
 #Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA.ahk
 #Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -53,11 +54,14 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    BidirectionalRefFrameEnabled {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+    BidirectionalRefFrameEnabled{
+        get {
+            if(!this.HasProp("__BidirectionalRefFrameEnabled"))
+                this.__BidirectionalRefFrameEnabled := BOOL(this.ptr + 112)
+            return this.__BidirectionalRefFrameEnabled
+        }
     }
 
     /**

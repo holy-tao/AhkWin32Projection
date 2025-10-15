@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -35,11 +36,14 @@ class DOT11_INCOMING_ASSOC_DECISION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bAccept {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
+    bAccept{
+        get {
+            if(!this.HasProp("__bAccept"))
+                this.__bAccept := BOOLEAN(this.ptr + 10)
+            return this.__bAccept
+        }
     }
 
     /**

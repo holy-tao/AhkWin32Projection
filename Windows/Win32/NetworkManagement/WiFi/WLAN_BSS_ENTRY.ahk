@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\WLAN_RATE_SET.ahk
 
 /**
@@ -105,11 +106,14 @@ class WLAN_BSS_ENTRY extends Win32Struct
      * If the 802.11 Beacon or Probe Response frame received from the AP or peer station does not include a Country information element (IE), this member is set to <b>TRUE</b>. 
      * 
      * If the 802.11 Beacon or Probe Response frame received from the AP or peer station does include a Country IE, this member is set to <b>FALSE</b> if the value of the Country String subfield does not equal the input country string.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bInRegDomain {
-        get => NumGet(this, 64, "char")
-        set => NumPut("char", value, this, 64)
+    bInRegDomain{
+        get {
+            if(!this.HasProp("__bInRegDomain"))
+                this.__bInRegDomain := BOOLEAN(this.ptr + 64)
+            return this.__bInRegDomain
+        }
     }
 
     /**

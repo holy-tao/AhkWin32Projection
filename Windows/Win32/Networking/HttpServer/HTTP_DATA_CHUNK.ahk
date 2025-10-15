@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_BYTE_RANGE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_WINHTTP_FAST_FORWARDING_DATA.ahk
 
 /**
@@ -62,11 +64,14 @@ class HTTP_DATA_CHUNK extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        FileHandle {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        FileHandle{
+            get {
+                if(!this.HasProp("__FileHandle"))
+                    this.__FileHandle := HANDLE(this.ptr + 16)
+                return this.__FileHandle
+            }
         }
     
     }
@@ -84,11 +89,14 @@ class HTTP_DATA_CHUNK extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pFragmentName {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        pFragmentName{
+            get {
+                if(!this.HasProp("__pFragmentName"))
+                    this.__pFragmentName := PWSTR(this.ptr + 8)
+                return this.__pFragmentName
+            }
         }
     
     }
@@ -109,11 +117,14 @@ class HTTP_DATA_CHUNK extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pFragmentName {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        pFragmentName{
+            get {
+                if(!this.HasProp("__pFragmentName"))
+                    this.__pFragmentName := PWSTR(this.ptr + 16)
+                return this.__pFragmentName
+            }
         }
     
     }

@@ -126,7 +126,7 @@ class IPSEC_SA_BUNDLE1 extends Win32Struct
     /**
      * @type {Integer}
      */
-    Anonymous {
+    peerV4PrivateAddress {
         get => NumGet(this, 76, "uint")
         set => NumPut("uint", value, this, 76)
     }

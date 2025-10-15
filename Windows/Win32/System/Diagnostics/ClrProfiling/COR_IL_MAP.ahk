@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -28,10 +29,13 @@ class COR_IL_MAP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAccurate {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fAccurate{
+        get {
+            if(!this.HasProp("__fAccurate"))
+                this.__fAccurate := BOOL(this.ptr + 8)
+            return this.__fAccurate
+        }
     }
 }

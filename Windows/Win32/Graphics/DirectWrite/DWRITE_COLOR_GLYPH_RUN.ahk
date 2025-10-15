@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DWRITE_GLYPH_RUN.ahk
 #Include .\DWRITE_COLOR_F.ahk
 

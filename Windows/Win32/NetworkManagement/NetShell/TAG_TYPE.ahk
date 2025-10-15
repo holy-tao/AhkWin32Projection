@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies tags used for the PreprocessCommand function.
@@ -15,11 +17,14 @@ class TAG_TYPE extends Win32Struct
 
     /**
      * A tag string, in UNICODE.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszTag {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszTag{
+        get {
+            if(!this.HasProp("__pwszTag"))
+                this.__pwszTag := PWSTR(this.ptr + 0)
+            return this.__pwszTag
+        }
     }
 
     /**
@@ -80,10 +85,13 @@ class TAG_TYPE extends Win32Struct
 
     /**
      * This value specifies whether the tag is present. <b>TRUE</b> indicates the tag is present.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bPresent {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    bPresent{
+        get {
+            if(!this.HasProp("__bPresent"))
+                this.__bPresent := BOOL(this.ptr + 12)
+            return this.__bPresent
+        }
     }
 }

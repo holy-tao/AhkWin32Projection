@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\VIRTUAL_STORAGE_TYPE.ahk
 
 /**
@@ -70,11 +71,14 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        ParentResolved {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
+        ParentResolved{
+            get {
+                if(!this.HasProp("__ParentResolved"))
+                    this.__ParentResolved := BOOL(this.ptr + 0)
+                return this.__ParentResolved
+            }
         }
     
         /**
@@ -108,11 +112,14 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        IsRemote {
-            get => NumGet(this, 8, "int")
-            set => NumPut("int", value, this, 8)
+        IsRemote{
+            get {
+                if(!this.HasProp("__IsRemote"))
+                    this.__IsRemote := BOOL(this.ptr + 8)
+                return this.__IsRemote
+            }
         }
     
     }
@@ -122,19 +129,25 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        Enabled {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
+        Enabled{
+            get {
+                if(!this.HasProp("__Enabled"))
+                    this.__Enabled := BOOL(this.ptr + 0)
+                return this.__Enabled
+            }
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        NewerChanges {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        NewerChanges{
+            get {
+                if(!this.HasProp("__NewerChanges"))
+                    this.__NewerChanges := BOOL(this.ptr + 4)
+                return this.__NewerChanges
+            }
         }
     
         /**
@@ -213,19 +226,25 @@ class GET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Is4kAligned {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    Is4kAligned{
+        get {
+            if(!this.HasProp("__Is4kAligned"))
+                this.__Is4kAligned := BOOL(this.ptr + 8)
+            return this.__Is4kAligned
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsLoaded {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    IsLoaded{
+        get {
+            if(!this.HasProp("__IsLoaded"))
+                this.__IsLoaded := BOOL(this.ptr + 8)
+            return this.__IsLoaded
+        }
     }
 
     /**

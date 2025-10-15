@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -12,26 +13,35 @@ class MDAInfo extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpMDACaption {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lpMDACaption{
+        get {
+            if(!this.HasProp("__lpMDACaption"))
+                this.__lpMDACaption := PWSTR(this.ptr + 0)
+            return this.__lpMDACaption
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpMDAMessage {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpMDAMessage{
+        get {
+            if(!this.HasProp("__lpMDAMessage"))
+                this.__lpMDAMessage := PWSTR(this.ptr + 8)
+            return this.__lpMDAMessage
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpStackTrace {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpStackTrace{
+        get {
+            if(!this.HasProp("__lpStackTrace"))
+                this.__lpStackTrace := PWSTR(this.ptr + 16)
+            return this.__lpStackTrace
+        }
     }
 }

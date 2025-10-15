@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -20,11 +21,14 @@ class SIGNER_PROVIDER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszProviderName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszProviderName{
+        get {
+            if(!this.HasProp("__pwszProviderName"))
+                this.__pwszProviderName := PWSTR(this.ptr + 8)
+            return this.__pwszProviderName
+        }
     }
 
     /**
@@ -52,19 +56,25 @@ class SIGNER_PROVIDER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszPvkFileName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwszPvkFileName{
+        get {
+            if(!this.HasProp("__pwszPvkFileName"))
+                this.__pwszPvkFileName := PWSTR(this.ptr + 32)
+            return this.__pwszPvkFileName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszKeyContainer {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwszKeyContainer{
+        get {
+            if(!this.HasProp("__pwszKeyContainer"))
+                this.__pwszKeyContainer := PWSTR(this.ptr + 32)
+            return this.__pwszKeyContainer
+        }
     }
 
     /**

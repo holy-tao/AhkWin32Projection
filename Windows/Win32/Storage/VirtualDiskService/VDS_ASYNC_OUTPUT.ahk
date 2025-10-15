@@ -164,6 +164,20 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     
     }
 
+    class _sv extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ullReclaimedBytes {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     class _cl extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
@@ -254,11 +268,14 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_sv}
      */
-    sv {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    sv{
+        get {
+            if(!this.HasProp("__sv"))
+                this.__sv := %this.__Class%._sv(this.ptr + 8)
+            return this.__sv
+        }
     }
 
     /**

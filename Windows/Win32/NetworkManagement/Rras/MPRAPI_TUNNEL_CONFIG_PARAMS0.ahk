@@ -6,6 +6,7 @@
 #Include .\PPTP_CONFIG_PARAMS.ahk
 #Include .\L2TP_TUNNEL_CONFIG_PARAMS2.ahk
 #Include .\L2TP_CONFIG_PARAMS1.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\SSTP_CERT_INFO.ahk
 #Include .\SSTP_CONFIG_PARAMS.ahk
 

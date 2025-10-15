@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Globalization
@@ -28,7 +29,7 @@ class UConverterFromUnicodeArgs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<UConverter>}
      */
     converter {
         get => NumGet(this, 8, "ptr")
@@ -52,19 +53,25 @@ class UConverterFromUnicodeArgs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    target {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    target{
+        get {
+            if(!this.HasProp("__target"))
+                this.__target := PSTR(this.ptr + 32)
+            return this.__target
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    targetLimit {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    targetLimit{
+        get {
+            if(!this.HasProp("__targetLimit"))
+                this.__targetLimit := PSTR(this.ptr + 40)
+            return this.__targetLimit
+        }
     }
 
     /**

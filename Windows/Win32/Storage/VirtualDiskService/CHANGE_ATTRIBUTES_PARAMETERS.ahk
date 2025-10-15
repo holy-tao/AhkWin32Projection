@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Defines the partition parameters of a partition style.
@@ -30,19 +31,56 @@ class CHANGE_ATTRIBUTES_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    MbrPartInfo {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    class _MbrPartInfo extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {BOOLEAN}
+         */
+        bootIndicator{
+            get {
+                if(!this.HasProp("__bootIndicator"))
+                    this.__bootIndicator := BOOLEAN(this.ptr + 0)
+                return this.__bootIndicator
+            }
+        }
+    
+    }
+
+    class _GptPartInfo extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        attributes {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_MbrPartInfo}
      */
-    GptPartInfo {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    MbrPartInfo{
+        get {
+            if(!this.HasProp("__MbrPartInfo"))
+                this.__MbrPartInfo := %this.__Class%._MbrPartInfo(this.ptr + 8)
+            return this.__MbrPartInfo
+        }
+    }
+
+    /**
+     * @type {_GptPartInfo}
+     */
+    GptPartInfo{
+        get {
+            if(!this.HasProp("__GptPartInfo"))
+                this.__GptPartInfo := %this.__Class%._GptPartInfo(this.ptr + 8)
+            return this.__GptPartInfo
+        }
     }
 }

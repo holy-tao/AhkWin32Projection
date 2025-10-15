@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_WFD_CHANNEL.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -44,18 +45,24 @@ class DOT11_WFD_GROUP_JOIN_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bInGroupFormation {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    bInGroupFormation{
+        get {
+            if(!this.HasProp("__bInGroupFormation"))
+                this.__bInGroupFormation := BOOLEAN(this.ptr + 16)
+            return this.__bInGroupFormation
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bWaitForWPSReady {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+    bWaitForWPSReady{
+        get {
+            if(!this.HasProp("__bWaitForWPSReady"))
+                this.__bWaitForWPSReady := BOOLEAN(this.ptr + 17)
+            return this.__bWaitForWPSReady
+        }
     }
 }

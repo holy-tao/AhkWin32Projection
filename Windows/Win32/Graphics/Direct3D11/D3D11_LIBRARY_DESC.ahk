@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a library.
@@ -17,11 +18,14 @@ class D3D11_LIBRARY_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the originator of the library.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Creator {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Creator{
+        get {
+            if(!this.HasProp("__Creator"))
+                this.__Creator := PSTR(this.ptr + 0)
+            return this.__Creator
+        }
     }
 
     /**

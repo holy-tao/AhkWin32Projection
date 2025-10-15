@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -51,19 +52,25 @@ class DOT11_CIPHER_DEFAULT_KEY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bDelete {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
+    bDelete{
+        get {
+            if(!this.HasProp("__bDelete"))
+                this.__bDelete := BOOLEAN(this.ptr + 18)
+            return this.__bDelete
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bStatic {
-        get => NumGet(this, 19, "char")
-        set => NumPut("char", value, this, 19)
+    bStatic{
+        get {
+            if(!this.HasProp("__bStatic"))
+                this.__bStatic := BOOLEAN(this.ptr + 19)
+            return this.__bStatic
+        }
     }
 
     /**

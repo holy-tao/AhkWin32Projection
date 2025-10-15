@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -12,27 +13,36 @@ class STACK_SRC_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ImagePath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    ImagePath{
+        get {
+            if(!this.HasProp("__ImagePath"))
+                this.__ImagePath := PWSTR(this.ptr + 0)
+            return this.__ImagePath
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ModuleName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ModuleName{
+        get {
+            if(!this.HasProp("__ModuleName"))
+                this.__ModuleName := PWSTR(this.ptr + 8)
+            return this.__ModuleName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Function {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Function{
+        get {
+            if(!this.HasProp("__Function"))
+                this.__Function := PWSTR(this.ptr + 16)
+            return this.__Function
+        }
     }
 
     /**

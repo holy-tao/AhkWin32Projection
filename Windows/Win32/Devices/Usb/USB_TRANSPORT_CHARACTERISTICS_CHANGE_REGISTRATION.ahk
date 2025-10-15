@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USB_CHANGE_REGISTRATION_HANDLE.ahk
 #Include .\USB_TRANSPORT_CHARACTERISTICS.ahk
 
 /**
@@ -21,11 +22,14 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {USB_CHANGE_REGISTRATION_HANDLE}
      */
-    Handle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Handle{
+        get {
+            if(!this.HasProp("__Handle"))
+                this.__Handle := USB_CHANGE_REGISTRATION_HANDLE(this.ptr + 8)
+            return this.__Handle
+        }
     }
 
     /**

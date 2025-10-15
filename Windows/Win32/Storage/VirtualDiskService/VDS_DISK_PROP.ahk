@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of a disk object.
@@ -176,51 +177,66 @@ class VDS_DISK_PROP extends Win32Struct
      *        address formats and are not stored.
      * 
      * This member is optional and can be <b>NULL</b> if no value is available. If it is not <b>NULL</b>, its length must be greater than or equal to 22 WCHAR and less than or equal to 64 WCHAR, including the required <b>NULL</b> terminator. Applications that receive the <b>VDS_DISK_PROP</b> structure by calling <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk-getproperties">IVdsDisk::GetProperties</a> must check whether this member is <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszDiskAddress {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pwszDiskAddress{
+        get {
+            if(!this.HasProp("__pwszDiskAddress"))
+                this.__pwszDiskAddress := PWSTR(this.ptr + 72)
+            return this.__pwszDiskAddress
+        }
     }
 
     /**
      * The name used to open a handle to an object created using the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> 
      *       function. For example: `\\?\PhysicalDrive2`
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    pwszName{
+        get {
+            if(!this.HasProp("__pwszName"))
+                this.__pwszName := PWSTR(this.ptr + 80)
+            return this.__pwszName
+        }
     }
 
     /**
      * The name returned by the Plug and Play   Manager. This name is maintained in the Windows registry by the 
      *       Plug and Play Manager, for example: "SEAGATE ST34573N SCSI Disk Device".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszFriendlyName {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    pwszFriendlyName{
+        get {
+            if(!this.HasProp("__pwszFriendlyName"))
+                this.__pwszFriendlyName := PWSTR(this.ptr + 88)
+            return this.__pwszFriendlyName
+        }
     }
 
     /**
      * The name of the adapter to which this disk is attached. The Plug and Play Manager returns the name, which 
      *       is maintained in the Windows registry, for example: "Adaptec AHA-2940U2W - Ultra2 SCSI".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszAdaptorName {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    pwszAdaptorName{
+        get {
+            if(!this.HasProp("__pwszAdaptorName"))
+                this.__pwszAdaptorName := PWSTR(this.ptr + 96)
+            return this.__pwszAdaptorName
+        }
     }
 
     /**
      * The string returned by the Plug and Play Manager. The Plug and Play Manager uses the device path to 
      *       uniquely identify a device on a computer. For more information, see 
      *       [**SP_DEVICE_INTERFACE_DETAIL_DATA_W**](/windows/desktop/api/setupapi/ns-setupapi-sp_device_interface_detail_data_w).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszDevicePath {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    pwszDevicePath{
+        get {
+            if(!this.HasProp("__pwszDevicePath"))
+                this.__pwszDevicePath := PWSTR(this.ptr + 104)
+            return this.__pwszDevicePath
+        }
     }
 }

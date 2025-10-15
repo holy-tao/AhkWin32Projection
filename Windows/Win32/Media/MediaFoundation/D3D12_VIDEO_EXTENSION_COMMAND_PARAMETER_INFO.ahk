@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a video extension command parameter.
@@ -20,11 +21,14 @@ class D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_INFO extends Win32Struct
 
     /**
      * A pointer to a wide string containing the name of the command.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := PWSTR(this.ptr + 0)
+            return this.__Name
+        }
     }
 
     /**

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_PROPERTY_FLAGS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Used to enable server side logging on a URL Group or on a server session.
@@ -127,11 +130,14 @@ class HTTP_LOGGING_INFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure that specifies whether the property is present.
-     * @type {Integer}
+     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := HTTP_PROPERTY_FLAGS(this.ptr + 0)
+            return this.__Flags
+        }
     }
 
     /**
@@ -198,11 +204,14 @@ class HTTP_LOGGING_INFO extends Win32Struct
 
     /**
      * The optional software name string used in W3C type logging. This name is not used for other types of logging. If this parameter is <b>NULL</b>, the HTTP Server API logs a default string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SoftwareName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    SoftwareName{
+        get {
+            if(!this.HasProp("__SoftwareName"))
+                this.__SoftwareName := PWSTR(this.ptr + 8)
+            return this.__SoftwareName
+        }
     }
 
     /**
@@ -229,11 +238,14 @@ class HTTP_LOGGING_INFO extends Win32Struct
      * The logging directory under which the log files are created. The directory string must be a fully qualified path including the drive letter.
      * 
      *   Applications can use a UNC path to a remote machine to enable UNC logging.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DirectoryName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    DirectoryName{
+        get {
+            if(!this.HasProp("__DirectoryName"))
+                this.__DirectoryName := PWSTR(this.ptr + 24)
+            return this.__DirectoryName
+        }
     }
 
     /**
@@ -411,10 +423,13 @@ class HTTP_LOGGING_INFO extends Win32Struct
 
     /**
      * The security descriptor that is applied to the log files directory and all sub-directories. If this member is <b>NULL</b>, either the system default ACL is used or the ACL is inherited from the parent directory.
-     * @type {Pointer<Void>}
+     * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pSecurityDescriptor{
+        get {
+            if(!this.HasProp("__pSecurityDescriptor"))
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 64)
+            return this.__pSecurityDescriptor
+        }
     }
 }

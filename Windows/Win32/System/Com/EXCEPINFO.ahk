@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Describes an exception that occurred during IDispatch::Invoke.
@@ -39,29 +40,38 @@ class EXCEPINFO extends Win32Struct
 
     /**
      * The name of the exception source. Typically, this is an application name. This field should be filled in by the implementor of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrSource {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    bstrSource{
+        get {
+            if(!this.HasProp("__bstrSource"))
+                this.__bstrSource := BSTR(this.ptr + 8)
+            return this.__bstrSource
+        }
     }
 
     /**
      * The exception description to display. If no description is available, use null.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrDescription {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    bstrDescription{
+        get {
+            if(!this.HasProp("__bstrDescription"))
+                this.__bstrDescription := BSTR(this.ptr + 16)
+            return this.__bstrDescription
+        }
     }
 
     /**
      * The fully qualified help file path. If no Help is available, use null.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrHelpFile {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    bstrHelpFile{
+        get {
+            if(!this.HasProp("__bstrHelpFile"))
+                this.__bstrHelpFile := BSTR(this.ptr + 24)
+            return this.__bstrHelpFile
+        }
     }
 
     /**

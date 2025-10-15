@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HMENU.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a menu item.
@@ -186,11 +189,14 @@ class MENUITEMINFOW extends Win32Struct
      * A handle to the drop-down menu or submenu associated with the menu item. If the menu item is not an item that opens a drop-down menu or submenu, this member is <b>NULL</b>. Set 
      * 					<b>fMask</b>  to <b>MIIM_SUBMENU</b>  to use 
      * 					<b>hSubMenu</b>.
-     * @type {Pointer<Void>}
+     * @type {HMENU}
      */
-    hSubMenu {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hSubMenu{
+        get {
+            if(!this.HasProp("__hSubMenu"))
+                this.__hSubMenu := HMENU(this.ptr + 24)
+            return this.__hSubMenu
+        }
     }
 
     /**
@@ -199,11 +205,14 @@ class MENUITEMINFOW extends Win32Struct
      * A handle to the bitmap to display next to the item if it is selected. If this member is <b>NULL</b>, a default bitmap is used. If the <b>MFT_RADIOCHECK</b> type value is specified, the default bitmap is a bullet. Otherwise, it is a check mark. Set 
      * 					<b>fMask</b> to <b>MIIM_CHECKMARKS</b> to use 
      * 					<b>hbmpChecked</b>.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmpChecked {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hbmpChecked{
+        get {
+            if(!this.HasProp("__hbmpChecked"))
+                this.__hbmpChecked := HBITMAP(this.ptr + 32)
+            return this.__hbmpChecked
+        }
     }
 
     /**
@@ -212,11 +221,14 @@ class MENUITEMINFOW extends Win32Struct
      * A handle to the bitmap to display next to the item if it is not selected. If this member is <b>NULL</b>, no bitmap is used. Set 
      * 					<b>fMask</b> to <b>MIIM_CHECKMARKS</b> to use 
      * 					<b>hbmpUnchecked</b>.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmpUnchecked {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hbmpUnchecked{
+        get {
+            if(!this.HasProp("__hbmpUnchecked"))
+                this.__hbmpUnchecked := HBITMAP(this.ptr + 40)
+            return this.__hbmpUnchecked
+        }
     }
 
     /**
@@ -251,11 +263,14 @@ class MENUITEMINFOW extends Win32Struct
      * 
      * <b>dwTypeData</b> is used only if the <b>MIIM_STRING</b> flag is set in the 
      * 						<b>fMask</b> member
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    dwTypeData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    dwTypeData{
+        get {
+            if(!this.HasProp("__dwTypeData"))
+                this.__dwTypeData := PWSTR(this.ptr + 56)
+            return this.__dwTypeData
+        }
     }
 
     /**
@@ -416,11 +431,14 @@ class MENUITEMINFOW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmpItem {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    hbmpItem{
+        get {
+            if(!this.HasProp("__hbmpItem"))
+                this.__hbmpItem := HBITMAP(this.ptr + 72)
+            return this.__hbmpItem
+        }
     }
 
     /**

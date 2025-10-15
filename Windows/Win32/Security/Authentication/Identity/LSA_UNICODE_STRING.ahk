@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * The LSA_UNICODE_STRING structure is used by various Local Security Authority (LSA) functions to specify a Unicode string.
@@ -33,10 +34,13 @@ class LSA_UNICODE_STRING extends Win32Struct
 
     /**
      * Pointer to a wide character string. Note that the strings returned by the various LSA functions might not be null-terminated.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Buffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Buffer{
+        get {
+            if(!this.HasProp("__Buffer"))
+                this.__Buffer := PWSTR(this.ptr + 8)
+            return this.__Buffer
+        }
     }
 }

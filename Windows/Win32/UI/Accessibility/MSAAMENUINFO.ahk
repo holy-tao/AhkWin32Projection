@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used by server developers to expose the names of owner-drawn menu items.
@@ -49,10 +50,13 @@ class MSAAMENUINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * The text of the menu item, in Unicode, <b>including</b> the Unicode null-terminated character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszWText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszWText{
+        get {
+            if(!this.HasProp("__pszWText"))
+                this.__pszWText := PWSTR(this.ptr + 8)
+            return this.__pszWText
+        }
     }
 }

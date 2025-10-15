@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\POWER_ACTION_POLICY.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains power policy settings that are unique to each power scheme for a user.
@@ -177,20 +178,26 @@ class USER_POWER_POLICY extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system will turn on cooling fans and run the processor at full speed when passive cooling is specified and the system is running on AC (utility) power. This causes the operating system to be biased toward using the fan and running the processor at full speed.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    OptimizeForPowerAc {
-        get => NumGet(this, 80, "char")
-        set => NumPut("char", value, this, 80)
+    OptimizeForPowerAc{
+        get {
+            if(!this.HasProp("__OptimizeForPowerAc"))
+                this.__OptimizeForPowerAc := BOOLEAN(this.ptr + 80)
+            return this.__OptimizeForPowerAc
+        }
     }
 
     /**
      * If this member is <b>TRUE</b>, the system will turn on cooling fans and run the processor at full speed when passive cooling is specified and the system is running on battery power. This causes the operating system to be biased toward using the fan and running the processor at full speed.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    OptimizeForPowerDc {
-        get => NumGet(this, 81, "char")
-        set => NumPut("char", value, this, 81)
+    OptimizeForPowerDc{
+        get {
+            if(!this.HasProp("__OptimizeForPowerDc"))
+                this.__OptimizeForPowerDc := BOOLEAN(this.ptr + 81)
+            return this.__OptimizeForPowerDc
+        }
     }
 
     /**

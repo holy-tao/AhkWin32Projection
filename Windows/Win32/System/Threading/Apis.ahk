@@ -1,5 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\PTP_POOL.ahk
+#Include .\PTP_CLEANUP_GROUP.ahk
+#Include .\PTP_WORK.ahk
+#Include .\PTP_TIMER.ahk
+#Include .\PTP_WAIT.ahk
+#Include .\PTP_IO.ahk
 /**
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
@@ -1152,43 +1159,43 @@ class Threading {
 ;@region Methods
     /**
      * Retrieves a pseudo-handle that you can use as a shorthand way to refer to the access token associated with a process.
-     * @returns {Pointer<Void>} A pseudo-handle that you can use as a shorthand way to refer to the <a href="/windows/desktop/SecGloss/a-gly">access token</a> associated with a process.
+     * @returns {HANDLE} A pseudo-handle that you can use as a shorthand way to refer to the <a href="/windows/desktop/SecGloss/a-gly">access token</a> associated with a process.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentprocesstoken
      */
     static GetCurrentProcessToken() {
         result := DllCall("FORCEINLINE\GetCurrentProcessToken", "ptr")
-        return result
+        return HANDLE({Value: result}, False)
     }
 
     /**
      * Retrieves a pseudo-handle that you can use as a shorthand way to refer to the impersonation token that was assigned to the current thread.
-     * @returns {Pointer<Void>} A pseudo-handle that you can use as a shorthand way to refer to the <a href="/windows/desktop/SecGloss/i-gly">impersonation token</a> that was assigned to the current thread.
+     * @returns {HANDLE} A pseudo-handle that you can use as a shorthand way to refer to the <a href="/windows/desktop/SecGloss/i-gly">impersonation token</a> that was assigned to the current thread.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentthreadtoken
      */
     static GetCurrentThreadToken() {
         result := DllCall("FORCEINLINE\GetCurrentThreadToken", "ptr")
-        return result
+        return HANDLE({Value: result}, False)
     }
 
     /**
      * Retrieves a pseudo-handle that you can use as a shorthand way to refer to the token that is currently in effect for the thread, which is the thread token if one exists and the process token otherwise.
-     * @returns {Pointer<Void>} A pseudo-handle that you can use as a shorthand way to refer to the token that is currently in effect for the thread.
+     * @returns {HANDLE} A pseudo-handle that you can use as a shorthand way to refer to the token that is currently in effect for the thread.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentthreadeffectivetoken
      */
     static GetCurrentThreadEffectiveToken() {
         result := DllCall("FORCEINLINE\GetCurrentThreadEffectiveToken", "ptr")
-        return result
+        return HANDLE({Value: result}, False)
     }
 
     /**
      * Retrieves the minimum and maximum working set sizes of the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose working set sizes will be obtained. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process whose working set sizes will be obtained. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
      * @param {Pointer<UIntPtr>} lpMinimumWorkingSetSize A pointer to a variable that receives the minimum working set size of the specified process, in bytes. The virtual memory manager attempts to keep at least this much memory resident in the process whenever the process is active.
      * @param {Pointer<UIntPtr>} lpMaximumWorkingSetSize A pointer to a variable that receives the maximum working set size of the specified process, in bytes. The virtual memory manager attempts to keep no more than this much memory resident in the process whenever the process is active when memory is in short supply.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1196,9 +1203,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetProcessWorkingSetSize(hProcess, lpMinimumWorkingSetSize, lpMaximumWorkingSetSize) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessWorkingSetSize", "ptr", hProcess, "ptr*", lpMinimumWorkingSetSize, "ptr*", lpMaximumWorkingSetSize, "int")
+        result := DllCall("KERNEL32.dll\GetProcessWorkingSetSize", "ptr", hProcess, "ptr*", lpMinimumWorkingSetSize, "ptr*", lpMaximumWorkingSetSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1207,7 +1216,7 @@ class Threading {
 
     /**
      * Sets the minimum and maximum working set sizes for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose working set sizes is to be set. 
+     * @param {HANDLE} hProcess A handle to the process whose working set sizes is to be set. 
      * 
      * 
      * The handle must have the <b>PROCESS_SET_QUOTA</b> access right. For more information, see 
@@ -1225,16 +1234,18 @@ class Threading {
      * This parameter must be greater than or equal to 13 pages (for example, 53,248 on systems with a 4K page size), and less than the system-wide maximum (number of available pages minus 512 pages). The default size is 345 pages (for example, this is 1,413,120 bytes on systems with a 4K page size).
      * 
      * If both <i>dwMinimumWorkingSetSize</i> and <i>dwMaximumWorkingSetSize</i> have the value (<b>SIZE_T</b>)–1, the function removes as many pages as possible from the working set of the specified process.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to obtain extended error information.
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-setprocessworkingsetsize
      * @since windows5.1.2600
      */
     static SetProcessWorkingSetSize(hProcess, dwMinimumWorkingSetSize, dwMaximumWorkingSetSize) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessWorkingSetSize", "ptr", hProcess, "ptr", dwMinimumWorkingSetSize, "ptr", dwMaximumWorkingSetSize, "int")
+        result := DllCall("KERNEL32.dll\SetProcessWorkingSetSize", "ptr", hProcess, "ptr", dwMinimumWorkingSetSize, "ptr", dwMaximumWorkingSetSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1288,7 +1299,7 @@ class Threading {
      * @param {Integer} dwFlsIndex The FLS index that was allocated by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fibersapi/nf-fibersapi-flsalloc">FlsAlloc</a> function.
      * @param {Pointer<Void>} lpFlsData The value to be stored in the FLS slot for the calling fiber.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following errors can be returned.
@@ -1327,7 +1338,7 @@ class Threading {
     static FlsSetValue(dwFlsIndex, lpFlsData) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FlsSetValue", "uint", dwFlsIndex, "ptr", lpFlsData, "int")
+        result := DllCall("KERNEL32.dll\FlsSetValue", "uint", dwFlsIndex, "ptr", lpFlsData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1338,7 +1349,7 @@ class Threading {
      * Releases a fiber local storage (FLS) index, making it available for reuse.
      * @param {Integer} dwFlsIndex The FLS index that was allocated by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fibersapi/nf-fibersapi-flsalloc">FlsAlloc</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1348,7 +1359,7 @@ class Threading {
     static FlsFree(dwFlsIndex) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FlsFree", "uint", dwFlsIndex, "int")
+        result := DllCall("KERNEL32.dll\FlsFree", "uint", dwFlsIndex, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1357,12 +1368,12 @@ class Threading {
 
     /**
      * Determines whether the current thread is a fiber.
-     * @returns {Integer} The function returns <b>TRUE</b> if the thread is a fiber and <b>FALSE</b> otherwise.
+     * @returns {BOOL} The function returns <b>TRUE</b> if the thread is a fiber and <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//fibersapi/nf-fibersapi-isthreadafiber
      * @since windows6.0.6000
      */
     static IsThreadAFiber() {
-        result := DllCall("KERNEL32.dll\IsThreadAFiber", "int")
+        result := DllCall("KERNEL32.dll\IsThreadAFiber", "ptr")
         return result
     }
 
@@ -1387,7 +1398,7 @@ class Threading {
      * An unlocked SRW lock with no waiting threads is in its initial state and can be copied, moved, and forgotten without being explicitly destroyed.
      * 
      * 
-     * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-initializesrwlock
      * @since windows6.0.6000
@@ -1403,7 +1414,7 @@ class Threading {
      * The SRW lock must be released by the same thread that acquired it. You can use [Application Verifier](/windows-hardware/drivers/devtest/application-verifier) to help verify that your program uses SRW locks correctly (enable Locks checker from Basic group).
      * 
      * 
-     * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-releasesrwlockexclusive
      * @since windows6.0.6000
@@ -1419,7 +1430,7 @@ class Threading {
      * The SRW lock must be released by the same thread that acquired it. You can use [Application Verifier](/windows-hardware/drivers/devtest/application-verifier) to help verify that your program uses SRW locks correctly (enable Locks checker from Basic group).
      * 
      * 
-     * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-releasesrwlockshared
      * @since windows6.0.6000
@@ -1430,7 +1441,7 @@ class Threading {
 
     /**
      * Acquires a slim reader/writer (SRW) lock in exclusive mode.
-     * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-acquiresrwlockexclusive
      * @since windows6.0.6000
@@ -1441,7 +1452,7 @@ class Threading {
 
     /**
      * Acquires a slim reader/writer (SRW) lock in shared mode.
-     * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
+     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-acquiresrwlockshared
      * @since windows6.0.6000
@@ -1452,29 +1463,29 @@ class Threading {
 
     /**
      * Attempts to acquire a slim reader/writer (SRW) lock in exclusive mode. If the call is successful, the calling thread takes ownership of the lock.
-     * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
-     * @returns {Integer} If the lock is successfully acquired, the return value is nonzero.
+     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
+     * @returns {BOOLEAN} If the lock is successfully acquired, the return value is nonzero.
      * 
      * if the current thread could not acquire the lock, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-tryacquiresrwlockexclusive
      * @since windows6.1
      */
     static TryAcquireSRWLockExclusive(SRWLock) {
-        result := DllCall("KERNEL32.dll\TryAcquireSRWLockExclusive", "ptr", SRWLock, "char")
+        result := DllCall("KERNEL32.dll\TryAcquireSRWLockExclusive", "ptr", SRWLock, "ptr")
         return result
     }
 
     /**
      * Attempts to acquire a slim reader/writer (SRW) lock in shared mode. If the call is successful, the calling thread takes ownership of the lock.
-     * @param {Pointer<Void>} SRWLock A pointer to the SRW lock.
-     * @returns {Integer} If the lock is successfully acquired, the return value is nonzero.
+     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the SRW lock.
+     * @returns {BOOLEAN} If the lock is successfully acquired, the return value is nonzero.
      * 
      * if the current thread could not acquire the lock, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-tryacquiresrwlockshared
      * @since windows6.1
      */
     static TryAcquireSRWLockShared(SRWLock) {
-        result := DllCall("KERNEL32.dll\TryAcquireSRWLockShared", "ptr", SRWLock, "char")
+        result := DllCall("KERNEL32.dll\TryAcquireSRWLockShared", "ptr", SRWLock, "ptr")
         return result
     }
 
@@ -1535,7 +1546,7 @@ class Threading {
      * Initializes a critical section object and sets the spin count for the critical section.
      * @param {Pointer<CRITICAL_SECTION>} lpCriticalSection A pointer to the critical section object.
      * @param {Integer} dwSpinCount The spin count for the critical section object. On single-processor systems, the spin count is ignored and the critical section spin count is set to 0 (zero). On multiprocessor systems, if the critical section is unavailable, the calling thread spins <i>dwSpinCount</i> times before performing a wait operation on a semaphore associated with the critical section. If the critical section becomes free during the spin operation, the calling thread avoids the wait operation.
-     * @returns {Integer} This function always succeeds and returns a nonzero value.
+     * @returns {BOOL} This function always succeeds and returns a nonzero value.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.  Starting with Windows Vista, the <b>InitializeCriticalSectionAndSpinCount</b> function always succeeds, even in low memory situations.
@@ -1545,7 +1556,7 @@ class Threading {
     static InitializeCriticalSectionAndSpinCount(lpCriticalSection, dwSpinCount) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeCriticalSectionAndSpinCount", "ptr", lpCriticalSection, "uint", dwSpinCount, "int")
+        result := DllCall("KERNEL32.dll\InitializeCriticalSectionAndSpinCount", "ptr", lpCriticalSection, "uint", dwSpinCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1574,7 +1585,7 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1584,7 +1595,7 @@ class Threading {
     static InitializeCriticalSectionEx(lpCriticalSection, dwSpinCount, Flags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeCriticalSectionEx", "ptr", lpCriticalSection, "uint", dwSpinCount, "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\InitializeCriticalSectionEx", "ptr", lpCriticalSection, "uint", dwSpinCount, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1607,14 +1618,14 @@ class Threading {
     /**
      * Attempts to enter a critical section without blocking. If the call is successful, the calling thread takes ownership of the critical section.
      * @param {Pointer<CRITICAL_SECTION>} lpCriticalSection A pointer to the critical section object.
-     * @returns {Integer} If the critical section is successfully entered or the current thread already owns the critical section, the return value is nonzero.
+     * @returns {BOOL} If the critical section is successfully entered or the current thread already owns the critical section, the return value is nonzero.
      * 
      * If another thread already owns the critical section, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-tryentercriticalsection
      * @since windows5.1.2600
      */
     static TryEnterCriticalSection(lpCriticalSection) {
-        result := DllCall("KERNEL32.dll\TryEnterCriticalSection", "ptr", lpCriticalSection, "int")
+        result := DllCall("KERNEL32.dll\TryEnterCriticalSection", "ptr", lpCriticalSection, "ptr")
         return result
     }
 
@@ -1653,7 +1664,7 @@ class Threading {
      * 
      * 
      * 
-     * @param {Pointer<Void>} InitOnce A pointer to the one-time initialization structure.
+     * @param {Pointer<INIT_ONCE>} InitOnce A pointer to the one-time initialization structure.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-initonceinitialize
      * @since windows6.0.6000
@@ -1664,11 +1675,11 @@ class Threading {
 
     /**
      * Executes the specified function successfully one time. No other threads that specify the same one-time initialization structure can execute the specified function while it is being executed by the current thread.
-     * @param {Pointer<Void>} InitOnce A pointer to the one-time initialization structure.
+     * @param {Pointer<INIT_ONCE>} InitOnce A pointer to the one-time initialization structure.
      * @param {Pointer<PINIT_ONCE_FN>} InitFn A pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nc-synchapi-pinit_once_fn">InitOnceCallback</a> function.
      * @param {Pointer<Void>} Parameter A parameter to be passed to the callback function.
      * @param {Pointer<Void>} Context A parameter that receives data stored with the one-time initialization structure upon success. The low-order <b>INIT_ONCE_CTX_RESERVED_BITS</b> bits of the data are always zero.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1678,7 +1689,7 @@ class Threading {
     static InitOnceExecuteOnce(InitOnce, InitFn, Parameter, Context) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", "ptr", InitOnce, "ptr", InitFn, "ptr", Parameter, "ptr", Context, "int")
+        result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", "ptr", InitOnce, "ptr", InitFn, "ptr", Parameter, "ptr", Context, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1687,7 +1698,7 @@ class Threading {
 
     /**
      * Begins one-time initialization.
-     * @param {Pointer<Void>} lpInitOnce A pointer to the one-time initialization structure.
+     * @param {Pointer<INIT_ONCE>} lpInitOnce A pointer to the one-time initialization structure.
      * @param {Integer} dwFlags This parameter can have a value of 0, or one or more of the following flags.
      * 
      * <table>
@@ -1718,7 +1729,7 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Int32>} fPending If the function succeeds, this parameter indicates the current initialization status. 
+     * @param {Pointer<BOOL>} fPending If the function succeeds, this parameter indicates the current initialization status. 
      * 
      * If this parameter is **TRUE** and *dwFlags* contains **INIT_ONCE_CHECK_ONLY**, the initialization is pending and the context data is invalid.
      * 
@@ -1726,7 +1737,7 @@ class Threading {
      * 
      * If this parameter is **TRUE** and *dwFlags* does not contain **INIT_ONCE_CHECK_ONLY**, initialization has been started and the caller can perform the initialization tasks.
      * @param {Pointer<Void>} lpContext An optional parameter that receives the data stored with the one-time initialization structure upon success. The low-order **INIT_ONCE_CTX_RESERVED_BITS** bits of the data are always zero.
-     * @returns {Integer} If **INIT_ONCE_CHECK_ONLY** is not specified and the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If **INIT_ONCE_CHECK_ONLY** is not specified and the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If **INIT_ONCE_CHECK_ONLY** is specified and initialization has completed, the return value is <b>TRUE</b>.
      * 
@@ -1739,7 +1750,7 @@ class Threading {
     static InitOnceBeginInitialize(lpInitOnce, dwFlags, fPending, lpContext) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceBeginInitialize", "ptr", lpInitOnce, "uint", dwFlags, "int*", fPending, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\InitOnceBeginInitialize", "ptr", lpInitOnce, "uint", dwFlags, "ptr", fPending, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1748,7 +1759,7 @@ class Threading {
 
     /**
      * Completes one-time initialization started with the InitOnceBeginInitialize function.
-     * @param {Pointer<Void>} lpInitOnce A pointer to the one-time initialization structure.
+     * @param {Pointer<INIT_ONCE>} lpInitOnce A pointer to the one-time initialization structure.
      * @param {Integer} dwFlags This parameter can be one of the following flags.
      * 
      * <table>
@@ -1780,7 +1791,7 @@ class Threading {
      * </tr>
      * </table>
      * @param {Pointer<Void>} lpContext A pointer to the data to be stored with the one-time initialization structure. This data is returned in the <i>lpContext</i> parameter passed to subsequent calls to the <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initoncebegininitialize">InitOnceBeginInitialize</a> function. If <i>lpContext</i> points to a value, the low-order <b>INIT_ONCE_CTX_RESERVED_BITS</b> of the value must be zero. If <i>lpContext</i>  points to a data structure, the data structure must be <b>DWORD</b>-aligned.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1790,7 +1801,7 @@ class Threading {
     static InitOnceComplete(lpInitOnce, dwFlags, lpContext) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceComplete", "ptr", lpInitOnce, "uint", dwFlags, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\InitOnceComplete", "ptr", lpInitOnce, "uint", dwFlags, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1810,7 +1821,7 @@ class Threading {
      * A condition variable with no waiting threads is in its initial state and can be copied, moved, and forgotten without being explicitly destroyed.
      * 
      * 
-     * @param {Pointer<Void>} ConditionVariable A pointer to the condition variable.
+     * @param {Pointer<CONDITION_VARIABLE>} ConditionVariable A pointer to the condition variable.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-initializeconditionvariable
      * @since windows6.0.6000
@@ -1827,7 +1838,7 @@ class Threading {
      * 
      * 
      * 
-     * @param {Pointer<Void>} ConditionVariable A pointer to the condition variable.
+     * @param {Pointer<CONDITION_VARIABLE>} ConditionVariable A pointer to the condition variable.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-wakeconditionvariable
      * @since windows6.0.6000
@@ -1847,7 +1858,7 @@ class Threading {
      *     <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-pulseevent">PulseEvent</a> for details).
      * 
      * 
-     * @param {Pointer<Void>} ConditionVariable A pointer to the condition variable.
+     * @param {Pointer<CONDITION_VARIABLE>} ConditionVariable A pointer to the condition variable.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-wakeallconditionvariable
      * @since windows6.0.6000
@@ -1858,10 +1869,10 @@ class Threading {
 
     /**
      * Sleeps on the specified condition variable and releases the specified critical section as an atomic operation.
-     * @param {Pointer<Void>} ConditionVariable A pointer to the condition variable. This variable must be initialized using the <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initializeconditionvariable">InitializeConditionVariable</a> function.
+     * @param {Pointer<CONDITION_VARIABLE>} ConditionVariable A pointer to the condition variable. This variable must be initialized using the <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initializeconditionvariable">InitializeConditionVariable</a> function.
      * @param {Pointer<CRITICAL_SECTION>} CriticalSection A pointer to the critical section object. This critical section must be entered exactly once by the caller at the time <b>SleepConditionVariableCS</b> is called.
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. If the time-out interval elapses, the function re-acquires the critical section and returns zero. If <i>dwMilliseconds</i> is zero, the function tests the states of the specified objects and returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function's time-out interval never elapses. For more information, see Remarks.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails or the time-out interval elapses, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include <b>ERROR_TIMEOUT</b>, which indicates that the time-out interval has elapsed before another thread has attempted to wake the sleeping thread.
@@ -1871,7 +1882,7 @@ class Threading {
     static SleepConditionVariableCS(ConditionVariable, CriticalSection, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SleepConditionVariableCS", "ptr", ConditionVariable, "ptr", CriticalSection, "uint", dwMilliseconds, "int")
+        result := DllCall("KERNEL32.dll\SleepConditionVariableCS", "ptr", ConditionVariable, "ptr", CriticalSection, "uint", dwMilliseconds, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1880,11 +1891,11 @@ class Threading {
 
     /**
      * Sleeps on the specified condition variable and releases the specified lock as an atomic operation.
-     * @param {Pointer<Void>} ConditionVariable A pointer to the condition variable. This variable must be initialized using the <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initializeconditionvariable">InitializeConditionVariable</a> function.
-     * @param {Pointer<Void>} SRWLock A pointer to the lock. This lock must be held in the manner specified by the <i>Flags</i> parameter.
+     * @param {Pointer<CONDITION_VARIABLE>} ConditionVariable A pointer to the condition variable. This variable must be initialized using the <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initializeconditionvariable">InitializeConditionVariable</a> function.
+     * @param {Pointer<SRWLOCK>} SRWLock A pointer to the lock. This lock must be held in the manner specified by the <i>Flags</i> parameter.
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. The function returns if the interval elapses. If <i>dwMilliseconds</i> is zero, the function tests the states of the specified objects and returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function's time-out interval never elapses.
      * @param {Integer} Flags If this parameter is <b>CONDITION_VARIABLE_LOCKMODE_SHARED</b>, the SRW lock is in shared mode. Otherwise, the lock is in exclusive mode.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1896,7 +1907,7 @@ class Threading {
     static SleepConditionVariableSRW(ConditionVariable, SRWLock, dwMilliseconds, Flags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SleepConditionVariableSRW", "ptr", ConditionVariable, "ptr", SRWLock, "uint", dwMilliseconds, "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\SleepConditionVariableSRW", "ptr", ConditionVariable, "ptr", SRWLock, "uint", dwMilliseconds, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1905,7 +1916,7 @@ class Threading {
 
     /**
      * Sets the specified event object to the signaled state.
-     * @param {Pointer<Void>} hEvent A handle to the event object. The 
+     * @param {HANDLE} hEvent A handle to the event object. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-openeventa">OpenEvent</a> function returns this handle. 
      * 
@@ -1914,7 +1925,7 @@ class Threading {
      * 
      * The handle must have the EVENT_MODIFY_STATE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1922,9 +1933,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static SetEvent(hEvent) {
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetEvent", "ptr", hEvent, "int")
+        result := DllCall("KERNEL32.dll\SetEvent", "ptr", hEvent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1933,7 +1946,7 @@ class Threading {
 
     /**
      * Sets the specified event object to the nonsignaled state.
-     * @param {Pointer<Void>} hEvent A handle to the event object. The 
+     * @param {HANDLE} hEvent A handle to the event object. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-openeventa">OpenEvent</a> function returns this handle. 
      * 
@@ -1942,7 +1955,7 @@ class Threading {
      * 
      * The handle must have the EVENT_MODIFY_STATE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1950,9 +1963,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static ResetEvent(hEvent) {
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ResetEvent", "ptr", hEvent, "int")
+        result := DllCall("KERNEL32.dll\ResetEvent", "ptr", hEvent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1961,7 +1976,7 @@ class Threading {
 
     /**
      * Increases the count of the specified semaphore object by a specified amount.
-     * @param {Pointer<Void>} hSemaphore A handle to the semaphore object. The 
+     * @param {HANDLE} hSemaphore A handle to the semaphore object. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createsemaphorea">CreateSemaphore</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-opensemaphorea">OpenSemaphore</a> function returns this handle.
      * 
@@ -1969,16 +1984,18 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {Integer} lReleaseCount The amount by which the semaphore object's current count is to be increased. The value must be greater than zero. If the specified amount would cause the semaphore's count to exceed the maximum count that was specified when the semaphore was created, the count is not changed and the function returns <b>FALSE</b>.
      * @param {Pointer<Int32>} lpPreviousCount A pointer to a variable to receive the previous count for the semaphore. This parameter can be <b>NULL</b> if the previous count is not required.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-releasesemaphore
      * @since windows5.1.2600
      */
     static ReleaseSemaphore(hSemaphore, lReleaseCount, lpPreviousCount) {
+        hSemaphore := hSemaphore is Win32Handle ? NumGet(hSemaphore, "ptr") : hSemaphore
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReleaseSemaphore", "ptr", hSemaphore, "int", lReleaseCount, "int*", lpPreviousCount, "int")
+        result := DllCall("KERNEL32.dll\ReleaseSemaphore", "ptr", hSemaphore, "int", lReleaseCount, "int*", lpPreviousCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1987,11 +2004,11 @@ class Threading {
 
     /**
      * Releases ownership of the specified mutex object.
-     * @param {Pointer<Void>} hMutex A handle to the mutex object. The 
+     * @param {HANDLE} hMutex A handle to the mutex object. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createmutexa">CreateMutex</a> or 
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/synchapi/nf-synchapi-openmutexw">OpenMutex</a> function returns this handle.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1999,9 +2016,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static ReleaseMutex(hMutex) {
+        hMutex := hMutex is Win32Handle ? NumGet(hMutex, "ptr") : hMutex
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReleaseMutex", "ptr", hMutex, "int")
+        result := DllCall("KERNEL32.dll\ReleaseMutex", "ptr", hMutex, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2010,7 +2029,7 @@ class Threading {
 
     /**
      * Waits until the specified object is in the signaled state or the time-out interval elapses.
-     * @param {Pointer<Void>} hHandle A handle to the object. For a list of the object types whose handles can be specified, see the following Remarks section. 
+     * @param {HANDLE} hHandle A handle to the object. For a list of the object types whose handles can be specified, see the following Remarks section. 
      * 
      * 
      * 
@@ -2087,6 +2106,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static WaitForSingleObject(hHandle, dwMilliseconds) {
+        hHandle := hHandle is Win32Handle ? NumGet(hHandle, "ptr") : hHandle
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\WaitForSingleObject", "ptr", hHandle, "uint", dwMilliseconds, "uint")
@@ -2105,7 +2126,7 @@ class Threading {
      * 
      * 
      * A value of INFINITE indicates that the suspension should not time out.
-     * @param {Integer} bAlertable If this parameter is FALSE, the function does not return until the time-out period has elapsed. If an I/O completion callback occurs, the function does not return and the I/O completion function is not executed. If an APC is queued to the thread, the function does not return and the APC function is not executed.
+     * @param {BOOL} bAlertable If this parameter is FALSE, the function does not return until the time-out period has elapsed. If an I/O completion callback occurs, the function does not return and the I/O completion function is not executed. If an APC is queued to the thread, the function does not return and the APC function is not executed.
      * 
      * If the parameter is TRUE and the thread that called this function is the same thread that called the extended I/O function (<a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfileex">ReadFileEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-writefileex">WriteFileEx</a>), the function returns when either the time-out period has elapsed or when an I/O completion callback function occurs. If an I/O completion callback occurs, the I/O completion function is called. If an APC is queued to the thread (<a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-queueuserapc">QueueUserAPC</a>), the function returns when either the timer-out period has elapsed or when the APC function is called.
@@ -2117,13 +2138,13 @@ class Threading {
      * @since windows5.1.2600
      */
     static SleepEx(dwMilliseconds, bAlertable) {
-        result := DllCall("KERNEL32.dll\SleepEx", "uint", dwMilliseconds, "int", bAlertable, "uint")
+        result := DllCall("KERNEL32.dll\SleepEx", "uint", dwMilliseconds, "ptr", bAlertable, "uint")
         return result
     }
 
     /**
      * Waits until the specified object is in the signaled state, an I/O completion routine or asynchronous procedure call (APC) is queued to the thread, or the time-out interval elapses.
-     * @param {Pointer<Void>} hHandle A handle to the object. For a list of the object types whose handles can be specified, see the following Remarks section. 
+     * @param {HANDLE} hHandle A handle to the object. For a list of the object types whose handles can be specified, see the following Remarks section. 
      * 
      * 
      * 
@@ -2137,7 +2158,7 @@ class Threading {
      * <b>Windows XP, Windows Server 2003, Windows Vista, Windows 7, Windows Server 2008 and Windows Server 2008 R2:  </b>The <i>dwMilliseconds</i> value does include time spent in low-power states. For example, the timeout does keep counting down while the computer is asleep.
      * 
      * <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>The <i>dwMilliseconds</i> value does not include time spent in low-power states. For example, the timeout does not keep counting down while the computer is asleep.
-     * @param {Integer} bAlertable If this parameter is <b>TRUE</b> and the thread is in the waiting state, the function returns when the system queues an I/O completion routine or APC, and the thread runs the routine or function. Otherwise, the function does not return, and the completion routine or APC function is not executed.
+     * @param {BOOL} bAlertable If this parameter is <b>TRUE</b> and the thread is in the waiting state, the function returns when the system queues an I/O completion routine or APC, and the thread runs the routine or function. Otherwise, the function does not return, and the completion routine or APC function is not executed.
      * 
      * A completion routine is queued when the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfileex">ReadFileEx</a> or 
@@ -2219,9 +2240,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static WaitForSingleObjectEx(hHandle, dwMilliseconds, bAlertable) {
+        hHandle := hHandle is Win32Handle ? NumGet(hHandle, "ptr") : hHandle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitForSingleObjectEx", "ptr", hHandle, "uint", dwMilliseconds, "int", bAlertable, "uint")
+        result := DllCall("KERNEL32.dll\WaitForSingleObjectEx", "ptr", hHandle, "uint", dwMilliseconds, "ptr", bAlertable, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2231,7 +2254,7 @@ class Threading {
     /**
      * Waits until one or all of the specified objects are in the signaled state, an I/O completion routine or asynchronous procedure call (APC) is queued to the thread, or the time-out interval elapses.
      * @param {Integer} nCount The number of object handles to wait for in the array pointed to by <i>lpHandles</i>. The maximum number of object handles is <b>MAXIMUM_WAIT_OBJECTS</b>. This parameter cannot be zero.
-     * @param {Pointer<Void>} lpHandles An array of object handles. For a list of the object types whose handles can be specified, see the following Remarks section. The array can contain handles of objects of different types. It may not contain multiple copies of the same handle. 
+     * @param {Pointer<HANDLE>} lpHandles An array of object handles. For a list of the object types whose handles can be specified, see the following Remarks section. The array can contain handles of objects of different types. It may not contain multiple copies of the same handle. 
      * 
      * 
      * 
@@ -2240,13 +2263,13 @@ class Threading {
      * 
      * The handles must have the <b>SYNCHRONIZE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
-     * @param {Integer} bWaitAll If this parameter is <b>TRUE</b>, the function returns when the state of all objects in the <i>lpHandles</i> array is set to signaled. If <b>FALSE</b>, the function returns when the state of any one of the objects is set to signaled. In the latter case, the return value indicates the object whose state caused the function to return.
+     * @param {BOOL} bWaitAll If this parameter is <b>TRUE</b>, the function returns when the state of all objects in the <i>lpHandles</i> array is set to signaled. If <b>FALSE</b>, the function returns when the state of any one of the objects is set to signaled. In the latter case, the return value indicates the object whose state caused the function to return.
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. If a nonzero value is specified, the function waits until the specified objects are signaled, an I/O completion routine or APC is queued, or the interval elapses. If <i>dwMilliseconds</i> is zero, the function does not enter a wait state if the criteria is not met; it always returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function will return only when the specified objects are signaled or an I/O completion routine or APC is queued.
      * 
      * <b>Windows XP, Windows Server 2003, Windows Vista, Windows 7, Windows Server 2008 and Windows Server 2008 R2:  </b>The <i>dwMilliseconds</i> value does include time spent in low-power states. For example, the timeout does keep counting down while the computer is asleep.
      * 
      * <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>The <i>dwMilliseconds</i> value does not include time spent in low-power states. For example, the timeout does not keep counting down while the computer is asleep.
-     * @param {Integer} bAlertable If this parameter is <b>TRUE</b> and the thread is in the waiting state, the function returns when the system queues an I/O completion routine or APC, and the thread runs the routine or function. Otherwise, the function does not return and the completion routine or APC function is not executed.
+     * @param {BOOL} bAlertable If this parameter is <b>TRUE</b> and the thread is in the waiting state, the function returns when the system queues an I/O completion routine or APC, and the thread runs the routine or function. Otherwise, the function does not return and the completion routine or APC function is not executed.
      * 
      * A completion routine is queued when the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfileex">ReadFileEx</a> or 
@@ -2338,7 +2361,7 @@ class Threading {
     static WaitForMultipleObjectsEx(nCount, lpHandles, bWaitAll, dwMilliseconds, bAlertable) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitForMultipleObjectsEx", "uint", nCount, "ptr", lpHandles, "int", bWaitAll, "uint", dwMilliseconds, "int", bAlertable, "uint")
+        result := DllCall("KERNEL32.dll\WaitForMultipleObjectsEx", "uint", nCount, "ptr", lpHandles, "ptr", bWaitAll, "uint", dwMilliseconds, "ptr", bAlertable, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2354,8 +2377,8 @@ class Threading {
      * 
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new mutex. If <i>lpMutexAttributes</i> is <b>NULL</b>, the mutex gets a default security descriptor. The ACLs in the default security descriptor for a mutex come from the primary or impersonation token of the creator. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Integer} bInitialOwner If this value is <b>TRUE</b> and the caller created the mutex, the calling thread obtains initial ownership of the mutex object. Otherwise, the calling thread does not obtain ownership of the mutex. To determine if the caller created the mutex, see the Return Values section.
-     * @param {Pointer<Byte>} lpName The name of the mutex object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
+     * @param {BOOL} bInitialOwner If this value is <b>TRUE</b> and the caller created the mutex, the calling thread obtains initial ownership of the mutex object. Otherwise, the calling thread does not obtain ownership of the mutex. To determine if the caller created the mutex, see the Return Values section.
+     * @param {PSTR} lpName The name of the mutex object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
      * 
      * 
      * 
@@ -2371,7 +2394,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>. Fast user switching is implemented using Terminal Services sessions. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
      * 
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created mutex object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the newly created mutex object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -2380,15 +2403,15 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateMutexA(lpMutexAttributes, bInitialOwner, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateMutexA", "ptr", lpMutexAttributes, "int", bInitialOwner, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateMutexA", "ptr", lpMutexAttributes, "ptr", bInitialOwner, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -2400,8 +2423,8 @@ class Threading {
      * 
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new mutex. If <i>lpMutexAttributes</i> is <b>NULL</b>, the mutex gets a default security descriptor. The ACLs in the default security descriptor for a mutex come from the primary or impersonation token of the creator. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Integer} bInitialOwner If this value is <b>TRUE</b> and the caller created the mutex, the calling thread obtains initial ownership of the mutex object. Otherwise, the calling thread does not obtain ownership of the mutex. To determine if the caller created the mutex, see the Return Values section.
-     * @param {Pointer<Char>} lpName The name of the mutex object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
+     * @param {BOOL} bInitialOwner If this value is <b>TRUE</b> and the caller created the mutex, the calling thread obtains initial ownership of the mutex object. Otherwise, the calling thread does not obtain ownership of the mutex. To determine if the caller created the mutex, see the Return Values section.
+     * @param {PWSTR} lpName The name of the mutex object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
      * 
      * 
      * 
@@ -2417,7 +2440,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>. Fast user switching is implemented using Terminal Services sessions. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
      * 
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created mutex object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the newly created mutex object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -2427,23 +2450,23 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateMutexW(lpMutexAttributes, bInitialOwner, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateMutexW", "ptr", lpMutexAttributes, "int", bInitialOwner, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateMutexW", "ptr", lpMutexAttributes, "ptr", bInitialOwner, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens an existing named mutex object.
      * @param {Integer} dwDesiredAccess The access to the mutex object. Only the <b>SYNCHRONIZE</b> access right is required to use a mutex; to change the mutex's security, specify <b>MUTEX_ALL_ACCESS</b>. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Integer} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
-     * @param {Pointer<Char>} lpName The name of the mutex to be opened. Name comparisons are case sensitive. 
+     * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
+     * @param {PWSTR} lpName The name of the mutex to be opened. Name comparisons are case sensitive. 
      * 
      * 
      * 
@@ -2454,7 +2477,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
      * 
      * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the mutex object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the mutex object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2464,15 +2487,15 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenMutexW(dwDesiredAccess, bInheritHandle, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenMutexW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenMutexW", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -2485,12 +2508,12 @@ class Threading {
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptors">security descriptor</a> for the new 
      *        event. If <i>lpEventAttributes</i> is <b>NULL</b>, the event gets a default security descriptor. 
      *        The ACLs in the default security descriptor for an event come from the primary or impersonation token of the creator.
-     * @param {Integer} bManualReset If this parameter is <b>TRUE</b>, the function creates a manual-reset event object, which requires the use of the 
+     * @param {BOOL} bManualReset If this parameter is <b>TRUE</b>, the function creates a manual-reset event object, which requires the use of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-resetevent">ResetEvent</a> function to set the event state to nonsignaled. If 
      *       this parameter is <b>FALSE</b>, the function creates an auto-reset event object, and system automatically resets the 
      *       event state to nonsignaled after a single waiting thread has been released.
-     * @param {Integer} bInitialState If this parameter is <b>TRUE</b>, the initial state of the event object is signaled; otherwise, it is nonsignaled.
-     * @param {Pointer<Byte>} lpName The name of the event object. The name is limited to 
+     * @param {BOOL} bInitialState If this parameter is <b>TRUE</b>, the initial state of the event object is signaled; otherwise, it is nonsignaled.
+     * @param {PSTR} lpName The name of the event object. The name is limited to 
      *       <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
      *       
      * 
@@ -2514,7 +2537,7 @@ class Threading {
      *         for Terminal Services so that applications can support multiple users.
      * 
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the event object. If the named event object existed 
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the event object. If the named event object existed 
      *        before the function call, the function returns a handle to the existing object and 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
      *        <b>ERROR_ALREADY_EXISTS</b>.
@@ -2525,15 +2548,15 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateEventA(lpEventAttributes, bManualReset, bInitialState, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateEventA", "ptr", lpEventAttributes, "int", bManualReset, "int", bInitialState, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateEventA", "ptr", lpEventAttributes, "ptr", bManualReset, "ptr", bInitialState, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -2546,12 +2569,12 @@ class Threading {
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptors">security descriptor</a> for the new 
      *        event. If <i>lpEventAttributes</i> is <b>NULL</b>, the event gets a default security descriptor. 
      *        The ACLs in the default security descriptor for an event come from the primary or impersonation token of the creator.
-     * @param {Integer} bManualReset If this parameter is <b>TRUE</b>, the function creates a manual-reset event object, which requires the use of the 
+     * @param {BOOL} bManualReset If this parameter is <b>TRUE</b>, the function creates a manual-reset event object, which requires the use of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-resetevent">ResetEvent</a> function to set the event state to nonsignaled. If 
      *       this parameter is <b>FALSE</b>, the function creates an auto-reset event object, and system automatically resets the 
      *       event state to nonsignaled after a single waiting thread has been released.
-     * @param {Integer} bInitialState If this parameter is <b>TRUE</b>, the initial state of the event object is signaled; otherwise, it is nonsignaled.
-     * @param {Pointer<Char>} lpName The name of the event object. The name is limited to 
+     * @param {BOOL} bInitialState If this parameter is <b>TRUE</b>, the initial state of the event object is signaled; otherwise, it is nonsignaled.
+     * @param {PWSTR} lpName The name of the event object. The name is limited to 
      *       <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
      *       
      * 
@@ -2575,7 +2598,7 @@ class Threading {
      *         for Terminal Services so that applications can support multiple users.
      * 
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the event object. If the named event object existed 
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the event object. If the named event object existed 
      *        before the function call, the function returns a handle to the existing object and 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
      *        <b>ERROR_ALREADY_EXISTS</b>.
@@ -2586,23 +2609,23 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateEventW(lpEventAttributes, bManualReset, bInitialState, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateEventW", "ptr", lpEventAttributes, "int", bManualReset, "int", bInitialState, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateEventW", "ptr", lpEventAttributes, "ptr", bManualReset, "ptr", bInitialState, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens an existing named event object.
      * @param {Integer} dwDesiredAccess The access to the event object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Integer} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
-     * @param {Pointer<Byte>} lpName The  name of the event to be opened. Name comparisons are case sensitive.
+     * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
+     * @param {PSTR} lpName The  name of the event to be opened. Name comparisons are case sensitive.
      * 
      * This function can open objects in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
      * 
@@ -2610,7 +2633,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
      * 
      * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the event object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the event object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2618,23 +2641,23 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenEventA(dwDesiredAccess, bInheritHandle, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenEventA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenEventA", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens an existing named event object.
      * @param {Integer} dwDesiredAccess The access to the event object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Integer} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
-     * @param {Pointer<Char>} lpName The  name of the event to be opened. Name comparisons are case sensitive.
+     * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
+     * @param {PWSTR} lpName The  name of the event to be opened. Name comparisons are case sensitive.
      * 
      * This function can open objects in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
      * 
@@ -2642,7 +2665,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
      * 
      * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the event object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the event object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2650,23 +2673,23 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenEventW(dwDesiredAccess, bInheritHandle, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenEventW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenEventW", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens an existing named semaphore object.
      * @param {Integer} dwDesiredAccess The access to the semaphore object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Integer} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
-     * @param {Pointer<Char>} lpName The name of the semaphore to be opened. Name comparisons are case sensitive. 
+     * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
+     * @param {PWSTR} lpName The name of the semaphore to be opened. Name comparisons are case sensitive. 
      * 
      * 
      * 
@@ -2677,7 +2700,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
      * 
      * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the semaphore object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the semaphore object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2685,15 +2708,15 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenSemaphoreW(dwDesiredAccess, bInheritHandle, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenSemaphoreW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenSemaphoreW", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -2701,8 +2724,8 @@ class Threading {
      * @param {Integer} dwDesiredAccess The access to the timer object. The function fails if the security descriptor of the specified object does 
      *       not permit the requested access for the calling process. For a list of access rights, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Integer} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
-     * @param {Pointer<Char>} lpTimerName The name of the timer object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive.
+     * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
+     * @param {PWSTR} lpTimerName The name of the timer object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive.
      * 
      * This function can open objects in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
      * 
@@ -2710,7 +2733,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>.
      * 
      * <b>Note</b>  Fast user switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the timer object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the timer object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2718,20 +2741,20 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenWaitableTimerW(dwDesiredAccess, bInheritHandle, lpTimerName) {
-        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+        lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenWaitableTimerW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpTimerName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenWaitableTimerW", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpTimerName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Activates the specified waitable timer and provides context information for the timer. When the due time arrives, the timer is signaled and the thread that set the timer calls the optional completion routine.
-     * @param {Pointer<Void>} hTimer A handle to the timer object. The [CreateWaitableTimer](./nf-synchapi-createwaitabletimerexw.md) or [OpenWaitableTimer](./nf-synchapi-openwaitabletimerw.md) function returns this handle.
+     * @param {HANDLE} hTimer A handle to the timer object. The [CreateWaitableTimer](./nf-synchapi-createwaitabletimerexw.md) or [OpenWaitableTimer](./nf-synchapi-openwaitabletimerw.md) function returns this handle.
      * 
      * The handle must have the <b>TIMER_MODIFY_STATE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
@@ -2746,7 +2769,7 @@ class Threading {
      * @param {Pointer<Void>} lpArgToCompletionRoutine A pointer to a structure that is passed to the completion routine.
      * @param {Pointer<REASON_CONTEXT>} WakeContext Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-reason_context">REASON_CONTEXT</a> structure that contains context information for the timer.
      * @param {Integer} TolerableDelay The tolerable delay for expiration time, in milliseconds.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2754,9 +2777,11 @@ class Threading {
      * @since windows6.1
      */
     static SetWaitableTimerEx(hTimer, lpDueTime, lPeriod, pfnCompletionRoutine, lpArgToCompletionRoutine, WakeContext, TolerableDelay) {
+        hTimer := hTimer is Win32Handle ? NumGet(hTimer, "ptr") : hTimer
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetWaitableTimerEx", "ptr", hTimer, "int64*", lpDueTime, "int", lPeriod, "ptr", pfnCompletionRoutine, "ptr", lpArgToCompletionRoutine, "ptr", WakeContext, "uint", TolerableDelay, "int")
+        result := DllCall("KERNEL32.dll\SetWaitableTimerEx", "ptr", hTimer, "int64*", lpDueTime, "int", lPeriod, "ptr", pfnCompletionRoutine, "ptr", lpArgToCompletionRoutine, "ptr", WakeContext, "uint", TolerableDelay, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2765,7 +2790,7 @@ class Threading {
 
     /**
      * Activates the specified waitable timer. When the due time arrives, the timer is signaled and the thread that set the timer calls the optional completion routine.
-     * @param {Pointer<Void>} hTimer A handle to the timer object. The 
+     * @param {HANDLE} hTimer A handle to the timer object. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createwaitabletimerw">CreateWaitableTimer</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-openwaitabletimerw">OpenWaitableTimer</a> function returns this handle. 
      * 
@@ -2783,8 +2808,8 @@ class Threading {
      * @param {Pointer<PTIMERAPCROUTINE>} pfnCompletionRoutine A pointer to an optional completion routine. The completion routine is application-defined function of type <b>PTIMERAPCROUTINE</b> to be executed when the timer is signaled. For more information on the timer callback function, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nc-synchapi-ptimerapcroutine">TimerAPCProc</a>. For more information about APCs and thread pool threads, see Remarks.
      * @param {Pointer<Void>} lpArgToCompletionRoutine A pointer to a structure that is passed to the completion routine.
-     * @param {Integer} fResume If this parameter is <b>TRUE</b>, restores a system in suspended power conservation mode when the timer state is set to signaled. Otherwise, the system is not restored. If the system does not support a restore, the call succeeds, but <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_NOT_SUPPORTED</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} fResume If this parameter is <b>TRUE</b>, restores a system in suspended power conservation mode when the timer state is set to signaled. Otherwise, the system is not restored. If the system does not support a restore, the call succeeds, but <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_NOT_SUPPORTED</b>.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2792,9 +2817,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static SetWaitableTimer(hTimer, lpDueTime, lPeriod, pfnCompletionRoutine, lpArgToCompletionRoutine, fResume) {
+        hTimer := hTimer is Win32Handle ? NumGet(hTimer, "ptr") : hTimer
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetWaitableTimer", "ptr", hTimer, "int64*", lpDueTime, "int", lPeriod, "ptr", pfnCompletionRoutine, "ptr", lpArgToCompletionRoutine, "int", fResume, "int")
+        result := DllCall("KERNEL32.dll\SetWaitableTimer", "ptr", hTimer, "int64*", lpDueTime, "int", lPeriod, "ptr", pfnCompletionRoutine, "ptr", lpArgToCompletionRoutine, "ptr", fResume, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2803,11 +2830,11 @@ class Threading {
 
     /**
      * Sets the specified waitable timer to the inactive state.
-     * @param {Pointer<Void>} hTimer A handle to the timer object. The 
+     * @param {HANDLE} hTimer A handle to the timer object. The 
      * [CreateWaitableTimer](./nf-synchapi-createwaitabletimerw.md) or 
      * [OpenWaitableTimer](./nf-synchapi-openwaitabletimerw.md) function returns this handle. The handle must have the <b>TIMER_MODIFY_STATE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2815,9 +2842,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static CancelWaitableTimer(hTimer) {
+        hTimer := hTimer is Win32Handle ? NumGet(hTimer, "ptr") : hTimer
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CancelWaitableTimer", "ptr", hTimer, "int")
+        result := DllCall("KERNEL32.dll\CancelWaitableTimer", "ptr", hTimer, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2833,7 +2862,7 @@ class Threading {
      * 
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new mutex. If <i>lpMutexAttributes</i> is <b>NULL</b>, the mutex gets a default security descriptor. The ACLs in the default security descriptor for a mutex come from the primary or impersonation token of the creator. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Pointer<Byte>} lpName The name of the mutex object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
+     * @param {PSTR} lpName The name of the mutex object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
      * 
      * 
      * 
@@ -2869,7 +2898,7 @@ class Threading {
      * </table>
      * @param {Integer} dwDesiredAccess The access mask for the mutex object. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created mutex object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the newly created mutex object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -2878,7 +2907,7 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateMutexExA(lpMutexAttributes, lpName, dwFlags, dwDesiredAccess) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -2886,7 +2915,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -2898,7 +2927,7 @@ class Threading {
      * 
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new mutex. If <i>lpMutexAttributes</i> is <b>NULL</b>, the mutex gets a default security descriptor. The ACLs in the default security descriptor for a mutex come from the primary or impersonation token of the creator. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Pointer<Char>} lpName The name of the mutex object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
+     * @param {PWSTR} lpName The name of the mutex object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
      * 
      * 
      * 
@@ -2934,7 +2963,7 @@ class Threading {
      * </table>
      * @param {Integer} dwDesiredAccess The access mask for the mutex object. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created mutex object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the newly created mutex object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -2943,7 +2972,7 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateMutexExW(lpMutexAttributes, lpName, dwFlags, dwDesiredAccess) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -2951,7 +2980,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -2963,7 +2992,7 @@ class Threading {
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptors">security descriptor</a> for the new 
      *        event. If <i>lpEventAttributes</i> is <b>NULL</b>, the event gets a default security descriptor. 
      *        The ACLs in the default security descriptor for an event come from the primary or impersonation token of the creator.
-     * @param {Pointer<Byte>} lpName The name of the event object. The name is limited to 
+     * @param {PSTR} lpName The name of the event object. The name is limited to 
      *       <b>MAX_PATH</b> characters. Name comparison is case sensitive.
      * 
      * If <i>lpName</i> is <b>NULL</b>, the event object is created without a name.
@@ -2982,7 +3011,7 @@ class Threading {
      * @param {Integer} dwFlags 
      * @param {Integer} dwDesiredAccess The access mask for the event object. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the event object. If the named event object existed 
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the event object. If the named event object existed 
      *        before the function call, the function returns a handle to the existing object and 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
      *        <b>ERROR_ALREADY_EXISTS</b>.
@@ -2994,7 +3023,7 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateEventExA(lpEventAttributes, lpName, dwFlags, dwDesiredAccess) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -3002,7 +3031,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -3014,7 +3043,7 @@ class Threading {
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptors">security descriptor</a> for the new 
      *        event. If <i>lpEventAttributes</i> is <b>NULL</b>, the event gets a default security descriptor. 
      *        The ACLs in the default security descriptor for an event come from the primary or impersonation token of the creator.
-     * @param {Pointer<Char>} lpName The name of the event object. The name is limited to 
+     * @param {PWSTR} lpName The name of the event object. The name is limited to 
      *       <b>MAX_PATH</b> characters. Name comparison is case sensitive.
      * 
      * If <i>lpName</i> is <b>NULL</b>, the event object is created without a name.
@@ -3033,7 +3062,7 @@ class Threading {
      * @param {Integer} dwFlags 
      * @param {Integer} dwDesiredAccess The access mask for the event object. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the event object. If the named event object existed 
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the event object. If the named event object existed 
      *        before the function call, the function returns a handle to the existing object and 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
      *        <b>ERROR_ALREADY_EXISTS</b>.
@@ -3045,7 +3074,7 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateEventExW(lpEventAttributes, lpName, dwFlags, dwDesiredAccess) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -3053,7 +3082,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -3068,7 +3097,7 @@ class Threading {
      * @param {Integer} lInitialCount The initial count for the semaphore object. This value must be greater than or equal to zero and less than or equal to <i>lMaximumCount</i>. The state of a semaphore is signaled when its count is greater than zero and nonsignaled when it is zero. The count is decreased by one whenever a wait function releases a thread that was waiting for the semaphore. The count is increased by a specified amount by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-releasesemaphore">ReleaseSemaphore</a> function.
      * @param {Integer} lMaximumCount The maximum count for the semaphore object. This value must be greater than zero.
-     * @param {Pointer<Char>} lpName A pointer to a null-terminated string specifying the name of the semaphore object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive.
+     * @param {PWSTR} lpName A pointer to a null-terminated string specifying the name of the semaphore object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive.
      * 
      * If <i>lpName</i> matches the name of an existing named semaphore object, the <i>lInitialCount</i> and <i>lMaximumCount</i> parameters are ignored because they have already been set by the creating process. If the <i>lpSemaphoreAttributes</i> parameter is not <b>NULL</b>, it determines whether the handle can be inherited.
      * 
@@ -3083,7 +3112,7 @@ class Threading {
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
      * @param {Integer} dwDesiredAccess The access mask for the semaphore object. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object existed before the function call, the function returns a handle to the existing object and 
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object existed before the function call, the function returns a handle to the existing object and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3093,7 +3122,7 @@ class Threading {
     static CreateSemaphoreExW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName, dwDesiredAccess) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -3101,7 +3130,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -3110,7 +3139,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure. If this parameter is <b>NULL</b>, the timer handle cannot be inherited by child processes. 
      * 
      * If <i>lpTimerAttributes</i> is <b>NULL</b>, the timer object gets a default security descriptor and the handle cannot be inherited. The ACLs in the default security descriptor for a timer come from the primary or impersonation token of the creator.
-     * @param {Pointer<Char>} lpTimerName The name of the timer object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
+     * @param {PWSTR} lpTimerName The name of the timer object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
      * 
      * 
      * 
@@ -3145,7 +3174,7 @@ class Threading {
      * </table>
      * @param {Integer} dwDesiredAccess The access mask for the timer object. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the timer object. If the named timer object exists before the function call, the function returns a handle to the existing object and 
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the timer object. If the named timer object exists before the function call, the function returns a handle to the existing object and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3153,7 +3182,7 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateWaitableTimerExW(lpTimerAttributes, lpTimerName, dwFlags, dwDesiredAccess) {
-        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+        lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
         A_LastError := 0
 
@@ -3161,7 +3190,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -3216,13 +3245,13 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} <b>TRUE</b> for the last thread to signal the barrier. Threads that signal the barrier 
+     * @returns {BOOL} <b>TRUE</b> for the last thread to signal the barrier. Threads that signal the barrier 
      *       before the last thread signals it receive a return value of <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-entersynchronizationbarrier
      * @since windows8.0
      */
     static EnterSynchronizationBarrier(lpBarrier, dwFlags) {
-        result := DllCall("KERNEL32.dll\EnterSynchronizationBarrier", "ptr", lpBarrier, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\EnterSynchronizationBarrier", "ptr", lpBarrier, "uint", dwFlags, "ptr")
         return result
     }
 
@@ -3237,7 +3266,7 @@ class Threading {
      *       <i>lSpinCount</i>, the thread blocks unless it called 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-entersynchronizationbarrier">EnterSynchronizationBarrier</a> with 
      *       <b>SYNCHRONIZATION_BARRIER_FLAGS_SPIN_ONLY</b>.
-     * @returns {Integer} <b>TRUE </b>if the barrier was successfully initialized. If the barrier was not 
+     * @returns {BOOL} <b>TRUE </b>if the barrier was successfully initialized. If the barrier was not 
      *       successfully initialized, this function returns <b>FALSE</b>. Use 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-initializesynchronizationbarrier
@@ -3246,7 +3275,7 @@ class Threading {
     static InitializeSynchronizationBarrier(lpBarrier, lTotalThreads, lSpinCount) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeSynchronizationBarrier", "ptr", lpBarrier, "int", lTotalThreads, "int", lSpinCount, "int")
+        result := DllCall("KERNEL32.dll\InitializeSynchronizationBarrier", "ptr", lpBarrier, "int", lTotalThreads, "int", lSpinCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3256,12 +3285,12 @@ class Threading {
     /**
      * Deletes a synchronization barrier.
      * @param {Pointer<SYNCHRONIZATION_BARRIER>} lpBarrier A pointer to the synchronization barrier to delete.
-     * @returns {Integer} The <b>DeleteSynchronizationBarrier</b> function always returns <b>TRUE</b>.
+     * @returns {BOOL} The <b>DeleteSynchronizationBarrier</b> function always returns <b>TRUE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-deletesynchronizationbarrier
      * @since windows8.0
      */
     static DeleteSynchronizationBarrier(lpBarrier) {
-        result := DllCall("KERNEL32.dll\DeleteSynchronizationBarrier", "ptr", lpBarrier, "int")
+        result := DllCall("KERNEL32.dll\DeleteSynchronizationBarrier", "ptr", lpBarrier, "ptr")
         return result
     }
 
@@ -3313,14 +3342,14 @@ class Threading {
      * @param {Pointer} CompareAddress A pointer to the location of the previously observed value at <i>Address</i>. The function returns when the value at <i>Address</i> differs from the value at <i>CompareAddress</i>.
      * @param {Pointer} AddressSize The size of the value, in bytes. This parameter can be 1, 2, 4, or 8.
      * @param {Integer} dwMilliseconds The number of milliseconds to wait before the operation times out. If this parameter is <b>INFINITE</b>, the thread waits indefinitely.
-     * @returns {Integer} TRUE if the wait succeeded. If the operation fails, the function returns FALSE. If the wait fails, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to obtain extended error information. In particular, if the operation times out, <b>GetLastError</b>  returns <b>ERROR_TIMEOUT</b>.
+     * @returns {BOOL} TRUE if the wait succeeded. If the operation fails, the function returns FALSE. If the wait fails, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to obtain extended error information. In particular, if the operation times out, <b>GetLastError</b>  returns <b>ERROR_TIMEOUT</b>.
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-waitonaddress
      * @since windows8.0
      */
     static WaitOnAddress(Address, CompareAddress, AddressSize, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-synch-l1-2-0.dll\WaitOnAddress", "ptr", Address, "ptr", CompareAddress, "ptr", AddressSize, "uint", dwMilliseconds, "int")
+        result := DllCall("api-ms-win-core-synch-l1-2-0.dll\WaitOnAddress", "ptr", Address, "ptr", CompareAddress, "ptr", AddressSize, "uint", dwMilliseconds, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3371,13 +3400,13 @@ class Threading {
     /**
      * Waits until one or all of the specified objects are in the signaled state or the time-out interval elapses.
      * @param {Integer} nCount The number of object handles in the array pointed to by <i>lpHandles</i>. The maximum number of object handles is <b>MAXIMUM_WAIT_OBJECTS</b>. This parameter cannot be zero.
-     * @param {Pointer<Void>} lpHandles An array of object handles. For a list of the object types whose handles can be specified, see the following Remarks section. The array can contain handles to objects of different types. It may not contain multiple copies of the same handle.
+     * @param {Pointer<HANDLE>} lpHandles An array of object handles. For a list of the object types whose handles can be specified, see the following Remarks section. The array can contain handles to objects of different types. It may not contain multiple copies of the same handle.
      * 
      * If one of these handles is closed while the wait is still pending, the function's behavior is undefined.
      * 
      * The handles must have the <b>SYNCHRONIZE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
-     * @param {Integer} bWaitAll If this parameter is <b>TRUE</b>, the function returns when the state of all objects in the <i>lpHandles</i> array is signaled. If <b>FALSE</b>, the function returns when the state of any one of the objects is set to signaled. In the latter case, the return value indicates the object whose state caused the function to return.
+     * @param {BOOL} bWaitAll If this parameter is <b>TRUE</b>, the function returns when the state of all objects in the <i>lpHandles</i> array is signaled. If <b>FALSE</b>, the function returns when the state of any one of the objects is set to signaled. In the latter case, the return value indicates the object whose state caused the function to return.
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. If a nonzero value is specified, the function waits until the specified objects are signaled or the interval elapses. If <i>dwMilliseconds</i> is zero, the function does not enter a wait state if the specified objects are not signaled; it always returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function will return only when the specified objects are signaled.
      * 
      * <b>Windows XP, Windows Server 2003, Windows Vista, Windows 7, Windows Server 2008 and Windows Server 2008 R2:  </b>The <i>dwMilliseconds</i> value does include time spent in low-power states. For example, the timeout does keep counting down while the computer is asleep.
@@ -3456,7 +3485,7 @@ class Threading {
     static WaitForMultipleObjects(nCount, lpHandles, bWaitAll, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitForMultipleObjects", "uint", nCount, "ptr", lpHandles, "int", bWaitAll, "uint", dwMilliseconds, "uint")
+        result := DllCall("KERNEL32.dll\WaitForMultipleObjects", "uint", nCount, "ptr", lpHandles, "ptr", bWaitAll, "uint", dwMilliseconds, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -3474,7 +3503,7 @@ class Threading {
      * @param {Integer} lInitialCount The initial count for the semaphore object. This value must be greater than or equal to zero and less than or equal to <i>lMaximumCount</i>. The state of a semaphore is signaled when its count is greater than zero and nonsignaled when it is zero. The count is decreased by one whenever a wait function releases a thread that was waiting for the semaphore. The count is increased by a specified amount by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-releasesemaphore">ReleaseSemaphore</a> function.
      * @param {Integer} lMaximumCount The maximum count for the semaphore object. This value must be greater than zero.
-     * @param {Pointer<Char>} lpName The name of the semaphore object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive.
+     * @param {PWSTR} lpName The name of the semaphore object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive.
      * 
      * If <i>lpName</i> matches the name of an existing named semaphore object, this function requests the <b>SEMAPHORE_ALL_ACCESS</b> access right. In this case, the <i>lInitialCount</i> and <i>lMaximumCount</i> parameters are ignored because they have already been set by the creating process. If the <i>lpSemaphoreAttributes</i> parameter is not <b>NULL</b>, it determines whether the handle can be inherited, but its security-descriptor member is ignored.
      * 
@@ -3487,7 +3516,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>. Fast user switching is implemented using Terminal Services sessions. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
      * 
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object existed before the function call, the function returns a handle to the existing object and 
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object existed before the function call, the function returns a handle to the existing object and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3495,7 +3524,7 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateSemaphoreW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -3503,7 +3532,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -3512,8 +3541,8 @@ class Threading {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new timer object and determines whether child processes can inherit the returned handle. 
      * 
      * If <i>lpTimerAttributes</i> is <b>NULL</b>, the timer object gets a default security descriptor and the handle cannot be inherited. The ACLs in the default security descriptor for a timer come from the primary or impersonation token of the creator.
-     * @param {Integer} bManualReset If this parameter is <b>TRUE</b>, the timer is a manual-reset notification timer. Otherwise, the timer is a synchronization timer.
-     * @param {Pointer<Char>} lpTimerName The name of the timer object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
+     * @param {BOOL} bManualReset If this parameter is <b>TRUE</b>, the timer is a manual-reset notification timer. Otherwise, the timer is a synchronization timer.
+     * @param {PWSTR} lpTimerName The name of the timer object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive. 
      * 
      * 
      * 
@@ -3527,7 +3556,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>. Fast user switching is implemented using Terminal Services sessions. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
      * 
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the timer object. If the named timer object exists before the function call, the function returns a handle to the existing object and 
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the timer object. If the named timer object exists before the function call, the function returns a handle to the existing object and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3535,15 +3564,15 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateWaitableTimerW(lpTimerAttributes, bManualReset, lpTimerName) {
-        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+        lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateWaitableTimerW", "ptr", lpTimerAttributes, "int", bManualReset, "ptr", lpTimerName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateWaitableTimerW", "ptr", lpTimerAttributes, "ptr", bManualReset, "ptr", lpTimerName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -3570,7 +3599,7 @@ class Threading {
     /**
      * Removes an item from the front of a singly linked list. Access to the list is synchronized on a multiprocessor system.
      * @param {Pointer<SLIST_HEADER>} ListHead Pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list.
-     * @returns {Pointer<TypeHandle>} The return value is a pointer to the item removed from the list. If the list is empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the item removed from the list. If the list is empty, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//interlockedapi/nf-interlockedapi-interlockedpopentryslist
      * @since windows5.1.2600
      */
@@ -3582,9 +3611,9 @@ class Threading {
     /**
      * Inserts an item at the front of a singly linked list. Access to the list is synchronized on a multiprocessor system.
      * @param {Pointer<SLIST_HEADER>} ListHead Pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list.
-     * @param {Pointer<TypeHandle>} ListEntry Pointer to an 
+     * @param {Pointer<SLIST_ENTRY>} ListEntry Pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-slist_entry">SLIST_ENTRY</a> structure that represents an item in a singly linked list.
-     * @returns {Pointer<TypeHandle>} The return value is the previous first item in the list. If the list was previously empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<SLIST_ENTRY>} The return value is the previous first item in the list. If the list was previously empty, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//interlockedapi/nf-interlockedapi-interlockedpushentryslist
      * @since windows5.1.2600
      */
@@ -3596,12 +3625,12 @@ class Threading {
     /**
      * Inserts a singly-linked list at the front of another singly linked list. Access to the lists is synchronized on a multiprocessor system. This version of the method does not use the __fastcall calling convention.
      * @param {Pointer<SLIST_HEADER>} ListHead Pointer to an <b>SLIST_HEADER</b> structure that represents the head of a singly linked list. The list specified by the <i>List</i> and <i>ListEnd</i> parameters is inserted at the front of this list.
-     * @param {Pointer<TypeHandle>} List Pointer to an 
+     * @param {Pointer<SLIST_ENTRY>} List Pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-slist_entry">SLIST_ENTRY</a> structure that represents the first item in the  list to be inserted.
-     * @param {Pointer<TypeHandle>} ListEnd Pointer to an 
+     * @param {Pointer<SLIST_ENTRY>} ListEnd Pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-slist_entry">SLIST_ENTRY</a> structure that represents the last item in the  list to be inserted.
      * @param {Integer} Count The number of items in the list to be inserted.
-     * @returns {Pointer<TypeHandle>} The return value is the previous first item in the list specified by the <i>ListHead</i> parameter. If the list was previously empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<SLIST_ENTRY>} The return value is the previous first item in the list specified by the <i>ListHead</i> parameter. If the list was previously empty, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//interlockedapi/nf-interlockedapi-interlockedpushlistslistex
      * @since windows8.0
      */
@@ -3613,7 +3642,7 @@ class Threading {
     /**
      * Removes all items from a singly linked list. Access to the list is synchronized on a multiprocessor system.
      * @param {Pointer<SLIST_HEADER>} ListHead Pointer to an <b>SLIST_HEADER</b> structure that represents the head of the singly linked list. This structure is for system use only.
-     * @returns {Pointer<TypeHandle>} The return value is a pointer to the items removed from the list. If the list is empty, the return value is <b>NULL</b>.
+     * @returns {Pointer<SLIST_ENTRY>} The return value is a pointer to the items removed from the list. If the list is empty, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//interlockedapi/nf-interlockedapi-interlockedflushslist
      * @since windows5.1.2600
      */
@@ -3640,7 +3669,7 @@ class Threading {
      * Adds a user-mode asynchronous procedure call (APC) object to the APC queue of the specified thread.
      * @param {Pointer<PAPCFUNC>} pfnAPC A pointer to the application-supplied APC function to be called when the specified thread performs an alertable wait operation. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-papcfunc">APCProc</a>.
-     * @param {Pointer<Void>} hThread A handle to the thread. The handle must have the <b>THREAD_SET_CONTEXT</b> access right. For more information, see 
+     * @param {HANDLE} hThread A handle to the thread. The handle must have the <b>THREAD_SET_CONTEXT</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {Pointer} dwData A single value that is passed to the APC function pointed to by the <i>pfnAPC</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
@@ -3651,6 +3680,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static QueueUserAPC(pfnAPC, hThread, dwData) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\QueueUserAPC", "ptr", pfnAPC, "ptr", hThread, "ptr", dwData, "uint")
@@ -3663,19 +3694,21 @@ class Threading {
     /**
      * 
      * @param {Pointer<PAPCFUNC>} ApcRoutine 
-     * @param {Pointer<Void>} Thread 
+     * @param {HANDLE} Thread 
      * @param {Pointer} Data 
      * @param {Integer} Flags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static QueueUserAPC2(ApcRoutine, Thread, Data, Flags) {
-        result := DllCall("KERNEL32.dll\QueueUserAPC2", "ptr", ApcRoutine, "ptr", Thread, "ptr", Data, "int", Flags, "int")
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
+        result := DllCall("KERNEL32.dll\QueueUserAPC2", "ptr", ApcRoutine, "ptr", Thread, "ptr", Data, "int", Flags, "ptr")
         return result
     }
 
     /**
      * Retrieves timing information for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose timing information is sought. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process whose timing information is sought. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
@@ -3685,7 +3718,7 @@ class Threading {
      * @param {Pointer<FILETIME>} lpKernelTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the amount of time that the process has executed in kernel mode. The time that each of the threads of the process has executed in kernel mode is determined, and then all of those times are summed together to obtain this value.
      * @param {Pointer<FILETIME>} lpUserTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the amount of time that the process has executed in user mode. The time that each of the threads of the process has executed in user mode is determined, and then all of those times are summed together to obtain this value. Note that this value can exceed the amount of real time elapsed (between <i>lpCreationTime</i> and <i>lpExitTime</i>) if the process executes across multiple CPU cores.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3693,9 +3726,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetProcessTimes(hProcess, lpCreationTime, lpExitTime, lpKernelTime, lpUserTime) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessTimes", "ptr", hProcess, "ptr", lpCreationTime, "ptr", lpExitTime, "ptr", lpKernelTime, "ptr", lpUserTime, "int")
+        result := DllCall("KERNEL32.dll\GetProcessTimes", "ptr", hProcess, "ptr", lpCreationTime, "ptr", lpExitTime, "ptr", lpKernelTime, "ptr", lpUserTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3704,13 +3739,13 @@ class Threading {
 
     /**
      * Retrieves a pseudo handle for the current process.
-     * @returns {Pointer<Void>} The return value is a pseudo handle to the current process.
+     * @returns {HANDLE} The return value is a pseudo handle to the current process.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentprocess
      * @since windows5.1.2600
      */
     static GetCurrentProcess() {
         result := DllCall("KERNEL32.dll\GetCurrentProcess", "ptr")
-        return result
+        return HANDLE({Value: result}, False)
     }
 
     /**
@@ -3769,14 +3804,14 @@ class Threading {
 
     /**
      * Terminates the specified process and all of its threads.
-     * @param {Pointer<Void>} hProcess A handle to the process to be terminated.
+     * @param {HANDLE} hProcess A handle to the process to be terminated.
      * 
      * The handle must have the <b>PROCESS_TERMINATE</b> access right. For more information, see
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} uExitCode The exit code to be used by the process and threads terminated as a result of this call. Use the
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess">GetExitCodeProcess</a> function to retrieve a process's exit value. Use the
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodethread">GetExitCodeThread</a> function to retrieve a thread's exit value.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3784,9 +3819,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static TerminateProcess(hProcess, uExitCode) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TerminateProcess", "ptr", hProcess, "uint", uExitCode, "int")
+        result := DllCall("KERNEL32.dll\TerminateProcess", "ptr", hProcess, "uint", uExitCode, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3795,14 +3832,14 @@ class Threading {
 
     /**
      * Retrieves the termination status of the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process.
+     * @param {HANDLE} hProcess A handle to the process.
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
      * @param {Pointer<UInt32>} lpExitCode A pointer to a variable to receive the process termination status. For more information, see Remarks.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3810,9 +3847,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetExitCodeProcess(hProcess, lpExitCode) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetExitCodeProcess", "ptr", hProcess, "uint*", lpExitCode, "int")
+        result := DllCall("KERNEL32.dll\GetExitCodeProcess", "ptr", hProcess, "uint*", lpExitCode, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3821,7 +3860,7 @@ class Threading {
 
     /**
      * Causes the calling thread to yield execution to another thread that is ready to run on the current processor. The operating system selects the next thread to be executed.
-     * @returns {Integer} If calling the 
+     * @returns {BOOL} If calling the 
      * <b>SwitchToThread</b> function caused the operating system to switch execution to another thread, the return value is nonzero.
      * 
      * If there are no other threads ready to execute, the operating system does not switch execution to another thread, and the return value is zero.
@@ -3829,7 +3868,7 @@ class Threading {
      * @since windows5.1.2600
      */
     static SwitchToThread() {
-        result := DllCall("KERNEL32.dll\SwitchToThread", "int")
+        result := DllCall("KERNEL32.dll\SwitchToThread", "ptr")
         return result
     }
 
@@ -3889,7 +3928,7 @@ class Threading {
      * </table>
      * @param {Pointer<UInt32>} lpThreadId A pointer to a variable that receives the  thread identifier. If this parameter is 
      *       <b>NULL</b>, the thread identifier is not returned.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the new thread.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the new thread.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3910,12 +3949,12 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates a thread that runs in the virtual address space of another process.
-     * @param {Pointer<Void>} hProcess A handle to the process in which the thread is to be created. The handle must have the <b>PROCESS_CREATE_THREAD</b>, <b>PROCESS_QUERY_INFORMATION</b>, <b>PROCESS_VM_OPERATION</b>, <b>PROCESS_VM_WRITE</b>, and <b>PROCESS_VM_READ</b> access rights, and may fail without these rights on certain platforms. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process in which the thread is to be created. The handle must have the <b>PROCESS_CREATE_THREAD</b>, <b>PROCESS_QUERY_INFORMATION</b>, <b>PROCESS_VM_OPERATION</b>, <b>PROCESS_VM_WRITE</b>, and <b>PROCESS_VM_READ</b> access rights, and may fail without these rights on certain platforms. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpThreadAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new thread and determines whether child processes can inherit the returned handle. If <i>lpThreadAttributes</i> is NULL, the thread gets a default security descriptor and the handle cannot be inherited. The access control lists (ACL) in the default security descriptor for a thread come from the primary token of the creator.
@@ -3974,7 +4013,7 @@ class Threading {
      * 
      * 
      * If this parameter is <b>NULL</b>, the thread identifier is not returned.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the new thread.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the new thread.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3986,24 +4025,26 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateRemoteThread(hProcess, lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter, dwCreationFlags, lpThreadId) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateRemoteThread", "ptr", hProcess, "ptr", lpThreadAttributes, "ptr", dwStackSize, "ptr", lpStartAddress, "ptr", lpParameter, "uint", dwCreationFlags, "uint*", lpThreadId, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Retrieves a pseudo handle for the calling thread.
-     * @returns {Pointer<Void>} The return value is a pseudo handle for the current thread.
+     * @returns {HANDLE} The return value is a pseudo handle for the current thread.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentthread
      * @since windows5.1.2600
      */
     static GetCurrentThread() {
         result := DllCall("KERNEL32.dll\GetCurrentThread", "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -4023,9 +4064,9 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">thread access rights</a>.
      * 
      * If the caller has enabled the SeDebugPrivilege privilege, the requested access is  granted regardless of the contents of the security descriptor.
-     * @param {Integer} bInheritHandle If this value is TRUE, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
+     * @param {BOOL} bInheritHandle If this value is TRUE, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
      * @param {Integer} dwThreadId The identifier of the thread to be opened.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified thread.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified thread.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4035,21 +4076,21 @@ class Threading {
     static OpenThread(dwDesiredAccess, bInheritHandle, dwThreadId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenThread", "uint", dwDesiredAccess, "int", bInheritHandle, "uint", dwThreadId, "ptr")
+        result := DllCall("KERNEL32.dll\OpenThread", "uint", dwDesiredAccess, "ptr", bInheritHandle, "uint", dwThreadId, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Sets the priority value for the specified thread. This value, together with the priority class of the thread's process, determines the thread's base priority level.
-     * @param {Pointer<Void>} hThread A handle to the thread whose priority value is to be set.
+     * @param {HANDLE} hThread A handle to the thread whose priority value is to be set.
      * 
      * The handle must have the <b>THREAD_SET_INFORMATION</b> or <b>THREAD_SET_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.<b>Windows Server 2003:  </b>The handle must have the <b>THREAD_SET_INFORMATION</b> access right.
      * @param {Integer} nPriority 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4059,9 +4100,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static SetThreadPriority(hThread, nPriority) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadPriority", "ptr", hThread, "int", nPriority, "int")
+        result := DllCall("KERNEL32.dll\SetThreadPriority", "ptr", hThread, "int", nPriority, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4070,12 +4113,12 @@ class Threading {
 
     /**
      * Disables or enables the ability of the system to temporarily boost the priority of a thread.
-     * @param {Pointer<Void>} hThread A handle to the thread whose priority is to be boosted. The handle must have the <b>THREAD_SET_INFORMATION</b> or <b>THREAD_SET_LIMITED_INFORMATION</b> access right. For more information, see 
+     * @param {HANDLE} hThread A handle to the thread whose priority is to be boosted. The handle must have the <b>THREAD_SET_INFORMATION</b> or <b>THREAD_SET_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>THREAD_SET_INFORMATION</b> access right.
-     * @param {Integer} bDisablePriorityBoost If this parameter is <b>TRUE</b>, dynamic boosting is disabled. If the parameter is <b>FALSE</b>, dynamic boosting is enabled.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} bDisablePriorityBoost If this parameter is <b>TRUE</b>, dynamic boosting is disabled. If the parameter is <b>FALSE</b>, dynamic boosting is enabled.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4083,9 +4126,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static SetThreadPriorityBoost(hThread, bDisablePriorityBoost) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadPriorityBoost", "ptr", hThread, "int", bDisablePriorityBoost, "int")
+        result := DllCall("KERNEL32.dll\SetThreadPriorityBoost", "ptr", hThread, "ptr", bDisablePriorityBoost, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4094,12 +4139,12 @@ class Threading {
 
     /**
      * Retrieves the priority boost control state of the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread. The handle must have the <b>THREAD_QUERY_INFORMATION</b> or <b>THREAD_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
+     * @param {HANDLE} hThread A handle to the thread. The handle must have the <b>THREAD_QUERY_INFORMATION</b> or <b>THREAD_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>THREAD_QUERY_INFORMATION</b> access right.
-     * @param {Pointer<Int32>} pDisablePriorityBoost A pointer to a variable that receives the priority boost control state. A value of TRUE indicates that dynamic boosting is disabled. A value of FALSE indicates normal behavior.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. In that case, the variable pointed to by the <i>pDisablePriorityBoost</i> parameter receives the priority boost control state.
+     * @param {Pointer<BOOL>} pDisablePriorityBoost A pointer to a variable that receives the priority boost control state. A value of TRUE indicates that dynamic boosting is disabled. A value of FALSE indicates normal behavior.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. In that case, the variable pointed to by the <i>pDisablePriorityBoost</i> parameter receives the priority boost control state.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4107,9 +4152,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetThreadPriorityBoost(hThread, pDisablePriorityBoost) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadPriorityBoost", "ptr", hThread, "int*", pDisablePriorityBoost, "int")
+        result := DllCall("KERNEL32.dll\GetThreadPriorityBoost", "ptr", hThread, "ptr", pDisablePriorityBoost, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4118,7 +4165,7 @@ class Threading {
 
     /**
      * Retrieves the priority value for the specified thread. This value, together with the priority class of the thread's process, determines the thread's base-priority level.
-     * @param {Pointer<Void>} hThread A handle to the thread.
+     * @param {HANDLE} hThread A handle to the thread.
      * 
      * The handle must have the <b>THREAD_QUERY_INFORMATION</b> or <b>THREAD_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
@@ -4231,6 +4278,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetThreadPriority(hThread) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetThreadPriority", "ptr", hThread, "int")
@@ -4293,13 +4342,13 @@ class Threading {
 
     /**
      * Terminates a thread.
-     * @param {Pointer<Void>} hThread A handle to the thread to be terminated.
+     * @param {HANDLE} hThread A handle to the thread to be terminated.
      * 
      * The handle must have the <b>THREAD_TERMINATE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Integer} dwExitCode The exit code for the thread. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodethread">GetExitCodeThread</a> function to retrieve a thread's exit value.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4307,9 +4356,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static TerminateThread(hThread, dwExitCode) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TerminateThread", "ptr", hThread, "uint", dwExitCode, "int")
+        result := DllCall("KERNEL32.dll\TerminateThread", "ptr", hThread, "uint", dwExitCode, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4318,14 +4369,14 @@ class Threading {
 
     /**
      * Retrieves the termination status of the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread.
+     * @param {HANDLE} hThread A handle to the thread.
      * 
      * The handle must have the <b>THREAD_QUERY_INFORMATION</b> or <b>THREAD_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>THREAD_QUERY_INFORMATION</b> access right.
      * @param {Pointer<UInt32>} lpExitCode A pointer to a variable to receive the thread termination status. For more information, see Remarks.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4333,9 +4384,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetExitCodeThread(hThread, lpExitCode) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetExitCodeThread", "ptr", hThread, "uint*", lpExitCode, "int")
+        result := DllCall("KERNEL32.dll\GetExitCodeThread", "ptr", hThread, "uint*", lpExitCode, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4344,7 +4397,7 @@ class Threading {
 
     /**
      * Suspends the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread that is to be suspended.
+     * @param {HANDLE} hThread A handle to the thread that is to be suspended.
      * 
      * The handle must have the <b>THREAD_SUSPEND_RESUME</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
@@ -4354,6 +4407,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static SuspendThread(hThread) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SuspendThread", "ptr", hThread, "uint")
@@ -4365,7 +4420,7 @@ class Threading {
 
     /**
      * Decrements a thread's suspend count. When the suspend count is decremented to zero, the execution of the thread is resumed.
-     * @param {Pointer<Void>} hThread A handle to the thread to be restarted. 
+     * @param {HANDLE} hThread A handle to the thread to be restarted. 
      * 
      * 
      * 
@@ -4379,6 +4434,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static ResumeThread(hThread) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ResumeThread", "ptr", hThread, "uint")
@@ -4439,7 +4496,7 @@ class Threading {
      * @param {Integer} dwTlsIndex The TLS index that was allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-tlsalloc">TlsAlloc</a> 
      *       function.
      * @param {Pointer<Void>} lpTlsValue The value to be stored in the calling thread's TLS slot for the index.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4449,7 +4506,7 @@ class Threading {
     static TlsSetValue(dwTlsIndex, lpTlsValue) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TlsSetValue", "uint", dwTlsIndex, "ptr", lpTlsValue, "int")
+        result := DllCall("KERNEL32.dll\TlsSetValue", "uint", dwTlsIndex, "ptr", lpTlsValue, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4460,7 +4517,7 @@ class Threading {
      * Releases a thread local storage (TLS) index, making it available for reuse.
      * @param {Integer} dwTlsIndex The TLS index that was allocated by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-tlsalloc">TlsAlloc</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4470,7 +4527,7 @@ class Threading {
     static TlsFree(dwTlsIndex) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TlsFree", "uint", dwTlsIndex, "int")
+        result := DllCall("KERNEL32.dll\TlsFree", "uint", dwTlsIndex, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4479,7 +4536,7 @@ class Threading {
 
     /**
      * Creates a new process and its primary thread. The new process runs in the security context of the calling process.
-     * @param {Pointer<Byte>} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
+     * @param {PSTR} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
      * 
      * 
      * 
@@ -4496,7 +4553,7 @@ class Threading {
      * If the executable module is a 16-bit application, <i>lpApplicationName</i> should be <b>NULL</b>, and the string pointed to by <i>lpCommandLine</i> should specify the executable module as well as its arguments.
      * 
      * To run a batch file, you must start the command interpreter; set <i>lpApplicationName</i> to cmd.exe and set <i>lpCommandLine</i> to the following arguments: /c plus the name of the batch file.
-     * @param {Pointer<Byte>} lpCommandLine The command line to be executed. 
+     * @param {PSTR} lpCommandLine The command line to be executed. 
      * 
      * 
      * The maximum length of this string is 32,767 characters, including the Unicode terminating null character. If <i>lpApplicationName</i> is <b>NULL</b>, the module name portion of <i>lpCommandLine</i> is limited to <b>MAX_PATH</b> characters.
@@ -4534,7 +4591,7 @@ class Threading {
      * 
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the main thread. If <i>lpThreadAttributes</i> is NULL or <b>lpSecurityDescriptor</b> is NULL, the thread gets a default security descriptor. The ACLs in the default security descriptor for a thread come from the process token.<b>Windows XP:  </b>The ACLs in the default security descriptor for a thread come from the primary or impersonation token of the creator. This behavior changed with Windows XP with SP2 and Windows Server 2003.
-     * @param {Integer} bInheritHandles If this parameter is TRUE, each inheritable handle in the calling process is inherited by the new process. If the parameter is FALSE, the handles are not inherited. Note that inherited handles have the same value and access rights as the original handles.
+     * @param {BOOL} bInheritHandles If this parameter is TRUE, each inheritable handle in the calling process is inherited by the new process. If the parameter is FALSE, the handles are not inherited. Note that inherited handles have the same value and access rights as the original handles.
      * For additional discussion of inheritable handles, see Remarks.
      * 
      * <b>Terminal Services:  </b>You cannot inherit handles across sessions. Additionally, if this parameter is TRUE, you must create the process in the same session as the caller.
@@ -4564,7 +4621,7 @@ class Threading {
      * The ANSI version of this function, <b>CreateProcessA</b> fails if the total size of the environment block for the process exceeds 32,767 characters.
      * 
      * Note that an ANSI environment block is terminated by two zero bytes: one for the last string, one more to terminate the block. A Unicode environment block is terminated by four zero bytes: two for the last string, two more to terminate the block.
-     * @param {Pointer<Byte>} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path.
+     * @param {PSTR} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path.
      * 
      * If this parameter is <b>NULL</b>, the new process will have the same current drive and directory as the calling process. (This feature is provided primarily for shells that need to start an application and specify its initial drive and working directory.)
      * @param {Pointer<STARTUPINFOA>} lpStartupInfo A pointer to a 
@@ -4587,7 +4644,7 @@ class Threading {
      * Handles in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-process_information">PROCESS_INFORMATION</a> must be closed with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> when they are no longer needed.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4597,13 +4654,13 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
-        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
-        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
-        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+        lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateProcessA", "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
+        result := DllCall("KERNEL32.dll\CreateProcessA", "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "ptr", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4612,7 +4669,7 @@ class Threading {
 
     /**
      * Creates a new process and its primary thread. The new process runs in the security context of the calling process.
-     * @param {Pointer<Char>} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
+     * @param {PWSTR} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
      * 
      * 
      * 
@@ -4629,7 +4686,7 @@ class Threading {
      * If the executable module is a 16-bit application, <i>lpApplicationName</i> should be <b>NULL</b>, and the string pointed to by <i>lpCommandLine</i> should specify the executable module as well as its arguments.
      * 
      * To run a batch file, you must start the command interpreter; set <i>lpApplicationName</i> to cmd.exe and set <i>lpCommandLine</i> to the following arguments: /c plus the name of the batch file.
-     * @param {Pointer<Char>} lpCommandLine The command line to be executed. 
+     * @param {PWSTR} lpCommandLine The command line to be executed. 
      * 
      * 
      * The maximum length of this string is 32,767 characters, including the Unicode terminating null character. If <i>lpApplicationName</i> is <b>NULL</b>, the module name portion of <i>lpCommandLine</i> is limited to <b>MAX_PATH</b> characters.
@@ -4667,7 +4724,7 @@ class Threading {
      * 
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the main thread. If <i>lpThreadAttributes</i> is NULL or <b>lpSecurityDescriptor</b> is NULL, the thread gets a default security descriptor. The ACLs in the default security descriptor for a thread come from the process token.<b>Windows XP:  </b>The ACLs in the default security descriptor for a thread come from the primary or impersonation token of the creator. This behavior changed with Windows XP with SP2 and Windows Server 2003.
-     * @param {Integer} bInheritHandles If this parameter is TRUE, each inheritable handle in the calling process is inherited by the new process. If the parameter is FALSE, the handles are not inherited. Note that inherited handles have the same value and access rights as the original handles.
+     * @param {BOOL} bInheritHandles If this parameter is TRUE, each inheritable handle in the calling process is inherited by the new process. If the parameter is FALSE, the handles are not inherited. Note that inherited handles have the same value and access rights as the original handles.
      * For additional discussion of inheritable handles, see Remarks.
      * 
      * <b>Terminal Services:  </b>You cannot inherit handles across sessions. Additionally, if this parameter is TRUE, you must create the process in the same session as the caller.
@@ -4701,7 +4758,7 @@ class Threading {
      * The ANSI version of this function, <b>CreateProcessA</b> fails if the total size of the environment block for the process exceeds 32,767 characters.
      * 
      * Note that an ANSI environment block is terminated by two zero bytes: one for the last string, one more to terminate the block. A Unicode environment block is terminated by four zero bytes: two for the last string, two more to terminate the block.
-     * @param {Pointer<Char>} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path.
+     * @param {PWSTR} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path.
      * 
      * If this parameter is <b>NULL</b>, the new process will have the same current drive and directory as the calling process. (This feature is provided primarily for shells that need to start an application and specify its initial drive and working directory.)
      * @param {Pointer<STARTUPINFOW>} lpStartupInfo A pointer to a 
@@ -4724,7 +4781,7 @@ class Threading {
      * Handles in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-process_information">PROCESS_INFORMATION</a> must be closed with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> when they are no longer needed.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4734,13 +4791,13 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
-        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
-        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
-        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+        lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateProcessW", "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
+        result := DllCall("KERNEL32.dll\CreateProcessW", "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "ptr", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4836,7 +4893,7 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function is succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function is succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4846,7 +4903,7 @@ class Threading {
     static SetProcessShutdownParameters(dwLevel, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessShutdownParameters", "uint", dwLevel, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\SetProcessShutdownParameters", "uint", dwLevel, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4887,7 +4944,7 @@ class Threading {
 
     /**
      * Creates a new process and its primary thread. The new process runs in the security context of the user represented by the specified token.
-     * @param {Pointer<Void>} hToken A handle to the primary token that represents a user. The handle must have the <b>TOKEN_QUERY</b>, <b>TOKEN_DUPLICATE</b>, and <b>TOKEN_ASSIGN_PRIMARY</b> access rights. For more information, see 
+     * @param {HANDLE} hToken A handle to the primary token that represents a user. The handle must have the <b>TOKEN_QUERY</b>, <b>TOKEN_DUPLICATE</b>, and <b>TOKEN_ASSIGN_PRIMARY</b> access rights. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>. The user represented by the token must have read and execute access to the application specified by the <i>lpApplicationName</i> or the <i>lpCommandLine</i> parameter. 
      * 
      * 
@@ -4903,7 +4960,7 @@ class Threading {
      * 
      * <b>Terminal Services:  </b>The process is run in the session specified in the token. By default, this is the same session that called <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>. To change the session, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-settokeninformation">SetTokenInformation</a> function.
-     * @param {Pointer<Char>} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
+     * @param {PWSTR} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
      * 
      * 
      * 
@@ -4919,7 +4976,7 @@ class Threading {
      * If the executable module is a 16-bit application, <i>lpApplicationName</i> should be <b>NULL</b>, and the string pointed to by <i>lpCommandLine</i> should specify the executable module as well as its arguments. By default, all 16-bit Windows-based applications created by 
      * <b>CreateProcessAsUser</b> are run in a separate VDM (equivalent to <b>CREATE_SEPARATE_WOW_VDM</b> in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>).
-     * @param {Pointer<Char>} lpCommandLine The command line to be executed. The maximum length of this string is 32K characters. If <i>lpApplicationName</i> is <b>NULL</b>, the module name portion of <i>lpCommandLine</i> is limited to <b>MAX_PATH</b> characters.
+     * @param {PWSTR} lpCommandLine The command line to be executed. The maximum length of this string is 32K characters. If <i>lpApplicationName</i> is <b>NULL</b>, the module name portion of <i>lpCommandLine</i> is limited to <b>MAX_PATH</b> characters.
      * 
      * The Unicode version of this function, <b>CreateProcessAsUserW</b>, can modify the contents of this string. Therefore, this parameter cannot be a pointer to read-only memory (such as a <b>const</b> variable or a literal string). If this parameter is a constant string, the function may cause an access violation.
      * 
@@ -4943,7 +5000,7 @@ class Threading {
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpProcessAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new process object and determines whether child processes can inherit the returned handle to the process. If <i>lpProcessAttributes</i> is <b>NULL</b> or <b>lpSecurityDescriptor</b> is <b>NULL</b>, the process gets a default security descriptor and the handle cannot be inherited. The default security descriptor is that of the user referenced in the <i>hToken</i> parameter. This security descriptor may not allow access for the caller, in which case the process may not be opened again after it is run. The process handle is valid and will continue to have full access rights.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpThreadAttributes A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new thread object and determines whether child processes can inherit the returned handle to the thread. If <i>lpThreadAttributes</i> is <b>NULL</b> or <b>lpSecurityDescriptor</b> is <b>NULL</b>, the thread gets a default security descriptor and the handle cannot be inherited. The default security descriptor is that of the user referenced in the <i>hToken</i> parameter. This security descriptor may not allow access for the caller.
-     * @param {Integer} bInheritHandles If this parameter is <b>TRUE</b>, each inheritable handle in the calling process is inherited by the new process. If the parameter is <b>FALSE</b>, the handles are not inherited. Note that inherited handles have the same value and access rights as the original handles.
+     * @param {BOOL} bInheritHandles If this parameter is <b>TRUE</b>, each inheritable handle in the calling process is inherited by the new process. If the parameter is <b>FALSE</b>, the handles are not inherited. Note that inherited handles have the same value and access rights as the original handles.
      * For additional discussion of inheritable handles, see Remarks.
      * 
      * <b>Terminal Services:  </b>You cannot inherit handles across sessions. Additionally, if this parameter is <b>TRUE</b>, you must create the process in the same session as the caller.
@@ -4987,7 +5044,7 @@ class Threading {
      * 
      * To retrieve a copy of the environment block for a given user, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-createenvironmentblock">CreateEnvironmentBlock</a> function.
-     * @param {Pointer<Char>} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path. 
+     * @param {PWSTR} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path. 
      * 
      * If this parameter is NULL, the new process will have the same current drive and directory as the calling process. (This feature is provided primarily for shells that need to start an application and specify its initial drive and working directory.)
      * @param {Pointer<STARTUPINFOW>} lpStartupInfo A pointer to a 
@@ -5013,7 +5070,7 @@ class Threading {
      * Handles in 
      * <a href="https://docs.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_information">PROCESS_INFORMATION</a> must be closed with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> when they are no longer needed.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5023,13 +5080,14 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessAsUserW(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
-        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
-        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
-        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+        lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateProcessAsUserW", "ptr", hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
+        result := DllCall("ADVAPI32.dll\CreateProcessAsUserW", "ptr", hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "ptr", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5038,20 +5096,20 @@ class Threading {
 
     /**
      * Assigns an impersonation token to a thread. The function can also cause a thread to stop using an impersonation token.
-     * @param {Pointer<Void>} Thread A pointer to a handle to the thread to which the function assigns the impersonation token. 
+     * @param {Pointer<HANDLE>} Thread A pointer to a handle to the thread to which the function assigns the impersonation token. 
      * 
      * 
      * 
      * 
      * If <i>Thread</i> is <b>NULL</b>, the function assigns the impersonation token to the calling thread.
-     * @param {Pointer<Void>} Token A handle to the impersonation token to assign to the thread. This handle must have been opened with TOKEN_IMPERSONATE access rights. For more information, see 
+     * @param {HANDLE} Token A handle to the impersonation token to assign to the thread. This handle must have been opened with TOKEN_IMPERSONATE access rights. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>. 
      * 
      * 
      * 
      * 
      * If <i>Token</i> is <b>NULL</b>, the function causes the thread to stop using an impersonation token.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5059,9 +5117,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static SetThreadToken(Thread, Token) {
+        Token := Token is Win32Handle ? NumGet(Token, "ptr") : Token
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SetThreadToken", "ptr", Thread, "ptr", Token, "int")
+        result := DllCall("ADVAPI32.dll\SetThreadToken", "ptr", Thread, "ptr", Token, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5070,7 +5130,7 @@ class Threading {
 
     /**
      * Opens the access token associated with a process.
-     * @param {Pointer<Void>} ProcessHandle A handle to the process whose access token is opened. The process must have the PROCESS_QUERY_INFORMATION access permission.
+     * @param {HANDLE} ProcessHandle A handle to the process whose access token is opened. The process must have the PROCESS_QUERY_INFORMATION access permission.
      * @param {Integer} DesiredAccess Specifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that specifies the requested types of access to the access token. These requested access types are compared with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the token to determine which accesses are granted or denied. 
      * 
      * 
@@ -5078,8 +5138,8 @@ class Threading {
      * 
      * For a list of access rights for access tokens, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
-     * @param {Pointer<Void>} TokenHandle A pointer to a handle that identifies the newly opened access token when the function returns.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {Pointer<HANDLE>} TokenHandle A pointer to a handle that identifies the newly opened access token when the function returns.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5087,9 +5147,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenProcessToken(ProcessHandle, DesiredAccess, TokenHandle) {
+        ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenProcessToken", "ptr", ProcessHandle, "uint", DesiredAccess, "ptr", TokenHandle, "int")
+        result := DllCall("ADVAPI32.dll\OpenProcessToken", "ptr", ProcessHandle, "uint", DesiredAccess, "ptr", TokenHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5098,7 +5160,7 @@ class Threading {
 
     /**
      * Opens the access token associated with a thread.
-     * @param {Pointer<Void>} ThreadHandle A handle to the thread whose access token is opened.
+     * @param {HANDLE} ThreadHandle A handle to the thread whose access token is opened.
      * @param {Integer} DesiredAccess Specifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that specifies the requested types of access to the access token. These requested access types are reconciled against the token's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) to determine which accesses are granted or denied. 
      * 
      * 
@@ -5106,13 +5168,13 @@ class Threading {
      * 
      * For a list of access rights for access tokens, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
-     * @param {Integer} OpenAsSelf TRUE if the access check is to be made against the  process-level <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>.
+     * @param {BOOL} OpenAsSelf TRUE if the access check is to be made against the  process-level <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>.
      * 
      * <b>FALSE</b> if the access check is to be made against the current security context of the thread calling the <b>OpenThreadToken</b> function.
      * 
      * The <i>OpenAsSelf</i> parameter allows the caller of this function to open the access token of a specified thread when the caller is impersonating a token at <b>SecurityIdentification</b> level. Without this parameter, the calling thread cannot open the access token on the specified thread because it is impossible to open executive-level objects by using the <b>SecurityIdentification</b> impersonation level.
-     * @param {Pointer<Void>} TokenHandle A pointer to a variable that receives the handle to the newly opened access token.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {Pointer<HANDLE>} TokenHandle A pointer to a variable that receives the handle to the newly opened access token.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the token has the anonymous impersonation level, the token will not be opened and <b>OpenThreadToken</b> sets  ERROR_CANT_OPEN_ANONYMOUS as the error.
@@ -5120,9 +5182,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static OpenThreadToken(ThreadHandle, DesiredAccess, OpenAsSelf, TokenHandle) {
+        ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenThreadToken", "ptr", ThreadHandle, "uint", DesiredAccess, "int", OpenAsSelf, "ptr", TokenHandle, "int")
+        result := DllCall("ADVAPI32.dll\OpenThreadToken", "ptr", ThreadHandle, "uint", DesiredAccess, "ptr", OpenAsSelf, "ptr", TokenHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5131,7 +5195,7 @@ class Threading {
 
     /**
      * Sets the priority class for the specified process. This value together with the priority value of each thread of the process determines each thread's base priority level.
-     * @param {Pointer<Void>} hProcess A handle to the process. 
+     * @param {HANDLE} hProcess A handle to the process. 
      * 
      * 
      * 
@@ -5139,7 +5203,7 @@ class Threading {
      * The handle must have the <b>PROCESS_SET_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} dwPriorityClass 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5147,9 +5211,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static SetPriorityClass(hProcess, dwPriorityClass) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetPriorityClass", "ptr", hProcess, "uint", dwPriorityClass, "int")
+        result := DllCall("KERNEL32.dll\SetPriorityClass", "ptr", hProcess, "uint", dwPriorityClass, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5158,7 +5224,7 @@ class Threading {
 
     /**
      * Retrieves the priority class for the specified process. This value, together with the priority value of each thread of the process, determines each thread's base priority level.
-     * @param {Pointer<Void>} hProcess A handle to the process. 
+     * @param {HANDLE} hProcess A handle to the process. 
      * 
      * 
      * 
@@ -5256,6 +5322,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetPriorityClass(hProcess) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetPriorityClass", "ptr", hProcess, "uint")
@@ -5274,7 +5342,7 @@ class Threading {
      * If the specified size is less than the current size, the function succeeds but ignores this request. Therefore, you cannot use this function to reduce the size of the stack.
      * 
      * This value cannot be larger than the reserved stack size.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5284,7 +5352,7 @@ class Threading {
     static SetThreadStackGuarantee(StackSizeInBytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadStackGuarantee", "uint*", StackSizeInBytes, "int")
+        result := DllCall("KERNEL32.dll\SetThreadStackGuarantee", "uint*", StackSizeInBytes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5293,7 +5361,7 @@ class Threading {
 
     /**
      * Retrieves the process identifier of the specified process.
-     * @param {Pointer<Void>} Process A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
+     * @param {HANDLE} Process A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the PROCESS_QUERY_INFORMATION access right.
@@ -5305,6 +5373,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static GetProcessId(Process) {
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetProcessId", "ptr", Process, "uint")
@@ -5316,7 +5386,7 @@ class Threading {
 
     /**
      * Retrieves the thread identifier of the specified thread.
-     * @param {Pointer<Void>} Thread A handle to the thread. The handle must have the THREAD_QUERY_INFORMATION or THREAD_QUERY_LIMITED_INFORMATION access right. For more information about access rights, see 
+     * @param {HANDLE} Thread A handle to the thread. The handle must have the THREAD_QUERY_INFORMATION or THREAD_QUERY_LIMITED_INFORMATION access right. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003:  </b>The handle must have the THREAD_QUERY_INFORMATION access right.
@@ -5326,6 +5396,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static GetThreadId(Thread) {
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetThreadId", "ptr", Thread, "uint")
@@ -5352,7 +5424,7 @@ class Threading {
 
     /**
      * Retrieves the process identifier of the process associated with the specified thread.
-     * @param {Pointer<Void>} Thread A handle to the thread. The handle must have the THREAD_QUERY_INFORMATION or THREAD_QUERY_LIMITED_INFORMATION access right. For more information, see 
+     * @param {HANDLE} Thread A handle to the thread. The handle must have the THREAD_QUERY_INFORMATION or THREAD_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003:  </b>The handle must have the THREAD_QUERY_INFORMATION access right.
@@ -5364,6 +5436,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static GetProcessIdOfThread(Thread) {
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetProcessIdOfThread", "ptr", Thread, "uint")
@@ -5380,7 +5454,7 @@ class Threading {
      * @param {Pointer<UIntPtr>} lpSize If <i>lpAttributeList</i> is not NULL, this parameter specifies the size in bytes of the <i>lpAttributeList</i> buffer on input. On output, this parameter receives the size in bytes of the initialized attribute list. 
      * 
      * If <i>lpAttributeList</i> is NULL, this parameter receives the required buffer size in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5392,7 +5466,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeProcThreadAttributeList", "ptr", lpAttributeList, "uint", dwAttributeCount, "uint", dwFlags, "ptr*", lpSize, "int")
+        result := DllCall("KERNEL32.dll\InitializeProcThreadAttributeList", "ptr", lpAttributeList, "uint", dwAttributeCount, "uint", dwFlags, "ptr*", lpSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5401,25 +5475,27 @@ class Threading {
 
     /**
      * Deletes the specified list of attributes for process and thread creation.
-     * @param {Pointer<Void>} lpAttributeList The attribute list. This list is created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
+     * @param {LPPROC_THREAD_ATTRIBUTE_LIST} lpAttributeList The attribute list. This list is created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-deleteprocthreadattributelist
      * @since windows6.0.6000
      */
     static DeleteProcThreadAttributeList(lpAttributeList) {
+        lpAttributeList := lpAttributeList is Win32Handle ? NumGet(lpAttributeList, "ptr") : lpAttributeList
+
         DllCall("KERNEL32.dll\DeleteProcThreadAttributeList", "ptr", lpAttributeList)
     }
 
     /**
      * Updates the specified attribute in a list of attributes for process and thread creation.
-     * @param {Pointer<Void>} lpAttributeList A pointer to an attribute list created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
+     * @param {LPPROC_THREAD_ATTRIBUTE_LIST} lpAttributeList A pointer to an attribute list created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
      * @param {Integer} dwFlags This parameter is reserved and must be zero.
      * @param {Pointer} Attribute 
      * @param {Pointer} lpValue A pointer to the attribute value. This value should persist until the attribute is destroyed using the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-deleteprocthreadattributelist">DeleteProcThreadAttributeList</a> function.
      * @param {Pointer} cbSize The size of the attribute value specified by the <i>lpValue</i> parameter.
      * @param {Pointer} lpPreviousValue This parameter is reserved and must be NULL.
      * @param {Pointer<UIntPtr>} lpReturnSize This parameter is reserved and must be NULL.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5427,9 +5503,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static UpdateProcThreadAttribute(lpAttributeList, dwFlags, Attribute, lpValue, cbSize, lpPreviousValue, lpReturnSize) {
+        lpAttributeList := lpAttributeList is Win32Handle ? NumGet(lpAttributeList, "ptr") : lpAttributeList
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UpdateProcThreadAttribute", "ptr", lpAttributeList, "uint", dwFlags, "ptr", Attribute, "ptr", lpValue, "ptr", cbSize, "ptr", lpPreviousValue, "ptr*", lpReturnSize, "int")
+        result := DllCall("KERNEL32.dll\UpdateProcThreadAttribute", "ptr", lpAttributeList, "uint", dwFlags, "ptr", Attribute, "ptr", lpValue, "ptr", cbSize, "ptr", lpPreviousValue, "ptr*", lpReturnSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5438,11 +5516,11 @@ class Threading {
 
     /**
      * Sets dynamic exception handling continuation targets for the specified process.
-     * @param {Pointer<Void>} Process A handle to the process. This handle must have the <b>PROCESS_SET_INFORMATION</b> access right. 
+     * @param {HANDLE} Process A handle to the process. This handle must have the <b>PROCESS_SET_INFORMATION</b> access right. 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} NumberOfTargets Supplies the number of dynamic exception handling continuation targets to set.
      * @param {Pointer<PROCESS_DYNAMIC_EH_CONTINUATION_TARGET>} Targets A pointer to an array of dynamic exception handling continuation targets. For more information on this structure, see <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-process_dynamic_eh_continuation_target">PROCESS_DYNAMIC_EH_CONTINUATION_TARGET</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5451,9 +5529,11 @@ class Threading {
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setprocessdynamicehcontinuationtargets
      */
     static SetProcessDynamicEHContinuationTargets(Process, NumberOfTargets, Targets) {
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessDynamicEHContinuationTargets", "ptr", Process, "ushort", NumberOfTargets, "ptr", Targets, "int")
+        result := DllCall("KERNEL32.dll\SetProcessDynamicEHContinuationTargets", "ptr", Process, "ushort", NumberOfTargets, "ptr", Targets, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5462,11 +5542,11 @@ class Threading {
 
     /**
      * Sets dynamic enforced CETCOMPAT ranges for the specified process.
-     * @param {Pointer<Void>} Process A handle to the process. This handle must have the <b>PROCESS_SET_INFORMATION</b> access right. 
+     * @param {HANDLE} Process A handle to the process. This handle must have the <b>PROCESS_SET_INFORMATION</b> access right. 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} NumberOfRanges Supplies the number of dynamic enforced CETCOMPAT ranges to set.
      * @param {Pointer<PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE>} Ranges A pointer to an array of dynamic enforced CETCOMPAT ranges. For more information on this structure, see <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-process_dynamic_enforced_address_range">PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5475,15 +5555,17 @@ class Threading {
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setprocessdynamicenforcedcetcompatibleranges
      */
     static SetProcessDynamicEnforcedCetCompatibleRanges(Process, NumberOfRanges, Ranges) {
-        result := DllCall("KERNEL32.dll\SetProcessDynamicEnforcedCetCompatibleRanges", "ptr", Process, "ushort", NumberOfRanges, "ptr", Ranges, "int")
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
+        result := DllCall("KERNEL32.dll\SetProcessDynamicEnforcedCetCompatibleRanges", "ptr", Process, "ushort", NumberOfRanges, "ptr", Ranges, "ptr")
         return result
     }
 
     /**
      * Sets the affinity update mode of the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> function.
+     * @param {HANDLE} hProcess A handle to the process. This handle must be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> function.
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5491,9 +5573,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static SetProcessAffinityUpdateMode(hProcess, dwFlags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessAffinityUpdateMode", "ptr", hProcess, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\SetProcessAffinityUpdateMode", "ptr", hProcess, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5502,10 +5586,10 @@ class Threading {
 
     /**
      * Retrieves the affinity update mode of the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt32>} lpdwFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5513,9 +5597,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static QueryProcessAffinityUpdateMode(hProcess, lpdwFlags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryProcessAffinityUpdateMode", "ptr", hProcess, "uint*", lpdwFlags, "int")
+        result := DllCall("KERNEL32.dll\QueryProcessAffinityUpdateMode", "ptr", hProcess, "uint*", lpdwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5524,7 +5610,7 @@ class Threading {
 
     /**
      * Creates a thread that runs in the virtual address space of another process and optionally specifies extended attributes such as processor group affinity.
-     * @param {Pointer<Void>} hProcess A handle to the process in which the thread is to be created. The handle must have the PROCESS_CREATE_THREAD, PROCESS_QUERY_INFORMATION, PROCESS_VM_OPERATION, PROCESS_VM_WRITE, and PROCESS_VM_READ access rights. In Windows 10, version 1607, your code must obtain these access rights for the new handle. However, starting in Windows 10, version 1703, if the new handle is entitled to these access rights, the system obtains them for you. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process in which the thread is to be created. The handle must have the PROCESS_CREATE_THREAD, PROCESS_QUERY_INFORMATION, PROCESS_VM_OPERATION, PROCESS_VM_WRITE, and PROCESS_VM_READ access rights. In Windows 10, version 1607, your code must obtain these access rights for the new handle. However, starting in Windows 10, version 1703, if the new handle is entitled to these access rights, the system obtains them for you. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpThreadAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new thread and determines whether child processes can inherit the returned handle. If <i>lpThreadAttributes</i> is NULL, the thread gets a default security descriptor and the handle cannot be inherited. The access control lists (ACL) in the default security descriptor for a thread come from the primary token of the creator.
@@ -5575,14 +5661,14 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} lpAttributeList An attribute list that contains additional parameters for the new thread. This list is created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
+     * @param {LPPROC_THREAD_ATTRIBUTE_LIST} lpAttributeList An attribute list that contains additional parameters for the new thread. This list is created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
      * @param {Pointer<UInt32>} lpThreadId A pointer to a variable that receives the thread identifier. 
      * 
      * 
      * 
      * 
      * If this parameter is NULL, the thread identifier is not returned.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the new thread.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the new thread.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5590,13 +5676,16 @@ class Threading {
      * @since windows6.1
      */
     static CreateRemoteThreadEx(hProcess, lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter, dwCreationFlags, lpAttributeList, lpThreadId) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpAttributeList := lpAttributeList is Win32Handle ? NumGet(lpAttributeList, "ptr") : lpAttributeList
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateRemoteThreadEx", "ptr", hProcess, "ptr", lpThreadAttributes, "ptr", dwStackSize, "ptr", lpStartAddress, "ptr", lpParameter, "uint", dwCreationFlags, "ptr", lpAttributeList, "uint*", lpThreadId, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -5624,7 +5713,7 @@ class Threading {
 
     /**
      * Retrieves mitigation policy settings for the calling process.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have the PROCESS_QUERY_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
+     * @param {HANDLE} hProcess A handle to the process. This handle must have the PROCESS_QUERY_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} MitigationPolicy 
      * @param {Pointer} lpBuffer If the <i>MitigationPolicy</i> parameter is <b>ProcessDEPPolicy</b>, this parameter points to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-process_mitigation_dep_policy">PROCESS_MITIGATION_DEP_POLICY</a> structure that receives the DEP policy flags.
      * 
@@ -5650,14 +5739,16 @@ class Threading {
      * 
      * If the <i>MitigationPolicy</i> parameter is <b>ProcessUserShadowStackPolicy</b>, this parameter points to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-process_mitigation_user_shadow_stack_policy">PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY</a> structure that receives the policy flags for user-mode Hardware-enforced Stack Protection.
      * @param {Pointer} dwLength The size of <i>lpBuffer</i>, in bytes.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. If the function fails, it returns <b>FALSE</b>. To retrieve error values defined for this function, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. If the function fails, it returns <b>FALSE</b>. To retrieve error values defined for this function, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessmitigationpolicy
      * @since windows8.0
      */
     static GetProcessMitigationPolicy(hProcess, MitigationPolicy, lpBuffer, dwLength) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessMitigationPolicy", "ptr", hProcess, "int", MitigationPolicy, "ptr", lpBuffer, "ptr", dwLength, "int")
+        result := DllCall("KERNEL32.dll\GetProcessMitigationPolicy", "ptr", hProcess, "int", MitigationPolicy, "ptr", lpBuffer, "ptr", dwLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5691,14 +5782,14 @@ class Threading {
      * 
      * If the <i>MitigationPolicy</i> parameter is <b>ProcessUserShadowStackPolicy</b>, this parameter points to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-process_mitigation_user_shadow_stack_policy">PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY</a> structure that specifies the policy flags for user-mode Hardware-enforced Stack Protection.
      * @param {Pointer} dwLength The size of <i>lpBuffer</i>, in bytes.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. If the function fails, it returns <b>FALSE</b>. To retrieve error values defined for this function, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. If the function fails, it returns <b>FALSE</b>. To retrieve error values defined for this function, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setprocessmitigationpolicy
      * @since windows8.0
      */
     static SetProcessMitigationPolicy(MitigationPolicy, lpBuffer, dwLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessMitigationPolicy", "int", MitigationPolicy, "ptr", lpBuffer, "ptr", dwLength, "int")
+        result := DllCall("KERNEL32.dll\SetProcessMitigationPolicy", "int", MitigationPolicy, "ptr", lpBuffer, "ptr", dwLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5707,7 +5798,7 @@ class Threading {
 
     /**
      * Retrieves timing information for the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread whose timing information is sought. The handle must have the <b>THREAD_QUERY_INFORMATION</b> or <b>THREAD_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
+     * @param {HANDLE} hThread A handle to the thread whose timing information is sought. The handle must have the <b>THREAD_QUERY_INFORMATION</b> or <b>THREAD_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>THREAD_QUERY_INFORMATION</b> access right.
@@ -5717,7 +5808,7 @@ class Threading {
      * @param {Pointer<FILETIME>} lpKernelTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the amount of time that the thread has executed in kernel mode.
      * @param {Pointer<FILETIME>} lpUserTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the amount of time that the thread has executed in user mode.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5725,9 +5816,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetThreadTimes(hThread, lpCreationTime, lpExitTime, lpKernelTime, lpUserTime) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadTimes", "ptr", hThread, "ptr", lpCreationTime, "ptr", lpExitTime, "ptr", lpKernelTime, "ptr", lpUserTime, "int")
+        result := DllCall("KERNEL32.dll\GetThreadTimes", "ptr", hThread, "ptr", lpCreationTime, "ptr", lpExitTime, "ptr", lpKernelTime, "ptr", lpUserTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5740,13 +5833,13 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">process access rights</a>. 
      * 
      * If the caller has enabled the SeDebugPrivilege privilege, the requested access is  granted regardless of the contents of the security descriptor.
-     * @param {Integer} bInheritHandle If this value is TRUE, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
+     * @param {BOOL} bInheritHandle If this value is TRUE, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
      * @param {Integer} dwProcessId The identifier of the local process to be opened. 
      * 
      * If the specified process is the System Idle Process (0x00000000), the function fails and the last error code is `ERROR_INVALID_PARAMETER`. If the specified process is the System process or one of the Client Server Run-Time Subsystem (CSRSS) processes, this function fails and the last error code is `ERROR_ACCESS_DENIED` because their access restrictions prevent user-level code from opening them.
      * 
      * If you are using <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocessid">GetCurrentProcessId</a> as an argument to this function, consider using <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> instead of OpenProcess, for improved performance.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified process.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified process.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5756,17 +5849,17 @@ class Threading {
     static OpenProcess(dwDesiredAccess, bInheritHandle, dwProcessId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenProcess", "uint", dwDesiredAccess, "int", bInheritHandle, "uint", dwProcessId, "ptr")
+        result := DllCall("KERNEL32.dll\OpenProcess", "uint", dwDesiredAccess, "ptr", bInheritHandle, "uint", dwProcessId, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Determines whether the specified processor feature is supported by the current computer.
      * @param {Integer} ProcessorFeature 
-     * @returns {Integer} If the feature is supported, the return value is a nonzero value.
+     * @returns {BOOL} If the feature is supported, the return value is a nonzero value.
      * 
      * If the feature is not supported, the return value is zero.
      * 
@@ -5775,28 +5868,30 @@ class Threading {
      * @since windows5.0
      */
     static IsProcessorFeaturePresent(ProcessorFeature) {
-        result := DllCall("KERNEL32.dll\IsProcessorFeaturePresent", "uint", ProcessorFeature, "int")
+        result := DllCall("KERNEL32.dll\IsProcessorFeaturePresent", "uint", ProcessorFeature, "ptr")
         return result
     }
 
     /**
      * Retrieves the number of open handles that belong to the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose handle count is being requested.  The
+     * @param {HANDLE} hProcess A handle to the process whose handle count is being requested.  The
      *         handle must have the PROCESS_QUERY_INFORMATION
      *         or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the PROCESS_QUERY_INFORMATION access right.
      * @param {Pointer<UInt32>} pdwHandleCount A pointer to a variable that receives the number of open handles that belong to the specified process.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * If the function fails, the return value is zero. To get extended error  information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocesshandlecount
      * @since windows6.0.6000
      */
     static GetProcessHandleCount(hProcess, pdwHandleCount) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessHandleCount", "ptr", hProcess, "uint*", pdwHandleCount, "int")
+        result := DllCall("KERNEL32.dll\GetProcessHandleCount", "ptr", hProcess, "uint*", pdwHandleCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5816,19 +5911,21 @@ class Threading {
 
     /**
      * Sets the ideal processor for the specified thread and optionally retrieves the previous ideal processor.
-     * @param {Pointer<Void>} hThread A handle to the thread for which to set the ideal processor. This handle must have been created with the THREAD_SET_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
+     * @param {HANDLE} hThread A handle to the thread for which to set the ideal processor. This handle must have been created with the THREAD_SET_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Pointer<PROCESSOR_NUMBER>} lpIdealProcessor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-processor_number">PROCESSOR_NUMBER</a> structure that specifies the processor number of the desired ideal processor.
      * @param {Pointer<PROCESSOR_NUMBER>} lpPreviousIdealProcessor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-processor_number">PROCESSOR_NUMBER</a> structure to receive the previous ideal processor. This parameter can point to the same memory location as the <i>lpIdealProcessor</i> parameter. This parameter can be NULL if the previous ideal processor is not required.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, it returns zero. To get extended error information, use <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setthreadidealprocessorex
      * @since windows6.1
      */
     static SetThreadIdealProcessorEx(hThread, lpIdealProcessor, lpPreviousIdealProcessor) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadIdealProcessorEx", "ptr", hThread, "ptr", lpIdealProcessor, "ptr", lpPreviousIdealProcessor, "int")
+        result := DllCall("KERNEL32.dll\SetThreadIdealProcessorEx", "ptr", hThread, "ptr", lpIdealProcessor, "ptr", lpPreviousIdealProcessor, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5837,18 +5934,20 @@ class Threading {
 
     /**
      * Retrieves the processor number of the ideal processor for the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread for which to retrieve the ideal processor. This handle must have been created with the THREAD_QUERY_LIMITED_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
+     * @param {HANDLE} hThread A handle to the thread for which to retrieve the ideal processor. This handle must have been created with the THREAD_QUERY_LIMITED_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Pointer<PROCESSOR_NUMBER>} lpIdealProcessor Points to <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-processor_number">PROCESSOR_NUMBER</a> structure to receive the number of the ideal processor.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, it returns zero. To get extended error information, use <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadidealprocessorex
      * @since windows6.1
      */
     static GetThreadIdealProcessorEx(hThread, lpIdealProcessor) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadIdealProcessorEx", "ptr", hThread, "ptr", lpIdealProcessor, "int")
+        result := DllCall("KERNEL32.dll\GetThreadIdealProcessorEx", "ptr", hThread, "ptr", lpIdealProcessor, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5868,12 +5967,12 @@ class Threading {
 
     /**
      * Retrieves the priority boost control state of the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process. This handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
-     * @param {Pointer<Int32>} pDisablePriorityBoost A pointer to a variable that receives the priority boost control state. A value of TRUE indicates that dynamic boosting is disabled. A value of FALSE indicates normal behavior.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. In that case, the variable pointed to by the <i>pDisablePriorityBoost</i> parameter receives the priority boost control state.
+     * @param {Pointer<BOOL>} pDisablePriorityBoost A pointer to a variable that receives the priority boost control state. A value of TRUE indicates that dynamic boosting is disabled. A value of FALSE indicates normal behavior.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. In that case, the variable pointed to by the <i>pDisablePriorityBoost</i> parameter receives the priority boost control state.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5881,9 +5980,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetProcessPriorityBoost(hProcess, pDisablePriorityBoost) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessPriorityBoost", "ptr", hProcess, "int*", pDisablePriorityBoost, "int")
+        result := DllCall("KERNEL32.dll\GetProcessPriorityBoost", "ptr", hProcess, "ptr", pDisablePriorityBoost, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5892,10 +5993,10 @@ class Threading {
 
     /**
      * Disables or enables the ability of the system to temporarily boost the priority of the threads of the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have the PROCESS_SET_INFORMATION access right. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process. This handle must have the PROCESS_SET_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Integer} bDisablePriorityBoost If this parameter is TRUE, dynamic boosting is disabled. If the parameter is FALSE, dynamic boosting is enabled.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} bDisablePriorityBoost If this parameter is TRUE, dynamic boosting is disabled. If the parameter is FALSE, dynamic boosting is enabled.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5903,9 +6004,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static SetProcessPriorityBoost(hProcess, bDisablePriorityBoost) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessPriorityBoost", "ptr", hProcess, "int", bDisablePriorityBoost, "int")
+        result := DllCall("KERNEL32.dll\SetProcessPriorityBoost", "ptr", hProcess, "ptr", bDisablePriorityBoost, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5914,18 +6017,20 @@ class Threading {
 
     /**
      * Determines whether a specified thread has any I/O requests pending.
-     * @param {Pointer<Void>} hThread A handle to the thread in question. This handle must have been created with the THREAD_QUERY_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
-     * @param {Pointer<Int32>} lpIOIsPending A pointer to a  variable which the function sets to TRUE if the specified thread has one or more I/O requests pending, or to FALSE otherwise.
-     * @returns {Integer} If the  function succeeds, the return value is nonzero. 
+     * @param {HANDLE} hThread A handle to the thread in question. This handle must have been created with the THREAD_QUERY_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
+     * @param {Pointer<BOOL>} lpIOIsPending A pointer to a  variable which the function sets to TRUE if the specified thread has one or more I/O requests pending, or to FALSE otherwise.
+     * @returns {BOOL} If the  function succeeds, the return value is nonzero. 
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadiopendingflag
      * @since windows6.0.6000
      */
     static GetThreadIOPendingFlag(hThread, lpIOIsPending) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadIOPendingFlag", "ptr", hThread, "int*", lpIOIsPending, "int")
+        result := DllCall("KERNEL32.dll\GetThreadIOPendingFlag", "ptr", hThread, "ptr", lpIOIsPending, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5937,7 +6042,7 @@ class Threading {
      * @param {Pointer<FILETIME>} lpIdleTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the amount of time that the system has been idle.
      * @param {Pointer<FILETIME>} lpKernelTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the amount of time that the system has spent executing in Kernel mode (including all threads in all processes, on all processors). This time value also includes the amount of time the system has been idle.
      * @param {Pointer<FILETIME>} lpUserTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the amount of time that the system has spent executing in User mode (including all threads in all processes, on all processors).
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * If the function fails, the return value is zero. To get extended error  information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getsystemtimes
@@ -5946,7 +6051,7 @@ class Threading {
     static GetSystemTimes(lpIdleTime, lpKernelTime, lpUserTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemTimes", "ptr", lpIdleTime, "ptr", lpKernelTime, "ptr", lpUserTime, "int")
+        result := DllCall("KERNEL32.dll\GetSystemTimes", "ptr", lpIdleTime, "ptr", lpKernelTime, "ptr", lpUserTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5955,7 +6060,7 @@ class Threading {
 
     /**
      * Retrieves information about the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread. The handle must have THREAD_QUERY_INFORMATION access rights. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
+     * @param {HANDLE} hThread A handle to the thread. The handle must have THREAD_QUERY_INFORMATION access rights. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Integer} ThreadInformationClass The class of information to retrieve. The only supported values are <b>ThreadMemoryPriority</b> and <b>ThreadPowerThrottling</b>.
      * @param {Pointer} ThreadInformation Pointer to a structure to receive the type of information specified by the <i>ThreadInformationClass</i> parameter.
      * 
@@ -5967,7 +6072,7 @@ class Threading {
      * If the <i>ThreadInformationClass</i> parameter is <b>ThreadMemoryPriority</b>, this parameter must be <c>sizeof(MEMORY_PRIORITY_INFORMATION)</c>.  
      * 
      * If the <i>ThreadInformationClass</i> parameter is <b>ThreadPowerThrottling</b>, this parameter must be <c>sizeof(THREAD_POWER_THROTTLING_STATE)</c>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5975,9 +6080,11 @@ class Threading {
      * @since windows8.0
      */
     static GetThreadInformation(hThread, ThreadInformationClass, ThreadInformation, ThreadInformationSize) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadInformation", "ptr", hThread, "int", ThreadInformationClass, "ptr", ThreadInformation, "uint", ThreadInformationSize, "int")
+        result := DllCall("KERNEL32.dll\GetThreadInformation", "ptr", hThread, "int", ThreadInformationClass, "ptr", ThreadInformation, "uint", ThreadInformationSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5986,7 +6093,7 @@ class Threading {
 
     /**
      * Sets information for the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread. The handle must have THREAD_SET_INFORMATION access right. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
+     * @param {HANDLE} hThread A handle to the thread. The handle must have THREAD_SET_INFORMATION access right. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Integer} ThreadInformationClass The class of information to set. The only supported values are <b>ThreadMemoryPriority</b> and <b>ThreadPowerThrottling</b>.
      * @param {Pointer} ThreadInformation Pointer to a structure that contains the type of information specified by the <i>ThreadInformationClass</i> parameter.
      * 
@@ -5998,7 +6105,7 @@ class Threading {
      * If the <i>ThreadInformationClass</i> parameter is <b>ThreadMemoryPriority</b>, this parameter must be <c>sizeof(MEMORY_PRIORITY_INFORMATION)</c>.  
      * 
      * If the <i>ThreadInformationClass</i> parameter is <b>ThreadPowerThrottling</b>, this parameter must be <c>sizeof(THREAD_POWER_THROTTLING_STATE)</c>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6006,9 +6113,11 @@ class Threading {
      * @since windows8.0
      */
     static SetThreadInformation(hThread, ThreadInformationClass, ThreadInformation, ThreadInformationSize) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadInformation", "ptr", hThread, "int", ThreadInformationClass, "ptr", ThreadInformation, "uint", ThreadInformationSize, "int")
+        result := DllCall("KERNEL32.dll\SetThreadInformation", "ptr", hThread, "int", ThreadInformationClass, "ptr", ThreadInformation, "uint", ThreadInformationSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6017,16 +6126,18 @@ class Threading {
 
     /**
      * Determines whether the specified process is considered critical.
-     * @param {Pointer<Void>} hProcess A handle to the process to query. The process must have been          opened with <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access.
-     * @param {Pointer<Int32>} Critical A pointer to the <b>BOOL</b> value this function will use to indicate whether the process          is considered critical.
-     * @returns {Integer} This routine returns FALSE on failure. Any other value indicates success.      Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to query for the specific error reason on failure.
+     * @param {HANDLE} hProcess A handle to the process to query. The process must have been          opened with <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access.
+     * @param {Pointer<BOOL>} Critical A pointer to the <b>BOOL</b> value this function will use to indicate whether the process          is considered critical.
+     * @returns {BOOL} This routine returns FALSE on failure. Any other value indicates success.      Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to query for the specific error reason on failure.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-isprocesscritical
      * @since windows8.1
      */
     static IsProcessCritical(hProcess, Critical) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsProcessCritical", "ptr", hProcess, "int*", Critical, "int")
+        result := DllCall("KERNEL32.dll\IsProcessCritical", "ptr", hProcess, "ptr", Critical, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6038,14 +6149,14 @@ class Threading {
      * @param {Pointer<Guid>} PolicyGuid The globally-unique identifier of the policy to set.
      * @param {Pointer} PolicyValue The value to set the policy to.
      * @param {Pointer<UIntPtr>} OldPolicyValue Optionally receives the original value that was associated with the supplied policy.
-     * @returns {Integer} True if the function succeeds; otherwise, false. To retrieve error values for this function, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} True if the function succeeds; otherwise, false. To retrieve error values for this function, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setprotectedpolicy
      * @since windows8.1
      */
     static SetProtectedPolicy(PolicyGuid, PolicyValue, OldPolicyValue) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProtectedPolicy", "ptr", PolicyGuid, "ptr", PolicyValue, "ptr*", OldPolicyValue, "int")
+        result := DllCall("KERNEL32.dll\SetProtectedPolicy", "ptr", PolicyGuid, "ptr", PolicyValue, "ptr*", OldPolicyValue, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6056,18 +6167,18 @@ class Threading {
      * Queries the value associated with a protected policy.
      * @param {Pointer<Guid>} PolicyGuid The globally-unique identifier of the policy to query.
      * @param {Pointer<UIntPtr>} PolicyValue Receives the value that the supplied policy is set to.
-     * @returns {Integer} True if the function succeeds; otherwise, false.
+     * @returns {BOOL} True if the function succeeds; otherwise, false.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-queryprotectedpolicy
      * @since windows8.1
      */
     static QueryProtectedPolicy(PolicyGuid, PolicyValue) {
-        result := DllCall("KERNEL32.dll\QueryProtectedPolicy", "ptr", PolicyGuid, "ptr*", PolicyValue, "int")
+        result := DllCall("KERNEL32.dll\QueryProtectedPolicy", "ptr", PolicyGuid, "ptr*", PolicyValue, "ptr")
         return result
     }
 
     /**
      * Sets a preferred processor for a thread. The system schedules threads on their preferred processors whenever possible.
-     * @param {Pointer<Void>} hThread A handle to the thread whose preferred processor is to be set. The handle must have the THREAD_SET_INFORMATION access right. For more information, see 
+     * @param {HANDLE} hThread A handle to the thread whose preferred processor is to be set. The handle must have the THREAD_SET_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Integer} dwIdealProcessor The number of the preferred processor for the thread. This value is zero-based. If this parameter is MAXIMUM_PROCESSORS, the function returns the current ideal processor without changing it.
      * @returns {Integer} If the function succeeds, the return value is the previous preferred processor.
@@ -6078,6 +6189,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static SetThreadIdealProcessor(hThread, dwIdealProcessor) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetThreadIdealProcessor", "ptr", hThread, "uint", dwIdealProcessor, "uint")
@@ -6089,7 +6202,7 @@ class Threading {
 
     /**
      * Sets information for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have the <b>PROCESS_SET_INFORMATION</b> access 
+     * @param {HANDLE} hProcess A handle to the process. This handle must have the <b>PROCESS_SET_INFORMATION</b> access 
      *       right. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} ProcessInformationClass A member of the [PROCESS_INFORMATION_CLASS](./ne-processthreadsapi-process_information_class.md) enumeration specifying the kind of information to set.
@@ -6120,7 +6233,7 @@ class Threading {
      * If the <i>ProcessInformationClass</i> parameter is 
      *        <b>ProcessLeapSecondInfo</b>, this parameter must be 
      *        <c>sizeof(PROCESS_LEAP_SECOND_INFO)</c>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6128,9 +6241,11 @@ class Threading {
      * @since windows8.0
      */
     static SetProcessInformation(hProcess, ProcessInformationClass, ProcessInformation, ProcessInformationSize) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessInformation", "ptr", hProcess, "int", ProcessInformationClass, "ptr", ProcessInformation, "uint", ProcessInformationSize, "int")
+        result := DllCall("KERNEL32.dll\SetProcessInformation", "ptr", hProcess, "int", ProcessInformationClass, "ptr", ProcessInformation, "uint", ProcessInformationSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6139,7 +6254,7 @@ class Threading {
 
     /**
      * Retrieves information about the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have the <b>PROCESS_SET_INFORMATION</b> access 
+     * @param {HANDLE} hProcess A handle to the process. This handle must have the <b>PROCESS_SET_INFORMATION</b> access 
      *      right. For more information, see 
      *      <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} ProcessInformationClass A member of the [PROCESS_INFORMATION_CLASS](./ne-processthreadsapi-process_information_class.md) enumeration specifying the kind of information to retrieve.
@@ -6186,7 +6301,7 @@ class Threading {
      * If the <i>ProcessInformationClass</i> parameter is 
      *        <b>ProcessAppMemoryInfo</b>, this parameter must be 
      *        <c>sizeof(APP_MEMORY_INFORMATION)</c>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6194,9 +6309,11 @@ class Threading {
      * @since windows8.0
      */
     static GetProcessInformation(hProcess, ProcessInformationClass, ProcessInformation, ProcessInformationSize) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessInformation", "ptr", hProcess, "int", ProcessInformationClass, "ptr", ProcessInformation, "uint", ProcessInformationSize, "int")
+        result := DllCall("KERNEL32.dll\GetProcessInformation", "ptr", hProcess, "int", ProcessInformationClass, "ptr", ProcessInformation, "uint", ProcessInformationSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6205,61 +6322,69 @@ class Threading {
 
     /**
      * Retrieves the list of CPU Sets in the process default set that was set by SetProcessDefaultCpuSets.
-     * @param {Pointer<Void>} Process Specifies a process handle for the process to query. This handle must have the PROCESS\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess) can also be specified here.
+     * @param {HANDLE} Process Specifies a process handle for the process to query. This handle must have the PROCESS\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess) can also be specified here.
      * @param {Pointer<UInt32>} CpuSetIds Specifies an optional buffer to retrieve the list of CPU Set identifiers.
      * @param {Integer} CpuSetIdCount Specifies the capacity of the buffer specified in **CpuSetIds**. If the buffer is NULL, this must be 0.
      * @param {Pointer<UInt32>} RequiredIdCount Specifies the required capacity of the buffer to hold the entire list of process default CPU Sets. On successful return, this specifies the number of IDs filled into the buffer.
-     * @returns {Integer} This API returns TRUE on success. If the buffer is not large enough the API returns FALSE, and the **GetLastError** value is ERROR\_INSUFFICIENT\_BUFFER. This API cannot fail when passed valid parameters and the return buffer is large enough.
+     * @returns {BOOL} This API returns TRUE on success. If the buffer is not large enough the API returns FALSE, and the **GetLastError** value is ERROR\_INSUFFICIENT\_BUFFER. This API cannot fail when passed valid parameters and the return buffer is large enough.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessdefaultcpusets
      */
     static GetProcessDefaultCpuSets(Process, CpuSetIds, CpuSetIdCount, RequiredIdCount) {
-        result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSets", "ptr", Process, "uint*", CpuSetIds, "uint", CpuSetIdCount, "uint*", RequiredIdCount, "int")
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
+        result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSets", "ptr", Process, "uint*", CpuSetIds, "uint", CpuSetIdCount, "uint*", RequiredIdCount, "ptr")
         return result
     }
 
     /**
      * Sets the default CPU Sets assignment for threads in the specified process.
-     * @param {Pointer<Void>} Process Specifies the process for which to set the default CPU Sets. This handle must have the PROCESS\_SET\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
+     * @param {HANDLE} Process Specifies the process for which to set the default CPU Sets. This handle must have the PROCESS\_SET\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
      * @param {Pointer<UInt32>} CpuSetIds Specifies the list of CPU Set IDs to set as the process default CPU set. If this is NULL, the **SetProcessDefaultCpuSets** clears out any assignment.
      * @param {Integer} CpuSetIdCount Specifies the number of IDs in the list passed in the **CpuSetIds** argument. If that value is NULL, this should be 0.
-     * @returns {Integer} This function cannot fail when passed valid parameters
+     * @returns {BOOL} This function cannot fail when passed valid parameters
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setprocessdefaultcpusets
      */
     static SetProcessDefaultCpuSets(Process, CpuSetIds, CpuSetIdCount) {
-        result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSets", "ptr", Process, "uint*", CpuSetIds, "uint", CpuSetIdCount, "int")
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
+        result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSets", "ptr", Process, "uint*", CpuSetIds, "uint", CpuSetIdCount, "ptr")
         return result
     }
 
     /**
      * Returns the explicit CPU Set assignment of the specified thread, if any assignment was set using the SetThreadSelectedCpuSets API.
-     * @param {Pointer<Void>} Thread Specifies the thread for which to query the selected CPU Sets. This handle must have the THREAD\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentThread**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthread) can also be specified here.
+     * @param {HANDLE} Thread Specifies the thread for which to query the selected CPU Sets. This handle must have the THREAD\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentThread**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthread) can also be specified here.
      * @param {Pointer<UInt32>} CpuSetIds Specifies an optional buffer to retrieve the list of CPU Set identifiers.
      * @param {Integer} CpuSetIdCount Specifies the capacity of the buffer specified in **CpuSetIds**. If the buffer is NULL, this must be 0.
      * @param {Pointer<UInt32>} RequiredIdCount Specifies the required capacity of the buffer to hold the entire list of thread selected CPU Sets. On successful return, this specifies the number of IDs filled into the buffer.
-     * @returns {Integer} This API returns TRUE on success. If the buffer is not large enough, the **GetLastError** value is ERROR\_INSUFFICIENT\_BUFFER. This API cannot fail when passed valid parameters and the return buffer is large enough.
+     * @returns {BOOL} This API returns TRUE on success. If the buffer is not large enough, the **GetLastError** value is ERROR\_INSUFFICIENT\_BUFFER. This API cannot fail when passed valid parameters and the return buffer is large enough.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadselectedcpusets
      */
     static GetThreadSelectedCpuSets(Thread, CpuSetIds, CpuSetIdCount, RequiredIdCount) {
-        result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSets", "ptr", Thread, "uint*", CpuSetIds, "uint", CpuSetIdCount, "uint*", RequiredIdCount, "int")
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
+        result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSets", "ptr", Thread, "uint*", CpuSetIds, "uint", CpuSetIdCount, "uint*", RequiredIdCount, "ptr")
         return result
     }
 
     /**
      * Sets the selected CPU Sets assignment for the specified thread. This assignment overrides the process default assignment, if one is set.
-     * @param {Pointer<Void>} Thread Specifies the thread on which to set the CPU Set assignment. This handle must have the THREAD\_SET\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentThread**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthread) can also be used.
+     * @param {HANDLE} Thread Specifies the thread on which to set the CPU Set assignment. This handle must have the THREAD\_SET\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentThread**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthread) can also be used.
      * @param {Pointer<UInt32>} CpuSetIds Specifies the list of CPU Set IDs to set as the thread selected CPU set. If this is NULL, the API clears out any assignment, reverting to process default assignment if one is set.
      * @param {Integer} CpuSetIdCount Specifies the number of IDs in the list passed in the **CpuSetIds** argument. If that value is NULL, this should be 0.
-     * @returns {Integer} This function cannot fail when passed valid parameters.
+     * @returns {BOOL} This function cannot fail when passed valid parameters.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setthreadselectedcpusets
      */
     static SetThreadSelectedCpuSets(Thread, CpuSetIds, CpuSetIdCount) {
-        result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSets", "ptr", Thread, "uint*", CpuSetIds, "uint", CpuSetIdCount, "int")
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
+        result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSets", "ptr", Thread, "uint*", CpuSetIds, "uint", CpuSetIdCount, "ptr")
         return result
     }
 
     /**
      * Creates a new process and its primary thread. The new process runs in the security context of the user represented by the specified token.
-     * @param {Pointer<Void>} hToken A handle to the primary token that represents a user. The handle must have the <b>TOKEN_QUERY</b>, <b>TOKEN_DUPLICATE</b>, and <b>TOKEN_ASSIGN_PRIMARY</b> access rights. For more information, see 
+     * @param {HANDLE} hToken A handle to the primary token that represents a user. The handle must have the <b>TOKEN_QUERY</b>, <b>TOKEN_DUPLICATE</b>, and <b>TOKEN_ASSIGN_PRIMARY</b> access rights. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>. The user represented by the token must have read and execute access to the application specified by the <i>lpApplicationName</i> or the <i>lpCommandLine</i> parameter. 
      * 
      * 
@@ -6275,7 +6400,7 @@ class Threading {
      * 
      * <b>Terminal Services:  </b>The process is run in the session specified in the token. By default, this is the same session that called <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>. To change the session, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-settokeninformation">SetTokenInformation</a> function.
-     * @param {Pointer<Byte>} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
+     * @param {PSTR} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
      * 
      * 
      * 
@@ -6291,7 +6416,7 @@ class Threading {
      * If the executable module is a 16-bit application, <i>lpApplicationName</i> should be <b>NULL</b>, and the string pointed to by <i>lpCommandLine</i> should specify the executable module as well as its arguments. By default, all 16-bit Windows-based applications created by 
      * <b>CreateProcessAsUser</b> are run in a separate VDM (equivalent to <b>CREATE_SEPARATE_WOW_VDM</b> in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>).
-     * @param {Pointer<Byte>} lpCommandLine The command line to be executed. The maximum length of this string is 32K characters. If <i>lpApplicationName</i> is <b>NULL</b>, the module name portion of <i>lpCommandLine</i> is limited to <b>MAX_PATH</b> characters.
+     * @param {PSTR} lpCommandLine The command line to be executed. The maximum length of this string is 32K characters. If <i>lpApplicationName</i> is <b>NULL</b>, the module name portion of <i>lpCommandLine</i> is limited to <b>MAX_PATH</b> characters.
      * 
      * The Unicode version of this function, <b>CreateProcessAsUserW</b>, can modify the contents of this string. Therefore, this parameter cannot be a pointer to read-only memory (such as a <b>const</b> variable or a literal string). If this parameter is a constant string, the function may cause an access violation.
      * 
@@ -6315,7 +6440,7 @@ class Threading {
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpProcessAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new process object and determines whether child processes can inherit the returned handle to the process. If <i>lpProcessAttributes</i> is <b>NULL</b> or <b>lpSecurityDescriptor</b> is <b>NULL</b>, the process gets a default security descriptor and the handle cannot be inherited. The default security descriptor is that of the user referenced in the <i>hToken</i> parameter. This security descriptor may not allow access for the caller, in which case the process may not be opened again after it is run. The process handle is valid and will continue to have full access rights.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpThreadAttributes A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new thread object and determines whether child processes can inherit the returned handle to the thread. If <i>lpThreadAttributes</i> is <b>NULL</b> or <b>lpSecurityDescriptor</b> is <b>NULL</b>, the thread gets a default security descriptor and the handle cannot be inherited. The default security descriptor is that of the user referenced in the <i>hToken</i> parameter. This security descriptor may not allow access for the caller.
-     * @param {Integer} bInheritHandles If this parameter is <b>TRUE</b>, each inheritable handle in the calling process is inherited by the new process. If the parameter is <b>FALSE</b>, the handles are not inherited. Note that inherited handles have the same value and access rights as the original handles.
+     * @param {BOOL} bInheritHandles If this parameter is <b>TRUE</b>, each inheritable handle in the calling process is inherited by the new process. If the parameter is <b>FALSE</b>, the handles are not inherited. Note that inherited handles have the same value and access rights as the original handles.
      * For additional discussion of inheritable handles, see Remarks.
      * 
      * <b>Terminal Services:  </b>You cannot inherit handles across sessions. Additionally, if this parameter is <b>TRUE</b>, you must create the process in the same session as the caller.
@@ -6356,7 +6481,7 @@ class Threading {
      * 
      * To retrieve a copy of the environment block for a given user, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-createenvironmentblock">CreateEnvironmentBlock</a> function.
-     * @param {Pointer<Byte>} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path. 
+     * @param {PSTR} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path. 
      * 
      * If this parameter is NULL, the new process will have the same current drive and directory as the calling process. (This feature is provided primarily for shells that need to start an application and specify its initial drive and working directory.)
      * @param {Pointer<STARTUPINFOA>} lpStartupInfo A pointer to a 
@@ -6382,7 +6507,7 @@ class Threading {
      * Handles in 
      * <a href="https://docs.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_information">PROCESS_INFORMATION</a> must be closed with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> when they are no longer needed.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6392,13 +6517,14 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessAsUserA(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
-        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
-        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
-        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+        lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateProcessAsUserA", "ptr", hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
+        result := DllCall("ADVAPI32.dll\CreateProcessAsUserA", "ptr", hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "ptr", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6492,7 +6618,7 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6502,7 +6628,7 @@ class Threading {
     static GetProcessShutdownParameters(lpdwLevel, lpdwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessShutdownParameters", "uint*", lpdwLevel, "uint*", lpdwFlags, "int")
+        result := DllCall("KERNEL32.dll\GetProcessShutdownParameters", "uint*", lpdwLevel, "uint*", lpdwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6511,11 +6637,11 @@ class Threading {
 
     /**
      * Retrieves the list of CPU Sets in the process default set that was set by SetProcessDefaultCpuSetMasks or SetProcessDefaultCpuSets.
-     * @param {Pointer<Void>} Process Specifies a process handle for the process to query. This handle must have the [PROCESS_QUERY_LIMITED_INFORMATION](/windows/win32/procthread/process-security-and-access-rights) access right. The value returned by [GetCurrentProcess](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
+     * @param {HANDLE} Process Specifies a process handle for the process to query. This handle must have the [PROCESS_QUERY_LIMITED_INFORMATION](/windows/win32/procthread/process-security-and-access-rights) access right. The value returned by [GetCurrentProcess](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
      * @param {Pointer<GROUP_AFFINITY>} CpuSetMasks Specifies an optional buffer to retrieve a list of [GROUP_AFFINITY](../winnt/ns-winnt-group_affinity.md) structures representing the process default CPU Sets.
      * @param {Integer} CpuSetMaskCount Specifies the size of the *CpuSetMasks* array, in elements.
      * @param {Pointer<UInt16>} RequiredMaskCount On successful return, specifies the number of affinity structures written to the array. If the *CpuSetMasks* array is too small, the function fails with **ERROR_INSUFFICIENT_BUFFER** and sets the *RequiredMaskCount* parameter to the number of elements required. The number of required elements is always less than or equal to the maximum group count returned by [GetMaximumProcessorGroupCount](../winbase/nf-winbase-getmaximumprocessorgroupcount.md).
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero and extended error information can be retrieved by calling [GetLastError](../errhandlingapi/nf-errhandlingapi-getlasterror.md). 
      * 
@@ -6523,32 +6649,36 @@ class Threading {
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessdefaultcpusetmasks
      */
     static GetProcessDefaultCpuSetMasks(Process, CpuSetMasks, CpuSetMaskCount, RequiredMaskCount) {
-        result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSetMasks", "ptr", Process, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ushort*", RequiredMaskCount, "int")
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
+        result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSetMasks", "ptr", Process, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ushort*", RequiredMaskCount, "ptr")
         return result
     }
 
     /**
      * Sets the default CPU Sets assignment for threads in the specified process.
-     * @param {Pointer<Void>} Process Specifies the process for which to set the default CPU Sets. This handle must have the [PROCESS_SET_LIMITED_INFORMATION](/windows/win32/procthread/process-security-and-access-rights) access right. The value returned by [GetCurrentProcess](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
+     * @param {HANDLE} Process Specifies the process for which to set the default CPU Sets. This handle must have the [PROCESS_SET_LIMITED_INFORMATION](/windows/win32/procthread/process-security-and-access-rights) access right. The value returned by [GetCurrentProcess](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
      * @param {Pointer<GROUP_AFFINITY>} CpuSetMasks Specifies an optional buffer of [GROUP_AFFINITY](../winnt/ns-winnt-group_affinity.md) structures representing the CPU Sets to set as the process default CPU set. If this is NULL, the **SetProcessDefaultCpuSetMasks** function clears out any assignment.
      * @param {Integer} CpuSetMaskCount Specifies the size of the *CpuSetMasks* array, in elements. If the buffer is NULL, this value must be zero.
-     * @returns {Integer} This function cannot fail when passed valid parameters.
+     * @returns {BOOL} This function cannot fail when passed valid parameters.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setprocessdefaultcpusetmasks
      */
     static SetProcessDefaultCpuSetMasks(Process, CpuSetMasks, CpuSetMaskCount) {
-        result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSetMasks", "ptr", Process, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "int")
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
+        result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSetMasks", "ptr", Process, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ptr")
         return result
     }
 
     /**
      * Returns the explicit CPU Set assignment of the specified thread, if any assignment was set using SetThreadSelectedCpuSetMasks or SetThreadSelectedCpuSets.
-     * @param {Pointer<Void>} Thread Specifies the thread for which to query the selected CPU Sets. This handle must have the [PROCESS_QUERY_LIMITED_INFORMATION](/windows/win32/procthread/process-security-and-access-rights) access right. The value returned by [GetCurrentProcess](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
+     * @param {HANDLE} Thread Specifies the thread for which to query the selected CPU Sets. This handle must have the [PROCESS_QUERY_LIMITED_INFORMATION](/windows/win32/procthread/process-security-and-access-rights) access right. The value returned by [GetCurrentProcess](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
      * @param {Pointer<GROUP_AFFINITY>} CpuSetMasks Specifies an optional buffer to retrieve a list of [GROUP_AFFINITY](../winnt/ns-winnt-group_affinity.md) structures representing the thread selected CPU Sets.
      * @param {Integer} CpuSetMaskCount Specifies the size of the *CpuSetMasks* array, in elements.
      * @param {Pointer<UInt16>} RequiredMaskCount On successful return, specifies the number of affinity structures written to the array.
      * If the array is too small, the function fails with **ERROR_INSUFFICIENT_BUFFER** and sets the *RequiredMaskCount* parameter to the number of elements required.
      * The number of required elements is always less than or equal to the maximum group count returned by [GetMaximumProcessorGroupCount](../winbase/nf-winbase-getmaximumprocessorgroupcount.md).
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero and extended error information can be retrieved by calling [GetLastError](../errhandlingapi/nf-errhandlingapi-getlasterror.md). 
      * 
@@ -6556,22 +6686,26 @@ class Threading {
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadselectedcpusetmasks
      */
     static GetThreadSelectedCpuSetMasks(Thread, CpuSetMasks, CpuSetMaskCount, RequiredMaskCount) {
-        result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSetMasks", "ptr", Thread, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ushort*", RequiredMaskCount, "int")
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
+        result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSetMasks", "ptr", Thread, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ushort*", RequiredMaskCount, "ptr")
         return result
     }
 
     /**
      * Sets the selected CPU Sets assignment for the specified thread. This assignment overrides the process default assignment, if one is set.
-     * @param {Pointer<Void>} Thread Specifies the thread on which to set the CPU Set assignment. [PROCESS_SET_LIMITED_INFORMATION](/windows/win32/procthread/process-security-and-access-rights) access right. The value returned by [GetCurrentProcess](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
+     * @param {HANDLE} Thread Specifies the thread on which to set the CPU Set assignment. [PROCESS_SET_LIMITED_INFORMATION](/windows/win32/procthread/process-security-and-access-rights) access right. The value returned by [GetCurrentProcess](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
      * @param {Pointer<GROUP_AFFINITY>} CpuSetMasks Specifies an optional buffer of [GROUP_AFFINITY](../winnt/ns-winnt-group_affinity.md) structures representing the CPU Sets to set as the thread selected CPU set. If this is NULL, the **SetThreadSelectedCpuSetMasks** function clears out any assignment, reverting to process default assignment if one is set.
      * @param {Integer} CpuSetMaskCount Specifies the number of **GROUP_AFFINITY** structures in the list passed in the GroupCpuSets argument. If the buffer is NULL, this value must be zero.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero and extended error information can be retrieved by calling [GetLastError](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setthreadselectedcpusetmasks
      */
     static SetThreadSelectedCpuSetMasks(Thread, CpuSetMasks, CpuSetMaskCount) {
-        result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSetMasks", "ptr", Thread, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "int")
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
+        result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSetMasks", "ptr", Thread, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ptr")
         return result
     }
 
@@ -6591,15 +6725,16 @@ class Threading {
 
     /**
      * Assigns a description to a thread.
-     * @param {Pointer<Void>} hThread A handle for the thread for which you want to set the description. The handle must have THREAD_SET_LIMITED_INFORMATION access.
-     * @param {Pointer<Char>} lpThreadDescription A Unicode string that specifies the description of the thread.
+     * @param {HANDLE} hThread A handle for the thread for which you want to set the description. The handle must have THREAD_SET_LIMITED_INFORMATION access.
+     * @param {PWSTR} lpThreadDescription A Unicode string that specifies the description of the thread.
      * @returns {HRESULT} If the function succeeds, the return value is the **HRESULT** that denotes a successful operation.
      * If the function fails, the return value is an **HRESULT** that denotes the error.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setthreaddescription
      * @since windows10.0.14393
      */
     static SetThreadDescription(hThread, lpThreadDescription) {
-        lpThreadDescription := lpThreadDescription is String? StrPtr(lpThreadDescription) : lpThreadDescription
+        lpThreadDescription := lpThreadDescription is String ? StrPtr(lpThreadDescription) : lpThreadDescription
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
         result := DllCall("KERNEL32.dll\SetThreadDescription", "ptr", hThread, "ptr", lpThreadDescription, "int")
         if(result != 0)
@@ -6610,14 +6745,16 @@ class Threading {
 
     /**
      * Retrieves the description that was assigned to a thread by calling SetThreadDescription.
-     * @param {Pointer<Void>} hThread A handle to the thread for which to retrieve the description. The handle must have THREAD_QUERY_LIMITED_INFORMATION access.
-     * @param {Pointer<Char>} ppszThreadDescription A Unicode string that contains the description of the thread.
+     * @param {HANDLE} hThread A handle to the thread for which to retrieve the description. The handle must have THREAD_QUERY_LIMITED_INFORMATION access.
+     * @param {Pointer<PWSTR>} ppszThreadDescription A Unicode string that contains the description of the thread.
      * @returns {HRESULT} If the function succeeds, the return value is the <b>HRESULT</b> that denotes a successful operation.
      * If the function fails, the return value is an <b>HRESULT</b> that denotes the error.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreaddescription
      * @since windows10.0.14393
      */
     static GetThreadDescription(hThread, ppszThreadDescription) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         result := DllCall("KERNEL32.dll\GetThreadDescription", "ptr", hThread, "ptr", ppszThreadDescription, "int")
         if(result != 0)
             throw OSError(result)
@@ -6646,7 +6783,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">ThreadProc</a>.
      * @param {Pointer<Void>} Context A single parameter value to be passed to the thread function.
      * @param {Integer} Flags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6656,7 +6793,7 @@ class Threading {
     static QueueUserWorkItem(Function, Context, Flags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueueUserWorkItem", "ptr", Function, "ptr", Context, "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\QueueUserWorkItem", "ptr", Function, "ptr", Context, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6665,16 +6802,16 @@ class Threading {
 
     /**
      * Cancels a registered wait operation issued by the RegisterWaitForSingleObject function.
-     * @param {Pointer<Void>} WaitHandle The wait handle. This handle is returned by the 
+     * @param {HANDLE} WaitHandle The wait handle. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registerwaitforsingleobject">RegisterWaitForSingleObject</a> function.
-     * @param {Pointer<Void>} CompletionEvent A handle to the event object to be signaled when the wait operation has been unregistered. This parameter can be <b>NULL</b>.
+     * @param {HANDLE} CompletionEvent A handle to the event object to be signaled when the wait operation has been unregistered. This parameter can be <b>NULL</b>.
      * 
      * If this parameter is <b>INVALID_HANDLE_VALUE</b>, the function waits for all callback functions to complete before returning.
      * 
      * If this parameter is <b>NULL</b>, the function marks the timer for deletion and returns immediately. However, most callers should wait for the callback function to complete so they can perform any needed cleanup.
      * 
      * If the caller provides this event and the function succeeds or the function fails with  <b>ERROR_IO_PENDING</b>,  do not close the event until it is signaled.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6682,9 +6819,12 @@ class Threading {
      * @since windows5.1.2600
      */
     static UnregisterWaitEx(WaitHandle, CompletionEvent) {
+        WaitHandle := WaitHandle is Win32Handle ? NumGet(WaitHandle, "ptr") : WaitHandle
+        CompletionEvent := CompletionEvent is Win32Handle ? NumGet(CompletionEvent, "ptr") : CompletionEvent
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UnregisterWaitEx", "ptr", WaitHandle, "ptr", CompletionEvent, "int")
+        result := DllCall("KERNEL32.dll\UnregisterWaitEx", "ptr", WaitHandle, "ptr", CompletionEvent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6693,7 +6833,7 @@ class Threading {
 
     /**
      * Creates a queue for timers.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the timer queue. This handle can be used only in functions that require a handle to a timer queue.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the timer queue. This handle can be used only in functions that require a handle to a timer queue.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6707,13 +6847,13 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates a timer-queue timer. This timer expires at the specified due time, then after every specified period. When the timer expires, the callback function is called.
-     * @param {Pointer<Void>} phNewTimer A pointer to a buffer that receives a handle to the timer-queue timer on return. When this handle has expired and is no longer required, release it by calling <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-deletetimerqueuetimer">DeleteTimerQueueTimer</a>.
-     * @param {Pointer<Void>} TimerQueue A handle to the timer queue. This handle is returned by the 
+     * @param {Pointer<HANDLE>} phNewTimer A pointer to a buffer that receives a handle to the timer-queue timer on return. When this handle has expired and is no longer required, release it by calling <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-deletetimerqueuetimer">DeleteTimerQueueTimer</a>.
+     * @param {HANDLE} TimerQueue A handle to the timer queue. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueue">CreateTimerQueue</a> function.
      * 
      * If this parameter is <b>NULL</b>, the timer is associated with the default timer queue.
@@ -6723,7 +6863,7 @@ class Threading {
      * @param {Integer} DueTime The amount of time in milliseconds relative to the current time that must elapse before the timer is signaled for the first time.
      * @param {Integer} Period The period of the timer, in milliseconds. If this parameter is zero, the timer is signaled once. If this parameter is greater than zero, the timer is periodic. A periodic timer automatically reactivates each time the period elapses, until the timer is canceled.
      * @param {Integer} Flags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6731,9 +6871,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateTimerQueueTimer(phNewTimer, TimerQueue, Callback, Parameter, DueTime, Period, Flags) {
+        TimerQueue := TimerQueue is Win32Handle ? NumGet(TimerQueue, "ptr") : TimerQueue
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateTimerQueueTimer", "ptr", phNewTimer, "ptr", TimerQueue, "ptr", Callback, "ptr", Parameter, "uint", DueTime, "uint", Period, "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\CreateTimerQueueTimer", "ptr", phNewTimer, "ptr", TimerQueue, "ptr", Callback, "ptr", Parameter, "uint", DueTime, "uint", Period, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6742,20 +6884,20 @@ class Threading {
 
     /**
      * Updates a timer-queue timer that was created by the CreateTimerQueueTimer function.
-     * @param {Pointer<Void>} TimerQueue A handle to the timer queue. This handle is returned by the 
+     * @param {HANDLE} TimerQueue A handle to the timer queue. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueue">CreateTimerQueue</a> function. 
      * 
      * 
      * 
      * 
      * If this parameter is <b>NULL</b>, the timer is associated with the default timer queue.
-     * @param {Pointer<Void>} Timer A handle to the timer-queue timer. This handle is returned by the 
+     * @param {HANDLE} Timer A handle to the timer-queue timer. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueuetimer">CreateTimerQueueTimer</a> function.
      * @param {Integer} DueTime The time after which the timer should expire, in milliseconds.
      * @param {Integer} Period The period of the timer, in milliseconds. If this parameter is zero, the timer is signaled once. If this parameter is greater than zero, the timer is periodic. A periodic timer automatically reactivates each time the period elapses, until the timer is canceled using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-deletetimerqueuetimer">DeleteTimerQueueTimer</a> function or reset using 
      * <b>ChangeTimerQueueTimer</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6763,9 +6905,12 @@ class Threading {
      * @since windows5.1.2600
      */
     static ChangeTimerQueueTimer(TimerQueue, Timer, DueTime, Period) {
+        TimerQueue := TimerQueue is Win32Handle ? NumGet(TimerQueue, "ptr") : TimerQueue
+        Timer := Timer is Win32Handle ? NumGet(Timer, "ptr") : Timer
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ChangeTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "uint", DueTime, "uint", Period, "int")
+        result := DllCall("KERNEL32.dll\ChangeTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "uint", DueTime, "uint", Period, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6774,16 +6919,16 @@ class Threading {
 
     /**
      * Removes a timer from the timer queue and optionally waits for currently running timer callback functions to complete before deleting the timer.
-     * @param {Pointer<Void>} TimerQueue A handle to the timer queue. This handle is returned by the 
+     * @param {HANDLE} TimerQueue A handle to the timer queue. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueue">CreateTimerQueue</a> function. 
      * 
      * 
      * 
      * 
      * If the timer was created using the default timer queue, this parameter should be <b>NULL</b>.
-     * @param {Pointer<Void>} Timer A handle to the timer-queue timer. This handle is returned by the 
+     * @param {HANDLE} Timer A handle to the timer-queue timer. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueuetimer">CreateTimerQueueTimer</a> function.
-     * @param {Pointer<Void>} CompletionEvent A handle to the event object to be signaled when the system has canceled the timer and all callback functions  have completed. This parameter can be <b>NULL</b>. 
+     * @param {HANDLE} CompletionEvent A handle to the event object to be signaled when the system has canceled the timer and all callback functions  have completed. This parameter can be <b>NULL</b>. 
      * 
      * 
      * 
@@ -6791,7 +6936,7 @@ class Threading {
      * If this parameter is <b>INVALID_HANDLE_VALUE</b>, the function waits for any running timer callback functions to complete before returning.
      * 
      * If this parameter is <b>NULL</b>, the function marks the timer for deletion and returns immediately. If the timer has already expired, the timer callback function will run to completion. However, there is no notification sent when the timer callback function has completed. Most callers should not use this option, and should wait for running timer callback functions to complete so they can perform any needed cleanup.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error code is <b>ERROR_IO_PENDING</b>, it is not necessary to call this function again. For any other error, you should retry the call.
@@ -6799,9 +6944,13 @@ class Threading {
      * @since windows5.1.2600
      */
     static DeleteTimerQueueTimer(TimerQueue, Timer, CompletionEvent) {
+        TimerQueue := TimerQueue is Win32Handle ? NumGet(TimerQueue, "ptr") : TimerQueue
+        Timer := Timer is Win32Handle ? NumGet(Timer, "ptr") : Timer
+        CompletionEvent := CompletionEvent is Win32Handle ? NumGet(CompletionEvent, "ptr") : CompletionEvent
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "ptr", CompletionEvent, "int")
+        result := DllCall("KERNEL32.dll\DeleteTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "ptr", CompletionEvent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6810,9 +6959,9 @@ class Threading {
 
     /**
      * Deletes a timer queue. Any pending timers in the queue are canceled and deleted.
-     * @param {Pointer<Void>} TimerQueue A handle to the timer queue. This handle is returned by the 
+     * @param {HANDLE} TimerQueue A handle to the timer queue. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueue">CreateTimerQueue</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6820,9 +6969,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static DeleteTimerQueue(TimerQueue) {
+        TimerQueue := TimerQueue is Win32Handle ? NumGet(TimerQueue, "ptr") : TimerQueue
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteTimerQueue", "ptr", TimerQueue, "int")
+        result := DllCall("KERNEL32.dll\DeleteTimerQueue", "ptr", TimerQueue, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6831,9 +6982,9 @@ class Threading {
 
     /**
      * Deletes a timer queue. Any pending timers in the queue are canceled and deleted.
-     * @param {Pointer<Void>} TimerQueue A handle to the timer queue. This handle is returned by the 
+     * @param {HANDLE} TimerQueue A handle to the timer queue. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueue">CreateTimerQueue</a> function.
-     * @param {Pointer<Void>} CompletionEvent A handle to the event object to be signaled when the function is successful and all callback functions have completed. This parameter can be <b>NULL</b>. 
+     * @param {HANDLE} CompletionEvent A handle to the event object to be signaled when the function is successful and all callback functions have completed. This parameter can be <b>NULL</b>. 
      * 
      * 
      * 
@@ -6841,7 +6992,7 @@ class Threading {
      * If this parameter is <b>INVALID_HANDLE_VALUE</b>, the function waits for all callback functions to complete before returning.
      * 
      * If this parameter is <b>NULL</b>, the function marks the timer for deletion and returns immediately. However, most callers should wait for the callback function to complete so they can perform any needed cleanup.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6849,9 +7000,12 @@ class Threading {
      * @since windows5.1.2600
      */
     static DeleteTimerQueueEx(TimerQueue, CompletionEvent) {
+        TimerQueue := TimerQueue is Win32Handle ? NumGet(TimerQueue, "ptr") : TimerQueue
+        CompletionEvent := CompletionEvent is Win32Handle ? NumGet(CompletionEvent, "ptr") : CompletionEvent
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteTimerQueueEx", "ptr", TimerQueue, "ptr", CompletionEvent, "int")
+        result := DllCall("KERNEL32.dll\DeleteTimerQueueEx", "ptr", TimerQueue, "ptr", CompletionEvent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6860,7 +7014,7 @@ class Threading {
 
     /**
      * Allocates a new pool of threads to execute callbacks.
-     * @returns {Pointer} If the function succeeds, it returns a pointer to a <b>TP_POOL</b> structure representing the newly allocated thread pool. Applications do not modify the members of this structure.
+     * @returns {PTP_POOL} If the function succeeds, it returns a pointer to a <b>TP_POOL</b> structure representing the newly allocated thread pool. Applications do not modify the members of this structure.
      * 
      * If function fails, it returns NULL. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-createthreadpool
@@ -6875,7 +7029,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return PTP_POOL({Value: result}, True)
     }
 
     /**
@@ -6888,30 +7042,34 @@ class Threading {
      * 
      * 
      * 
-     * @param {Pointer} ptpp A pointer to a <b>TP_POOL</b> structure that defines the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this pointer.
+     * @param {PTP_POOL} ptpp A pointer to a <b>TP_POOL</b> structure that defines the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this pointer.
      * @param {Integer} cthrdMost The maximum number of threads.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-setthreadpoolthreadmaximum
      * @since windows6.0.6000
      */
     static SetThreadpoolThreadMaximum(ptpp, cthrdMost) {
+        ptpp := ptpp is Win32Handle ? NumGet(ptpp, "ptr") : ptpp
+
         DllCall("KERNEL32.dll\SetThreadpoolThreadMaximum", "ptr", ptpp, "uint", cthrdMost)
     }
 
     /**
      * Sets the minimum number of threads that the specified thread pool must make available to process callbacks.
-     * @param {Pointer} ptpp A pointer to a <b>TP_POOL</b> structure that defines the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this pointer.
+     * @param {PTP_POOL} ptpp A pointer to a <b>TP_POOL</b> structure that defines the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this pointer.
      * @param {Integer} cthrdMic The minimum number of threads.
-     * @returns {Integer} If the function succeeds, it returns TRUE.
+     * @returns {BOOL} If the function succeeds, it returns TRUE.
      * 
      * If the function fails, it returns FALSE. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-setthreadpoolthreadminimum
      * @since windows6.0.6000
      */
     static SetThreadpoolThreadMinimum(ptpp, cthrdMic) {
+        ptpp := ptpp is Win32Handle ? NumGet(ptpp, "ptr") : ptpp
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadpoolThreadMinimum", "ptr", ptpp, "uint", cthrdMic, "int")
+        result := DllCall("KERNEL32.dll\SetThreadpoolThreadMinimum", "ptr", ptpp, "uint", cthrdMic, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6920,9 +7078,9 @@ class Threading {
 
     /**
      * Sets the stack reserve and commit sizes for new threads in the specified thread pool. Stack reserve and commit sizes for existing threads are not changed.
-     * @param {Pointer} ptpp A pointer to a <b>TP_POOL</b> structure that specifies the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this [pomter.
+     * @param {PTP_POOL} ptpp A pointer to a <b>TP_POOL</b> structure that specifies the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this [pomter.
      * @param {Pointer<TP_POOL_STACK_INFORMATION>} ptpsi A pointer to a <b>TP_POOL_STACK_INFORMATION</b> structure that specifies the stack reserve and commit size for threads in the pool.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6930,9 +7088,11 @@ class Threading {
      * @since windows6.1
      */
     static SetThreadpoolStackInformation(ptpp, ptpsi) {
+        ptpp := ptpp is Win32Handle ? NumGet(ptpp, "ptr") : ptpp
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadpoolStackInformation", "ptr", ptpp, "ptr", ptpsi, "int")
+        result := DllCall("KERNEL32.dll\SetThreadpoolStackInformation", "ptr", ptpp, "ptr", ptpsi, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6941,9 +7101,9 @@ class Threading {
 
     /**
      * Retrieves the stack reserve and commit sizes for threads in the specified thread pool.
-     * @param {Pointer} ptpp A pointer to a <b>TP_POOL</b> structure that specifies the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this pointer.
+     * @param {PTP_POOL} ptpp A pointer to a <b>TP_POOL</b> structure that specifies the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this pointer.
      * @param {Pointer<TP_POOL_STACK_INFORMATION>} ptpsi A pointer to a <b>TP_POOL_STACK_INFORMATION</b> structure that receives the stack reserve and commit size.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6951,9 +7111,11 @@ class Threading {
      * @since windows6.1
      */
     static QueryThreadpoolStackInformation(ptpp, ptpsi) {
+        ptpp := ptpp is Win32Handle ? NumGet(ptpp, "ptr") : ptpp
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryThreadpoolStackInformation", "ptr", ptpp, "ptr", ptpsi, "int")
+        result := DllCall("KERNEL32.dll\QueryThreadpoolStackInformation", "ptr", ptpp, "ptr", ptpsi, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6970,18 +7132,20 @@ class Threading {
      * 
      * 
      * 
-     * @param {Pointer} ptpp A pointer to a <b>TP_POOL</b> structure that defines the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this pointer.
+     * @param {PTP_POOL} ptpp A pointer to a <b>TP_POOL</b> structure that defines the thread pool. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpool">CreateThreadpool</a> function returns this pointer.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-closethreadpool
      * @since windows6.0.6000
      */
     static CloseThreadpool(ptpp) {
+        ptpp := ptpp is Win32Handle ? NumGet(ptpp, "ptr") : ptpp
+
         DllCall("KERNEL32.dll\CloseThreadpool", "ptr", ptpp)
     }
 
     /**
      * Creates a cleanup group that applications can use to track one or more thread pool callbacks.
-     * @returns {Pointer} If the function succeeds, it returns a pointer to a <b>TP_CLEANUP_GROUP</b> structure of the newly allocated cleanup group. Applications do not modify the members of this structure.
+     * @returns {PTP_CLEANUP_GROUP} If the function succeeds, it returns a pointer to a <b>TP_CLEANUP_GROUP</b> structure of the newly allocated cleanup group. Applications do not modify the members of this structure.
      * 
      * If function fails, it returns NULL. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-createthreadpoolcleanupgroup
@@ -6994,7 +7158,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return PTP_CLEANUP_GROUP({Value: result}, True)
     }
 
     /**
@@ -7020,15 +7184,17 @@ class Threading {
      * 
      * 
      * 
-     * @param {Pointer} ptpcg A pointer to a <b>TP_CLEANUP_GROUP</b> structure that defines the cleanup group. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolcleanupgroup">CreateThreadpoolCleanupGroup</a> function returns this pointer.
-     * @param {Integer} fCancelPendingCallbacks If this parameter is TRUE, the function cancels outstanding callbacks that have not yet started. If this parameter is FALSE, the function waits for outstanding callback functions to complete.
+     * @param {PTP_CLEANUP_GROUP} ptpcg A pointer to a <b>TP_CLEANUP_GROUP</b> structure that defines the cleanup group. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolcleanupgroup">CreateThreadpoolCleanupGroup</a> function returns this pointer.
+     * @param {BOOL} fCancelPendingCallbacks If this parameter is TRUE, the function cancels outstanding callbacks that have not yet started. If this parameter is FALSE, the function waits for outstanding callback functions to complete.
      * @param {Pointer<Void>} pvCleanupContext The application-defined data to pass to the application's cleanup group callback function. You can specify the callback function when you call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setthreadpoolcallbackcleanupgroup">SetThreadpoolCallbackCleanupGroup</a>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-closethreadpoolcleanupgroupmembers
      * @since windows6.0.6000
      */
     static CloseThreadpoolCleanupGroupMembers(ptpcg, fCancelPendingCallbacks, pvCleanupContext) {
-        DllCall("KERNEL32.dll\CloseThreadpoolCleanupGroupMembers", "ptr", ptpcg, "int", fCancelPendingCallbacks, "ptr", pvCleanupContext)
+        ptpcg := ptpcg is Win32Handle ? NumGet(ptpcg, "ptr") : ptpcg
+
+        DllCall("KERNEL32.dll\CloseThreadpoolCleanupGroupMembers", "ptr", ptpcg, "ptr", fCancelPendingCallbacks, "ptr", pvCleanupContext)
     }
 
     /**
@@ -7041,12 +7207,14 @@ class Threading {
      * 
      * 
      * 
-     * @param {Pointer} ptpcg A pointer to a <b>TP_CLEANUP_GROUP</b> structure that defines the cleanup group. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolcleanupgroup">CreateThreadpoolCleanupGroup</a> returns this pointer.
+     * @param {PTP_CLEANUP_GROUP} ptpcg A pointer to a <b>TP_CLEANUP_GROUP</b> structure that defines the cleanup group. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolcleanupgroup">CreateThreadpoolCleanupGroup</a> returns this pointer.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-closethreadpoolcleanupgroup
      * @since windows6.0.6000
      */
     static CloseThreadpoolCleanupGroup(ptpcg) {
+        ptpcg := ptpcg is Win32Handle ? NumGet(ptpcg, "ptr") : ptpcg
+
         DllCall("KERNEL32.dll\CloseThreadpoolCleanupGroup", "ptr", ptpcg)
     }
 
@@ -7057,13 +7225,16 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
-     * @param {Pointer<Void>} evt A handle to the event to be set.
+     * @param {PTP_CALLBACK_INSTANCE} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
+     * @param {HANDLE} evt A handle to the event to be set.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-seteventwhencallbackreturns
      * @since windows6.0.6000
      */
     static SetEventWhenCallbackReturns(pci, evt) {
+        pci := pci is Win32Handle ? NumGet(pci, "ptr") : pci
+        evt := evt is Win32Handle ? NumGet(evt, "ptr") : evt
+
         DllCall("KERNEL32.dll\SetEventWhenCallbackReturns", "ptr", pci, "ptr", evt)
     }
 
@@ -7074,14 +7245,17 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
-     * @param {Pointer<Void>} sem A handle to the semaphore.
+     * @param {PTP_CALLBACK_INSTANCE} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
+     * @param {HANDLE} sem A handle to the semaphore.
      * @param {Integer} crel The amount by which to increment the semaphore object's count.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-releasesemaphorewhencallbackreturns
      * @since windows6.0.6000
      */
     static ReleaseSemaphoreWhenCallbackReturns(pci, sem, crel) {
+        pci := pci is Win32Handle ? NumGet(pci, "ptr") : pci
+        sem := sem is Win32Handle ? NumGet(sem, "ptr") : sem
+
         DllCall("KERNEL32.dll\ReleaseSemaphoreWhenCallbackReturns", "ptr", pci, "ptr", sem, "uint", crel)
     }
 
@@ -7092,13 +7266,16 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
-     * @param {Pointer<Void>} mut A handle to the mutex.
+     * @param {PTP_CALLBACK_INSTANCE} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
+     * @param {HANDLE} mut A handle to the mutex.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-releasemutexwhencallbackreturns
      * @since windows6.0.6000
      */
     static ReleaseMutexWhenCallbackReturns(pci, mut) {
+        pci := pci is Win32Handle ? NumGet(pci, "ptr") : pci
+        mut := mut is Win32Handle ? NumGet(mut, "ptr") : mut
+
         DllCall("KERNEL32.dll\ReleaseMutexWhenCallbackReturns", "ptr", pci, "ptr", mut)
     }
 
@@ -7109,13 +7286,15 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
+     * @param {PTP_CALLBACK_INSTANCE} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
      * @param {Pointer<CRITICAL_SECTION>} pcs The critical section.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-leavecriticalsectionwhencallbackreturns
      * @since windows6.0.6000
      */
     static LeaveCriticalSectionWhenCallbackReturns(pci, pcs) {
+        pci := pci is Win32Handle ? NumGet(pci, "ptr") : pci
+
         DllCall("KERNEL32.dll\LeaveCriticalSectionWhenCallbackReturns", "ptr", pci, "ptr", pcs)
     }
 
@@ -7126,27 +7305,32 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
-     * @param {Pointer<Void>} mod A handle to the DLL.
+     * @param {PTP_CALLBACK_INSTANCE} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
+     * @param {HMODULE} mod A handle to the DLL.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-freelibrarywhencallbackreturns
      * @since windows6.0.6000
      */
     static FreeLibraryWhenCallbackReturns(pci, mod) {
+        pci := pci is Win32Handle ? NumGet(pci, "ptr") : pci
+        mod := mod is Win32Handle ? NumGet(mod, "ptr") : mod
+
         DllCall("KERNEL32.dll\FreeLibraryWhenCallbackReturns", "ptr", pci, "ptr", mod)
     }
 
     /**
      * Indicates that the callback may not return quickly.
-     * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
-     * @returns {Integer} The function returns TRUE if another thread in the thread pool is available for processing callbacks or the thread pool was able to create a new thread.  In this case, the current callback function may use the current thread indefinitely.
+     * @param {PTP_CALLBACK_INSTANCE} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
+     * @returns {BOOL} The function returns TRUE if another thread in the thread pool is available for processing callbacks or the thread pool was able to create a new thread.  In this case, the current callback function may use the current thread indefinitely.
      * 
      * The function returns FALSE if another thread in the thread pool is not available to process callbacks and the thread pool was not able to create a new thread.  The thread pool will attempt to create a new thread after a delay, but if the current callback function runs long, the thread pool may lose efficiency.
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-callbackmayrunlong
      * @since windows6.0.6000
      */
     static CallbackMayRunLong(pci) {
-        result := DllCall("KERNEL32.dll\CallbackMayRunLong", "ptr", pci, "int")
+        pci := pci is Win32Handle ? NumGet(pci, "ptr") : pci
+
+        result := DllCall("KERNEL32.dll\CallbackMayRunLong", "ptr", pci, "ptr")
         return result
     }
 
@@ -7163,12 +7347,14 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
+     * @param {PTP_CALLBACK_INSTANCE} pci A pointer to a <b>TP_CALLBACK_INSTANCE</b> structure that defines the callback instance. The pointer is passed to the callback function.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-disassociatecurrentthreadfromcallback
      * @since windows6.0.6000
      */
     static DisassociateCurrentThreadFromCallback(pci) {
+        pci := pci is Win32Handle ? NumGet(pci, "ptr") : pci
+
         DllCall("KERNEL32.dll\DisassociateCurrentThreadFromCallback", "ptr", pci)
     }
 
@@ -7179,7 +7365,7 @@ class Threading {
      * @param {Pointer<TP_CALLBACK_ENVIRON_V3>} pcbe A pointer to a <b>TP_CALLBACK_ENVIRON</b> structure that defines the environment in which to execute the callback function. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializethreadpoolenvironment">InitializeThreadpoolEnvironment</a> function to initialize the structure before calling this function.
      * 
      * If this parameter is NULL, the callback executes in the default callback environment. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializethreadpoolenvironment">InitializeThreadpoolEnvironment</a>.
-     * @returns {Integer} If the function succeeds, it returns TRUE.
+     * @returns {BOOL} If the function succeeds, it returns TRUE.
      * 
      * If the function fails, it returns FALSE. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-trysubmitthreadpoolcallback
@@ -7188,7 +7374,7 @@ class Threading {
     static TrySubmitThreadpoolCallback(pfns, pv, pcbe) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TrySubmitThreadpoolCallback", "ptr", pfns, "ptr", pv, "ptr", pcbe, "int")
+        result := DllCall("KERNEL32.dll\TrySubmitThreadpoolCallback", "ptr", pfns, "ptr", pv, "ptr", pcbe, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7202,7 +7388,7 @@ class Threading {
      * @param {Pointer<TP_CALLBACK_ENVIRON_V3>} pcbe A pointer to a <b>TP_CALLBACK_ENVIRON</b> structure that defines the  environment in which to execute the callback. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializethreadpoolenvironment">InitializeThreadpoolEnvironment</a> function to initialize the structure before calling this function.
      * 
      * If this parameter is NULL, the callback executes in the default callback environment. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializethreadpoolenvironment">InitializeThreadpoolEnvironment</a>.
-     * @returns {Pointer} If the function succeeds, it returns a pointer to a <b>TP_WORK</b> structure that defines the work object. Applications do not modify the members of this structure.
+     * @returns {PTP_WORK} If the function succeeds, it returns a pointer to a <b>TP_WORK</b> structure that defines the work object. Applications do not modify the members of this structure.
      * 
      * If the function fails, it returns NULL. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-createthreadpoolwork
@@ -7215,7 +7401,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return PTP_WORK({Value: result}, True)
     }
 
     /**
@@ -7228,12 +7414,14 @@ class Threading {
      * 
      * 
      * 
-     * @param {Pointer} pwk A pointer to a <b>TP_WORK</b> structure that defines the work object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwork">CreateThreadpoolWork</a> function returns this pointer.
+     * @param {PTP_WORK} pwk A pointer to a <b>TP_WORK</b> structure that defines the work object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwork">CreateThreadpoolWork</a> function returns this pointer.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-submitthreadpoolwork
      * @since windows6.0.6000
      */
     static SubmitThreadpoolWork(pwk) {
+        pwk := pwk is Win32Handle ? NumGet(pwk, "ptr") : pwk
+
         DllCall("KERNEL32.dll\SubmitThreadpoolWork", "ptr", pwk)
     }
 
@@ -7244,14 +7432,16 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pwk A pointer to a <b>TP_WORK</b> structure that defines the work object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwork">CreateThreadpoolWork</a> function returns this pointer.
-     * @param {Integer} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
+     * @param {PTP_WORK} pwk A pointer to a <b>TP_WORK</b> structure that defines the work object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwork">CreateThreadpoolWork</a> function returns this pointer.
+     * @param {BOOL} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-waitforthreadpoolworkcallbacks
      * @since windows6.0.6000
      */
     static WaitForThreadpoolWorkCallbacks(pwk, fCancelPendingCallbacks) {
-        DllCall("KERNEL32.dll\WaitForThreadpoolWorkCallbacks", "ptr", pwk, "int", fCancelPendingCallbacks)
+        pwk := pwk is Win32Handle ? NumGet(pwk, "ptr") : pwk
+
+        DllCall("KERNEL32.dll\WaitForThreadpoolWorkCallbacks", "ptr", pwk, "ptr", fCancelPendingCallbacks)
     }
 
     /**
@@ -7265,12 +7455,14 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pwk A pointer to a <b>TP_WORK</b> structure that defines the work object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwork">CreateThreadpoolWork</a> function returns this pointer.
+     * @param {PTP_WORK} pwk A pointer to a <b>TP_WORK</b> structure that defines the work object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwork">CreateThreadpoolWork</a> function returns this pointer.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-closethreadpoolwork
      * @since windows6.0.6000
      */
     static CloseThreadpoolWork(pwk) {
+        pwk := pwk is Win32Handle ? NumGet(pwk, "ptr") : pwk
+
         DllCall("KERNEL32.dll\CloseThreadpoolWork", "ptr", pwk)
     }
 
@@ -7281,7 +7473,7 @@ class Threading {
      * @param {Pointer<TP_CALLBACK_ENVIRON_V3>} pcbe A <b>TP_CALLBACK_ENVIRON</b> structure that defines the environment in which to execute the callback. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializethreadpoolenvironment">InitializeThreadpoolEnvironment</a> function returns this structure.
      * 
      * If this parameter is NULL, the callback executes in the default callback environment. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializethreadpoolenvironment">InitializeThreadpoolEnvironment</a>.
-     * @returns {Pointer} If the function succeeds, it returns a pointer to a <b>TP_TIMER</b> structure that defines the timer object. Applications do not modify the members of this structure.
+     * @returns {PTP_TIMER} If the function succeeds, it returns a pointer to a <b>TP_TIMER</b> structure that defines the timer object. Applications do not modify the members of this structure.
      * 
      * If the function fails, it returns NULL. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer
@@ -7294,7 +7486,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return PTP_TIMER({Value: result}, True)
     }
 
     /**
@@ -7312,7 +7504,7 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pti A pointer to a <b>TP_TIMER</b> structure that defines the timer object to set. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
+     * @param {PTP_TIMER} pti A pointer to a <b>TP_TIMER</b> structure that defines the timer object to set. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
      * @param {Pointer<FILETIME>} pftDueTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies the absolute or relative time at which the timer should expire.  If positive or zero, it indicates the absolute time since January 1, 1601 (UTC), measured in 100 nanosecond units. If negative, it indicates the amount of time to wait relative to the current time. For more information about time values, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/file-times">File Times</a>.
      * 
      * If this parameter is NULL, the timer object will cease to queue new callbacks (but callbacks already queued will still occur).
@@ -7325,18 +7517,22 @@ class Threading {
      * @since windows6.0.6000
      */
     static SetThreadpoolTimer(pti, pftDueTime, msPeriod, msWindowLength) {
+        pti := pti is Win32Handle ? NumGet(pti, "ptr") : pti
+
         DllCall("KERNEL32.dll\SetThreadpoolTimer", "ptr", pti, "ptr", pftDueTime, "uint", msPeriod, "uint", msWindowLength)
     }
 
     /**
      * Determines whether the specified timer object is currently set.
-     * @param {Pointer} pti A pointer to a <b>TP_TIMER</b> structure that defines the timer object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
-     * @returns {Integer} The return value is TRUE if the timer is set; otherwise, the return value is FALSE.
+     * @param {PTP_TIMER} pti A pointer to a <b>TP_TIMER</b> structure that defines the timer object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
+     * @returns {BOOL} The return value is TRUE if the timer is set; otherwise, the return value is FALSE.
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-isthreadpooltimerset
      * @since windows6.0.6000
      */
     static IsThreadpoolTimerSet(pti) {
-        result := DllCall("KERNEL32.dll\IsThreadpoolTimerSet", "ptr", pti, "int")
+        pti := pti is Win32Handle ? NumGet(pti, "ptr") : pti
+
+        result := DllCall("KERNEL32.dll\IsThreadpoolTimerSet", "ptr", pti, "ptr")
         return result
     }
 
@@ -7347,14 +7543,16 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pti A pointer to a <b>TP_TIMER</b> structure that defines the timer object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
-     * @param {Integer} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
+     * @param {PTP_TIMER} pti A pointer to a <b>TP_TIMER</b> structure that defines the timer object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
+     * @param {BOOL} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-waitforthreadpooltimercallbacks
      * @since windows6.0.6000
      */
     static WaitForThreadpoolTimerCallbacks(pti, fCancelPendingCallbacks) {
-        DllCall("KERNEL32.dll\WaitForThreadpoolTimerCallbacks", "ptr", pti, "int", fCancelPendingCallbacks)
+        pti := pti is Win32Handle ? NumGet(pti, "ptr") : pti
+
+        DllCall("KERNEL32.dll\WaitForThreadpoolTimerCallbacks", "ptr", pti, "ptr", fCancelPendingCallbacks)
     }
 
     /**
@@ -7376,13 +7574,15 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pti A pointer to <b>TP_TIMER</b> structure that defines the timer object.
+     * @param {PTP_TIMER} pti A pointer to <b>TP_TIMER</b> structure that defines the timer object.
      * The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-closethreadpooltimer
      * @since windows6.0.6000
      */
     static CloseThreadpoolTimer(pti) {
+        pti := pti is Win32Handle ? NumGet(pti, "ptr") : pti
+
         DllCall("KERNEL32.dll\CloseThreadpoolTimer", "ptr", pti)
     }
 
@@ -7393,7 +7593,7 @@ class Threading {
      * @param {Pointer<TP_CALLBACK_ENVIRON_V3>} pcbe A <b>TP_CALLBACK_ENVIRON</b> structure that defines the environment in which to execute the callback. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializethreadpoolenvironment">InitializeThreadpoolEnvironment</a> function returns this structure.
      * 
      * If this parameter is NULL, the callback executes in the default callback environment. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializethreadpoolenvironment">InitializeThreadpoolEnvironment</a>.
-     * @returns {Pointer} If the function succeeds, it returns a pointer to a <b>TP_WAIT</b> structure that defines the wait object. Applications do not modify the members of this structure.
+     * @returns {PTP_WAIT} If the function succeeds, it returns a pointer to a <b>TP_WAIT</b> structure that defines the wait object. Applications do not modify the members of this structure.
      * 
      * If the function fails, it returns NULL. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait
@@ -7406,7 +7606,7 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return PTP_WAIT({Value: result}, True)
     }
 
     /**
@@ -7421,8 +7621,8 @@ class Threading {
      * 
      * 
      * 
-     * @param {Pointer} pwa A pointer to a <b>TP_WAIT</b> structure that defines the wait object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait">CreateThreadpoolWait</a> function returns this pointer.
-     * @param {Pointer<Void>} h A handle.
+     * @param {PTP_WAIT} pwa A pointer to a <b>TP_WAIT</b> structure that defines the wait object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait">CreateThreadpoolWait</a> function returns this pointer.
+     * @param {HANDLE} h A handle.
      * 
      * If this parameter is NULL, the wait object will cease to queue new callbacks (but callbacks already queued will still occur).
      * 
@@ -7439,6 +7639,9 @@ class Threading {
      * @since windows6.0.6000
      */
     static SetThreadpoolWait(pwa, h, pftTimeout) {
+        pwa := pwa is Win32Handle ? NumGet(pwa, "ptr") : pwa
+        h := h is Win32Handle ? NumGet(h, "ptr") : h
+
         DllCall("KERNEL32.dll\SetThreadpoolWait", "ptr", pwa, "ptr", h, "ptr", pftTimeout)
     }
 
@@ -7450,14 +7653,16 @@ class Threading {
      * 
      * 
      * 
-     * @param {Pointer} pwa A pointer to a <b>TP_WAIT</b> structure that defines the wait object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait">CreateThreadpoolWait</a> function returns this pointer.
-     * @param {Integer} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
+     * @param {PTP_WAIT} pwa A pointer to a <b>TP_WAIT</b> structure that defines the wait object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait">CreateThreadpoolWait</a> function returns this pointer.
+     * @param {BOOL} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-waitforthreadpoolwaitcallbacks
      * @since windows6.0.6000
      */
     static WaitForThreadpoolWaitCallbacks(pwa, fCancelPendingCallbacks) {
-        DllCall("KERNEL32.dll\WaitForThreadpoolWaitCallbacks", "ptr", pwa, "int", fCancelPendingCallbacks)
+        pwa := pwa is Win32Handle ? NumGet(pwa, "ptr") : pwa
+
+        DllCall("KERNEL32.dll\WaitForThreadpoolWaitCallbacks", "ptr", pwa, "ptr", fCancelPendingCallbacks)
     }
 
     /**
@@ -7480,37 +7685,41 @@ class Threading {
      * 
      * 
      * 
-     * @param {Pointer} pwa A pointer to a <b>TP_WAIT</b> structure that defines the wait object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait">CreateThreadpoolWait</a> function returns this pointer.
+     * @param {PTP_WAIT} pwa A pointer to a <b>TP_WAIT</b> structure that defines the wait object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait">CreateThreadpoolWait</a> function returns this pointer.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-closethreadpoolwait
      * @since windows6.0.6000
      */
     static CloseThreadpoolWait(pwa) {
+        pwa := pwa is Win32Handle ? NumGet(pwa, "ptr") : pwa
+
         DllCall("KERNEL32.dll\CloseThreadpoolWait", "ptr", pwa)
     }
 
     /**
      * Creates a new I/O completion object.
-     * @param {Pointer<Void>} fl The file handle to bind to this I/O completion object.
+     * @param {HANDLE} fl The file handle to bind to this I/O completion object.
      * @param {Pointer<PTP_WIN32_IO_CALLBACK>} pfnio The callback function to be called each time  an overlapped I/O operation completes on the file. For details, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms684124(v=vs.85)">IoCompletionCallback</a>.
      * @param {Pointer<Void>} pv Optional application-defined data to pass to the callback function.
      * @param {Pointer<TP_CALLBACK_ENVIRON_V3>} pcbe A pointer to a <b>TP_CALLBACK_ENVIRON</b> structure that defines the environment in which to execute the callback. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializethreadpoolenvironment">InitializeThreadpoolEnvironment</a> function to initialize the structure before calling this function.
      * 
      * If this parameter is NULL, the callback executes in the default callback environment. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializethreadpoolenvironment">InitializeThreadpoolEnvironment</a>.
-     * @returns {Pointer} If the function succeeds, it returns a pointer to a <b>TP_IO</b> structure that defines the I/O object. Applications do not modify the members of this structure.
+     * @returns {PTP_IO} If the function succeeds, it returns a pointer to a <b>TP_IO</b> structure that defines the I/O object. Applications do not modify the members of this structure.
      * 
      * If the function fails, it returns NULL. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-createthreadpoolio
      * @since windows6.0.6000
      */
     static CreateThreadpoolIo(fl, pfnio, pv, pcbe) {
+        fl := fl is Win32Handle ? NumGet(fl, "ptr") : fl
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateThreadpoolIo", "ptr", fl, "ptr", pfnio, "ptr", pv, "ptr", pcbe, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return PTP_IO({Value: result}, True)
     }
 
     /**
@@ -7526,12 +7735,14 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
+     * @param {PTP_IO} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-startthreadpoolio
      * @since windows6.0.6000
      */
     static StartThreadpoolIo(pio) {
+        pio := pio is Win32Handle ? NumGet(pio, "ptr") : pio
+
         DllCall("KERNEL32.dll\StartThreadpoolIo", "ptr", pio)
     }
 
@@ -7548,12 +7759,14 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
+     * @param {PTP_IO} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-cancelthreadpoolio
      * @since windows6.0.6000
      */
     static CancelThreadpoolIo(pio) {
+        pio := pio is Win32Handle ? NumGet(pio, "ptr") : pio
+
         DllCall("KERNEL32.dll\CancelThreadpoolIo", "ptr", pio)
     }
 
@@ -7566,14 +7779,16 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
-     * @param {Integer} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
+     * @param {PTP_IO} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
+     * @param {BOOL} fCancelPendingCallbacks Indicates whether to cancel queued callbacks that have not yet started to execute.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-waitforthreadpooliocallbacks
      * @since windows6.0.6000
      */
     static WaitForThreadpoolIoCallbacks(pio, fCancelPendingCallbacks) {
-        DllCall("KERNEL32.dll\WaitForThreadpoolIoCallbacks", "ptr", pio, "int", fCancelPendingCallbacks)
+        pio := pio is Win32Handle ? NumGet(pio, "ptr") : pio
+
+        DllCall("KERNEL32.dll\WaitForThreadpoolIoCallbacks", "ptr", pio, "ptr", fCancelPendingCallbacks)
     }
 
     /**
@@ -7589,18 +7804,20 @@ class Threading {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or higher.
      * 
      * 
-     * @param {Pointer} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
+     * @param {PTP_IO} pio A pointer to a <b>TP_IO</b> structure that defines the I/O completion object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolio">CreateThreadpoolIo</a> function returns this pointer.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//threadpoolapiset/nf-threadpoolapiset-closethreadpoolio
      * @since windows6.0.6000
      */
     static CloseThreadpoolIo(pio) {
+        pio := pio is Win32Handle ? NumGet(pio, "ptr") : pio
+
         DllCall("KERNEL32.dll\CloseThreadpoolIo", "ptr", pio)
     }
 
     /**
      * Sets the timer object�, replacing the previous timer, if any. A worker thread calls the timer object's callback after the specified timeout expires.
-     * @param {Pointer} pti A pointer to a <b>TP_TIMER</b> structure that defines the timer object to set. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
+     * @param {PTP_TIMER} pti A pointer to a <b>TP_TIMER</b> structure that defines the timer object to set. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpooltimer">CreateThreadpoolTimer</a> function returns this pointer.
      * @param {Pointer<FILETIME>} pftDueTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies the absolute or relative time at which the timer should expire.  If this parameter points to a positive value, it indicates the absolute time since January 1, 1601 (UTC), measured in 100 nanosecond units. If this parameter points to a negative value, it indicates the amount of time to wait relative to the current time. If this parameter points to zero, then the timer expires immediately. For more information about time values, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/file-times">File Times</a>.
      * 
      * If this parameter is NULL, the timer object will cease to queue new callbacks (but callbacks already queued will still occur).
@@ -7608,7 +7825,7 @@ class Threading {
      * The timer is set if the <i>pftDueTime</i> parameter is non-NULL.
      * @param {Integer} msPeriod The timer period, in milliseconds. If this parameter is zero, the timer is signaled once. If this parameter is greater than zero, the timer is periodic. A periodic timer automatically reactivates each time the period elapses, until the timer is canceled.
      * @param {Integer} msWindowLength The maximum amount of time the system can delay before calling the timer callback. If this parameter is set, the system can batch calls to conserve power.
-     * @returns {Integer} Returns TRUE if the timer was previously set and was canceled.
+     * @returns {BOOL} Returns TRUE if the timer was previously set and was canceled.
      * Otherwise returns FALSE.
      * 
      * If the timer's previous state was "set", and the function returns FALSE, then a callback is in progress or about to commence.
@@ -7617,14 +7834,16 @@ class Threading {
      * @since windows8.0
      */
     static SetThreadpoolTimerEx(pti, pftDueTime, msPeriod, msWindowLength) {
-        result := DllCall("KERNEL32.dll\SetThreadpoolTimerEx", "ptr", pti, "ptr", pftDueTime, "uint", msPeriod, "uint", msWindowLength, "int")
+        pti := pti is Win32Handle ? NumGet(pti, "ptr") : pti
+
+        result := DllCall("KERNEL32.dll\SetThreadpoolTimerEx", "ptr", pti, "ptr", pftDueTime, "uint", msPeriod, "uint", msWindowLength, "ptr")
         return result
     }
 
     /**
      * Sets the wait object�replacing the previous wait object, if any. A worker thread calls the wait object's callback function after the handle becomes signaled or after the specified timeout expires.
-     * @param {Pointer} pwa A pointer to a <b>TP_WAIT</b> structure that defines the wait object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait">CreateThreadpoolWait</a> function returns this pointer.
-     * @param {Pointer<Void>} h A handle.
+     * @param {PTP_WAIT} pwa A pointer to a <b>TP_WAIT</b> structure that defines the wait object. The <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-createthreadpoolwait">CreateThreadpoolWait</a> function returns this pointer.
+     * @param {HANDLE} h A handle.
      * 
      * If this parameter is NULL, the wait object will cease to queue new callbacks (but callbacks already queued will still occur).
      * 
@@ -7636,7 +7855,7 @@ class Threading {
      * @param {Pointer<FILETIME>} pftTimeout A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that specifies the absolute or relative time at which the wait operation should time out.  If this parameter points to a positive value, it indicates the absolute time since January 1, 1601 (UTC), in 100-nanosecond intervals. If this parameter points to a negative value, it indicates the amount of time to wait relative to the current time. If this parameter points to zero, then the wait times out immediately. For more information about time values, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/file-times">File Times</a>.
      * 
      * If this parameter is NULL, then the wait does not time out.
-     * @returns {Integer} Returns TRUE if the wait was previously set and was canceled.
+     * @returns {BOOL} Returns TRUE if the wait was previously set and was canceled.
      * Otherwise returns FALSE.
      * 
      * If the wait's previous state was "set", and the function returns FALSE, then a callback is in progress or about to commence.
@@ -7647,17 +7866,20 @@ class Threading {
     static SetThreadpoolWaitEx(pwa, h, pftTimeout) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("KERNEL32.dll\SetThreadpoolWaitEx", "ptr", pwa, "ptr", h, "ptr", pftTimeout, "ptr", Reserved, "int")
+        pwa := pwa is Win32Handle ? NumGet(pwa, "ptr") : pwa
+        h := h is Win32Handle ? NumGet(h, "ptr") : h
+
+        result := DllCall("KERNEL32.dll\SetThreadpoolWaitEx", "ptr", pwa, "ptr", h, "ptr", pftTimeout, "ptr", Reserved, "ptr")
         return result
     }
 
     /**
      * Determines whether the specified process is running under WOW64 or an Intel64 of x64 processor.
-     * @param {Pointer<Void>} hProcess A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
+     * @param {HANDLE} hProcess A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the PROCESS_QUERY_INFORMATION access right.
-     * @param {Pointer<Int32>} Wow64Process A pointer to a value that is set to TRUE if the process is running under WOW64 on an Intel64 or x64 processor. If the process is running under 32-bit Windows, the value is set to FALSE. If the process is a 32-bit application running under 64-bit Windows 10 on ARM, the value is set to FALSE. If the process is a 64-bit application running under 64-bit Windows, the value is also set to FALSE.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @param {Pointer<BOOL>} Wow64Process A pointer to a value that is set to TRUE if the process is running under WOW64 on an Intel64 or x64 processor. If the process is running under 32-bit Windows, the value is set to FALSE. If the process is a 32-bit application running under 64-bit Windows 10 on ARM, the value is set to FALSE. If the process is a 64-bit application running under 64-bit Windows, the value is also set to FALSE.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7665,9 +7887,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static IsWow64Process(hProcess, Wow64Process) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsWow64Process", "ptr", hProcess, "int*", Wow64Process, "int")
+        result := DllCall("KERNEL32.dll\IsWow64Process", "ptr", hProcess, "ptr", Wow64Process, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7686,10 +7910,10 @@ class Threading {
 
     /**
      * Determines whether the specified process is running under WOW64; also returns additional machine process and architecture information.
-     * @param {Pointer<Void>} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
+     * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt16>} pProcessMachine On success, returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value. The value will be  <b>IMAGE_FILE_MACHINE_UNKNOWN</b> if the target process is not a <a href="https://docs.microsoft.com/windows/desktop/WinProg64/running-32-bit-applications">WOW64</a> process; otherwise, it will identify the type of WoW process.
      * @param {Pointer<UInt16>} pNativeMachine On success, returns a pointer to a possible <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value identifying the native architecture of host system.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7697,9 +7921,11 @@ class Threading {
      * @since windows10.0.10586
      */
     static IsWow64Process2(hProcess, pProcessMachine, pNativeMachine) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsWow64Process2", "ptr", hProcess, "ushort*", pProcessMachine, "ushort*", pNativeMachine, "int")
+        result := DllCall("KERNEL32.dll\IsWow64Process2", "ptr", hProcess, "ushort*", pProcessMachine, "ushort*", pNativeMachine, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7708,7 +7934,7 @@ class Threading {
 
     /**
      * Suspends the specified WOW64 thread.
-     * @param {Pointer<Void>} hThread A handle to the thread that is to be suspended. 
+     * @param {HANDLE} hThread A handle to the thread that is to be suspended. 
      * 
      * 
      * 
@@ -7721,6 +7947,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static Wow64SuspendThread(hThread) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\Wow64SuspendThread", "ptr", hThread, "uint")
@@ -7734,40 +7962,40 @@ class Threading {
      * Creates a private namespace.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpPrivateNamespaceAttributes A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies the security attributes of the namespace object.
      * @param {Pointer<Void>} lpBoundaryDescriptor A descriptor that defines how the namespace is to be isolated. The caller must be within this boundary. The <a href="https://docs.microsoft.com/windows/desktop/api/namespaceapi/nf-namespaceapi-createboundarydescriptorw">CreateBoundaryDescriptor</a> function creates a boundary descriptor.
-     * @param {Pointer<Char>} lpAliasPrefix The prefix for the namespace. To create an object in this namespace, specify the object name as <i>prefix</i>&#92;<i>objectname</i>.
+     * @param {PWSTR} lpAliasPrefix The prefix for the namespace. To create an object in this namespace, specify the object name as <i>prefix</i>&#92;<i>objectname</i>.
      * 
      * The system supports multiple private namespaces with the same name, as long as they define different boundaries.
-     * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the new namespace. 
+     * @returns {HANDLE} If the function succeeds, it returns a handle to the new namespace. 
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//namespaceapi/nf-namespaceapi-createprivatenamespacew
      */
     static CreatePrivateNamespaceW(lpPrivateNamespaceAttributes, lpBoundaryDescriptor, lpAliasPrefix) {
-        lpAliasPrefix := lpAliasPrefix is String? StrPtr(lpAliasPrefix) : lpAliasPrefix
+        lpAliasPrefix := lpAliasPrefix is String ? StrPtr(lpAliasPrefix) : lpAliasPrefix
 
         result := DllCall("KERNEL32.dll\CreatePrivateNamespaceW", "ptr", lpPrivateNamespaceAttributes, "ptr", lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens a private namespace.
      * @param {Pointer<Void>} lpBoundaryDescriptor A descriptor that defines how the namespace is to be isolated. The <a href="https://docs.microsoft.com/windows/desktop/api/namespaceapi/nf-namespaceapi-createboundarydescriptorw">CreateBoundaryDescriptor</a> function creates a boundary descriptor.
-     * @param {Pointer<Char>} lpAliasPrefix The prefix for the namespace. To create an object in this namespace, specify the object name as <i>prefix</i>&#92;<i>objectname</i>.
-     * @returns {Pointer<Void>} The function returns the handle to the existing namespace.
+     * @param {PWSTR} lpAliasPrefix The prefix for the namespace. To create an object in this namespace, specify the object name as <i>prefix</i>&#92;<i>objectname</i>.
+     * @returns {HANDLE} The function returns the handle to the existing namespace.
      * @see https://docs.microsoft.com/windows/win32/api//namespaceapi/nf-namespaceapi-openprivatenamespacew
      */
     static OpenPrivateNamespaceW(lpBoundaryDescriptor, lpAliasPrefix) {
-        lpAliasPrefix := lpAliasPrefix is String? StrPtr(lpAliasPrefix) : lpAliasPrefix
+        lpAliasPrefix := lpAliasPrefix is String ? StrPtr(lpAliasPrefix) : lpAliasPrefix
 
         result := DllCall("KERNEL32.dll\OpenPrivateNamespaceW", "ptr", lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Closes an open namespace handle.
-     * @param {Pointer<Void>} Handle The namespace handle. This handle is created by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createprivatenamespacea">CreatePrivateNamespace</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openprivatenamespacea">OpenPrivateNamespace</a>.
+     * @param {HANDLE} Handle The namespace handle. This handle is created by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createprivatenamespacea">CreatePrivateNamespace</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openprivatenamespacea">OpenPrivateNamespace</a>.
      * @param {Integer} Flags If this parameter is <b>PRIVATE_NAMESPACE_FLAG_DESTROY</b> (0x00000001), the namespace is destroyed.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7775,9 +8003,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static ClosePrivateNamespace(Handle, Flags) {
+        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ClosePrivateNamespace", "ptr", Handle, "uint", Flags, "char")
+        result := DllCall("KERNEL32.dll\ClosePrivateNamespace", "ptr", Handle, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7786,25 +8016,25 @@ class Threading {
 
     /**
      * Creates a boundary descriptor.
-     * @param {Pointer<Char>} Name The name of the boundary descriptor.
+     * @param {PWSTR} Name The name of the boundary descriptor.
      * @param {Integer} Flags This parameter is reserved for future use.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the boundary descriptor.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the boundary descriptor.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//namespaceapi/nf-namespaceapi-createboundarydescriptorw
      */
     static CreateBoundaryDescriptorW(Name, Flags) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
 
         result := DllCall("KERNEL32.dll\CreateBoundaryDescriptorW", "ptr", Name, "uint", Flags, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Adds a security identifier (SID) to the specified boundary descriptor.
-     * @param {Pointer<Void>} BoundaryDescriptor A handle to the boundary descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createboundarydescriptora">CreateBoundaryDescriptor</a> function returns this handle.
-     * @param {Pointer<Void>} RequiredSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {Pointer<HANDLE>} BoundaryDescriptor A handle to the boundary descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createboundarydescriptora">CreateBoundaryDescriptor</a> function returns this handle.
+     * @param {PSID} RequiredSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7814,7 +8044,7 @@ class Threading {
     static AddSIDToBoundaryDescriptor(BoundaryDescriptor, RequiredSid) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AddSIDToBoundaryDescriptor", "ptr", BoundaryDescriptor, "ptr", RequiredSid, "int")
+        result := DllCall("KERNEL32.dll\AddSIDToBoundaryDescriptor", "ptr", BoundaryDescriptor, "ptr", RequiredSid, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7828,19 +8058,21 @@ class Threading {
      * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0600 or later.
      * 
      * 
-     * @param {Pointer<Void>} BoundaryDescriptor A handle to the boundary descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createboundarydescriptora">CreateBoundaryDescriptor</a> function returns this handle.
+     * @param {HANDLE} BoundaryDescriptor A handle to the boundary descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createboundarydescriptora">CreateBoundaryDescriptor</a> function returns this handle.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//namespaceapi/nf-namespaceapi-deleteboundarydescriptor
      * @since windows6.0.6000
      */
     static DeleteBoundaryDescriptor(BoundaryDescriptor) {
+        BoundaryDescriptor := BoundaryDescriptor is Win32Handle ? NumGet(BoundaryDescriptor, "ptr") : BoundaryDescriptor
+
         DllCall("KERNEL32.dll\DeleteBoundaryDescriptor", "ptr", BoundaryDescriptor)
     }
 
     /**
      * Retrieves the node that currently has the highest number.
      * @param {Pointer<UInt32>} HighestNodeNumber The number of the highest node.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7850,7 +8082,7 @@ class Threading {
     static GetNumaHighestNodeNumber(HighestNodeNumber) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaHighestNodeNumber", "uint*", HighestNodeNumber, "int")
+        result := DllCall("KERNEL32.dll\GetNumaHighestNodeNumber", "uint*", HighestNodeNumber, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7863,14 +8095,14 @@ class Threading {
      * @param {Pointer<GROUP_AFFINITY>} ProcessorMask A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-group_affinity">GROUP_AFFINITY</a> structure that receives the processor mask for the specified node. A processor mask is a bit vector in which each bit represents a processor and whether it is in the node.
      * 
      * If the specified node has no processors configured, the <b>Mask</b> member is zero and the <b>Group</b> member is undefined.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//systemtopologyapi/nf-systemtopologyapi-getnumanodeprocessormaskex
      * @since windows6.1
      */
     static GetNumaNodeProcessorMaskEx(Node, ProcessorMask) {
-        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMaskEx", "ushort", Node, "ptr", ProcessorMask, "int")
+        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMaskEx", "ushort", Node, "ptr", ProcessorMask, "ptr")
         return result
     }
 
@@ -7886,7 +8118,7 @@ class Threading {
      * If the input array was too small, the function fails with **ERROR_INSUFFICIENT_BUFFER** and sets the *RequiredMaskCount* parameter to the number of elements required. 
      * 
      * The number of required elements is always less than or equal to the maximum group count returned by [GetMaximumProcessorGroupCount](../winbase/nf-winbase-getmaximumprocessorgroupcount.md).
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero and extended error information can be retrieved by calling [GetLastError](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * 
@@ -7896,7 +8128,7 @@ class Threading {
      * @see https://docs.microsoft.com/windows/win32/api//systemtopologyapi/nf-systemtopologyapi-getnumanodeprocessormask2
      */
     static GetNumaNodeProcessorMask2(NodeNumber, ProcessorMasks, ProcessorMaskCount, RequiredMaskCount) {
-        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask2", "ushort", NodeNumber, "ptr", ProcessorMasks, "ushort", ProcessorMaskCount, "ushort*", RequiredMaskCount, "int")
+        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask2", "ushort", NodeNumber, "ptr", ProcessorMasks, "ushort", ProcessorMaskCount, "ushort*", RequiredMaskCount, "ptr")
         return result
     }
 
@@ -7904,26 +8136,26 @@ class Threading {
      * Retrieves the NUMA node number that corresponds to the specified proximity identifier as a USHORT value.
      * @param {Integer} ProximityId The proximity identifier of the node.
      * @param {Pointer<UInt16>} NodeNumber Points to a variable to receive the node number for the specified proximity identifier.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//systemtopologyapi/nf-systemtopologyapi-getnumaproximitynodeex
      * @since windows6.1
      */
     static GetNumaProximityNodeEx(ProximityId, NodeNumber) {
-        result := DllCall("KERNEL32.dll\GetNumaProximityNodeEx", "uint", ProximityId, "ushort*", NodeNumber, "int")
+        result := DllCall("KERNEL32.dll\GetNumaProximityNodeEx", "uint", ProximityId, "ushort*", NodeNumber, "ptr")
         return result
     }
 
     /**
      * Retrieves the processor group affinity of the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process.
+     * @param {HANDLE} hProcess A handle to the process.
      * 
      * This handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt16>} GroupCount On input, specifies the number of elements in <i>GroupArray</i> array. On output, specifies the number of processor groups written to the array. If the array is too small, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>GroupCount</i> parameter to the number of elements required.
      * @param {Pointer<UInt16>} GroupArray An array of processor group numbers. A group number is included in the array if a thread in the process is assigned to a processor in the group.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">GetLastError</a>.
      * 
@@ -7932,52 +8164,58 @@ class Threading {
      * @since windows6.1
      */
     static GetProcessGroupAffinity(hProcess, GroupCount, GroupArray) {
-        result := DllCall("KERNEL32.dll\GetProcessGroupAffinity", "ptr", hProcess, "ushort*", GroupCount, "ushort*", GroupArray, "int")
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
+        result := DllCall("KERNEL32.dll\GetProcessGroupAffinity", "ptr", hProcess, "ushort*", GroupCount, "ushort*", GroupArray, "ptr")
         return result
     }
 
     /**
      * Retrieves the processor group affinity of the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread for which the processor group affinity is desired. 
+     * @param {HANDLE} hThread A handle to the thread for which the processor group affinity is desired. 
      * 
      * The handle must have the THREAD_QUERY_INFORMATION or THREAD_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Pointer<GROUP_AFFINITY>} GroupAffinity A pointer to a GROUP_AFFINITY structure to receive the group affinity of the thread.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processtopologyapi/nf-processtopologyapi-getthreadgroupaffinity
      * @since windows6.1
      */
     static GetThreadGroupAffinity(hThread, GroupAffinity) {
-        result := DllCall("KERNEL32.dll\GetThreadGroupAffinity", "ptr", hThread, "ptr", GroupAffinity, "int")
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
+        result := DllCall("KERNEL32.dll\GetThreadGroupAffinity", "ptr", hThread, "ptr", GroupAffinity, "ptr")
         return result
     }
 
     /**
      * Sets the processor group affinity for the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread. 
+     * @param {HANDLE} hThread A handle to the thread. 
      * 
      * The handle must have the THREAD_SET_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Pointer<GROUP_AFFINITY>} GroupAffinity A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-group_affinity">GROUP_AFFINITY</a> structure that specifies the processor group affinity to be used for the specified thread.
      * @param {Pointer<GROUP_AFFINITY>} PreviousGroupAffinity A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-group_affinity">GROUP_AFFINITY</a> structure to receive the thread's previous group affinity. This parameter can be NULL.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processtopologyapi/nf-processtopologyapi-setthreadgroupaffinity
      * @since windows6.1
      */
     static SetThreadGroupAffinity(hThread, GroupAffinity, PreviousGroupAffinity) {
-        result := DllCall("KERNEL32.dll\SetThreadGroupAffinity", "ptr", hThread, "ptr", GroupAffinity, "ptr", PreviousGroupAffinity, "int")
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
+        result := DllCall("KERNEL32.dll\SetThreadGroupAffinity", "ptr", hThread, "ptr", GroupAffinity, "ptr", PreviousGroupAffinity, "ptr")
         return result
     }
 
     /**
      * Associates the calling thread with the specified task.
-     * @param {Pointer<Byte>} TaskName The name of the task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
+     * @param {PSTR} TaskName The name of the task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {Pointer<UInt32>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
-     * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the task. 
+     * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -8029,7 +8267,7 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvSetMmThreadCharacteristicsA(TaskName, TaskIndex) {
-        TaskName := TaskName is String? StrPtr(TaskName) : TaskName
+        TaskName := TaskName is String ? StrPtr(TaskName) : TaskName
 
         A_LastError := 0
 
@@ -8037,14 +8275,14 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Associates the calling thread with the specified task.
-     * @param {Pointer<Char>} TaskName The name of the task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
+     * @param {PWSTR} TaskName The name of the task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {Pointer<UInt32>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
-     * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the task. 
+     * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -8096,7 +8334,7 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvSetMmThreadCharacteristicsW(TaskName, TaskIndex) {
-        TaskName := TaskName is String? StrPtr(TaskName) : TaskName
+        TaskName := TaskName is String ? StrPtr(TaskName) : TaskName
 
         A_LastError := 0
 
@@ -8104,15 +8342,15 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Associates the calling thread with the specified tasks.
-     * @param {Pointer<Byte>} FirstTask The name of the first task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
-     * @param {Pointer<Byte>} SecondTask The name of the second task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
+     * @param {PSTR} FirstTask The name of the first task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
+     * @param {PSTR} SecondTask The name of the second task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {Pointer<UInt32>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
-     * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the task. 
+     * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -8164,8 +8402,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvSetMmMaxThreadCharacteristicsA(FirstTask, SecondTask, TaskIndex) {
-        FirstTask := FirstTask is String? StrPtr(FirstTask) : FirstTask
-        SecondTask := SecondTask is String? StrPtr(SecondTask) : SecondTask
+        FirstTask := FirstTask is String ? StrPtr(FirstTask) : FirstTask
+        SecondTask := SecondTask is String ? StrPtr(SecondTask) : SecondTask
 
         A_LastError := 0
 
@@ -8173,15 +8411,15 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Associates the calling thread with the specified tasks.
-     * @param {Pointer<Char>} FirstTask The name of the first task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
-     * @param {Pointer<Char>} SecondTask The name of the second task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
+     * @param {PWSTR} FirstTask The name of the first task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
+     * @param {PWSTR} SecondTask The name of the second task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {Pointer<UInt32>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
-     * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the task. 
+     * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -8233,8 +8471,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvSetMmMaxThreadCharacteristicsW(FirstTask, SecondTask, TaskIndex) {
-        FirstTask := FirstTask is String? StrPtr(FirstTask) : FirstTask
-        SecondTask := SecondTask is String? StrPtr(SecondTask) : SecondTask
+        FirstTask := FirstTask is String ? StrPtr(FirstTask) : FirstTask
+        SecondTask := SecondTask is String ? StrPtr(SecondTask) : SecondTask
 
         A_LastError := 0
 
@@ -8242,13 +8480,13 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Indicates that a thread is no longer performing work associated with the specified task.
-     * @param {Pointer<Void>} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8256,9 +8494,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvRevertMmThreadCharacteristics(AvrtHandle) {
+        AvrtHandle := AvrtHandle is Win32Handle ? NumGet(AvrtHandle, "ptr") : AvrtHandle
+
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRevertMmThreadCharacteristics", "ptr", AvrtHandle, "int")
+        result := DllCall("AVRT.dll\AvRevertMmThreadCharacteristics", "ptr", AvrtHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8267,9 +8507,9 @@ class Threading {
 
     /**
      * Adjusts the thread priority of the calling thread relative to other threads performing the same task.
-     * @param {Pointer<Void>} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
+     * @param {HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
      * @param {Integer} Priority 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8277,9 +8517,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvSetMmThreadPriority(AvrtHandle, Priority) {
+        AvrtHandle := AvrtHandle is Win32Handle ? NumGet(AvrtHandle, "ptr") : AvrtHandle
+
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvSetMmThreadPriority", "ptr", AvrtHandle, "int", Priority, "int")
+        result := DllCall("AVRT.dll\AvSetMmThreadPriority", "ptr", AvrtHandle, "int", Priority, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8288,7 +8530,7 @@ class Threading {
 
     /**
      * Creates a thread ordering group.
-     * @param {Pointer<Void>} Context A pointer to a context handle.
+     * @param {Pointer<HANDLE>} Context A pointer to a context handle.
      * @param {Pointer<Int64>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -8304,7 +8546,7 @@ class Threading {
      * If this parameter is <b>NULL</b> or 0, the default is five times the value of <i>Period</i>.
      * 
      * If this parameter is THREAD_ORDER_GROUP_INFINITE_TIMEOUT, the group is created with an infinite time-out interval. This can be useful for debugging purposes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8316,7 +8558,7 @@ class Threading {
     static AvRtCreateThreadOrderingGroup(Context, Period, ThreadOrderingGuid, Timeout) {
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroup", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "int")
+        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroup", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8325,7 +8567,7 @@ class Threading {
 
     /**
      * Creates a thread ordering group and associates the server thread with a task.
-     * @param {Pointer<Void>} Context A pointer to a context handle.
+     * @param {Pointer<HANDLE>} Context A pointer to a context handle.
      * @param {Pointer<Int64>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -8341,8 +8583,8 @@ class Threading {
      * If this parameter is <b>NULL</b> or 0, the default is five times the value of <i>Period</i>.
      * 
      * If this parameter is THREAD_ORDER_GROUP_INFINITE_TIMEOUT, the group is created with an infinite time-out interval. This can be useful for debugging purposes.
-     * @param {Pointer<Byte>} TaskName The name of the task.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {PSTR} TaskName The name of the task.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8352,11 +8594,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvRtCreateThreadOrderingGroupExA(Context, Period, ThreadOrderingGuid, Timeout, TaskName) {
-        TaskName := TaskName is String? StrPtr(TaskName) : TaskName
+        TaskName := TaskName is String ? StrPtr(TaskName) : TaskName
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExA", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "ptr", TaskName, "int")
+        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExA", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "ptr", TaskName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8365,7 +8607,7 @@ class Threading {
 
     /**
      * Creates a thread ordering group and associates the server thread with a task.
-     * @param {Pointer<Void>} Context A pointer to a context handle.
+     * @param {Pointer<HANDLE>} Context A pointer to a context handle.
      * @param {Pointer<Int64>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -8381,8 +8623,8 @@ class Threading {
      * If this parameter is <b>NULL</b> or 0, the default is five times the value of <i>Period</i>.
      * 
      * If this parameter is THREAD_ORDER_GROUP_INFINITE_TIMEOUT, the group is created with an infinite time-out interval. This can be useful for debugging purposes.
-     * @param {Pointer<Char>} TaskName The name of the task.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {PWSTR} TaskName The name of the task.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8392,11 +8634,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvRtCreateThreadOrderingGroupExW(Context, Period, ThreadOrderingGuid, Timeout, TaskName) {
-        TaskName := TaskName is String? StrPtr(TaskName) : TaskName
+        TaskName := TaskName is String ? StrPtr(TaskName) : TaskName
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExW", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "ptr", TaskName, "int")
+        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExW", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "ptr", TaskName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8405,10 +8647,10 @@ class Threading {
 
     /**
      * Joins client threads to a thread ordering group.
-     * @param {Pointer<Void>} Context A pointer to a context handle.
+     * @param {Pointer<HANDLE>} Context A pointer to a context handle.
      * @param {Pointer<Guid>} ThreadOrderingGuid A pointer to the unique identifier for the thread ordering group.
-     * @param {Integer} Before The thread order. If this parameter is <b>TRUE</b>, the thread is a predecessor thread that is scheduled to run before the parent thread. If this parameter is <b>FALSE</b>, the thread is a successor thread that is scheduled to run after the parent thread.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} Before The thread order. If this parameter is <b>TRUE</b>, the thread is a predecessor thread that is scheduled to run before the parent thread. If this parameter is <b>FALSE</b>, the thread is a successor thread that is scheduled to run after the parent thread.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8418,7 +8660,7 @@ class Threading {
     static AvRtJoinThreadOrderingGroup(Context, ThreadOrderingGuid, Before) {
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtJoinThreadOrderingGroup", "ptr", Context, "ptr", ThreadOrderingGuid, "int", Before, "int")
+        result := DllCall("AVRT.dll\AvRtJoinThreadOrderingGroup", "ptr", Context, "ptr", ThreadOrderingGuid, "ptr", Before, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8427,8 +8669,8 @@ class Threading {
 
     /**
      * Enables client threads of a thread ordering group to wait until they should execute.
-     * @param {Pointer<Void>} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8436,9 +8678,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvRtWaitOnThreadOrderingGroup(Context) {
+        Context := Context is Win32Handle ? NumGet(Context, "ptr") : Context
+
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtWaitOnThreadOrderingGroup", "ptr", Context, "int")
+        result := DllCall("AVRT.dll\AvRtWaitOnThreadOrderingGroup", "ptr", Context, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8447,8 +8691,8 @@ class Threading {
 
     /**
      * Enables client threads to leave a thread ordering group.
-     * @param {Pointer<Void>} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8456,9 +8700,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvRtLeaveThreadOrderingGroup(Context) {
+        Context := Context is Win32Handle ? NumGet(Context, "ptr") : Context
+
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtLeaveThreadOrderingGroup", "ptr", Context, "int")
+        result := DllCall("AVRT.dll\AvRtLeaveThreadOrderingGroup", "ptr", Context, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8467,8 +8713,8 @@ class Threading {
 
     /**
      * Deletes the specified thread ordering group created by the caller. It cleans up resources for the thread ordering group, including the context information, and returns.
-     * @param {Pointer<Void>} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> function when creating the group.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> function when creating the group.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8476,9 +8722,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvRtDeleteThreadOrderingGroup(Context) {
+        Context := Context is Win32Handle ? NumGet(Context, "ptr") : Context
+
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtDeleteThreadOrderingGroup", "ptr", Context, "int")
+        result := DllCall("AVRT.dll\AvRtDeleteThreadOrderingGroup", "ptr", Context, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8487,9 +8735,9 @@ class Threading {
 
     /**
      * Retrieves the system responsiveness setting used by the multimedia class scheduler service.
-     * @param {Pointer<Void>} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
+     * @param {HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
      * @param {Pointer<UInt32>} SystemResponsivenessValue The system responsiveness value. This value can range from 10 to 100 percent.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8497,9 +8745,11 @@ class Threading {
      * @since windows6.0.6000
      */
     static AvQuerySystemResponsiveness(AvrtHandle, SystemResponsivenessValue) {
+        AvrtHandle := AvrtHandle is Win32Handle ? NumGet(AvrtHandle, "ptr") : AvrtHandle
+
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvQuerySystemResponsiveness", "ptr", AvrtHandle, "uint*", SystemResponsivenessValue, "int")
+        result := DllCall("AVRT.dll\AvQuerySystemResponsiveness", "ptr", AvrtHandle, "uint*", SystemResponsivenessValue, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8566,7 +8816,7 @@ class Threading {
 
     /**
      * Obtains and locks a shared work queue.
-     * @param {Pointer<Char>} usageClass The name of the Multimedia Class Scheduler Service (MMCSS) task.
+     * @param {PWSTR} usageClass The name of the Multimedia Class Scheduler Service (MMCSS) task.
      * @param {Integer} basePriority The base priority of the work-queue threads. If the regular-priority queue is being used (<c>usageClass=""</c>), then the value 0 must be passed in.
      * @param {Pointer<UInt32>} taskId The MMCSS task identifier. On input, specify an existing MCCSS task group ID, or use the value zero to create a new task group. If the regular priority queue is being used (<c>usageClass=""</c>), then <b>NULL</b> must be passed in. On output, receives the actual task group ID.
      * @param {Pointer<UInt32>} id Receives an identifier for the new work queue. Use this identifier when queuing work items.
@@ -8575,7 +8825,7 @@ class Threading {
      * @since windows8.1
      */
     static RtwqLockSharedWorkQueue(usageClass, basePriority, taskId, id) {
-        usageClass := usageClass is String? StrPtr(usageClass) : usageClass
+        usageClass := usageClass is String ? StrPtr(usageClass) : usageClass
 
         result := DllCall("RTWorkQ.dll\RtwqLockSharedWorkQueue", "ptr", usageClass, "int", basePriority, "uint*", taskId, "uint*", id, "int")
         if(result != 0)
@@ -8587,13 +8837,15 @@ class Threading {
     /**
      * Associates a work queue with an input/output (I/O) handle.
      * @param {Integer} workQueueId The ID of the work queue to redirect the I/O handle into.
-     * @param {Pointer<Void>} hFile The network I/O handle.
-     * @param {Pointer<Void>} out A cookie that represents the association between the network and I/O handles.
+     * @param {HANDLE} hFile The network I/O handle.
+     * @param {Pointer<HANDLE>} out A cookie that represents the association between the network and I/O handles.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqjoinworkqueue
      * @since windows8.1
      */
     static RtwqJoinWorkQueue(workQueueId, hFile, out) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         result := DllCall("RTWorkQ.dll\RtwqJoinWorkQueue", "uint", workQueueId, "ptr", hFile, "ptr", out, "int")
         if(result != 0)
             throw OSError(result)
@@ -8604,12 +8856,14 @@ class Threading {
     /**
      * Disassociates a work queue from an input/output (I/O) handle.
      * @param {Integer} workQueueId The ID of the work queue to disassociate.
-     * @param {Pointer<Void>} hFile The associated  handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqjoinworkqueue">RtwqJoinWorkQueue</a> function.
+     * @param {HANDLE} hFile The associated  handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqjoinworkqueue">RtwqJoinWorkQueue</a> function.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqunjoinworkqueue
      * @since windows8.1
      */
     static RtwqUnjoinWorkQueue(workQueueId, hFile) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         result := DllCall("RTWorkQ.dll\RtwqUnjoinWorkQueue", "uint", workQueueId, "ptr", hFile, "int")
         if(result != 0)
             throw OSError(result)
@@ -8680,7 +8934,7 @@ class Threading {
 
     /**
      * Registers the standard platform work queues with the Multimedia Class Scheduler Service (MMCSS).
-     * @param {Pointer<Char>} usageClass The name of the MMCSS task.
+     * @param {PWSTR} usageClass The name of the MMCSS task.
      * @param {Pointer<UInt32>} taskId The MMCSS task identifier. On input, specify an existing MCCSS task group ID, or use the value zero to create a new task group. On output, receives the actual task group ID.
      * @param {Integer} lPriority The base priority of the work-queue threads.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
@@ -8688,7 +8942,7 @@ class Threading {
      * @since windows8.1
      */
     static RtwqRegisterPlatformWithMMCSS(usageClass, taskId, lPriority) {
-        usageClass := usageClass is String? StrPtr(usageClass) : usageClass
+        usageClass := usageClass is String ? StrPtr(usageClass) : usageClass
 
         result := DllCall("RTWorkQ.dll\RtwqRegisterPlatformWithMMCSS", "ptr", usageClass, "uint*", taskId, "int", lPriority, "int")
         if(result != 0)
@@ -8730,7 +8984,7 @@ class Threading {
 
     /**
      * Queues a work item that waits for an event to be signaled.
-     * @param {Pointer<Void>} hEvent A handle to an event object, such as an event or timer. To create an event object, call <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventexa">CreateEventEx</a>.
+     * @param {HANDLE} hEvent A handle to an event object, such as an event or timer. To create an event object, call <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventexa">CreateEventEx</a>.
      * @param {Integer} lPriority The priority of the work item. Work items are performed in order of priority.
      * @param {Pointer<IRtwqAsyncResult>} result A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface of an asynchronous result object. To create the result object, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult">RtwqCreateAsyncResult</a>.
      * @param {Pointer<UInt64>} key Receives a key that can be used to cancel the wait. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter. This parameter can be <b>NULL</b>.
@@ -8739,6 +8993,8 @@ class Threading {
      * @since windows8.1
      */
     static RtwqPutWaitingWorkItem(hEvent, lPriority, result, key) {
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         result := DllCall("RTWorkQ.dll\RtwqPutWaitingWorkItem", "ptr", hEvent, "int", lPriority, "ptr", result, "uint*", key, "int")
         if(result != 0)
             throw OSError(result)
@@ -8932,7 +9188,7 @@ class Threading {
     /**
      * Associates a work queue with a Multimedia Class Scheduler Service (MMCSS) task.
      * @param {Integer} workQueueId The identifier of the work queue.  For private work queues, the identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
-     * @param {Pointer<Char>} usageClass The name of the MMCSS task.
+     * @param {PWSTR} usageClass The name of the MMCSS task.
      * @param {Integer} dwTaskId The unique task identifier. To obtain a new task identifier, set this value to zero.
      * @param {Integer} lPriority The base relative priority for the work-queue threads. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadpriority">AvSetMmThreadPriority</a>.
      * @param {Pointer<IRtwqAsyncCallback>} doneCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface of a callback object. The caller must implement this interface.
@@ -8942,7 +9198,7 @@ class Threading {
      * @since windows8.1
      */
     static RtwqBeginRegisterWorkQueueWithMMCSS(workQueueId, usageClass, dwTaskId, lPriority, doneCallback, doneState) {
-        usageClass := usageClass is String? StrPtr(usageClass) : usageClass
+        usageClass := usageClass is String ? StrPtr(usageClass) : usageClass
 
         result := DllCall("RTWorkQ.dll\RtwqBeginRegisterWorkQueueWithMMCSS", "uint", workQueueId, "ptr", usageClass, "uint", dwTaskId, "int", lPriority, "ptr", doneCallback, "ptr", doneState, "int")
         if(result != 0)
@@ -8987,14 +9243,14 @@ class Threading {
     /**
      * Retrieves the Multimedia Class Scheduler Service (MMCSS) class currently associated with this work queue.
      * @param {Integer} workQueueId Identifier for the work queue. The identifier is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
-     * @param {Pointer<Char>} usageClass Pointer to a buffer that receives the name of the MMCSS class. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} usageClass Pointer to a buffer that receives the name of the MMCSS class. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} usageClassLength On input, specifies the size of the <i>usageClass</i> buffer, in characters. On output, receives the required size of the buffer, in characters. The size includes the terminating null character.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqgetworkqueuemmcssclass
      * @since windows8.1
      */
     static RtwqGetWorkQueueMMCSSClass(workQueueId, usageClass, usageClassLength) {
-        usageClass := usageClass is String? StrPtr(usageClass) : usageClass
+        usageClass := usageClass is String ? StrPtr(usageClass) : usageClass
 
         result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSClass", "uint", workQueueId, "ptr", usageClass, "uint*", usageClassLength, "int")
         if(result != 0)
@@ -9068,13 +9324,13 @@ class Threading {
     /**
      * Indicates that the app will be submitting a hint that long running work will occur on this work queue.
      * @param {Integer} workQueueId The ID of the work queue.
-     * @param {Integer} enable <b>true</b> if the app will be submitting the hint; otherwise, <b>false</b>. The default is <b>false</b>.
+     * @param {BOOL} enable <b>true</b> if the app will be submitting the hint; otherwise, <b>false</b>. The default is <b>false</b>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqsetlongrunning
      * @since windows8.1
      */
     static RtwqSetLongRunning(workQueueId, enable) {
-        result := DllCall("RTWorkQ.dll\RtwqSetLongRunning", "uint", workQueueId, "int", enable, "int")
+        result := DllCall("RTWorkQ.dll\RtwqSetLongRunning", "uint", workQueueId, "ptr", enable, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9085,7 +9341,7 @@ class Threading {
      * Sets a deadline by which the work in a work queue must be completed.
      * @param {Integer} workQueueId The identifier for the work queue. The identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Integer} deadlineInHNS The deadline for the work in the queue to be completed, in milliseconds.
-     * @param {Pointer<Void>} pRequest Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
+     * @param {Pointer<HANDLE>} pRequest Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqsetdeadline
      * @since windows10.0.10240
@@ -9103,7 +9359,7 @@ class Threading {
      * @param {Integer} workQueueId The identifier for the work queue. The identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {Integer} deadlineInHNS The deadline for the work in the queue to be completed, in milliseconds.
      * @param {Integer} preDeadlineInHNS The pre-deadline for the work in the queue to be completed, in milliseconds.
-     * @param {Pointer<Void>} pRequest Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
+     * @param {Pointer<HANDLE>} pRequest Receives a handle to the request that can be used to cancel the request by calling <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcanceldeadline">RtwqCancelDeadline</a>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqsetdeadline2
      * @since windows10.0.10240
@@ -9118,11 +9374,13 @@ class Threading {
 
     /**
      * Cancels a deadline that was previously set with RtwqSetDeadline.
-     * @param {Pointer<Void>} pRequest Receives a handle to the request that can be used to cancel the request by calling <b>RtwqCancelDeadline</b>.
+     * @param {HANDLE} pRequest Receives a handle to the request that can be used to cancel the request by calling <b>RtwqCancelDeadline</b>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqcanceldeadline
      */
     static RtwqCancelDeadline(pRequest) {
+        pRequest := pRequest is Win32Handle ? NumGet(pRequest, "ptr") : pRequest
+
         result := DllCall("RTWorkQ.dll\RtwqCancelDeadline", "ptr", pRequest, "int")
         if(result != 0)
             throw OSError(result)
@@ -9132,12 +9390,14 @@ class Threading {
 
     /**
      * 
-     * @param {Pointer<Void>} hwnd 
-     * @returns {Pointer<Void>} 
+     * @param {HWND} hwnd 
+     * @returns {HANDLE} 
      */
     static GetProcessHandleFromHwnd(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("OLEACC.dll\GetProcessHandleFromHwnd", "ptr", hwnd, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -9149,8 +9409,8 @@ class Threading {
      * 
      * 
      * A thread cannot attach to itself. Therefore, <i>idAttachTo</i> cannot equal <i>idAttach</i>.
-     * @param {Integer} fAttach If this parameter is <b>TRUE</b>, the two threads are attached. If the parameter is <b>FALSE</b>, the threads are detached.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} fAttach If this parameter is <b>TRUE</b>, the two threads are attached. If the parameter is <b>FALSE</b>, the threads are detached.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -9160,13 +9420,13 @@ class Threading {
      * @since windows5.1.2600
      */
     static AttachThreadInput(idAttach, idAttachTo, fAttach) {
-        result := DllCall("USER32.dll\AttachThreadInput", "uint", idAttach, "uint", idAttachTo, "int", fAttach, "int")
+        result := DllCall("USER32.dll\AttachThreadInput", "uint", idAttach, "uint", idAttachTo, "ptr", fAttach, "ptr")
         return result
     }
 
     /**
      * Waits until the specified process has finished processing its initial input and is waiting for user input with no input pending, or until the time-out interval has elapsed.
-     * @param {Pointer<Void>} hProcess A handle to the process. If this process is a console application or does not have a message queue, 
+     * @param {HANDLE} hProcess A handle to the process. If this process is a console application or does not have a message queue, 
      * <b>WaitForInputIdle</b> returns immediately.
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. If <i>dwMilliseconds</i> is INFINITE, the function does not return until the process is idle.
      * @returns {Integer} The following table shows the possible return values for this function.
@@ -9214,13 +9474,15 @@ class Threading {
      * @since windows5.1.2600
      */
     static WaitForInputIdle(hProcess, dwMilliseconds) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         result := DllCall("USER32.dll\WaitForInputIdle", "ptr", hProcess, "uint", dwMilliseconds, "uint")
         return result
     }
 
     /**
      * Retrieves the count of handles to graphical user interface (GUI) objects in use by the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. The handle must refer to a process in the current session, and must have the **PROCESS_QUERY_INFORMATION** access right (see [Process security and access rights](/windows/win32/procthread/process-security-and-access-rights)).
+     * @param {HANDLE} hProcess A handle to the process. The handle must refer to a process in the current session, and must have the **PROCESS_QUERY_INFORMATION** access right (see [Process security and access rights](/windows/win32/procthread/process-security-and-access-rights)).
      * 
      * If this parameter is the special value **GR_GLOBAL**, then the resource usage is reported across all processes in the current session.
      * 
@@ -9234,6 +9496,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetGuiResources(hProcess, uiFlags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetGuiResources", "ptr", hProcess, "uint", uiFlags, "uint")
@@ -9245,8 +9509,8 @@ class Threading {
 
     /**
      * Determines whether the process belongs to a Windows Store app.
-     * @param {Pointer<Void>} hProcess Target process handle.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} hProcess Target process handle.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -9254,9 +9518,11 @@ class Threading {
      * @since windows8.0
      */
     static IsImmersiveProcess(hProcess) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\IsImmersiveProcess", "ptr", hProcess, "int")
+        result := DllCall("USER32.dll\IsImmersiveProcess", "ptr", hProcess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9265,8 +9531,8 @@ class Threading {
 
     /**
      * Exempts the calling process from restrictions preventing desktop processes from interacting with the Windows Store app environment. This function is used by development and debugging tools.
-     * @param {Integer} fEnableExemption When set to TRUE, indicates a request to disable exemption for the calling process.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} fEnableExemption When set to TRUE, indicates a request to disable exemption for the calling process.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -9276,7 +9542,7 @@ class Threading {
     static SetProcessRestrictionExemption(fEnableExemption) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetProcessRestrictionExemption", "int", fEnableExemption, "int")
+        result := DllCall("USER32.dll\SetProcessRestrictionExemption", "ptr", fEnableExemption, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9285,7 +9551,7 @@ class Threading {
 
     /**
      * Retrieves the process affinity mask for the specified process and the system affinity mask for the system.
-     * @param {Pointer<Void>} hProcess A handle to the process whose affinity mask is desired.
+     * @param {HANDLE} hProcess A handle to the process whose affinity mask is desired.
      * 
      * This handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
@@ -9293,7 +9559,7 @@ class Threading {
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
      * @param {Pointer<UIntPtr>} lpProcessAffinityMask A pointer to a variable that receives the affinity mask for the specified process.
      * @param {Pointer<UIntPtr>} lpSystemAffinityMask A pointer to a variable that receives the affinity mask for the system.
-     * @returns {Integer} If the function succeeds, the return value is nonzero and the function sets the variables pointed to by <i>lpProcessAffinityMask</i> and <i>lpSystemAffinityMask</i> to the appropriate affinity masks.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero and the function sets the variables pointed to by <i>lpProcessAffinityMask</i> and <i>lpSystemAffinityMask</i> to the appropriate affinity masks.
      * 
      * On a system with more than 64 processors, if the threads of the calling process are in a single <a href="/windows/desktop/ProcThread/processor-groups">processor group</a>, the function sets the variables pointed to by <i>lpProcessAffinityMask</i> and <i>lpSystemAffinityMask</i> to the process affinity mask and the processor mask of active logical processors for that group. If the calling process contains threads in multiple groups, the function returns zero for both affinity masks.
      * 
@@ -9303,9 +9569,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetProcessAffinityMask(hProcess, lpProcessAffinityMask, lpSystemAffinityMask) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessAffinityMask", "ptr", hProcess, "ptr*", lpProcessAffinityMask, "ptr*", lpSystemAffinityMask, "int")
+        result := DllCall("KERNEL32.dll\GetProcessAffinityMask", "ptr", hProcess, "ptr*", lpProcessAffinityMask, "ptr*", lpSystemAffinityMask, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9314,12 +9582,12 @@ class Threading {
 
     /**
      * Sets a processor affinity mask for the threads of the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose affinity mask is to be set. This handle must have the <b>PROCESS_SET_INFORMATION</b> access right. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process whose affinity mask is to be set. This handle must have the <b>PROCESS_SET_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer} dwProcessAffinityMask The affinity mask for the threads of the process.
      * 
      * On a system with more than 64 processors, the affinity mask must specify processors in a single <a href="https://docs.microsoft.com/windows/desktop/ProcThread/processor-groups">processor group</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -9331,9 +9599,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static SetProcessAffinityMask(hProcess, dwProcessAffinityMask) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessAffinityMask", "ptr", hProcess, "ptr", dwProcessAffinityMask, "int")
+        result := DllCall("KERNEL32.dll\SetProcessAffinityMask", "ptr", hProcess, "ptr", dwProcessAffinityMask, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9342,13 +9612,13 @@ class Threading {
 
     /**
      * Retrieves accounting information for all I/O operations performed by the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
      * @param {Pointer<IO_COUNTERS>} lpIoCounters A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-io_counters">IO_COUNTERS</a> structure that receives the I/O accounting information for the process.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -9356,9 +9626,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static GetProcessIoCounters(hProcess, lpIoCounters) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessIoCounters", "ptr", hProcess, "ptr", lpIoCounters, "int")
+        result := DllCall("KERNEL32.dll\GetProcessIoCounters", "ptr", hProcess, "ptr", lpIoCounters, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9423,7 +9695,7 @@ class Threading {
 
     /**
      * Converts the current fiber into a thread.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -9433,7 +9705,7 @@ class Threading {
     static ConvertFiberToThread() {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ConvertFiberToThread", "int")
+        result := DllCall("KERNEL32.dll\ConvertFiberToThread", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9541,7 +9813,7 @@ class Threading {
      * Creates a user-mode scheduling (UMS) completion list.
      * @param {Pointer<Void>} UmsCompletionList A <b>PUMS_COMPLETION_LIST</b> variable. On output, this parameter receives a pointer 
      *       to an empty UMS completion list.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the 
@@ -9570,7 +9842,7 @@ class Threading {
     static CreateUmsCompletionList(UmsCompletionList) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateUmsCompletionList", "ptr", UmsCompletionList, "int")
+        result := DllCall("KERNEL32.dll\CreateUmsCompletionList", "ptr", UmsCompletionList, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9586,7 +9858,7 @@ class Threading {
      * @param {Pointer<Void>} UmsThreadList A pointer to a UMS_CONTEXT variable. On output, this parameter receives a pointer to the first UMS thread context in a list of UMS thread contexts. 
      * 
      * If no worker threads are available before the time-out specified by the <i>WaitTimeOut</i> parameter, this parameter is set to NULL.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
@@ -9613,7 +9885,7 @@ class Threading {
     static DequeueUmsCompletionListItems(UmsCompletionList, WaitTimeOut, UmsThreadList) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DequeueUmsCompletionListItems", "ptr", UmsCompletionList, "uint", WaitTimeOut, "ptr", UmsThreadList, "int")
+        result := DllCall("KERNEL32.dll\DequeueUmsCompletionListItems", "ptr", UmsCompletionList, "uint", WaitTimeOut, "ptr", UmsThreadList, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9623,8 +9895,8 @@ class Threading {
     /**
      * Retrieves a handle to the event associated with the specified user-mode scheduling (UMS) completion list.
      * @param {Pointer<Void>} UmsCompletionList A pointer to a UMS completion list. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createumscompletionlist">CreateUmsCompletionList</a> function provides this pointer.
-     * @param {Pointer<Void>} UmsCompletionEvent A pointer to a HANDLE variable. On output, the <i>UmsCompletionEvent</i> parameter is set to a handle to the event associated with the specified completion list.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @param {Pointer<HANDLE>} UmsCompletionEvent A pointer to a HANDLE variable. On output, the <i>UmsCompletionEvent</i> parameter is set to a handle to the event associated with the specified completion list.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getumscompletionlistevent
@@ -9633,7 +9905,7 @@ class Threading {
     static GetUmsCompletionListEvent(UmsCompletionList, UmsCompletionEvent) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetUmsCompletionListEvent", "ptr", UmsCompletionList, "ptr", UmsCompletionEvent, "int")
+        result := DllCall("KERNEL32.dll\GetUmsCompletionListEvent", "ptr", UmsCompletionList, "ptr", UmsCompletionEvent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9643,7 +9915,7 @@ class Threading {
     /**
      * Runs the specified UMS worker thread.
      * @param {Pointer<Void>} UmsThread A pointer to the UMS thread context of the worker thread to run.
-     * @returns {Integer} If the function succeeds, it does not return a value.
+     * @returns {BOOL} If the function succeeds, it does not return a value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include the following.
      * 
@@ -9670,7 +9942,7 @@ class Threading {
     static ExecuteUmsThread(UmsThread) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ExecuteUmsThread", "ptr", UmsThread, "int")
+        result := DllCall("KERNEL32.dll\ExecuteUmsThread", "ptr", UmsThread, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9680,7 +9952,7 @@ class Threading {
     /**
      * Yields control to the user-mode scheduling (UMS) scheduler thread on which the calling UMS worker thread is running.
      * @param {Pointer<Void>} SchedulerParam A parameter to pass to the scheduler thread's <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-rtl_ums_scheduler_entry_point">UmsSchedulerProc</a> function.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-umsthreadyield
@@ -9689,7 +9961,7 @@ class Threading {
     static UmsThreadYield(SchedulerParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UmsThreadYield", "ptr", SchedulerParam, "int")
+        result := DllCall("KERNEL32.dll\UmsThreadYield", "ptr", SchedulerParam, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9699,7 +9971,7 @@ class Threading {
     /**
      * Deletes the specified user-mode scheduling (UMS) completion list. The list must be empty.
      * @param {Pointer<Void>} UmsCompletionList A pointer to the UMS completion list to be deleted. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createumscompletionlist">CreateUmsCompletionList</a> function provides this pointer.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-deleteumscompletionlist
@@ -9708,7 +9980,7 @@ class Threading {
     static DeleteUmsCompletionList(UmsCompletionList) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteUmsCompletionList", "ptr", UmsCompletionList, "int")
+        result := DllCall("KERNEL32.dll\DeleteUmsCompletionList", "ptr", UmsCompletionList, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9763,7 +10035,7 @@ class Threading {
      * If the information class is <b>UmsThreadIsSuspended</b> or <b>UmsThreadIsTerminated</b>, the buffer must be <c>sizeof(BOOLEAN)</c>.
      * @param {Integer} UmsThreadInformationLength The size of the <i>UmsThreadInformation</i> buffer, in bytes.
      * @param {Pointer<UInt32>} ReturnLength A pointer to a ULONG variable. On output, this parameter receives the number of bytes written to the <i>UmsThreadInformation</i> buffer.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
@@ -9801,7 +10073,7 @@ class Threading {
     static QueryUmsThreadInformation(UmsThread, UmsThreadInfoClass, UmsThreadInformation, UmsThreadInformationLength, ReturnLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryUmsThreadInformation", "ptr", UmsThread, "int", UmsThreadInfoClass, "ptr", UmsThreadInformation, "uint", UmsThreadInformationLength, "uint*", ReturnLength, "int")
+        result := DllCall("KERNEL32.dll\QueryUmsThreadInformation", "ptr", UmsThread, "int", UmsThreadInfoClass, "ptr", UmsThreadInformation, "uint", UmsThreadInformationLength, "uint*", ReturnLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9814,7 +10086,7 @@ class Threading {
      * @param {Integer} UmsThreadInfoClass A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-_rtl_ums_thread_info_class">UMS_THREAD_INFO_CLASS</a> value that specifies the kind of information to set. This parameter must be <b>UmsThreadUserContext</b>.
      * @param {Pointer<Void>} UmsThreadInformation A pointer to a buffer that contains the information to set.
      * @param {Integer} UmsThreadInformationLength The size of the <i>UmsThreadInformation</i> buffer, in bytes.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
@@ -9852,7 +10124,7 @@ class Threading {
     static SetUmsThreadInformation(UmsThread, UmsThreadInfoClass, UmsThreadInformation, UmsThreadInformationLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetUmsThreadInformation", "ptr", UmsThread, "int", UmsThreadInfoClass, "ptr", UmsThreadInformation, "uint", UmsThreadInformationLength, "int")
+        result := DllCall("KERNEL32.dll\SetUmsThreadInformation", "ptr", UmsThread, "int", UmsThreadInfoClass, "ptr", UmsThreadInformation, "uint", UmsThreadInformationLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9862,7 +10134,7 @@ class Threading {
     /**
      * Deletes the specified user-mode scheduling (UMS) thread context. The thread must be terminated.
      * @param {Pointer<Void>} UmsThread A pointer to the UMS thread context to be deleted. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createumsthreadcontext">CreateUmsThreadContext</a> function provides this pointer.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-deleteumsthreadcontext
@@ -9871,7 +10143,7 @@ class Threading {
     static DeleteUmsThreadContext(UmsThread) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteUmsThreadContext", "ptr", UmsThread, "int")
+        result := DllCall("KERNEL32.dll\DeleteUmsThreadContext", "ptr", UmsThread, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9881,7 +10153,7 @@ class Threading {
     /**
      * Creates a user-mode scheduling (UMS) thread context to represent a UMS worker thread.
      * @param {Pointer<Void>} lpUmsThread A PUMS_CONTEXT variable. On output, this parameter receives a pointer to a UMS thread context.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
@@ -9908,7 +10180,7 @@ class Threading {
     static CreateUmsThreadContext(lpUmsThread) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateUmsThreadContext", "ptr", lpUmsThread, "int")
+        result := DllCall("KERNEL32.dll\CreateUmsThreadContext", "ptr", lpUmsThread, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9918,7 +10190,7 @@ class Threading {
     /**
      * Converts the calling thread into a user-mode scheduling (UMS) scheduler thread.
      * @param {Pointer<UMS_SCHEDULER_STARTUP_INFO>} SchedulerStartupInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-ums_scheduler_startup_info">UMS_SCHEDULER_STARTUP_INFO</a> structure that specifies UMS attributes for the thread, including a completion list and a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-rtl_ums_scheduler_entry_point">UmsSchedulerProc</a>     entry point function.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-enterumsschedulingmode
@@ -9927,7 +10199,7 @@ class Threading {
     static EnterUmsSchedulingMode(SchedulerStartupInfo) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnterUmsSchedulingMode", "ptr", SchedulerStartupInfo, "int")
+        result := DllCall("KERNEL32.dll\EnterUmsSchedulingMode", "ptr", SchedulerStartupInfo, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9936,20 +10208,22 @@ class Threading {
 
     /**
      * Queries whether the specified thread is a UMS scheduler thread, a UMS worker thread, or a non-UMS thread.
-     * @param {Pointer<Void>} ThreadHandle A handle to a thread. The thread handle must have the THREAD_QUERY_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
+     * @param {HANDLE} ThreadHandle A handle to a thread. The thread handle must have the THREAD_QUERY_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Pointer<UMS_SYSTEM_THREAD_INFORMATION>} SystemThreadInfo A pointer to an initialized <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-ums_system_thread_information">UMS_SYSTEM_THREAD_INFORMATION</a> structure that specifies the kind of thread for the query.
-     * @returns {Integer} Returns TRUE if the specified thread matches the kind of thread specified by the <i>SystemThreadInfo</i> parameter. Otherwise, the function returns FALSE.
+     * @returns {BOOL} Returns TRUE if the specified thread matches the kind of thread specified by the <i>SystemThreadInfo</i> parameter. Otherwise, the function returns FALSE.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getumssystemthreadinformation
      * @since windows6.1
      */
     static GetUmsSystemThreadInformation(ThreadHandle, SystemThreadInfo) {
-        result := DllCall("KERNEL32.dll\GetUmsSystemThreadInformation", "ptr", ThreadHandle, "ptr", SystemThreadInfo, "int")
+        ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
+
+        result := DllCall("KERNEL32.dll\GetUmsSystemThreadInformation", "ptr", ThreadHandle, "ptr", SystemThreadInfo, "ptr")
         return result
     }
 
     /**
      * Sets a processor affinity mask for the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread whose affinity mask is to be set.
+     * @param {HANDLE} hThread A handle to the thread whose affinity mask is to be set.
      * 
      * This handle must have the <b>THREAD_SET_INFORMATION</b> or <b>THREAD_SET_LIMITED_INFORMATION</b> access right and the <b>THREAD_QUERY_INFORMATION</b> or <b>THREAD_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
@@ -9968,6 +10242,8 @@ class Threading {
      * @since windows5.1.2600
      */
     static SetThreadAffinityMask(hThread, dwThreadAffinityMask) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetThreadAffinityMask", "ptr", hThread, "ptr", dwThreadAffinityMask, "ptr")
@@ -9980,7 +10256,7 @@ class Threading {
     /**
      * Changes data execution prevention (DEP) and DEP-ATL thunk emulation settings for a 32-bit process.
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To retrieve error values defined for this function,  call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-setprocessdeppolicy
@@ -9989,7 +10265,7 @@ class Threading {
     static SetProcessDEPPolicy(dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessDEPPolicy", "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\SetProcessDEPPolicy", "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9998,7 +10274,7 @@ class Threading {
 
     /**
      * Gets the data execution prevention (DEP) and DEP-ATL thunk emulation settings for the specified 32-bit process.Windows XP with SP3:  Gets the DEP and DEP-ATL thunk emulation settings for the current process.
-     * @param {Pointer<Void>} hProcess A handle to the process. <b>PROCESS_QUERY_INFORMATION</b> privilege is required to get the DEP policy of a process. 
+     * @param {HANDLE} hProcess A handle to the process. <b>PROCESS_QUERY_INFORMATION</b> privilege is required to get the DEP policy of a process. 
      * 
      * <b>Windows XP with SP3:  </b>The <i>hProcess</i> parameter is ignored.
      * @param {Pointer<UInt32>} lpFlags A <b>DWORD</b> that receives one or more of the following flags.
@@ -10042,17 +10318,19 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Int32>} lpPermanent <b>TRUE</b> if DEP is enabled or disabled permanently for the specified process; otherwise <b>FALSE</b>. If <i>lpPermanent</i> is <b>TRUE</b>, the current DEP setting persists for the life of the process and cannot be changed by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setprocessdeppolicy">SetProcessDEPPolicy</a>.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {Pointer<BOOL>} lpPermanent <b>TRUE</b> if DEP is enabled or disabled permanently for the specified process; otherwise <b>FALSE</b>. If <i>lpPermanent</i> is <b>TRUE</b>, the current DEP setting persists for the life of the process and cannot be changed by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setprocessdeppolicy">SetProcessDEPPolicy</a>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To retrieve error values defined for this function,  call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getprocessdeppolicy
      * @since windows6.0.6000
      */
     static GetProcessDEPPolicy(hProcess, lpFlags, lpPermanent) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessDEPPolicy", "ptr", hProcess, "uint*", lpFlags, "int*", lpPermanent, "int")
+        result := DllCall("KERNEL32.dll\GetProcessDEPPolicy", "ptr", hProcess, "uint*", lpFlags, "ptr", lpPermanent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10061,7 +10339,7 @@ class Threading {
 
     /**
      * Sets the specified event object to the signaled state and then resets it to the nonsignaled state after releasing the appropriate number of waiting threads.
-     * @param {Pointer<Void>} hEvent A handle to the event object. The 
+     * @param {HANDLE} hEvent A handle to the event object. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-openeventa">OpenEvent</a> function returns this handle. 
      * 
@@ -10070,7 +10348,7 @@ class Threading {
      * 
      * The handle must have the EVENT_MODIFY_STATE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10078,9 +10356,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static PulseEvent(hEvent) {
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PulseEvent", "ptr", hEvent, "int")
+        result := DllCall("KERNEL32.dll\PulseEvent", "ptr", hEvent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10089,7 +10369,7 @@ class Threading {
 
     /**
      * Runs the specified application.
-     * @param {Pointer<Byte>} lpCmdLine The command line (file name plus optional parameters) for the application to be executed. If the name of the executable file in the <i>lpCmdLine</i> parameter does not contain a directory path, the system searches for the executable file in this sequence: 
+     * @param {PSTR} lpCmdLine The command line (file name plus optional parameters) for the application to be executed. If the name of the executable file in the <i>lpCmdLine</i> parameter does not contain a directory path, the system searches for the executable file in this sequence: 
      * 
      * 
      * 
@@ -10163,7 +10443,7 @@ class Threading {
      * @since windows5.1.2600
      */
     static WinExec(lpCmdLine, uCmdShow) {
-        lpCmdLine := lpCmdLine is String? StrPtr(lpCmdLine) : lpCmdLine
+        lpCmdLine := lpCmdLine is String ? StrPtr(lpCmdLine) : lpCmdLine
 
         result := DllCall("KERNEL32.dll\WinExec", "ptr", lpCmdLine, "uint", uCmdShow, "uint")
         return result
@@ -10171,16 +10451,16 @@ class Threading {
 
     /**
      * Signals one object and waits on another object as a single operation.
-     * @param {Pointer<Void>} hObjectToSignal A handle to the object to be signaled. This object can be a semaphore, a mutex, or an event. 
+     * @param {HANDLE} hObjectToSignal A handle to the object to be signaled. This object can be a semaphore, a mutex, or an event. 
      * 
      * 
      * 
      * 
      * If the handle is a semaphore, the <b>SEMAPHORE_MODIFY_STATE</b> access right is required. If the handle is an event, the <b>EVENT_MODIFY_STATE</b> access right is required. If the handle is a mutex and the caller does not own the mutex, the function fails with <b>ERROR_NOT_OWNER</b>.
-     * @param {Pointer<Void>} hObjectToWaitOn A handle to the object to wait on. The <b>SYNCHRONIZE</b> access right is required; for more information, see 
+     * @param {HANDLE} hObjectToWaitOn A handle to the object to wait on. The <b>SYNCHRONIZE</b> access right is required; for more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>. For a list of the object types whose handles you can specify, see the Remarks section.
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. The function returns if the interval elapses, even if the object's state is nonsignaled and no completion or asynchronous procedure call (APC) objects are queued. If <i>dwMilliseconds</i> is zero, the function tests the object's state, checks for queued completion routines or APCs, and returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function's time-out interval never elapses.
-     * @param {Integer} bAlertable If this parameter is <b>TRUE</b>, the function returns when the system queues an I/O completion routine or APC function, and the thread calls the function. If <b>FALSE</b>, the function does not return, and the thread does not call the completion routine or APC function. 
+     * @param {BOOL} bAlertable If this parameter is <b>TRUE</b>, the function returns when the system queues an I/O completion routine or APC function, and the thread calls the function. If <b>FALSE</b>, the function does not return, and the thread does not call the completion routine or APC function. 
      * 
      * 
      * 
@@ -10263,9 +10543,12 @@ class Threading {
      * @since windows5.1.2600
      */
     static SignalObjectAndWait(hObjectToSignal, hObjectToWaitOn, dwMilliseconds, bAlertable) {
+        hObjectToSignal := hObjectToSignal is Win32Handle ? NumGet(hObjectToSignal, "ptr") : hObjectToSignal
+        hObjectToWaitOn := hObjectToWaitOn is Win32Handle ? NumGet(hObjectToWaitOn, "ptr") : hObjectToWaitOn
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SignalObjectAndWait", "ptr", hObjectToSignal, "ptr", hObjectToWaitOn, "uint", dwMilliseconds, "int", bAlertable, "uint")
+        result := DllCall("KERNEL32.dll\SignalObjectAndWait", "ptr", hObjectToSignal, "ptr", hObjectToWaitOn, "uint", dwMilliseconds, "ptr", bAlertable, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -10283,7 +10566,7 @@ class Threading {
      * @param {Integer} lInitialCount The initial count for the semaphore object. This value must be greater than or equal to zero and less than or equal to <i>lMaximumCount</i>. The state of a semaphore is signaled when its count is greater than zero and nonsignaled when it is zero. The count is decreased by one whenever a wait function releases a thread that was waiting for the semaphore. The count is increased by a specified amount by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-releasesemaphore">ReleaseSemaphore</a> function.
      * @param {Integer} lMaximumCount The maximum count for the semaphore object. This value must be greater than zero.
-     * @param {Pointer<Byte>} lpName The name of the semaphore object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive.
+     * @param {PSTR} lpName The name of the semaphore object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive.
      * 
      * If <i>lpName</i> matches the name of an existing named semaphore object, this function requests the <b>SEMAPHORE_ALL_ACCESS</b> access right. In this case, the <i>lInitialCount</i> and <i>lMaximumCount</i> parameters are ignored because they have already been set by the creating process. If the <i>lpSemaphoreAttributes</i> parameter is not <b>NULL</b>, it determines whether the handle can be inherited, but its security-descriptor member is ignored.
      * 
@@ -10296,7 +10579,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/kernel-object-namespaces">Kernel Object Namespaces</a>. Fast user switching is implemented using Terminal Services sessions. Kernel object names must follow the guidelines outlined for Terminal Services so that applications can support multiple users.
      * 
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object existed before the function call, the function returns a handle to the existing object and 
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object existed before the function call, the function returns a handle to the existing object and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10304,7 +10587,7 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -10312,35 +10595,35 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpTimerAttributes 
-     * @param {Integer} bManualReset 
-     * @param {Pointer<Byte>} lpTimerName 
-     * @returns {Pointer<Void>} 
+     * @param {BOOL} bManualReset 
+     * @param {PSTR} lpTimerName 
+     * @returns {HANDLE} 
      */
     static CreateWaitableTimerA(lpTimerAttributes, bManualReset, lpTimerName) {
-        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+        lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
-        result := DllCall("KERNEL32.dll\CreateWaitableTimerA", "ptr", lpTimerAttributes, "int", bManualReset, "ptr", lpTimerName, "ptr")
-        return result
+        result := DllCall("KERNEL32.dll\CreateWaitableTimerA", "ptr", lpTimerAttributes, "ptr", bManualReset, "ptr", lpTimerName, "ptr")
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
      * @param {Integer} dwDesiredAccess 
-     * @param {Integer} bInheritHandle 
-     * @param {Pointer<Byte>} lpTimerName 
-     * @returns {Pointer<Void>} 
+     * @param {BOOL} bInheritHandle 
+     * @param {PSTR} lpTimerName 
+     * @returns {HANDLE} 
      */
     static OpenWaitableTimerA(dwDesiredAccess, bInheritHandle, lpTimerName) {
-        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+        lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
-        result := DllCall("KERNEL32.dll\OpenWaitableTimerA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpTimerName, "ptr")
-        return result
+        result := DllCall("KERNEL32.dll\OpenWaitableTimerA", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpTimerName, "ptr")
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -10355,7 +10638,7 @@ class Threading {
      * @param {Integer} lInitialCount The initial count for the semaphore object. This value must be greater than or equal to zero and less than or equal to <i>lMaximumCount</i>. The state of a semaphore is signaled when its count is greater than zero and nonsignaled when it is zero. The count is decreased by one whenever a wait function releases a thread that was waiting for the semaphore. The count is increased by a specified amount by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-releasesemaphore">ReleaseSemaphore</a> function.
      * @param {Integer} lMaximumCount The maximum count for the semaphore object. This value must be greater than zero.
-     * @param {Pointer<Byte>} lpName A pointer to a null-terminated string specifying the name of the semaphore object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive.
+     * @param {PSTR} lpName A pointer to a null-terminated string specifying the name of the semaphore object. The name is limited to <b>MAX_PATH</b> characters. Name comparison is case sensitive.
      * 
      * If <i>lpName</i> matches the name of an existing named semaphore object, the <i>lInitialCount</i> and <i>lMaximumCount</i> parameters are ignored because they have already been set by the creating process. If the <i>lpSemaphoreAttributes</i> parameter is not <b>NULL</b>, it determines whether the handle can be inherited.
      * 
@@ -10370,7 +10653,7 @@ class Threading {
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
      * @param {Integer} dwDesiredAccess The access mask for the semaphore object. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object existed before the function call, the function returns a handle to the existing object and 
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object existed before the function call, the function returns a handle to the existing object and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10380,7 +10663,7 @@ class Threading {
     static CreateSemaphoreExA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName, dwDesiredAccess) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -10388,32 +10671,32 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpTimerAttributes 
-     * @param {Pointer<Byte>} lpTimerName 
+     * @param {PSTR} lpTimerName 
      * @param {Integer} dwFlags 
      * @param {Integer} dwDesiredAccess 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static CreateWaitableTimerExA(lpTimerAttributes, lpTimerName, dwFlags, dwDesiredAccess) {
-        lpTimerName := lpTimerName is String? StrPtr(lpTimerName) : lpTimerName
+        lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
         result := DllCall("KERNEL32.dll\CreateWaitableTimerExA", "ptr", lpTimerAttributes, "ptr", lpTimerName, "uint", dwFlags, "uint", dwDesiredAccess, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Retrieves the full name of the executable image for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must be created with the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process. This handle must be created with the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} lpExeName The path to the executable image. If the function succeeds, this string is null-terminated.
+     * @param {PSTR} lpExeName The path to the executable image. If the function succeeds, this string is null-terminated.
      * @param {Pointer<UInt32>} lpdwSize On input, specifies the size of the <i>lpExeName</i> buffer, in characters. On success, receives the number of characters written to the buffer, not including the null-terminating character.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10421,11 +10704,12 @@ class Threading {
      * @since windows6.0.6000
      */
     static QueryFullProcessImageNameA(hProcess, dwFlags, lpExeName, lpdwSize) {
-        lpExeName := lpExeName is String? StrPtr(lpExeName) : lpExeName
+        lpExeName := lpExeName is String ? StrPtr(lpExeName) : lpExeName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryFullProcessImageNameA", "ptr", hProcess, "uint", dwFlags, "ptr", lpExeName, "uint*", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\QueryFullProcessImageNameA", "ptr", hProcess, "uint", dwFlags, "ptr", lpExeName, "uint*", lpdwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10434,12 +10718,12 @@ class Threading {
 
     /**
      * Retrieves the full name of the executable image for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must be created with the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process. This handle must be created with the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Char>} lpExeName The path to the executable image. If the function succeeds, this string is null-terminated.
+     * @param {PWSTR} lpExeName The path to the executable image. If the function succeeds, this string is null-terminated.
      * @param {Pointer<UInt32>} lpdwSize On input, specifies the size of the <i>lpExeName</i> buffer, in characters. On success, receives the number of characters written to the buffer, not including the null-terminating character.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10447,11 +10731,12 @@ class Threading {
      * @since windows6.0.6000
      */
     static QueryFullProcessImageNameW(hProcess, dwFlags, lpExeName, lpdwSize) {
-        lpExeName := lpExeName is String? StrPtr(lpExeName) : lpExeName
+        lpExeName := lpExeName is String ? StrPtr(lpExeName) : lpExeName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryFullProcessImageNameW", "ptr", hProcess, "uint", dwFlags, "ptr", lpExeName, "uint*", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\QueryFullProcessImageNameW", "ptr", hProcess, "uint", dwFlags, "ptr", lpExeName, "uint*", lpdwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10469,16 +10754,16 @@ class Threading {
 
     /**
      * Creates a new process and its primary thread. Then the new process runs the specified executable file in the security context of the specified credentials (user, domain, and password). It can optionally load the user profile for a specified user.
-     * @param {Pointer<Char>} lpUsername The name of the user. This is the name of the user account to log on to. If you use the UPN format, <i>user</i>@<i>DNS_domain_name</i>, the <i>lpDomain</i> parameter must be NULL. 
+     * @param {PWSTR} lpUsername The name of the user. This is the name of the user account to log on to. If you use the UPN format, <i>user</i>@<i>DNS_domain_name</i>, the <i>lpDomain</i> parameter must be NULL. 
      * 
      * 
      * 
      * 
      * The user account must have the Log On Locally permission on the local computer. This permission is granted to all users on workstations and servers, but only to administrators on domain controllers.
-     * @param {Pointer<Char>} lpDomain The name of the domain or server whose account database contains the <i>lpUsername</i> account. If this parameter is NULL, the user name must be specified in UPN format.
-     * @param {Pointer<Char>} lpPassword The clear-text password for the <i>lpUsername</i> account.
+     * @param {PWSTR} lpDomain The name of the domain or server whose account database contains the <i>lpUsername</i> account. If this parameter is NULL, the user name must be specified in UPN format.
+     * @param {PWSTR} lpPassword The clear-text password for the <i>lpUsername</i> account.
      * @param {Integer} dwLogonFlags 
-     * @param {Pointer<Char>} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
+     * @param {PWSTR} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
      * 
      * 
      * 
@@ -10500,7 +10785,7 @@ class Threading {
      * 
      * 
      * If the executable module is a 16-bit application, <i>lpApplicationName</i> should be NULL, and the string pointed to by <i>lpCommandLine</i> should specify the executable module and its arguments.
-     * @param {Pointer<Char>} lpCommandLine The command line to be executed. The maximum length of this string is 1024 characters. If <i>lpApplicationName</i> is <b>NULL</b>, the module name portion of <i>lpCommandLine</i> is limited to <b>MAX_PATH</b> characters.
+     * @param {PWSTR} lpCommandLine The command line to be executed. The maximum length of this string is 1024 characters. If <i>lpApplicationName</i> is <b>NULL</b>, the module name portion of <i>lpCommandLine</i> is limited to <b>MAX_PATH</b> characters.
      * 
      * The function can modify the contents of this string. Therefore, this parameter cannot be a pointer to read-only memory (such as a <b>const</b> variable or a literal string). If this parameter is a constant string, the function may cause an access violation.
      * 
@@ -10549,7 +10834,7 @@ class Threading {
      * 
      * To retrieve a copy of the environment block for a specific user, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-createenvironmentblock">CreateEnvironmentBlock</a> function.
-     * @param {Pointer<Char>} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path. 
+     * @param {PWSTR} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path. 
      * 
      * If this parameter is <b>NULL</b>, the new process has the same current drive and directory as the calling process. This feature is provided primarily for shells that need to start an application, and specify its initial drive and working directory.
      * @param {Pointer<STARTUPINFOW>} lpStartupInfo A pointer to a 
@@ -10578,7 +10863,7 @@ class Threading {
      * Handles in 
      * <a href="https://docs.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_information">PROCESS_INFORMATION</a> must be closed with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function when they are not needed.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10588,16 +10873,16 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessWithLogonW(lpUsername, lpDomain, lpPassword, dwLogonFlags, lpApplicationName, lpCommandLine, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
-        lpUsername := lpUsername is String? StrPtr(lpUsername) : lpUsername
-        lpDomain := lpDomain is String? StrPtr(lpDomain) : lpDomain
-        lpPassword := lpPassword is String? StrPtr(lpPassword) : lpPassword
-        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
-        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
-        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+        lpUsername := lpUsername is String ? StrPtr(lpUsername) : lpUsername
+        lpDomain := lpDomain is String ? StrPtr(lpDomain) : lpDomain
+        lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
+        lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateProcessWithLogonW", "ptr", lpUsername, "ptr", lpDomain, "ptr", lpPassword, "uint", dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
+        result := DllCall("ADVAPI32.dll\CreateProcessWithLogonW", "ptr", lpUsername, "ptr", lpDomain, "ptr", lpPassword, "uint", dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10606,7 +10891,7 @@ class Threading {
 
     /**
      * Creates a new process and its primary thread. The new process runs in the security context of the specified token. It can optionally load the user profile for the specified user.
-     * @param {Pointer<Void>} hToken A handle to the primary token that represents a user. The handle must have the TOKEN_QUERY, TOKEN_DUPLICATE, and TOKEN_ASSIGN_PRIMARY access rights. For more information, see 
+     * @param {HANDLE} hToken A handle to the primary token that represents a user. The handle must have the TOKEN_QUERY, TOKEN_DUPLICATE, and TOKEN_ASSIGN_PRIMARY access rights. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>. The user represented by the token must have read and execute access to the application specified by the <i>lpApplicationName</i> or the <i>lpCommandLine</i> parameter. 
      * 
      * 
@@ -10618,7 +10903,7 @@ class Threading {
      * 
      * <b>Terminal Services:  </b>The caller's process always runs in the caller's session, not in the session specified in the token. To run a process in the session specified in the token, use the CreateProcessAsUser function.
      * @param {Integer} dwLogonFlags 
-     * @param {Pointer<Char>} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
+     * @param {PWSTR} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
      * 
      * 
      * 
@@ -10632,7 +10917,7 @@ class Threading {
      * <b>c:\program files\sub dir\program.exe</b>
      * <b>c:\program files\sub dir\program name.exe</b>
      * If the executable module is a 16-bit application, <i>lpApplicationName</i> should be NULL, and the string pointed to by <i>lpCommandLine</i> should specify the executable module as well as its arguments.
-     * @param {Pointer<Char>} lpCommandLine The command line to be executed. 
+     * @param {PWSTR} lpCommandLine The command line to be executed. 
      * 
      * 
      * The maximum length of this string is 1024 characters. If <i>lpApplicationName</i> is NULL, the module name portion of <i>lpCommandLine</i> is limited to MAX_PATH characters.
@@ -10684,7 +10969,7 @@ class Threading {
      * 
      * To retrieve a copy of the environment block for a specific user, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-createenvironmentblock">CreateEnvironmentBlock</a> function.
-     * @param {Pointer<Char>} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path. 
+     * @param {PWSTR} lpCurrentDirectory The full path to the current directory for the process. The string can also specify a UNC path. 
      * 
      * If this parameter is NULL, the new process will have the same current drive and directory as the calling process. (This feature is provided primarily for shells that need to start an application and specify its initial drive and working directory.)
      * @param {Pointer<STARTUPINFOW>} lpStartupInfo A pointer to a 
@@ -10710,7 +10995,7 @@ class Threading {
      * Handles in 
      * <a href="https://docs.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_information">PROCESS_INFORMATION</a> must be closed with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function when they are no longer needed.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10720,13 +11005,14 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateProcessWithTokenW(hToken, dwLogonFlags, lpApplicationName, lpCommandLine, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
-        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
-        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
-        lpCurrentDirectory := lpCurrentDirectory is String? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+        lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
+        lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
+        lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateProcessWithTokenW", "ptr", hToken, "uint", dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
+        result := DllCall("ADVAPI32.dll\CreateProcessWithTokenW", "ptr", hToken, "uint", dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10735,9 +11021,9 @@ class Threading {
 
     /**
      * Directs a wait thread in the thread pool to wait on the object.
-     * @param {Pointer<Void>} phNewWaitObject A pointer to a variable that receives a wait handle on return. Note that a wait handle cannot be used in functions that require an object handle, such as 
+     * @param {Pointer<HANDLE>} phNewWaitObject A pointer to a variable that receives a wait handle on return. Note that a wait handle cannot be used in functions that require an object handle, such as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>.
-     * @param {Pointer<Void>} hObject A handle to the object. For a list of the object types whose handles can be specified, see the following Remarks section. 
+     * @param {HANDLE} hObject A handle to the object. For a list of the object types whose handles can be specified, see the following Remarks section. 
      * 
      * 
      * 
@@ -10751,7 +11037,7 @@ class Threading {
      * @param {Pointer<Void>} Context A single value that is passed to the callback function.
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. The function returns if the interval elapses, even if the object's state is nonsignaled. If <i>dwMilliseconds</i> is zero, the function tests the object's state and returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function's time-out interval never elapses.
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call  
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10759,9 +11045,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static RegisterWaitForSingleObject(phNewWaitObject, hObject, Callback, Context, dwMilliseconds, dwFlags) {
+        hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RegisterWaitForSingleObject", "ptr", phNewWaitObject, "ptr", hObject, "ptr", Callback, "ptr", Context, "uint", dwMilliseconds, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\RegisterWaitForSingleObject", "ptr", phNewWaitObject, "ptr", hObject, "ptr", Callback, "ptr", Context, "uint", dwMilliseconds, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10770,9 +11058,9 @@ class Threading {
 
     /**
      * Cancels a registered wait operation issued by the RegisterWaitForSingleObject function.
-     * @param {Pointer<Void>} WaitHandle The wait handle. This handle is returned by the 
+     * @param {HANDLE} WaitHandle The wait handle. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registerwaitforsingleobject">RegisterWaitForSingleObject</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10780,9 +11068,11 @@ class Threading {
      * @since windows5.1.2600
      */
     static UnregisterWait(WaitHandle) {
+        WaitHandle := WaitHandle is Win32Handle ? NumGet(WaitHandle, "ptr") : WaitHandle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UnregisterWait", "ptr", WaitHandle, "int")
+        result := DllCall("KERNEL32.dll\UnregisterWait", "ptr", WaitHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10791,27 +11081,32 @@ class Threading {
 
     /**
      * 
-     * @param {Pointer<Void>} TimerQueue 
+     * @param {HANDLE} TimerQueue 
      * @param {Pointer<WAITORTIMERCALLBACK>} Callback 
      * @param {Pointer<Void>} Parameter 
      * @param {Integer} DueTime 
      * @param {Integer} Period 
-     * @param {Integer} PreferIo 
-     * @returns {Pointer<Void>} 
+     * @param {BOOL} PreferIo 
+     * @returns {HANDLE} 
      */
     static SetTimerQueueTimer(TimerQueue, Callback, Parameter, DueTime, Period, PreferIo) {
-        result := DllCall("KERNEL32.dll\SetTimerQueueTimer", "ptr", TimerQueue, "ptr", Callback, "ptr", Parameter, "uint", DueTime, "uint", Period, "int", PreferIo, "ptr")
-        return result
+        TimerQueue := TimerQueue is Win32Handle ? NumGet(TimerQueue, "ptr") : TimerQueue
+
+        result := DllCall("KERNEL32.dll\SetTimerQueueTimer", "ptr", TimerQueue, "ptr", Callback, "ptr", Parameter, "uint", DueTime, "uint", Period, "ptr", PreferIo, "ptr")
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} TimerQueue 
-     * @param {Pointer<Void>} Timer 
-     * @returns {Integer} 
+     * @param {HANDLE} TimerQueue 
+     * @param {HANDLE} Timer 
+     * @returns {BOOL} 
      */
     static CancelTimerQueueTimer(TimerQueue, Timer) {
-        result := DllCall("KERNEL32.dll\CancelTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "int")
+        TimerQueue := TimerQueue is Win32Handle ? NumGet(TimerQueue, "ptr") : TimerQueue
+        Timer := Timer is Win32Handle ? NumGet(Timer, "ptr") : Timer
+
+        result := DllCall("KERNEL32.dll\CancelTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "ptr")
         return result
     }
 
@@ -10819,10 +11114,10 @@ class Threading {
      * Creates a private namespace.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpPrivateNamespaceAttributes A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies the security attributes of the namespace object.
      * @param {Pointer<Void>} lpBoundaryDescriptor A descriptor that defines how the namespace is to be isolated. The caller must be within this boundary. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createboundarydescriptora">CreateBoundaryDescriptor</a> function creates a boundary descriptor.
-     * @param {Pointer<Byte>} lpAliasPrefix The prefix for the namespace. To create an object in this namespace, specify the object name as <i>prefix</i>&#92;<i>objectname</i>.
+     * @param {PSTR} lpAliasPrefix The prefix for the namespace. To create an object in this namespace, specify the object name as <i>prefix</i>&#92;<i>objectname</i>.
      * 
      * The system supports multiple private namespaces with the same name, as long as they define different boundaries.
-     * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the new namespace. 
+     * @returns {HANDLE} If the function succeeds, it returns a handle to the new namespace. 
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10830,7 +11125,7 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreatePrivateNamespaceA(lpPrivateNamespaceAttributes, lpBoundaryDescriptor, lpAliasPrefix) {
-        lpAliasPrefix := lpAliasPrefix is String? StrPtr(lpAliasPrefix) : lpAliasPrefix
+        lpAliasPrefix := lpAliasPrefix is String ? StrPtr(lpAliasPrefix) : lpAliasPrefix
 
         A_LastError := 0
 
@@ -10838,29 +11133,29 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens a private namespace.
      * @param {Pointer<Void>} lpBoundaryDescriptor A descriptor that defines how the namespace is to be isolated. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createboundarydescriptora">CreateBoundaryDescriptor</a> function creates a boundary descriptor.
-     * @param {Pointer<Byte>} lpAliasPrefix The prefix for the namespace. To create an object in this namespace, specify the object name as <i>prefix</i>&#92;<i>objectname</i>.
-     * @returns {Pointer<Void>} The function returns the handle to the existing namespace.
+     * @param {PSTR} lpAliasPrefix The prefix for the namespace. To create an object in this namespace, specify the object name as <i>prefix</i>&#92;<i>objectname</i>.
+     * @returns {HANDLE} The function returns the handle to the existing namespace.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-openprivatenamespacea
      * @since windows6.0.6000
      */
     static OpenPrivateNamespaceA(lpBoundaryDescriptor, lpAliasPrefix) {
-        lpAliasPrefix := lpAliasPrefix is String? StrPtr(lpAliasPrefix) : lpAliasPrefix
+        lpAliasPrefix := lpAliasPrefix is String ? StrPtr(lpAliasPrefix) : lpAliasPrefix
 
         result := DllCall("KERNEL32.dll\OpenPrivateNamespaceA", "ptr", lpBoundaryDescriptor, "ptr", lpAliasPrefix, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates a boundary descriptor.
-     * @param {Pointer<Byte>} Name The name of the boundary descriptor.
+     * @param {PSTR} Name The name of the boundary descriptor.
      * @param {Integer} Flags This parameter is reserved for future use.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the boundary descriptor.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the boundary descriptor.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10868,7 +11163,7 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateBoundaryDescriptorA(Name, Flags) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -10876,13 +11171,13 @@ class Threading {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Adds a new required security identifier (SID) to the specified boundary descriptor.
-     * @param {Pointer<Void>} BoundaryDescriptor A handle to the boundary descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createboundarydescriptora">CreateBoundaryDescriptor</a> function returns this handle.
-     * @param {Pointer<Void>} IntegrityLabel A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that represents the mandatory integrity level for the namespace. Use one of the following RID values to create the SID:
+     * @param {Pointer<HANDLE>} BoundaryDescriptor A handle to the boundary descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createboundarydescriptora">CreateBoundaryDescriptor</a> function returns this handle.
+     * @param {PSID} IntegrityLabel A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that represents the mandatory integrity level for the namespace. Use one of the following RID values to create the SID:
      * 
      * <b>SECURITY_MANDATORY_UNTRUSTED_RID</b>
      * <b>SECURITY_MANDATORY_LOW_RID</b>
@@ -10890,7 +11185,7 @@ class Threading {
      * <b>SECURITY_MANDATORY_SYSTEM_RID</b>
      * <b>SECURITY_MANDATORY_PROTECTED_PROCESS_RID</b>
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-Known SIDs</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10900,7 +11195,7 @@ class Threading {
     static AddIntegrityLabelToBoundaryDescriptor(BoundaryDescriptor, IntegrityLabel) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AddIntegrityLabelToBoundaryDescriptor", "ptr", BoundaryDescriptor, "ptr", IntegrityLabel, "int")
+        result := DllCall("KERNEL32.dll\AddIntegrityLabelToBoundaryDescriptor", "ptr", BoundaryDescriptor, "ptr", IntegrityLabel, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10977,7 +11272,7 @@ class Threading {
      * 
      * On a system with more than 64 logical processors, the processor number is relative to the <a href="https://docs.microsoft.com/windows/desktop/ProcThread/processor-groups">processor group</a> that contains the processor on which the calling thread is running.
      * @param {Pointer<Byte>} NodeNumber The node number. If the processor does not exist, this parameter is 0xFF.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10987,7 +11282,7 @@ class Threading {
     static GetNumaProcessorNode(Processor, NodeNumber) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaProcessorNode", "char", Processor, "char*", NodeNumber, "int")
+        result := DllCall("KERNEL32.dll\GetNumaProcessorNode", "char", Processor, "char*", NodeNumber, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10996,18 +11291,20 @@ class Threading {
 
     /**
      * Retrieves the NUMA node associated with the file or I/O device represented by the specified file handle.
-     * @param {Pointer<Void>} hFile A handle to a file or I/O device. Examples of I/O devices include files, file streams, volumes, physical disks, and sockets. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
+     * @param {HANDLE} hFile A handle to a file or I/O device. Examples of I/O devices include files, file streams, volumes, physical disks, and sockets. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Pointer<UInt16>} NodeNumber A pointer to a variable to receive the number of the NUMA node associated with the specified file handle.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getnumanodenumberfromhandle
      * @since windows6.1
      */
     static GetNumaNodeNumberFromHandle(hFile, NodeNumber) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaNodeNumberFromHandle", "ptr", hFile, "ushort*", NodeNumber, "int")
+        result := DllCall("KERNEL32.dll\GetNumaNodeNumberFromHandle", "ptr", hFile, "ushort*", NodeNumber, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11018,7 +11315,7 @@ class Threading {
      * Retrieves the node number as a USHORT value for the specified logical processor.
      * @param {Pointer<PROCESSOR_NUMBER>} Processor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-processor_number">PROCESSOR_NUMBER</a> structure that represents the logical processor and the processor group to which it is assigned.
      * @param {Pointer<UInt16>} NodeNumber A pointer  to a variable to receive the node number. If the specified processor does not exist, this parameter is set to MAXUSHORT.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getnumaprocessornodeex
@@ -11027,7 +11324,7 @@ class Threading {
     static GetNumaProcessorNodeEx(Processor, NodeNumber) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaProcessorNodeEx", "ptr", Processor, "ushort*", NodeNumber, "int")
+        result := DllCall("KERNEL32.dll\GetNumaProcessorNodeEx", "ptr", Processor, "ushort*", NodeNumber, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11042,7 +11339,7 @@ class Threading {
      * If the node has no processors configured, the processor mask is zero.
      * 
      * On systems with more than 64 processors, this parameter is set to the processor mask for the node only if the node is in the same <a href="https://docs.microsoft.com/windows/desktop/ProcThread/processor-groups">processor group</a> as the calling thread. Otherwise, the parameter is set to zero.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11052,7 +11349,7 @@ class Threading {
     static GetNumaNodeProcessorMask(Node, ProcessorMask) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask", "char", Node, "uint*", ProcessorMask, "int")
+        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask", "char", Node, "uint*", ProcessorMask, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11063,7 +11360,7 @@ class Threading {
      * Retrieves the amount of memory available in the specified node.
      * @param {Integer} Node The number of the node.
      * @param {Pointer<UInt64>} AvailableBytes The amount of available memory for the node, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11073,7 +11370,7 @@ class Threading {
     static GetNumaAvailableMemoryNode(Node, AvailableBytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNode", "char", Node, "uint*", AvailableBytes, "int")
+        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNode", "char", Node, "uint*", AvailableBytes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11084,7 +11381,7 @@ class Threading {
      * Retrieves the amount of memory that is available in a node specified as a USHORT value.
      * @param {Integer} Node The number of the node.
      * @param {Pointer<UInt64>} AvailableBytes The amount of available memory for the node, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getnumaavailablememorynodeex
@@ -11093,7 +11390,7 @@ class Threading {
     static GetNumaAvailableMemoryNodeEx(Node, AvailableBytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNodeEx", "ushort", Node, "uint*", AvailableBytes, "int")
+        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNodeEx", "ushort", Node, "uint*", AvailableBytes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11104,7 +11401,7 @@ class Threading {
      * Retrieves the NUMA node number that corresponds to the specified proximity domain identifier.
      * @param {Integer} ProximityId The proximity domain identifier of the node.
      * @param {Pointer<Byte>} NodeNumber The node number. If the processor does not exist, this parameter is 0xFF.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error  information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getnumaproximitynode
@@ -11113,7 +11410,7 @@ class Threading {
     static GetNumaProximityNode(ProximityId, NodeNumber) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaProximityNode", "uint", ProximityId, "char*", NodeNumber, "int")
+        result := DllCall("KERNEL32.dll\GetNumaProximityNode", "uint", ProximityId, "char*", NodeNumber, "ptr")
         if(A_LastError)
             throw OSError()
 

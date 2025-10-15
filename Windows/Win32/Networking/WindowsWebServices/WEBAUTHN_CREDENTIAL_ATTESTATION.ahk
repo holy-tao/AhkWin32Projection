@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -21,11 +23,14 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszFormatType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszFormatType{
+        get {
+            if(!this.HasProp("__pwszFormatType"))
+                this.__pwszFormatType := PWSTR(this.ptr + 8)
+            return this.__pwszFormatType
+        }
     }
 
     /**
@@ -128,35 +133,47 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bEpAtt {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
+    bEpAtt{
+        get {
+            if(!this.HasProp("__bEpAtt"))
+                this.__bEpAtt := BOOL(this.ptr + 116)
+            return this.__bEpAtt
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bLargeBlobSupported {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+    bLargeBlobSupported{
+        get {
+            if(!this.HasProp("__bLargeBlobSupported"))
+                this.__bLargeBlobSupported := BOOL(this.ptr + 120)
+            return this.__bLargeBlobSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bResidentKey {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
+    bResidentKey{
+        get {
+            if(!this.HasProp("__bResidentKey"))
+                this.__bResidentKey := BOOL(this.ptr + 124)
+            return this.__bResidentKey
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bPrfEnabled {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
+    bPrfEnabled{
+        get {
+            if(!this.HasProp("__bPrfEnabled"))
+                this.__bPrfEnabled := BOOL(this.ptr + 128)
+            return this.__bPrfEnabled
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\PSID.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -16,11 +18,14 @@ class LSA_FOREST_TRUST_DOMAIN_INFO extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> of the domain.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    Sid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Sid{
+        get {
+            if(!this.HasProp("__Sid"))
+                this.__Sid := PSID(this.ptr + 0)
+            return this.__Sid
+        }
     }
 
     /**

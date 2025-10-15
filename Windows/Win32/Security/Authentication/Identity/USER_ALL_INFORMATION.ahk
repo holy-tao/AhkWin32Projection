@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include .\SR_SECURITY_DESCRIPTOR.ahk
 #Include .\LOGON_HOURS.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information on the session user.
@@ -325,37 +327,49 @@ class USER_ALL_INFORMATION extends Win32Struct
 
     /**
      * Indicates whether there is a local machine password.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    LmPasswordPresent {
-        get => NumGet(this, 312, "char")
-        set => NumPut("char", value, this, 312)
+    LmPasswordPresent{
+        get {
+            if(!this.HasProp("__LmPasswordPresent"))
+                this.__LmPasswordPresent := BOOLEAN(this.ptr + 312)
+            return this.__LmPasswordPresent
+        }
     }
 
     /**
      * Indicates whether there is a Windows domain password.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    NtPasswordPresent {
-        get => NumGet(this, 313, "char")
-        set => NumPut("char", value, this, 313)
+    NtPasswordPresent{
+        get {
+            if(!this.HasProp("__NtPasswordPresent"))
+                this.__NtPasswordPresent := BOOLEAN(this.ptr + 313)
+            return this.__NtPasswordPresent
+        }
     }
 
     /**
      * Indicates whether the password has expired.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    PasswordExpired {
-        get => NumGet(this, 314, "char")
-        set => NumPut("char", value, this, 314)
+    PasswordExpired{
+        get {
+            if(!this.HasProp("__PasswordExpired"))
+                this.__PasswordExpired := BOOLEAN(this.ptr + 314)
+            return this.__PasswordExpired
+        }
     }
 
     /**
      * When set to <b>TRUE</b>, indicates that the <b>PrivateData</b> member is encrypted. A value of <b>FALSE</b> indicates that the <b>PrivateData</b> is in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    PrivateDataSensitive {
-        get => NumGet(this, 315, "char")
-        set => NumPut("char", value, this, 315)
+    PrivateDataSensitive{
+        get {
+            if(!this.HasProp("__PrivateDataSensitive"))
+                this.__PrivateDataSensitive := BOOLEAN(this.ptr + 315)
+            return this.__PrivateDataSensitive
+        }
     }
 }

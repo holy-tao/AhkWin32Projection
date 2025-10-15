@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 #Include .\DDCOLORKEY.ahk
 #Include .\DBLNODE.ahk
 #Include ..\..\Foundation\RECT.ahk
@@ -79,11 +80,14 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    ddsCaps {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+    ddsCaps{
+        get {
+            if(!this.HasProp("__ddsCaps"))
+                this.__ddsCaps := DDSCAPS(this.ptr + 52)
+            return this.__ddsCaps
+        }
     }
 
     /**

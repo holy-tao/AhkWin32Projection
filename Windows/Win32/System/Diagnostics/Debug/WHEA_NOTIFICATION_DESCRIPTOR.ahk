@@ -39,6 +39,20 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
         }
     }
 
+    class _Polled extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        PollInterval {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     class _Interrupt extends Win32Struct {
         static sizeof => 24
         static packingSize => 8
@@ -418,11 +432,14 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Polled}
      */
-    Polled {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Polled{
+        get {
+            if(!this.HasProp("__Polled"))
+                this.__Polled := %this.__Class%._Polled(this.ptr + 8)
+            return this.__Polled
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
 #Include .\GNSS_SUPL_NI_INFO.ahk
 #Include .\GNSS_CP_NI_INFO.ahk
 #Include .\GNSS_V2UPL_NI_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
@@ -104,10 +105,13 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    EmergencyLocation {
-        get => NumGet(this, 1596, "int")
-        set => NumPut("int", value, this, 1596)
+    EmergencyLocation{
+        get {
+            if(!this.HasProp("__EmergencyLocation"))
+                this.__EmergencyLocation := BOOL(this.ptr + 1596)
+            return this.__EmergencyLocation
+        }
     }
 }

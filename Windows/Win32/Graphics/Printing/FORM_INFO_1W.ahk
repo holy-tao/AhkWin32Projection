@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 
@@ -23,11 +24,14 @@ class FORM_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PWSTR(this.ptr + 8)
+            return this.__pName
+        }
     }
 
     /**

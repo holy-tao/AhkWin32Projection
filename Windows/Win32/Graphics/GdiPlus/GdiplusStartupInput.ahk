@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The **GdiplusStartupInput** structure holds a block of arguments that are required by the [GdiplusStartup](../gdiplusinit/nf-gdiplusinit-gdiplusstartup.md) function.
@@ -46,21 +47,27 @@ class GdiplusStartupInput extends Win32Struct
      * Type: **BOOL**
      * 
      * Boolean value that specifies whether to suppress the GDI+ background thread. If you set this member to **TRUE**, then [GdiplusStartup](/windows/win32/api/gdiplusinit/nf-gdiplusinit-gdiplusstartup) returns (in its *output* parameter) a pointer to a hook function, and a pointer to an unhook function. You must call those functions appropriately to replace the background thread. If you don't want to be responsible for calling the hook and unhook functions, then set this member to **FALSE**. The default value is **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SuppressBackgroundThread {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    SuppressBackgroundThread{
+        get {
+            if(!this.HasProp("__SuppressBackgroundThread"))
+                this.__SuppressBackgroundThread := BOOL(this.ptr + 16)
+            return this.__SuppressBackgroundThread
+        }
     }
 
     /**
      * Type: **BOOL**
      * 
      * Boolean value that specifies whether you want GDI+ to suppress external image codecs. GDI+ version 1.0 doesn't support external image codecs, so this field is ignored. The default value is **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SuppressExternalCodecs {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    SuppressExternalCodecs{
+        get {
+            if(!this.HasProp("__SuppressExternalCodecs"))
+                this.__SuppressExternalCodecs := BOOL(this.ptr + 20)
+            return this.__SuppressExternalCodecs
+        }
     }
 }

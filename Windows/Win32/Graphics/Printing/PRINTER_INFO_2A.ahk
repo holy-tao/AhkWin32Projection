@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -13,59 +15,80 @@ class PRINTER_INFO_2A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pServerName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pServerName{
+        get {
+            if(!this.HasProp("__pServerName"))
+                this.__pServerName := PSTR(this.ptr + 0)
+            return this.__pServerName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pPrinterName{
+        get {
+            if(!this.HasProp("__pPrinterName"))
+                this.__pPrinterName := PSTR(this.ptr + 8)
+            return this.__pPrinterName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pShareName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pShareName{
+        get {
+            if(!this.HasProp("__pShareName"))
+                this.__pShareName := PSTR(this.ptr + 16)
+            return this.__pShareName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pPortName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pPortName{
+        get {
+            if(!this.HasProp("__pPortName"))
+                this.__pPortName := PSTR(this.ptr + 24)
+            return this.__pPortName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pDriverName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pDriverName{
+        get {
+            if(!this.HasProp("__pDriverName"))
+                this.__pDriverName := PSTR(this.ptr + 32)
+            return this.__pDriverName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pComment {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pComment{
+        get {
+            if(!this.HasProp("__pComment"))
+                this.__pComment := PSTR(this.ptr + 40)
+            return this.__pComment
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pLocation {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pLocation{
+        get {
+            if(!this.HasProp("__pLocation"))
+                this.__pLocation := PSTR(this.ptr + 48)
+            return this.__pLocation
+        }
     }
 
     /**
@@ -77,43 +100,58 @@ class PRINTER_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pSepFile {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pSepFile{
+        get {
+            if(!this.HasProp("__pSepFile"))
+                this.__pSepFile := PSTR(this.ptr + 64)
+            return this.__pSepFile
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pPrintProcessor {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pPrintProcessor{
+        get {
+            if(!this.HasProp("__pPrintProcessor"))
+                this.__pPrintProcessor := PSTR(this.ptr + 72)
+            return this.__pPrintProcessor
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pDatatype {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    pDatatype{
+        get {
+            if(!this.HasProp("__pDatatype"))
+                this.__pDatatype := PSTR(this.ptr + 80)
+            return this.__pDatatype
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pParameters {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    pParameters{
+        get {
+            if(!this.HasProp("__pParameters"))
+                this.__pParameters := PSTR(this.ptr + 88)
+            return this.__pParameters
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    pSecurityDescriptor{
+        get {
+            if(!this.HasProp("__pSecurityDescriptor"))
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 96)
+            return this.__pSecurityDescriptor
+        }
     }
 
     /**

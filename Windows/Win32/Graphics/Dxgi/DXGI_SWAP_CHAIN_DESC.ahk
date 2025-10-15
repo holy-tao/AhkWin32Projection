@@ -3,6 +3,8 @@
 #Include Common\DXGI_RATIONAL.ahk
 #Include Common\DXGI_MODE_DESC.ahk
 #Include Common\DXGI_SAMPLE_DESC.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a swap chain.
@@ -84,11 +86,14 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a> handle to the output window. This member must not be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    OutputWindow {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    OutputWindow{
+        get {
+            if(!this.HasProp("__OutputWindow"))
+                this.__OutputWindow := HWND(this.ptr + 48)
+            return this.__OutputWindow
+        }
     }
 
     /**
@@ -99,11 +104,14 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * We recommend that you create a windowed swap chain and allow the end user to change the swap chain to full screen through <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-setfullscreenstate">IDXGISwapChain::SetFullscreenState</a>; that is, do not set this member to FALSE to force the swap chain to be full screen. However, if you create the swap chain as full screen, also provide the end user with a list of supported display modes through the <b>BufferDesc</b> member because a swap chain that is created with an unsupported display mode might cause the display to go black and prevent the end user from seeing anything. 
      * 
      * For more information about choosing windowed verses full screen, see <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createswapchain">IDXGIFactory::CreateSwapChain</a>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Windowed {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    Windowed{
+        get {
+            if(!this.HasProp("__Windowed"))
+                this.__Windowed := BOOL(this.ptr + 56)
+            return this.__Windowed
+        }
     }
 
     /**

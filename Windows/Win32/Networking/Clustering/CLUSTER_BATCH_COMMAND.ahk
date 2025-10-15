@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents the order in which current batch command data is sent to the ClusterRegBatchReadCommand function.
@@ -47,11 +48,14 @@ class CLUSTER_BATCH_COMMAND extends Win32Struct
 
     /**
      * The name of the value or key relative to the command issued by <b>Command</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wzName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    wzName{
+        get {
+            if(!this.HasProp("__wzName"))
+                this.__wzName := PWSTR(this.ptr + 8)
+            return this.__wzName
+        }
     }
 
     /**

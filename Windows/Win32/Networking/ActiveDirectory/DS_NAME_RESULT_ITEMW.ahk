@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DS_NAME_RESULT_ITEM structure contains a name converted by the DsCrackNames function, along with associated error and domain data.
@@ -37,19 +38,25 @@ class DS_NAME_RESULT_ITEMW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the DNS domain in which the object resides. This member will contain valid data if <b>status</b> contains <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_error">DS_NAME_NO_ERROR</a> or <b>DS_NAME_ERROR_DOMAIN_ONLY</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDomain {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pDomain{
+        get {
+            if(!this.HasProp("__pDomain"))
+                this.__pDomain := PWSTR(this.ptr + 8)
+            return this.__pDomain
+        }
     }
 
     /**
      * Pointer to a null-terminated string that specifies the newly formatted object name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PWSTR(this.ptr + 16)
+            return this.__pName
+        }
     }
 }

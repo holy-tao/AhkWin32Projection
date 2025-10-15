@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -19,11 +20,14 @@ class SSTP_CERT_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  Default mode is when the administrator has not explicitly configured the device and the SSTP service automatically chooses a valid certificate.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {BOOL}
      */
-    isDefault {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    isDefault{
+        get {
+            if(!this.HasProp("__isDefault"))
+                this.__isDefault := BOOL(this.ptr + 0)
+            return this.__isDefault
+        }
     }
 
     /**

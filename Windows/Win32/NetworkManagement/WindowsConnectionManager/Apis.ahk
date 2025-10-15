@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
  * @version v4.0.30319
@@ -45,7 +45,7 @@ class WindowsConnectionManager {
      * @param {Pointer<Guid>} pInterface Type: <b>const GUID*</b>
      * 
      * The interface to query. For global properties, this parameter is NULL.
-     * @param {Pointer<Char>} strProfileName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} strProfileName Type: <b>LPCWSTR</b>
      * 
      * The name of the profile. If querying a non-global property (<b>connection_cost</b>, <b>dataplan_status</b>, or <b>hotspot_profile</b>), the profile must be specified or the call will fail.
      * @param {Integer} Property Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ne-wcmapi-wcm_property">WCM_PROPERTY</a></b>
@@ -66,9 +66,9 @@ class WindowsConnectionManager {
     static WcmQueryProperty(pInterface, strProfileName, Property, pdwDataSize, ppData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
-        result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "uint*", pdwDataSize, "ptr", ppData, "uint")
+        result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "uint*", pdwDataSize, "char*", ppData, "uint")
         return result
     }
 
@@ -77,7 +77,7 @@ class WindowsConnectionManager {
      * @param {Pointer<Guid>} pInterface Type: <b>const GUID*</b>
      * 
      * The interface to set. For global properties, this parameter is NULL.
-     * @param {Pointer<Char>} strProfileName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} strProfileName Type: <b>LPCWSTR</b>
      * 
      * The profile name.
      * @param {Integer} Property Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ne-wcmapi-wcm_property">WCM_PROPERTY</a></b>
@@ -98,7 +98,7 @@ class WindowsConnectionManager {
     static WcmSetProperty(pInterface, strProfileName, Property, dwDataSize, pbData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
         result := DllCall("wcmapi.dll\WcmSetProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "uint", dwDataSize, "char*", pbData, "uint")
         return result
@@ -130,7 +130,7 @@ class WindowsConnectionManager {
      * @param {Integer} dwPosition Type: <b>DWORD</b>
      * 
      * Specifies the position in the list to start the reorder.
-     * @param {Integer} fIgnoreUnknownProfiles Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreUnknownProfiles Type: <b>BOOL</b>
      * 
      * True if any profiles in <i>pProfileList</i> which do not exist should be ignored; the call will proceed with the remainder of the list. False if the call should fail without modifying the profile order if any profiles in <i>pProfileList</i> do not exist.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -142,7 +142,7 @@ class WindowsConnectionManager {
     static WcmSetProfileList(pProfileList, dwPosition, fIgnoreUnknownProfiles) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("wcmapi.dll\WcmSetProfileList", "ptr", pProfileList, "uint", dwPosition, "int", fIgnoreUnknownProfiles, "ptr", pReserved, "uint")
+        result := DllCall("wcmapi.dll\WcmSetProfileList", "ptr", pProfileList, "uint", dwPosition, "ptr", fIgnoreUnknownProfiles, "ptr", pReserved, "uint")
         return result
     }
 
@@ -159,7 +159,7 @@ class WindowsConnectionManager {
 
     /**
      * The OnDemandGetRoutingHint function looks up a destination in the Route Request cache and, if a match is found, return the corresponding Interface ID.
-     * @param {Pointer<Char>} destinationHostName An PWSTR describing the target host name for a network communication.
+     * @param {PWSTR} destinationHostName An PWSTR describing the target host name for a network communication.
      * @param {Pointer<UInt32>} interfaceIndex The interface index of the network adapter to be used for communicating with the target host.
      * @returns {HRESULT} This function returns the following to indicate operation results:
      * 
@@ -195,7 +195,7 @@ class WindowsConnectionManager {
      * @since windows8.1
      */
     static OnDemandGetRoutingHint(destinationHostName, interfaceIndex) {
-        destinationHostName := destinationHostName is String? StrPtr(destinationHostName) : destinationHostName
+        destinationHostName := destinationHostName is String ? StrPtr(destinationHostName) : destinationHostName
 
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandGetRoutingHint", "ptr", destinationHostName, "uint*", interfaceIndex, "int")
         if(result != 0)
@@ -208,7 +208,7 @@ class WindowsConnectionManager {
      * The OnDemandRegisterNotification function allows an application to register to be notified when the Route Requests cache is modified.
      * @param {Pointer<ONDEMAND_NOTIFICATION_CALLBACK>} callback A pointer to a function of type O<b>ONDEMAND_NOTIFICATION_CALLBACK</b> to receive the notifications.
      * @param {Pointer<Void>} callbackContext A pointer to a memory location containing optional context to be passed to the callback.
-     * @param {Pointer<Void>} registrationHandle A pointer to a HANDLE to receive a handle to the registration in case of success.
+     * @param {Pointer<HANDLE>} registrationHandle A pointer to a HANDLE to receive a handle to the registration in case of success.
      * @returns {HRESULT} Returns S_OK on success.
      * @see https://docs.microsoft.com/windows/win32/api//ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandregisternotification
      * @since windows8.1
@@ -223,11 +223,13 @@ class WindowsConnectionManager {
 
     /**
      * 
-     * @param {Pointer<Void>} registrationHandle 
+     * @param {HANDLE} registrationHandle 
      * @returns {HRESULT} 
      * @since windows8.1
      */
     static OnDemandUnRegisterNotification(registrationHandle) {
+        registrationHandle := registrationHandle is Win32Handle ? NumGet(registrationHandle, "ptr") : registrationHandle
+
         result := DllCall("OnDemandConnRouteHelper.dll\OnDemandUnRegisterNotification", "ptr", registrationHandle, "int")
         if(result != 0)
             throw OSError(result)
@@ -237,8 +239,8 @@ class WindowsConnectionManager {
 
     /**
      * This function retrieves an interface context table for the given hostname and connection profile filter.
-     * @param {Pointer<Char>} HostName The destination hostname.
-     * @param {Pointer<Char>} ProxyName The HTTP proxy name.
+     * @param {PWSTR} HostName The destination hostname.
+     * @param {PWSTR} ProxyName The HTTP proxy name.
      * @param {Integer} Flags You can use the following flags.
      * 
      * <table></table>
@@ -319,8 +321,8 @@ class WindowsConnectionManager {
      * @since windows10.0.10240
      */
     static GetInterfaceContextTableForHostName(HostName, ProxyName, Flags, ConnectionProfileFilterRawData, ConnectionProfileFilterRawDataSize, InterfaceContextTable) {
-        HostName := HostName is String? StrPtr(HostName) : HostName
-        ProxyName := ProxyName is String? StrPtr(ProxyName) : ProxyName
+        HostName := HostName is String ? StrPtr(HostName) : HostName
+        ProxyName := ProxyName is String ? StrPtr(ProxyName) : ProxyName
 
         result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr", InterfaceContextTable, "int")
         if(result != 0)

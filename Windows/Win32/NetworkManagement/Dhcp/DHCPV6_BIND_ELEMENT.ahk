@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DHCP_IPV6_ADDRESS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines an IPv6 interface binding for the DHCP server over which it receives DHCPv6 packets.
@@ -44,11 +46,14 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the interface is bound to the DHCPv6 server; if <b>FALSE</b>, it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fBoundToDHCPServer {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fBoundToDHCPServer{
+        get {
+            if(!this.HasProp("__fBoundToDHCPServer"))
+                this.__fBoundToDHCPServer := BOOL(this.ptr + 4)
+            return this.__fBoundToDHCPServer
+        }
     }
 
     /**
@@ -77,11 +82,14 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the name assigned to this interface.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    IfDescription {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    IfDescription{
+        get {
+            if(!this.HasProp("__IfDescription"))
+                this.__IfDescription := PWSTR(this.ptr + 40)
+            return this.__IfDescription
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -35,26 +36,35 @@ class GENERIC_XML_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    xmlToken {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    xmlToken{
+        get {
+            if(!this.HasProp("__xmlToken"))
+                this.__xmlToken := PWSTR(this.ptr + 16)
+            return this.__xmlToken
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    internalTokenReference {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    internalTokenReference{
+        get {
+            if(!this.HasProp("__internalTokenReference"))
+                this.__internalTokenReference := PWSTR(this.ptr + 24)
+            return this.__internalTokenReference
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    externalTokenReference {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    externalTokenReference{
+        get {
+            if(!this.HasProp("__externalTokenReference"))
+                this.__externalTokenReference := PWSTR(this.ptr + 32)
+            return this.__externalTokenReference
+        }
     }
 }

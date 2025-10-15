@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains extended information about a client session on a Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
@@ -57,46 +58,61 @@ class WTS_SESSION_INFO_1W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of this session. For example, "services", "console", or "RDP-Tcp#0".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pSessionName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pSessionName{
+        get {
+            if(!this.HasProp("__pSessionName"))
+                this.__pSessionName := PWSTR(this.ptr + 16)
+            return this.__pSessionName
+        }
     }
 
     /**
      * A pointer to a null-terminated string that contains the name of the computer that the session is running on. If the session is running directly on an RD Session Host server or RD Virtualization Host server, the string contains <b>NULL</b>. If the session is running on a virtual machine, the string contains the name of the virtual machine.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pHostName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pHostName{
+        get {
+            if(!this.HasProp("__pHostName"))
+                this.__pHostName := PWSTR(this.ptr + 24)
+            return this.__pHostName
+        }
     }
 
     /**
      * A pointer to a null-terminated string that contains the name of the user who is logged on to the session. If no user is logged on to the session, the string contains <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pUserName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pUserName{
+        get {
+            if(!this.HasProp("__pUserName"))
+                this.__pUserName := PWSTR(this.ptr + 32)
+            return this.__pUserName
+        }
     }
 
     /**
      * A pointer to a null-terminated string that contains the domain name of the user who is logged on to the session. If no user is logged on to the session, the string contains <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDomainName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pDomainName{
+        get {
+            if(!this.HasProp("__pDomainName"))
+                this.__pDomainName := PWSTR(this.ptr + 40)
+            return this.__pDomainName
+        }
     }
 
     /**
      * A pointer to a null-terminated string that contains the name of the farm that the virtual machine is joined to.  If the session is not running on a virtual machine that is joined to a farm, the string contains <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pFarmName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pFarmName{
+        get {
+            if(!this.HasProp("__pFarmName"))
+                this.__pFarmName := PWSTR(this.ptr + 48)
+            return this.__pFarmName
+        }
     }
 }

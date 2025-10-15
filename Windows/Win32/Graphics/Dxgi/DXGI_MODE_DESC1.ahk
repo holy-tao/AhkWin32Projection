@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include Common\DXGI_RATIONAL.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a display mode and whether the display mode supports stereo.
@@ -80,10 +81,13 @@ class DXGI_MODE_DESC1 extends Win32Struct
 
     /**
      * Specifies whether the full-screen display mode is stereo. <b>TRUE</b> if stereo; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Stereo {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    Stereo{
+        get {
+            if(!this.HasProp("__Stereo"))
+                this.__Stereo := BOOL(this.ptr + 28)
+            return this.__Stereo
+        }
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -21,11 +23,14 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszRpId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszRpId{
+        get {
+            if(!this.HasProp("__pwszRpId"))
+                this.__pwszRpId := PWSTR(this.ptr + 8)
+            return this.__pwszRpId
+        }
     }
 
     /**
@@ -96,11 +101,14 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fEmptyPinAuth {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+    fEmptyPinAuth{
+        get {
+            if(!this.HasProp("__fEmptyPinAuth"))
+                this.__fEmptyPinAuth := BOOL(this.ptr + 88)
+            return this.__fEmptyPinAuth
+        }
     }
 
     /**

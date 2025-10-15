@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -13,11 +14,14 @@ class PRINTER_ENUM_VALUESW extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pValueName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pValueName{
+        get {
+            if(!this.HasProp("__pValueName"))
+                this.__pValueName := PWSTR(this.ptr + 0)
+            return this.__pValueName
+        }
     }
 
     /**

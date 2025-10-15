@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Sip
@@ -20,11 +21,14 @@ class MS_ADDINFO_DETACHEDSIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hSignatureFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hSignatureFile{
+        get {
+            if(!this.HasProp("__hSignatureFile"))
+                this.__hSignatureFile := HANDLE(this.ptr + 8)
+            return this.__hSignatureFile
+        }
     }
 
     /**

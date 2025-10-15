@@ -11,6 +11,39 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
 
     static packingSize => 4
 
+    class _Flags extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 4
+
+        /**
+         * This bitfield backs the following members:
+         * - Shared
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Shared {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 1) & 0x7FFFFFFF
+            set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -28,11 +61,14 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Flags}
      */
-    Flags {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := %this.__Class%._Flags(this.ptr + 8)
+            return this.__Flags
+        }
     }
 
     /**

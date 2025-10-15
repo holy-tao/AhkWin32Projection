@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -22,83 +23,113 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PWSTR(this.ptr + 8)
+            return this.__pName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pEnvironment {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pEnvironment{
+        get {
+            if(!this.HasProp("__pEnvironment"))
+                this.__pEnvironment := PWSTR(this.ptr + 16)
+            return this.__pEnvironment
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDriverPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pDriverPath{
+        get {
+            if(!this.HasProp("__pDriverPath"))
+                this.__pDriverPath := PWSTR(this.ptr + 24)
+            return this.__pDriverPath
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDataFile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pDataFile{
+        get {
+            if(!this.HasProp("__pDataFile"))
+                this.__pDataFile := PWSTR(this.ptr + 32)
+            return this.__pDataFile
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pConfigFile {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pConfigFile{
+        get {
+            if(!this.HasProp("__pConfigFile"))
+                this.__pConfigFile := PWSTR(this.ptr + 40)
+            return this.__pConfigFile
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pHelpFile {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pHelpFile{
+        get {
+            if(!this.HasProp("__pHelpFile"))
+                this.__pHelpFile := PWSTR(this.ptr + 48)
+            return this.__pHelpFile
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDependentFiles {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pDependentFiles{
+        get {
+            if(!this.HasProp("__pDependentFiles"))
+                this.__pDependentFiles := PWSTR(this.ptr + 56)
+            return this.__pDependentFiles
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pMonitorName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pMonitorName{
+        get {
+            if(!this.HasProp("__pMonitorName"))
+                this.__pMonitorName := PWSTR(this.ptr + 64)
+            return this.__pMonitorName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDefaultDataType {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pDefaultDataType{
+        get {
+            if(!this.HasProp("__pDefaultDataType"))
+                this.__pDefaultDataType := PWSTR(this.ptr + 72)
+            return this.__pDefaultDataType
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszzPreviousNames {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    pszzPreviousNames{
+        get {
+            if(!this.HasProp("__pszzPreviousNames"))
+                this.__pszzPreviousNames := PWSTR(this.ptr + 80)
+            return this.__pszzPreviousNames
+        }
     }
 
     /**
@@ -121,67 +152,91 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszMfgName {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    pszMfgName{
+        get {
+            if(!this.HasProp("__pszMfgName"))
+                this.__pszMfgName := PWSTR(this.ptr + 104)
+            return this.__pszMfgName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszOEMUrl {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+    pszOEMUrl{
+        get {
+            if(!this.HasProp("__pszOEMUrl"))
+                this.__pszOEMUrl := PWSTR(this.ptr + 112)
+            return this.__pszOEMUrl
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszHardwareID {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+    pszHardwareID{
+        get {
+            if(!this.HasProp("__pszHardwareID"))
+                this.__pszHardwareID := PWSTR(this.ptr + 120)
+            return this.__pszHardwareID
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszProvider {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    pszProvider{
+        get {
+            if(!this.HasProp("__pszProvider"))
+                this.__pszProvider := PWSTR(this.ptr + 128)
+            return this.__pszProvider
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszPrintProcessor {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    pszPrintProcessor{
+        get {
+            if(!this.HasProp("__pszPrintProcessor"))
+                this.__pszPrintProcessor := PWSTR(this.ptr + 136)
+            return this.__pszPrintProcessor
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszVendorSetup {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+    pszVendorSetup{
+        get {
+            if(!this.HasProp("__pszVendorSetup"))
+                this.__pszVendorSetup := PWSTR(this.ptr + 144)
+            return this.__pszVendorSetup
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszzColorProfiles {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+    pszzColorProfiles{
+        get {
+            if(!this.HasProp("__pszzColorProfiles"))
+                this.__pszzColorProfiles := PWSTR(this.ptr + 152)
+            return this.__pszzColorProfiles
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszInfPath {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
+    pszInfPath{
+        get {
+            if(!this.HasProp("__pszInfPath"))
+                this.__pszInfPath := PWSTR(this.ptr + 160)
+            return this.__pszInfPath
+        }
     }
 
     /**
@@ -193,11 +248,14 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszzCoreDriverDependencies {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+    pszzCoreDriverDependencies{
+        get {
+            if(!this.HasProp("__pszzCoreDriverDependencies"))
+                this.__pszzCoreDriverDependencies := PWSTR(this.ptr + 176)
+            return this.__pszzCoreDriverDependencies
+        }
     }
 
     /**

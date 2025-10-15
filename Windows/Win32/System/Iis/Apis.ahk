@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Iis
  * @version v4.0.30319
@@ -4663,10 +4663,10 @@ class Iis {
     /**
      * 
      * @param {Pointer<HSE_VERSION_INFO>} pVer 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetExtensionVersion(pVer) {
-        result := DllCall("RpcProxy.dll\GetExtensionVersion", "ptr", pVer, "int")
+        result := DllCall("RpcProxy.dll\GetExtensionVersion", "ptr", pVer, "ptr")
         return result
     }
 
@@ -4695,10 +4695,10 @@ class Iis {
     /**
      * 
      * @param {Pointer<HTTP_FILTER_VERSION>} pVer 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetFilterVersion(pVer) {
-        result := DllCall("RpcProxy.dll\GetFilterVersion", "ptr", pVer, "int")
+        result := DllCall("RpcProxy.dll\GetFilterVersion", "ptr", pVer, "ptr")
         return result
     }
 

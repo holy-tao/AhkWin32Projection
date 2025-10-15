@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -36,11 +37,14 @@ class SILOOBJECT_BASIC_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsInServerSilo {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+    IsInServerSilo{
+        get {
+            if(!this.HasProp("__IsInServerSilo"))
+                this.__IsInServerSilo := BOOLEAN(this.ptr + 12)
+            return this.__IsInServerSilo
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -12,27 +14,36 @@ class SERVER_ALIAS_INFO_0 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    srvai0_alias {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    srvai0_alias{
+        get {
+            if(!this.HasProp("__srvai0_alias"))
+                this.__srvai0_alias := PWSTR(this.ptr + 0)
+            return this.__srvai0_alias
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    srvai0_target {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    srvai0_target{
+        get {
+            if(!this.HasProp("__srvai0_target"))
+                this.__srvai0_target := PWSTR(this.ptr + 8)
+            return this.__srvai0_target
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    srvai0_default {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    srvai0_default{
+        get {
+            if(!this.HasProp("__srvai0_default"))
+                this.__srvai0_default := BOOLEAN(this.ptr + 16)
+            return this.__srvai0_default
+        }
     }
 
     /**

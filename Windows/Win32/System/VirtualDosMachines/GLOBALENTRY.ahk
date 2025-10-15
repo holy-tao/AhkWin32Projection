@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
@@ -36,11 +38,14 @@ class GLOBALENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hBlock {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hBlock{
+        get {
+            if(!this.HasProp("__hBlock"))
+                this.__hBlock := HANDLE(this.ptr + 16)
+            return this.__hBlock
+        }
     }
 
     /**
@@ -68,19 +73,25 @@ class GLOBALENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    wHeapPresent {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    wHeapPresent{
+        get {
+            if(!this.HasProp("__wHeapPresent"))
+                this.__wHeapPresent := BOOL(this.ptr + 32)
+            return this.__wHeapPresent
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hOwner {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hOwner{
+        get {
+            if(!this.HasProp("__hOwner"))
+                this.__hOwner := HANDLE(this.ptr + 40)
+            return this.__hOwner
+        }
     }
 
     /**

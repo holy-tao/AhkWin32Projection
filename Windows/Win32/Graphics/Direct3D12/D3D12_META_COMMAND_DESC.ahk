@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a meta command.
@@ -28,11 +29,14 @@ class D3D12_META_COMMAND_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The meta command name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := PWSTR(this.ptr + 8)
+            return this.__Name
+        }
     }
 
     /**

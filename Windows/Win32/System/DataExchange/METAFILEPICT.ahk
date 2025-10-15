@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HMETAFILE.ahk
 
 /**
  * Defines the metafile picture format used for exchanging metafile data through the clipboard.
@@ -50,10 +51,13 @@ class METAFILEPICT extends Win32Struct
      * Type: <b>HMETAFILE</b>
      * 
      * A handle to a memory metafile.
-     * @type {Pointer<Void>}
+     * @type {HMETAFILE}
      */
-    hMF {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hMF{
+        get {
+            if(!this.HasProp("__hMF"))
+                this.__hMF := HMETAFILE(this.ptr + 16)
+            return this.__hMF
+        }
     }
 }

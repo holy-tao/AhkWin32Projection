@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\MMC_TASK_DISPLAY_BITMAP.ahk
 #Include .\MMC_TASK_DISPLAY_SYMBOL.ahk
 #Include .\MMC_TASK_DISPLAY_OBJECT.ahk
@@ -39,20 +40,26 @@ class MMC_TASK extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the text placed directly to the right of the mouse-over image. This text serves as the label for the task. This text should be an action in the imperative such as "Add a new user."
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szText {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    szText{
+        get {
+            if(!this.HasProp("__szText"))
+                this.__szText := PWSTR(this.ptr + 32)
+            return this.__szText
+        }
     }
 
     /**
      * A pointer to a null-terminated string that contains the descriptive text placed in the upper-right corner when the user moves the mouse over the mouse-over image or the label text for the task. This text serves as the description for the task such as "Creates a new account, creates a mailbox, and sets up everything a user must access the network."
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szHelpString {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    szHelpString{
+        get {
+            if(!this.HasProp("__szHelpString"))
+                this.__szHelpString := PWSTR(this.ptr + 40)
+            return this.__szHelpString
+        }
     }
 
     /**
@@ -76,18 +83,24 @@ class MMC_TASK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szActionURL {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    szActionURL{
+        get {
+            if(!this.HasProp("__szActionURL"))
+                this.__szActionURL := PWSTR(this.ptr + 56)
+            return this.__szActionURL
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szScript {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    szScript{
+        get {
+            if(!this.HasProp("__szScript"))
+                this.__szScript := PWSTR(this.ptr + 56)
+            return this.__szScript
+        }
     }
 }

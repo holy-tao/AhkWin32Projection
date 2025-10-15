@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * WSMAN_FRAGMENT is reserved for future use.
@@ -15,19 +16,25 @@ class WSMAN_FRAGMENT extends Win32Struct
 
     /**
      * Reserved for future use. This parameter must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    path {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    path{
+        get {
+            if(!this.HasProp("__path"))
+                this.__path := PWSTR(this.ptr + 0)
+            return this.__path
+        }
     }
 
     /**
      * Reserved for future use. This parameter must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    dialect {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    dialect{
+        get {
+            if(!this.HasProp("__dialect"))
+                this.__dialect := PWSTR(this.ptr + 8)
+            return this.__dialect
+        }
     }
 }

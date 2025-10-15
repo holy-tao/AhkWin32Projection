@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -12,18 +13,24 @@ class PROTOCOL_ARGUMENT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szMethod {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    szMethod{
+        get {
+            if(!this.HasProp("__szMethod"))
+                this.__szMethod := PWSTR(this.ptr + 0)
+            return this.__szMethod
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szTargetUrl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    szTargetUrl{
+        get {
+            if(!this.HasProp("__szTargetUrl"))
+                this.__szTargetUrl := PWSTR(this.ptr + 8)
+            return this.__szTargetUrl
+        }
     }
 }

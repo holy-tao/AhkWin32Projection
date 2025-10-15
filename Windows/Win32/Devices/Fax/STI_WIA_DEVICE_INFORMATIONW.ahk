@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STI_DEV_CAPS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -36,11 +38,14 @@ class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STI_DEV_CAPS}
      */
-    DeviceCapabilitiesA {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
+    DeviceCapabilitiesA{
+        get {
+            if(!this.HasProp("__DeviceCapabilitiesA"))
+                this.__DeviceCapabilitiesA := STI_DEV_CAPS(this.ptr + 264)
+            return this.__DeviceCapabilitiesA
+        }
     }
 
     /**
@@ -52,58 +57,79 @@ class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszVendorDescription {
-        get => NumGet(this, 272, "ptr")
-        set => NumPut("ptr", value, this, 272)
+    pszVendorDescription{
+        get {
+            if(!this.HasProp("__pszVendorDescription"))
+                this.__pszVendorDescription := PWSTR(this.ptr + 272)
+            return this.__pszVendorDescription
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDeviceDescription {
-        get => NumGet(this, 280, "ptr")
-        set => NumPut("ptr", value, this, 280)
+    pszDeviceDescription{
+        get {
+            if(!this.HasProp("__pszDeviceDescription"))
+                this.__pszDeviceDescription := PWSTR(this.ptr + 280)
+            return this.__pszDeviceDescription
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszPortName {
-        get => NumGet(this, 288, "ptr")
-        set => NumPut("ptr", value, this, 288)
+    pszPortName{
+        get {
+            if(!this.HasProp("__pszPortName"))
+                this.__pszPortName := PWSTR(this.ptr + 288)
+            return this.__pszPortName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszPropProvider {
-        get => NumGet(this, 296, "ptr")
-        set => NumPut("ptr", value, this, 296)
+    pszPropProvider{
+        get {
+            if(!this.HasProp("__pszPropProvider"))
+                this.__pszPropProvider := PWSTR(this.ptr + 296)
+            return this.__pszPropProvider
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszLocalName {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
+    pszLocalName{
+        get {
+            if(!this.HasProp("__pszLocalName"))
+                this.__pszLocalName := PWSTR(this.ptr + 304)
+            return this.__pszLocalName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszUiDll {
-        get => NumGet(this, 312, "ptr")
-        set => NumPut("ptr", value, this, 312)
+    pszUiDll{
+        get {
+            if(!this.HasProp("__pszUiDll"))
+                this.__pszUiDll := PWSTR(this.ptr + 312)
+            return this.__pszUiDll
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszServer {
-        get => NumGet(this, 320, "ptr")
-        set => NumPut("ptr", value, this, 320)
+    pszServer{
+        get {
+            if(!this.HasProp("__pszServer"))
+                this.__pszServer := PWSTR(this.ptr + 320)
+            return this.__pszServer
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The WM_STREAM_PRIORITY_RECORD structure contains a stream number and specifies whether delivery of that stream is mandatory.
@@ -29,10 +30,13 @@ class WM_STREAM_PRIORITY_RECORD extends Win32Struct
 
     /**
      * Flag indicating whether the listed stream is mandatory. Mandatory streams will not be dropped regardless of their position in the priority list.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMandatory {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fMandatory{
+        get {
+            if(!this.HasProp("__fMandatory"))
+                this.__fMandatory := BOOL(this.ptr + 4)
+            return this.__fMandatory
+        }
     }
 }

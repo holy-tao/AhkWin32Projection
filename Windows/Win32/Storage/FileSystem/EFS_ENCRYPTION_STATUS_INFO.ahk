@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -12,11 +13,14 @@ class EFS_ENCRYPTION_STATUS_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bHasCurrentKey {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    bHasCurrentKey{
+        get {
+            if(!this.HasProp("__bHasCurrentKey"))
+                this.__bHasCurrentKey := BOOL(this.ptr + 0)
+            return this.__bHasCurrentKey
+        }
     }
 
     /**

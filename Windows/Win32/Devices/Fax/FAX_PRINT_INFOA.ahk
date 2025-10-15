@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The FAX_PRINT_INFO structure contains the information necessary for the fax server to print a fax transmission. The structure includes sender and recipient data, an optional billing code, and delivery report information.
@@ -41,109 +42,139 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the user-friendly name that appears in the print spooler.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    DocName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    DocName{
+        get {
+            if(!this.HasProp("__DocName"))
+                this.__DocName := PSTR(this.ptr + 8)
+            return this.__DocName
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    RecipientName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    RecipientName{
+        get {
+            if(!this.HasProp("__RecipientName"))
+                this.__RecipientName := PSTR(this.ptr + 16)
+            return this.__RecipientName
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the fax number of the recipient of the fax transmission. This member is required.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    RecipientNumber {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    RecipientNumber{
+        get {
+            if(!this.HasProp("__RecipientNumber"))
+                this.__RecipientNumber := PSTR(this.ptr + 24)
+            return this.__RecipientNumber
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    SenderName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    SenderName{
+        get {
+            if(!this.HasProp("__SenderName"))
+                this.__SenderName := PSTR(this.ptr + 32)
+            return this.__SenderName
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the company name of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    SenderCompany {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    SenderCompany{
+        get {
+            if(!this.HasProp("__SenderCompany"))
+                this.__SenderCompany := PSTR(this.ptr + 40)
+            return this.__SenderCompany
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the department name of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    SenderDept {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    SenderDept{
+        get {
+            if(!this.HasProp("__SenderDept"))
+                this.__SenderDept := PSTR(this.ptr + 48)
+            return this.__SenderDept
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that indicates an application- or server-specific billing code that applies to the fax transmission. The fax server uses the string to generate an entry in the fax event log. Billing codes are optional.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    SenderBillingCode {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    SenderBillingCode{
+        get {
+            if(!this.HasProp("__SenderBillingCode"))
+                this.__SenderBillingCode := PSTR(this.ptr + 56)
+            return this.__SenderBillingCode
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Reserved. Must be set to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Reserved {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    Reserved{
+        get {
+            if(!this.HasProp("__Reserved"))
+                this.__Reserved := PSTR(this.ptr + 64)
+            return this.__Reserved
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the email address to which the fax server should send the delivery report (DR) or nondelivery report (NDR).
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    DrEmailAddress {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    DrEmailAddress{
+        get {
+            if(!this.HasProp("__DrEmailAddress"))
+                this.__DrEmailAddress := PSTR(this.ptr + 72)
+            return this.__DrEmailAddress
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * This member is reserved for future use by Microsoft. It must be set to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    OutputFileName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    OutputFileName{
+        get {
+            if(!this.HasProp("__OutputFileName"))
+                this.__OutputFileName := PSTR(this.ptr + 80)
+            return this.__OutputFileName
+        }
     }
 }

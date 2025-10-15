@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents summary information about a process hosting COM+ applications.
@@ -60,37 +62,49 @@ class ApplicationProcessSummary extends Win32Struct
 
     /**
      * The name of the process's executable image. Space for this string is allocated by the method called and freed by the caller (for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>). This member is not returned by default. To return this member, specify the GATD_INCLUDE_PROCESS_EXE_NAME flag when you call a method that returns an <b>ApplicationProcessSummary</b> structure.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ProcessExeName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    ProcessExeName{
+        get {
+            if(!this.HasProp("__ProcessExeName"))
+                this.__ProcessExeName := PWSTR(this.ptr + 32)
+            return this.__ProcessExeName
+        }
     }
 
     /**
      * Indicates whether the process is a COM+ server application running as a Windows service.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsService {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    IsService{
+        get {
+            if(!this.HasProp("__IsService"))
+                this.__IsService := BOOL(this.ptr + 40)
+            return this.__IsService
+        }
     }
 
     /**
      * Indicates whether the process is a COM+ server application instance that is paused.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsPaused {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    IsPaused{
+        get {
+            if(!this.HasProp("__IsPaused"))
+                this.__IsPaused := BOOL(this.ptr + 44)
+            return this.__IsPaused
+        }
     }
 
     /**
      * Indicates whether the process is a COM+ server application instance that has been recycled.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsRecycled {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    IsRecycled{
+        get {
+            if(!this.HasProp("__IsRecycled"))
+                this.__IsRecycled := BOOL(this.ptr + 48)
+            return this.__IsRecycled
+        }
     }
 }

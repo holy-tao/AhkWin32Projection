@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies an XML qualified name.
@@ -28,10 +29,13 @@ class WSDXML_NAME extends Win32Struct
 
     /**
      * The local name of the qualified name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    LocalName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    LocalName{
+        get {
+            if(!this.HasProp("__LocalName"))
+                this.__LocalName := PWSTR(this.ptr + 8)
+            return this.__LocalName
+        }
     }
 }

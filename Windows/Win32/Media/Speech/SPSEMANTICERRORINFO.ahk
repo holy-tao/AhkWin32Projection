@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -20,27 +21,36 @@ class SPSEMANTICERRORINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszScriptLine {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszScriptLine{
+        get {
+            if(!this.HasProp("__pszScriptLine"))
+                this.__pszScriptLine := PWSTR(this.ptr + 8)
+            return this.__pszScriptLine
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszSource {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszSource{
+        get {
+            if(!this.HasProp("__pszSource"))
+                this.__pszSource := PWSTR(this.ptr + 16)
+            return this.__pszSource
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDescription {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszDescription{
+        get {
+            if(!this.HasProp("__pszDescription"))
+                this.__pszDescription := PWSTR(this.ptr + 24)
+            return this.__pszDescription
+        }
     }
 
     /**

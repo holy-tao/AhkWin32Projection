@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Networking.WebSocket
  * @version v4.0.30319
@@ -23,7 +23,7 @@ class WebSocket {
      * @param {Integer} ulPropertyCount Type: <b>ULONG</b>
      * 
      * Number of properties in <i>pProperties</i>.
-     * @param {Pointer<Void>} phWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
+     * @param {Pointer<WEB_SOCKET_HANDLE>} phWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
      * 
      * On successful output, pointer to a  newly allocated client-side WebSocket session handle.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -44,16 +44,16 @@ class WebSocket {
 
     /**
      * Begins the client-side handshake.
-     * @param {Pointer<Void>} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
+     * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      *  WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a>.
-     * @param {Pointer<Byte>} pszSubprotocols Type: <b>PCSTR*</b>
+     * @param {Pointer<PSTR>} pszSubprotocols Type: <b>PCSTR*</b>
      * 
      * Pointer to an array of sub-protocols chosen by the application. Once the client-server handshake is complete, the application must use the sub-protocol returned by <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketendclienthandshake">WebSocketEndClientHandshake</a>. Must contain one subprotocol per entry.
      * @param {Integer} ulSubprotocolCount Type: <b>ULONG</b>
      * 
      * Number of sub-protocols in <i>pszSubprotocols</i>.
-     * @param {Pointer<Byte>} pszExtensions Type: <b>PCSTR*</b>
+     * @param {Pointer<PSTR>} pszExtensions Type: <b>PCSTR*</b>
      * 
      * Pointer to an array of extensions chosen by the application. Once the client-server handshake is complete, the application must use the extension returned by <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketendclienthandshake">WebSocketEndClientHandshake</a>. Must contain one extension per entry.
      * @param {Integer} ulExtensionCount Type: <b>ULONG</b>
@@ -80,6 +80,8 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketBeginClientHandshake(hWebSocket, pszSubprotocols, ulSubprotocolCount, pszExtensions, ulExtensionCount, pInitialHeaders, ulInitialHeaderCount, pAdditionalHeaders, pulAdditionalHeaderCount) {
+        hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
+
         result := DllCall("websocket.dll\WebSocketBeginClientHandshake", "ptr", hWebSocket, "ptr", pszSubprotocols, "uint", ulSubprotocolCount, "ptr", pszExtensions, "uint", ulExtensionCount, "ptr", pInitialHeaders, "uint", ulInitialHeaderCount, "ptr", pAdditionalHeaders, "uint*", pulAdditionalHeaderCount, "int")
         if(result != 0)
             throw OSError(result)
@@ -89,7 +91,7 @@ class WebSocket {
 
     /**
      * Completes the client-side handshake.
-     * @param {Pointer<Void>} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
+     * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      *  WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a>.
      * @param {Pointer<WEB_SOCKET_HTTP_HEADER>} pResponseHeaders Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_http_header">PWEB_SOCKET_HTTP_HEADER</a></b>
@@ -156,6 +158,8 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketEndClientHandshake(hWebSocket, pResponseHeaders, ulReponseHeaderCount, pulSelectedExtensions, pulSelectedExtensionCount, pulSelectedSubprotocol) {
+        hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
+
         result := DllCall("websocket.dll\WebSocketEndClientHandshake", "ptr", hWebSocket, "ptr", pResponseHeaders, "uint", ulReponseHeaderCount, "uint*", pulSelectedExtensions, "uint*", pulSelectedExtensionCount, "uint*", pulSelectedSubprotocol, "int")
         if(result != 0)
             throw OSError(result)
@@ -171,7 +175,7 @@ class WebSocket {
      * @param {Integer} ulPropertyCount Type: <b>ULONG</b>
      * 
      * Number of properties in <i>pProperties</i>.
-     * @param {Pointer<Void>} phWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
+     * @param {Pointer<WEB_SOCKET_HANDLE>} phWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a>*</b>
      * 
      * On successful output, pointer to a newly allocated server-side WebSocket session handle.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -192,13 +196,13 @@ class WebSocket {
 
     /**
      * Begins the server-side handshake.
-     * @param {Pointer<Void>} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
+     * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      *  WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
-     * @param {Pointer<Byte>} pszSubprotocolSelected Type: <b>PCSTR</b>
+     * @param {PSTR} pszSubprotocolSelected Type: <b>PCSTR</b>
      * 
      * A pointer to a sub-protocol value chosen by the application. Must contain one subprotocol.
-     * @param {Pointer<Byte>} pszExtensionSelected Type: <b>PCSTR*</b>
+     * @param {Pointer<PSTR>} pszExtensionSelected Type: <b>PCSTR*</b>
      * 
      * A pointer to a list of extensions chosen by the application. Must contain one extension per entry.
      * @param {Integer} ulExtensionSelectedCount Type: <b>ULONG</b>
@@ -243,7 +247,8 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketBeginServerHandshake(hWebSocket, pszSubprotocolSelected, pszExtensionSelected, ulExtensionSelectedCount, pRequestHeaders, ulRequestHeaderCount, pResponseHeaders, pulResponseHeaderCount) {
-        pszSubprotocolSelected := pszSubprotocolSelected is String? StrPtr(pszSubprotocolSelected) : pszSubprotocolSelected
+        pszSubprotocolSelected := pszSubprotocolSelected is String ? StrPtr(pszSubprotocolSelected) : pszSubprotocolSelected
+        hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
 
         result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, "ptr", pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, "ptr", pResponseHeaders, "uint*", pulResponseHeaderCount, "int")
         if(result != 0)
@@ -254,7 +259,7 @@ class WebSocket {
 
     /**
      * Completes the server-side handshake.
-     * @param {Pointer<Void>} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
+     * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      *  WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -266,6 +271,8 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketEndServerHandshake(hWebSocket) {
+        hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
+
         result := DllCall("websocket.dll\WebSocketEndServerHandshake", "ptr", hWebSocket, "int")
         if(result != 0)
             throw OSError(result)
@@ -275,7 +282,7 @@ class WebSocket {
 
     /**
      * Adds a send operation to the protocol component operation queue.
-     * @param {Pointer<Void>} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
+     * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
      * @param {Integer} BufferType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_buffer_type">WEB_SOCKET_BUFFER_TYPE</a></b>
@@ -317,6 +324,8 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketSend(hWebSocket, BufferType, pBuffer, Context) {
+        hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
+
         result := DllCall("websocket.dll\WebSocketSend", "ptr", hWebSocket, "int", BufferType, "ptr", pBuffer, "ptr", Context, "int")
         if(result != 0)
             throw OSError(result)
@@ -326,7 +335,7 @@ class WebSocket {
 
     /**
      * Adds a receive operation to the protocol component operation queue.
-     * @param {Pointer<Void>} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
+     * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
      * @param {Pointer<WEB_SOCKET_BUFFER>} pBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_buffer">WEB_SOCKET_BUFFER</a>*</b>
@@ -365,6 +374,8 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketReceive(hWebSocket, pBuffer, pvContext) {
+        hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
+
         result := DllCall("websocket.dll\WebSocketReceive", "ptr", hWebSocket, "ptr", pBuffer, "ptr", pvContext, "int")
         if(result != 0)
             throw OSError(result)
@@ -374,7 +385,7 @@ class WebSocket {
 
     /**
      * Returns an action from a call to WebSocketSend, WebSocketReceive or WebSocketCompleteAction.
-     * @param {Pointer<Void>} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
+     * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
      * @param {Integer} eActionQueue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action_queue">WEB_SOCKET_ACTION_QUEUE</a></b>
@@ -439,6 +450,8 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketGetAction(hWebSocket, eActionQueue, pDataBuffers, pulDataBufferCount, pAction, pBufferType, pvApplicationContext, pvActionContext) {
+        hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
+
         result := DllCall("websocket.dll\WebSocketGetAction", "ptr", hWebSocket, "int", eActionQueue, "ptr", pDataBuffers, "uint*", pulDataBufferCount, "int*", pAction, "int*", pBufferType, "ptr", pvApplicationContext, "ptr", pvActionContext, "int")
         if(result != 0)
             throw OSError(result)
@@ -448,7 +461,7 @@ class WebSocket {
 
     /**
      * Completes an action started by WebSocketGetAction.
-     * @param {Pointer<Void>} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
+     * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
      * @param {Pointer<Void>} pvActionContext Type: <b>PVOID</b>
@@ -462,12 +475,14 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketCompleteAction(hWebSocket, pvActionContext, ulBytesTransferred) {
+        hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
+
         DllCall("websocket.dll\WebSocketCompleteAction", "ptr", hWebSocket, "ptr", pvActionContext, "uint", ulBytesTransferred)
     }
 
     /**
      * Aborts a WebSocket session handle created by WebSocketCreateClientHandle or WebSocketCreateServerHandle.
-     * @param {Pointer<Void>} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
+     * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      *  WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
      * @returns {String} Nothing - always returns an empty string
@@ -475,12 +490,14 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketAbortHandle(hWebSocket) {
+        hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
+
         DllCall("websocket.dll\WebSocketAbortHandle", "ptr", hWebSocket)
     }
 
     /**
      * Deletes a WebSocket session handle created by WebSocketCreateClientHandle or WebSocketCreateServerHandle.
-     * @param {Pointer<Void>} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
+     * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
      * @returns {String} Nothing - always returns an empty string
@@ -488,6 +505,8 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketDeleteHandle(hWebSocket) {
+        hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
+
         DllCall("websocket.dll\WebSocketDeleteHandle", "ptr", hWebSocket)
     }
 

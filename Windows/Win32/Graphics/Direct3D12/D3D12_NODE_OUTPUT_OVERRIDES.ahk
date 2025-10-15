@@ -28,7 +28,7 @@ class D3D12_NODE_OUTPUT_OVERRIDES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     pAllowSparseNodes {
         get => NumGet(this, 16, "ptr")

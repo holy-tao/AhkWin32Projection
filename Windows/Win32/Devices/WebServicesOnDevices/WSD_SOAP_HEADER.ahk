@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSD_HEADER_RELATESTO.ahk
 
 /**
@@ -16,29 +17,38 @@ class WSD_SOAP_HEADER extends Win32Struct
 
     /**
      * The URI to which the SOAP message is addressed.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    To {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    To{
+        get {
+            if(!this.HasProp("__To"))
+                this.__To := PWSTR(this.ptr + 0)
+            return this.__To
+        }
     }
 
     /**
      * The action encoded by the SOAP message.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Action {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Action{
+        get {
+            if(!this.HasProp("__Action"))
+                this.__Action := PWSTR(this.ptr + 8)
+            return this.__Action
+        }
     }
 
     /**
      * An identifier that distinguishes the message from others from the same sender.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    MessageID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    MessageID{
+        get {
+            if(!this.HasProp("__MessageID"))
+                this.__MessageID := PWSTR(this.ptr + 16)
+            return this.__MessageID
+        }
     }
 
     /**

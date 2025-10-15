@@ -12,11 +12,30 @@ class IMAGE_RESOURCE_DIRECTORY_ENTRY extends Win32Struct
     static packingSize => 6
 
     /**
+     * This bitfield backs the following members:
+     * - NameOffset
+     * - NameIsString
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NameOffset {
+        get => (this._bitfield >> 0) & 0x7FFFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFFF) << 0) | (this._bitfield & ~(0x7FFFFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NameIsString {
+        get => (this._bitfield >> 31) & 0x1
+        set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
     }
 
     /**
@@ -41,5 +60,32 @@ class IMAGE_RESOURCE_DIRECTORY_ENTRY extends Win32Struct
     OffsetToData {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - OffsetToDirectory
+     * - DataIsDirectory
+     * @type {Integer}
+     */
+    _bitfield1 {
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    OffsetToDirectory {
+        get => (this._bitfield1 >> 0) & 0x7FFFFFFF
+        set => this._bitfield1 := ((value & 0x7FFFFFFF) << 0) | (this._bitfield1 & ~(0x7FFFFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DataIsDirectory {
+        get => (this._bitfield1 >> 31) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 31) | (this._bitfield1 & ~(0x1 << 31))
     }
 }

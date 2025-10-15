@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The FAX_ROUTE structure contains information about a received fax document. The fax service passes the structure to a fax routing method in a call to the FaxRouteMethod function.
@@ -79,33 +80,42 @@ class FAX_ROUTE extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the called station identifier of the local fax device that received the fax document. This identifier is usually a telephone number.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Csid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    Csid{
+        get {
+            if(!this.HasProp("__Csid"))
+                this.__Csid := PWSTR(this.ptr + 32)
+            return this.__Csid
+        }
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the transmitting station identifier of the remote fax device that sent the fax document. This identifier is usually a telephone number.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Tsid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    Tsid{
+        get {
+            if(!this.HasProp("__Tsid"))
+                this.__Tsid := PWSTR(this.ptr + 40)
+            return this.__Tsid
+        }
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that identifies the calling device that sent the fax document. This string may include the telephone number of the calling device.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    CallerId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    CallerId{
+        get {
+            if(!this.HasProp("__CallerId"))
+                this.__CallerId := PWSTR(this.ptr + 48)
+            return this.__CallerId
+        }
     }
 
     /**
@@ -118,44 +128,56 @@ class FAX_ROUTE extends Win32Struct
      * <c>Canonical-Phone-Number[|Additional-Routing-Info]</c>
      * 
      * where <c>Canonical-Phone-Number</code> is defined in the <a href="https://docs.microsoft.com/windows/desktop/Tapi/address-ovr">Address</a> topic of the TAPI documentation (see the Canonical Address subheading); and <code>Additional-Routing-Info</c> is the <i>subaddress</i> of a Canonical Address, and uses the subaddress format.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    RoutingInfo {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    RoutingInfo{
+        get {
+            if(!this.HasProp("__RoutingInfo"))
+                this.__RoutingInfo := PWSTR(this.ptr + 56)
+            return this.__RoutingInfo
+        }
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the name of the person who received the fax document.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ReceiverName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    ReceiverName{
+        get {
+            if(!this.HasProp("__ReceiverName"))
+                this.__ReceiverName := PWSTR(this.ptr + 64)
+            return this.__ReceiverName
+        }
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the telephone number of the fax device that received the fax document.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ReceiverNumber {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    ReceiverNumber{
+        get {
+            if(!this.HasProp("__ReceiverNumber"))
+                this.__ReceiverNumber := PWSTR(this.ptr + 72)
+            return this.__ReceiverNumber
+        }
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a constant null-terminated Unicode character string that specifies the name of the device that received the fax document.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DeviceName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    DeviceName{
+        get {
+            if(!this.HasProp("__DeviceName"))
+                this.__DeviceName := PWSTR(this.ptr + 80)
+            return this.__DeviceName
+        }
     }
 
     /**

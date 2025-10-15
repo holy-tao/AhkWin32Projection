@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USB_DEVICE_STATE.ahk
 #Include .\USB_DEVICE_DESCRIPTOR.ahk
 #Include .\USB_ENDPOINT_DESCRIPTOR.ahk
 #Include .\USB_PIPE_INFO.ahk
@@ -15,11 +16,14 @@ class USB_DEVICE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {USB_DEVICE_STATE}
      */
-    DeviceState {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    DeviceState{
+        get {
+            if(!this.HasProp("__DeviceState"))
+                this.__DeviceState := USB_DEVICE_STATE(this.ptr + 0)
+            return this.__DeviceState
+        }
     }
 
     /**

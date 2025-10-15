@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains code image information and criteria to be checked on the code image.
@@ -104,20 +107,26 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
 
     /**
      * A string that specifies the fully qualified path and file name to be used for discrimination checks based on the path. The image path is also used to open and read the file to identify any other discrimination criteria not supplied in this structure. This member can be <b>NULL</b>; however, if the <b>dwCheckFlags</b> member includes <b>SAFER_CRITERIA_AUTHENTICODE</b>, either this member or the <b>hImageFileHandle</b> member must be set.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ImagePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ImagePath{
+        get {
+            if(!this.HasProp("__ImagePath"))
+                this.__ImagePath := PWSTR(this.ptr + 8)
+            return this.__ImagePath
+        }
     }
 
     /**
      * A file handle to a code image with at least GENERIC_READ access. The handle is used instead of explicitly reopening the file  to compute discrimination criteria not supplied in this structure. This member can be <b>NULL</b>; however, if <b>dwCheckFlags</b> includes <b>SAFER_CRITERIA_AUTHENTICODE</b>, either this member or the <b>ImagePath</b> member must be set.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hImageFileHandle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hImageFileHandle{
+        get {
+            if(!this.HasProp("__hImageFileHandle"))
+                this.__hImageFileHandle := HANDLE(this.ptr + 16)
+            return this.__hImageFileHandle
+        }
     }
 
     /**
@@ -202,11 +211,14 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
 
     /**
      * The arguments used for Authenticode signer certificate verification. These arguments are passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> function and control the UI that prompts the user to accept or reject entrusted certificates.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWndParent {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+    hWndParent{
+        get {
+            if(!this.HasProp("__hWndParent"))
+                this.__hWndParent := HWND(this.ptr + 120)
+            return this.__hWndParent
+        }
     }
 
     /**

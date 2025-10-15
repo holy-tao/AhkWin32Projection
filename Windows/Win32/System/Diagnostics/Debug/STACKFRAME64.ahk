@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\ADDRESS64.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\KDHELP64.ahk
 
 /**
@@ -139,20 +140,26 @@ class STACKFRAME64 extends Win32Struct
 
     /**
      * This member is <b>TRUE</b> if this is a WOW far call.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Far {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+    Far{
+        get {
+            if(!this.HasProp("__Far"))
+                this.__Far := BOOL(this.ptr + 120)
+            return this.__Far
+        }
     }
 
     /**
      * This member is <b>TRUE</b> if this is a virtual frame.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Virtual {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
+    Virtual{
+        get {
+            if(!this.HasProp("__Virtual"))
+                this.__Virtual := BOOL(this.ptr + 124)
+            return this.__Virtual
+        }
     }
 
     /**

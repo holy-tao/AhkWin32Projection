@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes a level of network connectivity, the usage charge for a network connection, and other members reflecting cost factors.
@@ -42,32 +43,41 @@ class NL_NETWORK_CONNECTIVITY_HINT extends Win32Struct
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` if the connection is approaching its data limit, otherwise `FALSE`.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ApproachingDataLimit {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    ApproachingDataLimit{
+        get {
+            if(!this.HasProp("__ApproachingDataLimit"))
+                this.__ApproachingDataLimit := BOOLEAN(this.ptr + 8)
+            return this.__ApproachingDataLimit
+        }
     }
 
     /**
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` if the connection has exceeded its data limit, otherwise `FALSE`.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    OverDataLimit {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    OverDataLimit{
+        get {
+            if(!this.HasProp("__OverDataLimit"))
+                this.__OverDataLimit := BOOLEAN(this.ptr + 9)
+            return this.__OverDataLimit
+        }
     }
 
     /**
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` if the connection is roaming, otherwise `FALSE`.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Roaming {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
+    Roaming{
+        get {
+            if(!this.HasProp("__Roaming"))
+                this.__Roaming := BOOLEAN(this.ptr + 10)
+            return this.__Roaming
+        }
     }
 }

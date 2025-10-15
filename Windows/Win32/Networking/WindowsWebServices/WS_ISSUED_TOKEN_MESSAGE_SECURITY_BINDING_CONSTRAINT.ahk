@@ -38,7 +38,7 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<IntPtr>}
+         * @type {Pointer<WS_XML_BUFFER>}
          */
         requestSecurityTokenTemplate {
             get => NumGet(this, 8, "ptr")

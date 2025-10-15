@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
 #Include ..\..\KernelStreaming\KSP_NODE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -25,10 +26,13 @@ class KSPROPERTY_BDA_RF_TUNER_STANDARD_MODE_S extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    AutoDetect {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    AutoDetect{
+        get {
+            if(!this.HasProp("__AutoDetect"))
+                this.__AutoDetect := BOOL(this.ptr + 24)
+            return this.__AutoDetect
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used when calling WinVerifyTrust to verify a CMSG_SIGNER_INFO structure.
@@ -24,11 +25,14 @@ class WINTRUST_SGNR_INFO extends Win32Struct
 
     /**
      * String with the name representing the signer to be checked.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszDisplayName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pcwszDisplayName{
+        get {
+            if(!this.HasProp("__pcwszDisplayName"))
+                this.__pcwszDisplayName := PWSTR(this.ptr + 8)
+            return this.__pcwszDisplayName
+        }
     }
 
     /**
@@ -52,7 +56,7 @@ class WINTRUST_SGNR_INFO extends Win32Struct
 
     /**
      * An array of open <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate stores</a> to be added to the list of stores that the policy provider uses to find certificates while building a trust chain.
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     pahStores {
         get => NumGet(this, 32, "ptr")

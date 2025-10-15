@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
@@ -20,18 +21,24 @@ class POWER_SESSION_WINLOGON extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Console {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    Console{
+        get {
+            if(!this.HasProp("__Console"))
+                this.__Console := BOOLEAN(this.ptr + 4)
+            return this.__Console
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Locked {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+    Locked{
+        get {
+            if(!this.HasProp("__Locked"))
+                this.__Locked := BOOLEAN(this.ptr + 5)
+            return this.__Locked
+        }
     }
 }

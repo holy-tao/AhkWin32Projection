@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\PSID.ahk
 
 /**
  * The LOCALGROUP_MEMBERS_INFO_0 structure contains the security identifier (SID) associated with a local group member. The member can be a user account or a global group account.
@@ -17,10 +18,13 @@ class LOCALGROUP_MEMBERS_INFO_0 extends Win32Struct
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">security identifier (SID)</a> of the local group member.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    lgrmi0_sid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lgrmi0_sid{
+        get {
+            if(!this.HasProp("__lgrmi0_sid"))
+                this.__lgrmi0_sid := PSID(this.ptr + 0)
+            return this.__lgrmi0_sid
+        }
     }
 }

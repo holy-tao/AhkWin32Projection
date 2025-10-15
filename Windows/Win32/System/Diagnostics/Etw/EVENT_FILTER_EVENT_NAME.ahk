@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Defines event IDs used in an EVENT_FILTER_DESCRIPTOR structure for an event name or stalk walk name filter.
@@ -52,11 +53,14 @@ class EVENT_FILTER_EVENT_NAME extends Win32Struct
      * 
      * When used for the **EVENT_FILTER_TYPE_STACKWALK_NAME**filter type, the filtered
      * in events will have stacks collected for them.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    FilterIn {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+    FilterIn{
+        get {
+            if(!this.HasProp("__FilterIn"))
+                this.__FilterIn := BOOLEAN(this.ptr + 17)
+            return this.__FilterIn
+        }
     }
 
     /**

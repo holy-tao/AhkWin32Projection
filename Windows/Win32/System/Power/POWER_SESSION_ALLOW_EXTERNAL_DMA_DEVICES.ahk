@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
@@ -12,10 +13,13 @@ class POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsAllowed {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    IsAllowed{
+        get {
+            if(!this.HasProp("__IsAllowed"))
+                this.__IsAllowed := BOOLEAN(this.ptr + 0)
+            return this.__IsAllowed
+        }
     }
 }

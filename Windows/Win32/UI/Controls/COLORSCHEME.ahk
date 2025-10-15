@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information for the drawing of buttons in a toolbar or rebar.
@@ -29,11 +30,14 @@ class COLORSCHEME extends Win32Struct
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that represents the highlight color of the buttons. Use 
      * 					<b>CLR_DEFAULT</b> for the default highlight color.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    clrBtnHighlight {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    clrBtnHighlight{
+        get {
+            if(!this.HasProp("__clrBtnHighlight"))
+                this.__clrBtnHighlight := COLORREF(this.ptr + 4)
+            return this.__clrBtnHighlight
+        }
     }
 
     /**
@@ -41,10 +45,13 @@ class COLORSCHEME extends Win32Struct
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that represents the shadow color of the buttons. Use 
      * 					<b>CLR_DEFAULT</b> for the default shadow color.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    clrBtnShadow {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    clrBtnShadow{
+        get {
+            if(!this.HasProp("__clrBtnShadow"))
+                this.__clrBtnShadow := COLORREF(this.ptr + 8)
+            return this.__clrBtnShadow
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 #Include .\WS_ENDPOINT_ADDRESS.ahk
 
@@ -31,7 +32,7 @@ class WS_METADATA_ENDPOINT extends Win32Struct
      * An opaque handle representing the policy of the endpoint.  
      *                     This handle is good until the metadata object
      *                     is freed or reset.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WS_POLICY>}
      */
     endpointPolicy {
         get => NumGet(this, 40, "ptr")

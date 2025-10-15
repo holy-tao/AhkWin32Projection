@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP2_WINDOW_SIZE_PARAM.ahk
 #Include .\HTTP2_SETTINGS_LIMITS_PARAM.ahk
 #Include .\HTTP_PERFORMANCE_PARAM.ahk
 #Include .\HTTP_TLS_RESTRICTIONS_PARAM.ahk
@@ -34,11 +35,14 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HTTP2_WINDOW_SIZE_PARAM}
      */
-    Http2WindowSizeParam {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    Http2WindowSizeParam{
+        get {
+            if(!this.HasProp("__Http2WindowSizeParam"))
+                this.__Http2WindowSizeParam := HTTP2_WINDOW_SIZE_PARAM(this.ptr + 16)
+            return this.__Http2WindowSizeParam
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -12,10 +13,13 @@ class WKSTA_INFO_1048 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    wki1048_use_opportunistic_locking {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    wki1048_use_opportunistic_locking{
+        get {
+            if(!this.HasProp("__wki1048_use_opportunistic_locking"))
+                this.__wki1048_use_opportunistic_locking := BOOL(this.ptr + 0)
+            return this.__wki1048_use_opportunistic_locking
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a user account that is used to join a device to Microsoft Azure Active Directory.
@@ -15,28 +16,37 @@ class DSREG_USER_INFO extends Win32Struct
 
     /**
      * The email address of the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszUserEmail {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszUserEmail{
+        get {
+            if(!this.HasProp("__pszUserEmail"))
+                this.__pszUserEmail := PWSTR(this.ptr + 0)
+            return this.__pszUserEmail
+        }
     }
 
     /**
      * The identifier of the Microsoft Passport key that is provisioned for the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszUserKeyId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszUserKeyId{
+        get {
+            if(!this.HasProp("__pszUserKeyId"))
+                this.__pszUserKeyId := PWSTR(this.ptr + 8)
+            return this.__pszUserKeyId
+        }
     }
 
     /**
      * The name of the Microsoft Passport key that is provisioned for the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszUserKeyName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszUserKeyName{
+        get {
+            if(!this.HasProp("__pszUserKeyName"))
+                this.__pszUserKeyName := PWSTR(this.ptr + 16)
+            return this.__pszUserKeyName
+        }
     }
 }

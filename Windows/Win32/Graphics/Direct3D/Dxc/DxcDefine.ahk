@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -12,18 +13,24 @@ class DxcDefine extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := PWSTR(this.ptr + 0)
+            return this.__Name
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Value {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Value{
+        get {
+            if(!this.HasProp("__Value"))
+                this.__Value := PWSTR(this.ptr + 8)
+            return this.__Value
+        }
     }
 }

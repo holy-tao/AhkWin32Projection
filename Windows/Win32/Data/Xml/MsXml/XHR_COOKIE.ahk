@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
 
 /**
@@ -16,38 +17,50 @@ class XHR_COOKIE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the URL in the cookie.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszUrl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszUrl{
+        get {
+            if(!this.HasProp("__pwszUrl"))
+                this.__pwszUrl := PWSTR(this.ptr + 0)
+            return this.__pwszUrl
+        }
     }
 
     /**
      * A null-terminated string that specifies the name in the cookie.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszName{
+        get {
+            if(!this.HasProp("__pwszName"))
+                this.__pwszName := PWSTR(this.ptr + 8)
+            return this.__pwszName
+        }
     }
 
     /**
      * A null-terminated string that specifies the value in the cookie.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszValue{
+        get {
+            if(!this.HasProp("__pwszValue"))
+                this.__pwszValue := PWSTR(this.ptr + 16)
+            return this.__pwszValue
+        }
     }
 
     /**
      * A null-terminated string that specifies the user policy in the cookie.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszP3PPolicy {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszP3PPolicy{
+        get {
+            if(!this.HasProp("__pwszP3PPolicy"))
+                this.__pwszP3PPolicy := PWSTR(this.ptr + 24)
+            return this.__pwszP3PPolicy
+        }
     }
 
     /**

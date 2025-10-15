@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -21,19 +22,25 @@ class STATURL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwcsUrl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwcsUrl{
+        get {
+            if(!this.HasProp("__pwcsUrl"))
+                this.__pwcsUrl := PWSTR(this.ptr + 8)
+            return this.__pwcsUrl
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwcsTitle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwcsTitle{
+        get {
+            if(!this.HasProp("__pwcsTitle"))
+                this.__pwcsTitle := PWSTR(this.ptr + 16)
+            return this.__pwcsTitle
+        }
     }
 
     /**

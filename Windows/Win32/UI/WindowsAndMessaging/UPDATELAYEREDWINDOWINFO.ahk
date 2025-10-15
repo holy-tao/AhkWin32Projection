@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Used by UpdateLayeredWindowIndirect to provide position, size, shape, content, and translucency information for a layered window.
@@ -32,11 +34,14 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
      *                     
      * 
      * If <b>hdcSrc</b> is <b>NULL</b>, <b>hdcDst</b> must be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdcDst {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hdcDst{
+        get {
+            if(!this.HasProp("__hdcDst"))
+                this.__hdcDst := HDC(this.ptr + 8)
+            return this.__hdcDst
+        }
     }
 
     /**
@@ -65,11 +70,14 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
      * Type: <b>HDC</b>
      * 
      * A handle to the DC for the surface that defines the layered window. This handle can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatibledc">CreateCompatibleDC</a> function. If the shape and visual context of the window will not change, <b>hdcSrc</b> can be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdcSrc {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hdcSrc{
+        get {
+            if(!this.HasProp("__hdcSrc"))
+                this.__hdcSrc := HDC(this.ptr + 32)
+            return this.__hdcSrc
+        }
     }
 
     /**
@@ -87,11 +95,14 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * The color key to be used when composing the layered window. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crKey {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+    crKey{
+        get {
+            if(!this.HasProp("__crKey"))
+                this.__crKey := COLORREF(this.ptr + 48)
+            return this.__crKey
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
@@ -12,11 +13,14 @@ class PROCESS_BASIC_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
-    ExitStatus {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    ExitStatus{
+        get {
+            if(!this.HasProp("__ExitStatus"))
+                this.__ExitStatus := NTSTATUS(this.ptr + 0)
+            return this.__ExitStatus
+        }
     }
 
     /**

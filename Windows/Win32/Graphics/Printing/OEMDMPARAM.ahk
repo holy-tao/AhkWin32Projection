@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -28,19 +29,25 @@ class OEMDMPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hPrinter {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hPrinter{
+        get {
+            if(!this.HasProp("__hPrinter"))
+                this.__hPrinter := HANDLE(this.ptr + 16)
+            return this.__hPrinter
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hModule {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hModule{
+        get {
+            if(!this.HasProp("__hModule"))
+                this.__hModule := HANDLE(this.ptr + 24)
+            return this.__hModule
+        }
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
 #Include .\KSP_NODE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\MEDIUM_INFO.ahk
 #Include .\TRANSPORT_STATE.ahk
 

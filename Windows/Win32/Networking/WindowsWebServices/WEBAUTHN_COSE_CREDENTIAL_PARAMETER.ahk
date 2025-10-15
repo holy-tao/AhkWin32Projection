@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -20,11 +21,14 @@ class WEBAUTHN_COSE_CREDENTIAL_PARAMETER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszCredentialType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszCredentialType{
+        get {
+            if(!this.HasProp("__pwszCredentialType"))
+                this.__pwszCredentialType := PWSTR(this.ptr + 8)
+            return this.__pwszCredentialType
+        }
     }
 
     /**

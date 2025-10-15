@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information about a folder band. This structure is used with the IShellFolderBand::GetBandInfoSFB and IShellFolderBand::SetBandInfoSFB methods.
@@ -46,11 +47,14 @@ class BANDINFOSFB extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> that contains the background color of the band.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBkgnd {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    crBkgnd{
+        get {
+            if(!this.HasProp("__crBkgnd"))
+                this.__crBkgnd := COLORREF(this.ptr + 12)
+            return this.__crBkgnd
+        }
     }
 
     /**
@@ -58,11 +62,14 @@ class BANDINFOSFB extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> that contains the light button color.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBtnLt {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    crBtnLt{
+        get {
+            if(!this.HasProp("__crBtnLt"))
+                this.__crBtnLt := COLORREF(this.ptr + 16)
+            return this.__crBtnLt
+        }
     }
 
     /**
@@ -70,11 +77,14 @@ class BANDINFOSFB extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> that contains the dark button color.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBtnDk {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    crBtnDk{
+        get {
+            if(!this.HasProp("__crBtnDk"))
+                this.__crBtnDk := COLORREF(this.ptr + 20)
+            return this.__crBtnDk
+        }
     }
 
     /**

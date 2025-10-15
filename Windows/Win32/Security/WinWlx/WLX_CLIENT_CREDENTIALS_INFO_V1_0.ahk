@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the client credentials returned by a call to WlxQueryClientCredentials or WlxQueryInetConnectorCredentials.
@@ -24,20 +26,26 @@ class WLX_CLIENT_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * A pointer to the name of the account logged onto.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszUserName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszUserName{
+        get {
+            if(!this.HasProp("__pszUserName"))
+                this.__pszUserName := PWSTR(this.ptr + 8)
+            return this.__pszUserName
+        }
     }
 
     /**
      * A pointer to the name of the domain used to log on.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDomain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszDomain{
+        get {
+            if(!this.HasProp("__pszDomain"))
+                this.__pszDomain := PWSTR(this.ptr + 16)
+            return this.__pszDomain
+        }
     }
 
     /**
@@ -46,19 +54,25 @@ class WLX_CLIENT_CREDENTIALS_INFO_V1_0 extends Win32Struct
      * <b>Windows XP/2000:  </b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> is not supported. Overwrite the memory allocated for <i>pszPassword</i> to clear the sensitive information.
      * 
      * For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszPassword {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszPassword{
+        get {
+            if(!this.HasProp("__pszPassword"))
+                this.__pszPassword := PWSTR(this.ptr + 24)
+            return this.__pszPassword
+        }
     }
 
     /**
      * Forces a prompt for the password due to an administration override. This allows the distinction of auto logon with no password.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fPromptForPassword {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    fPromptForPassword{
+        get {
+            if(!this.HasProp("__fPromptForPassword"))
+                this.__fPromptForPassword := BOOL(this.ptr + 32)
+            return this.__fPromptForPassword
+        }
     }
 }

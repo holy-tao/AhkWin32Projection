@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLS_LSN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -20,18 +21,24 @@ class CLFS_PHYSICAL_LSN_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CLS_LSN}
      */
-    VirtualLsn {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    VirtualLsn{
+        get {
+            if(!this.HasProp("__VirtualLsn"))
+                this.__VirtualLsn := CLS_LSN(this.ptr + 8)
+            return this.__VirtualLsn
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {CLS_LSN}
      */
-    PhysicalLsn {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    PhysicalLsn{
+        get {
+            if(!this.HasProp("__PhysicalLsn"))
+                this.__PhysicalLsn := CLS_LSN(this.ptr + 16)
+            return this.__PhysicalLsn
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WM_USER_TEXT structure is used as the data item for the WM/Text complex metadata attribute.
@@ -15,19 +16,25 @@ class WM_USER_TEXT extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the description of the text entry.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszDescription {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszDescription{
+        get {
+            if(!this.HasProp("__pwszDescription"))
+                this.__pwszDescription := PWSTR(this.ptr + 0)
+            return this.__pwszDescription
+        }
     }
 
     /**
      * Pointer to a wide-character null-terminated string containing the text.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszText{
+        get {
+            if(!this.HasProp("__pwszText"))
+                this.__pwszText := PWSTR(this.ptr + 8)
+            return this.__pwszText
+        }
     }
 }

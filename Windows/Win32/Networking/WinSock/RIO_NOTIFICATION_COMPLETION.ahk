@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies the method for I/O completion to be used with a RIONotify function for sending or receiving network data with the Winsock registered I/O extensions.
@@ -42,19 +44,25 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        EventHandle {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        EventHandle{
+            get {
+                if(!this.HasProp("__EventHandle"))
+                    this.__EventHandle := HANDLE(this.ptr + 0)
+                return this.__EventHandle
+            }
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        NotifyReset {
-            get => NumGet(this, 8, "int")
-            set => NumPut("int", value, this, 8)
+        NotifyReset{
+            get {
+                if(!this.HasProp("__NotifyReset"))
+                    this.__NotifyReset := BOOL(this.ptr + 8)
+                return this.__NotifyReset
+            }
         }
     
     }
@@ -64,11 +72,14 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        IocpHandle {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        IocpHandle{
+            get {
+                if(!this.HasProp("__IocpHandle"))
+                    this.__IocpHandle := HANDLE(this.ptr + 0)
+                return this.__IocpHandle
+            }
         }
     
         /**

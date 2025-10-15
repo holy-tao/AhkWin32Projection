@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -24,11 +25,14 @@ class KSEVENTDATA extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        Event {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        Event{
+            get {
+                if(!this.HasProp("__Event"))
+                    this.__Event := HANDLE(this.ptr + 0)
+                return this.__Event
+            }
         }
     
         /**
@@ -49,11 +53,14 @@ class KSEVENTDATA extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        Semaphore {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        Semaphore{
+            get {
+                if(!this.HasProp("__Semaphore"))
+                    this.__Semaphore := HANDLE(this.ptr + 0)
+                return this.__Semaphore
+            }
         }
     
         /**

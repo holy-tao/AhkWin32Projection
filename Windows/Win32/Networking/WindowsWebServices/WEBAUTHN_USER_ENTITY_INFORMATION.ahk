@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -36,26 +37,35 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszName{
+        get {
+            if(!this.HasProp("__pwszName"))
+                this.__pwszName := PWSTR(this.ptr + 16)
+            return this.__pwszName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszIcon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszIcon{
+        get {
+            if(!this.HasProp("__pwszIcon"))
+                this.__pwszIcon := PWSTR(this.ptr + 24)
+            return this.__pwszIcon
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszDisplayName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwszDisplayName{
+        get {
+            if(!this.HasProp("__pwszDisplayName"))
+                this.__pwszDisplayName := PWSTR(this.ptr + 32)
+            return this.__pwszDisplayName
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Stores information for the SHOpenWithDialog function.
@@ -21,22 +22,28 @@ class OPENASINFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to the file name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcszFile {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pcszFile{
+        get {
+            if(!this.HasProp("__pcszFile"))
+                this.__pcszFile := PWSTR(this.ptr + 0)
+            return this.__pcszFile
+        }
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to the file type description. Set this parameter to <b>NULL</b> to use the file name extension of <b>pcszFile</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcszClass {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pcszClass{
+        get {
+            if(!this.HasProp("__pcszClass"))
+                this.__pcszClass := PWSTR(this.ptr + 8)
+            return this.__pcszClass
+        }
     }
 
     /**

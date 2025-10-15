@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
@@ -28,15 +29,18 @@ class WSMAN_OPTION_SETEX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    optionsMustUnderstand {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    optionsMustUnderstand{
+        get {
+            if(!this.HasProp("__optionsMustUnderstand"))
+                this.__optionsMustUnderstand := BOOL(this.ptr + 16)
+            return this.__optionsMustUnderstand
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     optionTypes {
         get => NumGet(this, 24, "ptr")

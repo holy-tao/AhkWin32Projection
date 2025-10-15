@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\SECURITY_STRING.ahk
+#Include ..\..\PSID.ahk
 
 /**
  * The SecurityUserData structure contains information about the user of a security support provider/authentication package. This structure is used by the SpGetUserInfo function.
@@ -52,10 +53,13 @@ class SECURITY_USER_DATA extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    pSid {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pSid{
+        get {
+            if(!this.HasProp("__pSid"))
+                this.__pSid := PSID(this.ptr + 48)
+            return this.__pSid
+        }
     }
 }

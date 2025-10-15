@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Provides information about the disk cache.
@@ -15,29 +16,38 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 
     /**
      * Indicates whether the device is capable of saving any parameters in nonvolatile storage.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ParametersSavable {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    ParametersSavable{
+        get {
+            if(!this.HasProp("__ParametersSavable"))
+                this.__ParametersSavable := BOOLEAN(this.ptr + 0)
+            return this.__ParametersSavable
+        }
     }
 
     /**
      * Indicates whether the read cache is enabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ReadCacheEnabled {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
+    ReadCacheEnabled{
+        get {
+            if(!this.HasProp("__ReadCacheEnabled"))
+                this.__ReadCacheEnabled := BOOLEAN(this.ptr + 1)
+            return this.__ReadCacheEnabled
+        }
     }
 
     /**
      * Indicates whether the write cache is enabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    WriteCacheEnabled {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+    WriteCacheEnabled{
+        get {
+            if(!this.HasProp("__WriteCacheEnabled"))
+                this.__WriteCacheEnabled := BOOLEAN(this.ptr + 2)
+            return this.__WriteCacheEnabled
+        }
     }
 
     /**
@@ -69,11 +79,14 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 
     /**
      * If this member is  <b>TRUE</b>,  the union is a <b>ScalarPrefetch</b> structure. Otherwise, the union is a <b>BlockPrefetch</b> structure.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    PrefetchScalar {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
+    PrefetchScalar{
+        get {
+            if(!this.HasProp("__PrefetchScalar"))
+                this.__PrefetchScalar := BOOLEAN(this.ptr + 14)
+            return this.__PrefetchScalar
+        }
     }
 
     class _ScalarPrefetch extends Win32Struct {

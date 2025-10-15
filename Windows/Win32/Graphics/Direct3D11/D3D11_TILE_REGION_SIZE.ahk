@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the size of a tiled region.
@@ -36,11 +37,14 @@ class D3D11_TILE_REGION_SIZE extends Win32Struct
      * Regardless of whether you specify <b>TRUE</b> or <b>FALSE</b> for <b>bUseBox</b>, you use a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_2/ns-d3d11_2-d3d11_tiled_resource_coordinate">D3D11_TILED_RESOURCE_COORDINATE</a> structure to specify the starting location for the region within the resource as a separate parameter outside of this structure by using x, y, and z coordinates. 
      * 
      * When the region includes mipmaps that are packed with nonstandard tiling, <b>bUseBox</b> must be <b>FALSE</b> because tile dimensions are not standard and the app only knows a count of how many tiles are consumed by the packed area, which is per array slice.  The corresponding (separate) starting location parameter uses x to offset into the flat range of tiles in this case, and y and z coordinates must each be 0.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bUseBox {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    bUseBox{
+        get {
+            if(!this.HasProp("__bUseBox"))
+                this.__bUseBox := BOOL(this.ptr + 4)
+            return this.__bUseBox
+        }
     }
 
     /**

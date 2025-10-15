@@ -12,11 +12,30 @@ class NVME_CDW11_FEATURE_POWER_MANAGEMENT extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - PS
+     * - Reserved0
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PS {
+        get => (this._bitfield >> 0) & 0x1F
+        set => this._bitfield := ((value & 0x1F) << 0) | (this._bitfield & ~(0x1F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 5) & 0x7FFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFF) << 5) | (this._bitfield & ~(0x7FFFFFF << 5))
     }
 
     /**

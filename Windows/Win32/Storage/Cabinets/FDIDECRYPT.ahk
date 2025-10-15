@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets
@@ -132,11 +133,14 @@ class FDIDECRYPT extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        fSplit {
-            get => NumGet(this, 28, "int")
-            set => NumPut("int", value, this, 28)
+        fSplit{
+            get {
+                if(!this.HasProp("__fSplit"))
+                    this.__fSplit := BOOL(this.ptr + 28)
+                return this.__fSplit
+            }
         }
     
         /**

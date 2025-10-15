@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DOCINFO structure contains the input and output file names and other information used by the StartDoc function.
@@ -30,29 +31,38 @@ class DOCINFOW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the document.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszDocName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszDocName{
+        get {
+            if(!this.HasProp("__lpszDocName"))
+                this.__lpszDocName := PWSTR(this.ptr + 8)
+            return this.__lpszDocName
+        }
     }
 
     /**
      * Pointer to a null-terminated string that specifies the name of an output file. If this pointer is <b>NULL</b>, the output will be sent to the device identified by the device context handle that was passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-startdoca">StartDoc</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszOutput {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpszOutput{
+        get {
+            if(!this.HasProp("__lpszOutput"))
+                this.__lpszOutput := PWSTR(this.ptr + 16)
+            return this.__lpszOutput
+        }
     }
 
     /**
      * Pointer to a null-terminated string that specifies the type of data used to record the print job. The legal values for this member can be found by calling <a href="https://docs.microsoft.com/windows/desktop/printdocs/enumprintprocessordatatypes">EnumPrintProcessorDatatypes</a> and can include such values as raw, emf, or XPS_PASS. This member can be <b>NULL</b>. Note that the requested data type might be ignored.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszDatatype {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpszDatatype{
+        get {
+            if(!this.HasProp("__lpszDatatype"))
+                this.__lpszDatatype := PWSTR(this.ptr + 24)
+            return this.__lpszDatatype
+        }
     }
 
     /**

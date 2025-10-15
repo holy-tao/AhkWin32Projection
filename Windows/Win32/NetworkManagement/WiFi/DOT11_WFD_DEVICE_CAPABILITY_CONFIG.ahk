@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -24,51 +25,69 @@ class DOT11_WFD_DEVICE_CAPABILITY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bServiceDiscoveryEnabled {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    bServiceDiscoveryEnabled{
+        get {
+            if(!this.HasProp("__bServiceDiscoveryEnabled"))
+                this.__bServiceDiscoveryEnabled := BOOLEAN(this.ptr + 4)
+            return this.__bServiceDiscoveryEnabled
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bClientDiscoverabilityEnabled {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+    bClientDiscoverabilityEnabled{
+        get {
+            if(!this.HasProp("__bClientDiscoverabilityEnabled"))
+                this.__bClientDiscoverabilityEnabled := BOOLEAN(this.ptr + 5)
+            return this.__bClientDiscoverabilityEnabled
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bConcurrentOperationSupported {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+    bConcurrentOperationSupported{
+        get {
+            if(!this.HasProp("__bConcurrentOperationSupported"))
+                this.__bConcurrentOperationSupported := BOOLEAN(this.ptr + 6)
+            return this.__bConcurrentOperationSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bInfrastructureManagementEnabled {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+    bInfrastructureManagementEnabled{
+        get {
+            if(!this.HasProp("__bInfrastructureManagementEnabled"))
+                this.__bInfrastructureManagementEnabled := BOOLEAN(this.ptr + 7)
+            return this.__bInfrastructureManagementEnabled
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bDeviceLimitReached {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    bDeviceLimitReached{
+        get {
+            if(!this.HasProp("__bDeviceLimitReached"))
+                this.__bDeviceLimitReached := BOOLEAN(this.ptr + 8)
+            return this.__bDeviceLimitReached
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bInvitationProcedureEnabled {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    bInvitationProcedureEnabled{
+        get {
+            if(!this.HasProp("__bInvitationProcedureEnabled"))
+                this.__bInvitationProcedureEnabled := BOOLEAN(this.ptr + 9)
+            return this.__bInvitationProcedureEnabled
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Extra parameters for notifications.
@@ -41,6 +42,23 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
     
     }
 
+    class _FileDeletedOnHandleClose extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 4
+
+        /**
+         * @type {BOOLEAN}
+         */
+        IsFileModified{
+            get {
+                if(!this.HasProp("__IsFileModified"))
+                    this.__IsFileModified := BOOLEAN(this.ptr + 0)
+                return this.__IsFileModified
+            }
+        }
+    
+    }
+
     /**
      * 
      * @type {_PostCreate}
@@ -67,10 +85,13 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {_FileDeletedOnHandleClose}
      */
-    FileDeletedOnHandleClose {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    FileDeletedOnHandleClose{
+        get {
+            if(!this.HasProp("__FileDeletedOnHandleClose"))
+                this.__FileDeletedOnHandleClose := %this.__Class%._FileDeletedOnHandleClose(this.ptr + 0)
+            return this.__FileDeletedOnHandleClose
+        }
     }
 }

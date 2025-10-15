@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Stores information about a proxy. Used by ISearchProtocol.
@@ -28,11 +30,14 @@ class PROXY_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a Unicode string buffer containing the user agent string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszUserAgent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pcwszUserAgent{
+        get {
+            if(!this.HasProp("__pcwszUserAgent"))
+                this.__pcwszUserAgent := PWSTR(this.ptr + 8)
+            return this.__pcwszUserAgent
+        }
     }
 
     /**
@@ -50,11 +55,14 @@ class PROXY_INFO extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * The bypass proxy for local addresses.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fLocalBypass {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    fLocalBypass{
+        get {
+            if(!this.HasProp("__fLocalBypass"))
+                this.__fLocalBypass := BOOL(this.ptr + 20)
+            return this.__fLocalBypass
+        }
     }
 
     /**
@@ -72,21 +80,27 @@ class PROXY_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a Unicode string buffer that contains the name of the proxy server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszProxyName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pcwszProxyName{
+        get {
+            if(!this.HasProp("__pcwszProxyName"))
+                this.__pcwszProxyName := PWSTR(this.ptr + 32)
+            return this.__pcwszProxyName
+        }
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * The list of sites that will bypass the proxy.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszBypassList {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pcwszBypassList{
+        get {
+            if(!this.HasProp("__pcwszBypassList"))
+                this.__pcwszBypassList := PWSTR(this.ptr + 40)
+            return this.__pcwszBypassList
+        }
     }
 }

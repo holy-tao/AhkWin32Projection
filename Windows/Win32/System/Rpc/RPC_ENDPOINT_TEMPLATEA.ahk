@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Specifies the properties of an RPC interface group server endpoint, including protocol sequence and name.
@@ -41,20 +42,26 @@ class RPC_ENDPOINT_TEMPLATEA extends Win32Struct
 
     /**
      * Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.  Only <a href="https://docs.microsoft.com/windows/desktop/Rpc/protocol-sequence-constants">ncalrpc</a>, ncacn_ip_tcp, and ncacn_np are supported.  This value must not be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    ProtSeq {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ProtSeq{
+        get {
+            if(!this.HasProp("__ProtSeq"))
+                this.__ProtSeq := PSTR(this.ptr + 8)
+            return this.__ProtSeq
+        }
     }
 
     /**
      * Optional pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.  Specify <b>NULL</b> to use dynamic endpoints.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Endpoint {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Endpoint{
+        get {
+            if(!this.HasProp("__Endpoint"))
+                this.__Endpoint := PSTR(this.ptr + 16)
+            return this.__Endpoint
+        }
     }
 
     /**

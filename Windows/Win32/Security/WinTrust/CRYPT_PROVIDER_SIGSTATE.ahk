@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Is used to communicate between policy providers and Wintrust.
@@ -42,20 +43,26 @@ class CRYPT_PROVIDER_SIGSTATE extends Win32Struct
 
     /**
      * Specifies whether the first attempt to verify a signature has been made.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fFirstAttemptMade {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fFirstAttemptMade{
+        get {
+            if(!this.HasProp("__fFirstAttemptMade"))
+                this.__fFirstAttemptMade := BOOL(this.ptr + 24)
+            return this.__fFirstAttemptMade
+        }
     }
 
     /**
      * Specifies whether there exist further signatures that await verification.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fNoMoreSigs {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    fNoMoreSigs{
+        get {
+            if(!this.HasProp("__fNoMoreSigs"))
+                this.__fNoMoreSigs := BOOL(this.ptr + 28)
+            return this.__fNoMoreSigs
+        }
     }
 
     /**
@@ -78,11 +85,14 @@ class CRYPT_PROVIDER_SIGSTATE extends Win32Struct
 
     /**
      * Specifies whether the policy provider supports multiple signatures.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSupportMultiSig {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    fSupportMultiSig{
+        get {
+            if(!this.HasProp("__fSupportMultiSig"))
+                this.__fSupportMultiSig := BOOL(this.ptr + 40)
+            return this.__fSupportMultiSig
+        }
     }
 
     /**
@@ -105,11 +115,14 @@ class CRYPT_PROVIDER_SIGSTATE extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCheckedSealing {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    fCheckedSealing{
+        get {
+            if(!this.HasProp("__fCheckedSealing"))
+                this.__fCheckedSealing := BOOL(this.ptr + 52)
+            return this.__fCheckedSealing
+        }
     }
 
     /**

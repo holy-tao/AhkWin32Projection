@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_3 structure contains information about a user account, including the account name, password data, privilege level, the path to the user's home directory, relative identifiers (RIDs), and other user-related network statistics.
@@ -36,11 +37,14 @@ class USER_INFO_3 extends Win32Struct
      * 
      * A pointer to a Unicode string that specifies the name of the user account. For the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function, this member is ignored. For more information, see the following Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    usri3_name{
+        get {
+            if(!this.HasProp("__usri3_name"))
+                this.__usri3_name := PWSTR(this.ptr + 0)
+            return this.__usri3_name
+        }
     }
 
     /**
@@ -54,11 +58,14 @@ class USER_INFO_3 extends Win32Struct
      * 
      * 
      * By convention, the length of passwords is limited to LM20_PWLEN characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_password {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    usri3_password{
+        get {
+            if(!this.HasProp("__usri3_password"))
+                this.__usri3_password := PWSTR(this.ptr + 8)
+            return this.__usri3_password
+        }
     }
 
     /**
@@ -90,22 +97,28 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path of the home directory of the user specified by the <b>usri3_name</b> member. The string can be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_home_dir {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    usri3_home_dir{
+        get {
+            if(!this.HasProp("__usri3_home_dir"))
+                this.__usri3_home_dir := PWSTR(this.ptr + 24)
+            return this.__usri3_home_dir
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment to associate with the user account. The string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_comment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    usri3_comment{
+        get {
+            if(!this.HasProp("__usri3_comment"))
+                this.__usri3_comment := PWSTR(this.ptr + 32)
+            return this.__usri3_comment
+        }
     }
 
     /**
@@ -121,11 +134,14 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path for the user's logon script file. The script file can be a .CMD file, an .EXE file, or a .BAT file. The string can also be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_script_path {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    usri3_script_path{
+        get {
+            if(!this.HasProp("__usri3_script_path"))
+                this.__usri3_script_path := PWSTR(this.ptr + 48)
+            return this.__usri3_script_path
+        }
     }
 
     /**
@@ -154,33 +170,42 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_full_name {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    usri3_full_name{
+        get {
+            if(!this.HasProp("__usri3_full_name"))
+                this.__usri3_full_name := PWSTR(this.ptr + 64)
+            return this.__usri3_full_name
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a user comment. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_usr_comment {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    usri3_usr_comment{
+        get {
+            if(!this.HasProp("__usri3_usr_comment"))
+                this.__usri3_usr_comment := PWSTR(this.ptr + 72)
+            return this.__usri3_usr_comment
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that is reserved for use by applications. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character. Microsoft products use this member to store user configuration information. Do not modify this information.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_parms {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    usri3_parms{
+        get {
+            if(!this.HasProp("__usri3_parms"))
+                this.__usri3_parms := PWSTR(this.ptr + 80)
+            return this.__usri3_parms
+        }
     }
 
     /**
@@ -190,11 +215,14 @@ class USER_INFO_3 extends Win32Struct
      * > You should no longer use **usri3_workstations**. Instead, you can control sign-in access to workstations by configuring the User Rights Assignment settings (**Allow log on locally** and **Deny log on locally**, or **Allow log on through Remote Desktop Services** and **Deny log on through Remote Desktop Services**).
      * 
      * A pointer to a Unicode string that contains the names of workstations from which the user can log on. As many as eight workstations can be specified; the names must be separated by commas. If you do not want to restrict the number of workstations, use a <b>NULL</b> string. To disable logons from all workstations to this account, set the UF_ACCOUNTDISABLE value in the <b>usri3_flags</b> member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_workstations {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    usri3_workstations{
+        get {
+            if(!this.HasProp("__usri3_workstations"))
+                this.__usri3_workstations := PWSTR(this.ptr + 88)
+            return this.__usri3_workstations
+        }
     }
 
     /**
@@ -339,11 +367,14 @@ class USER_INFO_3 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a> return \\*. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_logon_server {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    usri3_logon_server{
+        get {
+            if(!this.HasProp("__usri3_logon_server"))
+                this.__usri3_logon_server := PWSTR(this.ptr + 136)
+            return this.__usri3_logon_server
+        }
     }
 
     /**
@@ -400,22 +431,28 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies a path to the user's profile. This value can be a <b>NULL</b> string, a local absolute path, or a UNC path.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_profile {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
+    usri3_profile{
+        get {
+            if(!this.HasProp("__usri3_profile"))
+                this.__usri3_profile := PWSTR(this.ptr + 160)
+            return this.__usri3_profile
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the drive letter assigned to the user's home directory for logon purposes.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri3_home_dir_drive {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+    usri3_home_dir_drive{
+        get {
+            if(!this.HasProp("__usri3_home_dir_drive"))
+                this.__usri3_home_dir_drive := PWSTR(this.ptr + 168)
+            return this.__usri3_home_dir_drive
+        }
     }
 
     /**

@@ -12,11 +12,30 @@ class NVME_CDW11_FEATURE_LBA_RANGE_TYPE extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - NUM
+     * - Reserved0
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NUM {
+        get => (this._bitfield >> 0) & 0x3F
+        set => this._bitfield := ((value & 0x3F) << 0) | (this._bitfield & ~(0x3F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 6) & 0x3FFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFF) << 6) | (this._bitfield & ~(0x3FFFFFF << 6))
     }
 
     /**

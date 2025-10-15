@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies Desktop Window Manager (DWM) thumbnail properties. Used by the DwmUpdateThumbnailProperties function.
@@ -58,19 +59,25 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
 
     /**
      * <b>TRUE</b> to make the thumbnail visible; otherwise, <b>FALSE</b>. The default is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fVisible {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    fVisible{
+        get {
+            if(!this.HasProp("__fVisible"))
+                this.__fVisible := BOOL(this.ptr + 44)
+            return this.__fVisible
+        }
     }
 
     /**
      * <b>TRUE</b> to use only the thumbnail source's client area; otherwise, <b>FALSE</b>. The default is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSourceClientAreaOnly {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    fSourceClientAreaOnly{
+        get {
+            if(!this.HasProp("__fSourceClientAreaOnly"))
+                this.__fSourceClientAreaOnly := BOOL(this.ptr + 48)
+            return this.__fSourceClientAreaOnly
+        }
     }
 }

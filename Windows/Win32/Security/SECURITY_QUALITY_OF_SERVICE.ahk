@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information used to support client impersonation.
@@ -43,10 +44,13 @@ class SECURITY_QUALITY_OF_SERVICE extends Win32Struct
 
     /**
      * Specifies whether the server may enable or disable <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> and groups that the client's security context may include.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    EffectiveOnly {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    EffectiveOnly{
+        get {
+            if(!this.HasProp("__EffectiveOnly"))
+                this.__EffectiveOnly := BOOLEAN(this.ptr + 9)
+            return this.__EffectiveOnly
+        }
     }
 }

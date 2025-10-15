@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\FWP_BYTE_BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWPM_NET_EVENT_HEADER3.ahk
 
 /**

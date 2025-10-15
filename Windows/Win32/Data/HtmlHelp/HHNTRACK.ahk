@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\Controls\NMHDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * This structure returns the file name of the current topic and a constant that specifies the user action that is about to occur, such as hiding the Navigation pane by clicking the Hide button on the toolbar.
@@ -28,11 +30,14 @@ class HHNTRACK extends Win32Struct
 
     /**
      * A multi-byte, zero-terminated string that specifies the current topic (before the action is taken).
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszCurUrl {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszCurUrl{
+        get {
+            if(!this.HasProp("__pszCurUrl"))
+                this.__pszCurUrl := PSTR(this.ptr + 24)
+            return this.__pszCurUrl
+        }
     }
 
     /**

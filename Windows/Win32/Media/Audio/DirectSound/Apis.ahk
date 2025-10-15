@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
  * @version v4.0.30319
@@ -1757,7 +1757,7 @@ class DirectSound {
      * @param {Pointer<Guid>} pcGuidRenderDevice 
      * @param {Pointer<DSCBUFFERDESC>} pcDSCBufferDesc 
      * @param {Pointer<DSBUFFERDESC>} pcDSBufferDesc 
-     * @param {Pointer<Void>} hWnd 
+     * @param {HWND} hWnd 
      * @param {Integer} dwLevel 
      * @param {Pointer<IDirectSoundFullDuplex>} ppDSFD 
      * @param {Pointer<IDirectSoundCaptureBuffer8>} ppDSCBuffer8 
@@ -1766,6 +1766,8 @@ class DirectSound {
      * @returns {HRESULT} 
      */
     static DirectSoundFullDuplexCreate(pcGuidCaptureDevice, pcGuidRenderDevice, pcDSCBufferDesc, pcDSBufferDesc, hWnd, dwLevel, ppDSFD, ppDSCBuffer8, ppDSBuffer8, pUnkOuter) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("DSOUND.dll\DirectSoundFullDuplexCreate", "ptr", pcGuidCaptureDevice, "ptr", pcGuidRenderDevice, "ptr", pcDSCBufferDesc, "ptr", pcDSBufferDesc, "ptr", hWnd, "uint", dwLevel, "ptr", ppDSFD, "ptr", ppDSCBuffer8, "ptr", ppDSBuffer8, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)

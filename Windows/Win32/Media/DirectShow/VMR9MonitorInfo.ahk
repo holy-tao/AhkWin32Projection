@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
 
 /**
  * The VMR9MonitorInfo structure is used with the VMR-9 in the IVMRMonitorConfig9::GetAvailableMonitors method to set and retrieve information about monitors on the system.
@@ -42,11 +43,14 @@ class VMR9MonitorInfo extends Win32Struct
 
     /**
      * Handle to the monitor.
-     * @type {Pointer<Void>}
+     * @type {HMONITOR}
      */
-    hMon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hMon{
+        get {
+            if(!this.HasProp("__hMon"))
+                this.__hMon := HMONITOR(this.ptr + 24)
+            return this.__hMon
+        }
     }
 
     /**

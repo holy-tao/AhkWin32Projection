@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The LDAPSortKey structure stores sorting criteria for use by sort controls.
@@ -30,28 +32,37 @@ class LDAPSortKeyW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the attribute to use as a sort key. Use multiple <b>LDAPSortKey</b> structures to specify multiple sort keys. Be aware that Active Directory supports only a single sort key.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sk_attrtype {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    sk_attrtype{
+        get {
+            if(!this.HasProp("__sk_attrtype"))
+                this.__sk_attrtype := PWSTR(this.ptr + 0)
+            return this.__sk_attrtype
+        }
     }
 
     /**
      * Pointer to a null-terminated string that specifies the object identifier of the matching rule for the sort. Should be set to <b>NULL</b> if you do not want to explicitly specify a matching rule for the sort. Specifying an explicitly set matching rule is supported only by Windows Server 2003.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sk_matchruleoid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    sk_matchruleoid{
+        get {
+            if(!this.HasProp("__sk_matchruleoid"))
+                this.__sk_matchruleoid := PWSTR(this.ptr + 8)
+            return this.__sk_matchruleoid
+        }
     }
 
     /**
      * If <b>TRUE</b>, specifies that the sort be ordered from lowest to highest. If <b>FALSE</b>, the sort order is from highest to lowest.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    sk_reverseorder {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    sk_reverseorder{
+        get {
+            if(!this.HasProp("__sk_reverseorder"))
+                this.__sk_reverseorder := BOOLEAN(this.ptr + 16)
+            return this.__sk_reverseorder
+        }
     }
 }

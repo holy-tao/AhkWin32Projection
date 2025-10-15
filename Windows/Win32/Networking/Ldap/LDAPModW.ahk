@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Ldap
@@ -21,15 +22,18 @@ class LDAPModW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    mod_type {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    mod_type{
+        get {
+            if(!this.HasProp("__mod_type"))
+                this.__mod_type := PWSTR(this.ptr + 8)
+            return this.__mod_type
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     modv_strvals {
         get => NumGet(this, 16, "ptr")

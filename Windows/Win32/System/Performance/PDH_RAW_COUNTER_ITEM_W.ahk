@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\PDH_RAW_COUNTER.ahk
 
@@ -18,11 +19,14 @@ class PDH_RAW_COUNTER_ITEM_W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the instance name of the counter. The string is appended to the end of this structure.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    szName{
+        get {
+            if(!this.HasProp("__szName"))
+                this.__szName := PWSTR(this.ptr + 0)
+            return this.__szName
+        }
     }
 
     /**

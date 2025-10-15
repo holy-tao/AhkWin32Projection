@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies completion notification settings for I/O control calls made to a registered namespace.
@@ -64,11 +67,14 @@ class WSACOMPLETION extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HWND}
          */
-        hWnd {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        hWnd{
+            get {
+                if(!this.HasProp("__hWnd"))
+                    this.__hWnd := HWND(this.ptr + 0)
+                return this.__hWnd
+            }
         }
     
         /**
@@ -80,11 +86,28 @@ class WSACOMPLETION extends Win32Struct
         }
     
         /**
-         * @type {Pointer}
+         * @type {WPARAM}
          */
-        context {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        context{
+            get {
+                if(!this.HasProp("__context"))
+                    this.__context := WPARAM(this.ptr + 16)
+                return this.__context
+            }
+        }
+    
+    }
+
+    class _Event extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<OVERLAPPED>}
+         */
+        lpOverlapped {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
     }
@@ -124,11 +147,14 @@ class WSACOMPLETION extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hPort {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        hPort{
+            get {
+                if(!this.HasProp("__hPort"))
+                    this.__hPort := HANDLE(this.ptr + 8)
+                return this.__hPort
+            }
         }
     
         /**
@@ -153,11 +179,14 @@ class WSACOMPLETION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<TypeHandle>}
+     * @type {_Event}
      */
-    Event {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Event{
+        get {
+            if(!this.HasProp("__Event"))
+                this.__Event := %this.__Class%._Event(this.ptr + 8)
+            return this.__Event
+        }
     }
 
     /**

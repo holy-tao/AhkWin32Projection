@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -61,19 +62,25 @@ class ACMDRVOPENDESCW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszSectionName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszSectionName{
+        get {
+            if(!this.HasProp("__pszSectionName"))
+                this.__pszSectionName := PWSTR(this.ptr + 24)
+            return this.__pszSectionName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszAliasName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszAliasName{
+        get {
+            if(!this.HasProp("__pszAliasName"))
+                this.__pszAliasName := PWSTR(this.ptr + 32)
+            return this.__pszAliasName
+        }
     }
 
     /**

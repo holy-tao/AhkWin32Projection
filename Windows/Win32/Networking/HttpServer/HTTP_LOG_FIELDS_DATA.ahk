@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_LOG_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Used to pass the fields that are logged for an HTTP response when WC3 logging is enabled.
@@ -145,110 +147,146 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The name of the  user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    UserName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    UserName{
+        get {
+            if(!this.HasProp("__UserName"))
+                this.__UserName := PWSTR(this.ptr + 32)
+            return this.__UserName
+        }
     }
 
     /**
      * The URI stem.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    UriStem {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    UriStem{
+        get {
+            if(!this.HasProp("__UriStem"))
+                this.__UriStem := PWSTR(this.ptr + 40)
+            return this.__UriStem
+        }
     }
 
     /**
      * The IP address of the client.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    ClientIp {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    ClientIp{
+        get {
+            if(!this.HasProp("__ClientIp"))
+                this.__ClientIp := PSTR(this.ptr + 48)
+            return this.__ClientIp
+        }
     }
 
     /**
      * The name of the server.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    ServerName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    ServerName{
+        get {
+            if(!this.HasProp("__ServerName"))
+                this.__ServerName := PSTR(this.ptr + 56)
+            return this.__ServerName
+        }
     }
 
     /**
      * The name of the service.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    ServiceName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    ServiceName{
+        get {
+            if(!this.HasProp("__ServiceName"))
+                this.__ServiceName := PSTR(this.ptr + 64)
+            return this.__ServiceName
+        }
     }
 
     /**
      * The IP address of the server.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    ServerIp {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    ServerIp{
+        get {
+            if(!this.HasProp("__ServerIp"))
+                this.__ServerIp := PSTR(this.ptr + 72)
+            return this.__ServerIp
+        }
     }
 
     /**
      * The HTTP method.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Method {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    Method{
+        get {
+            if(!this.HasProp("__Method"))
+                this.__Method := PSTR(this.ptr + 80)
+            return this.__Method
+        }
     }
 
     /**
      * The URI query.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    UriQuery {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    UriQuery{
+        get {
+            if(!this.HasProp("__UriQuery"))
+                this.__UriQuery := PSTR(this.ptr + 88)
+            return this.__UriQuery
+        }
     }
 
     /**
      * The host information from the request.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Host {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    Host{
+        get {
+            if(!this.HasProp("__Host"))
+                this.__Host := PSTR(this.ptr + 96)
+            return this.__Host
+        }
     }
 
     /**
      * The user agent name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    UserAgent {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    UserAgent{
+        get {
+            if(!this.HasProp("__UserAgent"))
+                this.__UserAgent := PSTR(this.ptr + 104)
+            return this.__UserAgent
+        }
     }
 
     /**
      * The cookie provided by the application.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Cookie {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+    Cookie{
+        get {
+            if(!this.HasProp("__Cookie"))
+                this.__Cookie := PSTR(this.ptr + 112)
+            return this.__Cookie
+        }
     }
 
     /**
      * The referrer.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Referrer {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+    Referrer{
+        get {
+            if(!this.HasProp("__Referrer"))
+                this.__Referrer := PSTR(this.ptr + 120)
+            return this.__Referrer
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -44,19 +45,25 @@ class VIDMEM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    ddsCaps {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    ddsCaps{
+        get {
+            if(!this.HasProp("__ddsCaps"))
+                this.__ddsCaps := DDSCAPS(this.ptr + 28)
+            return this.__ddsCaps
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    ddsCapsAlt {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    ddsCapsAlt{
+        get {
+            if(!this.HasProp("__ddsCapsAlt"))
+                this.__ddsCapsAlt := DDSCAPS(this.ptr + 32)
+            return this.__ddsCapsAlt
+        }
     }
 
     /**

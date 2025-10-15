@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Encapsulates data for touch input.
@@ -132,11 +133,14 @@ class TOUCHINPUT extends Win32Struct
 
     /**
      * A device handle for the source input device.  Each device is given a unique provider at run time by the touch input provider. See **Examples** section below.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hSource {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hSource{
+        get {
+            if(!this.HasProp("__hSource"))
+                this.__hSource := HANDLE(this.ptr + 8)
+            return this.__hSource
+        }
     }
 
     /**

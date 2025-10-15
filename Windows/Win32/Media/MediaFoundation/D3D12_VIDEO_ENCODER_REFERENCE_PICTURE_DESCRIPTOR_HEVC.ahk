@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -20,19 +21,25 @@ class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsRefUsedByCurrentPic {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    IsRefUsedByCurrentPic{
+        get {
+            if(!this.HasProp("__IsRefUsedByCurrentPic"))
+                this.__IsRefUsedByCurrentPic := BOOL(this.ptr + 4)
+            return this.__IsRefUsedByCurrentPic
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsLongTermReference {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    IsLongTermReference{
+        get {
+            if(!this.HasProp("__IsLongTermReference"))
+                this.__IsLongTermReference := BOOL(this.ptr + 8)
+            return this.__IsLongTermReference
+        }
     }
 
     /**

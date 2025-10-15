@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 #Include ..\CRYPT_INTEGER_BLOB.ahk
 #Include ..\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
@@ -41,30 +44,39 @@ class SIP_SUBJECTINFO extends Win32Struct
 
     /**
      * A file handle that represents the subject. If the storage type of the subject is a file, set <i>hFile</i> to <b>INVALID_HANDLE_VALUE</b> and set the <i>pwsFileName</i> parameter to the name of the file.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hFile {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hFile{
+        get {
+            if(!this.HasProp("__hFile"))
+                this.__hFile := HANDLE(this.ptr + 16)
+            return this.__hFile
+        }
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the file name of the subject.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwsFileName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwsFileName{
+        get {
+            if(!this.HasProp("__pwsFileName"))
+                this.__pwsFileName := PWSTR(this.ptr + 24)
+            return this.__pwsFileName
+        }
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the display name of 
      *                                                 the subject.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwsDisplayName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwsDisplayName{
+        get {
+            if(!this.HasProp("__pwsDisplayName"))
+                this.__pwsDisplayName := PWSTR(this.ptr + 32)
+            return this.__pwsDisplayName
+        }
     }
 
     /**

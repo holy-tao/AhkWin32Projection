@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_WRITER_ENCODING.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -38,11 +40,14 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
 
     /**
      * Specifies whether or not the writer should emit a MIME header.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    writeMimeHeader {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    writeMimeHeader{
+        get {
+            if(!this.HasProp("__writeMimeHeader"))
+                this.__writeMimeHeader := BOOL(this.ptr + 16)
+            return this.__writeMimeHeader
+        }
     }
 
     /**

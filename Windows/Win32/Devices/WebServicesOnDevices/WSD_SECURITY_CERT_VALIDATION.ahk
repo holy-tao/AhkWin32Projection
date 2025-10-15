@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\Cryptography\HCERTSTORE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents the criteria for matching client certificates against those of an HTTPS server.
@@ -51,20 +53,26 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
 
     /**
      * A handle to a certificate store that contains certificates to be matched against those provided by the HTTPS server or client.  Only one matching certificate is required for validatation.  This parameter can be NULL.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hCertMatchStore {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hCertMatchStore{
+        get {
+            if(!this.HasProp("__hCertMatchStore"))
+                this.__hCertMatchStore := HCERTSTORE(this.ptr + 16)
+            return this.__hCertMatchStore
+        }
     }
 
     /**
      * A handle to a certificate store that contains root certificates against which a certificate from the HTTPS server or client should chain to.  Validation succeeds as long as the certificate chains up to at least one root certificate.  This parameter can be NULL.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hCertIssuerStore {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hCertIssuerStore{
+        get {
+            if(!this.HasProp("__hCertIssuerStore"))
+                this.__hCertIssuerStore := HCERTSTORE(this.ptr + 24)
+            return this.__hCertIssuerStore
+        }
     }
 
     /**
@@ -151,11 +159,14 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszCNGHashAlgId {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pszCNGHashAlgId{
+        get {
+            if(!this.HasProp("__pszCNGHashAlgId"))
+                this.__pszCNGHashAlgId := PWSTR(this.ptr + 40)
+            return this.__pszCNGHashAlgId
+        }
     }
 
     /**

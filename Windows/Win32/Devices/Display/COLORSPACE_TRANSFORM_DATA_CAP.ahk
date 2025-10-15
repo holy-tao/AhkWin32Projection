@@ -20,9 +20,12 @@ class COLORSPACE_TRANSFORM_DATA_CAP extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - BitCountOfInteger
+     * - BitCountOfFraction
      * @type {Integer}
      */
-    Anonymous1 {
+    _bitfield {
         get => NumGet(this, 4, "uint")
         set => NumPut("uint", value, this, 4)
     }
@@ -30,9 +33,44 @@ class COLORSPACE_TRANSFORM_DATA_CAP extends Win32Struct
     /**
      * @type {Integer}
      */
-    Anonymous2 {
+    BitCountOfInteger {
+        get => (this._bitfield >> 0) & 0x3F
+        set => this._bitfield := ((value & 0x3F) << 0) | (this._bitfield & ~(0x3F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    BitCountOfFraction {
+        get => (this._bitfield >> 6) & 0x3F
+        set => this._bitfield := ((value & 0x3F) << 6) | (this._bitfield & ~(0x3F << 6))
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - BitCountOfExponent
+     * - BitCountOfMantissa
+     * @type {Integer}
+     */
+    _bitfield1 {
         get => NumGet(this, 4, "uint")
         set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    BitCountOfExponent {
+        get => (this._bitfield1 >> 0) & 0x3F
+        set => this._bitfield1 := ((value & 0x3F) << 0) | (this._bitfield1 & ~(0x3F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    BitCountOfMantissa {
+        get => (this._bitfield1 >> 6) & 0x3F
+        set => this._bitfield1 := ((value & 0x3F) << 6) | (this._bitfield1 & ~(0x3F << 6))
     }
 
     /**

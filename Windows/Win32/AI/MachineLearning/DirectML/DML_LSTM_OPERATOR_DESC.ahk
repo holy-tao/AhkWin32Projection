@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Performs a one-layer long short term memory (LSTM) function on the input. This operator uses multiple gates to perform this layer. These gates are performed multiple times in a loop, dictated by the sequence length dimension and the *SequenceLengthsTensor*.
@@ -182,21 +183,27 @@ class DML_LSTM_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if *ClipThreshold* should be used. Otherwise, **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    UseClipThreshold {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+    UseClipThreshold{
+        get {
+            if(!this.HasProp("__UseClipThreshold"))
+                this.__UseClipThreshold := BOOL(this.ptr + 112)
+            return this.__UseClipThreshold
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if the input and forget gates should be coupled. Otherwise, **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    CoupleInputForget {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
+    CoupleInputForget{
+        get {
+            if(!this.HasProp("__CoupleInputForget"))
+                this.__CoupleInputForget := BOOL(this.ptr + 116)
+            return this.__CoupleInputForget
+        }
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDPIXELFORMAT.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The DD_SURFACE_GLOBAL structure contains global surface-related data that can be shared between multiple surfaces.
@@ -154,10 +155,13 @@ class DD_SURFACE_GLOBAL extends Win32Struct
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hCreatorProcess {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    hCreatorProcess{
+        get {
+            if(!this.HasProp("__hCreatorProcess"))
+                this.__hCreatorProcess := HANDLE(this.ptr + 96)
+            return this.__hCreatorProcess
+        }
     }
 }

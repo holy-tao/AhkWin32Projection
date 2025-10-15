@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\UNICODE_STRING.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -59,11 +61,14 @@ class SYSTEM_PROCESS_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    UniqueProcessId {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    UniqueProcessId{
+        get {
+            if(!this.HasProp("__UniqueProcessId"))
+                this.__UniqueProcessId := HANDLE(this.ptr + 80)
+            return this.__UniqueProcessId
+        }
     }
 
     /**

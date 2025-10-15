@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_BINARY_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DHCP_SEARCH_INFO structure defines the DHCP client record data used to search against for particular server operations.
@@ -38,11 +39,14 @@ class DHCP_SEARCH_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        ClientName {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        ClientName{
+            get {
+                if(!this.HasProp("__ClientName"))
+                    this.__ClientName := PWSTR(this.ptr + 0)
+                return this.__ClientName
+            }
         }
     
     }

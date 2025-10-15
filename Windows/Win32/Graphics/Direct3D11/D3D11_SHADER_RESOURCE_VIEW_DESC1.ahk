@@ -5,6 +5,7 @@
 #Include .\D3D11_TEX1D_ARRAY_SRV.ahk
 #Include .\D3D11_TEX2D_SRV1.ahk
 #Include .\D3D11_TEX2D_ARRAY_SRV1.ahk
+#Include .\D3D11_TEX2DMS_SRV.ahk
 #Include .\D3D11_TEX2DMS_ARRAY_SRV.ahk
 #Include .\D3D11_TEX3D_SRV.ahk
 #Include .\D3D11_TEXCUBE_SRV.ahk
@@ -106,11 +107,14 @@ class D3D11_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D11_TEX2DMS_SRV}
      */
-    Texture2DMS {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Texture2DMS{
+        get {
+            if(!this.HasProp("__Texture2DMS"))
+                this.__Texture2DMS := D3D11_TEX2DMS_SRV(this.ptr + 8)
+            return this.__Texture2DMS
+        }
     }
 
     /**

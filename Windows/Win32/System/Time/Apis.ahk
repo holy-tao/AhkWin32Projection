@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Time
  * @version v4.0.30319
@@ -78,7 +78,7 @@ class Time {
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that specifies the UTC time to be converted. The function converts this universal time to the specified time zone's corresponding local time.
      * @param {Pointer<SYSTEMTIME>} lpLocalTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the local time.
-     * @returns {Integer} If the function succeeds, the return value is nonzero, and the function sets the members of the 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero, and the function sets the members of the 
      * <a href="/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure pointed to by <i>lpLocalTime</i> to the appropriate local time values.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -89,7 +89,7 @@ class Time {
     static SystemTimeToTzSpecificLocalTime(lpTimeZoneInformation, lpUniversalTime, lpLocalTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTime", "ptr", lpTimeZoneInformation, "ptr", lpUniversalTime, "ptr", lpLocalTime, "int")
+        result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTime", "ptr", lpTimeZoneInformation, "ptr", lpUniversalTime, "ptr", lpLocalTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -106,7 +106,7 @@ class Time {
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that specifies the local time to be converted. The function converts this time to the corresponding UTC time.
      * @param {Pointer<SYSTEMTIME>} lpUniversalTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the UTC time.
-     * @returns {Integer} If the function succeeds, the return value is nonzero, and the function sets the members of the 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero, and the function sets the members of the 
      * <a href="/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure pointed to by <i>lpUniversalTime</i> to the appropriate values.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -117,7 +117,7 @@ class Time {
     static TzSpecificLocalTimeToSystemTime(lpTimeZoneInformation, lpLocalTime, lpUniversalTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTime", "ptr", lpTimeZoneInformation, "ptr", lpLocalTime, "ptr", lpUniversalTime, "int")
+        result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTime", "ptr", lpTimeZoneInformation, "ptr", lpLocalTime, "ptr", lpUniversalTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -132,7 +132,7 @@ class Time {
      * This value must be less than 0x8000000000000000. Otherwise, the function fails.
      * @param {Pointer<SYSTEMTIME>} lpSystemTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure to receive the 
      *       converted file time.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -142,7 +142,7 @@ class Time {
     static FileTimeToSystemTime(lpFileTime, lpSystemTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FileTimeToSystemTime", "ptr", lpFileTime, "ptr", lpSystemTime, "int")
+        result := DllCall("KERNEL32.dll\FileTimeToSystemTime", "ptr", lpFileTime, "ptr", lpSystemTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -161,7 +161,7 @@ class Time {
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure is ignored.
      * @param {Pointer<FILETIME>} lpFileTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure to receive the converted system time.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -174,7 +174,7 @@ class Time {
     static SystemTimeToFileTime(lpSystemTime, lpFileTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SystemTimeToFileTime", "ptr", lpSystemTime, "ptr", lpFileTime, "int")
+        result := DllCall("KERNEL32.dll\SystemTimeToFileTime", "ptr", lpSystemTime, "ptr", lpFileTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -256,7 +256,7 @@ class Time {
      * Sets the current time zone settings. These settings control translations from Coordinated Universal Time (UTC) to local time.
      * @param {Pointer<TIME_ZONE_INFORMATION>} lpTimeZoneInformation A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure that contains the new settings.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -266,7 +266,7 @@ class Time {
     static SetTimeZoneInformation(lpTimeZoneInformation) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetTimeZoneInformation", "ptr", lpTimeZoneInformation, "int")
+        result := DllCall("KERNEL32.dll\SetTimeZoneInformation", "ptr", lpTimeZoneInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -276,7 +276,7 @@ class Time {
     /**
      * Sets the current time zone and dynamic daylight saving time settings. These settings control translations from Coordinated Universal Time (UTC) to local time.
      * @param {Pointer<DYNAMIC_TIME_ZONE_INFORMATION>} lpTimeZoneInformation A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -286,7 +286,7 @@ class Time {
     static SetDynamicTimeZoneInformation(lpTimeZoneInformation) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetDynamicTimeZoneInformation", "ptr", lpTimeZoneInformation, "int")
+        result := DllCall("KERNEL32.dll\SetDynamicTimeZoneInformation", "ptr", lpTimeZoneInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -368,7 +368,7 @@ class Time {
      * @param {Integer} wYear The year for which the time zone settings are to be retrieved. The <i>wYear</i> parameter must be a local time value.
      * @param {Pointer<DYNAMIC_TIME_ZONE_INFORMATION>} pdtzi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information">DYNAMIC_TIME_ZONE_INFORMATION</a> structure that specifies the time zone.  To populate this parameter, call <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-enumdynamictimezoneinformation">EnumDynamicTimeZoneInformation</a> with the index of the time zone you want. If this parameter is <b>NULL</b>, the current time zone is used.
      * @param {Pointer<TIME_ZONE_INFORMATION>} ptzi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a> structure that receives the time zone settings.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -378,7 +378,7 @@ class Time {
     static GetTimeZoneInformationForYear(wYear, pdtzi, ptzi) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetTimeZoneInformationForYear", "ushort", wYear, "ptr", pdtzi, "ptr", ptzi, "int")
+        result := DllCall("KERNEL32.dll\GetTimeZoneInformationForYear", "ushort", wYear, "ptr", pdtzi, "ptr", ptzi, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -475,7 +475,7 @@ class Time {
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that specifies the UTC time to be converted. The function converts this universal time to the specified time zone's corresponding local time.
      * @param {Pointer<SYSTEMTIME>} lpLocalTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the local time.
-     * @returns {Integer} If the function fails, the return value is zero. To get extended error information, call 
+     * @returns {BOOL} If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-systemtimetotzspecificlocaltimeex
      * @since windows6.1
@@ -483,7 +483,7 @@ class Time {
     static SystemTimeToTzSpecificLocalTimeEx(lpTimeZoneInformation, lpUniversalTime, lpLocalTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTimeEx", "ptr", lpTimeZoneInformation, "ptr", lpUniversalTime, "ptr", lpLocalTime, "int")
+        result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTimeEx", "ptr", lpTimeZoneInformation, "ptr", lpUniversalTime, "ptr", lpLocalTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -497,7 +497,7 @@ class Time {
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that specifies the local time to be converted. The function converts this time to the corresponding UTC time.
      * @param {Pointer<SYSTEMTIME>} lpUniversalTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the UTC time.
-     * @returns {Integer} If the function fails, the return value is zero. To get extended error information, call 
+     * @returns {BOOL} If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//timezoneapi/nf-timezoneapi-tzspecificlocaltimetosystemtimeex
      * @since windows6.1
@@ -505,7 +505,7 @@ class Time {
     static TzSpecificLocalTimeToSystemTimeEx(lpTimeZoneInformation, lpLocalTime, lpUniversalTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTimeEx", "ptr", lpTimeZoneInformation, "ptr", lpLocalTime, "ptr", lpUniversalTime, "int")
+        result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTimeEx", "ptr", lpTimeZoneInformation, "ptr", lpLocalTime, "ptr", lpUniversalTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -517,10 +517,10 @@ class Time {
      * @param {Pointer<TIME_ZONE_INFORMATION>} timeZoneInformation 
      * @param {Pointer<FILETIME>} localFileTime 
      * @param {Pointer<SYSTEMTIME>} localSystemTime 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static LocalFileTimeToLocalSystemTime(timeZoneInformation, localFileTime, localSystemTime) {
-        result := DllCall("KERNEL32.dll\LocalFileTimeToLocalSystemTime", "ptr", timeZoneInformation, "ptr", localFileTime, "ptr", localSystemTime, "int")
+        result := DllCall("KERNEL32.dll\LocalFileTimeToLocalSystemTime", "ptr", timeZoneInformation, "ptr", localFileTime, "ptr", localSystemTime, "ptr")
         return result
     }
 
@@ -529,10 +529,10 @@ class Time {
      * @param {Pointer<TIME_ZONE_INFORMATION>} timeZoneInformation 
      * @param {Pointer<SYSTEMTIME>} localSystemTime 
      * @param {Pointer<FILETIME>} localFileTime 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static LocalSystemTimeToLocalFileTime(timeZoneInformation, localSystemTime, localFileTime) {
-        result := DllCall("KERNEL32.dll\LocalSystemTimeToLocalFileTime", "ptr", timeZoneInformation, "ptr", localSystemTime, "ptr", localFileTime, "int")
+        result := DllCall("KERNEL32.dll\LocalSystemTimeToLocalFileTime", "ptr", timeZoneInformation, "ptr", localSystemTime, "ptr", localFileTime, "ptr")
         return result
     }
 

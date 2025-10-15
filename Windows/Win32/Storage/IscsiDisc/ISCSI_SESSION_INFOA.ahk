@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ISCSI_UNIQUE_SESSION_ID.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * ISCSI_SESSION_INFO.
@@ -34,29 +35,38 @@ class ISCSI_SESSION_INFOA extends Win32Struct
 
     /**
      * A string that represents the initiator name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    InitiatorName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    InitiatorName{
+        get {
+            if(!this.HasProp("__InitiatorName"))
+                this.__InitiatorName := PSTR(this.ptr + 16)
+            return this.__InitiatorName
+        }
     }
 
     /**
      * A string that represents the target node name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    TargetNodeName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    TargetNodeName{
+        get {
+            if(!this.HasProp("__TargetNodeName"))
+                this.__TargetNodeName := PSTR(this.ptr + 24)
+            return this.__TargetNodeName
+        }
     }
 
     /**
      * A string that represents the target name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    TargetName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    TargetName{
+        get {
+            if(!this.HasProp("__TargetName"))
+                this.__TargetName := PSTR(this.ptr + 32)
+            return this.__TargetName
+        }
     }
 
     /**

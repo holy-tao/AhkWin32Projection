@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
@@ -55,11 +56,14 @@ class PEER_CONNECTION_INFO extends Win32Struct
 
     /**
      * Points to a string that identifies the node on the other end of a connection.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzPeerId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwzPeerId{
+        get {
+            if(!this.HasProp("__pwzPeerId"))
+                this.__pwzPeerId := PWSTR(this.ptr + 24)
+            return this.__pwzPeerId
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
 
 /**
@@ -21,43 +22,58 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    MsvAvNbComputerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    MsvAvNbComputerName{
+        get {
+            if(!this.HasProp("__MsvAvNbComputerName"))
+                this.__MsvAvNbComputerName := PWSTR(this.ptr + 8)
+            return this.__MsvAvNbComputerName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    MsvAvNbDomainName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    MsvAvNbDomainName{
+        get {
+            if(!this.HasProp("__MsvAvNbDomainName"))
+                this.__MsvAvNbDomainName := PWSTR(this.ptr + 16)
+            return this.__MsvAvNbDomainName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    MsvAvDnsComputerName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    MsvAvDnsComputerName{
+        get {
+            if(!this.HasProp("__MsvAvDnsComputerName"))
+                this.__MsvAvDnsComputerName := PWSTR(this.ptr + 24)
+            return this.__MsvAvDnsComputerName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    MsvAvDnsDomainName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    MsvAvDnsDomainName{
+        get {
+            if(!this.HasProp("__MsvAvDnsDomainName"))
+                this.__MsvAvDnsDomainName := PWSTR(this.ptr + 32)
+            return this.__MsvAvDnsDomainName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    MsvAvDnsTreeName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    MsvAvDnsTreeName{
+        get {
+            if(!this.HasProp("__MsvAvDnsTreeName"))
+                this.__MsvAvDnsTreeName := PWSTR(this.ptr + 40)
+            return this.__MsvAvDnsTreeName
+        }
     }
 
     /**
@@ -80,10 +96,13 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    MsvAvTargetName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    MsvAvTargetName{
+        get {
+            if(!this.HasProp("__MsvAvTargetName"))
+                this.__MsvAvTargetName := PWSTR(this.ptr + 64)
+            return this.__MsvAvTargetName
+        }
     }
 }

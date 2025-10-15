@@ -3,6 +3,7 @@
 #Include .\DMUS_LFOPARAMS.ahk
 #Include .\DMUS_VEGPARAMS.ahk
 #Include .\DMUS_PEGPARAMS.ahk
+#Include .\DMUS_MSCPARAMS.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -48,10 +49,13 @@ class DMUS_ARTICPARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DMUS_MSCPARAMS}
      */
-    Misc {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+    Misc{
+        get {
+            if(!this.HasProp("__Misc"))
+                this.__Misc := DMUS_MSCPARAMS(this.ptr + 76)
+            return this.__Misc
+        }
     }
 }

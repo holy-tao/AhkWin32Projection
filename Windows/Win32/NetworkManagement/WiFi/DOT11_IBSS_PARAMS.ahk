@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -24,11 +25,14 @@ class DOT11_IBSS_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bJoinOnly {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    bJoinOnly{
+        get {
+            if(!this.HasProp("__bJoinOnly"))
+                this.__bJoinOnly := BOOLEAN(this.ptr + 4)
+            return this.__bJoinOnly
+        }
     }
 
     /**

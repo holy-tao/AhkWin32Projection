@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -20,11 +21,14 @@ class AudioClientProperties extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bIsOffload {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    bIsOffload{
+        get {
+            if(!this.HasProp("__bIsOffload"))
+                this.__bIsOffload := BOOL(this.ptr + 4)
+            return this.__bIsOffload
+        }
     }
 
     /**

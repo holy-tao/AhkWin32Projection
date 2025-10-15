@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The AUTO_PROXY_SCRIPT_BUFFER structure is used to pass an autoproxy script in a buffer to InternetInitializeAutoProxyDll , instead of identifying a file that InternetInitializeAutoProxyDll opens.
@@ -30,11 +31,14 @@ class AUTO_PROXY_SCRIPT_BUFFER extends Win32Struct
 
     /**
      * Pointer to the script buffer being passed using this structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszScriptBuffer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszScriptBuffer{
+        get {
+            if(!this.HasProp("__lpszScriptBuffer"))
+                this.__lpszScriptBuffer := PSTR(this.ptr + 8)
+            return this.__lpszScriptBuffer
+        }
     }
 
     /**

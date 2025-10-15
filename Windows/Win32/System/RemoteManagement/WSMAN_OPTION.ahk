@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a specific option name and value pair.
@@ -15,28 +17,37 @@ class WSMAN_OPTION extends Win32Struct
 
     /**
      * Specifies the name of the option.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    name{
+        get {
+            if(!this.HasProp("__name"))
+                this.__name := PWSTR(this.ptr + 0)
+            return this.__name
+        }
     }
 
     /**
      * Specifies the value of the option.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    value {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    value{
+        get {
+            if(!this.HasProp("__value"))
+                this.__value := PWSTR(this.ptr + 8)
+            return this.__value
+        }
     }
 
     /**
      * Specifies whether the option must be understood and complied with.  If this value is <b>TRUE</b>, the plug-in must understand and adhere to the meaning of the option; otherwise, the plug-in must return an error.  If this is <b>FALSE</b>, the plug-in should ignore the option if it is not understood.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    mustComply {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    mustComply{
+        get {
+            if(!this.HasProp("__mustComply"))
+                this.__mustComply := BOOL(this.ptr + 16)
+            return this.__mustComply
+        }
     }
 }

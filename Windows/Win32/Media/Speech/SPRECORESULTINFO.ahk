@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\SPGRAMMARHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -28,19 +30,25 @@ class SPRECORESULTINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fHypothesis {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fHypothesis{
+        get {
+            if(!this.HasProp("__fHypothesis"))
+                this.__fHypothesis := BOOL(this.ptr + 8)
+            return this.__fHypothesis
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fProprietaryAutoPause {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    fProprietaryAutoPause{
+        get {
+            if(!this.HasProp("__fProprietaryAutoPause"))
+                this.__fProprietaryAutoPause := BOOL(this.ptr + 12)
+            return this.__fProprietaryAutoPause
+        }
     }
 
     /**
@@ -60,11 +68,14 @@ class SPRECORESULTINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {SPGRAMMARHANDLE}
      */
-    hGrammar {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hGrammar{
+        get {
+            if(!this.HasProp("__hGrammar"))
+                this.__hGrammar := SPGRAMMARHANDLE(this.ptr + 32)
+            return this.__hGrammar
+        }
     }
 
     /**

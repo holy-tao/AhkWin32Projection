@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * TBD.
@@ -15,11 +16,14 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
 
     /**
      * TBD
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Id {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Id{
+        get {
+            if(!this.HasProp("__Id"))
+                this.__Id := PWSTR(this.ptr + 0)
+            return this.__Id
+        }
     }
 
     /**
@@ -42,20 +46,26 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
 
     /**
      * TBD
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Description {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Description{
+        get {
+            if(!this.HasProp("__Description"))
+                this.__Description := PWSTR(this.ptr + 16)
+            return this.__Description
+        }
     }
 
     /**
      * TBD
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Provider {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Provider{
+        get {
+            if(!this.HasProp("__Provider"))
+                this.__Provider := PWSTR(this.ptr + 24)
+            return this.__Provider
+        }
     }
 
     /**

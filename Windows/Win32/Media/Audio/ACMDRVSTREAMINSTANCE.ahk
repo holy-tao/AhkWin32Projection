@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HACMSTREAM.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -84,10 +85,13 @@ class ACMDRVSTREAMINSTANCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HACMSTREAM}
      */
-    has {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    has{
+        get {
+            if(!this.HasProp("__has"))
+                this.__has := HACMSTREAM(this.ptr + 64)
+            return this.__has
+        }
     }
 }

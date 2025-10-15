@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\APOInitBaseStruct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
@@ -72,10 +73,13 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    InitializeForDiscoveryOnly {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    InitializeForDiscoveryOnly{
+        get {
+            if(!this.HasProp("__InitializeForDiscoveryOnly"))
+                this.__InitializeForDiscoveryOnly := BOOL(this.ptr + 56)
+            return this.__InitializeForDiscoveryOnly
+        }
     }
 }

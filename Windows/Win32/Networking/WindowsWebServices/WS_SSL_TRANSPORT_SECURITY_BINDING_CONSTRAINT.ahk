@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * A security binding constraint that corresponds to the WS_SSL_TRANSPORT_SECURITY_BINDING.
@@ -13,6 +14,23 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     static sizeof => 32
 
     static packingSize => 8
+
+    class _out extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {BOOL}
+         */
+        clientCertCredentialRequired{
+            get {
+                if(!this.HasProp("__clientCertCredentialRequired"))
+                    this.__clientCertCredentialRequired := BOOL(this.ptr + 0)
+                return this.__clientCertCredentialRequired
+            }
+        }
+    
+    }
 
     /**
      * The base binding constraint that this binding constraint derives from.
@@ -33,10 +51,13 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     /**
      * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
      *                     entire contents of this structure will be filled out.
-     * @type {Integer}
+     * @type {_out}
      */
-    out {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    out{
+        get {
+            if(!this.HasProp("__out"))
+                this.__out := %this.__Class%._out(this.ptr + 24)
+            return this.__out
+        }
     }
 }

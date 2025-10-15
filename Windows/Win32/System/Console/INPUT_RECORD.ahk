@@ -1,9 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\CHAR.ahk
 #Include .\KEY_EVENT_RECORD.ahk
 #Include .\COORD.ahk
 #Include .\MOUSE_EVENT_RECORD.ahk
 #Include .\WINDOW_BUFFER_SIZE_RECORD.ahk
+#Include .\MENU_EVENT_RECORD.ahk
+#Include .\FOCUS_EVENT_RECORD.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -57,18 +61,24 @@ class INPUT_RECORD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MENU_EVENT_RECORD}
      */
-    MenuEvent {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    MenuEvent{
+        get {
+            if(!this.HasProp("__MenuEvent"))
+                this.__MenuEvent := MENU_EVENT_RECORD(this.ptr + 8)
+            return this.__MenuEvent
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {FOCUS_EVENT_RECORD}
      */
-    FocusEvent {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    FocusEvent{
+        get {
+            if(!this.HasProp("__FocusEvent"))
+                this.__FocusEvent := FOCUS_EVENT_RECORD(this.ptr + 8)
+            return this.__FocusEvent
+        }
     }
 }

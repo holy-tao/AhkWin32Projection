@@ -11,6 +11,39 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct
 
     static packingSize => 8
 
+    class _ATTRIB extends Win32Struct {
+        static sizeof => 64
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - PropertySize
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PropertySize {
+            get => (this._bitfield >> 0) & 0x7
+            set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 3) & 0x1F
+            set => this._bitfield := ((value & 0x1F) << 3) | (this._bitfield & ~(0x1F << 3))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -55,11 +88,14 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_ATTRIB}
      */
-    ATTRIB {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
+    ATTRIB{
+        get {
+            if(!this.HasProp("__ATTRIB"))
+                this.__ATTRIB := %this.__Class%._ATTRIB(this.ptr + 40)
+            return this.__ATTRIB
+        }
     }
 
     /**

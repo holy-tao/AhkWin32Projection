@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\CHARRANGE.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about text to search for in a rich edit control. This structure is used with the EM_FINDTEXTEX message.
@@ -38,11 +39,14 @@ class FINDTEXTEXW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * The null-terminated string to find.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpstrText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpstrText{
+        get {
+            if(!this.HasProp("__lpstrText"))
+                this.__lpstrText := PWSTR(this.ptr + 8)
+            return this.__lpstrText
+        }
     }
 
     /**

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
@@ -618,10 +618,10 @@ class Sensors {
     /**
      * 
      * @param {Pointer<UInt32>} TimeMs 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static GetPerformanceTime(TimeMs) {
-        result := DllCall("SensorsUtilsV2.dll\GetPerformanceTime", "uint*", TimeMs, "int")
+        result := DllCall("SensorsUtilsV2.dll\GetPerformanceTime", "uint*", TimeMs, "ptr")
         return result
     }
 
@@ -643,12 +643,12 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Integer} TypeCheck 
+     * @param {BOOLEAN} TypeCheck 
      * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetPropVariant(pList, pKey, TypeCheck, pValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetPropVariant", "ptr", pList, "ptr", pKey, "char", TypeCheck, "ptr", pValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetPropVariant", "ptr", pList, "ptr", pKey, "ptr", TypeCheck, "ptr", pValue, "ptr")
         return result
     }
 
@@ -656,12 +656,12 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Integer} TypeCheck 
+     * @param {BOOLEAN} TypeCheck 
      * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeySetPropVariant(pList, pKey, TypeCheck, pValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeySetPropVariant", "ptr", pList, "ptr", pKey, "char", TypeCheck, "ptr", pValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeySetPropVariant", "ptr", pList, "ptr", pKey, "ptr", TypeCheck, "ptr", pValue, "ptr")
         return result
     }
 
@@ -670,10 +670,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<FILETIME>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetFileTime(pList, pKey, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetFileTime", "ptr", pList, "ptr", pKey, "ptr", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetFileTime", "ptr", pList, "ptr", pKey, "ptr", pRetValue, "ptr")
         return result
     }
 
@@ -682,10 +682,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Guid>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetGuid(pList, pKey, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetGuid", "ptr", pList, "ptr", pKey, "ptr", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetGuid", "ptr", pList, "ptr", pKey, "ptr", pRetValue, "ptr")
         return result
     }
 
@@ -693,11 +693,11 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Pointer<Int32>} pRetValue 
-     * @returns {Integer} 
+     * @param {Pointer<BOOL>} pRetValue 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetBool(pList, pKey, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetBool", "ptr", pList, "ptr", pKey, "int*", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetBool", "ptr", pList, "ptr", pKey, "ptr", pRetValue, "ptr")
         return result
     }
 
@@ -706,10 +706,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<UInt32>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetUlong(pList, pKey, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetUlong", "ptr", pList, "ptr", pKey, "uint*", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetUlong", "ptr", pList, "ptr", pKey, "uint*", pRetValue, "ptr")
         return result
     }
 
@@ -718,10 +718,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<UInt16>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetUshort(pList, pKey, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetUshort", "ptr", pList, "ptr", pKey, "ushort*", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetUshort", "ptr", pList, "ptr", pKey, "ushort*", pRetValue, "ptr")
         return result
     }
 
@@ -730,10 +730,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Single>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetFloat(pList, pKey, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetFloat", "ptr", pList, "ptr", pKey, "float*", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetFloat", "ptr", pList, "ptr", pKey, "float*", pRetValue, "ptr")
         return result
     }
 
@@ -742,10 +742,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Double>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetDouble(pList, pKey, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetDouble", "ptr", pList, "ptr", pKey, "double*", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetDouble", "ptr", pList, "ptr", pKey, "double*", pRetValue, "ptr")
         return result
     }
 
@@ -754,10 +754,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Int32>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetInt32(pList, pKey, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetInt32", "ptr", pList, "ptr", pKey, "int*", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetInt32", "ptr", pList, "ptr", pKey, "int*", pRetValue, "ptr")
         return result
     }
 
@@ -766,10 +766,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<Int64>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetInt64(pList, pKey, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetInt64", "ptr", pList, "ptr", pKey, "int64*", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetInt64", "ptr", pList, "ptr", pKey, "int64*", pRetValue, "ptr")
         return result
     }
 
@@ -779,10 +779,10 @@ class Sensors {
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Integer} Occurrence 
      * @param {Pointer<UInt32>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetNthUlong(pList, pKey, Occurrence, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthUlong", "ptr", pList, "ptr", pKey, "uint", Occurrence, "uint*", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthUlong", "ptr", pList, "ptr", pKey, "uint", Occurrence, "uint*", pRetValue, "ptr")
         return result
     }
 
@@ -792,10 +792,10 @@ class Sensors {
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Integer} Occurrence 
      * @param {Pointer<UInt16>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetNthUshort(pList, pKey, Occurrence, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthUshort", "ptr", pList, "ptr", pKey, "uint", Occurrence, "ushort*", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthUshort", "ptr", pList, "ptr", pKey, "uint", Occurrence, "ushort*", pRetValue, "ptr")
         return result
     }
 
@@ -805,10 +805,10 @@ class Sensors {
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Integer} Occurrence 
      * @param {Pointer<Int64>} pRetValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetNthInt64(pList, pKey, Occurrence, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthInt64", "ptr", pList, "ptr", pKey, "uint", Occurrence, "int64*", pRetValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetNthInt64", "ptr", pList, "ptr", pKey, "uint", Occurrence, "int64*", pRetValue, "ptr")
         return result
     }
 
@@ -816,10 +816,10 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_PROPERTY_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @returns {Integer} 
+     * @returns {BOOLEAN} 
      */
     static IsKeyPresentInPropertyList(pList, pKey) {
-        result := DllCall("SensorsUtilsV2.dll\IsKeyPresentInPropertyList", "ptr", pList, "ptr", pKey, "char")
+        result := DllCall("SensorsUtilsV2.dll\IsKeyPresentInPropertyList", "ptr", pList, "ptr", pKey, "ptr")
         return result
     }
 
@@ -827,10 +827,10 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pList 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @returns {Integer} 
+     * @returns {BOOLEAN} 
      */
     static IsKeyPresentInCollectionList(pList, pKey) {
-        result := DllCall("SensorsUtilsV2.dll\IsKeyPresentInCollectionList", "ptr", pList, "ptr", pKey, "char")
+        result := DllCall("SensorsUtilsV2.dll\IsKeyPresentInCollectionList", "ptr", pList, "ptr", pKey, "ptr")
         return result
     }
 
@@ -838,10 +838,10 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} ListA 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} ListB 
-     * @returns {Integer} 
+     * @returns {BOOLEAN} 
      */
     static IsCollectionListSame(ListA, ListB) {
-        result := DllCall("SensorsUtilsV2.dll\IsCollectionListSame", "ptr", ListA, "ptr", ListB, "char")
+        result := DllCall("SensorsUtilsV2.dll\IsCollectionListSame", "ptr", ListA, "ptr", ListB, "ptr")
         return result
     }
 
@@ -852,10 +852,10 @@ class Sensors {
      * @param {Pointer<UInt32>} PropVariantSize 
      * @param {Pointer<Void>} PropVariantPointer 
      * @param {Pointer<UInt32>} RemappedType 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropVariantGetInformation(PropVariantValue, PropVariantOffset, PropVariantSize, PropVariantPointer, RemappedType) {
-        result := DllCall("SensorsUtilsV2.dll\PropVariantGetInformation", "ptr", PropVariantValue, "uint*", PropVariantOffset, "uint*", PropVariantSize, "ptr", PropVariantPointer, "uint*", RemappedType, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropVariantGetInformation", "ptr", PropVariantValue, "uint*", PropVariantOffset, "uint*", PropVariantSize, "ptr", PropVariantPointer, "uint*", RemappedType, "ptr")
         return result
     }
 
@@ -863,10 +863,10 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_PROPERTY_LIST>} Target 
      * @param {Pointer<SENSOR_PROPERTY_LIST>} Source 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PropertiesListCopy(Target, Source) {
-        result := DllCall("SensorsUtilsV2.dll\PropertiesListCopy", "ptr", Target, "ptr", Source, "int")
+        result := DllCall("SensorsUtilsV2.dll\PropertiesListCopy", "ptr", Target, "ptr", Source, "ptr")
         return result
     }
 
@@ -894,20 +894,20 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Target 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Source 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static CollectionsListCopyAndMarshall(Target, Source) {
-        result := DllCall("SensorsUtilsV2.dll\CollectionsListCopyAndMarshall", "ptr", Target, "ptr", Source, "int")
+        result := DllCall("SensorsUtilsV2.dll\CollectionsListCopyAndMarshall", "ptr", Target, "ptr", Source, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Target 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static CollectionsListMarshall(Target) {
-        result := DllCall("SensorsUtilsV2.dll\CollectionsListMarshall", "ptr", Target, "int")
+        result := DllCall("SensorsUtilsV2.dll\CollectionsListMarshall", "ptr", Target, "ptr")
         return result
     }
 
@@ -924,10 +924,10 @@ class Sensors {
     /**
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} Collection 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static CollectionsListUpdateMarshalledPointer(Collection) {
-        result := DllCall("SensorsUtilsV2.dll\CollectionsListUpdateMarshalledPointer", "ptr", Collection, "int")
+        result := DllCall("SensorsUtilsV2.dll\CollectionsListUpdateMarshalledPointer", "ptr", Collection, "ptr")
         return result
     }
 
@@ -935,10 +935,10 @@ class Sensors {
      * 
      * @param {Integer} SizeInBytes 
      * @param {Pointer<Byte>} pBuffer 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static SerializationBufferAllocate(SizeInBytes, pBuffer) {
-        result := DllCall("SensorsUtilsV2.dll\SerializationBufferAllocate", "uint", SizeInBytes, "ptr", pBuffer, "int")
+        result := DllCall("SensorsUtilsV2.dll\SerializationBufferAllocate", "uint", SizeInBytes, "char*", pBuffer, "ptr")
         return result
     }
 
@@ -966,10 +966,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} SourceCollection 
      * @param {Integer} TargetBufferSizeInBytes 
      * @param {Pointer} TargetBuffer 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static CollectionsListSerializeToBuffer(SourceCollection, TargetBufferSizeInBytes, TargetBuffer) {
-        result := DllCall("SensorsUtilsV2.dll\CollectionsListSerializeToBuffer", "ptr", SourceCollection, "uint", TargetBufferSizeInBytes, "ptr", TargetBuffer, "int")
+        result := DllCall("SensorsUtilsV2.dll\CollectionsListSerializeToBuffer", "ptr", SourceCollection, "uint", TargetBufferSizeInBytes, "ptr", TargetBuffer, "ptr")
         return result
     }
 
@@ -978,10 +978,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} SourceCollection 
      * @param {Pointer<UInt32>} pTargetBufferSizeInBytes 
      * @param {Pointer<Byte>} pTargetBuffer 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static CollectionsListAllocateBufferAndSerialize(SourceCollection, pTargetBufferSizeInBytes, pTargetBuffer) {
-        result := DllCall("SensorsUtilsV2.dll\CollectionsListAllocateBufferAndSerialize", "ptr", SourceCollection, "uint*", pTargetBufferSizeInBytes, "ptr", pTargetBuffer, "int")
+        result := DllCall("SensorsUtilsV2.dll\CollectionsListAllocateBufferAndSerialize", "ptr", SourceCollection, "uint*", pTargetBufferSizeInBytes, "char*", pTargetBuffer, "ptr")
         return result
     }
 
@@ -990,10 +990,10 @@ class Sensors {
      * @param {Integer} SourceBufferSizeInBytes 
      * @param {Pointer} SourceBuffer 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} TargetCollection 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static CollectionsListDeserializeFromBuffer(SourceBufferSizeInBytes, SourceBuffer, TargetCollection) {
-        result := DllCall("SensorsUtilsV2.dll\CollectionsListDeserializeFromBuffer", "uint", SourceBufferSizeInBytes, "ptr", SourceBuffer, "ptr", TargetCollection, "int")
+        result := DllCall("SensorsUtilsV2.dll\CollectionsListDeserializeFromBuffer", "uint", SourceBufferSizeInBytes, "ptr", SourceBuffer, "ptr", TargetCollection, "ptr")
         return result
     }
 
@@ -1003,10 +1003,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pSensorsList 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static SensorCollectionGetAt(Index, pSensorsList, pKey, pValue) {
-        result := DllCall("SensorsUtilsV2.dll\SensorCollectionGetAt", "uint", Index, "ptr", pSensorsList, "ptr", pKey, "ptr", pValue, "int")
+        result := DllCall("SensorsUtilsV2.dll\SensorCollectionGetAt", "uint", Index, "ptr", pSensorsList, "ptr", pKey, "ptr", pValue, "ptr")
         return result
     }
 
@@ -1025,10 +1025,10 @@ class Sensors {
      * @param {Pointer<SENSOR_COLLECTION_LIST>} newSample 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} oldSample 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} thresholds 
-     * @returns {Integer} 
+     * @returns {BOOLEAN} 
      */
     static EvaluateActivityThresholds(newSample, oldSample, thresholds) {
-        result := DllCall("SensorsUtilsV2.dll\EvaluateActivityThresholds", "ptr", newSample, "ptr", oldSample, "ptr", thresholds, "char")
+        result := DllCall("SensorsUtilsV2.dll\EvaluateActivityThresholds", "ptr", newSample, "ptr", oldSample, "ptr", thresholds, "ptr")
         return result
     }
 
@@ -1036,10 +1036,10 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} thresholds 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} pCollection 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static CollectionsListSortSubscribedActivitiesByConfidence(thresholds, pCollection) {
-        result := DllCall("SensorsUtilsV2.dll\CollectionsListSortSubscribedActivitiesByConfidence", "ptr", thresholds, "ptr", pCollection, "int")
+        result := DllCall("SensorsUtilsV2.dll\CollectionsListSortSubscribedActivitiesByConfidence", "ptr", thresholds, "ptr", pCollection, "ptr")
         return result
     }
 
@@ -1062,10 +1062,10 @@ class Sensors {
      * 
      * @param {Pointer<SENSOR_COLLECTION_LIST>} subscriptionList 
      * @param {Pointer<Guid>} currentType 
-     * @returns {Integer} 
+     * @returns {BOOLEAN} 
      */
     static IsSensorSubscribed(subscriptionList, currentType) {
-        result := DllCall("SensorsUtilsV2.dll\IsSensorSubscribed", "ptr", subscriptionList, "ptr", currentType, "char")
+        result := DllCall("SensorsUtilsV2.dll\IsSensorSubscribed", "ptr", subscriptionList, "ptr", currentType, "ptr")
         return result
     }
 
@@ -1074,10 +1074,10 @@ class Sensors {
      * @param {Pointer<Guid>} guidArray 
      * @param {Integer} arrayLength 
      * @param {Pointer<Guid>} guidElem 
-     * @returns {Integer} 
+     * @returns {BOOLEAN} 
      */
     static IsGUIDPresentInList(guidArray, arrayLength, guidElem) {
-        result := DllCall("SensorsUtilsV2.dll\IsGUIDPresentInList", "ptr", guidArray, "uint", arrayLength, "ptr", guidElem, "char")
+        result := DllCall("SensorsUtilsV2.dll\IsGUIDPresentInList", "ptr", guidArray, "uint", arrayLength, "ptr", guidElem, "ptr")
         return result
     }
 

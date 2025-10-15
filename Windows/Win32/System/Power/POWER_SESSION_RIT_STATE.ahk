@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
@@ -12,11 +13,14 @@ class POWER_SESSION_RIT_STATE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Active {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    Active{
+        get {
+            if(!this.HasProp("__Active"))
+                this.__Active := BOOLEAN(this.ptr + 0)
+            return this.__Active
+        }
     }
 
     /**

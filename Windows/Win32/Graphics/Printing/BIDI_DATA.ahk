@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BINARY_CONTAINER.ahk
 
 /**
@@ -21,11 +23,14 @@ class BIDI_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bData {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    bData{
+        get {
+            if(!this.HasProp("__bData"))
+                this.__bData := BOOL(this.ptr + 8)
+            return this.__bData
+        }
     }
 
     /**
@@ -37,11 +42,14 @@ class BIDI_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sData {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    sData{
+        get {
+            if(!this.HasProp("__sData"))
+                this.__sData := PWSTR(this.ptr + 8)
+            return this.__sData
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a Peer Name Resolution Protocol (PNRP) cloud.
@@ -15,11 +16,14 @@ class PEER_PNRP_CLOUD_INFO extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains the name of the PNRP cloud. The maximum size of this name is 256 characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzCloudName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwzCloudName{
+        get {
+            if(!this.HasProp("__pwzCloudName"))
+                this.__pwzCloudName := PWSTR(this.ptr + 0)
+            return this.__pwzCloudName
+        }
     }
 
     /**

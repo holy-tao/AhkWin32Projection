@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides metadata regarding a service hosted by a device.
@@ -33,11 +34,14 @@ class WSD_SERVICE_METADATA extends Win32Struct
 
     /**
      * The URI of the service. This URI must be valid when a <b>WSD_SERVICE_METADATA</b> structure is passed to <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-setmetadata">IWSDDeviceHost::SetMetadata</a>. Applications are responsible for URI validation.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ServiceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    ServiceId{
+        get {
+            if(!this.HasProp("__ServiceId"))
+                this.__ServiceId := PWSTR(this.ptr + 16)
+            return this.__ServiceId
+        }
     }
 
     /**

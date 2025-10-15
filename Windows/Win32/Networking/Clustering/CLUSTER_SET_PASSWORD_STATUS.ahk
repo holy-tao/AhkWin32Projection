@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Used by the SetClusterServiceAccountPassword function to return the results of a Cluster service user account password change for each cluster node.
@@ -24,11 +25,14 @@ class CLUSTER_SET_PASSWORD_STATUS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, indicates that the password change was attempted on this node.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    SetAttempted {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    SetAttempted{
+        get {
+            if(!this.HasProp("__SetAttempted"))
+                this.__SetAttempted := BOOLEAN(this.ptr + 4)
+            return this.__SetAttempted
+        }
     }
 
     /**

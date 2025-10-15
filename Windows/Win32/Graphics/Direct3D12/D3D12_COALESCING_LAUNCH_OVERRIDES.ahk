@@ -20,7 +20,7 @@ class D3D12_COALESCING_LAUNCH_OVERRIDES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     pProgramEntry {
         get => NumGet(this, 8, "ptr")

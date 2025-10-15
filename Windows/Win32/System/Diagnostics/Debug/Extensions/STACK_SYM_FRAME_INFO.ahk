@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
 #Include .\DEBUG_STACK_FRAME_EX.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include .\STACK_SRC_INFO.ahk
 
 /**

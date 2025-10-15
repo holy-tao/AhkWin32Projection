@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the properties of a drive letter.
@@ -47,10 +48,13 @@ class VDS_DRIVE_LETTER_PROP extends Win32Struct
 
     /**
      * If true, the drive letter is already in use; otherwise, the drive letter is available.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bUsed {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    bUsed{
+        get {
+            if(!this.HasProp("__bUsed"))
+                this.__bUsed := BOOL(this.ptr + 20)
+            return this.__bUsed
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the blend state.
@@ -59,31 +60,34 @@
  */
 class D3D10_BLEND_DESC extends Win32Struct
 {
-    static sizeof => 68
+    static sizeof => 104
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Determines whether or not to use <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-blend-state">alpha-to-coverage</a> as a multisampling technique when setting a pixel to a rendertarget.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    AlphaToCoverageEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    AlphaToCoverageEnable{
+        get {
+            if(!this.HasProp("__AlphaToCoverageEnable"))
+                this.__AlphaToCoverageEnable := BOOL(this.ptr + 0)
+            return this.__AlphaToCoverageEnable
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Enable (or disable) blending. There are eight elements in this array; these correspond to the eight rendertargets that can be set to output-merger stage at one time.
-     * @type {Array<Int32>}
+     * @type {Array<BOOL>}
      */
     BlendEnable{
         get {
             if(!this.HasProp("__BlendEnableProxyArray"))
-                this.__BlendEnableProxyArray := Win32FixedArray(this.ptr + 4, 8, Primitive, "int")
+                this.__BlendEnableProxyArray := Win32FixedArray(this.ptr + 8, 8, BOOL, "")
             return this.__BlendEnableProxyArray
         }
     }
@@ -95,8 +99,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     SrcBlend {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
@@ -106,8 +110,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     DestBlend {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
@@ -117,8 +121,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     BlendOp {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
@@ -128,8 +132,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     SrcBlendAlpha {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 84, "int")
+        set => NumPut("int", value, this, 84)
     }
 
     /**
@@ -139,8 +143,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     DestBlendAlpha {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
@@ -150,8 +154,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     BlendOpAlpha {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**
@@ -163,7 +167,7 @@ class D3D10_BLEND_DESC extends Win32Struct
     RenderTargetWriteMask{
         get {
             if(!this.HasProp("__RenderTargetWriteMaskProxyArray"))
-                this.__RenderTargetWriteMaskProxyArray := Win32FixedArray(this.ptr + 60, 8, Primitive, "char")
+                this.__RenderTargetWriteMaskProxyArray := Win32FixedArray(this.ptr + 96, 8, Primitive, "char")
             return this.__RenderTargetWriteMaskProxyArray
         }
     }

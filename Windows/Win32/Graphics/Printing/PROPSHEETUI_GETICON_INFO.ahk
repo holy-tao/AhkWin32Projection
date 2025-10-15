@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -44,11 +45,14 @@ class PROPSHEETUI_GETICON_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hIcon {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hIcon{
+        get {
+            if(!this.HasProp("__hIcon"))
+                this.__hIcon := HICON(this.ptr + 8)
+            return this.__hIcon
+        }
     }
 
     /**

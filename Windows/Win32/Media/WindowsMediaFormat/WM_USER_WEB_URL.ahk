@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WM_USER_WEB_URL structure is used as the data item for the WM/UserWebURL complex metadata attribute.
@@ -15,19 +16,25 @@ class WM_USER_WEB_URL extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the description of the Web site pointed to by the URL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszDescription {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszDescription{
+        get {
+            if(!this.HasProp("__pwszDescription"))
+                this.__pwszDescription := PWSTR(this.ptr + 0)
+            return this.__pwszDescription
+        }
     }
 
     /**
      * Pointer to a wide-character null-terminated string containing the URL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszURL {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszURL{
+        get {
+            if(!this.HasProp("__pwszURL"))
+                this.__pwszURL := PWSTR(this.ptr + 8)
+            return this.__pwszURL
+        }
     }
 }

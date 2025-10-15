@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include .\DOT11_WFD_GO_INTENT.ahk
 #Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
 #Include .\DOT11_SSID.ahk
 #Include .\DOT11_WFD_GROUP_ID.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -70,11 +72,14 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_WFD_GO_INTENT}
      */
-    GroupOwnerIntent {
-        get => NumGet(this, 29, "char")
-        set => NumPut("char", value, this, 29)
+    GroupOwnerIntent{
+        get {
+            if(!this.HasProp("__GroupOwnerIntent"))
+                this.__GroupOwnerIntent := DOT11_WFD_GO_INTENT(this.ptr + 29)
+            return this.__GroupOwnerIntent
+        }
     }
 
     /**
@@ -119,11 +124,14 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bUseGroupID {
-        get => NumGet(this, 88, "char")
-        set => NumPut("char", value, this, 88)
+    bUseGroupID{
+        get {
+            if(!this.HasProp("__bUseGroupID"))
+                this.__bUseGroupID := BOOLEAN(this.ptr + 88)
+            return this.__bUseGroupID
+        }
     }
 
     /**

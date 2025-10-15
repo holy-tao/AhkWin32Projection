@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -31,18 +32,24 @@ class DOT11_PORT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bPortControlled {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    bPortControlled{
+        get {
+            if(!this.HasProp("__bPortControlled"))
+                this.__bPortControlled := BOOL(this.ptr + 12)
+            return this.__bPortControlled
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bPortAuthorized {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    bPortAuthorized{
+        get {
+            if(!this.HasProp("__bPortAuthorized"))
+                this.__bPortAuthorized := BOOL(this.ptr + 16)
+            return this.__bPortAuthorized
+        }
     }
 }

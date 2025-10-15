@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains the security limitations for a job object.
@@ -37,11 +38,14 @@ class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct
      * 
      * If the token was created with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, all processes in the job are limited to that token or a further restricted token. Otherwise, the caller must have the SE_ASSIGNPRIMARYTOKEN_NAME privilege.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    JobToken {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    JobToken{
+        get {
+            if(!this.HasProp("__JobToken"))
+                this.__JobToken := HANDLE(this.ptr + 8)
+            return this.__JobToken
+        }
     }
 
     /**

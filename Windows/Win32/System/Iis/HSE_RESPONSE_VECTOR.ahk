@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -20,19 +21,25 @@ class HSE_RESPONSE_VECTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszStatus {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszStatus{
+        get {
+            if(!this.HasProp("__pszStatus"))
+                this.__pszStatus := PSTR(this.ptr + 8)
+            return this.__pszStatus
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszHeaders {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszHeaders{
+        get {
+            if(!this.HasProp("__pszHeaders"))
+                this.__pszHeaders := PSTR(this.ptr + 16)
+            return this.__pszHeaders
+        }
     }
 
     /**

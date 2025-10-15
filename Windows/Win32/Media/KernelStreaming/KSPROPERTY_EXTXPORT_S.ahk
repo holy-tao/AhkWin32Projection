@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\MEDIUM_INFO.ahk
 #Include .\TRANSPORT_STATE.ahk
 

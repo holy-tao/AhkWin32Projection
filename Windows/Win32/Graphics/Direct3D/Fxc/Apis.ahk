@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
  * @version v4.0.30319
@@ -242,13 +242,13 @@ class Fxc {
 ;@region Methods
     /**
      * Reads a file that is on disk into memory.
-     * @param {Pointer<Char>} pFileName A pointer to a constant null-terminated string that contains  the name of the file to read into memory.
+     * @param {PWSTR} pFileName A pointer to a constant null-terminated string that contains  the name of the file to read into memory.
      * @param {Pointer<ID3DBlob>} ppContents A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that contains information that <b>D3DReadFileToBlob</b> read from the <i>pFileName</i> file. You can use this <b>ID3DBlob</b> interface to access the file information and pass it to other compiler functions.
      * @returns {HRESULT} Returns one of the <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dreadfiletoblob
      */
     static D3DReadFileToBlob(pFileName, ppContents) {
-        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
+        pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
         result := DllCall("D3DCOMPILER_47.dll\D3DReadFileToBlob", "ptr", pFileName, "ptr", ppContents, "int")
         if(result != 0)
@@ -262,10 +262,10 @@ class Fxc {
      * @param {Pointer<ID3DBlob>} pBlob Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that contains the memory blob to write to the file that the <i>pFileName</i> parameter specifies.
-     * @param {Pointer<Char>} pFileName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pFileName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a constant null-terminated string that contains  the name of the file to which to write.
-     * @param {Integer} bOverwrite Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @param {BOOL} bOverwrite Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A Boolean value that specifies whether to overwrite information in the <i>pFileName</i> file. TRUE specifies to overwrite information and FALSE specifies not to overwrite information.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -274,9 +274,9 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dwriteblobtofile
      */
     static D3DWriteBlobToFile(pBlob, pFileName, bOverwrite) {
-        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
+        pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DWriteBlobToFile", "ptr", pBlob, "ptr", pFileName, "int", bOverwrite, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DWriteBlobToFile", "ptr", pBlob, "ptr", pFileName, "ptr", bOverwrite, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -291,7 +291,7 @@ class Fxc {
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Length of <i>pSrcData</i>.
-     * @param {Pointer<Byte>} pSourceName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pSourceName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      *  You can use this parameter for strings that specify  error messages. If not used, set to <b>NULL</b>.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a>*</b>
@@ -303,10 +303,10 @@ class Fxc {
      * 
      * 
      * ```cpp
-     * @param {Pointer<Byte>} pEntrypoint Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pEntrypoint Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the shader entry point function where shader execution begins. When you compile using a fx profile (for example, fx_4_0, fx_5_0, and so on), <b>D3DCompile</b> ignores <i>pEntrypoint</i>. In this case, we recommend that you set <i>pEntrypoint</i> to <b>NULL</b> because it is good programming practice to set a pointer parameter to <b>NULL</b> if the called function will not use it. For all other shader profiles, a valid <i>pEntrypoint</i> is required.
-     * @param {Pointer<Byte>} pTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that specifies the shader target or set of shader features to compile against. The shader target can be shader model 2, shader model 3, shader model 4, or shader model 5. The target can also be an effect type (for example, fx_4_1). For info about the targets that various profiles support, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/specifying-compiler-targets">Specifying Compiler Targets</a>.
      * @param {Integer} Flags1 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -327,9 +327,9 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dcompile
      */
     static D3DCompile(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, pEntrypoint, pTarget, Flags1, Flags2, ppCode, ppErrorMsgs) {
-        pSourceName := pSourceName is String? StrPtr(pSourceName) : pSourceName
-        pEntrypoint := pEntrypoint is String? StrPtr(pEntrypoint) : pEntrypoint
-        pTarget := pTarget is String? StrPtr(pTarget) : pTarget
+        pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
+        pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
+        pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
         result := DllCall("D3DCOMPILER_47.dll\D3DCompile", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr", ppCode, "ptr", ppErrorMsgs, "int")
         if(result != 0)
@@ -346,7 +346,7 @@ class Fxc {
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * The size, in bytes, of the block of memory that <i>pSrcData</i> points to.
-     * @param {Pointer<Byte>} pSourceName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pSourceName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * An optional pointer to a constant null-terminated string containing the name that identifies the source data to use in error messages. If not used, set to <b>NULL</b>.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a>*</b>
@@ -358,10 +358,10 @@ class Fxc {
      * 
      * 
      * ```
-     * @param {Pointer<Byte>} pEntrypoint Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pEntrypoint Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A pointer to a constant null-terminated string that contains  the name of the shader entry point function where shader execution begins. When you compile an effect, <b>D3DCompile2</b> ignores <i>pEntrypoint</i>; we recommend that you set <i>pEntrypoint</i> to <b>NULL</b> because it is good programming practice to set a pointer parameter to <b>NULL</b> if the called function will not use it.
-     * @param {Pointer<Byte>} pTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A pointer to a constant null-terminated string that specifies the shader target or set of shader features to compile against. The shader target can be a shader model (for example, shader model 2, shader model 3, shader model 4, or shader model 5). The target can also be an effect type (for example, fx_4_1). For info about the targets that various profiles support, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/specifying-compiler-targets">Specifying Compiler Targets</a>.
      * @param {Integer} Flags1 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -413,9 +413,9 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dcompile2
      */
     static D3DCompile2(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, pEntrypoint, pTarget, Flags1, Flags2, SecondaryDataFlags, pSecondaryData, SecondaryDataSize, ppCode, ppErrorMsgs) {
-        pSourceName := pSourceName is String? StrPtr(pSourceName) : pSourceName
-        pEntrypoint := pEntrypoint is String? StrPtr(pEntrypoint) : pEntrypoint
-        pTarget := pTarget is String? StrPtr(pTarget) : pTarget
+        pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
+        pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
+        pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
         result := DllCall("D3DCOMPILER_47.dll\D3DCompile2", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "uint", SecondaryDataFlags, "ptr", pSecondaryData, "ptr", SecondaryDataSize, "ptr", ppCode, "ptr", ppErrorMsgs, "int")
         if(result != 0)
@@ -426,14 +426,14 @@ class Fxc {
 
     /**
      * Compiles Microsoft High Level Shader Language (HLSL) code into bytecode for a given target.
-     * @param {Pointer<Char>} pFileName A pointer to a constant null-terminated string that contains  the name of the file that contains the shader code.
+     * @param {PWSTR} pFileName A pointer to a constant null-terminated string that contains  the name of the file that contains the shader code.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines An optional array of <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a> structures that define shader macros. Each macro definition contains a name and a NULL-terminated definition. If not used, set to <b>NULL</b>.
      * @param {Pointer<ID3DInclude>} pInclude An optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a> interface that the compiler uses to handle include files. If you set this parameter to <b>NULL</b> and the shader contains a #include, a compile error occurs. You can pass the <b>D3D_COMPILE_STANDARD_FILE_INCLUDE</b> macro, which is a pointer to a default include handler. This default include handler includes files that are relative to the current directory.
      * 
      * 
      * ```
-     * @param {Pointer<Byte>} pEntrypoint A pointer to a constant null-terminated string that contains  the name of the shader entry point function where shader execution begins. When you compile an effect, <b>D3DCompileFromFile</b> ignores <i>pEntrypoint</i>; we recommend that you set <i>pEntrypoint</i> to <b>NULL</b> because it is good programming practice to set a pointer parameter to <b>NULL</b> if the called function will not use it.
-     * @param {Pointer<Byte>} pTarget A pointer to a constant null-terminated string that specifies the shader target or set of shader features to compile against. The shader target can be a shader model (for example, shader model 2, shader model 3, shader model 4, or shader model 5 and later). The target can also be an effect type (for example, fx_4_1). For info about the targets that various profiles support, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/specifying-compiler-targets">Specifying Compiler Targets</a>.
+     * @param {PSTR} pEntrypoint A pointer to a constant null-terminated string that contains  the name of the shader entry point function where shader execution begins. When you compile an effect, <b>D3DCompileFromFile</b> ignores <i>pEntrypoint</i>; we recommend that you set <i>pEntrypoint</i> to <b>NULL</b> because it is good programming practice to set a pointer parameter to <b>NULL</b> if the called function will not use it.
+     * @param {PSTR} pTarget A pointer to a constant null-terminated string that specifies the shader target or set of shader features to compile against. The shader target can be a shader model (for example, shader model 2, shader model 3, shader model 4, or shader model 5 and later). The target can also be an effect type (for example, fx_4_1). For info about the targets that various profiles support, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/specifying-compiler-targets">Specifying Compiler Targets</a>.
      * @param {Integer} Flags1 A combination of shader <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompile-constants">compile options</a> that are combined by using a bitwise <b>OR</b> operation. The resulting value specifies how the compiler compiles the HLSL code.
      * @param {Integer} Flags2 A combination of effect <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompile-effect-constants">compile options</a> that are combined by using a bitwise <b>OR</b> operation. The resulting value specifies how the compiler compiles the effect. When you compile a shader and not an effect file, <b>D3DCompileFromFile</b> ignores <i>Flags2</i>; we recommend that you set <i>Flags2</i> to zero because it is good programming practice to set a nonpointer parameter to zero if the called function will not use it.
      * @param {Pointer<ID3DBlob>} ppCode A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access the compiled code.
@@ -442,9 +442,9 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dcompilefromfile
      */
     static D3DCompileFromFile(pFileName, pDefines, pInclude, pEntrypoint, pTarget, Flags1, Flags2, ppCode, ppErrorMsgs) {
-        pFileName := pFileName is String? StrPtr(pFileName) : pFileName
-        pEntrypoint := pEntrypoint is String? StrPtr(pEntrypoint) : pEntrypoint
-        pTarget := pTarget is String? StrPtr(pTarget) : pTarget
+        pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
+        pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
+        pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
         result := DllCall("D3DCOMPILER_47.dll\D3DCompileFromFile", "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr", ppCode, "ptr", ppErrorMsgs, "int")
         if(result != 0)
@@ -461,7 +461,7 @@ class Fxc {
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Length of <i>pSrcData</i>.
-     * @param {Pointer<Byte>} pSourceName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} pSourceName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      *  The name of the file that contains the uncompiled HLSL code.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a>*</b>
@@ -485,7 +485,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dpreprocess
      */
     static D3DPreprocess(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, ppCodeText, ppErrorMsgs) {
-        pSourceName := pSourceName is String? StrPtr(pSourceName) : pSourceName
+        pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
 
         result := DllCall("D3DCOMPILER_47.dll\D3DPreprocess", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", ppCodeText, "ptr", ppErrorMsgs, "int")
         if(result != 0)
@@ -581,7 +581,7 @@ class Fxc {
      * 
      * Length of <i>pSrcData</i>.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @param {Pointer<Byte>} szComments Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @param {PSTR} szComments Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The comment string at the top of the shader that identifies the shader constants and variables.
      * @param {Pointer<ID3DBlob>} ppDisassembly Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
@@ -593,7 +593,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3ddisassemble
      */
     static D3DDisassemble(pSrcData, SrcDataSize, Flags, szComments, ppDisassembly) {
-        szComments := szComments is String? StrPtr(szComments) : szComments
+        szComments := szComments is String ? StrPtr(szComments) : szComments
 
         result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", ppDisassembly, "int")
         if(result != 0)
@@ -642,7 +642,7 @@ class Fxc {
      * <td>This flag has no effect in <b>D3DDisassembleRegion</b>. Cycle information comes from the trace; therefore, cycle information is available only in <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3ddisassemble11trace">D3DDisassemble11Trace</a>'s trace disassembly.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szComments A pointer to a constant null-terminated string at the top of the shader that identifies the shader constants and variables.
+     * @param {PSTR} szComments A pointer to a constant null-terminated string at the top of the shader that identifies the shader constants and variables.
      * @param {Pointer} StartByteOffset The number of bytes offset into the compiled shader data where <b>D3DDisassembleRegion</b> starts the disassembly.
      * @param {Pointer} NumInsts The number of instructions to disassemble.
      * @param {Pointer<UIntPtr>} pFinishByteOffset A pointer to a variable that receives the number of bytes offset into the compiled shader data where <b>D3DDisassembleRegion</b> finishes the disassembly.
@@ -651,7 +651,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3ddisassembleregion
      */
     static D3DDisassembleRegion(pSrcData, SrcDataSize, Flags, szComments, StartByteOffset, NumInsts, pFinishByteOffset, ppDisassembly) {
-        szComments := szComments is String? StrPtr(szComments) : szComments
+        szComments := szComments is String ? StrPtr(szComments) : szComments
 
         result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", StartByteOffset, "ptr", NumInsts, "ptr*", pFinishByteOffset, "ptr", ppDisassembly, "int")
         if(result != 0)

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\ENDPOINTADDRESS.ahk
 #Include .\CLAIMLIST.ahk
@@ -37,11 +38,14 @@ class RECIPIENTPOLICY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    tokenType {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    tokenType{
+        get {
+            if(!this.HasProp("__tokenType"))
+                this.__tokenType := PWSTR(this.ptr + 64)
+            return this.__tokenType
+        }
     }
 
     /**
@@ -67,11 +71,14 @@ class RECIPIENTPOLICY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    privacyUrl {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    privacyUrl{
+        get {
+            if(!this.HasProp("__privacyUrl"))
+                this.__privacyUrl := PWSTR(this.ptr + 104)
+            return this.__privacyUrl
+        }
     }
 
     /**

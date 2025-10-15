@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES.ahk
 #Include .\INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES.ahk
 
@@ -30,11 +31,14 @@ class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * A value of **TRUE** indicates that the network adapter driver is capable of generating a hardware cross timestamp. A cross timestamp refers to a set of network interface card (NIC) hardware timestamp and system timestamp(s) obtained very close to one another. A value of **FALSE** indicates that this capability doesn't exist.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    SupportsCrossTimestamp {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    SupportsCrossTimestamp{
+        get {
+            if(!this.HasProp("__SupportsCrossTimestamp"))
+                this.__SupportsCrossTimestamp := BOOLEAN(this.ptr + 8)
+            return this.__SupportsCrossTimestamp
+        }
     }
 
     /**

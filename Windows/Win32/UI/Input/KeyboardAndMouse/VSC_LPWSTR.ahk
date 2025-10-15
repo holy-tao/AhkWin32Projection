@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
@@ -20,10 +21,13 @@ class VSC_LPWSTR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwsz {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwsz{
+        get {
+            if(!this.HasProp("__pwsz"))
+                this.__pwsz := PWSTR(this.ptr + 8)
+            return this.__pwsz
+        }
     }
 }

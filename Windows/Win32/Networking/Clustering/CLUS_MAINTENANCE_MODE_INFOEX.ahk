@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents the extended maintenance mode settings for a storage class resource.
@@ -18,11 +19,14 @@ class CLUS_MAINTENANCE_MODE_INFOEX extends Win32Struct
      *       mode for the identified resource.
      *       When queried, a resource will return <b>True</b> or <b>False</b> to 
      *        indicate the current maintenance mode state of the resource.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    InMaintenance {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    InMaintenance{
+        get {
+            if(!this.HasProp("__InMaintenance"))
+                this.__InMaintenance := BOOL(this.ptr + 0)
+            return this.__InMaintenance
+        }
     }
 
     /**

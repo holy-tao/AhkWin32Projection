@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -20,11 +21,14 @@ class ALLOC_CONSOLE_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    useShowWindow {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    useShowWindow{
+        get {
+            if(!this.HasProp("__useShowWindow"))
+                this.__useShowWindow := BOOL(this.ptr + 4)
+            return this.__useShowWindow
+        }
     }
 
     /**

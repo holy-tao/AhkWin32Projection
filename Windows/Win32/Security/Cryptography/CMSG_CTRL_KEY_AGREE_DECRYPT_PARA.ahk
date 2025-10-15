@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NCRYPT_KEY_HANDLE.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 
 /**
@@ -32,11 +33,14 @@ class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {NCRYPT_KEY_HANDLE}
      */
-    hNCryptKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hNCryptKey{
+        get {
+            if(!this.HasProp("__hNCryptKey"))
+                this.__hNCryptKey := NCRYPT_KEY_HANDLE(this.ptr + 8)
+            return this.__hNCryptKey
+        }
     }
 
     /**

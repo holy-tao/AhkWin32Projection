@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Provides detail about whether the adapter supports creating heaps from existing system memory.
@@ -20,10 +21,13 @@ class D3D12_FEATURE_DATA_EXISTING_HEAPS extends Win32Struct
 
     /**
      * <b>TRUE</b> if the adapter can create a heap from existing system memory. Otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Supported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    Supported{
+        get {
+            if(!this.HasProp("__Supported"))
+                this.__Supported := BOOL(this.ptr + 0)
+            return this.__Supported
+        }
     }
 }

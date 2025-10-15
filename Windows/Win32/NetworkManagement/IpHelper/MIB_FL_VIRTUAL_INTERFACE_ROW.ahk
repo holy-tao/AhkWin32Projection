@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -83,11 +84,14 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    AllowLocalNd {
-        get => NumGet(this, 68, "char")
-        set => NumPut("char", value, this, 68)
+    AllowLocalNd{
+        get {
+            if(!this.HasProp("__AllowLocalNd"))
+                this.__AllowLocalNd := BOOLEAN(this.ptr + 68)
+            return this.__AllowLocalNd
+        }
     }
 
     /**

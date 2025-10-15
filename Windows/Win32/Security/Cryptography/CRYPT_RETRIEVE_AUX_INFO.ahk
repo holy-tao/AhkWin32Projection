@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains optional information to pass to the CryptRetrieveObjectByUrl function.
@@ -70,11 +72,14 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * A pointer to a string that contains a prefix for a cached file name. If not <b>NULL</b>, the specified prefix string is concatenated to the front of the cached file name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszCacheFileNamePrefix {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pwszCacheFileNamePrefix{
+        get {
+            if(!this.HasProp("__pwszCacheFileNamePrefix"))
+                this.__pwszCacheFileNamePrefix := PWSTR(this.ptr + 48)
+            return this.__pwszCacheFileNamePrefix
+        }
     }
 
     /**
@@ -88,11 +93,14 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * A value that indicates whether <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptretrieveobjectbyurla">CryptRetrieveObjectByUrl</a> was called with <b>CRYPT_PROXY_CACHE_RETRIEVAL</b> set in <i>dwRetrievalFlags</i> and a proxy cache was not explicitly bypassed for the retrieval. This flag is not explicitly cleared and only applies to HTTP URL retrievals.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fProxyCacheRetrieval {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    fProxyCacheRetrieval{
+        get {
+            if(!this.HasProp("__fProxyCacheRetrieval"))
+                this.__fProxyCacheRetrieval := BOOL(this.ptr + 64)
+            return this.__fProxyCacheRetrieval
+        }
     }
 
     /**
@@ -106,7 +114,7 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppwszErrorResponseHeaders {
         get => NumGet(this, 72, "ptr")

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -68,35 +70,47 @@ class SUBSCRIPTIONINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bMailNotification {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    bMailNotification{
+        get {
+            if(!this.HasProp("__bMailNotification"))
+                this.__bMailNotification := BOOL(this.ptr + 40)
+            return this.__bMailNotification
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bGleam {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    bGleam{
+        get {
+            if(!this.HasProp("__bGleam"))
+                this.__bGleam := BOOL(this.ptr + 44)
+            return this.__bGleam
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bChangesOnly {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    bChangesOnly{
+        get {
+            if(!this.HasProp("__bChangesOnly"))
+                this.__bChangesOnly := BOOL(this.ptr + 48)
+            return this.__bChangesOnly
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bNeedPassword {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    bNeedPassword{
+        get {
+            if(!this.HasProp("__bNeedPassword"))
+                this.__bNeedPassword := BOOL(this.ptr + 52)
+            return this.__bNeedPassword
+        }
     }
 
     /**
@@ -108,27 +122,36 @@ class SUBSCRIPTIONINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrUserName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    bstrUserName{
+        get {
+            if(!this.HasProp("__bstrUserName"))
+                this.__bstrUserName := BSTR(this.ptr + 64)
+            return this.__bstrUserName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrPassword {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    bstrPassword{
+        get {
+            if(!this.HasProp("__bstrPassword"))
+                this.__bstrPassword := BSTR(this.ptr + 72)
+            return this.__bstrPassword
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrFriendlyName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    bstrFriendlyName{
+        get {
+            if(!this.HasProp("__bstrFriendlyName"))
+                this.__bstrFriendlyName := BSTR(this.ptr + 80)
+            return this.__bstrFriendlyName
+        }
     }
 
     /**

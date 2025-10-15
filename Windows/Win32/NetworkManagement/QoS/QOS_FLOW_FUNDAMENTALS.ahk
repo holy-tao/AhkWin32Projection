@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The QOS_FLOW_FUNDAMENTALS structure contains basic information about a flow.
@@ -15,11 +16,14 @@ class QOS_FLOW_FUNDAMENTALS extends Win32Struct
 
     /**
      * This Boolean value is set to <b>TRUE</b> if the <b>BottleneckBandwidth</b> field contains a value.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    BottleneckBandwidthSet {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    BottleneckBandwidthSet{
+        get {
+            if(!this.HasProp("__BottleneckBandwidthSet"))
+                this.__BottleneckBandwidthSet := BOOL(this.ptr + 0)
+            return this.__BottleneckBandwidthSet
+        }
     }
 
     /**
@@ -33,11 +37,14 @@ class QOS_FLOW_FUNDAMENTALS extends Win32Struct
 
     /**
      * Set to <b>TRUE</b> if the <b>AvailableBandwidth</b> field contains a value.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    AvailableBandwidthSet {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    AvailableBandwidthSet{
+        get {
+            if(!this.HasProp("__AvailableBandwidthSet"))
+                this.__AvailableBandwidthSet := BOOL(this.ptr + 16)
+            return this.__AvailableBandwidthSet
+        }
     }
 
     /**
@@ -51,11 +58,14 @@ class QOS_FLOW_FUNDAMENTALS extends Win32Struct
 
     /**
      * Set to <b>TRUE</b> if the <b>RTT</b> field contains a value.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    RTTSet {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    RTTSet{
+        get {
+            if(!this.HasProp("__RTTSet"))
+                this.__RTTSet := BOOL(this.ptr + 32)
+            return this.__RTTSet
+        }
     }
 
     /**

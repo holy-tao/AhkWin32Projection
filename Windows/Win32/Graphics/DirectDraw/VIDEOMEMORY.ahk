@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 
 /**
  * The VIDEOMEMORY structure allows the driver to manage its display memory into heaps.
@@ -60,20 +61,26 @@ class VIDEOMEMORY extends Win32Struct
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550286(v=vs.85)">DDSCAPS</a> structure in which the driver returns the capabilities for which this section of memory cannot be used.
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    ddsCaps {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    ddsCaps{
+        get {
+            if(!this.HasProp("__ddsCaps"))
+                this.__ddsCaps := DDSCAPS(this.ptr + 28)
+            return this.__ddsCaps
+        }
     }
 
     /**
      * Specifies a DDSCAPS structure in which the driver returns the capabilities for which this chunk of memory cannot be used when no other memory is found on the first pass.
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    ddsCapsAlt {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    ddsCapsAlt{
+        get {
+            if(!this.HasProp("__ddsCapsAlt"))
+                this.__ddsCapsAlt := DDSCAPS(this.ptr + 32)
+            return this.__ddsCapsAlt
+        }
     }
 
     /**

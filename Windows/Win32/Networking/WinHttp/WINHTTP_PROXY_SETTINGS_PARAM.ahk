@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
@@ -20,18 +21,24 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszConnectionName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pcwszConnectionName{
+        get {
+            if(!this.HasProp("__pcwszConnectionName"))
+                this.__pcwszConnectionName := PWSTR(this.ptr + 8)
+            return this.__pcwszConnectionName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszProbeHost {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pcwszProbeHost{
+        get {
+            if(!this.HasProp("__pcwszProbeHost"))
+                this.__pcwszProbeHost := PWSTR(this.ptr + 16)
+            return this.__pcwszProbeHost
+        }
     }
 }

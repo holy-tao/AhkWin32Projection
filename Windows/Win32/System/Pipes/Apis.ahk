@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.System.Pipes
  * @version v4.0.30319
@@ -32,8 +33,8 @@ class Pipes {
 ;@region Methods
     /**
      * Creates an anonymous pipe, and returns handles to the read and write ends of the pipe.
-     * @param {Pointer<Void>} hReadPipe A pointer to a variable that receives the read handle for the pipe.
-     * @param {Pointer<Void>} hWritePipe A pointer to a variable that receives the write handle for the pipe.
+     * @param {Pointer<HANDLE>} hReadPipe A pointer to a variable that receives the read handle for the pipe.
+     * @param {Pointer<HANDLE>} hWritePipe A pointer to a variable that receives the write handle for the pipe.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpPipeAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that determines whether the returned handle can be inherited by child processes. If <i>lpPipeAttributes</i> is <b>NULL</b>, the handle cannot be inherited. 
      * 
@@ -42,7 +43,7 @@ class Pipes {
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new pipe. If <i>lpPipeAttributes</i> is <b>NULL</b>, the pipe gets a default security descriptor. The ACLs in the default security descriptor for a pipe come from the primary or impersonation token of the creator.
      * @param {Integer} nSize The size of the buffer for the pipe, in bytes. The size is only a suggestion; the system uses the value to calculate an appropriate buffering mechanism. If this parameter is zero, the system uses the default buffer size.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -52,7 +53,7 @@ class Pipes {
     static CreatePipe(hReadPipe, hWritePipe, lpPipeAttributes, nSize) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreatePipe", "ptr", hReadPipe, "ptr", hWritePipe, "ptr", lpPipeAttributes, "uint", nSize, "int")
+        result := DllCall("KERNEL32.dll\CreatePipe", "ptr", hReadPipe, "ptr", hWritePipe, "ptr", lpPipeAttributes, "uint", nSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -61,7 +62,7 @@ class Pipes {
 
     /**
      * Enables a named pipe server process to wait for a client process to connect to an instance of a named pipe.
-     * @param {Pointer<Void>} hNamedPipe A handle to the server end of a named pipe instance. This handle is returned by the 
+     * @param {HANDLE} hNamedPipe A handle to the server end of a named pipe instance. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. 
@@ -75,7 +76,7 @@ class Pipes {
      * <a href="https://docs.microsoft.com/windows/win32/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function).
      * 
      * If <i>hNamedPipe</i> was not opened with FILE_FLAG_OVERLAPPED, the function does not return until a client is connected or an error occurs. Successful synchronous operations result in the function returning a nonzero value if a client connects after the function is called.
-     * @returns {Integer} If the operation is synchronous, <b>ConnectNamedPipe</b> does not return until the operation has completed. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call 
+     * @returns {BOOL} If the operation is synchronous, <b>ConnectNamedPipe</b> does not return until the operation has completed. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the operation is asynchronous, <b>ConnectNamedPipe</b> returns immediately. If the operation is still pending, the return value is zero and <a href="/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_IO_PENDING. (You can use the <a href="/windows/win32/api/winbase/nf-winbase-hasoverlappediocompleted">HasOverlappedIoCompleted</a> macro to determine when the operation has finished.) If the function fails, the return value is zero and 
@@ -88,9 +89,11 @@ class Pipes {
      * @since windows5.0
      */
     static ConnectNamedPipe(hNamedPipe, lpOverlapped) {
+        hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ConnectNamedPipe", "ptr", hNamedPipe, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\ConnectNamedPipe", "ptr", hNamedPipe, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -99,9 +102,9 @@ class Pipes {
 
     /**
      * Disconnects the server end of a named pipe instance from a client process.
-     * @param {Pointer<Void>} hNamedPipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {HANDLE} hNamedPipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -109,9 +112,11 @@ class Pipes {
      * @since windows5.0
      */
     static DisconnectNamedPipe(hNamedPipe) {
+        hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DisconnectNamedPipe", "ptr", hNamedPipe, "int")
+        result := DllCall("KERNEL32.dll\DisconnectNamedPipe", "ptr", hNamedPipe, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -120,7 +125,7 @@ class Pipes {
 
     /**
      * Sets the read mode and the blocking mode of the specified named pipe. If the specified handle is to the client end of a named pipe and if the named pipe server process is on a remote computer, the function can also be used to control local buffering.
-     * @param {Pointer<Void>} hNamedPipe A handle to the named pipe instance. This parameter can be a handle to the server end of the pipe, as returned by the 
+     * @param {HANDLE} hNamedPipe A handle to the named pipe instance. This parameter can be a handle to the server end of the pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function, or to the client end of the pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function. The handle must have GENERIC_WRITE access to the named pipe for a write-only or read/write pipe, or it must have GENERIC_READ and FILE_WRITE_ATTRIBUTES access for a read-only pipe. 
      * 
@@ -200,7 +205,7 @@ class Pipes {
      * @param {Pointer<UInt32>} lpMaxCollectionCount The maximum number of bytes collected on the client computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same machine. This parameter is ignored if the client process specifies the FILE_FLAG_WRITE_THROUGH flag in the <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function when the handle was created. This parameter can be <b>NULL</b> if the collection count is not being set.
      * @param {Pointer<UInt32>} lpCollectDataTimeout The maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter is ignored if the client process specified the FILE_FLAG_WRITE_THROUGH flag in the 
      * <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function when the handle was created. This parameter can be <b>NULL</b> if the collection count is not being set.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -208,9 +213,11 @@ class Pipes {
      * @since windows5.0
      */
     static SetNamedPipeHandleState(hNamedPipe, lpMode, lpMaxCollectionCount, lpCollectDataTimeout) {
+        hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetNamedPipeHandleState", "ptr", hNamedPipe, "uint*", lpMode, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "int")
+        result := DllCall("KERNEL32.dll\SetNamedPipeHandleState", "ptr", hNamedPipe, "uint*", lpMode, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -219,7 +226,7 @@ class Pipes {
 
     /**
      * Copies data from a named or anonymous pipe into a buffer without removing it from the pipe.
-     * @param {Pointer<Void>} hNamedPipe A handle to the pipe. This parameter can be a handle to a named pipe instance, as returned by the 
+     * @param {HANDLE} hNamedPipe A handle to the pipe. This parameter can be a handle to a named pipe instance, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> or 
      * <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function, or it can be a handle to the read end of an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function. The handle must have GENERIC_READ access to the pipe.
@@ -228,7 +235,7 @@ class Pipes {
      * @param {Pointer<UInt32>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
      * @param {Pointer<UInt32>} lpTotalBytesAvail A pointer to a variable that receives the total number of bytes available to be read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
      * @param {Pointer<UInt32>} lpBytesLeftThisMessage A pointer to a variable that receives the number of bytes remaining in this message. This parameter will be zero for byte-type named pipes or for anonymous pipes. This parameter can be <b>NULL</b> if no data is to be read.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -236,9 +243,11 @@ class Pipes {
      * @since windows5.0
      */
     static PeekNamedPipe(hNamedPipe, lpBuffer, nBufferSize, lpBytesRead, lpTotalBytesAvail, lpBytesLeftThisMessage) {
+        hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PeekNamedPipe", "ptr", hNamedPipe, "ptr", lpBuffer, "uint", nBufferSize, "uint*", lpBytesRead, "uint*", lpTotalBytesAvail, "uint*", lpBytesLeftThisMessage, "int")
+        result := DllCall("KERNEL32.dll\PeekNamedPipe", "ptr", hNamedPipe, "ptr", lpBuffer, "uint", nBufferSize, "uint*", lpBytesRead, "uint*", lpTotalBytesAvail, "uint*", lpBytesLeftThisMessage, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -247,7 +256,7 @@ class Pipes {
 
     /**
      * Combines the functions that write a message to and read a message from the specified named pipe into a single network operation.
-     * @param {Pointer<Void>} hNamedPipe A handle to the named pipe returned by the 
+     * @param {HANDLE} hNamedPipe A handle to the named pipe returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> or 
      * <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function. 
      * 
@@ -287,7 +296,7 @@ class Pipes {
      * 
      * If <i>hNamedPipe</i> was not opened with FILE_FLAG_OVERLAPPED, 
      * <b>TransactNamedPipe</b> does not return until the operation is complete.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -299,9 +308,11 @@ class Pipes {
      * @since windows5.0
      */
     static TransactNamedPipe(hNamedPipe, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, lpOverlapped) {
+        hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TransactNamedPipe", "ptr", hNamedPipe, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\TransactNamedPipe", "ptr", hNamedPipe, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -310,7 +321,7 @@ class Pipes {
 
     /**
      * Creates an instance of a named pipe and returns a handle for subsequent pipe operations.
-     * @param {Pointer<Char>} lpName The unique pipe name. This string must have the following form:
+     * @param {PWSTR} lpName The unique pipe name. This string must have the following form:
      * 
      * \\\\.\\pipe&#92;<i>pipename</i>
      * 
@@ -596,58 +607,60 @@ class Pipes {
      * A value of zero will result in a default time-out of 50 milliseconds.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new named pipe and determines whether child processes can inherit the returned handle. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the named pipe gets a default security descriptor and the handle cannot be inherited. The ACLs in the default security descriptor for a named pipe grant full control to the LocalSystem account, administrators, and the creator owner. They also grant read access to members of the Everyone group and the anonymous account.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the server end of a named pipe instance.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the server end of a named pipe instance.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//namedpipeapi/nf-namedpipeapi-createnamedpipew
      */
     static CreateNamedPipeW(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         result := DllCall("KERNEL32.dll\CreateNamedPipeW", "ptr", lpName, "uint", dwOpenMode, "uint", dwPipeMode, "uint", nMaxInstances, "uint", nOutBufferSize, "uint", nInBufferSize, "uint", nDefaultTimeOut, "ptr", lpSecurityAttributes, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Waits until either a time-out interval elapses or an instance of the specified named pipe is available for connection (that is, the pipe's server process has a pending ConnectNamedPipe operation on the pipe).
-     * @param {Pointer<Char>} lpNamedPipeName The name of the named pipe. The string must include the name of the computer on which the server process is executing. A period may be used for the <i>servername</i> if the pipe is local. The following pipe name format is used: 
+     * @param {PWSTR} lpNamedPipeName The name of the named pipe. The string must include the name of the computer on which the server process is executing. A period may be used for the <i>servername</i> if the pipe is local. The following pipe name format is used: 
      * 
      * &#92;&#92;<i>servername</i>\pipe&#92;<i>pipename</i>
      * @param {Integer} nTimeOut 
-     * @returns {Integer} If an instance of the pipe is available before the time-out interval elapses, the return value is nonzero.
+     * @returns {BOOL} If an instance of the pipe is available before the time-out interval elapses, the return value is nonzero.
      * 
      * If an instance of the pipe is not available before the time-out interval elapses, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//namedpipeapi/nf-namedpipeapi-waitnamedpipew
      */
     static WaitNamedPipeW(lpNamedPipeName, nTimeOut) {
-        lpNamedPipeName := lpNamedPipeName is String? StrPtr(lpNamedPipeName) : lpNamedPipeName
+        lpNamedPipeName := lpNamedPipeName is String ? StrPtr(lpNamedPipeName) : lpNamedPipeName
 
-        result := DllCall("KERNEL32.dll\WaitNamedPipeW", "ptr", lpNamedPipeName, "uint", nTimeOut, "int")
+        result := DllCall("KERNEL32.dll\WaitNamedPipeW", "ptr", lpNamedPipeName, "uint", nTimeOut, "ptr")
         return result
     }
 
     /**
      * Retrieves the client computer name for the specified named pipe.
-     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-createnamedpipew">CreateNamedPipe</a> function.
      * @param {Pointer} ClientComputerName The computer name.
      * @param {Integer} ClientComputerNameLength The size of the <i>ClientComputerName</i> buffer, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//namedpipeapi/nf-namedpipeapi-getnamedpipeclientcomputernamew
      */
     static GetNamedPipeClientComputerNameW(Pipe, ClientComputerName, ClientComputerNameLength) {
-        result := DllCall("KERNEL32.dll\GetNamedPipeClientComputerNameW", "ptr", Pipe, "ptr", ClientComputerName, "uint", ClientComputerNameLength, "int")
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
+        result := DllCall("KERNEL32.dll\GetNamedPipeClientComputerNameW", "ptr", Pipe, "ptr", ClientComputerName, "uint", ClientComputerNameLength, "ptr")
         return result
     }
 
     /**
      * Impersonates a named-pipe client application.
-     * @param {Pointer<Void>} hNamedPipe A handle to a named pipe.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} hNamedPipe A handle to a named pipe.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -655,9 +668,11 @@ class Pipes {
      * @since windows5.1.2600
      */
     static ImpersonateNamedPipeClient(hNamedPipe) {
+        hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ImpersonateNamedPipeClient", "ptr", hNamedPipe, "int")
+        result := DllCall("ADVAPI32.dll\ImpersonateNamedPipeClient", "ptr", hNamedPipe, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -666,7 +681,7 @@ class Pipes {
 
     /**
      * Retrieves information about the specified named pipe.
-     * @param {Pointer<Void>} hNamedPipe A handle to the named pipe instance. The handle must have GENERIC_READ access to the named pipe for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe. 
+     * @param {HANDLE} hNamedPipe A handle to the named pipe instance. The handle must have GENERIC_READ access to the named pipe for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe. 
      * 
      * 
      * 
@@ -677,7 +692,7 @@ class Pipes {
      * @param {Pointer<UInt32>} lpOutBufferSize A pointer to a variable that receives the size of the buffer for outgoing data, in bytes. If the buffer size is zero, the buffer is allocated as needed. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<UInt32>} lpInBufferSize A pointer to a variable that receives the size of the buffer for incoming data, in bytes. If the buffer size is zero, the buffer is allocated as needed. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<UInt32>} lpMaxInstances A pointer to a variable that receives the maximum number of pipe instances that can be created. If the variable is set to PIPE_UNLIMITED_INSTANCES (255), the number of pipe instances that can be created is limited only by the availability of system resources. This parameter can be <b>NULL</b> if this information is not required.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -685,9 +700,11 @@ class Pipes {
      * @since windows5.0
      */
     static GetNamedPipeInfo(hNamedPipe, lpFlags, lpOutBufferSize, lpInBufferSize, lpMaxInstances) {
+        hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeInfo", "ptr", hNamedPipe, "uint*", lpFlags, "uint*", lpOutBufferSize, "uint*", lpInBufferSize, "uint*", lpMaxInstances, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeInfo", "ptr", hNamedPipe, "uint*", lpFlags, "uint*", lpOutBufferSize, "uint*", lpInBufferSize, "uint*", lpMaxInstances, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -696,7 +713,7 @@ class Pipes {
 
     /**
      * Retrieves information about a specified named pipe.
-     * @param {Pointer<Void>} hNamedPipe A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe.  
+     * @param {HANDLE} hNamedPipe A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe.  
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
@@ -704,26 +721,27 @@ class Pipes {
      * @param {Pointer<UInt32>} lpCurInstances A pointer to a variable that receives the number of current pipe instances. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<UInt32>} lpMaxCollectionCount A pointer to a variable that receives the maximum number of bytes to be collected on the client's computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<UInt32>} lpCollectDataTimeout A pointer to a variable that receives the maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
-     * @param {Pointer<Char>} lpUserName A pointer to a buffer that receives the user name string associated with the client application. The server can only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access.
+     * @param {PWSTR} lpUserName A pointer to a buffer that receives the user name string associated with the client application. The server can only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access.
      * 
      * This parameter must be <b>NULL</b> if the specified pipe handle is to the client end of a named pipe. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Integer} nMaxUserNameSize The size of the buffer specified by the <i>lpUserName</i> parameter, in <b>TCHARs</b>. This parameter is ignored if <i>lpUserName</i> is <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//namedpipeapi/nf-namedpipeapi-getnamedpipehandlestatew
      */
     static GetNamedPipeHandleStateW(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
-        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+        lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
+        hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateW", "ptr", hNamedPipe, "uint*", lpState, "uint*", lpCurInstances, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateW", "ptr", hNamedPipe, "uint*", lpState, "uint*", lpCurInstances, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "ptr")
         return result
     }
 
     /**
      * Connects to a message-type pipe (and waits if an instance of the pipe is not available), writes to and reads from the pipe, and then closes the pipe.
-     * @param {Pointer<Char>} lpNamedPipeName The pipe name.
+     * @param {PWSTR} lpNamedPipeName The pipe name.
      * @param {Pointer} lpInBuffer The data to be written to the pipe.
      * @param {Integer} nInBufferSize The size of the write buffer, in bytes.
      * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
@@ -771,7 +789,7 @@ class Pipes {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -780,15 +798,15 @@ class Pipes {
      * @see https://docs.microsoft.com/windows/win32/api//namedpipeapi/nf-namedpipeapi-callnamedpipew
      */
     static CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
-        lpNamedPipeName := lpNamedPipeName is String? StrPtr(lpNamedPipeName) : lpNamedPipeName
+        lpNamedPipeName := lpNamedPipeName is String ? StrPtr(lpNamedPipeName) : lpNamedPipeName
 
-        result := DllCall("KERNEL32.dll\CallNamedPipeW", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "uint", nTimeOut, "int")
+        result := DllCall("KERNEL32.dll\CallNamedPipeW", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "uint", nTimeOut, "ptr")
         return result
     }
 
     /**
      * Creates an instance of a named pipe and returns a handle for subsequent pipe operations.
-     * @param {Pointer<Byte>} lpName The unique pipe name. This string must have the following form:
+     * @param {PSTR} lpName The unique pipe name. This string must have the following form:
      * 
      * \\\\.\\pipe&#92;<i>pipename</i>
      * 
@@ -1083,7 +1101,7 @@ class Pipes {
      * A value of zero will result in a default time-out of 50 milliseconds.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes A pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a security descriptor for the new named pipe and determines whether child processes can inherit the returned handle. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the named pipe gets a default security descriptor and the handle cannot be inherited. The ACLs in the default security descriptor for a named pipe grant full control to the LocalSystem account, administrators, and the creator owner. They also grant read access to members of the Everyone group and the anonymous account.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the server end of a named pipe instance.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the server end of a named pipe instance.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1091,7 +1109,7 @@ class Pipes {
      * @since windows5.0
      */
     static CreateNamedPipeA(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -1099,12 +1117,12 @@ class Pipes {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Retrieves information about a specified named pipe.
-     * @param {Pointer<Void>} hNamedPipe A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe. 
+     * @param {HANDLE} hNamedPipe A handle to the named pipe for which information is wanted. The handle must have GENERIC_READ access for a read-only or read/write pipe, or it must have GENERIC_WRITE and FILE_READ_ATTRIBUTES access for a write-only pipe. 
      * 
      * 
      * 
@@ -1115,14 +1133,14 @@ class Pipes {
      * @param {Pointer<UInt32>} lpCurInstances A pointer to a variable that receives the number of current pipe instances. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<UInt32>} lpMaxCollectionCount A pointer to a variable that receives the maximum number of bytes to be collected on the client's computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<UInt32>} lpCollectDataTimeout A pointer to a variable that receives the maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
-     * @param {Pointer<Byte>} lpUserName A pointer to a buffer that receives the user name string associated with the client application. The server can only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access. 
+     * @param {PSTR} lpUserName A pointer to a buffer that receives the user name string associated with the client application. The server can only retrieve this information if the client opened the pipe with SECURITY_IMPERSONATION access. 
      * 
      * 
      * 
      * 
      * This parameter must be <b>NULL</b> if the specified pipe handle is to the client end of a named pipe. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Integer} nMaxUserNameSize The size of the buffer specified by the <i>lpUserName</i> parameter, in <b>TCHARs</b>. This parameter is ignored if <i>lpUserName</i> is <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1130,11 +1148,12 @@ class Pipes {
      * @since windows5.0
      */
     static GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
-        lpUserName := lpUserName is String? StrPtr(lpUserName) : lpUserName
+        lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
+        hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateA", "ptr", hNamedPipe, "uint*", lpState, "uint*", lpCurInstances, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateA", "ptr", hNamedPipe, "uint*", lpState, "uint*", lpCurInstances, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1143,7 +1162,7 @@ class Pipes {
 
     /**
      * Connects to a message-type pipe (and waits if an instance of the pipe is not available), writes to and reads from the pipe, and then closes the pipe.
-     * @param {Pointer<Byte>} lpNamedPipeName The pipe name.
+     * @param {PSTR} lpNamedPipeName The pipe name.
      * @param {Pointer} lpInBuffer The data to be written to the pipe.
      * @param {Integer} nInBufferSize The size of the write buffer, in bytes.
      * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
@@ -1191,7 +1210,7 @@ class Pipes {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1203,11 +1222,11 @@ class Pipes {
      * @since windows5.0
      */
     static CallNamedPipeA(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
-        lpNamedPipeName := lpNamedPipeName is String? StrPtr(lpNamedPipeName) : lpNamedPipeName
+        lpNamedPipeName := lpNamedPipeName is String ? StrPtr(lpNamedPipeName) : lpNamedPipeName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CallNamedPipeA", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "uint", nTimeOut, "int")
+        result := DllCall("KERNEL32.dll\CallNamedPipeA", "ptr", lpNamedPipeName, "ptr", lpInBuffer, "uint", nInBufferSize, "ptr", lpOutBuffer, "uint", nOutBufferSize, "uint*", lpBytesRead, "uint", nTimeOut, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1216,14 +1235,14 @@ class Pipes {
 
     /**
      * Waits until either a time-out interval elapses or an instance of the specified named pipe is available for connection (that is, the pipe's server process has a pending ConnectNamedPipe operation on the pipe).
-     * @param {Pointer<Byte>} lpNamedPipeName The name of the named pipe. The string must include the name of the computer on which the server process is executing. A period may be used for the <i>servername</i> if the pipe is local. The following pipe name format is used: 
+     * @param {PSTR} lpNamedPipeName The name of the named pipe. The string must include the name of the computer on which the server process is executing. A period may be used for the <i>servername</i> if the pipe is local. The following pipe name format is used: 
      * 
      * 
      * 
      * 
      * &#92;&#92;<i>servername</i>\pipe&#92;<i>pipename</i>
      * @param {Integer} nTimeOut 
-     * @returns {Integer} If an instance of the pipe is available before the time-out interval elapses, the return value is nonzero.
+     * @returns {BOOL} If an instance of the pipe is available before the time-out interval elapses, the return value is nonzero.
      * 
      * If an instance of the pipe is not available before the time-out interval elapses, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1231,11 +1250,11 @@ class Pipes {
      * @since windows5.0
      */
     static WaitNamedPipeA(lpNamedPipeName, nTimeOut) {
-        lpNamedPipeName := lpNamedPipeName is String? StrPtr(lpNamedPipeName) : lpNamedPipeName
+        lpNamedPipeName := lpNamedPipeName is String ? StrPtr(lpNamedPipeName) : lpNamedPipeName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitNamedPipeA", "ptr", lpNamedPipeName, "uint", nTimeOut, "int")
+        result := DllCall("KERNEL32.dll\WaitNamedPipeA", "ptr", lpNamedPipeName, "uint", nTimeOut, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1244,11 +1263,11 @@ class Pipes {
 
     /**
      * Retrieves the client computer name for the specified named pipe.
-     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer} ClientComputerName The computer name.
      * @param {Integer} ClientComputerNameLength The size of the <i>ClientComputerName</i> buffer, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -1256,9 +1275,11 @@ class Pipes {
      * @since windows6.0.6000
      */
     static GetNamedPipeClientComputerNameA(Pipe, ClientComputerName, ClientComputerNameLength) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeClientComputerNameA", "ptr", Pipe, "ptr", ClientComputerName, "uint", ClientComputerNameLength, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeClientComputerNameA", "ptr", Pipe, "ptr", ClientComputerName, "uint", ClientComputerNameLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1267,10 +1288,10 @@ class Pipes {
 
     /**
      * Retrieves the client process identifier for the specified named pipe.
-     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer<UInt32>} ClientProcessId The process identifier.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -1278,9 +1299,11 @@ class Pipes {
      * @since windows6.0.6000
      */
     static GetNamedPipeClientProcessId(Pipe, ClientProcessId) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeClientProcessId", "ptr", Pipe, "uint*", ClientProcessId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeClientProcessId", "ptr", Pipe, "uint*", ClientProcessId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1289,10 +1312,10 @@ class Pipes {
 
     /**
      * Retrieves the client session identifier for the specified named pipe.
-     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer<UInt32>} ClientSessionId The session identifier.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -1300,9 +1323,11 @@ class Pipes {
      * @since windows6.0.6000
      */
     static GetNamedPipeClientSessionId(Pipe, ClientSessionId) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeClientSessionId", "ptr", Pipe, "uint*", ClientSessionId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeClientSessionId", "ptr", Pipe, "uint*", ClientSessionId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1311,10 +1336,10 @@ class Pipes {
 
     /**
      * Retrieves the server process identifier for the specified named pipe.
-     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer<UInt32>} ServerProcessId The process identifier.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -1322,9 +1347,11 @@ class Pipes {
      * @since windows6.0.6000
      */
     static GetNamedPipeServerProcessId(Pipe, ServerProcessId) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeServerProcessId", "ptr", Pipe, "uint*", ServerProcessId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeServerProcessId", "ptr", Pipe, "uint*", ServerProcessId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1333,10 +1360,10 @@ class Pipes {
 
     /**
      * Retrieves the server session identifier for the specified named pipe.
-     * @param {Pointer<Void>} Pipe A handle to an instance of a named pipe. This handle must be created by the 
+     * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
      * @param {Pointer<UInt32>} ServerSessionId The session identifier.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -1344,9 +1371,11 @@ class Pipes {
      * @since windows6.0.6000
      */
     static GetNamedPipeServerSessionId(Pipe, ServerSessionId) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNamedPipeServerSessionId", "ptr", Pipe, "uint*", ServerSessionId, "int")
+        result := DllCall("KERNEL32.dll\GetNamedPipeServerSessionId", "ptr", Pipe, "uint*", ServerSessionId, "ptr")
         if(A_LastError)
             throw OSError()
 

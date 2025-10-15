@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\PSID.ahk
 
 /**
  * The USER_MODALS_INFO_2 structure contains the Security Account Manager (SAM) domain name and identifier.
@@ -15,20 +17,26 @@ class USER_MODALS_INFO_2 extends Win32Struct
 
     /**
      * Specifies the name of the Security Account Manager (SAM) domain. For a domain controller, this is the name of the domain that the controller is a member of. For workstations, this is the name of the computer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usrmod2_domain_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    usrmod2_domain_name{
+        get {
+            if(!this.HasProp("__usrmod2_domain_name"))
+                this.__usrmod2_domain_name := PWSTR(this.ptr + 0)
+            return this.__usrmod2_domain_name
+        }
     }
 
     /**
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the security identifier (SID) of the domain named by the <b>usrmod2_domain_name</b> member.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    usrmod2_domain_id {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    usrmod2_domain_id{
+        get {
+            if(!this.HasProp("__usrmod2_domain_id"))
+                this.__usrmod2_domain_id := PSID(this.ptr + 8)
+            return this.__usrmod2_domain_id
+        }
     }
 }

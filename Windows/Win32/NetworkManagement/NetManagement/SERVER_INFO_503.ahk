@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SERVER_INFO_503 structure is obsolete. The structure contains information about the specified server.
@@ -158,66 +160,84 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server maps a request to a normal open request with shared-read access when the server receives a compatibility open request with read access. Mapping such requests allows several MS-DOS computers to open a single file for read access. This member is unused.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv503_enablesoftcompat {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    sv503_enablesoftcompat{
+        get {
+            if(!this.HasProp("__sv503_enablesoftcompat"))
+                this.__sv503_enablesoftcompat := BOOL(this.ptr + 52)
+            return this.__sv503_enablesoftcompat
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server should force a client to disconnect, even if the client has open files, once the client's logon time has expired.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv503_enableforcedlogoff {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    sv503_enableforcedlogoff{
+        get {
+            if(!this.HasProp("__sv503_enableforcedlogoff"))
+                this.__sv503_enableforcedlogoff := BOOL(this.ptr + 56)
+            return this.__sv503_enableforcedlogoff
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server is a reliable time source.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv503_timesource {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    sv503_timesource{
+        get {
+            if(!this.HasProp("__sv503_timesource"))
+                this.__sv503_timesource := BOOL(this.ptr + 60)
+            return this.__sv503_timesource
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server accepts function calls from previous-generation LAN Manager clients.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv503_acceptdownlevelapis {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    sv503_acceptdownlevelapis{
+        get {
+            if(!this.HasProp("__sv503_acceptdownlevelapis"))
+                this.__sv503_acceptdownlevelapis := BOOL(this.ptr + 64)
+            return this.__sv503_acceptdownlevelapis
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server is visible to LAN Manager 2.x clients.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv503_lmannounce {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+    sv503_lmannounce{
+        get {
+            if(!this.HasProp("__sv503_lmannounce"))
+                this.__sv503_lmannounce := BOOL(this.ptr + 68)
+            return this.__sv503_lmannounce
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode character string that specifies the name of the server's domain.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv503_domain {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    sv503_domain{
+        get {
+            if(!this.HasProp("__sv503_domain"))
+                this.__sv503_domain := PWSTR(this.ptr + 72)
+            return this.__sv503_domain
+        }
     }
 
     /**
@@ -404,55 +424,70 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server allows clients to use opportunistic locks on files. Opportunistic locks are a significant performance enhancement, but have the potential to cause lost cached data on some networks, particularly wide-area networks.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv503_enableoplocks {
-        get => NumGet(this, 144, "int")
-        set => NumPut("int", value, this, 144)
+    sv503_enableoplocks{
+        get {
+            if(!this.HasProp("__sv503_enableoplocks"))
+                this.__sv503_enableoplocks := BOOL(this.ptr + 144)
+            return this.__sv503_enableoplocks
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates how the server should behave if a client has an opportunistic lock (oplock) and does not respond to an oplock break. This member indicates whether the server will fail the second open (value of 0), or force close the open instance of a client that has an oplock (value equal to 1). This member is unused.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv503_enableoplockforceclose {
-        get => NumGet(this, 148, "int")
-        set => NumPut("int", value, this, 148)
+    sv503_enableoplockforceclose{
+        get {
+            if(!this.HasProp("__sv503_enableoplockforceclose"))
+                this.__sv503_enableoplockforceclose := BOOL(this.ptr + 148)
+            return this.__sv503_enableoplockforceclose
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether several MS-DOS File Control Blocks (FCBs) are placed in a single location accessible to the server. If enabled, this can save resources on the server.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv503_enablefcbopens {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
+    sv503_enablefcbopens{
+        get {
+            if(!this.HasProp("__sv503_enablefcbopens"))
+                this.__sv503_enablefcbopens := BOOL(this.ptr + 152)
+            return this.__sv503_enablefcbopens
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server processes raw Server Message Blocks (SMBs). If enabled, this allows more data to transfer per transaction and also improves performance. However, it is possible that processing raw SMBs can impede performance on certain networks. The server maintains the value of this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv503_enableraw {
-        get => NumGet(this, 156, "int")
-        set => NumPut("int", value, this, 156)
+    sv503_enableraw{
+        get {
+            if(!this.HasProp("__sv503_enableraw"))
+                this.__sv503_enableraw := BOOL(this.ptr + 156)
+            return this.__sv503_enableraw
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server allows redirected server drives to be shared.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv503_enablesharednetdrives {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
+    sv503_enablesharednetdrives{
+        get {
+            if(!this.HasProp("__sv503_enablesharednetdrives"))
+                this.__sv503_enablesharednetdrives := BOOL(this.ptr + 160)
+            return this.__sv503_enablesharednetdrives
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -60,10 +61,13 @@ class KDEXT_HANDLE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    PagedOut {
-        get => NumGet(this, 44, "char")
-        set => NumPut("char", value, this, 44)
+    PagedOut{
+        get {
+            if(!this.HasProp("__PagedOut"))
+                this.__PagedOut := BOOLEAN(this.ptr + 44)
+            return this.__PagedOut
+        }
     }
 }

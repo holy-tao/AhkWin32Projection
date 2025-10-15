@@ -91,11 +91,21 @@ class MIB_UDP6ROW_OWNER_MODULE extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - SpecificPortBind
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 40, "int")
         set => NumPut("int", value, this, 40)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SpecificPortBind {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 
     /**

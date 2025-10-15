@@ -8,6 +8,7 @@
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include .\IP_ADDRESS_PREFIX.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Stores information about an IP route entry.
@@ -359,44 +360,56 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the route is a loopback route (the gateway is on the local host).
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Loopback {
-        get => NumGet(this, 180, "char")
-        set => NumPut("char", value, this, 180)
+    Loopback{
+        get {
+            if(!this.HasProp("__Loopback"))
+                this.__Loopback := BOOLEAN(this.ptr + 180)
+            return this.__Loopback
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the IP address is autoconfigured.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    AutoconfigureAddress {
-        get => NumGet(this, 181, "char")
-        set => NumPut("char", value, this, 181)
+    AutoconfigureAddress{
+        get {
+            if(!this.HasProp("__AutoconfigureAddress"))
+                this.__AutoconfigureAddress := BOOLEAN(this.ptr + 181)
+            return this.__AutoconfigureAddress
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the route is published.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Publish {
-        get => NumGet(this, 182, "char")
-        set => NumPut("char", value, this, 182)
+    Publish{
+        get {
+            if(!this.HasProp("__Publish"))
+                this.__Publish := BOOLEAN(this.ptr + 182)
+            return this.__Publish
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the route is immortal.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Immortal {
-        get => NumGet(this, 183, "char")
-        set => NumPut("char", value, this, 183)
+    Immortal{
+        get {
+            if(!this.HasProp("__Immortal"))
+                this.__Immortal := BOOLEAN(this.ptr + 183)
+            return this.__Immortal
+        }
     }
 
     /**

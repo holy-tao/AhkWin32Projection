@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\DSMCC_FILTER_OPTIONS.ahk
 #Include .\ATSC_FILTER_OPTIONS.ahk
 #Include .\DVB_EIT_FILTER_OPTIONS.ahk
@@ -33,11 +34,14 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fUseRawFilteringBits {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fUseRawFilteringBits{
+        get {
+            if(!this.HasProp("__fUseRawFilteringBits"))
+                this.__fUseRawFilteringBits := BOOL(this.ptr + 4)
+            return this.__fUseRawFilteringBits
+        }
     }
 
     /**
@@ -63,11 +67,14 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSpecifyTableIdExtension {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    fSpecifyTableIdExtension{
+        get {
+            if(!this.HasProp("__fSpecifyTableIdExtension"))
+                this.__fSpecifyTableIdExtension := BOOL(this.ptr + 40)
+            return this.__fSpecifyTableIdExtension
+        }
     }
 
     /**
@@ -79,11 +86,14 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSpecifyVersion {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    fSpecifyVersion{
+        get {
+            if(!this.HasProp("__fSpecifyVersion"))
+                this.__fSpecifyVersion := BOOL(this.ptr + 48)
+            return this.__fSpecifyVersion
+        }
     }
 
     /**
@@ -95,11 +105,14 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSpecifySectionNumber {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    fSpecifySectionNumber{
+        get {
+            if(!this.HasProp("__fSpecifySectionNumber"))
+                this.__fSpecifySectionNumber := BOOL(this.ptr + 56)
+            return this.__fSpecifySectionNumber
+        }
     }
 
     /**
@@ -111,27 +124,36 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSpecifyCurrentNext {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    fSpecifyCurrentNext{
+        get {
+            if(!this.HasProp("__fSpecifyCurrentNext"))
+                this.__fSpecifyCurrentNext := BOOL(this.ptr + 64)
+            return this.__fSpecifyCurrentNext
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fNext {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+    fNext{
+        get {
+            if(!this.HasProp("__fNext"))
+                this.__fNext := BOOL(this.ptr + 68)
+            return this.__fNext
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSpecifyDsmccOptions {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+    fSpecifyDsmccOptions{
+        get {
+            if(!this.HasProp("__fSpecifyDsmccOptions"))
+                this.__fSpecifyDsmccOptions := BOOL(this.ptr + 72)
+            return this.__fSpecifyDsmccOptions
+        }
     }
 
     /**
@@ -146,11 +168,14 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSpecifyAtscOptions {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
+    fSpecifyAtscOptions{
+        get {
+            if(!this.HasProp("__fSpecifyAtscOptions"))
+                this.__fSpecifyAtscOptions := BOOL(this.ptr + 140)
+            return this.__fSpecifyAtscOptions
+        }
     }
 
     /**
@@ -178,11 +203,14 @@ class MPEG2_FILTER2 extends Win32Struct
     /**
      * If <b>TRUE</b>, the <b>Dvb_Eit</b> member contains additional filtering criteria. Otherwise, the <b>Dvb_Eit</b> member is ignored. <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSpecifyDvbEitOptions {
-        get => NumGet(this, 156, "int")
-        set => NumPut("int", value, this, 156)
+    fSpecifyDvbEitOptions{
+        get {
+            if(!this.HasProp("__fSpecifyDvbEitOptions"))
+                this.__fSpecifyDvbEitOptions := BOOL(this.ptr + 156)
+            return this.__fSpecifyDvbEitOptions
+        }
     }
 
     /**

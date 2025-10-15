@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies parameters for a Shell data source for which a filter is loaded.
@@ -22,20 +23,26 @@ class FILTERED_DATA_SOURCES extends Win32Struct
 
     /**
      * Pointer to a buffer that contains a file name extension.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwcsExtension {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwcsExtension{
+        get {
+            if(!this.HasProp("__pwcsExtension"))
+                this.__pwcsExtension := PWSTR(this.ptr + 0)
+            return this.__pwcsExtension
+        }
     }
 
     /**
      * Pointer to a buffer that contains the name of a MIME type.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwcsMime {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwcsMime{
+        get {
+            if(!this.HasProp("__pwcsMime"))
+                this.__pwcsMime := PWSTR(this.ptr + 8)
+            return this.__pwcsMime
+        }
     }
 
     /**
@@ -49,10 +56,13 @@ class FILTERED_DATA_SOURCES extends Win32Struct
 
     /**
      * Not implemented.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwcsOverride {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwcsOverride{
+        get {
+            if(!this.HasProp("__pwcsOverride"))
+                this.__pwcsOverride := PWSTR(this.ptr + 24)
+            return this.__pwcsOverride
+        }
     }
 }

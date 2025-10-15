@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include .\HTREEITEM.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information on a tree-view item change. This structure is sent with the TVN_ITEMCHANGED and TVN_ITEMCHANGING notifications.
@@ -62,11 +65,14 @@ class NMTVITEMCHANGE extends Win32Struct
      * Type: <b>HTREEITEM</b>
      * 
      * Handle to the changed tree-view item.
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
-    hItem {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hItem{
+        get {
+            if(!this.HasProp("__hItem"))
+                this.__hItem := HTREEITEM(this.ptr + 32)
+            return this.__hItem
+        }
     }
 
     /**
@@ -95,10 +101,13 @@ class NMTVITEMCHANGE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Reserved for application specific data. For example, a value to associate with the item.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 48)
+            return this.__lParam
+        }
     }
 }

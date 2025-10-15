@@ -3,6 +3,7 @@
 #Include .\EMR.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include .\XFORM.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The EMRSTRETCHBLT structure contains members for the StretchBlt enhanced metafile record. Note that graphics device interface (GDI) converts the device-dependent bitmap into a device-independent bitmap (DIB) before storing it in the metafile record.
@@ -117,11 +118,14 @@ class EMRSTRETCHBLT extends Win32Struct
 
     /**
      * Background color (the RGB value) of the source device context. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBkColorSrc {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+    crBkColorSrc{
+        get {
+            if(!this.HasProp("__crBkColorSrc"))
+                this.__crBkColorSrc := COLORREF(this.ptr + 80)
+            return this.__crBkColorSrc
+        }
     }
 
     /**

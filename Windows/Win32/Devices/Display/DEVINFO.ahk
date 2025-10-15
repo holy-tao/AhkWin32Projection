@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\LOGFONTW.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * The DEVINFO structure provides information about the driver and its private PDEV to the graphics engine.
@@ -452,11 +453,14 @@ class DEVINFO extends Win32Struct
 
     /**
      * Handle to the default palette for the device. The driver should create the palette by calling <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatepalette">EngCreatePalette</a>. The driver associates a palette with a device by returning this handle to GDI.
-     * @type {Pointer<Void>}
+     * @type {HPALETTE}
      */
-    hpalDefault {
-        get => NumGet(this, 304, "ptr")
-        set => NumPut("ptr", value, this, 304)
+    hpalDefault{
+        get {
+            if(!this.HasProp("__hpalDefault"))
+                this.__hpalDefault := HPALETTE(this.ptr + 304)
+            return this.__hpalDefault
+        }
     }
 
     /**

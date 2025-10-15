@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains strings returned from the IShellFolder interface methods.
@@ -23,11 +24,14 @@ class STRRET extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pOleStr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pOleStr{
+        get {
+            if(!this.HasProp("__pOleStr"))
+                this.__pOleStr := PWSTR(this.ptr + 8)
+            return this.__pOleStr
+        }
     }
 
     /**

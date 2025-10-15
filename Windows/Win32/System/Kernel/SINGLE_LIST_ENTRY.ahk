@@ -24,7 +24,7 @@ class SINGLE_LIST_ENTRY extends Win32Struct
 
     /**
      * For a <b>SINGLE_LIST_ENTRY</b> that serves as a list entry, the <b>Next</b> member points to the next entry in the list, or <b>NULL</b> if there is no next entry in the list. For a <b>SINGLE_LIST_ENTRY</b> that serves as the list header, the <b>Next</b> member points to the first entry in the list, or <b>NULL</b> if the list is empty.
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<SINGLE_LIST_ENTRY>}
      */
     Next {
         get => NumGet(this, 0, "ptr")

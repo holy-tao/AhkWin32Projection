@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information that describes an IKE/AuthIP Main Mode (MM) failure.
@@ -115,20 +116,26 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE1 extends Win32Struct
 
     /**
      * Name of the MM local security principal.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    localPrincipalNameForAuth {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    localPrincipalNameForAuth{
+        get {
+            if(!this.HasProp("__localPrincipalNameForAuth"))
+                this.__localPrincipalNameForAuth := PWSTR(this.ptr + 64)
+            return this.__localPrincipalNameForAuth
+        }
     }
 
     /**
      * Name of the MM remote security principal.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    remotePrincipalNameForAuth {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    remotePrincipalNameForAuth{
+        get {
+            if(!this.HasProp("__remotePrincipalNameForAuth"))
+                this.__remotePrincipalNameForAuth := PWSTR(this.ptr + 72)
+            return this.__remotePrincipalNameForAuth
+        }
     }
 
     /**
@@ -142,7 +149,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE1 extends Win32Struct
 
     /**
      * Groups in the local security principal's token.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     localPrincipalGroupSids {
         get => NumGet(this, 88, "ptr")
@@ -160,7 +167,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE1 extends Win32Struct
 
     /**
      * Groups in the remote security principal's token.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     remotePrincipalGroupSids {
         get => NumGet(this, 104, "ptr")

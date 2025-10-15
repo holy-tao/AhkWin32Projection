@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -12,11 +13,14 @@ class DNS_DOT_SERVER_SETTINGS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Hostname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Hostname{
+        get {
+            if(!this.HasProp("__Hostname"))
+                this.__Hostname := PWSTR(this.ptr + 0)
+            return this.__Hostname
+        }
     }
 
     /**

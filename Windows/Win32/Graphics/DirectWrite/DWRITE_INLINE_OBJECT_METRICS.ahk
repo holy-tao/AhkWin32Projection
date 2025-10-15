@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains properties describing the geometric measurement of an application-defined inline object.
@@ -51,10 +52,13 @@ class DWRITE_INLINE_OBJECT_METRICS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A Boolean flag that indicates whether the object is to be placed upright or alongside the text baseline for vertical text.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    supportsSideways {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    supportsSideways{
+        get {
+            if(!this.HasProp("__supportsSideways"))
+                this.__supportsSideways := BOOL(this.ptr + 12)
+            return this.__supportsSideways
+        }
     }
 }

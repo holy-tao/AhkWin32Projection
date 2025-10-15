@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization
@@ -13,11 +14,14 @@ class TRUSTEE_ACCESSW extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpProperty {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lpProperty{
+        get {
+            if(!this.HasProp("__lpProperty"))
+                this.__lpProperty := PWSTR(this.ptr + 0)
+            return this.__lpProperty
+        }
     }
 
     /**

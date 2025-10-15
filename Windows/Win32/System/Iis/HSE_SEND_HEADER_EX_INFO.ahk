@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -12,19 +14,25 @@ class HSE_SEND_HEADER_EX_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszStatus {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszStatus{
+        get {
+            if(!this.HasProp("__pszStatus"))
+                this.__pszStatus := PSTR(this.ptr + 0)
+            return this.__pszStatus
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszHeader {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszHeader{
+        get {
+            if(!this.HasProp("__pszHeader"))
+                this.__pszHeader := PSTR(this.ptr + 8)
+            return this.__pszHeader
+        }
     }
 
     /**
@@ -44,10 +52,13 @@ class HSE_SEND_HEADER_EX_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fKeepConn {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fKeepConn{
+        get {
+            if(!this.HasProp("__fKeepConn"))
+                this.__fKeepConn := BOOL(this.ptr + 24)
+            return this.__fKeepConn
+        }
     }
 }

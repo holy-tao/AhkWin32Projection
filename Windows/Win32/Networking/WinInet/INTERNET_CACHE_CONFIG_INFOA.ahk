@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\INTERNET_CACHE_CONFIG_PATH_ENTRYA.ahk
 
 /**
@@ -65,11 +66,14 @@ class INTERNET_CACHE_CONFIG_INFOA extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fPerUser {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    fPerUser{
+        get {
+            if(!this.HasProp("__fPerUser"))
+                this.__fPerUser := BOOL(this.ptr + 16)
+            return this.__fPerUser
+        }
     }
 
     /**

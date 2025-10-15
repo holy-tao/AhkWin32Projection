@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\LUID.ahk
 #Include .\DISPLAYCONFIG_PATH_SOURCE_INFO.ahk
 #Include .\DISPLAYCONFIG_RATIONAL.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DISPLAYCONFIG_PATH_TARGET_INFO.ahk
 
 /**

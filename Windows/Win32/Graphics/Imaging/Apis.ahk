@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
@@ -1611,7 +1611,7 @@ class Imaging {
      * @param {Pointer<Guid>} pixelFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-native-pixel-formats">REFWICPixelFormatGUID</a></b>
      * 
      * The pixel format of the bitmap.
-     * @param {Pointer<Void>} hSection Type: <b>HANDLE</b>
+     * @param {HANDLE} hSection Type: <b>HANDLE</b>
      * 
      * The section handle. This is a file mapping object handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a> function.
      * @param {Integer} stride Type: <b>UINT</b>
@@ -1630,6 +1630,8 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICCreateBitmapFromSection(width, height, pixelFormat, hSection, stride, offset, ppIBitmap) {
+        hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
+
         result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "ptr", ppIBitmap, "int")
         if(result != 0)
             throw OSError(result)
@@ -1648,7 +1650,7 @@ class Imaging {
      * @param {Pointer<Guid>} pixelFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-native-pixel-formats">REFWICPixelFormatGUID</a></b>
      * 
      * The pixel format of the bitmap.
-     * @param {Pointer<Void>} hSection Type: <b>HANDLE</b>
+     * @param {HANDLE} hSection Type: <b>HANDLE</b>
      * 
      * The section handle. This is a file mapping object handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a> function.
      * @param {Integer} stride Type: <b>UINT</b>
@@ -1670,6 +1672,8 @@ class Imaging {
      * @since windows6.1
      */
     static WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride, offset, desiredAccessLevel, ppIBitmap) {
+        hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
+
         result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "int", desiredAccessLevel, "ptr", ppIBitmap, "int")
         if(result != 0)
             throw OSError(result)
@@ -1685,7 +1689,7 @@ class Imaging {
      * @param {Integer} cchName Type: <b>UINT</b>
      * 
      * The size of the <i>wzName</i> buffer.
-     * @param {Pointer<Char>} wzName Type: <b>WCHAR*</b>
+     * @param {PWSTR} wzName Type: <b>WCHAR*</b>
      * 
      * A pointer that receives the short name associated with the GUID.
      * @param {Pointer<UInt32>} pcchActual Type: <b>UINT*</b>
@@ -1698,7 +1702,7 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICMapGuidToShortName(guid, cchName, wzName, pcchActual) {
-        wzName := wzName is String? StrPtr(wzName) : wzName
+        wzName := wzName is String ? StrPtr(wzName) : wzName
 
         result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, "uint*", pcchActual, "int")
         if(result != 0)
@@ -1709,7 +1713,7 @@ class Imaging {
 
     /**
      * Obtains the GUID associated with the given short name.
-     * @param {Pointer<Char>} wzName Type: <b>const WCHAR*</b>
+     * @param {PWSTR} wzName Type: <b>const WCHAR*</b>
      * 
      * A pointer to the short name.
      * @param {Pointer<Guid>} pguid Type: <b>GUID*</b>
@@ -1722,7 +1726,7 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICMapShortNameToGuid(wzName, pguid) {
-        wzName := wzName is String? StrPtr(wzName) : wzName
+        wzName := wzName is String ? StrPtr(wzName) : wzName
 
         result := DllCall("WindowsCodecs.dll\WICMapShortNameToGuid", "ptr", wzName, "ptr", pguid, "int")
         if(result != 0)
@@ -1736,13 +1740,13 @@ class Imaging {
      * @param {Pointer<Guid>} guidMetadataFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/wic/-wic-guids-clsids">REFGUID</a></b>
      * 
      * The metadata format GUID.
-     * @param {Pointer<Char>} pwzSchema Type: <b>LPWSTR</b>
+     * @param {PWSTR} pwzSchema Type: <b>LPWSTR</b>
      * 
      * The URI string of the schema for which the name is to be retrieved.
      * @param {Integer} cchName Type: <b>UINT</b>
      * 
      * The size of the <i>wzName</i> buffer.
-     * @param {Pointer<Char>} wzName Type: <b>WCHAR*</b>
+     * @param {PWSTR} wzName Type: <b>WCHAR*</b>
      * 
      * A pointer to a buffer that receives the schema's name.
      * 
@@ -1757,8 +1761,8 @@ class Imaging {
      * @since windows5.1.2600
      */
     static WICMapSchemaToName(guidMetadataFormat, pwzSchema, cchName, wzName, pcchActual) {
-        pwzSchema := pwzSchema is String? StrPtr(pwzSchema) : pwzSchema
-        wzName := wzName is String? StrPtr(wzName) : wzName
+        pwzSchema := pwzSchema is String ? StrPtr(pwzSchema) : pwzSchema
+        wzName := wzName is String ? StrPtr(wzName) : wzName
 
         result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "uint*", pcchActual, "int")
         if(result != 0)

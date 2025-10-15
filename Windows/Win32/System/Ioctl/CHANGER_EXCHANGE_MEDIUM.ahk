@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information the IOCTL_CHANGER_EXCHANGE_MEDIUM control code uses to move a piece of media to a destination, and the piece of media originally in the first destination to a second destination.
@@ -69,20 +70,26 @@ class CHANGER_EXCHANGE_MEDIUM extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the medium at <b>Destination1</b> should be flipped. Otherwise, it should not. This member is valid only if the <b>Features0</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_MEDIUM_FLIP.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Flip1 {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
+    Flip1{
+        get {
+            if(!this.HasProp("__Flip1"))
+                this.__Flip1 := BOOLEAN(this.ptr + 32)
+            return this.__Flip1
+        }
     }
 
     /**
      * If this member is <b>TRUE</b>, the medium at <b>Destination2</b> should be flipped. Otherwise, it should not. This member is valid only if the <b>Features0</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_MEDIUM_FLIP.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Flip2 {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
+    Flip2{
+        get {
+            if(!this.HasProp("__Flip2"))
+                this.__Flip2 := BOOLEAN(this.ptr + 33)
+            return this.__Flip2
+        }
     }
 }

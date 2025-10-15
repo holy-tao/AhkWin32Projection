@@ -4,11 +4,13 @@
 #Include .\NVME_VERSION.ahk
 #Include .\NVME_CONTROLLER_CONFIGURATION.ahk
 #Include .\NVME_CONTROLLER_STATUS.ahk
+#Include .\NVME_NVM_SUBSYSTEM_RESET.ahk
 #Include .\NVME_ADMIN_QUEUE_ATTRIBUTES.ahk
 #Include .\NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS.ahk
 #Include .\NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS.ahk
 #Include .\NVME_CONTROLLER_MEMORY_BUFFER_LOCATION.ahk
 #Include .\NVME_CONTROLLER_MEMORY_BUFFER_SIZE.ahk
+#Include .\NVME_NVM_SUBSYSTEM_SHUTDOWN.ahk
 #Include .\NVME_CONTROLLER_READY_TIMEOUTS.ahk
 
 /**
@@ -90,11 +92,14 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_NVM_SUBSYSTEM_RESET}
      */
-    NSSR {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    NSSR{
+        get {
+            if(!this.HasProp("__NSSR"))
+                this.__NSSR := NVME_NVM_SUBSYSTEM_RESET(this.ptr + 56)
+            return this.__NSSR
+        }
     }
 
     /**
@@ -164,11 +169,14 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_NVM_SUBSYSTEM_SHUTDOWN}
      */
-    NSSD {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+    NSSD{
+        get {
+            if(!this.HasProp("__NSSD"))
+                this.__NSSD := NVME_NVM_SUBSYSTEM_SHUTDOWN(this.ptr + 156)
+            return this.__NSSD
+        }
     }
 
     /**

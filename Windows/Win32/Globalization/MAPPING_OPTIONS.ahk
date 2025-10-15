@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\Foundation\PWSTR.ahk
 
 /**
  * Contains options for text recognition. The values stored in this structure affect the behavior and results of MappingRecognizeText.
@@ -40,38 +41,50 @@ class MAPPING_OPTIONS extends Win32Struct
 
     /**
      * Optional. Pointer to an input language string, following the IETF naming convention, that identifies the input language that the service should be able to accept. The application can set this member to <b>NULL</b> to indicate that the service is free to interpret the input as any input language it supports.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszInputLanguage {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszInputLanguage{
+        get {
+            if(!this.HasProp("__pszInputLanguage"))
+                this.__pszInputLanguage := PWSTR(this.ptr + 8)
+            return this.__pszInputLanguage
+        }
     }
 
     /**
      * Optional. Pointer to an output language string, following the IETF naming convention, that identifies the output language that the service should be able to use to produce results. The application can set this member to <b>NULL</b> if the service should decide the output language.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszOutputLanguage {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszOutputLanguage{
+        get {
+            if(!this.HasProp("__pszOutputLanguage"))
+                this.__pszOutputLanguage := PWSTR(this.ptr + 16)
+            return this.__pszOutputLanguage
+        }
     }
 
     /**
      * Optional. Pointer to a standard Unicode script name that should be accepted by the service. The application can set this member to <b>NULL</b> to let the service decide how handle the input.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszInputScript {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszInputScript{
+        get {
+            if(!this.HasProp("__pszInputScript"))
+                this.__pszInputScript := PWSTR(this.ptr + 24)
+            return this.__pszInputScript
+        }
     }
 
     /**
      * Optional. Pointer to a standard Unicode script name that the service should use to retrieve results. The application can set this member to <b>NULL</b> to let the service decide the output script.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszOutputScript {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszOutputScript{
+        get {
+            if(!this.HasProp("__pszOutputScript"))
+                this.__pszOutputScript := PWSTR(this.ptr + 32)
+            return this.__pszOutputScript
+        }
     }
 
     /**
@@ -79,29 +92,38 @@ class MAPPING_OPTIONS extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  In Windows 7, the ELS services support only the content type "text/plain". A content type specification can be found at <a href="https://www.iana.org/assignments/media-types/text">Text Media Types</a>.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszInputContentType {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pszInputContentType{
+        get {
+            if(!this.HasProp("__pszInputContentType"))
+                this.__pszInputContentType := PWSTR(this.ptr + 40)
+            return this.__pszInputContentType
+        }
     }
 
     /**
      * Optional. Pointer to a string, following the format of the MIME content types, that identifies the format in which the service should retrieve data. The application can set this member to <b>NULL</b> to let the service decide the output content type.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszOutputContentType {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pszOutputContentType{
+        get {
+            if(!this.HasProp("__pszOutputContentType"))
+                this.__pszOutputContentType := PWSTR(this.ptr + 48)
+            return this.__pszOutputContentType
+        }
     }
 
     /**
      * Reserved.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszUILanguage {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pszUILanguage{
+        get {
+            if(!this.HasProp("__pszUILanguage"))
+                this.__pszUILanguage := PWSTR(this.ptr + 56)
+            return this.__pszUILanguage
+        }
     }
 
     /**

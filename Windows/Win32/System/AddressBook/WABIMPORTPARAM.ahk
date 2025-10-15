@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Do not use. Structure passed to Import that gives information about importing .wab files.
@@ -37,11 +39,14 @@ class WABIMPORTPARAM extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWnd {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hWnd{
+        get {
+            if(!this.HasProp("__hWnd"))
+                this.__hWnd := HWND(this.ptr + 16)
+            return this.__hWnd
+        }
     }
 
     /**
@@ -59,11 +64,14 @@ class WABIMPORTPARAM extends Win32Struct
      * Type: <b>LPSTR</b>
      * 
      * Value of type <b>LPSTR</b> that specifies the filename to import, or <b>NULL</b> to cause a FileOpen dialog box to open.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszFileName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lpszFileName{
+        get {
+            if(!this.HasProp("__lpszFileName"))
+                this.__lpszFileName := PSTR(this.ptr + 32)
+            return this.__lpszFileName
+        }
     }
 
     /**

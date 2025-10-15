@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\Foundation\PSTR.ahk
 
 /**
  * Contains information that defines the format of a number string. The GetNumberFormat function uses this information to customize a number string for a specified locale.
@@ -51,20 +52,26 @@ class NUMBERFMTA extends Win32Struct
 
     /**
      * Pointer to a null-terminated decimal separator string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpDecimalSep {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpDecimalSep{
+        get {
+            if(!this.HasProp("__lpDecimalSep"))
+                this.__lpDecimalSep := PSTR(this.ptr + 16)
+            return this.__lpDecimalSep
+        }
     }
 
     /**
      * Pointer to a null-terminated thousand separator string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpThousandSep {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpThousandSep{
+        get {
+            if(!this.HasProp("__lpThousandSep"))
+                this.__lpThousandSep := PSTR(this.ptr + 24)
+            return this.__lpThousandSep
+        }
     }
 
     /**

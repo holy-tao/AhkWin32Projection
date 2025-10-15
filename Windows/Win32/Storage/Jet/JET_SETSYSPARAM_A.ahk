@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\StructuredStorage\JET_API_PTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -21,11 +22,14 @@ class JET_SETSYSPARAM_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {JET_API_PTR}
      */
-    lParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := JET_API_PTR(this.ptr + 8)
+            return this.__lParam
+        }
     }
 
     /**

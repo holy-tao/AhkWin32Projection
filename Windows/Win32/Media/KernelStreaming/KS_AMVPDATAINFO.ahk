@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\KS_AMVPDIMINFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -57,27 +58,36 @@ class KS_AMVPDATAINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bEnableDoubleClock {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    bEnableDoubleClock{
+        get {
+            if(!this.HasProp("__bEnableDoubleClock"))
+                this.__bEnableDoubleClock := BOOL(this.ptr + 48)
+            return this.__bEnableDoubleClock
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bEnableVACT {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    bEnableVACT{
+        get {
+            if(!this.HasProp("__bEnableVACT"))
+                this.__bEnableVACT := BOOL(this.ptr + 52)
+            return this.__bEnableVACT
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bDataIsInterlaced {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    bDataIsInterlaced{
+        get {
+            if(!this.HasProp("__bDataIsInterlaced"))
+                this.__bDataIsInterlaced := BOOL(this.ptr + 56)
+            return this.__bDataIsInterlaced
+        }
     }
 
     /**
@@ -89,11 +99,14 @@ class KS_AMVPDATAINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bFieldPolarityInverted {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    bFieldPolarityInverted{
+        get {
+            if(!this.HasProp("__bFieldPolarityInverted"))
+                this.__bFieldPolarityInverted := BOOL(this.ptr + 64)
+            return this.__bFieldPolarityInverted
+        }
     }
 
     /**

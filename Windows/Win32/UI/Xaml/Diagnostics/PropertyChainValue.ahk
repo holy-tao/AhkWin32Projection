@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a property defined on an element.
@@ -24,56 +26,74 @@ class PropertyChainValue extends Win32Struct
 
     /**
      * The type of the object.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    Type {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Type{
+        get {
+            if(!this.HasProp("__Type"))
+                this.__Type := BSTR(this.ptr + 8)
+            return this.__Type
+        }
     }
 
     /**
      * The base type of the object.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    DeclaringType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    DeclaringType{
+        get {
+            if(!this.HasProp("__DeclaringType"))
+                this.__DeclaringType := BSTR(this.ptr + 16)
+            return this.__DeclaringType
+        }
     }
 
     /**
      * The type of the current value of the property.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    ValueType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ValueType{
+        get {
+            if(!this.HasProp("__ValueType"))
+                this.__ValueType := BSTR(this.ptr + 24)
+            return this.__ValueType
+        }
     }
 
     /**
      * Collection item type, or <b>null</b> if not a collection.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    ItemType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    ItemType{
+        get {
+            if(!this.HasProp("__ItemType"))
+                this.__ItemType := BSTR(this.ptr + 32)
+            return this.__ItemType
+        }
     }
 
     /**
      * The value of the property.  (Represents an <b>InstanceHandle</b> if <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/ne-xamlom-metadatabit">MetadataBit</a> is set.)
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    Value {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    Value{
+        get {
+            if(!this.HasProp("__Value"))
+                this.__Value := BSTR(this.ptr + 40)
+            return this.__Value
+        }
     }
 
     /**
      * Indicates whether the property is overridden by some property in the value chain.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Overridden {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    Overridden{
+        get {
+            if(!this.HasProp("__Overridden"))
+                this.__Overridden := BOOL(this.ptr + 48)
+            return this.__Overridden
+        }
     }
 
     /**
@@ -87,11 +107,14 @@ class PropertyChainValue extends Win32Struct
 
     /**
      * The name of the property.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    PropertyName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    PropertyName{
+        get {
+            if(!this.HasProp("__PropertyName"))
+                this.__PropertyName := BSTR(this.ptr + 64)
+            return this.__PropertyName
+        }
     }
 
     /**

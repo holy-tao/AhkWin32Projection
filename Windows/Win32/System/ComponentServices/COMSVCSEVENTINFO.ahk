@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents contextual information about an event, such as the time it was generated and which process server and COM+ application generated it.
@@ -69,11 +70,14 @@ class COMSVCSEVENTINFO extends Win32Struct
 
     /**
      * The fully qualified name of the computer where the event originated.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sMachineName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    sMachineName{
+        get {
+            if(!this.HasProp("__sMachineName"))
+                this.__sMachineName := PWSTR(this.ptr + 40)
+            return this.__sMachineName
+        }
     }
 
     /**

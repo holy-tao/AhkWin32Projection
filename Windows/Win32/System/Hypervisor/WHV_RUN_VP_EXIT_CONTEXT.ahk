@@ -15,10 +15,13 @@
 #Include .\WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT.ahk
 #Include .\WHV_X64_UNSUPPORTED_FEATURE_CONTEXT.ahk
 #Include .\WHV_RUN_VP_CANCELED_CONTEXT.ahk
+#Include .\WHV_X64_APIC_EOI_CONTEXT.ahk
 #Include .\WHV_X64_RDTSC_INFO.ahk
 #Include .\WHV_X64_RDTSC_CONTEXT.ahk
+#Include .\WHV_X64_APIC_SMI_CONTEXT.ahk
 #Include .\WHV_UINT128.ahk
 #Include .\WHV_HYPERCALL_CONTEXT.ahk
+#Include .\WHV_X64_APIC_INIT_SIPI_CONTEXT.ahk
 #Include .\WHV_X64_APIC_WRITE_CONTEXT.ahk
 #Include .\WHV_SYNIC_SINT_DELIVERABLE_CONTEXT.ahk
 
@@ -148,11 +151,14 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_X64_APIC_EOI_CONTEXT}
      */
-    ApicEoi {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    ApicEoi{
+        get {
+            if(!this.HasProp("__ApicEoi"))
+                this.__ApicEoi := WHV_X64_APIC_EOI_CONTEXT(this.ptr + 56)
+            return this.__ApicEoi
+        }
     }
 
     /**
@@ -167,11 +173,14 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_X64_APIC_SMI_CONTEXT}
      */
-    ApicSmi {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    ApicSmi{
+        get {
+            if(!this.HasProp("__ApicSmi"))
+                this.__ApicSmi := WHV_X64_APIC_SMI_CONTEXT(this.ptr + 56)
+            return this.__ApicSmi
+        }
     }
 
     /**
@@ -186,11 +195,14 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_X64_APIC_INIT_SIPI_CONTEXT}
      */
-    ApicInitSipi {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    ApicInitSipi{
+        get {
+            if(!this.HasProp("__ApicInitSipi"))
+                this.__ApicInitSipi := WHV_X64_APIC_INIT_SIPI_CONTEXT(this.ptr + 56)
+            return this.__ApicInitSipi
+        }
     }
 
     /**

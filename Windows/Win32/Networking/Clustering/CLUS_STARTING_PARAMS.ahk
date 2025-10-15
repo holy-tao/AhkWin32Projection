@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates whether a node's attempt to start the Cluster service represents an attempt to form or join a cluster, and whether the node has attempted to start this version of the Cluster service before.
@@ -30,19 +31,25 @@ class CLUS_STARTING_PARAMS extends Win32Struct
 
     /**
      * Indicates whether this particular start of the Cluster service represents a form or a join operation.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bForm {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    bForm{
+        get {
+            if(!this.HasProp("__bForm"))
+                this.__bForm := BOOL(this.ptr + 4)
+            return this.__bForm
+        }
     }
 
     /**
      * Indicates whether this version of the Cluster service has ever started on the node.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bFirst {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    bFirst{
+        get {
+            if(!this.HasProp("__bFirst"))
+                this.__bFirst := BOOL(this.ptr + 8)
+            return this.__bFirst
+        }
     }
 }

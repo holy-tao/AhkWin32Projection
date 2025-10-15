@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -65,10 +67,13 @@ class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Impersonating {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
+    Impersonating{
+        get {
+            if(!this.HasProp("__Impersonating"))
+                this.__Impersonating := BOOLEAN(this.ptr + 72)
+            return this.__Impersonating
+        }
     }
 }

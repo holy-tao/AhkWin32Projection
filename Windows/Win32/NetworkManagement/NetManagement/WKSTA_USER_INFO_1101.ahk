@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WKSTA_USER_INFO_1101 structure contains information about the domains accessed by a workstation.
@@ -17,10 +18,13 @@ class WKSTA_USER_INFO_1101 extends Win32Struct
      * Specifies the list of operating system domains browsed by the workstation. The domain names are separated by blanks.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wkui1101_oth_domains {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    wkui1101_oth_domains{
+        get {
+            if(!this.HasProp("__wkui1101_oth_domains"))
+                this.__wkui1101_oth_domains := PWSTR(this.ptr + 0)
+            return this.__wkui1101_oth_domains
+        }
     }
 }

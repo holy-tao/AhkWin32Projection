@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains and receives list-view item information needed to display a tooltip for an item. This structure is used with the LVN_GETINFOTIP notification code.
@@ -57,11 +60,14 @@ class NMLVGETINFOTIPA extends Win32Struct
      * Address of a string buffer that receives any additional text information. If 
      * 					<b>dwFlags</b> is zero, this member will contain the existing item text. In this case, you should append any additional text onto the end of this string. The size of this buffer is specified by the 
      * 					<b>cchTextMax</b> structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszText {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszText{
+        get {
+            if(!this.HasProp("__pszText"))
+                this.__pszText := PSTR(this.ptr + 32)
+            return this.__pszText
+        }
     }
 
     /**
@@ -102,10 +108,13 @@ class NMLVGETINFOTIPA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Application-defined value associated with the item. This member is not currently used and will always be zero.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 56)
+            return this.__lParam
+        }
     }
 }

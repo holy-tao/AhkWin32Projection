@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Specifies settings for a time zone and dynamic daylight saving time.
@@ -250,10 +251,13 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
      *        restore daylight saving time, call 
      *        <b>SetDynamicTimeZoneInformation</b> with 
      *        <b>DynamicDaylightTimeDisabled</b> set to <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    DynamicDaylightTimeDisabled {
-        get => NumGet(this, 436, "char")
-        set => NumPut("char", value, this, 436)
+    DynamicDaylightTimeDisabled{
+        get {
+            if(!this.HasProp("__DynamicDaylightTimeDisabled"))
+                this.__DynamicDaylightTimeDisabled := BOOLEAN(this.ptr + 436)
+            return this.__DynamicDaylightTimeDisabled
+        }
     }
 }

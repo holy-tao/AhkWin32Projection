@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Security\PSID.ahk
+#Include .\EVT_HANDLE.ahk
 
 /**
  * Contains event data or property values.
@@ -14,11 +19,14 @@ class EVT_VARIANT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    BooleanVal {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    BooleanVal{
+        get {
+            if(!this.HasProp("__BooleanVal"))
+                this.__BooleanVal := BOOL(this.ptr + 0)
+            return this.__BooleanVal
+        }
     }
 
     /**
@@ -126,19 +134,25 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    StringVal {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    StringVal{
+        get {
+            if(!this.HasProp("__StringVal"))
+                this.__StringVal := PWSTR(this.ptr + 0)
+            return this.__StringVal
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    AnsiStringVal {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    AnsiStringVal{
+        get {
+            if(!this.HasProp("__AnsiStringVal"))
+                this.__AnsiStringVal := PSTR(this.ptr + 0)
+            return this.__AnsiStringVal
+        }
     }
 
     /**
@@ -150,11 +164,14 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    SidVal {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    SidVal{
+        get {
+            if(!this.HasProp("__SidVal"))
+                this.__SidVal := PSID(this.ptr + 0)
+            return this.__SidVal
+        }
     }
 
     /**
@@ -166,7 +183,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     BooleanArr {
         get => NumGet(this, 0, "ptr")
@@ -278,7 +295,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     StringArr {
         get => NumGet(this, 0, "ptr")
@@ -286,7 +303,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<PSTR>}
      */
     AnsiStringArr {
         get => NumGet(this, 0, "ptr")
@@ -294,7 +311,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<PSID>}
      */
     SidArr {
         get => NumGet(this, 0, "ptr")
@@ -310,23 +327,29 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {EVT_HANDLE}
      */
-    EvtHandleVal {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    EvtHandleVal{
+        get {
+            if(!this.HasProp("__EvtHandleVal"))
+                this.__EvtHandleVal := EVT_HANDLE(this.ptr + 0)
+            return this.__EvtHandleVal
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    XmlVal {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    XmlVal{
+        get {
+            if(!this.HasProp("__XmlVal"))
+                this.__XmlVal := PWSTR(this.ptr + 0)
+            return this.__XmlVal
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     XmlValArr {
         get => NumGet(this, 0, "ptr")

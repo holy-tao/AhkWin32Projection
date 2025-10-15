@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains a mapping between issuer domain and subject domain policy OIDs.
@@ -15,19 +16,25 @@ class CERT_POLICY_MAPPING extends Win32Struct
 
     /**
      * <b>pszObjId</b> of an issuer domain policy.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszIssuerDomainPolicy {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszIssuerDomainPolicy{
+        get {
+            if(!this.HasProp("__pszIssuerDomainPolicy"))
+                this.__pszIssuerDomainPolicy := PSTR(this.ptr + 0)
+            return this.__pszIssuerDomainPolicy
+        }
     }
 
     /**
      * <b>pszObjId</b> of the equivalent subject domain policy.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszSubjectDomainPolicy {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszSubjectDomainPolicy{
+        get {
+            if(!this.HasProp("__pszSubjectDomainPolicy"))
+                this.__pszSubjectDomainPolicy := PSTR(this.ptr + 8)
+            return this.__pszSubjectDomainPolicy
+        }
     }
 }

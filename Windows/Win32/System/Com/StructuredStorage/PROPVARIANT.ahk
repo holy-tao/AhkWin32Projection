@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\CHAR.ahk
+#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\CY.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\BSTRBLOB.ahk
 #Include ..\BLOB.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\CAC.ahk
 #Include .\CAUB.ahk
 #Include .\CAI.ahk
@@ -457,11 +462,14 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
-    cVal {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    cVal{
+        get {
+            if(!this.HasProp("__cVal"))
+                this.__cVal := CHAR(this.ptr + 8)
+            return this.__cVal
+        }
     }
 
     /**
@@ -553,19 +561,25 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VARIANT_BOOL}
      */
-    boolVal {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
+    boolVal{
+        get {
+            if(!this.HasProp("__boolVal"))
+                this.__boolVal := VARIANT_BOOL(this.ptr + 8)
+            return this.__boolVal
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {VARIANT_BOOL}
      */
-    __OBSOLETE__VARIANT_BOOL {
-        get => NumGet(this, 8, "short")
-        set => NumPut("short", value, this, 8)
+    __OBSOLETE__VARIANT_BOOL{
+        get {
+            if(!this.HasProp("____OBSOLETE__VARIANT_BOOL"))
+                this.____OBSOLETE__VARIANT_BOOL := VARIANT_BOOL(this.ptr + 8)
+            return this.____OBSOLETE__VARIANT_BOOL
+        }
     }
 
     /**
@@ -623,11 +637,14 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    bstrVal{
+        get {
+            if(!this.HasProp("__bstrVal"))
+                this.__bstrVal := BSTR(this.ptr + 8)
+            return this.__bstrVal
+        }
     }
 
     /**
@@ -653,19 +670,25 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszVal{
+        get {
+            if(!this.HasProp("__pszVal"))
+                this.__pszVal := PSTR(this.ptr + 8)
+            return this.__pszVal
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszVal{
+        get {
+            if(!this.HasProp("__pwszVal"))
+                this.__pwszVal := PWSTR(this.ptr + 8)
+            return this.__pwszVal
+        }
     }
 
     /**
@@ -959,11 +982,14 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pcVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pcVal{
+        get {
+            if(!this.HasProp("__pcVal"))
+                this.__pcVal := PSTR(this.ptr + 8)
+            return this.__pcVal
+        }
     }
 
     /**
@@ -1039,7 +1065,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int16>}
+     * @type {Pointer<VARIANT_BOOL>}
      */
     pboolVal {
         get => NumGet(this, 8, "ptr")
@@ -1079,7 +1105,7 @@ class PROPVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<BSTR>}
      */
     pbstrVal {
         get => NumGet(this, 8, "ptr")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a resource to resolve to at the conclusion of a render pass.
@@ -72,10 +73,13 @@ class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS extends Win32Struct
 
     /**
      * A <b>BOOL</b>. <b>TRUE</b> to preserve the resolve source, otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PreserveResolveSource {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    PreserveResolveSource{
+        get {
+            if(!this.HasProp("__PreserveResolveSource"))
+                this.__PreserveResolveSource := BOOL(this.ptr + 40)
+            return this.__PreserveResolveSource
+        }
     }
 }

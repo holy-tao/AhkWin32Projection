@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Stores an optional friendly name and an optional description for an object.
@@ -24,19 +25,25 @@ class FWPM_DISPLAY_DATA0 extends Win32Struct
 
     /**
      * Optional friendly name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    name{
+        get {
+            if(!this.HasProp("__name"))
+                this.__name := PWSTR(this.ptr + 0)
+            return this.__name
+        }
     }
 
     /**
      * Optional description.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    description {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    description{
+        get {
+            if(!this.HasProp("__description"))
+                this.__description := PWSTR(this.ptr + 8)
+            return this.__description
+        }
     }
 }

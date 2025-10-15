@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the automagic hints for a LUN in a storage pool.
@@ -323,22 +324,28 @@ class VDS_HINTS2 extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the recovery time is limited. Set the <b>VDS_HINT_FASTCRASHRECOVERYREQUIRED</b> 
      *       flag in the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bFastCrashRecoveryRequired {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    bFastCrashRecoveryRequired{
+        get {
+            if(!this.HasProp("__bFastCrashRecoveryRequired"))
+                this.__bFastCrashRecoveryRequired := BOOL(this.ptr + 52)
+            return this.__bFastCrashRecoveryRequired
+        }
     }
 
     /**
      * To optimize for a mostly-reads usage pattern (for example, through mirroring rather than parity striping), set 
      *       this member to <b>TRUE</b>. Otherwise, set it to <b>FALSE</b>. Set the <b>VDS_HINT_MOSTLYREADS</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bMostlyReads {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    bMostlyReads{
+        get {
+            if(!this.HasProp("__bMostlyReads"))
+                this.__bMostlyReads := BOOL(this.ptr + 56)
+            return this.__bMostlyReads
+        }
     }
 
     /**
@@ -347,11 +354,14 @@ class VDS_HINTS2 extends Win32Struct
      *       <b>bOptimizeForSequentialWrites</b> members both to <b>FALSE</b> optimizes for random I/O. Set the 
      *       <b>VDS_HINT_OPTIMIZEFORSEQUENTIALREADS</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bOptimizeForSequentialReads {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    bOptimizeForSequentialReads{
+        get {
+            if(!this.HasProp("__bOptimizeForSequentialReads"))
+                this.__bOptimizeForSequentialReads := BOOL(this.ptr + 60)
+            return this.__bOptimizeForSequentialReads
+        }
     }
 
     /**
@@ -360,11 +370,14 @@ class VDS_HINTS2 extends Win32Struct
      *       <b>bOptimizeForSequentialWrites</b> members both to <b>FALSE</b> optimizes for random I/O. Set the 
      *       <b>VDS_HINT_OPTIMIZEFORSEQUENTIALWRITES</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bOptimizeForSequentialWrites {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    bOptimizeForSequentialWrites{
+        get {
+            if(!this.HasProp("__bOptimizeForSequentialWrites"))
+                this.__bOptimizeForSequentialWrites := BOOL(this.ptr + 64)
+            return this.__bOptimizeForSequentialWrites
+        }
     }
 
     /**
@@ -372,44 +385,56 @@ class VDS_HINTS2 extends Win32Struct
      *       to drive extents remains fixed after LUN configuration unless extents are explicitly remapped to avoid 
      *       corrupted blocks. Set the <b>VDS_HINT_REMAPENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bRemapEnabled {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+    bRemapEnabled{
+        get {
+            if(!this.HasProp("__bRemapEnabled"))
+                this.__bRemapEnabled := BOOL(this.ptr + 68)
+            return this.__bRemapEnabled
+        }
     }
 
     /**
      * If this member is <b>TRUE</b>, the provider verifies the writes to the LUN by readback. If it is <b>FALSE</b>, the provider does not verify writes. 
      *       Set the <b>VDS_HINT_READBACKVERIFYENABLED</b> flag in the 
      *       <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bReadBackVerifyEnabled {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+    bReadBackVerifyEnabled{
+        get {
+            if(!this.HasProp("__bReadBackVerifyEnabled"))
+                this.__bReadBackVerifyEnabled := BOOL(this.ptr + 72)
+            return this.__bReadBackVerifyEnabled
+        }
     }
 
     /**
      * If this member is <b>TRUE</b>, the provider enables write-through caching on the LUN; if it is <b>FALSE</b>, the provider does not enable
      *       write-through caching. Set the <b>VDS_HINT_WRITETHROUGHCACHINGENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bWriteThroughCachingEnabled {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+    bWriteThroughCachingEnabled{
+        get {
+            if(!this.HasProp("__bWriteThroughCachingEnabled"))
+                this.__bWriteThroughCachingEnabled := BOOL(this.ptr + 76)
+            return this.__bWriteThroughCachingEnabled
+        }
     }
 
     /**
      * If this member is <b>TRUE</b>, the provider enables a checksum on the LUN. Set the 
      *       <b>VDS_HINT_HARDWARECHECKSUMENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bHardwareChecksumEnabled {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+    bHardwareChecksumEnabled{
+        get {
+            if(!this.HasProp("__bHardwareChecksumEnabled"))
+                this.__bHardwareChecksumEnabled := BOOL(this.ptr + 80)
+            return this.__bHardwareChecksumEnabled
+        }
     }
 
     /**
@@ -418,77 +443,98 @@ class VDS_HINTS2 extends Win32Struct
      *       cannot be removed without significant disruption to the system. Set the 
      *       <b>VDS_HINT_ISYANKABLE</b> flag in the <b>ullHintMask</b> member to indicate 
      *       interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bIsYankable {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+    bIsYankable{
+        get {
+            if(!this.HasProp("__bIsYankable"))
+                this.__bIsYankable := BOOL(this.ptr + 84)
+            return this.__bIsYankable
+        }
     }
 
     /**
      * <b>TRUE</b> if the client wants to allocate a hot spare drive for this LUN, or <b>FALSE</b> otherwise. Set the 
      *       <b>VDS_HINT_ALLOCATEHOTSPARE</b> flag in the <b>ullHintMask</b> member to indicate 
      *       interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bAllocateHotSpare {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+    bAllocateHotSpare{
+        get {
+            if(!this.HasProp("__bAllocateHotSpare"))
+                this.__bAllocateHotSpare := BOOL(this.ptr + 88)
+            return this.__bAllocateHotSpare
+        }
     }
 
     /**
      * <b>TRUE</b> if the client wants this LUN to use a mirrored cache, or <b>FALSE</b> otherwise. Set the 
      *       <b>VDS_HINT_USEMIRROREDCACHE</b> flag in the <b>ullHintMask</b> member to indicate 
      *       interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bUseMirroredCache {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
+    bUseMirroredCache{
+        get {
+            if(!this.HasProp("__bUseMirroredCache"))
+                this.__bUseMirroredCache := BOOL(this.ptr + 92)
+            return this.__bUseMirroredCache
+        }
     }
 
     /**
      * <b>TRUE</b> if the client wants the LUN to use read caching, or <b>FALSE</b> otherwise. Set the 
      *       <b>VDS_HINT_READCACHINGENABLED</b> flag in the <b>ullHintMask</b> member to indicate 
      *       interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bReadCachingEnabled {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
+    bReadCachingEnabled{
+        get {
+            if(!this.HasProp("__bReadCachingEnabled"))
+                this.__bReadCachingEnabled := BOOL(this.ptr + 96)
+            return this.__bReadCachingEnabled
+        }
     }
 
     /**
      * <b>TRUE</b> if the client wants the LUN to use write caching, or <b>FALSE</b> otherwise. Set the 
      *       <b>VDS_HINT_WRITECACHINGENABLED</b> flag in the <b>ullHintMask</b> member to indicate 
      *       interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bWriteCachingEnabled {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
+    bWriteCachingEnabled{
+        get {
+            if(!this.HasProp("__bWriteCachingEnabled"))
+                this.__bWriteCachingEnabled := BOOL(this.ptr + 100)
+            return this.__bWriteCachingEnabled
+        }
     }
 
     /**
      * <b>TRUE</b> if the client wants to enable media scanning for this LUN, or <b>FALSE</b> otherwise. Set the 
      *       <b>VDS_HINT_MEDIASCANENABLED</b> flag in the <b>ullHintMask</b> member to indicate 
      *       interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bMediaScanEnabled {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
+    bMediaScanEnabled{
+        get {
+            if(!this.HasProp("__bMediaScanEnabled"))
+                this.__bMediaScanEnabled := BOOL(this.ptr + 104)
+            return this.__bMediaScanEnabled
+        }
     }
 
     /**
      * <b>TRUE</b> if the client wants to enable consistency checking for this LUN, or <b>FALSE</b> otherwise. Set the 
      *       <b>VDS_HINT_CONSISTENCYCHECKENABLED</b> flag in the <b>ullHintMask</b> member to indicate 
      *       interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bConsistencyCheckEnabled {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
+    bConsistencyCheckEnabled{
+        get {
+            if(!this.HasProp("__bConsistencyCheckEnabled"))
+                this.__bConsistencyCheckEnabled := BOOL(this.ptr + 108)
+            return this.__bConsistencyCheckEnabled
+        }
     }
 
     /**
@@ -505,29 +551,38 @@ class VDS_HINTS2 extends Win32Struct
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bReserved1 {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
+    bReserved1{
+        get {
+            if(!this.HasProp("__bReserved1"))
+                this.__bReserved1 := BOOL(this.ptr + 116)
+            return this.__bReserved1
+        }
     }
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bReserved2 {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+    bReserved2{
+        get {
+            if(!this.HasProp("__bReserved2"))
+                this.__bReserved2 := BOOL(this.ptr + 120)
+            return this.__bReserved2
+        }
     }
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bReserved3 {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
+    bReserved3{
+        get {
+            if(!this.HasProp("__bReserved3"))
+                this.__bReserved3 := BOOL(this.ptr + 124)
+            return this.__bReserved3
+        }
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_IPV6_ADDRESS.ahk
 #Include .\DHCP_BINARY_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the term or value on which the DHCPv6 server database will be searched.
@@ -42,11 +43,14 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        ClientName {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        ClientName{
+            get {
+                if(!this.HasProp("__ClientName"))
+                    this.__ClientName := PWSTR(this.ptr + 0)
+                return this.__ClientName
+            }
         }
     
     }

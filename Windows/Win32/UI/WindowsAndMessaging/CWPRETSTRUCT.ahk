@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Defines the message parameters passed to a WH_CALLWNDPROCRET hook procedure, CallWndRetProc.
@@ -18,11 +22,14 @@ class CWPRETSTRUCT extends Win32Struct
      * 
      * The return value of the window procedure that processed the message specified by the 
      * 					<b>message</b> value.
-     * @type {Pointer}
+     * @type {LRESULT}
      */
-    lResult {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lResult{
+        get {
+            if(!this.HasProp("__lResult"))
+                this.__lResult := LRESULT(this.ptr + 0)
+            return this.__lResult
+        }
     }
 
     /**
@@ -30,11 +37,14 @@ class CWPRETSTRUCT extends Win32Struct
      * 
      * Additional information about the message. The exact meaning depends on the 
      * 					<b>message</b> value.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 8)
+            return this.__lParam
+        }
     }
 
     /**
@@ -42,11 +52,14 @@ class CWPRETSTRUCT extends Win32Struct
      * 
      * Additional information about the message. The exact meaning depends on the 
      * 					<b>message</b> value.
-     * @type {Pointer}
+     * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(this.ptr + 16)
+            return this.__wParam
+        }
     }
 
     /**
@@ -65,10 +78,13 @@ class CWPRETSTRUCT extends Win32Struct
      * 
      * A handle to the window that processed the message specified by the 
      * 					<b>message</b> value.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(this.ptr + 32)
+            return this.__hwnd
+        }
     }
 }

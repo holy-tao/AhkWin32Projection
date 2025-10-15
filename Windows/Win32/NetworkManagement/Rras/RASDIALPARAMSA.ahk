@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -93,10 +94,13 @@ class RASDIALPARAMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    szEncPassword {
-        get => NumGet(this, 1072, "ptr")
-        set => NumPut("ptr", value, this, 1072)
+    szEncPassword{
+        get {
+            if(!this.HasProp("__szEncPassword"))
+                this.__szEncPassword := PSTR(this.ptr + 1072)
+            return this.__szEncPassword
+        }
     }
 }

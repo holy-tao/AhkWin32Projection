@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -44,11 +46,14 @@ class PROPSHEETUI_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hComPropSheet {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hComPropSheet{
+        get {
+            if(!this.HasProp("__hComPropSheet"))
+                this.__hComPropSheet := HANDLE(this.ptr + 8)
+            return this.__hComPropSheet
+        }
     }
 
     /**
@@ -60,11 +65,14 @@ class PROPSHEETUI_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParamInit {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lParamInit{
+        get {
+            if(!this.HasProp("__lParamInit"))
+                this.__lParamInit := LPARAM(this.ptr + 24)
+            return this.__lParamInit
+        }
     }
 
     /**

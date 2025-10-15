@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -36,10 +37,13 @@ class WLDP_DEVICE_SECURITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ManufacturerID {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ManufacturerID{
+        get {
+            if(!this.HasProp("__ManufacturerID"))
+                this.__ManufacturerID := PWSTR(this.ptr + 24)
+            return this.__ManufacturerID
+        }
     }
 }

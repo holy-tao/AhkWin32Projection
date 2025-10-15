@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the session, including name of the computer; name of the user; open files, pipes, and devices on the computer; and the name of the transport the client is using.
@@ -15,20 +16,26 @@ class SESSION_INFO_502 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the name of the computer that established the session. This string cannot contain a backslash (\\).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sesi502_cname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    sesi502_cname{
+        get {
+            if(!this.HasProp("__sesi502_cname"))
+                this.__sesi502_cname := PWSTR(this.ptr + 0)
+            return this.__sesi502_cname
+        }
     }
 
     /**
      * Pointer to a Unicode string specifying the name of the user who established the session.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sesi502_username {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    sesi502_username{
+        get {
+            if(!this.HasProp("__sesi502_username"))
+                this.__sesi502_username := PWSTR(this.ptr + 8)
+            return this.__sesi502_username
+        }
     }
 
     /**
@@ -121,19 +128,25 @@ class SESSION_INFO_502 extends Win32Struct
      *  
      * 
      * Sessions from LAN Manager servers running UNIX also will appear as LAN Manager 2.0.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sesi502_cltype_name {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    sesi502_cltype_name{
+        get {
+            if(!this.HasProp("__sesi502_cltype_name"))
+                this.__sesi502_cltype_name := PWSTR(this.ptr + 32)
+            return this.__sesi502_cltype_name
+        }
     }
 
     /**
      * Specifies the name of the transport that the client is using to communicate with the server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sesi502_transport {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    sesi502_transport{
+        get {
+            if(!this.HasProp("__sesi502_transport"))
+                this.__sesi502_transport := PWSTR(this.ptr + 40)
+            return this.__sesi502_transport
+        }
     }
 }

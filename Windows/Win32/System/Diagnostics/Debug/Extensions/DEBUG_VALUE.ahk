@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -88,11 +89,14 @@ class DEBUG_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Nat {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    Nat{
+        get {
+            if(!this.HasProp("__Nat"))
+                this.__Nat := BOOL(this.ptr + 8)
+            return this.__Nat
+        }
     }
 
     /**

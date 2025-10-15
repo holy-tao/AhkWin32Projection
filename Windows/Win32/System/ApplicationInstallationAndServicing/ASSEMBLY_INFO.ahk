@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ASSEMBLY_INFO structure contains information about an assembly in the side-by-side assembly store. The information is used by the QueryAssemblyInfo method.
@@ -59,11 +60,14 @@ class ASSEMBLY_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the path to the manifest file.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszCurrentAssemblyPathBuf {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszCurrentAssemblyPathBuf{
+        get {
+            if(!this.HasProp("__pszCurrentAssemblyPathBuf"))
+                this.__pszCurrentAssemblyPathBuf := PWSTR(this.ptr + 16)
+            return this.__pszCurrentAssemblyPathBuf
+        }
     }
 
     /**

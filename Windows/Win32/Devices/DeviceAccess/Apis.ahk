@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Devices.DeviceAccess
  * @version v4.0.30319
@@ -237,7 +237,7 @@ class DeviceAccess {
 ;@region Methods
     /**
      * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
-     * @param {Pointer<Char>} deviceInterfacePath A valid device interface path for the device that this instance should bind to.
+     * @param {PWSTR} deviceInterfacePath A valid device interface path for the device that this instance should bind to.
      * @param {Integer} desiredAccess The requested level of access to the device, which can be summarized as read, write, both, or neither (zero).
      *  
      * 
@@ -248,7 +248,7 @@ class DeviceAccess {
      * @see https://docs.microsoft.com/windows/win32/api//deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
     static CreateDeviceAccessInstance(deviceInterfacePath, desiredAccess, createAsync) {
-        deviceInterfacePath := deviceInterfacePath is String? StrPtr(deviceInterfacePath) : deviceInterfacePath
+        deviceInterfacePath := deviceInterfacePath is String ? StrPtr(deviceInterfacePath) : deviceInterfacePath
 
         result := DllCall("deviceaccess.dll\CreateDeviceAccessInstance", "ptr", deviceInterfacePath, "uint", desiredAccess, "ptr", createAsync, "int")
         if(result != 0)

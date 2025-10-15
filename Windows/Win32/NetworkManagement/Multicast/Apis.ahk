@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.NetworkManagement.Multicast
  * @version v4.0.30319
@@ -76,7 +76,7 @@ class Multicast {
      * The McastEnumerateScopes function enumerates multicast scopes available on the network.
      * @param {Integer} AddrFamily Specifies the address family to be used in enumeration, in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-ipng_address">IPNG_ADDRESS</a> structure. Use AF_INET for IPv4 addresses and AF_INET6 for IPv6 addresses.
-     * @param {Integer} ReQuery Enables a caller to query a list again. Set this parameter to <b>TRUE</b> if the list is to be queried more than once. Otherwise, set it to <b>FALSE</b>.
+     * @param {BOOL} ReQuery Enables a caller to query a list again. Set this parameter to <b>TRUE</b> if the list is to be queried more than once. Otherwise, set it to <b>FALSE</b>.
      * @param {Pointer<MCAST_SCOPE_ENTRY>} pScopeList Pointer to a buffer used for storing scope list information, in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-mcast_scope_entry">MCAST_SCOPE_ENTRY</a> structure. The return value of <i>pScopeList</i> depends on its input value, and on the value of the buffer to which it points: 
      * 
@@ -115,7 +115,7 @@ class Multicast {
      * @since windows5.0
      */
     static McastEnumerateScopes(AddrFamily, ReQuery, pScopeList, pScopeLen, pScopeCount) {
-        result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", "ushort", AddrFamily, "int", ReQuery, "ptr", pScopeList, "uint*", pScopeLen, "uint*", pScopeCount, "uint")
+        result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", "ushort", AddrFamily, "ptr", ReQuery, "ptr", pScopeList, "uint*", pScopeLen, "uint*", pScopeCount, "uint")
         return result
     }
 

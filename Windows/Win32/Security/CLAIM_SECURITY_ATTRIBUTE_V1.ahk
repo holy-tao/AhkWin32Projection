@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\Foundation\PWSTR.ahk
 
 /**
  * Defines a security attribute that can be associated with a token or authorization context.
@@ -15,11 +16,14 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
 
     /**
      * A pointer to a string of Unicode characters that contains the name of the security attribute. This string must be at least 4 bytes in length.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := PWSTR(this.ptr + 0)
+            return this.__Name
+        }
     }
 
     /**
@@ -148,7 +152,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppString {
         get => NumGet(this, 24, "ptr")

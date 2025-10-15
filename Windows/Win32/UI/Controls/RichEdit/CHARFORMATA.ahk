@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information about character formatting in a rich edit control.
@@ -81,11 +82,14 @@ class CHARFORMATA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Text color. This member is ignored if the CFE_AUTOCOLOR character effect is specified. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crTextColor {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    crTextColor{
+        get {
+            if(!this.HasProp("__crTextColor"))
+                this.__crTextColor := COLORREF(this.ptr + 20)
+            return this.__crTextColor
+        }
     }
 
     /**

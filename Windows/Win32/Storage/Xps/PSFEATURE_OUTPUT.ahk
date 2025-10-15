@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The PSFEATURE_OUTPUT structure contains information about PostScript driver output options. This structure is used with the GET_PS_FEATURESETTING printer escape function.
@@ -15,19 +16,25 @@ class PSFEATURE_OUTPUT extends Win32Struct
 
     /**
      * <b>TRUE</b> if PostScript output is page-independent or <b>FALSE</b> if PostScript output is page-dependent.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bPageIndependent {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    bPageIndependent{
+        get {
+            if(!this.HasProp("__bPageIndependent"))
+                this.__bPageIndependent := BOOL(this.ptr + 0)
+            return this.__bPageIndependent
+        }
     }
 
     /**
      * <b>TRUE</b> if printer feature code (setpagedevice's) is included or <b>FALSE</b> if all printer feature code is suppressed.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bSetPageDevice {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    bSetPageDevice{
+        get {
+            if(!this.HasProp("__bSetPageDevice"))
+                this.__bSetPageDevice := BOOL(this.ptr + 4)
+            return this.__bSetPageDevice
+        }
     }
 }

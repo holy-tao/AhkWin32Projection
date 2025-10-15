@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The WM_MEDIA_TYPE structure is the primary structure used to describe media formats for the objects of the Windows Media Format SDK. For more information about media formats and what they are used for, see Formats.
@@ -38,20 +39,26 @@ class WM_MEDIA_TYPE extends Win32Struct
 
     /**
      * Set to true if the samples are of a fixed size. Compressed audio samples are of a fixed size while video samples are not.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bFixedSizeSamples {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    bFixedSizeSamples{
+        get {
+            if(!this.HasProp("__bFixedSizeSamples"))
+                this.__bFixedSizeSamples := BOOL(this.ptr + 16)
+            return this.__bFixedSizeSamples
+        }
     }
 
     /**
      * Set to true if the samples are temporally compressed. Temporal compression is compression where some samples describe the changes in content from the previous sample, instead of describing the sample in its entirety. Only compressed video can be temporally compressed. By definition, no media type can use both fixed sized samples and temporal compression.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bTemporalCompression {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    bTemporalCompression{
+        get {
+            if(!this.HasProp("__bTemporalCompression"))
+                this.__bTemporalCompression := BOOL(this.ptr + 20)
+            return this.__bTemporalCompression
+        }
     }
 
     /**

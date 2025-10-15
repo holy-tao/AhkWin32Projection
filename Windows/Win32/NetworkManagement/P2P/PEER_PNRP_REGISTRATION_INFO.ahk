@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PEER_DATA.ahk
 
 /**
@@ -16,20 +17,26 @@ class PEER_PNRP_REGISTRATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the name of the PNRP cloud for which this peer identity is requesting registration. If <b>NULL</b>, the registration will be made in all clouds.  It is possible to use the special value PEER_PNRP_ALL_LINK_CLOUDS to register in all link local clouds.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzCloudName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwzCloudName{
+        get {
+            if(!this.HasProp("__pwzCloudName"))
+                this.__pwzCloudName := PWSTR(this.ptr + 0)
+            return this.__pwzCloudName
+        }
     }
 
     /**
      * Pointer to a Unicode string that contains the name of the peer identity requesting registration.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzPublishingIdentity {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwzPublishingIdentity{
+        get {
+            if(!this.HasProp("__pwzPublishingIdentity"))
+                this.__pwzPublishingIdentity := PWSTR(this.ptr + 8)
+            return this.__pwzPublishingIdentity
+        }
     }
 
     /**
@@ -61,11 +68,14 @@ class PEER_PNRP_REGISTRATION_INFO extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains a comment for this peer endpoint.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzComment {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pwzComment{
+        get {
+            if(!this.HasProp("__pwzComment"))
+                this.__pwzComment := PWSTR(this.ptr + 40)
+            return this.__pwzComment
+        }
     }
 
     /**

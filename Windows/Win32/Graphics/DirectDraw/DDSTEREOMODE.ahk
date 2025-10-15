@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -52,10 +53,13 @@ class DDSTEREOMODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bSupported {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    bSupported{
+        get {
+            if(!this.HasProp("__bSupported"))
+                this.__bSupported := BOOL(this.ptr + 20)
+            return this.__bSupported
+        }
     }
 }

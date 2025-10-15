@@ -53,11 +53,39 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - SublinkSpeedAttrCount
+     * - SublinkSpeedIDCount
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 4, "uint")
         set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SublinkSpeedAttrCount {
+        get => (this._bitfield >> 0) & 0x1F
+        set => this._bitfield := ((value & 0x1F) << 0) | (this._bitfield & ~(0x1F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SublinkSpeedIDCount {
+        get => (this._bitfield >> 5) & 0xF
+        set => this._bitfield := ((value & 0xF) << 5) | (this._bitfield & ~(0xF << 5))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 9) & 0x7FFFFF
+        set => this._bitfield := ((value & 0x7FFFFF) << 9) | (this._bitfield & ~(0x7FFFFF << 9))
     }
 
     /**
@@ -66,6 +94,51 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_USB_DESCRIPTOR extends Win32Struct
     AsUshort {
         get => NumGet(this, 8, "ushort")
         set => NumPut("ushort", value, this, 8)
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - SublinkSpeedAttrID
+     * - Reserved
+     * - MinRxLaneCount
+     * - MinTxLaneCount
+     * @type {Integer}
+     */
+    _bitfield1 {
+        get => NumGet(this, 8, "ushort")
+        set => NumPut("ushort", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SublinkSpeedAttrID {
+        get => (this._bitfield1 >> 0) & 0xF
+        set => this._bitfield1 := ((value & 0xF) << 0) | (this._bitfield1 & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield1 >> 4) & 0xF
+        set => this._bitfield1 := ((value & 0xF) << 4) | (this._bitfield1 & ~(0xF << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MinRxLaneCount {
+        get => (this._bitfield1 >> 8) & 0xF
+        set => this._bitfield1 := ((value & 0xF) << 8) | (this._bitfield1 & ~(0xF << 8))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MinTxLaneCount {
+        get => (this._bitfield1 >> 12) & 0xF
+        set => this._bitfield1 := ((value & 0xF) << 12) | (this._bitfield1 & ~(0xF << 12))
     }
 
     /**

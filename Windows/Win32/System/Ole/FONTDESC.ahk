@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\CY.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains parameters used to create a font object through the OleCreateFontIndirect function.
@@ -27,11 +29,14 @@ class FONTDESC extends Win32Struct
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/nf-wtypesbase-olestr">OLESTR</a> that specifies the caller-owned string specifying the font name.
      * 
      * cySize
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpstrName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpstrName{
+        get {
+            if(!this.HasProp("__lpstrName"))
+                this.__lpstrName := PWSTR(this.ptr + 8)
+            return this.__lpstrName
+        }
     }
 
     /**
@@ -66,28 +71,37 @@ class FONTDESC extends Win32Struct
 
     /**
      * Initial italic state of the font.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fItalic {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    fItalic{
+        get {
+            if(!this.HasProp("__fItalic"))
+                this.__fItalic := BOOL(this.ptr + 36)
+            return this.__fItalic
+        }
     }
 
     /**
      * Initial underline state of the font.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fUnderline {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    fUnderline{
+        get {
+            if(!this.HasProp("__fUnderline"))
+                this.__fUnderline := BOOL(this.ptr + 40)
+            return this.__fUnderline
+        }
     }
 
     /**
      * Initial strikethrough state of the font.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fStrikethrough {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    fStrikethrough{
+        get {
+            if(!this.HasProp("__fStrikethrough"))
+                this.__fStrikethrough := BOOL(this.ptr + 44)
+            return this.__fStrikethrough
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS structure holds additional Authenticode policy information for chain verification of files.
@@ -24,11 +25,14 @@ class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct
 
     /**
      * BOOL flag. If <b>TRUE</b>, a signer has been verified by a CA as meeting certain minimum financial standards.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCommercial {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fCommercial{
+        get {
+            if(!this.HasProp("__fCommercial"))
+                this.__fCommercial := BOOL(this.ptr + 4)
+            return this.__fCommercial
+        }
     }
 
     /**

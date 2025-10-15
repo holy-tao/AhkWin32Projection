@@ -7,6 +7,7 @@
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Stores information about an IP path entry.
@@ -151,11 +152,14 @@ class MIB_IPPATH_ROW extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the destination IP address is reachable for this IP path entry.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsReachable {
-        get => NumGet(this, 232, "char")
-        set => NumPut("char", value, this, 232)
+    IsReachable{
+        get {
+            if(!this.HasProp("__IsReachable"))
+                this.__IsReachable := BOOLEAN(this.ptr + 232)
+            return this.__IsReachable
+        }
     }
 
     /**

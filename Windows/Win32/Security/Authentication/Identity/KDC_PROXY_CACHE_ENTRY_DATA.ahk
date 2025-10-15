@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -96,10 +98,13 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    GlobalCache {
-        get => NumGet(this, 104, "char")
-        set => NumPut("char", value, this, 104)
+    GlobalCache{
+        get {
+            if(!this.HasProp("__GlobalCache"))
+                this.__GlobalCache := BOOLEAN(this.ptr + 104)
+            return this.__GlobalCache
+        }
     }
 }

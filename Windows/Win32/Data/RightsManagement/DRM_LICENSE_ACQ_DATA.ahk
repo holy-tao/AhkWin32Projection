@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Holds license acquisition data during nonsilent license acquisition.
@@ -29,20 +30,26 @@ class DRM_LICENSE_ACQ_DATA extends Win32Struct
 
     /**
      * URL of a license-granting website.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszURL {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    wszURL{
+        get {
+            if(!this.HasProp("__wszURL"))
+                this.__wszURL := PWSTR(this.ptr + 8)
+            return this.__wszURL
+        }
     }
 
     /**
      * The path and file name of a local HTML file that will automatically send a license request when loaded in a browser.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszLocalFilename {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    wszLocalFilename{
+        get {
+            if(!this.HasProp("__wszLocalFilename"))
+                this.__wszLocalFilename := PWSTR(this.ptr + 16)
+            return this.__wszLocalFilename
+        }
     }
 
     /**
@@ -65,10 +72,13 @@ class DRM_LICENSE_ACQ_DATA extends Win32Struct
 
     /**
      * A human-readable name for the license-granting website.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszFriendlyName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    wszFriendlyName{
+        get {
+            if(!this.HasProp("__wszFriendlyName"))
+                this.__wszFriendlyName := PWSTR(this.ptr + 40)
+            return this.__wszFriendlyName
+        }
     }
 }

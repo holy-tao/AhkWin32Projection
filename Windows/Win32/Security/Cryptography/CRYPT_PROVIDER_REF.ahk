@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a cryptographic interface that a provider supports.
@@ -24,20 +25,26 @@ class CRYPT_PROVIDER_REF extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that identifies the algorithm or function that the reference applies to. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszFunction {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszFunction{
+        get {
+            if(!this.HasProp("__pszFunction"))
+                this.__pszFunction := PWSTR(this.ptr + 8)
+            return this.__pszFunction
+        }
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the provider.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszProvider {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszProvider{
+        get {
+            if(!this.HasProp("__pszProvider"))
+                this.__pszProvider := PWSTR(this.ptr + 16)
+            return this.__pszProvider
+        }
     }
 
     /**

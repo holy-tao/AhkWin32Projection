@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Retrieves data about the API and implementations used.
@@ -64,11 +65,14 @@ class LDAPAPIInfoA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the API vendor.  This implementation returns the string ""Microsoft Corporation."".
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    ldapai_vendor_name {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ldapai_vendor_name{
+        get {
+            if(!this.HasProp("__ldapai_vendor_name"))
+                this.__ldapai_vendor_name := PSTR(this.ptr + 24)
+            return this.__ldapai_vendor_name
+        }
     }
 
     /**

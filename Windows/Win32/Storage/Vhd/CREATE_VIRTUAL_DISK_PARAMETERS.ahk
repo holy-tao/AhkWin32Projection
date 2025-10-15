@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\VIRTUAL_STORAGE_TYPE.ahk
 
 /**
@@ -90,19 +91,25 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        ParentPath {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
+        ParentPath{
+            get {
+                if(!this.HasProp("__ParentPath"))
+                    this.__ParentPath := PWSTR(this.ptr + 24)
+                return this.__ParentPath
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        SourcePath {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+        SourcePath{
+            get {
+                if(!this.HasProp("__SourcePath"))
+                    this.__SourcePath := PWSTR(this.ptr + 32)
+                return this.__SourcePath
+            }
         }
     
     }
@@ -152,19 +159,25 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        ParentPath {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+        ParentPath{
+            get {
+                if(!this.HasProp("__ParentPath"))
+                    this.__ParentPath := PWSTR(this.ptr + 32)
+                return this.__ParentPath
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        SourcePath {
-            get => NumGet(this, 40, "ptr")
-            set => NumPut("ptr", value, this, 40)
+        SourcePath{
+            get {
+                if(!this.HasProp("__SourcePath"))
+                    this.__SourcePath := PWSTR(this.ptr + 40)
+                return this.__SourcePath
+            }
         }
     
         /**
@@ -252,19 +265,25 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        ParentPath {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+        ParentPath{
+            get {
+                if(!this.HasProp("__ParentPath"))
+                    this.__ParentPath := PWSTR(this.ptr + 32)
+                return this.__ParentPath
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        SourcePath {
-            get => NumGet(this, 40, "ptr")
-            set => NumPut("ptr", value, this, 40)
+        SourcePath{
+            get {
+                if(!this.HasProp("__SourcePath"))
+                    this.__SourcePath := PWSTR(this.ptr + 40)
+                return this.__SourcePath
+            }
         }
     
         /**
@@ -306,11 +325,14 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        SourceLimitPath {
-            get => NumGet(this, 96, "ptr")
-            set => NumPut("ptr", value, this, 96)
+        SourceLimitPath{
+            get {
+                if(!this.HasProp("__SourceLimitPath"))
+                    this.__SourceLimitPath := PWSTR(this.ptr + 96)
+                return this.__SourceLimitPath
+            }
         }
     
         /**
@@ -371,19 +393,25 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        ParentPath {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+        ParentPath{
+            get {
+                if(!this.HasProp("__ParentPath"))
+                    this.__ParentPath := PWSTR(this.ptr + 32)
+                return this.__ParentPath
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        SourcePath {
-            get => NumGet(this, 40, "ptr")
-            set => NumPut("ptr", value, this, 40)
+        SourcePath{
+            get {
+                if(!this.HasProp("__SourcePath"))
+                    this.__SourcePath := PWSTR(this.ptr + 40)
+                return this.__SourcePath
+            }
         }
     
         /**
@@ -425,11 +453,14 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        SourceLimitPath {
-            get => NumGet(this, 96, "ptr")
-            set => NumPut("ptr", value, this, 96)
+        SourceLimitPath{
+            get {
+                if(!this.HasProp("__SourceLimitPath"))
+                    this.__SourceLimitPath := PWSTR(this.ptr + 96)
+                return this.__SourceLimitPath
+            }
         }
     
         /**

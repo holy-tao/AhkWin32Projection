@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
 
 /**
@@ -16,11 +17,14 @@ class MINIDUMP_MODULE_CALLBACK extends Win32Struct
 
     /**
      * The fully qualified path of the module executable.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FullPath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    FullPath{
+        get {
+            if(!this.HasProp("__FullPath"))
+                this.__FullPath := PWSTR(this.ptr + 0)
+            return this.__FullPath
+        }
     }
 
     /**

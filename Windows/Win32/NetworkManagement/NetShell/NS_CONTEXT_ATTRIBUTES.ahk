@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines attributes of a context.
@@ -39,11 +40,14 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct
 
     /**
      * A unicode string that identifies the new context. This string is the command available to users. The string must not contain spaces.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszContext{
+        get {
+            if(!this.HasProp("__pwszContext"))
+                this.__pwszContext := PWSTR(this.ptr + 8)
+            return this.__pwszContext
+        }
     }
 
     /**

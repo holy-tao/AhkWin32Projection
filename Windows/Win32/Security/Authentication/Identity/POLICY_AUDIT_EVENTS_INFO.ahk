@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The POLICY_AUDIT_EVENTS_INFO structure is used to set and query the system's auditing rules.
@@ -27,11 +28,14 @@ class POLICY_AUDIT_EVENTS_INFO extends Win32Struct
      * If this flag is <b>TRUE</b>, the system generates audit records according to the event auditing options specified in the <b>EventAuditingOptions</b> member.
      * 
      * If this flag is <b>FALSE</b>, the system does not generate audit records. However, note that set operations update the event auditing options as specified in the <b>EventAuditingOptions</b> member even when <b>AuditingMode</b> is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    AuditingMode {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    AuditingMode{
+        get {
+            if(!this.HasProp("__AuditingMode"))
+                this.__AuditingMode := BOOLEAN(this.ptr + 0)
+            return this.__AuditingMode
+        }
     }
 
     /**

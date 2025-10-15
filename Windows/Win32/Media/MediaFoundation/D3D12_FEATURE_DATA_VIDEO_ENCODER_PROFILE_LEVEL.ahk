@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
 
 /**
@@ -41,11 +42,14 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsSupported {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    IsSupported{
+        get {
+            if(!this.HasProp("__IsSupported"))
+                this.__IsSupported := BOOL(this.ptr + 24)
+            return this.__IsSupported
+        }
     }
 
     /**

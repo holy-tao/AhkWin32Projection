@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_DEVICE_DESCRIPTOR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\USB_ENDPOINT_DESCRIPTOR.ahk
 #Include .\USB_PIPE_INFO.ahk
 
@@ -42,19 +43,25 @@ class USB_NODE_CONNECTION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    LowSpeed {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
+    LowSpeed{
+        get {
+            if(!this.HasProp("__LowSpeed"))
+                this.__LowSpeed := BOOLEAN(this.ptr + 27)
+            return this.__LowSpeed
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    DeviceIsHub {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
+    DeviceIsHub{
+        get {
+            if(!this.HasProp("__DeviceIsHub"))
+                this.__DeviceIsHub := BOOLEAN(this.ptr + 28)
+            return this.__DeviceIsHub
+        }
     }
 
     /**

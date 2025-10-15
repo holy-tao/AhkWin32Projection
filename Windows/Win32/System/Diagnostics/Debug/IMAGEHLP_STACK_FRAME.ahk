@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the stack frame information.
@@ -121,11 +122,14 @@ class IMAGEHLP_STACK_FRAME extends Win32Struct
 
     /**
      * If this is a virtual frame, this member is <b>TRUE</b>. Otherwise, this member is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Virtual {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+    Virtual{
+        get {
+            if(!this.HasProp("__Virtual"))
+                this.__Virtual := BOOL(this.ptr + 120)
+            return this.__Virtual
+        }
     }
 
     /**

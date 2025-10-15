@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
@@ -13,19 +15,25 @@ class LINEREQMEDIACALLW extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWnd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hWnd{
+        get {
+            if(!this.HasProp("__hWnd"))
+                this.__hWnd := HWND(this.ptr + 0)
+            return this.__hWnd
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {WPARAM}
      */
-    wRequestID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    wRequestID{
+        get {
+            if(!this.HasProp("__wRequestID"))
+                this.__wRequestID := WPARAM(this.ptr + 8)
+            return this.__wRequestID
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\PSID.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -100,11 +102,14 @@ class SECPKG_PARAMETERS extends Win32Struct
 
     /**
      * The security identifier of the primary domain.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    DomainSid {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    DomainSid{
+        get {
+            if(!this.HasProp("__DomainSid"))
+                this.__DomainSid := PSID(this.ptr + 16)
+            return this.__DomainSid
+        }
     }
 
     /**

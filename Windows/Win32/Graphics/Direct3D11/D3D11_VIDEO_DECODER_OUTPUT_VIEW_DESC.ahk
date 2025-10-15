@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_TEX2D_VDOV.ahk
 
 /**
  * Describes a video decoder output view.
@@ -32,10 +33,13 @@ class D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D11_TEX2D_VDOV}
      */
-    Anonymous {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    Texture2D{
+        get {
+            if(!this.HasProp("__Texture2D"))
+                this.__Texture2D := D3D11_TEX2D_VDOV(this.ptr + 12)
+            return this.__Texture2D
+        }
     }
 }

@@ -30,7 +30,7 @@ class WHV_VPCI_DEVICE_NOTIFICATION extends Win32Struct
     /**
      * @type {Integer}
      */
-    Anonymous {
+    Reserved2 {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
     }

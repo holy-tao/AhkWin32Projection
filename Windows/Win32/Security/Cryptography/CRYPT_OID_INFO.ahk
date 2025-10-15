@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -25,20 +27,26 @@ class CRYPT_OID_INFO extends Win32Struct
 
     /**
      * The OID associated with this OID information.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszOID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszOID{
+        get {
+            if(!this.HasProp("__pszOID"))
+                this.__pszOID := PSTR(this.ptr + 8)
+            return this.__pszOID
+        }
     }
 
     /**
      * The display name associated with an OID.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszName{
+        get {
+            if(!this.HasProp("__pwszName"))
+                this.__pwszName := PWSTR(this.ptr + 16)
+            return this.__pwszName
+        }
     }
 
     /**

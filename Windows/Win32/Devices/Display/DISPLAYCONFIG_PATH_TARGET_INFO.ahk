@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\LUID.ahk
 #Include .\DISPLAYCONFIG_RATIONAL.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DISPLAYCONFIG_PATH_TARGET_INFO structure contains target information for a single path.
@@ -54,11 +55,30 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - desktopModeInfoIdx
+     * - targetModeInfoIdx
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 12, "uint")
         set => NumPut("uint", value, this, 12)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    desktopModeInfoIdx {
+        get => (this._bitfield >> 0) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    targetModeInfoIdx {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**
@@ -113,11 +133,14 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
      * A Boolean value that specifies whether the target is available. <b>TRUE</b> indicates that the target is available.
      * 
      * Because the asynchronous nature of display topology changes when a monitor is removed, a path might still be marked as active even though the monitor has been removed. In such a case, <b>targetAvailable</b> could be <b>FALSE</b> for an active path. This is typically a transient situation that will change after the operating system  takes action on the monitor removal.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    targetAvailable {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    targetAvailable{
+        get {
+            if(!this.HasProp("__targetAvailable"))
+                this.__targetAvailable := BOOL(this.ptr + 44)
+            return this.__targetAvailable
+        }
     }
 
     /**

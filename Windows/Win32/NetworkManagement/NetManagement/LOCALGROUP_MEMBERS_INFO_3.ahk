@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The LOCALGROUP_MEMBERS_INFO_3 structure contains the account name and domain name associated with a local group member.
@@ -26,10 +27,13 @@ class LOCALGROUP_MEMBERS_INFO_3 extends Win32Struct
      * 
      * <pre class="syntax" xml:space="preserve"><code>&lt;DomainName&gt;\&lt;AccountName&gt;
      * </code></pre>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lgrmi3_domainandname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lgrmi3_domainandname{
+        get {
+            if(!this.HasProp("__lgrmi3_domainandname"))
+                this.__lgrmi3_domainandname := PWSTR(this.ptr + 0)
+            return this.__lgrmi3_domainandname
+        }
     }
 }

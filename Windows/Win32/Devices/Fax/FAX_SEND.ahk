@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The FAX_SEND structure contains information about an outbound fax document.
@@ -35,44 +37,56 @@ class FAX_SEND extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the full path to the file that contains the data stream for an outbound fax document. The data stream is a TIFF Class F file. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-image-format">Fax Image Format</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    FileName{
+        get {
+            if(!this.HasProp("__FileName"))
+                this.__FileName := PWSTR(this.ptr + 8)
+            return this.__FileName
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the name of the calling device. The FSP will send this name to the remote receiving device when the FSP sends the fax. For more information, see the following Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    CallerName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    CallerName{
+        get {
+            if(!this.HasProp("__CallerName"))
+                this.__CallerName := PWSTR(this.ptr + 16)
+            return this.__CallerName
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the telephone number of the calling device. (This number is also the TSID.) The FSP will send this number to the remote receiving device when the FSP sends the fax. For more information, see the following Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    CallerNumber {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    CallerNumber{
+        get {
+            if(!this.HasProp("__CallerNumber"))
+                this.__CallerNumber := PWSTR(this.ptr + 24)
+            return this.__CallerNumber
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that specifies the name of the device that will receive the outbound fax document.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ReceiverName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    ReceiverName{
+        get {
+            if(!this.HasProp("__ReceiverName"))
+                this.__ReceiverName := PWSTR(this.ptr + 32)
+            return this.__ReceiverName
+        }
     }
 
     /**
@@ -81,22 +95,28 @@ class FAX_SEND extends Win32Struct
      * Pointer to a null-terminated Unicode character string that specifies the telephone number of the device that will receive the outbound fax document. This is the telephone number that the FSP will dial.
      * 
      * If you specify the <b>CallHandle</b> member, the <b>ReceiverNumber</b> member must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ReceiverNumber {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    ReceiverNumber{
+        get {
+            if(!this.HasProp("__ReceiverNumber"))
+                this.__ReceiverNumber := PWSTR(this.ptr + 40)
+            return this.__ReceiverNumber
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Branding {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    Branding{
+        get {
+            if(!this.HasProp("__Branding"))
+                this.__Branding := BOOL(this.ptr + 48)
+            return this.__Branding
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SERVER_INFO_1516 structure specifies whether the server is a reliable time source.
@@ -15,10 +16,13 @@ class SERVER_INFO_1516 extends Win32Struct
 
     /**
      * Specifies whether the server is a reliable time source.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv1516_timesource {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    sv1516_timesource{
+        get {
+            if(!this.HasProp("__sv1516_timesource"))
+                this.__sv1516_timesource := BOOL(this.ptr + 0)
+            return this.__sv1516_timesource
+        }
     }
 }

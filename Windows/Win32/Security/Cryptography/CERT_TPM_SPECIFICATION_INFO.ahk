@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -12,11 +13,14 @@ class CERT_TPM_SPECIFICATION_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszFamily {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszFamily{
+        get {
+            if(!this.HasProp("__pwszFamily"))
+                this.__pwszFamily := PWSTR(this.ptr + 0)
+            return this.__pwszFamily
+        }
     }
 
     /**

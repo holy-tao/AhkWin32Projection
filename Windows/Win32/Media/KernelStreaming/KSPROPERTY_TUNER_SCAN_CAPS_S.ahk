@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -24,11 +25,14 @@ class KSPROPERTY_TUNER_SCAN_CAPS_S extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSupportsHardwareAssistedScanning {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    fSupportsHardwareAssistedScanning{
+        get {
+            if(!this.HasProp("__fSupportsHardwareAssistedScanning"))
+                this.__fSupportsHardwareAssistedScanning := BOOL(this.ptr + 16)
+            return this.__fSupportsHardwareAssistedScanning
+        }
     }
 
     /**

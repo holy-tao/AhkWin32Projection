@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include .\WHEA_ERROR_SOURCE_CONFIGURATION_DD.ahk
 
 /**
@@ -21,11 +22,14 @@ class WHEA_DEVICE_DRIVER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Enabled {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+    Enabled{
+        get {
+            if(!this.HasProp("__Enabled"))
+                this.__Enabled := BOOLEAN(this.ptr + 2)
+            return this.__Enabled
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\PSID.ahk
 
 /**
  * Defines an access check request.
@@ -24,11 +25,14 @@ class AUTHZ_ACCESS_REQUEST extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) to use for the principal self SID in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL).
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    PrincipalSelfSid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    PrincipalSelfSid{
+        get {
+            if(!this.HasProp("__PrincipalSelfSid"))
+                this.__PrincipalSelfSid := PSID(this.ptr + 8)
+            return this.__PrincipalSelfSid
+        }
     }
 
     /**

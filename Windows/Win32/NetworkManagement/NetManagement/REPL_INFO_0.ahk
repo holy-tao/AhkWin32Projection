@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -20,43 +21,58 @@ class REPL_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    rp0_exportpath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    rp0_exportpath{
+        get {
+            if(!this.HasProp("__rp0_exportpath"))
+                this.__rp0_exportpath := PWSTR(this.ptr + 8)
+            return this.__rp0_exportpath
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    rp0_exportlist {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    rp0_exportlist{
+        get {
+            if(!this.HasProp("__rp0_exportlist"))
+                this.__rp0_exportlist := PWSTR(this.ptr + 16)
+            return this.__rp0_exportlist
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    rp0_importpath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    rp0_importpath{
+        get {
+            if(!this.HasProp("__rp0_importpath"))
+                this.__rp0_importpath := PWSTR(this.ptr + 24)
+            return this.__rp0_importpath
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    rp0_importlist {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    rp0_importlist{
+        get {
+            if(!this.HasProp("__rp0_importlist"))
+                this.__rp0_importlist := PWSTR(this.ptr + 32)
+            return this.__rp0_importlist
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    rp0_logonusername {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    rp0_logonusername{
+        get {
+            if(!this.HasProp("__rp0_logonusername"))
+                this.__rp0_logonusername := PWSTR(this.ptr + 40)
+            return this.__rp0_logonusername
+        }
     }
 
     /**

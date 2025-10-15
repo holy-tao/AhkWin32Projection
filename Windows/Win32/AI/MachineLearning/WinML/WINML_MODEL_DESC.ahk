@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains description properties of the model.
@@ -15,38 +16,50 @@ class WINML_MODEL_DESC extends Win32Struct
 
     /**
      * The author of the model.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Author {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Author{
+        get {
+            if(!this.HasProp("__Author"))
+                this.__Author := PWSTR(this.ptr + 0)
+            return this.__Author
+        }
     }
 
     /**
      * The name of the model.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := PWSTR(this.ptr + 8)
+            return this.__Name
+        }
     }
 
     /**
      * The domain of the model.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Domain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Domain{
+        get {
+            if(!this.HasProp("__Domain"))
+                this.__Domain := PWSTR(this.ptr + 16)
+            return this.__Domain
+        }
     }
 
     /**
      * The description of the model.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Description {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Description{
+        get {
+            if(!this.HasProp("__Description"))
+                this.__Description := PWSTR(this.ptr + 24)
+            return this.__Description
+        }
     }
 
     /**

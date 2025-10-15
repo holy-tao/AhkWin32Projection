@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information used with szOID_RSA_RC2CBC encryption.
@@ -80,11 +81,14 @@ class CRYPT_RC2_CBC_PARAMETERS extends Win32Struct
 
     /**
      * Boolean specifying whether an 8-byte <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) is contained in <b>rgbIV[8]</b>. Set to <b>TRUE</b> when IV is present.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIV {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fIV{
+        get {
+            if(!this.HasProp("__fIV"))
+                this.__fIV := BOOL(this.ptr + 4)
+            return this.__fIV
+        }
     }
 
     /**

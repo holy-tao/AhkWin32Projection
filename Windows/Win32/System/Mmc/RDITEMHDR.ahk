@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The RDITEMHDR structure is introduced in MMC 1.2.
@@ -42,10 +43,13 @@ class RDITEMHDR extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lpReserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpReserved{
+        get {
+            if(!this.HasProp("__lpReserved"))
+                this.__lpReserved := LPARAM(this.ptr + 16)
+            return this.__lpReserved
+        }
     }
 }

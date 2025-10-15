@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines metadata specific to each WIM data source hosted on a volume.
@@ -51,11 +52,14 @@ class WIM_ENTRY_INFO extends Win32Struct
 
     /**
      * Specifies a full path to the WIM file.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    WimPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    WimPath{
+        get {
+            if(!this.HasProp("__WimPath"))
+                this.__WimPath := PWSTR(this.ptr + 24)
+            return this.__WimPath
+        }
     }
 
     /**

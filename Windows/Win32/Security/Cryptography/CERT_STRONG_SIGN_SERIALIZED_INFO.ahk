@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the signature algorithm/hash algorithm and public key algorithm/bit length pairs that can be used for strong signing.
@@ -87,11 +88,14 @@ class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct
      * <li>L"SHA256" (BCRYPT_SHA256_ALGORITHM)</li>
      * <li>L"SHA512" (BCRYPT_SHA512_ALGORITHM)</li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszCNGSignHashAlgids {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszCNGSignHashAlgids{
+        get {
+            if(!this.HasProp("__pwszCNGSignHashAlgids"))
+                this.__pwszCNGSignHashAlgids := PWSTR(this.ptr + 8)
+            return this.__pwszCNGSignHashAlgids
+        }
     }
 
     /**
@@ -104,10 +108,13 @@ class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct
      * <li>L"DSA" (BCRYPT_DSA_ALGORITHM)</li>
      * <li>L"ECDSA" (SSL_ECDSA_ALGORITHM)</li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszCNGPubKeyMinBitLengths {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszCNGPubKeyMinBitLengths{
+        get {
+            if(!this.HasProp("__pwszCNGPubKeyMinBitLengths"))
+                this.__pwszCNGPubKeyMinBitLengths := PWSTR(this.ptr + 16)
+            return this.__pwszCNGPubKeyMinBitLengths
+        }
     }
 }

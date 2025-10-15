@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -20,11 +21,14 @@ class TRANSPORT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    SkipCertificateCheck {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    SkipCertificateCheck{
+        get {
+            if(!this.HasProp("__SkipCertificateCheck"))
+                this.__SkipCertificateCheck := BOOLEAN(this.ptr + 4)
+            return this.__SkipCertificateCheck
+        }
     }
 
     /**

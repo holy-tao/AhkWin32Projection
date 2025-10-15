@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -12,19 +13,25 @@ class alljoyn_interfacedescription_property extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    name{
+        get {
+            if(!this.HasProp("__name"))
+                this.__name := PSTR(this.ptr + 0)
+            return this.__name
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    signature {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    signature{
+        get {
+            if(!this.HasProp("__signature"))
+                this.__signature := PSTR(this.ptr + 8)
+            return this.__signature
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -20,10 +21,13 @@ class KERB_CHANGEMACHINEPASSWORD_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ForcePasswordChange {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    ForcePasswordChange{
+        get {
+            if(!this.HasProp("__ForcePasswordChange"))
+                this.__ForcePasswordChange := BOOLEAN(this.ptr + 4)
+            return this.__ForcePasswordChange
+        }
     }
 }

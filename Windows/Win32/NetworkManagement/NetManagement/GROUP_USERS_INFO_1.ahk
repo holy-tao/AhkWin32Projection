@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The GROUP_USERS_INFO_1 structure contains global group member information.
@@ -32,11 +33,14 @@ class GROUP_USERS_INFO_1 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a null-terminated Unicode character string that specifies a name. For more information, see the Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    grui1_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    grui1_name{
+        get {
+            if(!this.HasProp("__grui1_name"))
+                this.__grui1_name := PWSTR(this.ptr + 0)
+            return this.__grui1_name
+        }
     }
 
     /**

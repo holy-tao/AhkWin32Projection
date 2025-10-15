@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information passed to the IUrlAccessor object about the current item; for example, the application name and catalog name.
@@ -28,43 +29,55 @@ class ITEM_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing an email address that is notified in case of error.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszFromEMail {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pcwszFromEMail{
+        get {
+            if(!this.HasProp("__pcwszFromEMail"))
+                this.__pcwszFromEMail := PWSTR(this.ptr + 8)
+            return this.__pcwszFromEMail
+        }
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the application name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszApplicationName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pcwszApplicationName{
+        get {
+            if(!this.HasProp("__pcwszApplicationName"))
+                this.__pcwszApplicationName := PWSTR(this.ptr + 16)
+            return this.__pcwszApplicationName
+        }
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the workspace name from which the crawl to this content source was initiated.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszCatalogName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pcwszCatalogName{
+        get {
+            if(!this.HasProp("__pcwszCatalogName"))
+                this.__pcwszCatalogName := PWSTR(this.ptr + 24)
+            return this.__pcwszCatalogName
+        }
     }
 
     /**
      * Type: <b>LPCWSTR</b>
      * 
      * Not used by protocol handlers.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszContentClass {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pcwszContentClass{
+        get {
+            if(!this.HasProp("__pcwszContentClass"))
+                this.__pcwszContentClass := PWSTR(this.ptr + 32)
+            return this.__pcwszContentClass
+        }
     }
 }

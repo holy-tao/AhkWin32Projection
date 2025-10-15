@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -12,34 +13,46 @@ class WLAN_QOS_CAPABILITIES extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bMSCSSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    bMSCSSupported{
+        get {
+            if(!this.HasProp("__bMSCSSupported"))
+                this.__bMSCSSupported := BOOL(this.ptr + 0)
+            return this.__bMSCSSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bDSCPToUPMappingSupported {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    bDSCPToUPMappingSupported{
+        get {
+            if(!this.HasProp("__bDSCPToUPMappingSupported"))
+                this.__bDSCPToUPMappingSupported := BOOL(this.ptr + 4)
+            return this.__bDSCPToUPMappingSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bSCSSupported {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    bSCSSupported{
+        get {
+            if(!this.HasProp("__bSCSSupported"))
+                this.__bSCSSupported := BOOL(this.ptr + 8)
+            return this.__bSCSSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bDSCPPolicySupported {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    bDSCPPolicySupported{
+        get {
+            if(!this.HasProp("__bDSCPPolicySupported"))
+                this.__bDSCPPolicySupported := BOOL(this.ptr + 12)
+            return this.__bDSCPPolicySupported
+        }
     }
 }

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CERT_ALT_NAME_ENTRY.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CERT_GENERAL_SUBTREE structure is used in CERT_NAME_CONSTRAINTS_INFO structure. This structure provides the identity of a certificate that can be included or excluded.
@@ -38,11 +41,14 @@ class CERT_GENERAL_SUBTREE extends Win32Struct
 
     /**
      * Currently not used.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMaximum {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    fMaximum{
+        get {
+            if(!this.HasProp("__fMaximum"))
+                this.__fMaximum := BOOL(this.ptr + 28)
+            return this.__fMaximum
+        }
     }
 
     /**

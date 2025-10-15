@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include .\HGLRC.ahk
+#Include ..\Gdi\HDC.ahk
 /**
  * @namespace Windows.Win32.Graphics.OpenGL
  * @version v4.0.30319
@@ -3527,7 +3529,7 @@ class OpenGL {
 ;@region Methods
     /**
      * The ChoosePixelFormat function attempts to match an appropriate pixel format supported by a device context to a given pixel format specification.
-     * @param {Pointer<Void>} hdc Specifies the device context that the function examines to determine the best match for the pixel format descriptor pointed to by <i>ppfd</i>.
+     * @param {HDC} hdc Specifies the device context that the function examines to determine the best match for the pixel format descriptor pointed to by <i>ppfd</i>.
      * @param {Pointer<PIXELFORMATDESCRIPTOR>} ppfd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure that specifies the requested pixel format. In this context, the members of the <b>PIXELFORMATDESCRIPTOR</b> structure that <i>ppfd</i> points to are used as follows:
      * 
      * <table>
@@ -3646,6 +3648,8 @@ class OpenGL {
      * @since windows5.0
      */
     static ChoosePixelFormat(hdc, ppfd) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         A_LastError := 0
 
         result := DllCall("GDI32.dll\ChoosePixelFormat", "ptr", hdc, "ptr", ppfd, "int")
@@ -3657,7 +3661,7 @@ class OpenGL {
 
     /**
      * The DescribePixelFormat function obtains information about the pixel format identified by iPixelFormat of the device associated with hdc. The function sets the members of the PIXELFORMATDESCRIPTOR structure pointed to by ppfd with that pixel format data.
-     * @param {Pointer<Void>} hdc Specifies the device context.
+     * @param {HDC} hdc Specifies the device context.
      * @param {Integer} iPixelFormat Index that specifies the pixel format. The pixel formats that a device context supports are identified by positive one-based integer indexes.
      * @param {Integer} nBytes The size, in bytes, of the structure pointed to by <i>ppfd</i>. The <b>DescribePixelFormat</b> function stores no more than <i>nBytes</i> bytes of data to that structure. Set this value to <b>sizeof</b>(<b>PIXELFORMATDESCRIPTOR</b>).
      * @param {Pointer} ppfd Pointer to a <b>PIXELFORMATDESCRIPTOR</b> structure whose members the function sets with pixel format data. The function stores the number of bytes copied to the structure in the structure's <b>nSize</b> member. If, upon entry, <i>ppfd</i> is <b>NULL</b>, the function writes no data to the structure. This is useful when you only want to obtain the maximum pixel format index of a device context.
@@ -3668,6 +3672,8 @@ class OpenGL {
      * @since windows5.0
      */
     static DescribePixelFormat(hdc, iPixelFormat, nBytes, ppfd) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         A_LastError := 0
 
         result := DllCall("GDI32.dll\DescribePixelFormat", "ptr", hdc, "int", iPixelFormat, "uint", nBytes, "ptr", ppfd, "int")
@@ -3679,7 +3685,7 @@ class OpenGL {
 
     /**
      * The GetPixelFormat function obtains the index of the currently selected pixel format of the specified device context.
-     * @param {Pointer<Void>} hdc Specifies the device context of the currently selected pixel format index returned by the function.
+     * @param {HDC} hdc Specifies the device context of the currently selected pixel format index returned by the function.
      * @returns {Integer} If the function succeeds, the return value is the currently selected pixel format index of the specified device context. This is a positive, one-based index value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3687,6 +3693,8 @@ class OpenGL {
      * @since windows5.0
      */
     static GetPixelFormat(hdc) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         A_LastError := 0
 
         result := DllCall("GDI32.dll\GetPixelFormat", "ptr", hdc, "int")
@@ -3698,19 +3706,21 @@ class OpenGL {
 
     /**
      * The SetPixelFormat function sets the pixel format of the specified device context to the format specified by the iPixelFormat index.
-     * @param {Pointer<Void>} hdc Specifies the device context whose pixel format the function attempts to set.
+     * @param {HDC} hdc Specifies the device context whose pixel format the function attempts to set.
      * @param {Integer} format Index that identifies the pixel format to set. The various pixel formats supported by a device context are identified by one-based indexes.
      * @param {Pointer<PIXELFORMATDESCRIPTOR>} ppfd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure that contains the logical pixel format specification. The system's metafile component uses this structure to record the logical pixel format specification. The structure has no other effect upon the behavior of the <b>SetPixelFormat</b> function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setpixelformat
      * @since windows5.0
      */
     static SetPixelFormat(hdc, format, ppfd) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\SetPixelFormat", "ptr", hdc, "int", format, "ptr", ppfd, "int")
+        result := DllCall("GDI32.dll\SetPixelFormat", "ptr", hdc, "int", format, "ptr", ppfd, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3719,7 +3729,7 @@ class OpenGL {
 
     /**
      * The GetEnhMetaFilePixelFormat function retrieves pixel format information for an enhanced metafile.
-     * @param {Pointer<Void>} hemf Identifies the enhanced metafile.
+     * @param {HENHMETAFILE} hemf Identifies the enhanced metafile.
      * @param {Integer} cbBuffer Specifies the size, in bytes, of the buffer into which the pixel format information is copied.
      * @param {Pointer} ppfd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pixelformatdescriptor">PIXELFORMATDESCRIPTOR</a> structure that contains the logical pixel format specification. The metafile uses this structure to record the logical pixel format specification.
      * @returns {Integer} If the function succeeds and finds a pixel format, the return value is the size of the metafile's pixel format.
@@ -3731,6 +3741,8 @@ class OpenGL {
      * @since windows5.0
      */
     static GetEnhMetaFilePixelFormat(hemf, cbBuffer, ppfd) {
+        hemf := hemf is Win32Handle ? NumGet(hemf, "ptr") : hemf
+
         A_LastError := 0
 
         result := DllCall("GDI32.dll\GetEnhMetaFilePixelFormat", "ptr", hemf, "uint", cbBuffer, "ptr", ppfd, "uint")
@@ -3742,17 +3754,20 @@ class OpenGL {
 
     /**
      * The wglCopyContext function copies selected groups of rendering states from one OpenGL rendering context to another.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {HGLRC} param0 
+     * @param {HGLRC} param1 
      * @param {Integer} param2 
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglcopycontext
      * @since windows5.0
      */
     static wglCopyContext(param0, param1, param2) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglCopyContext", "ptr", param0, "ptr", param1, "uint", param2, "int")
+        result := DllCall("OPENGL32.dll\wglCopyContext", "ptr", param0, "ptr", param1, "uint", param2, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3761,56 +3776,62 @@ class OpenGL {
 
     /**
      * The wglCreateContext function creates a new OpenGL rendering context, which is suitable for drawing on the device referenced by hdc. The rendering context has the same pixel format as the device context.
-     * @param {Pointer<Void>} param0 
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a valid handle to an OpenGL rendering context.
+     * @param {HDC} param0 
+     * @returns {HGLRC} If the function succeeds, the return value is a valid handle to an OpenGL rendering context.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglcreatecontext
      * @since windows5.0
      */
     static wglCreateContext(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglCreateContext", "ptr", param0, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HGLRC({Value: result}, True)
     }
 
     /**
      * The wglCreateLayerContext function creates a new OpenGL rendering context for drawing to a specified layer plane on a device context.
-     * @param {Pointer<Void>} param0 
+     * @param {HDC} param0 
      * @param {Integer} param1 
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to an OpenGL rendering context.
+     * @returns {HGLRC} If the function succeeds, the return value is a handle to an OpenGL rendering context.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglcreatelayercontext
      * @since windows5.0
      */
     static wglCreateLayerContext(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
         result := DllCall("OPENGL32.dll\wglCreateLayerContext", "ptr", param0, "int", param1, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HGLRC({Value: result}, True)
     }
 
     /**
      * The wglDeleteContext function deletes a specified OpenGL rendering context.
-     * @param {Pointer<Void>} param0 
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {HGLRC} param0 
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wgldeletecontext
      * @since windows5.0
      */
     static wglDeleteContext(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglDeleteContext", "ptr", param0, "int")
+        result := DllCall("OPENGL32.dll\wglDeleteContext", "ptr", param0, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3819,29 +3840,29 @@ class OpenGL {
 
     /**
      * The wglGetCurrentContext function obtains a handle to the current OpenGL rendering context of the calling thread.
-     * @returns {Pointer<Void>} If the calling thread has a current OpenGL rendering context, <b>wglGetCurrentContext</b> returns a handle to that rendering context. Otherwise, the return value is <b>NULL</b>.
+     * @returns {HGLRC} If the calling thread has a current OpenGL rendering context, <b>wglGetCurrentContext</b> returns a handle to that rendering context. Otherwise, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglgetcurrentcontext
      * @since windows5.0
      */
     static wglGetCurrentContext() {
         result := DllCall("OPENGL32.dll\wglGetCurrentContext", "ptr")
-        return result
+        return HGLRC({Value: result}, True)
     }
 
     /**
      * The wglGetCurrentDC function obtains a handle to the device context that is associated with the current OpenGL rendering context of the calling thread.
-     * @returns {Pointer<Void>} If the calling thread has a current OpenGL rendering context, the function returns a handle to the device context associated with that rendering context by means of the <b>wglMakeCurrent</b> function. Otherwise, the return value is <b>NULL</b>.
+     * @returns {HDC} If the calling thread has a current OpenGL rendering context, the function returns a handle to the device context associated with that rendering context by means of the <b>wglMakeCurrent</b> function. Otherwise, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglgetcurrentdc
      * @since windows5.0
      */
     static wglGetCurrentDC() {
         result := DllCall("OPENGL32.dll\wglGetCurrentDC", "ptr")
-        return result
+        return HDC({Value: result}, True)
     }
 
     /**
      * The wglGetProcAddress function returns the address of an OpenGL extension function for use with the current OpenGL rendering context.
-     * @param {Pointer<Byte>} param0 
+     * @param {PSTR} param0 
      * @returns {Pointer<PROC>} When the function succeeds, the return value is the address of the extension function.
      * 
      * When no current rendering context exists or the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3849,7 +3870,7 @@ class OpenGL {
      * @since windows5.0
      */
     static wglGetProcAddress(param0) {
-        param0 := param0 is String? StrPtr(param0) : param0
+        param0 := param0 is String ? StrPtr(param0) : param0
 
         A_LastError := 0
 
@@ -3862,16 +3883,19 @@ class OpenGL {
 
     /**
      * The wglMakeCurrent function makes a specified OpenGL rendering context the calling thread's current rendering context.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
-     * @returns {Integer} When the <b>wglMakeCurrent</b> function succeeds, the return value is <b>TRUE</b>; otherwise the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @param {HDC} param0 
+     * @param {HGLRC} param1 
+     * @returns {BOOL} When the <b>wglMakeCurrent</b> function succeeds, the return value is <b>TRUE</b>; otherwise the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglmakecurrent
      * @since windows5.0
      */
     static wglMakeCurrent(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglMakeCurrent", "ptr", param0, "ptr", param1, "int")
+        result := DllCall("OPENGL32.dll\wglMakeCurrent", "ptr", param0, "ptr", param1, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3880,18 +3904,21 @@ class OpenGL {
 
     /**
      * The wglShareLists function enables multiple OpenGL rendering contexts to share a single display-list space.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
-     * @returns {Integer} When the function succeeds, the return value is <b>TRUE</b>.
+     * @param {HGLRC} param0 
+     * @param {HGLRC} param1 
+     * @returns {BOOL} When the function succeeds, the return value is <b>TRUE</b>.
      * 
      * When the function fails, the return value is <b>FALSE</b> and the display lists are not shared. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglsharelists
      * @since windows5.0
      */
     static wglShareLists(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglShareLists", "ptr", param0, "ptr", param1, "int")
+        result := DllCall("OPENGL32.dll\wglShareLists", "ptr", param0, "ptr", param1, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3900,20 +3927,22 @@ class OpenGL {
 
     /**
      * The wglUseFontBitmaps function creates a set of bitmap display lists for use in the current OpenGL rendering context.
-     * @param {Pointer<Void>} param0 
+     * @param {HDC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglusefontbitmapsa
      * @since windows5.0
      */
     static wglUseFontBitmapsA(param0, param1, param2, param3) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglUseFontBitmapsA", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "int")
+        result := DllCall("OPENGL32.dll\wglUseFontBitmapsA", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3922,20 +3951,22 @@ class OpenGL {
 
     /**
      * The wglUseFontBitmaps function creates a set of bitmap display lists for use in the current OpenGL rendering context.
-     * @param {Pointer<Void>} param0 
+     * @param {HDC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglusefontbitmapsw
      * @since windows5.0
      */
     static wglUseFontBitmapsW(param0, param1, param2, param3) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglUseFontBitmapsW", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "int")
+        result := DllCall("OPENGL32.dll\wglUseFontBitmapsW", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3944,17 +3975,19 @@ class OpenGL {
 
     /**
      * The SwapBuffers function exchanges the front and back buffers if the current pixel format for the window referenced by the specified device context includes a back buffer.
-     * @param {Pointer<Void>} param0 
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {HDC} param0 
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-swapbuffers
      * @since windows5.0
      */
     static SwapBuffers(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\SwapBuffers", "ptr", param0, "int")
+        result := DllCall("GDI32.dll\SwapBuffers", "ptr", param0, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3963,7 +3996,7 @@ class OpenGL {
 
     /**
      * The wglUseFontOutlines function creates a set of display lists, one for each glyph of the currently selected outline font of a device context, for use with the current rendering context.
-     * @param {Pointer<Void>} param0 
+     * @param {HDC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
@@ -3971,16 +4004,18 @@ class OpenGL {
      * @param {Float} param5 
      * @param {Integer} param6 
      * @param {Pointer<GLYPHMETRICSFLOAT>} param7 
-     * @returns {Integer} When the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} When the function succeeds, the return value is <b>TRUE</b>.
      * 
      * When the function fails, the return value is <b>FALSE</b> and no display lists are generated. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglusefontoutlinesa
      * @since windows5.0
      */
     static wglUseFontOutlinesA(param0, param1, param2, param3, param4, param5, param6, param7) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglUseFontOutlinesA", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "float", param4, "float", param5, "int", param6, "ptr", param7, "int")
+        result := DllCall("OPENGL32.dll\wglUseFontOutlinesA", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "float", param4, "float", param5, "int", param6, "ptr", param7, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3989,7 +4024,7 @@ class OpenGL {
 
     /**
      * The wglUseFontOutlines function creates a set of display lists, one for each glyph of the currently selected outline font of a device context, for use with the current rendering context.
-     * @param {Pointer<Void>} param0 
+     * @param {HDC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
@@ -3997,16 +4032,18 @@ class OpenGL {
      * @param {Float} param5 
      * @param {Integer} param6 
      * @param {Pointer<GLYPHMETRICSFLOAT>} param7 
-     * @returns {Integer} When the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} When the function succeeds, the return value is <b>TRUE</b>.
      * 
      * When the function fails, the return value is <b>FALSE</b> and no display lists are generated. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglusefontoutlinesw
      * @since windows5.0
      */
     static wglUseFontOutlinesW(param0, param1, param2, param3, param4, param5, param6, param7) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglUseFontOutlinesW", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "float", param4, "float", param5, "int", param6, "ptr", param7, "int")
+        result := DllCall("OPENGL32.dll\wglUseFontOutlinesW", "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "float", param4, "float", param5, "int", param6, "ptr", param7, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4015,29 +4052,31 @@ class OpenGL {
 
     /**
      * The wglDescribeLayerPlane function obtains information about the layer planes of a given pixel format.
-     * @param {Pointer<Void>} param0 
+     * @param {HDC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
      * @param {Pointer<LAYERPLANEDESCRIPTOR>} param4 
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. In addition, the <b>wglDescribeLayerPlane</b> function sets the members of the <b>LAYERPLANEDESCRIPTOR</b> structure pointed to by <i>plpd</i> according to the specified layer plane (<i>iLayerPlane</i> ) of the specified pixel format (<i>iPixelFormat</i> ).
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. In addition, the <b>wglDescribeLayerPlane</b> function sets the members of the <b>LAYERPLANEDESCRIPTOR</b> structure pointed to by <i>plpd</i> according to the specified layer plane (<i>iLayerPlane</i> ) of the specified pixel format (<i>iPixelFormat</i> ).
      * 
      * If the function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wgldescribelayerplane
      * @since windows5.0
      */
     static wglDescribeLayerPlane(param0, param1, param2, param3, param4) {
-        result := DllCall("OPENGL32.dll\wglDescribeLayerPlane", "ptr", param0, "int", param1, "int", param2, "uint", param3, "ptr", param4, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("OPENGL32.dll\wglDescribeLayerPlane", "ptr", param0, "int", param1, "int", param2, "uint", param3, "ptr", param4, "ptr")
         return result
     }
 
     /**
      * Sets the palette entries in a given color-index layer plane for a specified device context.
-     * @param {Pointer<Void>} param0 
+     * @param {HDC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
-     * @param {Pointer<UInt32>} param4 
+     * @param {Pointer<COLORREF>} param4 
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of entries that were set in the palette in the specified layer plane of the window. If the function fails or no pixel format is selected, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4045,9 +4084,11 @@ class OpenGL {
      * @since windows5.0
      */
     static wglSetLayerPaletteEntries(param0, param1, param2, param3, param4) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglSetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, "uint*", param4, "int")
+        result := DllCall("OPENGL32.dll\wglSetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, "ptr", param4, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4056,11 +4097,11 @@ class OpenGL {
 
     /**
      * Retrieves the palette entries from a given color-index layer plane for a specified device context.
-     * @param {Pointer<Void>} param0 
+     * @param {HDC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
-     * @param {Pointer<UInt32>} param4 
+     * @param {Pointer<COLORREF>} param4 
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of entries that were set in the palette in the specified layer plane of the window.
@@ -4070,9 +4111,11 @@ class OpenGL {
      * @since windows5.0
      */
     static wglGetLayerPaletteEntries(param0, param1, param2, param3, param4) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglGetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, "uint*", param4, "int")
+        result := DllCall("OPENGL32.dll\wglGetLayerPaletteEntries", "ptr", param0, "int", param1, "int", param2, "int", param3, "ptr", param4, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4081,17 +4124,19 @@ class OpenGL {
 
     /**
      * The wglRealizeLayerPalette function maps palette entries from a given color-index layer plane into the physical palette or initializes the palette of an RGBA layer plane.
-     * @param {Pointer<Void>} param0 
+     * @param {HDC} param0 
      * @param {Integer} param1 
-     * @param {Integer} param2 
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>, even if <i>bRealize</i> is <b>TRUE</b> and the physical palette is not available. If the function fails or when no pixel format is selected, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @param {BOOL} param2 
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>, even if <i>bRealize</i> is <b>TRUE</b> and the physical palette is not available. If the function fails or when no pixel format is selected, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglrealizelayerpalette
      * @since windows5.0
      */
     static wglRealizeLayerPalette(param0, param1, param2) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglRealizeLayerPalette", "ptr", param0, "int", param1, "int", param2, "int")
+        result := DllCall("OPENGL32.dll\wglRealizeLayerPalette", "ptr", param0, "int", param1, "ptr", param2, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4100,16 +4145,18 @@ class OpenGL {
 
     /**
      * The wglSwapLayerBuffers function swaps the front and back buffers in the overlay, underlay, and main planes of the window referenced by a specified device context.
-     * @param {Pointer<Void>} param0 
+     * @param {HDC} param0 
      * @param {Integer} param1 
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-wglswaplayerbuffers
      * @since windows5.0
      */
     static wglSwapLayerBuffers(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
-        result := DllCall("OPENGL32.dll\wglSwapLayerBuffers", "ptr", param0, "uint", param1, "int")
+        result := DllCall("OPENGL32.dll\wglSwapLayerBuffers", "ptr", param0, "uint", param1, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7610,10 +7657,10 @@ class OpenGL {
     /**
      * 
      * @param {Integer} errCode 
-     * @returns {Pointer<Char>} 
+     * @returns {PWSTR} 
      */
     static gluErrorUnicodeStringEXT(errCode) {
-        result := DllCall("GLU32.dll\gluErrorUnicodeStringEXT", "uint", errCode, "char*")
+        result := DllCall("GLU32.dll\gluErrorUnicodeStringEXT", "uint", errCode, "ptr")
         return result
     }
 
@@ -7768,65 +7815,65 @@ class OpenGL {
 
     /**
      * 
-     * @returns {Pointer<IntPtr>} 
+     * @returns {Pointer<GLUquadric>} 
      */
     static gluNewQuadric() {
-        result := DllCall("GLU32.dll\gluNewQuadric", "ptr*")
+        result := DllCall("GLU32.dll\gluNewQuadric", "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} state 
+     * @param {Pointer<GLUquadric>} state 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluDeleteQuadric(state) {
-        DllCall("GLU32.dll\gluDeleteQuadric", "ptr*", state)
+        DllCall("GLU32.dll\gluDeleteQuadric", "ptr", state)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} quadObject 
+     * @param {Pointer<GLUquadric>} quadObject 
      * @param {Integer} normals 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluQuadricNormals(quadObject, normals) {
-        DllCall("GLU32.dll\gluQuadricNormals", "ptr*", quadObject, "uint", normals)
+        DllCall("GLU32.dll\gluQuadricNormals", "ptr", quadObject, "uint", normals)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} quadObject 
+     * @param {Pointer<GLUquadric>} quadObject 
      * @param {Integer} textureCoords 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluQuadricTexture(quadObject, textureCoords) {
-        DllCall("GLU32.dll\gluQuadricTexture", "ptr*", quadObject, "char", textureCoords)
+        DllCall("GLU32.dll\gluQuadricTexture", "ptr", quadObject, "char", textureCoords)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} quadObject 
+     * @param {Pointer<GLUquadric>} quadObject 
      * @param {Integer} orientation 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluQuadricOrientation(quadObject, orientation) {
-        DllCall("GLU32.dll\gluQuadricOrientation", "ptr*", quadObject, "uint", orientation)
+        DllCall("GLU32.dll\gluQuadricOrientation", "ptr", quadObject, "uint", orientation)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} quadObject 
+     * @param {Pointer<GLUquadric>} quadObject 
      * @param {Integer} drawStyle 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluQuadricDrawStyle(quadObject, drawStyle) {
-        DllCall("GLU32.dll\gluQuadricDrawStyle", "ptr*", quadObject, "uint", drawStyle)
+        DllCall("GLU32.dll\gluQuadricDrawStyle", "ptr", quadObject, "uint", drawStyle)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} qobj 
+     * @param {Pointer<GLUquadric>} qobj 
      * @param {Float} baseRadius 
      * @param {Float} topRadius 
      * @param {Float} height 
@@ -7835,12 +7882,12 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      */
     static gluCylinder(qobj, baseRadius, topRadius, height, slices, stacks) {
-        DllCall("GLU32.dll\gluCylinder", "ptr*", qobj, "double", baseRadius, "double", topRadius, "double", height, "int", slices, "int", stacks)
+        DllCall("GLU32.dll\gluCylinder", "ptr", qobj, "double", baseRadius, "double", topRadius, "double", height, "int", slices, "int", stacks)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} qobj 
+     * @param {Pointer<GLUquadric>} qobj 
      * @param {Float} innerRadius 
      * @param {Float} outerRadius 
      * @param {Integer} slices 
@@ -7848,12 +7895,12 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      */
     static gluDisk(qobj, innerRadius, outerRadius, slices, loops) {
-        DllCall("GLU32.dll\gluDisk", "ptr*", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops)
+        DllCall("GLU32.dll\gluDisk", "ptr", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} qobj 
+     * @param {Pointer<GLUquadric>} qobj 
      * @param {Float} innerRadius 
      * @param {Float} outerRadius 
      * @param {Integer} slices 
@@ -7863,218 +7910,218 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      */
     static gluPartialDisk(qobj, innerRadius, outerRadius, slices, loops, startAngle, sweepAngle) {
-        DllCall("GLU32.dll\gluPartialDisk", "ptr*", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops, "double", startAngle, "double", sweepAngle)
+        DllCall("GLU32.dll\gluPartialDisk", "ptr", qobj, "double", innerRadius, "double", outerRadius, "int", slices, "int", loops, "double", startAngle, "double", sweepAngle)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} qobj 
+     * @param {Pointer<GLUquadric>} qobj 
      * @param {Float} radius 
      * @param {Integer} slices 
      * @param {Integer} stacks 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluSphere(qobj, radius, slices, stacks) {
-        DllCall("GLU32.dll\gluSphere", "ptr*", qobj, "double", radius, "int", slices, "int", stacks)
+        DllCall("GLU32.dll\gluSphere", "ptr", qobj, "double", radius, "int", slices, "int", stacks)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} qobj 
+     * @param {Pointer<GLUquadric>} qobj 
      * @param {Integer} which 
      * @param {Pointer} fn 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluQuadricCallback(qobj, which, fn) {
-        DllCall("GLU32.dll\gluQuadricCallback", "ptr*", qobj, "uint", which, "ptr", fn)
+        DllCall("GLU32.dll\gluQuadricCallback", "ptr", qobj, "uint", which, "ptr", fn)
     }
 
     /**
      * 
-     * @returns {Pointer<IntPtr>} 
+     * @returns {Pointer<GLUtesselator>} 
      */
     static gluNewTess() {
-        result := DllCall("GLU32.dll\gluNewTess", "ptr*")
+        result := DllCall("GLU32.dll\gluNewTess", "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluDeleteTess(tess) {
-        DllCall("GLU32.dll\gluDeleteTess", "ptr*", tess)
+        DllCall("GLU32.dll\gluDeleteTess", "ptr", tess)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @param {Pointer<Void>} polygon_data 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluTessBeginPolygon(tess, polygon_data) {
-        DllCall("GLU32.dll\gluTessBeginPolygon", "ptr*", tess, "ptr", polygon_data)
+        DllCall("GLU32.dll\gluTessBeginPolygon", "ptr", tess, "ptr", polygon_data)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluTessBeginContour(tess) {
-        DllCall("GLU32.dll\gluTessBeginContour", "ptr*", tess)
+        DllCall("GLU32.dll\gluTessBeginContour", "ptr", tess)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @param {Pointer<Double>} coords 
      * @param {Pointer<Void>} data 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluTessVertex(tess, coords, data) {
-        DllCall("GLU32.dll\gluTessVertex", "ptr*", tess, "double*", coords, "ptr", data)
+        DllCall("GLU32.dll\gluTessVertex", "ptr", tess, "double*", coords, "ptr", data)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluTessEndContour(tess) {
-        DllCall("GLU32.dll\gluTessEndContour", "ptr*", tess)
+        DllCall("GLU32.dll\gluTessEndContour", "ptr", tess)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluTessEndPolygon(tess) {
-        DllCall("GLU32.dll\gluTessEndPolygon", "ptr*", tess)
+        DllCall("GLU32.dll\gluTessEndPolygon", "ptr", tess)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @param {Integer} which 
      * @param {Float} value 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluTessProperty(tess, which, value) {
-        DllCall("GLU32.dll\gluTessProperty", "ptr*", tess, "uint", which, "double", value)
+        DllCall("GLU32.dll\gluTessProperty", "ptr", tess, "uint", which, "double", value)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluTessNormal(tess, x, y, z) {
-        DllCall("GLU32.dll\gluTessNormal", "ptr*", tess, "double", x, "double", y, "double", z)
+        DllCall("GLU32.dll\gluTessNormal", "ptr", tess, "double", x, "double", y, "double", z)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @param {Integer} which 
      * @param {Pointer} fn 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluTessCallback(tess, which, fn) {
-        DllCall("GLU32.dll\gluTessCallback", "ptr*", tess, "uint", which, "ptr", fn)
+        DllCall("GLU32.dll\gluTessCallback", "ptr", tess, "uint", which, "ptr", fn)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @param {Integer} which 
      * @param {Pointer<Double>} value 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluGetTessProperty(tess, which, value) {
-        DllCall("GLU32.dll\gluGetTessProperty", "ptr*", tess, "uint", which, "double*", value)
+        DllCall("GLU32.dll\gluGetTessProperty", "ptr", tess, "uint", which, "double*", value)
     }
 
     /**
      * 
-     * @returns {Pointer<IntPtr>} 
+     * @returns {Pointer<GLUnurbs>} 
      */
     static gluNewNurbsRenderer() {
-        result := DllCall("GLU32.dll\gluNewNurbsRenderer", "ptr*")
+        result := DllCall("GLU32.dll\gluNewNurbsRenderer", "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluDeleteNurbsRenderer(nobj) {
-        DllCall("GLU32.dll\gluDeleteNurbsRenderer", "ptr*", nobj)
+        DllCall("GLU32.dll\gluDeleteNurbsRenderer", "ptr", nobj)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluBeginSurface(nobj) {
-        DllCall("GLU32.dll\gluBeginSurface", "ptr*", nobj)
+        DllCall("GLU32.dll\gluBeginSurface", "ptr", nobj)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluBeginCurve(nobj) {
-        DllCall("GLU32.dll\gluBeginCurve", "ptr*", nobj)
+        DllCall("GLU32.dll\gluBeginCurve", "ptr", nobj)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluEndCurve(nobj) {
-        DllCall("GLU32.dll\gluEndCurve", "ptr*", nobj)
+        DllCall("GLU32.dll\gluEndCurve", "ptr", nobj)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluEndSurface(nobj) {
-        DllCall("GLU32.dll\gluEndSurface", "ptr*", nobj)
+        DllCall("GLU32.dll\gluEndSurface", "ptr", nobj)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluBeginTrim(nobj) {
-        DllCall("GLU32.dll\gluBeginTrim", "ptr*", nobj)
+        DllCall("GLU32.dll\gluBeginTrim", "ptr", nobj)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluEndTrim(nobj) {
-        DllCall("GLU32.dll\gluEndTrim", "ptr*", nobj)
+        DllCall("GLU32.dll\gluEndTrim", "ptr", nobj)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @param {Integer} count 
      * @param {Pointer<Single>} array 
      * @param {Integer} stride 
@@ -8082,12 +8129,12 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      */
     static gluPwlCurve(nobj, count, array, stride, type) {
-        DllCall("GLU32.dll\gluPwlCurve", "ptr*", nobj, "int", count, "float*", array, "int", stride, "uint", type)
+        DllCall("GLU32.dll\gluPwlCurve", "ptr", nobj, "int", count, "float*", array, "int", stride, "uint", type)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @param {Integer} nknots 
      * @param {Pointer<Single>} knot 
      * @param {Integer} stride 
@@ -8097,12 +8144,12 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      */
     static gluNurbsCurve(nobj, nknots, knot, stride, ctlarray, order, type) {
-        DllCall("GLU32.dll\gluNurbsCurve", "ptr*", nobj, "int", nknots, "float*", knot, "int", stride, "float*", ctlarray, "int", order, "uint", type)
+        DllCall("GLU32.dll\gluNurbsCurve", "ptr", nobj, "int", nknots, "float*", knot, "int", stride, "float*", ctlarray, "int", order, "uint", type)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @param {Integer} sknot_count 
      * @param {Pointer<Single>} sknot 
      * @param {Integer} tknot_count 
@@ -8116,80 +8163,80 @@ class OpenGL {
      * @returns {String} Nothing - always returns an empty string
      */
     static gluNurbsSurface(nobj, sknot_count, sknot, tknot_count, tknot, s_stride, t_stride, ctlarray, sorder, torder, type) {
-        DllCall("GLU32.dll\gluNurbsSurface", "ptr*", nobj, "int", sknot_count, "float*", sknot, "int", tknot_count, "float*", tknot, "int", s_stride, "int", t_stride, "float*", ctlarray, "int", sorder, "int", torder, "uint", type)
+        DllCall("GLU32.dll\gluNurbsSurface", "ptr", nobj, "int", sknot_count, "float*", sknot, "int", tknot_count, "float*", tknot, "int", s_stride, "int", t_stride, "float*", ctlarray, "int", sorder, "int", torder, "uint", type)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @param {Pointer<Single>} modelMatrix 
      * @param {Pointer<Single>} projMatrix 
      * @param {Pointer<Int32>} viewport 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluLoadSamplingMatrices(nobj, modelMatrix, projMatrix, viewport) {
-        DllCall("GLU32.dll\gluLoadSamplingMatrices", "ptr*", nobj, "float*", modelMatrix, "float*", projMatrix, "int*", viewport)
+        DllCall("GLU32.dll\gluLoadSamplingMatrices", "ptr", nobj, "float*", modelMatrix, "float*", projMatrix, "int*", viewport)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @param {Integer} property 
      * @param {Float} value 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluNurbsProperty(nobj, property, value) {
-        DllCall("GLU32.dll\gluNurbsProperty", "ptr*", nobj, "uint", property, "float", value)
+        DllCall("GLU32.dll\gluNurbsProperty", "ptr", nobj, "uint", property, "float", value)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @param {Integer} property 
      * @param {Pointer<Single>} value 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluGetNurbsProperty(nobj, property, value) {
-        DllCall("GLU32.dll\gluGetNurbsProperty", "ptr*", nobj, "uint", property, "float*", value)
+        DllCall("GLU32.dll\gluGetNurbsProperty", "ptr", nobj, "uint", property, "float*", value)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} nobj 
+     * @param {Pointer<GLUnurbs>} nobj 
      * @param {Integer} which 
      * @param {Pointer} fn 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluNurbsCallback(nobj, which, fn) {
-        DllCall("GLU32.dll\gluNurbsCallback", "ptr*", nobj, "uint", which, "ptr", fn)
+        DllCall("GLU32.dll\gluNurbsCallback", "ptr", nobj, "uint", which, "ptr", fn)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluBeginPolygon(tess) {
-        DllCall("GLU32.dll\gluBeginPolygon", "ptr*", tess)
+        DllCall("GLU32.dll\gluBeginPolygon", "ptr", tess)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @param {Integer} type 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluNextContour(tess, type) {
-        DllCall("GLU32.dll\gluNextContour", "ptr*", tess, "uint", type)
+        DllCall("GLU32.dll\gluNextContour", "ptr", tess, "uint", type)
     }
 
     /**
      * 
-     * @param {Pointer<IntPtr>} tess 
+     * @param {Pointer<GLUtesselator>} tess 
      * @returns {String} Nothing - always returns an empty string
      */
     static gluEndPolygon(tess) {
-        DllCall("GLU32.dll\gluEndPolygon", "ptr*", tess)
+        DllCall("GLU32.dll\gluEndPolygon", "ptr", tess)
     }
 
 ;@endregion Methods

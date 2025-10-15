@@ -3,6 +3,7 @@
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_KEY_DSA_KEY_VALUE.ahk
 #Include .\CRYPT_XML_KEY_RSA_KEY_VALUE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_BLOB.ahk
 #Include .\CRYPT_XML_KEY_ECDSA_KEY_VALUE.ahk
 

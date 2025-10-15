@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\STORAGE_ZONE_GROUP.ahk
 
 /**
@@ -57,11 +58,14 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
-        UnrestrictedRead {
-            get => NumGet(this, 4, "char")
-            set => NumPut("char", value, this, 4)
+        UnrestrictedRead{
+            get {
+                if(!this.HasProp("__UnrestrictedRead"))
+                    this.__UnrestrictedRead := BOOLEAN(this.ptr + 4)
+                return this.__UnrestrictedRead
+            }
         }
     
         /**

@@ -13,6 +13,429 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
 
     static packingSize => 8
 
+    class _NSFEAT extends Win32Struct {
+        static sizeof => 4360
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - ThinProvisioning
+         * - NameSpaceAtomicWriteUnit
+         * - DeallocatedOrUnwrittenError
+         * - SkipReuseUI
+         * - NameSpaceIoOptimization
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ThinProvisioning {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NameSpaceAtomicWriteUnit {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DeallocatedOrUnwrittenError {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SkipReuseUI {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NameSpaceIoOptimization {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 5) & 0x7
+            set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
+        }
+    
+    }
+
+    class _FLBAS extends Win32Struct {
+        static sizeof => 4360
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - LbaFormatIndex
+         * - MetadataInExtendedDataLBA
+         * - LbaFormatIndexMS
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LbaFormatIndex {
+            get => (this._bitfield >> 0) & 0xF
+            set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MetadataInExtendedDataLBA {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LbaFormatIndexMS {
+            get => (this._bitfield >> 5) & 0x3
+            set => this._bitfield := ((value & 0x3) << 5) | (this._bitfield & ~(0x3 << 5))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+    }
+
+    class _MC extends Win32Struct {
+        static sizeof => 4360
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - MetadataInExtendedDataLBA
+         * - MetadataInSeparateBuffer
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MetadataInExtendedDataLBA {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MetadataInSeparateBuffer {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 2) & 0x3F
+            set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
+        }
+    
+    }
+
+    class _DPC extends Win32Struct {
+        static sizeof => 4360
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - ProtectionInfoType1
+         * - ProtectionInfoType2
+         * - ProtectionInfoType3
+         * - InfoAtBeginningOfMetadata
+         * - InfoAtEndOfMetadata
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ProtectionInfoType1 {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ProtectionInfoType2 {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ProtectionInfoType3 {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        InfoAtBeginningOfMetadata {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        InfoAtEndOfMetadata {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 5) & 0x7
+            set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
+        }
+    
+    }
+
+    class _DPS extends Win32Struct {
+        static sizeof => 4360
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - ProtectionInfoTypeEnabled
+         * - InfoAtBeginningOfMetadata
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ProtectionInfoTypeEnabled {
+            get => (this._bitfield >> 0) & 0x7
+            set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        InfoAtBeginningOfMetadata {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 4) & 0xF
+            set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
+        }
+    
+    }
+
+    class _NMIC extends Win32Struct {
+        static sizeof => 4360
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - SharedNameSpace
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SharedNameSpace {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 1) & 0x7F
+            set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
+        }
+    
+    }
+
+    class _FPI extends Win32Struct {
+        static sizeof => 4360
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - PercentageRemained
+         * - Supported
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PercentageRemained {
+            get => (this._bitfield >> 0) & 0x7F
+            set => this._bitfield := ((value & 0x7F) << 0) | (this._bitfield & ~(0x7F << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Supported {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+    }
+
+    class _DLFEAT extends Win32Struct {
+        static sizeof => 4360
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - ReadBehavior
+         * - WriteZeroes
+         * - GuardFieldWithCRC
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadBehavior {
+            get => (this._bitfield >> 0) & 0x7
+            set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WriteZeroes {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        GuardFieldWithCRC {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 5) & 0x7
+            set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
+        }
+    
+    }
+
+    class _NSATTR extends Win32Struct {
+        static sizeof => 4360
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - WriteProtected
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WriteProtected {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 1) & 0x7F
+            set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -38,11 +461,14 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_NSFEAT}
      */
-    NSFEAT {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+    NSFEAT{
+        get {
+            if(!this.HasProp("__NSFEAT"))
+                this.__NSFEAT := %this.__Class%._NSFEAT(this.ptr + 24)
+            return this.__NSFEAT
+        }
     }
 
     /**
@@ -54,43 +480,58 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_FLBAS}
      */
-    FLBAS {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
+    FLBAS{
+        get {
+            if(!this.HasProp("__FLBAS"))
+                this.__FLBAS := %this.__Class%._FLBAS(this.ptr + 26)
+            return this.__FLBAS
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_MC}
      */
-    MC {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
+    MC{
+        get {
+            if(!this.HasProp("__MC"))
+                this.__MC := %this.__Class%._MC(this.ptr + 27)
+            return this.__MC
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_DPC}
      */
-    DPC {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
+    DPC{
+        get {
+            if(!this.HasProp("__DPC"))
+                this.__DPC := %this.__Class%._DPC(this.ptr + 28)
+            return this.__DPC
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_DPS}
      */
-    DPS {
-        get => NumGet(this, 29, "char")
-        set => NumPut("char", value, this, 29)
+    DPS{
+        get {
+            if(!this.HasProp("__DPS"))
+                this.__DPS := %this.__Class%._DPS(this.ptr + 29)
+            return this.__DPS
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_NMIC}
      */
-    NMIC {
-        get => NumGet(this, 30, "char")
-        set => NumPut("char", value, this, 30)
+    NMIC{
+        get {
+            if(!this.HasProp("__NMIC"))
+                this.__NMIC := %this.__Class%._NMIC(this.ptr + 30)
+            return this.__NMIC
+        }
     }
 
     /**
@@ -105,19 +546,25 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_FPI}
      */
-    FPI {
-        get => NumGet(this, 34, "char")
-        set => NumPut("char", value, this, 34)
+    FPI{
+        get {
+            if(!this.HasProp("__FPI"))
+                this.__FPI := %this.__Class%._FPI(this.ptr + 34)
+            return this.__FPI
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_DLFEAT}
      */
-    DLFEAT {
-        get => NumGet(this, 35, "char")
-        set => NumPut("char", value, this, 35)
+    DLFEAT{
+        get {
+            if(!this.HasProp("__DLFEAT"))
+                this.__DLFEAT := %this.__Class%._DLFEAT(this.ptr + 35)
+            return this.__DLFEAT
+        }
     }
 
     /**
@@ -282,11 +729,14 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_NSATTR}
      */
-    NSATTR {
-        get => NumGet(this, 103, "char")
-        set => NumPut("char", value, this, 103)
+    NSATTR{
+        get {
+            if(!this.HasProp("__NSATTR"))
+                this.__NSATTR := %this.__Class%._NSATTR(this.ptr + 103)
+            return this.__NSATTR
+        }
     }
 
     /**

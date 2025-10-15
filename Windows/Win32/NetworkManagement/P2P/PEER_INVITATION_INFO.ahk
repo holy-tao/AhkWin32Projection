@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -34,11 +35,14 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the PNRP cloud name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzCloudName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwzCloudName{
+        get {
+            if(!this.HasProp("__pwzCloudName"))
+                this.__pwzCloudName := PWSTR(this.ptr + 8)
+            return this.__pwzCloudName
+        }
     }
 
     /**
@@ -127,56 +131,74 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the peer name of the peer group.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzGroupPeerName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwzGroupPeerName{
+        get {
+            if(!this.HasProp("__pwzGroupPeerName"))
+                this.__pwzGroupPeerName := PWSTR(this.ptr + 24)
+            return this.__pwzGroupPeerName
+        }
     }
 
     /**
      * Pointer to a Unicode string that specifies the PNRP name of the peer issuing the invitation.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzIssuerPeerName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwzIssuerPeerName{
+        get {
+            if(!this.HasProp("__pwzIssuerPeerName"))
+                this.__pwzIssuerPeerName := PWSTR(this.ptr + 32)
+            return this.__pwzIssuerPeerName
+        }
     }
 
     /**
      * Pointer to a Unicode string that specifies the PNRP name of the peer that receives the invitation.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzSubjectPeerName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pwzSubjectPeerName{
+        get {
+            if(!this.HasProp("__pwzSubjectPeerName"))
+                this.__pwzSubjectPeerName := PWSTR(this.ptr + 40)
+            return this.__pwzSubjectPeerName
+        }
     }
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer group.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzGroupFriendlyName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pwzGroupFriendlyName{
+        get {
+            if(!this.HasProp("__pwzGroupFriendlyName"))
+                this.__pwzGroupFriendlyName := PWSTR(this.ptr + 48)
+            return this.__pwzGroupFriendlyName
+        }
     }
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer issuing the invitation.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzIssuerFriendlyName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pwzIssuerFriendlyName{
+        get {
+            if(!this.HasProp("__pwzIssuerFriendlyName"))
+                this.__pwzIssuerFriendlyName := PWSTR(this.ptr + 56)
+            return this.__pwzIssuerFriendlyName
+        }
     }
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer that receives the invitation.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzSubjectFriendlyName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pwzSubjectFriendlyName{
+        get {
+            if(!this.HasProp("__pwzSubjectFriendlyName"))
+                this.__pwzSubjectFriendlyName := PWSTR(this.ptr + 64)
+            return this.__pwzSubjectFriendlyName
+        }
     }
 
     /**
@@ -259,7 +281,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * List of pointers to Unicode strings. This field is reserved for future use.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppwzClassifiers {
         get => NumGet(this, 112, "ptr")

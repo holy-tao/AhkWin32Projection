@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DXVAHD_RATIONAL.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies a custom rate for frame-rate conversion or inverse telecine (IVTC).
@@ -69,11 +70,14 @@ class DXVAHD_CUSTOM_RATE_DATA extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the input stream must be interlaced<b></b>. Otherwise, the input stream must be progressive.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    InputInterlaced {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    InputInterlaced{
+        get {
+            if(!this.HasProp("__InputInterlaced"))
+                this.__InputInterlaced := BOOL(this.ptr + 12)
+            return this.__InputInterlaced
+        }
     }
 
     /**

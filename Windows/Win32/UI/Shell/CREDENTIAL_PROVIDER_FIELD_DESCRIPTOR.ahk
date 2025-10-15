@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a single field in a credential. For example, a string or a user image.
@@ -44,11 +45,14 @@ class CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer containing the friendly name of the field as a null-terminated Unicode string. This is used for accessibility and queuing purposes. For example, some standard fields would have friend names of "Username", "Password", and "Log On To".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszLabel {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszLabel{
+        get {
+            if(!this.HasProp("__pszLabel"))
+                this.__pszLabel := PWSTR(this.ptr + 8)
+            return this.__pszLabel
+        }
     }
 
     /**

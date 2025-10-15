@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -13,27 +14,36 @@ class CABINFOA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszCab {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszCab{
+        get {
+            if(!this.HasProp("__pszCab"))
+                this.__pszCab := PSTR(this.ptr + 0)
+            return this.__pszCab
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszInf {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszInf{
+        get {
+            if(!this.HasProp("__pszInf"))
+                this.__pszInf := PSTR(this.ptr + 8)
+            return this.__pszInf
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszSection {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszSection{
+        get {
+            if(!this.HasProp("__pszSection"))
+                this.__pszSection := PSTR(this.ptr + 16)
+            return this.__pszSection
+        }
     }
 
     /**

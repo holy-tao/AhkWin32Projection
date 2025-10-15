@@ -3,6 +3,7 @@
 #Include .\EMR.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include .\XFORM.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
@@ -104,11 +105,14 @@ class EMRTRANSPARENTBLT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBkColorSrc {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+    crBkColorSrc{
+        get {
+            if(!this.HasProp("__crBkColorSrc"))
+                this.__crBkColorSrc := COLORREF(this.ptr + 80)
+            return this.__crBkColorSrc
+        }
     }
 
     /**

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\WSD_REFERENCE_PROPERTIES.ahk
+#Include .\WSD_REFERENCE_PARAMETERS.ahk
 
 /**
  * Represents a WS-Addressing endpoint reference.
@@ -15,29 +18,38 @@ class WSD_ENDPOINT_REFERENCE extends Win32Struct
 
     /**
      * The endpoint address.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Address {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Address{
+        get {
+            if(!this.HasProp("__Address"))
+                this.__Address := PWSTR(this.ptr + 0)
+            return this.__Address
+        }
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_reference_properties">WSD_REFERENCE_PROPERTIES</a> structure that specifies additional data used to uniquely identify the endpoint.
-     * @type {Pointer<TypeHandle>}
+     * @type {WSD_REFERENCE_PROPERTIES}
      */
-    ReferenceProperties {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ReferenceProperties{
+        get {
+            if(!this.HasProp("__ReferenceProperties"))
+                this.__ReferenceProperties := WSD_REFERENCE_PROPERTIES(this.ptr + 8)
+            return this.__ReferenceProperties
+        }
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_reference_parameters">WSD_REFERENCE_PARAMETERS</a> structure that specifies additional opaque data used by the endpoint.
-     * @type {Pointer<TypeHandle>}
+     * @type {WSD_REFERENCE_PARAMETERS}
      */
-    ReferenceParameters {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    ReferenceParameters{
+        get {
+            if(!this.HasProp("__ReferenceParameters"))
+                this.__ReferenceParameters := WSD_REFERENCE_PARAMETERS(this.ptr + 16)
+            return this.__ReferenceParameters
+        }
     }
 
     /**

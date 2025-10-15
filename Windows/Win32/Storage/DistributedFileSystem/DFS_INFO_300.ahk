@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the name and type (domain-based or stand-alone) of a DFS namespace.
@@ -42,10 +43,13 @@ class DFS_INFO_300 extends Win32Struct
      * &#92;<i>DomainName</i>&#92;<i>DomDfsName</i>
      * 
      * where <i>DomainName</i> is the name of the domain that hosts the domain-based DFS namespace and <i>DomDfsname</i> is the name of the DFS namespace.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DfsName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    DfsName{
+        get {
+            if(!this.HasProp("__DfsName"))
+                this.__DfsName := PWSTR(this.ptr + 8)
+            return this.__DfsName
+        }
     }
 }

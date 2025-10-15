@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\Controls\HIMAGELIST.ahk
 
 /**
  * Custom draw structure used by INameSpaceTreeControlCustomDraw methods.
@@ -50,11 +52,14 @@ class NSTCCUSTOMDRAW extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that contains the item text, if the structure specifies item attributes.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszText {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszText{
+        get {
+            if(!this.HasProp("__pszText"))
+                this.__pszText := PWSTR(this.ptr + 16)
+            return this.__pszText
+        }
     }
 
     /**
@@ -72,11 +77,14 @@ class NSTCCUSTOMDRAW extends Win32Struct
      * Type: <b>HIMAGELIST</b>
      * 
      * A handle to an image list.
-     * @type {Pointer}
+     * @type {HIMAGELIST}
      */
-    himl {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    himl{
+        get {
+            if(!this.HasProp("__himl"))
+                this.__himl := HIMAGELIST(this.ptr + 32)
+            return this.__himl
+        }
     }
 
     /**

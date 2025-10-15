@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Details the adapter's support for prioritization of different command queue types.
@@ -46,10 +47,13 @@ class D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY extends Win32Struct
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-structs-and-classes?view=vs-2015">SAL</a>: <c>_Out_</c>
      * 
      * On return, contains true if the specfied command list type supports the specified priority level; otherwise, false.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PriorityForTypeIsSupported {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    PriorityForTypeIsSupported{
+        get {
+            if(!this.HasProp("__PriorityForTypeIsSupported"))
+                this.__PriorityForTypeIsSupported := BOOL(this.ptr + 8)
+            return this.__PriorityForTypeIsSupported
+        }
     }
 }

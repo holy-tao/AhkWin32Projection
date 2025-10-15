@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCONN.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -28,11 +30,14 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HCONN}
      */
-    ConnID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ConnID{
+        get {
+            if(!this.HasProp("__ConnID"))
+                this.__ConnID := HCONN(this.ptr + 8)
+            return this.__ConnID
+        }
     }
 
     /**
@@ -52,35 +57,47 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszMethod {
-        get => NumGet(this, 184, "ptr")
-        set => NumPut("ptr", value, this, 184)
+    lpszMethod{
+        get {
+            if(!this.HasProp("__lpszMethod"))
+                this.__lpszMethod := PSTR(this.ptr + 184)
+            return this.__lpszMethod
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszQueryString {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+    lpszQueryString{
+        get {
+            if(!this.HasProp("__lpszQueryString"))
+                this.__lpszQueryString := PSTR(this.ptr + 192)
+            return this.__lpszQueryString
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszPathInfo {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+    lpszPathInfo{
+        get {
+            if(!this.HasProp("__lpszPathInfo"))
+                this.__lpszPathInfo := PSTR(this.ptr + 200)
+            return this.__lpszPathInfo
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszPathTranslated {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+    lpszPathTranslated{
+        get {
+            if(!this.HasProp("__lpszPathTranslated"))
+                this.__lpszPathTranslated := PSTR(this.ptr + 208)
+            return this.__lpszPathTranslated
+        }
     }
 
     /**
@@ -108,11 +125,14 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszContentType {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
+    lpszContentType{
+        get {
+            if(!this.HasProp("__lpszContentType"))
+                this.__lpszContentType := PSTR(this.ptr + 232)
+            return this.__lpszContentType
+        }
     }
 
     /**

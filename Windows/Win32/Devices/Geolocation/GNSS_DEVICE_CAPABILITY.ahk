@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\GNSS_SUPL_VERSION.ahk
 
 /**
@@ -29,27 +30,36 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SupportMultipleFixSessions {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    SupportMultipleFixSessions{
+        get {
+            if(!this.HasProp("__SupportMultipleFixSessions"))
+                this.__SupportMultipleFixSessions := BOOL(this.ptr + 8)
+            return this.__SupportMultipleFixSessions
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SupportMultipleAppSessions {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    SupportMultipleAppSessions{
+        get {
+            if(!this.HasProp("__SupportMultipleAppSessions"))
+                this.__SupportMultipleAppSessions := BOOL(this.ptr + 12)
+            return this.__SupportMultipleAppSessions
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    RequireAGnssInjection {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    RequireAGnssInjection{
+        get {
+            if(!this.HasProp("__RequireAGnssInjection"))
+                this.__RequireAGnssInjection := BOOL(this.ptr + 16)
+            return this.__RequireAGnssInjection
+        }
     }
 
     /**
@@ -69,19 +79,25 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SupportDistanceTracking {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    SupportDistanceTracking{
+        get {
+            if(!this.HasProp("__SupportDistanceTracking"))
+                this.__SupportDistanceTracking := BOOL(this.ptr + 28)
+            return this.__SupportDistanceTracking
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SupportContinuousTracking {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    SupportContinuousTracking{
+        get {
+            if(!this.HasProp("__SupportContinuousTracking"))
+                this.__SupportContinuousTracking := BOOL(this.ptr + 32)
+            return this.__SupportContinuousTracking
+        }
     }
 
     /**
@@ -93,35 +109,47 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Reserved2 {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    Reserved2{
+        get {
+            if(!this.HasProp("__Reserved2"))
+                this.__Reserved2 := BOOL(this.ptr + 40)
+            return this.__Reserved2
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Reserved3 {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    Reserved3{
+        get {
+            if(!this.HasProp("__Reserved3"))
+                this.__Reserved3 := BOOL(this.ptr + 44)
+            return this.__Reserved3
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Reserved4 {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    Reserved4{
+        get {
+            if(!this.HasProp("__Reserved4"))
+                this.__Reserved4 := BOOL(this.ptr + 48)
+            return this.__Reserved4
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Reserved5 {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    Reserved5{
+        get {
+            if(!this.HasProp("__Reserved5"))
+                this.__Reserved5 := BOOL(this.ptr + 52)
+            return this.__Reserved5
+        }
     }
 
     /**
@@ -133,51 +161,69 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Reserved6 {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    Reserved6{
+        get {
+            if(!this.HasProp("__Reserved6"))
+                this.__Reserved6 := BOOL(this.ptr + 60)
+            return this.__Reserved6
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Reserved7 {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    Reserved7{
+        get {
+            if(!this.HasProp("__Reserved7"))
+                this.__Reserved7 := BOOL(this.ptr + 64)
+            return this.__Reserved7
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SupportCpLocation {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+    SupportCpLocation{
+        get {
+            if(!this.HasProp("__SupportCpLocation"))
+                this.__SupportCpLocation := BOOL(this.ptr + 68)
+            return this.__SupportCpLocation
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SupportUplV2 {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+    SupportUplV2{
+        get {
+            if(!this.HasProp("__SupportUplV2"))
+                this.__SupportUplV2 := BOOL(this.ptr + 72)
+            return this.__SupportUplV2
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SupportSuplV1 {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+    SupportSuplV1{
+        get {
+            if(!this.HasProp("__SupportSuplV1"))
+                this.__SupportSuplV1 := BOOL(this.ptr + 76)
+            return this.__SupportSuplV1
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SupportSuplV2 {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+    SupportSuplV2{
+        get {
+            if(!this.HasProp("__SupportSuplV2"))
+                this.__SupportSuplV2 := BOOL(this.ptr + 80)
+            return this.__SupportSuplV2
+        }
     }
 
     /**
@@ -200,11 +246,14 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SupportMultipleSuplRootCert {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
+    SupportMultipleSuplRootCert{
+        get {
+            if(!this.HasProp("__SupportMultipleSuplRootCert"))
+                this.__SupportMultipleSuplRootCert := BOOL(this.ptr + 100)
+            return this.__SupportMultipleSuplRootCert
+        }
     }
 
     /**

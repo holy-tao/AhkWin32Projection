@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DOT11_ACCESSNETWORKOPTIONS.ahk
 #Include .\DOT11_VENUEINFO.ahk
 
@@ -50,11 +51,14 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bNetworkConnectable {
-        get => NumGet(this, 556, "int")
-        set => NumPut("int", value, this, 556)
+    bNetworkConnectable{
+        get {
+            if(!this.HasProp("__bNetworkConnectable"))
+                this.__bNetworkConnectable := BOOL(this.ptr + 556)
+            return this.__bNetworkConnectable
+        }
     }
 
     /**
@@ -85,11 +89,14 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bMorePhyTypes {
-        get => NumGet(this, 600, "int")
-        set => NumPut("int", value, this, 600)
+    bMorePhyTypes{
+        get {
+            if(!this.HasProp("__bMorePhyTypes"))
+                this.__bMorePhyTypes := BOOL(this.ptr + 600)
+            return this.__bMorePhyTypes
+        }
     }
 
     /**
@@ -101,11 +108,14 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bSecurityEnabled {
-        get => NumGet(this, 608, "int")
-        set => NumPut("int", value, this, 608)
+    bSecurityEnabled{
+        get {
+            if(!this.HasProp("__bSecurityEnabled"))
+                this.__bSecurityEnabled := BOOL(this.ptr + 608)
+            return this.__bSecurityEnabled
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Used with the CRYPTUI_WIZ_DIGITAL_SIGN_INFO structure to contain information about the PVK file used by the digital signature wizard.
@@ -24,20 +25,26 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the path and file name of the PVK file.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszPvkFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszPvkFileName{
+        get {
+            if(!this.HasProp("__pwszPvkFileName"))
+                this.__pwszPvkFileName := PWSTR(this.ptr + 8)
+            return this.__pwszPvkFileName
+        }
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the provider.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszProvName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszProvName{
+        get {
+            if(!this.HasProp("__pwszProvName"))
+                this.__pwszProvName := PWSTR(this.ptr + 16)
+            return this.__pwszProvName
+        }
     }
 
     /**

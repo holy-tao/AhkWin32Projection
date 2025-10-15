@@ -24,7 +24,7 @@ class APPX_ENCRYPTED_EXEMPTIONS extends Win32Struct
 
     /**
      * Files exempted from encryption.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     plainTextFiles {
         get => NumGet(this, 8, "ptr")

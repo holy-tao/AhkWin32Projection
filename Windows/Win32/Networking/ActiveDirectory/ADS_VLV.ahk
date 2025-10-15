@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains metadata used to conduct virtual list view (VLV) searches.
@@ -57,11 +58,14 @@ class ADS_VLV extends Win32Struct
 
     /**
      * Optional. Null-terminated Unicode string that indicates the desired target entry requested by the client. If this parameter contains a non-<b>NULL</b> value, the server ignores the value specified in <b>dwOffset</b> and search for the first target entry whose value for the primary sort key is  greater than or equal to the specified string, based on the sort order of the list.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszTarget {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszTarget{
+        get {
+            if(!this.HasProp("__pszTarget"))
+                this.__pszTarget := PWSTR(this.ptr + 16)
+            return this.__pszTarget
+        }
     }
 
     /**

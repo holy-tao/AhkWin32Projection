@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Audio\HMIXER.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -12,11 +13,14 @@ class MIXEROPENDESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HMIXER}
      */
-    hmx {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hmx{
+        get {
+            if(!this.HasProp("__hmx"))
+                this.__hmx := HMIXER(this.ptr + 0)
+            return this.__hmx
+        }
     }
 
     /**

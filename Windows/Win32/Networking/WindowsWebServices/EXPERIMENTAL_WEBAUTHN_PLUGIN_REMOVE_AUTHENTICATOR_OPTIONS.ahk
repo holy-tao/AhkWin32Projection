@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -12,11 +13,14 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_REMOVE_AUTHENTICATOR_OPTIONS extends Win32Str
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszPluginClsId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszPluginClsId{
+        get {
+            if(!this.HasProp("__pwszPluginClsId"))
+                this.__pwszPluginClsId := PWSTR(this.ptr + 0)
+            return this.__pwszPluginClsId
+        }
     }
 
     /**

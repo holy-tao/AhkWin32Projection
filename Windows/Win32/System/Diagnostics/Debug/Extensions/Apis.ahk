@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
  * @version v4.0.30319
@@ -4627,13 +4627,13 @@ class Extensions {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<Byte>} RemoteOptions 
+     * @param {PSTR} RemoteOptions 
      * @param {Pointer<Guid>} InterfaceId 
      * @param {Pointer<Void>} Interface 
      * @returns {HRESULT} 
      */
     static DebugConnect(RemoteOptions, InterfaceId, Interface) {
-        RemoteOptions := RemoteOptions is String? StrPtr(RemoteOptions) : RemoteOptions
+        RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
         result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr", Interface, "int")
         if(result != 0)
@@ -4644,13 +4644,13 @@ class Extensions {
 
     /**
      * 
-     * @param {Pointer<Char>} RemoteOptions 
+     * @param {PWSTR} RemoteOptions 
      * @param {Pointer<Guid>} InterfaceId 
      * @param {Pointer<Void>} Interface 
      * @returns {HRESULT} 
      */
     static DebugConnectWide(RemoteOptions, InterfaceId, Interface) {
-        RemoteOptions := RemoteOptions is String? StrPtr(RemoteOptions) : RemoteOptions
+        RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
         result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr", Interface, "int")
         if(result != 0)

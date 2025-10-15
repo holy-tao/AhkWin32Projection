@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines a verb that an object supports. The IOleObject::EnumVerbs method creates an enumerator that can enumerate these structures for an object, and supplies a pointer to the enumerator's IEnumOLEVERB.
@@ -24,11 +25,14 @@ class OLEVERB extends Win32Struct
 
     /**
      * Pointer to a string that contains the verb's name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszVerbName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszVerbName{
+        get {
+            if(!this.HasProp("__lpszVerbName"))
+                this.__lpszVerbName := PWSTR(this.ptr + 8)
+            return this.__lpszVerbName
+        }
     }
 
     /**

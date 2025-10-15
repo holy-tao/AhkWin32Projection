@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -20,10 +21,13 @@ class DEVICE_DSM_QUERY_PREFER_LOCAL_REPAIR_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    PreferLocalRepair {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    PreferLocalRepair{
+        get {
+            if(!this.HasProp("__PreferLocalRepair"))
+                this.__PreferLocalRepair := BOOLEAN(this.ptr + 4)
+            return this.__PreferLocalRepair
+        }
     }
 }

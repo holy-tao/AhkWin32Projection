@@ -49,6 +49,34 @@ class ChannelInfo extends Win32Struct
     
     }
 
+    class _DC extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        lProgNumber {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+    }
+
+    class _ATSC extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        lProgNumber {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {_DVB}
      */
@@ -61,18 +89,24 @@ class ChannelInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_DC}
      */
-    DC {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    DC{
+        get {
+            if(!this.HasProp("__DC"))
+                this.__DC := %this.__Class%._DC(this.ptr + 8)
+            return this.__DC
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ATSC}
      */
-    ATSC {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    ATSC{
+        get {
+            if(!this.HasProp("__ATSC"))
+                this.__ATSC := %this.__Class%._ATSC(this.ptr + 8)
+            return this.__ATSC
+        }
     }
 }

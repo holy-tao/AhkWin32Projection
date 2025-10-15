@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -68,10 +69,13 @@ class DMUS_PORTPARAMS7 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fShare {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    fShare{
+        get {
+            if(!this.HasProp("__fShare"))
+                this.__fShare := BOOL(this.ptr + 28)
+            return this.__fShare
+        }
     }
 }

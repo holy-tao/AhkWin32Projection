@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Defines the partition parameters of a partition style.
@@ -42,11 +43,14 @@ class CREATE_PARTITION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
-        bootIndicator {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
+        bootIndicator{
+            get {
+                if(!this.HasProp("__bootIndicator"))
+                    this.__bootIndicator := BOOLEAN(this.ptr + 1)
+                return this.__bootIndicator
+            }
         }
     
     }

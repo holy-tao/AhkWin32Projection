@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\PSID.ahk
 #Include ..\..\SID_AND_ATTRIBUTES.ahk
 #Include ..\..\TOKEN_USER.ahk
+#Include ..\..\TOKEN_PRIMARY_GROUP.ahk
+#Include ..\..\TOKEN_OWNER.ahk
+#Include ..\..\TOKEN_DEFAULT_DACL.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -41,11 +45,14 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {TOKEN_PRIMARY_GROUP}
      */
-    PrimaryGroup {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    PrimaryGroup{
+        get {
+            if(!this.HasProp("__PrimaryGroup"))
+                this.__PrimaryGroup := TOKEN_PRIMARY_GROUP(this.ptr + 32)
+            return this.__PrimaryGroup
+        }
     }
 
     /**
@@ -57,18 +64,24 @@ class LSA_TOKEN_INFORMATION_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {TOKEN_OWNER}
      */
-    Owner {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    Owner{
+        get {
+            if(!this.HasProp("__Owner"))
+                this.__Owner := TOKEN_OWNER(this.ptr + 48)
+            return this.__Owner
+        }
     }
 
     /**
-     * @type {Pointer<TypeHandle>}
+     * @type {TOKEN_DEFAULT_DACL}
      */
-    DefaultDacl {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    DefaultDacl{
+        get {
+            if(!this.HasProp("__DefaultDacl"))
+                this.__DefaultDacl := TOKEN_DEFAULT_DACL(this.ptr + 56)
+            return this.__DefaultDacl
+        }
     }
 }

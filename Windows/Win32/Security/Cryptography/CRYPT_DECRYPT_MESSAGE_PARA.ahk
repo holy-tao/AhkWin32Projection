@@ -62,7 +62,7 @@ class CRYPT_DECRYPT_MESSAGE_PARA extends Win32Struct
      * Recipients can also be identified by their KeyId. Both Key Agreement (Diffie-Hellman) and Key Transport (RSA) recipients are supported.
      * 
      * Only certificate contexts in the store with one of the following properties, CERT_KEY_PROV_INFO_PROP_ID, or CERT_KEY_CONTEXT_PROP_ID can be used. These properties specify the location of a needed private exchange key.
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghCertStore {
         get => NumGet(this, 16, "ptr")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -20,19 +21,25 @@ class VOLUME_SET_GPT_ATTRIBUTES_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    RevertOnClose {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    RevertOnClose{
+        get {
+            if(!this.HasProp("__RevertOnClose"))
+                this.__RevertOnClose := BOOLEAN(this.ptr + 8)
+            return this.__RevertOnClose
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ApplyToAllConnectedVolumes {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    ApplyToAllConnectedVolumes{
+        get {
+            if(!this.HasProp("__ApplyToAllConnectedVolumes"))
+                this.__ApplyToAllConnectedVolumes := BOOLEAN(this.ptr + 9)
+            return this.__ApplyToAllConnectedVolumes
+        }
     }
 
     /**

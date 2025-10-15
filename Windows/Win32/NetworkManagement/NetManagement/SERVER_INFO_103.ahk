@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -20,11 +22,14 @@ class SERVER_INFO_103 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv103_name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    sv103_name{
+        get {
+            if(!this.HasProp("__sv103_name"))
+                this.__sv103_name := PWSTR(this.ptr + 8)
+            return this.__sv103_name
+        }
     }
 
     /**
@@ -52,11 +57,14 @@ class SERVER_INFO_103 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv103_comment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    sv103_comment{
+        get {
+            if(!this.HasProp("__sv103_comment"))
+                this.__sv103_comment := PWSTR(this.ptr + 32)
+            return this.__sv103_comment
+        }
     }
 
     /**
@@ -76,11 +84,14 @@ class SERVER_INFO_103 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv103_hidden {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    sv103_hidden{
+        get {
+            if(!this.HasProp("__sv103_hidden"))
+                this.__sv103_hidden := BOOL(this.ptr + 48)
+            return this.__sv103_hidden
+        }
     }
 
     /**
@@ -108,11 +119,14 @@ class SERVER_INFO_103 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv103_userpath {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    sv103_userpath{
+        get {
+            if(!this.HasProp("__sv103_userpath"))
+                this.__sv103_userpath := PWSTR(this.ptr + 64)
+            return this.__sv103_userpath
+        }
     }
 
     /**

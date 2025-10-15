@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -10,6 +11,57 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
     static sizeof => 56
 
     static packingSize => 8
+
+    class _FirmwareActivationCapability extends Win32Struct {
+        static sizeof => 56
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - FwManagedIoQuiesceFwActivationSupported
+         * - OsManagedIoQuiesceFwActivationSupported
+         * - WarmResetBasedFwActivationSupported
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FwManagedIoQuiesceFwActivationSupported {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OsManagedIoQuiesceFwActivationSupported {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WarmResetBasedFwActivationSupported {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 3) & 0x1FFFFFFF
+            set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
+        }
+    
+    }
 
     /**
      * @type {Integer}
@@ -28,11 +80,14 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    RuntimeFwActivationSupported {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    RuntimeFwActivationSupported{
+        get {
+            if(!this.HasProp("__RuntimeFwActivationSupported"))
+                this.__RuntimeFwActivationSupported := BOOLEAN(this.ptr + 8)
+            return this.__RuntimeFwActivationSupported
+        }
     }
 
     /**
@@ -44,11 +99,14 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_FirmwareActivationCapability}
      */
-    FirmwareActivationCapability {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    FirmwareActivationCapability{
+        get {
+            if(!this.HasProp("__FirmwareActivationCapability"))
+                this.__FirmwareActivationCapability := %this.__Class%._FirmwareActivationCapability(this.ptr + 16)
+            return this.__FirmwareActivationCapability
+        }
     }
 
     /**

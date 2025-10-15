@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk
 
 /**
  * Stores interface management information for a particular IP address family on a network interface.
@@ -175,99 +177,126 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if router advertising is enabled on this IP interface. The default for IPv6 is that  router advertisement is enabled only if the interface is configured to act as a router.  The default for IPv4 is that router advertisement is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    AdvertisingEnabled {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
+    AdvertisingEnabled{
+        get {
+            if(!this.HasProp("__AdvertisingEnabled"))
+                this.__AdvertisingEnabled := BOOLEAN(this.ptr + 48)
+            return this.__AdvertisingEnabled
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if IP forwarding is enabled on this IP interface.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ForwardingEnabled {
-        get => NumGet(this, 49, "char")
-        set => NumPut("char", value, this, 49)
+    ForwardingEnabled{
+        get {
+            if(!this.HasProp("__ForwardingEnabled"))
+                this.__ForwardingEnabled := BOOLEAN(this.ptr + 49)
+            return this.__ForwardingEnabled
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if weak host send mode is enabled  on this IP interface.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    WeakHostSend {
-        get => NumGet(this, 50, "char")
-        set => NumPut("char", value, this, 50)
+    WeakHostSend{
+        get {
+            if(!this.HasProp("__WeakHostSend"))
+                this.__WeakHostSend := BOOLEAN(this.ptr + 50)
+            return this.__WeakHostSend
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if weak host receive mode is enabled  on this IP interface.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    WeakHostReceive {
-        get => NumGet(this, 51, "char")
-        set => NumPut("char", value, this, 51)
+    WeakHostReceive{
+        get {
+            if(!this.HasProp("__WeakHostReceive"))
+                this.__WeakHostReceive := BOOLEAN(this.ptr + 51)
+            return this.__WeakHostReceive
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the IP interface uses automatic metric.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    UseAutomaticMetric {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
+    UseAutomaticMetric{
+        get {
+            if(!this.HasProp("__UseAutomaticMetric"))
+                this.__UseAutomaticMetric := BOOLEAN(this.ptr + 52)
+            return this.__UseAutomaticMetric
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if neighbor unreachability detection is enabled on this IP interface.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    UseNeighborUnreachabilityDetection {
-        get => NumGet(this, 53, "char")
-        set => NumPut("char", value, this, 53)
+    UseNeighborUnreachabilityDetection{
+        get {
+            if(!this.HasProp("__UseNeighborUnreachabilityDetection"))
+                this.__UseNeighborUnreachabilityDetection := BOOLEAN(this.ptr + 53)
+            return this.__UseNeighborUnreachabilityDetection
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the IP interface supports managed address configuration using DHCP.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ManagedAddressConfigurationSupported {
-        get => NumGet(this, 54, "char")
-        set => NumPut("char", value, this, 54)
+    ManagedAddressConfigurationSupported{
+        get {
+            if(!this.HasProp("__ManagedAddressConfigurationSupported"))
+                this.__ManagedAddressConfigurationSupported := BOOLEAN(this.ptr + 54)
+            return this.__ManagedAddressConfigurationSupported
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the IP interface supports other stateful configuration (route configuration, for example).
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    OtherStatefulConfigurationSupported {
-        get => NumGet(this, 55, "char")
-        set => NumPut("char", value, this, 55)
+    OtherStatefulConfigurationSupported{
+        get {
+            if(!this.HasProp("__OtherStatefulConfigurationSupported"))
+                this.__OtherStatefulConfigurationSupported := BOOLEAN(this.ptr + 55)
+            return this.__OtherStatefulConfigurationSupported
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the IP interface advertises the default route. This member is only applicable if the <b>AdvertisingEnabled</b> member is set to <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    AdvertiseDefaultRoute {
-        get => NumGet(this, 56, "char")
-        set => NumPut("char", value, this, 56)
+    AdvertiseDefaultRoute{
+        get {
+            if(!this.HasProp("__AdvertiseDefaultRoute"))
+                this.__AdvertiseDefaultRoute := BOOLEAN(this.ptr + 56)
+            return this.__AdvertiseDefaultRoute
+        }
     }
 
     /**
@@ -508,44 +537,56 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if the interface is connected to a network access point.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Connected {
-        get => NumGet(this, 164, "char")
-        set => NumPut("char", value, this, 164)
+    Connected{
+        get {
+            if(!this.HasProp("__Connected"))
+                this.__Connected := BOOLEAN(this.ptr + 164)
+            return this.__Connected
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the network interface supports Wake on LAN.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    SupportsWakeUpPatterns {
-        get => NumGet(this, 165, "char")
-        set => NumPut("char", value, this, 165)
+    SupportsWakeUpPatterns{
+        get {
+            if(!this.HasProp("__SupportsWakeUpPatterns"))
+                this.__SupportsWakeUpPatterns := BOOLEAN(this.ptr + 165)
+            return this.__SupportsWakeUpPatterns
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the IP interface support neighbor discovery.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    SupportsNeighborDiscovery {
-        get => NumGet(this, 166, "char")
-        set => NumPut("char", value, this, 166)
+    SupportsNeighborDiscovery{
+        get {
+            if(!this.HasProp("__SupportsNeighborDiscovery"))
+                this.__SupportsNeighborDiscovery := BOOLEAN(this.ptr + 166)
+            return this.__SupportsNeighborDiscovery
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the IP interface support router discovery.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    SupportsRouterDiscovery {
-        get => NumGet(this, 167, "char")
-        set => NumPut("char", value, this, 167)
+    SupportsRouterDiscovery{
+        get {
+            if(!this.HasProp("__SupportsRouterDiscovery"))
+                this.__SupportsRouterDiscovery := BOOLEAN(this.ptr + 167)
+            return this.__SupportsRouterDiscovery
+        }
     }
 
     /**
@@ -563,32 +604,41 @@ class MIB_IPINTERFACE_ROW extends Win32Struct
      * Type: <b>NL_INTERFACE_OFFLOAD_ROD</b>
      * 
      * A set of flags that indicate the transmit offload capabilities for the IP interface. The <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ns-nldef-nl_interface_offload_rod">NL_INTERFACE_OFFLOAD_ROD</a> structure is defined in the <i>Nldef.h</i> header file.
-     * @type {Integer}
+     * @type {NL_INTERFACE_OFFLOAD_ROD}
      */
-    TransmitOffload {
-        get => NumGet(this, 172, "char")
-        set => NumPut("char", value, this, 172)
+    TransmitOffload{
+        get {
+            if(!this.HasProp("__TransmitOffload"))
+                this.__TransmitOffload := NL_INTERFACE_OFFLOAD_ROD(this.ptr + 172)
+            return this.__TransmitOffload
+        }
     }
 
     /**
      * Type: <b>NL_INTERFACE_OFFLOAD_ROD</b>
      * 
      * A set of flags that indicate the receive offload capabilities for the IP interface. The <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ns-nldef-nl_interface_offload_rod">NL_INTERFACE_OFFLOAD_ROD</a> structure is defined in the <i>Nldef.h</i> header file.
-     * @type {Integer}
+     * @type {NL_INTERFACE_OFFLOAD_ROD}
      */
-    ReceiveOffload {
-        get => NumGet(this, 173, "char")
-        set => NumPut("char", value, this, 173)
+    ReceiveOffload{
+        get {
+            if(!this.HasProp("__ReceiveOffload"))
+                this.__ReceiveOffload := NL_INTERFACE_OFFLOAD_ROD(this.ptr + 173)
+            return this.__ReceiveOffload
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A value that indicates if using default route on the interface should be disabled. This member can be used by VPN clients to restrict split tunneling.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    DisableDefaultRoutes {
-        get => NumGet(this, 174, "char")
-        set => NumPut("char", value, this, 174)
+    DisableDefaultRoutes{
+        get {
+            if(!this.HasProp("__DisableDefaultRoutes"))
+                this.__DisableDefaultRoutes := BOOLEAN(this.ptr + 174)
+            return this.__DisableDefaultRoutes
+        }
     }
 }

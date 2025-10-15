@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CERT_LOGOTYPE_INFO.ahk
 
 /**
@@ -16,11 +17,14 @@ class CERT_OTHER_LOGOTYPE_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszObjId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszObjId{
+        get {
+            if(!this.HasProp("__pszObjId"))
+                this.__pszObjId := PSTR(this.ptr + 0)
+            return this.__pszObjId
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The CERT_POLICY_INFO structure contains an object identifier (OID) specifying a policy and an optional array of policy qualifiers.
@@ -15,11 +16,14 @@ class CERT_POLICY_INFO extends Win32Struct
 
     /**
      * Object identifier (OID) string specifying the policy.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszPolicyIdentifier {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszPolicyIdentifier{
+        get {
+            if(!this.HasProp("__pszPolicyIdentifier"))
+                this.__pszPolicyIdentifier := PSTR(this.ptr + 0)
+            return this.__pszPolicyIdentifier
+        }
     }
 
     /**

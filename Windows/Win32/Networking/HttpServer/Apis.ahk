@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
@@ -537,7 +537,7 @@ class HttpServer {
 ;@region Methods
     /**
      * The HttpInitialize function initializes the HTTP Server API driver, starts it, if it has not already been started, and allocates data structures for the calling application to support response-queue creation and other operations.
-     * @param {Pointer} Version HTTP version. This parameter is an 
+     * @param {HTTPAPI_VERSION} Version HTTP version. This parameter is an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-httpapi_version">HTTPAPI_VERSION</a> structure. For the current version, declare an instance of the structure and set it to the pre-defined value HTTPAPI_VERSION_1 before passing it to 
      * <b>HttpInitialize</b>.
      * @param {Integer} Flags 
@@ -630,7 +630,7 @@ class HttpServer {
 
     /**
      * Creates an HTTP request queue for the calling application and returns a handle to it.
-     * @param {Pointer<Void>} RequestQueueHandle A pointer to a variable that receives a handle to the request queue.
+     * @param {Pointer<HANDLE>} RequestQueueHandle A pointer to a variable that receives a handle to the request queue.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -676,10 +676,10 @@ class HttpServer {
 
     /**
      * Creates a new request queue or opens an existing request queue.
-     * @param {Pointer} Version An HTTPAPI_VERSION structure indicating the request queue version. For  version 2.0, declare an instance of the structure and set it to the predefined value HTTPAPI_VERSION_2 before passing it to <b>HttpCreateRequestQueue</b>.
+     * @param {HTTPAPI_VERSION} Version An HTTPAPI_VERSION structure indicating the request queue version. For  version 2.0, declare an instance of the structure and set it to the predefined value HTTPAPI_VERSION_2 before passing it to <b>HttpCreateRequestQueue</b>.
      * 
      * The version must be 2.0; <b>HttpCreateRequestQueue</b> does not support  version 1.0 request queues.
-     * @param {Pointer<Char>} Name The name of the request queue. The length, in bytes, cannot exceed MAX_PATH.
+     * @param {PWSTR} Name The name of the request queue. The length, in bytes, cannot exceed MAX_PATH.
      * 
      *   The optional name parameter allows other processes to access the request queue by name.
      * @param {Pointer<SECURITY_ATTRIBUTES>} SecurityAttributes A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that contains the  access permissions for the request queue.
@@ -713,7 +713,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} RequestQueueHandle A pointer to a variable that receives a handle to the request queue.  This parameter must contain a valid pointer; it cannot be <b>NULL</b>.
+     * @param {Pointer<HANDLE>} RequestQueueHandle A pointer to a variable that receives a handle to the request queue.  This parameter must contain a valid pointer; it cannot be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>
      * 
      * If the function fails, it returns one of the following error codes.
@@ -793,7 +793,7 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpCreateRequestQueue(Version, Name, SecurityAttributes, Flags, RequestQueueHandle) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
 
         result := DllCall("HTTPAPI.dll\HttpCreateRequestQueue", "ptr", Version, "ptr", Name, "ptr", SecurityAttributes, "uint", Flags, "ptr", RequestQueueHandle, "uint")
         return result
@@ -801,7 +801,7 @@ class HttpServer {
 
     /**
      * Closes the handle to the specified request queue created by HttpCreateRequestQueue.
-     * @param {Pointer<Void>} RequestQueueHandle The handle to the request queue that is closed. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle The handle to the request queue that is closed. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
      * 
@@ -828,13 +828,15 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpCloseRequestQueue(RequestQueueHandle) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpCloseRequestQueue", "ptr", RequestQueueHandle, "uint")
         return result
     }
 
     /**
      * Sets a new property or modifies an existing property on the request queue identified by the specified handle.
-     * @param {Pointer<Void>} RequestQueueHandle The handle to the request queue on which the property is set. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle The handle to the request queue on which the property is set. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration describing the property type that is set. This must be one of the following:
      * 
@@ -944,13 +946,15 @@ class HttpServer {
     static HttpSetRequestQueueProperty(RequestQueueHandle, Property, PropertyInformation, PropertyInformationLength) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpSetRequestQueueProperty", "ptr", RequestQueueHandle, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint", Reserved1, "ptr", Reserved2, "uint")
         return result
     }
 
     /**
      * Queries a property of the request queue identified by the specified handle.
-     * @param {Pointer<Void>} RequestQueueHandle 
+     * @param {HANDLE} RequestQueueHandle 
      * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is set. This can be one of the following:
      * 
      * <table>
@@ -1072,13 +1076,15 @@ class HttpServer {
     static HttpQueryRequestQueueProperty(RequestQueueHandle, Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpQueryRequestQueueProperty", "ptr", RequestQueueHandle, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint", Reserved1, "uint*", ReturnLength, "ptr", Reserved2, "uint")
         return result
     }
 
     /**
      * Sets a new property or modifies an existing property on the specified request.
-     * @param {Pointer<Void>} RequestQueueHandle The handle to the request queue on which the request was received. A request queue is created and its handle returned by a call to the [HttpCreateRequestQueue](/windows/desktop/api/http/nf-http-httpcreaterequestqueue) function.
+     * @param {HANDLE} RequestQueueHandle The handle to the request queue on which the request was received. A request queue is created and its handle returned by a call to the [HttpCreateRequestQueue](/windows/desktop/api/http/nf-http-httpcreaterequestqueue) function.
      * @param {Integer} Id The opaque ID of the request. This ID is located in the *RequestId* member of the [HTTP\_REQUEST](/windows/desktop/legacy/aa364545(v=vs.85)) structure returned by [HttpReceiveHttpRequest](/windows/win32/api/http/nf-http-httpreceivehttprequest).
      * @param {Integer} PropertyId A member of the [HTTP\_REQUEST\_PROPERTY](/windows/desktop/api/http/ne-http-http_request_property) enumeration describing the property type that is set. This must be one of the following:
      * 
@@ -1100,13 +1106,15 @@ class HttpServer {
      * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpsetrequestproperty
      */
     static HttpSetRequestProperty(RequestQueueHandle, Id, PropertyId, Input, InputPropertySize, Overlapped) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpSetRequestProperty", "ptr", RequestQueueHandle, "uint", Id, "int", PropertyId, "ptr", Input, "uint", InputPropertySize, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Stops queuing requests for the specified request queue process.
-     * @param {Pointer<Void>} RequestQueueHandle The handle to the request queue that is shut down. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle The handle to the request queue that is shut down. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>
      * 
@@ -1135,13 +1143,15 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpShutdownRequestQueue(RequestQueueHandle) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpShutdownRequestQueue", "ptr", RequestQueueHandle, "uint")
         return result
     }
 
     /**
      * The HttpReceiveClientCertificate function is used by a server application to retrieve a client SSL certificate or channel binding token (CBT).
-     * @param {Pointer<Void>} RequestQueueHandle A handle to the request queue with which the specified SSL client or CBT is associated. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle A handle to the request queue with which the specified SSL client or CBT is associated. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
@@ -1284,13 +1294,15 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpReceiveClientCertificate(RequestQueueHandle, ConnectionId, Flags, SslClientCertInfo, SslClientCertInfoSize, BytesReceived, Overlapped) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpReceiveClientCertificate", "ptr", RequestQueueHandle, "uint", ConnectionId, "uint", Flags, "ptr", SslClientCertInfo, "uint", SslClientCertInfoSize, "uint*", BytesReceived, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Creates a server session for the specified version.
-     * @param {Pointer} Version An HTTPAPI_VERSION structure that indicates the version of the server session. For  version 2.0, declare an instance of the structure and set it to the predefined value <b>HTTPAPI_VERSION_2</b> before passing it to <b>HttpCreateServerSession</b>.
+     * @param {HTTPAPI_VERSION} Version An HTTPAPI_VERSION structure that indicates the version of the server session. For  version 2.0, declare an instance of the structure and set it to the predefined value <b>HTTPAPI_VERSION_2</b> before passing it to <b>HttpCreateServerSession</b>.
      * 
      * The version must be 2.0; <b>HttpCreateServerSession</b> does not support  version 1.0 request queues.
      * @param {Pointer<UInt64>} ServerSessionId A pointer to the variable that receives the ID of the server session.
@@ -1694,11 +1706,11 @@ class HttpServer {
 
     /**
      * Registers a given URL so that requests that match it are routed to a specified HTTP Server API request queue.
-     * @param {Pointer<Void>} RequestQueueHandle The handle to the request queue to which requests for the specified URL are to be routed. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle The handle to the request queue to which requests for the specified URL are to be routed. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
-     * @param {Pointer<Char>} FullyQualifiedUrl A pointer to a Unicode string that contains a properly formed 
+     * @param {PWSTR} FullyQualifiedUrl A pointer to a Unicode string that contains a properly formed 
      * <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> that identifies the URL to be registered.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
@@ -1783,7 +1795,8 @@ class HttpServer {
     static HttpAddUrl(RequestQueueHandle, FullyQualifiedUrl) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        FullyQualifiedUrl := FullyQualifiedUrl is String? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
+        FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         result := DllCall("HTTPAPI.dll\HttpAddUrl", "ptr", RequestQueueHandle, "ptr", FullyQualifiedUrl, "ptr", Reserved, "uint")
         return result
@@ -1791,11 +1804,11 @@ class HttpServer {
 
     /**
      * Causes the system to stop routing requests that match a specified UrlPrefix string to a specified request queue.
-     * @param {Pointer<Void>} RequestQueueHandle The handle to the request queue from which the URL registration is to be removed. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle The handle to the request queue from which the URL registration is to be removed. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
-     * @param {Pointer<Char>} FullyQualifiedUrl A pointer to a 
+     * @param {PWSTR} FullyQualifiedUrl A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a>  registered to the specified request queue. This string must be identical to the one passed to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddurl">HttpAddUrl</a> to register the UrlPrefix; even a nomenclature change in an IPv6 address is not accepted.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
@@ -1867,7 +1880,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpRemoveUrl(RequestQueueHandle, FullyQualifiedUrl) {
-        FullyQualifiedUrl := FullyQualifiedUrl is String? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
+        FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         result := DllCall("HTTPAPI.dll\HttpRemoveUrl", "ptr", RequestQueueHandle, "ptr", FullyQualifiedUrl, "uint")
         return result
@@ -1949,7 +1963,7 @@ class HttpServer {
     /**
      * Adds the specified URL to the URL Group identified by the URL Group ID.
      * @param {Integer} UrlGroupId The group ID for the URL group to which requests for the specified URL are routed. The URL group is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreateurlgroup">HttpCreateUrlGroup</a> function.
-     * @param {Pointer<Char>} pFullyQualifiedUrl A pointer to a Unicode string that contains a properly formed <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix String</a> that identifies the URL to be registered.
+     * @param {PWSTR} pFullyQualifiedUrl A pointer to a Unicode string that contains a properly formed <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix String</a> that identifies the URL to be registered.
      * @param {Integer} UrlContext The context that is associated with the URL registered in this call. The URL context is returned in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa364545(v=vs.85)">HTTP_REQUEST</a> structure with every request received on the URL specified in the <i>pFullyQualifiedUrl</i> parameter.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>
      * 
@@ -2004,7 +2018,7 @@ class HttpServer {
     static HttpAddUrlToUrlGroup(UrlGroupId, pFullyQualifiedUrl, UrlContext) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        pFullyQualifiedUrl := pFullyQualifiedUrl is String? StrPtr(pFullyQualifiedUrl) : pFullyQualifiedUrl
+        pFullyQualifiedUrl := pFullyQualifiedUrl is String ? StrPtr(pFullyQualifiedUrl) : pFullyQualifiedUrl
 
         result := DllCall("HTTPAPI.dll\HttpAddUrlToUrlGroup", "uint", UrlGroupId, "ptr", pFullyQualifiedUrl, "uint", UrlContext, "uint", Reserved, "uint")
         return result
@@ -2013,7 +2027,7 @@ class HttpServer {
     /**
      * Removes the specified URL from the group identified by the URL Group ID.
      * @param {Integer} UrlGroupId The ID of the URL group from which the URL specified in <i>pFullyQualifiedUrl</i> is removed.
-     * @param {Pointer<Char>} pFullyQualifiedUrl A pointer to a Unicode string that contains a properly formed <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix String</a> that identifies the URL to be removed.
+     * @param {PWSTR} pFullyQualifiedUrl A pointer to a Unicode string that contains a properly formed <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix String</a> that identifies the URL to be removed.
      * 
      * When <b>HTTP_URL_FLAG_REMOVE_ALL</b> is passed in the <i>Flags</i> parameter, all of the existing URL registrations for the URL Group identified in <i>UrlGroupId</i> are removed from the group. In this case, <i>pFullyQualifiedUrl</i> must be <b>NULL</b>.
      * @param {Integer} Flags The URL flags qualifying the URL that is removed. This  can be one of the following flags:
@@ -2087,7 +2101,7 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpRemoveUrlFromUrlGroup(UrlGroupId, pFullyQualifiedUrl, Flags) {
-        pFullyQualifiedUrl := pFullyQualifiedUrl is String? StrPtr(pFullyQualifiedUrl) : pFullyQualifiedUrl
+        pFullyQualifiedUrl := pFullyQualifiedUrl is String ? StrPtr(pFullyQualifiedUrl) : pFullyQualifiedUrl
 
         result := DllCall("HTTPAPI.dll\HttpRemoveUrlFromUrlGroup", "uint", UrlGroupId, "ptr", pFullyQualifiedUrl, "uint", Flags, "uint")
         return result
@@ -2431,8 +2445,8 @@ class HttpServer {
 
     /**
      * Parses, analyzes, and normalizes a non-normalized Unicode or punycode URL so it is safe and valid to use in other HTTP functions.
-     * @param {Pointer<Char>} Url A pointer to a string that represents the non-normalized Unicode or punycode URL to prepare.
-     * @param {Pointer<Char>} PreparedUrl On successful output, a pointer to a string that represents the normalized URL.
+     * @param {PWSTR} Url A pointer to a string that represents the non-normalized Unicode or punycode URL to prepare.
+     * @param {Pointer<PWSTR>} PreparedUrl On successful output, a pointer to a string that represents the normalized URL.
      * 
      * <div class="alert"><b>Note</b>  Free <i>PreparedUrl</i> using <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapfree">HeapFree</a>.</div>
      * <div> </div>
@@ -2445,7 +2459,7 @@ class HttpServer {
     static HttpPrepareUrl(Url, PreparedUrl) {
         static Reserved := 0, Flags := 0 ;Reserved parameters must always be NULL
 
-        Url := Url is String? StrPtr(Url) : Url
+        Url := Url is String ? StrPtr(Url) : Url
 
         result := DllCall("HTTPAPI.dll\HttpPrepareUrl", "ptr", Reserved, "uint", Flags, "ptr", Url, "ptr", PreparedUrl, "uint")
         return result
@@ -2453,7 +2467,7 @@ class HttpServer {
 
     /**
      * Retrieves the next available HTTP request from the specified request queue either synchronously or asynchronously.
-     * @param {Pointer<Void>} RequestQueueHandle A handle to the request queue from which to retrieve the next available request. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle A handle to the request queue from which to retrieve the next available request. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
@@ -2554,13 +2568,15 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpReceiveHttpRequest(RequestQueueHandle, RequestId, Flags, RequestBuffer, RequestBufferLength, BytesReturned, Overlapped) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpReceiveHttpRequest", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", RequestBuffer, "uint", RequestBufferLength, "uint*", BytesReturned, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Receives additional entity body data for a specified HTTP request.
-     * @param {Pointer<Void>} RequestQueueHandle The handle to the request queue from which to retrieve the specified entity body data. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle The handle to the request queue from which to retrieve the specified entity body data. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
@@ -2665,13 +2681,15 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpReceiveRequestEntityBody(RequestQueueHandle, RequestId, Flags, EntityBuffer, EntityBufferLength, BytesReturned, Overlapped) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpReceiveRequestEntityBody", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", EntityBuffer, "uint", EntityBufferLength, "uint*", BytesReturned, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Sends an HTTP response to the specified HTTP request.
-     * @param {Pointer<Void>} RequestQueueHandle A handle to the request queue from which the specified request was retrieved. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle A handle to the request queue from which the specified request was retrieved. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
@@ -2834,13 +2852,15 @@ class HttpServer {
     static HttpSendHttpResponse(RequestQueueHandle, RequestId, Flags, HttpResponse, CachePolicy, BytesSent, Overlapped, LogData) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpSendHttpResponse", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", HttpResponse, "ptr", CachePolicy, "uint*", BytesSent, "ptr", Reserved1, "uint", Reserved2, "ptr", Overlapped, "ptr", LogData, "uint")
         return result
     }
 
     /**
      * Sends entity-body data associated with an HTTP response.
-     * @param {Pointer<Void>} RequestQueueHandle A handle to the request queue from which the specified request was retrieved. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle A handle to the request queue from which the specified request was retrieved. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
@@ -3012,17 +3032,19 @@ class HttpServer {
     static HttpSendResponseEntityBody(RequestQueueHandle, RequestId, Flags, EntityChunkCount, EntityChunks, BytesSent, Overlapped, LogData) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpSendResponseEntityBody", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ushort", EntityChunkCount, "ptr", EntityChunks, "uint*", BytesSent, "ptr", Reserved1, "uint", Reserved2, "ptr", Overlapped, "ptr", LogData, "uint")
         return result
     }
 
     /**
      * Declares a resource-to-subresource relationship to use for an HTTP server push. HTTP.sys then performs an HTTP 2.0 server push for the given resource, if the underlying protocol, connection, client, and policies allow the push operation.
-     * @param {Pointer<Void>} RequestQueueHandle The handle to an HTTP.sys request queue that the  <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function returned.
+     * @param {HANDLE} RequestQueueHandle The handle to an HTTP.sys request queue that the  <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function returned.
      * @param {Integer} RequestId The opaque identifier of the request that is declaring the push operation. The request must be from the specified queue handle.
      * @param {Integer} Verb The HTTP verb to use for the push operation. The HTTP.sys push operation only supports <b>HttpVerbGET</b> and <b>HttpVerbHEAD</b>.
-     * @param {Pointer<Char>} Path The path portion of the URL for the resource being pushed.
-     * @param {Pointer<Byte>} Query The query portion of the URL for the resource being pushed. This          string should not include the leading question mark (?).
+     * @param {PWSTR} Path The path portion of the URL for the resource being pushed.
+     * @param {PSTR} Query The query portion of the URL for the resource being pushed. This          string should not include the leading question mark (?).
      * @param {Pointer<HTTP_REQUEST_HEADERS>} Headers The request headers for the push operation.
      * 
      * You should not provide a Host header, because HTTP.sys automatically generates the correct Host information.  HTTP.sys does not support cross-origin push operations, so HTTP.sys  enforces and generates Host information that matches the original client-initiated request.
@@ -3035,8 +3057,9 @@ class HttpServer {
      * @since windows10.0.10240
      */
     static HttpDeclarePush(RequestQueueHandle, RequestId, Verb, Path, Query, Headers) {
-        Path := Path is String? StrPtr(Path) : Path
-        Query := Query is String? StrPtr(Query) : Query
+        Path := Path is String ? StrPtr(Path) : Path
+        Query := Query is String ? StrPtr(Query) : Query
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         result := DllCall("HTTPAPI.dll\HttpDeclarePush", "ptr", RequestQueueHandle, "uint", RequestId, "int", Verb, "ptr", Path, "ptr", Query, "ptr", Headers, "uint")
         return result
@@ -3044,7 +3067,7 @@ class HttpServer {
 
     /**
      * Notifies the application when the connection to an HTTP client is broken for any reason.
-     * @param {Pointer<Void>} RequestQueueHandle A handle to the request queue that handles requests from the specified connection. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle A handle to the request queue that handles requests from the specified connection. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
@@ -3098,13 +3121,15 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpWaitForDisconnect(RequestQueueHandle, ConnectionId, Overlapped) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpWaitForDisconnect", "ptr", RequestQueueHandle, "uint", ConnectionId, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * This function is an extension to HttpWaitForDisconnect.
-     * @param {Pointer<Void>} RequestQueueHandle 
+     * @param {HANDLE} RequestQueueHandle 
      * @param {Integer} ConnectionId 
      * @param {Pointer<OVERLAPPED>} Overlapped 
      * @returns {Integer} 
@@ -3113,13 +3138,15 @@ class HttpServer {
     static HttpWaitForDisconnectEx(RequestQueueHandle, ConnectionId, Overlapped) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpWaitForDisconnectEx", "ptr", RequestQueueHandle, "uint", ConnectionId, "uint", Reserved, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * The HttpCancelHttpRequest function cancels a specified reqest.
-     * @param {Pointer<Void>} RequestQueueHandle A handle to the request queue from which the request came.
+     * @param {HANDLE} RequestQueueHandle A handle to the request queue from which the request came.
      * @param {Integer} RequestId The ID of the request to be canceled.
      * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set it to <b>NULL</b>.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
@@ -3127,13 +3154,15 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpCancelHttpRequest(RequestQueueHandle, RequestId, Overlapped) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpCancelHttpRequest", "ptr", RequestQueueHandle, "uint", RequestId, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Waits for the arrival of a new request that can be served by a new request queue process.
-     * @param {Pointer<Void>} RequestQueueHandle A handle to the request queue on which demand start is registered. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle A handle to the request queue on which demand start is registered. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set it to <b>NULL</b>. 
@@ -3203,6 +3232,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpWaitForDemandStart(RequestQueueHandle, Overlapped) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpWaitForDemandStart", "ptr", RequestQueueHandle, "ptr", Overlapped, "uint")
         return result
     }
@@ -3212,20 +3243,20 @@ class HttpServer {
      * @param {Integer} FeatureId Type: \_In\_ **[HTTP_FEATURE_ID](./ne-http-http_feature_id.md)**
      * 
      * The identifier of the feature.
-     * @returns {Integer} `TRUE` if the feature is supported, otherwise `FALSE`.
+     * @returns {BOOL} `TRUE` if the feature is supported, otherwise `FALSE`.
      * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpisfeaturesupported
      */
     static HttpIsFeatureSupported(FeatureId) {
-        result := DllCall("HTTPAPI.dll\HttpIsFeatureSupported", "int", FeatureId, "int")
+        result := DllCall("HTTPAPI.dll\HttpIsFeatureSupported", "int", FeatureId, "ptr")
         return result
     }
 
     /**
      * Delegates a request from the source request queue to the target request queue.
-     * @param {Pointer<Void>} RequestQueueHandle Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * @param {HANDLE} RequestQueueHandle Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
      * 
      * A handle to the source request queue.
-     * @param {Pointer<Void>} DelegateQueueHandle Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * @param {HANDLE} DelegateQueueHandle Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
      * 
      * A handle to the target request queue.
      * @param {Integer} RequestId Type: \_In\_ **HTTP_REQUEST_ID**
@@ -3244,16 +3275,19 @@ class HttpServer {
      * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpdelegaterequestex
      */
     static HttpDelegateRequestEx(RequestQueueHandle, DelegateQueueHandle, RequestId, DelegateUrlGroupId, PropertyInfoSetSize, PropertyInfoSet) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+        DelegateQueueHandle := DelegateQueueHandle is Win32Handle ? NumGet(DelegateQueueHandle, "ptr") : DelegateQueueHandle
+
         result := DllCall("HTTPAPI.dll\HttpDelegateRequestEx", "ptr", RequestQueueHandle, "ptr", DelegateQueueHandle, "uint", RequestId, "uint", DelegateUrlGroupId, "uint", PropertyInfoSetSize, "ptr", PropertyInfoSet, "uint")
         return result
     }
 
     /**
      * Retrieves a URL group ID for a URL and a request queue.
-     * @param {Pointer<Char>} FullyQualifiedUrl Type: \_In\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
+     * @param {PWSTR} FullyQualifiedUrl Type: \_In\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The URL whose URL group to query.
-     * @param {Pointer<Void>} RequestQueueHandle Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * @param {HANDLE} RequestQueueHandle Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
      * 
      * The request queue associated with the URL group.
      * @param {Pointer<UInt64>} UrlGroupId Type: \_Out\_ **PHTTP_URL_GROUP_ID**
@@ -3263,7 +3297,8 @@ class HttpServer {
      * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpfindurlgroupid
      */
     static HttpFindUrlGroupId(FullyQualifiedUrl, RequestQueueHandle, UrlGroupId) {
-        FullyQualifiedUrl := FullyQualifiedUrl is String? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
+        FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         result := DllCall("HTTPAPI.dll\HttpFindUrlGroupId", "ptr", FullyQualifiedUrl, "ptr", RequestQueueHandle, "uint*", UrlGroupId, "uint")
         return result
@@ -3271,11 +3306,11 @@ class HttpServer {
 
     /**
      * Removes from the HTTP Server API cache associated with a given request queue all response fragments that have a name whose site portion matches a specified UrlPrefix.
-     * @param {Pointer<Void>} RequestQueueHandle Handle to the request queue with which this cache is associated. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle Handle to the request queue with which this cache is associated. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
-     * @param {Pointer<Char>} UrlPrefix Pointer to a 
+     * @param {PWSTR} UrlPrefix Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> to match against the site portion of fragment names. The application must previously have called <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddurl">HttpAddUrl</a> to add this UrlPrefix or a valid prefix of it to the request queue in question, and then called <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddfragmenttocache">HttpAddFragmentToCache</a> to cache the associated response fragment.
      * @param {Integer} Flags This parameter can contain the following flag:
      * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
@@ -3325,7 +3360,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpFlushResponseCache(RequestQueueHandle, UrlPrefix, Flags, Overlapped) {
-        UrlPrefix := UrlPrefix is String? StrPtr(UrlPrefix) : UrlPrefix
+        UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         result := DllCall("HTTPAPI.dll\HttpFlushResponseCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "uint", Flags, "ptr", Overlapped, "uint")
         return result
@@ -3333,11 +3369,11 @@ class HttpServer {
 
     /**
      * The HttpAddFragmentToCache function caches a data fragment with a specified name by which it can be retrieved, or updates data cached under a specified name.
-     * @param {Pointer<Void>} RequestQueueHandle Handle to the request queue with which this cache is associated. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle Handle to the request queue with which this cache is associated. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
-     * @param {Pointer<Char>} UrlPrefix Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> that the application uses in subsequent calls to 
+     * @param {PWSTR} UrlPrefix Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> that the application uses in subsequent calls to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsendhttpresponse">HttpSendHttpResponse</a> to identify this cache entry. The application must have called <b>HttpAddUrl</b> previously with the same handle as in the <i>ReqQueueHandle</i> parameter, and with  either  this identical UrlPrefix string or a valid prefix of it.
      * 
      * Like any UrlPrefix, this string must take the form "scheme://host:port/relativeURI"; for example, http://www.mysite.com:80/image1.gif.
@@ -3392,7 +3428,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpAddFragmentToCache(RequestQueueHandle, UrlPrefix, DataChunk, CachePolicy, Overlapped) {
-        UrlPrefix := UrlPrefix is String? StrPtr(UrlPrefix) : UrlPrefix
+        UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         result := DllCall("HTTPAPI.dll\HttpAddFragmentToCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", DataChunk, "ptr", CachePolicy, "ptr", Overlapped, "uint")
         return result
@@ -3400,11 +3437,11 @@ class HttpServer {
 
     /**
      * The HttpReadFragmentFromCache function retrieves a response fragment having a specified name from the HTTP Server API cache.
-     * @param {Pointer<Void>} RequestQueueHandle Handle to the request queue with which the specified response fragment is associated. A request queue is created and its handle returned by a call to the 
+     * @param {HANDLE} RequestQueueHandle Handle to the request queue with which the specified response fragment is associated. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
      * 
      * <b>Windows Server 2003 with SP1 and Windows XP with SP2:  </b>The handle to the request queue is created by the <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreatehttphandle">HttpCreateHttpHandle</a> function.
-     * @param {Pointer<Char>} UrlPrefix Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> that contains the name of the fragment to be retrieved. This must match a UrlPrefix string used in a previous successful call to <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddfragmenttocache">HttpAddFragmentToCache</a>.
+     * @param {PWSTR} UrlPrefix Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> that contains the name of the fragment to be retrieved. This must match a UrlPrefix string used in a previous successful call to <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddfragmenttocache">HttpAddFragmentToCache</a>.
      * @param {Pointer<HTTP_BYTE_RANGE>} ByteRange Optional pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_byte_range">HTTP_BYTE_RANGE</a> structure that indicates a starting offset in the specified fragment and byte-count to be returned. <b>NULL</b> if not used, in which case the entire fragment is returned.
      * @param {Pointer} Buffer Pointer to a buffer into which the function copies the requested fragment.
@@ -3474,7 +3511,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpReadFragmentFromCache(RequestQueueHandle, UrlPrefix, ByteRange, Buffer, BufferLength, BytesRead, Overlapped) {
-        UrlPrefix := UrlPrefix is String? StrPtr(UrlPrefix) : UrlPrefix
+        UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer, "uint", BufferLength, "uint*", BytesRead, "ptr", Overlapped, "uint")
         return result
@@ -3655,6 +3693,8 @@ class HttpServer {
     static HttpSetServiceConfiguration(ConfigId, pConfigInformation, ConfigInformationLength) {
         static ServiceHandle := 0, pOverlapped := 0 ;Reserved parameters must always be NULL
 
+        ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle
+
         result := DllCall("HTTPAPI.dll\HttpSetServiceConfiguration", "ptr", ServiceHandle, "int", ConfigId, "ptr", pConfigInformation, "uint", ConfigInformationLength, "ptr", pOverlapped, "uint")
         return result
     }
@@ -3785,6 +3825,8 @@ class HttpServer {
      */
     static HttpUpdateServiceConfiguration(ConfigId, ConfigInfo, ConfigInfoLength) {
         static Handle := 0, Overlapped := 0 ;Reserved parameters must always be NULL
+
+        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
         result := DllCall("HTTPAPI.dll\HttpUpdateServiceConfiguration", "ptr", Handle, "int", ConfigId, "ptr", ConfigInfo, "uint", ConfigInfoLength, "ptr", Overlapped, "uint")
         return result
@@ -3997,6 +4039,8 @@ class HttpServer {
      */
     static HttpDeleteServiceConfiguration(ConfigId, pConfigInformation, ConfigInformationLength) {
         static ServiceHandle := 0, pOverlapped := 0 ;Reserved parameters must always be NULL
+
+        ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle
 
         result := DllCall("HTTPAPI.dll\HttpDeleteServiceConfiguration", "ptr", ServiceHandle, "int", ConfigId, "ptr", pConfigInformation, "uint", ConfigInformationLength, "ptr", pOverlapped, "uint")
         return result
@@ -4259,13 +4303,15 @@ class HttpServer {
     static HttpQueryServiceConfiguration(ConfigId, pInput, InputLength, pOutput, OutputLength, pReturnLength) {
         static ServiceHandle := 0, pOverlapped := 0 ;Reserved parameters must always be NULL
 
+        ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle
+
         result := DllCall("HTTPAPI.dll\HttpQueryServiceConfiguration", "ptr", ServiceHandle, "int", ConfigId, "ptr", pInput, "uint", InputLength, "ptr", pOutput, "uint", OutputLength, "uint*", pReturnLength, "ptr", pOverlapped, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} Version 
+     * @param {HTTPAPI_VERSION} Version 
      * @param {Integer} Extension 
      * @param {Pointer<Void>} Buffer 
      * @param {Integer} BufferSize 

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains pointers to the module name and module path values associated with a TCP connection. The TCPIP_OWNER_MODULE_BASIC_INFO structure is returned by the GetOwnerModuleFromTcpEntry and GetOwnerModuleFromTcp6Entry functions.
@@ -21,19 +22,25 @@ class TCPIP_OWNER_MODULE_BASIC_INFO extends Win32Struct
 
     /**
      * A pointer to the name of the module. This field should be a <b>NULL</b> pointer when passed to <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getownermodulefromtcpentry">GetOwnerModuleFromTcpEntry</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getownermodulefromtcp6entry">GetOwnerModuleFromTcp6Entry</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pModuleName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pModuleName{
+        get {
+            if(!this.HasProp("__pModuleName"))
+                this.__pModuleName := PWSTR(this.ptr + 0)
+            return this.__pModuleName
+        }
     }
 
     /**
      * A pointer to the full path of the module, including the module name. This field should be a <b>NULL</b> pointer when passed to <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getownermodulefromtcpentry">GetOwnerModuleFromTcpEntry</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getownermodulefromtcp6entry">GetOwnerModuleFromTcp6Entry</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pModulePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pModulePath{
+        get {
+            if(!this.HasProp("__pModulePath"))
+                this.__pModulePath := PWSTR(this.ptr + 8)
+            return this.__pModulePath
+        }
     }
 }

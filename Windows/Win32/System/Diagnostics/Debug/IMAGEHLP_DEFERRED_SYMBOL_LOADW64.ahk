@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a deferred symbol load.
@@ -68,20 +70,26 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOADW64 extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the operation should be performed again. Otherwise, it should not.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Reparse {
-        get => NumGet(this, 546, "char")
-        set => NumPut("char", value, this, 546)
+    Reparse{
+        get {
+            if(!this.HasProp("__Reparse"))
+                this.__Reparse := BOOLEAN(this.ptr + 546)
+            return this.__Reparse
+        }
     }
 
     /**
      * A handle to a file. This member is used with <b>CBA_DEFERRED_SYMBOL_LOAD_PARTIAL</b> and <b>IMAGEHLP_DEFERRED_SYMBOL_LOAD_FAILURE</b> callbacks.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hFile {
-        get => NumGet(this, 552, "ptr")
-        set => NumPut("ptr", value, this, 552)
+    hFile{
+        get {
+            if(!this.HasProp("__hFile"))
+                this.__hFile := HANDLE(this.ptr + 552)
+            return this.__hFile
+        }
     }
 
     /**

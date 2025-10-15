@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_SHADER_BYTECODE.ahk
 #Include .\D3D12_STREAM_OUTPUT_DESC.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_RENDER_TARGET_BLEND_DESC.ahk
 #Include .\D3D12_BLEND_DESC.ahk
 #Include .\D3D12_RASTERIZER_DESC.ahk

@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * The OPENFILENAME_NT4 structure is identical to OPENFILENAME with _WIN32_WINNT set to 0x0400.
@@ -29,35 +33,47 @@ class OPENFILENAME_NT4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(this.ptr + 8)
+            return this.__hwndOwner
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(this.ptr + 16)
+            return this.__hInstance
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrFilter {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpstrFilter{
+        get {
+            if(!this.HasProp("__lpstrFilter"))
+                this.__lpstrFilter := PSTR(this.ptr + 24)
+            return this.__lpstrFilter
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrCustomFilter {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lpstrCustomFilter{
+        get {
+            if(!this.HasProp("__lpstrCustomFilter"))
+                this.__lpstrCustomFilter := PSTR(this.ptr + 32)
+            return this.__lpstrCustomFilter
+        }
     }
 
     /**
@@ -77,11 +93,14 @@ class OPENFILENAME_NT4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrFile {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lpstrFile{
+        get {
+            if(!this.HasProp("__lpstrFile"))
+                this.__lpstrFile := PSTR(this.ptr + 48)
+            return this.__lpstrFile
+        }
     }
 
     /**
@@ -93,11 +112,14 @@ class OPENFILENAME_NT4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrFileTitle {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    lpstrFileTitle{
+        get {
+            if(!this.HasProp("__lpstrFileTitle"))
+                this.__lpstrFileTitle := PSTR(this.ptr + 64)
+            return this.__lpstrFileTitle
+        }
     }
 
     /**
@@ -109,19 +131,25 @@ class OPENFILENAME_NT4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrInitialDir {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    lpstrInitialDir{
+        get {
+            if(!this.HasProp("__lpstrInitialDir"))
+                this.__lpstrInitialDir := PSTR(this.ptr + 80)
+            return this.__lpstrInitialDir
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrTitle {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    lpstrTitle{
+        get {
+            if(!this.HasProp("__lpstrTitle"))
+                this.__lpstrTitle := PSTR(this.ptr + 88)
+            return this.__lpstrTitle
+        }
     }
 
     /**
@@ -149,19 +177,25 @@ class OPENFILENAME_NT4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstrDefExt {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    lpstrDefExt{
+        get {
+            if(!this.HasProp("__lpstrDefExt"))
+                this.__lpstrDefExt := PSTR(this.ptr + 104)
+            return this.__lpstrDefExt
+        }
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(this.ptr + 112)
+            return this.__lCustData
+        }
     }
 
     /**
@@ -173,10 +207,13 @@ class OPENFILENAME_NT4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpTemplateName {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    lpTemplateName{
+        get {
+            if(!this.HasProp("__lpTemplateName"))
+                this.__lpTemplateName := PSTR(this.ptr + 128)
+            return this.__lpTemplateName
+        }
     }
 }

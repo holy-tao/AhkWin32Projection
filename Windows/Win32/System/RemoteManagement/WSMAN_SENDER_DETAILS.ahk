@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies the client details for every inbound request.
@@ -62,11 +64,14 @@ class WSMAN_SENDER_DETAILS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    senderName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    senderName{
+        get {
+            if(!this.HasProp("__senderName"))
+                this.__senderName := PWSTR(this.ptr + 0)
+            return this.__senderName
+        }
     }
 
     /**
@@ -77,11 +82,14 @@ class WSMAN_SENDER_DETAILS extends Win32Struct
      * <li>ClientCertificate</li>
      * </ul>
      * All other types are queried directly from the security package.  For Internet Information Services (IIS) hosting, this string is retrieved from the IIS infrastructure.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    authenticationMechanism {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    authenticationMechanism{
+        get {
+            if(!this.HasProp("__authenticationMechanism"))
+                this.__authenticationMechanism := PWSTR(this.ptr + 8)
+            return this.__authenticationMechanism
+        }
     }
 
     /**
@@ -98,19 +106,25 @@ class WSMAN_SENDER_DETAILS extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  Authorization plug-ins can change the user context and use a different impersonation token.</div>
      * <div> </div>
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    clientToken {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    clientToken{
+        get {
+            if(!this.HasProp("__clientToken"))
+                this.__clientToken := HANDLE(this.ptr + 24)
+            return this.__clientToken
+        }
     }
 
     /**
      * Specifies the HTTP URL of the inbound request.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    httpURL {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    httpURL{
+        get {
+            if(!this.HasProp("__httpURL"))
+                this.__httpURL := PWSTR(this.ptr + 32)
+            return this.__httpURL
+        }
     }
 }

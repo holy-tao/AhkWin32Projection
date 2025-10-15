@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\CHAR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Variant\VARIANT.ahk
 

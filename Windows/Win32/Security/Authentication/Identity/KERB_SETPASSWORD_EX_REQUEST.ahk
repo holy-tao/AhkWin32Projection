@@ -2,7 +2,9 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
 #Include ..\..\Credentials\SecHandle.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -108,11 +110,14 @@ class KERB_SETPASSWORD_EX_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Impersonating {
-        get => NumGet(this, 120, "char")
-        set => NumPut("char", value, this, 120)
+    Impersonating{
+        get {
+            if(!this.HasProp("__Impersonating"))
+                this.__Impersonating := BOOLEAN(this.ptr + 120)
+            return this.__Impersonating
+        }
     }
 
     /**

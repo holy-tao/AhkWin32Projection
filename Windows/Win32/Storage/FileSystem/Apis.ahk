@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
@@ -1457,13 +1458,13 @@ class FileSystem {
 ;@region Methods
     /**
      * Searches for a specified file in a specified path.
-     * @param {Pointer<Char>} lpPath The path to be searched for the file.
+     * @param {PWSTR} lpPath The path to be searched for the file.
      * 
      * If this parameter is <b>NULL</b>, the 
      *        function searches for a matching file using a registry-dependent system  search path. For more information, see 
      *        the Remarks section.
-     * @param {Pointer<Char>} lpFileName The name of the file for which to search.
-     * @param {Pointer<Char>} lpExtension The extension to be added to the file name when searching for the file. The first character of the file name 
+     * @param {PWSTR} lpFileName The name of the file for which to search.
+     * @param {PWSTR} lpExtension The extension to be added to the file name when searching for the file. The first character of the file name 
      *        extension must be a period (.). The extension is added only if the specified file name does not end with an 
      *        extension.
      * 
@@ -1471,9 +1472,9 @@ class FileSystem {
      *        <b>NULL</b>.
      * @param {Integer} nBufferLength The size of the buffer that receives the valid path and file name (including the terminating null 
      *       character), in <b>TCHARs</b>.
-     * @param {Pointer<Char>} lpBuffer A pointer to the buffer to receive the path and file name of the file found. The  string is a 
+     * @param {PWSTR} lpBuffer A pointer to the buffer to receive the path and file name of the file found. The  string is a 
      *       null-terminated string.
-     * @param {Pointer<Char>} lpFilePart A pointer to the variable to receive the address (within <i>lpBuffer</i>) of the last 
+     * @param {Pointer<PWSTR>} lpFilePart A pointer to the variable to receive the address (within <i>lpBuffer</i>) of the last 
      *       component of the valid path and file name, which is the address of the character immediately following the final 
      *       backslash (\\) in the path.
      * @returns {Integer} If the function succeeds, the value returned is the length, in <b>TCHARs</b>, of the 
@@ -1487,10 +1488,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SearchPathW(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart) {
-        lpPath := lpPath is String? StrPtr(lpPath) : lpPath
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        lpExtension := lpExtension is String? StrPtr(lpExtension) : lpExtension
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpPath := lpPath is String ? StrPtr(lpPath) : lpPath
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        lpExtension := lpExtension is String ? StrPtr(lpExtension) : lpExtension
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1503,13 +1504,13 @@ class FileSystem {
 
     /**
      * Searches for a specified file in a specified path.
-     * @param {Pointer<Byte>} lpPath The path to be searched for the file.
+     * @param {PSTR} lpPath The path to be searched for the file.
      * 
      * If this parameter is <b>NULL</b>, the 
      *        function searches for a matching file using a registry-dependent system  search path. For more information, see 
      *        the Remarks section.
-     * @param {Pointer<Byte>} lpFileName The name of the file for which to search.
-     * @param {Pointer<Byte>} lpExtension The extension to be added to the file name when searching for the file. The first character of the file name 
+     * @param {PSTR} lpFileName The name of the file for which to search.
+     * @param {PSTR} lpExtension The extension to be added to the file name when searching for the file. The first character of the file name 
      *        extension must be a period (.). The extension is added only if the specified file name does not end with an 
      *        extension.
      * 
@@ -1517,9 +1518,9 @@ class FileSystem {
      *        <b>NULL</b>.
      * @param {Integer} nBufferLength The size of the buffer that receives the valid path and file name (including the terminating null 
      *       character), in <b>TCHARs</b>.
-     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer to receive the path and file name of the file found. The  string is a 
+     * @param {PSTR} lpBuffer A pointer to the buffer to receive the path and file name of the file found. The  string is a 
      *       null-terminated string.
-     * @param {Pointer<Byte>} lpFilePart A pointer to the variable to receive the address (within <i>lpBuffer</i>) of the last 
+     * @param {Pointer<PSTR>} lpFilePart A pointer to the variable to receive the address (within <i>lpBuffer</i>) of the last 
      *       component of the valid path and file name, which is the address of the character immediately following the final 
      *       backslash (\\) in the path.
      * @returns {Integer} If the function succeeds, the value returned is the length, in <b>TCHARs</b>, of the 
@@ -1533,10 +1534,10 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SearchPathA(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart) {
-        lpPath := lpPath is String? StrPtr(lpPath) : lpPath
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        lpExtension := lpExtension is String? StrPtr(lpExtension) : lpExtension
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpPath := lpPath is String ? StrPtr(lpPath) : lpPath
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        lpExtension := lpExtension is String ? StrPtr(lpExtension) : lpExtension
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1604,7 +1605,7 @@ class FileSystem {
 
     /**
      * Creates a new directory.
-     * @param {Pointer<Byte>} lpPathName The path of the directory to be created.
+     * @param {PSTR} lpPathName The path of the directory to be created.
      * 
      * For the ANSI version of this function, there is a default string size limit for paths of 248 characters (<b>MAX_PATH</b> - enough room for a 8.3 filename). To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
      *        "\\\\?\\" to the path. For more information, see 
@@ -1622,7 +1623,7 @@ class FileSystem {
      * The target file system must support security on files and directories for this parameter to have an effect. 
      *        (This is indicated when <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getvolumeinformationa">GetVolumeInformation</a> 
      *        returns <b>FS_PERSISTENT_ACLS</b>.)
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the 
@@ -1661,11 +1662,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateDirectoryA(lpPathName, lpSecurityAttributes) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateDirectoryA", "ptr", lpPathName, "ptr", lpSecurityAttributes, "int")
+        result := DllCall("KERNEL32.dll\CreateDirectoryA", "ptr", lpPathName, "ptr", lpSecurityAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1674,7 +1675,7 @@ class FileSystem {
 
     /**
      * Creates a new directory.
-     * @param {Pointer<Char>} lpPathName The path of the directory to be created.
+     * @param {PWSTR} lpPathName The path of the directory to be created.
      * 
      * For the ANSI version of this function, there is a default string size limit for paths of 248 characters (<b>MAX_PATH</b> - enough room for a 8.3 filename). To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
      *        "\\\\?\\" to the path. For more information, see 
@@ -1692,7 +1693,7 @@ class FileSystem {
      * The target file system must support security on files and directories for this parameter to have an effect. 
      *        (This is indicated when <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getvolumeinformationa">GetVolumeInformation</a> 
      *        returns <b>FS_PERSISTENT_ACLS</b>.)
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the 
@@ -1731,11 +1732,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateDirectoryW(lpPathName, lpSecurityAttributes) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateDirectoryW", "ptr", lpPathName, "ptr", lpSecurityAttributes, "int")
+        result := DllCall("KERNEL32.dll\CreateDirectoryW", "ptr", lpPathName, "ptr", lpSecurityAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1744,7 +1745,7 @@ class FileSystem {
 
     /**
      * Creates or opens a file or I/O device. The most commonly used I/O devices are as follows:\_file, file stream, directory, physical disk, volume, console buffer, tape drive, communications resource, mailslot, and pipe.
-     * @param {Pointer<Byte>} lpFileName The name of the file or device to be created or opened. You may use either forward slashes (/) or backslashes (\\) in this name.
+     * @param {PSTR} lpFileName The name of the file or device to be created or opened. You may use either forward slashes (/) or backslashes (\\) in this name.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -2159,7 +2160,7 @@ class FileSystem {
      *        information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/impersonation-levels">Impersonation Levels</a>. When the 
      *        calling application specifies the <b>SECURITY_SQOS_PRESENT</b> flag as part of
-     * @param {Pointer<Void>} hTemplateFile A valid handle to a template file with the <b>GENERIC_READ</b> access right. The template 
+     * @param {HANDLE} hTemplateFile A valid handle to a template file with the <b>GENERIC_READ</b> access right. The template 
      *        file supplies file attributes and extended attributes for the file that is being created.
      * 
      * This parameter can be <b>NULL</b>.
@@ -2170,7 +2171,7 @@ class FileSystem {
      * When opening a new encrypted file, the file inherits the discretionary access control list from its parent 
      *        directory. For additional information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-encryption">File Encryption</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or 
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or 
      *        mail slot.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
@@ -2179,7 +2180,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTemplateFile := hTemplateFile is Win32Handle ? NumGet(hTemplateFile, "ptr") : hTemplateFile
 
         A_LastError := 0
 
@@ -2187,12 +2189,12 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates or opens a file or I/O device. The most commonly used I/O devices are as follows:\_file, file stream, directory, physical disk, volume, console buffer, tape drive, communications resource, mailslot, and pipe.
-     * @param {Pointer<Char>} lpFileName The name of the file or device to be created or opened. You may use either forward slashes (/) or backslashes (\\) in this name.
+     * @param {PWSTR} lpFileName The name of the file or device to be created or opened. You may use either forward slashes (/) or backslashes (\\) in this name.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      * To extend this limit to 32,767 wide characters, use this Unicode version of the function and prepend "\\\\?\\" to the path. For more information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a>.
@@ -2605,7 +2607,7 @@ class FileSystem {
      *        information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/impersonation-levels">Impersonation Levels</a>. When the 
      *        calling application specifies the <b>SECURITY_SQOS_PRESENT</b> flag as part of
-     * @param {Pointer<Void>} hTemplateFile A valid handle to a template file with the <b>GENERIC_READ</b> access right. The template 
+     * @param {HANDLE} hTemplateFile A valid handle to a template file with the <b>GENERIC_READ</b> access right. The template 
      *        file supplies file attributes and extended attributes for the file that is being created.
      * 
      * This parameter can be <b>NULL</b>.
@@ -2616,7 +2618,7 @@ class FileSystem {
      * When opening a new encrypted file, the file inherits the discretionary access control list from its parent 
      *        directory. For additional information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-encryption">File Encryption</a>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or 
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or 
      *        mail slot.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
@@ -2625,7 +2627,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTemplateFile := hTemplateFile is Win32Handle ? NumGet(hTemplateFile, "ptr") : hTemplateFile
 
         A_LastError := 0
 
@@ -2633,20 +2636,20 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Defines, redefines, or deletes MS-DOS device names.
      * @param {Integer} dwFlags The controllable aspects of the <b>DefineDosDevice</b> function. This parameter
-     * @param {Pointer<Char>} lpDeviceName A pointer to an MS-DOS device name string specifying the device the function is defining, redefining, or 
+     * @param {PWSTR} lpDeviceName A pointer to an MS-DOS device name string specifying the device the function is defining, redefining, or 
      *       deleting. The device name string must not have a colon as the last character, unless a drive letter is being 
      *       defined, redefined, or deleted. For example, drive C  would be the string "C:". In no case is a 
      *       trailing backslash ("\") allowed.
-     * @param {Pointer<Char>} lpTargetPath A pointer to a path string that will implement this device. The string is an MS-DOS path string unless the 
+     * @param {PWSTR} lpTargetPath A pointer to a path string that will implement this device. The string is an MS-DOS path string unless the 
      *       <b>DDD_RAW_TARGET_PATH</b> flag is specified, in which case this string is a path 
      *       string.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2654,12 +2657,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DefineDosDeviceW(dwFlags, lpDeviceName, lpTargetPath) {
-        lpDeviceName := lpDeviceName is String? StrPtr(lpDeviceName) : lpDeviceName
-        lpTargetPath := lpTargetPath is String? StrPtr(lpTargetPath) : lpTargetPath
+        lpDeviceName := lpDeviceName is String ? StrPtr(lpDeviceName) : lpDeviceName
+        lpTargetPath := lpTargetPath is String ? StrPtr(lpTargetPath) : lpTargetPath
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DefineDosDeviceW", "uint", dwFlags, "ptr", lpDeviceName, "ptr", lpTargetPath, "int")
+        result := DllCall("KERNEL32.dll\DefineDosDeviceW", "uint", dwFlags, "ptr", lpDeviceName, "ptr", lpTargetPath, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2668,7 +2671,7 @@ class FileSystem {
 
     /**
      * Deletes an existing file.
-     * @param {Pointer<Byte>} lpFileName The name of the file to be deleted.
+     * @param {PSTR} lpFileName The name of the file to be deleted.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -2677,7 +2680,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting in Windows 10, version 1607, for the unicode version of this function (<b>DeleteFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> character limitation without prepending "\\?\". See the "Maximum Path Limitation" section of  <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details. </div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2685,11 +2688,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DeleteFileA(lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteFileA", "ptr", lpFileName, "int")
+        result := DllCall("KERNEL32.dll\DeleteFileA", "ptr", lpFileName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2698,7 +2701,7 @@ class FileSystem {
 
     /**
      * Deletes an existing file.
-     * @param {Pointer<Char>} lpFileName The name of the file to be deleted.
+     * @param {PWSTR} lpFileName The name of the file to be deleted.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -2707,7 +2710,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting in Windows 10, version 1607, for the unicode version of this function (<b>DeleteFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> character limitation without prepending "\\?\". See the "Maximum Path Limitation" section of  <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details. </div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2715,11 +2718,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DeleteFileW(lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteFileW", "ptr", lpFileName, "int")
+        result := DllCall("KERNEL32.dll\DeleteFileW", "ptr", lpFileName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2728,9 +2731,9 @@ class FileSystem {
 
     /**
      * Deletes a drive letter or mounted folder.
-     * @param {Pointer<Char>} lpszVolumeMountPoint The drive letter or mounted folder to be deleted. A trailing backslash is required, for example, 
+     * @param {PWSTR} lpszVolumeMountPoint The drive letter or mounted folder to be deleted. A trailing backslash is required, for example, 
      *       "X:\" or "Y:\MountX\".
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2738,11 +2741,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DeleteVolumeMountPointW(lpszVolumeMountPoint) {
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteVolumeMountPointW", "ptr", lpszVolumeMountPoint, "int")
+        result := DllCall("KERNEL32.dll\DeleteVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2753,7 +2756,7 @@ class FileSystem {
      * Converts a file time to a local file time.
      * @param {Pointer<FILETIME>} lpFileTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the UTC-based file time to be converted into a local file time.
      * @param {Pointer<FILETIME>} lpLocalFileTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure to receive the converted local file time. This parameter cannot be the same as the <i>lpFileTime</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-filetimetolocalfiletime
@@ -2762,7 +2765,7 @@ class FileSystem {
     static FileTimeToLocalFileTime(lpFileTime, lpLocalFileTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FileTimeToLocalFileTime", "ptr", lpFileTime, "ptr", lpLocalFileTime, "int")
+        result := DllCall("KERNEL32.dll\FileTimeToLocalFileTime", "ptr", lpFileTime, "ptr", lpLocalFileTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2771,8 +2774,8 @@ class FileSystem {
 
     /**
      * Closes a file search handle opened by the FindFirstFile, FindFirstFileEx, FindFirstFileNameW, FindFirstFileNameTransactedW, FindFirstFileTransacted, FindFirstStreamTransactedW, or FindFirstStreamW functions.
-     * @param {Pointer<Void>} hFindFile The file search handle.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} hFindFile The file search handle.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2780,9 +2783,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindClose(hFindFile) {
+        hFindFile := hFindFile is Win32Handle ? NumGet(hFindFile, "ptr") : hFindFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindClose", "ptr", hFindFile, "int")
+        result := DllCall("KERNEL32.dll\FindClose", "ptr", hFindFile, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2791,9 +2796,9 @@ class FileSystem {
 
     /**
      * Stops change notification handle monitoring.
-     * @param {Pointer<Void>} hChangeHandle A handle to a change notification handle created by the 
+     * @param {HANDLE} hChangeHandle A handle to a change notification handle created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstchangenotificationa">FindFirstChangeNotification</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2801,9 +2806,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindCloseChangeNotification(hChangeHandle) {
+        hChangeHandle := hChangeHandle is Win32Handle ? NumGet(hChangeHandle, "ptr") : hChangeHandle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindCloseChangeNotification", "ptr", hChangeHandle, "int")
+        result := DllCall("KERNEL32.dll\FindCloseChangeNotification", "ptr", hChangeHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2812,16 +2819,16 @@ class FileSystem {
 
     /**
      * Creates a change notification handle and sets up initial change notification filter conditions.
-     * @param {Pointer<Byte>} lpPathName The full path of the directory to be watched. 
+     * @param {PSTR} lpPathName The full path of the directory to be watched. 
      * 
      * 
      * This cannot be a relative path or an empty string.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend "\\\\?\\" to the path. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
-     * @param {Integer} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the specified directory; if it is <b>FALSE</b>, it monitors only the specified directory.
+     * @param {BOOL} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the specified directory; if it is <b>FALSE</b>, it monitors only the specified directory.
      * @param {Integer} dwNotifyFilter 
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a find change notification object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to a find change notification object.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2829,29 +2836,29 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstChangeNotificationA(lpPathName, bWatchSubtree, dwNotifyFilter) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstChangeNotificationA", "ptr", lpPathName, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr")
+        result := DllCall("KERNEL32.dll\FindFirstChangeNotificationA", "ptr", lpPathName, "ptr", bWatchSubtree, "uint", dwNotifyFilter, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates a change notification handle and sets up initial change notification filter conditions.
-     * @param {Pointer<Char>} lpPathName The full path of the directory to be watched. 
+     * @param {PWSTR} lpPathName The full path of the directory to be watched. 
      * 
      * 
      * This cannot be a relative path or an empty string.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend "\\\\?\\" to the path. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
-     * @param {Integer} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the specified directory; if it is <b>FALSE</b>, it monitors only the specified directory.
+     * @param {BOOL} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the specified directory; if it is <b>FALSE</b>, it monitors only the specified directory.
      * @param {Integer} dwNotifyFilter 
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a find change notification object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to a find change notification object.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2859,20 +2866,20 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstChangeNotificationW(lpPathName, bWatchSubtree, dwNotifyFilter) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindFirstChangeNotificationW", "ptr", lpPathName, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr")
+        result := DllCall("KERNEL32.dll\FindFirstChangeNotificationW", "ptr", lpPathName, "ptr", bWatchSubtree, "uint", dwNotifyFilter, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Searches a directory for a file or subdirectory with a name that matches a specific name (or partial name if wildcards are used).
-     * @param {Pointer<Byte>} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
+     * @param {PSTR} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
      *        (*) or a question mark (?).
      * 
      * This parameter should not be <b>NULL</b>, an invalid string (for example, an empty string 
@@ -2890,7 +2897,7 @@ class FileSystem {
      * <div> </div>
      * @param {Pointer<WIN32_FIND_DATAA>} lpFindFileData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that 
      *       receives information about a found file or directory.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle used in a subsequent call to 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextfilea">FindNextFile</a> or 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a>, and  the 
      *        <i>lpFindFileData</i> parameter contains information about the first file or directory 
@@ -2909,7 +2916,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstFileA(lpFileName, lpFindFileData) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -2917,12 +2924,12 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Searches a directory for a file or subdirectory with a name that matches a specific name (or partial name if wildcards are used).
-     * @param {Pointer<Char>} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
+     * @param {PWSTR} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
      *        (*) or a question mark (?).
      * 
      * This parameter should not be <b>NULL</b>, an invalid string (for example, an empty string 
@@ -2940,7 +2947,7 @@ class FileSystem {
      * <div> </div>
      * @param {Pointer<WIN32_FIND_DATAW>} lpFindFileData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that 
      *       receives information about a found file or directory.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle used in a subsequent call to 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextfilew">FindNextFile</a> or 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a>, and  the 
      *        <i>lpFindFileData</i> parameter contains information about the first file or directory 
@@ -2959,7 +2966,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstFileW(lpFileName, lpFindFileData) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -2967,12 +2974,12 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Searches a directory for a file or subdirectory with a name and attributes that match those specified.
-     * @param {Pointer<Byte>} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
+     * @param {PSTR} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
      *        (*) or a question mark (?).
      * 
      * This parameter should not be <b>NULL</b>, an invalid string (for example, an empty string 
@@ -3046,7 +3053,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle used in a subsequent call to 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextfilea">FindNextFile</a> or 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a>, and  the 
      *        <i>lpFindFileData</i> parameter contains information about the first file or directory 
@@ -3063,7 +3070,7 @@ class FileSystem {
     static FindFirstFileExA(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -3071,12 +3078,12 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Searches a directory for a file or subdirectory with a name and attributes that match those specified.
-     * @param {Pointer<Char>} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
+     * @param {PWSTR} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
      *        (*) or a question mark (?).
      * 
      * This parameter should not be <b>NULL</b>, an invalid string (for example, an empty string 
@@ -3150,7 +3157,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle used in a subsequent call to 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextfilea">FindNextFile</a> or 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a>, and  the 
      *        <i>lpFindFileData</i> parameter contains information about the first file or directory 
@@ -3167,7 +3174,7 @@ class FileSystem {
     static FindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -3175,16 +3182,16 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Retrieves the name of a volume on a computer.
-     * @param {Pointer<Char>} lpszVolumeName A pointer to a buffer that receives a null-terminated string that specifies a volume 
+     * @param {PWSTR} lpszVolumeName A pointer to a buffer that receives a null-terminated string that specifies a volume 
      *       <b>GUID</b> path for the first volume that is found.
      * @param {Integer} cchBufferLength The length of the buffer to receive the volume <b>GUID</b> path, in 
      *       <b>TCHARs</b>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle used in a subsequent call to the 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to the 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextvolumew">FindNextVolume</a> and 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findvolumeclose">FindVolumeClose</a> functions.
      * 
@@ -3195,7 +3202,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstVolumeW(lpszVolumeName, cchBufferLength) {
-        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
         A_LastError := 0
 
@@ -3203,14 +3210,14 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Requests that the operating system signal a change notification handle the next time it detects an appropriate change.
-     * @param {Pointer<Void>} hChangeHandle A handle to a change notification handle created by the 
+     * @param {HANDLE} hChangeHandle A handle to a change notification handle created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstchangenotificationa">FindFirstChangeNotification</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3218,9 +3225,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextChangeNotification(hChangeHandle) {
+        hChangeHandle := hChangeHandle is Win32Handle ? NumGet(hChangeHandle, "ptr") : hChangeHandle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNextChangeNotification", "ptr", hChangeHandle, "int")
+        result := DllCall("KERNEL32.dll\FindNextChangeNotification", "ptr", hChangeHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3229,12 +3238,12 @@ class FileSystem {
 
     /**
      * Continues a file search from a previous call to the FindFirstFile, FindFirstFileEx, or FindFirstFileTransacted functions.
-     * @param {Pointer<Void>} hFindFile The search handle returned by a previous call to the 
+     * @param {HANDLE} hFindFile The search handle returned by a previous call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfileexa">FindFirstFileEx</a> function.
      * @param {Pointer<WIN32_FIND_DATAA>} lpFindFileData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure 
      *       that receives information about the found file or subdirectory.
-     * @returns {Integer} If the function succeeds, the return value is nonzero and  the <i>lpFindFileData</i> 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero and  the <i>lpFindFileData</i> 
      *        parameter contains information about the next file or directory found.
      * 
      * If the function fails, the return value is zero and the contents of <i>lpFindFileData</i> 
@@ -3248,9 +3257,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextFileA(hFindFile, lpFindFileData) {
+        hFindFile := hFindFile is Win32Handle ? NumGet(hFindFile, "ptr") : hFindFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNextFileA", "ptr", hFindFile, "ptr", lpFindFileData, "int")
+        result := DllCall("KERNEL32.dll\FindNextFileA", "ptr", hFindFile, "ptr", lpFindFileData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3259,12 +3270,12 @@ class FileSystem {
 
     /**
      * Continues a file search from a previous call to the FindFirstFile, FindFirstFileEx, or FindFirstFileTransacted functions.
-     * @param {Pointer<Void>} hFindFile The search handle returned by a previous call to the 
+     * @param {HANDLE} hFindFile The search handle returned by a previous call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfileexa">FindFirstFileEx</a> function.
      * @param {Pointer<WIN32_FIND_DATAW>} lpFindFileData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure 
      *       that receives information about the found file or subdirectory.
-     * @returns {Integer} If the function succeeds, the return value is nonzero and  the <i>lpFindFileData</i> 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero and  the <i>lpFindFileData</i> 
      *        parameter contains information about the next file or directory found.
      * 
      * If the function fails, the return value is zero and the contents of <i>lpFindFileData</i> 
@@ -3278,9 +3289,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextFileW(hFindFile, lpFindFileData) {
+        hFindFile := hFindFile is Win32Handle ? NumGet(hFindFile, "ptr") : hFindFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNextFileW", "ptr", hFindFile, "ptr", lpFindFileData, "int")
+        result := DllCall("KERNEL32.dll\FindNextFileW", "ptr", hFindFile, "ptr", lpFindFileData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3289,12 +3302,12 @@ class FileSystem {
 
     /**
      * Continues a volume search started by a call to the FindFirstVolume function.
-     * @param {Pointer<Void>} hFindVolume The volume search handle returned by a previous call to the 
+     * @param {HANDLE} hFindVolume The volume search handle returned by a previous call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstvolumew">FindFirstVolume</a> function.
-     * @param {Pointer<Char>} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path that is found.
+     * @param {PWSTR} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path that is found.
      * @param {Integer} cchBufferLength The length of the buffer that receives the volume <b>GUID</b> path, in 
      *       <b>TCHARs</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If no matching files can be found, the 
@@ -3305,11 +3318,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeW(hFindVolume, lpszVolumeName, cchBufferLength) {
-        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
+        hFindVolume := hFindVolume is Win32Handle ? NumGet(hFindVolume, "ptr") : hFindVolume
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNextVolumeW", "ptr", hFindVolume, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
+        result := DllCall("KERNEL32.dll\FindNextVolumeW", "ptr", hFindVolume, "ptr", lpszVolumeName, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3318,9 +3332,9 @@ class FileSystem {
 
     /**
      * Closes the specified volume search handle.
-     * @param {Pointer<Void>} hFindVolume The volume search handle to be closed. This handle must have been previously opened by the 
+     * @param {HANDLE} hFindVolume The volume search handle to be closed. This handle must have been previously opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstvolumew">FindFirstVolume</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3328,9 +3342,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindVolumeClose(hFindVolume) {
+        hFindVolume := hFindVolume is Win32Handle ? NumGet(hFindVolume, "ptr") : hFindVolume
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindVolumeClose", "ptr", hFindVolume, "int")
+        result := DllCall("KERNEL32.dll\FindVolumeClose", "ptr", hFindVolume, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3339,7 +3355,7 @@ class FileSystem {
 
     /**
      * Flushes the buffers of a specified file and causes all buffered data to be written to a file.
-     * @param {Pointer<Void>} hFile A handle to the open file. 
+     * @param {HANDLE} hFile A handle to the open file. 
      * 
      * The file handle must have the <b>GENERIC_WRITE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
@@ -3347,7 +3363,7 @@ class FileSystem {
      * If <i>hFile</i> is a handle to a communications device, the function only flushes the transmit buffer.
      * 
      * If <i>hFile</i> is a handle to the server end of a named pipe, the function does not return until the client has read all buffered data from the pipe.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3357,9 +3373,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FlushFileBuffers(hFile) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FlushFileBuffers", "ptr", hFile, "int")
+        result := DllCall("KERNEL32.dll\FlushFileBuffers", "ptr", hFile, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3368,7 +3386,7 @@ class FileSystem {
 
     /**
      * Retrieves information about the specified disk, including the amount of free space on the disk.
-     * @param {Pointer<Byte>} lpRootPathName The root directory of the disk for which information is to be returned. If this parameter is 
+     * @param {PSTR} lpRootPathName The root directory of the disk for which information is to be returned. If this parameter is 
      *       <b>NULL</b>, the function uses the root of the current disk. If this parameter is a UNC name, 
      *       it must include a trailing backslash (for example, "\\\\MyServer\\MyShare\\"). Furthermore, a drive 
      *       specification must have a trailing backslash (for example, "C:\\"). The calling application must 
@@ -3384,7 +3402,7 @@ class FileSystem {
      *        who is associated with the calling thread.
      * 
      * If per-user disk quotas are in use, this value may be less than the total number of clusters on the disk.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3392,11 +3410,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceA(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters) {
-        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+        lpRootPathName := lpRootPathName is String ? StrPtr(lpRootPathName) : lpRootPathName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDiskFreeSpaceA", "ptr", lpRootPathName, "uint*", lpSectorsPerCluster, "uint*", lpBytesPerSector, "uint*", lpNumberOfFreeClusters, "uint*", lpTotalNumberOfClusters, "int")
+        result := DllCall("KERNEL32.dll\GetDiskFreeSpaceA", "ptr", lpRootPathName, "uint*", lpSectorsPerCluster, "uint*", lpBytesPerSector, "uint*", lpNumberOfFreeClusters, "uint*", lpTotalNumberOfClusters, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3405,7 +3423,7 @@ class FileSystem {
 
     /**
      * Retrieves information about the specified disk, including the amount of free space on the disk.
-     * @param {Pointer<Char>} lpRootPathName The root directory of the disk for which information is to be returned. If this parameter is 
+     * @param {PWSTR} lpRootPathName The root directory of the disk for which information is to be returned. If this parameter is 
      *       <b>NULL</b>, the function uses the root of the current disk. If this parameter is a UNC name, 
      *       it must include a trailing backslash (for example, "\\\\MyServer\\MyShare\\"). Furthermore, a drive 
      *       specification must have a trailing backslash (for example, "C:\\"). The calling application must 
@@ -3421,7 +3439,7 @@ class FileSystem {
      *        who is associated with the calling thread.
      * 
      * If per-user disk quotas are in use, this value may be less than the total number of clusters on the disk.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3429,11 +3447,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceW(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters) {
-        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+        lpRootPathName := lpRootPathName is String ? StrPtr(lpRootPathName) : lpRootPathName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDiskFreeSpaceW", "ptr", lpRootPathName, "uint*", lpSectorsPerCluster, "uint*", lpBytesPerSector, "uint*", lpNumberOfFreeClusters, "uint*", lpTotalNumberOfClusters, "int")
+        result := DllCall("KERNEL32.dll\GetDiskFreeSpaceW", "ptr", lpRootPathName, "uint*", lpSectorsPerCluster, "uint*", lpBytesPerSector, "uint*", lpNumberOfFreeClusters, "uint*", lpTotalNumberOfClusters, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3442,7 +3460,7 @@ class FileSystem {
 
     /**
      * Retrieves information about the amount of space that is available on a disk volume, which is the total amount of space, the total amount of free space, and the total amount of free space available to the user that is associated with the calling thread.
-     * @param {Pointer<Byte>} lpDirectoryName A directory on the disk.
+     * @param {PSTR} lpDirectoryName A directory on the disk.
      * 
      * If this parameter is <b>NULL</b>, the function uses the root of the current disk.
      * 
@@ -3472,7 +3490,7 @@ class FileSystem {
      * @param {Pointer<UInt64>} lpTotalNumberOfFreeBytes A pointer to a variable that receives the total number of free bytes on a disk.
      * 
      * This parameter can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3480,11 +3498,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceExA(lpDirectoryName, lpFreeBytesAvailableToCaller, lpTotalNumberOfBytes, lpTotalNumberOfFreeBytes) {
-        lpDirectoryName := lpDirectoryName is String? StrPtr(lpDirectoryName) : lpDirectoryName
+        lpDirectoryName := lpDirectoryName is String ? StrPtr(lpDirectoryName) : lpDirectoryName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDiskFreeSpaceExA", "ptr", lpDirectoryName, "uint*", lpFreeBytesAvailableToCaller, "uint*", lpTotalNumberOfBytes, "uint*", lpTotalNumberOfFreeBytes, "int")
+        result := DllCall("KERNEL32.dll\GetDiskFreeSpaceExA", "ptr", lpDirectoryName, "uint*", lpFreeBytesAvailableToCaller, "uint*", lpTotalNumberOfBytes, "uint*", lpTotalNumberOfFreeBytes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3493,7 +3511,7 @@ class FileSystem {
 
     /**
      * Retrieves information about the amount of space that is available on a disk volume, which is the total amount of space, the total amount of free space, and the total amount of free space available to the user that is associated with the calling thread.
-     * @param {Pointer<Char>} lpDirectoryName A directory on the disk.
+     * @param {PWSTR} lpDirectoryName A directory on the disk.
      * 
      * If this parameter is <b>NULL</b>, the function uses the root of the current disk.
      * 
@@ -3523,7 +3541,7 @@ class FileSystem {
      * @param {Pointer<UInt64>} lpTotalNumberOfFreeBytes A pointer to a variable that receives the total number of free bytes on a disk.
      * 
      * This parameter can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3531,11 +3549,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceExW(lpDirectoryName, lpFreeBytesAvailableToCaller, lpTotalNumberOfBytes, lpTotalNumberOfFreeBytes) {
-        lpDirectoryName := lpDirectoryName is String? StrPtr(lpDirectoryName) : lpDirectoryName
+        lpDirectoryName := lpDirectoryName is String ? StrPtr(lpDirectoryName) : lpDirectoryName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDiskFreeSpaceExW", "ptr", lpDirectoryName, "uint*", lpFreeBytesAvailableToCaller, "uint*", lpTotalNumberOfBytes, "uint*", lpTotalNumberOfFreeBytes, "int")
+        result := DllCall("KERNEL32.dll\GetDiskFreeSpaceExW", "ptr", lpDirectoryName, "uint*", lpFreeBytesAvailableToCaller, "uint*", lpTotalNumberOfBytes, "uint*", lpTotalNumberOfFreeBytes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3544,12 +3562,12 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Byte>} rootPath 
+     * @param {PSTR} rootPath 
      * @param {Pointer<DISK_SPACE_INFORMATION>} diskSpaceInfo 
      * @returns {HRESULT} 
      */
     static GetDiskSpaceInformationA(rootPath, diskSpaceInfo) {
-        rootPath := rootPath is String? StrPtr(rootPath) : rootPath
+        rootPath := rootPath is String ? StrPtr(rootPath) : rootPath
 
         result := DllCall("KERNEL32.dll\GetDiskSpaceInformationA", "ptr", rootPath, "ptr", diskSpaceInfo, "int")
         if(result != 0)
@@ -3560,12 +3578,12 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Char>} rootPath 
+     * @param {PWSTR} rootPath 
      * @param {Pointer<DISK_SPACE_INFORMATION>} diskSpaceInfo 
      * @returns {HRESULT} 
      */
     static GetDiskSpaceInformationW(rootPath, diskSpaceInfo) {
-        rootPath := rootPath is String? StrPtr(rootPath) : rootPath
+        rootPath := rootPath is String ? StrPtr(rootPath) : rootPath
 
         result := DllCall("KERNEL32.dll\GetDiskSpaceInformationW", "ptr", rootPath, "ptr", diskSpaceInfo, "int")
         if(result != 0)
@@ -3576,7 +3594,7 @@ class FileSystem {
 
     /**
      * Determines whether a disk drive is a removable, fixed, CD-ROM, RAM disk, or network drive.
-     * @param {Pointer<Byte>} lpRootPathName The root directory for the drive.
+     * @param {PSTR} lpRootPathName The root directory for the drive.
      *       
      * 
      * A trailing backslash is required. If this parameter is <b>NULL</b>, the function uses the 
@@ -3677,7 +3695,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDriveTypeA(lpRootPathName) {
-        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+        lpRootPathName := lpRootPathName is String ? StrPtr(lpRootPathName) : lpRootPathName
 
         result := DllCall("KERNEL32.dll\GetDriveTypeA", "ptr", lpRootPathName, "uint")
         return result
@@ -3685,7 +3703,7 @@ class FileSystem {
 
     /**
      * Determines whether a disk drive is a removable, fixed, CD-ROM, RAM disk, or network drive.
-     * @param {Pointer<Char>} lpRootPathName The root directory for the drive.
+     * @param {PWSTR} lpRootPathName The root directory for the drive.
      *       
      * 
      * A trailing backslash is required. If this parameter is <b>NULL</b>, the function uses the 
@@ -3786,7 +3804,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetDriveTypeW(lpRootPathName) {
-        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
+        lpRootPathName := lpRootPathName is String ? StrPtr(lpRootPathName) : lpRootPathName
 
         result := DllCall("KERNEL32.dll\GetDriveTypeW", "ptr", lpRootPathName, "uint")
         return result
@@ -3794,7 +3812,7 @@ class FileSystem {
 
     /**
      * Retrieves file system attributes for a specified file or directory.
-     * @param {Pointer<Byte>} lpFileName The name of the file or directory. 
+     * @param {PSTR} lpFileName The name of the file or directory. 
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -3814,7 +3832,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileAttributesA(lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -3827,7 +3845,7 @@ class FileSystem {
 
     /**
      * Retrieves file system attributes for a specified file or directory.
-     * @param {Pointer<Char>} lpFileName The name of the file or directory. 
+     * @param {PWSTR} lpFileName The name of the file or directory. 
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -3847,7 +3865,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileAttributesW(lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -3860,7 +3878,7 @@ class FileSystem {
 
     /**
      * Retrieves attributes for a specified file or directory.
-     * @param {Pointer<Byte>} lpFileName The name of the file or directory.
+     * @param {PSTR} lpFileName The name of the file or directory.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function (<b>GetFileAttributesExW</b>), and prepend 
@@ -3896,7 +3914,7 @@ class FileSystem {
      * 
      * The type of attribute information that is stored into this buffer is determined by the value of 
      *        <i>fInfoLevelId</i>.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3904,11 +3922,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileAttributesExA(lpFileName, fInfoLevelId, lpFileInformation) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileAttributesExA", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "int")
+        result := DllCall("KERNEL32.dll\GetFileAttributesExA", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3917,7 +3935,7 @@ class FileSystem {
 
     /**
      * Retrieves attributes for a specified file or directory.
-     * @param {Pointer<Char>} lpFileName The name of the file or directory.
+     * @param {PWSTR} lpFileName The name of the file or directory.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function (<b>GetFileAttributesExW</b>), and prepend 
@@ -3953,7 +3971,7 @@ class FileSystem {
      * 
      * The type of attribute information that is stored into this buffer is determined by the value of 
      *        <i>fInfoLevelId</i>.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3961,11 +3979,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileAttributesExW(lpFileName, fInfoLevelId, lpFileInformation) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileAttributesExW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "int")
+        result := DllCall("KERNEL32.dll\GetFileAttributesExW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3974,13 +3992,13 @@ class FileSystem {
 
     /**
      * Retrieves file information for the specified file.
-     * @param {Pointer<Void>} hFile A handle to the file that contains the information to be retrieved.
+     * @param {HANDLE} hFile A handle to the file that contains the information to be retrieved.
      * 
      * This handle should not be a pipe handle.
      * @param {Pointer<BY_HANDLE_FILE_INFORMATION>} lpFileInformation A pointer to a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-by_handle_file_information">BY_HANDLE_FILE_INFORMATION</a> structure that 
      *       receives the file information.
-     * @returns {Integer} If the function succeeds, the return value is nonzero and file information data is contained in the buffer 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero and file information data is contained in the buffer 
      *        pointed to by the <i>lpFileInformation</i> parameter.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3989,9 +4007,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileInformationByHandle(hFile, lpFileInformation) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileInformationByHandle", "ptr", hFile, "ptr", lpFileInformation, "int")
+        result := DllCall("KERNEL32.dll\GetFileInformationByHandle", "ptr", hFile, "ptr", lpFileInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4000,7 +4020,7 @@ class FileSystem {
 
     /**
      * Retrieves the size of the specified file, in bytes.
-     * @param {Pointer<Void>} hFile A handle to the file.
+     * @param {HANDLE} hFile A handle to the file.
      * @param {Pointer<UInt32>} lpFileSizeHigh A pointer to the variable where the high-order doubleword of the file size is returned. This parameter can 
      *       be <b>NULL</b> if the application does not require the high-order doubleword.
      * @returns {Integer} If the function succeeds, the return value is the low-order doubleword of the file size, and, if 
@@ -4022,6 +4042,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileSize(hFile, lpFileSizeHigh) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileSize", "ptr", hFile, "uint*", lpFileSizeHigh, "uint")
@@ -4033,13 +4055,13 @@ class FileSystem {
 
     /**
      * Retrieves the size of the specified file.
-     * @param {Pointer<Void>} hFile A handle to the file. The handle must have been created with the 
+     * @param {HANDLE} hFile A handle to the file. The handle must have been created with the 
      *       <b>FILE_READ_ATTRIBUTES</b> access right or equivalent, or the caller must have sufficient permission on the directory that contains the file. 
      *       For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
      * @param {Pointer<Int64>} lpFileSize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that 
      *       receives the file size, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4047,9 +4069,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileSizeEx(hFile, lpFileSize) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileSizeEx", "ptr", hFile, "int64*", lpFileSize, "int")
+        result := DllCall("KERNEL32.dll\GetFileSizeEx", "ptr", hFile, "int64*", lpFileSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4058,7 +4082,7 @@ class FileSystem {
 
     /**
      * Retrieves the file type of the specified file.
-     * @param {Pointer<Void>} hFile A handle to the file.
+     * @param {HANDLE} hFile A handle to the file.
      * @returns {Integer} The function returns one of the following values.
      * 
      * <table>
@@ -4142,6 +4166,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileType(hFile) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetFileType", "ptr", hFile, "uint")
@@ -4153,8 +4179,8 @@ class FileSystem {
 
     /**
      * Retrieves the final path for the specified file.
-     * @param {Pointer<Void>} hFile A handle to a file or directory.
-     * @param {Pointer<Byte>} lpszFilePath A pointer to a buffer that receives the path of <i>hFile</i>.
+     * @param {HANDLE} hFile A handle to a file or directory.
+     * @param {PSTR} lpszFilePath A pointer to a buffer that receives the path of <i>hFile</i>.
      * @param {Integer} cchFilePath The size of <i>lpszFilePath</i>, in <b>TCHAR</b>s. This value must include a <b>NULL</b> termination character.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, the return value is the length of the string received by 
@@ -4222,7 +4248,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFinalPathNameByHandleA(hFile, lpszFilePath, cchFilePath, dwFlags) {
-        lpszFilePath := lpszFilePath is String? StrPtr(lpszFilePath) : lpszFilePath
+        lpszFilePath := lpszFilePath is String ? StrPtr(lpszFilePath) : lpszFilePath
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -4235,8 +4262,8 @@ class FileSystem {
 
     /**
      * Retrieves the final path for the specified file.
-     * @param {Pointer<Void>} hFile A handle to a file or directory.
-     * @param {Pointer<Char>} lpszFilePath A pointer to a buffer that receives the path of <i>hFile</i>.
+     * @param {HANDLE} hFile A handle to a file or directory.
+     * @param {PWSTR} lpszFilePath A pointer to a buffer that receives the path of <i>hFile</i>.
      * @param {Integer} cchFilePath The size of <i>lpszFilePath</i>, in <b>TCHAR</b>s. This value must include a <b>NULL</b> termination character.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, the return value is the length of the string received by 
@@ -4304,7 +4331,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFinalPathNameByHandleW(hFile, lpszFilePath, cchFilePath, dwFlags) {
-        lpszFilePath := lpszFilePath is String? StrPtr(lpszFilePath) : lpszFilePath
+        lpszFilePath := lpszFilePath is String ? StrPtr(lpszFilePath) : lpszFilePath
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -4317,7 +4345,7 @@ class FileSystem {
 
     /**
      * Retrieves the date and time that a file or directory was created, last accessed, and last modified.
-     * @param {Pointer<Void>} hFile A handle to the file or directory for which dates and times are to be retrieved. The handle must have been 
+     * @param {HANDLE} hFile A handle to the file or directory for which dates and times are to be retrieved. The handle must have been 
      *       created using the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function with the 
      *       <b>GENERIC_READ</b> access right. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
@@ -4334,7 +4362,7 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setendoffile">SetEndOfFile</a>). This date and time is not updated when 
      *       file attributes or security descriptors are changed. This parameter can be <b>NULL</b> if the 
      *       application does not require this information.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4342,9 +4370,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFileTime(hFile, lpCreationTime, lpLastAccessTime, lpLastWriteTime) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileTime", "ptr", hFile, "ptr", lpCreationTime, "ptr", lpLastAccessTime, "ptr", lpLastWriteTime, "int")
+        result := DllCall("KERNEL32.dll\GetFileTime", "ptr", hFile, "ptr", lpCreationTime, "ptr", lpLastAccessTime, "ptr", lpLastWriteTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4353,7 +4383,7 @@ class FileSystem {
 
     /**
      * Retrieves the full path and file name of the specified file.
-     * @param {Pointer<Char>} lpFileName The name of the  file.
+     * @param {PWSTR} lpFileName The name of the  file.
      * 
      * This parameter can be a short (the 8.3 form) or long file name. This string can also be a share or volume 
      *        name.
@@ -4367,8 +4397,8 @@ class FileSystem {
      * <div> </div>
      * @param {Integer} nBufferLength The size of the buffer to receive the null-terminated string for the drive and path, in 
      *       <b>TCHARs</b>.
-     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the null-terminated string for the  drive and path.
-     * @param {Pointer<Char>} lpFilePart A pointer to a buffer that receives the address (within <i>lpBuffer</i>) of the final 
+     * @param {PWSTR} lpBuffer A pointer to a buffer that receives the null-terminated string for the  drive and path.
+     * @param {Pointer<PWSTR>} lpFilePart A pointer to a buffer that receives the address (within <i>lpBuffer</i>) of the final 
      *       file name component in the path. 
      * 
      * This parameter can be  <b>NULL</b>.
@@ -4388,8 +4418,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFullPathNameW(lpFileName, nBufferLength, lpBuffer, lpFilePart) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -4402,7 +4432,7 @@ class FileSystem {
 
     /**
      * Retrieves the full path and file name of the specified file.
-     * @param {Pointer<Byte>} lpFileName The name of the  file.
+     * @param {PSTR} lpFileName The name of the  file.
      * 
      * This parameter can be a short (the 8.3 form) or long file name. This string can also be a share or volume 
      *        name.
@@ -4416,8 +4446,8 @@ class FileSystem {
      * <div> </div>
      * @param {Integer} nBufferLength The size of the buffer to receive the null-terminated string for the drive and path, in 
      *       <b>TCHARs</b>.
-     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the null-terminated string for the  drive and path.
-     * @param {Pointer<Byte>} lpFilePart A pointer to a buffer that receives the address (within <i>lpBuffer</i>) of the final 
+     * @param {PSTR} lpBuffer A pointer to a buffer that receives the null-terminated string for the  drive and path.
+     * @param {Pointer<PSTR>} lpFilePart A pointer to a buffer that receives the address (within <i>lpBuffer</i>) of the final 
      *       file name component in the path. 
      * 
      * This parameter can be  <b>NULL</b>.
@@ -4437,8 +4467,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetFullPathNameA(lpFileName, nBufferLength, lpBuffer, lpFilePart) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -4473,7 +4503,7 @@ class FileSystem {
      * @param {Integer} nBufferLength The maximum size of the buffer pointed to by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>. This size does not include the terminating null character. If this 
      *       parameter is zero, <i>lpBuffer</i> is not used.
-     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives a series of null-terminated strings, one for each valid drive in the 
+     * @param {PWSTR} lpBuffer A pointer to a buffer that receives a series of null-terminated strings, one for each valid drive in the 
      *       system, plus with an additional null character. Each string is a device name.
      * @returns {Integer} If the function succeeds, the return value is the length, in characters, of the strings copied to the buffer, 
      *        not including the terminating null character. Note that an ANSI-ASCII null character uses one byte, but a 
@@ -4488,7 +4518,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetLogicalDriveStringsW(nBufferLength, lpBuffer) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -4501,7 +4531,7 @@ class FileSystem {
 
     /**
      * Converts the specified path to its long form.
-     * @param {Pointer<Byte>} lpszShortPath The path to be converted.
+     * @param {PSTR} lpszShortPath The path to be converted.
      * 
      * In the ANSI version of this function, 
      *        <b>GetLongPathNameA</b>, the name is limited to 
@@ -4512,7 +4542,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>GetLongPathNameW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} lpszLongPath A pointer to the buffer to receive the long path.
+     * @param {PSTR} lpszLongPath A pointer to the buffer to receive the long path.
      * 
      * You can use the same buffer you used for the <i>lpszShortPath</i> parameter.
      * @param {Integer} cchBuffer The size of the buffer <i>lpszLongPath</i> points to, in 
@@ -4531,8 +4561,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetLongPathNameA(lpszShortPath, lpszLongPath, cchBuffer) {
-        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
-        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
+        lpszShortPath := lpszShortPath is String ? StrPtr(lpszShortPath) : lpszShortPath
+        lpszLongPath := lpszLongPath is String ? StrPtr(lpszLongPath) : lpszLongPath
 
         A_LastError := 0
 
@@ -4545,7 +4575,7 @@ class FileSystem {
 
     /**
      * Converts the specified path to its long form.
-     * @param {Pointer<Char>} lpszShortPath The path to be converted.
+     * @param {PWSTR} lpszShortPath The path to be converted.
      * 
      * In the ANSI version of this function, 
      *        <b>GetLongPathNameA</b>, the name is limited to 
@@ -4556,7 +4586,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>GetLongPathNameW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Char>} lpszLongPath A pointer to the buffer to receive the long path.
+     * @param {PWSTR} lpszLongPath A pointer to the buffer to receive the long path.
      * 
      * You can use the same buffer you used for the <i>lpszShortPath</i> parameter.
      * @param {Integer} cchBuffer The size of the buffer <i>lpszLongPath</i> points to, in 
@@ -4575,8 +4605,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetLongPathNameW(lpszShortPath, lpszLongPath, cchBuffer) {
-        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
-        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
+        lpszShortPath := lpszShortPath is String ? StrPtr(lpszShortPath) : lpszShortPath
+        lpszLongPath := lpszLongPath is String ? StrPtr(lpszLongPath) : lpszLongPath
 
         A_LastError := 0
 
@@ -4589,24 +4619,26 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} Handle 
-     * @param {Pointer<Int32>} Enabled 
-     * @returns {Integer} 
+     * @param {HANDLE} Handle 
+     * @param {Pointer<BOOL>} Enabled 
+     * @returns {BOOL} 
      */
     static AreShortNamesEnabled(Handle, Enabled) {
-        result := DllCall("KERNEL32.dll\AreShortNamesEnabled", "ptr", Handle, "int*", Enabled, "int")
+        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+
+        result := DllCall("KERNEL32.dll\AreShortNamesEnabled", "ptr", Handle, "ptr", Enabled, "ptr")
         return result
     }
 
     /**
      * Retrieves the short path form of the specified path.
-     * @param {Pointer<Char>} lpszLongPath The path string.
+     * @param {PWSTR} lpszLongPath The path string.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
      *        "\\\\?\\" to the path. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a>.
-     * @param {Pointer<Char>} lpszShortPath A pointer to a buffer to receive the null-terminated short form of the path that 
+     * @param {PWSTR} lpszShortPath A pointer to a buffer to receive the null-terminated short form of the path that 
      *        <i>lpszLongPath</i> specifies.
      * 
      * Passing <b>NULL</b> for this parameter and zero for <i>cchBuffer</i> 
@@ -4629,8 +4661,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetShortPathNameW(lpszLongPath, lpszShortPath, cchBuffer) {
-        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
-        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
+        lpszLongPath := lpszLongPath is String ? StrPtr(lpszLongPath) : lpszLongPath
+        lpszShortPath := lpszShortPath is String ? StrPtr(lpszShortPath) : lpszShortPath
 
         A_LastError := 0
 
@@ -4643,12 +4675,12 @@ class FileSystem {
 
     /**
      * Creates a name for a temporary file. If a unique file name is generated, an empty file is created and the handle to it is released; otherwise, only a file name is generated.
-     * @param {Pointer<Char>} lpPathName The directory path for the file name. Applications typically specify a period (.) for the current directory 
+     * @param {PWSTR} lpPathName The directory path for the file name. Applications typically specify a period (.) for the current directory 
      *        or the result of the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-gettemppatha">GetTempPath</a> function. The string 
      *        cannot be longer than <b>MAX_PATH</b>–14 characters or
      *        <b>GetTempFileName</b> will fail. If this parameter is 
      *        <b>NULL</b>, the function fails.
-     * @param {Pointer<Char>} lpPrefixString The null-terminated prefix string. The function uses up to the first three characters of this string as the 
+     * @param {PWSTR} lpPrefixString The null-terminated prefix string. The function uses up to the first three characters of this string as the 
      *        prefix of the file name. This string must consist of characters in the OEM-defined character set.
      * @param {Integer} uUnique An unsigned integer to be used in creating the temporary file name. For more information, see Remarks.
      * 
@@ -4657,7 +4689,7 @@ class FileSystem {
      *        file already exists. This continues until a unique filename is found; the function creates a file by that name 
      *        and closes it.  Note that the function does not attempt  to verify the uniqueness of the file name when 
      *        <i>uUnique</i> is nonzero.
-     * @param {Pointer<Char>} lpTempFileName A pointer to the buffer that receives the temporary file name. This buffer should be 
+     * @param {PWSTR} lpTempFileName A pointer to the buffer that receives the temporary file name. This buffer should be 
      *        <b>MAX_PATH</b> characters to accommodate the path plus the terminating null character.
      * @returns {Integer} If the function succeeds, the return value specifies the unique numeric value used in the temporary file 
      *        name. If the <i>uUnique</i> parameter is nonzero, the return value specifies that same 
@@ -4693,9 +4725,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTempFileNameW(lpPathName, lpPrefixString, uUnique, lpTempFileName) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
-        lpPrefixString := lpPrefixString is String? StrPtr(lpPrefixString) : lpPrefixString
-        lpTempFileName := lpTempFileName is String? StrPtr(lpTempFileName) : lpTempFileName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
+        lpPrefixString := lpPrefixString is String ? StrPtr(lpPrefixString) : lpPrefixString
+        lpTempFileName := lpTempFileName is String ? StrPtr(lpTempFileName) : lpTempFileName
 
         A_LastError := 0
 
@@ -4708,8 +4740,8 @@ class FileSystem {
 
     /**
      * Retrieves information about the file system and volume associated with the specified file.
-     * @param {Pointer<Void>} hFile A handle to the file.
-     * @param {Pointer<Char>} lpVolumeNameBuffer A pointer to a buffer that receives the name of a specified volume. The maximum buffer size is 
+     * @param {HANDLE} hFile A handle to the file.
+     * @param {PWSTR} lpVolumeNameBuffer A pointer to a buffer that receives the name of a specified volume. The maximum buffer size is 
      *       <c>MAX_PATH+1</c>.
      * @param {Integer} nVolumeNameSize The length of a volume name buffer, in <b>WCHAR</b>s. The maximum buffer size is 
      *        <c>MAX_PATH+1</c>.
@@ -4980,14 +5012,14 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpFileSystemNameBuffer A pointer to a buffer that receives the name of the file system, for example, the FAT file system or the 
+     * @param {PWSTR} lpFileSystemNameBuffer A pointer to a buffer that receives the name of the file system, for example, the FAT file system or the 
      *       NTFS file system. The buffer size is specified by the <i>nFileSystemNameSize</i> 
      *       parameter.
      * @param {Integer} nFileSystemNameSize The length of the file system name buffer, in <b>WCHAR</b>s. The maximum buffer size 
      *        is <c>MAX_PATH+1</c>.
      * 
      * This parameter is ignored if the file system name buffer is not supplied.
-     * @returns {Integer} If all the requested information is retrieved, the return value is nonzero.
+     * @returns {BOOL} If all the requested information is retrieved, the return value is nonzero.
      * 
      * If not all the requested information is retrieved, the return value is zero. To get extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4995,12 +5027,13 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetVolumeInformationByHandleW(hFile, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize) {
-        lpVolumeNameBuffer := lpVolumeNameBuffer is String? StrPtr(lpVolumeNameBuffer) : lpVolumeNameBuffer
-        lpFileSystemNameBuffer := lpFileSystemNameBuffer is String? StrPtr(lpFileSystemNameBuffer) : lpFileSystemNameBuffer
+        lpVolumeNameBuffer := lpVolumeNameBuffer is String ? StrPtr(lpVolumeNameBuffer) : lpVolumeNameBuffer
+        lpFileSystemNameBuffer := lpFileSystemNameBuffer is String ? StrPtr(lpFileSystemNameBuffer) : lpFileSystemNameBuffer
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVolumeInformationByHandleW", "ptr", hFile, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, "uint*", lpVolumeSerialNumber, "uint*", lpMaximumComponentLength, "uint*", lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "int")
+        result := DllCall("KERNEL32.dll\GetVolumeInformationByHandleW", "ptr", hFile, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, "uint*", lpVolumeSerialNumber, "uint*", lpMaximumComponentLength, "uint*", lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5009,13 +5042,13 @@ class FileSystem {
 
     /**
      * Retrieves information about the file system and volume associated with the specified root directory.
-     * @param {Pointer<Char>} lpRootPathName A pointer to a string that contains the root directory of the volume to be described.
+     * @param {PWSTR} lpRootPathName A pointer to a string that contains the root directory of the volume to be described.
      * 
      * If this parameter is <b>NULL</b>, the root of the current directory is used. A trailing 
      *        backslash is required. For example, you  specify \\MyServer\MyShare as 
      *        "\\MyServer\MyShare\", or the C drive as 
      *        "C:\".
-     * @param {Pointer<Char>} lpVolumeNameBuffer A pointer to a buffer that receives the name of a specified volume. The buffer size is specified by the 
+     * @param {PWSTR} lpVolumeNameBuffer A pointer to a buffer that receives the name of a specified volume. The buffer size is specified by the 
      *        <i>nVolumeNameSize</i> parameter.
      * @param {Integer} nVolumeNameSize The length of a volume name buffer, in <b>TCHARs</b>. The maximum buffer size is 
      *        <b>MAX_PATH</b>+1.
@@ -5304,13 +5337,13 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpFileSystemNameBuffer A pointer to a buffer that receives the name of the file system, for example, the FAT file system or the NTFS 
+     * @param {PWSTR} lpFileSystemNameBuffer A pointer to a buffer that receives the name of the file system, for example, the FAT file system or the NTFS 
      *        file system. The buffer size is specified by the <i>nFileSystemNameSize</i> parameter.
      * @param {Integer} nFileSystemNameSize The length of the file system name buffer, in <b>TCHARs</b>. The maximum buffer size is 
      *        <b>MAX_PATH</b>+1.
      * 
      * This parameter is ignored if the file system name buffer is not supplied.
-     * @returns {Integer} If all the requested information is retrieved, the return value is nonzero.
+     * @returns {BOOL} If all the requested information is retrieved, the return value is nonzero.
      * 
      * If not all the requested information is retrieved, the return value is zero. To get extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5318,13 +5351,13 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumeInformationW(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize) {
-        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
-        lpVolumeNameBuffer := lpVolumeNameBuffer is String? StrPtr(lpVolumeNameBuffer) : lpVolumeNameBuffer
-        lpFileSystemNameBuffer := lpFileSystemNameBuffer is String? StrPtr(lpFileSystemNameBuffer) : lpFileSystemNameBuffer
+        lpRootPathName := lpRootPathName is String ? StrPtr(lpRootPathName) : lpRootPathName
+        lpVolumeNameBuffer := lpVolumeNameBuffer is String ? StrPtr(lpVolumeNameBuffer) : lpVolumeNameBuffer
+        lpFileSystemNameBuffer := lpFileSystemNameBuffer is String ? StrPtr(lpFileSystemNameBuffer) : lpFileSystemNameBuffer
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVolumeInformationW", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, "uint*", lpVolumeSerialNumber, "uint*", lpMaximumComponentLength, "uint*", lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "int")
+        result := DllCall("KERNEL32.dll\GetVolumeInformationW", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, "uint*", lpVolumeSerialNumber, "uint*", lpMaximumComponentLength, "uint*", lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5333,26 +5366,26 @@ class FileSystem {
 
     /**
      * Retrieves the volume mount point where the specified path is mounted.
-     * @param {Pointer<Char>} lpszFileName A pointer to the input path string. Both absolute and relative file and directory names, for example, "..", are acceptable in this path.
+     * @param {PWSTR} lpszFileName A pointer to the input path string. Both absolute and relative file and directory names, for example, "..", are acceptable in this path.
      * 
      * If you specify a relative directory or file name without a volume qualifier, **GetVolumePathName** returns the drive letter of the boot volume.
      * 
      * If this parameter is an empty string, "", the function fails but the last error is set to **ERROR_SUCCESS**.
-     * @param {Pointer<Char>} lpszVolumePathName A pointer to a string that receives the volume mount point for the input path.
+     * @param {PWSTR} lpszVolumePathName A pointer to a string that receives the volume mount point for the input path.
      * @param {Integer} cchBufferLength The length of the output buffer, in **TCHARs**.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getvolumepathnamew
      * @since windows5.1.2600
      */
     static GetVolumePathNameW(lpszFileName, lpszVolumePathName, cchBufferLength) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
-        lpszVolumePathName := lpszVolumePathName is String? StrPtr(lpszVolumePathName) : lpszVolumePathName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
+        lpszVolumePathName := lpszVolumePathName is String ? StrPtr(lpszVolumePathName) : lpszVolumePathName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVolumePathNameW", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "int")
+        result := DllCall("KERNEL32.dll\GetVolumePathNameW", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5366,7 +5399,7 @@ class FileSystem {
      * @param {Pointer<FILETIME>} lpFileTime A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure to receive the 
      *       converted UTC-based file time. This parameter cannot be the same as the 
      *       <i>lpLocalFileTime</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -5376,7 +5409,7 @@ class FileSystem {
     static LocalFileTimeToFileTime(lpLocalFileTime, lpFileTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LocalFileTimeToFileTime", "ptr", lpLocalFileTime, "ptr", lpFileTime, "int")
+        result := DllCall("KERNEL32.dll\LocalFileTimeToFileTime", "ptr", lpLocalFileTime, "ptr", lpFileTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5385,13 +5418,13 @@ class FileSystem {
 
     /**
      * Locks the specified file for exclusive access by the calling process.
-     * @param {Pointer<Void>} hFile A handle to the file. The file handle must have been created with the <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b> access right. For more information, see 
+     * @param {HANDLE} hFile A handle to the file. The file handle must have been created with the <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
      * @param {Integer} dwFileOffsetLow The low-order 32 bits of the starting byte offset in the file where the lock should begin.
      * @param {Integer} dwFileOffsetHigh The high-order 32 bits of the starting byte offset in the file where the lock should begin.
      * @param {Integer} nNumberOfBytesToLockLow The low-order 32 bits of the length of the byte range to be locked.
      * @param {Integer} nNumberOfBytesToLockHigh The high-order 32 bits of the length of the byte range to be locked.
-     * @returns {Integer} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
+     * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5399,9 +5432,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static LockFile(hFile, dwFileOffsetLow, dwFileOffsetHigh, nNumberOfBytesToLockLow, nNumberOfBytesToLockHigh) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LockFile", "ptr", hFile, "uint", dwFileOffsetLow, "uint", dwFileOffsetHigh, "uint", nNumberOfBytesToLockLow, "uint", nNumberOfBytesToLockHigh, "int")
+        result := DllCall("KERNEL32.dll\LockFile", "ptr", hFile, "uint", dwFileOffsetLow, "uint", dwFileOffsetHigh, "uint", nNumberOfBytesToLockLow, "uint", nNumberOfBytesToLockHigh, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5410,14 +5445,14 @@ class FileSystem {
 
     /**
      * Locks the specified file for exclusive access by the calling process. This function can operate either synchronously or asynchronously and can request either an exclusive or a shared lock.
-     * @param {Pointer<Void>} hFile A handle to the file. The handle must have been created with either the <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b> access right. For more information, see 
+     * @param {HANDLE} hFile A handle to the file. The handle must have been created with either the <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
      * @param {Integer} dwFlags 
      * @param {Integer} nNumberOfBytesToLockLow The low-order 32 bits of the length of the byte range to lock.
      * @param {Integer} nNumberOfBytesToLockHigh The high-order 32 bits of the length of the byte range to lock.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that the function uses with the locking request. This structure, which is required, contains the file offset of the beginning of the lock range. You must initialize the <b>hEvent</b> member to a valid handle or zero.
-     * @returns {Integer} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
+     * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5427,9 +5462,11 @@ class FileSystem {
     static LockFileEx(hFile, dwFlags, nNumberOfBytesToLockLow, nNumberOfBytesToLockHigh, lpOverlapped) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LockFileEx", "ptr", hFile, "uint", dwFlags, "uint", dwReserved, "uint", nNumberOfBytesToLockLow, "uint", nNumberOfBytesToLockHigh, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\LockFileEx", "ptr", hFile, "uint", dwFlags, "uint", dwReserved, "uint", nNumberOfBytesToLockLow, "uint", nNumberOfBytesToLockHigh, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5438,13 +5475,13 @@ class FileSystem {
 
     /**
      * Retrieves information about MS-DOS device names.
-     * @param {Pointer<Char>} lpDeviceName An MS-DOS device name string specifying the target of the query. The device name cannot have a trailing 
+     * @param {PWSTR} lpDeviceName An MS-DOS device name string specifying the target of the query. The device name cannot have a trailing 
      *        backslash; for example, use "C:", not "C:\\".
      * 
      * This parameter can be <b>NULL</b>. In that case, the 
      *        <b>QueryDosDevice</b> function will store a list of all 
      *        existing MS-DOS device names into the buffer pointed to by <i>lpTargetPath</i>.
-     * @param {Pointer<Char>} lpTargetPath A pointer to a buffer that will receive the result of the query. The function fills this buffer with one or 
+     * @param {PWSTR} lpTargetPath A pointer to a buffer that will receive the result of the query. The function fills this buffer with one or 
      *        more null-terminated strings. The final null-terminated string is followed by an additional 
      *        <b>NULL</b>.
      * 
@@ -5470,8 +5507,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static QueryDosDeviceW(lpDeviceName, lpTargetPath, ucchMax) {
-        lpDeviceName := lpDeviceName is String? StrPtr(lpDeviceName) : lpDeviceName
-        lpTargetPath := lpTargetPath is String? StrPtr(lpTargetPath) : lpTargetPath
+        lpDeviceName := lpDeviceName is String ? StrPtr(lpDeviceName) : lpDeviceName
+        lpTargetPath := lpTargetPath is String ? StrPtr(lpTargetPath) : lpTargetPath
 
         A_LastError := 0
 
@@ -5484,7 +5521,7 @@ class FileSystem {
 
     /**
      * Reads data from the specified file or input/output (I/O) device. Reads occur at the position specified by the file pointer if supported by the device.
-     * @param {Pointer<Void>} hFile A handle to the device (for example, a file, file stream, physical disk, volume,  console buffer, tape drive, 
+     * @param {HANDLE} hFile A handle to the device (for example, a file, file stream, physical disk, volume,  console buffer, tape drive, 
      *        socket, communications resource, mailslot, or  pipe).
      * 
      * The <i>hFile</i> parameter must have been created with read access. For more information, 
@@ -5529,7 +5566,7 @@ class FileSystem {
      * For more information about different combinations of <i>lpOverlapped</i> and 
      *        <b>FILE_FLAG_OVERLAPPED</b>, see the Remarks section and the 
      *        <a href="https://docs.microsoft.com/">Synchronization and File Position</a> section.
-     * @returns {Integer} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
+     * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, or is completing asynchronously, the return value is zero 
      *        (<b>FALSE</b>). To get extended error information, call the 
@@ -5542,9 +5579,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadFile", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "uint*", lpNumberOfBytesRead, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\ReadFile", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "uint*", lpNumberOfBytesRead, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5553,7 +5592,7 @@ class FileSystem {
 
     /**
      * Reads data from the specified file or input/output (I/O) device. It reports its completion status asynchronously, calling the specified completion routine when reading is completed or canceled and the calling thread is in an alertable wait state.
-     * @param {Pointer<Void>} hFile A handle to the file or I/O device (for example, a file, file stream, physical disk, volume, console buffer, 
+     * @param {HANDLE} hFile A handle to the file or I/O device (for example, a file, file stream, physical disk, volume, console buffer, 
      *        tape drive, socket, communications resource, mailslot, or pipe).
      * 
      * This parameter can be any handle opened with the <b>FILE_FLAG_OVERLAPPED</b> flag by the 
@@ -5598,7 +5637,7 @@ class FileSystem {
      * @param {Pointer<LPOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine A pointer to the completion routine to be called when the read operation is complete and the calling thread 
      *       is in an alertable wait state. For more information about the completion routine, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/nc-minwinbase-lpoverlapped_completion_routine">FileIOCompletionRoutine</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5622,9 +5661,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static ReadFileEx(hFile, lpBuffer, nNumberOfBytesToRead, lpOverlapped, lpCompletionRoutine) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadFileEx", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
+        result := DllCall("KERNEL32.dll\ReadFileEx", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5633,7 +5674,7 @@ class FileSystem {
 
     /**
      * Reads data from a file and stores it in an array of buffers.
-     * @param {Pointer<Void>} hFile A handle to the file to be read.
+     * @param {HANDLE} hFile A handle to the file to be read.
      * 
      * The file handle must be created with the <b>GENERIC_READ</b> right, and the 
      *        <b>FILE_FLAG_OVERLAPPED</b> and <b>FILE_FLAG_NO_BUFFERING</b> flags. For 
@@ -5687,7 +5728,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getqueuedcompletionstatus">GetQueuedCompletionStatus</a> functions to 
      *        obtain information about the completion of the read operation. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/synchronous-and-asynchronous-i-o">Synchronous and Asynchronous I/O</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call the 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -5707,9 +5748,11 @@ class FileSystem {
     static ReadFileScatter(hFile, aSegmentArray, nNumberOfBytesToRead, lpOverlapped) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadFileScatter", "ptr", hFile, "ptr", aSegmentArray, "uint", nNumberOfBytesToRead, "uint*", lpReserved, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\ReadFileScatter", "ptr", hFile, "ptr", aSegmentArray, "uint", nNumberOfBytesToRead, "uint*", lpReserved, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5718,7 +5761,7 @@ class FileSystem {
 
     /**
      * Deletes an existing empty directory.
-     * @param {Pointer<Byte>} lpPathName The path of the directory to be removed. This path must specify an empty directory, and the calling process 
+     * @param {PSTR} lpPathName The path of the directory to be removed. This path must specify an empty directory, and the calling process 
      *        must have delete access to the directory.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -5728,7 +5771,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>RemoveDirectoryW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5736,11 +5779,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static RemoveDirectoryA(lpPathName) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RemoveDirectoryA", "ptr", lpPathName, "int")
+        result := DllCall("KERNEL32.dll\RemoveDirectoryA", "ptr", lpPathName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5749,7 +5792,7 @@ class FileSystem {
 
     /**
      * Deletes an existing empty directory.
-     * @param {Pointer<Char>} lpPathName The path of the directory to be removed. This path must specify an empty directory, and the calling process 
+     * @param {PWSTR} lpPathName The path of the directory to be removed. This path must specify an empty directory, and the calling process 
      *        must have delete access to the directory.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -5759,7 +5802,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>RemoveDirectoryW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5767,11 +5810,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static RemoveDirectoryW(lpPathName) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RemoveDirectoryW", "ptr", lpPathName, "int")
+        result := DllCall("KERNEL32.dll\RemoveDirectoryW", "ptr", lpPathName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5780,11 +5823,11 @@ class FileSystem {
 
     /**
      * Sets the physical file size for the specified file to the current position of the file pointer.
-     * @param {Pointer<Void>} hFile A handle to the file to be extended or truncated.
+     * @param {HANDLE} hFile A handle to the file to be extended or truncated.
      * 
      *  The file handle must be created with the <b>GENERIC_WRITE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5792,9 +5835,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetEndOfFile(hFile) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetEndOfFile", "ptr", hFile, "int")
+        result := DllCall("KERNEL32.dll\SetEndOfFile", "ptr", hFile, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5803,7 +5848,7 @@ class FileSystem {
 
     /**
      * Sets the attributes for a file or directory.
-     * @param {Pointer<Byte>} lpFileName The name of the file whose attributes are to be set.
+     * @param {PSTR} lpFileName The name of the file whose attributes are to be set.
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -5925,7 +5970,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -5933,11 +5978,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileAttributesA(lpFileName, dwFileAttributes) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileAttributesA", "ptr", lpFileName, "uint", dwFileAttributes, "int")
+        result := DllCall("KERNEL32.dll\SetFileAttributesA", "ptr", lpFileName, "uint", dwFileAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5946,7 +5991,7 @@ class FileSystem {
 
     /**
      * Sets the attributes for a file or directory.
-     * @param {Pointer<Char>} lpFileName The name of the file whose attributes are to be set.
+     * @param {PWSTR} lpFileName The name of the file whose attributes are to be set.
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -6068,7 +6113,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6076,11 +6121,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileAttributesW(lpFileName, dwFileAttributes) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileAttributesW", "ptr", lpFileName, "uint", dwFileAttributes, "int")
+        result := DllCall("KERNEL32.dll\SetFileAttributesW", "ptr", lpFileName, "uint", dwFileAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6089,7 +6134,7 @@ class FileSystem {
 
     /**
      * Sets the file information for the specified file.
-     * @param {Pointer<Void>} hFile A handle to the file for which to change information.
+     * @param {HANDLE} hFile A handle to the file for which to change information.
      * 
      * This handle must be opened with the appropriate permissions for the requested change. For more information, 
      *        see the Remarks and Example Code sections.
@@ -6105,7 +6150,7 @@ class FileSystem {
      * 
      * For a table of valid structure types, see the Remarks section.
      * @param {Integer} dwBufferSize The size of <i>lpFileInformation</i>, in bytes.
-     * @returns {Integer} Returns nonzero if successful or zero otherwise.
+     * @returns {BOOL} Returns nonzero if successful or zero otherwise.
      * 
      * To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6113,9 +6158,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetFileInformationByHandle(hFile, FileInformationClass, lpFileInformation, dwBufferSize) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileInformationByHandle", "ptr", hFile, "int", FileInformationClass, "ptr", lpFileInformation, "uint", dwBufferSize, "int")
+        result := DllCall("KERNEL32.dll\SetFileInformationByHandle", "ptr", hFile, "int", FileInformationClass, "ptr", lpFileInformation, "uint", dwBufferSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6124,7 +6171,7 @@ class FileSystem {
 
     /**
      * Moves the file pointer of the specified file.
-     * @param {Pointer<Void>} hFile A handle to the file.
+     * @param {HANDLE} hFile A handle to the file.
      *       
      * 
      * The file handle must be created with the <b>GENERIC_READ</b> or 
@@ -6190,6 +6237,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFilePointer(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMoveMethod) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetFilePointer", "ptr", hFile, "int", lDistanceToMove, "int*", lpDistanceToMoveHigh, "uint", dwMoveMethod, "uint")
@@ -6201,7 +6250,7 @@ class FileSystem {
 
     /**
      * Moves the file pointer of the specified file.
-     * @param {Pointer<Void>} hFile A handle to the file. The file handle must have been created with the 
+     * @param {HANDLE} hFile A handle to the file. The file handle must have been created with the 
      *       <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b> access right. For more 
      *       information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
@@ -6210,7 +6259,7 @@ class FileSystem {
      * @param {Pointer<Int64>} lpNewFilePointer A pointer to a variable to receive the new file pointer. If this parameter is 
      *       <b>NULL</b>, the new file pointer is not returned.
      * @param {Integer} dwMoveMethod 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6218,9 +6267,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFilePointerEx(hFile, liDistanceToMove, lpNewFilePointer, dwMoveMethod) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFilePointerEx", "ptr", hFile, "int64", liDistanceToMove, "int64*", lpNewFilePointer, "uint", dwMoveMethod, "int")
+        result := DllCall("KERNEL32.dll\SetFilePointerEx", "ptr", hFile, "int64", liDistanceToMove, "int64*", lpNewFilePointer, "uint", dwMoveMethod, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6229,7 +6280,7 @@ class FileSystem {
 
     /**
      * Sets the date and time that the specified file or directory was created, last accessed, or last modified.
-     * @param {Pointer<Void>} hFile A handle to the file or directory. The handle must have been created using the 
+     * @param {HANDLE} hFile A handle to the file or directory. The handle must have been created using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function  with the 
      *       <b>FILE_WRITE_ATTRIBUTES</b> access right. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
@@ -6255,7 +6306,7 @@ class FileSystem {
      *        and pass a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that has both the 
      *        <b>dwLowDateTime</b> and <b>dwHighDateTime</b> members set to 
      *        0xFFFFFFFF.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6263,9 +6314,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileTime(hFile, lpCreationTime, lpLastAccessTime, lpLastWriteTime) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileTime", "ptr", hFile, "ptr", lpCreationTime, "ptr", lpLastAccessTime, "ptr", lpLastWriteTime, "int")
+        result := DllCall("KERNEL32.dll\SetFileTime", "ptr", hFile, "ptr", lpCreationTime, "ptr", lpLastAccessTime, "ptr", lpLastWriteTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6274,7 +6327,7 @@ class FileSystem {
 
     /**
      * Sets the valid data length of the specified file. This function is useful in very limited scenarios. For more information, see the Remarks section.
-     * @param {Pointer<Void>} hFile A handle to the file. The file must have been opened with the <b>GENERIC_WRITE</b> access right, and the <b>SE_MANAGE_VOLUME_NAME</b> privilege enabled. For more information, see 
+     * @param {HANDLE} hFile A handle to the file. The file must have been opened with the <b>GENERIC_WRITE</b> access right, and the <b>SE_MANAGE_VOLUME_NAME</b> privilege enabled. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
      * 
      * <div class="alert"><b>Note</b>  The file cannot be a network file, or be compressed, sparse, or transacted.</div>
@@ -6282,7 +6335,7 @@ class FileSystem {
      * @param {Integer} ValidDataLength The new valid data length. 
      * 
      * This parameter must be a positive value that is greater than the current valid data length, but less than the current file size.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6290,9 +6343,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileValidData(hFile, ValidDataLength) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileValidData", "ptr", hFile, "int64", ValidDataLength, "int")
+        result := DllCall("KERNEL32.dll\SetFileValidData", "ptr", hFile, "int64", ValidDataLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6301,14 +6356,14 @@ class FileSystem {
 
     /**
      * Unlocks a region in an open file.
-     * @param {Pointer<Void>} hFile A handle to the file that contains a region locked with 
+     * @param {HANDLE} hFile A handle to the file that contains a region locked with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-lockfile">LockFile</a>. The file handle must have been created with either the <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
      * @param {Integer} dwFileOffsetLow The low-order word of the starting byte offset in the file where the locked region begins.
      * @param {Integer} dwFileOffsetHigh The high-order word of the starting byte offset in the file where the locked region begins.
      * @param {Integer} nNumberOfBytesToUnlockLow The low-order word of the length of the byte range to be unlocked.
      * @param {Integer} nNumberOfBytesToUnlockHigh The high-order word of the length of the byte range to be unlocked.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6316,9 +6371,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static UnlockFile(hFile, dwFileOffsetLow, dwFileOffsetHigh, nNumberOfBytesToUnlockLow, nNumberOfBytesToUnlockHigh) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UnlockFile", "ptr", hFile, "uint", dwFileOffsetLow, "uint", dwFileOffsetHigh, "uint", nNumberOfBytesToUnlockLow, "uint", nNumberOfBytesToUnlockHigh, "int")
+        result := DllCall("KERNEL32.dll\UnlockFile", "ptr", hFile, "uint", dwFileOffsetLow, "uint", dwFileOffsetHigh, "uint", nNumberOfBytesToUnlockLow, "uint", nNumberOfBytesToUnlockHigh, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6327,7 +6384,7 @@ class FileSystem {
 
     /**
      * Unlocks a region in the specified file. This function can operate either synchronously or asynchronously.
-     * @param {Pointer<Void>} hFile A handle to the file. The handle must have been created with either the 
+     * @param {HANDLE} hFile A handle to the file. The handle must have been created with either the 
      *       <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b> access right. For more 
      *       information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
@@ -6338,7 +6395,7 @@ class FileSystem {
      *       range. You must initialize the <b>hEvent</b> member to a valid handle or zero. For more 
      *       information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/synchronous-and-asynchronous-i-o">Synchronous and Asynchronous I/O</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero or <b>NULL</b>. To get extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6348,9 +6405,11 @@ class FileSystem {
     static UnlockFileEx(hFile, nNumberOfBytesToUnlockLow, nNumberOfBytesToUnlockHigh, lpOverlapped) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UnlockFileEx", "ptr", hFile, "uint", dwReserved, "uint", nNumberOfBytesToUnlockLow, "uint", nNumberOfBytesToUnlockHigh, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\UnlockFileEx", "ptr", hFile, "uint", dwReserved, "uint", nNumberOfBytesToUnlockLow, "uint", nNumberOfBytesToUnlockHigh, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6359,7 +6418,7 @@ class FileSystem {
 
     /**
      * Writes data to the specified file or input/output (I/O) device.
-     * @param {Pointer<Void>} hFile A handle to the file or I/O device (for example, a file, file stream, physical disk, volume,  console buffer, 
+     * @param {HANDLE} hFile A handle to the file or I/O device (for example, a file, file stream, physical disk, volume,  console buffer, 
      *        tape drive, socket, communications resource, mailslot, or  pipe).
      * 
      * The <i>hFile</i> parameter must have been created with the write access. For more 
@@ -6415,7 +6474,7 @@ class FileSystem {
      * For more information about different combinations of <i>lpOverlapped</i> and 
      *        <b>FILE_FLAG_OVERLAPPED</b>, see the Remarks section and the 
      *        <a href="https://docs.microsoft.com/">Synchronization and File Position</a> section.
-     * @returns {Integer} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
+     * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, or is completing asynchronously, the return value is zero 
      *        (<b>FALSE</b>). To get extended error information, call the 
@@ -6429,9 +6488,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, lpOverlapped) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteFile", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, "uint*", lpNumberOfBytesWritten, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\WriteFile", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, "uint*", lpNumberOfBytesWritten, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6440,7 +6501,7 @@ class FileSystem {
 
     /**
      * Writes data to the specified file or input/output (I/O) device. It reports its completion status asynchronously, calling the specified completion routine when writing is completed or canceled and the calling thread is in an alertable wait state.
-     * @param {Pointer<Void>} hFile A handle to the file or I/O device (for example, a file, file stream, physical disk, volume,  console buffer, tape drive, 
+     * @param {HANDLE} hFile A handle to the file or I/O device (for example, a file, file stream, physical disk, volume,  console buffer, tape drive, 
      *     socket, communications resource, mailslot, or  pipe). 
      *        
      * 
@@ -6497,7 +6558,7 @@ class FileSystem {
      * @param {Pointer<LPOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine A pointer to a completion routine to be called when the write operation has been completed and the calling 
      *       thread is in an alertable wait state. For more information about this completion routine, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/nc-minwinbase-lpoverlapped_completion_routine">FileIOCompletionRoutine</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6516,9 +6577,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static WriteFileEx(hFile, lpBuffer, nNumberOfBytesToWrite, lpOverlapped, lpCompletionRoutine) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteFileEx", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
+        result := DllCall("KERNEL32.dll\WriteFileEx", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6527,7 +6590,7 @@ class FileSystem {
 
     /**
      * Retrieves data from an array of buffers and writes the data to a file.
-     * @param {Pointer<Void>} hFile A handle to the file. The file handle must be created with the <b>GENERIC_WRITE</b> 
+     * @param {HANDLE} hFile A handle to the file. The file handle must be created with the <b>GENERIC_WRITE</b> 
      *       access right, and the <b>FILE_FLAG_OVERLAPPED</b> and 
      *       <b>FILE_FLAG_NO_BUFFERING</b> flags. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
@@ -6585,7 +6648,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getqueuedcompletionstatus">GetQueuedCompletionStatus</a> function to 
      *        obtain information about the completion of the write operation. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/synchronous-and-asynchronous-i-o">Synchronous and Asynchronous I/O</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call the 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -6599,9 +6662,11 @@ class FileSystem {
     static WriteFileGather(hFile, aSegmentArray, nNumberOfBytesToWrite, lpOverlapped) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteFileGather", "ptr", hFile, "ptr", aSegmentArray, "uint", nNumberOfBytesToWrite, "uint*", lpReserved, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\WriteFileGather", "ptr", hFile, "ptr", aSegmentArray, "uint", nNumberOfBytesToWrite, "uint*", lpReserved, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6612,7 +6677,7 @@ class FileSystem {
      * Retrieves the path of the directory designated for temporary files.
      * @param {Integer} nBufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {Pointer<Char>} lpBuffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
+     * @param {PWSTR} lpBuffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
      *       The returned string ends with a backslash, for example, "C:\\TEMP\\".
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
@@ -6627,7 +6692,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTempPathW(nBufferLength, lpBuffer) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -6640,10 +6705,10 @@ class FileSystem {
 
     /**
      * Retrieves a volume GUID path for the volume that is associated with the specified volume mount point ( drive letter, volume GUID path, or mounted folder).
-     * @param {Pointer<Char>} lpszVolumeMountPoint A pointer to a string that contains the path of a mounted folder (for example, "Y:\MountX\\") or a drive letter (for example, "X:\\"). The string must end with a trailing backslash ('\\').
-     * @param {Pointer<Char>} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path. This path is of the form "\\\\?\Volume{<i>GUID</i>}\\" where <i>GUID</i> is a <b>GUID</b> that identifies the volume. If there is more than one volume <b>GUID</b> path for the volume, only the first one in the mount manager's cache is returned.
+     * @param {PWSTR} lpszVolumeMountPoint A pointer to a string that contains the path of a mounted folder (for example, "Y:\MountX\\") or a drive letter (for example, "X:\\"). The string must end with a trailing backslash ('\\').
+     * @param {PWSTR} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path. This path is of the form "\\\\?\Volume{<i>GUID</i>}\\" where <i>GUID</i> is a <b>GUID</b> that identifies the volume. If there is more than one volume <b>GUID</b> path for the volume, only the first one in the mount manager's cache is returned.
      * @param {Integer} cchBufferLength The length of the output buffer, in <b>TCHARs</b>. A reasonable size for the buffer to accommodate the largest possible volume <b>GUID</b> path is 50 characters.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6651,12 +6716,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumeNameForVolumeMountPointW(lpszVolumeMountPoint, lpszVolumeName, cchBufferLength) {
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
-        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
+        result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6665,10 +6730,10 @@ class FileSystem {
 
     /**
      * Retrieves a list of drive letters and mounted folder paths for the specified volume.
-     * @param {Pointer<Char>} lpszVolumeName A volume <b>GUID</b> path for the volume. A volume <b>GUID</b> 
+     * @param {PWSTR} lpszVolumeName A volume <b>GUID</b> path for the volume. A volume <b>GUID</b> 
      *       path is of the form 
      *       "\\\\?\\Volume{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}\\".
-     * @param {Pointer<Char>} lpszVolumePathNames A pointer to a buffer that receives the list of drive letters and mounted folder paths. The list is an 
+     * @param {PWSTR} lpszVolumePathNames A pointer to a buffer that receives the list of drive letters and mounted folder paths. The list is an 
      *       array of null-terminated strings terminated by an additional <b>NULL</b> character. If the 
      *       buffer is not large enough to hold the complete list, the buffer holds as much of the list as possible.
      * @param {Integer} cchBufferLength The length of the <i>lpszVolumePathNames</i> buffer, in 
@@ -6676,7 +6741,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} lpcchReturnLength If the call is successful, this parameter is the number of <b>TCHARs</b> copied to 
      *       the <i>lpszVolumePathNames</i> buffer. Otherwise, this parameter is the size of the buffer 
      *       required to hold the complete list, in <b>TCHARs</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is not large enough to 
@@ -6686,12 +6751,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumePathNamesForVolumeNameW(lpszVolumeName, lpszVolumePathNames, cchBufferLength, lpcchReturnLength) {
-        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
-        lpszVolumePathNames := lpszVolumePathNames is String? StrPtr(lpszVolumePathNames) : lpszVolumePathNames
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumePathNames := lpszVolumePathNames is String ? StrPtr(lpszVolumePathNames) : lpszVolumePathNames
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameW", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, "uint", cchBufferLength, "uint*", lpcchReturnLength, "int")
+        result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameW", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, "uint", cchBufferLength, "uint*", lpcchReturnLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6700,7 +6765,7 @@ class FileSystem {
 
     /**
      * Creates or opens a file or I/O device.
-     * @param {Pointer<Char>} lpFileName The name of the file or device to be created or opened.
+     * @param {PWSTR} lpFileName The name of the file or device to be created or opened.
      * 
      * For information on special device names, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/defining-an-ms-dos-device-name">Defining an MS-DOS Device Name</a>.
@@ -6751,7 +6816,7 @@ class FileSystem {
      * @param {Pointer<CREATEFILE2_EXTENDED_PARAMETERS>} pCreateExParams Pointer to an optional 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-createfile2_extended_parameters">CREATEFILE2_EXTENDED_PARAMETERS</a> 
      *       structure.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or 
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or 
      *        mail slot.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
@@ -6760,7 +6825,7 @@ class FileSystem {
      * @since windows8.0
      */
     static CreateFile2(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -6768,17 +6833,17 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Associates a virtual address range with the specified file handle.
-     * @param {Pointer<Void>} FileHandle A handle to the file.
+     * @param {HANDLE} FileHandle A handle to the file.
      * 
      * This file handle must be opened with <b>FILE_READ_ATTRIBUTES</b> access rights.
      * @param {Pointer<Byte>} OverlappedRangeStart The starting address for the range.
      * @param {Integer} Length The length of the range, in bytes.
-     * @returns {Integer} Returns nonzero if successful or zero otherwise.
+     * @returns {BOOL} Returns nonzero if successful or zero otherwise.
      * 
      * To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6786,9 +6851,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetFileIoOverlappedRange(FileHandle, OverlappedRangeStart, Length) {
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileIoOverlappedRange", "ptr", FileHandle, "char*", OverlappedRangeStart, "uint", Length, "int")
+        result := DllCall("KERNEL32.dll\SetFileIoOverlappedRange", "ptr", FileHandle, "char*", OverlappedRangeStart, "uint", Length, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6797,7 +6864,7 @@ class FileSystem {
 
     /**
      * Retrieves the actual number of bytes of disk storage used to store a specified file.
-     * @param {Pointer<Byte>} lpFileName The name of the file. 
+     * @param {PSTR} lpFileName The name of the file. 
      * 
      * 
      * 
@@ -6827,7 +6894,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetCompressedFileSizeA(lpFileName, lpFileSizeHigh) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -6840,7 +6907,7 @@ class FileSystem {
 
     /**
      * Retrieves the actual number of bytes of disk storage used to store a specified file.
-     * @param {Pointer<Char>} lpFileName The name of the file. 
+     * @param {PWSTR} lpFileName The name of the file. 
      * 
      * 
      * 
@@ -6870,7 +6937,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetCompressedFileSizeW(lpFileName, lpFileSizeHigh) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -6883,7 +6950,7 @@ class FileSystem {
 
     /**
      * Enumerates the first stream with a ::$DATA stream type in the specified file or directory.
-     * @param {Pointer<Char>} lpFileName The fully qualified file name.
+     * @param {PWSTR} lpFileName The fully qualified file name.
      * @param {Integer} InfoLevel The information level of the returned data. This parameter is one of the values in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ne-fileapi-stream_info_levels">STREAM_INFO_LEVELS</a> enumeration type.
      * 
@@ -6907,7 +6974,7 @@ class FileSystem {
      * </table>
      * @param {Pointer<Void>} lpFindStreamData A pointer to a buffer that receives the file stream data. The format of this data depends on the value of 
      *       the <i>InfoLevel</i> parameter.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle that can be used in subsequent calls to the 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle that can be used in subsequent calls to the 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextstreamw">FindNextStreamW</a> function.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
@@ -6926,7 +6993,7 @@ class FileSystem {
     static FindFirstStreamW(lpFileName, InfoLevel, lpFindStreamData) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -6934,17 +7001,17 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Continues a stream search started by a previous call to the FindFirstStreamW function.
-     * @param {Pointer<Void>} hFindStream The search handle returned by a previous call to the 
+     * @param {HANDLE} hFindStream The search handle returned by a previous call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirststreamw">FindFirstStreamW</a> function.
      * @param {Pointer<Void>} lpFindStreamData A pointer to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-win32_find_stream_data">WIN32_FIND_STREAM_DATA</a> structure that 
      *       receives information about the stream.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If no  more streams can be found, 
@@ -6954,9 +7021,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static FindNextStreamW(hFindStream, lpFindStreamData) {
+        hFindStream := hFindStream is Win32Handle ? NumGet(hFindStream, "ptr") : hFindStream
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNextStreamW", "ptr", hFindStream, "ptr", lpFindStreamData, "int")
+        result := DllCall("KERNEL32.dll\FindNextStreamW", "ptr", hFindStream, "ptr", lpFindStreamData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6965,14 +7034,14 @@ class FileSystem {
 
     /**
      * Determines whether the file I/O functions are using the ANSI or OEM character set code page.
-     * @returns {Integer} If the set of file I/O functions is using the ANSI code page, the return value is nonzero.
+     * @returns {BOOL} If the set of file I/O functions is using the ANSI code page, the return value is nonzero.
      * 
      * If the set of file I/O functions is using the OEM code page, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-arefileapisansi
      * @since windows5.1.2600
      */
     static AreFileApisANSI() {
-        result := DllCall("KERNEL32.dll\AreFileApisANSI", "int")
+        result := DllCall("KERNEL32.dll\AreFileApisANSI", "ptr")
         return result
     }
 
@@ -6980,7 +7049,7 @@ class FileSystem {
      * Retrieves the path of the directory designated for temporary files.
      * @param {Integer} nBufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {Pointer<Byte>} lpBuffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
+     * @param {PSTR} lpBuffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
      *       The returned string ends with a backslash, for example, "C:\\TEMP\\".
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
@@ -6995,7 +7064,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTempPathA(nBufferLength, lpBuffer) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -7008,7 +7077,7 @@ class FileSystem {
 
     /**
      * Creates an enumeration of all the hard links to the specified file. The FindFirstFileNameW function returns a handle to the enumeration that can be used on subsequent calls to the FindNextFileNameW function.
-     * @param {Pointer<Char>} lpFileName The name of the file.
+     * @param {PWSTR} lpFileName The name of the file.
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
@@ -7018,8 +7087,8 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function is 
      *       <b>ERROR_MORE_DATA</b> (234), the value that is returned by this parameter is the size that 
      *       the buffer pointed to by <i>LinkName</i>  must be to contain all the data.
-     * @param {Pointer<Char>} LinkName A pointer to a buffer to store the first link name found for <i>lpFileName</i>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle that can be used with the 
+     * @param {PWSTR} LinkName A pointer to a buffer to store the first link name found for <i>lpFileName</i>.
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle that can be used with the 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextfilenamew">FindNextFileNameW</a> function or closed with the 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a> function.
      * 
@@ -7030,8 +7099,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static FindFirstFileNameW(lpFileName, dwFlags, StringLength, LinkName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        LinkName := LinkName is String? StrPtr(LinkName) : LinkName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        LinkName := LinkName is String ? StrPtr(LinkName) : LinkName
 
         A_LastError := 0
 
@@ -7039,18 +7108,18 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Continues enumerating the hard links to a file using the handle returned by a successful call to the FindFirstFileNameW function.
-     * @param {Pointer<Void>} hFindStream A handle to the enumeration that is returned by a successful call to 
+     * @param {HANDLE} hFindStream A handle to the enumeration that is returned by a successful call to 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilenamew">FindFirstFileNameW</a>.
      * @param {Pointer<UInt32>} StringLength The size of the <i>LinkName</i> parameter, in characters. If this call fails and the 
      *       error is <b>ERROR_MORE_DATA</b>, the value that is returned by this parameter is the size 
      *       that <i>LinkName</i>  must be to contain all the data.
-     * @param {Pointer<Char>} LinkName A pointer to a buffer to store the first link name found for <i>lpFileName</i>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {PWSTR} LinkName A pointer to a buffer to store the first link name found for <i>lpFileName</i>.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7061,11 +7130,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static FindNextFileNameW(hFindStream, StringLength, LinkName) {
-        LinkName := LinkName is String? StrPtr(LinkName) : LinkName
+        LinkName := LinkName is String ? StrPtr(LinkName) : LinkName
+        hFindStream := hFindStream is Win32Handle ? NumGet(hFindStream, "ptr") : hFindStream
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNextFileNameW", "ptr", hFindStream, "uint*", StringLength, "ptr", LinkName, "int")
+        result := DllCall("KERNEL32.dll\FindNextFileNameW", "ptr", hFindStream, "uint*", StringLength, "ptr", LinkName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7074,13 +7144,13 @@ class FileSystem {
 
     /**
      * Retrieves information about the file system and volume associated with the specified root directory.
-     * @param {Pointer<Byte>} lpRootPathName A pointer to a string that contains the root directory of the volume to be described.
+     * @param {PSTR} lpRootPathName A pointer to a string that contains the root directory of the volume to be described.
      * 
      * If this parameter is <b>NULL</b>, the root of the current directory is used. A trailing 
      *        backslash is required. For example, you  specify \\\\MyServer\\MyShare as 
      *        "\\\\MyServer\\MyShare\\", or the C drive as 
      *        "C:\\".
-     * @param {Pointer<Byte>} lpVolumeNameBuffer A pointer to a buffer that receives the name of a specified volume. The buffer size is specified by the 
+     * @param {PSTR} lpVolumeNameBuffer A pointer to a buffer that receives the name of a specified volume. The buffer size is specified by the 
      *        <i>nVolumeNameSize</i> parameter.
      * @param {Integer} nVolumeNameSize The length of a volume name buffer, in <b>TCHARs</b>. The maximum buffer size is 
      *        <b>MAX_PATH</b>+1.
@@ -7369,13 +7439,13 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpFileSystemNameBuffer A pointer to a buffer that receives the name of the file system, for example, the FAT file system or the NTFS 
+     * @param {PSTR} lpFileSystemNameBuffer A pointer to a buffer that receives the name of the file system, for example, the FAT file system or the NTFS 
      *        file system. The buffer size is specified by the <i>nFileSystemNameSize</i> parameter.
      * @param {Integer} nFileSystemNameSize The length of the file system name buffer, in <b>TCHARs</b>. The maximum buffer size is 
      *        <b>MAX_PATH</b>+1.
      * 
      * This parameter is ignored if the file system name buffer is not supplied.
-     * @returns {Integer} If all the requested information is retrieved, the return value is nonzero.
+     * @returns {BOOL} If all the requested information is retrieved, the return value is nonzero.
      * 
      * If not all the requested information is retrieved, the return value is zero. To get extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -7383,13 +7453,13 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumeInformationA(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize) {
-        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
-        lpVolumeNameBuffer := lpVolumeNameBuffer is String? StrPtr(lpVolumeNameBuffer) : lpVolumeNameBuffer
-        lpFileSystemNameBuffer := lpFileSystemNameBuffer is String? StrPtr(lpFileSystemNameBuffer) : lpFileSystemNameBuffer
+        lpRootPathName := lpRootPathName is String ? StrPtr(lpRootPathName) : lpRootPathName
+        lpVolumeNameBuffer := lpVolumeNameBuffer is String ? StrPtr(lpVolumeNameBuffer) : lpVolumeNameBuffer
+        lpFileSystemNameBuffer := lpFileSystemNameBuffer is String ? StrPtr(lpFileSystemNameBuffer) : lpFileSystemNameBuffer
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVolumeInformationA", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, "uint*", lpVolumeSerialNumber, "uint*", lpMaximumComponentLength, "uint*", lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "int")
+        result := DllCall("KERNEL32.dll\GetVolumeInformationA", "ptr", lpRootPathName, "ptr", lpVolumeNameBuffer, "uint", nVolumeNameSize, "uint*", lpVolumeSerialNumber, "uint*", lpMaximumComponentLength, "uint*", lpFileSystemFlags, "ptr", lpFileSystemNameBuffer, "uint", nFileSystemNameSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7398,12 +7468,12 @@ class FileSystem {
 
     /**
      * Creates a name for a temporary file. If a unique file name is generated, an empty file is created and the handle to it is released; otherwise, only a file name is generated.
-     * @param {Pointer<Byte>} lpPathName The directory path for the file name. Applications typically specify a period (.) for the current directory 
+     * @param {PSTR} lpPathName The directory path for the file name. Applications typically specify a period (.) for the current directory 
      *        or the result of the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-gettemppatha">GetTempPath</a> function. The string 
      *        cannot be longer than <b>MAX_PATH</b>–14 characters or
      *        <b>GetTempFileName</b> will fail. If this parameter is 
      *        <b>NULL</b>, the function fails.
-     * @param {Pointer<Byte>} lpPrefixString The null-terminated prefix string. The function uses up to the first three characters of this string as the 
+     * @param {PSTR} lpPrefixString The null-terminated prefix string. The function uses up to the first three characters of this string as the 
      *        prefix of the file name. This string must consist of characters in the OEM-defined character set.
      * @param {Integer} uUnique An unsigned integer to be used in creating the temporary file name. For more information, see Remarks.
      * 
@@ -7412,7 +7482,7 @@ class FileSystem {
      *        file already exists. This continues until a unique filename is found; the function creates a file by that name 
      *        and closes it.  Note that the function does not attempt  to verify the uniqueness of the file name when 
      *        <i>uUnique</i> is nonzero.
-     * @param {Pointer<Byte>} lpTempFileName A pointer to the buffer that receives the temporary file name. This buffer should be 
+     * @param {PSTR} lpTempFileName A pointer to the buffer that receives the temporary file name. This buffer should be 
      *        <b>MAX_PATH</b> characters to accommodate the path plus the terminating null character.
      * @returns {Integer} If the function succeeds, the return value specifies the unique numeric value used in the temporary file 
      *        name. If the <i>uUnique</i> parameter is nonzero, the return value specifies that same 
@@ -7448,9 +7518,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTempFileNameA(lpPathName, lpPrefixString, uUnique, lpTempFileName) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
-        lpPrefixString := lpPrefixString is String? StrPtr(lpPrefixString) : lpPrefixString
-        lpTempFileName := lpTempFileName is String? StrPtr(lpTempFileName) : lpTempFileName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
+        lpPrefixString := lpPrefixString is String ? StrPtr(lpPrefixString) : lpPrefixString
+        lpTempFileName := lpTempFileName is String ? StrPtr(lpTempFileName) : lpTempFileName
 
         A_LastError := 0
 
@@ -7680,7 +7750,7 @@ class FileSystem {
      * Retrieves the path of the directory designated for temporary files, based on the privileges of the calling process.
      * @param {Integer} BufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {Pointer<Char>} Buffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
+     * @param {PWSTR} Buffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
      *       The returned string ends with a backslash, for example, "C:\\TEMP\\".
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
@@ -7694,7 +7764,7 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-gettemppath2w
      */
     static GetTempPath2W(BufferLength, Buffer) {
-        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
         result := DllCall("KERNEL32.dll\GetTempPath2W", "uint", BufferLength, "ptr", Buffer, "uint")
         return result
@@ -7704,7 +7774,7 @@ class FileSystem {
      * Retrieves the path of the directory designated for temporary files, based on the privileges of the calling process.
      * @param {Integer} BufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {Pointer<Byte>} Buffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
+     * @param {PSTR} Buffer A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
      *       The returned string ends with a backslash, for example, "C:\\TEMP\\".
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
@@ -7718,7 +7788,7 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-gettemppath2a
      */
     static GetTempPath2A(BufferLength, Buffer) {
-        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
         result := DllCall("KERNEL32.dll\GetTempPath2A", "uint", BufferLength, "ptr", Buffer, "uint")
         return result
@@ -7726,39 +7796,39 @@ class FileSystem {
 
     /**
      * Copies an existing file to a new file. The behavior of this function is identical to CopyFile, except that this function adheres to the Universal Windows Platform app security model.
-     * @param {Pointer<Char>} lpExistingFileName The name of an existing file.
+     * @param {PWSTR} lpExistingFileName The name of an existing file.
      *     
      * For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
      * 
      * If *lpExistingFileName* does not exist, the function fails, and [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md) returns **ERROR\_FILE\_NOT\_FOUND**.
-     * @param {Pointer<Char>} lpNewFileName The name of the new file.
+     * @param {PWSTR} lpNewFileName The name of the new file.
      * 
      * In the ANSI version of this function, the name is limited to **MAX\_PATH** characters. To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend "\\\\?\\" to the path. For more information, see [Naming a File](/windows/win32/FileIO/naming-a-file).
      * 
      * For the unicode version of this function (**CopyFileFromAppW**), you can opt-in to remove the **MAX\_PATH** limitation without prepending "\\\\?\\". See the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/FileIO/naming-a-file) for details.
-     * @param {Integer} bFailIfExists If this parameter is **TRUE** and the new file specified by *lpNewFileName* already exists, the function fails. If this parameter is **FALSE** and the new file already exists, the function overwrites the existing file and succeeds.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} bFailIfExists If this parameter is **TRUE** and the new file specified by *lpNewFileName* already exists, the function fails. If this parameter is **FALSE** and the new file already exists, the function overwrites the existing file and succeeds.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * @see https://docs.microsoft.com/windows/win32/api//fileapifromapp/nf-fileapifromapp-copyfilefromappw
      */
     static CopyFileFromAppW(lpExistingFileName, lpNewFileName, bFailIfExists) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CopyFileFromAppW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int", bFailIfExists, "int")
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CopyFileFromAppW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", bFailIfExists, "ptr")
         return result
     }
 
     /**
      * Creates a new directory. The behavior of this function is identical to CreateDirector, except that this function adheres to the Universal Windows Platform app security model.
-     * @param {Pointer<Char>} lpPathName The path of the directory to be created.
+     * @param {PWSTR} lpPathName The path of the directory to be created.
      *      
      * For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes A pointer to a [**SECURITY\_ATTRIBUTES**](../wtypesbase/ns-wtypesbase-security_attributes.md) structure. The **lpSecurityDescriptor** member of the structure specifies a security descriptor for the new directory. If *lpSecurityAttributes* is **NULL**, the directory gets a default security descriptor. The ACLs in the default security descriptor for a directory are inherited from its parent directory.
      *     
      * The target file system must support security on files and directories for this parameter to have an effect.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md). Possible errors include the following.
      * 
@@ -7787,15 +7857,15 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//fileapifromapp/nf-fileapifromapp-createdirectoryfromappw
      */
     static CreateDirectoryFromAppW(lpPathName, lpSecurityAttributes) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateDirectoryFromAppW", "ptr", lpPathName, "ptr", lpSecurityAttributes, "int")
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateDirectoryFromAppW", "ptr", lpPathName, "ptr", lpSecurityAttributes, "ptr")
         return result
     }
 
     /**
      * Creates or opens a file or I/O device. The behavior of this function is identical to CreateFile, except that this function adheres to the Universal Windows Platform app security model.
-     * @param {Pointer<Char>} lpFileName The name of the file or device to be created or opened. You may use either forward slashes (/) or backslashes (\\) in this name.
+     * @param {PWSTR} lpFileName The name of the file or device to be created or opened. You may use either forward slashes (/) or backslashes (\\) in this name.
      *     
      * In the ANSI version of this function, the name is limited to **MAX\_PATH** characters. To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend "\\\\?\\" to the path. For more information, see [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file).
      * 
@@ -8050,28 +8120,29 @@ class FileSystem {
      * </tr>
      * </tbody>
      * </table>
-     * @param {Pointer<Void>} hTemplateFile A valid handle to a template file with the **GENERIC\_READ** access right. The template file supplies file attributes and extended attributes for the file that is being created.
+     * @param {HANDLE} hTemplateFile A valid handle to a template file with the **GENERIC\_READ** access right. The template file supplies file attributes and extended attributes for the file that is being created.
      *     
      * This parameter can be **NULL**.
      * 
      * When opening an existing file, this parameter is ignored.
      * 
      * When opening a new encrypted file, the file inherits the discretionary access control list from its parent directory. For more information, see [File Encryption](/windows/win32/fileio/file-encryption).
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
      * 
      * If the function fails, the return value is **INVALID\_HANDLE\_VALUE**. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * @see https://docs.microsoft.com/windows/win32/api//fileapifromapp/nf-fileapifromapp-createfilefromappw
      */
     static CreateFileFromAppW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTemplateFile := hTemplateFile is Win32Handle ? NumGet(hTemplateFile, "ptr") : hTemplateFile
 
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFileFromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwCreationDisposition, "uint", dwFlagsAndAttributes, "ptr", hTemplateFile, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates or opens a file or I/O device. The behavior of this function is identical to CreateFile2, except that this function adheres to the Universal Windows Platform app security model.
-     * @param {Pointer<Char>} lpFileName The name of the file or device to be created or opened.
+     * @param {PWSTR} lpFileName The name of the file or device to be created or opened.
      *     
      * For information on special device names, see [Defining an MS-DOS Device Name](/windows/win32/fileio/defining-an-ms-dos-device-name).
      *     
@@ -8094,123 +8165,123 @@ class FileSystem {
      *     
      * For devices other than files, this parameter is usually set to **OPEN\_EXISTING**.
      * @param {Pointer<CREATEFILE2_EXTENDED_PARAMETERS>} pCreateExParams Pointer to an optional [**CREATEFILE2\_EXTENDED\_PARAMETERS**](../fileapi/ns-fileapi-createfile2_extended_parameters.md) structure.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
      * 
      * If the function fails, the return value is **INVALID\_HANDLE\_VALUE**. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * @see https://docs.microsoft.com/windows/win32/api//fileapifromapp/nf-fileapifromapp-createfile2fromappw
      */
     static CreateFile2FromAppW(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\CreateFile2FromAppW", "ptr", lpFileName, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationDisposition, "ptr", pCreateExParams, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Deletes an existing file. The behavior of this function is identical to DeleteFile, except that this function adheres to the Universal Windows Platform app security model.
-     * @param {Pointer<Char>} lpFileName The name of the file to be deleted.
+     * @param {PWSTR} lpFileName The name of the file to be deleted.
      *     
      * In the ANSI version of this function, the name is limited to **MAX\_PATH** characters. To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend "\\\\?\\" to the path. For more information, see [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file).
      * 
      * For the unicode version of this function (**DeleteFileFromAppW**), you can opt-in to remove the **MAX\_PATH** character limitation without prepending "\\\\?\\". See the "Maximum Path Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * @see https://docs.microsoft.com/windows/win32/api//fileapifromapp/nf-fileapifromapp-deletefilefromappw
      */
     static DeleteFileFromAppW(lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\DeleteFileFromAppW", "ptr", lpFileName, "int")
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\DeleteFileFromAppW", "ptr", lpFileName, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} lpFileName 
+     * @param {PWSTR} lpFileName 
      * @param {Integer} fInfoLevelId 
      * @param {Pointer<Void>} lpFindFileData 
      * @param {Integer} fSearchOp 
      * @param {Integer} dwAdditionalFlags 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static FindFirstFileExFromAppW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\FindFirstFileExFromAppW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFindFileData, "int", fSearchOp, "ptr", lpSearchFilter, "uint", dwAdditionalFlags, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Char>} lpFileName 
+     * @param {PWSTR} lpFileName 
      * @param {Integer} fInfoLevelId 
      * @param {Pointer<Void>} lpFileInformation 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetFileAttributesExFromAppW(lpFileName, fInfoLevelId, lpFileInformation) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\GetFileAttributesExFromAppW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "int")
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\GetFileAttributesExFromAppW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "ptr")
         return result
     }
 
     /**
      * Moves an existing file or a directory, including its children. The behavior of this function is identical to MoveFile, except that this function adheres to the Universal Windows Platform app security model.
-     * @param {Pointer<Char>} lpExistingFileName The current name of the file or directory on the local computer.
+     * @param {PWSTR} lpExistingFileName The current name of the file or directory on the local computer.
      *     
      * For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
-     * @param {Pointer<Char>} lpNewFileName The new name for the file or directory. The new name must not already exist. A new file may be on a different file system or drive. A new directory must be on the same drive.
+     * @param {PWSTR} lpNewFileName The new name for the file or directory. The new name must not already exist. A new file may be on a different file system or drive. A new directory must be on the same drive.
      *     
      * For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * @see https://docs.microsoft.com/windows/win32/api//fileapifromapp/nf-fileapifromapp-movefilefromappw
      */
     static MoveFileFromAppW(lpExistingFileName, lpNewFileName) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\MoveFileFromAppW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int")
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\MoveFileFromAppW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr")
         return result
     }
 
     /**
      * Deletes an existing empty directory. The behavior of this function is identical to RemoveDirectory, except that this function adheres to the Universal Windows Platform app security model.
-     * @param {Pointer<Char>} lpPathName The path of the directory to be removed. This path must specify an empty directory, and the calling process must have delete access to the directory.
+     * @param {PWSTR} lpPathName The path of the directory to be removed. This path must specify an empty directory, and the calling process must have delete access to the directory.
      *     
      * For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
-     * @returns {Integer} If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
+     * @returns {BOOL} If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * @see https://docs.microsoft.com/windows/win32/api//fileapifromapp/nf-fileapifromapp-removedirectoryfromappw
      */
     static RemoveDirectoryFromAppW(lpPathName) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\RemoveDirectoryFromAppW", "ptr", lpPathName, "int")
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\RemoveDirectoryFromAppW", "ptr", lpPathName, "ptr")
         return result
     }
 
     /**
      * Replaces one file with another file, with the option of creating a backup copy of the original file. The behavior of this function is identical to ReplaceFile, except that this function adheres to the Universal Windows Platform app security model.
-     * @param {Pointer<Char>} lpReplacedFileName For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
+     * @param {PWSTR} lpReplacedFileName For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
      *     
      * This file is opened with the **GENERIC\_READ**, **DELETE**, and **SYNCHRONIZE** access rights. The sharing mode is **FILE\_SHARE\_READ** | **FILE\_SHARE\_WRITE** | **FILE\_SHARE\_DELETE**.
      *     
      * The caller must have write access to the file to be replaced. For more information, see [File Security and Access Rights](/windows/win32/fileio/file-security-and-access-rights).
-     * @param {Pointer<Char>} lpReplacementFileName The name of the file that will replace the *lpReplacedFileName* file.
+     * @param {PWSTR} lpReplacementFileName The name of the file that will replace the *lpReplacedFileName* file.
      *     
      * For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
      * 
      *     
      * The function attempts to open this file with the **SYNCHRONIZE**, **GENERIC\_READ**, **GENERIC\_WRITE**, **DELETE**, and **WRITE\_DAC** access rights so that it can preserve all attributes and ACLs. If this fails, the function attempts to open the file with the **SYNCHRONIZE**, **GENERIC\_READ**, **DELETE**, and **WRITE\_DAC** access rights. No sharing mode is specified.
-     * @param {Pointer<Char>} lpBackupFileName The name of the file that will serve as a backup copy of the *lpReplacedFileName* file. If this parameter is **NULL**, no backup file is created. See the Remarks section for implementation details on the backup file.
+     * @param {PWSTR} lpBackupFileName The name of the file that will serve as a backup copy of the *lpReplacedFileName* file. If this parameter is **NULL**, no backup file is created. See the Remarks section for implementation details on the backup file.
      *     
      * For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
      * @param {Integer} dwReplaceFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md). The following are possible error codes for this function.
      * 
@@ -8252,17 +8323,17 @@ class FileSystem {
     static ReplaceFileFromAppW(lpReplacedFileName, lpReplacementFileName, lpBackupFileName, dwReplaceFlags) {
         static lpExclude := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpReplacedFileName := lpReplacedFileName is String? StrPtr(lpReplacedFileName) : lpReplacedFileName
-        lpReplacementFileName := lpReplacementFileName is String? StrPtr(lpReplacementFileName) : lpReplacementFileName
-        lpBackupFileName := lpBackupFileName is String? StrPtr(lpBackupFileName) : lpBackupFileName
+        lpReplacedFileName := lpReplacedFileName is String ? StrPtr(lpReplacedFileName) : lpReplacedFileName
+        lpReplacementFileName := lpReplacementFileName is String ? StrPtr(lpReplacementFileName) : lpReplacementFileName
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\ReplaceFileFromAppW", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, "int")
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\ReplaceFileFromAppW", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, "ptr")
         return result
     }
 
     /**
      * Sets the attributes for a file or directory. The behavior of this function is identical to SetFileAttributes, except that this function adheres to the Universal Windows Platform app security model.
-     * @param {Pointer<Char>} lpFileName The name of the file whose attributes are to be set.
+     * @param {PWSTR} lpFileName The name of the file whose attributes are to be set.
      *     
      * For information about opting out of the **MAX\_PATH** limitation without prepending "\\\\?\\", see the "Maximum Path Length Limitation" section of [Naming Files, Paths, and Namespaces](/windows/win32/fileio/naming-a-file) for details.
      * @param {Integer} dwFileAttributes The file attributes to set for the file.
@@ -8335,15 +8406,15 @@ class FileSystem {
      * </tr>
      * </tbody>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * @see https://docs.microsoft.com/windows/win32/api//fileapifromapp/nf-fileapifromapp-setfileattributesfromappw
      */
     static SetFileAttributesFromAppW(lpFileName, dwFileAttributes) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\SetFileAttributesFromAppW", "ptr", lpFileName, "uint", dwFileAttributes, "int")
+        result := DllCall("api-ms-win-core-file-fromapp-l1-1-0.dll\SetFileAttributesFromAppW", "ptr", lpFileName, "uint", dwFileAttributes, "ptr")
         return result
     }
 
@@ -8370,16 +8441,16 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szFileName Type: <b>LPCTSTR</b>
+     * @param {PSTR} szFileName Type: <b>LPCTSTR</b>
      * 
      * The name of the file to be installed. Include only the file name and extension, not a path.
-     * @param {Pointer<Byte>} szWinDir Type: <b>LPCTSTR</b>
+     * @param {PSTR} szWinDir Type: <b>LPCTSTR</b>
      * 
      * The directory in which Windows is running or will be run. This string is returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getwindowsdirectorya">GetWindowsDirectory</a> function.
-     * @param {Pointer<Byte>} szAppDir Type: <b>LPCTSTR</b>
+     * @param {PSTR} szAppDir Type: <b>LPCTSTR</b>
      * 
      * The directory where the installation program is installing a set of related files. If the installation program is installing an application, this is the directory where the application will reside. This parameter also points to the application's current directory unless otherwise specified.
-     * @param {Pointer<Byte>} szCurDir Type: <b>LPWSTR</b>
+     * @param {PSTR} szCurDir Type: <b>LPWSTR</b>
      * 
      * A buffer that receives the path to a current version of the file being installed. The path is a zero-terminated string. If a current version is not installed, the buffer will contain a zero-length string. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required.
      * @param {Pointer<UInt32>} puCurDirLen Type: <b>PUINT</b>
@@ -8391,7 +8462,7 @@ class FileSystem {
      * 					<i>lpuCurDirLen</i> contains the size, in characters, of the data returned in 
      * 					<i>szCurDir</i>, including the terminating null character. If the buffer is too small to contain all the data, 
      * 					<i>lpuCurDirLen</i> will be the size of the buffer required to hold the path.
-     * @param {Pointer<Byte>} szDestDir Type: <b>LPTSTR</b>
+     * @param {PSTR} szDestDir Type: <b>LPTSTR</b>
      * 
      * A buffer that receives the path to the installation location recommended by <b>VerFindFile</b>. The path is a zero-terminated string. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required.
      * @param {Pointer<UInt32>} puDestDirLen Type: <b>PUINT</b>
@@ -8453,11 +8524,11 @@ class FileSystem {
      * @since windows5.0
      */
     static VerFindFileA(uFlags, szFileName, szWinDir, szAppDir, szCurDir, puCurDirLen, szDestDir, puDestDirLen) {
-        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
-        szWinDir := szWinDir is String? StrPtr(szWinDir) : szWinDir
-        szAppDir := szAppDir is String? StrPtr(szAppDir) : szAppDir
-        szCurDir := szCurDir is String? StrPtr(szCurDir) : szCurDir
-        szDestDir := szDestDir is String? StrPtr(szDestDir) : szDestDir
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
+        szWinDir := szWinDir is String ? StrPtr(szWinDir) : szWinDir
+        szAppDir := szAppDir is String ? StrPtr(szAppDir) : szAppDir
+        szCurDir := szCurDir is String ? StrPtr(szCurDir) : szCurDir
+        szDestDir := szDestDir is String ? StrPtr(szDestDir) : szDestDir
 
         result := DllCall("VERSION.dll\VerFindFileA", "uint", uFlags, "ptr", szFileName, "ptr", szWinDir, "ptr", szAppDir, "ptr", szCurDir, "uint*", puCurDirLen, "ptr", szDestDir, "uint*", puDestDirLen, "uint")
         return result
@@ -8486,16 +8557,16 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szFileName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szFileName Type: <b>LPCTSTR</b>
      * 
      * The name of the file to be installed. Include only the file name and extension, not a path.
-     * @param {Pointer<Char>} szWinDir Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szWinDir Type: <b>LPCTSTR</b>
      * 
      * The directory in which Windows is running or will be run. This string is returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getwindowsdirectorya">GetWindowsDirectory</a> function.
-     * @param {Pointer<Char>} szAppDir Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szAppDir Type: <b>LPCTSTR</b>
      * 
      * The directory where the installation program is installing a set of related files. If the installation program is installing an application, this is the directory where the application will reside. This parameter also points to the application's current directory unless otherwise specified.
-     * @param {Pointer<Char>} szCurDir Type: <b>LPWSTR</b>
+     * @param {PWSTR} szCurDir Type: <b>LPWSTR</b>
      * 
      * A buffer that receives the path to a current version of the file being installed. The path is a zero-terminated string. If a current version is not installed, the buffer will contain a zero-length string. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required.
      * @param {Pointer<UInt32>} puCurDirLen Type: <b>PUINT</b>
@@ -8507,7 +8578,7 @@ class FileSystem {
      * 					<i>lpuCurDirLen</i> contains the size, in characters, of the data returned in 
      * 					<i>szCurDir</i>, including the terminating null character. If the buffer is too small to contain all the data, 
      * 					<i>lpuCurDirLen</i> will be the size of the buffer required to hold the path.
-     * @param {Pointer<Char>} szDestDir Type: <b>LPTSTR</b>
+     * @param {PWSTR} szDestDir Type: <b>LPTSTR</b>
      * 
      * A buffer that receives the path to the installation location recommended by <b>VerFindFile</b>. The path is a zero-terminated string. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required.
      * @param {Pointer<UInt32>} puDestDirLen Type: <b>PUINT</b>
@@ -8569,11 +8640,11 @@ class FileSystem {
      * @since windows5.0
      */
     static VerFindFileW(uFlags, szFileName, szWinDir, szAppDir, szCurDir, puCurDirLen, szDestDir, puDestDirLen) {
-        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
-        szWinDir := szWinDir is String? StrPtr(szWinDir) : szWinDir
-        szAppDir := szAppDir is String? StrPtr(szAppDir) : szAppDir
-        szCurDir := szCurDir is String? StrPtr(szCurDir) : szCurDir
-        szDestDir := szDestDir is String? StrPtr(szDestDir) : szDestDir
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
+        szWinDir := szWinDir is String ? StrPtr(szWinDir) : szWinDir
+        szAppDir := szAppDir is String ? StrPtr(szAppDir) : szAppDir
+        szCurDir := szCurDir is String ? StrPtr(szCurDir) : szCurDir
+        szDestDir := szDestDir is String ? StrPtr(szDestDir) : szDestDir
 
         result := DllCall("VERSION.dll\VerFindFileW", "uint", uFlags, "ptr", szFileName, "ptr", szWinDir, "ptr", szAppDir, "ptr", szCurDir, "uint*", puCurDirLen, "ptr", szDestDir, "uint*", puDestDirLen, "uint")
         return result
@@ -8582,26 +8653,26 @@ class FileSystem {
     /**
      * Installs the specified file based on information returned from the VerFindFile function. VerInstallFile decompresses the file, if necessary, assigns a unique filename, and checks for errors, such as outdated files.
      * @param {Integer} uFlags Type: <b>DWORD</b>
-     * @param {Pointer<Byte>} szSrcFileName Type: <b>LPCTSTR</b>
+     * @param {PSTR} szSrcFileName Type: <b>LPCTSTR</b>
      * 
      * The name of the file to be installed. This is the filename in the directory pointed to by the 
      * 					<i>szSrcDir</i> parameter; the filename can include only the filename and extension, not a path.
-     * @param {Pointer<Byte>} szDestFileName Type: <b>LPCTSTR</b>
+     * @param {PSTR} szDestFileName Type: <b>LPCTSTR</b>
      * 
      * The name <b>VerInstallFile</b> will give the new file upon installation. This file name may be different from the filename in the 
      * 					<i>szSrcFileName</i> directory. The new name should include only the file name and extension, not a path.
-     * @param {Pointer<Byte>} szSrcDir Type: <b>LPCTSTR</b>
+     * @param {PSTR} szSrcDir Type: <b>LPCTSTR</b>
      * 
      * The name of the directory where the file can be found.
-     * @param {Pointer<Byte>} szDestDir Type: <b>LPCTSTR</b>
+     * @param {PSTR} szDestDir Type: <b>LPCTSTR</b>
      * 
      * The name of the directory where the file should be installed. <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-verfindfilea">VerFindFile</a> returns this value in its 
      * 					<i>szDestDir</i> parameter.
-     * @param {Pointer<Byte>} szCurDir Type: <b>LPCTSTR</b>
+     * @param {PSTR} szCurDir Type: <b>LPCTSTR</b>
      * 
      * The name of the directory where a preexisting version of this file can be found. <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-verfindfilea">VerFindFile</a> returns this value in its 
      * 					<i>szCurDir</i> parameter.
-     * @param {Pointer<Byte>} szTmpFile Type: <b>LPTSTR</b>
+     * @param {PSTR} szTmpFile Type: <b>LPTSTR</b>
      * 
      * The name of a temporary copy of the source file. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required, and should be empty on input.
      * @param {Pointer<UInt32>} puTmpFileLen Type: <b>PUINT</b>
@@ -8879,12 +8950,12 @@ class FileSystem {
      * @since windows5.0
      */
     static VerInstallFileA(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, puTmpFileLen) {
-        szSrcFileName := szSrcFileName is String? StrPtr(szSrcFileName) : szSrcFileName
-        szDestFileName := szDestFileName is String? StrPtr(szDestFileName) : szDestFileName
-        szSrcDir := szSrcDir is String? StrPtr(szSrcDir) : szSrcDir
-        szDestDir := szDestDir is String? StrPtr(szDestDir) : szDestDir
-        szCurDir := szCurDir is String? StrPtr(szCurDir) : szCurDir
-        szTmpFile := szTmpFile is String? StrPtr(szTmpFile) : szTmpFile
+        szSrcFileName := szSrcFileName is String ? StrPtr(szSrcFileName) : szSrcFileName
+        szDestFileName := szDestFileName is String ? StrPtr(szDestFileName) : szDestFileName
+        szSrcDir := szSrcDir is String ? StrPtr(szSrcDir) : szSrcDir
+        szDestDir := szDestDir is String ? StrPtr(szDestDir) : szDestDir
+        szCurDir := szCurDir is String ? StrPtr(szCurDir) : szCurDir
+        szTmpFile := szTmpFile is String ? StrPtr(szTmpFile) : szTmpFile
 
         result := DllCall("VERSION.dll\VerInstallFileA", "uint", uFlags, "ptr", szSrcFileName, "ptr", szDestFileName, "ptr", szSrcDir, "ptr", szDestDir, "ptr", szCurDir, "ptr", szTmpFile, "uint*", puTmpFileLen, "uint")
         return result
@@ -8893,26 +8964,26 @@ class FileSystem {
     /**
      * Installs the specified file based on information returned from the VerFindFile function. VerInstallFile decompresses the file, if necessary, assigns a unique filename, and checks for errors, such as outdated files.
      * @param {Integer} uFlags Type: <b>DWORD</b>
-     * @param {Pointer<Char>} szSrcFileName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szSrcFileName Type: <b>LPCTSTR</b>
      * 
      * The name of the file to be installed. This is the filename in the directory pointed to by the 
      * 					<i>szSrcDir</i> parameter; the filename can include only the filename and extension, not a path.
-     * @param {Pointer<Char>} szDestFileName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szDestFileName Type: <b>LPCTSTR</b>
      * 
      * The name <b>VerInstallFile</b> will give the new file upon installation. This file name may be different from the filename in the 
      * 					<i>szSrcFileName</i> directory. The new name should include only the file name and extension, not a path.
-     * @param {Pointer<Char>} szSrcDir Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szSrcDir Type: <b>LPCTSTR</b>
      * 
      * The name of the directory where the file can be found.
-     * @param {Pointer<Char>} szDestDir Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szDestDir Type: <b>LPCTSTR</b>
      * 
      * The name of the directory where the file should be installed. <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-verfindfilea">VerFindFile</a> returns this value in its 
      * 					<i>szDestDir</i> parameter.
-     * @param {Pointer<Char>} szCurDir Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szCurDir Type: <b>LPCTSTR</b>
      * 
      * The name of the directory where a preexisting version of this file can be found. <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-verfindfilea">VerFindFile</a> returns this value in its 
      * 					<i>szCurDir</i> parameter.
-     * @param {Pointer<Char>} szTmpFile Type: <b>LPTSTR</b>
+     * @param {PWSTR} szTmpFile Type: <b>LPTSTR</b>
      * 
      * The name of a temporary copy of the source file. The buffer should be at least <b>_MAX_PATH</b> characters long, although this is not required, and should be empty on input.
      * @param {Pointer<UInt32>} puTmpFileLen Type: <b>PUINT</b>
@@ -9190,12 +9261,12 @@ class FileSystem {
      * @since windows5.0
      */
     static VerInstallFileW(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, puTmpFileLen) {
-        szSrcFileName := szSrcFileName is String? StrPtr(szSrcFileName) : szSrcFileName
-        szDestFileName := szDestFileName is String? StrPtr(szDestFileName) : szDestFileName
-        szSrcDir := szSrcDir is String? StrPtr(szSrcDir) : szSrcDir
-        szDestDir := szDestDir is String? StrPtr(szDestDir) : szDestDir
-        szCurDir := szCurDir is String? StrPtr(szCurDir) : szCurDir
-        szTmpFile := szTmpFile is String? StrPtr(szTmpFile) : szTmpFile
+        szSrcFileName := szSrcFileName is String ? StrPtr(szSrcFileName) : szSrcFileName
+        szDestFileName := szDestFileName is String ? StrPtr(szDestFileName) : szDestFileName
+        szSrcDir := szSrcDir is String ? StrPtr(szSrcDir) : szSrcDir
+        szDestDir := szDestDir is String ? StrPtr(szDestDir) : szDestDir
+        szCurDir := szCurDir is String ? StrPtr(szCurDir) : szCurDir
+        szTmpFile := szTmpFile is String ? StrPtr(szTmpFile) : szTmpFile
 
         result := DllCall("VERSION.dll\VerInstallFileW", "uint", uFlags, "ptr", szSrcFileName, "ptr", szDestFileName, "ptr", szSrcDir, "ptr", szDestDir, "ptr", szCurDir, "ptr", szTmpFile, "uint*", puTmpFileLen, "uint")
         return result
@@ -9203,7 +9274,7 @@ class FileSystem {
 
     /**
      * Determines whether the operating system can retrieve version information for a specified file. If version information is available, GetFileVersionInfoSize returns the size, in bytes, of that information.
-     * @param {Pointer<Byte>} lptstrFilename Type: <b>LPCTSTR</b>
+     * @param {PSTR} lptstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file of interest. The function uses the search sequence specified by the  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
      * @param {Pointer<UInt32>} lpdwHandle Type: <b>LPDWORD</b>
@@ -9218,7 +9289,7 @@ class FileSystem {
      * @since windows5.0
      */
     static GetFileVersionInfoSizeA(lptstrFilename, lpdwHandle) {
-        lptstrFilename := lptstrFilename is String? StrPtr(lptstrFilename) : lptstrFilename
+        lptstrFilename := lptstrFilename is String ? StrPtr(lptstrFilename) : lptstrFilename
 
         A_LastError := 0
 
@@ -9231,7 +9302,7 @@ class FileSystem {
 
     /**
      * Determines whether the operating system can retrieve version information for a specified file. If version information is available, GetFileVersionInfoSize returns the size, in bytes, of that information.
-     * @param {Pointer<Char>} lptstrFilename Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lptstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file of interest. The function uses the search sequence specified by the  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
      * @param {Pointer<UInt32>} lpdwHandle Type: <b>LPDWORD</b>
@@ -9246,7 +9317,7 @@ class FileSystem {
      * @since windows5.0
      */
     static GetFileVersionInfoSizeW(lptstrFilename, lpdwHandle) {
-        lptstrFilename := lptstrFilename is String? StrPtr(lptstrFilename) : lptstrFilename
+        lptstrFilename := lptstrFilename is String ? StrPtr(lptstrFilename) : lptstrFilename
 
         A_LastError := 0
 
@@ -9259,7 +9330,7 @@ class FileSystem {
 
     /**
      * Retrieves version information for the specified file.
-     * @param {Pointer<Byte>} lptstrFilename Type: <b>LPCTSTR</b>
+     * @param {PSTR} lptstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file. If a full path is not specified, the function uses the search sequence specified by the  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
      * @param {Integer} dwLen Type: <b>DWORD</b>
@@ -9277,7 +9348,7 @@ class FileSystem {
      * Pointer to a buffer that receives the file-version information.
      * 
      * You can use this value in a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-verqueryvaluea">VerQueryValue</a> function to retrieve data from the buffer.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9288,11 +9359,11 @@ class FileSystem {
     static GetFileVersionInfoA(lptstrFilename, dwLen, lpData) {
         static dwHandle := 0 ;Reserved parameters must always be NULL
 
-        lptstrFilename := lptstrFilename is String? StrPtr(lptstrFilename) : lptstrFilename
+        lptstrFilename := lptstrFilename is String ? StrPtr(lptstrFilename) : lptstrFilename
 
         A_LastError := 0
 
-        result := DllCall("VERSION.dll\GetFileVersionInfoA", "ptr", lptstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "int")
+        result := DllCall("VERSION.dll\GetFileVersionInfoA", "ptr", lptstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9301,7 +9372,7 @@ class FileSystem {
 
     /**
      * Retrieves version information for the specified file.
-     * @param {Pointer<Char>} lptstrFilename Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lptstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file. If a full path is not specified, the function uses the search sequence specified by the  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
      * @param {Integer} dwLen Type: <b>DWORD</b>
@@ -9319,7 +9390,7 @@ class FileSystem {
      * Pointer to a buffer that receives the file-version information.
      * 
      * You can use this value in a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-verqueryvaluea">VerQueryValue</a> function to retrieve data from the buffer.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9330,11 +9401,11 @@ class FileSystem {
     static GetFileVersionInfoW(lptstrFilename, dwLen, lpData) {
         static dwHandle := 0 ;Reserved parameters must always be NULL
 
-        lptstrFilename := lptstrFilename is String? StrPtr(lptstrFilename) : lptstrFilename
+        lptstrFilename := lptstrFilename is String ? StrPtr(lptstrFilename) : lptstrFilename
 
         A_LastError := 0
 
-        result := DllCall("VERSION.dll\GetFileVersionInfoW", "ptr", lptstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "int")
+        result := DllCall("VERSION.dll\GetFileVersionInfoW", "ptr", lptstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9375,7 +9446,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpwstrFilename Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpwstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file of interest. The function uses the search sequence specified by the  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
      * @param {Pointer<UInt32>} lpdwHandle Type: <b>LPDWORD</b>
@@ -9392,7 +9463,7 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFileVersionInfoSizeExA(dwFlags, lpwstrFilename, lpdwHandle) {
-        lpwstrFilename := lpwstrFilename is String? StrPtr(lpwstrFilename) : lpwstrFilename
+        lpwstrFilename := lpwstrFilename is String ? StrPtr(lpwstrFilename) : lpwstrFilename
 
         A_LastError := 0
 
@@ -9437,7 +9508,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpwstrFilename Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpwstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file of interest. The function uses the search sequence specified by the  <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
      * @param {Pointer<UInt32>} lpdwHandle Type: <b>LPDWORD</b>
@@ -9454,7 +9525,7 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFileVersionInfoSizeExW(dwFlags, lpwstrFilename, lpdwHandle) {
-        lpwstrFilename := lpwstrFilename is String? StrPtr(lpwstrFilename) : lpwstrFilename
+        lpwstrFilename := lpwstrFilename is String ? StrPtr(lpwstrFilename) : lpwstrFilename
 
         A_LastError := 0
 
@@ -9510,7 +9581,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpwstrFilename Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpwstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file. If a full path is not specified, the function uses the search sequence specified by the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
      * @param {Integer} dwLen Type: <b>DWORD</b>
@@ -9527,7 +9598,7 @@ class FileSystem {
      * When this function returns, contains a pointer to a buffer that contains the file-version information.
      * 
      * You can use this value in a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-verqueryvaluea">VerQueryValue</a> function to retrieve data from the buffer.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9538,11 +9609,11 @@ class FileSystem {
     static GetFileVersionInfoExA(dwFlags, lpwstrFilename, dwLen, lpData) {
         static dwHandle := 0 ;Reserved parameters must always be NULL
 
-        lpwstrFilename := lpwstrFilename is String? StrPtr(lpwstrFilename) : lpwstrFilename
+        lpwstrFilename := lpwstrFilename is String ? StrPtr(lpwstrFilename) : lpwstrFilename
 
         A_LastError := 0
 
-        result := DllCall("VERSION.dll\GetFileVersionInfoExA", "uint", dwFlags, "ptr", lpwstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "int")
+        result := DllCall("VERSION.dll\GetFileVersionInfoExA", "uint", dwFlags, "ptr", lpwstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9594,7 +9665,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpwstrFilename Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpwstrFilename Type: <b>LPCTSTR</b>
      * 
      * The name of the file. If a full path is not specified, the function uses the search sequence specified by the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> function.
      * @param {Integer} dwLen Type: <b>DWORD</b>
@@ -9611,7 +9682,7 @@ class FileSystem {
      * When this function returns, contains a pointer to a buffer that contains the file-version information.
      * 
      * You can use this value in a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-verqueryvaluea">VerQueryValue</a> function to retrieve data from the buffer.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9622,11 +9693,11 @@ class FileSystem {
     static GetFileVersionInfoExW(dwFlags, lpwstrFilename, dwLen, lpData) {
         static dwHandle := 0 ;Reserved parameters must always be NULL
 
-        lpwstrFilename := lpwstrFilename is String? StrPtr(lpwstrFilename) : lpwstrFilename
+        lpwstrFilename := lpwstrFilename is String ? StrPtr(lpwstrFilename) : lpwstrFilename
 
         A_LastError := 0
 
-        result := DllCall("VERSION.dll\GetFileVersionInfoExW", "uint", dwFlags, "ptr", lpwstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "int")
+        result := DllCall("VERSION.dll\GetFileVersionInfoExW", "uint", dwFlags, "ptr", lpwstrFilename, "uint", dwHandle, "uint", dwLen, "ptr", lpData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9640,7 +9711,7 @@ class FileSystem {
      * The binary language identifier. For a complete list of the language identifiers, see <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifiers</a>.
      * 
      * For example, the description string associated with the language identifier 0x040A is "Spanish (Traditional Sort)". If the identifier is unknown, the <i>szLang</i> parameter points to a default string ("Language Neutral").
-     * @param {Pointer<Byte>} szLang Type: <b>LPTSTR</b>
+     * @param {PSTR} szLang Type: <b>LPTSTR</b>
      * 
      * The language specified by the <i>wLang</i> parameter.
      * @param {Integer} cchLang Type: <b>DWORD</b>
@@ -9655,7 +9726,7 @@ class FileSystem {
      * @since windows5.0
      */
     static VerLanguageNameA(wLang, szLang, cchLang) {
-        szLang := szLang is String? StrPtr(szLang) : szLang
+        szLang := szLang is String ? StrPtr(szLang) : szLang
 
         result := DllCall("KERNEL32.dll\VerLanguageNameA", "uint", wLang, "ptr", szLang, "uint", cchLang, "uint")
         return result
@@ -9668,7 +9739,7 @@ class FileSystem {
      * The binary language identifier. For a complete list of the language identifiers, see <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifiers</a>.
      * 
      * For example, the description string associated with the language identifier 0x040A is "Spanish (Traditional Sort)". If the identifier is unknown, the <i>szLang</i> parameter points to a default string ("Language Neutral").
-     * @param {Pointer<Char>} szLang Type: <b>LPTSTR</b>
+     * @param {PWSTR} szLang Type: <b>LPTSTR</b>
      * 
      * The language specified by the <i>wLang</i> parameter.
      * @param {Integer} cchLang Type: <b>DWORD</b>
@@ -9683,7 +9754,7 @@ class FileSystem {
      * @since windows5.0
      */
     static VerLanguageNameW(wLang, szLang, cchLang) {
-        szLang := szLang is String? StrPtr(szLang) : szLang
+        szLang := szLang is String ? StrPtr(szLang) : szLang
 
         result := DllCall("KERNEL32.dll\VerLanguageNameW", "uint", wLang, "ptr", szLang, "uint", cchLang, "uint")
         return result
@@ -9694,7 +9765,7 @@ class FileSystem {
      * @param {Pointer<Void>} pBlock Type: <b>LPCVOID</b>
      * 
      * The version-information resource returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-getfileversioninfoa">GetFileVersionInfo</a> function.
-     * @param {Pointer<Byte>} lpSubBlock Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpSubBlock Type: <b>LPCTSTR</b>
      * 
      * The version-information value to be retrieved. The string must consist of names separated by backslashes (\\) and it must have one of the following forms.
      * @param {Pointer<Void>} lplpBuffer Type: <b>LPVOID*</b>
@@ -9703,7 +9774,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} puLen Type: <b>PUINT</b>
      * 
      * When this method returns, contains a pointer to the size of the requested data pointed to by <i>lplpBuffer</i>: for version information values, the length in characters of the string stored at <i>lplpBuffer</i>; for translation array values, the size in bytes of the array stored at <i>lplpBuffer</i>; and for root block, the size in bytes of the structure.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the specified version-information structure exists, and version information is available, the return value is nonzero. If the address of the length buffer is zero, no value is available for the specified version-information name.
      * 
@@ -9712,9 +9783,9 @@ class FileSystem {
      * @since windows5.0
      */
     static VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen) {
-        lpSubBlock := lpSubBlock is String? StrPtr(lpSubBlock) : lpSubBlock
+        lpSubBlock := lpSubBlock is String ? StrPtr(lpSubBlock) : lpSubBlock
 
-        result := DllCall("VERSION.dll\VerQueryValueA", "ptr", pBlock, "ptr", lpSubBlock, "ptr", lplpBuffer, "uint*", puLen, "int")
+        result := DllCall("VERSION.dll\VerQueryValueA", "ptr", pBlock, "ptr", lpSubBlock, "ptr", lplpBuffer, "uint*", puLen, "ptr")
         return result
     }
 
@@ -9723,7 +9794,7 @@ class FileSystem {
      * @param {Pointer<Void>} pBlock Type: <b>LPCVOID</b>
      * 
      * The version-information resource returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-getfileversioninfoa">GetFileVersionInfo</a> function.
-     * @param {Pointer<Char>} lpSubBlock Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpSubBlock Type: <b>LPCTSTR</b>
      * 
      * The version-information value to be retrieved. The string must consist of names separated by backslashes (\\) and it must have one of the following forms.
      * @param {Pointer<Void>} lplpBuffer Type: <b>LPVOID*</b>
@@ -9732,7 +9803,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} puLen Type: <b>PUINT</b>
      * 
      * When this method returns, contains a pointer to the size of the requested data pointed to by <i>lplpBuffer</i>: for version information values, the length in characters of the string stored at <i>lplpBuffer</i>; for translation array values, the size in bytes of the array stored at <i>lplpBuffer</i>; and for root block, the size in bytes of the structure.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the specified version-information structure exists, and version information is available, the return value is nonzero. If the address of the length buffer is zero, no value is available for the specified version-information name.
      * 
@@ -9741,64 +9812,64 @@ class FileSystem {
      * @since windows5.0
      */
     static VerQueryValueW(pBlock, lpSubBlock, lplpBuffer, puLen) {
-        lpSubBlock := lpSubBlock is String? StrPtr(lpSubBlock) : lpSubBlock
+        lpSubBlock := lpSubBlock is String ? StrPtr(lpSubBlock) : lpSubBlock
 
-        result := DllCall("VERSION.dll\VerQueryValueW", "ptr", pBlock, "ptr", lpSubBlock, "ptr", lplpBuffer, "uint*", puLen, "int")
+        result := DllCall("VERSION.dll\VerQueryValueW", "ptr", pBlock, "ptr", lpSubBlock, "ptr", lplpBuffer, "uint*", puLen, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt64>} plsn1 
-     * @param {Pointer<UInt64>} plsn2 
-     * @returns {Integer} 
+     * @param {Pointer<CLS_LSN>} plsn1 
+     * @param {Pointer<CLS_LSN>} plsn2 
+     * @returns {BOOLEAN} 
      */
     static LsnEqual(plsn1, plsn2) {
-        result := DllCall("clfsw32.dll\LsnEqual", "uint*", plsn1, "uint*", plsn2, "char")
+        result := DllCall("clfsw32.dll\LsnEqual", "ptr", plsn1, "ptr", plsn2, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt64>} plsn1 
-     * @param {Pointer<UInt64>} plsn2 
-     * @returns {Integer} 
+     * @param {Pointer<CLS_LSN>} plsn1 
+     * @param {Pointer<CLS_LSN>} plsn2 
+     * @returns {BOOLEAN} 
      */
     static LsnLess(plsn1, plsn2) {
-        result := DllCall("clfsw32.dll\LsnLess", "uint*", plsn1, "uint*", plsn2, "char")
+        result := DllCall("clfsw32.dll\LsnLess", "ptr", plsn1, "ptr", plsn2, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt64>} plsn1 
-     * @param {Pointer<UInt64>} plsn2 
-     * @returns {Integer} 
+     * @param {Pointer<CLS_LSN>} plsn1 
+     * @param {Pointer<CLS_LSN>} plsn2 
+     * @returns {BOOLEAN} 
      */
     static LsnGreater(plsn1, plsn2) {
-        result := DllCall("clfsw32.dll\LsnGreater", "uint*", plsn1, "uint*", plsn2, "char")
+        result := DllCall("clfsw32.dll\LsnGreater", "ptr", plsn1, "ptr", plsn2, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt64>} plsn 
-     * @returns {Integer} 
+     * @param {Pointer<CLS_LSN>} plsn 
+     * @returns {BOOLEAN} 
      */
     static LsnNull(plsn) {
-        result := DllCall("clfsw32.dll\LsnNull", "uint*", plsn, "char")
+        result := DllCall("clfsw32.dll\LsnNull", "ptr", plsn, "ptr")
         return result
     }
 
     /**
      * Retrieves the logical container ID that is contained in a specified LSN.
-     * @param {Pointer<UInt64>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure from which the container ID is to be retrieved.
+     * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure from which the container ID is to be retrieved.
      * @returns {Integer} This function returns the logical container ID that is contained in <i>plsn</i>. The logical container ID is not necessarily the same as the ID of the physical container on stable storage.
      * @see https://docs.microsoft.com/windows/win32/api//clfsw32/nf-clfsw32-lsncontainer
      * @since windows6.0.6000
      */
     static LsnContainer(plsn) {
-        result := DllCall("clfsw32.dll\LsnContainer", "uint*", plsn, "uint")
+        result := DllCall("clfsw32.dll\LsnContainer", "ptr", plsn, "uint")
         return result
     }
 
@@ -9807,62 +9878,62 @@ class FileSystem {
      * @param {Integer} cidContainer The container ID. This value must be an integer between 0x0 and 0xFFFFFFFF.
      * @param {Integer} offBlock The block offset. This value must be a multiple of 512.
      * @param {Integer} cRecord The record sequence number. This value must be  an integer between  0 - 511.
-     * @returns {Integer} Returns a <a href="/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that represents the container ID, block offset, and record sequence number that is supplied by the caller.
+     * @returns {CLS_LSN} Returns a <a href="/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that represents the container ID, block offset, and record sequence number that is supplied by the caller.
      * @see https://docs.microsoft.com/windows/win32/api//clfsw32/nf-clfsw32-lsncreate
      * @since windows6.0.6000
      */
     static LsnCreate(cidContainer, offBlock, cRecord) {
-        result := DllCall("clfsw32.dll\LsnCreate", "uint", cidContainer, "uint", offBlock, "uint", cRecord, "uint")
+        result := DllCall("clfsw32.dll\LsnCreate", "uint", cidContainer, "uint", offBlock, "uint", cRecord, "ptr")
         return result
     }
 
     /**
      * Returns the sector-aligned block offset that is contained in the specified LSN.
-     * @param {Pointer<UInt64>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure from which the block offset is to be retrieved.
+     * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure from which the block offset is to be retrieved.
      * @returns {Integer} <b>LsnBlockOffset</b> returns the block offset that is contained in <i>plsn</i>.
      * @see https://docs.microsoft.com/windows/win32/api//clfsw32/nf-clfsw32-lsnblockoffset
      * @since windows6.0.6000
      */
     static LsnBlockOffset(plsn) {
-        result := DllCall("clfsw32.dll\LsnBlockOffset", "uint*", plsn, "uint")
+        result := DllCall("clfsw32.dll\LsnBlockOffset", "ptr", plsn, "uint")
         return result
     }
 
     /**
      * Retrieves the record sequence number that is contained in a specified LSN.
-     * @param {Pointer<UInt64>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure from which the record sequence number is to be retrieved.
+     * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure from which the record sequence number is to be retrieved.
      * @returns {Integer} The record sequence number that is contained in <i>plsn</i>.
      * @see https://docs.microsoft.com/windows/win32/api//clfsw32/nf-clfsw32-lsnrecordsequence
      * @since windows6.0.6000
      */
     static LsnRecordSequence(plsn) {
-        result := DllCall("clfsw32.dll\LsnRecordSequence", "uint*", plsn, "uint")
+        result := DllCall("clfsw32.dll\LsnRecordSequence", "ptr", plsn, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt64>} plsn 
-     * @returns {Integer} 
+     * @param {Pointer<CLS_LSN>} plsn 
+     * @returns {BOOLEAN} 
      */
     static LsnInvalid(plsn) {
-        result := DllCall("clfsw32.dll\LsnInvalid", "uint*", plsn, "char")
+        result := DllCall("clfsw32.dll\LsnInvalid", "ptr", plsn, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt64>} plsn 
-     * @returns {Integer} 
+     * @param {Pointer<CLS_LSN>} plsn 
+     * @returns {CLS_LSN} 
      */
     static LsnIncrement(plsn) {
-        result := DllCall("clfsw32.dll\LsnIncrement", "uint*", plsn, "uint")
+        result := DllCall("clfsw32.dll\LsnIncrement", "ptr", plsn, "ptr")
         return result
     }
 
     /**
      * Creates or opens a log.
-     * @param {Pointer<Char>} pszLogFileName The name of the log.
+     * @param {PWSTR} pszLogFileName The name of the log.
      * 
      * This  name is specified when creating the log  by using 
      *        <b>CreateLogFile</b>. The following example identifies the 
@@ -9981,7 +10052,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the log.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the log.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *       error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -9991,7 +10062,7 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateLogFile(pszLogFileName, fDesiredAccess, dwShareMode, psaLogFile, fCreateDisposition, fFlagsAndAttributes) {
-        pszLogFileName := pszLogFileName is String? StrPtr(pszLogFileName) : pszLogFileName
+        pszLogFileName := pszLogFileName is String ? StrPtr(pszLogFileName) : pszLogFileName
 
         A_LastError := 0
 
@@ -9999,13 +10070,13 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Marks the specified log for deletion. The log is actually deleted when all handles, marshaling areas, and read contexts to the log are closed. If the log is a physical log, its underlying containers are deleted.
-     * @param {Pointer<Void>} hLog A handle to an open log that is obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. The log must have been created with DELETE access or you cannot delete the log.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} hLog A handle to an open log that is obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. The log must have been created with DELETE access or you cannot delete the log.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -10014,9 +10085,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static DeleteLogByHandle(hLog) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\DeleteLogByHandle", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\DeleteLogByHandle", "ptr", hLog, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10025,7 +10098,7 @@ class FileSystem {
 
     /**
      * Marks a log for deletion. The log is actually deleted when all handles, marshaling areas, and read contexts to the log are closed. If the log is a physical log, its underlying containers are deleted.
-     * @param {Pointer<Char>} pszLogFileName The name of the log. 
+     * @param {PWSTR} pszLogFileName The name of the log. 
      * 
      * This  name is specified when creating the log  by using  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. The following example identifies the format  to use:
      * 
@@ -10037,7 +10110,7 @@ class FileSystem {
      * 
      *   For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/clfs/log-types">Log Types</a>.
      * @param {Pointer<Void>} pvReserved This parameter is reserved and should be set to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -10046,11 +10119,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static DeleteLogFile(pszLogFileName, pvReserved) {
-        pszLogFileName := pszLogFileName is String? StrPtr(pszLogFileName) : pszLogFileName
+        pszLogFileName := pszLogFileName is String ? StrPtr(pszLogFileName) : pszLogFileName
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\DeleteLogFile", "ptr", pszLogFileName, "ptr", pvReserved, "int")
+        result := DllCall("clfsw32.dll\DeleteLogFile", "ptr", pszLogFileName, "ptr", pvReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10059,7 +10132,7 @@ class FileSystem {
 
     /**
      * Adds a container to the physical log that is associated with the log handle�if the calling process has write access to the .blf file and the ability to create files in the target directory of the container.
-     * @param {Pointer<Void>} hLog The handle to an open log. 
+     * @param {HANDLE} hLog The handle to an open log. 
      * 
      * The handle must  be   obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with write access to the log. The client application must have  write access to the .blf file, and the ability to create files in the target directory of a container.
      * @param {Pointer<UInt64>} pcbContainer The optional parameter that specifies the size of the container, in bytes.  
@@ -10072,9 +10145,9 @@ class FileSystem {
      * Log container sizes are multiples of the log region size  (512 KB).  When you add a container to a new file, the <b>AddLogContainer</b> function rounds the size of the container up to the next 512 KB boundary, and returns that size in the value pointed to by <i>pcbContainer</i>.  
      * 
      * Similarly,  if the log already has at least one container and the value of <i>*pcbContainer</i> is at least as large as the current container size, the function creates all containers with the current internal size and returns that size in <i>*pcbContainer</i>.
-     * @param {Pointer<Char>} pwszContainerPath A pointer to a null-terminated string that contains a valid path for the new container on a log volume.
+     * @param {PWSTR} pwszContainerPath A pointer to a null-terminated string that contains a valid path for the new container on a log volume.
      * @param {Pointer<Void>} pReserved Reserved.  Set <i>pReserved</i> to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10085,11 +10158,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static AddLogContainer(hLog, pcbContainer, pwszContainerPath, pReserved) {
-        pwszContainerPath := pwszContainerPath is String? StrPtr(pwszContainerPath) : pwszContainerPath
+        pwszContainerPath := pwszContainerPath is String ? StrPtr(pwszContainerPath) : pwszContainerPath
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\AddLogContainer", "ptr", hLog, "uint*", pcbContainer, "ptr", pwszContainerPath, "ptr", pReserved, "int")
+        result := DllCall("clfsw32.dll\AddLogContainer", "ptr", hLog, "uint*", pcbContainer, "ptr", pwszContainerPath, "ptr", pReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10098,7 +10172,7 @@ class FileSystem {
 
     /**
      * Adds multiple log containers to the physical log that is associated with the log handle�if the calling process has access to the log handle.
-     * @param {Pointer<Void>} hLog The handle to an open log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions to add a log container. 
+     * @param {HANDLE} hLog The handle to an open log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions to add a log container. 
      * 
      * The file can be dedicated or multiplexed.
      * @param {Integer} cContainer The number of containers  in the <i>rgwszContainerPath</i> array.  
@@ -10114,11 +10188,11 @@ class FileSystem {
      * Log container sizes are multiples of the log region size  (512 KB).  When you add a container to a new file, the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainer">AddLogContainer</a> function rounds the size of the container up to the next 512 KB boundary, and returns that size in the value pointed to by <i>pcbContainer</i>.  
      * 
      * Similarly,  if the log already has at least one container and the value of <i>*pcbContainer</i> is at least as large as the current container size, the function creates all containers with the current internal size and returns that size in <i>*pcbContainer</i>.
-     * @param {Pointer<Char>} rgwszContainerPath An array of   <i>cContainer</i> path names for containers.  
+     * @param {Pointer<PWSTR>} rgwszContainerPath An array of   <i>cContainer</i> path names for containers.  
      * 
      * Each element in the array is a wide-character string that contains a valid path for the new container in the log volume.
      * @param {Pointer<Void>} pReserved Reserved.  Set <i>Reserved</i> to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero, which indicates that all containers are added successfully to the log.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero, which indicates that all containers are added successfully to the log.
      * 
      * If the function fails, the return value is zero, which indicates that none of the containers are added.  To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -10127,9 +10201,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static AddLogContainerSet(hLog, cContainer, pcbContainer, rgwszContainerPath, pReserved) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\AddLogContainerSet", "ptr", hLog, "ushort", cContainer, "uint*", pcbContainer, "ptr", rgwszContainerPath, "ptr", pReserved, "int")
+        result := DllCall("clfsw32.dll\AddLogContainerSet", "ptr", hLog, "ushort", cContainer, "uint*", pcbContainer, "ptr", rgwszContainerPath, "ptr", pReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10138,15 +10214,15 @@ class FileSystem {
 
     /**
      * Removes one container from a log that is associated with a dedicated or multiplexed log handle.
-     * @param {Pointer<Void>} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.
-     * @param {Pointer<Char>} pwszContainerPath A pointer to a wide character string that contains a  path for a  log container that is created by either  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainer">AddLogContainer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainerset">AddLogContainerSet</a>.
-     * @param {Integer} fForce The deletion flag  that determines when and how a container is deleted.
+     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.
+     * @param {PWSTR} pwszContainerPath A pointer to a wide character string that contains a  path for a  log container that is created by either  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainer">AddLogContainer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainerset">AddLogContainerSet</a>.
+     * @param {BOOL} fForce The deletion flag  that determines when and how a container is deleted.
      * 
      * If <i>fForce</i> is <b>TRUE</b>, and the container is part of the active log region, the container is not deleted and an error <b>ERROR_LOG_CANT_DELETE</b> is returned.
      * 
      * If <b>FALSE</b>, the container is deleted when the container is no longer a part of the active log region.
      * @param {Pointer<Void>} pReserved This parameter is reserved and should be  set to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10157,11 +10233,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RemoveLogContainer(hLog, pwszContainerPath, fForce, pReserved) {
-        pwszContainerPath := pwszContainerPath is String? StrPtr(pwszContainerPath) : pwszContainerPath
+        pwszContainerPath := pwszContainerPath is String ? StrPtr(pwszContainerPath) : pwszContainerPath
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RemoveLogContainer", "ptr", hLog, "ptr", pwszContainerPath, "int", fForce, "ptr", pReserved, "int")
+        result := DllCall("clfsw32.dll\RemoveLogContainer", "ptr", hLog, "ptr", pwszContainerPath, "ptr", fForce, "ptr", pReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10170,22 +10247,22 @@ class FileSystem {
 
     /**
      * Removes multiple containers from a log that is associated with a dedicated or multiplexed log handle.
-     * @param {Pointer<Void>} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * The log handle must have administrative permission to add a log container, and can refer to either a dedicated or multiplexed log.
      * @param {Integer} cContainer The number of container path names in an array that is pointed to by <i>rgwszContainerPath</i>.  
      * 
      * This value must be nonzero.
-     * @param {Pointer<Char>} rgwszContainerPath An array of pointers to container path names that contain  <i>cContainers</i> pointers.  
+     * @param {Pointer<PWSTR>} rgwszContainerPath An array of pointers to container path names that contain  <i>cContainers</i> pointers.  
      * 
      * Each path name is a wide character string that identifies  a container  created by either <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainer">AddLogContainer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainerset">AddLogContainerSet</a>.
-     * @param {Integer} fForce The deletion flag  that determines when and how a container is deleted.
+     * @param {BOOL} fForce The deletion flag  that determines when and how a container is deleted.
      * 
      * If <i>fForce</i> is <b>TRUE</b>, and the container is part of the active log region, the container is not deleted and an error <b>ERROR_LOG_CANT_DELETE</b> is returned.
      * 
      * If <b>FALSE</b>, the container is deleted when the container is no longer a part of the active log region.
      * @param {Pointer<Void>} pReserved Reserved.  Set <i>pReserved</i> to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10196,9 +10273,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RemoveLogContainerSet(hLog, cContainer, rgwszContainerPath, fForce, pReserved) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RemoveLogContainerSet", "ptr", hLog, "ushort", cContainer, "ptr", rgwszContainerPath, "int", fForce, "ptr", pReserved, "int")
+        result := DllCall("clfsw32.dll\RemoveLogContainerSet", "ptr", hLog, "ushort", cContainer, "ptr", rgwszContainerPath, "ptr", fForce, "ptr", pReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10207,16 +10286,16 @@ class FileSystem {
 
     /**
      * Sets the last archived log sequence number (LSN) or archive tail of an archivable log.
-     * @param {Pointer<Void>} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * The log handle can refer to a dedicated or multiplexed log.
-     * @param {Pointer<UInt64>} plsnArchiveTail A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies a valid physical LSN in the log.
+     * @param {Pointer<CLS_LSN>} plsnArchiveTail A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies a valid physical LSN in the log.
      * 
      * 
      * <div class="alert"><b>Note</b>  For handles to both a physical log or a log stream, <i>plsnArchiveTail</i> is a physical LSN, because it refers to a record address in the physical log.</div>
      * <div> </div>
      * @param {Pointer<Void>} pReserved This parameter is reserved and should be set to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10227,9 +10306,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetLogArchiveTail(hLog, plsnArchiveTail, pReserved) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetLogArchiveTail", "ptr", hLog, "uint*", plsnArchiveTail, "ptr", pReserved, "int")
+        result := DllCall("clfsw32.dll\SetLogArchiveTail", "ptr", hLog, "ptr", plsnArchiveTail, "ptr", pReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10238,14 +10319,14 @@ class FileSystem {
 
     /**
      * This function has been deprecated. Use TruncateLog instead.
-     * @param {Pointer<Void>} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * The log handle must refer to a dedicated log.
-     * @param {Pointer<UInt64>} plsnEnd A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the new end of a log.  
+     * @param {Pointer<CLS_LSN>} plsnEnd A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the new end of a log.  
      * 
      * The LSN must be between the base log sequence number (LSN) of the log and the last LSN of the log.
      * @param {Pointer<OVERLAPPED>} lpOverlapped Reserved.  Set <i>lpOverlapped</i> to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10254,9 +10335,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetEndOfLog(hLog, plsnEnd, lpOverlapped) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetEndOfLog", "ptr", hLog, "uint*", plsnEnd, "ptr", lpOverlapped, "int")
+        result := DllCall("clfsw32.dll\SetEndOfLog", "ptr", hLog, "ptr", plsnEnd, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10266,11 +10349,11 @@ class FileSystem {
     /**
      * Truncates the log. The function sets the end of the log to the specified value.
      * @param {Pointer<Void>} pvMarshal A pointer to the opaque marshaling context that is allocated by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogmarshallingarea">CreateLogMarshallingArea</a> function.
-     * @param {Pointer<UInt64>} plsnEnd A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the new end of a log.  
+     * @param {Pointer<CLS_LSN>} plsnEnd A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the new end of a log.  
      * 
      * The LSN must be between the base log sequence number (LSN) of the log and the last LSN of the log.
      * @param {Pointer<OVERLAPPED>} lpOverlapped Reserved.  Set <i>Reserved</i> to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10281,7 +10364,7 @@ class FileSystem {
     static TruncateLog(pvMarshal, plsnEnd, lpOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\TruncateLog", "ptr", pvMarshal, "uint*", plsnEnd, "ptr", lpOverlapped, "int")
+        result := DllCall("clfsw32.dll\TruncateLog", "ptr", pvMarshal, "ptr", plsnEnd, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10290,7 +10373,7 @@ class FileSystem {
 
     /**
      * Creates a scan context to use with ScanLogContainers to enumerate all log containers that are associated with a log, and performs the first scan.
-     * @param {Pointer<Void>} hLog A  handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions  to scan the log containers.  
+     * @param {HANDLE} hLog A  handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions  to scan the log containers.  
      * 
      * The file can be  a dedicated or multiplexed log.
      * @param {Integer} cFromContainer The container where  the scan is to be started.  
@@ -10349,7 +10432,7 @@ class FileSystem {
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that is required for asynchronous operation. 
      * 
      * This parameter can be <b>NULL</b> if an asynchronous operation is not used.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10360,9 +10443,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateLogContainerScanContext(hLog, cFromContainer, cContainers, eScanMode, pcxScan, pOverlapped) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CreateLogContainerScanContext", "ptr", hLog, "uint", cFromContainer, "uint", cContainers, "char", eScanMode, "ptr", pcxScan, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\CreateLogContainerScanContext", "ptr", hLog, "uint", cFromContainer, "uint", cContainers, "char", eScanMode, "ptr", pcxScan, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10429,7 +10514,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pReserved Reserved.  Set <i>pReserved</i> to <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10442,7 +10527,7 @@ class FileSystem {
     static ScanLogContainers(pcxScan, eScanMode, pReserved) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ScanLogContainers", "ptr", pcxScan, "char", eScanMode, "ptr", pReserved, "int")
+        result := DllCall("clfsw32.dll\ScanLogContainers", "ptr", pcxScan, "char", eScanMode, "ptr", pReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10459,7 +10544,7 @@ class FileSystem {
      * @param {Pointer<Int64>} pcbAlignReservation A pointer to a variable in which the function returns the number of   sector-aligned byte space to be reserved in the log—after being given the number of records  that  <i>cRecords</i> specifies and the size of reservations specified in the <i>rgcbReservation</i> array.
      * 
      *   The value returned in <i>*pcbAlignReservation</i> is used as input to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-allocreservedlog">AllocReservedLog</a>. If  <b>AllocReservedLog</b> succeeds, this value is always greater than zero (0).  If <b>AllocReservedLog</b> fails, the value is zero (0).
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -10470,7 +10555,7 @@ class FileSystem {
     static AlignReservedLog(pvMarshal, cReservedRecords, rgcbReservation, pcbAlignReservation) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\AlignReservedLog", "ptr", pvMarshal, "uint", cReservedRecords, "int64*", rgcbReservation, "int64*", pcbAlignReservation, "int")
+        result := DllCall("clfsw32.dll\AlignReservedLog", "ptr", pvMarshal, "uint", cReservedRecords, "int64*", rgcbReservation, "int64*", pcbAlignReservation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10486,7 +10571,7 @@ class FileSystem {
      * @param {Pointer<Int64>} pcbAdjustment The size of the sector-aligned space reservation that is associated with the number of records specified in <i>cReservedRecords</i>, in bytes.  
      * 
      * This parameter must be the aligned reservation size  that  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-alignreservedlog">AlignReservedLog</a> returns in <i>*pcbAlignReservation</i>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -10497,7 +10582,7 @@ class FileSystem {
     static AllocReservedLog(pvMarshal, cReservedRecords, pcbAdjustment) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\AllocReservedLog", "ptr", pvMarshal, "uint", cReservedRecords, "int64*", pcbAdjustment, "int")
+        result := DllCall("clfsw32.dll\AllocReservedLog", "ptr", pvMarshal, "uint", cReservedRecords, "int64*", pcbAdjustment, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10527,7 +10612,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-allocreservedlog">AllocReservedLog</a>
      * </li>
      * </ul>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10538,7 +10623,7 @@ class FileSystem {
     static FreeReservedLog(pvMarshal, cReservedRecords, pcbAdjustment) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\FreeReservedLog", "ptr", pvMarshal, "uint", cReservedRecords, "int64*", pcbAdjustment, "int")
+        result := DllCall("clfsw32.dll\FreeReservedLog", "ptr", pvMarshal, "uint", cReservedRecords, "int64*", pcbAdjustment, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10547,14 +10632,14 @@ class FileSystem {
 
     /**
      * Returns a buffer that contains metadata about a specified log and its current state, which is defined by the CLFS_INFORMATION structure.
-     * @param {Pointer<Void>} hLog A handle to an open log that is obtained from a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog A handle to an open log that is obtained from a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * The log handle can refer to a dedicated or multiplexed log.
      * @param {Pointer<CLS_INFORMATION>} pinfoBuffer A pointer to a user-allocated <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_information">CLFS_INFORMATION</a> structure that receives the log metadata.
      * @param {Pointer<UInt32>} cbBuffer A pointer to a variable that on input specifies the size, in bytes, of the metadata buffer pointed to by <i>pinfoBuffer</i>.
      * 
      *  On output, it specifies the number of bytes that are actually copied into <i>pinfoBuffer</i>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10565,9 +10650,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetLogFileInformation(hLog, pinfoBuffer, cbBuffer) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\GetLogFileInformation", "ptr", hLog, "ptr", pinfoBuffer, "uint*", cbBuffer, "int")
+        result := DllCall("clfsw32.dll\GetLogFileInformation", "ptr", hLog, "ptr", pinfoBuffer, "uint*", cbBuffer, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10576,10 +10663,10 @@ class FileSystem {
 
     /**
      * Enables or disables log archive support for a specified log.
-     * @param {Pointer<Void>} hLog A handle to the log that is obtained from 
+     * @param {HANDLE} hLog A handle to the log that is obtained from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.
      * @param {Integer} eMode 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -10588,9 +10675,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetLogArchiveMode(hLog, eMode) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetLogArchiveMode", "ptr", hLog, "int", eMode, "int")
+        result := DllCall("clfsw32.dll\SetLogArchiveMode", "ptr", hLog, "int", eMode, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10602,7 +10691,7 @@ class FileSystem {
      * @param {Pointer<Void>} pvMarshal A pointer to a   marshaling context that is  allocated by using the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogmarshallingarea">CreateLogMarshallingArea</a> function.
      * @param {Pointer<Void>} ppvRestartBuffer A pointer to a variable that receives a pointer to the restart data in the log I/O block.
      * @param {Pointer<UInt32>} pcbRestartBuffer A pointer to a variable that receives the amount of restart data.
-     * @param {Pointer<UInt64>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the log sequence  number (LSN) of the restart area.
+     * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the log sequence  number (LSN) of the restart area.
      * @param {Pointer<Void>} ppvContext A pointer to a variable that receives a pointer to a system-allocated read context  when a read is successful.  
      * 
      * If the function defers completion of an operation, it    returns a valid read-context pointer and an error status of <b>ERROR_IO_PENDING</b>.  On all other errors, the read-context pointer is <b>NULL</b>.  For more information about handling deferred completion of the function, see the Remarks section of this topic. 
@@ -10614,7 +10703,7 @@ class FileSystem {
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that is required for asynchronous operation. 
      * 
      * This parameter can be <b>NULL</b> if an asynchronous operation is not used.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10627,7 +10716,7 @@ class FileSystem {
     static ReadLogRestartArea(pvMarshal, ppvRestartBuffer, pcbRestartBuffer, plsn, ppvContext, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadLogRestartArea", "ptr", pvMarshal, "ptr", ppvRestartBuffer, "uint*", pcbRestartBuffer, "uint*", plsn, "ptr", ppvContext, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadLogRestartArea", "ptr", pvMarshal, "ptr", ppvRestartBuffer, "uint*", pcbRestartBuffer, "ptr", plsn, "ptr", ppvContext, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10641,11 +10730,11 @@ class FileSystem {
      *   Even when those functions return <b>ERROR_IO_PENDING</b>, they still return a pointer to a valid read context. For information about  asynchronous completion, see the Remarks section of this topic.
      * @param {Pointer<Void>} ppvRestartBuffer A pointer to a variable that receives a pointer to the restart data.
      * @param {Pointer<UInt32>} pcbRestartBuffer A pointer to a variable that receives the size of the restart data at <i>*ppvRestartBuffer</i>, in bytes.
-     * @param {Pointer<UInt64>} plsnRestart A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the log sequence number (LSN) of the restart area  that   this function returns.
+     * @param {Pointer<CLS_LSN>} plsnRestart A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the log sequence number (LSN) of the restart area  that   this function returns.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  is required for asynchronous operation. 
      * 
      * This parameter can be <b>NULL</b> if asynchronous operation is not used.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10658,7 +10747,7 @@ class FileSystem {
     static ReadPreviousLogRestartArea(pvReadContext, ppvRestartBuffer, pcbRestartBuffer, plsnRestart, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadPreviousLogRestartArea", "ptr", pvReadContext, "ptr", ppvRestartBuffer, "uint*", pcbRestartBuffer, "uint*", plsnRestart, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadPreviousLogRestartArea", "ptr", pvReadContext, "ptr", ppvRestartBuffer, "uint*", pcbRestartBuffer, "ptr", plsnRestart, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10670,16 +10759,16 @@ class FileSystem {
      * @param {Pointer<Void>} pvMarshal A pointer to the   marshaling context that is allocated by using the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogmarshallingarea">CreateLogMarshallingArea</a> function.
      * @param {Pointer<Void>} pvRestartBuffer A pointer to a  buffer that contains restart data.
      * @param {Integer} cbRestartBuffer The size of <i>pvRestartBuffer</i>, in bytes.
-     * @param {Pointer<UInt64>} plsnBase A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the new base LSN of the log after successfully writing the restart area.  
+     * @param {Pointer<CLS_LSN>} plsnBase A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the new base LSN of the log after successfully writing the restart area.  
      * 
      * This value cannot be outside the range of the active log. It must be at least the value of the current base LSN, and not greater than the LSN that was returned in the <i>lastLSN</i> parameter from the latest call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-reserveandappendlog">ReserveAndAppendLog</a>.  If you omit this optional parameter, the base LSN  does not change.
      * @param {Integer} fFlags The flags that specify the behavior of this function.
      * @param {Pointer<UInt32>} pcbWritten A pointer to a variable that receives the number of bytes that are  written when an operation completes.
-     * @param {Pointer<UInt64>} plsnNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the restart area that is written.
+     * @param {Pointer<CLS_LSN>} plsnNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the restart area that is written.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. 
      * 
      * This parameter can be <b>NULL</b> if an asynchronous operation is not used.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10692,7 +10781,7 @@ class FileSystem {
     static WriteLogRestartArea(pvMarshal, pvRestartBuffer, cbRestartBuffer, plsnBase, fFlags, pcbWritten, plsnNext, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\WriteLogRestartArea", "ptr", pvMarshal, "ptr", pvRestartBuffer, "uint", cbRestartBuffer, "uint*", plsnBase, "uint", fFlags, "uint*", pcbWritten, "uint*", plsnNext, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\WriteLogRestartArea", "ptr", pvMarshal, "ptr", pvRestartBuffer, "uint", cbRestartBuffer, "ptr", plsnBase, "uint", fFlags, "uint*", pcbWritten, "ptr", plsnNext, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10705,24 +10794,24 @@ class FileSystem {
      * @param {Pointer<UInt32>} pcbRecordNumber 
      * @param {Pointer<Int64>} pcbUserReservation 
      * @param {Pointer<Int64>} pcbCommitReservation 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetLogReservationInfo(pvMarshal, pcbRecordNumber, pcbUserReservation, pcbCommitReservation) {
-        result := DllCall("clfsw32.dll\GetLogReservationInfo", "ptr", pvMarshal, "uint*", pcbRecordNumber, "int64*", pcbUserReservation, "int64*", pcbCommitReservation, "int")
+        result := DllCall("clfsw32.dll\GetLogReservationInfo", "ptr", pvMarshal, "uint*", pcbRecordNumber, "int64*", pcbUserReservation, "int64*", pcbCommitReservation, "ptr")
         return result
     }
 
     /**
      * Advances the base log sequence number (LSN) of a log stream to the specified LSN.
      * @param {Pointer<Void>} pvMarshal A pointer to the marshaling context  that  a successful call to  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogmarshallingarea">CreateLogMarshallingArea</a> returns.
-     * @param {Pointer<UInt64>} plsnBase The new base LSN for the log that is specified in <i>pvMarshal</i>.  
+     * @param {Pointer<CLS_LSN>} plsnBase The new base LSN for the log that is specified in <i>pvMarshal</i>.  
      * 
      * This LSN must be in the range between the current base LSN and the last LSN of the log, inclusively.
      * @param {Integer} fFlags This parameter is not implemented at this time, and must be zero.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that is required for asynchronous operation. 
      * 
      * If asynchronous operation is not used, this parameter can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10735,7 +10824,7 @@ class FileSystem {
     static AdvanceLogBase(pvMarshal, plsnBase, fFlags, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\AdvanceLogBase", "ptr", pvMarshal, "uint*", plsnBase, "uint", fFlags, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\AdvanceLogBase", "ptr", pvMarshal, "ptr", plsnBase, "uint", fFlags, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10744,10 +10833,10 @@ class FileSystem {
 
     /**
      * Resets the log file and then shuts the log.
-     * @param {Pointer<Void>} hLog A handle to a dedicated or multiplexed log. 
+     * @param {HANDLE} hLog A handle to a dedicated or multiplexed log. 
      * 
      * This handle is returned by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  It is invalidated on successful completion of the call. No other operations that use this handle, or a derivative of this handle, can be called after this function has returned.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -10756,9 +10845,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CloseAndResetLogFile(hLog) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CloseAndResetLogFile", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\CloseAndResetLogFile", "ptr", hLog, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10767,7 +10858,7 @@ class FileSystem {
 
     /**
      * Creates a marshaling area for a log, and when successful it returns a marshaling context. Before creating a marshaling area, the log must have at least one container.
-     * @param {Pointer<Void>} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * The log handle  can  refer to a dedicated or multiplexed log.
      * @param {Pointer<CLFS_BLOCK_ALLOCATION>} pfnAllocBuffer The callback function that allocates memory for log blocks.  
@@ -10801,7 +10892,7 @@ class FileSystem {
      * @param {Pointer<Void>} ppvMarshal A pointer to the  marshaling context  that CLFS  allocates when <b>CreateLogMarshallingArea</b> completes successfully.  
      * 
      * This context must be used with all read, append, write, and flush operations to log marshaling areas.  All operations that access marshaling areas by using a marshaling context are thread-safe. This parameter is <b>NULL</b> if the operation is not successful.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10812,9 +10903,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateLogMarshallingArea(hLog, pfnAllocBuffer, pfnFreeBuffer, pvBlockAllocContext, cbMarshallingBuffer, cMaxWriteBuffers, cMaxReadBuffers, ppvMarshal) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, "ptr", pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, "ptr", ppvMarshal, "int")
+        result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, "ptr", pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, "ptr", ppvMarshal, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10824,7 +10917,7 @@ class FileSystem {
     /**
      * Deletes a marshaling area that is created by a successful call to CreateLogMarshallingArea.
      * @param {Pointer<Void>} pvMarshal A pointer to the opaque marshaling context allocated by using the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogmarshallingarea">CreateLogMarshallingArea</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -10835,7 +10928,7 @@ class FileSystem {
     static DeleteLogMarshallingArea(pvMarshal) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\DeleteLogMarshallingArea", "ptr", pvMarshal, "int")
+        result := DllCall("clfsw32.dll\DeleteLogMarshallingArea", "ptr", pvMarshal, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10851,8 +10944,8 @@ class FileSystem {
      * @param {Integer} cWriteEntries The number of write entries  in the <i>rgWriteEntries</i>  array. 
      * 
      * If this value is nonzero, you must specify a buffer in the <i>rgWriteEntries</i> parameter.
-     * @param {Pointer<UInt64>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the next record in the undo-chain.
-     * @param {Pointer<UInt64>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the previous record in the previous-chain.
+     * @param {Pointer<CLS_LSN>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the next record in the undo-chain.
+     * @param {Pointer<CLS_LSN>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the previous record in the previous-chain.
      * @param {Integer} cReserveRecords The number of record sizes in the <i>rgcbReservation</i> array.
      * @param {Pointer<Int64>} rgcbReservation A pointer to an array of reservation sizes for each record  that  the <i>cReserveRecords</i> parameter specifies.  
      * 
@@ -10860,11 +10953,11 @@ class FileSystem {
      * 
      * The actual space that is reserved for each record, including required overhead, is returned in the individual array elements on successful completion. These values can  be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-freereservedlog">FreeReservedLog</a>  function to adjust space that is reserved in the marshaling area.
      * @param {Integer} fFlags The flags that specify the behavior of this function.
-     * @param {Pointer<UInt64>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN  of the appended record.
+     * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN  of the appended record.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. 
      * 
      * This parameter can be <b>NULL</b> if asynchronous operation is not used.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10877,7 +10970,7 @@ class FileSystem {
     static ReserveAndAppendLog(pvMarshal, rgWriteEntries, cWriteEntries, plsnUndoNext, plsnPrevious, cReserveRecords, rgcbReservation, fFlags, plsn, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReserveAndAppendLog", "ptr", pvMarshal, "ptr", rgWriteEntries, "uint", cWriteEntries, "uint*", plsnUndoNext, "uint*", plsnPrevious, "uint", cReserveRecords, "int64*", rgcbReservation, "uint", fFlags, "uint*", plsn, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReserveAndAppendLog", "ptr", pvMarshal, "ptr", rgWriteEntries, "uint", cWriteEntries, "ptr", plsnUndoNext, "ptr", plsnPrevious, "uint", cReserveRecords, "int64*", rgcbReservation, "uint", fFlags, "ptr", plsn, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10896,8 +10989,8 @@ class FileSystem {
      * @param {Integer} cbEntryAlignment The byte alignment for each write entry in the <i>rgWriteEntries</i> parameter.
      * 
      * Specify 1 (one) for a simple concatenation. The <i>cbWriteEntryAlignment</i> parameter must be nonzero.
-     * @param {Pointer<UInt64>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the next record in the undo-chain.
-     * @param {Pointer<UInt64>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the previous record in the previous-chain.
+     * @param {Pointer<CLS_LSN>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the next record in the undo-chain.
+     * @param {Pointer<CLS_LSN>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the previous record in the previous-chain.
      * @param {Integer} cReserveRecords The number of record sizes in the <i>rgcbReservation</i> array.
      * @param {Pointer<Int64>} rgcbReservation A pointer to an array of reservation sizes for each record  that  the <i>cReserveRecords</i> parameter specifies.  
      * 
@@ -10905,11 +10998,11 @@ class FileSystem {
      * 
      * The actual space that is reserved for each record, including required overhead, is returned in the individual array elements on successful completion. These values can  be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-freereservedlog">FreeReservedLog</a>  function to adjust space that is reserved in the marshaling area.
      * @param {Integer} fFlags The flags that specify the behavior of this function.
-     * @param {Pointer<UInt64>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN  of the appended record.
+     * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN  of the appended record.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. 
      * 
      * This parameter can be <b>NULL</b> if asynchronous operation is not used.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10920,7 +11013,7 @@ class FileSystem {
     static ReserveAndAppendLogAligned(pvMarshal, rgWriteEntries, cWriteEntries, cbEntryAlignment, plsnUndoNext, plsnPrevious, cReserveRecords, rgcbReservation, fFlags, plsn, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReserveAndAppendLogAligned", "ptr", pvMarshal, "ptr", rgWriteEntries, "uint", cWriteEntries, "uint", cbEntryAlignment, "uint*", plsnUndoNext, "uint*", plsnPrevious, "uint", cReserveRecords, "int64*", rgcbReservation, "uint", fFlags, "uint*", plsn, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReserveAndAppendLogAligned", "ptr", pvMarshal, "ptr", rgWriteEntries, "uint", cWriteEntries, "uint", cbEntryAlignment, "ptr", plsnUndoNext, "ptr", plsnPrevious, "uint", cReserveRecords, "int64*", rgcbReservation, "uint", fFlags, "ptr", plsn, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10933,7 +11026,7 @@ class FileSystem {
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  is required for asynchronous operation. 
      * 
      * This parameter can be <b>NULL</b> if asynchronous operation is not used.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -10944,7 +11037,7 @@ class FileSystem {
     static FlushLogBuffers(pvMarshal, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\FlushLogBuffers", "ptr", pvMarshal, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\FlushLogBuffers", "ptr", pvMarshal, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10954,16 +11047,16 @@ class FileSystem {
     /**
      * Forces all records appended to this marshaling area up to the record with the specified log sequence number (LSN) to be flushed to the disk. More records than specified may be flushed during this operation.
      * @param {Pointer<Void>} pvMarshalContext A pointer to the  marshaling context that is allocated by using the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogmarshallingarea">CreateLogMarshallingArea</a> function.
-     * @param {Pointer<UInt64>} plsnFlush A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN that is used to determine which records to flush.   
+     * @param {Pointer<CLS_LSN>} plsnFlush A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN that is used to determine which records to flush.   
      * 
      * Specify CLFS_LSN_NULL to flush all records in the marshaling area.
-     * @param {Pointer<UInt64>} plsnLastFlushed A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure. 
+     * @param {Pointer<CLS_LSN>} plsnLastFlushed A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure. 
      * 
      * The LSN returned is greater than the LSN of any record flushed.  If the function  succeeds, the value of the LSN is never less than <i>plsnFlush</i>.  This value  is meaningful only  when  the function succeeds.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  is required for asynchronous operation. 
      * 
      * This parameter can be <b>NULL</b>  except for an asynchronous operation.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -10974,7 +11067,7 @@ class FileSystem {
     static FlushLogToLsn(pvMarshalContext, plsnFlush, plsnLastFlushed, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\FlushLogToLsn", "ptr", pvMarshalContext, "uint*", plsnFlush, "uint*", plsnLastFlushed, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\FlushLogToLsn", "ptr", pvMarshalContext, "ptr", plsnFlush, "ptr", plsnLastFlushed, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10984,7 +11077,7 @@ class FileSystem {
     /**
      * Initiates a sequence of reads from a specified log sequence number (LSN) in one of three modes, and returns the first of the specified log records and a read context.
      * @param {Pointer<Void>} pvMarshal A pointer to a  marshaling context that is allocated by using the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogmarshallingarea">CreateLogMarshallingArea</a> function.
-     * @param {Pointer<UInt64>} plsnFirst A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the record  where  the read operation should start.  
+     * @param {Pointer<CLS_LSN>} plsnFirst A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the record  where  the read operation should start.  
      * 
      * This value must be an LSN of a valid record in the active range of the log.
      * @param {Integer} eContextMode The mode for the read context that is returned in <i>*ppvReadContext</i>.  
@@ -11032,8 +11125,8 @@ class FileSystem {
      * @param {Pointer<Byte>} peRecordType A pointer to a variable that receives the  type of record read. 
      * 
      * This parameter is one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/clfs/clfs-record-type-constants">CLFS_RECORD_TYPE Constants</a>.
-     * @param {Pointer<UInt64>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the next record in the undo record chain.
-     * @param {Pointer<UInt64>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the next record in the previous record chain.
+     * @param {Pointer<CLS_LSN>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the next record in the undo record chain.
+     * @param {Pointer<CLS_LSN>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the next record in the previous record chain.
      * @param {Pointer<Void>} ppvReadContext A pointer to a variable that receives a pointer to a system-allocated read context  when a read is successful.  
      * 
      * If the function defers completion of an operation, it    returns a valid read-context pointer and an error status of <b>ERROR_IO_PENDING</b>.  On all other errors, the read-context pointer is <b>NULL</b>.  For more information about handling deferred completion of the function, see the Remarks section of this topic.
@@ -11045,7 +11138,7 @@ class FileSystem {
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, which is required for asynchronous operation.
      * 
      *  This parameter can be <b>NULL</b> if asynchronous operation is not used.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11058,7 +11151,7 @@ class FileSystem {
     static ReadLogRecord(pvMarshal, plsnFirst, eContextMode, ppvReadBuffer, pcbReadBuffer, peRecordType, plsnUndoNext, plsnPrevious, ppvReadContext, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadLogRecord", "ptr", pvMarshal, "uint*", plsnFirst, "int", eContextMode, "ptr", ppvReadBuffer, "uint*", pcbReadBuffer, "char*", peRecordType, "uint*", plsnUndoNext, "uint*", plsnPrevious, "ptr", ppvReadContext, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadLogRecord", "ptr", pvMarshal, "ptr", plsnFirst, "int", eContextMode, "ptr", ppvReadBuffer, "uint*", pcbReadBuffer, "char*", peRecordType, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr", ppvReadContext, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11112,16 +11205,16 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt64>} plsnUser A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies   the log client  to read this log sequence number (LSN) as the next LSN instead of  reading forward to the next record, reading the previous LSN, or reading the next undo LSN.  
+     * @param {Pointer<CLS_LSN>} plsnUser A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies   the log client  to read this log sequence number (LSN) as the next LSN instead of  reading forward to the next record, reading the previous LSN, or reading the next undo LSN.  
      * 
      * This parameter gives log clients the ability to cursor through user-defined LSN chains in client buffers.  The relationship of this parameter to the current LSN held by the read context must be consistent with the context mode, <i>ecxMode</i>,  that is specified in the <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-readlogrecord">ReadLogRecord</a>  entry points; otherwise, an error code of <b>ERROR_INVALID_PARAMETER</b> is returned.
-     * @param {Pointer<UInt64>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the next record in an undo record chain.
-     * @param {Pointer<UInt64>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the next record in the previous record chain.
-     * @param {Pointer<UInt64>} plsnRecord A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the current record read into the read context.
+     * @param {Pointer<CLS_LSN>} plsnUndoNext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the next record in an undo record chain.
+     * @param {Pointer<CLS_LSN>} plsnPrevious A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the next record in the previous record chain.
+     * @param {Pointer<CLS_LSN>} plsnRecord A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that receives the LSN of the current record read into the read context.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that is required for asynchronous operation. 
      * 
      * This parameter can be <b>NULL</b> if asynchronous operation is not used.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11134,7 +11227,7 @@ class FileSystem {
     static ReadNextLogRecord(pvReadContext, ppvBuffer, pcbBuffer, peRecordType, plsnUser, plsnUndoNext, plsnPrevious, plsnRecord, pOverlapped) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadNextLogRecord", "ptr", pvReadContext, "ptr", ppvBuffer, "uint*", pcbBuffer, "char*", peRecordType, "uint*", plsnUser, "uint*", plsnUndoNext, "uint*", plsnPrevious, "uint*", plsnRecord, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadNextLogRecord", "ptr", pvReadContext, "ptr", ppvBuffer, "uint*", pcbBuffer, "char*", peRecordType, "ptr", plsnUser, "ptr", plsnUndoNext, "ptr", plsnPrevious, "ptr", plsnRecord, "ptr", pOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11144,7 +11237,7 @@ class FileSystem {
     /**
      * Terminates a read context. This function frees system-allocated resources associated with the specified read context. Do not attempt to read log records after calling this function; you will receive indeterminate results.
      * @param {Pointer<Void>} pvCursorContext A pointer to a  read context that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-readlogrecord">ReadLogRecord</a> or <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-readlogrestartarea">ReadLogRestartArea</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11155,7 +11248,7 @@ class FileSystem {
     static TerminateReadLog(pvCursorContext) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\TerminateReadLog", "ptr", pvCursorContext, "int")
+        result := DllCall("clfsw32.dll\TerminateReadLog", "ptr", pvCursorContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11164,19 +11257,19 @@ class FileSystem {
 
     /**
      * Prepares a physical log for archival.
-     * @param {Pointer<Void>} hLog A handle to the log that is  obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog A handle to the log that is  obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * This handle can be the handle to a dedicated or multiplexed log.
-     * @param {Pointer<Char>} pszBaseLogFileName A pointer to a  user-allocated buffer to receive the fully qualified path of the base log.  
+     * @param {PWSTR} pszBaseLogFileName A pointer to a  user-allocated buffer to receive the fully qualified path of the base log.  
      * 
      * If the buffer is not large enough, it contains a truncated file path on exit, and the function fails with an <i>ERROR_BUFFER_OVERFLOW</i> status code. 
      * 
      * The  length of the file path is returned in the variable pointed to by <i>pcActualLength</i>.  The client can re-attempt  a failed call with a  name buffer that is large enough.
      * @param {Integer} cLen The size of the <i>pszBaseLogFileName</i> buffer, in wide characters.
-     * @param {Pointer<UInt64>} plsnLow A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the low end of the range of the  active log where the log client needs log archival information. 
+     * @param {Pointer<CLS_LSN>} plsnLow A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the log sequence number (LSN) of the low end of the range of the  active log where the log client needs log archival information. 
      * 
      * If this parameter is omitted, the low end of the range defaults to the LSN of the log archive tail.
-     * @param {Pointer<UInt64>} plsnHigh A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the high end of the range of the  active log where the log client needs log archival information. 
+     * @param {Pointer<CLS_LSN>} plsnHigh A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the LSN of the high end of the range of the  active log where the log client needs log archival information. 
      * 
      * If this parameter is omitted, the high end of the range defaults to the next LSN to be written to the log.
      * @param {Pointer<UInt32>} pcActualLength A pointer to a variable that receives the actual length of the name of the base log path, in characters.  
@@ -11186,13 +11279,13 @@ class FileSystem {
      * 
      * The contiguous extent in the base log   <i>pszBaseLogFileName</i> represents the full contents of the log metadata—that is, from <i>poffBaseLogFileData</i> to <i>pcbBaseLogFileLength</i>.
      * @param {Pointer<UInt64>} pcbBaseLogFileLength A pointer to a variable  that specifies the exact length  of the base log, in bytes.
-     * @param {Pointer<UInt64>} plsnBase A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to receive the base log sequence number (LSN) of the active log.
-     * @param {Pointer<UInt64>} plsnLast A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to receive the highest valid LSN in the active log.
-     * @param {Pointer<UInt64>} plsnCurrentArchiveTail A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to receive the current LSN of the archive tail of the log.
+     * @param {Pointer<CLS_LSN>} plsnBase A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to receive the base log sequence number (LSN) of the active log.
+     * @param {Pointer<CLS_LSN>} plsnLast A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to receive the highest valid LSN in the active log.
+     * @param {Pointer<CLS_LSN>} plsnCurrentArchiveTail A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure to receive the current LSN of the archive tail of the log.
      * @param {Pointer<Void>} ppvArchiveContext A pointer to the variable that receives a pointer to an  archive context that the system allocates.  
      * 
      * The archive context maintains the cursor state of the archival iterator and the log handle context.  The archival client is responsible for releasing the context by calling <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-terminatelogarchive">TerminateLogArchive</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11201,11 +11294,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static PrepareLogArchive(hLog, pszBaseLogFileName, cLen, plsnLow, plsnHigh, pcActualLength, poffBaseLogFileData, pcbBaseLogFileLength, plsnBase, plsnLast, plsnCurrentArchiveTail, ppvArchiveContext) {
-        pszBaseLogFileName := pszBaseLogFileName is String? StrPtr(pszBaseLogFileName) : pszBaseLogFileName
+        pszBaseLogFileName := pszBaseLogFileName is String ? StrPtr(pszBaseLogFileName) : pszBaseLogFileName
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog, "ptr", pszBaseLogFileName, "uint", cLen, "uint*", plsnLow, "uint*", plsnHigh, "uint*", pcActualLength, "uint*", poffBaseLogFileData, "uint*", pcbBaseLogFileLength, "uint*", plsnBase, "uint*", plsnLast, "uint*", plsnCurrentArchiveTail, "ptr", ppvArchiveContext, "int")
+        result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, "uint*", pcActualLength, "uint*", poffBaseLogFileData, "uint*", pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, "ptr", ppvArchiveContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11227,7 +11321,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} pcbBytesRead A pointer to a variable that receives the number of bytes  that are  copied to <i>pbReadBuffer</i>.  
      * 
      * The number of bytes is always between zero (0) and <i>cbBytesToRead</i>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -11238,7 +11332,7 @@ class FileSystem {
     static ReadLogArchiveMetadata(pvArchiveContext, cbOffset, cbBytesToRead, pbReadBuffer, pcbBytesRead) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadLogArchiveMetadata", "ptr", pvArchiveContext, "uint", cbOffset, "uint", cbBytesToRead, "char*", pbReadBuffer, "uint*", pcbBytesRead, "int")
+        result := DllCall("clfsw32.dll\ReadLogArchiveMetadata", "ptr", pvArchiveContext, "uint", cbOffset, "uint", cbBytesToRead, "char*", pbReadBuffer, "uint*", pcbBytesRead, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11257,7 +11351,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} pcDescriptorsReturned The number of descriptors in the <i>rgadExtent</i> array that are  filled in by this function.  
      * 
      * If this value is less than <i>cDescriptors</i>,  the set of descriptors is exhausted and the archive client can terminate iteration through the ordered descriptor set.  Further calls to this function fail with ERROR_NO_MORE_ENTRIES.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -11268,7 +11362,7 @@ class FileSystem {
     static GetNextLogArchiveExtent(pvArchiveContext, rgadExtent, cDescriptors, pcDescriptorsReturned) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\GetNextLogArchiveExtent", "ptr", pvArchiveContext, "ptr", rgadExtent, "uint", cDescriptors, "uint*", pcDescriptorsReturned, "int")
+        result := DllCall("clfsw32.dll\GetNextLogArchiveExtent", "ptr", pvArchiveContext, "ptr", rgadExtent, "uint", cDescriptors, "uint*", pcDescriptorsReturned, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11278,7 +11372,7 @@ class FileSystem {
     /**
      * Deallocates system resources that are allocated originally for a log archive context by PrepareLogArchive.
      * @param {Pointer<Void>} pvArchiveContext The archive context that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-preparelogarchive">PrepareLogArchive</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11289,7 +11383,7 @@ class FileSystem {
     static TerminateLogArchive(pvArchiveContext) {
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\TerminateLogArchive", "ptr", pvArchiveContext, "int")
+        result := DllCall("clfsw32.dll\TerminateLogArchive", "ptr", pvArchiveContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11298,7 +11392,7 @@ class FileSystem {
 
     /**
      * Validates the consistency of the log metadata and data before log archive and after log restore.
-     * @param {Pointer<Char>} pszLogFileName The name of the log. 
+     * @param {PWSTR} pszLogFileName The name of the log. 
      * 
      * The  name is specified when creating the log  by using  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. The following example identifies the format  to use:
      * 
@@ -11316,7 +11410,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} pcbBuffer A pointer to a variable that, on input, specifies the size of the <i>pinfoBuffer</i> metadata buffer, in bytes.  
      * 
      * On output, it receives the amount of information that is copied to the buffer, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11327,11 +11421,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static ValidateLog(pszLogFileName, psaLogFile, pinfoBuffer, pcbBuffer) {
-        pszLogFileName := pszLogFileName is String? StrPtr(pszLogFileName) : pszLogFileName
+        pszLogFileName := pszLogFileName is String ? StrPtr(pszLogFileName) : pszLogFileName
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ValidateLog", "ptr", pszLogFileName, "ptr", psaLogFile, "ptr", pinfoBuffer, "uint*", pcbBuffer, "int")
+        result := DllCall("clfsw32.dll\ValidateLog", "ptr", pszLogFileName, "ptr", psaLogFile, "ptr", pinfoBuffer, "uint*", pcbBuffer, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11340,13 +11434,13 @@ class FileSystem {
 
     /**
      * Retrieves the full path name of the specified container.
-     * @param {Pointer<Void>} hLog A handle to the log that is obtained from a successful call to 
+     * @param {HANDLE} hLog A handle to the log that is obtained from a successful call to 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. 
      * 
      * The log handle could refer to a 
      *       log stream or a physical log.
      * @param {Integer} cidLogicalContainer The unique  identifier that is associated with a container.
-     * @param {Pointer<Char>} pwstrContainerName A pointer to a user-allocated buffer to receive the full path and name of the log container, in wide characters.
+     * @param {PWSTR} pwstrContainerName A pointer to a user-allocated buffer to receive the full path and name of the log container, in wide characters.
      * @param {Integer} cLenContainerName The size of the buffer pointed to by <i>pwstrContainerName</i>, in characters.
      * @param {Pointer<UInt32>} pcActualLenContainerName A pointer to a variable to receive the actual character count of the full container path name that is retrieved. 
      *       
@@ -11355,7 +11449,7 @@ class FileSystem {
      *       <i>cLenContainerName</i>. If the buffer is not large enough to store the whole container 
      *       path name, the function fails with <b>ERROR_MORE_DATA</b> and sets this parameter to the 
      *       size that is required for the full path name. For other failures the value is not defined.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      *       
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -11364,11 +11458,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetLogContainerName(hLog, cidLogicalContainer, pwstrContainerName, cLenContainerName, pcActualLenContainerName) {
-        pwstrContainerName := pwstrContainerName is String? StrPtr(pwstrContainerName) : pwstrContainerName
+        pwstrContainerName := pwstrContainerName is String ? StrPtr(pwstrContainerName) : pwstrContainerName
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\GetLogContainerName", "ptr", hLog, "uint", cidLogicalContainer, "ptr", pwstrContainerName, "uint", cLenContainerName, "uint*", pcActualLenContainerName, "int")
+        result := DllCall("clfsw32.dll\GetLogContainerName", "ptr", hLog, "uint", cidLogicalContainer, "ptr", pwstrContainerName, "uint", cLenContainerName, "uint*", pcActualLenContainerName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11377,7 +11472,7 @@ class FileSystem {
 
     /**
      * Retrieves log I/O statistics for a dedicated or multiplexed log that is associated with the specified handle.
-     * @param {Pointer<Void>} hLog A handle to an open log file that <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> gets.  The log handle can refer to either a dedicated or multiplexed log file.
+     * @param {HANDLE} hLog A handle to an open log file that <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> gets.  The log handle can refer to either a dedicated or multiplexed log file.
      * @param {Pointer<Void>} pvStatsBuffer A pointer to a buffer to receive the I/O statistics.  
      * 
      * This buffer must be at least as large as an I/O statistics packet header. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_io_statistics_header">CLFS_IO_STATISTICS_HEADER</a>.
@@ -11388,7 +11483,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} pcbStatsWritten A pointer to a variable to receive the size of the I/O statistics packet that is written to  <i>pvStatsBuffer</i>.   
      * 
      * This value is less than or equal to <i>cbStatsBuffer</i>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
@@ -11397,9 +11492,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetLogIoStatistics(hLog, pvStatsBuffer, cbStatsBuffer, eStatsClass, pcbStatsWritten) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\GetLogIoStatistics", "ptr", hLog, "ptr", pvStatsBuffer, "uint", cbStatsBuffer, "int", eStatsClass, "uint*", pcbStatsWritten, "int")
+        result := DllCall("clfsw32.dll\GetLogIoStatistics", "ptr", hLog, "ptr", pvStatsBuffer, "uint", cbStatsBuffer, "int", eStatsClass, "uint*", pcbStatsWritten, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11408,9 +11505,9 @@ class FileSystem {
 
     /**
      * Registers a client with the log manager. A client can specify whether to receive notifications by using callbacks, or have the notifications queued for retrieval by using ReadLogNotification.
-     * @param {Pointer<Void>} hLog The handle to the log to register. Only one registration per unique opening of the log is allowed.
+     * @param {HANDLE} hLog The handle to the log to register. Only one registration per unique opening of the log is allowed.
      * @param {Pointer<LOG_MANAGEMENT_CALLBACKS>} pCallbacks Specifies the callbacks that the client is registering for.  Valid callbacks are enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/ns-clfsmgmtw32-log_management_callbacks">LOG_MANAGEMENT_CALLBACKS</a>. Specify zero to queue notifications instead.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11419,9 +11516,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RegisterManageableLogClient(hLog, pCallbacks) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RegisterManageableLogClient", "ptr", hLog, "ptr", pCallbacks, "int")
+        result := DllCall("clfsw32.dll\RegisterManageableLogClient", "ptr", hLog, "ptr", pCallbacks, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11430,8 +11529,8 @@ class FileSystem {
 
     /**
      * Deregisters a client with the log manager.
-     * @param {Pointer<Void>} hLog The handle to deregister.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} hLog The handle to deregister.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. For extended error information, call 
@@ -11440,9 +11539,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static DeregisterManageableLogClient(hLog) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\DeregisterManageableLogClient", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\DeregisterManageableLogClient", "ptr", hLog, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11451,10 +11552,10 @@ class FileSystem {
 
     /**
      * Retrieves notifications from the log manager. It retrieves a queued notification from the log manager immediately if a notification is available; otherwise the request remains pending until a notification is generated.
-     * @param {Pointer<Void>} hLog The handle to the log.
+     * @param {HANDLE} hLog The handle to the log.
      * @param {Pointer<CLFS_MGMT_NOTIFICATION>} pNotification Receives the notification type, and if the type has parameters associated with it, the parameters.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that is required for asynchronous operation. If asynchronous operation is not used, this parameter can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following is a possible error code:
@@ -11462,9 +11563,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static ReadLogNotification(hLog, pNotification, lpOverlapped) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadLogNotification", "ptr", hLog, "ptr", pNotification, "ptr", lpOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadLogNotification", "ptr", hLog, "ptr", pNotification, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11473,9 +11576,9 @@ class FileSystem {
 
     /**
      * Installs (sets) a policy for a log.
-     * @param {Pointer<Void>} hLog A handle to a log.
+     * @param {HANDLE} hLog A handle to a log.
      * @param {Pointer<CLFS_MGMT_POLICY>} pPolicy A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ns-clfsmgmt-clfs_mgmt_policy">CLFS_MGMT_POLICY</a> structure that represents the desired policy to install.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11483,9 +11586,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static InstallLogPolicy(hLog, pPolicy) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\InstallLogPolicy", "ptr", hLog, "ptr", pPolicy, "int")
+        result := DllCall("clfsw32.dll\InstallLogPolicy", "ptr", hLog, "ptr", pPolicy, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11494,9 +11599,9 @@ class FileSystem {
 
     /**
      * Resets the specified policy to its default behavior.
-     * @param {Pointer<Void>} hLog Handle to the log to reset the policy for.
+     * @param {HANDLE} hLog Handle to the log to reset the policy for.
      * @param {Integer} ePolicyType Specifies the policy to reset. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11504,9 +11609,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RemoveLogPolicy(hLog, ePolicyType) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RemoveLogPolicy", "ptr", hLog, "int", ePolicyType, "int")
+        result := DllCall("clfsw32.dll\RemoveLogPolicy", "ptr", hLog, "int", ePolicyType, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11515,11 +11622,11 @@ class FileSystem {
 
     /**
      * The QueryLogPolicy function allows you to obtain a policy that is installed for the specified log.
-     * @param {Pointer<Void>} hLog The handle to the log to query.
+     * @param {HANDLE} hLog The handle to the log to query.
      * @param {Integer} ePolicyType Specifies the type of policy to query for. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
      * @param {Pointer<CLFS_MGMT_POLICY>} pPolicyBuffer A pointer to a buffer to receive the returned policies.
      * @param {Pointer<UInt32>} pcbPolicyBuffer A pointer to the size of <i>pPolicyBuffer</i>. If the buffer is not large enough, <i>pcbPolicyBuffer</i> receives the size buffer required to successfully retrieve the specified policies.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11527,9 +11634,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static QueryLogPolicy(hLog, ePolicyType, pPolicyBuffer, pcbPolicyBuffer) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\QueryLogPolicy", "ptr", hLog, "int", ePolicyType, "ptr", pPolicyBuffer, "uint*", pcbPolicyBuffer, "int")
+        result := DllCall("clfsw32.dll\QueryLogPolicy", "ptr", hLog, "int", ePolicyType, "ptr", pPolicyBuffer, "uint*", pcbPolicyBuffer, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11538,10 +11647,10 @@ class FileSystem {
 
     /**
      * Adds or deletes containers from a log based on the state of the installed policies.
-     * @param {Pointer<Void>} hLog A handle to a log.
+     * @param {HANDLE} hLog A handle to a log.
      * @param {Pointer<UInt64>} pDesiredSize 
      * @param {Pointer<UInt64>} pResultingSize A pointer to a valid ULONGLONG data variable, receives the number of containers in the resized log upon success.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -11549,9 +11658,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetLogFileSizeWithPolicy(hLog, pDesiredSize, pResultingSize) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetLogFileSizeWithPolicy", "ptr", hLog, "uint*", pDesiredSize, "uint*", pResultingSize, "int")
+        result := DllCall("clfsw32.dll\SetLogFileSizeWithPolicy", "ptr", hLog, "uint*", pDesiredSize, "uint*", pResultingSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11560,8 +11671,8 @@ class FileSystem {
 
     /**
      * Called by a managed log client when an attempt to reserve or append to a log fails with a log full error message. The log manager attempts to resolve the log full condition for the client, and notifies the client when the outcome is known.
-     * @param {Pointer<Void>} hLog A handle to the log on which to resolve the log full condition. The handle must have been registered with <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-registermanageablelogclient">RegisterManageableLogClient</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} hLog A handle to the log on which to resolve the log full condition. The handle must have been registered with <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-registermanageablelogclient">RegisterManageableLogClient</a>.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11570,9 +11681,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static HandleLogFull(hLog) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\HandleLogFull", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\HandleLogFull", "ptr", hLog, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11581,10 +11694,10 @@ class FileSystem {
 
     /**
      * The LogTailAdvanceFailure function is called by a log client to indicate that it cannot comply with a request from log management to advance its tail.
-     * @param {Pointer<Void>} hLog A handle to the log on which to resolve the log full condition.
+     * @param {HANDLE} hLog A handle to the log on which to resolve the log full condition.
      * @param {Integer} dwReason Win32 error code with the reason for the failure For a list of possible values, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11593,9 +11706,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static LogTailAdvanceFailure(hLog, dwReason) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\LogTailAdvanceFailure", "ptr", hLog, "uint", dwReason, "int")
+        result := DllCall("clfsw32.dll\LogTailAdvanceFailure", "ptr", hLog, "uint", dwReason, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11604,10 +11719,10 @@ class FileSystem {
 
     /**
      * The RegisterForLogWriteNotification function is called by a managed log client to enable or disable log write notifications.
-     * @param {Pointer<Void>} hLog A handle to the log on which to resolve the log full condition.
+     * @param {HANDLE} hLog A handle to the log on which to resolve the log full condition.
      * @param {Integer} cbThreshold Number of bytes to be written to the log file before the notification is sent.
-     * @param {Integer} fEnable If <b>TRUE</b>, the notification is enabled. If <b>FALSE</b>, the notification is disabled.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} fEnable If <b>TRUE</b>, the notification is enabled. If <b>FALSE</b>, the notification is disabled.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11616,9 +11731,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RegisterForLogWriteNotification(hLog, cbThreshold, fEnable) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RegisterForLogWriteNotification", "ptr", hLog, "uint", cbThreshold, "int", fEnable, "int")
+        result := DllCall("clfsw32.dll\RegisterForLogWriteNotification", "ptr", hLog, "uint", cbThreshold, "ptr", fEnable, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11627,7 +11744,7 @@ class FileSystem {
 
     /**
      * Retrieves a list of users for the specified file.
-     * @param {Pointer<Char>} lpFileName The name of the file.
+     * @param {PWSTR} lpFileName The name of the file.
      * @param {Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>} pUsers A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/ns-winefs-encryption_certificate_hash_list">ENCRYPTION_CERTIFICATE_HASH_LIST</a> structure that receives the list of users.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -11638,7 +11755,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static QueryUsersOnEncryptedFile(lpFileName, pUsers) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("ADVAPI32.dll\QueryUsersOnEncryptedFile", "ptr", lpFileName, "ptr", pUsers, "uint")
         return result
@@ -11646,7 +11763,7 @@ class FileSystem {
 
     /**
      * Retrieves a list of recovery agents for the specified file.
-     * @param {Pointer<Char>} lpFileName The name of the file.
+     * @param {PWSTR} lpFileName The name of the file.
      * @param {Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>} pRecoveryAgents A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/ns-winefs-encryption_certificate_hash_list">ENCRYPTION_CERTIFICATE_HASH_LIST</a> structure that receives a list of recovery agents.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -11657,7 +11774,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static QueryRecoveryAgentsOnEncryptedFile(lpFileName, pRecoveryAgents) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("ADVAPI32.dll\QueryRecoveryAgentsOnEncryptedFile", "ptr", lpFileName, "ptr", pRecoveryAgents, "uint")
         return result
@@ -11665,7 +11782,7 @@ class FileSystem {
 
     /**
      * Removes specified certificate hashes from a specified file.
-     * @param {Pointer<Char>} lpFileName The name of the file.
+     * @param {PWSTR} lpFileName The name of the file.
      * @param {Pointer<ENCRYPTION_CERTIFICATE_HASH_LIST>} pHashes A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/ns-winefs-encryption_certificate_hash_list">ENCRYPTION_CERTIFICATE_HASH_LIST</a> structure that contains a list of certificate hashes to be removed from the file.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -11676,7 +11793,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static RemoveUsersFromEncryptedFile(lpFileName, pHashes) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("ADVAPI32.dll\RemoveUsersFromEncryptedFile", "ptr", lpFileName, "ptr", pHashes, "uint")
         return result
@@ -11684,7 +11801,7 @@ class FileSystem {
 
     /**
      * Adds user keys to the specified encrypted file.
-     * @param {Pointer<Char>} lpFileName The name of the encrypted file.
+     * @param {PWSTR} lpFileName The name of the encrypted file.
      * @param {Pointer<ENCRYPTION_CERTIFICATE_LIST>} pEncryptionCertificates A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/ns-winefs-encryption_certificate_list">ENCRYPTION_CERTIFICATE_LIST</a> structure that contains the list of new user keys to be added to the file.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -11695,7 +11812,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static AddUsersToEncryptedFile(lpFileName, pEncryptionCertificates) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("ADVAPI32.dll\AddUsersToEncryptedFile", "ptr", lpFileName, "ptr", pEncryptionCertificates, "uint")
         return result
@@ -11752,11 +11869,11 @@ class FileSystem {
 
     /**
      * Disables or enables encryption of the specified directory and the files in it.
-     * @param {Pointer<Char>} DirPath The name of the directory for which to enable or 
+     * @param {PWSTR} DirPath The name of the directory for which to enable or 
      *       disable encryption.
-     * @param {Integer} Disable Indicates whether to disable encryption (<b>TRUE</b>) or enable it 
+     * @param {BOOL} Disable Indicates whether to disable encryption (<b>TRUE</b>) or enable it 
      *       (<b>FALSE</b>).
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11764,11 +11881,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static EncryptionDisable(DirPath, Disable) {
-        DirPath := DirPath is String? StrPtr(DirPath) : DirPath
+        DirPath := DirPath is String ? StrPtr(DirPath) : DirPath
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EncryptionDisable", "ptr", DirPath, "int", Disable, "int")
+        result := DllCall("ADVAPI32.dll\EncryptionDisable", "ptr", DirPath, "ptr", Disable, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11777,8 +11894,8 @@ class FileSystem {
 
     /**
      * Copies the EFS metadata from one file or directory to another.
-     * @param {Pointer<Char>} SrcFileName The name of the file or directory from which the EFS metadata is to be copied. This source file or directory must be encrypted.
-     * @param {Pointer<Char>} DstFileName The name of the file or directory to which the EFS metadata is to be copied. 
+     * @param {PWSTR} SrcFileName The name of the file or directory from which the EFS metadata is to be copied. This source file or directory must be encrypted.
+     * @param {PWSTR} DstFileName The name of the file or directory to which the EFS metadata is to be copied. 
      * 
      * 
      * 
@@ -11829,8 +11946,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DuplicateEncryptionInfoFile(SrcFileName, DstFileName, dwCreationDistribution, dwAttributes, lpSecurityAttributes) {
-        SrcFileName := SrcFileName is String? StrPtr(SrcFileName) : SrcFileName
-        DstFileName := DstFileName is String? StrPtr(DstFileName) : DstFileName
+        SrcFileName := SrcFileName is String ? StrPtr(SrcFileName) : SrcFileName
+        DstFileName := DstFileName is String ? StrPtr(DstFileName) : DstFileName
 
         result := DllCall("ADVAPI32.dll\DuplicateEncryptionInfoFile", "ptr", SrcFileName, "ptr", DstFileName, "uint", dwCreationDistribution, "uint", dwAttributes, "ptr", lpSecurityAttributes, "uint")
         return result
@@ -11838,22 +11955,22 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Char>} lpFileName 
+     * @param {PWSTR} lpFileName 
      * @param {Pointer<UInt32>} pcbMetadata 
      * @param {Pointer<Byte>} ppbMetadata 
      * @returns {Integer} 
      * @deprecated
      */
     static GetEncryptedFileMetadata(lpFileName, pcbMetadata, ppbMetadata) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("ADVAPI32.dll\GetEncryptedFileMetadata", "ptr", lpFileName, "uint*", pcbMetadata, "ptr", ppbMetadata, "uint")
+        result := DllCall("ADVAPI32.dll\GetEncryptedFileMetadata", "ptr", lpFileName, "uint*", pcbMetadata, "char*", ppbMetadata, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} lpFileName 
+     * @param {PWSTR} lpFileName 
      * @param {Pointer<Byte>} pbOldMetadata 
      * @param {Pointer<Byte>} pbNewMetadata 
      * @param {Pointer<ENCRYPTION_CERTIFICATE_HASH>} pOwnerHash 
@@ -11863,7 +11980,7 @@ class FileSystem {
      * @deprecated
      */
     static SetEncryptedFileMetadata(lpFileName, pbOldMetadata, pbNewMetadata, pOwnerHash, dwOperation, pCertificatesAdded) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("ADVAPI32.dll\SetEncryptedFileMetadata", "ptr", lpFileName, "char*", pbOldMetadata, "char*", pbNewMetadata, "ptr", pOwnerHash, "uint", dwOperation, "ptr", pCertificatesAdded, "uint")
         return result
@@ -12069,8 +12186,8 @@ class FileSystem {
 
     /**
      * Retrieves the original name of a compressed file, if the file was compressed by the Lempel-Ziv algorithm.
-     * @param {Pointer<Byte>} lpszSource The name of the compressed file.
-     * @param {Pointer<Byte>} lpszBuffer A pointer to a buffer that receives the original name of the compressed file.
+     * @param {PSTR} lpszSource The name of the compressed file.
+     * @param {PSTR} lpszBuffer A pointer to a buffer that receives the original name of the compressed file.
      * @returns {Integer} If the function succeeds, the return value is 1.
      * 
      * If the function fails, the return value is LZERROR_BADVALUE. There is no extended error information for this function; do not call 
@@ -12084,8 +12201,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetExpandedNameA(lpszSource, lpszBuffer) {
-        lpszSource := lpszSource is String? StrPtr(lpszSource) : lpszSource
-        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+        lpszSource := lpszSource is String ? StrPtr(lpszSource) : lpszSource
+        lpszBuffer := lpszBuffer is String ? StrPtr(lpszBuffer) : lpszBuffer
 
         A_LastError := 0
 
@@ -12098,8 +12215,8 @@ class FileSystem {
 
     /**
      * Retrieves the original name of a compressed file, if the file was compressed by the Lempel-Ziv algorithm.
-     * @param {Pointer<Char>} lpszSource The name of the compressed file.
-     * @param {Pointer<Char>} lpszBuffer A pointer to a buffer that receives the original name of the compressed file.
+     * @param {PWSTR} lpszSource The name of the compressed file.
+     * @param {PWSTR} lpszBuffer A pointer to a buffer that receives the original name of the compressed file.
      * @returns {Integer} If the function succeeds, the return value is 1.
      * 
      * If the function fails, the return value is LZERROR_BADVALUE. There is no extended error information for this function; do not call 
@@ -12113,8 +12230,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetExpandedNameW(lpszSource, lpszBuffer) {
-        lpszSource := lpszSource is String? StrPtr(lpszSource) : lpszSource
-        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+        lpszSource := lpszSource is String ? StrPtr(lpszSource) : lpszSource
+        lpszBuffer := lpszBuffer is String ? StrPtr(lpszBuffer) : lpszBuffer
 
         A_LastError := 0
 
@@ -12127,7 +12244,7 @@ class FileSystem {
 
     /**
      * Creates, opens, reopens, or deletes the specified file.
-     * @param {Pointer<Byte>} lpFileName The name of the file.
+     * @param {PSTR} lpFileName The name of the file.
      * @param {Pointer<OFSTRUCT>} lpReOpenBuf A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-ofstruct">OFSTRUCT</a> structure that is to receive 
      *        information about the file when the file is first opened. The structure can be used in subsequent calls to the 
      *        <b>LZOpenFile</b> function to see the open file.
@@ -12186,7 +12303,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static LZOpenFileA(lpFileName, lpReOpenBuf, wStyle) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("KERNEL32.dll\LZOpenFileA", "ptr", lpFileName, "ptr", lpReOpenBuf, "ushort", wStyle, "int")
         return result
@@ -12194,7 +12311,7 @@ class FileSystem {
 
     /**
      * Creates, opens, reopens, or deletes the specified file.
-     * @param {Pointer<Char>} lpFileName The name of the file.
+     * @param {PWSTR} lpFileName The name of the file.
      * @param {Pointer<OFSTRUCT>} lpReOpenBuf A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-ofstruct">OFSTRUCT</a> structure that is to receive 
      *        information about the file when the file is first opened. The structure can be used in subsequent calls to the 
      *        <b>LZOpenFile</b> function to see the open file.
@@ -12253,7 +12370,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static LZOpenFileW(lpFileName, lpReOpenBuf, wStyle) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("KERNEL32.dll\LZOpenFileW", "ptr", lpFileName, "ptr", lpReOpenBuf, "ushort", wStyle, "int")
         return result
@@ -12516,27 +12633,29 @@ class FileSystem {
 
     /**
      * Indicates whether compression should be used on a particular volume, and if so, which compression algorithm should be used.
-     * @param {Pointer<Char>} Volume Specifies the path to the volume whose compression state is desired.
+     * @param {PWSTR} Volume Specifies the path to the volume whose compression state is desired.
      * @param {Pointer<UInt32>} Algorithm Points to a ULONG value. If the function returns TRUE, indicating compression is desired, this value will contain the algorithm that should be used for this volume.
-     * @returns {Integer} If binaries on this volume should be compressed, the return value is TRUE; otherwise it is FALSE. This function will return FALSE if the system does not support compression on the specified volume.
+     * @returns {BOOL} If binaries on this volume should be compressed, the return value is TRUE; otherwise it is FALSE. This function will return FALSE if the system does not support compression on the specified volume.
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofshouldcompressbinaries
      */
     static WofShouldCompressBinaries(Volume, Algorithm) {
-        Volume := Volume is String? StrPtr(Volume) : Volume
+        Volume := Volume is String ? StrPtr(Volume) : Volume
 
-        result := DllCall("WOFUTIL.dll\WofShouldCompressBinaries", "ptr", Volume, "uint*", Algorithm, "int")
+        result := DllCall("WOFUTIL.dll\WofShouldCompressBinaries", "ptr", Volume, "uint*", Algorithm, "ptr")
         return result
     }
 
     /**
      * Used to query the version of the driver used to support a particular provider.
-     * @param {Pointer<Void>} FileOrVolumeHandle A handle to a file or volume opened with <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> or a similar API.
+     * @param {HANDLE} FileOrVolumeHandle A handle to a file or volume opened with <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> or a similar API.
      * @param {Integer} Provider Indicates which provider the version query is intended for. Multiple versions of Wof may exist on the same volume at the same time for different providers.
      * @param {Pointer<UInt32>} WofVersion Pointer to a ULONG which will contain the version upon successful completion of this function.
      * @returns {HRESULT} This function returns an HRESULT indicating success or the reason for failure. If no driver is attached on the specified volume for the specified provider, the function will fail with HRESULT_FROM_WIN32(ERROR_INVALID_FUNCTION).
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofgetdriverversion
      */
     static WofGetDriverVersion(FileOrVolumeHandle, Provider, WofVersion) {
+        FileOrVolumeHandle := FileOrVolumeHandle is Win32Handle ? NumGet(FileOrVolumeHandle, "ptr") : FileOrVolumeHandle
+
         result := DllCall("WOFUTIL.dll\WofGetDriverVersion", "ptr", FileOrVolumeHandle, "uint", Provider, "uint*", WofVersion, "int")
         if(result != 0)
             throw OSError(result)
@@ -12546,7 +12665,7 @@ class FileSystem {
 
     /**
      * Used to change a file from being backed by a physical file to one backed by a system data provider.
-     * @param {Pointer<Void>} FileHandle A handle to a file opened with <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> or a similar API.
+     * @param {HANDLE} FileHandle A handle to a file opened with <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> or a similar API.
      * @param {Integer} Provider Indicates which provider is backing this file. Currently defined providers are: 
      * 	  	
      * 
@@ -12593,6 +12712,8 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofsetfiledatalocation
      */
     static WofSetFileDataLocation(FileHandle, Provider, ExternalFileInfo, Length) {
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
         result := DllCall("WOFUTIL.dll\WofSetFileDataLocation", "ptr", FileHandle, "uint", Provider, "ptr", ExternalFileInfo, "uint", Length, "int")
         if(result != 0)
             throw OSError(result)
@@ -12602,8 +12723,8 @@ class FileSystem {
 
     /**
      * Used to determine if a file is being backed by a physical file or is backed by a system data provider, and optionally indicates which provider or additional data about the file.
-     * @param {Pointer<Char>} FilePath Specifies the path to the file for which the backing state is desired.
-     * @param {Pointer<Int32>} IsExternalFile Optionally points to a BOOL value. On successful return, this value will be TRUE if the object is externally backed, FALSE if it is a physical file.
+     * @param {PWSTR} FilePath Specifies the path to the file for which the backing state is desired.
+     * @param {Pointer<BOOL>} IsExternalFile Optionally points to a BOOL value. On successful return, this value will be TRUE if the object is externally backed, FALSE if it is a physical file.
      * @param {Pointer<UInt32>} Provider Optionally points to a ULONG value. On successful return, this value will be set to the provider that externally backs this object. Currently defined providers are: 
      * 	  		
      * 
@@ -12651,9 +12772,9 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofisexternalfile
      */
     static WofIsExternalFile(FilePath, IsExternalFile, Provider, ExternalFileInfo, BufferLength) {
-        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
-        result := DllCall("WOFUTIL.dll\WofIsExternalFile", "ptr", FilePath, "int*", IsExternalFile, "uint*", Provider, "ptr", ExternalFileInfo, "uint*", BufferLength, "int")
+        result := DllCall("WOFUTIL.dll\WofIsExternalFile", "ptr", FilePath, "ptr", IsExternalFile, "uint*", Provider, "ptr", ExternalFileInfo, "uint*", BufferLength, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12662,7 +12783,7 @@ class FileSystem {
 
     /**
      * Enumerates all the data sources from a specified provider for a specified volume.
-     * @param {Pointer<Char>} VolumeName The volume name hosting the files for which the backing data sources are requested.
+     * @param {PWSTR} VolumeName The volume name hosting the files for which the backing data sources are requested.
      * @param {Integer} Provider Indicates which provider’s data sources are being requested.  Supported providers for this operation are: 
      * 	  	
      * 
@@ -12678,7 +12799,7 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofenumentries
      */
     static WofEnumEntries(VolumeName, Provider, EnumProc, UserData) {
-        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, "uint", Provider, "ptr", EnumProc, "ptr", UserData, "int")
         if(result != 0)
@@ -12689,8 +12810,8 @@ class FileSystem {
 
     /**
      * Adds a single WIM data source to a volume such that files can be created on the volume which are stored within the WIM.
-     * @param {Pointer<Char>} VolumeName The path to the volume upon which files residing in the WIM should be created.
-     * @param {Pointer<Char>} WimPath The path to the WIM file which should be used to provide data to files.
+     * @param {PWSTR} VolumeName The path to the volume upon which files residing in the WIM should be created.
+     * @param {PWSTR} WimPath The path to the WIM file which should be used to provide data to files.
      * @param {Integer} WimType The type of WIM. Can be <b>WIM_BOOT_OS_WIM</b> or <b>WIM_BOOT_NOT_OS_WIM</b>.
      * @param {Integer} WimIndex Index of the image in the WIM which is applied.
      * @param {Pointer<Int64>} DataSourceId On successful return, contains the data source used to identify the entry.  This data source can be used to create new files with <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/nf-wofapi-wofsetfiledatalocation">WofSetFileDataLocation</a>.
@@ -12698,8 +12819,8 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofwimaddentry
      */
     static WofWimAddEntry(VolumeName, WimPath, WimType, WimIndex, DataSourceId) {
-        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
-        WimPath := WimPath is String? StrPtr(WimPath) : WimPath
+        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
+        WimPath := WimPath is String ? StrPtr(WimPath) : WimPath
 
         result := DllCall("WOFUTIL.dll\WofWimAddEntry", "ptr", VolumeName, "ptr", WimPath, "uint", WimType, "uint", WimIndex, "int64*", DataSourceId, "int")
         if(result != 0)
@@ -12710,7 +12831,7 @@ class FileSystem {
 
     /**
      * Enumerates all of the files which are being backed by a specified WIM data source on a specified volume.
-     * @param {Pointer<Char>} VolumeName The path to the volume which hosts WIM-backed files.
+     * @param {PWSTR} VolumeName The path to the volume which hosts WIM-backed files.
      * @param {Integer} DataSourceId Identifier used to identify the WIM entry.
      * @param {Pointer<WofEnumFilesProc>} EnumProc The callback function for file provided by the WIM entry.
      * @param {Pointer<Void>} UserData Optional user defined data passed to <i>EnumProc</i>.
@@ -12718,7 +12839,7 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofwimenumfiles
      */
     static WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, UserData) {
-        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, "int64", DataSourceId, "ptr", EnumProc, "ptr", UserData, "int")
         if(result != 0)
@@ -12729,13 +12850,13 @@ class FileSystem {
 
     /**
      * Temporarily removes a WIM data source from backing files on a volume until the volume is remounted or the data source is updated with WofWimUpdateEntry.
-     * @param {Pointer<Char>} VolumeName The volume name which contained files whose data was provided by the WIM.
+     * @param {PWSTR} VolumeName The volume name which contained files whose data was provided by the WIM.
      * @param {Integer} DataSourceId Identifies the WIM entry.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofwimsuspendentry
      */
     static WofWimSuspendEntry(VolumeName, DataSourceId) {
-        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofWimSuspendEntry", "ptr", VolumeName, "int64", DataSourceId, "int")
         if(result != 0)
@@ -12746,13 +12867,13 @@ class FileSystem {
 
     /**
      * Removes a single WIM data source from backing files on a volume.
-     * @param {Pointer<Char>} VolumeName The volume name which contained files whose data was provided by the WIM.
+     * @param {PWSTR} VolumeName The volume name which contained files whose data was provided by the WIM.
      * @param {Integer} DataSourceId Identifes the WIM entry.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofwimremoveentry
      */
     static WofWimRemoveEntry(VolumeName, DataSourceId) {
-        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofWimRemoveEntry", "ptr", VolumeName, "int64", DataSourceId, "int")
         if(result != 0)
@@ -12763,15 +12884,15 @@ class FileSystem {
 
     /**
      * Updates a WIM entry to point to a different WIM file location.
-     * @param {Pointer<Char>} VolumeName The volume name which contains files whose data is provided by the WIM.
+     * @param {PWSTR} VolumeName The volume name which contains files whose data is provided by the WIM.
      * @param {Integer} DataSourceId Identifies the WIM entry.
-     * @param {Pointer<Char>} NewWimPath The new location of the WIM file.
+     * @param {PWSTR} NewWimPath The new location of the WIM file.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-wofwimupdateentry
      */
     static WofWimUpdateEntry(VolumeName, DataSourceId, NewWimPath) {
-        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
-        NewWimPath := NewWimPath is String? StrPtr(NewWimPath) : NewWimPath
+        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
+        NewWimPath := NewWimPath is String ? StrPtr(NewWimPath) : NewWimPath
 
         result := DllCall("WOFUTIL.dll\WofWimUpdateEntry", "ptr", VolumeName, "int64", DataSourceId, "ptr", NewWimPath, "int")
         if(result != 0)
@@ -12782,7 +12903,7 @@ class FileSystem {
 
     /**
      * Enumerates all of the files which are compressed with a specified compression algorithm on a specified volume.
-     * @param {Pointer<Char>} VolumeName A full path to the volume containing the files to enumerate.
+     * @param {PWSTR} VolumeName A full path to the volume containing the files to enumerate.
      * @param {Integer} Algorithm The compression algorithm to enumerate.  For a list of valid compression algorithms, see <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/ns-wofapi-wof_file_compression_info_v1">WOF_FILE_COMPRESSION_INFO_V1</a>.  If this value is MAX_ULONG, files compressed with any supported compression algorithm will be returned.
      * @param {Pointer<WofEnumFilesProc>} EnumProc The callback function for each data source. The enumeration will stop if <i>EnumProc</i> returns FALSE.
      * @param {Pointer<Void>} UserData User defined data passed to <i>EnumProc</i>.
@@ -12790,7 +12911,7 @@ class FileSystem {
      * @see https://docs.microsoft.com/windows/win32/api//wofapi/nf-wofapi-woffileenumfiles
      */
     static WofFileEnumFiles(VolumeName, Algorithm, EnumProc, UserData) {
-        VolumeName := VolumeName is String? StrPtr(VolumeName) : VolumeName
+        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
         result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, "uint", Algorithm, "ptr", EnumProc, "ptr", UserData, "int")
         if(result != 0)
@@ -12801,12 +12922,12 @@ class FileSystem {
 
     /**
      * Creates a context to be used to read replication records.
-     * @param {Pointer<Char>} LogPath The path that identifies the Resource Manager's .blf file.
-     * @param {Integer} BeginningLsn The first LSN in the range to be read.
-     * @param {Integer} EndingLsn The last LSN in the range to be read.
+     * @param {PWSTR} LogPath The path that identifies the Resource Manager's .blf file.
+     * @param {CLS_LSN} BeginningLsn The first LSN in the range to be read.
+     * @param {CLS_LSN} EndingLsn The last LSN in the range to be read.
      * @param {Pointer<TXF_ID>} TxfFileId The TxF identifier to search for in the LSN range. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/txfw32/ns-txfw32-txf_id">TXF_ID</a>.
      * @param {Pointer<Void>} TxfLogContext A pointer to the context created.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -12814,11 +12935,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static TxfLogCreateFileReadContext(LogPath, BeginningLsn, EndingLsn, TxfFileId, TxfLogContext) {
-        LogPath := LogPath is String? StrPtr(LogPath) : LogPath
+        LogPath := LogPath is String ? StrPtr(LogPath) : LogPath
 
         A_LastError := 0
 
-        result := DllCall("txfw32.dll\TxfLogCreateFileReadContext", "ptr", LogPath, "uint", BeginningLsn, "uint", EndingLsn, "ptr", TxfFileId, "ptr", TxfLogContext, "int")
+        result := DllCall("txfw32.dll\TxfLogCreateFileReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, "ptr", TxfFileId, "ptr", TxfLogContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12827,27 +12948,27 @@ class FileSystem {
 
     /**
      * Creates a context that is required to read any replication records.
-     * @param {Pointer<Char>} LogPath Location of the RM's CLFS BLF.
-     * @param {Integer} BeginningLsn Start of LSN range to search. (inclusive)
-     * @param {Integer} EndingLsn End of LSN range to search. (inclusive)
+     * @param {PWSTR} LogPath Location of the RM's CLFS BLF.
+     * @param {CLS_LSN} BeginningLsn Start of LSN range to search. (inclusive)
+     * @param {CLS_LSN} EndingLsn End of LSN range to search. (inclusive)
      * @param {Pointer<Int64>} BeginningVirtualClock Start of the virtual clock.
      * @param {Pointer<Int64>} EndingVirtualClock End of the virtual clock.
      * @param {Integer} RecordTypeMask A mask value indicating the type of records.
      * @param {Pointer<Void>} TxfLogContext The returned context object.
-     * @returns {Integer} Returns S_OK on success.
+     * @returns {BOOL} Returns S_OK on success.
      * @see https://docs.microsoft.com/windows/win32/api//txfw32/nf-txfw32-txflogcreaterangereadcontext
      */
     static TxfLogCreateRangeReadContext(LogPath, BeginningLsn, EndingLsn, BeginningVirtualClock, EndingVirtualClock, RecordTypeMask, TxfLogContext) {
-        LogPath := LogPath is String? StrPtr(LogPath) : LogPath
+        LogPath := LogPath is String ? StrPtr(LogPath) : LogPath
 
-        result := DllCall("txfw32.dll\TxfLogCreateRangeReadContext", "ptr", LogPath, "uint", BeginningLsn, "uint", EndingLsn, "int64*", BeginningVirtualClock, "int64*", EndingVirtualClock, "uint", RecordTypeMask, "ptr", TxfLogContext, "int")
+        result := DllCall("txfw32.dll\TxfLogCreateRangeReadContext", "ptr", LogPath, "ptr", BeginningLsn, "ptr", EndingLsn, "int64*", BeginningVirtualClock, "int64*", EndingVirtualClock, "uint", RecordTypeMask, "ptr", TxfLogContext, "ptr")
         return result
     }
 
     /**
      * Closes a read context created by the TxfLogCreateFileReadContext function.
      * @param {Pointer<Void>} TxfLogContext A pointer to the context.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -12857,7 +12978,7 @@ class FileSystem {
     static TxfLogDestroyReadContext(TxfLogContext) {
         A_LastError := 0
 
-        result := DllCall("txfw32.dll\TxfLogDestroyReadContext", "ptr", TxfLogContext, "int")
+        result := DllCall("txfw32.dll\TxfLogDestroyReadContext", "ptr", TxfLogContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12871,7 +12992,7 @@ class FileSystem {
      * @param {Pointer} Buffer A pointer to the buffer that receives the records. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/txfw32/ns-txfw32-txf_log_record_base">TXF_LOG_RECORD_BASE</a>.
      * @param {Pointer<UInt32>} BytesUsed The number of bytes written to the output buffer.
      * @param {Pointer<UInt32>} RecordCount The number of records written to the output buffer.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include the 
@@ -12937,7 +13058,7 @@ class FileSystem {
     static TxfLogReadRecords(TxfLogContext, BufferLength, Buffer, BytesUsed, RecordCount) {
         A_LastError := 0
 
-        result := DllCall("txfw32.dll\TxfLogReadRecords", "ptr", TxfLogContext, "uint", BufferLength, "ptr", Buffer, "uint*", BytesUsed, "uint*", RecordCount, "int")
+        result := DllCall("txfw32.dll\TxfLogReadRecords", "ptr", TxfLogContext, "uint", BufferLength, "ptr", Buffer, "uint*", BytesUsed, "uint*", RecordCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12946,15 +13067,17 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} FileHandle 
+     * @param {HANDLE} FileHandle 
      * @param {Pointer<TXF_ID>} TxfFileId 
-     * @param {Pointer<UInt64>} LastLsn 
+     * @param {Pointer<CLS_LSN>} LastLsn 
      * @param {Pointer<UInt32>} TransactionState 
      * @param {Pointer<Guid>} LockingTransaction 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static TxfReadMetadataInfo(FileHandle, TxfFileId, LastLsn, TransactionState, LockingTransaction) {
-        result := DllCall("txfw32.dll\TxfReadMetadataInfo", "ptr", FileHandle, "ptr", TxfFileId, "uint*", LastLsn, "uint*", TransactionState, "ptr", LockingTransaction, "int")
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
+        result := DllCall("txfw32.dll\TxfReadMetadataInfo", "ptr", FileHandle, "ptr", TxfFileId, "ptr", LastLsn, "uint*", TransactionState, "ptr", LockingTransaction, "ptr")
         return result
     }
 
@@ -12965,10 +13088,10 @@ class FileSystem {
      * @param {Pointer} NameBuffer 
      * @param {Pointer<UInt32>} NameBufferLengthInBytes 
      * @param {Pointer<TXF_ID>} TxfId 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static TxfLogRecordGetFileName(RecordBuffer, RecordBufferLengthInBytes, NameBuffer, NameBufferLengthInBytes, TxfId) {
-        result := DllCall("txfw32.dll\TxfLogRecordGetFileName", "ptr", RecordBuffer, "uint", RecordBufferLengthInBytes, "ptr", NameBuffer, "uint*", NameBufferLengthInBytes, "ptr", TxfId, "int")
+        result := DllCall("txfw32.dll\TxfLogRecordGetFileName", "ptr", RecordBuffer, "uint", RecordBufferLengthInBytes, "ptr", NameBuffer, "uint*", NameBufferLengthInBytes, "ptr", TxfId, "ptr")
         return result
     }
 
@@ -12978,10 +13101,10 @@ class FileSystem {
      * @param {Integer} RecordBufferLengthInBytes 
      * @param {Pointer<UInt32>} GenericType 
      * @param {Pointer<Int64>} VirtualClock 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static TxfLogRecordGetGenericType(RecordBuffer, RecordBufferLengthInBytes, GenericType, VirtualClock) {
-        result := DllCall("txfw32.dll\TxfLogRecordGetGenericType", "ptr", RecordBuffer, "uint", RecordBufferLengthInBytes, "uint*", GenericType, "int64*", VirtualClock, "int")
+        result := DllCall("txfw32.dll\TxfLogRecordGetGenericType", "ptr", RecordBuffer, "uint", RecordBufferLengthInBytes, "uint*", GenericType, "int64*", VirtualClock, "ptr")
         return result
     }
 
@@ -13041,8 +13164,8 @@ class FileSystem {
      * @param {Integer} Timeout The time-out interval, in milliseconds. If a nonzero value is specified, the transaction will be aborted when the interval elapses if it has not already reached the prepared state.
      * 
      * Specify zero (0) or INFINITE to provide an infinite time-out.
-     * @param {Pointer<Char>} Description A user-readable description of the transaction.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the transaction.
+     * @param {PWSTR} Description A user-readable description of the transaction.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the transaction.
      *       
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
@@ -13053,7 +13176,7 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateTransaction(lpTransactionAttributes, UOW, CreateOptions, IsolationLevel, IsolationFlags, Timeout, Description) {
-        Description := Description is String? StrPtr(Description) : Description
+        Description := Description is String ? StrPtr(Description) : Description
 
         A_LastError := 0
 
@@ -13061,14 +13184,14 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens an existing transaction.
      * @param {Integer} dwDesiredAccess The access to the transaction object. You must have read and write access to work with a transaction. See <a href="https://docs.microsoft.com/windows/desktop/Ktm/transaction-access-masks">Transaction Access Masks</a> for a list of valid values.
      * @param {Pointer<Guid>} TransactionId The GUID that identifies the transaction to be opened. This is commonly referred to as  a unit of work for the transaction.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the transaction.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the transaction.
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13083,15 +13206,15 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Requests that the specified transaction be committed.
-     * @param {Pointer<Void>} TransactionHandle A handle to the transaction to be committed. 
+     * @param {HANDLE} TransactionHandle A handle to the transaction to be committed. 
      * 
      * This handle must have been opened with the TRANSACTION_COMMIT access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Ktm/ktm-security-and-access-rights">KTM Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13100,9 +13223,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CommitTransaction(TransactionHandle) {
+        TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\CommitTransaction", "ptr", TransactionHandle, "int")
+        result := DllCall("ktmw32.dll\CommitTransaction", "ptr", TransactionHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13111,10 +13236,10 @@ class FileSystem {
 
     /**
      * Requests that the specified transaction be committed.
-     * @param {Pointer<Void>} TransactionHandle A handle to the transaction to be committed. 
+     * @param {HANDLE} TransactionHandle A handle to the transaction to be committed. 
      * 
      * This handle must have been opened with the TRANSACTION_COMMIT access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Ktm/ktm-security-and-access-rights">KTM Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. Success means that the function completed synchronously, and the calling application does not need to wait for pending results.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. Success means that the function completed synchronously, and the calling application does not need to wait for pending results.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13124,9 +13249,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CommitTransactionAsync(TransactionHandle) {
+        TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\CommitTransactionAsync", "ptr", TransactionHandle, "int")
+        result := DllCall("ktmw32.dll\CommitTransactionAsync", "ptr", TransactionHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13135,17 +13262,19 @@ class FileSystem {
 
     /**
      * Requests that the specified transaction be rolled back.
-     * @param {Pointer<Void>} TransactionHandle A handle to the transaction.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} TransactionHandle A handle to the transaction.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following list identifies the possible error codes:
      * @see https://docs.microsoft.com/windows/win32/api//ktmw32/nf-ktmw32-rollbacktransaction
      * @since windows6.0.6000
      */
     static RollbackTransaction(TransactionHandle) {
+        TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\RollbackTransaction", "ptr", TransactionHandle, "int")
+        result := DllCall("ktmw32.dll\RollbackTransaction", "ptr", TransactionHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13154,17 +13283,19 @@ class FileSystem {
 
     /**
      * Requests that the specified transaction be rolled back. This function returns asynchronously.
-     * @param {Pointer<Void>} TransactionHandle A handle to the transaction.
-     * @returns {Integer} If the function succeeds, the return value is nonzero, and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_IO_PENDING.
+     * @param {HANDLE} TransactionHandle A handle to the transaction.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero, and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_IO_PENDING.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following list identifies the possible error codes:
      * @see https://docs.microsoft.com/windows/win32/api//ktmw32/nf-ktmw32-rollbacktransactionasync
      * @since windows6.0.6000
      */
     static RollbackTransactionAsync(TransactionHandle) {
+        TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\RollbackTransactionAsync", "ptr", TransactionHandle, "int")
+        result := DllCall("ktmw32.dll\RollbackTransactionAsync", "ptr", TransactionHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13173,9 +13304,9 @@ class FileSystem {
 
     /**
      * Obtains the identifier (ID) for the specified transaction.
-     * @param {Pointer<Void>} TransactionHandle A handle to the transaction.
+     * @param {HANDLE} TransactionHandle A handle to the transaction.
      * @param {Pointer<Guid>} TransactionId A pointer to a variable that receives the ID of the transaction.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13185,9 +13316,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetTransactionId(TransactionHandle, TransactionId) {
+        TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetTransactionId", "ptr", TransactionHandle, "ptr", TransactionId, "int")
+        result := DllCall("ktmw32.dll\GetTransactionId", "ptr", TransactionHandle, "ptr", TransactionId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13196,14 +13329,14 @@ class FileSystem {
 
     /**
      * Returns the requested information about the specified transaction.
-     * @param {Pointer<Void>} TransactionHandle A handle to the transaction. The handle must have  the TRANSACTION_QUERY_INFORMATION permission to retrieve the information.
+     * @param {HANDLE} TransactionHandle A handle to the transaction. The handle must have  the TRANSACTION_QUERY_INFORMATION permission to retrieve the information.
      * @param {Pointer<UInt32>} Outcome A pointer to a buffer that receives the current outcome of the transaction. If the call to the <b>GetTransactionInformation</b> function is successful, this value will be one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-transaction_outcome">TRANSACTION_OUTCOME</a> enumeration values.
      * @param {Pointer<UInt32>} IsolationLevel Reserved.
      * @param {Pointer<UInt32>} IsolationFlags Reserved.
      * @param {Pointer<UInt32>} Timeout A pointer to a variable that receives the timeout value, in milliseconds, for this transaction.
      * @param {Integer} BufferLength The size of the <i>Description</i> parameter, in bytes. The buffer length value cannot be longer than the value of MAX_TRANSACTION_DESCRIPTION_LENGTH.
-     * @param {Pointer<Char>} Description A pointer to a buffer that receives the user-defined description of the transaction.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {PWSTR} Description A pointer to a buffer that receives the user-defined description of the transaction.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13213,11 +13346,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetTransactionInformation(TransactionHandle, Outcome, IsolationLevel, IsolationFlags, Timeout, BufferLength, Description) {
-        Description := Description is String? StrPtr(Description) : Description
+        Description := Description is String ? StrPtr(Description) : Description
+        TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetTransactionInformation", "ptr", TransactionHandle, "uint*", Outcome, "uint*", IsolationLevel, "uint*", IsolationFlags, "uint*", Timeout, "uint", BufferLength, "ptr", Description, "int")
+        result := DllCall("ktmw32.dll\GetTransactionInformation", "ptr", TransactionHandle, "uint*", Outcome, "uint*", IsolationLevel, "uint*", IsolationFlags, "uint*", Timeout, "uint", BufferLength, "ptr", Description, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13226,12 +13360,12 @@ class FileSystem {
 
     /**
      * Sets the transaction information for the specified transaction.
-     * @param {Pointer<Void>} TransactionHandle A handle to the transaction. The handle must have the TRANSACTION_SET_INFORMATION permission to set the transaction information.
+     * @param {HANDLE} TransactionHandle A handle to the transaction. The handle must have the TRANSACTION_SET_INFORMATION permission to set the transaction information.
      * @param {Integer} IsolationLevel Reserved; specify zero.
      * @param {Integer} IsolationFlags Reserved.
      * @param {Integer} Timeout The timeout value, in milliseconds, for this transaction.
-     * @param {Pointer<Char>} Description The user-defined description of this transaction.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {PWSTR} Description The user-defined description of this transaction.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13241,11 +13375,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetTransactionInformation(TransactionHandle, IsolationLevel, IsolationFlags, Timeout, Description) {
-        Description := Description is String? StrPtr(Description) : Description
+        Description := Description is String ? StrPtr(Description) : Description
+        TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\SetTransactionInformation", "ptr", TransactionHandle, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "int")
+        result := DllCall("ktmw32.dll\SetTransactionInformation", "ptr", TransactionHandle, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13255,7 +13390,7 @@ class FileSystem {
     /**
      * Creates a new transaction manager (TM) object and returns a handle with the specified access.
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpTransactionAttributes The transaction <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> (ACLs) for the TM object.
-     * @param {Pointer<Char>} LogFileName The log file stream name.  If the stream does not exist in the log, it is created. To create a volatile TM, this parameter must be <b>NULL</b> and <i>CreateOptions</i> must specify TRANSACTION_MANAGER_VOLATILE, this transaction manager is considered volatile.
+     * @param {PWSTR} LogFileName The log file stream name.  If the stream does not exist in the log, it is created. To create a volatile TM, this parameter must be <b>NULL</b> and <i>CreateOptions</i> must specify TRANSACTION_MANAGER_VOLATILE, this transaction manager is considered volatile.
      * @param {Integer} CreateOptions Any optional attributes for the new TM.
      * 
      * <table>
@@ -13275,7 +13410,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {Integer} CommitStrength Reserved; specify zero.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the transaction manager.  
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the transaction manager.  
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13284,7 +13419,7 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateTransactionManager(lpTransactionAttributes, LogFileName, CreateOptions, CommitStrength) {
-        LogFileName := LogFileName is String? StrPtr(LogFileName) : LogFileName
+        LogFileName := LogFileName is String ? StrPtr(LogFileName) : LogFileName
 
         A_LastError := 0
 
@@ -13292,15 +13427,15 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens an existing transaction manager.
-     * @param {Pointer<Char>} LogFileName The name of the log stream.  This stream must exist within a CLFS log file.
+     * @param {PWSTR} LogFileName The name of the log stream.  This stream must exist within a CLFS log file.
      * @param {Integer} DesiredAccess The access requested. See <a href="https://docs.microsoft.com/windows/desktop/Ktm/transaction-manager-access-masks">Transaction Manager Access Masks</a> for a list of valid values.
      * @param {Integer} OpenOptions Reserved; specify zero.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the transaction manager.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the transaction manager.
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13309,7 +13444,7 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static OpenTransactionManager(LogFileName, DesiredAccess, OpenOptions) {
-        LogFileName := LogFileName is String? StrPtr(LogFileName) : LogFileName
+        LogFileName := LogFileName is String ? StrPtr(LogFileName) : LogFileName
 
         A_LastError := 0
 
@@ -13317,7 +13452,7 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -13325,7 +13460,7 @@ class FileSystem {
      * @param {Pointer<Guid>} TransactionManagerId The identifier of the transaction to open.
      * @param {Integer} DesiredAccess The access requested. See <a href="https://docs.microsoft.com/windows/desktop/Ktm/transaction-manager-access-masks">Transaction Manager Access Masks</a> for a list of valid values.
      * @param {Integer} OpenOptions Reserved; specify zero.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the transaction manager.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the transaction manager.
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13340,14 +13475,14 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Renames a transaction manager (TM) object. This function can only be used on named TM handles.
-     * @param {Pointer<Char>} LogFileName The name of the log stream.  This stream must exist within a CLFS log file.
+     * @param {PWSTR} LogFileName The name of the log stream.  This stream must exist within a CLFS log file.
      * @param {Pointer<Guid>} ExistingTransactionManagerGuid A value that specifies the current name of the TM.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call the 
@@ -13358,11 +13493,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RenameTransactionManager(LogFileName, ExistingTransactionManagerGuid) {
-        LogFileName := LogFileName is String? StrPtr(LogFileName) : LogFileName
+        LogFileName := LogFileName is String ? StrPtr(LogFileName) : LogFileName
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\RenameTransactionManager", "ptr", LogFileName, "ptr", ExistingTransactionManagerGuid, "int")
+        result := DllCall("ktmw32.dll\RenameTransactionManager", "ptr", LogFileName, "ptr", ExistingTransactionManagerGuid, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13371,9 +13506,9 @@ class FileSystem {
 
     /**
      * Recovers information only to the specified virtual clock value.
-     * @param {Pointer<Void>} TransactionManagerHandle A handle to the transaction manager.
+     * @param {HANDLE} TransactionManagerHandle A handle to the transaction manager.
      * @param {Pointer<Int64>} TmVirtualClock A pointer to the latest virtual clock value received for this transaction.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the 
@@ -13384,9 +13519,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RollforwardTransactionManager(TransactionManagerHandle, TmVirtualClock) {
+        TransactionManagerHandle := TransactionManagerHandle is Win32Handle ? NumGet(TransactionManagerHandle, "ptr") : TransactionManagerHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\RollforwardTransactionManager", "ptr", TransactionManagerHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\RollforwardTransactionManager", "ptr", TransactionManagerHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13395,8 +13532,8 @@ class FileSystem {
 
     /**
      * Recovers a transaction manager's state from its log file.
-     * @param {Pointer<Void>} TransactionManagerHandle A handle to the transaction manager.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @param {HANDLE} TransactionManagerHandle A handle to the transaction manager.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
      *   
@@ -13408,9 +13545,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RecoverTransactionManager(TransactionManagerHandle) {
+        TransactionManagerHandle := TransactionManagerHandle is Win32Handle ? NumGet(TransactionManagerHandle, "ptr") : TransactionManagerHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\RecoverTransactionManager", "ptr", TransactionManagerHandle, "int")
+        result := DllCall("ktmw32.dll\RecoverTransactionManager", "ptr", TransactionManagerHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13419,9 +13558,9 @@ class FileSystem {
 
     /**
      * Obtains a virtual clock value from a transaction manager.
-     * @param {Pointer<Void>} TransactionManagerHandle A handle to the transaction manager to obtain a virtual clock value for.
+     * @param {HANDLE} TransactionManagerHandle A handle to the transaction manager to obtain a virtual clock value for.
      * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value for the transaction manager. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13431,9 +13570,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetCurrentClockTransactionManager(TransactionManagerHandle, TmVirtualClock) {
+        TransactionManagerHandle := TransactionManagerHandle is Win32Handle ? NumGet(TransactionManagerHandle, "ptr") : TransactionManagerHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetCurrentClockTransactionManager", "ptr", TransactionManagerHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\GetCurrentClockTransactionManager", "ptr", TransactionManagerHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13442,9 +13583,9 @@ class FileSystem {
 
     /**
      * Obtains an identifier for the specified transaction manager.
-     * @param {Pointer<Void>} TransactionManagerHandle A handle to the transaction manager.
+     * @param {HANDLE} TransactionManagerHandle A handle to the transaction manager.
      * @param {Pointer<Guid>} TransactionManagerId A pointer to a variable that receives the identifier for the transaction manager.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13454,9 +13595,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetTransactionManagerId(TransactionManagerHandle, TransactionManagerId) {
+        TransactionManagerHandle := TransactionManagerHandle is Win32Handle ? NumGet(TransactionManagerHandle, "ptr") : TransactionManagerHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetTransactionManagerId", "ptr", TransactionManagerHandle, "ptr", TransactionManagerId, "int")
+        result := DllCall("ktmw32.dll\GetTransactionManagerId", "ptr", TransactionManagerHandle, "ptr", TransactionManagerId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13485,9 +13628,9 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} TmHandle A handle to the TM that will manage the transactions for this RM.
-     * @param {Pointer<Char>} Description A description for this RM.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the RM.
+     * @param {HANDLE} TmHandle A handle to the TM that will manage the transactions for this RM.
+     * @param {PWSTR} Description A description for this RM.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the RM.
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13497,7 +13640,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateResourceManager(lpResourceManagerAttributes, ResourceManagerId, CreateOptions, TmHandle, Description) {
-        Description := Description is String? StrPtr(Description) : Description
+        Description := Description is String ? StrPtr(Description) : Description
+        TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
 
         A_LastError := 0
 
@@ -13505,15 +13649,15 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens an existing resource manager (RM).
      * @param {Integer} dwDesiredAccess The access requested for the RM. See <a href="https://docs.microsoft.com/windows/desktop/Ktm/resource-manager-access-masks">Resource Manager Access Masks</a> for a list of valid values.
-     * @param {Pointer<Void>} TmHandle A handle to the transaction manager.
+     * @param {HANDLE} TmHandle A handle to the transaction manager.
      * @param {Pointer<Guid>} ResourceManagerId The identifier  for this resource manager.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the resource manager.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the resource manager.
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13522,19 +13666,21 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static OpenResourceManager(dwDesiredAccess, TmHandle, ResourceManagerId) {
+        TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
+
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\OpenResourceManager", "uint", dwDesiredAccess, "ptr", TmHandle, "ptr", ResourceManagerId, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Recovers a resource manager's state from its log file.
-     * @param {Pointer<Void>} ResourceManagerHandle A handle to the resource manager.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @param {HANDLE} ResourceManagerHandle A handle to the resource manager.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
      *   
@@ -13546,9 +13692,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RecoverResourceManager(ResourceManagerHandle) {
+        ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\RecoverResourceManager", "ptr", ResourceManagerHandle, "int")
+        result := DllCall("ktmw32.dll\RecoverResourceManager", "ptr", ResourceManagerHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13557,7 +13705,7 @@ class FileSystem {
 
     /**
      * Requests and receives a notification for a resource manager (RM). This function is used by the RM register to receive notifications when a transaction changes state.
-     * @param {Pointer<Void>} ResourceManagerHandle A handle  to the resource manager.
+     * @param {HANDLE} ResourceManagerHandle A handle  to the resource manager.
      * @param {Pointer<TRANSACTION_NOTIFICATION>} TransactionNotification A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ktmtypes/ns-ktmtypes-transaction_notification">TRANSACTION_NOTIFICATION</a> 
      *       structure that receives the first available notification.
      * @param {Integer} NotificationLength The size of the <i>TransactionNotification</i> buffer, in bytes.
@@ -13566,7 +13714,7 @@ class FileSystem {
      *       <b>ERROR_TIMEOUT</b> is returned.
      * @param {Pointer<UInt32>} ReturnLength A pointer to a variable that receives the actual size of the notification received by the 
      *       <i>TransactionNotification</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call the 
@@ -13577,9 +13725,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetNotificationResourceManager(ResourceManagerHandle, TransactionNotification, NotificationLength, dwMilliseconds, ReturnLength) {
+        ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetNotificationResourceManager", "ptr", ResourceManagerHandle, "ptr", TransactionNotification, "uint", NotificationLength, "uint", dwMilliseconds, "uint*", ReturnLength, "int")
+        result := DllCall("ktmw32.dll\GetNotificationResourceManager", "ptr", ResourceManagerHandle, "ptr", TransactionNotification, "uint", NotificationLength, "uint", dwMilliseconds, "uint*", ReturnLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13588,7 +13738,7 @@ class FileSystem {
 
     /**
      * Requests and receives asynchronous notification for a resource manager (RM). This function is used by the RM register to receive notifications when a transaction changes state.
-     * @param {Pointer<Void>} ResourceManagerHandle A handle  to the resource manager.
+     * @param {HANDLE} ResourceManagerHandle A handle  to the resource manager.
      * @param {Pointer<TRANSACTION_NOTIFICATION>} TransactionNotification A pointer to a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmtypes/ns-ktmtypes-transaction_notification">TRANSACTION_NOTIFICATION</a> structure that 
      *       receives the first available notification.
@@ -13597,7 +13747,7 @@ class FileSystem {
      *       <i>TransactionNotification</i> parameter.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that is 
      *       required for asynchronous operation.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call the 
@@ -13608,9 +13758,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetNotificationResourceManagerAsync(ResourceManagerHandle, TransactionNotification, TransactionNotificationLength, ReturnLength, lpOverlapped) {
+        ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetNotificationResourceManagerAsync", "ptr", ResourceManagerHandle, "ptr", TransactionNotification, "uint", TransactionNotificationLength, "uint*", ReturnLength, "ptr", lpOverlapped, "int")
+        result := DllCall("ktmw32.dll\GetNotificationResourceManagerAsync", "ptr", ResourceManagerHandle, "ptr", TransactionNotification, "uint", TransactionNotificationLength, "uint*", ReturnLength, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13619,10 +13771,10 @@ class FileSystem {
 
     /**
      * Associates the specified I/O completion port with the specified resource manager (RM). This port receives all notifications for the RM.
-     * @param {Pointer<Void>} ResourceManagerHandle A handle to the resource manager.
-     * @param {Pointer<Void>} IoCompletionPortHandle A handle to the I/O completion port.
+     * @param {HANDLE} ResourceManagerHandle A handle to the resource manager.
+     * @param {HANDLE} IoCompletionPortHandle A handle to the I/O completion port.
      * @param {Pointer} CompletionKey The user-defined identifier. Typically, it is used to associate the receive notification with a specific resource manager.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13631,9 +13783,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetResourceManagerCompletionPort(ResourceManagerHandle, IoCompletionPortHandle, CompletionKey) {
+        ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
+        IoCompletionPortHandle := IoCompletionPortHandle is Win32Handle ? NumGet(IoCompletionPortHandle, "ptr") : IoCompletionPortHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\SetResourceManagerCompletionPort", "ptr", ResourceManagerHandle, "ptr", IoCompletionPortHandle, "ptr", CompletionKey, "int")
+        result := DllCall("ktmw32.dll\SetResourceManagerCompletionPort", "ptr", ResourceManagerHandle, "ptr", IoCompletionPortHandle, "ptr", CompletionKey, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13645,8 +13800,8 @@ class FileSystem {
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpEnlistmentAttributes A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> 
      *       structure that contains the security attributes for the enlistment manager.  Specify 
      *       <b>NULL</b> to obtain the default attributes.
-     * @param {Pointer<Void>} ResourceManagerHandle A handle to the resource manager (RM) to enlist.
-     * @param {Pointer<Void>} TransactionHandle A handle to the transaction in which the RM is enlisting.
+     * @param {HANDLE} ResourceManagerHandle A handle to the resource manager (RM) to enlist.
+     * @param {HANDLE} TransactionHandle A handle to the transaction in which the RM is enlisting.
      * @param {Integer} NotificationMask The notifications this RM is requesting for the <i>TransactionHandle</i> parameter. For 
      *       a list of valid values, see <a href="https://docs.microsoft.com/windows/desktop/Ktm/notification-mask">NOTIFICATION_MASK</a>.
      * @param {Integer} CreateOptions Any optional enlistment instructions.
@@ -13671,7 +13826,7 @@ class FileSystem {
      * @param {Pointer<Void>} EnlistmentKey A pointer to a user-defined structure used by the RM that is returned when a notification is sent in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmtypes/ns-ktmtypes-transaction_notification">TRANSACTION_NOTIFICATION</a> structure. This is 
      *       typically used to associate a private structure  with this specific transaction.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the enlistment.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the enlistment.
      *       
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
@@ -13682,21 +13837,24 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateEnlistment(lpEnlistmentAttributes, ResourceManagerHandle, TransactionHandle, NotificationMask, CreateOptions, EnlistmentKey) {
+        ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
+        TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
+
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\CreateEnlistment", "ptr", lpEnlistmentAttributes, "ptr", ResourceManagerHandle, "ptr", TransactionHandle, "uint", NotificationMask, "uint", CreateOptions, "ptr", EnlistmentKey, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens an existing enlistment object, and returns a handle to the enlistment.
      * @param {Integer} dwDesiredAccess The access requested for this enlistment. See <a href="https://docs.microsoft.com/windows/desktop/Ktm/enlistment-access-masks">Enlistment Access Masks</a> for a list of valid values.
-     * @param {Pointer<Void>} ResourceManagerHandle A handle to the resource manager.
+     * @param {HANDLE} ResourceManagerHandle A handle to the resource manager.
      * @param {Pointer<Guid>} EnlistmentId The enlistment identifier.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the enlistment.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the enlistment.
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13705,20 +13863,22 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static OpenEnlistment(dwDesiredAccess, ResourceManagerHandle, EnlistmentId) {
+        ResourceManagerHandle := ResourceManagerHandle is Win32Handle ? NumGet(ResourceManagerHandle, "ptr") : ResourceManagerHandle
+
         A_LastError := 0
 
         result := DllCall("ktmw32.dll\OpenEnlistment", "uint", dwDesiredAccess, "ptr", ResourceManagerHandle, "ptr", EnlistmentId, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Recovers an enlistment's state.
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Pointer<Void>} EnlistmentKey The key to the enlistment to be recovered.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
      *   
@@ -13730,9 +13890,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RecoverEnlistment(EnlistmentHandle, EnlistmentKey) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\RecoverEnlistment", "ptr", EnlistmentHandle, "ptr", EnlistmentKey, "int")
+        result := DllCall("ktmw32.dll\RecoverEnlistment", "ptr", EnlistmentHandle, "ptr", EnlistmentKey, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13741,11 +13903,11 @@ class FileSystem {
 
     /**
      * Retrieves an opaque structure of recovery data from KTM.
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> parameter, in bytes.
      * @param {Pointer<Void>} Buffer A pointer to a buffer that receives the enlistment recovery information.
      * @param {Pointer<UInt32>} BufferUsed A pointer to a variable that receives the actual number of bytes returned in the <i>Buffer</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13754,9 +13916,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer, BufferUsed) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, "ptr", Buffer, "uint*", BufferUsed, "int")
+        result := DllCall("ktmw32.dll\GetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, "ptr", Buffer, "uint*", BufferUsed, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13765,9 +13929,9 @@ class FileSystem {
 
     /**
      * Obtains the identifier (ID) for the specified enlistment.
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Pointer<Guid>} EnlistmentId A pointer to a variables that receives the ID of the enlistment.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13777,9 +13941,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetEnlistmentId(EnlistmentHandle, EnlistmentId) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetEnlistmentId", "ptr", EnlistmentHandle, "ptr", EnlistmentId, "int")
+        result := DllCall("ktmw32.dll\GetEnlistmentId", "ptr", EnlistmentHandle, "ptr", EnlistmentId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13788,10 +13954,10 @@ class FileSystem {
 
     /**
      * Sets an opaque, user-defined structure of recovery data from KTM.
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of <i>Buffer</i>, in bytes.
      * @param {Pointer<Void>} Buffer The recovery information.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
@@ -13800,9 +13966,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\SetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, "ptr", Buffer, "int")
+        result := DllCall("ktmw32.dll\SetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, "ptr", Buffer, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13811,9 +13979,9 @@ class FileSystem {
 
     /**
      * Prepares the transaction associated with this enlistment handle. This function is used by communication resource managers (sometimes called superior transaction managers).
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment for which the prepare operation has completed.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment for which the prepare operation has completed.
      * @param {Pointer<Int64>} TmVirtualClock A pointer to the latest virtual clock value received for this transaction.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call the 
@@ -13824,9 +13992,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static PrepareEnlistment(EnlistmentHandle, TmVirtualClock) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\PrepareEnlistment", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\PrepareEnlistment", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13835,9 +14005,9 @@ class FileSystem {
 
     /**
      * Pre-prepares the transaction associated with this enlistment handle. This function is used by communication resource managers (sometimes called superior transaction managers).
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment for which the prepare operation has completed.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment for which the prepare operation has completed.
      * @param {Pointer<Int64>} TmVirtualClock A pointer to the latest virtual clock value received for this transaction.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *       
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call the 
@@ -13848,9 +14018,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static PrePrepareEnlistment(EnlistmentHandle, TmVirtualClock) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\PrePrepareEnlistment", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\PrePrepareEnlistment", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13859,13 +14031,13 @@ class FileSystem {
 
     /**
      * Commits the transaction associated with this enlistment handle. This function is used by communication resource managers (sometimes called superior transaction managers).
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment to commit.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment to commit.
      * @param {Pointer<Int64>} TmVirtualClock A pointer to the latest virtual clock value received for this enlistment. If you specify 
      *       <b>NULL</b>, the virtual clock value is not changed.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned by a 
      *       subordinate TM.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -13876,9 +14048,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CommitEnlistment(EnlistmentHandle, TmVirtualClock) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\CommitEnlistment", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\CommitEnlistment", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13887,9 +14061,9 @@ class FileSystem {
 
     /**
      * Rolls back the specified transaction that is associated with an enlistment. This function cannot be called for read-only enlistments.
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this enlistment. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
      *   
@@ -13901,9 +14075,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RollbackEnlistment(EnlistmentHandle, TmVirtualClock) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\RollbackEnlistment", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\RollbackEnlistment", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13912,11 +14088,11 @@ class FileSystem {
 
     /**
      * Signals that this resource manager has completed its preprepare work, so that other resource managers can now begin their prepare operations.
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this preprepare operation. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned in the COMMIT notification.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
      *   
@@ -13928,9 +14104,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static PrePrepareComplete(EnlistmentHandle, TmVirtualClock) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\PrePrepareComplete", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\PrePrepareComplete", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13939,11 +14117,11 @@ class FileSystem {
 
     /**
      * Indicates that the resource manager (RM) has completed all processing necessary to guarantee that a commit or abort operation will succeed for the specified transaction.
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this prepare complete notification. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned in the COMMIT notification.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
      *   
@@ -13955,9 +14133,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static PrepareComplete(EnlistmentHandle, TmVirtualClock) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\PrepareComplete", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\PrepareComplete", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13966,11 +14146,11 @@ class FileSystem {
 
     /**
      * Requests that the specified enlistment be converted to a read-only enlistment. A read-only enlistment cannot participate in the outcome of the transaction and is not durably recorded for recovery.
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this enlistment. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned in the COMMIT notification.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
      *   
@@ -13982,9 +14162,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static ReadOnlyEnlistment(EnlistmentHandle, TmVirtualClock) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\ReadOnlyEnlistment", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\ReadOnlyEnlistment", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -13993,11 +14175,11 @@ class FileSystem {
 
     /**
      * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment for which the commit operation is completed.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment for which the commit operation is completed.
      * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this transaction. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned in the COMMIT notification.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
      *   
@@ -14009,9 +14191,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CommitComplete(EnlistmentHandle, TmVirtualClock) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\CommitComplete", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\CommitComplete", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14020,9 +14204,9 @@ class FileSystem {
 
     /**
      * Indicates that the resource manager (RM) has successfully completed rolling back a transaction.
-     * @param {Pointer<Void>} EnlistmentHandle A handle the enlistment.
+     * @param {HANDLE} EnlistmentHandle A handle the enlistment.
      * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received for this transaction. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
      *   
@@ -14034,9 +14218,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RollbackComplete(EnlistmentHandle, TmVirtualClock) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\RollbackComplete", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\RollbackComplete", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14045,11 +14231,11 @@ class FileSystem {
 
     /**
      * Indicates that the resource manager (RM) is refusing a single-phase request. When a transaction manager (TM) receives this call, it initiates a two-phase commit and sends a prepare request to all enlisted RMs.
-     * @param {Pointer<Void>} EnlistmentHandle A handle to the enlistment.
+     * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Pointer<Int64>} TmVirtualClock The latest virtual clock value received from the single-phase request notification. If you specify <b>NULL</b>, the virtual clock value is not changed. See <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a>.
      * 
      * To change the virtual clock value, this value must be greater than the current value returned in the COMMIT notification.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * 
      *   
@@ -14061,9 +14247,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SinglePhaseReject(EnlistmentHandle, TmVirtualClock) {
+        EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
+
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\SinglePhaseReject", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "int")
+        result := DllCall("ktmw32.dll\SinglePhaseReject", "ptr", EnlistmentHandle, "int64*", TmVirtualClock, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -14072,7 +14260,7 @@ class FileSystem {
 
     /**
      * Shares a server resource.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -14169,7 +14357,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareAdd(servername, level, buf, parm_err) {
-        servername := servername is String? StrPtr(servername) : servername
+        servername := servername is String ? StrPtr(servername) : servername
 
         result := DllCall("NETAPI32.dll\NetShareAdd", "ptr", servername, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
@@ -14177,7 +14365,7 @@ class FileSystem {
 
     /**
      * Retrieves information about each shared resource on a server.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. 
      * 
@@ -14200,15 +14388,15 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
-        servername := servername is String? StrPtr(servername) : servername
+        servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetShareEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetShareEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} servername 
+     * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr 
      * @param {Integer} prefmaxlen 
@@ -14218,16 +14406,16 @@ class FileSystem {
      * @returns {Integer} 
      */
     static NetShareEnumSticky(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
-        servername := servername is String? StrPtr(servername) : servername
+        servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetShareEnumSticky", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetShareEnumSticky", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
     /**
      * Retrieves information about a particular shared resource on a server.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Char>} netname Pointer to a string that specifies the name of the share for which to return information.
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {PWSTR} netname Pointer to a string that specifies the name of the share for which to return information.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>. 
@@ -14306,17 +14494,17 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareGetInfo(servername, netname, level, bufptr) {
-        servername := servername is String? StrPtr(servername) : servername
-        netname := netname is String? StrPtr(netname) : netname
+        servername := servername is String ? StrPtr(servername) : servername
+        netname := netname is String ? StrPtr(netname) : netname
 
-        result := DllCall("NETAPI32.dll\NetShareGetInfo", "ptr", servername, "ptr", netname, "uint", level, "ptr", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetShareGetInfo", "ptr", servername, "ptr", netname, "uint", level, "char*", bufptr, "uint")
         return result
     }
 
     /**
      * Sets the parameters of a shared resource.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Char>} netname Pointer to a string that specifies the name of the share to set information on.
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {PWSTR} netname Pointer to a string that specifies the name of the share to set information on.
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf Pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
@@ -14379,8 +14567,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareSetInfo(servername, netname, level, buf, parm_err) {
-        servername := servername is String? StrPtr(servername) : servername
-        netname := netname is String? StrPtr(netname) : netname
+        servername := servername is String ? StrPtr(servername) : servername
+        netname := netname is String ? StrPtr(netname) : netname
 
         result := DllCall("NETAPI32.dll\NetShareSetInfo", "ptr", servername, "ptr", netname, "uint", level, "char*", buf, "uint*", parm_err, "uint")
         return result
@@ -14388,13 +14576,13 @@ class FileSystem {
 
     /**
      * Deletes a share name from a server's list of shared resources, disconnecting all connections to the shared resource.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
      * 
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> is defined.
-     * @param {Pointer<Char>} netname Pointer to a string that specifies the name of the share to delete.
+     * @param {PWSTR} netname Pointer to a string that specifies the name of the share to delete.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> is defined.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
@@ -14457,8 +14645,8 @@ class FileSystem {
     static NetShareDel(servername, netname) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
-        servername := servername is String? StrPtr(servername) : servername
-        netname := netname is String? StrPtr(netname) : netname
+        servername := servername is String ? StrPtr(servername) : servername
+        netname := netname is String ? StrPtr(netname) : netname
 
         result := DllCall("NETAPI32.dll\NetShareDel", "ptr", servername, "ptr", netname, "uint", reserved, "uint")
         return result
@@ -14466,15 +14654,15 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Char>} servername 
-     * @param {Pointer<Char>} netname 
+     * @param {PWSTR} servername 
+     * @param {PWSTR} netname 
      * @returns {Integer} 
      */
     static NetShareDelSticky(servername, netname) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
-        servername := servername is String? StrPtr(servername) : servername
-        netname := netname is String? StrPtr(netname) : netname
+        servername := servername is String ? StrPtr(servername) : servername
+        netname := netname is String ? StrPtr(netname) : netname
 
         result := DllCall("NETAPI32.dll\NetShareDelSticky", "ptr", servername, "ptr", netname, "uint", reserved, "uint")
         return result
@@ -14482,8 +14670,8 @@ class FileSystem {
 
     /**
      * Checks whether or not a server is sharing a device.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Char>} device Pointer to a string that specifies the name of the device to check for shared access.
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {PWSTR} device Pointer to a string that specifies the name of the device to check for shared access.
      * @param {Pointer<UInt32>} type Pointer to a variable that receives a bitmask of flags that specify the type of the shared device. This parameter is set only if the function returns successfully. 
      * 
      * One of the following flags may be specified.
@@ -14600,8 +14788,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareCheck(servername, device, type) {
-        servername := servername is String? StrPtr(servername) : servername
-        device := device is String? StrPtr(device) : device
+        servername := servername is String ? StrPtr(servername) : servername
+        device := device is String ? StrPtr(device) : device
 
         result := DllCall("NETAPI32.dll\NetShareCheck", "ptr", servername, "ptr", device, "uint*", type, "uint")
         return result
@@ -14609,7 +14797,7 @@ class FileSystem {
 
     /**
      * Deletes a share name from a server's list of shared resources, which disconnects all connections to that share.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
      * 
@@ -14665,7 +14853,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetShareDelEx(servername, level, buf) {
-        servername := servername is String? StrPtr(servername) : servername
+        servername := servername is String ? StrPtr(servername) : servername
 
         result := DllCall("NETAPI32.dll\NetShareDelEx", "ptr", servername, "uint", level, "char*", buf, "uint")
         return result
@@ -14673,13 +14861,13 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Char>} servername 
+     * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf 
      * @returns {Integer} 
      */
     static NetServerAliasAdd(servername, level, buf) {
-        servername := servername is String? StrPtr(servername) : servername
+        servername := servername is String ? StrPtr(servername) : servername
 
         result := DllCall("NETAPI32.dll\NetServerAliasAdd", "ptr", servername, "uint", level, "char*", buf, "uint")
         return result
@@ -14687,13 +14875,13 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Char>} servername 
+     * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} buf 
      * @returns {Integer} 
      */
     static NetServerAliasDel(servername, level, buf) {
-        servername := servername is String? StrPtr(servername) : servername
+        servername := servername is String ? StrPtr(servername) : servername
 
         result := DllCall("NETAPI32.dll\NetServerAliasDel", "ptr", servername, "uint", level, "char*", buf, "uint")
         return result
@@ -14701,7 +14889,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Char>} servername 
+     * @param {PWSTR} servername 
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr 
      * @param {Integer} prefmaxlen 
@@ -14711,18 +14899,18 @@ class FileSystem {
      * @returns {Integer} 
      */
     static NetServerAliasEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
-        servername := servername is String? StrPtr(servername) : servername
+        servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetServerAliasEnum", "ptr", servername, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
+        result := DllCall("NETAPI32.dll\NetServerAliasEnum", "ptr", servername, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resumehandle, "uint")
         return result
     }
 
     /**
      * Provides information about sessions established on a server.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Char>} UncClientName Pointer to a string that specifies the name of the computer session for which information is to be returned. If this parameter is <b>NULL</b>, 
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {PWSTR} UncClientName Pointer to a string that specifies the name of the computer session for which information is to be returned. If this parameter is <b>NULL</b>, 
      * <b>NetSessionEnum</b> returns information for all computer sessions on the server.
-     * @param {Pointer<Char>} username Pointer to a string that specifies the name of the user for which information is to be returned. If this parameter is <b>NULL</b>, 
+     * @param {PWSTR} username Pointer to a string that specifies the name of the user for which information is to be returned. If this parameter is <b>NULL</b>, 
      * <b>NetSessionEnum</b> returns information for all users.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter.
@@ -14837,20 +15025,20 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetSessionEnum(servername, UncClientName, username, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
-        servername := servername is String? StrPtr(servername) : servername
-        UncClientName := UncClientName is String? StrPtr(UncClientName) : UncClientName
-        username := username is String? StrPtr(username) : username
+        servername := servername is String ? StrPtr(servername) : servername
+        UncClientName := UncClientName is String ? StrPtr(UncClientName) : UncClientName
+        username := username is String ? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetSessionEnum", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetSessionEnum", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
     /**
      * Ends a network session between a server and a workstation.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Char>} UncClientName Pointer to a string that specifies the computer name of the client to disconnect. If the <i>UncClientName</i> parameter is <b>NULL</b>, then all the sessions of the user identified by the <i>username</i> parameter will be deleted on the server specified by the <i>servername</i> parameter. For more information, see 
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {PWSTR} UncClientName Pointer to a string that specifies the computer name of the client to disconnect. If the <i>UncClientName</i> parameter is <b>NULL</b>, then all the sessions of the user identified by the <i>username</i> parameter will be deleted on the server specified by the <i>servername</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsessionenum">NetSessionEnum</a>.
-     * @param {Pointer<Char>} username Pointer to a string that specifies the name of the user whose session is to be terminated. If this parameter is <b>NULL</b>, all users' sessions from the client specified by the <i>UncClientName</i> parameter are to be terminated.
+     * @param {PWSTR} username Pointer to a string that specifies the name of the user whose session is to be terminated. If this parameter is <b>NULL</b>, all users' sessions from the client specified by the <i>UncClientName</i> parameter are to be terminated.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -14909,9 +15097,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetSessionDel(servername, UncClientName, username) {
-        servername := servername is String? StrPtr(servername) : servername
-        UncClientName := UncClientName is String? StrPtr(UncClientName) : UncClientName
-        username := username is String? StrPtr(username) : username
+        servername := servername is String ? StrPtr(servername) : servername
+        UncClientName := UncClientName is String ? StrPtr(UncClientName) : UncClientName
+        username := username is String ? StrPtr(username) : username
 
         result := DllCall("NETAPI32.dll\NetSessionDel", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint")
         return result
@@ -14919,10 +15107,10 @@ class FileSystem {
 
     /**
      * Retrieves information about a session established between a particular server and workstation.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Char>} UncClientName Pointer to a string that specifies the name of the computer session for which information is to be returned. This parameter is required and cannot be <b>NULL</b>. For more information, see 
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
+     * @param {PWSTR} UncClientName Pointer to a string that specifies the name of the computer session for which information is to be returned. This parameter is required and cannot be <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsessionenum">NetSessionEnum</a>.
-     * @param {Pointer<Char>} username Pointer to a string that specifies the name of the user whose session information is to be returned. This parameter is required and cannot be <b>NULL</b>.
+     * @param {PWSTR} username Pointer to a string that specifies the name of the user whose session information is to be returned. This parameter is required and cannot be <b>NULL</b>.
      * @param {Integer} level 
      * @param {Pointer<Byte>} bufptr Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
@@ -15024,23 +15212,23 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetSessionGetInfo(servername, UncClientName, username, level, bufptr) {
-        servername := servername is String? StrPtr(servername) : servername
-        UncClientName := UncClientName is String? StrPtr(UncClientName) : UncClientName
-        username := username is String? StrPtr(username) : username
+        servername := servername is String ? StrPtr(servername) : servername
+        UncClientName := UncClientName is String ? StrPtr(UncClientName) : UncClientName
+        username := username is String ? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetSessionGetInfo", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "ptr", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetSessionGetInfo", "ptr", servername, "ptr", UncClientName, "ptr", username, "uint", level, "char*", bufptr, "uint")
         return result
     }
 
     /**
      * Lists all connections made to a shared resource on the server or all connections established from a particular computer.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
      * 
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> is defined.
-     * @param {Pointer<Char>} qualifier Pointer to a string that specifies a share name or computer name for the connections of interest. If it is a share name, then all the connections made to that share name are listed. If it is a computer name (for example, it starts with two backslash characters), then 
+     * @param {PWSTR} qualifier Pointer to a string that specifies a share name or computer name for the connections of interest. If it is a share name, then all the connections made to that share name are listed. If it is a computer name (for example, it starts with two backslash characters), then 
      * <b>NetConnectionEnum</b> lists all connections made from that computer to the server specified.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> is defined.
@@ -15066,16 +15254,16 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetConnectionEnum(servername, qualifier, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
-        servername := servername is String? StrPtr(servername) : servername
-        qualifier := qualifier is String? StrPtr(qualifier) : qualifier
+        servername := servername is String ? StrPtr(servername) : servername
+        qualifier := qualifier is String ? StrPtr(qualifier) : qualifier
 
-        result := DllCall("NETAPI32.dll\NetConnectionEnum", "ptr", servername, "ptr", qualifier, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetConnectionEnum", "ptr", servername, "ptr", qualifier, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "uint*", resume_handle, "uint")
         return result
     }
 
     /**
      * Forces a resource to close. This function can be used when an error prevents closure by any other means. You should use NetFileClose with caution because it does not write data cached on the client system to the file before closing the file.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
      * 
@@ -15118,7 +15306,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetFileClose(servername, fileid) {
-        servername := servername is String? StrPtr(servername) : servername
+        servername := servername is String ? StrPtr(servername) : servername
 
         result := DllCall("NETAPI32.dll\NetFileClose", "ptr", servername, "uint", fileid, "uint")
         return result
@@ -15126,16 +15314,16 @@ class FileSystem {
 
     /**
      * Returns information about some or all open files on a server, depending on the parameters specified.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
      * 
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> is defined.
-     * @param {Pointer<Char>} basepath Pointer to a string that specifies a qualifier for the returned information. If this parameter is <b>NULL</b>, all open resources are enumerated. If this parameter is not <b>NULL</b>, the function enumerates only resources that have the value of the <i>basepath</i> parameter as a prefix. (A prefix is the portion of a path that comes before a backslash.)
+     * @param {PWSTR} basepath Pointer to a string that specifies a qualifier for the returned information. If this parameter is <b>NULL</b>, all open resources are enumerated. If this parameter is not <b>NULL</b>, the function enumerates only resources that have the value of the <i>basepath</i> parameter as a prefix. (A prefix is the portion of a path that comes before a backslash.)
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> is defined.
-     * @param {Pointer<Char>} username Pointer to a string that specifies the name of the user or the name of the connection. If the string begins with two backslashes ("\\"), then it indicates the name of the connection, for example, "\\127.0.0.1" or "\\ClientName". The part of the connection name after the backslashes is the same as the client name in the session information structure returned by the <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsessionenum">NetSessionEnum</a> function. If the string does not begin with two backslashes, then it indicates the name of the user. If this parameter is not <b>NULL</b>, its value serves as a qualifier for the enumeration. The files returned are limited to those that have user names or connection names that match the qualifier. If this parameter is <b>NULL</b>, no user-name qualifier is used.
+     * @param {PWSTR} username Pointer to a string that specifies the name of the user or the name of the connection. If the string begins with two backslashes ("\\"), then it indicates the name of the connection, for example, "\\127.0.0.1" or "\\ClientName". The part of the connection name after the backslashes is the same as the client name in the session information structure returned by the <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsessionenum">NetSessionEnum</a> function. If the string does not begin with two backslashes, then it indicates the name of the user. If this parameter is not <b>NULL</b>, its value serves as a qualifier for the enumeration. The files returned are limited to those that have user names or connection names that match the qualifier. If this parameter is <b>NULL</b>, no user-name qualifier is used.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This parameter is a pointer to a string that specifies the name of the user. If this parameter is not <b>NULL</b>, its value serves as a qualifier for the enumeration. The files returned are limited to those that have user names matching the qualifier. If this parameter is <b>NULL</b>, no user-name qualifier is used.
      * 
@@ -15223,17 +15411,17 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetFileEnum(servername, basepath, username, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
-        servername := servername is String? StrPtr(servername) : servername
-        basepath := basepath is String? StrPtr(basepath) : basepath
-        username := username is String? StrPtr(username) : username
+        servername := servername is String ? StrPtr(servername) : servername
+        basepath := basepath is String ? StrPtr(basepath) : basepath
+        username := username is String ? StrPtr(username) : username
 
-        result := DllCall("NETAPI32.dll\NetFileEnum", "ptr", servername, "ptr", basepath, "ptr", username, "uint", level, "ptr", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resume_handle, "uint")
+        result := DllCall("NETAPI32.dll\NetFileEnum", "ptr", servername, "ptr", basepath, "ptr", username, "uint", level, "char*", bufptr, "uint", prefmaxlen, "uint*", entriesread, "uint*", totalentries, "ptr*", resume_handle, "uint")
         return result
     }
 
     /**
      * Retrieves information about a particular opening of a server resource.
-     * @param {Pointer<Char>} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
+     * @param {PWSTR} servername Pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used. 
      * 
      * 
      * 
@@ -15314,9 +15502,9 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetFileGetInfo(servername, fileid, level, bufptr) {
-        servername := servername is String? StrPtr(servername) : servername
+        servername := servername is String ? StrPtr(servername) : servername
 
-        result := DllCall("NETAPI32.dll\NetFileGetInfo", "ptr", servername, "uint", fileid, "uint", level, "ptr", bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetFileGetInfo", "ptr", servername, "uint", fileid, "uint", level, "char*", bufptr, "uint")
         return result
     }
 
@@ -15359,7 +15547,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static NetStatisticsGet(ServerName, Service, Level, Options, Buffer) {
-        result := DllCall("NETAPI32.dll\NetStatisticsGet", "char*", ServerName, "char*", Service, "uint", Level, "uint", Options, "ptr", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\NetStatisticsGet", "char*", ServerName, "char*", Service, "uint", Level, "uint", Options, "char*", Buffer, "uint")
         return result
     }
 
@@ -15378,22 +15566,24 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
+     * @param {HIORING} ioRing 
      * @param {Integer} op 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static IsIoRingOpSupported(ioRing, op) {
-        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\IsIoRingOpSupported", "ptr", ioRing, "int", op, "int")
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
+        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\IsIoRingOpSupported", "ptr", ioRing, "int", op, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} ioringVersion 
-     * @param {Pointer} flags 
+     * @param {IORING_CREATE_FLAGS} flags 
      * @param {Integer} submissionQueueSize 
      * @param {Integer} completionQueueSize 
-     * @param {Pointer<Void>} h 
+     * @param {Pointer<HIORING>} h 
      * @returns {HRESULT} 
      */
     static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize, h) {
@@ -15406,11 +15596,13 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
+     * @param {HIORING} ioRing 
      * @param {Pointer<IORING_INFO>} info 
      * @returns {HRESULT} 
      */
     static GetIoRingInfo(ioRing, info) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\GetIoRingInfo", "ptr", ioRing, "ptr", info, "int")
         if(result != 0)
             throw OSError(result)
@@ -15420,13 +15612,15 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
+     * @param {HIORING} ioRing 
      * @param {Integer} waitOperations 
      * @param {Integer} milliseconds 
      * @param {Pointer<UInt32>} submittedEntries 
      * @returns {HRESULT} 
      */
     static SubmitIoRing(ioRing, waitOperations, milliseconds, submittedEntries) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\SubmitIoRing", "ptr", ioRing, "uint", waitOperations, "uint", milliseconds, "uint*", submittedEntries, "int")
         if(result != 0)
             throw OSError(result)
@@ -15436,10 +15630,12 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
+     * @param {HIORING} ioRing 
      * @returns {HRESULT} 
      */
     static CloseIoRing(ioRing) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\CloseIoRing", "ptr", ioRing, "int")
         if(result != 0)
             throw OSError(result)
@@ -15449,11 +15645,13 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
+     * @param {HIORING} ioRing 
      * @param {Pointer<IORING_CQE>} cqe 
      * @returns {HRESULT} 
      */
     static PopIoRingCompletion(ioRing, cqe) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\PopIoRingCompletion", "ptr", ioRing, "ptr", cqe, "int")
         if(result != 0)
             throw OSError(result)
@@ -15463,11 +15661,14 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
-     * @param {Pointer<Void>} hEvent 
+     * @param {HIORING} ioRing 
+     * @param {HANDLE} hEvent 
      * @returns {HRESULT} 
      */
     static SetIoRingCompletionEvent(ioRing, hEvent) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\SetIoRingCompletionEvent", "ptr", ioRing, "ptr", hEvent, "int")
         if(result != 0)
             throw OSError(result)
@@ -15477,13 +15678,15 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
-     * @param {Pointer} file 
+     * @param {HIORING} ioRing 
+     * @param {IORING_HANDLE_REF} file 
      * @param {Pointer} opToCancel 
      * @param {Pointer} userData 
      * @returns {HRESULT} 
      */
     static BuildIoRingCancelRequest(ioRing, file, opToCancel, userData) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingCancelRequest", "ptr", ioRing, "ptr", file, "ptr", opToCancel, "ptr", userData, "int")
         if(result != 0)
             throw OSError(result)
@@ -15493,9 +15696,9 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
-     * @param {Pointer} fileRef 
-     * @param {Pointer} dataRef 
+     * @param {HIORING} ioRing 
+     * @param {IORING_HANDLE_REF} fileRef 
+     * @param {IORING_BUFFER_REF} dataRef 
      * @param {Integer} numberOfBytesToRead 
      * @param {Integer} fileOffset 
      * @param {Pointer} userData 
@@ -15503,6 +15706,8 @@ class FileSystem {
      * @returns {HRESULT} 
      */
     static BuildIoRingReadFile(ioRing, fileRef, dataRef, numberOfBytesToRead, fileOffset, userData, sqeFlags) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingReadFile", "ptr", ioRing, "ptr", fileRef, "ptr", dataRef, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData, "int", sqeFlags, "int")
         if(result != 0)
             throw OSError(result)
@@ -15512,13 +15717,15 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
+     * @param {HIORING} ioRing 
      * @param {Integer} count 
-     * @param {Pointer<Void>} handles 
+     * @param {Pointer<HANDLE>} handles 
      * @param {Pointer} userData 
      * @returns {HRESULT} 
      */
     static BuildIoRingRegisterFileHandles(ioRing, count, handles, userData) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterFileHandles", "ptr", ioRing, "uint", count, "ptr", handles, "ptr", userData, "int")
         if(result != 0)
             throw OSError(result)
@@ -15528,13 +15735,15 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
+     * @param {HIORING} ioRing 
      * @param {Integer} count 
      * @param {Pointer<IORING_BUFFER_INFO>} buffers 
      * @param {Pointer} userData 
      * @returns {HRESULT} 
      */
     static BuildIoRingRegisterBuffers(ioRing, count, buffers, userData) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterBuffers", "ptr", ioRing, "uint", count, "ptr", buffers, "ptr", userData, "int")
         if(result != 0)
             throw OSError(result)
@@ -15544,9 +15753,9 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
-     * @param {Pointer} fileRef 
-     * @param {Pointer} bufferRef 
+     * @param {HIORING} ioRing 
+     * @param {IORING_HANDLE_REF} fileRef 
+     * @param {IORING_BUFFER_REF} bufferRef 
      * @param {Integer} numberOfBytesToWrite 
      * @param {Integer} fileOffset 
      * @param {Integer} writeFlags 
@@ -15555,6 +15764,8 @@ class FileSystem {
      * @returns {HRESULT} 
      */
     static BuildIoRingWriteFile(ioRing, fileRef, bufferRef, numberOfBytesToWrite, fileOffset, writeFlags, userData, sqeFlags) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("KERNEL32.dll\BuildIoRingWriteFile", "ptr", ioRing, "ptr", fileRef, "ptr", bufferRef, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData, "int", sqeFlags, "int")
         if(result != 0)
             throw OSError(result)
@@ -15564,14 +15775,16 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
-     * @param {Pointer} fileRef 
+     * @param {HIORING} ioRing 
+     * @param {IORING_HANDLE_REF} fileRef 
      * @param {Integer} flushMode 
      * @param {Pointer} userData 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} 
      */
     static BuildIoRingFlushFile(ioRing, fileRef, flushMode, userData, sqeFlags) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("KERNEL32.dll\BuildIoRingFlushFile", "ptr", ioRing, "ptr", fileRef, "int", flushMode, "ptr", userData, "int", sqeFlags, "int")
         if(result != 0)
             throw OSError(result)
@@ -15581,8 +15794,8 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
-     * @param {Pointer} fileRef 
+     * @param {HIORING} ioRing 
+     * @param {IORING_HANDLE_REF} fileRef 
      * @param {Integer} segmentCount 
      * @param {Pointer<FILE_SEGMENT_ELEMENT>} segmentArray 
      * @param {Integer} numberOfBytesToRead 
@@ -15592,6 +15805,8 @@ class FileSystem {
      * @returns {HRESULT} 
      */
     static BuildIoRingReadFileScatter(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToRead, fileOffset, userData, sqeFlags) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("KERNEL32.dll\BuildIoRingReadFileScatter", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData, "int", sqeFlags, "int")
         if(result != 0)
             throw OSError(result)
@@ -15601,8 +15816,8 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Void>} ioRing 
-     * @param {Pointer} fileRef 
+     * @param {HIORING} ioRing 
+     * @param {IORING_HANDLE_REF} fileRef 
      * @param {Integer} segmentCount 
      * @param {Pointer<FILE_SEGMENT_ELEMENT>} segmentArray 
      * @param {Integer} numberOfBytesToWrite 
@@ -15613,6 +15828,8 @@ class FileSystem {
      * @returns {HRESULT} 
      */
     static BuildIoRingWriteFileGather(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToWrite, fileOffset, writeFlags, userData, sqeFlags) {
+        ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
+
         result := DllCall("KERNEL32.dll\BuildIoRingWriteFileGather", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData, "int", sqeFlags, "int")
         if(result != 0)
             throw OSError(result)
@@ -15622,16 +15839,16 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Char>} virtualPath 
-     * @param {Pointer<Char>} backingPath 
+     * @param {PWSTR} virtualPath 
+     * @param {PWSTR} backingPath 
      * @param {Integer} createBindLinkFlags 
      * @param {Integer} exceptionCount 
-     * @param {Pointer<Char>} exceptionPaths 
+     * @param {Pointer<PWSTR>} exceptionPaths 
      * @returns {HRESULT} 
      */
     static CreateBindLink(virtualPath, backingPath, createBindLinkFlags, exceptionCount, exceptionPaths) {
-        virtualPath := virtualPath is String? StrPtr(virtualPath) : virtualPath
-        backingPath := backingPath is String? StrPtr(backingPath) : backingPath
+        virtualPath := virtualPath is String ? StrPtr(virtualPath) : virtualPath
+        backingPath := backingPath is String ? StrPtr(backingPath) : backingPath
 
         result := DllCall("BINDFLTAPI.dll\CreateBindLink", "ptr", virtualPath, "ptr", backingPath, "int", createBindLinkFlags, "uint", exceptionCount, "ptr", exceptionPaths, "int")
         if(result != 0)
@@ -15642,11 +15859,11 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Char>} virtualPath 
+     * @param {PWSTR} virtualPath 
      * @returns {HRESULT} 
      */
     static RemoveBindLink(virtualPath) {
-        virtualPath := virtualPath is String? StrPtr(virtualPath) : virtualPath
+        virtualPath := virtualPath is String ? StrPtr(virtualPath) : virtualPath
 
         result := DllCall("BINDFLTAPI.dll\RemoveBindLink", "ptr", virtualPath, "int")
         if(result != 0)
@@ -15657,16 +15874,16 @@ class FileSystem {
 
     /**
      * Enables or disables file system redirection for the calling thread.
-     * @param {Integer} Wow64FsEnableRedirection Indicates the type of request for WOW64 system folder redirection. If 
+     * @param {BOOLEAN} Wow64FsEnableRedirection Indicates the type of request for WOW64 system folder redirection. If 
      *       <b>TRUE</b>, requests redirection be enabled; if <b>FALSE</b>, requests 
      *       redirection be disabled.
-     * @returns {Integer} Boolean value indicating whether the function succeeded. If <b>TRUE</b>, the function 
+     * @returns {BOOLEAN} Boolean value indicating whether the function succeeded. If <b>TRUE</b>, the function 
      *       succeeded; if <b>FALSE</b>, the function failed.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-wow64enablewow64fsredirection
      * @since windows6.0.6000
      */
     static Wow64EnableWow64FsRedirection(Wow64FsEnableRedirection) {
-        result := DllCall("KERNEL32.dll\Wow64EnableWow64FsRedirection", "char", Wow64FsEnableRedirection, "char")
+        result := DllCall("KERNEL32.dll\Wow64EnableWow64FsRedirection", "ptr", Wow64FsEnableRedirection, "ptr")
         return result
     }
 
@@ -15678,7 +15895,7 @@ class FileSystem {
      * <div class="alert"><b>Note</b>  This value is for system use only. To avoid unpredictable behavior, do not modify this value in any 
      *        way.</div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -15688,7 +15905,7 @@ class FileSystem {
     static Wow64DisableWow64FsRedirection(OldValue) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Wow64DisableWow64FsRedirection", "ptr", OldValue, "int")
+        result := DllCall("KERNEL32.dll\Wow64DisableWow64FsRedirection", "ptr", OldValue, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -15698,7 +15915,7 @@ class FileSystem {
     /**
      * Restores file system redirection for the calling thread.
      * @param {Pointer<Void>} OlValue TBD
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is <b>FALSE</b> (zero). To get extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -15708,7 +15925,7 @@ class FileSystem {
     static Wow64RevertWow64FsRedirection(OlValue) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Wow64RevertWow64FsRedirection", "ptr", OlValue, "int")
+        result := DllCall("KERNEL32.dll\Wow64RevertWow64FsRedirection", "ptr", OlValue, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -15717,7 +15934,7 @@ class FileSystem {
 
     /**
      * Determines whether a file is an executable (.exe) file, and if so, which subsystem runs the executable file.
-     * @param {Pointer<Byte>} lpApplicationName The full path of the file whose executable type is to be determined.
+     * @param {PSTR} lpApplicationName The full path of the file whose executable type is to be determined.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -15809,7 +16026,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the file is executable, the return value is nonzero. The function sets the variable pointed to by 
+     * @returns {BOOL} If the file is executable, the return value is nonzero. The function sets the variable pointed to by 
      *        <i>lpBinaryType</i> to indicate the file's executable type.
      * 
      * If the file is not executable, or if the function fails, the return value is zero. To get extended error 
@@ -15819,11 +16036,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetBinaryTypeA(lpApplicationName, lpBinaryType) {
-        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
+        lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetBinaryTypeA", "ptr", lpApplicationName, "uint*", lpBinaryType, "int")
+        result := DllCall("KERNEL32.dll\GetBinaryTypeA", "ptr", lpApplicationName, "uint*", lpBinaryType, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -15832,7 +16049,7 @@ class FileSystem {
 
     /**
      * Determines whether a file is an executable (.exe) file, and if so, which subsystem runs the executable file.
-     * @param {Pointer<Char>} lpApplicationName The full path of the file whose executable type is to be determined.
+     * @param {PWSTR} lpApplicationName The full path of the file whose executable type is to be determined.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -15924,7 +16141,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the file is executable, the return value is nonzero. The function sets the variable pointed to by 
+     * @returns {BOOL} If the file is executable, the return value is nonzero. The function sets the variable pointed to by 
      *        <i>lpBinaryType</i> to indicate the file's executable type.
      * 
      * If the file is not executable, or if the function fails, the return value is zero. To get extended error 
@@ -15934,11 +16151,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetBinaryTypeW(lpApplicationName, lpBinaryType) {
-        lpApplicationName := lpApplicationName is String? StrPtr(lpApplicationName) : lpApplicationName
+        lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetBinaryTypeW", "ptr", lpApplicationName, "uint*", lpBinaryType, "int")
+        result := DllCall("KERNEL32.dll\GetBinaryTypeW", "ptr", lpApplicationName, "uint*", lpBinaryType, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -15947,13 +16164,13 @@ class FileSystem {
 
     /**
      * Retrieves the short path form of the specified path.
-     * @param {Pointer<Byte>} lpszLongPath The path string.
+     * @param {PSTR} lpszLongPath The path string.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
      *        "\\?\" to the path. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a>.
-     * @param {Pointer<Byte>} lpszShortPath A pointer to a buffer to receive the null-terminated short form of the path that 
+     * @param {PSTR} lpszShortPath A pointer to a buffer to receive the null-terminated short form of the path that 
      *        <i>lpszLongPath</i> specifies.
      * 
      * Passing <b>NULL</b> for this parameter and zero for <i>cchBuffer</i> 
@@ -15976,8 +16193,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetShortPathNameA(lpszLongPath, lpszShortPath, cchBuffer) {
-        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
-        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
+        lpszLongPath := lpszLongPath is String ? StrPtr(lpszLongPath) : lpszLongPath
+        lpszShortPath := lpszShortPath is String ? StrPtr(lpszShortPath) : lpszShortPath
 
         A_LastError := 0
 
@@ -15990,7 +16207,7 @@ class FileSystem {
 
     /**
      * Converts the specified path to its long form as a transacted operation.
-     * @param {Pointer<Byte>} lpszShortPath The path to be converted.
+     * @param {PSTR} lpszShortPath The path to be converted.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> (260) 
      *        characters. To extend this limit to 32,767 wide characters, call the Unicode version of the function and 
@@ -15999,12 +16216,12 @@ class FileSystem {
      * 
      * The path must reside on the local computer; otherwise, the function fails and the last error code is set to 
      *       <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<Byte>} lpszLongPath A pointer to the buffer to receive the long path.
+     * @param {PSTR} lpszLongPath A pointer to the buffer to receive the long path.
      * 
      * You can use the same buffer you used for the <i>lpszShortPath</i> parameter.
      * @param {Integer} cchBuffer The size of the buffer <i>lpszLongPath</i> points to, in 
      *       <b>TCHAR</b>s.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHAR</b>s, of the 
      *        string copied to <i>lpszLongPath</i>, not including the terminating null character.
@@ -16020,8 +16237,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetLongPathNameTransactedA(lpszShortPath, lpszLongPath, cchBuffer, hTransaction) {
-        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
-        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
+        lpszShortPath := lpszShortPath is String ? StrPtr(lpszShortPath) : lpszShortPath
+        lpszLongPath := lpszLongPath is String ? StrPtr(lpszLongPath) : lpszLongPath
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -16034,7 +16252,7 @@ class FileSystem {
 
     /**
      * Converts the specified path to its long form as a transacted operation.
-     * @param {Pointer<Char>} lpszShortPath The path to be converted.
+     * @param {PWSTR} lpszShortPath The path to be converted.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> (260) 
      *        characters. To extend this limit to 32,767 wide characters, call the Unicode version of the function and 
@@ -16043,12 +16261,12 @@ class FileSystem {
      * 
      * The path must reside on the local computer; otherwise, the function fails and the last error code is set to 
      *       <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<Char>} lpszLongPath A pointer to the buffer to receive the long path.
+     * @param {PWSTR} lpszLongPath A pointer to the buffer to receive the long path.
      * 
      * You can use the same buffer you used for the <i>lpszShortPath</i> parameter.
      * @param {Integer} cchBuffer The size of the buffer <i>lpszLongPath</i> points to, in 
      *       <b>TCHAR</b>s.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHAR</b>s, of the 
      *        string copied to <i>lpszLongPath</i>, not including the terminating null character.
@@ -16064,8 +16282,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetLongPathNameTransactedW(lpszShortPath, lpszLongPath, cchBuffer, hTransaction) {
-        lpszShortPath := lpszShortPath is String? StrPtr(lpszShortPath) : lpszShortPath
-        lpszLongPath := lpszLongPath is String? StrPtr(lpszLongPath) : lpszLongPath
+        lpszShortPath := lpszShortPath is String ? StrPtr(lpszShortPath) : lpszShortPath
+        lpszLongPath := lpszLongPath is String ? StrPtr(lpszLongPath) : lpszLongPath
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -16078,7 +16297,7 @@ class FileSystem {
 
     /**
      * Sets the notification modes for a file handle, allowing you to specify how completion notifications work for the specified file.
-     * @param {Pointer<Void>} FileHandle A handle to the file.
+     * @param {HANDLE} FileHandle A handle to the file.
      * @param {Integer} Flags The modes to be set.  One or more modes can be set at the same time; however, after a mode has been set for 
      *       a file handle, it cannot be removed.
      * 
@@ -16133,7 +16352,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Returns nonzero if successful or zero otherwise.
+     * @returns {BOOL} Returns nonzero if successful or zero otherwise.
      * 
      * To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -16141,9 +16360,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetFileCompletionNotificationModes(FileHandle, Flags) {
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileCompletionNotificationModes", "ptr", FileHandle, "char", Flags, "int")
+        result := DllCall("KERNEL32.dll\SetFileCompletionNotificationModes", "ptr", FileHandle, "char", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16152,16 +16373,16 @@ class FileSystem {
 
     /**
      * Sets the short name for the specified file.
-     * @param {Pointer<Void>} hFile A handle to the file. The file must be opened with either the <b>GENERIC_ALL</b> access 
+     * @param {HANDLE} hFile A handle to the file. The file must be opened with either the <b>GENERIC_ALL</b> access 
      *        right or <b>GENERIC_WRITE</b>|<b>DELETE</b>, and with the 
      *        <b>FILE_FLAG_BACKUP_SEMANTICS</b> file attribute.
-     * @param {Pointer<Byte>} lpShortName A pointer to a string that specifies the short name for the file.
+     * @param {PSTR} lpShortName A pointer to a string that specifies the short name for the file.
      * 
      *  Specifying  an empty (zero-length) string will remove the short file name, if it exists for the file specified by the <i>hFile</i> parameter. If  a short file name does not exist, the function will do nothing and return success.
      * 
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This behavior is not supported. The parameter must contain a valid string of one or more characters.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
@@ -16200,11 +16421,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileShortNameA(hFile, lpShortName) {
-        lpShortName := lpShortName is String? StrPtr(lpShortName) : lpShortName
+        lpShortName := lpShortName is String ? StrPtr(lpShortName) : lpShortName
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileShortNameA", "ptr", hFile, "ptr", lpShortName, "int")
+        result := DllCall("KERNEL32.dll\SetFileShortNameA", "ptr", hFile, "ptr", lpShortName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16213,16 +16435,16 @@ class FileSystem {
 
     /**
      * Sets the short name for the specified file.
-     * @param {Pointer<Void>} hFile A handle to the file. The file must be opened with either the <b>GENERIC_ALL</b> access 
+     * @param {HANDLE} hFile A handle to the file. The file must be opened with either the <b>GENERIC_ALL</b> access 
      *        right or <b>GENERIC_WRITE</b>|<b>DELETE</b>, and with the 
      *        <b>FILE_FLAG_BACKUP_SEMANTICS</b> file attribute.
-     * @param {Pointer<Char>} lpShortName A pointer to a string that specifies the short name for the file.
+     * @param {PWSTR} lpShortName A pointer to a string that specifies the short name for the file.
      * 
      *  Specifying  an empty (zero-length) string will remove the short file name, if it exists for the file specified by the <i>hFile</i> parameter. If  a short file name does not exist, the function will do nothing and return success.
      * 
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This behavior is not supported. The parameter must contain a valid string of one or more characters.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
@@ -16261,11 +16483,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileShortNameW(hFile, lpShortName) {
-        lpShortName := lpShortName is String? StrPtr(lpShortName) : lpShortName
+        lpShortName := lpShortName is String ? StrPtr(lpShortName) : lpShortName
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileShortNameW", "ptr", hFile, "ptr", lpShortName, "int")
+        result := DllCall("KERNEL32.dll\SetFileShortNameW", "ptr", hFile, "ptr", lpShortName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -16274,13 +16497,13 @@ class FileSystem {
 
     /**
      * Sets the tape position on the specified device.
-     * @param {Pointer<Void>} hDevice Handle to the device on which to set the tape position. This handle is created by using the 
+     * @param {HANDLE} hDevice Handle to the device on which to set the tape position. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} dwPositionMethod 
      * @param {Integer} dwPartition Partition to position within. If <i>dwPartition</i> is zero, the current partition is used. Partitions are numbered logically from 1 through n, where 1 is the first partition on the tape and n is the last.
      * @param {Integer} dwOffsetLow Low-order bits of the block address or count for the position operation specified by the <i>dwPositionMethod</i> parameter.
      * @param {Integer} dwOffsetHigh High-order bits of the block address or count for the position operation specified by the <i>dwPositionMethod</i> parameter. If the high-order bits are not required, this parameter should be zero.
-     * @param {Integer} bImmediate Indicates whether to return as soon as the move operation begins. If this parameter is <b>TRUE</b>, the function returns immediately; if <b>FALSE</b>, the function does not return until the move operation has been completed.
+     * @param {BOOL} bImmediate Indicates whether to return as soon as the move operation begins. If this parameter is <b>TRUE</b>, the function returns immediately; if <b>FALSE</b>, the function does not return until the move operation has been completed.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, it can return one of the following error codes.
@@ -16475,13 +16698,15 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetTapePosition(hDevice, dwPositionMethod, dwPartition, dwOffsetLow, dwOffsetHigh, bImmediate) {
-        result := DllCall("KERNEL32.dll\SetTapePosition", "ptr", hDevice, "uint", dwPositionMethod, "uint", dwPartition, "uint", dwOffsetLow, "uint", dwOffsetHigh, "int", bImmediate, "uint")
+        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
+
+        result := DllCall("KERNEL32.dll\SetTapePosition", "ptr", hDevice, "uint", dwPositionMethod, "uint", dwPartition, "uint", dwOffsetLow, "uint", dwOffsetHigh, "ptr", bImmediate, "uint")
         return result
     }
 
     /**
      * Retrieves the current address of the tape, in logical or absolute blocks.
-     * @param {Pointer<Void>} hDevice Handle to the device on which to get the tape position. This handle is created by using 
+     * @param {HANDLE} hDevice Handle to the device on which to get the tape position. This handle is created by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
      * @param {Integer} dwPositionType 
      * @param {Pointer<UInt32>} lpdwPartition Pointer to a variable that receives the number of the current tape partition. Partitions are numbered logically from 1 through n, where 1 is the first partition on the tape and n is the last. When a device-specific block address is retrieved, or if the device supports only one partition, this parameter receives zero.
@@ -16681,16 +16906,18 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTapePosition(hDevice, dwPositionType, lpdwPartition, lpdwOffsetLow, lpdwOffsetHigh) {
+        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
+
         result := DllCall("KERNEL32.dll\GetTapePosition", "ptr", hDevice, "uint", dwPositionType, "uint*", lpdwPartition, "uint*", lpdwOffsetLow, "uint*", lpdwOffsetHigh, "uint")
         return result
     }
 
     /**
      * Prepares the tape to be accessed or removed.
-     * @param {Pointer<Void>} hDevice Handle to the device preparing the tape. This handle is created by using the 
+     * @param {HANDLE} hDevice Handle to the device preparing the tape. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} dwOperation 
-     * @param {Integer} bImmediate If this parameter is <b>TRUE</b>, the function returns immediately. If it is <b>FALSE</b>, the function does not return until the operation has been completed.
+     * @param {BOOL} bImmediate If this parameter is <b>TRUE</b>, the function returns immediately. If it is <b>FALSE</b>, the function does not return until the operation has been completed.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, it can return one of the following error codes.
@@ -16885,16 +17112,18 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static PrepareTape(hDevice, dwOperation, bImmediate) {
-        result := DllCall("KERNEL32.dll\PrepareTape", "ptr", hDevice, "uint", dwOperation, "int", bImmediate, "uint")
+        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
+
+        result := DllCall("KERNEL32.dll\PrepareTape", "ptr", hDevice, "uint", dwOperation, "ptr", bImmediate, "uint")
         return result
     }
 
     /**
      * Erases all or part of a tape.
-     * @param {Pointer<Void>} hDevice Handle to the device where the tape is to be erased. This handle is created by using the 
+     * @param {HANDLE} hDevice Handle to the device where the tape is to be erased. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} dwEraseType 
-     * @param {Integer} bImmediate If this parameter is <b>TRUE</b>, the function returns immediately; if it is <b>FALSE</b>, the function does not return until the erase operation has been completed.
+     * @param {BOOL} bImmediate If this parameter is <b>TRUE</b>, the function returns immediately; if it is <b>FALSE</b>, the function does not return until the erase operation has been completed.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, it can return one of the following error codes.
@@ -17089,13 +17318,15 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static EraseTape(hDevice, dwEraseType, bImmediate) {
-        result := DllCall("KERNEL32.dll\EraseTape", "ptr", hDevice, "uint", dwEraseType, "int", bImmediate, "uint")
+        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
+
+        result := DllCall("KERNEL32.dll\EraseTape", "ptr", hDevice, "uint", dwEraseType, "ptr", bImmediate, "uint")
         return result
     }
 
     /**
      * Reformats a tape.
-     * @param {Pointer<Void>} hDevice Handle to the device where the new partition is to be created. This handle is created by using the 
+     * @param {HANDLE} hDevice Handle to the device where the new partition is to be created. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} dwPartitionMethod 
      * @param {Integer} dwCount Number of partitions to create. The 
@@ -17295,17 +17526,19 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateTapePartition(hDevice, dwPartitionMethod, dwCount, dwSize) {
+        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
+
         result := DllCall("KERNEL32.dll\CreateTapePartition", "ptr", hDevice, "uint", dwPartitionMethod, "uint", dwCount, "uint", dwSize, "uint")
         return result
     }
 
     /**
      * Writes a specified number of filemarks, setmarks, short filemarks, or long filemarks to a tape device.
-     * @param {Pointer<Void>} hDevice Handle to the device on which to write tapemarks. This handle is created by using the 
+     * @param {HANDLE} hDevice Handle to the device on which to write tapemarks. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} dwTapemarkType 
      * @param {Integer} dwTapemarkCount Number of tapemarks to write.
-     * @param {Integer} bImmediate If this parameter is <b>TRUE</b>, the function returns immediately; if it is <b>FALSE</b>, the function does not return until the operation has been completed.
+     * @param {BOOL} bImmediate If this parameter is <b>TRUE</b>, the function returns immediately; if it is <b>FALSE</b>, the function does not return until the operation has been completed.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, it can return one of the following error codes.
@@ -17500,13 +17733,15 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static WriteTapemark(hDevice, dwTapemarkType, dwTapemarkCount, bImmediate) {
-        result := DllCall("KERNEL32.dll\WriteTapemark", "ptr", hDevice, "uint", dwTapemarkType, "uint", dwTapemarkCount, "int", bImmediate, "uint")
+        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
+
+        result := DllCall("KERNEL32.dll\WriteTapemark", "ptr", hDevice, "uint", dwTapemarkType, "uint", dwTapemarkCount, "ptr", bImmediate, "uint")
         return result
     }
 
     /**
      * Determines whether the tape device is ready to process tape commands.
-     * @param {Pointer<Void>} hDevice Handle to the device for which to get the device status. This handle is created by using the 
+     * @param {HANDLE} hDevice Handle to the device for which to get the device status. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @returns {Integer} If the tape device is ready to accept appropriate tape-access commands without returning errors, the return value is NO_ERROR.
      * 
@@ -17714,13 +17949,15 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTapeStatus(hDevice) {
+        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
+
         result := DllCall("KERNEL32.dll\GetTapeStatus", "ptr", hDevice, "uint")
         return result
     }
 
     /**
      * Retrieves information that describes the tape or the tape drive.
-     * @param {Pointer<Void>} hDevice Handle to the device about which information is sought. This handle is created by using the 
+     * @param {HANDLE} hDevice Handle to the device about which information is sought. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} dwOperation 
      * @param {Pointer<UInt32>} lpdwSize Pointer to a variable that receives the size, in bytes, of the buffer specified by the <i>lpTapeInformation</i> parameter. If the buffer is too small, this parameter receives the required size.
@@ -17923,13 +18160,15 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetTapeParameters(hDevice, dwOperation, lpdwSize, lpTapeInformation) {
+        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
+
         result := DllCall("KERNEL32.dll\GetTapeParameters", "ptr", hDevice, "uint", dwOperation, "uint*", lpdwSize, "ptr", lpTapeInformation, "uint")
         return result
     }
 
     /**
      * Specifies the block size of a tape or configures the tape device.
-     * @param {Pointer<Void>} hDevice Handle to the device for which to set configuration information. This handle is created by using the 
+     * @param {HANDLE} hDevice Handle to the device for which to set configuration information. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} dwOperation 
      * @param {Pointer<Void>} lpTapeInformation Pointer to a structure that contains the information to set. If the <i>dwOperation</i> parameter is SET_TAPE_MEDIA_INFORMATION, <i>lpTapeInformation</i> points to a 
@@ -18134,19 +18373,21 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetTapeParameters(hDevice, dwOperation, lpTapeInformation) {
+        hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
+
         result := DllCall("KERNEL32.dll\SetTapeParameters", "ptr", hDevice, "uint", dwOperation, "ptr", lpTapeInformation, "uint")
         return result
     }
 
     /**
      * Encrypts a file or directory.
-     * @param {Pointer<Byte>} lpFileName The name of the file or directory to be encrypted.
+     * @param {PSTR} lpFileName The name of the file or directory to be encrypted.
      * 
      * The caller must have the <b>FILE_READ_DATA</b>, <b>FILE_WRITE_DATA</b>, 
      *        <b>FILE_READ_ATTRIBUTES</b>, <b>FILE_WRITE_ATTRIBUTES</b>, and 
      *        <b>SYNCHRONIZE</b> access rights. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -18154,11 +18395,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static EncryptFileA(lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EncryptFileA", "ptr", lpFileName, "int")
+        result := DllCall("ADVAPI32.dll\EncryptFileA", "ptr", lpFileName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -18167,13 +18408,13 @@ class FileSystem {
 
     /**
      * Encrypts a file or directory.
-     * @param {Pointer<Char>} lpFileName The name of the file or directory to be encrypted.
+     * @param {PWSTR} lpFileName The name of the file or directory to be encrypted.
      * 
      * The caller must have the <b>FILE_READ_DATA</b>, <b>FILE_WRITE_DATA</b>, 
      *        <b>FILE_READ_ATTRIBUTES</b>, <b>FILE_WRITE_ATTRIBUTES</b>, and 
      *        <b>SYNCHRONIZE</b> access rights. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -18181,11 +18422,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static EncryptFileW(lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EncryptFileW", "ptr", lpFileName, "int")
+        result := DllCall("ADVAPI32.dll\EncryptFileW", "ptr", lpFileName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -18194,11 +18435,11 @@ class FileSystem {
 
     /**
      * Decrypts an encrypted file or directory.
-     * @param {Pointer<Byte>} lpFileName The name of the file or directory to be decrypted.
+     * @param {PSTR} lpFileName The name of the file or directory to be decrypted.
      * 
      * The caller must have the <b>FILE_READ_DATA</b>, <b>FILE_WRITE_DATA</b>, <b>FILE_READ_ATTRIBUTES</b>, <b>FILE_WRITE_ATTRIBUTES</b>, and <b>SYNCHRONIZE</b> access rights. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -18208,11 +18449,11 @@ class FileSystem {
     static DecryptFileA(lpFileName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\DecryptFileA", "ptr", lpFileName, "uint", dwReserved, "int")
+        result := DllCall("ADVAPI32.dll\DecryptFileA", "ptr", lpFileName, "uint", dwReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -18221,11 +18462,11 @@ class FileSystem {
 
     /**
      * Decrypts an encrypted file or directory.
-     * @param {Pointer<Char>} lpFileName The name of the file or directory to be decrypted.
+     * @param {PWSTR} lpFileName The name of the file or directory to be decrypted.
      * 
      * The caller must have the <b>FILE_READ_DATA</b>, <b>FILE_WRITE_DATA</b>, <b>FILE_READ_ATTRIBUTES</b>, <b>FILE_WRITE_ATTRIBUTES</b>, and <b>SYNCHRONIZE</b> access rights. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -18235,11 +18476,11 @@ class FileSystem {
     static DecryptFileW(lpFileName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\DecryptFileW", "ptr", lpFileName, "uint", dwReserved, "int")
+        result := DllCall("ADVAPI32.dll\DecryptFileW", "ptr", lpFileName, "uint", dwReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -18248,7 +18489,7 @@ class FileSystem {
 
     /**
      * Retrieves the encryption status of the specified file.
-     * @param {Pointer<Byte>} lpFileName The name of the file.
+     * @param {PSTR} lpFileName The name of the file.
      * @param {Pointer<UInt32>} lpStatus A pointer to a variable that receives the encryption status of the file. This parameter can be one of the 
      *       following values.
      * 
@@ -18361,7 +18602,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -18369,11 +18610,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FileEncryptionStatusA(lpFileName, lpStatus) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\FileEncryptionStatusA", "ptr", lpFileName, "uint*", lpStatus, "int")
+        result := DllCall("ADVAPI32.dll\FileEncryptionStatusA", "ptr", lpFileName, "uint*", lpStatus, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -18382,7 +18623,7 @@ class FileSystem {
 
     /**
      * Retrieves the encryption status of the specified file.
-     * @param {Pointer<Char>} lpFileName The name of the file.
+     * @param {PWSTR} lpFileName The name of the file.
      * @param {Pointer<UInt32>} lpStatus A pointer to a variable that receives the encryption status of the file. This parameter can be one of the 
      *       following values.
      * 
@@ -18495,7 +18736,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -18503,11 +18744,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FileEncryptionStatusW(lpFileName, lpStatus) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\FileEncryptionStatusW", "ptr", lpFileName, "uint*", lpStatus, "int")
+        result := DllCall("ADVAPI32.dll\FileEncryptionStatusW", "ptr", lpFileName, "uint*", lpStatus, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -18516,7 +18757,7 @@ class FileSystem {
 
     /**
      * Opens an encrypted file in order to backup (export) or restore (import) the file.
-     * @param {Pointer<Byte>} lpFileName The name of the file to be opened. The string must consist of characters from the Windows character set.
+     * @param {PSTR} lpFileName The name of the file to be opened. The string must consist of characters from the Windows character set.
      * @param {Integer} ulFlags The operation to be performed. This parameter may be one of the
      *          following values.
      * 
@@ -18586,7 +18827,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static OpenEncryptedFileRawA(lpFileName, ulFlags, pvContext) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawA", "ptr", lpFileName, "uint", ulFlags, "ptr", pvContext, "uint")
         return result
@@ -18594,7 +18835,7 @@ class FileSystem {
 
     /**
      * Opens an encrypted file in order to backup (export) or restore (import) the file.
-     * @param {Pointer<Char>} lpFileName The name of the file to be opened. The string must consist of characters from the Windows character set.
+     * @param {PWSTR} lpFileName The name of the file to be opened. The string must consist of characters from the Windows character set.
      * @param {Integer} ulFlags The operation to be performed. This parameter may be one of the
      *          following values.
      * 
@@ -18664,7 +18905,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static OpenEncryptedFileRawW(lpFileName, ulFlags, pvContext) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("ADVAPI32.dll\OpenEncryptedFileRawW", "ptr", lpFileName, "uint", ulFlags, "ptr", pvContext, "uint")
         return result
@@ -18806,7 +19047,7 @@ class FileSystem {
 
     /**
      * Creates, opens, reopens, or deletes a file.
-     * @param {Pointer<Byte>} lpFileName The name of the file.
+     * @param {PSTR} lpFileName The name of the file.
      * 
      * The string must consist of characters from the 8-bit Windows character set. The 
      *        <b>OpenFile</b> function does not support Unicode file names or 
@@ -18832,7 +19073,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static OpenFile(lpFileName, lpReOpenBuff, uStyle) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -18845,7 +19086,7 @@ class FileSystem {
 
     /**
      * Back up a file or directory, including the security information.
-     * @param {Pointer<Void>} hFile Handle to the file or directory to be backed up. To obtain the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function. The SACLs are not read unless the file handle was created with the <b>ACCESS_SYSTEM_SECURITY</b> access right. For more information, see [File security and access rights](/windows/win32/fileio/file-security-and-access-rights).
+     * @param {HANDLE} hFile Handle to the file or directory to be backed up. To obtain the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function. The SACLs are not read unless the file handle was created with the <b>ACCESS_SYSTEM_SECURITY</b> access right. For more information, see [File security and access rights](/windows/win32/fileio/file-security-and-access-rights).
      * 
      * The handle must be synchronous (nonoverlapped). This means that the <b>FILE_FLAG_OVERLAPPED</b> flag must not be set when <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> is called. This function does not validate that the handle it receives is synchronous, so it does not return an error code for a synchronous handle, but calling it with an asynchronous (overlapped) handle can result in subtle errors that are very difficult to debug.
      * 
@@ -18862,14 +19103,14 @@ class FileSystem {
      * If the function returns a nonzero value, and the variable pointed to by 
      *       <i>lpNumberOfBytesRead</i> is zero, then all the data associated with the file handle has 
      *       been read.
-     * @param {Integer} bAbort Indicates whether you have finished using <b>BackupRead</b> 
+     * @param {BOOL} bAbort Indicates whether you have finished using <b>BackupRead</b> 
      *       on the handle. While you are backing up the file, specify this parameter as <b>FALSE</b>. 
      *       Once you are done using <b>BackupRead</b>, you must call 
      *       <b>BackupRead</b> one more time specifying 
      *       <b>TRUE</b> for this parameter and passing the appropriate 
      *       <i>lpContext</i>. <i>lpContext</i> must be passed when 
      *       <i>bAbort</i> is <b>TRUE</b>; all other parameters are ignored.
-     * @param {Integer} bProcessSecurity Indicates whether the function will restore the access-control list (ACL) data for the file or directory.
+     * @param {BOOL} bProcessSecurity Indicates whether the function will restore the access-control list (ACL) data for the file or directory.
      * 
      * If <i>bProcessSecurity</i> is <b>TRUE</b>, the ACL data will be backed 
      *       up.
@@ -18886,7 +19127,7 @@ class FileSystem {
      * To release the memory used by the data structure, call 
      *       <b>BackupRead</b> with the 
      *       <i>bAbort</i> parameter set to <b>TRUE</b> when the backup operation is complete.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero, indicating that an I/O error occurred. To get extended 
      *        error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -18894,9 +19135,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static BackupRead(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, bAbort, bProcessSecurity, lpContext) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BackupRead", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "uint*", lpNumberOfBytesRead, "int", bAbort, "int", bProcessSecurity, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\BackupRead", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, "uint*", lpNumberOfBytesRead, "ptr", bAbort, "ptr", bProcessSecurity, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -18905,7 +19148,7 @@ class FileSystem {
 
     /**
      * Seeks forward in a data stream initially accessed by using the BackupRead or BackupWrite function.
-     * @param {Pointer<Void>} hFile Handle to the file or directory. This handle is created by using the 
+     * @param {HANDLE} hFile Handle to the file or directory. This handle is created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * 
      * The handle must be synchronous (nonoverlapped). This means that the FILE_FLAG_OVERLAPPED flag must not be set when <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> is called. This function does not validate that the handle it receives is synchronous, so it does not return an error code for a synchronous handle, but calling it with an asynchronous (overlapped) handle can result in subtle errors that are very difficult to debug.
@@ -18915,7 +19158,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} lpdwHighByteSeeked Pointer to a variable that receives the high-order bits of the number of bytes the function actually seeks.
      * @param {Pointer<Void>} lpContext Pointer to an internal data structure used by the function. This structure must be the same structure that was initialized by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-backupread">BackupRead</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-backupwrite">BackupWrite</a> function. An application must not touch the contents of this structure.
-     * @returns {Integer} If the function could seek the requested amount, the function returns a nonzero value.
+     * @returns {BOOL} If the function could seek the requested amount, the function returns a nonzero value.
      * 
      * If the function could not seek the requested amount, the function returns zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -18923,9 +19166,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static BackupSeek(hFile, dwLowBytesToSeek, dwHighBytesToSeek, lpdwLowByteSeeked, lpdwHighByteSeeked, lpContext) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BackupSeek", "ptr", hFile, "uint", dwLowBytesToSeek, "uint", dwHighBytesToSeek, "uint*", lpdwLowByteSeeked, "uint*", lpdwHighByteSeeked, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\BackupSeek", "ptr", hFile, "uint", dwLowBytesToSeek, "uint", dwHighBytesToSeek, "uint*", lpdwLowByteSeeked, "uint*", lpdwHighByteSeeked, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -18934,7 +19179,7 @@ class FileSystem {
 
     /**
      * Restore a file or directory that was backed up using BackupRead.
-     * @param {Pointer<Void>} hFile Handle to the file or directory to be restored. To obtain the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function. The SACLs are not restored unless the file handle was created with the <b>ACCESS_SYSTEM_SECURITY</b> access right. To ensure that the integrity ACEs are restored correctly, the file handle must also have been created with the <b>WRITE_OWNER</b> access right. For more information, see [File security and access rights](/windows/win32/fileio/file-security-and-access-rights).
+     * @param {HANDLE} hFile Handle to the file or directory to be restored. To obtain the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function. The SACLs are not restored unless the file handle was created with the <b>ACCESS_SYSTEM_SECURITY</b> access right. To ensure that the integrity ACEs are restored correctly, the file handle must also have been created with the <b>WRITE_OWNER</b> access right. For more information, see [File security and access rights](/windows/win32/fileio/file-security-and-access-rights).
      * 
      * The handle must be synchronous (nonoverlapped). This means that the <b>FILE_FLAG_OVERLAPPED</b> flag must not be set when <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> is called. This function does not validate that the handle it receives is synchronous, so it does not return an error code for a synchronous handle, but calling it with an asynchronous (overlapped) handle can result in subtle errors that are very difficult to debug.
      * 
@@ -18947,13 +19192,13 @@ class FileSystem {
      * @param {Integer} nNumberOfBytesToWrite Size of the buffer, in bytes. The buffer size must be greater than the size of a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-win32_stream_id">WIN32_STREAM_ID</a> structure.
      * @param {Pointer<UInt32>} lpNumberOfBytesWritten Pointer to a variable that receives the number of bytes written.
-     * @param {Integer} bAbort Indicates whether you have finished using <b>BackupWrite</b> on the handle. 
+     * @param {BOOL} bAbort Indicates whether you have finished using <b>BackupWrite</b> on the handle. 
      *       While you are restoring the file, specify this parameter as <b>FALSE</b>. After you are done 
      *       using <b>BackupWrite</b>, you must call <b>BackupWrite</b> 
      *       one more time specifying <b>TRUE</b> for this parameter and passing the appropriate 
      *       <i>lpContext</i>. <i>lpContext</i> must be passed when 
      *       <i>bAbort</i> is <b>TRUE</b>; all other parameters are ignored.
-     * @param {Integer} bProcessSecurity Specifies whether the function will restore the access-control list (ACL) data for the file or directory.
+     * @param {BOOL} bProcessSecurity Specifies whether the function will restore the access-control list (ACL) data for the file or directory.
      * 
      * If <i>bProcessSecurity</i> is <b>TRUE</b>, you need to specify 
      *       <b>WRITE_OWNER</b> and <b>WRITE_DAC</b> access when opening the file or 
@@ -18971,7 +19216,7 @@ class FileSystem {
      * To release the memory used by the data structure, call <b>BackupWrite</b> with the 
      *       <i>bAbort</i> parameter set to <b>TRUE</b> when the restore operation is 
      *       complete.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero, indicating that an I/O error occurred. To get extended 
      *        error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -18979,9 +19224,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static BackupWrite(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, bAbort, bProcessSecurity, lpContext) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BackupWrite", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, "uint*", lpNumberOfBytesWritten, "int", bAbort, "int", bProcessSecurity, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\BackupWrite", "ptr", hFile, "ptr", lpBuffer, "uint", nNumberOfBytesToWrite, "uint*", lpNumberOfBytesWritten, "ptr", bAbort, "ptr", bProcessSecurity, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -18993,7 +19240,7 @@ class FileSystem {
      * @param {Integer} nBufferLength The maximum size of the buffer pointed to by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>. This size does not include the terminating null character. If this 
      *       parameter is zero, <i>lpBuffer</i> is not used.
-     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives a series of null-terminated strings, one for each valid drive in the 
+     * @param {PSTR} lpBuffer A pointer to a buffer that receives a series of null-terminated strings, one for each valid drive in the 
      *       system, plus with an additional null character. Each string is a device name.
      * @returns {Integer} If the function succeeds, the return value is the length, in characters, of the strings copied to the buffer, 
      *        not including the terminating null character. Note that an ANSI-ASCII null character uses one byte, but a 
@@ -19008,7 +19255,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetLogicalDriveStringsA(nBufferLength, lpBuffer) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -19069,7 +19316,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the operation completes successfully, the 
+     * @returns {BOOL} If the operation completes successfully, the 
      *        <b>SetSearchPathMode</b> function returns a nonzero 
      *        value.
      * 
@@ -19092,7 +19339,7 @@ class FileSystem {
     static SetSearchPathMode(Flags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetSearchPathMode", "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\SetSearchPathMode", "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -19101,7 +19348,7 @@ class FileSystem {
 
     /**
      * Creates a new directory with the attributes of a specified template directory.
-     * @param {Pointer<Byte>} lpTemplateDirectory The path of the directory to use as a template when creating the new directory.
+     * @param {PSTR} lpTemplateDirectory The path of the directory to use as a template when creating the new directory.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -19110,7 +19357,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CreateDirectoryExW</b>), you can opt-in to remove the <b>MAX_PATH</b> character limitation without prepending "\\?\". The 255 character limit per path segment still applies. See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} lpNewDirectory The path of the directory to be created.
+     * @param {PSTR} lpNewDirectory The path of the directory to be created.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -19130,7 +19377,7 @@ class FileSystem {
      * The target file system must support security on files and directories for this parameter to have an effect. 
      *        This is indicated when <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getvolumeinformationa">GetVolumeInformation</a> 
      *        returns <b>FS_PERSISTENT_ACLS</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the 
@@ -19170,12 +19417,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateDirectoryExA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes) {
-        lpTemplateDirectory := lpTemplateDirectory is String? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
-        lpNewDirectory := lpNewDirectory is String? StrPtr(lpNewDirectory) : lpNewDirectory
+        lpTemplateDirectory := lpTemplateDirectory is String ? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
+        lpNewDirectory := lpNewDirectory is String ? StrPtr(lpNewDirectory) : lpNewDirectory
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateDirectoryExA", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "int")
+        result := DllCall("KERNEL32.dll\CreateDirectoryExA", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -19184,7 +19431,7 @@ class FileSystem {
 
     /**
      * Creates a new directory with the attributes of a specified template directory.
-     * @param {Pointer<Char>} lpTemplateDirectory The path of the directory to use as a template when creating the new directory.
+     * @param {PWSTR} lpTemplateDirectory The path of the directory to use as a template when creating the new directory.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -19193,7 +19440,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CreateDirectoryExW</b>), you can opt-in to remove the <b>MAX_PATH</b> character limitation without prepending "\\?\". The 255 character limit per path segment still applies. See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Char>} lpNewDirectory The path of the directory to be created.
+     * @param {PWSTR} lpNewDirectory The path of the directory to be created.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -19213,7 +19460,7 @@ class FileSystem {
      * The target file system must support security on files and directories for this parameter to have an effect. 
      *        This is indicated when <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getvolumeinformationa">GetVolumeInformation</a> 
      *        returns <b>FS_PERSISTENT_ACLS</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the 
@@ -19253,12 +19500,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CreateDirectoryExW(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes) {
-        lpTemplateDirectory := lpTemplateDirectory is String? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
-        lpNewDirectory := lpNewDirectory is String? StrPtr(lpNewDirectory) : lpNewDirectory
+        lpTemplateDirectory := lpTemplateDirectory is String ? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
+        lpNewDirectory := lpNewDirectory is String ? StrPtr(lpNewDirectory) : lpNewDirectory
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateDirectoryExW", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "int")
+        result := DllCall("KERNEL32.dll\CreateDirectoryExW", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -19267,7 +19514,7 @@ class FileSystem {
 
     /**
      * Creates a new directory as a transacted operation, with the attributes of a specified template directory.
-     * @param {Pointer<Byte>} lpTemplateDirectory The path of the directory to use as a template when creating the new directory.  This parameter can be 
+     * @param {PSTR} lpTemplateDirectory The path of the directory to use as a template when creating the new directory.  This parameter can be 
      *        <b>NULL</b>.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -19277,7 +19524,7 @@ class FileSystem {
      * 
      * The directory must reside on the local computer; otherwise, the function fails and the last error code is set 
      *        to <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<Byte>} lpNewDirectory The path of the directory to be created.
+     * @param {PSTR} lpNewDirectory The path of the directory to be created.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -19294,9 +19541,9 @@ class FileSystem {
      * The target file system must support security on files and directories for this parameter to have an effect. 
      *        This is indicated when <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getvolumeinformationa">GetVolumeInformation</a> 
      *        returns <b>FS_PERSISTENT_ACLS</b>.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the 
@@ -19346,12 +19593,13 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateDirectoryTransactedA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes, hTransaction) {
-        lpTemplateDirectory := lpTemplateDirectory is String? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
-        lpNewDirectory := lpNewDirectory is String? StrPtr(lpNewDirectory) : lpNewDirectory
+        lpTemplateDirectory := lpTemplateDirectory is String ? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
+        lpNewDirectory := lpNewDirectory is String ? StrPtr(lpNewDirectory) : lpNewDirectory
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateDirectoryTransactedA", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\CreateDirectoryTransactedA", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -19360,7 +19608,7 @@ class FileSystem {
 
     /**
      * Creates a new directory as a transacted operation, with the attributes of a specified template directory.
-     * @param {Pointer<Char>} lpTemplateDirectory The path of the directory to use as a template when creating the new directory.  This parameter can be 
+     * @param {PWSTR} lpTemplateDirectory The path of the directory to use as a template when creating the new directory.  This parameter can be 
      *        <b>NULL</b>.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -19370,7 +19618,7 @@ class FileSystem {
      * 
      * The directory must reside on the local computer; otherwise, the function fails and the last error code is set 
      *        to <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<Char>} lpNewDirectory The path of the directory to be created.
+     * @param {PWSTR} lpNewDirectory The path of the directory to be created.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -19387,9 +19635,9 @@ class FileSystem {
      * The target file system must support security on files and directories for this parameter to have an effect. 
      *        This is indicated when <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getvolumeinformationa">GetVolumeInformation</a> 
      *        returns <b>FS_PERSISTENT_ACLS</b>.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the 
@@ -19439,12 +19687,13 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateDirectoryTransactedW(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes, hTransaction) {
-        lpTemplateDirectory := lpTemplateDirectory is String? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
-        lpNewDirectory := lpNewDirectory is String? StrPtr(lpNewDirectory) : lpNewDirectory
+        lpTemplateDirectory := lpTemplateDirectory is String ? StrPtr(lpTemplateDirectory) : lpTemplateDirectory
+        lpNewDirectory := lpNewDirectory is String ? StrPtr(lpNewDirectory) : lpNewDirectory
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateDirectoryTransactedW", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\CreateDirectoryTransactedW", "ptr", lpTemplateDirectory, "ptr", lpNewDirectory, "ptr", lpSecurityAttributes, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -19453,7 +19702,7 @@ class FileSystem {
 
     /**
      * Deletes an existing empty directory as a transacted operation.
-     * @param {Pointer<Byte>} lpPathName The path of the directory to be removed. The path must specify an empty directory, and the calling process 
+     * @param {PSTR} lpPathName The path of the directory to be removed. The path must specify an empty directory, and the calling process 
      *        must have delete access to the directory.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -19463,9 +19712,9 @@ class FileSystem {
      * 
      * The directory must reside on the local computer; otherwise, the function fails and the last error code is set 
      *        to <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -19473,11 +19722,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RemoveDirectoryTransactedA(lpPathName, hTransaction) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RemoveDirectoryTransactedA", "ptr", lpPathName, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\RemoveDirectoryTransactedA", "ptr", lpPathName, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -19486,7 +19736,7 @@ class FileSystem {
 
     /**
      * Deletes an existing empty directory as a transacted operation.
-     * @param {Pointer<Char>} lpPathName The path of the directory to be removed. The path must specify an empty directory, and the calling process 
+     * @param {PWSTR} lpPathName The path of the directory to be removed. The path must specify an empty directory, and the calling process 
      *        must have delete access to the directory.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -19496,9 +19746,9 @@ class FileSystem {
      * 
      * The directory must reside on the local computer; otherwise, the function fails and the last error code is set 
      *        to <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -19506,11 +19756,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RemoveDirectoryTransactedW(lpPathName, hTransaction) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RemoveDirectoryTransactedW", "ptr", lpPathName, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\RemoveDirectoryTransactedW", "ptr", lpPathName, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -19519,7 +19770,7 @@ class FileSystem {
 
     /**
      * Retrieves the full path and file name of the specified file as a transacted operation.
-     * @param {Pointer<Byte>} lpFileName The name of the file.
+     * @param {PSTR} lpFileName The name of the file.
      * 
      * This string can use short (the 8.3 form) or long file names. This string can be a share or volume name.
      * 
@@ -19527,14 +19778,14 @@ class FileSystem {
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
      * @param {Integer} nBufferLength The size of the buffer to receive the null-terminated string  for the drive and path,  in 
      *       <b>TCHARs</b>.
-     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the null-terminated string for the  drive and path.
-     * @param {Pointer<Byte>} lpFilePart A pointer to a buffer that receives the address (in <i>lpBuffer</i>) of the final file 
+     * @param {PSTR} lpBuffer A pointer to a buffer that receives the null-terminated string for the  drive and path.
+     * @param {Pointer<PSTR>} lpFilePart A pointer to a buffer that receives the address (in <i>lpBuffer</i>) of the final file 
      *        name component in the path. Specify <b>NULL</b> if you do not need to receive this 
      *        information.
      * 
      * If <i>lpBuffer</i> points to a directory and not a file, 
      *        <i>lpFilePart</i> receives 0 (zero).
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character.
@@ -19549,8 +19800,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFullPathNameTransactedA(lpFileName, nBufferLength, lpBuffer, lpFilePart, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -19563,7 +19815,7 @@ class FileSystem {
 
     /**
      * Retrieves the full path and file name of the specified file as a transacted operation.
-     * @param {Pointer<Char>} lpFileName The name of the file.
+     * @param {PWSTR} lpFileName The name of the file.
      * 
      * This string can use short (the 8.3 form) or long file names. This string can be a share or volume name.
      * 
@@ -19571,14 +19823,14 @@ class FileSystem {
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
      * @param {Integer} nBufferLength The size of the buffer to receive the null-terminated string  for the drive and path,  in 
      *       <b>TCHARs</b>.
-     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the null-terminated string for the  drive and path.
-     * @param {Pointer<Char>} lpFilePart A pointer to a buffer that receives the address (in <i>lpBuffer</i>) of the final file 
+     * @param {PWSTR} lpBuffer A pointer to a buffer that receives the null-terminated string for the  drive and path.
+     * @param {Pointer<PWSTR>} lpFilePart A pointer to a buffer that receives the address (in <i>lpBuffer</i>) of the final file 
      *        name component in the path. Specify <b>NULL</b> if you do not need to receive this 
      *        information.
      * 
      * If <i>lpBuffer</i> points to a directory and not a file, 
      *        <i>lpFilePart</i> receives 0 (zero).
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character.
@@ -19593,8 +19845,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFullPathNameTransactedW(lpFileName, nBufferLength, lpBuffer, lpFilePart, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -19608,14 +19861,14 @@ class FileSystem {
     /**
      * Defines, redefines, or deletes MS-DOS device names.
      * @param {Integer} dwFlags The controllable aspects of the <b>DefineDosDevice</b> function. This parameter
-     * @param {Pointer<Byte>} lpDeviceName A pointer to an MS-DOS device name string specifying the device the function is defining, redefining, or 
+     * @param {PSTR} lpDeviceName A pointer to an MS-DOS device name string specifying the device the function is defining, redefining, or 
      *       deleting. The device name string must not have a colon as the last character, unless a drive letter is being 
      *       defined, redefined, or deleted. For example, drive C  would be the string "C:". In no case is a 
      *       trailing backslash ("\") allowed.
-     * @param {Pointer<Byte>} lpTargetPath A pointer to a path string that will implement this device. The string is an MS-DOS path string unless the 
+     * @param {PSTR} lpTargetPath A pointer to a path string that will implement this device. The string is an MS-DOS path string unless the 
      *       <b>DDD_RAW_TARGET_PATH</b> flag is specified, in which case this string is a path 
      *       string.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -19623,12 +19876,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DefineDosDeviceA(dwFlags, lpDeviceName, lpTargetPath) {
-        lpDeviceName := lpDeviceName is String? StrPtr(lpDeviceName) : lpDeviceName
-        lpTargetPath := lpTargetPath is String? StrPtr(lpTargetPath) : lpTargetPath
+        lpDeviceName := lpDeviceName is String ? StrPtr(lpDeviceName) : lpDeviceName
+        lpTargetPath := lpTargetPath is String ? StrPtr(lpTargetPath) : lpTargetPath
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DefineDosDeviceA", "uint", dwFlags, "ptr", lpDeviceName, "ptr", lpTargetPath, "int")
+        result := DllCall("KERNEL32.dll\DefineDosDeviceA", "uint", dwFlags, "ptr", lpDeviceName, "ptr", lpTargetPath, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -19637,13 +19890,13 @@ class FileSystem {
 
     /**
      * Retrieves information about MS-DOS device names.
-     * @param {Pointer<Byte>} lpDeviceName An MS-DOS device name string specifying the target of the query. The device name cannot have a trailing 
+     * @param {PSTR} lpDeviceName An MS-DOS device name string specifying the target of the query. The device name cannot have a trailing 
      *        backslash; for example, use "C:", not "C:\\".
      * 
      * This parameter can be <b>NULL</b>. In that case, the 
      *        <b>QueryDosDevice</b> function will store a list of all 
      *        existing MS-DOS device names into the buffer pointed to by <i>lpTargetPath</i>.
-     * @param {Pointer<Byte>} lpTargetPath A pointer to a buffer that will receive the result of the query. The function fills this buffer with one or 
+     * @param {PSTR} lpTargetPath A pointer to a buffer that will receive the result of the query. The function fills this buffer with one or 
      *        more null-terminated strings. The final null-terminated string is followed by an additional 
      *        <b>NULL</b>.
      * 
@@ -19669,8 +19922,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static QueryDosDeviceA(lpDeviceName, lpTargetPath, ucchMax) {
-        lpDeviceName := lpDeviceName is String? StrPtr(lpDeviceName) : lpDeviceName
-        lpTargetPath := lpTargetPath is String? StrPtr(lpTargetPath) : lpTargetPath
+        lpDeviceName := lpDeviceName is String ? StrPtr(lpDeviceName) : lpDeviceName
+        lpTargetPath := lpTargetPath is String ? StrPtr(lpTargetPath) : lpTargetPath
 
         A_LastError := 0
 
@@ -19683,7 +19936,7 @@ class FileSystem {
 
     /**
      * Creates or opens a file, file stream, or directory as a transacted operation.
-     * @param {Pointer<Byte>} lpFileName The name of an object to be created or opened.
+     * @param {PSTR} lpFileName The name of an object to be created or opened.
      * 
      * The object must reside on the local computer; otherwise, 
      *        the function fails and the last error code is set to 
@@ -20104,7 +20357,7 @@ class FileSystem {
      *        information. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/impersonation-levels">Impersonation Levels</a>. When the calling 
      *        application specifies the <b>SECURITY_SQOS_PRESENT</b> flag as part of
-     * @param {Pointer<Void>} hTemplateFile A valid handle to a template file with the <b>GENERIC_READ</b> access right. The template 
+     * @param {HANDLE} hTemplateFile A valid handle to a template file with the <b>GENERIC_READ</b> access right. The template 
      *        file supplies file attributes and extended attributes for the file that is being created. This parameter can be 
      *        <b>NULL</b>.
      * 
@@ -20113,13 +20366,13 @@ class FileSystem {
      *        file.
      * 
      * When opening a new EFS-encrypted file, the file inherits the DACL from its parent directory.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @param {Pointer<UInt32>} pusMiniVersion The miniversion to be opened. If the transaction specified in <i>hTransaction</i> is not 
      *        the transaction that is modifying the file, this parameter should be <b>NULL</b>. Otherwise, 
      *        this parameter can be a miniversion identifier returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_txfs_create_miniversion">FSCTL_TXFS_CREATE_MINIVERSION</a> control
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or 
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or 
      *        mail slot.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
@@ -20130,7 +20383,9 @@ class FileSystem {
     static CreateFileTransactedA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, hTransaction, pusMiniVersion) {
         static lpExtendedParameter := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTemplateFile := hTemplateFile is Win32Handle ? NumGet(hTemplateFile, "ptr") : hTemplateFile
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -20138,12 +20393,12 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates or opens a file, file stream, or directory as a transacted operation.
-     * @param {Pointer<Char>} lpFileName The name of an object to be created or opened.
+     * @param {PWSTR} lpFileName The name of an object to be created or opened.
      * 
      * The object must reside on the local computer; otherwise, 
      *        the function fails and the last error code is set to 
@@ -20564,7 +20819,7 @@ class FileSystem {
      *        information. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/impersonation-levels">Impersonation Levels</a>. When the calling 
      *        application specifies the <b>SECURITY_SQOS_PRESENT</b> flag as part of
-     * @param {Pointer<Void>} hTemplateFile A valid handle to a template file with the <b>GENERIC_READ</b> access right. The template 
+     * @param {HANDLE} hTemplateFile A valid handle to a template file with the <b>GENERIC_READ</b> access right. The template 
      *        file supplies file attributes and extended attributes for the file that is being created. This parameter can be 
      *        <b>NULL</b>.
      * 
@@ -20573,13 +20828,13 @@ class FileSystem {
      *        file.
      * 
      * When opening a new EFS-encrypted file, the file inherits the DACL from its parent directory.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @param {Pointer<UInt32>} pusMiniVersion The miniversion to be opened. If the transaction specified in <i>hTransaction</i> is not 
      *        the transaction that is modifying the file, this parameter should be <b>NULL</b>. Otherwise, 
      *        this parameter can be a miniversion identifier returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_txfs_create_miniversion">FSCTL_TXFS_CREATE_MINIVERSION</a> control
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or 
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or 
      *        mail slot.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
@@ -20590,7 +20845,9 @@ class FileSystem {
     static CreateFileTransactedW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, hTransaction, pusMiniVersion) {
         static lpExtendedParameter := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTemplateFile := hTemplateFile is Win32Handle ? NumGet(hTemplateFile, "ptr") : hTemplateFile
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -20598,12 +20855,12 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Reopens the specified file system object with different access rights, sharing mode, and flags.
-     * @param {Pointer<Void>} hOriginalFile A handle to the object to be reopened. The object must have been created by the 
+     * @param {HANDLE} hOriginalFile A handle to the object to be reopened. The object must have been created by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} dwDesiredAccess The required access to the object. For a list of values, see 
      * 	      <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>. You 
@@ -20621,7 +20878,7 @@ class FileSystem {
      * 
      * To enable other processes to share the object while your process has it open, use a combination of one or
      * @param {Integer} dwFlagsAndAttributes 
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *        error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -20629,18 +20886,20 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static ReOpenFile(hOriginalFile, dwDesiredAccess, dwShareMode, dwFlagsAndAttributes) {
+        hOriginalFile := hOriginalFile is Win32Handle ? NumGet(hOriginalFile, "ptr") : hOriginalFile
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ReOpenFile", "ptr", hOriginalFile, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwFlagsAndAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Sets the attributes for a file or directory as a transacted operation.
-     * @param {Pointer<Byte>} lpFileName The name of the file whose attributes are to be set.
+     * @param {PSTR} lpFileName The name of the file whose attributes are to be set.
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -20660,9 +20919,9 @@ class FileSystem {
      * Not all attributes are supported by this function. For more information, see the Remarks section.
      * 
      * The following is a list of supported attribute values.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -20670,11 +20929,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetFileAttributesTransactedA(lpFileName, dwFileAttributes, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileAttributesTransactedA", "ptr", lpFileName, "uint", dwFileAttributes, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\SetFileAttributesTransactedA", "ptr", lpFileName, "uint", dwFileAttributes, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20683,7 +20943,7 @@ class FileSystem {
 
     /**
      * Sets the attributes for a file or directory as a transacted operation.
-     * @param {Pointer<Char>} lpFileName The name of the file whose attributes are to be set.
+     * @param {PWSTR} lpFileName The name of the file whose attributes are to be set.
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -20703,9 +20963,9 @@ class FileSystem {
      * Not all attributes are supported by this function. For more information, see the Remarks section.
      * 
      * The following is a list of supported attribute values.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -20713,11 +20973,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetFileAttributesTransactedW(lpFileName, dwFileAttributes, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileAttributesTransactedW", "ptr", lpFileName, "uint", dwFileAttributes, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\SetFileAttributesTransactedW", "ptr", lpFileName, "uint", dwFileAttributes, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20726,7 +20987,7 @@ class FileSystem {
 
     /**
      * Retrieves file system attributes for a specified file or directory as a transacted operation.
-     * @param {Pointer<Byte>} lpFileName The name of the file or directory.
+     * @param {PSTR} lpFileName The name of the file or directory.
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -20767,8 +21028,8 @@ class FileSystem {
      *        <b>GetFileExInfoStandard</b> then this parameter points to a 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-win32_file_attribute_data">WIN32_FILE_ATTRIBUTE_DATA</a> 
      *         structure
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended 
      *        error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -20776,11 +21037,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFileAttributesTransactedA(lpFileName, fInfoLevelId, lpFileInformation, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileAttributesTransactedA", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\GetFileAttributesTransactedA", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20789,7 +21051,7 @@ class FileSystem {
 
     /**
      * Retrieves file system attributes for a specified file or directory as a transacted operation.
-     * @param {Pointer<Char>} lpFileName The name of the file or directory.
+     * @param {PWSTR} lpFileName The name of the file or directory.
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -20830,8 +21092,8 @@ class FileSystem {
      *        <b>GetFileExInfoStandard</b> then this parameter points to a 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/ns-fileapi-win32_file_attribute_data">WIN32_FILE_ATTRIBUTE_DATA</a> 
      *         structure
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended 
      *        error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -20839,11 +21101,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFileAttributesTransactedW(lpFileName, fInfoLevelId, lpFileInformation, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileAttributesTransactedW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\GetFileAttributesTransactedW", "ptr", lpFileName, "int", fInfoLevelId, "ptr", lpFileInformation, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20852,7 +21115,7 @@ class FileSystem {
 
     /**
      * Retrieves the actual number of bytes of disk storage used to store a specified file as a transacted operation.
-     * @param {Pointer<Byte>} lpFileName The name of the file. 
+     * @param {PSTR} lpFileName The name of the file. 
      * 
      * 
      * 
@@ -20866,7 +21129,7 @@ class FileSystem {
      * 
      * 
      * This parameter can be <b>NULL</b> if the high-order <b>DWORD</b> of the compressed file size is not needed. Files less than 4 gigabytes in size do not need the high-order <b>DWORD</b>.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is the low-order <b>DWORD</b> of the actual number of bytes of disk storage used to store the specified file, and if <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the function puts the high-order <b>DWORD</b> of that actual value into the <b>DWORD</b> pointed to by that parameter. This is the compressed file size for compressed files, the actual file size for noncompressed files.
      * 
      * If the function fails, and <i>lpFileSizeHigh</i> is <b>NULL</b>, the return value is <b>INVALID_FILE_SIZE</b>. To get extended error information, call 
@@ -20877,7 +21140,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetCompressedFileSizeTransactedA(lpFileName, lpFileSizeHigh, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -20890,7 +21154,7 @@ class FileSystem {
 
     /**
      * Retrieves the actual number of bytes of disk storage used to store a specified file as a transacted operation.
-     * @param {Pointer<Char>} lpFileName The name of the file. 
+     * @param {PWSTR} lpFileName The name of the file. 
      * 
      * 
      * 
@@ -20904,7 +21168,7 @@ class FileSystem {
      * 
      * 
      * This parameter can be <b>NULL</b> if the high-order <b>DWORD</b> of the compressed file size is not needed. Files less than 4 gigabytes in size do not need the high-order <b>DWORD</b>.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is the low-order <b>DWORD</b> of the actual number of bytes of disk storage used to store the specified file, and if <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the function puts the high-order <b>DWORD</b> of that actual value into the <b>DWORD</b> pointed to by that parameter. This is the compressed file size for compressed files, the actual file size for noncompressed files.
      * 
      * If the function fails, and <i>lpFileSizeHigh</i> is <b>NULL</b>, the return value is <b>INVALID_FILE_SIZE</b>. To get extended error information, call 
@@ -20915,7 +21179,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetCompressedFileSizeTransactedW(lpFileName, lpFileSizeHigh, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -20928,7 +21193,7 @@ class FileSystem {
 
     /**
      * Deletes an existing file as a transacted operation.
-     * @param {Pointer<Byte>} lpFileName The name of the file to be deleted.
+     * @param {PSTR} lpFileName The name of the file to be deleted.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -20937,9 +21202,9 @@ class FileSystem {
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to 
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -20947,11 +21212,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static DeleteFileTransactedA(lpFileName, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteFileTransactedA", "ptr", lpFileName, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\DeleteFileTransactedA", "ptr", lpFileName, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20960,7 +21226,7 @@ class FileSystem {
 
     /**
      * Deletes an existing file as a transacted operation.
-     * @param {Pointer<Char>} lpFileName The name of the file to be deleted.
+     * @param {PWSTR} lpFileName The name of the file to be deleted.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -20969,9 +21235,9 @@ class FileSystem {
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to 
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -20979,11 +21245,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static DeleteFileTransactedW(lpFileName, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteFileTransactedW", "ptr", lpFileName, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\DeleteFileTransactedW", "ptr", lpFileName, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -20992,16 +21259,16 @@ class FileSystem {
 
     /**
      * Determines whether the specified name can be used to create a file on a FAT file system.
-     * @param {Pointer<Byte>} lpName The file name, in 8.3 format.
-     * @param {Pointer<Byte>} lpOemName A pointer to a buffer that receives the OEM string that corresponds to <i>Name</i>. This 
+     * @param {PSTR} lpName The file name, in 8.3 format.
+     * @param {PSTR} lpOemName A pointer to a buffer that receives the OEM string that corresponds to <i>Name</i>. This 
      *       parameter can be <b>NULL</b>.
      * @param {Integer} OemNameSize The size of the <i>lpOemName</i> buffer, in characters. If 
      *       <i>lpOemName</i> is <b>NULL</b>, this parameter must be 0 (zero).
-     * @param {Pointer<Int32>} pbNameContainsSpaces Indicates whether or not a name contains spaces. This parameter can be <b>NULL</b>. If 
+     * @param {Pointer<BOOL>} pbNameContainsSpaces Indicates whether or not a name contains spaces. This parameter can be <b>NULL</b>. If 
      *       the name is not a valid 8.3 FAT file system name, this parameter is undefined.
-     * @param {Pointer<Int32>} pbNameLegal If the function succeeds, this parameter indicates whether a file name is a valid 8.3 FAT file name when 
+     * @param {Pointer<BOOL>} pbNameLegal If the function succeeds, this parameter indicates whether a file name is a valid 8.3 FAT file name when 
      *       the current OEM code page is applied to the file name.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -21009,12 +21276,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CheckNameLegalDOS8Dot3A(lpName, lpOemName, OemNameSize, pbNameContainsSpaces, pbNameLegal) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
-        lpOemName := lpOemName is String? StrPtr(lpOemName) : lpOemName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        lpOemName := lpOemName is String ? StrPtr(lpOemName) : lpOemName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3A", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, "int*", pbNameContainsSpaces, "int*", pbNameLegal, "int")
+        result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3A", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, "ptr", pbNameContainsSpaces, "ptr", pbNameLegal, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21023,16 +21290,16 @@ class FileSystem {
 
     /**
      * Determines whether the specified name can be used to create a file on a FAT file system.
-     * @param {Pointer<Char>} lpName The file name, in 8.3 format.
-     * @param {Pointer<Byte>} lpOemName A pointer to a buffer that receives the OEM string that corresponds to <i>Name</i>. This 
+     * @param {PWSTR} lpName The file name, in 8.3 format.
+     * @param {PSTR} lpOemName A pointer to a buffer that receives the OEM string that corresponds to <i>Name</i>. This 
      *       parameter can be <b>NULL</b>.
      * @param {Integer} OemNameSize The size of the <i>lpOemName</i> buffer, in characters. If 
      *       <i>lpOemName</i> is <b>NULL</b>, this parameter must be 0 (zero).
-     * @param {Pointer<Int32>} pbNameContainsSpaces Indicates whether or not a name contains spaces. This parameter can be <b>NULL</b>. If 
+     * @param {Pointer<BOOL>} pbNameContainsSpaces Indicates whether or not a name contains spaces. This parameter can be <b>NULL</b>. If 
      *       the name is not a valid 8.3 FAT file system name, this parameter is undefined.
-     * @param {Pointer<Int32>} pbNameLegal If the function succeeds, this parameter indicates whether a file name is a valid 8.3 FAT file name when 
+     * @param {Pointer<BOOL>} pbNameLegal If the function succeeds, this parameter indicates whether a file name is a valid 8.3 FAT file name when 
      *       the current OEM code page is applied to the file name.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -21040,12 +21307,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CheckNameLegalDOS8Dot3W(lpName, lpOemName, OemNameSize, pbNameContainsSpaces, pbNameLegal) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
-        lpOemName := lpOemName is String? StrPtr(lpOemName) : lpOemName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        lpOemName := lpOemName is String ? StrPtr(lpOemName) : lpOemName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3W", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, "int*", pbNameContainsSpaces, "int*", pbNameLegal, "int")
+        result := DllCall("KERNEL32.dll\CheckNameLegalDOS8Dot3W", "ptr", lpName, "ptr", lpOemName, "uint", OemNameSize, "ptr", pbNameContainsSpaces, "ptr", pbNameLegal, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21054,7 +21321,7 @@ class FileSystem {
 
     /**
      * Searches a directory for a file or subdirectory with a name that matches a specific name as a transacted operation.
-     * @param {Pointer<Byte>} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
+     * @param {PSTR} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
      *        (*) or a question mark (?).
      * 
      * This parameter should not be <b>NULL</b>, an invalid string (for example, an empty string or a string that is missing the terminating null character), or end in a trailing backslash (\\).
@@ -21099,8 +21366,8 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle used in a subsequent call to 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextfilea">FindNextFile</a> or 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a>, and  the <i>lpFindFileData</i> parameter contains information about the first file or directory found.
      * 
@@ -21112,7 +21379,8 @@ class FileSystem {
     static FindFirstFileTransactedA(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags, hTransaction) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -21120,12 +21388,12 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Searches a directory for a file or subdirectory with a name that matches a specific name as a transacted operation.
-     * @param {Pointer<Char>} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
+     * @param {PWSTR} lpFileName The directory or path, and the file name. The file name can include wildcard characters,  for example, an asterisk 
      *        (*) or a question mark (?).
      * 
      * This parameter should not be <b>NULL</b>, an invalid string (for example, an empty string or a string that is missing the terminating null character), or end in a trailing backslash (\\).
@@ -21170,8 +21438,8 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle used in a subsequent call to 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextfilea">FindNextFile</a> or 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a>, and  the <i>lpFindFileData</i> parameter contains information about the first file or directory found.
      * 
@@ -21183,7 +21451,8 @@ class FileSystem {
     static FindFirstFileTransactedW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags, hTransaction) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -21191,12 +21460,12 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Copies an existing file to a new file.
-     * @param {Pointer<Byte>} lpExistingFileName The name of an existing file.
+     * @param {PSTR} lpExistingFileName The name of an existing file.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -21209,7 +21478,7 @@ class FileSystem {
      *       <b>CopyFile</b> fails, and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
      *       <b>ERROR_FILE_NOT_FOUND</b>.
-     * @param {Pointer<Byte>} lpNewFileName The name of the new file.
+     * @param {PSTR} lpNewFileName The name of the new file.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -21218,11 +21487,11 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CopyFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Integer} bFailIfExists If this parameter is <b>TRUE</b> and the new file specified by 
+     * @param {BOOL} bFailIfExists If this parameter is <b>TRUE</b> and the new file specified by 
      *       <i>lpNewFileName</i> already exists, the function fails. If this parameter is 
      *       <b>FALSE</b> and the new file already exists, the function overwrites the existing file and 
      *       succeeds.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -21230,12 +21499,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CopyFileA(lpExistingFileName, lpNewFileName, bFailIfExists) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyFileA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int", bFailIfExists, "int")
+        result := DllCall("KERNEL32.dll\CopyFileA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", bFailIfExists, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21244,7 +21513,7 @@ class FileSystem {
 
     /**
      * Copies an existing file to a new file.
-     * @param {Pointer<Char>} lpExistingFileName The name of an existing file.
+     * @param {PWSTR} lpExistingFileName The name of an existing file.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -21257,7 +21526,7 @@ class FileSystem {
      *       <b>CopyFile</b> fails, and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
      *       <b>ERROR_FILE_NOT_FOUND</b>.
-     * @param {Pointer<Char>} lpNewFileName The name of the new file.
+     * @param {PWSTR} lpNewFileName The name of the new file.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -21266,11 +21535,11 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CopyFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Integer} bFailIfExists If this parameter is <b>TRUE</b> and the new file specified by 
+     * @param {BOOL} bFailIfExists If this parameter is <b>TRUE</b> and the new file specified by 
      *       <i>lpNewFileName</i> already exists, the function fails. If this parameter is 
      *       <b>FALSE</b> and the new file already exists, the function overwrites the existing file and 
      *       succeeds.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -21278,12 +21547,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CopyFileW(lpExistingFileName, lpNewFileName, bFailIfExists) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyFileW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int", bFailIfExists, "int")
+        result := DllCall("KERNEL32.dll\CopyFileW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", bFailIfExists, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21292,7 +21561,7 @@ class FileSystem {
 
     /**
      * Copies an existing file to a new file, notifying the application of its progress through a callback function.
-     * @param {Pointer<Byte>} lpExistingFileName The name of an existing file.
+     * @param {PSTR} lpExistingFileName The name of an existing file.
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -21306,7 +21575,7 @@ class FileSystem {
      *       <b>CopyFileEx</b> function fails, and the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns 
      *       <b>ERROR_FILE_NOT_FOUND</b>.
-     * @param {Pointer<Byte>} lpNewFileName The name of the new file.
+     * @param {PSTR} lpNewFileName The name of the new file.
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -21322,7 +21591,7 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> function.
      * @param {Pointer<Void>} lpData The argument to be passed to the callback function. This parameter can be 
      *       <b>NULL</b>.
-     * @param {Pointer<Int32>} pbCancel If this flag is set to <b>TRUE</b> during the copy operation, the operation is canceled. 
+     * @param {Pointer<BOOL>} pbCancel If this flag is set to <b>TRUE</b> during the copy operation, the operation is canceled. 
      *       Otherwise, the copy operation will continue to completion.
      * @param {Integer} dwCopyFlags Flags that specify how the file is to be copied. This parameter can be a combination of the following 
      *       values.
@@ -21410,7 +21679,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -21430,12 +21699,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "int*", pbCancel, "uint", dwCopyFlags, "int")
+        result := DllCall("KERNEL32.dll\CopyFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "ptr", pbCancel, "uint", dwCopyFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21444,7 +21713,7 @@ class FileSystem {
 
     /**
      * Copies an existing file to a new file, notifying the application of its progress through a callback function.
-     * @param {Pointer<Char>} lpExistingFileName The name of an existing file.
+     * @param {PWSTR} lpExistingFileName The name of an existing file.
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -21458,7 +21727,7 @@ class FileSystem {
      *       <b>CopyFileEx</b> function fails, and the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns 
      *       <b>ERROR_FILE_NOT_FOUND</b>.
-     * @param {Pointer<Char>} lpNewFileName The name of the new file.
+     * @param {PWSTR} lpNewFileName The name of the new file.
      *       
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -21474,7 +21743,7 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> function.
      * @param {Pointer<Void>} lpData The argument to be passed to the callback function. This parameter can be 
      *       <b>NULL</b>.
-     * @param {Pointer<Int32>} pbCancel If this flag is set to <b>TRUE</b> during the copy operation, the operation is canceled. 
+     * @param {Pointer<BOOL>} pbCancel If this flag is set to <b>TRUE</b> during the copy operation, the operation is canceled. 
      *       Otherwise, the copy operation will continue to completion.
      * @param {Integer} dwCopyFlags Flags that specify how the file is to be copied. This parameter can be a combination of the following 
      *       values.
@@ -21562,7 +21831,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -21582,12 +21851,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static CopyFileExW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "int*", pbCancel, "uint", dwCopyFlags, "int")
+        result := DllCall("KERNEL32.dll\CopyFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "ptr", pbCancel, "uint", dwCopyFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21596,7 +21865,7 @@ class FileSystem {
 
     /**
      * Copies an existing file to a new file as a transacted operation, notifying the application of its progress through a callback function.
-     * @param {Pointer<Byte>} lpExistingFileName The name of an existing file.
+     * @param {PSTR} lpExistingFileName The name of an existing file.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -21610,7 +21879,7 @@ class FileSystem {
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to 
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<Byte>} lpNewFileName The name of the new file.
+     * @param {PSTR} lpNewFileName The name of the new file.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -21622,7 +21891,7 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> function.
      * @param {Pointer<Void>} lpData The argument to be passed to the callback function. This parameter can be 
      *       <b>NULL</b>.
-     * @param {Pointer<Int32>} pbCancel If this flag is set to <b>TRUE</b> during the copy operation, the operation is canceled. 
+     * @param {Pointer<BOOL>} pbCancel If this flag is set to <b>TRUE</b> during the copy operation, the operation is canceled. 
      *       Otherwise, the copy operation will continue to completion.
      * @param {Integer} dwCopyFlags Flags that specify how the file is to be copied. This parameter can be a combination of the following 
      *       values.
@@ -21681,9 +21950,9 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -21708,12 +21977,13 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CopyFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags, hTransaction) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "int*", pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\CopyFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "ptr", pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21722,7 +21992,7 @@ class FileSystem {
 
     /**
      * Copies an existing file to a new file as a transacted operation, notifying the application of its progress through a callback function.
-     * @param {Pointer<Char>} lpExistingFileName The name of an existing file.
+     * @param {PWSTR} lpExistingFileName The name of an existing file.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -21736,7 +22006,7 @@ class FileSystem {
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to 
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @param {Pointer<Char>} lpNewFileName The name of the new file.
+     * @param {PWSTR} lpNewFileName The name of the new file.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -21748,7 +22018,7 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> function.
      * @param {Pointer<Void>} lpData The argument to be passed to the callback function. This parameter can be 
      *       <b>NULL</b>.
-     * @param {Pointer<Int32>} pbCancel If this flag is set to <b>TRUE</b> during the copy operation, the operation is canceled. 
+     * @param {Pointer<BOOL>} pbCancel If this flag is set to <b>TRUE</b> during the copy operation, the operation is canceled. 
      *       Otherwise, the copy operation will continue to completion.
      * @param {Integer} dwCopyFlags Flags that specify how the file is to be copied. This parameter can be a combination of the following 
      *       values.
@@ -21807,9 +22077,9 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -21834,12 +22104,13 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CopyFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags, hTransaction) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "int*", pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\CopyFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "ptr", pbCancel, "uint", dwCopyFlags, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -21848,7 +22119,7 @@ class FileSystem {
 
     /**
      * Copies an existing file to a new file, notifying the application of its progress through a callback function.
-     * @param {Pointer<Char>} pwszExistingFileName The name of an existing file.
+     * @param {PWSTR} pwszExistingFileName The name of an existing file.
      * 
      * To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more 
      *        information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a>.
@@ -21858,7 +22129,7 @@ class FileSystem {
      * If <i>lpExistingFileName</i> does not exist, the 
      *        <b>CopyFile2</b> function fails returns 
      *        <c>HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND)</c>.
-     * @param {Pointer<Char>} pwszNewFileName The name of the new file.
+     * @param {PWSTR} pwszNewFileName The name of the new file.
      * 
      * To extend this limit to 32,767 wide characters, prepend "\\?\" to the path. For more 
      *        information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a>.
@@ -21947,8 +22218,8 @@ class FileSystem {
      * @since windows8.0
      */
     static CopyFile2(pwszExistingFileName, pwszNewFileName, pExtendedParameters) {
-        pwszExistingFileName := pwszExistingFileName is String? StrPtr(pwszExistingFileName) : pwszExistingFileName
-        pwszNewFileName := pwszNewFileName is String? StrPtr(pwszNewFileName) : pwszNewFileName
+        pwszExistingFileName := pwszExistingFileName is String ? StrPtr(pwszExistingFileName) : pwszExistingFileName
+        pwszNewFileName := pwszNewFileName is String ? StrPtr(pwszNewFileName) : pwszNewFileName
 
         result := DllCall("KERNEL32.dll\CopyFile2", "ptr", pwszExistingFileName, "ptr", pwszNewFileName, "ptr", pExtendedParameters, "int")
         if(result != 0)
@@ -21959,7 +22230,7 @@ class FileSystem {
 
     /**
      * Moves an existing file or a directory, including its children.
-     * @param {Pointer<Byte>} lpExistingFileName The current name of the file or directory on the local computer.
+     * @param {PSTR} lpExistingFileName The current name of the file or directory on the local computer.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -21968,7 +22239,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} lpNewFileName The new name for the file or directory. The new name must not already exist. A new file may be on a 
+     * @param {PSTR} lpNewFileName The new name for the file or directory. The new name must not already exist. A new file may be on a 
      *        different file system or drive. A new directory must be on the same drive.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -21978,7 +22249,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -21986,12 +22257,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileA(lpExistingFileName, lpNewFileName) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MoveFileA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int")
+        result := DllCall("KERNEL32.dll\MoveFileA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22000,7 +22271,7 @@ class FileSystem {
 
     /**
      * Moves an existing file or a directory, including its children.
-     * @param {Pointer<Char>} lpExistingFileName The current name of the file or directory on the local computer.
+     * @param {PWSTR} lpExistingFileName The current name of the file or directory on the local computer.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -22009,7 +22280,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Char>} lpNewFileName The new name for the file or directory. The new name must not already exist. A new file may be on a 
+     * @param {PWSTR} lpNewFileName The new name for the file or directory. The new name must not already exist. A new file may be on a 
      *        different file system or drive. A new directory must be on the same drive.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -22019,7 +22290,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22027,12 +22298,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileW(lpExistingFileName, lpNewFileName) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MoveFileW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "int")
+        result := DllCall("KERNEL32.dll\MoveFileW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22041,7 +22312,7 @@ class FileSystem {
 
     /**
      * Moves an existing file or directory, including its children, with various move options.
-     * @param {Pointer<Byte>} lpExistingFileName The current name of the file or directory on the local computer.
+     * @param {PSTR} lpExistingFileName The current name of the file or directory on the local computer.
      * 
      * If <i>dwFlags</i> specifies <b>MOVEFILE_DELAY_UNTIL_REBOOT</b>, the 
      *        file cannot exist on a remote share, because delayed operations are performed before the network is 
@@ -22055,7 +22326,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileExW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} lpNewFileName The new name of the file or directory on the local computer.
+     * @param {PSTR} lpNewFileName The new name of the file or directory on the local computer.
      * 
      * When moving a file, the destination can be on a different file system or volume. If the destination is on 
      *        another drive, you must set the <b>MOVEFILE_COPY_ALLOWED</b> flag in 
@@ -22079,7 +22350,7 @@ class FileSystem {
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileExW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22087,12 +22358,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileExA(lpExistingFileName, lpNewFileName, dwFlags) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MoveFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\MoveFileExA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22101,7 +22372,7 @@ class FileSystem {
 
     /**
      * Moves an existing file or directory, including its children, with various move options.
-     * @param {Pointer<Char>} lpExistingFileName The current name of the file or directory on the local computer.
+     * @param {PWSTR} lpExistingFileName The current name of the file or directory on the local computer.
      * 
      * If <i>dwFlags</i> specifies <b>MOVEFILE_DELAY_UNTIL_REBOOT</b>, the 
      *        file cannot exist on a remote share, because delayed operations are performed before the network is 
@@ -22115,7 +22386,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileExW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Char>} lpNewFileName The new name of the file or directory on the local computer.
+     * @param {PWSTR} lpNewFileName The new name of the file or directory on the local computer.
      * 
      * When moving a file, the destination can be on a different file system or volume. If the destination is on 
      *        another drive, you must set the <b>MOVEFILE_COPY_ALLOWED</b> flag in 
@@ -22139,7 +22410,7 @@ class FileSystem {
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileExW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22147,12 +22418,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileExW(lpExistingFileName, lpNewFileName, dwFlags) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MoveFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\MoveFileExW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22161,7 +22432,7 @@ class FileSystem {
 
     /**
      * Moves a file or directory, including its children. You can provide a callback function that receives progress notifications.
-     * @param {Pointer<Byte>} lpExistingFileName The name of the existing file or directory on the local computer.
+     * @param {PSTR} lpExistingFileName The name of the existing file or directory on the local computer.
      * 
      * If <i>dwFlags</i> specifies <b>MOVEFILE_DELAY_UNTIL_REBOOT</b>, the 
      *        file cannot exist on a remote share because delayed operations are performed before the network is 
@@ -22174,7 +22445,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileWithProgressW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} lpNewFileName The new name of the file or directory  on the local computer.
+     * @param {PSTR} lpNewFileName The new name of the file or directory  on the local computer.
      * 
      * When moving a file, <i>lpNewFileName</i> can be on a different file system or volume. If 
      *        <i>lpNewFileName</i> is on another drive, you must set the 
@@ -22206,7 +22477,7 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> callback function. This 
      *       parameter can be <b>NULL</b>.
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22226,12 +22497,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileWithProgressA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MoveFileWithProgressA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\MoveFileWithProgressA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22240,7 +22511,7 @@ class FileSystem {
 
     /**
      * Moves a file or directory, including its children. You can provide a callback function that receives progress notifications.
-     * @param {Pointer<Char>} lpExistingFileName The name of the existing file or directory on the local computer.
+     * @param {PWSTR} lpExistingFileName The name of the existing file or directory on the local computer.
      * 
      * If <i>dwFlags</i> specifies <b>MOVEFILE_DELAY_UNTIL_REBOOT</b>, the 
      *        file cannot exist on a remote share because delayed operations are performed before the network is 
@@ -22253,7 +22524,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>MoveFileWithProgressW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Char>} lpNewFileName The new name of the file or directory  on the local computer.
+     * @param {PWSTR} lpNewFileName The new name of the file or directory  on the local computer.
      * 
      * When moving a file, <i>lpNewFileName</i> can be on a different file system or volume. If 
      *        <i>lpNewFileName</i> is on another drive, you must set the 
@@ -22285,7 +22556,7 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> callback function. This 
      *       parameter can be <b>NULL</b>.
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22305,12 +22576,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static MoveFileWithProgressW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MoveFileWithProgressW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\MoveFileWithProgressW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22319,13 +22590,13 @@ class FileSystem {
 
     /**
      * Moves an existing file or a directory, including its children, as a transacted operation.
-     * @param {Pointer<Byte>} lpExistingFileName The current name of the existing file or directory on the local computer.
+     * @param {PSTR} lpExistingFileName The current name of the existing file or directory on the local computer.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
      *        "\\?\" to the path. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
-     * @param {Pointer<Byte>} lpNewFileName The new name for the file or directory. The new name must not already exist. A new file may be on a 
+     * @param {PSTR} lpNewFileName The new name for the file or directory. The new name must not already exist. A new file may be on a 
      *       different file system or drive. A new directory must be on the same drive.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -22340,9 +22611,9 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> callback function. This 
      *       parameter can be <b>NULL</b>.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22362,12 +22633,13 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static MoveFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags, hTransaction) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MoveFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\MoveFileTransactedA", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22376,13 +22648,13 @@ class FileSystem {
 
     /**
      * Moves an existing file or a directory, including its children, as a transacted operation.
-     * @param {Pointer<Char>} lpExistingFileName The current name of the existing file or directory on the local computer.
+     * @param {PWSTR} lpExistingFileName The current name of the existing file or directory on the local computer.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
      *        "\\?\" to the path. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
-     * @param {Pointer<Char>} lpNewFileName The new name for the file or directory. The new name must not already exist. A new file may be on a 
+     * @param {PWSTR} lpNewFileName The new name for the file or directory. The new name must not already exist. A new file may be on a 
      *       different file system or drive. A new directory must be on the same drive.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -22397,9 +22669,9 @@ class FileSystem {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nc-winbase-lpprogress_routine">CopyProgressRoutine</a> callback function. This 
      *       parameter can be <b>NULL</b>.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22419,12 +22691,13 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static MoveFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags, hTransaction) {
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
-        lpNewFileName := lpNewFileName is String? StrPtr(lpNewFileName) : lpNewFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpNewFileName := lpNewFileName is String ? StrPtr(lpNewFileName) : lpNewFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MoveFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\MoveFileTransactedW", "ptr", lpExistingFileName, "ptr", lpNewFileName, "ptr", lpProgressRoutine, "ptr", lpData, "uint", dwFlags, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22433,7 +22706,7 @@ class FileSystem {
 
     /**
      * Replaces one file with another file, with the option of creating a backup copy of the original file.
-     * @param {Pointer<Byte>} lpReplacedFileName The name of the file to be replaced.
+     * @param {PSTR} lpReplacedFileName The name of the file to be replaced.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -22449,7 +22722,7 @@ class FileSystem {
      * 
      * The caller must have write access to the file to be replaced. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @param {Pointer<Byte>} lpReplacementFileName The name of the file that will replace the <i>lpReplacedFileName</i> file.
+     * @param {PSTR} lpReplacementFileName The name of the file that will replace the <i>lpReplacedFileName</i> file.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -22465,7 +22738,7 @@ class FileSystem {
      *        <b>SYNCHRONIZE</b>, <b>GENERIC_READ</b>, 
      *        <b>DELETE</b>, and <b>WRITE_DAC</b> access rights. No sharing mode is 
      *        specified.
-     * @param {Pointer<Byte>} lpBackupFileName The name of the file that will serve as a backup copy of the <i>lpReplacedFileName</i> 
+     * @param {PSTR} lpBackupFileName The name of the file that will serve as a backup copy of the <i>lpReplacedFileName</i> 
      *        file. If this parameter is <b>NULL</b>, no backup file is created. See the Remarks section for implementation details on the backup file. 
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -22476,7 +22749,7 @@ class FileSystem {
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>ReplaceFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
      * @param {Integer} dwReplaceFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error codes 
@@ -22542,13 +22815,13 @@ class FileSystem {
     static ReplaceFileA(lpReplacedFileName, lpReplacementFileName, lpBackupFileName, dwReplaceFlags) {
         static lpExclude := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpReplacedFileName := lpReplacedFileName is String? StrPtr(lpReplacedFileName) : lpReplacedFileName
-        lpReplacementFileName := lpReplacementFileName is String? StrPtr(lpReplacementFileName) : lpReplacementFileName
-        lpBackupFileName := lpBackupFileName is String? StrPtr(lpBackupFileName) : lpBackupFileName
+        lpReplacedFileName := lpReplacedFileName is String ? StrPtr(lpReplacedFileName) : lpReplacedFileName
+        lpReplacementFileName := lpReplacementFileName is String ? StrPtr(lpReplacementFileName) : lpReplacementFileName
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReplaceFileA", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, "int")
+        result := DllCall("KERNEL32.dll\ReplaceFileA", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22557,7 +22830,7 @@ class FileSystem {
 
     /**
      * Replaces one file with another file, with the option of creating a backup copy of the original file.
-     * @param {Pointer<Char>} lpReplacedFileName The name of the file to be replaced.
+     * @param {PWSTR} lpReplacedFileName The name of the file to be replaced.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -22573,7 +22846,7 @@ class FileSystem {
      * 
      * The caller must have write access to the file to be replaced. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-security-and-access-rights">File Security and Access Rights</a>.
-     * @param {Pointer<Char>} lpReplacementFileName The name of the file that will replace the <i>lpReplacedFileName</i> file.
+     * @param {PWSTR} lpReplacementFileName The name of the file that will replace the <i>lpReplacedFileName</i> file.
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -22589,7 +22862,7 @@ class FileSystem {
      *        <b>SYNCHRONIZE</b>, <b>GENERIC_READ</b>, 
      *        <b>DELETE</b>, and <b>WRITE_DAC</b> access rights. No sharing mode is 
      *        specified.
-     * @param {Pointer<Char>} lpBackupFileName The name of the file that will serve as a backup copy of the <i>lpReplacedFileName</i> 
+     * @param {PWSTR} lpBackupFileName The name of the file that will serve as a backup copy of the <i>lpReplacedFileName</i> 
      *        file. If this parameter is <b>NULL</b>, no backup file is created. See the Remarks section for implementation details on the backup file. 
      * 
      * In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
@@ -22600,7 +22873,7 @@ class FileSystem {
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>ReplaceFileW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
      * @param {Integer} dwReplaceFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error codes 
@@ -22666,13 +22939,13 @@ class FileSystem {
     static ReplaceFileW(lpReplacedFileName, lpReplacementFileName, lpBackupFileName, dwReplaceFlags) {
         static lpExclude := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpReplacedFileName := lpReplacedFileName is String? StrPtr(lpReplacedFileName) : lpReplacedFileName
-        lpReplacementFileName := lpReplacementFileName is String? StrPtr(lpReplacementFileName) : lpReplacementFileName
-        lpBackupFileName := lpBackupFileName is String? StrPtr(lpBackupFileName) : lpBackupFileName
+        lpReplacedFileName := lpReplacedFileName is String ? StrPtr(lpReplacedFileName) : lpReplacedFileName
+        lpReplacementFileName := lpReplacementFileName is String ? StrPtr(lpReplacementFileName) : lpReplacementFileName
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReplaceFileW", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, "int")
+        result := DllCall("KERNEL32.dll\ReplaceFileW", "ptr", lpReplacedFileName, "ptr", lpReplacementFileName, "ptr", lpBackupFileName, "uint", dwReplaceFlags, "ptr", lpExclude, "ptr", lpReserved, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22681,7 +22954,7 @@ class FileSystem {
 
     /**
      * Establishes a hard link between an existing file and a new file.
-     * @param {Pointer<Byte>} lpFileName The name of the new file.
+     * @param {PSTR} lpFileName The name of the new file.
      *       
      * 
      * This parameter may include the path but cannot specify the name of a directory.
@@ -22690,7 +22963,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CreateHardLinkW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} lpExistingFileName The name of the existing file.
+     * @param {PSTR} lpExistingFileName The name of the existing file.
      *       
      * 
      * This parameter may include the path cannot specify the name of a directory.
@@ -22699,7 +22972,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CreateHardLinkW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -22712,12 +22985,12 @@ class FileSystem {
     static CreateHardLinkA(lpFileName, lpExistingFileName) {
         static lpSecurityAttributes := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateHardLinkA", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "int")
+        result := DllCall("KERNEL32.dll\CreateHardLinkA", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22726,7 +22999,7 @@ class FileSystem {
 
     /**
      * Establishes a hard link between an existing file and a new file.
-     * @param {Pointer<Char>} lpFileName The name of the new file.
+     * @param {PWSTR} lpFileName The name of the new file.
      *       
      * 
      * This parameter may include the path but cannot specify the name of a directory.
@@ -22735,7 +23008,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CreateHardLinkW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Char>} lpExistingFileName The name of the existing file.
+     * @param {PWSTR} lpExistingFileName The name of the existing file.
      *       
      * 
      * This parameter may include the path cannot specify the name of a directory.
@@ -22744,7 +23017,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CreateHardLinkW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -22757,12 +23030,12 @@ class FileSystem {
     static CreateHardLinkW(lpFileName, lpExistingFileName) {
         static lpSecurityAttributes := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateHardLinkW", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "int")
+        result := DllCall("KERNEL32.dll\CreateHardLinkW", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22771,15 +23044,15 @@ class FileSystem {
 
     /**
      * Establishes a hard link between an existing file and a new file as a transacted operation.
-     * @param {Pointer<Byte>} lpFileName The name of the new file.
+     * @param {PSTR} lpFileName The name of the new file.
      * 
      * This parameter cannot specify the name of a directory.
-     * @param {Pointer<Byte>} lpExistingFileName The name of the existing file.
+     * @param {PSTR} lpExistingFileName The name of the existing file.
      * 
      * This parameter cannot specify the name of a directory.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22796,12 +23069,13 @@ class FileSystem {
     static CreateHardLinkTransactedA(lpFileName, lpExistingFileName, hTransaction) {
         static lpSecurityAttributes := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateHardLinkTransactedA", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\CreateHardLinkTransactedA", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22810,15 +23084,15 @@ class FileSystem {
 
     /**
      * Establishes a hard link between an existing file and a new file as a transacted operation.
-     * @param {Pointer<Char>} lpFileName The name of the new file.
+     * @param {PWSTR} lpFileName The name of the new file.
      * 
      * This parameter cannot specify the name of a directory.
-     * @param {Pointer<Char>} lpExistingFileName The name of the existing file.
+     * @param {PWSTR} lpExistingFileName The name of the existing file.
      * 
      * This parameter cannot specify the name of a directory.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22835,12 +23109,13 @@ class FileSystem {
     static CreateHardLinkTransactedW(lpFileName, lpExistingFileName, hTransaction) {
         static lpSecurityAttributes := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        lpExistingFileName := lpExistingFileName is String? StrPtr(lpExistingFileName) : lpExistingFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateHardLinkTransactedW", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "ptr", hTransaction, "int")
+        result := DllCall("KERNEL32.dll\CreateHardLinkTransactedW", "ptr", lpFileName, "ptr", lpExistingFileName, "ptr", lpSecurityAttributes, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22849,7 +23124,7 @@ class FileSystem {
 
     /**
      * Enumerates the first stream in the specified file or directory as a transacted operation.
-     * @param {Pointer<Char>} lpFileName The fully qualified file name.
+     * @param {PWSTR} lpFileName The fully qualified file name.
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to 
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b> (6805).
@@ -22876,9 +23151,9 @@ class FileSystem {
      * </table>
      * @param {Pointer<Void>} lpFindStreamData A pointer to a buffer that receives the file data. The format of this data depends on the value of 
      *        the <i>InfoLevel</i> parameter.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle that can be used in subsequent calls to the 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle that can be used in subsequent calls to the 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextstreamw">FindNextStreamW</a>function.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
@@ -22889,7 +23164,8 @@ class FileSystem {
     static FindFirstStreamTransactedW(lpFileName, InfoLevel, lpFindStreamData, hTransaction) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -22897,12 +23173,12 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates an enumeration of all the hard links to the specified file as a transacted operation. The function returns a handle to the enumeration that can be used on subsequent calls to the FindNextFileNameW function.
-     * @param {Pointer<Char>} lpFileName The name of the file.
+     * @param {PWSTR} lpFileName The name of the file.
      * 
      * The file must reside on the local computer; otherwise, the function fails and the last error code is set to 
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b> (6805).
@@ -22911,10 +23187,10 @@ class FileSystem {
      *        call fails and the error is <b>ERROR_MORE_DATA</b> (234), the value that is returned by this 
      *        parameter is the size that the buffer pointed to by <i>LinkName</i> must be to contain all 
      *        the data.
-     * @param {Pointer<Char>} LinkName A pointer to a buffer to store the first link name found for <i>lpFileName</i>.
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {PWSTR} LinkName A pointer to a buffer to store the first link name found for <i>lpFileName</i>.
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle that can be used with the 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle that can be used with the 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextfilenamew">FindNextFileNameW</a> function or closed with the 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a> function.
      * 
@@ -22925,8 +23201,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static FindFirstFileNameTransactedW(lpFileName, dwFlags, StringLength, LinkName, hTransaction) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
-        LinkName := LinkName is String? StrPtr(LinkName) : LinkName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        LinkName := LinkName is String ? StrPtr(LinkName) : LinkName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
@@ -22934,19 +23211,19 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Sets the label of a file system volume.
-     * @param {Pointer<Byte>} lpRootPathName A pointer to a string that contains the volume's drive letter (for example, X:\) or the path 
+     * @param {PSTR} lpRootPathName A pointer to a string that contains the volume's drive letter (for example, X:\) or the path 
      *       of a mounted folder that is associated with the volume (for example, Y:\MountX\). The string must 
      *       end with a trailing backslash ('\'). If this parameter is <b>NULL</b>, the root of the 
      *       current directory is used.
-     * @param {Pointer<Byte>} lpVolumeName A pointer to a string that contains the new label for the volume. If this parameter is 
+     * @param {PSTR} lpVolumeName A pointer to a string that contains the new label for the volume. If this parameter is 
      *       <b>NULL</b>, the function deletes any existing label from the specified volume and does not 
      *       assign a new label.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22954,12 +23231,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetVolumeLabelA(lpRootPathName, lpVolumeName) {
-        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
-        lpVolumeName := lpVolumeName is String? StrPtr(lpVolumeName) : lpVolumeName
+        lpRootPathName := lpRootPathName is String ? StrPtr(lpRootPathName) : lpRootPathName
+        lpVolumeName := lpVolumeName is String ? StrPtr(lpVolumeName) : lpVolumeName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetVolumeLabelA", "ptr", lpRootPathName, "ptr", lpVolumeName, "int")
+        result := DllCall("KERNEL32.dll\SetVolumeLabelA", "ptr", lpRootPathName, "ptr", lpVolumeName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22968,14 +23245,14 @@ class FileSystem {
 
     /**
      * Sets the label of a file system volume.
-     * @param {Pointer<Char>} lpRootPathName A pointer to a string that contains the volume's drive letter (for example, X:\) or the path 
+     * @param {PWSTR} lpRootPathName A pointer to a string that contains the volume's drive letter (for example, X:\) or the path 
      *       of a mounted folder that is associated with the volume (for example, Y:\MountX\). The string must 
      *       end with a trailing backslash ('\'). If this parameter is <b>NULL</b>, the root of the 
      *       current directory is used.
-     * @param {Pointer<Char>} lpVolumeName A pointer to a string that contains the new label for the volume. If this parameter is 
+     * @param {PWSTR} lpVolumeName A pointer to a string that contains the new label for the volume. If this parameter is 
      *       <b>NULL</b>, the function deletes any existing label from the specified volume and does not 
      *       assign a new label.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -22983,12 +23260,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetVolumeLabelW(lpRootPathName, lpVolumeName) {
-        lpRootPathName := lpRootPathName is String? StrPtr(lpRootPathName) : lpRootPathName
-        lpVolumeName := lpVolumeName is String? StrPtr(lpVolumeName) : lpVolumeName
+        lpRootPathName := lpRootPathName is String ? StrPtr(lpRootPathName) : lpRootPathName
+        lpVolumeName := lpVolumeName is String ? StrPtr(lpVolumeName) : lpVolumeName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetVolumeLabelW", "ptr", lpRootPathName, "ptr", lpVolumeName, "int")
+        result := DllCall("KERNEL32.dll\SetVolumeLabelW", "ptr", lpRootPathName, "ptr", lpVolumeName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -22997,7 +23274,7 @@ class FileSystem {
 
     /**
      * Requests that bandwidth for the specified file stream be reserved. The reservation is specified as a number of bytes in a period of milliseconds for I/O requests on the specified file handle.
-     * @param {Pointer<Void>} hFile A handle to the file.
+     * @param {HANDLE} hFile A handle to the file.
      * @param {Integer} nPeriodMilliseconds The period of the reservation, in milliseconds. The period is the time from which the I/O is issued to the 
      *       kernel until the time the I/O should be completed. The minimum supported value for the file 
      *       stream can be determined by looking at the value returned through the 
@@ -23009,7 +23286,7 @@ class FileSystem {
      *       <i>lpBytesPerPeriod</i> parameter to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getfilebandwidthreservation">GetFileBandwidthReservation</a> function, 
      *       on a handle that has not had a bandwidth reservation set.
-     * @param {Integer} bDiscardable Indicates whether I/O should be completed with an error if a driver is unable to satisfy an I/O operation 
+     * @param {BOOL} bDiscardable Indicates whether I/O should be completed with an error if a driver is unable to satisfy an I/O operation 
      *       before the period expires. If one of the drivers for the specified file stream does not support this 
      *       functionality, this function may return success and ignore the flag. To verify whether the setting will be 
      *       honored, call the 
@@ -23021,7 +23298,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} lpNumOutstandingRequests A pointer to a variable that receives the number of <i>TransferSize</i> chunks the 
      *       application should allow to be outstanding with the operating system. This allows the storage stack to keep the 
      *       device busy and allows maximum throughput.
-     * @returns {Integer} Returns nonzero if successful or zero otherwise.
+     * @returns {BOOL} Returns nonzero if successful or zero otherwise.
      * 
      * A reservation can fail if there is not enough bandwidth available on the volume because of existing 
      *        reservations; in this case <b>ERROR_NO_SYSTEM_RESOURCES</b> is returned.
@@ -23032,9 +23309,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetFileBandwidthReservation(hFile, nPeriodMilliseconds, nBytesPerPeriod, bDiscardable, lpTransferSize, lpNumOutstandingRequests) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFileBandwidthReservation", "ptr", hFile, "uint", nPeriodMilliseconds, "uint", nBytesPerPeriod, "int", bDiscardable, "uint*", lpTransferSize, "uint*", lpNumOutstandingRequests, "int")
+        result := DllCall("KERNEL32.dll\SetFileBandwidthReservation", "ptr", hFile, "uint", nPeriodMilliseconds, "uint", nBytesPerPeriod, "ptr", bDiscardable, "uint*", lpTransferSize, "uint*", lpNumOutstandingRequests, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23043,7 +23322,7 @@ class FileSystem {
 
     /**
      * Retrieves the bandwidth reservation properties of the volume on which the specified file resides.
-     * @param {Pointer<Void>} hFile A handle to the file.
+     * @param {HANDLE} hFile A handle to the file.
      * @param {Pointer<UInt32>} lpPeriodMilliseconds A pointer to a variable that receives the period of the reservation, in milliseconds. The period is the 
      *       time from which the I/O is issued to the kernel until the time the I/O should be completed. If no bandwidth has 
      *       been reserved for this handle, then the value returned is the minimum reservation period supported for this 
@@ -23051,7 +23330,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} lpBytesPerPeriod A pointer to a variable that receives the maximum number of bytes per period that can be reserved on the 
      *       volume. If no bandwidth has been reserved for this handle, then the value returned is the maximum number of 
      *       bytes per period supported for the volume.
-     * @param {Pointer<Int32>} pDiscardable <b>TRUE</b> if I/O should be completed with an error if a driver is unable to satisfy an 
+     * @param {Pointer<BOOL>} pDiscardable <b>TRUE</b> if I/O should be completed with an error if a driver is unable to satisfy an 
      *       I/O operation before the period expires. <b>FALSE</b> if the underlying subsystem does not 
      *       support failing in this manner.
      * @param {Pointer<UInt32>} lpTransferSize The minimum size of any individual I/O request that may be issued by the application. All I/O requests 
@@ -23059,7 +23338,7 @@ class FileSystem {
      *       handle, then the value returned is the minimum transfer size supported for this volume.
      * @param {Pointer<UInt32>} lpNumOutstandingRequests The number of <i>TransferSize</i> chunks  allowed to be outstanding with the operating 
      *       system.
-     * @returns {Integer} Returns nonzero if successful or zero otherwise.
+     * @returns {BOOL} Returns nonzero if successful or zero otherwise.
      * 
      * To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -23067,9 +23346,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFileBandwidthReservation(hFile, lpPeriodMilliseconds, lpBytesPerPeriod, pDiscardable, lpTransferSize, lpNumOutstandingRequests) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileBandwidthReservation", "ptr", hFile, "uint*", lpPeriodMilliseconds, "uint*", lpBytesPerPeriod, "int*", pDiscardable, "uint*", lpTransferSize, "uint*", lpNumOutstandingRequests, "int")
+        result := DllCall("KERNEL32.dll\GetFileBandwidthReservation", "ptr", hFile, "uint*", lpPeriodMilliseconds, "uint*", lpBytesPerPeriod, "ptr", pDiscardable, "uint*", lpTransferSize, "uint*", lpNumOutstandingRequests, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23078,7 +23359,7 @@ class FileSystem {
 
     /**
      * Retrieves information that describes the changes within the specified directory.
-     * @param {Pointer<Void>} hDirectory A handle to the directory to be monitored. This directory must be opened with the 
+     * @param {HANDLE} hDirectory A handle to the directory to be monitored. This directory must be opened with the 
      *       <b>FILE_LIST_DIRECTORY</b> access right, or an access right such as <b>GENERIC_READ</b> that includes the <b>FILE_LIST_DIRECTORY</b> access right.
      * @param {Pointer} lpBuffer A pointer to the <b>DWORD</b>-aligned formatted buffer in which the read results are 
      *       to be returned. The structure of this buffer is defined by the 
@@ -23088,7 +23369,7 @@ class FileSystem {
      *       section.
      * @param {Integer} nBufferLength The size of the buffer that is pointed to by the <i>lpBuffer</i> parameter, in 
      *       bytes.
-     * @param {Integer} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the 
+     * @param {BOOL} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the 
      *       specified directory. If this parameter is <b>FALSE</b>, the function monitors only the 
      *       directory specified by the <i>hDirectory</i> parameter.
      * @param {Integer} dwNotifyFilter The filter criteria that the function checks to determine if the wait operation has completed. This
@@ -23102,7 +23383,7 @@ class FileSystem {
      * @param {Pointer<LPOVERLAPPED_COMPLETION_ROUTINE>} lpCompletionRoutine A pointer to a completion routine to be called when the operation has been completed or canceled and the 
      *       calling thread is in an alertable wait state. For more information about this completion routine, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/nc-minwinbase-lpoverlapped_completion_routine">FileIOCompletionRoutine</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. For synchronous calls, this means that the operation 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. For synchronous calls, this means that the operation 
      *        succeeded. For asynchronous calls, this indicates that the operation was successfully queued.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -23114,9 +23395,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static ReadDirectoryChangesW(hDirectory, lpBuffer, nBufferLength, bWatchSubtree, dwNotifyFilter, lpBytesReturned, lpOverlapped, lpCompletionRoutine) {
+        hDirectory := hDirectory is Win32Handle ? NumGet(hDirectory, "ptr") : hDirectory
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadDirectoryChangesW", "ptr", hDirectory, "ptr", lpBuffer, "uint", nBufferLength, "int", bWatchSubtree, "uint", dwNotifyFilter, "uint*", lpBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int")
+        result := DllCall("KERNEL32.dll\ReadDirectoryChangesW", "ptr", hDirectory, "ptr", lpBuffer, "uint", nBufferLength, "ptr", bWatchSubtree, "uint", dwNotifyFilter, "uint*", lpBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23125,7 +23408,7 @@ class FileSystem {
 
     /**
      * Retrieves information that describes the changes within the specified directory, which can include extended information if that information type is specified.
-     * @param {Pointer<Void>} hDirectory A handle to the directory to be monitored. This directory must be opened with the 
+     * @param {HANDLE} hDirectory A handle to the directory to be monitored. This directory must be opened with the 
      *       <b>FILE_LIST_DIRECTORY</b> access right, or an access right such as <b>GENERIC_READ</b> that includes the <b>FILE_LIST_DIRECTORY</b> access right.
      * @param {Pointer} lpBuffer A pointer to the <b>DWORD</b>-aligned formatted buffer in which <b>ReadDirectoryChangesExW</b> should return the read results. The structure of this buffer is defined by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_extended_information">FILE_NOTIFY_EXTENDED_INFORMATION</a> structure if the value of the <i>ReadDirectoryNotifyInformationClass</i> parameter is <b>ReadDirectoryNotifyExtendedInformation</b>, or by the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_information">FILE_NOTIFY_INFORMATION</a> structure if <i>ReadDirectoryNotifyInformationClass</i> is <b>ReadDirectoryNotifyInformation</b>.
@@ -23136,7 +23419,7 @@ class FileSystem {
      *       section.
      * @param {Integer} nBufferLength The size of the buffer to which the <i>lpBuffer</i> parameter points, in 
      *       bytes.
-     * @param {Integer} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the 
+     * @param {BOOL} bWatchSubtree If this parameter is <b>TRUE</b>, the function monitors the directory tree rooted at the 
      *       specified directory. If this parameter is <b>FALSE</b>, the function monitors only the 
      *       directory specified by the <i>hDirectory</i> parameter.
      * @param {Integer} dwNotifyFilter The filter criteria that the function checks to determine if the wait operation has completed. This
@@ -23154,7 +23437,7 @@ class FileSystem {
      *         <b>ReadDirectoryChangesExW</b> should write to the buffer to which the <i>lpBuffer</i> parameter points. Specify <b>ReadDirectoryNotifyInformation</b> to indicate 
      *         that the information should consist of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_information">FILE_NOTIFY_INFORMATION</a> structures, or <b>ReadDirectoryNotifyExtendedInformation</b>to indicate 
      *         that the information should consist of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-file_notify_extended_information">FILE_NOTIFY_EXTENDED_INFORMATION</a> structures.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. For synchronous calls, this means that the operation 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. For synchronous calls, this means that the operation 
      *        succeeded. For asynchronous calls, this indicates that the operation was successfully queued.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -23166,9 +23449,11 @@ class FileSystem {
      * @since windows10.0.16299
      */
     static ReadDirectoryChangesExW(hDirectory, lpBuffer, nBufferLength, bWatchSubtree, dwNotifyFilter, lpBytesReturned, lpOverlapped, lpCompletionRoutine, ReadDirectoryNotifyInformationClass) {
+        hDirectory := hDirectory is Win32Handle ? NumGet(hDirectory, "ptr") : hDirectory
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadDirectoryChangesExW", "ptr", hDirectory, "ptr", lpBuffer, "uint", nBufferLength, "int", bWatchSubtree, "uint", dwNotifyFilter, "uint*", lpBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int", ReadDirectoryNotifyInformationClass, "int")
+        result := DllCall("KERNEL32.dll\ReadDirectoryChangesExW", "ptr", hDirectory, "ptr", lpBuffer, "uint", nBufferLength, "ptr", bWatchSubtree, "uint", dwNotifyFilter, "uint*", lpBytesReturned, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "int", ReadDirectoryNotifyInformationClass, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23177,11 +23462,11 @@ class FileSystem {
 
     /**
      * Retrieves the name of a volume on a computer.
-     * @param {Pointer<Byte>} lpszVolumeName A pointer to a buffer that receives a null-terminated string that specifies a volume 
+     * @param {PSTR} lpszVolumeName A pointer to a buffer that receives a null-terminated string that specifies a volume 
      *       <b>GUID</b> path for the first volume that is found.
      * @param {Integer} cchBufferLength The length of the buffer to receive the volume <b>GUID</b> path, in 
      *       <b>TCHARs</b>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle used in a subsequent call to the 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to the 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findnextvolumew">FindNextVolume</a> and 
      *        <a href="/windows/desktop/api/fileapi/nf-fileapi-findvolumeclose">FindVolumeClose</a> functions.
      * 
@@ -23192,7 +23477,7 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstVolumeA(lpszVolumeName, cchBufferLength) {
-        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
         A_LastError := 0
 
@@ -23200,17 +23485,17 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Continues a volume search started by a call to the FindFirstVolume function.
-     * @param {Pointer<Void>} hFindVolume The volume search handle returned by a previous call to the 
+     * @param {HANDLE} hFindVolume The volume search handle returned by a previous call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstvolumew">FindFirstVolume</a> function.
-     * @param {Pointer<Byte>} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path that is found.
+     * @param {PSTR} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path that is found.
      * @param {Integer} cchBufferLength The length of the buffer that receives the volume <b>GUID</b> path, in 
      *       <b>TCHARs</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If no matching files can be found, the 
@@ -23221,11 +23506,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeA(hFindVolume, lpszVolumeName, cchBufferLength) {
-        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
+        hFindVolume := hFindVolume is Win32Handle ? NumGet(hFindVolume, "ptr") : hFindVolume
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNextVolumeA", "ptr", hFindVolume, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
+        result := DllCall("KERNEL32.dll\FindNextVolumeA", "ptr", hFindVolume, "ptr", lpszVolumeName, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23234,11 +23520,11 @@ class FileSystem {
 
     /**
      * Retrieves the name of a mounted folder on the specified volume.
-     * @param {Pointer<Byte>} lpszRootPathName A volume GUID path for the volume to scan for mounted folders. A trailing backslash is required.
-     * @param {Pointer<Byte>} lpszVolumeMountPoint A pointer to a buffer that receives the name of the first mounted folder that is found.
+     * @param {PSTR} lpszRootPathName A volume GUID path for the volume to scan for mounted folders. A trailing backslash is required.
+     * @param {PSTR} lpszVolumeMountPoint A pointer to a buffer that receives the name of the first mounted folder that is found.
      * @param {Integer} cchBufferLength The length of the buffer that receives the path to the mounted folder, in 
      *       <b>TCHAR</b>s.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle used in a subsequent call to the 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to the 
      *        <a href="/windows/desktop/api/winbase/nf-winbase-findnextvolumemountpointa">FindNextVolumeMountPoint</a> and 
      *        <a href="/windows/desktop/api/winbase/nf-winbase-findvolumemountpointclose">FindVolumeMountPointClose</a> functions.
      * 
@@ -23249,8 +23535,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstVolumeMountPointA(lpszRootPathName, lpszVolumeMountPoint, cchBufferLength) {
-        lpszRootPathName := lpszRootPathName is String? StrPtr(lpszRootPathName) : lpszRootPathName
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszRootPathName := lpszRootPathName is String ? StrPtr(lpszRootPathName) : lpszRootPathName
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
 
         A_LastError := 0
 
@@ -23258,16 +23544,16 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Retrieves the name of a mounted folder on the specified volume.
-     * @param {Pointer<Char>} lpszRootPathName A volume GUID path for the volume to scan for mounted folders. A trailing backslash is required.
-     * @param {Pointer<Char>} lpszVolumeMountPoint A pointer to a buffer that receives the name of the first mounted folder that is found.
+     * @param {PWSTR} lpszRootPathName A volume GUID path for the volume to scan for mounted folders. A trailing backslash is required.
+     * @param {PWSTR} lpszVolumeMountPoint A pointer to a buffer that receives the name of the first mounted folder that is found.
      * @param {Integer} cchBufferLength The length of the buffer that receives the path to the mounted folder, in 
      *       <b>TCHAR</b>s.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a search handle used in a subsequent call to the 
+     * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to the 
      *        <a href="/windows/desktop/api/winbase/nf-winbase-findnextvolumemountpointa">FindNextVolumeMountPoint</a> and 
      *        <a href="/windows/desktop/api/winbase/nf-winbase-findvolumemountpointclose">FindVolumeMountPointClose</a> functions.
      * 
@@ -23278,8 +23564,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindFirstVolumeMountPointW(lpszRootPathName, lpszVolumeMountPoint, cchBufferLength) {
-        lpszRootPathName := lpszRootPathName is String? StrPtr(lpszRootPathName) : lpszRootPathName
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszRootPathName := lpszRootPathName is String ? StrPtr(lpszRootPathName) : lpszRootPathName
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
 
         A_LastError := 0
 
@@ -23287,17 +23573,17 @@ class FileSystem {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Continues a mounted folder search started by a call to the FindFirstVolumeMountPoint function.
-     * @param {Pointer<Void>} hFindVolumeMountPoint A mounted folder search handle returned by a previous call to the 
+     * @param {HANDLE} hFindVolumeMountPoint A mounted folder search handle returned by a previous call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findfirstvolumemountpointa">FindFirstVolumeMountPoint</a> function.
-     * @param {Pointer<Byte>} lpszVolumeMountPoint A pointer to a buffer that receives the name of the mounted folder that is found.
+     * @param {PSTR} lpszVolumeMountPoint A pointer to a buffer that receives the name of the mounted folder that is found.
      * @param {Integer} cchBufferLength The length of the buffer that receives the mounted folder name, in 
      *       <b>TCHARs</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If no more mounted folders can be found, 
@@ -23308,11 +23594,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeMountPointA(hFindVolumeMountPoint, lpszVolumeMountPoint, cchBufferLength) {
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        hFindVolumeMountPoint := hFindVolumeMountPoint is Win32Handle ? NumGet(hFindVolumeMountPoint, "ptr") : hFindVolumeMountPoint
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNextVolumeMountPointA", "ptr", hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "int")
+        result := DllCall("KERNEL32.dll\FindNextVolumeMountPointA", "ptr", hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23321,12 +23608,12 @@ class FileSystem {
 
     /**
      * Continues a mounted folder search started by a call to the FindFirstVolumeMountPoint function.
-     * @param {Pointer<Void>} hFindVolumeMountPoint A mounted folder search handle returned by a previous call to the 
+     * @param {HANDLE} hFindVolumeMountPoint A mounted folder search handle returned by a previous call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findfirstvolumemountpointa">FindFirstVolumeMountPoint</a> function.
-     * @param {Pointer<Char>} lpszVolumeMountPoint A pointer to a buffer that receives the name of the mounted folder that is found.
+     * @param {PWSTR} lpszVolumeMountPoint A pointer to a buffer that receives the name of the mounted folder that is found.
      * @param {Integer} cchBufferLength The length of the buffer that receives the mounted folder name, in 
      *       <b>TCHARs</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If no more mounted folders can be found, 
@@ -23337,11 +23624,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeMountPointW(hFindVolumeMountPoint, lpszVolumeMountPoint, cchBufferLength) {
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        hFindVolumeMountPoint := hFindVolumeMountPoint is Win32Handle ? NumGet(hFindVolumeMountPoint, "ptr") : hFindVolumeMountPoint
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindNextVolumeMountPointW", "ptr", hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "int")
+        result := DllCall("KERNEL32.dll\FindNextVolumeMountPointW", "ptr", hFindVolumeMountPoint, "ptr", lpszVolumeMountPoint, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23350,9 +23638,9 @@ class FileSystem {
 
     /**
      * Closes the specified mounted folder search handle.
-     * @param {Pointer<Void>} hFindVolumeMountPoint The mounted folder search handle to be closed. This handle must have been previously opened by the 
+     * @param {HANDLE} hFindVolumeMountPoint The mounted folder search handle to be closed. This handle must have been previously opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findfirstvolumemountpointa">FindFirstVolumeMountPoint</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -23360,9 +23648,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindVolumeMountPointClose(hFindVolumeMountPoint) {
+        hFindVolumeMountPoint := hFindVolumeMountPoint is Win32Handle ? NumGet(hFindVolumeMountPoint, "ptr") : hFindVolumeMountPoint
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindVolumeMountPointClose", "ptr", hFindVolumeMountPoint, "int")
+        result := DllCall("KERNEL32.dll\FindVolumeMountPointClose", "ptr", hFindVolumeMountPoint, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23371,13 +23661,13 @@ class FileSystem {
 
     /**
      * Associates a volume with a drive letter or a directory on another volume.
-     * @param {Pointer<Byte>} lpszVolumeMountPoint The user-mode path to be associated with the volume. This may be a drive letter (for example, "X:\") or a directory 
+     * @param {PSTR} lpszVolumeMountPoint The user-mode path to be associated with the volume. This may be a drive letter (for example, "X:\") or a directory 
      *       on another volume (for example, "Y:\MountX\"). The string must end with a trailing backslash ('\').
-     * @param {Pointer<Byte>} lpszVolumeName A volume <b>GUID</b> path for the volume. This string must be of the form 
+     * @param {PSTR} lpszVolumeName A volume <b>GUID</b> path for the volume. This string must be of the form 
      *       "\\\\?\Volume{<i>GUID</i>}\" where <i>GUID</i> is a <b>GUID</b> that identifies 
      *       the volume. The "\\\\?\" turns off path parsing and is ignored as part of the path, as discussed in 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-volume">Naming a Volume</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -23387,12 +23677,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetVolumeMountPointA(lpszVolumeMountPoint, lpszVolumeName) {
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
-        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "int")
+        result := DllCall("KERNEL32.dll\SetVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23401,13 +23691,13 @@ class FileSystem {
 
     /**
      * Associates a volume with a drive letter or a directory on another volume.
-     * @param {Pointer<Char>} lpszVolumeMountPoint The user-mode path to be associated with the volume. This may be a drive letter (for example, "X:\") or a directory 
+     * @param {PWSTR} lpszVolumeMountPoint The user-mode path to be associated with the volume. This may be a drive letter (for example, "X:\") or a directory 
      *       on another volume (for example, "Y:\MountX\"). The string must end with a trailing backslash ('\').
-     * @param {Pointer<Char>} lpszVolumeName A volume <b>GUID</b> path for the volume. This string must be of the form 
+     * @param {PWSTR} lpszVolumeName A volume <b>GUID</b> path for the volume. This string must be of the form 
      *       "\\\\?\\Volume{<i>GUID</i>}\\" where <i>GUID</i> is a <b>GUID</b> that identifies 
      *       the volume. The "\\\\?\\" turns off path parsing and is ignored as part of the path, as discussed in 
      *       <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-volume">Naming a Volume</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -23417,12 +23707,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetVolumeMountPointW(lpszVolumeMountPoint, lpszVolumeName) {
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
-        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "int")
+        result := DllCall("KERNEL32.dll\SetVolumeMountPointW", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23431,9 +23721,9 @@ class FileSystem {
 
     /**
      * Deletes a drive letter or mounted folder.
-     * @param {Pointer<Byte>} lpszVolumeMountPoint The drive letter or mounted folder to be deleted. A trailing backslash is required, for example, 
+     * @param {PSTR} lpszVolumeMountPoint The drive letter or mounted folder to be deleted. A trailing backslash is required, for example, 
      *       "X:\" or "Y:\MountX\".
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -23441,11 +23731,11 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static DeleteVolumeMountPointA(lpszVolumeMountPoint) {
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteVolumeMountPointA", "ptr", lpszVolumeMountPoint, "int")
+        result := DllCall("KERNEL32.dll\DeleteVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23454,10 +23744,10 @@ class FileSystem {
 
     /**
      * Retrieves a volume GUID path for the volume that is associated with the specified volume mount point ( drive letter, volume GUID path, or mounted folder).
-     * @param {Pointer<Byte>} lpszVolumeMountPoint A pointer to a string that contains the path of a mounted folder (for example, "Y:\MountX\") or a drive letter (for example, "X:\"). The string must end with a trailing backslash ('\').
-     * @param {Pointer<Byte>} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path. This path is of the form "\\?\Volume{<i>GUID</i>}\" where <i>GUID</i> is a <b>GUID</b> that identifies the volume. If there is more than one volume <b>GUID</b> path for the volume, only the first one in the mount manager's cache is returned.
+     * @param {PSTR} lpszVolumeMountPoint A pointer to a string that contains the path of a mounted folder (for example, "Y:\MountX\") or a drive letter (for example, "X:\"). The string must end with a trailing backslash ('\').
+     * @param {PSTR} lpszVolumeName A pointer to a string that receives the volume <b>GUID</b> path. This path is of the form "\\?\Volume{<i>GUID</i>}\" where <i>GUID</i> is a <b>GUID</b> that identifies the volume. If there is more than one volume <b>GUID</b> path for the volume, only the first one in the mount manager's cache is returned.
      * @param {Integer} cchBufferLength The length of the output buffer, in <b>TCHARs</b>. A reasonable size for the buffer to accommodate the largest possible volume <b>GUID</b> path is 50 characters.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -23465,12 +23755,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumeNameForVolumeMountPointA(lpszVolumeMountPoint, lpszVolumeName, cchBufferLength) {
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
-        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "int")
+        result := DllCall("KERNEL32.dll\GetVolumeNameForVolumeMountPointA", "ptr", lpszVolumeMountPoint, "ptr", lpszVolumeName, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23479,7 +23769,7 @@ class FileSystem {
 
     /**
      * Retrieves the volume mount point where the specified path is mounted.
-     * @param {Pointer<Byte>} lpszFileName A pointer to the input path string. Both absolute and relative file and directory names, for example 
+     * @param {PSTR} lpszFileName A pointer to the input path string. Both absolute and relative file and directory names, for example 
      *        "..", are acceptable in this path.
      * 
      * If you specify a relative directory or file name without a volume qualifier, 
@@ -23488,9 +23778,9 @@ class FileSystem {
      * 
      * If this parameter is an empty string, "", the function fails but the last error is set to 
      *        <b>ERROR_SUCCESS</b>.
-     * @param {Pointer<Byte>} lpszVolumePathName A pointer to a string that receives the volume mount point for the input path.
+     * @param {PSTR} lpszVolumePathName A pointer to a string that receives the volume mount point for the input path.
      * @param {Integer} cchBufferLength The length of the output buffer, in <b>TCHARs</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -23498,12 +23788,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumePathNameA(lpszFileName, lpszVolumePathName, cchBufferLength) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
-        lpszVolumePathName := lpszVolumePathName is String? StrPtr(lpszVolumePathName) : lpszVolumePathName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
+        lpszVolumePathName := lpszVolumePathName is String ? StrPtr(lpszVolumePathName) : lpszVolumePathName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVolumePathNameA", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "int")
+        result := DllCall("KERNEL32.dll\GetVolumePathNameA", "ptr", lpszFileName, "ptr", lpszVolumePathName, "uint", cchBufferLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23512,10 +23802,10 @@ class FileSystem {
 
     /**
      * Retrieves a list of drive letters and mounted folder paths for the specified volume.
-     * @param {Pointer<Byte>} lpszVolumeName A volume <b>GUID</b> path for the volume. A volume <b>GUID</b> 
+     * @param {PSTR} lpszVolumeName A volume <b>GUID</b> path for the volume. A volume <b>GUID</b> 
      *       path is of the form 
      *       "\\?\Volume{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}\".
-     * @param {Pointer<Byte>} lpszVolumePathNames A pointer to a buffer that receives the list of drive letters and mounted folder paths. The list is an 
+     * @param {PSTR} lpszVolumePathNames A pointer to a buffer that receives the list of drive letters and mounted folder paths. The list is an 
      *       array of null-terminated strings terminated by an additional <b>NULL</b> character. If the 
      *       buffer is not large enough to hold the complete list, the buffer holds as much of the list as possible.
      * @param {Integer} cchBufferLength The length of the <i>lpszVolumePathNames</i> buffer, in 
@@ -23523,7 +23813,7 @@ class FileSystem {
      * @param {Pointer<UInt32>} lpcchReturnLength If the call is successful, this parameter is the number of <b>TCHARs</b> copied to 
      *       the <i>lpszVolumePathNames</i> buffer. Otherwise, this parameter is the size of the buffer 
      *       required to hold the complete list, in <b>TCHARs</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is not large enough to 
@@ -23533,12 +23823,12 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static GetVolumePathNamesForVolumeNameA(lpszVolumeName, lpszVolumePathNames, cchBufferLength, lpcchReturnLength) {
-        lpszVolumeName := lpszVolumeName is String? StrPtr(lpszVolumeName) : lpszVolumeName
-        lpszVolumePathNames := lpszVolumePathNames is String? StrPtr(lpszVolumePathNames) : lpszVolumePathNames
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
+        lpszVolumePathNames := lpszVolumePathNames is String ? StrPtr(lpszVolumePathNames) : lpszVolumePathNames
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameA", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, "uint", cchBufferLength, "uint*", lpcchReturnLength, "int")
+        result := DllCall("KERNEL32.dll\GetVolumePathNamesForVolumeNameA", "ptr", lpszVolumeName, "ptr", lpszVolumePathNames, "uint", cchBufferLength, "uint*", lpcchReturnLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23547,7 +23837,7 @@ class FileSystem {
 
     /**
      * Retrieves file information for the specified file.
-     * @param {Pointer<Void>} hFile A handle to the file that contains the information to be retrieved.
+     * @param {HANDLE} hFile A handle to the file that contains the information to be retrieved.
      * 
      * This handle should not be a pipe handle.
      * @param {Integer} FileInformationClass A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ne-minwinbase-file_info_by_handle_class">FILE_INFO_BY_HANDLE_CLASS</a> enumeration 
@@ -23558,7 +23848,7 @@ class FileSystem {
      *       corresponds to the class that is specified by <i>FileInformationClass</i>. For a table of 
      *       valid structure types, see the Remarks section.
      * @param {Integer} dwBufferSize The size of the <i>lpFileInformation</i> buffer, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero and file information data is contained in the buffer 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero and file information data is contained in the buffer 
      *        pointed to by the <i>lpFileInformation</i> parameter.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -23567,9 +23857,11 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFileInformationByHandleEx(hFile, FileInformationClass, lpFileInformation, dwBufferSize) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileInformationByHandleEx", "ptr", hFile, "int", FileInformationClass, "ptr", lpFileInformation, "uint", dwBufferSize, "int")
+        result := DllCall("KERNEL32.dll\GetFileInformationByHandleEx", "ptr", hFile, "int", FileInformationClass, "ptr", lpFileInformation, "uint", dwBufferSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23578,22 +23870,22 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer<Char>} FileName 
+     * @param {PWSTR} FileName 
      * @param {Integer} FileInformationClass 
      * @param {Pointer} FileInfoBuffer 
      * @param {Integer} FileInfoBufferSize 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetFileInformationByName(FileName, FileInformationClass, FileInfoBuffer, FileInfoBufferSize) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("KERNEL32.dll\GetFileInformationByName", "ptr", FileName, "int", FileInformationClass, "ptr", FileInfoBuffer, "uint", FileInfoBufferSize, "int")
+        result := DllCall("KERNEL32.dll\GetFileInformationByName", "ptr", FileName, "int", FileInformationClass, "ptr", FileInfoBuffer, "uint", FileInfoBufferSize, "ptr")
         return result
     }
 
     /**
      * Opens the file that matches the specified identifier.
-     * @param {Pointer<Void>} hVolumeHint A handle to any file on a volume or share on which the file to be opened is stored.
+     * @param {HANDLE} hVolumeHint A handle to any file on a volume or share on which the file to be opened is stored.
      * @param {Pointer<FILE_ID_DESCRIPTOR>} lpFileId A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-file_id_descriptor">FILE_ID_DESCRIPTOR</a> that identifies 
      *        the file to open.
      * @param {Integer} dwDesiredAccess The access to the object. Access can be read, write, or both.
@@ -23788,7 +24080,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to a specified file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to a specified file.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *        error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -23796,18 +24088,20 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static OpenFileById(hVolumeHint, lpFileId, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwFlagsAndAttributes) {
+        hVolumeHint := hVolumeHint is Win32Handle ? NumGet(hVolumeHint, "ptr") : hVolumeHint
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\OpenFileById", "ptr", hVolumeHint, "ptr", lpFileId, "uint", dwDesiredAccess, "uint", dwShareMode, "ptr", lpSecurityAttributes, "uint", dwFlagsAndAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates a symbolic link.
-     * @param {Pointer<Byte>} lpSymlinkFileName The symbolic link to be created.
+     * @param {PSTR} lpSymlinkFileName The symbolic link to be created.
      * 
      * This parameter may include the path. In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -23816,7 +24110,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CreateSymbolicLinkW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} lpTargetFileName The name of the target for the symbolic link to be created.
+     * @param {PSTR} lpTargetFileName The name of the target for the symbolic link to be created.
      * 
      *  If <i>lpTargetFileName</i> has a device name associated with it, the link is treated as 
      *       an absolute link; otherwise, the link is treated as a relative link.
@@ -23869,7 +24163,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -23877,12 +24171,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkA(lpSymlinkFileName, lpTargetFileName, dwFlags) {
-        lpSymlinkFileName := lpSymlinkFileName is String? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
-        lpTargetFileName := lpTargetFileName is String? StrPtr(lpTargetFileName) : lpTargetFileName
+        lpSymlinkFileName := lpSymlinkFileName is String ? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
+        lpTargetFileName := lpTargetFileName is String ? StrPtr(lpTargetFileName) : lpTargetFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateSymbolicLinkA", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "char")
+        result := DllCall("KERNEL32.dll\CreateSymbolicLinkA", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23891,7 +24185,7 @@ class FileSystem {
 
     /**
      * Creates a symbolic link.
-     * @param {Pointer<Char>} lpSymlinkFileName The symbolic link to be created.
+     * @param {PWSTR} lpSymlinkFileName The symbolic link to be created.
      * 
      * This parameter may include the path. In the ANSI version of this function, the name is limited to <b>MAX_PATH</b> characters. 
      *        To extend this limit to 32,767 wide characters, call the Unicode version of the function and prepend 
@@ -23900,7 +24194,7 @@ class FileSystem {
      * 
      * <div class="alert"><b>Tip</b>  Starting with Windows 10, version 1607, for the unicode version of this function (<b>CreateSymbolicLinkW</b>), you can opt-in to remove the <b>MAX_PATH</b> limitation without prepending "\\?\". See the "Maximum Path Length Limitation" section of <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming Files, Paths, and Namespaces</a> for details.</div>
      * <div> </div>
-     * @param {Pointer<Char>} lpTargetFileName The name of the target for the symbolic link to be created.
+     * @param {PWSTR} lpTargetFileName The name of the target for the symbolic link to be created.
      * 
      *  If <i>lpTargetFileName</i> has a device name associated with it, the link is treated as 
      *       an absolute link; otherwise, the link is treated as a relative link.
@@ -23953,7 +24247,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -23961,12 +24255,12 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkW(lpSymlinkFileName, lpTargetFileName, dwFlags) {
-        lpSymlinkFileName := lpSymlinkFileName is String? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
-        lpTargetFileName := lpTargetFileName is String? StrPtr(lpTargetFileName) : lpTargetFileName
+        lpSymlinkFileName := lpSymlinkFileName is String ? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
+        lpTargetFileName := lpTargetFileName is String ? StrPtr(lpTargetFileName) : lpTargetFileName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateSymbolicLinkW", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "char")
+        result := DllCall("KERNEL32.dll\CreateSymbolicLinkW", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -23975,8 +24269,8 @@ class FileSystem {
 
     /**
      * Creates a symbolic link as a transacted operation.
-     * @param {Pointer<Byte>} lpSymlinkFileName The symbolic link to be created.
-     * @param {Pointer<Byte>} lpTargetFileName The name of the target for the symbolic link to be created.
+     * @param {PSTR} lpSymlinkFileName The symbolic link to be created.
+     * @param {PSTR} lpTargetFileName The name of the target for the symbolic link to be created.
      * 
      * If <i>lpTargetFileName</i> has a device name associated with it, the link is treated as an 
      *        absolute link; otherwise, the link is treated as a relative link.
@@ -24010,9 +24304,9 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -24020,12 +24314,13 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkTransactedA(lpSymlinkFileName, lpTargetFileName, dwFlags, hTransaction) {
-        lpSymlinkFileName := lpSymlinkFileName is String? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
-        lpTargetFileName := lpTargetFileName is String? StrPtr(lpTargetFileName) : lpTargetFileName
+        lpSymlinkFileName := lpSymlinkFileName is String ? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
+        lpTargetFileName := lpTargetFileName is String ? StrPtr(lpTargetFileName) : lpTargetFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateSymbolicLinkTransactedA", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "ptr", hTransaction, "char")
+        result := DllCall("KERNEL32.dll\CreateSymbolicLinkTransactedA", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -24034,8 +24329,8 @@ class FileSystem {
 
     /**
      * Creates a symbolic link as a transacted operation.
-     * @param {Pointer<Char>} lpSymlinkFileName The symbolic link to be created.
-     * @param {Pointer<Char>} lpTargetFileName The name of the target for the symbolic link to be created.
+     * @param {PWSTR} lpSymlinkFileName The symbolic link to be created.
+     * @param {PWSTR} lpTargetFileName The name of the target for the symbolic link to be created.
      * 
      * If <i>lpTargetFileName</i> has a device name associated with it, the link is treated as an 
      *        absolute link; otherwise, the link is treated as a relative link.
@@ -24069,9 +24364,9 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hTransaction A handle to the transaction. This handle is returned by the 
+     * @param {HANDLE} hTransaction A handle to the transaction. This handle is returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -24079,12 +24374,13 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkTransactedW(lpSymlinkFileName, lpTargetFileName, dwFlags, hTransaction) {
-        lpSymlinkFileName := lpSymlinkFileName is String? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
-        lpTargetFileName := lpTargetFileName is String? StrPtr(lpTargetFileName) : lpTargetFileName
+        lpSymlinkFileName := lpSymlinkFileName is String ? StrPtr(lpSymlinkFileName) : lpSymlinkFileName
+        lpTargetFileName := lpTargetFileName is String ? StrPtr(lpTargetFileName) : lpTargetFileName
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateSymbolicLinkTransactedW", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "ptr", hTransaction, "char")
+        result := DllCall("KERNEL32.dll\CreateSymbolicLinkTransactedW", "ptr", lpSymlinkFileName, "ptr", lpTargetFileName, "uint", dwFlags, "ptr", hTransaction, "ptr")
         if(A_LastError)
             throw OSError()
 

@@ -28,6 +28,20 @@ class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
+    class _Event extends Win32Struct {
+        static sizeof => 28
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ConnectionId {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {WHV_DOORBELL_MATCH_DATA}
      */
@@ -40,10 +54,13 @@ class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Event}
      */
-    Event {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Event{
+        get {
+            if(!this.HasProp("__Event"))
+                this.__Event := %this.__Class%._Event(this.ptr + 8)
+            return this.__Event
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -37,43 +38,58 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszConnectionName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszConnectionName{
+        get {
+            if(!this.HasProp("__pwszConnectionName"))
+                this.__pwszConnectionName := PWSTR(this.ptr + 16)
+            return this.__pwszConnectionName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszProxy {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszProxy{
+        get {
+            if(!this.HasProp("__pwszProxy"))
+                this.__pwszProxy := PWSTR(this.ptr + 24)
+            return this.__pwszProxy
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszProxyBypass {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwszProxyBypass{
+        get {
+            if(!this.HasProp("__pwszProxyBypass"))
+                this.__pwszProxyBypass := PWSTR(this.ptr + 32)
+            return this.__pwszProxyBypass
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszAutoconfigUrl {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pwszAutoconfigUrl{
+        get {
+            if(!this.HasProp("__pwszAutoconfigUrl"))
+                this.__pwszAutoconfigUrl := PWSTR(this.ptr + 40)
+            return this.__pwszAutoconfigUrl
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszAutoconfigSecondaryUrl {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pwszAutoconfigSecondaryUrl{
+        get {
+            if(!this.HasProp("__pwszAutoconfigSecondaryUrl"))
+                this.__pwszAutoconfigSecondaryUrl := PWSTR(this.ptr + 48)
+            return this.__pwszAutoconfigSecondaryUrl
+        }
     }
 
     /**
@@ -85,11 +101,14 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszLastKnownGoodAutoConfigUrl {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pwszLastKnownGoodAutoConfigUrl{
+        get {
+            if(!this.HasProp("__pwszLastKnownGoodAutoConfigUrl"))
+                this.__pwszLastKnownGoodAutoConfigUrl := PWSTR(this.ptr + 64)
+            return this.__pwszLastKnownGoodAutoConfigUrl
+        }
     }
 
     /**

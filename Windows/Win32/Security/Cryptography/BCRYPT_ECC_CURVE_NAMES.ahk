@@ -20,7 +20,7 @@ class BCRYPT_ECC_CURVE_NAMES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     pEccCurveNames {
         get => NumGet(this, 8, "ptr")

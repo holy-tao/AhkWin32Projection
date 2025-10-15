@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\DB_NUMERIC.ahk
 #Include .\DBTIMESTAMP.ahk
 #Include .\DBOBJECT.ahk
@@ -60,11 +63,14 @@ class SSVARIANT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwchNCharVal {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        pwchNCharVal{
+            get {
+                if(!this.HasProp("__pwchNCharVal"))
+                    this.__pwchNCharVal := PWSTR(this.ptr + 8)
+                return this.__pwchNCharVal
+            }
         }
     
         /**
@@ -87,11 +93,14 @@ class SSVARIANT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwchReserved {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+        pwchReserved{
+            get {
+                if(!this.HasProp("__pwchReserved"))
+                    this.__pwchReserved := PWSTR(this.ptr + 32)
+                return this.__pwchReserved
+            }
         }
     
     }
@@ -117,11 +126,14 @@ class SSVARIANT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {PSTR}
          */
-        pchCharVal {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        pchCharVal{
+            get {
+                if(!this.HasProp("__pchCharVal"))
+                    this.__pchCharVal := PSTR(this.ptr + 8)
+                return this.__pchCharVal
+            }
         }
     
         /**
@@ -144,11 +156,14 @@ class SSVARIANT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwchReserved {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+        pwchReserved{
+            get {
+                if(!this.HasProp("__pwchReserved"))
+                    this.__pwchReserved := PWSTR(this.ptr + 32)
+                return this.__pwchReserved
+            }
         }
     
     }
@@ -331,11 +346,14 @@ class SSVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VARIANT_BOOL}
      */
-    fBitVal {
-        get => NumGet(this, 16, "short")
-        set => NumPut("short", value, this, 16)
+    fBitVal{
+        get {
+            if(!this.HasProp("__fBitVal"))
+                this.__fBitVal := VARIANT_BOOL(this.ptr + 16)
+            return this.__fBitVal
+        }
     }
 
     /**

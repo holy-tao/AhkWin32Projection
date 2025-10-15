@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MMCBUTTON structure contains values used in creating buttons on a toolbar. This structure is similar to the TBBUTTON structure discussed in the Platform Software Development Kit (SDK) topics related to common controls.
@@ -52,19 +53,25 @@ class MMCBUTTON extends Win32Struct
     /**
      * A pointer to the text associated with a particular instance of the 
      * <b>MMCBUTTON</b> structure.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpButtonText {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpButtonText{
+        get {
+            if(!this.HasProp("__lpButtonText"))
+                this.__lpButtonText := PWSTR(this.ptr + 16)
+            return this.__lpButtonText
+        }
     }
 
     /**
      * A pointer to the text for a particular tooltip.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpTooltipText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpTooltipText{
+        get {
+            if(!this.HasProp("__lpTooltipText"))
+                this.__lpTooltipText := PWSTR(this.ptr + 24)
+            return this.__lpTooltipText
+        }
     }
 }

@@ -68,11 +68,30 @@ class JET_BKLOGTIME extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - fTimeIsUTC
+     * - bMillisecondsLow
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 6, "char")
         set => NumPut("char", value, this, 6)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fTimeIsUTC {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    bMillisecondsLow {
+        get => (this._bitfield >> 1) & 0x7F
+        set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
 
     /**
@@ -81,5 +100,41 @@ class JET_BKLOGTIME extends Win32Struct
     bFiller2 {
         get => NumGet(this, 7, "char")
         set => NumPut("char", value, this, 7)
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - fOSSnapshot
+     * - bMillisecondsHigh
+     * - fReserved
+     * @type {Integer}
+     */
+    _bitfield1 {
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fOSSnapshot {
+        get => (this._bitfield1 >> 0) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 0) | (this._bitfield1 & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    bMillisecondsHigh {
+        get => (this._bitfield1 >> 1) & 0x7
+        set => this._bitfield1 := ((value & 0x7) << 1) | (this._bitfield1 & ~(0x7 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fReserved {
+        get => (this._bitfield1 >> 4) & 0xF
+        set => this._bitfield1 := ((value & 0xF) << 4) | (this._bitfield1 & ~(0xF << 4))
     }
 }

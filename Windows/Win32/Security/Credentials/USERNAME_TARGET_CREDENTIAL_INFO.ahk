@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USERNAME_TARGET_CREDENTIAL_INFO structure contains a reference to a credential.
@@ -15,10 +16,13 @@ class USERNAME_TARGET_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * User name of the USERNAME_TARGET_CREDENTIAL_INFO credential.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    UserName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    UserName{
+        get {
+            if(!this.HasProp("__UserName"))
+                this.__UserName := PWSTR(this.ptr + 0)
+            return this.__UserName
+        }
     }
 }

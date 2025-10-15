@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -28,26 +29,35 @@ class DNS_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Hostname {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Hostname{
+        get {
+            if(!this.HasProp("__Hostname"))
+                this.__Hostname := PWSTR(this.ptr + 16)
+            return this.__Hostname
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Domain {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    Domain{
+        get {
+            if(!this.HasProp("__Domain"))
+                this.__Domain := PWSTR(this.ptr + 24)
+            return this.__Domain
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SearchList {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    SearchList{
+        get {
+            if(!this.HasProp("__SearchList"))
+                this.__SearchList := PWSTR(this.ptr + 32)
+            return this.__SearchList
+        }
     }
 }

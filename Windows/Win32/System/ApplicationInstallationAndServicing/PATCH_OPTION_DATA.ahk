@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -28,15 +29,18 @@ class PATCH_OPTION_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    NewFileSymbolPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    NewFileSymbolPath{
+        get {
+            if(!this.HasProp("__NewFileSymbolPath"))
+                this.__NewFileSymbolPath := PSTR(this.ptr + 8)
+            return this.__NewFileSymbolPath
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<PSTR>}
      */
     OldFileSymbolPathArray {
         get => NumGet(this, 16, "ptr")

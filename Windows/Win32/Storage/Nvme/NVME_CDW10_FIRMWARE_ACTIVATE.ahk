@@ -12,11 +12,39 @@ class NVME_CDW10_FIRMWARE_ACTIVATE extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - FS
+     * - AA
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FS {
+        get => (this._bitfield >> 0) & 0x7
+        set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AA {
+        get => (this._bitfield >> 3) & 0x3
+        set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 5) & 0x7FFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFF) << 5) | (this._bitfield & ~(0x7FFFFFF << 5))
     }
 
     /**

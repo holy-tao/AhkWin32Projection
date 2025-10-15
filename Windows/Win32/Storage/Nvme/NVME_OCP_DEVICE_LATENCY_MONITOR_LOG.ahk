@@ -5,6 +5,8 @@
 #Include .\BUCKET_COUNTER.ahk
 #Include .\LATENCY_STAMP.ahk
 #Include .\MEASURED_LATENCY.ahk
+#Include .\LATENCY_STAMP_UNITS.ahk
+#Include .\DEBUG_BIT_FIELD.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
@@ -180,11 +182,14 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {LATENCY_STAMP_UNITS}
      */
-    ActiveLatencyStampUnits {
-        get => NumGet(this, 216, "ushort")
-        set => NumPut("ushort", value, this, 216)
+    ActiveLatencyStampUnits{
+        get {
+            if(!this.HasProp("__ActiveLatencyStampUnits"))
+                this.__ActiveLatencyStampUnits := LATENCY_STAMP_UNITS(this.ptr + 216)
+            return this.__ActiveLatencyStampUnits
+        }
     }
 
     /**
@@ -265,11 +270,14 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {LATENCY_STAMP_UNITS}
      */
-    StaticLatencyStampUnits {
-        get => NumGet(this, 424, "ushort")
-        set => NumPut("ushort", value, this, 424)
+    StaticLatencyStampUnits{
+        get {
+            if(!this.HasProp("__StaticLatencyStampUnits"))
+                this.__StaticLatencyStampUnits := LATENCY_STAMP_UNITS(this.ptr + 424)
+            return this.__StaticLatencyStampUnits
+        }
     }
 
     /**
@@ -284,11 +292,14 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEBUG_BIT_FIELD}
      */
-    DebugLogTriggerEnable {
-        get => NumGet(this, 448, "ushort")
-        set => NumPut("ushort", value, this, 448)
+    DebugLogTriggerEnable{
+        get {
+            if(!this.HasProp("__DebugLogTriggerEnable"))
+                this.__DebugLogTriggerEnable := DEBUG_BIT_FIELD(this.ptr + 448)
+            return this.__DebugLogTriggerEnable
+        }
     }
 
     /**
@@ -316,19 +327,41 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
+     * @type {DEBUG_BIT_FIELD}
+     */
+    DebugCounterTriggerSource{
+        get {
+            if(!this.HasProp("__DebugCounterTriggerSource"))
+                this.__DebugCounterTriggerSource := DEBUG_BIT_FIELD(this.ptr + 466)
+            return this.__DebugCounterTriggerSource
+        }
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - BasedOnTimestamp
+     * - Reserved
      * @type {Integer}
      */
-    DebugCounterTriggerSource {
-        get => NumGet(this, 466, "ushort")
-        set => NumPut("ushort", value, this, 466)
+    _bitfield {
+        get => NumGet(this, 468, "char")
+        set => NumPut("char", value, this, 468)
     }
 
     /**
      * @type {Integer}
      */
-    Anonymous {
-        get => NumGet(this, 468, "char")
-        set => NumPut("char", value, this, 468)
+    BasedOnTimestamp {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 1) & 0x7F
+        set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
 
     /**

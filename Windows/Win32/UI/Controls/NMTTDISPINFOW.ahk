@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information used in handling the TTN_GETDISPINFO notification code. This structure supersedes the TOOLTIPTEXT structure.
@@ -44,11 +48,14 @@ class NMTTDISPINFOW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a null-terminated string that will be displayed as the tooltip text. If <b>hinst</b> specifies an instance handle, this member must be the identifier of a string resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpszText{
+        get {
+            if(!this.HasProp("__lpszText"))
+                this.__lpszText := PWSTR(this.ptr + 24)
+            return this.__lpszText
+        }
     }
 
     /**
@@ -66,11 +73,14 @@ class NMTTDISPINFOW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the instance that contains a string resource to be used as the tooltip text. If <b>lpszText</b> is the address of the tooltip text string, this member must be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hinst {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+    hinst{
+        get {
+            if(!this.HasProp("__hinst"))
+                this.__hinst := HINSTANCE(this.ptr + 192)
+            return this.__hinst
+        }
     }
 
     /**
@@ -129,10 +139,13 @@ class NMTTDISPINFOW extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Application-defined data associated with the tool.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 208)
+            return this.__lParam
+        }
     }
 }

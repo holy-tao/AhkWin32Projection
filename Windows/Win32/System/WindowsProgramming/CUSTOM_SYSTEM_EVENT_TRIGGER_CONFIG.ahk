@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -20,10 +21,13 @@ class CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    TriggerId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    TriggerId{
+        get {
+            if(!this.HasProp("__TriggerId"))
+                this.__TriggerId := PWSTR(this.ptr + 8)
+            return this.__TriggerId
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Reserved for system use.
@@ -85,20 +86,26 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
 
     /**
      * Indicates whether a LUN reset is supported.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    LUNResetSupported {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+    LUNResetSupported{
+        get {
+            if(!this.HasProp("__LUNResetSupported"))
+                this.__LUNResetSupported := BOOLEAN(this.ptr + 12)
+            return this.__LUNResetSupported
+        }
     }
 
     /**
      * Indicates whether a target reset is supported.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    TargetResetSupported {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
+    TargetResetSupported{
+        get {
+            if(!this.HasProp("__TargetResetSupported"))
+                this.__TargetResetSupported := BOOLEAN(this.ptr + 13)
+            return this.__TargetResetSupported
+        }
     }
 
     /**
@@ -112,19 +119,50 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
 
     /**
      * 
+     * @type {BOOLEAN}
+     */
+    ExtraIoInfoSupported{
+        get {
+            if(!this.HasProp("__ExtraIoInfoSupported"))
+                this.__ExtraIoInfoSupported := BOOLEAN(this.ptr + 16)
+            return this.__ExtraIoInfoSupported
+        }
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - LogicalPoFxForDisk
+     * - ForwardIo
+     * - Reserved
      * @type {Integer}
      */
-    ExtraIoInfoSupported {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    _bitfield {
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 
     /**
      * @type {Integer}
      */
-    Anonymous {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+    LogicalPoFxForDisk {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ForwardIo {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 2) & 0x3F
+        set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
     }
 
     /**

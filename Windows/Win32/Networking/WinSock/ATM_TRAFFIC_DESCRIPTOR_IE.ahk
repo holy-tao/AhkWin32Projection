@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\ATM_TD.ahk
 
 /**
@@ -35,10 +36,13 @@ class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    BestEffort {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    BestEffort{
+        get {
+            if(!this.HasProp("__BestEffort"))
+                this.__BestEffort := BOOL(this.ptr + 60)
+            return this.__BestEffort
+        }
     }
 }

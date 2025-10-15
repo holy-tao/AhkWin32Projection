@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * The TASKDIALOGCONFIG structure contains information used to display a task dialog. The TaskDialogIndirect function uses this structure.
@@ -28,22 +32,28 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the parent window. This member can be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(this.ptr + 8)
+            return this.__hwndParent
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HINSTANCE</a></b>
      * 
      * Handle to the module that contains the icon resource identified by the <b>pszMainIcon</b> or <b>pszFooterIcon</b> members, and the string resources identified by the <b>pszWindowTitle</b>, <b>pszMainInstruction</b>, <b>pszContent</b>, <b>pszVerificationText</b>, <b>pszExpandedInformation</b>, <b>pszExpandedControlText</b>, <b>pszCollapsedControlText</b> or <b>pszFooter</b> members.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(this.ptr + 16)
+            return this.__hInstance
+        }
     }
 
     /**
@@ -337,49 +347,64 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used for the task dialog title.  This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If this parameter is <b>NULL</b>, the filename of the executable program is used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszWindowTitle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszWindowTitle{
+        get {
+            if(!this.HasProp("__pszWindowTitle"))
+                this.__pszWindowTitle := PWSTR(this.ptr + 32)
+            return this.__pszWindowTitle
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hMainIcon {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hMainIcon{
+        get {
+            if(!this.HasProp("__hMainIcon"))
+                this.__hMainIcon := HICON(this.ptr + 40)
+            return this.__hMainIcon
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszMainIcon {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pszMainIcon{
+        get {
+            if(!this.HasProp("__pszMainIcon"))
+                this.__pszMainIcon := PWSTR(this.ptr + 40)
+            return this.__pszMainIcon
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used for the main instruction. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszMainInstruction {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pszMainInstruction{
+        get {
+            if(!this.HasProp("__pszMainInstruction"))
+                this.__pszMainInstruction := PWSTR(this.ptr + 48)
+            return this.__pszMainInstruction
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used for the dialog's primary content. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If the ENABLE_HYPERLINKS flag is specified for the <b>dwFlags</b> member, then this string may contain hyperlinks in the form: &lt;A HREF="executablestring"&gt;Hyperlink Text&lt;/A&gt;.  <b>WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.</b>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszContent {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pszContent{
+        get {
+            if(!this.HasProp("__pszContent"))
+                this.__pszContent := PWSTR(this.ptr + 56)
+            return this.__pszContent
+        }
     }
 
     /**
@@ -482,60 +507,78 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used to label the verification checkbox. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If this parameter is <b>NULL</b>, the verification checkbox is not displayed in the task dialog. If the <i>pfVerificationFlagChecked</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-taskdialogindirect">TaskDialogIndirect</a> is <b>NULL</b>, the checkbox is not enabled.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszVerificationText {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    pszVerificationText{
+        get {
+            if(!this.HasProp("__pszVerificationText"))
+                this.__pszVerificationText := PWSTR(this.ptr + 104)
+            return this.__pszVerificationText
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used for displaying additional information. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.   The additional information is displayed either immediately below the content or below the footer text depending on whether the TDF_EXPAND_FOOTER_AREA flag is specified.  If the TDF_ENABLE_HYPERLINKS flag is specified for the <b>dwFlags</b> member, then this string may contain hyperlinks in the form: &lt;A HREF="executablestring"&gt;Hyperlink Text&lt;/A&gt;. <b>WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.</b>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszExpandedInformation {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+    pszExpandedInformation{
+        get {
+            if(!this.HasProp("__pszExpandedInformation"))
+                this.__pszExpandedInformation := PWSTR(this.ptr + 112)
+            return this.__pszExpandedInformation
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used to label the button for collapsing the expandable information. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored when the <b>pszExpandedInformation</b> member is <b>NULL</b>.  If this member is <b>NULL</b> and the <b>pszCollapsedControlText</b> is specified, then the <b>pszCollapsedControlText</b> value will be used for this member as well.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszExpandedControlText {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+    pszExpandedControlText{
+        get {
+            if(!this.HasProp("__pszExpandedControlText"))
+                this.__pszExpandedControlText := PWSTR(this.ptr + 120)
+            return this.__pszExpandedControlText
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PCWSTR</a></b>
      * 
      * Pointer that references the string to be used to label the button for expanding the expandable information. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored when the <b>pszExpandedInformation</b> member is <b>NULL</b>.  If this member is <b>NULL</b> and the <b>pszCollapsedControlText</b> is specified, then the <b>pszCollapsedControlText</b> value will be used for this member as well.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszCollapsedControlText {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    pszCollapsedControlText{
+        get {
+            if(!this.HasProp("__pszCollapsedControlText"))
+                this.__pszCollapsedControlText := PWSTR(this.ptr + 128)
+            return this.__pszCollapsedControlText
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hFooterIcon {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    hFooterIcon{
+        get {
+            if(!this.HasProp("__hFooterIcon"))
+                this.__hFooterIcon := HICON(this.ptr + 136)
+            return this.__hFooterIcon
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszFooterIcon {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    pszFooterIcon{
+        get {
+            if(!this.HasProp("__pszFooterIcon"))
+                this.__pszFooterIcon := PWSTR(this.ptr + 136)
+            return this.__pszFooterIcon
+        }
     }
 
     /**
@@ -553,11 +596,14 @@ class TASKDIALOGCONFIG extends Win32Struct
      * 
      * <div class="alert"><b>Warning</b>  Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszFooter {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+    pszFooter{
+        get {
+            if(!this.HasProp("__pszFooter"))
+                this.__pszFooter := PWSTR(this.ptr + 144)
+            return this.__pszFooter
+        }
     }
 
     /**

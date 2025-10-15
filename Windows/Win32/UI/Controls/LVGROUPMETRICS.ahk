@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information about the display of groups in a list-view control.
@@ -86,66 +87,84 @@ class LVGROUPMETRICS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the left border. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crLeft {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    crLeft{
+        get {
+            if(!this.HasProp("__crLeft"))
+                this.__crLeft := COLORREF(this.ptr + 24)
+            return this.__crLeft
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the top border. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crTop {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    crTop{
+        get {
+            if(!this.HasProp("__crTop"))
+                this.__crTop := COLORREF(this.ptr + 28)
+            return this.__crTop
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the right border. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crRight {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    crRight{
+        get {
+            if(!this.HasProp("__crRight"))
+                this.__crRight := COLORREF(this.ptr + 32)
+            return this.__crRight
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the bottom border. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBottom {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+    crBottom{
+        get {
+            if(!this.HasProp("__crBottom"))
+                this.__crBottom := COLORREF(this.ptr + 36)
+            return this.__crBottom
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the header text. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crHeader {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+    crHeader{
+        get {
+            if(!this.HasProp("__crHeader"))
+                this.__crHeader := COLORREF(this.ptr + 40)
+            return this.__crHeader
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the footer text. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crFooter {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+    crFooter{
+        get {
+            if(!this.HasProp("__crFooter"))
+                this.__crFooter := COLORREF(this.ptr + 44)
+            return this.__crFooter
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Holds policy information used in the verification of Secure Sockets Layer (SSL) client/server certificate chains.
@@ -124,10 +125,13 @@ class HTTPSPolicyCallbackData extends Win32Struct
      * If the string is Punycode encoded, then the server name from the certificate, either the DNS name or common name, is converted to a Punycode encoded string. Matching is then performed, label-by-label if the name contains wildcards, or a case-insensitive exact match otherwise. 
      * 
      * If the string contains Unicode characters outside of the ASCII character set and the subject name, either the DNS name or common name, is a Punycode encoded string then it is Punycode encoded before comparison.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszServerName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszServerName{
+        get {
+            if(!this.HasProp("__pwszServerName"))
+                this.__pwszServerName := PWSTR(this.ptr + 16)
+            return this.__pwszServerName
+        }
     }
 }

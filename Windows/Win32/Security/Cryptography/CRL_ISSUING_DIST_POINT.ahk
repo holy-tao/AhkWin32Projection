@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_ALT_NAME_INFO.ahk
 #Include .\CRL_DIST_POINT_NAME.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 
 /**
@@ -31,20 +32,26 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
 
     /**
      * <b>BOOL</b> flag. <b>TRUE</b> if only user certificates are contained in the CRL.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fOnlyContainsUserCerts {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fOnlyContainsUserCerts{
+        get {
+            if(!this.HasProp("__fOnlyContainsUserCerts"))
+                this.__fOnlyContainsUserCerts := BOOL(this.ptr + 24)
+            return this.__fOnlyContainsUserCerts
+        }
     }
 
     /**
      * <b>BOOL</b> flag. <b>TRUE</b> if only CA certificates are contained in the CRL.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fOnlyContainsCACerts {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    fOnlyContainsCACerts{
+        get {
+            if(!this.HasProp("__fOnlyContainsCACerts"))
+                this.__fOnlyContainsCACerts := BOOL(this.ptr + 28)
+            return this.__fOnlyContainsCACerts
+        }
     }
 
     /**
@@ -62,10 +69,13 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
 
     /**
      * <b>BOOL</b> flag. <b>TRUE</b> if this is an indirect CRL.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIndirectCRL {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    fIndirectCRL{
+        get {
+            if(!this.HasProp("__fIndirectCRL"))
+                this.__fIndirectCRL := BOOL(this.ptr + 56)
+            return this.__fIndirectCRL
+        }
     }
 }

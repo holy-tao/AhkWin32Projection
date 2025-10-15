@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ONEX_STATUS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\ONEX_VARIABLE_BLOB.ahk
 
 /**
@@ -50,11 +51,14 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
 
     /**
      * Indicates if a response was received from the 802.1X authentication server.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fBackendEngaged {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    fBackendEngaged{
+        get {
+            if(!this.HasProp("__fBackendEngaged"))
+                this.__fBackendEngaged := BOOL(this.ptr + 16)
+            return this.__fBackendEngaged
+        }
     }
 
     /**

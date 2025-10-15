@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage device descriptor data for a device.
@@ -66,22 +67,28 @@ class STORAGE_DEVICE_DESCRIPTOR extends Win32Struct
      * Indicates when <b>TRUE</b> that the device's media (if any) is removable. If the device 
      *       has no media, this member should be ignored. When <b>FALSE</b> the device's media is not 
      *       removable.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    RemovableMedia {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
+    RemovableMedia{
+        get {
+            if(!this.HasProp("__RemovableMedia"))
+                this.__RemovableMedia := BOOLEAN(this.ptr + 10)
+            return this.__RemovableMedia
+        }
     }
 
     /**
      * Indicates when <b>TRUE</b> that the device supports multiple outstanding commands (SCSI 
      *       tagged queuing or equivalent). When <b>FALSE</b>, the device does not support SCSI-tagged 
      *       queuing or the equivalent.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    CommandQueueing {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
+    CommandQueueing{
+        get {
+            if(!this.HasProp("__CommandQueueing"))
+                this.__CommandQueueing := BOOLEAN(this.ptr + 11)
+            return this.__CommandQueueing
+        }
     }
 
     /**

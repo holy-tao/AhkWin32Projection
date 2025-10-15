@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\COLORREF.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -345,33 +350,42 @@ class REBARBANDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Band foreground colors.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    clrFore {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    clrFore{
+        get {
+            if(!this.HasProp("__clrFore"))
+                this.__clrFore := COLORREF(this.ptr + 12)
+            return this.__clrFore
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Band background colors. If <b>hbmBack</b> specifies a background bitmap, these members are ignored. By default, the band will use the background color of the rebar control set with the <a href="https://docs.microsoft.com/windows/desktop/Controls/rb-setbkcolor">RB_SETBKCOLOR</a> message. If a background color is specified here, then this background color will be used instead.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    clrBack {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    clrBack{
+        get {
+            if(!this.HasProp("__clrBack"))
+                this.__clrBack := COLORREF(this.ptr + 16)
+            return this.__clrBack
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a buffer that contains the display text for the band. If band information is being requested from the control and  RBBIM_TEXT is specified in <b>fMask</b>, this member must be initialized to the address of the buffer that will receive the text.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpText{
+        get {
+            if(!this.HasProp("__lpText"))
+                this.__lpText := PSTR(this.ptr + 24)
+            return this.__lpText
+        }
     }
 
     /**
@@ -400,11 +414,14 @@ class REBARBANDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the child window contained in the band, if any.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndChild {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hwndChild{
+        get {
+            if(!this.HasProp("__hwndChild"))
+                this.__hwndChild := HWND(this.ptr + 40)
+            return this.__hwndChild
+        }
     }
 
     /**
@@ -444,11 +461,14 @@ class REBARBANDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * Handle to a bitmap that is used as the background for this band.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmBack {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    hbmBack{
+        get {
+            if(!this.HasProp("__hbmBack"))
+                this.__hbmBack := HBITMAP(this.ptr + 64)
+            return this.__hbmBack
+        }
     }
 
     /**
@@ -515,11 +535,14 @@ class REBARBANDINFOA extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.71</a>. Application-defined value.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 96)
+            return this.__lParam
+        }
     }
 
     /**

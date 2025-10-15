@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\NS_INFOA.ahk
 
 /**
@@ -46,27 +47,36 @@ class NETRESOURCE2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpLocalName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpLocalName{
+        get {
+            if(!this.HasProp("__lpLocalName"))
+                this.__lpLocalName := PSTR(this.ptr + 16)
+            return this.__lpLocalName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpRemoteName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpRemoteName{
+        get {
+            if(!this.HasProp("__lpRemoteName"))
+                this.__lpRemoteName := PSTR(this.ptr + 24)
+            return this.__lpRemoteName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpComment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lpComment{
+        get {
+            if(!this.HasProp("__lpComment"))
+                this.__lpComment := PSTR(this.ptr + 32)
+            return this.__lpComment
+        }
     }
 
     /**

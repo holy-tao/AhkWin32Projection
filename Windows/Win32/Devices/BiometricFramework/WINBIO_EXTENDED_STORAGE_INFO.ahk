@@ -27,6 +27,62 @@ class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
+    class _FacialFeatures extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        Capabilities {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
+    class _Fingerprint extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        Capabilities {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
+    class _Iris extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        Capabilities {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
+    class _Voice extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        Capabilities {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -36,34 +92,46 @@ class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_FacialFeatures}
      */
-    FacialFeatures {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    FacialFeatures{
+        get {
+            if(!this.HasProp("__FacialFeatures"))
+                this.__FacialFeatures := %this.__Class%._FacialFeatures(this.ptr + 8)
+            return this.__FacialFeatures
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Fingerprint}
      */
-    Fingerprint {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Fingerprint{
+        get {
+            if(!this.HasProp("__Fingerprint"))
+                this.__Fingerprint := %this.__Class%._Fingerprint(this.ptr + 8)
+            return this.__Fingerprint
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Iris}
      */
-    Iris {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Iris{
+        get {
+            if(!this.HasProp("__Iris"))
+                this.__Iris := %this.__Class%._Iris(this.ptr + 8)
+            return this.__Iris
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Voice}
      */
-    Voice {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Voice{
+        get {
+            if(!this.HasProp("__Voice"))
+                this.__Voice := %this.__Class%._Voice(this.ptr + 8)
+            return this.__Voice
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
@@ -492,9 +493,9 @@ class Communication {
 ;@region Methods
     /**
      * Restores character transmission for a specified communications device and places the transmission line in a nonbreak state.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -502,9 +503,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static ClearCommBreak(hFile) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ClearCommBreak", "ptr", hFile, "int")
+        result := DllCall("KERNEL32.dll\ClearCommBreak", "ptr", hFile, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -513,12 +516,12 @@ class Communication {
 
     /**
      * Retrieves information about a communications error and reports the current status of a communications device.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<UInt32>} lpErrors 
      * @param {Pointer<COMSTAT>} lpStat A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-comstat">COMSTAT</a> structure in which the device's status information is returned. If this parameter is <b>NULL</b>, no status information is returned.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -526,9 +529,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static ClearCommError(hFile, lpErrors, lpStat) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ClearCommError", "ptr", hFile, "uint*", lpErrors, "ptr", lpStat, "int")
+        result := DllCall("KERNEL32.dll\ClearCommError", "ptr", hFile, "uint*", lpErrors, "ptr", lpStat, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -537,11 +542,11 @@ class Communication {
 
     /**
      * Initializes the communications parameters for a specified communications device.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Integer} dwInQueue The recommended size of the device's internal input buffer, in bytes.
      * @param {Integer} dwOutQueue The recommended size of the device's internal output buffer, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -549,9 +554,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static SetupComm(hFile, dwInQueue, dwOutQueue) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetupComm", "ptr", hFile, "uint", dwInQueue, "uint", dwOutQueue, "int")
+        result := DllCall("KERNEL32.dll\SetupComm", "ptr", hFile, "uint", dwInQueue, "uint", dwOutQueue, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -560,10 +567,10 @@ class Communication {
 
     /**
      * Directs the specified communications device to perform an extended function.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Integer} dwFunc 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -571,9 +578,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static EscapeCommFunction(hFile, dwFunc) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EscapeCommFunction", "ptr", hFile, "uint", dwFunc, "int")
+        result := DllCall("KERNEL32.dll\EscapeCommFunction", "ptr", hFile, "uint", dwFunc, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -582,12 +591,12 @@ class Communication {
 
     /**
      * Retrieves the current configuration of a communications device.
-     * @param {Pointer<Void>} hCommDev A handle to the open communications device. The 
+     * @param {HANDLE} hCommDev A handle to the open communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer} lpCC A pointer to a buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Pointer<UInt32>} lpdwSize The size, in bytes, of the buffer pointed to by <i>lpCC</i>. When the function returns, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -595,9 +604,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static GetCommConfig(hCommDev, lpCC, lpdwSize) {
+        hCommDev := hCommDev is Win32Handle ? NumGet(hCommDev, "ptr") : hCommDev
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommConfig", "ptr", hCommDev, "ptr", lpCC, "uint*", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\GetCommConfig", "ptr", hCommDev, "ptr", lpCC, "uint*", lpdwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -606,10 +617,10 @@ class Communication {
 
     /**
      * Retrieves the value of the event mask for a specified communications device.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<UInt32>} lpEvtMask 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -617,9 +628,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static GetCommMask(hFile, lpEvtMask) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommMask", "ptr", hFile, "uint*", lpEvtMask, "int")
+        result := DllCall("KERNEL32.dll\GetCommMask", "ptr", hFile, "uint*", lpEvtMask, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -628,14 +641,14 @@ class Communication {
 
     /**
      * Retrieves information about the communications properties for a specified communications device.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<COMMPROP>} lpCommProp A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commprop">COMMPROP</a> structure in which the communications properties information is returned. This information can be used in subsequent calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommstate">SetCommState</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommtimeouts">SetCommTimeouts</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setupcomm">SetupComm</a> function to configure the communications device.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -643,9 +656,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static GetCommProperties(hFile, lpCommProp) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommProperties", "ptr", hFile, "ptr", lpCommProp, "int")
+        result := DllCall("KERNEL32.dll\GetCommProperties", "ptr", hFile, "ptr", lpCommProp, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -654,10 +669,10 @@ class Communication {
 
     /**
      * Retrieves the modem control-register values.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<UInt32>} lpModemStat 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -665,9 +680,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static GetCommModemStatus(hFile, lpModemStat) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommModemStatus", "ptr", hFile, "uint*", lpModemStat, "int")
+        result := DllCall("KERNEL32.dll\GetCommModemStatus", "ptr", hFile, "uint*", lpModemStat, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -676,11 +693,11 @@ class Communication {
 
     /**
      * Retrieves the current control settings for a specified communications device.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<DCB>} lpDCB A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure that receives the control settings information.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -688,9 +705,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static GetCommState(hFile, lpDCB) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommState", "ptr", hFile, "ptr", lpDCB, "int")
+        result := DllCall("KERNEL32.dll\GetCommState", "ptr", hFile, "ptr", lpDCB, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -699,11 +718,11 @@ class Communication {
 
     /**
      * Retrieves the time-out parameters for all read and write operations on a specified communications device.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<COMMTIMEOUTS>} lpCommTimeouts A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commtimeouts">COMMTIMEOUTS</a> structure in which the time-out information is returned.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -711,9 +730,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static GetCommTimeouts(hFile, lpCommTimeouts) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCommTimeouts", "ptr", hFile, "ptr", lpCommTimeouts, "int")
+        result := DllCall("KERNEL32.dll\GetCommTimeouts", "ptr", hFile, "ptr", lpCommTimeouts, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -722,10 +743,10 @@ class Communication {
 
     /**
      * Discards all characters from the output or input buffer of a specified communications resource. It can also terminate pending read or write operations on the resource.
-     * @param {Pointer<Void>} hFile A handle to the communications resource. The 
+     * @param {HANDLE} hFile A handle to the communications resource. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -733,9 +754,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static PurgeComm(hFile, dwFlags) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PurgeComm", "ptr", hFile, "uint", dwFlags, "int")
+        result := DllCall("KERNEL32.dll\PurgeComm", "ptr", hFile, "uint", dwFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -744,9 +767,9 @@ class Communication {
 
     /**
      * Suspends character transmission for a specified communications device and places the transmission line in a break state until the ClearCommBreak function is called.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -754,9 +777,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static SetCommBreak(hFile) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetCommBreak", "ptr", hFile, "int")
+        result := DllCall("KERNEL32.dll\SetCommBreak", "ptr", hFile, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -765,12 +790,12 @@ class Communication {
 
     /**
      * Sets the current configuration of a communications device.
-     * @param {Pointer<Void>} hCommDev A handle to the open communications device. The 
+     * @param {HANDLE} hCommDev A handle to the open communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Integer} dwSize The size of the structure pointed to by <i>lpCC</i>, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -778,9 +803,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static SetCommConfig(hCommDev, lpCC, dwSize) {
+        hCommDev := hCommDev is Win32Handle ? NumGet(hCommDev, "ptr") : hCommDev
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetCommConfig", "ptr", hCommDev, "ptr", lpCC, "uint", dwSize, "int")
+        result := DllCall("KERNEL32.dll\SetCommConfig", "ptr", hCommDev, "ptr", lpCC, "uint", dwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -789,10 +816,10 @@ class Communication {
 
     /**
      * Specifies a set of events to be monitored for a communications device.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Integer} dwEvtMask 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -800,9 +827,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static SetCommMask(hFile, dwEvtMask) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetCommMask", "ptr", hFile, "uint", dwEvtMask, "int")
+        result := DllCall("KERNEL32.dll\SetCommMask", "ptr", hFile, "uint", dwEvtMask, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -811,11 +840,11 @@ class Communication {
 
     /**
      * Configures a communications device according to the specifications in a device-control block (a DCB structure). The function reinitializes all hardware and control settings, but it does not empty output or input queues.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<DCB>} lpDCB A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure that contains the configuration information for the specified communications device.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -823,9 +852,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static SetCommState(hFile, lpDCB) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetCommState", "ptr", hFile, "ptr", lpDCB, "int")
+        result := DllCall("KERNEL32.dll\SetCommState", "ptr", hFile, "ptr", lpDCB, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -834,11 +865,11 @@ class Communication {
 
     /**
      * Sets the time-out parameters for all read and write operations on a specified communications device.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<COMMTIMEOUTS>} lpCommTimeouts A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commtimeouts">COMMTIMEOUTS</a> structure that contains the new time-out values.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -846,9 +877,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static SetCommTimeouts(hFile, lpCommTimeouts) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetCommTimeouts", "ptr", hFile, "ptr", lpCommTimeouts, "int")
+        result := DllCall("KERNEL32.dll\SetCommTimeouts", "ptr", hFile, "ptr", lpCommTimeouts, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -857,10 +890,10 @@ class Communication {
 
     /**
      * Transmits a specified character ahead of any pending data in the output buffer of the specified communications device.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
-     * @param {Integer} cChar The character to be transmitted.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {CHAR} cChar The character to be transmitted.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -868,9 +901,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static TransmitCommChar(hFile, cChar) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TransmitCommChar", "ptr", hFile, "char", cChar, "int")
+        result := DllCall("KERNEL32.dll\TransmitCommChar", "ptr", hFile, "ptr", cChar, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -879,7 +914,7 @@ class Communication {
 
     /**
      * Waits for an event to occur for a specified communications device. The set of events that are monitored by this function is contained in the event mask associated with the device handle.
-     * @param {Pointer<Void>} hFile A handle to the communications device. The 
+     * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer<UInt32>} lpEvtMask 
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an 
@@ -896,7 +931,7 @@ class Communication {
      * 
      * If <i>hFile</i> was not opened with <b>FILE_FLAG_OVERLAPPED</b>, 
      * <b>WaitCommEvent</b> does not return until one of the specified events or an error occurs.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -904,9 +939,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static WaitCommEvent(hFile, lpEvtMask, lpOverlapped) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitCommEvent", "ptr", hFile, "uint*", lpEvtMask, "ptr", lpOverlapped, "int")
+        result := DllCall("KERNEL32.dll\WaitCommEvent", "ptr", hFile, "uint*", lpEvtMask, "ptr", lpOverlapped, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -942,7 +979,7 @@ class Communication {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the function returns a valid <b>HANDLE</b>. Use <a href="/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> to close that handle.
+     * @returns {HANDLE} If the function succeeds, the function returns a valid <b>HANDLE</b>. Use <a href="/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> to close that handle.
      * 
      * If an error occurs, the function returns <b>INVALID_HANDLE_VALUE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-opencommport
@@ -950,7 +987,7 @@ class Communication {
      */
     static OpenCommPort(uPortNumber, dwDesiredAccess, dwFlagsAndAttributes) {
         result := DllCall("api-ms-win-core-comm-l1-1-1.dll\OpenCommPort", "uint", uPortNumber, "uint", dwDesiredAccess, "uint", dwFlagsAndAttributes, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -1007,7 +1044,7 @@ class Communication {
 
     /**
      * Fills a specified DCB structure with values specified in a device-control string.
-     * @param {Pointer<Byte>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values in the 
+     * @param {PSTR} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure pointed to by <i>lpDCB</i>. 
      * 
      * 
@@ -1024,7 +1061,7 @@ class Communication {
      * <c>baud=1200 parity=N data=8 stop=1</c>
      * @param {Pointer<DCB>} lpDCB A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure that receives the information.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1032,11 +1069,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static BuildCommDCBA(lpDef, lpDCB) {
-        lpDef := lpDef is String? StrPtr(lpDef) : lpDef
+        lpDef := lpDef is String ? StrPtr(lpDef) : lpDef
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BuildCommDCBA", "ptr", lpDef, "ptr", lpDCB, "int")
+        result := DllCall("KERNEL32.dll\BuildCommDCBA", "ptr", lpDef, "ptr", lpDCB, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1045,7 +1082,7 @@ class Communication {
 
     /**
      * Fills a specified DCB structure with values specified in a device-control string.
-     * @param {Pointer<Char>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values in the 
+     * @param {PWSTR} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure pointed to by <i>lpDCB</i>. 
      * 
      * 
@@ -1062,7 +1099,7 @@ class Communication {
      * <c>baud=1200 parity=N data=8 stop=1</c>
      * @param {Pointer<DCB>} lpDCB A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure that receives the information.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1070,11 +1107,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static BuildCommDCBW(lpDef, lpDCB) {
-        lpDef := lpDef is String? StrPtr(lpDef) : lpDef
+        lpDef := lpDef is String ? StrPtr(lpDef) : lpDef
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BuildCommDCBW", "ptr", lpDef, "ptr", lpDCB, "int")
+        result := DllCall("KERNEL32.dll\BuildCommDCBW", "ptr", lpDef, "ptr", lpDCB, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1083,7 +1120,7 @@ class Communication {
 
     /**
      * Translates a device-definition string into appropriate device-control block codes and places them into a device control block.
-     * @param {Pointer<Byte>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values 
+     * @param {PSTR} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values 
      *        in the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure pointed to by 
      *        <i>lpDCB</i>.
      * 
@@ -1111,7 +1148,7 @@ class Communication {
      *       communications device.
      * @param {Pointer<COMMTIMEOUTS>} lpCommTimeouts A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commtimeouts">COMMTIMEOUTS</a> structure that 
      *       receives time-out information.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1119,11 +1156,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static BuildCommDCBAndTimeoutsA(lpDef, lpDCB, lpCommTimeouts) {
-        lpDef := lpDef is String? StrPtr(lpDef) : lpDef
+        lpDef := lpDef is String ? StrPtr(lpDef) : lpDef
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BuildCommDCBAndTimeoutsA", "ptr", lpDef, "ptr", lpDCB, "ptr", lpCommTimeouts, "int")
+        result := DllCall("KERNEL32.dll\BuildCommDCBAndTimeoutsA", "ptr", lpDef, "ptr", lpDCB, "ptr", lpCommTimeouts, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1132,7 +1169,7 @@ class Communication {
 
     /**
      * Translates a device-definition string into appropriate device-control block codes and places them into a device control block.
-     * @param {Pointer<Char>} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values 
+     * @param {PWSTR} lpDef The device-control information. The function takes this string, parses it, and then sets appropriate values 
      *        in the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure pointed to by 
      *        <i>lpDCB</i>.
      * 
@@ -1160,7 +1197,7 @@ class Communication {
      *       communications device.
      * @param {Pointer<COMMTIMEOUTS>} lpCommTimeouts A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commtimeouts">COMMTIMEOUTS</a> structure that 
      *       receives time-out information.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1168,11 +1205,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static BuildCommDCBAndTimeoutsW(lpDef, lpDCB, lpCommTimeouts) {
-        lpDef := lpDef is String? StrPtr(lpDef) : lpDef
+        lpDef := lpDef is String ? StrPtr(lpDef) : lpDef
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BuildCommDCBAndTimeoutsW", "ptr", lpDef, "ptr", lpDCB, "ptr", lpCommTimeouts, "int")
+        result := DllCall("KERNEL32.dll\BuildCommDCBAndTimeoutsW", "ptr", lpDef, "ptr", lpDCB, "ptr", lpCommTimeouts, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1181,11 +1218,11 @@ class Communication {
 
     /**
      * Displays a driver-supplied configuration dialog box.
-     * @param {Pointer<Byte>} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {Pointer<Void>} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
+     * @param {PSTR} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {HWND} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
      * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure. This structure contains initial settings for the dialog box before the call, and changed values after the call.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1193,11 +1230,12 @@ class Communication {
      * @since windows5.1.2600
      */
     static CommConfigDialogA(lpszName, hWnd, lpCC) {
-        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CommConfigDialogA", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "int")
+        result := DllCall("KERNEL32.dll\CommConfigDialogA", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1206,11 +1244,11 @@ class Communication {
 
     /**
      * Displays a driver-supplied configuration dialog box.
-     * @param {Pointer<Char>} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {Pointer<Void>} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
+     * @param {PWSTR} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {HWND} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
      * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure. This structure contains initial settings for the dialog box before the call, and changed values after the call.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1218,11 +1256,12 @@ class Communication {
      * @since windows5.1.2600
      */
     static CommConfigDialogW(lpszName, hWnd, lpCC) {
-        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CommConfigDialogW", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "int")
+        result := DllCall("KERNEL32.dll\CommConfigDialogW", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1231,11 +1270,11 @@ class Communication {
 
     /**
      * Retrieves the default configuration for the specified communications device.
-     * @param {Pointer<Byte>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {PSTR} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
      * @param {Pointer} lpCC A pointer to a buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a variable that specifies the size of the buffer pointed to by <i>lpCC</i>, in bytes. Upon return, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -1243,11 +1282,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static GetDefaultCommConfigA(lpszName, lpCC, lpdwSize) {
-        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "uint*", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\GetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "uint*", lpdwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1256,11 +1295,11 @@ class Communication {
 
     /**
      * Retrieves the default configuration for the specified communications device.
-     * @param {Pointer<Char>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {PWSTR} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
      * @param {Pointer} lpCC A pointer to a buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a variable that specifies the size of the buffer pointed to by <i>lpCC</i>, in bytes. Upon return, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -1268,11 +1307,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static GetDefaultCommConfigW(lpszName, lpCC, lpdwSize) {
-        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "uint*", lpdwSize, "int")
+        result := DllCall("KERNEL32.dll\GetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "uint*", lpdwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1281,11 +1320,11 @@ class Communication {
 
     /**
      * Sets the default configuration for a communications device.
-     * @param {Pointer<Byte>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {PSTR} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
      * @param {Pointer} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Integer} dwSize The size of the structure pointed to by <i>lpCC</i>, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1293,11 +1332,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static SetDefaultCommConfigA(lpszName, lpCC, dwSize) {
-        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "uint", dwSize, "int")
+        result := DllCall("KERNEL32.dll\SetDefaultCommConfigA", "ptr", lpszName, "ptr", lpCC, "uint", dwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1306,11 +1345,11 @@ class Communication {
 
     /**
      * Sets the default configuration for a communications device.
-     * @param {Pointer<Char>} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
+     * @param {PWSTR} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
      * @param {Pointer} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
      * @param {Integer} dwSize The size of the structure pointed to by <i>lpCC</i>, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1318,11 +1357,11 @@ class Communication {
      * @since windows5.1.2600
      */
     static SetDefaultCommConfigW(lpszName, lpCC, dwSize) {
-        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "uint", dwSize, "int")
+        result := DllCall("KERNEL32.dll\SetDefaultCommConfigW", "ptr", lpszName, "ptr", lpCC, "uint", dwSize, "ptr")
         if(A_LastError)
             throw OSError()
 

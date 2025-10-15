@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.Apo
@@ -28,11 +29,14 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    microphoneBoostEnabled {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    microphoneBoostEnabled{
+        get {
+            if(!this.HasProp("__microphoneBoostEnabled"))
+                this.__microphoneBoostEnabled := BOOL(this.ptr + 16)
+            return this.__microphoneBoostEnabled
+        }
     }
 
     /**
@@ -68,18 +72,24 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    muteSupported {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    muteSupported{
+        get {
+            if(!this.HasProp("__muteSupported"))
+                this.__muteSupported := BOOL(this.ptr + 36)
+            return this.__muteSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    mute {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    mute{
+        get {
+            if(!this.HasProp("__mute"))
+                this.__mute := BOOL(this.ptr + 40)
+            return this.__mute
+        }
     }
 }

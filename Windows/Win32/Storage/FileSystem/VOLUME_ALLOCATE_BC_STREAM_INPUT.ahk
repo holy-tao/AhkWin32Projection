@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -7,7 +8,7 @@
  */
 class VOLUME_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -36,28 +37,34 @@ class VOLUME_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    RetryFailures {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+    RetryFailures{
+        get {
+            if(!this.HasProp("__RetryFailures"))
+                this.__RetryFailures := BOOLEAN(this.ptr + 12)
+            return this.__RetryFailures
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Discardable {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
+    Discardable{
+        get {
+            if(!this.HasProp("__Discardable"))
+                this.__Discardable := BOOLEAN(this.ptr + 13)
+            return this.__Discardable
+        }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<BOOLEAN>}
      */
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 2, BOOLEAN, "")
             return this.__Reserved1ProxyArray
         }
     }
@@ -66,22 +73,6 @@ class VOLUME_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
      * @type {Integer}
      */
     LowestByteOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    HighestByteOffset {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    AccessType {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
     }
@@ -89,8 +80,24 @@ class VOLUME_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
     /**
      * @type {Integer}
      */
+    HighestByteOffset {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AccessType {
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
+    }
+
+    /**
+     * @type {Integer}
+     */
     AccessMode {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 }

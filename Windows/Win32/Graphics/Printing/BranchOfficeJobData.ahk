@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BranchOfficeJobDataPrinted.ahk
 #Include .\BranchOfficeJobDataRendered.ahk
 #Include .\BranchOfficeJobDataError.ahk
 #Include .\BranchOfficeJobDataPipelineFailed.ahk
+#Include .\BranchOfficeLogOfflineFileFull.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -76,10 +78,13 @@ class BranchOfficeJobData extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BranchOfficeLogOfflineFileFull}
      */
-    LogOfflineFileFull {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    LogOfflineFileFull{
+        get {
+            if(!this.HasProp("__LogOfflineFileFull"))
+                this.__LogOfflineFileFull := BranchOfficeLogOfflineFileFull(this.ptr + 8)
+            return this.__LogOfflineFileFull
+        }
     }
 }

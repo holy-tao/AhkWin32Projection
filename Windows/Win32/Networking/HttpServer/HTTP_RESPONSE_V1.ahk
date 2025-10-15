@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_VERSION.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\HTTP_KNOWN_HEADER.ahk
 #Include .\HTTP_RESPONSE_HEADERS.ahk
 
@@ -60,11 +61,14 @@ class HTTP_RESPONSE_V1 extends Win32Struct
 
     /**
      * A pointer to a human-readable, null-terminated string of printable characters that characterizes the result of the HTTP request (for example, "OK" or "Not Found").
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pReason {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pReason{
+        get {
+            if(!this.HasProp("__pReason"))
+                this.__pReason := PSTR(this.ptr + 16)
+            return this.__pReason
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a system event structure, which contains the partition and application ID from which an event originated.
@@ -33,29 +34,38 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
 
     /**
      * The EventClass ID or subscription ID from which the change impacts.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    objectId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    objectId{
+        get {
+            if(!this.HasProp("__objectId"))
+                this.__objectId := BSTR(this.ptr + 8)
+            return this.__objectId
+        }
     }
 
     /**
      * The EventClass partition ID or the subscriber partition ID affected.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    partitionId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    partitionId{
+        get {
+            if(!this.HasProp("__partitionId"))
+                this.__partitionId := BSTR(this.ptr + 16)
+            return this.__partitionId
+        }
     }
 
     /**
      * The EventClass application ID or subscriber application ID affected.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    applicationId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    applicationId{
+        get {
+            if(!this.HasProp("__applicationId"))
+                this.__applicationId := BSTR(this.ptr + 24)
+            return this.__applicationId
+        }
     }
 
     /**

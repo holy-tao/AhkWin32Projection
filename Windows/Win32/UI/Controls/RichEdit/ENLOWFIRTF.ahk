@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about an unsupported Rich Text Format (RTF) keyword in a Microsoft Rich Edit control.
@@ -37,10 +39,13 @@ class ENLOWFIRTF extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">CHAR</a>*</b>
      * 
      * The unsupported RTF keyword.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    szControl {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    szControl{
+        get {
+            if(!this.HasProp("__szControl"))
+                this.__szControl := PSTR(this.ptr + 24)
+            return this.__szControl
+        }
     }
 }

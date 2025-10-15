@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Used by an LDAP function to return results and error data.
@@ -104,26 +105,35 @@ class LDAPMessage extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    lm_chased {
-        get => NumGet(this, 62, "char")
-        set => NumPut("char", value, this, 62)
+    lm_chased{
+        get {
+            if(!this.HasProp("__lm_chased"))
+                this.__lm_chased := BOOLEAN(this.ptr + 62)
+            return this.__lm_chased
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    lm_eom {
-        get => NumGet(this, 63, "char")
-        set => NumPut("char", value, this, 63)
+    lm_eom{
+        get {
+            if(!this.HasProp("__lm_eom"))
+                this.__lm_eom := BOOLEAN(this.ptr + 63)
+            return this.__lm_eom
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ConnectionReferenced {
-        get => NumGet(this, 64, "char")
-        set => NumPut("char", value, this, 64)
+    ConnectionReferenced{
+        get {
+            if(!this.HasProp("__ConnectionReferenced"))
+                this.__ConnectionReferenced := BOOLEAN(this.ptr + 64)
+            return this.__ConnectionReferenced
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the username and password that is used by the EAP method for authenticating the user.
@@ -15,19 +16,25 @@ class EapUsernamePasswordCredential extends Win32Struct
 
     /**
      * A NULL-terminated Unicode string that contains the username that needs authentication. The username uses the format user@domain or domain\user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    username {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    username{
+        get {
+            if(!this.HasProp("__username"))
+                this.__username := PWSTR(this.ptr + 0)
+            return this.__username
+        }
     }
 
     /**
      * A NULL-terminated Unicode string that contains the password to verify the user. The password is encrypted using the [CredProtect](../wincred/nf-wincred-credprotectw.md) function. The EAP method must use the [CredUnprotect](../wincred/nf-wincred-credunprotecta.md) function to retrieve the unencrypted password.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    password {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    password{
+        get {
+            if(!this.HasProp("__password"))
+                this.__password := PWSTR(this.ptr + 8)
+            return this.__password
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_REFERENCES.ahk
 #Include .\CRYPT_XML_BLOB.ahk
 
@@ -35,29 +36,38 @@ class CRYPT_XML_OBJECT extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the unique identifier attribute of the <b>Object</b> element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    wszId{
+        get {
+            if(!this.HasProp("__wszId"))
+                this.__wszId := PWSTR(this.ptr + 16)
+            return this.__wszId
+        }
     }
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the MIME-type attribute of the <b>Object</b> element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszMimeType {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    wszMimeType{
+        get {
+            if(!this.HasProp("__wszMimeType"))
+                this.__wszMimeType := PWSTR(this.ptr + 24)
+            return this.__wszMimeType
+        }
     }
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the encoding method attribute of the <b>Object</b> element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszEncoding {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    wszEncoding{
+        get {
+            if(!this.HasProp("__wszEncoding"))
+                this.__wszEncoding := PWSTR(this.ptr + 32)
+            return this.__wszEncoding
+        }
     }
 
     /**

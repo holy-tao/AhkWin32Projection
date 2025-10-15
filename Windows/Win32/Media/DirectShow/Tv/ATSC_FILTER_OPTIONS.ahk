@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * The ATSC_FILTER_OPTIONS structure specifies additional criteria for matching ATSC section headers.
@@ -15,11 +16,14 @@ class ATSC_FILTER_OPTIONS extends Win32Struct
 
     /**
      * If this flag is <b>TRUE</b>, the ETM_id field in the header must match the value of the <b>EtmId</b> structure member. Otherwise, the ETM_id field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSpecifyEtmId {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    fSpecifyEtmId{
+        get {
+            if(!this.HasProp("__fSpecifyEtmId"))
+                this.__fSpecifyEtmId := BOOL(this.ptr + 0)
+            return this.__fSpecifyEtmId
+        }
     }
 
     /**

@@ -22,7 +22,7 @@ class CustomDumpItem extends Win32Struct
     /**
      * @type {Pointer}
      */
-    Anonymous {
+    pReserved {
         get => NumGet(this, 8, "ptr")
         set => NumPut("ptr", value, this, 8)
     }

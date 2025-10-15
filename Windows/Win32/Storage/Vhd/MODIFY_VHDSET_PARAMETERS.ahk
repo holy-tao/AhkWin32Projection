@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains VHD Set modification parameters, indicating how the VHD Set should be altered.
@@ -35,11 +36,14 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        SnapshotFilePath {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        SnapshotFilePath{
+            get {
+                if(!this.HasProp("__SnapshotFilePath"))
+                    this.__SnapshotFilePath := PWSTR(this.ptr + 8)
+                return this.__SnapshotFilePath
+            }
         }
     
     }
@@ -64,10 +68,13 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DefaultFilePath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    DefaultFilePath{
+        get {
+            if(!this.HasProp("__DefaultFilePath"))
+                this.__DefaultFilePath := PWSTR(this.ptr + 8)
+            return this.__DefaultFilePath
+        }
     }
 }

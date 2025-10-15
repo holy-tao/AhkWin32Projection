@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.NetworkManagement.NetShell
  * @version v4.0.30319
@@ -172,8 +172,8 @@ class NetShell {
 ;@region Methods
     /**
      * Searches a table of legal values to find a value that matches a specific token.
-     * @param {Pointer<Void>} hModule Reserved. Set to null.
-     * @param {Pointer<Char>} pwcArg A token to match. The <i>pwcArg</i> parameter is usually an entry in the <i>ppwcArguments</i> array passed into the 
+     * @param {HANDLE} hModule Reserved. Set to null.
+     * @param {PWSTR} pwcArg A token to match. The <i>pwcArg</i> parameter is usually an entry in the <i>ppwcArguments</i> array passed into the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-fn_handle_cmd">FN_HANDLE_CMD</a> function exposed by the helper (the command function).
      * @param {Integer} dwNumArg The number of entries in the <i>pEnumTable</i> array.
      * @param {Pointer<TOKEN_VALUE>} pEnumTable An array of token:value pairs.
@@ -183,7 +183,8 @@ class NetShell {
      * @since windows5.1.2600
      */
     static MatchEnumTag(hModule, pwcArg, dwNumArg, pEnumTable, pdwValue) {
-        pwcArg := pwcArg is String? StrPtr(pwcArg) : pwcArg
+        pwcArg := pwcArg is String ? StrPtr(pwcArg) : pwcArg
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
         result := DllCall("NETSH.dll\MatchEnumTag", "ptr", hModule, "ptr", pwcArg, "uint", dwNumArg, "ptr", pEnumTable, "uint*", pdwValue, "uint")
         return result
@@ -191,24 +192,24 @@ class NetShell {
 
     /**
      * Determines whether a user-entered string matches a specific string.
-     * @param {Pointer<Char>} pwszUserToken A string entered by the user.
-     * @param {Pointer<Char>} pwszCmdToken A string against which to check for a match.
-     * @returns {Integer} Returns <b>TRUE</b> if there is a match, <b>FALSE</b> if not.
+     * @param {PWSTR} pwszUserToken A string entered by the user.
+     * @param {PWSTR} pwszCmdToken A string against which to check for a match.
+     * @returns {BOOL} Returns <b>TRUE</b> if there is a match, <b>FALSE</b> if not.
      * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-matchtoken
      * @since windows5.1.2600
      */
     static MatchToken(pwszUserToken, pwszCmdToken) {
-        pwszUserToken := pwszUserToken is String? StrPtr(pwszUserToken) : pwszUserToken
-        pwszCmdToken := pwszCmdToken is String? StrPtr(pwszCmdToken) : pwszCmdToken
+        pwszUserToken := pwszUserToken is String ? StrPtr(pwszUserToken) : pwszUserToken
+        pwszCmdToken := pwszCmdToken is String ? StrPtr(pwszCmdToken) : pwszCmdToken
 
-        result := DllCall("NETSH.dll\MatchToken", "ptr", pwszUserToken, "ptr", pwszCmdToken, "int")
+        result := DllCall("NETSH.dll\MatchToken", "ptr", pwszUserToken, "ptr", pwszCmdToken, "ptr")
         return result
     }
 
     /**
      * Parses an argument string and verifies that all required tags are present.
-     * @param {Pointer<Void>} hModule Reserved. Set to null.
-     * @param {Pointer<Char>} ppwcArguments The arguments passed to 
+     * @param {HANDLE} hModule Reserved. Set to null.
+     * @param {Pointer<PWSTR>} ppwcArguments The arguments passed to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nc-netsh-fn_handle_cmd">FN_HANDLE_CMD</a> (the command function) as its <i>ppwcArguments</i> parameter.
      * @param {Integer} dwCurrentIndex A value that specifies the first argument to process, such that <i>ppwcArguments</i>[<i>dwCurrentIndex</i>] is the first.
      * @param {Integer} dwArgCount The argument count passed as the <i>dwArgCount</i> parameter.
@@ -298,45 +299,51 @@ class NetShell {
      * @since windows5.1.2600
      */
     static PreprocessCommand(hModule, ppwcArguments, dwCurrentIndex, dwArgCount, pttTags, dwTagCount, dwMinArgs, dwMaxArgs, pdwTagType) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+
         result := DllCall("NETSH.dll\PreprocessCommand", "ptr", hModule, "ptr", ppwcArguments, "uint", dwCurrentIndex, "uint", dwArgCount, "ptr", pttTags, "uint", dwTagCount, "uint", dwMinArgs, "uint", dwMaxArgs, "uint*", pdwTagType, "uint")
         return result
     }
 
     /**
      * Displays a system or application error message to the NetShell console.
-     * @param {Pointer<Void>} hModule A handle to the module from which the string should be loaded, or null for system error messages.
+     * @param {HANDLE} hModule A handle to the module from which the string should be loaded, or null for system error messages.
      * @param {Integer} dwErrId The identifier of the message to print.
      * @returns {Integer} Returns the number of characters printed. Returns zero upon failure.
      * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-printerror
      * @since windows5.1.2600
      */
     static PrintError(hModule, dwErrId) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+
         result := DllCall("NETSH.dll\PrintError", "ptr", hModule, "uint", dwErrId, "CDecl uint")
         return result
     }
 
     /**
      * Displays localized output to the NetShell console.
-     * @param {Pointer<Void>} hModule A handle to the module from which the string should be loaded.
+     * @param {HANDLE} hModule A handle to the module from which the string should be loaded.
      * @param {Integer} dwMsgId The identifier  of the message to print.
      * @returns {Integer} Returns the number of characters printed. Returns zero upon failure.
      * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-printmessagefrommodule
      * @since windows5.1.2600
      */
     static PrintMessageFromModule(hModule, dwMsgId) {
+        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+
         result := DllCall("NETSH.dll\PrintMessageFromModule", "ptr", hModule, "uint", dwMsgId, "CDecl uint")
         return result
     }
 
     /**
      * Displays output to the NetShell console.
-     * @param {Pointer<Char>} pwszFormat A string to be output to the NetShell console.
+     * @param {PWSTR} pwszFormat A string to be output to the NetShell console.
      * @returns {Integer} Returns the number of characters printed. Returns zero upon failure.
      * @see https://docs.microsoft.com/windows/win32/api//netsh/nf-netsh-printmessage
      * @since windows5.1.2600
      */
     static PrintMessage(pwszFormat) {
-        pwszFormat := pwszFormat is String? StrPtr(pwszFormat) : pwszFormat
+        pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
 
         result := DllCall("NETSH.dll\PrintMessage", "ptr", pwszFormat, "CDecl uint")
         return result

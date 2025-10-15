@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a raytracing hit group state subobject that can be included in a state object.
@@ -15,11 +16,14 @@ class D3D12_HIT_GROUP_DESC extends Win32Struct
 
     /**
      * The name of the hit group.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    HitGroupExport {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    HitGroupExport{
+        get {
+            if(!this.HasProp("__HitGroupExport"))
+                this.__HitGroupExport := PWSTR(this.ptr + 0)
+            return this.__HitGroupExport
+        }
     }
 
     /**
@@ -33,28 +37,37 @@ class D3D12_HIT_GROUP_DESC extends Win32Struct
 
     /**
      * Optional name of the any-hit shader associated with the hit group. This field can be used with all hit group types.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    AnyHitShaderImport {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    AnyHitShaderImport{
+        get {
+            if(!this.HasProp("__AnyHitShaderImport"))
+                this.__AnyHitShaderImport := PWSTR(this.ptr + 16)
+            return this.__AnyHitShaderImport
+        }
     }
 
     /**
      * Optional name of the closest-hit shader associated with the hit group. This field can be used with all hit group types.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClosestHitShaderImport {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ClosestHitShaderImport{
+        get {
+            if(!this.HasProp("__ClosestHitShaderImport"))
+                this.__ClosestHitShaderImport := PWSTR(this.ptr + 24)
+            return this.__ClosestHitShaderImport
+        }
     }
 
     /**
      * Optional name of the intersection shader associated with the hit group.  This field can only be used with hit groups of type procedural primitive.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    IntersectionShaderImport {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    IntersectionShaderImport{
+        get {
+            if(!this.HasProp("__IntersectionShaderImport"))
+                this.__IntersectionShaderImport := PWSTR(this.ptr + 32)
+            return this.__IntersectionShaderImport
+        }
     }
 }

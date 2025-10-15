@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Performs a local response normalization (LRN) function on the input.
@@ -39,11 +40,14 @@ class DML_LOCAL_RESPONSE_NORMALIZATION_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if the LRN layer sums across channels; otherwise, **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    CrossChannel {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    CrossChannel{
+        get {
+            if(!this.HasProp("__CrossChannel"))
+                this.__CrossChannel := BOOL(this.ptr + 16)
+            return this.__CrossChannel
+        }
     }
 
     /**

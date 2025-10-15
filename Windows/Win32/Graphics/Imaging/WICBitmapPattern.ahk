@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains members that identify a pattern within an image file which can be used to identify a particular format.
@@ -61,10 +62,13 @@ class WICBitmapPattern extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * The end of the stream.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    EndOfStream {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    EndOfStream{
+        get {
+            if(!this.HasProp("__EndOfStream"))
+                this.__EndOfStream := BOOL(this.ptr + 32)
+            return this.__EndOfStream
+        }
     }
 }

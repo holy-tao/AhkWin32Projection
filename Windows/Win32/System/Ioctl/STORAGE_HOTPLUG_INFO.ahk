@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Provides information about the hotplug information of a device.
@@ -51,39 +52,51 @@ class STORAGE_HOTPLUG_INFO extends Win32Struct
     /**
      * If this member is set to a nonzero value, the device media is removable. Otherwise, the device media is not 
      *       removable.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    MediaRemovable {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    MediaRemovable{
+        get {
+            if(!this.HasProp("__MediaRemovable"))
+                this.__MediaRemovable := BOOLEAN(this.ptr + 4)
+            return this.__MediaRemovable
+        }
     }
 
     /**
      * If this member is set to a nonzero value, the media is not lockable. Otherwise, the device media is 
      *       lockable.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    MediaHotplug {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+    MediaHotplug{
+        get {
+            if(!this.HasProp("__MediaHotplug"))
+                this.__MediaHotplug := BOOLEAN(this.ptr + 5)
+            return this.__MediaHotplug
+        }
     }
 
     /**
      * If this member is set to a nonzero value, the device is a hotplug device. Otherwise, the device is not a 
      *       hotplug device.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    DeviceHotplug {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+    DeviceHotplug{
+        get {
+            if(!this.HasProp("__DeviceHotplug"))
+                this.__DeviceHotplug := BOOLEAN(this.ptr + 6)
+            return this.__DeviceHotplug
+        }
     }
 
     /**
      * Reserved; set the value to <b>NULL</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    WriteCacheEnableOverride {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+    WriteCacheEnableOverride{
+        get {
+            if(!this.HasProp("__WriteCacheEnableOverride"))
+                this.__WriteCacheEnableOverride := BOOLEAN(this.ptr + 7)
+            return this.__WriteCacheEnableOverride
+        }
     }
 }

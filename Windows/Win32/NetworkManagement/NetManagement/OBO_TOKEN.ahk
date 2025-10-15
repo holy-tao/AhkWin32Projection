@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -28,34 +30,46 @@ class OBO_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszwManufacturer {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszwManufacturer{
+        get {
+            if(!this.HasProp("__pszwManufacturer"))
+                this.__pszwManufacturer := PWSTR(this.ptr + 16)
+            return this.__pszwManufacturer
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszwProduct {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszwProduct{
+        get {
+            if(!this.HasProp("__pszwProduct"))
+                this.__pszwProduct := PWSTR(this.ptr + 24)
+            return this.__pszwProduct
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszwDisplayName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszwDisplayName{
+        get {
+            if(!this.HasProp("__pszwDisplayName"))
+                this.__pszwDisplayName := PWSTR(this.ptr + 32)
+            return this.__pszwDisplayName
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fRegistered {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    fRegistered{
+        get {
+            if(!this.HasProp("__fRegistered"))
+                this.__fRegistered := BOOL(this.ptr + 40)
+            return this.__fRegistered
+        }
     }
 }

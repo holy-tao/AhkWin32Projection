@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BLUETOOTH_ADDRESS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -41,27 +42,36 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fConnected {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    fConnected{
+        get {
+            if(!this.HasProp("__fConnected"))
+                this.__fConnected := BOOL(this.ptr + 28)
+            return this.__fConnected
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fRemembered {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    fRemembered{
+        get {
+            if(!this.HasProp("__fRemembered"))
+                this.__fRemembered := BOOL(this.ptr + 32)
+            return this.__fRemembered
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAuthenticated {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    fAuthenticated{
+        get {
+            if(!this.HasProp("__fAuthenticated"))
+                this.__fAuthenticated := BOOL(this.ptr + 36)
+            return this.__fAuthenticated
+        }
     }
 
     /**

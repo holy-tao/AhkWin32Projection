@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates the revocation status of a certificate in a CERT_CHAIN_ELEMENT.
@@ -38,11 +40,14 @@ class CERT_REVOCATION_INFO extends Win32Struct
 
     /**
      * Not currently used and is set to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszRevocationOid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszRevocationOid{
+        get {
+            if(!this.HasProp("__pszRevocationOid"))
+                this.__pszRevocationOid := PSTR(this.ptr + 8)
+            return this.__pszRevocationOid
+        }
     }
 
     /**
@@ -56,11 +61,14 @@ class CERT_REVOCATION_INFO extends Win32Struct
 
     /**
      * BOOL set to <b>TRUE</b> if dwFreshnessTime has been updated.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fHasFreshnessTime {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fHasFreshnessTime{
+        get {
+            if(!this.HasProp("__fHasFreshnessTime"))
+                this.__fHasFreshnessTime := BOOL(this.ptr + 24)
+            return this.__fHasFreshnessTime
+        }
     }
 
     /**

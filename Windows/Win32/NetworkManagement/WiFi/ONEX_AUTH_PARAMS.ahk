@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\ONEX_VARIABLE_BLOB.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains 802.1X authentication parameters used for 802.1X authentication.
@@ -27,11 +29,14 @@ class ONEX_AUTH_PARAMS extends Win32Struct
 
     /**
      * Indicates if a status update is pending for 802.X authentication.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fUpdatePending {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    fUpdatePending{
+        get {
+            if(!this.HasProp("__fUpdatePending"))
+                this.__fUpdatePending := BOOL(this.ptr + 0)
+            return this.__fUpdatePending
+        }
     }
 
     /**
@@ -150,11 +155,14 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * The user token handle  used for 802.1X authentication. This member contains a user token handle if the <b>fhUserToken</b> bitfield member is set.
      * 
      * For security reasons, the <b>hUserToken</b> member of the <b>ONEX_AUTH_PARAMS</b> structure returned in the <b>authParams</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure is always set to <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hUserToken {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hUserToken{
+        get {
+            if(!this.HasProp("__hUserToken"))
+                this.__hUserToken := HANDLE(this.ptr + 32)
+            return this.__hUserToken
+        }
     }
 
     /**

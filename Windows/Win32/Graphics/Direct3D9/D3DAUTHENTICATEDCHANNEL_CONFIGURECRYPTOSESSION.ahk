@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT.ahk
 
 /**
@@ -25,26 +26,35 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURECRYPTOSESSION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    DXVA2DecodeHandle {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    DXVA2DecodeHandle{
+        get {
+            if(!this.HasProp("__DXVA2DecodeHandle"))
+                this.__DXVA2DecodeHandle := HANDLE(this.ptr + 40)
+            return this.__DXVA2DecodeHandle
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    CryptoSessionHandle {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    CryptoSessionHandle{
+        get {
+            if(!this.HasProp("__CryptoSessionHandle"))
+                this.__CryptoSessionHandle := HANDLE(this.ptr + 48)
+            return this.__CryptoSessionHandle
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    DeviceHandle {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    DeviceHandle{
+        get {
+            if(!this.HasProp("__DeviceHandle"))
+                this.__DeviceHandle := HANDLE(this.ptr + 56)
+            return this.__DeviceHandle
+        }
     }
 }

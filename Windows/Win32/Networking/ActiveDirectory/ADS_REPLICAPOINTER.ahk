@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents an ADSI representation of the Replica Pointer attribute syntax.
@@ -15,11 +16,14 @@ class ADS_REPLICAPOINTER extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the name of the name server that holds the replica.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ServerName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    ServerName{
+        get {
+            if(!this.HasProp("__ServerName"))
+                this.__ServerName := PWSTR(this.ptr + 0)
+            return this.__ServerName
+        }
     }
 
     /**

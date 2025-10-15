@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -12,19 +13,25 @@ class HTTP_FILTER_URL_MAP extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszURL {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszURL{
+        get {
+            if(!this.HasProp("__pszURL"))
+                this.__pszURL := PSTR(this.ptr + 0)
+            return this.__pszURL
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszPhysicalPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszPhysicalPath{
+        get {
+            if(!this.HasProp("__pszPhysicalPath"))
+                this.__pszPhysicalPath := PSTR(this.ptr + 8)
+            return this.__pszPhysicalPath
+        }
     }
 
     /**

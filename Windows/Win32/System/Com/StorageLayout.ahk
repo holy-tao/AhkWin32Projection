@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a single block of data, including its name, location, and length.
@@ -56,11 +57,14 @@ class StorageLayout extends Win32Struct
 
     /**
      * The null-terminated Unicode string name of the storage or stream. If the element is a substorage or embedded object, the fully qualified storage path must be specified; for example,  "RootStorageName\SubStorageName\Substream".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwcsElementName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwcsElementName{
+        get {
+            if(!this.HasProp("__pwcsElementName"))
+                this.__pwcsElementName := PWSTR(this.ptr + 8)
+            return this.__pwcsElementName
+        }
     }
 
     /**

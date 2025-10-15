@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
 #Include ..\..\System\Com\BLOB.ahk
 
@@ -22,11 +23,14 @@ class PNRPINFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpwszIdentity {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpwszIdentity{
+        get {
+            if(!this.HasProp("__lpwszIdentity"))
+                this.__lpwszIdentity := PWSTR(this.ptr + 8)
+            return this.__lpwszIdentity
+        }
     }
 
     /**
@@ -108,10 +112,13 @@ class PNRPINFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszPayload {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pwszPayload{
+        get {
+            if(!this.HasProp("__pwszPayload"))
+                this.__pwszPayload := PWSTR(this.ptr + 64)
+            return this.__pwszPayload
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes the tape drive. It is used by the SetTapeParametersfunction.
@@ -15,38 +16,50 @@ class TAPE_SET_DRIVE_PARAMETERS extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, hardware error correction is supported. Otherwise, it is not.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ECC {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    ECC{
+        get {
+            if(!this.HasProp("__ECC"))
+                this.__ECC := BOOLEAN(this.ptr + 0)
+            return this.__ECC
+        }
     }
 
     /**
      * If this member is <b>TRUE</b>, hardware data compression is enabled. Otherwise, it is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Compression {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
+    Compression{
+        get {
+            if(!this.HasProp("__Compression"))
+                this.__Compression := BOOLEAN(this.ptr + 1)
+            return this.__Compression
+        }
     }
 
     /**
      * If this member is <b>TRUE</b>, data padding is enabled. Otherwise, it is disabled. Data padding keeps the tape streaming at a constant speed.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    DataPadding {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+    DataPadding{
+        get {
+            if(!this.HasProp("__DataPadding"))
+                this.__DataPadding := BOOLEAN(this.ptr + 2)
+            return this.__DataPadding
+        }
     }
 
     /**
      * If this member is <b>TRUE</b>, setmark reporting is enabled. Otherwise, it is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ReportSetmarks {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
+    ReportSetmarks{
+        get {
+            if(!this.HasProp("__ReportSetmarks"))
+                this.__ReportSetmarks := BOOLEAN(this.ptr + 3)
+            return this.__ReportSetmarks
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -28,11 +29,14 @@ class HIDP_VALUE_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsAlias {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
+    IsAlias{
+        get {
+            if(!this.HasProp("__IsAlias"))
+                this.__IsAlias := BOOLEAN(this.ptr + 3)
+            return this.__IsAlias
+        }
     }
 
     /**
@@ -68,43 +72,58 @@ class HIDP_VALUE_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsRange {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+    IsRange{
+        get {
+            if(!this.HasProp("__IsRange"))
+                this.__IsRange := BOOLEAN(this.ptr + 12)
+            return this.__IsRange
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsStringRange {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
+    IsStringRange{
+        get {
+            if(!this.HasProp("__IsStringRange"))
+                this.__IsStringRange := BOOLEAN(this.ptr + 13)
+            return this.__IsStringRange
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsDesignatorRange {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
+    IsDesignatorRange{
+        get {
+            if(!this.HasProp("__IsDesignatorRange"))
+                this.__IsDesignatorRange := BOOLEAN(this.ptr + 14)
+            return this.__IsDesignatorRange
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsAbsolute {
-        get => NumGet(this, 15, "char")
-        set => NumPut("char", value, this, 15)
+    IsAbsolute{
+        get {
+            if(!this.HasProp("__IsAbsolute"))
+                this.__IsAbsolute := BOOLEAN(this.ptr + 15)
+            return this.__IsAbsolute
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    HasNull {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    HasNull{
+        get {
+            if(!this.HasProp("__HasNull"))
+                this.__HasNull := BOOLEAN(this.ptr + 16)
+            return this.__HasNull
+        }
     }
 
     /**

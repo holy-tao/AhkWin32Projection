@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLS_LSN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -100,43 +101,58 @@ class CLS_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CLS_LSN}
      */
-    MinArchiveTailLsn {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+    MinArchiveTailLsn{
+        get {
+            if(!this.HasProp("__MinArchiveTailLsn"))
+                this.__MinArchiveTailLsn := CLS_LSN(this.ptr + 64)
+            return this.__MinArchiveTailLsn
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {CLS_LSN}
      */
-    BaseLsn {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+    BaseLsn{
+        get {
+            if(!this.HasProp("__BaseLsn"))
+                this.__BaseLsn := CLS_LSN(this.ptr + 72)
+            return this.__BaseLsn
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {CLS_LSN}
      */
-    LastFlushedLsn {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+    LastFlushedLsn{
+        get {
+            if(!this.HasProp("__LastFlushedLsn"))
+                this.__LastFlushedLsn := CLS_LSN(this.ptr + 80)
+            return this.__LastFlushedLsn
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {CLS_LSN}
      */
-    LastLsn {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+    LastLsn{
+        get {
+            if(!this.HasProp("__LastLsn"))
+                this.__LastLsn := CLS_LSN(this.ptr + 88)
+            return this.__LastLsn
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {CLS_LSN}
      */
-    RestartLsn {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+    RestartLsn{
+        get {
+            if(!this.HasProp("__RestartLsn"))
+                this.__RestartLsn := CLS_LSN(this.ptr + 96)
+            return this.__RestartLsn
+        }
     }
 
     /**

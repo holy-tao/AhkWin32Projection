@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines conflict item structure.
@@ -28,44 +29,56 @@ class CONFIRM_CONFLICT_ITEM extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the original name. If set to <b>NULL</b> then IShellItem's display name will be used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszOriginalName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszOriginalName{
+        get {
+            if(!this.HasProp("__pszOriginalName"))
+                this.__pszOriginalName := PWSTR(this.ptr + 8)
+            return this.__pszOriginalName
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the alternate name. If multiple items are kept, then item must be renamed to this name. User may or may not have an ability to change the name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszAlternateName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszAlternateName{
+        get {
+            if(!this.HasProp("__pszAlternateName"))
+                this.__pszAlternateName := PWSTR(this.ptr + 16)
+            return this.__pszAlternateName
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the short location.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszLocationShort {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszLocationShort{
+        get {
+            if(!this.HasProp("__pszLocationShort"))
+                this.__pszLocationShort := PWSTR(this.ptr + 24)
+            return this.__pszLocationShort
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the full location.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszLocationFull {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszLocationFull{
+        get {
+            if(!this.HasProp("__pszLocationFull"))
+                this.__pszLocationFull := PWSTR(this.ptr + 32)
+            return this.__pszLocationFull
+        }
     }
 
     /**

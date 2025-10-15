@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines a null-terminated string with a defined length.
@@ -27,10 +28,13 @@ class CountedString extends Win32Struct
 
     /**
      * A pointer to a null-terminated wide character string of size <b>length</b> + 1.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    string {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    string{
+        get {
+            if(!this.HasProp("__string"))
+                this.__string := PWSTR(this.ptr + 8)
+            return this.__string
+        }
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a provider.
@@ -25,30 +27,39 @@ class PXE_PROVIDER extends Win32Struct
     /**
      * Address of a null-terminated string that specifies the display name of the provider. This name is displayed 
      *       to the user and must be unique among registered providers.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszName{
+        get {
+            if(!this.HasProp("__pwszName"))
+                this.__pwszName := PWSTR(this.ptr + 8)
+            return this.__pwszName
+        }
     }
 
     /**
      * Address of a null-terminated string that specifies the full path to the provider DLL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszFilePath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszFilePath{
+        get {
+            if(!this.HasProp("__pwszFilePath"))
+                this.__pwszFilePath := PWSTR(this.ptr + 16)
+            return this.__pwszFilePath
+        }
     }
 
     /**
      * Indicates whether the provider is critical. If a critical provider fails, the WDS server will also 
      *       fail.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bIsCritical {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    bIsCritical{
+        get {
+            if(!this.HasProp("__bIsCritical"))
+                this.__bIsCritical := BOOL(this.ptr + 24)
+            return this.__bIsCritical
+        }
     }
 
     /**

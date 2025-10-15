@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 #Include .\SURFACEALIGNMENT.ahk
 #Include .\HEAPALIGNMENT.ahk
 #Include .\DDSCAPSEX.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The VMEMHEAP structure contains information about the heap.
@@ -144,11 +146,14 @@ class VMEMHEAP extends Win32Struct
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hdevAGP {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
+    hdevAGP{
+        get {
+            if(!this.HasProp("__hdevAGP"))
+                this.__hdevAGP := HANDLE(this.ptr + 224)
+            return this.__hdevAGP
+        }
     }
 
     /**

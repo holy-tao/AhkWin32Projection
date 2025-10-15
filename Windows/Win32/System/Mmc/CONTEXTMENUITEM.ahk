@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CONTEXTMENUITEM structure is passed to the IContextMenuCallback::AddItem method or the IContextMenuProvider::AddItem method (inherited from IContextMenuCallback) to define a new menu item, submenu, or insertion point.
@@ -15,20 +16,26 @@ class CONTEXTMENUITEM extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the menu item or of the submenu. This member cannot be <b>NULL</b> except for a separator or insertion point.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    strName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    strName{
+        get {
+            if(!this.HasProp("__strName"))
+                this.__strName := PWSTR(this.ptr + 0)
+            return this.__strName
+        }
     }
 
     /**
      * A pointer to a null-terminated string that contains the text that is displayed in the status bar when this item is highlighted. This member can be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    strStatusBarText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    strStatusBarText{
+        get {
+            if(!this.HasProp("__strStatusBarText"))
+                this.__strStatusBarText := PWSTR(this.ptr + 8)
+            return this.__strStatusBarText
+        }
     }
 
     /**

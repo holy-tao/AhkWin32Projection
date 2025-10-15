@@ -20,7 +20,7 @@ class SLPSTRArray extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<PSTR>}
      */
     lppszA {
         get => NumGet(this, 8, "ptr")

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\TOKEN_ELEVATION.ahk
+#Include ..\..\Security\PSID.ahk
 #Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
 #Include ..\..\Foundation\LUID.ahk
 
@@ -22,11 +24,14 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {TOKEN_ELEVATION}
      */
-    TokenElevation {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    TokenElevation{
+        get {
+            if(!this.HasProp("__TokenElevation"))
+                this.__TokenElevation := TOKEN_ELEVATION(this.ptr + 4)
+            return this.__TokenElevation
+        }
     }
 
     /**
@@ -65,11 +70,14 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    TrustLevelSid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    TrustLevelSid{
+        get {
+            if(!this.HasProp("__TrustLevelSid"))
+                this.__TrustLevelSid := PSID(this.ptr + 40)
+            return this.__TrustLevelSid
+        }
     }
 
     /**

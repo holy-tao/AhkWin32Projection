@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include .\MSIHANDLE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
@@ -3107,7 +3109,7 @@ class ApplicationInstallationAndServicing {
 ;@region Methods
     /**
      * The MsiCloseHandle function closes an open installation handle.
-     * @param {Integer} hAny Specifies any open installation handle.
+     * @param {MSIHANDLE} hAny Specifies any open installation handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -3144,7 +3146,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCloseHandle(hAny) {
-        result := DllCall("msi.dll\MsiCloseHandle", "uint", hAny, "uint")
+        hAny := hAny is Win32Handle ? NumGet(hAny, "ptr") : hAny
+
+        result := DllCall("msi.dll\MsiCloseHandle", "ptr", hAny, "uint")
         return result
     }
 
@@ -3162,7 +3166,7 @@ class ApplicationInstallationAndServicing {
     /**
      * The MsiSetInternalUI function enables the installer's internal user interface. Then this user interface is used for all subsequent calls to user-interface-generating installer functions in this process. For more information, see User Interface Levels.
      * @param {Integer} dwUILevel 
-     * @param {Pointer<Void>} phWnd Pointer to a window. This window becomes the owner of any user interface created. A pointer to the previous owner of the user interface is returned. If this parameter is null, the owner of the user interface does not change.
+     * @param {Pointer<HWND>} phWnd Pointer to a window. This window becomes the owner of any user interface created. A pointer to the previous owner of the user interface is returned. If this parameter is null, the owner of the user interface does not change.
      * @returns {Integer} The previous user interface level is returned. If an invalid <i>dwUILevel </i>is passed, then <b>INSTALLUILEVEL_NOCHANGE</b> is returned.
      * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msisetinternalui
      * @since windows8.0
@@ -3850,7 +3854,7 @@ class ApplicationInstallationAndServicing {
     /**
      * The MsiEnableLog function sets the log mode for all subsequent installations that are initiated in the calling process.
      * @param {Integer} dwLogMode 
-     * @param {Pointer<Byte>} szLogFile Specifies the string that holds the full path to the log file. Entering a null disables logging, in which case <i>dwlogmode</i> is ignored. If a path is supplied, then <i>dwlogmode</i> must not be zero.
+     * @param {PSTR} szLogFile Specifies the string that holds the full path to the log file. Entering a null disables logging, in which case <i>dwlogmode</i> is ignored. If a path is supplied, then <i>dwlogmode</i> must not be zero.
      * @param {Integer} dwLogAttributes Specifies how frequently the log buffer is to be flushed.
      * 
      * <table>
@@ -3912,7 +3916,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnableLogA(dwLogMode, szLogFile, dwLogAttributes) {
-        szLogFile := szLogFile is String? StrPtr(szLogFile) : szLogFile
+        szLogFile := szLogFile is String ? StrPtr(szLogFile) : szLogFile
 
         result := DllCall("msi.dll\MsiEnableLogA", "uint", dwLogMode, "ptr", szLogFile, "uint", dwLogAttributes, "uint")
         return result
@@ -3921,7 +3925,7 @@ class ApplicationInstallationAndServicing {
     /**
      * The MsiEnableLog function sets the log mode for all subsequent installations that are initiated in the calling process.
      * @param {Integer} dwLogMode 
-     * @param {Pointer<Char>} szLogFile Specifies the string that holds the full path to the log file. Entering a null disables logging, in which case <i>dwlogmode</i> is ignored. If a path is supplied, then <i>dwlogmode</i> must not be zero.
+     * @param {PWSTR} szLogFile Specifies the string that holds the full path to the log file. Entering a null disables logging, in which case <i>dwlogmode</i> is ignored. If a path is supplied, then <i>dwlogmode</i> must not be zero.
      * @param {Integer} dwLogAttributes Specifies how frequently the log buffer is to be flushed.
      * 
      * <table>
@@ -3983,7 +3987,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnableLogW(dwLogMode, szLogFile, dwLogAttributes) {
-        szLogFile := szLogFile is String? StrPtr(szLogFile) : szLogFile
+        szLogFile := szLogFile is String ? StrPtr(szLogFile) : szLogFile
 
         result := DllCall("msi.dll\MsiEnableLogW", "uint", dwLogMode, "ptr", szLogFile, "uint", dwLogAttributes, "uint")
         return result
@@ -3991,7 +3995,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiQueryProductState function returns the installed state for a product.
-     * @param {Pointer<Byte>} szProduct Specifies the product code that identifies the product to be queried.
+     * @param {PSTR} szProduct Specifies the product code that identifies the product to be queried.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -4061,7 +4065,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryProductStateA(szProduct) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
         result := DllCall("msi.dll\MsiQueryProductStateA", "ptr", szProduct, "int")
         return result
@@ -4069,7 +4073,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiQueryProductState function returns the installed state for a product.
-     * @param {Pointer<Char>} szProduct Specifies the product code that identifies the product to be queried.
+     * @param {PWSTR} szProduct Specifies the product code that identifies the product to be queried.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -4139,7 +4143,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryProductStateW(szProduct) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
         result := DllCall("msi.dll\MsiQueryProductStateW", "ptr", szProduct, "int")
         return result
@@ -4147,8 +4151,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetProductInfo function returns product information for published and installed products.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product.
-     * @param {Pointer<Byte>} szAttribute Specifies the property to be retrieved.  
+     * @param {PSTR} szProduct Specifies the product code for the product.
+     * @param {PSTR} szAttribute Specifies the property to be retrieved.  
      * 
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/required-properties">Required Properties</a> are guaranteed to be available, but other properties are available only if that property is set. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/properties">Properties</a>. The properties in the following list can be retrieved only from applications that are installed.
@@ -4408,7 +4412,7 @@ class ApplicationInstallationAndServicing {
      * <td>A value of one (1) indicates a product that can be serviced by non-administrators using <a href="https://docs.microsoft.com/windows/desktop/Msi/user-account-control--uac--patching">User Account Control (UAC) Patching</a>. A missing value or a value of 0 (zero) indicates that least-privilege patching is not enabled. Available in Windows Installer 3.0 or later.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
+     * @param {PSTR} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -4493,9 +4497,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoA(szProduct, szAttribute, lpValueBuf, pcchValueBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szAttribute := szAttribute is String? StrPtr(szAttribute) : szAttribute
-        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szAttribute := szAttribute is String ? StrPtr(szAttribute) : szAttribute
+        lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
 
         result := DllCall("msi.dll\MsiGetProductInfoA", "ptr", szProduct, "ptr", szAttribute, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -4503,8 +4507,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetProductInfo function returns product information for published and installed products.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product.
-     * @param {Pointer<Char>} szAttribute Specifies the property to be retrieved.  
+     * @param {PWSTR} szProduct Specifies the product code for the product.
+     * @param {PWSTR} szAttribute Specifies the property to be retrieved.  
      * 
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/required-properties">Required Properties</a> are guaranteed to be available, but other properties are available only if that property is set. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/properties">Properties</a>. The properties in the following list can be retrieved only from applications that are installed.
@@ -4764,7 +4768,7 @@ class ApplicationInstallationAndServicing {
      * <td>A value of one (1) indicates a product that can be serviced by non-administrators using <a href="https://docs.microsoft.com/windows/desktop/Msi/user-account-control--uac--patching">User Account Control (UAC) Patching</a>. A missing value or a value of 0 (zero) indicates that least-privilege patching is not enabled. Available in Windows Installer 3.0 or later.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
+     * @param {PWSTR} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -4849,9 +4853,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoW(szProduct, szAttribute, lpValueBuf, pcchValueBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szAttribute := szAttribute is String? StrPtr(szAttribute) : szAttribute
-        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szAttribute := szAttribute is String ? StrPtr(szAttribute) : szAttribute
+        lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
 
         result := DllCall("msi.dll\MsiGetProductInfoW", "ptr", szProduct, "ptr", szAttribute, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -4859,8 +4863,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Returns product information for advertised and installed products.
-     * @param {Pointer<Byte>} szProductCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance that is being queried.
-     * @param {Pointer<Byte>} szUserSid The security identifier (SID) of the account under which the instance of the product that is being queried exists. A <b>NULL</b> specifies the current user SID.
+     * @param {PSTR} szProductCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance that is being queried.
+     * @param {PSTR} szUserSid The security identifier (SID) of the account under which the instance of the product that is being queried exists. A <b>NULL</b> specifies the current user SID.
      * 
      * <table>
      * <tr>
@@ -4930,7 +4934,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szProperty Property being queried.
+     * @param {PSTR} szProperty Property being queried.
      * 
      * The property to be retrieved. The properties in the following table can only be retrieved from applications that are already installed. All required properties are guaranteed to be available, but other properties are available only if the property is set. For more information, see  
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/required-properties">Required Properties</a> and <a href="https://docs.microsoft.com/windows/desktop/Msi/properties">Properties</a>.
@@ -5194,7 +5198,7 @@ class ApplicationInstallationAndServicing {
      * <td>A value of one (1) indicates a product that can be serviced by non-administrators using <a href="https://docs.microsoft.com/windows/desktop/Msi/user-account-control--uac--patching">User Account Control (UAC) Patching</a>. A missing value or a value of 0 (zero) indicates that least-privilege patching is not enabled. Available in Windows Installer 3.0 or later.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szValue A pointer to a  buffer that receives the property value. This buffer should be large enough to contain the information. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PSTR} szValue A pointer to a  buffer that receives the property value. This buffer should be large enough to contain the information. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * If <i>lpValue</i> is set to <b>NULL</b> and <i>pcchValue</i> is set to a valid pointer,  the function returns <b>ERROR_SUCCESS</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>lpValue</i> buffer large enough to contain *<i>pcchValue</i> + 1 characters.
      * 
@@ -5304,10 +5308,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoExA(szProductCode, szUserSid, dwContext, szProperty, szValue, pcchValue) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("msi.dll\MsiGetProductInfoExA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", szValue, "uint*", pcchValue, "uint")
         return result
@@ -5315,8 +5319,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Returns product information for advertised and installed products.
-     * @param {Pointer<Char>} szProductCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance that is being queried.
-     * @param {Pointer<Char>} szUserSid The security identifier (SID) of the account under which the instance of the product that is being queried exists. A <b>NULL</b> specifies the current user SID.
+     * @param {PWSTR} szProductCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance that is being queried.
+     * @param {PWSTR} szUserSid The security identifier (SID) of the account under which the instance of the product that is being queried exists. A <b>NULL</b> specifies the current user SID.
      * 
      * <table>
      * <tr>
@@ -5386,7 +5390,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szProperty Property being queried.
+     * @param {PWSTR} szProperty Property being queried.
      * 
      * The property to be retrieved. The properties in the following table can only be retrieved from applications that are already installed. All required properties are guaranteed to be available, but other properties are available only if the property is set. For more information, see  
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/required-properties">Required Properties</a> and <a href="https://docs.microsoft.com/windows/desktop/Msi/properties">Properties</a>.
@@ -5650,7 +5654,7 @@ class ApplicationInstallationAndServicing {
      * <td>A value of one (1) indicates a product that can be serviced by non-administrators using <a href="https://docs.microsoft.com/windows/desktop/Msi/user-account-control--uac--patching">User Account Control (UAC) Patching</a>. A missing value or a value of 0 (zero) indicates that least-privilege patching is not enabled. Available in Windows Installer 3.0 or later.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szValue A pointer to a  buffer that receives the property value. This buffer should be large enough to contain the information. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PWSTR} szValue A pointer to a  buffer that receives the property value. This buffer should be large enough to contain the information. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * If <i>lpValue</i> is set to <b>NULL</b> and <i>pcchValue</i> is set to a valid pointer,  the function returns <b>ERROR_SUCCESS</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.  The function can then be called again to retrieve the value, with <i>lpValue</i> buffer large enough to contain *<i>pcchValue</i> + 1 characters.
      * 
@@ -5760,10 +5764,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoExW(szProductCode, szUserSid, dwContext, szProperty, szValue, pcchValue) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("msi.dll\MsiGetProductInfoExW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", szValue, "uint*", pcchValue, "uint")
         return result
@@ -5771,8 +5775,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Installs or uninstalls a product.
-     * @param {Pointer<Byte>} szPackagePath A null-terminated string that specifies the path to the location of the Windows Installer package. The string value can contain a URL (e.g. <c>http://packageLocation/package/package.msi</c>), a network path  (e.g. \\packageLocation\package.msi), a file path (e.g. file://packageLocation/package.msi), or a local path (e.g. D:\packageLocation\package.msi).
-     * @param {Pointer<Byte>} szCommandLine A null-terminated string that specifies the command line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
+     * @param {PSTR} szPackagePath A null-terminated string that specifies the path to the location of the Windows Installer package. The string value can contain a URL (e.g. <c>http://packageLocation/package/package.msi</c>), a network path  (e.g. \\packageLocation\package.msi), a file path (e.g. file://packageLocation/package.msi), or a local path (e.g. D:\packageLocation\package.msi).
+     * @param {PSTR} szCommandLine A null-terminated string that specifies the command line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a>.
      * 
      * To perform an administrative installation, include ACTION=ADMIN in <i>szCommandLine</i>. For more information, see the 
@@ -5825,8 +5829,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallProductA(szPackagePath, szCommandLine) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
-        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
+        szCommandLine := szCommandLine is String ? StrPtr(szCommandLine) : szCommandLine
 
         result := DllCall("msi.dll\MsiInstallProductA", "ptr", szPackagePath, "ptr", szCommandLine, "uint")
         return result
@@ -5834,8 +5838,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Installs or uninstalls a product.
-     * @param {Pointer<Char>} szPackagePath A null-terminated string that specifies the path to the location of the Windows Installer package. The string value can contain a URL (e.g. <c>http://packageLocation/package/package.msi</c>), a network path  (e.g. \\packageLocation\package.msi), a file path (e.g. file://packageLocation/package.msi), or a local path (e.g. D:\packageLocation\package.msi).
-     * @param {Pointer<Char>} szCommandLine A null-terminated string that specifies the command line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
+     * @param {PWSTR} szPackagePath A null-terminated string that specifies the path to the location of the Windows Installer package. The string value can contain a URL (e.g. <c>http://packageLocation/package/package.msi</c>), a network path  (e.g. \\packageLocation\package.msi), a file path (e.g. file://packageLocation/package.msi), or a local path (e.g. D:\packageLocation\package.msi).
+     * @param {PWSTR} szCommandLine A null-terminated string that specifies the command line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a>.
      * 
      * To perform an administrative installation, include ACTION=ADMIN in <i>szCommandLine</i>. For more information, see the 
@@ -5888,8 +5892,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallProductW(szPackagePath, szCommandLine) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
-        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
+        szCommandLine := szCommandLine is String ? StrPtr(szCommandLine) : szCommandLine
 
         result := DllCall("msi.dll\MsiInstallProductW", "ptr", szPackagePath, "ptr", szCommandLine, "uint")
         return result
@@ -5897,7 +5901,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiConfigureProduct function installs or uninstalls a product.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product to be configured.
+     * @param {PSTR} szProduct Specifies the product code for the product to be configured.
      * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameter is ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any other value than INSTALLSTATE_DEFAULT.
      * @param {Integer} eInstallState 
      * @returns {Integer} <table>
@@ -5955,7 +5959,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureProductA(szProduct, iInstallLevel, eInstallState) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
         result := DllCall("msi.dll\MsiConfigureProductA", "ptr", szProduct, "int", iInstallLevel, "int", eInstallState, "uint")
         return result
@@ -5963,7 +5967,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiConfigureProduct function installs or uninstalls a product.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product to be configured.
+     * @param {PWSTR} szProduct Specifies the product code for the product to be configured.
      * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameter is ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any other value than INSTALLSTATE_DEFAULT.
      * @param {Integer} eInstallState 
      * @returns {Integer} <table>
@@ -6021,7 +6025,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureProductW(szProduct, iInstallLevel, eInstallState) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
         result := DllCall("msi.dll\MsiConfigureProductW", "ptr", szProduct, "int", iInstallLevel, "int", eInstallState, "uint")
         return result
@@ -6029,10 +6033,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Installs or uninstalls a product.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product to be configured.
+     * @param {PSTR} szProduct Specifies the product code for the product to be configured.
      * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameters are ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any value other than <b>INSTALLSTATE_DEFAULT</b>.
      * @param {Integer} eInstallState 
-     * @param {Pointer<Byte>} szCommandLine Specifies the command-line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
+     * @param {PSTR} szCommandLine Specifies the command-line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a>.
      * @returns {Integer} <table>
      * <tr>
@@ -6089,8 +6093,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureProductExA(szProduct, iInstallLevel, eInstallState, szCommandLine) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szCommandLine := szCommandLine is String ? StrPtr(szCommandLine) : szCommandLine
 
         result := DllCall("msi.dll\MsiConfigureProductExA", "ptr", szProduct, "int", iInstallLevel, "int", eInstallState, "ptr", szCommandLine, "uint")
         return result
@@ -6098,10 +6102,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Installs or uninstalls a product.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product to be configured.
+     * @param {PWSTR} szProduct Specifies the product code for the product to be configured.
      * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameters are ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any value other than <b>INSTALLSTATE_DEFAULT</b>.
      * @param {Integer} eInstallState 
-     * @param {Pointer<Char>} szCommandLine Specifies the command-line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
+     * @param {PWSTR} szCommandLine Specifies the command-line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a>.
      * @returns {Integer} <table>
      * <tr>
@@ -6158,8 +6162,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureProductExW(szProduct, iInstallLevel, eInstallState, szCommandLine) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szCommandLine := szCommandLine is String ? StrPtr(szCommandLine) : szCommandLine
 
         result := DllCall("msi.dll\MsiConfigureProductExW", "ptr", szProduct, "int", iInstallLevel, "int", eInstallState, "ptr", szCommandLine, "uint")
         return result
@@ -6167,7 +6171,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Reinstalls products.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product to be reinstalled.
+     * @param {PSTR} szProduct Specifies the product code for the product to be reinstalled.
      * @param {Integer} szReinstallMode 
      * @returns {Integer} <table>
      * <tr>
@@ -6260,7 +6264,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiReinstallProductA(szProduct, szReinstallMode) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
         result := DllCall("msi.dll\MsiReinstallProductA", "ptr", szProduct, "uint", szReinstallMode, "uint")
         return result
@@ -6268,7 +6272,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Reinstalls products.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product to be reinstalled.
+     * @param {PWSTR} szProduct Specifies the product code for the product to be reinstalled.
      * @param {Integer} szReinstallMode 
      * @returns {Integer} <table>
      * <tr>
@@ -6361,7 +6365,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiReinstallProductW(szProduct, szReinstallMode) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
         result := DllCall("msi.dll\MsiReinstallProductW", "ptr", szProduct, "uint", szReinstallMode, "uint")
         return result
@@ -6369,8 +6373,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiAdvertiseProductEx function generates an advertise script or advertises a product to the computer.
-     * @param {Pointer<Byte>} szPackagePath The full path to the package of the product being advertised.
-     * @param {Pointer<Byte>} szScriptfilePath The full path to the script file to be created with the advertised information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
+     * @param {PSTR} szPackagePath The full path to the package of the product being advertised.
+     * @param {PSTR} szScriptfilePath The full path to the script file to be created with the advertised information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
      * 
      * 
      * 
@@ -6402,7 +6406,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szTransforms A semicolon–delimited list of transforms to be applied. The list of transforms can be prefixed with the @ or | character to specify the secure caching of transforms. The @ prefix specifies secure-at-source transforms and the | prefix indicates secure full path–transforms. For more information, see 
+     * @param {PSTR} szTransforms A semicolon–delimited list of transforms to be applied. The list of transforms can be prefixed with the @ or | character to specify the secure caching of transforms. The @ prefix specifies secure-at-source transforms and the | prefix indicates secure full path–transforms. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/secured-transforms">Secured Transforms</a>. This parameter may be null.
      * @param {Integer} lgidLanguage The language to use if the source supports multiple languages.
      * @param {Integer} dwPlatform Bit flags that control for which platform the installer should create the script. This parameter is ignored if <i>szScriptfilePath</i> is null. If <i>dwPlatform</i> is zero (0), then the script is created based on the current platform. This is the same functionality as 
@@ -6534,9 +6538,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseProductExA(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage, dwPlatform, dwOptions) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
-        szScriptfilePath := szScriptfilePath is String? StrPtr(szScriptfilePath) : szScriptfilePath
-        szTransforms := szTransforms is String? StrPtr(szTransforms) : szTransforms
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
+        szScriptfilePath := szScriptfilePath is String ? StrPtr(szScriptfilePath) : szScriptfilePath
+        szTransforms := szTransforms is String ? StrPtr(szTransforms) : szTransforms
 
         result := DllCall("msi.dll\MsiAdvertiseProductExA", "ptr", szPackagePath, "ptr", szScriptfilePath, "ptr", szTransforms, "ushort", lgidLanguage, "uint", dwPlatform, "uint", dwOptions, "uint")
         return result
@@ -6544,8 +6548,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiAdvertiseProductEx function generates an advertise script or advertises a product to the computer.
-     * @param {Pointer<Char>} szPackagePath The full path to the package of the product being advertised.
-     * @param {Pointer<Char>} szScriptfilePath The full path to the script file to be created with the advertised information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
+     * @param {PWSTR} szPackagePath The full path to the package of the product being advertised.
+     * @param {PWSTR} szScriptfilePath The full path to the script file to be created with the advertised information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
      * 
      * 
      * 
@@ -6577,7 +6581,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szTransforms A semicolon–delimited list of transforms to be applied. The list of transforms can be prefixed with the @ or | character to specify the secure caching of transforms. The @ prefix specifies secure-at-source transforms and the | prefix indicates secure full path–transforms. For more information, see 
+     * @param {PWSTR} szTransforms A semicolon–delimited list of transforms to be applied. The list of transforms can be prefixed with the @ or | character to specify the secure caching of transforms. The @ prefix specifies secure-at-source transforms and the | prefix indicates secure full path–transforms. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/secured-transforms">Secured Transforms</a>. This parameter may be null.
      * @param {Integer} lgidLanguage The language to use if the source supports multiple languages.
      * @param {Integer} dwPlatform Bit flags that control for which platform the installer should create the script. This parameter is ignored if <i>szScriptfilePath</i> is null. If <i>dwPlatform</i> is zero (0), then the script is created based on the current platform. This is the same functionality as 
@@ -6709,9 +6713,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseProductExW(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage, dwPlatform, dwOptions) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
-        szScriptfilePath := szScriptfilePath is String? StrPtr(szScriptfilePath) : szScriptfilePath
-        szTransforms := szTransforms is String? StrPtr(szTransforms) : szTransforms
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
+        szScriptfilePath := szScriptfilePath is String ? StrPtr(szScriptfilePath) : szScriptfilePath
+        szTransforms := szTransforms is String ? StrPtr(szTransforms) : szTransforms
 
         result := DllCall("msi.dll\MsiAdvertiseProductExW", "ptr", szPackagePath, "ptr", szScriptfilePath, "ptr", szTransforms, "ushort", lgidLanguage, "uint", dwPlatform, "uint", dwOptions, "uint")
         return result
@@ -6719,8 +6723,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiAdvertiseProduct function generates an advertise script or advertises a product to the computer.
-     * @param {Pointer<Byte>} szPackagePath The full path to the package of the product being advertised.
-     * @param {Pointer<Byte>} szScriptfilePath The full path to script file that will be created with the advertise information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
+     * @param {PSTR} szPackagePath The full path to the package of the product being advertised.
+     * @param {PSTR} szScriptfilePath The full path to script file that will be created with the advertise information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
      * 
      * 
      * 
@@ -6752,7 +6756,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szTransforms A semicolon-delimited list of transforms to be applied. The list of transforms can be prefixed with the @ or | character to specify the secure caching of transforms. The @ prefix specifies secure-at-source transforms and the | prefix indicates secure full path transforms. For more information, see 
+     * @param {PSTR} szTransforms A semicolon-delimited list of transforms to be applied. The list of transforms can be prefixed with the @ or | character to specify the secure caching of transforms. The @ prefix specifies secure-at-source transforms and the | prefix indicates secure full path transforms. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/secured-transforms">Secured Transforms</a>. This parameter may be null.
      * @param {Integer} lgidLanguage The installation language to use if the source supports multiple languages.
      * @returns {Integer} <table>
@@ -6810,9 +6814,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseProductA(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
-        szScriptfilePath := szScriptfilePath is String? StrPtr(szScriptfilePath) : szScriptfilePath
-        szTransforms := szTransforms is String? StrPtr(szTransforms) : szTransforms
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
+        szScriptfilePath := szScriptfilePath is String ? StrPtr(szScriptfilePath) : szScriptfilePath
+        szTransforms := szTransforms is String ? StrPtr(szTransforms) : szTransforms
 
         result := DllCall("msi.dll\MsiAdvertiseProductA", "ptr", szPackagePath, "ptr", szScriptfilePath, "ptr", szTransforms, "ushort", lgidLanguage, "uint")
         return result
@@ -6820,8 +6824,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiAdvertiseProduct function generates an advertise script or advertises a product to the computer.
-     * @param {Pointer<Char>} szPackagePath The full path to the package of the product being advertised.
-     * @param {Pointer<Char>} szScriptfilePath The full path to script file that will be created with the advertise information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
+     * @param {PWSTR} szPackagePath The full path to the package of the product being advertised.
+     * @param {PWSTR} szScriptfilePath The full path to script file that will be created with the advertise information. To advertise the product locally to the computer, set ADVERTISEFLAGS_MACHINEASSIGN or ADVERTISEFLAGS_USERASSIGN. 
      * 
      * 
      * 
@@ -6853,7 +6857,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szTransforms A semicolon-delimited list of transforms to be applied. The list of transforms can be prefixed with the @ or | character to specify the secure caching of transforms. The @ prefix specifies secure-at-source transforms and the | prefix indicates secure full path transforms. For more information, see 
+     * @param {PWSTR} szTransforms A semicolon-delimited list of transforms to be applied. The list of transforms can be prefixed with the @ or | character to specify the secure caching of transforms. The @ prefix specifies secure-at-source transforms and the | prefix indicates secure full path transforms. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/secured-transforms">Secured Transforms</a>. This parameter may be null.
      * @param {Integer} lgidLanguage The installation language to use if the source supports multiple languages.
      * @returns {Integer} <table>
@@ -6911,9 +6915,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseProductW(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
-        szScriptfilePath := szScriptfilePath is String? StrPtr(szScriptfilePath) : szScriptfilePath
-        szTransforms := szTransforms is String? StrPtr(szTransforms) : szTransforms
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
+        szScriptfilePath := szScriptfilePath is String ? StrPtr(szScriptfilePath) : szScriptfilePath
+        szTransforms := szTransforms is String ? StrPtr(szTransforms) : szTransforms
 
         result := DllCall("msi.dll\MsiAdvertiseProductW", "ptr", szPackagePath, "ptr", szScriptfilePath, "ptr", szTransforms, "ushort", lgidLanguage, "uint")
         return result
@@ -6921,14 +6925,14 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiProcessAdvertiseScript function processes an advertise script file into the specified locations.
-     * @param {Pointer<Byte>} szScriptFile The full path to a script file generated by 
+     * @param {PSTR} szScriptFile The full path to a script file generated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
-     * @param {Pointer<Byte>} szIconFolder An optional path to a folder in which advertised icon files and transform files are located. If this parameter is <b>NULL</b>, no icon or transform files are written.
-     * @param {Pointer<Void>} hRegData A registry key under which registry data is to be written. If this parameter is <b>NULL</b>, the installer writes the registry data under the appropriate key, based on whether the advertisement is per-user or per-machine. If this parameter is non-<b>NULL</b>, the script will write the registry data under the specified registry key rather than the normal location. In this case, the application will not get advertised to the user.
-     * @param {Integer} fShortcuts <b>TRUE</b> if shortcuts should be created. If a special folder is returned by 
+     * @param {PSTR} szIconFolder An optional path to a folder in which advertised icon files and transform files are located. If this parameter is <b>NULL</b>, no icon or transform files are written.
+     * @param {HKEY} hRegData A registry key under which registry data is to be written. If this parameter is <b>NULL</b>, the installer writes the registry data under the appropriate key, based on whether the advertisement is per-user or per-machine. If this parameter is non-<b>NULL</b>, the script will write the registry data under the specified registry key rather than the normal location. In this case, the application will not get advertised to the user.
+     * @param {BOOL} fShortcuts <b>TRUE</b> if shortcuts should be created. If a special folder is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetspecialfolderlocation">SHGetSpecialFolderLocation</a> it will hold the shortcuts.
-     * @param {Integer} fRemoveItems <b>TRUE</b> if specified items are to be removed instead of created.
+     * @param {BOOL} fRemoveItems <b>TRUE</b> if specified items are to be removed instead of created.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -6999,23 +7003,24 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProcessAdvertiseScriptA(szScriptFile, szIconFolder, hRegData, fShortcuts, fRemoveItems) {
-        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
-        szIconFolder := szIconFolder is String? StrPtr(szIconFolder) : szIconFolder
+        szScriptFile := szScriptFile is String ? StrPtr(szScriptFile) : szScriptFile
+        szIconFolder := szIconFolder is String ? StrPtr(szIconFolder) : szIconFolder
+        hRegData := hRegData is Win32Handle ? NumGet(hRegData, "ptr") : hRegData
 
-        result := DllCall("msi.dll\MsiProcessAdvertiseScriptA", "ptr", szScriptFile, "ptr", szIconFolder, "ptr", hRegData, "int", fShortcuts, "int", fRemoveItems, "uint")
+        result := DllCall("msi.dll\MsiProcessAdvertiseScriptA", "ptr", szScriptFile, "ptr", szIconFolder, "ptr", hRegData, "ptr", fShortcuts, "ptr", fRemoveItems, "uint")
         return result
     }
 
     /**
      * The MsiProcessAdvertiseScript function processes an advertise script file into the specified locations.
-     * @param {Pointer<Char>} szScriptFile The full path to a script file generated by 
+     * @param {PWSTR} szScriptFile The full path to a script file generated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
-     * @param {Pointer<Char>} szIconFolder An optional path to a folder in which advertised icon files and transform files are located. If this parameter is <b>NULL</b>, no icon or transform files are written.
-     * @param {Pointer<Void>} hRegData A registry key under which registry data is to be written. If this parameter is <b>NULL</b>, the installer writes the registry data under the appropriate key, based on whether the advertisement is per-user or per-machine. If this parameter is non-<b>NULL</b>, the script will write the registry data under the specified registry key rather than the normal location. In this case, the application will not get advertised to the user.
-     * @param {Integer} fShortcuts <b>TRUE</b> if shortcuts should be created. If a special folder is returned by 
+     * @param {PWSTR} szIconFolder An optional path to a folder in which advertised icon files and transform files are located. If this parameter is <b>NULL</b>, no icon or transform files are written.
+     * @param {HKEY} hRegData A registry key under which registry data is to be written. If this parameter is <b>NULL</b>, the installer writes the registry data under the appropriate key, based on whether the advertisement is per-user or per-machine. If this parameter is non-<b>NULL</b>, the script will write the registry data under the specified registry key rather than the normal location. In this case, the application will not get advertised to the user.
+     * @param {BOOL} fShortcuts <b>TRUE</b> if shortcuts should be created. If a special folder is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetspecialfolderlocation">SHGetSpecialFolderLocation</a> it will hold the shortcuts.
-     * @param {Integer} fRemoveItems <b>TRUE</b> if specified items are to be removed instead of created.
+     * @param {BOOL} fRemoveItems <b>TRUE</b> if specified items are to be removed instead of created.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7086,26 +7091,27 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProcessAdvertiseScriptW(szScriptFile, szIconFolder, hRegData, fShortcuts, fRemoveItems) {
-        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
-        szIconFolder := szIconFolder is String? StrPtr(szIconFolder) : szIconFolder
+        szScriptFile := szScriptFile is String ? StrPtr(szScriptFile) : szScriptFile
+        szIconFolder := szIconFolder is String ? StrPtr(szIconFolder) : szIconFolder
+        hRegData := hRegData is Win32Handle ? NumGet(hRegData, "ptr") : hRegData
 
-        result := DllCall("msi.dll\MsiProcessAdvertiseScriptW", "ptr", szScriptFile, "ptr", szIconFolder, "ptr", hRegData, "int", fShortcuts, "int", fRemoveItems, "uint")
+        result := DllCall("msi.dll\MsiProcessAdvertiseScriptW", "ptr", szScriptFile, "ptr", szIconFolder, "ptr", hRegData, "ptr", fShortcuts, "ptr", fRemoveItems, "uint")
         return result
     }
 
     /**
      * The MsiAdvertiseScript function copies an advertised script file into the specified locations.
-     * @param {Pointer<Byte>} szScriptFile The full path to a script file generated by 
+     * @param {PSTR} szScriptFile The full path to a script file generated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} phRegData A registry key under which temporary information about registry data is to be written. If this parameter is null, the registry data is placed under the appropriate key, based on whether the advertisement is per-user or per-machine. If this parameter is non-null, the script will write the registry data under the specified registry key rather than the normal location. In this case, the application will not get advertised to the user. 
+     * @param {Pointer<HKEY>} phRegData A registry key under which temporary information about registry data is to be written. If this parameter is null, the registry data is placed under the appropriate key, based on whether the advertisement is per-user or per-machine. If this parameter is non-null, the script will write the registry data under the specified registry key rather than the normal location. In this case, the application will not get advertised to the user. 
      * 
      * 
      * 
      * 
      * Note that this registry key cannot be used when generating an advertisement of a product for a user or a computer because the provider of the registry key generally deletes the key. The registry key is located outside of the normal registry locations for shell, class, and .msi configuration information and it is not under <b>HKEY_CLASSES_ROOT</b>. This registry key is only intended for getting temporary information about registry data in a script.
-     * @param {Integer} fRemoveItems TRUE if specified items are to be removed instead of being created.
+     * @param {BOOL} fRemoveItems TRUE if specified items are to be removed instead of being created.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7176,25 +7182,25 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseScriptA(szScriptFile, dwFlags, phRegData, fRemoveItems) {
-        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
+        szScriptFile := szScriptFile is String ? StrPtr(szScriptFile) : szScriptFile
 
-        result := DllCall("msi.dll\MsiAdvertiseScriptA", "ptr", szScriptFile, "uint", dwFlags, "ptr", phRegData, "int", fRemoveItems, "uint")
+        result := DllCall("msi.dll\MsiAdvertiseScriptA", "ptr", szScriptFile, "uint", dwFlags, "ptr", phRegData, "ptr", fRemoveItems, "uint")
         return result
     }
 
     /**
      * The MsiAdvertiseScript function copies an advertised script file into the specified locations.
-     * @param {Pointer<Char>} szScriptFile The full path to a script file generated by 
+     * @param {PWSTR} szScriptFile The full path to a script file generated by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} phRegData A registry key under which temporary information about registry data is to be written. If this parameter is null, the registry data is placed under the appropriate key, based on whether the advertisement is per-user or per-machine. If this parameter is non-null, the script will write the registry data under the specified registry key rather than the normal location. In this case, the application will not get advertised to the user. 
+     * @param {Pointer<HKEY>} phRegData A registry key under which temporary information about registry data is to be written. If this parameter is null, the registry data is placed under the appropriate key, based on whether the advertisement is per-user or per-machine. If this parameter is non-null, the script will write the registry data under the specified registry key rather than the normal location. In this case, the application will not get advertised to the user. 
      * 
      * 
      * 
      * 
      * Note that this registry key cannot be used when generating an advertisement of a product for a user or a computer because the provider of the registry key generally deletes the key. The registry key is located outside of the normal registry locations for shell, class, and .msi configuration information and it is not under <b>HKEY_CLASSES_ROOT</b>. This registry key is only intended for getting temporary information about registry data in a script.
-     * @param {Integer} fRemoveItems TRUE if specified items are to be removed instead of being created.
+     * @param {BOOL} fRemoveItems TRUE if specified items are to be removed instead of being created.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7265,22 +7271,22 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiAdvertiseScriptW(szScriptFile, dwFlags, phRegData, fRemoveItems) {
-        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
+        szScriptFile := szScriptFile is String ? StrPtr(szScriptFile) : szScriptFile
 
-        result := DllCall("msi.dll\MsiAdvertiseScriptW", "ptr", szScriptFile, "uint", dwFlags, "ptr", phRegData, "int", fRemoveItems, "uint")
+        result := DllCall("msi.dll\MsiAdvertiseScriptW", "ptr", szScriptFile, "uint", dwFlags, "ptr", phRegData, "ptr", fRemoveItems, "uint")
         return result
     }
 
     /**
      * The MsiGetProductInfoFromScript function returns product information for a Windows Installer script file.
-     * @param {Pointer<Byte>} szScriptFile A null-terminated string specifying the full path to the script file. The script file is the advertise script that was created by calling <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
-     * @param {Pointer<Byte>} lpProductBuf39 Points to a buffer that receives the product code. The buffer must be 39 characters long. The first 38 characters are for the product code 
+     * @param {PSTR} szScriptFile A null-terminated string specifying the full path to the script file. The script file is the advertise script that was created by calling <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
+     * @param {PSTR} lpProductBuf39 Points to a buffer that receives the product code. The buffer must be 39 characters long. The first 38 characters are for the product code 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character.
      * @param {Pointer<UInt16>} plgidLanguage Points to a variable that receives the product language.
      * @param {Pointer<UInt32>} pdwVersion Points to a buffer that receives the product version.
-     * @param {Pointer<Byte>} lpNameBuf Points to a buffer that receives the product name. The buffer includes a terminating null character.
+     * @param {PSTR} lpNameBuf Points to a buffer that receives the product name. The buffer includes a terminating null character.
      * @param {Pointer<UInt32>} pcchNameBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
-     * @param {Pointer<Byte>} lpPackageBuf Points to a buffer that receives the package name. The buffer includes the terminating null character.
+     * @param {PSTR} lpPackageBuf Points to a buffer that receives the package name. The buffer includes the terminating null character.
      * @param {Pointer<UInt32>} pcchPackageBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPackageNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
      * @returns {Integer} <table>
      * <tr>
@@ -7347,10 +7353,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoFromScriptA(szScriptFile, lpProductBuf39, plgidLanguage, pdwVersion, lpNameBuf, pcchNameBuf, lpPackageBuf, pcchPackageBuf) {
-        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
-        lpProductBuf39 := lpProductBuf39 is String? StrPtr(lpProductBuf39) : lpProductBuf39
-        lpNameBuf := lpNameBuf is String? StrPtr(lpNameBuf) : lpNameBuf
-        lpPackageBuf := lpPackageBuf is String? StrPtr(lpPackageBuf) : lpPackageBuf
+        szScriptFile := szScriptFile is String ? StrPtr(szScriptFile) : szScriptFile
+        lpProductBuf39 := lpProductBuf39 is String ? StrPtr(lpProductBuf39) : lpProductBuf39
+        lpNameBuf := lpNameBuf is String ? StrPtr(lpNameBuf) : lpNameBuf
+        lpPackageBuf := lpPackageBuf is String ? StrPtr(lpPackageBuf) : lpPackageBuf
 
         result := DllCall("msi.dll\MsiGetProductInfoFromScriptA", "ptr", szScriptFile, "ptr", lpProductBuf39, "ushort*", plgidLanguage, "uint*", pdwVersion, "ptr", lpNameBuf, "uint*", pcchNameBuf, "ptr", lpPackageBuf, "uint*", pcchPackageBuf, "uint")
         return result
@@ -7358,14 +7364,14 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetProductInfoFromScript function returns product information for a Windows Installer script file.
-     * @param {Pointer<Char>} szScriptFile A null-terminated string specifying the full path to the script file. The script file is the advertise script that was created by calling <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
-     * @param {Pointer<Char>} lpProductBuf39 Points to a buffer that receives the product code. The buffer must be 39 characters long. The first 38 characters are for the product code 
+     * @param {PWSTR} szScriptFile A null-terminated string specifying the full path to the script file. The script file is the advertise script that was created by calling <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproducta">MsiAdvertiseProduct</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiadvertiseproductexa">MsiAdvertiseProductEx</a>.
+     * @param {PWSTR} lpProductBuf39 Points to a buffer that receives the product code. The buffer must be 39 characters long. The first 38 characters are for the product code 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character.
      * @param {Pointer<UInt16>} plgidLanguage Points to a variable that receives the product language.
      * @param {Pointer<UInt32>} pdwVersion Points to a buffer that receives the product version.
-     * @param {Pointer<Char>} lpNameBuf Points to a buffer that receives the product name. The buffer includes a terminating null character.
+     * @param {PWSTR} lpNameBuf Points to a buffer that receives the product name. The buffer includes a terminating null character.
      * @param {Pointer<UInt32>} pcchNameBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
-     * @param {Pointer<Char>} lpPackageBuf Points to a buffer that receives the package name. The buffer includes the terminating null character.
+     * @param {PWSTR} lpPackageBuf Points to a buffer that receives the package name. The buffer includes the terminating null character.
      * @param {Pointer<UInt32>} pcchPackageBuf Points to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPackageNameBuf</i> parameter. This size should include the terminating null character. When the function returns, this variable contains the length of the string stored in the buffer. The count returned does not include the terminating null character. If the buffer is not large enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string in characters, without counting the null character.
      * @returns {Integer} <table>
      * <tr>
@@ -7432,10 +7438,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductInfoFromScriptW(szScriptFile, lpProductBuf39, plgidLanguage, pdwVersion, lpNameBuf, pcchNameBuf, lpPackageBuf, pcchPackageBuf) {
-        szScriptFile := szScriptFile is String? StrPtr(szScriptFile) : szScriptFile
-        lpProductBuf39 := lpProductBuf39 is String? StrPtr(lpProductBuf39) : lpProductBuf39
-        lpNameBuf := lpNameBuf is String? StrPtr(lpNameBuf) : lpNameBuf
-        lpPackageBuf := lpPackageBuf is String? StrPtr(lpPackageBuf) : lpPackageBuf
+        szScriptFile := szScriptFile is String ? StrPtr(szScriptFile) : szScriptFile
+        lpProductBuf39 := lpProductBuf39 is String ? StrPtr(lpProductBuf39) : lpProductBuf39
+        lpNameBuf := lpNameBuf is String ? StrPtr(lpNameBuf) : lpNameBuf
+        lpPackageBuf := lpPackageBuf is String ? StrPtr(lpPackageBuf) : lpPackageBuf
 
         result := DllCall("msi.dll\MsiGetProductInfoFromScriptW", "ptr", szScriptFile, "ptr", lpProductBuf39, "ushort*", plgidLanguage, "uint*", pdwVersion, "ptr", lpNameBuf, "uint*", pcchNameBuf, "ptr", lpPackageBuf, "uint*", pcchPackageBuf, "uint")
         return result
@@ -7443,8 +7449,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetProductCode function returns the product code of an application by using the component code of an installed or advertised component of the application.
-     * @param {Pointer<Byte>} szComponent This parameter specifies the component code of a component that has been installed by the application. This will be typically the component code of the component containing the executable file of the application.
-     * @param {Pointer<Byte>} lpBuf39 Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
+     * @param {PSTR} szComponent This parameter specifies the component code of a component that has been installed by the application. This will be typically the component code of the component containing the executable file of the application.
+     * @param {PSTR} lpBuf39 Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7514,8 +7520,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductCodeA(szComponent, lpBuf39) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpBuf39 := lpBuf39 is String? StrPtr(lpBuf39) : lpBuf39
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpBuf39 := lpBuf39 is String ? StrPtr(lpBuf39) : lpBuf39
 
         result := DllCall("msi.dll\MsiGetProductCodeA", "ptr", szComponent, "ptr", lpBuf39, "uint")
         return result
@@ -7523,8 +7529,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetProductCode function returns the product code of an application by using the component code of an installed or advertised component of the application.
-     * @param {Pointer<Char>} szComponent This parameter specifies the component code of a component that has been installed by the application. This will be typically the component code of the component containing the executable file of the application.
-     * @param {Pointer<Char>} lpBuf39 Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
+     * @param {PWSTR} szComponent This parameter specifies the component code of a component that has been installed by the application. This will be typically the component code of the component containing the executable file of the application.
+     * @param {PWSTR} lpBuf39 Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7594,8 +7600,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductCodeW(szComponent, lpBuf39) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpBuf39 := lpBuf39 is String? StrPtr(lpBuf39) : lpBuf39
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpBuf39 := lpBuf39 is String ? StrPtr(lpBuf39) : lpBuf39
 
         result := DllCall("msi.dll\MsiGetProductCodeW", "ptr", szComponent, "ptr", lpBuf39, "uint")
         return result
@@ -7603,12 +7609,12 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetUserInfo function returns the registered user information for an installed product.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product to be queried.
-     * @param {Pointer<Byte>} lpUserNameBuf Pointer to a variable that receives the name of the user.
+     * @param {PSTR} szProduct Specifies the product code for the product to be queried.
+     * @param {PSTR} lpUserNameBuf Pointer to a variable that receives the name of the user.
      * @param {Pointer<UInt32>} pcchUserNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpUserNameBuf</i> parameter. This size should include the terminating null character.
-     * @param {Pointer<Byte>} lpOrgNameBuf Pointer to a buffer that receives the organization name.
+     * @param {PSTR} lpOrgNameBuf Pointer to a buffer that receives the organization name.
      * @param {Pointer<UInt32>} pcchOrgNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpOrgNameBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
-     * @param {Pointer<Byte>} lpSerialBuf Pointer to a buffer that receives the product ID.
+     * @param {PSTR} lpSerialBuf Pointer to a buffer that receives the product ID.
      * @param {Pointer<UInt32>} pcchSerialBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpSerialBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
      * <tr>
@@ -7679,10 +7685,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetUserInfoA(szProduct, lpUserNameBuf, pcchUserNameBuf, lpOrgNameBuf, pcchOrgNameBuf, lpSerialBuf, pcchSerialBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        lpUserNameBuf := lpUserNameBuf is String? StrPtr(lpUserNameBuf) : lpUserNameBuf
-        lpOrgNameBuf := lpOrgNameBuf is String? StrPtr(lpOrgNameBuf) : lpOrgNameBuf
-        lpSerialBuf := lpSerialBuf is String? StrPtr(lpSerialBuf) : lpSerialBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        lpUserNameBuf := lpUserNameBuf is String ? StrPtr(lpUserNameBuf) : lpUserNameBuf
+        lpOrgNameBuf := lpOrgNameBuf is String ? StrPtr(lpOrgNameBuf) : lpOrgNameBuf
+        lpSerialBuf := lpSerialBuf is String ? StrPtr(lpSerialBuf) : lpSerialBuf
 
         result := DllCall("msi.dll\MsiGetUserInfoA", "ptr", szProduct, "ptr", lpUserNameBuf, "uint*", pcchUserNameBuf, "ptr", lpOrgNameBuf, "uint*", pcchOrgNameBuf, "ptr", lpSerialBuf, "uint*", pcchSerialBuf, "int")
         return result
@@ -7690,12 +7696,12 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetUserInfo function returns the registered user information for an installed product.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product to be queried.
-     * @param {Pointer<Char>} lpUserNameBuf Pointer to a variable that receives the name of the user.
+     * @param {PWSTR} szProduct Specifies the product code for the product to be queried.
+     * @param {PWSTR} lpUserNameBuf Pointer to a variable that receives the name of the user.
      * @param {Pointer<UInt32>} pcchUserNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpUserNameBuf</i> parameter. This size should include the terminating null character.
-     * @param {Pointer<Char>} lpOrgNameBuf Pointer to a buffer that receives the organization name.
+     * @param {PWSTR} lpOrgNameBuf Pointer to a buffer that receives the organization name.
      * @param {Pointer<UInt32>} pcchOrgNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpOrgNameBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
-     * @param {Pointer<Char>} lpSerialBuf Pointer to a buffer that receives the product ID.
+     * @param {PWSTR} lpSerialBuf Pointer to a buffer that receives the product ID.
      * @param {Pointer<UInt32>} pcchSerialBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpSerialBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
      * <tr>
@@ -7766,10 +7772,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetUserInfoW(szProduct, lpUserNameBuf, pcchUserNameBuf, lpOrgNameBuf, pcchOrgNameBuf, lpSerialBuf, pcchSerialBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        lpUserNameBuf := lpUserNameBuf is String? StrPtr(lpUserNameBuf) : lpUserNameBuf
-        lpOrgNameBuf := lpOrgNameBuf is String? StrPtr(lpOrgNameBuf) : lpOrgNameBuf
-        lpSerialBuf := lpSerialBuf is String? StrPtr(lpSerialBuf) : lpSerialBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        lpUserNameBuf := lpUserNameBuf is String ? StrPtr(lpUserNameBuf) : lpUserNameBuf
+        lpOrgNameBuf := lpOrgNameBuf is String ? StrPtr(lpOrgNameBuf) : lpOrgNameBuf
+        lpSerialBuf := lpSerialBuf is String ? StrPtr(lpSerialBuf) : lpSerialBuf
 
         result := DllCall("msi.dll\MsiGetUserInfoW", "ptr", szProduct, "ptr", lpUserNameBuf, "uint*", pcchUserNameBuf, "ptr", lpOrgNameBuf, "uint*", pcchOrgNameBuf, "ptr", lpSerialBuf, "uint*", pcchSerialBuf, "int")
         return result
@@ -7777,7 +7783,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiCollectUserInfo function obtains and stores the user information and product ID from an installation wizard.
-     * @param {Pointer<Byte>} szProduct Specifies the product code of the product for which the user information is collected.
+     * @param {PSTR} szProduct Specifies the product code of the product for which the user information is collected.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7837,7 +7843,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCollectUserInfoA(szProduct) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
         result := DllCall("msi.dll\MsiCollectUserInfoA", "ptr", szProduct, "uint")
         return result
@@ -7845,7 +7851,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiCollectUserInfo function obtains and stores the user information and product ID from an installation wizard.
-     * @param {Pointer<Char>} szProduct Specifies the product code of the product for which the user information is collected.
+     * @param {PWSTR} szProduct Specifies the product code of the product for which the user information is collected.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7905,7 +7911,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCollectUserInfoW(szProduct) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
         result := DllCall("msi.dll\MsiCollectUserInfoW", "ptr", szProduct, "uint")
         return result
@@ -7913,8 +7919,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * For each product listed by the patch package as eligible to receive the patch, the MsiApplyPatch function invokes an installation and sets the PATCH property to the path of the patch package.
-     * @param {Pointer<Byte>} szPatchPackage A null-terminated string specifying the full path to the patch package.
-     * @param {Pointer<Byte>} szInstallPackage If <i>eInstallType</i> is set to INSTALLTYPE_NETWORK_IMAGE, this parameter is a null-terminated string that specifies a path to the product that is to be patched. The installer applies the patch to every eligible product listed in the patch package if <i>szInstallPackage</i> is set to null and <i>eInstallType</i> is set to INSTALLTYPE_DEFAULT.
+     * @param {PSTR} szPatchPackage A null-terminated string specifying the full path to the patch package.
+     * @param {PSTR} szInstallPackage If <i>eInstallType</i> is set to INSTALLTYPE_NETWORK_IMAGE, this parameter is a null-terminated string that specifies a path to the product that is to be patched. The installer applies the patch to every eligible product listed in the patch package if <i>szInstallPackage</i> is set to null and <i>eInstallType</i> is set to INSTALLTYPE_DEFAULT.
      * 
      * If <i>eInstallType</i> is INSTALLTYPE_SINGLE_INSTANCE, the installer applies the patch to the product specified by <i>szInstallPackage</i>. In this case, other eligible products listed in the patch package are ignored and the <i>szInstallPackage</i> parameter contains the null-terminated string representing the product code of the instance to patch. This type of installation requires the installer running Windows Server 2003 or Windows XP.
      * @param {Integer} eInstallType This parameter specifies the type of installation to patch.
@@ -7955,7 +7961,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szCommandLine A null-terminated string that specifies command line property settings. See About 
+     * @param {PSTR} szCommandLine A null-terminated string that specifies command line property settings. See About 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">Properties</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/setting-public-property-values-on-the-command-line">Setting Public Property Values on the Command Line</a>. See the Remarks section.
      * @returns {Integer} <table>
@@ -8035,9 +8041,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiApplyPatchA(szPatchPackage, szInstallPackage, eInstallType, szCommandLine) {
-        szPatchPackage := szPatchPackage is String? StrPtr(szPatchPackage) : szPatchPackage
-        szInstallPackage := szInstallPackage is String? StrPtr(szInstallPackage) : szInstallPackage
-        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+        szPatchPackage := szPatchPackage is String ? StrPtr(szPatchPackage) : szPatchPackage
+        szInstallPackage := szInstallPackage is String ? StrPtr(szInstallPackage) : szInstallPackage
+        szCommandLine := szCommandLine is String ? StrPtr(szCommandLine) : szCommandLine
 
         result := DllCall("msi.dll\MsiApplyPatchA", "ptr", szPatchPackage, "ptr", szInstallPackage, "int", eInstallType, "ptr", szCommandLine, "uint")
         return result
@@ -8045,8 +8051,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * For each product listed by the patch package as eligible to receive the patch, the MsiApplyPatch function invokes an installation and sets the PATCH property to the path of the patch package.
-     * @param {Pointer<Char>} szPatchPackage A null-terminated string specifying the full path to the patch package.
-     * @param {Pointer<Char>} szInstallPackage If <i>eInstallType</i> is set to INSTALLTYPE_NETWORK_IMAGE, this parameter is a null-terminated string that specifies a path to the product that is to be patched. The installer applies the patch to every eligible product listed in the patch package if <i>szInstallPackage</i> is set to null and <i>eInstallType</i> is set to INSTALLTYPE_DEFAULT.
+     * @param {PWSTR} szPatchPackage A null-terminated string specifying the full path to the patch package.
+     * @param {PWSTR} szInstallPackage If <i>eInstallType</i> is set to INSTALLTYPE_NETWORK_IMAGE, this parameter is a null-terminated string that specifies a path to the product that is to be patched. The installer applies the patch to every eligible product listed in the patch package if <i>szInstallPackage</i> is set to null and <i>eInstallType</i> is set to INSTALLTYPE_DEFAULT.
      * 
      * If <i>eInstallType</i> is INSTALLTYPE_SINGLE_INSTANCE, the installer applies the patch to the product specified by <i>szInstallPackage</i>. In this case, other eligible products listed in the patch package are ignored and the <i>szInstallPackage</i> parameter contains the null-terminated string representing the product code of the instance to patch. This type of installation requires the installer running Windows Server 2003 or Windows XP.
      * @param {Integer} eInstallType This parameter specifies the type of installation to patch.
@@ -8087,7 +8093,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szCommandLine A null-terminated string that specifies command line property settings. See About 
+     * @param {PWSTR} szCommandLine A null-terminated string that specifies command line property settings. See About 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">Properties</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/setting-public-property-values-on-the-command-line">Setting Public Property Values on the Command Line</a>. See the Remarks section.
      * @returns {Integer} <table>
@@ -8167,9 +8173,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiApplyPatchW(szPatchPackage, szInstallPackage, eInstallType, szCommandLine) {
-        szPatchPackage := szPatchPackage is String? StrPtr(szPatchPackage) : szPatchPackage
-        szInstallPackage := szInstallPackage is String? StrPtr(szInstallPackage) : szInstallPackage
-        szCommandLine := szCommandLine is String? StrPtr(szCommandLine) : szCommandLine
+        szPatchPackage := szPatchPackage is String ? StrPtr(szPatchPackage) : szPatchPackage
+        szInstallPackage := szInstallPackage is String ? StrPtr(szInstallPackage) : szInstallPackage
+        szCommandLine := szCommandLine is String ? StrPtr(szCommandLine) : szCommandLine
 
         result := DllCall("msi.dll\MsiApplyPatchW", "ptr", szPatchPackage, "ptr", szInstallPackage, "int", eInstallType, "ptr", szCommandLine, "uint")
         return result
@@ -8177,8 +8183,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetPatchInfo function returns information about a patch.
-     * @param {Pointer<Byte>} szPatch Specifies the patch code for the patch package.
-     * @param {Pointer<Byte>} szAttribute Specifies the attribute to be retrieved. 
+     * @param {PSTR} szPatch Specifies the patch code for the patch package.
+     * @param {PSTR} szAttribute Specifies the attribute to be retrieved. 
      * 
      * 
      * 
@@ -8198,7 +8204,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
+     * @param {PSTR} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -8287,9 +8293,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchInfoA(szPatch, szAttribute, lpValueBuf, pcchValueBuf) {
-        szPatch := szPatch is String? StrPtr(szPatch) : szPatch
-        szAttribute := szAttribute is String? StrPtr(szAttribute) : szAttribute
-        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+        szPatch := szPatch is String ? StrPtr(szPatch) : szPatch
+        szAttribute := szAttribute is String ? StrPtr(szAttribute) : szAttribute
+        lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
 
         result := DllCall("msi.dll\MsiGetPatchInfoA", "ptr", szPatch, "ptr", szAttribute, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -8297,8 +8303,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetPatchInfo function returns information about a patch.
-     * @param {Pointer<Char>} szPatch Specifies the patch code for the patch package.
-     * @param {Pointer<Char>} szAttribute Specifies the attribute to be retrieved. 
+     * @param {PWSTR} szPatch Specifies the patch code for the patch package.
+     * @param {PWSTR} szAttribute Specifies the attribute to be retrieved. 
      * 
      * 
      * 
@@ -8318,7 +8324,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
+     * @param {PWSTR} lpValueBuf Pointer to a buffer that receives the property value. This parameter can be null.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -8407,9 +8413,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchInfoW(szPatch, szAttribute, lpValueBuf, pcchValueBuf) {
-        szPatch := szPatch is String? StrPtr(szPatch) : szPatch
-        szAttribute := szAttribute is String? StrPtr(szAttribute) : szAttribute
-        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+        szPatch := szPatch is String ? StrPtr(szPatch) : szPatch
+        szAttribute := szAttribute is String ? StrPtr(szAttribute) : szAttribute
+        lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
 
         result := DllCall("msi.dll\MsiGetPatchInfoW", "ptr", szPatch, "ptr", szAttribute, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -8417,11 +8423,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumPatches function enumerates all of the patches that have been applied to a product.
-     * @param {Pointer<Byte>} szProduct Specifies the product code of the product for which patches are to be enumerated.
+     * @param {PSTR} szProduct Specifies the product code of the product for which patches are to be enumerated.
      * @param {Integer} iPatchIndex Specifies the index of the patch to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumPatches</b> function and then incremented for subsequent calls.
-     * @param {Pointer<Byte>} lpPatchBuf Pointer to a buffer that receives the patch's GUID. This argument is required.
-     * @param {Pointer<Byte>} lpTransformsBuf Pointer to a buffer that receives the list of transforms in the patch that are applicable to the product. This argument is required and cannot be Null.
+     * @param {PSTR} lpPatchBuf Pointer to a buffer that receives the patch's GUID. This argument is required.
+     * @param {PSTR} lpTransformsBuf Pointer to a buffer that receives the list of transforms in the patch that are applicable to the product. This argument is required and cannot be Null.
      * @param {Pointer<UInt32>} pcchTransformsBuf Set to the number of characters copied to <i>lpTransformsBuf</i> upon an unsuccessful return of the function. Not set for a successful return. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
      * <tr>
@@ -8488,9 +8494,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumPatchesA(szProduct, iPatchIndex, lpPatchBuf, lpTransformsBuf, pcchTransformsBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        lpPatchBuf := lpPatchBuf is String? StrPtr(lpPatchBuf) : lpPatchBuf
-        lpTransformsBuf := lpTransformsBuf is String? StrPtr(lpTransformsBuf) : lpTransformsBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        lpPatchBuf := lpPatchBuf is String ? StrPtr(lpPatchBuf) : lpPatchBuf
+        lpTransformsBuf := lpTransformsBuf is String ? StrPtr(lpTransformsBuf) : lpTransformsBuf
 
         result := DllCall("msi.dll\MsiEnumPatchesA", "ptr", szProduct, "uint", iPatchIndex, "ptr", lpPatchBuf, "ptr", lpTransformsBuf, "uint*", pcchTransformsBuf, "uint")
         return result
@@ -8498,11 +8504,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumPatches function enumerates all of the patches that have been applied to a product.
-     * @param {Pointer<Char>} szProduct Specifies the product code of the product for which patches are to be enumerated.
+     * @param {PWSTR} szProduct Specifies the product code of the product for which patches are to be enumerated.
      * @param {Integer} iPatchIndex Specifies the index of the patch to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumPatches</b> function and then incremented for subsequent calls.
-     * @param {Pointer<Char>} lpPatchBuf Pointer to a buffer that receives the patch's GUID. This argument is required.
-     * @param {Pointer<Char>} lpTransformsBuf Pointer to a buffer that receives the list of transforms in the patch that are applicable to the product. This argument is required and cannot be Null.
+     * @param {PWSTR} lpPatchBuf Pointer to a buffer that receives the patch's GUID. This argument is required.
+     * @param {PWSTR} lpTransformsBuf Pointer to a buffer that receives the list of transforms in the patch that are applicable to the product. This argument is required and cannot be Null.
      * @param {Pointer<UInt32>} pcchTransformsBuf Set to the number of characters copied to <i>lpTransformsBuf</i> upon an unsuccessful return of the function. Not set for a successful return. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
      * <tr>
@@ -8569,9 +8575,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumPatchesW(szProduct, iPatchIndex, lpPatchBuf, lpTransformsBuf, pcchTransformsBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        lpPatchBuf := lpPatchBuf is String? StrPtr(lpPatchBuf) : lpPatchBuf
-        lpTransformsBuf := lpTransformsBuf is String? StrPtr(lpTransformsBuf) : lpTransformsBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        lpPatchBuf := lpPatchBuf is String ? StrPtr(lpPatchBuf) : lpPatchBuf
+        lpTransformsBuf := lpTransformsBuf is String ? StrPtr(lpTransformsBuf) : lpTransformsBuf
 
         result := DllCall("msi.dll\MsiEnumPatchesW", "ptr", szProduct, "uint", iPatchIndex, "ptr", lpPatchBuf, "ptr", lpTransformsBuf, "uint*", pcchTransformsBuf, "uint")
         return result
@@ -8579,8 +8585,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Removes one or more patches from a single product.
-     * @param {Pointer<Byte>} szPatchList A null-terminated string that represents the list of patches to remove.  Each patch can be specified by the GUID of the patch or the full path to the patch package. The patches in the list are delimited by semicolons.
-     * @param {Pointer<Byte>} szProductCode A null-terminated string that is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product from which the patches are removed.  This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szPatchList A null-terminated string that represents the list of patches to remove.  Each patch can be specified by the GUID of the patch or the full path to the patch package. The patches in the list are delimited by semicolons.
+     * @param {PSTR} szProductCode A null-terminated string that is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product from which the patches are removed.  This parameter cannot be <b>NULL</b>.
      * @param {Integer} eUninstallType Value that indicates the type of patch removal to perform. This parameter must be <b>INSTALLTYPE_SINGLE_INSTANCE</b>.
      * 
      * <table>
@@ -8599,7 +8605,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szPropertyList A null-terminated string that specifies command-line property settings. For more information see  
+     * @param {PSTR} szPropertyList A null-terminated string that specifies command-line property settings. For more information see  
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/setting-public-property-values-on-the-command-line">Setting Public Property Values on the Command Line</a>. This parameter can be <b>NULL</b>.
      * @returns {Integer} The <b>MsiRemovePatches</b> function returns the following values.
@@ -8724,9 +8730,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRemovePatchesA(szPatchList, szProductCode, eUninstallType, szPropertyList) {
-        szPatchList := szPatchList is String? StrPtr(szPatchList) : szPatchList
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szPropertyList := szPropertyList is String? StrPtr(szPropertyList) : szPropertyList
+        szPatchList := szPatchList is String ? StrPtr(szPatchList) : szPatchList
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szPropertyList := szPropertyList is String ? StrPtr(szPropertyList) : szPropertyList
 
         result := DllCall("msi.dll\MsiRemovePatchesA", "ptr", szPatchList, "ptr", szProductCode, "int", eUninstallType, "ptr", szPropertyList, "uint")
         return result
@@ -8734,8 +8740,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Removes one or more patches from a single product.
-     * @param {Pointer<Char>} szPatchList A null-terminated string that represents the list of patches to remove.  Each patch can be specified by the GUID of the patch or the full path to the patch package. The patches in the list are delimited by semicolons.
-     * @param {Pointer<Char>} szProductCode A null-terminated string that is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product from which the patches are removed.  This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szPatchList A null-terminated string that represents the list of patches to remove.  Each patch can be specified by the GUID of the patch or the full path to the patch package. The patches in the list are delimited by semicolons.
+     * @param {PWSTR} szProductCode A null-terminated string that is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product from which the patches are removed.  This parameter cannot be <b>NULL</b>.
      * @param {Integer} eUninstallType Value that indicates the type of patch removal to perform. This parameter must be <b>INSTALLTYPE_SINGLE_INSTANCE</b>.
      * 
      * <table>
@@ -8754,7 +8760,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szPropertyList A null-terminated string that specifies command-line property settings. For more information see  
+     * @param {PWSTR} szPropertyList A null-terminated string that specifies command-line property settings. For more information see  
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/setting-public-property-values-on-the-command-line">Setting Public Property Values on the Command Line</a>. This parameter can be <b>NULL</b>.
      * @returns {Integer} The <b>MsiRemovePatches</b> function returns the following values.
@@ -8879,9 +8885,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRemovePatchesW(szPatchList, szProductCode, eUninstallType, szPropertyList) {
-        szPatchList := szPatchList is String? StrPtr(szPatchList) : szPatchList
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szPropertyList := szPropertyList is String? StrPtr(szPropertyList) : szPropertyList
+        szPatchList := szPatchList is String ? StrPtr(szPatchList) : szPatchList
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szPropertyList := szPropertyList is String ? StrPtr(szPropertyList) : szPropertyList
 
         result := DllCall("msi.dll\MsiRemovePatchesW", "ptr", szPatchList, "ptr", szProductCode, "int", eUninstallType, "ptr", szPropertyList, "uint")
         return result
@@ -8889,8 +8895,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiExtractPatchXMLData function extracts information from a patch that can be used to determine if the patch applies to a target system.
-     * @param {Pointer<Byte>} szPatchPath The  full path to the patch that is being queried. Pass in as a null-terminated string. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szXMLData A pointer to a buffer to hold the XML string that contains the extracted patch information. This buffer should be large enough to contain the received information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchXMLData</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PSTR} szPatchPath The  full path to the patch that is being queried. Pass in as a null-terminated string. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szXMLData A pointer to a buffer to hold the XML string that contains the extracted patch information. This buffer should be large enough to contain the received information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchXMLData</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
@@ -8989,8 +8995,8 @@ class ApplicationInstallationAndServicing {
     static MsiExtractPatchXMLDataA(szPatchPath, szXMLData, pcchXMLData) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szPatchPath := szPatchPath is String? StrPtr(szPatchPath) : szPatchPath
-        szXMLData := szXMLData is String? StrPtr(szXMLData) : szXMLData
+        szPatchPath := szPatchPath is String ? StrPtr(szPatchPath) : szPatchPath
+        szXMLData := szXMLData is String ? StrPtr(szXMLData) : szXMLData
 
         result := DllCall("msi.dll\MsiExtractPatchXMLDataA", "ptr", szPatchPath, "uint", dwReserved, "ptr", szXMLData, "uint*", pcchXMLData, "uint")
         return result
@@ -8998,8 +9004,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiExtractPatchXMLData function extracts information from a patch that can be used to determine if the patch applies to a target system.
-     * @param {Pointer<Char>} szPatchPath The  full path to the patch that is being queried. Pass in as a null-terminated string. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szXMLData A pointer to a buffer to hold the XML string that contains the extracted patch information. This buffer should be large enough to contain the received information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchXMLData</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PWSTR} szPatchPath The  full path to the patch that is being queried. Pass in as a null-terminated string. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szXMLData A pointer to a buffer to hold the XML string that contains the extracted patch information. This buffer should be large enough to contain the received information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchXMLData</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
@@ -9098,8 +9104,8 @@ class ApplicationInstallationAndServicing {
     static MsiExtractPatchXMLDataW(szPatchPath, szXMLData, pcchXMLData) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szPatchPath := szPatchPath is String? StrPtr(szPatchPath) : szPatchPath
-        szXMLData := szXMLData is String? StrPtr(szXMLData) : szXMLData
+        szPatchPath := szPatchPath is String ? StrPtr(szPatchPath) : szPatchPath
+        szXMLData := szXMLData is String ? StrPtr(szXMLData) : szXMLData
 
         result := DllCall("msi.dll\MsiExtractPatchXMLDataW", "ptr", szPatchPath, "uint", dwReserved, "ptr", szXMLData, "uint*", pcchXMLData, "uint")
         return result
@@ -9107,9 +9113,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Queries for information about the application of a patch to a specified instance of a product.
-     * @param {Pointer<Byte>} szPatchCode A null-terminated string that contains the GUID of the patch. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szProductCode A null-terminated string that contains the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid A null-terminated string that specifies the security identifier (SID) under which the instance of the patch being queried exists.  Using a <b>NULL</b> value specifies the current user.
+     * @param {PSTR} szPatchCode A null-terminated string that contains the GUID of the patch. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szProductCode A null-terminated string that contains the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid A null-terminated string that specifies the security identifier (SID) under which the instance of the patch being queried exists.  Using a <b>NULL</b> value specifies the current user.
      * 
      * <table>
      * <tr>
@@ -9182,7 +9188,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szProperty A null-terminated string that specifies the property value to retrieve. The <i>szProperty</i> parameter can be one of the following:
+     * @param {PSTR} szProperty A null-terminated string that specifies the property value to retrieve. The <i>szProperty</i> parameter can be one of the following:
      * 
      * <table>
      * <tr>
@@ -9271,7 +9277,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpValue This parameter is a pointer to a  buffer that receives the property value. This buffer should be large enough to contain the information. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the property value, not including the terminating <b>NULL</b> character.
+     * @param {PSTR} lpValue This parameter is a pointer to a  buffer that receives the property value. This buffer should be large enough to contain the information. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the property value, not including the terminating <b>NULL</b> character.
      * 
      * If <i>lpValue</i> is set to <b>NULL</b> and <i>pcchValue</i> is set to a valid pointer,  the function returns <b>ERROR_SUCCESS</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating <b>NULL</b> character.  The function can then be called again to retrieve the value, with <i>lpValue</i> buffer large enough to contain *<i>pcchValue</i> + 1 characters.
      * 
@@ -9390,11 +9396,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchInfoExA(szPatchCode, szProductCode, szUserSid, dwContext, szProperty, lpValue, pcchValue) {
-        szPatchCode := szPatchCode is String? StrPtr(szPatchCode) : szPatchCode
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
-        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        szPatchCode := szPatchCode is String ? StrPtr(szPatchCode) : szPatchCode
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
+        lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
         result := DllCall("msi.dll\MsiGetPatchInfoExA", "ptr", szPatchCode, "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", lpValue, "uint*", pcchValue, "uint")
         return result
@@ -9402,9 +9408,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Queries for information about the application of a patch to a specified instance of a product.
-     * @param {Pointer<Char>} szPatchCode A null-terminated string that contains the GUID of the patch. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szProductCode A null-terminated string that contains the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid A null-terminated string that specifies the security identifier (SID) under which the instance of the patch being queried exists.  Using a <b>NULL</b> value specifies the current user.
+     * @param {PWSTR} szPatchCode A null-terminated string that contains the GUID of the patch. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szProductCode A null-terminated string that contains the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid A null-terminated string that specifies the security identifier (SID) under which the instance of the patch being queried exists.  Using a <b>NULL</b> value specifies the current user.
      * 
      * <table>
      * <tr>
@@ -9477,7 +9483,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szProperty A null-terminated string that specifies the property value to retrieve. The <i>szProperty</i> parameter can be one of the following:
+     * @param {PWSTR} szProperty A null-terminated string that specifies the property value to retrieve. The <i>szProperty</i> parameter can be one of the following:
      * 
      * <table>
      * <tr>
@@ -9566,7 +9572,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpValue This parameter is a pointer to a  buffer that receives the property value. This buffer should be large enough to contain the information. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the property value, not including the terminating <b>NULL</b> character.
+     * @param {PWSTR} lpValue This parameter is a pointer to a  buffer that receives the property value. This buffer should be large enough to contain the information. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the property value, not including the terminating <b>NULL</b> character.
      * 
      * If <i>lpValue</i> is set to <b>NULL</b> and <i>pcchValue</i> is set to a valid pointer,  the function returns <b>ERROR_SUCCESS</b> and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating <b>NULL</b> character.  The function can then be called again to retrieve the value, with <i>lpValue</i> buffer large enough to contain *<i>pcchValue</i> + 1 characters.
      * 
@@ -9685,11 +9691,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchInfoExW(szPatchCode, szProductCode, szUserSid, dwContext, szProperty, lpValue, pcchValue) {
-        szPatchCode := szPatchCode is String? StrPtr(szPatchCode) : szPatchCode
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
-        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        szPatchCode := szPatchCode is String ? StrPtr(szPatchCode) : szPatchCode
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
+        lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
         result := DllCall("msi.dll\MsiGetPatchInfoExW", "ptr", szPatchCode, "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szProperty, "ptr", lpValue, "uint*", pcchValue, "uint")
         return result
@@ -9697,9 +9703,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Applies one or more patches to products eligible to receive the patches.
-     * @param {Pointer<Byte>} szPatchPackages A  semicolon-delimited list of the paths to patch files as a single string. For example: ""c:\sus\download\cache\Office\sp1.msp; c:\sus\download\cache\Office\QFE1.msp; c:\sus\download\cache\Office\QFEn.msp"   "
-     * @param {Pointer<Byte>} szProductCode This parameter is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product to be patched. The user or application calling <b>MsiApplyMultiplePatches</b> must have privileges to apply patches. When this parameter is <b>NULL</b>, the patches are applied to all eligible products. When this parameter is non-<b>NULL</b>, the patches are applied only to the specified product.
-     * @param {Pointer<Byte>} szPropertiesList A null-terminated string that specifies command–line property settings used during the patching of products. If there are no command–line property settings, pass in a <b>NULL</b> pointer. An empty string is  an invalid parameter. These properties are shared by all  target products. For more information, see  
+     * @param {PSTR} szPatchPackages A  semicolon-delimited list of the paths to patch files as a single string. For example: ""c:\sus\download\cache\Office\sp1.msp; c:\sus\download\cache\Office\QFE1.msp; c:\sus\download\cache\Office\QFEn.msp"   "
+     * @param {PSTR} szProductCode This parameter is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product to be patched. The user or application calling <b>MsiApplyMultiplePatches</b> must have privileges to apply patches. When this parameter is <b>NULL</b>, the patches are applied to all eligible products. When this parameter is non-<b>NULL</b>, the patches are applied only to the specified product.
+     * @param {PSTR} szPropertiesList A null-terminated string that specifies command–line property settings used during the patching of products. If there are no command–line property settings, pass in a <b>NULL</b> pointer. An empty string is  an invalid parameter. These properties are shared by all  target products. For more information, see  
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/setting-public-property-values-on-the-command-line">Setting Public Property Values on the Command Line</a>.
      * 
@@ -9805,9 +9811,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiApplyMultiplePatchesA(szPatchPackages, szProductCode, szPropertiesList) {
-        szPatchPackages := szPatchPackages is String? StrPtr(szPatchPackages) : szPatchPackages
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szPropertiesList := szPropertiesList is String? StrPtr(szPropertiesList) : szPropertiesList
+        szPatchPackages := szPatchPackages is String ? StrPtr(szPatchPackages) : szPatchPackages
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szPropertiesList := szPropertiesList is String ? StrPtr(szPropertiesList) : szPropertiesList
 
         result := DllCall("msi.dll\MsiApplyMultiplePatchesA", "ptr", szPatchPackages, "ptr", szProductCode, "ptr", szPropertiesList, "uint")
         return result
@@ -9815,9 +9821,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Applies one or more patches to products eligible to receive the patches.
-     * @param {Pointer<Char>} szPatchPackages A  semicolon-delimited list of the paths to patch files as a single string. For example: ""c:\sus\download\cache\Office\sp1.msp; c:\sus\download\cache\Office\QFE1.msp; c:\sus\download\cache\Office\QFEn.msp"   "
-     * @param {Pointer<Char>} szProductCode This parameter is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product to be patched. The user or application calling <b>MsiApplyMultiplePatches</b> must have privileges to apply patches. When this parameter is <b>NULL</b>, the patches are applied to all eligible products. When this parameter is non-<b>NULL</b>, the patches are applied only to the specified product.
-     * @param {Pointer<Char>} szPropertiesList A null-terminated string that specifies command–line property settings used during the patching of products. If there are no command–line property settings, pass in a <b>NULL</b> pointer. An empty string is  an invalid parameter. These properties are shared by all  target products. For more information, see  
+     * @param {PWSTR} szPatchPackages A  semicolon-delimited list of the paths to patch files as a single string. For example: ""c:\sus\download\cache\Office\sp1.msp; c:\sus\download\cache\Office\QFE1.msp; c:\sus\download\cache\Office\QFEn.msp"   "
+     * @param {PWSTR} szProductCode This parameter is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product to be patched. The user or application calling <b>MsiApplyMultiplePatches</b> must have privileges to apply patches. When this parameter is <b>NULL</b>, the patches are applied to all eligible products. When this parameter is non-<b>NULL</b>, the patches are applied only to the specified product.
+     * @param {PWSTR} szPropertiesList A null-terminated string that specifies command–line property settings used during the patching of products. If there are no command–line property settings, pass in a <b>NULL</b> pointer. An empty string is  an invalid parameter. These properties are shared by all  target products. For more information, see  
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/setting-public-property-values-on-the-command-line">Setting Public Property Values on the Command Line</a>.
      * 
@@ -9923,9 +9929,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiApplyMultiplePatchesW(szPatchPackages, szProductCode, szPropertiesList) {
-        szPatchPackages := szPatchPackages is String? StrPtr(szPatchPackages) : szPatchPackages
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szPropertiesList := szPropertiesList is String? StrPtr(szPropertiesList) : szPropertiesList
+        szPatchPackages := szPatchPackages is String ? StrPtr(szPatchPackages) : szPatchPackages
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szPropertiesList := szPropertiesList is String ? StrPtr(szPropertiesList) : szPropertiesList
 
         result := DllCall("msi.dll\MsiApplyMultiplePatchesW", "ptr", szPatchPackages, "ptr", szProductCode, "ptr", szPropertiesList, "uint")
         return result
@@ -9933,8 +9939,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Takes a set of patch files, XML files, and XML blobs and determines the best sequence of application for the patches to a specified installed product.
-     * @param {Pointer<Byte>} szProductCode The product that is the target for the set of patches. The value must be the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product.
-     * @param {Pointer<Byte>} szUserSid Null-terminated string  that specifies  a security identifier (SID) of a user. This parameter restricts the context of enumeration for  this user account. This parameter cannot be   the special SID strings "S-1-1-0" (everyone) or "S-1-5-18" (local system). For the machine context <i>dwContext</i> is set to<b> MSIINSTALLCONTEXT_MACHINE</b> and <i>szUserSid</i> must be <b>NULL</b>. 
+     * @param {PSTR} szProductCode The product that is the target for the set of patches. The value must be the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product.
+     * @param {PSTR} szUserSid Null-terminated string  that specifies  a security identifier (SID) of a user. This parameter restricts the context of enumeration for  this user account. This parameter cannot be   the special SID strings "S-1-1-0" (everyone) or "S-1-5-18" (local system). For the machine context <i>dwContext</i> is set to<b> MSIINSTALLCONTEXT_MACHINE</b> and <i>szUserSid</i> must be <b>NULL</b>. 
      * For the current user context <i>szUserSid</i> can be null and  <i>dwContext</i> can be set to <b>MSIINSTALLCONTEXT_USERMANAGED</b> or <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>.
      * @param {Integer} dwContext Restricts the  enumeration to a per-user-unmanaged,  per-user-managed, or per-machine context. This parameter can be any one of the  following values.
      * 
@@ -10153,8 +10159,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDeterminePatchSequenceA(szProductCode, szUserSid, dwContext, cPatchInfo, pPatchInfo) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
 
         result := DllCall("msi.dll\MsiDeterminePatchSequenceA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "uint", cPatchInfo, "ptr", pPatchInfo, "uint")
         return result
@@ -10162,8 +10168,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Takes a set of patch files, XML files, and XML blobs and determines the best sequence of application for the patches to a specified installed product.
-     * @param {Pointer<Char>} szProductCode The product that is the target for the set of patches. The value must be the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product.
-     * @param {Pointer<Char>} szUserSid Null-terminated string  that specifies  a security identifier (SID) of a user. This parameter restricts the context of enumeration for  this user account. This parameter cannot be   the special SID strings "S-1-1-0" (everyone) or "S-1-5-18" (local system). For the machine context <i>dwContext</i> is set to<b> MSIINSTALLCONTEXT_MACHINE</b> and <i>szUserSid</i> must be <b>NULL</b>. 
+     * @param {PWSTR} szProductCode The product that is the target for the set of patches. The value must be the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product.
+     * @param {PWSTR} szUserSid Null-terminated string  that specifies  a security identifier (SID) of a user. This parameter restricts the context of enumeration for  this user account. This parameter cannot be   the special SID strings "S-1-1-0" (everyone) or "S-1-5-18" (local system). For the machine context <i>dwContext</i> is set to<b> MSIINSTALLCONTEXT_MACHINE</b> and <i>szUserSid</i> must be <b>NULL</b>. 
      * For the current user context <i>szUserSid</i> can be null and  <i>dwContext</i> can be set to <b>MSIINSTALLCONTEXT_USERMANAGED</b> or <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>.
      * @param {Integer} dwContext Restricts the  enumeration to a per-user-unmanaged,  per-user-managed, or per-machine context. This parameter can be any one of the  following values.
      * 
@@ -10382,8 +10388,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDeterminePatchSequenceW(szProductCode, szUserSid, dwContext, cPatchInfo, pPatchInfo) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
 
         result := DllCall("msi.dll\MsiDeterminePatchSequenceW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "uint", cPatchInfo, "ptr", pPatchInfo, "uint")
         return result
@@ -10391,7 +10397,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiDetermineApplicablePatches function takes a set of patch files, XML files, and XML blobs and determines which patches apply to a specified Windows Installer package and in what sequence.
-     * @param {Pointer<Byte>} szProductPackagePath Full path to an .msi file. The function determines the patches that are applicable to this package and in what sequence.
+     * @param {PSTR} szProductPackagePath Full path to an .msi file. The function determines the patches that are applicable to this package and in what sequence.
      * @param {Integer} cPatchInfo Number of patches in the array. Must be greater than zero.
      * @param {Pointer<MSIPATCHSEQUENCEINFOA>} pPatchInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structures.
      * @returns {Integer} The 
@@ -10506,7 +10512,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDetermineApplicablePatchesA(szProductPackagePath, cPatchInfo, pPatchInfo) {
-        szProductPackagePath := szProductPackagePath is String? StrPtr(szProductPackagePath) : szProductPackagePath
+        szProductPackagePath := szProductPackagePath is String ? StrPtr(szProductPackagePath) : szProductPackagePath
 
         result := DllCall("msi.dll\MsiDetermineApplicablePatchesA", "ptr", szProductPackagePath, "uint", cPatchInfo, "ptr", pPatchInfo, "uint")
         return result
@@ -10514,7 +10520,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiDetermineApplicablePatches function takes a set of patch files, XML files, and XML blobs and determines which patches apply to a specified Windows Installer package and in what sequence.
-     * @param {Pointer<Char>} szProductPackagePath Full path to an .msi file. The function determines the patches that are applicable to this package and in what sequence.
+     * @param {PWSTR} szProductPackagePath Full path to an .msi file. The function determines the patches that are applicable to this package and in what sequence.
      * @param {Integer} cPatchInfo Number of patches in the array. Must be greater than zero.
      * @param {Pointer<MSIPATCHSEQUENCEINFOW>} pPatchInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/msi/ns-msi-msipatchsequenceinfoa">MSIPATCHSEQUENCEINFO</a> structures.
      * @returns {Integer} The 
@@ -10629,7 +10635,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDetermineApplicablePatchesW(szProductPackagePath, cPatchInfo, pPatchInfo) {
-        szProductPackagePath := szProductPackagePath is String? StrPtr(szProductPackagePath) : szProductPackagePath
+        szProductPackagePath := szProductPackagePath is String ? StrPtr(szProductPackagePath) : szProductPackagePath
 
         result := DllCall("msi.dll\MsiDetermineApplicablePatchesW", "ptr", szProductPackagePath, "uint", cPatchInfo, "ptr", pPatchInfo, "uint")
         return result
@@ -10637,8 +10643,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Enumerates all patches in a specific context or across all contexts.
-     * @param {Pointer<Byte>} szProductCode A null-terminated string that specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product whose patches are enumerated. If non-<b>NULL</b>, patch enumeration is restricted to instances of this product under the user and context specified by <i>szUserSid</i> and <i>dwContext</i>. If <b>NULL</b>, the patches for all products under the specified context are enumerated.
-     * @param {Pointer<Byte>} szUserSid A null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string "S-1-1-0" (Everyone) specifies enumeration across all users in the system. A SID value other than "S-1-1-0" is considered a user SID and restricts enumeration to that user.  When enumerating for a user other than current user, any patches that were applied in a per-user-unmanaged context using a version less than Windows Installer version 3.0, are not enumerated. This parameter can be set to <b>NULL</b> to specify the current user.
+     * @param {PSTR} szProductCode A null-terminated string that specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product whose patches are enumerated. If non-<b>NULL</b>, patch enumeration is restricted to instances of this product under the user and context specified by <i>szUserSid</i> and <i>dwContext</i>. If <b>NULL</b>, the patches for all products under the specified context are enumerated.
+     * @param {PSTR} szUserSid A null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string "S-1-1-0" (Everyone) specifies enumeration across all users in the system. A SID value other than "S-1-1-0" is considered a user SID and restricts enumeration to that user.  When enumerating for a user other than current user, any patches that were applied in a per-user-unmanaged context using a version less than Windows Installer version 3.0, are not enumerated. This parameter can be set to <b>NULL</b> to specify the current user.
      * 
      * <table>
      * <tr>
@@ -10784,10 +10790,10 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Integer} dwIndex The index of the patch to retrieve. This parameter must be zero for the first call to the <b>MsiEnumPatchesEx</b> function and then incremented for subsequent calls. The <i>dwIndex</i> parameter should be incremented only if the previous call returned ERROR_SUCCESS.
-     * @param {Pointer<Byte>} szPatchCode An output buffer to contain the GUID of the patch being enumerated. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Byte>} szTargetProductCode An output buffer to contain the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that receives this patch. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
+     * @param {PSTR} szPatchCode An output buffer to contain the GUID of the patch being enumerated. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
+     * @param {PSTR} szTargetProductCode An output buffer to contain the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that receives this patch. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
      * @param {Pointer<Int32>} pdwTargetProductContext Returns the context of the patch being enumerated. The output value can be  <b>MSIINSTALLCONTEXT_USERMANAGED</b>,  <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>, or <b>MSIINSTALLCONTEXT_MACHINE</b>. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Byte>} szTargetUserSid An output buffer that receives  the string SID of the account under which this patch instance exists. This buffer returns an empty string for a per-machine context.
+     * @param {PSTR} szTargetUserSid An output buffer that receives  the string SID of the account under which this patch instance exists. This buffer returns an empty string for a per-machine context.
      * 
      * This buffer should be large enough to contain the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchTargetUserSid</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
@@ -10886,11 +10892,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumPatchesExA(szProductCode, szUserSid, dwContext, dwFilter, dwIndex, szPatchCode, szTargetProductCode, pdwTargetProductContext, szTargetUserSid, pcchTargetUserSid) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szPatchCode := szPatchCode is String? StrPtr(szPatchCode) : szPatchCode
-        szTargetProductCode := szTargetProductCode is String? StrPtr(szTargetProductCode) : szTargetProductCode
-        szTargetUserSid := szTargetUserSid is String? StrPtr(szTargetUserSid) : szTargetUserSid
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szPatchCode := szPatchCode is String ? StrPtr(szPatchCode) : szPatchCode
+        szTargetProductCode := szTargetProductCode is String ? StrPtr(szTargetProductCode) : szTargetProductCode
+        szTargetUserSid := szTargetUserSid is String ? StrPtr(szTargetUserSid) : szTargetUserSid
 
         result := DllCall("msi.dll\MsiEnumPatchesExA", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwFilter, "uint", dwIndex, "ptr", szPatchCode, "ptr", szTargetProductCode, "int*", pdwTargetProductContext, "ptr", szTargetUserSid, "uint*", pcchTargetUserSid, "uint")
         return result
@@ -10898,8 +10904,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Enumerates all patches in a specific context or across all contexts.
-     * @param {Pointer<Char>} szProductCode A null-terminated string that specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product whose patches are enumerated. If non-<b>NULL</b>, patch enumeration is restricted to instances of this product under the user and context specified by <i>szUserSid</i> and <i>dwContext</i>. If <b>NULL</b>, the patches for all products under the specified context are enumerated.
-     * @param {Pointer<Char>} szUserSid A null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string "S-1-1-0" (Everyone) specifies enumeration across all users in the system. A SID value other than "S-1-1-0" is considered a user SID and restricts enumeration to that user.  When enumerating for a user other than current user, any patches that were applied in a per-user-unmanaged context using a version less than Windows Installer version 3.0, are not enumerated. This parameter can be set to <b>NULL</b> to specify the current user.
+     * @param {PWSTR} szProductCode A null-terminated string that specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product whose patches are enumerated. If non-<b>NULL</b>, patch enumeration is restricted to instances of this product under the user and context specified by <i>szUserSid</i> and <i>dwContext</i>. If <b>NULL</b>, the patches for all products under the specified context are enumerated.
+     * @param {PWSTR} szUserSid A null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string "S-1-1-0" (Everyone) specifies enumeration across all users in the system. A SID value other than "S-1-1-0" is considered a user SID and restricts enumeration to that user.  When enumerating for a user other than current user, any patches that were applied in a per-user-unmanaged context using a version less than Windows Installer version 3.0, are not enumerated. This parameter can be set to <b>NULL</b> to specify the current user.
      * 
      * <table>
      * <tr>
@@ -11045,10 +11051,10 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Integer} dwIndex The index of the patch to retrieve. This parameter must be zero for the first call to the <b>MsiEnumPatchesEx</b> function and then incremented for subsequent calls. The <i>dwIndex</i> parameter should be incremented only if the previous call returned ERROR_SUCCESS.
-     * @param {Pointer<Char>} szPatchCode An output buffer to contain the GUID of the patch being enumerated. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Char>} szTargetProductCode An output buffer to contain the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that receives this patch. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} szPatchCode An output buffer to contain the GUID of the patch being enumerated. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} szTargetProductCode An output buffer to contain the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that receives this patch. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
      * @param {Pointer<Int32>} pdwTargetProductContext Returns the context of the patch being enumerated. The output value can be  <b>MSIINSTALLCONTEXT_USERMANAGED</b>,  <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>, or <b>MSIINSTALLCONTEXT_MACHINE</b>. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Char>} szTargetUserSid An output buffer that receives  the string SID of the account under which this patch instance exists. This buffer returns an empty string for a per-machine context.
+     * @param {PWSTR} szTargetUserSid An output buffer that receives  the string SID of the account under which this patch instance exists. This buffer returns an empty string for a per-machine context.
      * 
      * This buffer should be large enough to contain the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchTargetUserSid</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
@@ -11147,11 +11153,11 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumPatchesExW(szProductCode, szUserSid, dwContext, dwFilter, dwIndex, szPatchCode, szTargetProductCode, pdwTargetProductContext, szTargetUserSid, pcchTargetUserSid) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szPatchCode := szPatchCode is String? StrPtr(szPatchCode) : szPatchCode
-        szTargetProductCode := szTargetProductCode is String? StrPtr(szTargetProductCode) : szTargetProductCode
-        szTargetUserSid := szTargetUserSid is String? StrPtr(szTargetUserSid) : szTargetUserSid
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szPatchCode := szPatchCode is String ? StrPtr(szPatchCode) : szPatchCode
+        szTargetProductCode := szTargetProductCode is String ? StrPtr(szTargetProductCode) : szTargetProductCode
+        szTargetUserSid := szTargetUserSid is String ? StrPtr(szTargetUserSid) : szTargetUserSid
 
         result := DllCall("msi.dll\MsiEnumPatchesExW", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwFilter, "uint", dwIndex, "ptr", szPatchCode, "ptr", szTargetProductCode, "int*", pdwTargetProductContext, "ptr", szTargetUserSid, "uint*", pcchTargetUserSid, "uint")
         return result
@@ -11159,8 +11165,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiQueryFeatureState function returns the installed state for a product feature.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product that contains the feature of interest.
-     * @param {Pointer<Byte>} szFeature Identifies the feature of interest.
+     * @param {PSTR} szProduct Specifies the product code for the product that contains the feature of interest.
+     * @param {PSTR} szFeature Identifies the feature of interest.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -11241,8 +11247,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryFeatureStateA(szProduct, szFeature) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiQueryFeatureStateA", "ptr", szProduct, "ptr", szFeature, "int")
         return result
@@ -11250,8 +11256,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiQueryFeatureState function returns the installed state for a product feature.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product that contains the feature of interest.
-     * @param {Pointer<Char>} szFeature Identifies the feature of interest.
+     * @param {PWSTR} szProduct Specifies the product code for the product that contains the feature of interest.
+     * @param {PWSTR} szFeature Identifies the feature of interest.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -11332,8 +11338,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryFeatureStateW(szProduct, szFeature) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiQueryFeatureStateW", "ptr", szProduct, "ptr", szFeature, "int")
         return result
@@ -11341,8 +11347,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiQueryFeatureStateEx function returns the installed state for a product feature.
-     * @param {Pointer<Byte>} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that contains the feature of interest.
-     * @param {Pointer<Byte>} szUserSid Specifies the security identifier (SID) of the account, under which, the instance of the product being queried exists. If <i>dwContext</i> is not <b>MSIINSTALLCONTEXT_MACHINE</b>,  a null value specifies the current user.
+     * @param {PSTR} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that contains the feature of interest.
+     * @param {PSTR} szUserSid Specifies the security identifier (SID) of the account, under which, the instance of the product being queried exists. If <i>dwContext</i> is not <b>MSIINSTALLCONTEXT_MACHINE</b>,  a null value specifies the current user.
      * 
      * <table>
      * <tr>
@@ -11414,7 +11420,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szFeature Specifies the feature being queried. Identifier of the feature as found in the <b>Feature</b> column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
+     * @param {PSTR} szFeature Specifies the feature being queried. Identifier of the feature as found in the <b>Feature</b> column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
      * @param {Pointer<Int32>} pdwState Installation state of the feature for the specified product instance. This parameter can return one of the following or null.
      * 
      * <table>
@@ -11546,9 +11552,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryFeatureStateExA(szProductCode, szUserSid, dwContext, szFeature, pdwState) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiQueryFeatureStateExA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szFeature, "int*", pdwState, "uint")
         return result
@@ -11556,8 +11562,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiQueryFeatureStateEx function returns the installed state for a product feature.
-     * @param {Pointer<Char>} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that contains the feature of interest.
-     * @param {Pointer<Char>} szUserSid Specifies the security identifier (SID) of the account, under which, the instance of the product being queried exists. If <i>dwContext</i> is not <b>MSIINSTALLCONTEXT_MACHINE</b>,  a null value specifies the current user.
+     * @param {PWSTR} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that contains the feature of interest.
+     * @param {PWSTR} szUserSid Specifies the security identifier (SID) of the account, under which, the instance of the product being queried exists. If <i>dwContext</i> is not <b>MSIINSTALLCONTEXT_MACHINE</b>,  a null value specifies the current user.
      * 
      * <table>
      * <tr>
@@ -11629,7 +11635,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szFeature Specifies the feature being queried. Identifier of the feature as found in the <b>Feature</b> column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
+     * @param {PWSTR} szFeature Specifies the feature being queried. Identifier of the feature as found in the <b>Feature</b> column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
      * @param {Pointer<Int32>} pdwState Installation state of the feature for the specified product instance. This parameter can return one of the following or null.
      * 
      * <table>
@@ -11761,9 +11767,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryFeatureStateExW(szProductCode, szUserSid, dwContext, szFeature, pdwState) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiQueryFeatureStateExW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szFeature, "int*", pdwState, "uint")
         return result
@@ -11771,8 +11777,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiUseFeature function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product that owns the feature to be used.
-     * @param {Pointer<Byte>} szFeature Identifies the feature to be used.
+     * @param {PSTR} szProduct Specifies the product code for the product that owns the feature to be used.
+     * @param {PSTR} szFeature Identifies the feature to be used.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -11864,8 +11870,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiUseFeatureA(szProduct, szFeature) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiUseFeatureA", "ptr", szProduct, "ptr", szFeature, "int")
         return result
@@ -11873,8 +11879,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiUseFeature function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product that owns the feature to be used.
-     * @param {Pointer<Char>} szFeature Identifies the feature to be used.
+     * @param {PWSTR} szProduct Specifies the product code for the product that owns the feature to be used.
+     * @param {PWSTR} szFeature Identifies the feature to be used.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -11966,8 +11972,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiUseFeatureW(szProduct, szFeature) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiUseFeatureW", "ptr", szProduct, "ptr", szFeature, "int")
         return result
@@ -11975,8 +11981,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiUseFeatureEx function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product that owns the feature to be used.
-     * @param {Pointer<Byte>} szFeature Identifies the feature to be used.
+     * @param {PSTR} szProduct Specifies the product code for the product that owns the feature to be used.
+     * @param {PSTR} szFeature Identifies the feature to be used.
      * @param {Integer} dwInstallMode This parameter can have the following value. 
      * 
      * 
@@ -12064,8 +12070,8 @@ class ApplicationInstallationAndServicing {
     static MsiUseFeatureExA(szProduct, szFeature, dwInstallMode) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiUseFeatureExA", "ptr", szProduct, "ptr", szFeature, "uint", dwInstallMode, "uint", dwReserved, "int")
         return result
@@ -12073,8 +12079,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiUseFeatureEx function increments the usage count for a particular feature and indicates the installation state for that feature. This function should be used to indicate an application's intent to use a feature.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product that owns the feature to be used.
-     * @param {Pointer<Char>} szFeature Identifies the feature to be used.
+     * @param {PWSTR} szProduct Specifies the product code for the product that owns the feature to be used.
+     * @param {PWSTR} szFeature Identifies the feature to be used.
      * @param {Integer} dwInstallMode This parameter can have the following value. 
      * 
      * 
@@ -12162,8 +12168,8 @@ class ApplicationInstallationAndServicing {
     static MsiUseFeatureExW(szProduct, szFeature, dwInstallMode) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiUseFeatureExW", "ptr", szProduct, "ptr", szFeature, "uint", dwInstallMode, "uint", dwReserved, "int")
         return result
@@ -12171,8 +12177,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetFeatureUsage function returns the usage metrics for a product feature.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product that contains the feature.
-     * @param {Pointer<Byte>} szFeature Specifies the feature code for the feature for which metrics are to be returned.
+     * @param {PSTR} szProduct Specifies the product code for the product that contains the feature.
+     * @param {PSTR} szFeature Specifies the feature code for the feature for which metrics are to be returned.
      * @param {Pointer<UInt32>} pdwUseCount Indicates the number of times the feature has been used.
      * @param {Pointer<UInt16>} pwDateUsed Specifies the date that the feature was last used. The date is in the MS-DOS date format, as shown in the following table. 
      * 
@@ -12263,8 +12269,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureUsageA(szProduct, szFeature, pdwUseCount, pwDateUsed) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiGetFeatureUsageA", "ptr", szProduct, "ptr", szFeature, "uint*", pdwUseCount, "ushort*", pwDateUsed, "uint")
         return result
@@ -12272,8 +12278,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetFeatureUsage function returns the usage metrics for a product feature.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product that contains the feature.
-     * @param {Pointer<Char>} szFeature Specifies the feature code for the feature for which metrics are to be returned.
+     * @param {PWSTR} szProduct Specifies the product code for the product that contains the feature.
+     * @param {PWSTR} szFeature Specifies the feature code for the feature for which metrics are to be returned.
      * @param {Pointer<UInt32>} pdwUseCount Indicates the number of times the feature has been used.
      * @param {Pointer<UInt16>} pwDateUsed Specifies the date that the feature was last used. The date is in the MS-DOS date format, as shown in the following table. 
      * 
@@ -12364,8 +12370,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureUsageW(szProduct, szFeature, pdwUseCount, pwDateUsed) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiGetFeatureUsageW", "ptr", szProduct, "ptr", szFeature, "uint*", pdwUseCount, "ushort*", pwDateUsed, "uint")
         return result
@@ -12373,8 +12379,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiConfigureFeature function configures the installed state for a product feature.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product to be configured.
-     * @param {Pointer<Byte>} szFeature Specifies the feature ID for the feature to be configured.
+     * @param {PSTR} szProduct Specifies the product code for the product to be configured.
+     * @param {PSTR} szFeature Specifies the feature ID for the feature to be configured.
      * @param {Integer} eInstallState 
      * @returns {Integer} <table>
      * <tr>
@@ -12431,8 +12437,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureFeatureA(szProduct, szFeature, eInstallState) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiConfigureFeatureA", "ptr", szProduct, "ptr", szFeature, "int", eInstallState, "uint")
         return result
@@ -12440,8 +12446,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiConfigureFeature function configures the installed state for a product feature.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product to be configured.
-     * @param {Pointer<Char>} szFeature Specifies the feature ID for the feature to be configured.
+     * @param {PWSTR} szProduct Specifies the product code for the product to be configured.
+     * @param {PWSTR} szFeature Specifies the feature ID for the feature to be configured.
      * @param {Integer} eInstallState 
      * @returns {Integer} <table>
      * <tr>
@@ -12498,8 +12504,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiConfigureFeatureW(szProduct, szFeature, eInstallState) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiConfigureFeatureW", "ptr", szProduct, "ptr", szFeature, "int", eInstallState, "uint")
         return result
@@ -12507,8 +12513,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Reinstalls features.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product that contains the feature to be reinstalled.
-     * @param {Pointer<Byte>} szFeature Specifies the feature to be reinstalled. The parent feature or child feature of the specified feature is not reinstalled. To reinstall the parent or child feature, you must call the <b>MsiReinstallFeature</b>   function for each separately or use the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallproducta">MsiReinstallProduct</a> function.
+     * @param {PSTR} szProduct Specifies the product code for the product that contains the feature to be reinstalled.
+     * @param {PSTR} szFeature Specifies the feature to be reinstalled. The parent feature or child feature of the specified feature is not reinstalled. To reinstall the parent or child feature, you must call the <b>MsiReinstallFeature</b>   function for each separately or use the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallproducta">MsiReinstallProduct</a> function.
      * @param {Integer} dwReinstallMode 
      * @returns {Integer} <table>
      * <tr>
@@ -12612,8 +12618,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiReinstallFeatureA(szProduct, szFeature, dwReinstallMode) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiReinstallFeatureA", "ptr", szProduct, "ptr", szFeature, "uint", dwReinstallMode, "uint")
         return result
@@ -12621,8 +12627,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Reinstalls features.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product that contains the feature to be reinstalled.
-     * @param {Pointer<Char>} szFeature Specifies the feature to be reinstalled. The parent feature or child feature of the specified feature is not reinstalled. To reinstall the parent or child feature, you must call the <b>MsiReinstallFeature</b>   function for each separately or use the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallproducta">MsiReinstallProduct</a> function.
+     * @param {PWSTR} szProduct Specifies the product code for the product that contains the feature to be reinstalled.
+     * @param {PWSTR} szFeature Specifies the feature to be reinstalled. The parent feature or child feature of the specified feature is not reinstalled. To reinstall the parent or child feature, you must call the <b>MsiReinstallFeature</b>   function for each separately or use the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msireinstallproducta">MsiReinstallProduct</a> function.
      * @param {Integer} dwReinstallMode 
      * @returns {Integer} <table>
      * <tr>
@@ -12726,8 +12732,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiReinstallFeatureW(szProduct, szFeature, dwReinstallMode) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiReinstallFeatureW", "ptr", szProduct, "ptr", szFeature, "uint", dwReinstallMode, "uint")
         return result
@@ -12735,11 +12741,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiProvideComponent function returns the full component path, performing any necessary installation. This function prompts for source if necessary and increments the usage count for the feature.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product that contains the feature with the necessary component.
-     * @param {Pointer<Byte>} szFeature Specifies the feature ID of the feature with the necessary component.
-     * @param {Pointer<Byte>} szComponent Specifies the component code of the necessary component.
+     * @param {PSTR} szProduct Specifies the product code for the product that contains the feature with the necessary component.
+     * @param {PSTR} szFeature Specifies the feature ID of the feature with the necessary component.
+     * @param {PSTR} szComponent Specifies the component code of the necessary component.
      * @param {Integer} dwInstallMode 
-     * @param {Pointer<Byte>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
+     * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -12881,10 +12887,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideComponentA(szProduct, szFeature, szComponent, dwInstallMode, lpPathBuf, pcchPathBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiProvideComponentA", "ptr", szProduct, "ptr", szFeature, "ptr", szComponent, "uint", dwInstallMode, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -12892,11 +12898,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiProvideComponent function returns the full component path, performing any necessary installation. This function prompts for source if necessary and increments the usage count for the feature.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product that contains the feature with the necessary component.
-     * @param {Pointer<Char>} szFeature Specifies the feature ID of the feature with the necessary component.
-     * @param {Pointer<Char>} szComponent Specifies the component code of the necessary component.
+     * @param {PWSTR} szProduct Specifies the product code for the product that contains the feature with the necessary component.
+     * @param {PWSTR} szFeature Specifies the feature ID of the feature with the necessary component.
+     * @param {PWSTR} szComponent Specifies the component code of the necessary component.
      * @param {Integer} dwInstallMode 
-     * @param {Pointer<Char>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
+     * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -13038,10 +13044,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideComponentW(szProduct, szFeature, szComponent, dwInstallMode, lpPathBuf, pcchPathBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiProvideComponentW", "ptr", szProduct, "ptr", szFeature, "ptr", szComponent, "uint", dwInstallMode, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -13049,12 +13055,12 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiProvideQualifiedComponent function returns the full component path for a qualified component and performs any necessary installation. This function prompts for source if necessary, and increments the usage count for the feature.
-     * @param {Pointer<Byte>} szCategory Specifies the component ID  for the requested component. This may not be the GUID for the component itself, but rather a server that provides the correct functionality, as in the ComponentId column of the 
+     * @param {PSTR} szCategory Specifies the component ID  for the requested component. This may not be the GUID for the component itself, but rather a server that provides the correct functionality, as in the ComponentId column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent table</a>.
-     * @param {Pointer<Byte>} szQualifier Specifies a qualifier into a list of advertising components (from 
+     * @param {PSTR} szQualifier Specifies a qualifier into a list of advertising components (from 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent Table</a>).
      * @param {Integer} dwInstallMode 
-     * @param {Pointer<Byte>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
+     * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -13138,9 +13144,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentA(szCategory, szQualifier, dwInstallMode, lpPathBuf, pcchPathBuf) {
-        szCategory := szCategory is String? StrPtr(szCategory) : szCategory
-        szQualifier := szQualifier is String? StrPtr(szQualifier) : szQualifier
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szCategory := szCategory is String ? StrPtr(szCategory) : szCategory
+        szQualifier := szQualifier is String ? StrPtr(szQualifier) : szQualifier
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiProvideQualifiedComponentA", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -13148,12 +13154,12 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiProvideQualifiedComponent function returns the full component path for a qualified component and performs any necessary installation. This function prompts for source if necessary, and increments the usage count for the feature.
-     * @param {Pointer<Char>} szCategory Specifies the component ID  for the requested component. This may not be the GUID for the component itself, but rather a server that provides the correct functionality, as in the ComponentId column of the 
+     * @param {PWSTR} szCategory Specifies the component ID  for the requested component. This may not be the GUID for the component itself, but rather a server that provides the correct functionality, as in the ComponentId column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent table</a>.
-     * @param {Pointer<Char>} szQualifier Specifies a qualifier into a list of advertising components (from 
+     * @param {PWSTR} szQualifier Specifies a qualifier into a list of advertising components (from 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent Table</a>).
      * @param {Integer} dwInstallMode 
-     * @param {Pointer<Char>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
+     * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -13237,9 +13243,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentW(szCategory, szQualifier, dwInstallMode, lpPathBuf, pcchPathBuf) {
-        szCategory := szCategory is String? StrPtr(szCategory) : szCategory
-        szQualifier := szQualifier is String? StrPtr(szQualifier) : szQualifier
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szCategory := szCategory is String ? StrPtr(szCategory) : szCategory
+        szQualifier := szQualifier is String ? StrPtr(szQualifier) : szQualifier
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiProvideQualifiedComponentW", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -13247,14 +13253,14 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiProvideQualifiedComponentEx function returns the full component path for a qualified component that is published by a product and performs any necessary installation.
-     * @param {Pointer<Byte>} szCategory Specifies the component ID that for the requested component. This may not be the GUID for the component itself but rather a server that provides the correct functionality, as in the ComponentId column of the 
+     * @param {PSTR} szCategory Specifies the component ID that for the requested component. This may not be the GUID for the component itself but rather a server that provides the correct functionality, as in the ComponentId column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent table</a>.
-     * @param {Pointer<Byte>} szQualifier Specifies a qualifier into a list of advertising components (from 
+     * @param {PSTR} szQualifier Specifies a qualifier into a list of advertising components (from 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent Table</a>).
      * @param {Integer} dwInstallMode 
-     * @param {Pointer<Byte>} szProduct Specifies the product to match that has published the qualified component. If this is null, then this API works the same as 
+     * @param {PSTR} szProduct Specifies the product to match that has published the qualified component. If this is null, then this API works the same as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiprovidequalifiedcomponenta">MsiProvideQualifiedComponent</a>.
-     * @param {Pointer<Byte>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
+     * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -13340,10 +13346,10 @@ class ApplicationInstallationAndServicing {
     static MsiProvideQualifiedComponentExA(szCategory, szQualifier, dwInstallMode, szProduct, lpPathBuf, pcchPathBuf) {
         static dwUnused1 := 0, dwUnused2 := 0 ;Reserved parameters must always be NULL
 
-        szCategory := szCategory is String? StrPtr(szCategory) : szCategory
-        szQualifier := szQualifier is String? StrPtr(szQualifier) : szQualifier
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szCategory := szCategory is String ? StrPtr(szCategory) : szCategory
+        szQualifier := szQualifier is String ? StrPtr(szQualifier) : szQualifier
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiProvideQualifiedComponentExA", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", szProduct, "uint", dwUnused1, "uint", dwUnused2, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -13351,14 +13357,14 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiProvideQualifiedComponentEx function returns the full component path for a qualified component that is published by a product and performs any necessary installation.
-     * @param {Pointer<Char>} szCategory Specifies the component ID that for the requested component. This may not be the GUID for the component itself but rather a server that provides the correct functionality, as in the ComponentId column of the 
+     * @param {PWSTR} szCategory Specifies the component ID that for the requested component. This may not be the GUID for the component itself but rather a server that provides the correct functionality, as in the ComponentId column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent table</a>.
-     * @param {Pointer<Char>} szQualifier Specifies a qualifier into a list of advertising components (from 
+     * @param {PWSTR} szQualifier Specifies a qualifier into a list of advertising components (from 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/publishcomponent-table">PublishComponent Table</a>).
      * @param {Integer} dwInstallMode 
-     * @param {Pointer<Char>} szProduct Specifies the product to match that has published the qualified component. If this is null, then this API works the same as 
+     * @param {PWSTR} szProduct Specifies the product to match that has published the qualified component. If this is null, then this API works the same as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiprovidequalifiedcomponenta">MsiProvideQualifiedComponent</a>.
-     * @param {Pointer<Char>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
+     * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -13444,10 +13450,10 @@ class ApplicationInstallationAndServicing {
     static MsiProvideQualifiedComponentExW(szCategory, szQualifier, dwInstallMode, szProduct, lpPathBuf, pcchPathBuf) {
         static dwUnused1 := 0, dwUnused2 := 0 ;Reserved parameters must always be NULL
 
-        szCategory := szCategory is String? StrPtr(szCategory) : szCategory
-        szQualifier := szQualifier is String? StrPtr(szQualifier) : szQualifier
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szCategory := szCategory is String ? StrPtr(szCategory) : szCategory
+        szQualifier := szQualifier is String ? StrPtr(szQualifier) : szQualifier
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiProvideQualifiedComponentExW", "ptr", szCategory, "ptr", szQualifier, "uint", dwInstallMode, "ptr", szProduct, "uint", dwUnused1, "uint", dwUnused2, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -13455,9 +13461,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetComponentPath function returns the full path to an installed component. If the key path for the component is a registry key then the registry key is returned.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the client product.
-     * @param {Pointer<Byte>} szComponent Specifies the component ID of the component to be located.
-     * @param {Pointer<Byte>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
+     * @param {PSTR} szProduct Specifies the product code for the client product.
+     * @param {PSTR} szComponent Specifies the component ID of the component to be located.
+     * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
      * 
      * 
      * 
@@ -13610,9 +13616,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentPathA(szProduct, szComponent, lpPathBuf, pcchBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiGetComponentPathA", "ptr", szProduct, "ptr", szComponent, "ptr", lpPathBuf, "uint*", pcchBuf, "int")
         return result
@@ -13620,9 +13626,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetComponentPath function returns the full path to an installed component. If the key path for the component is a registry key then the registry key is returned.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the client product.
-     * @param {Pointer<Char>} szComponent Specifies the component ID of the component to be located.
-     * @param {Pointer<Char>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
+     * @param {PWSTR} szProduct Specifies the product code for the client product.
+     * @param {PWSTR} szComponent Specifies the component ID of the component to be located.
+     * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
      * 
      * 
      * 
@@ -13775,9 +13781,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentPathW(szProduct, szComponent, lpPathBuf, pcchBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiGetComponentPathW", "ptr", szProduct, "ptr", szComponent, "ptr", lpPathBuf, "uint*", pcchBuf, "int")
         return result
@@ -13785,9 +13791,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Returns the full path to an installed component.
-     * @param {Pointer<Byte>} szProductCode A null-terminated string value that specifies an application's product code GUID. The function gets  the path of installed components used by this application.
-     * @param {Pointer<Byte>} szComponentCode A null-terminated string value that specifies a component code GUID. The function gets the path of an installed component having this component code.
-     * @param {Pointer<Byte>} szUserSid A  null-terminated string value that specifies the security identifier (SID) for a user in the system.  The function gets the paths of installed components  of applications installed under the user accounts identified by this SID. The special SID string s-1-1-0 (Everyone) specifies all users in the system. If this parameter is <b>NULL</b>, the function gets the path of an installed component for the currently logged-on user only.
+     * @param {PSTR} szProductCode A null-terminated string value that specifies an application's product code GUID. The function gets  the path of installed components used by this application.
+     * @param {PSTR} szComponentCode A null-terminated string value that specifies a component code GUID. The function gets the path of an installed component having this component code.
+     * @param {PSTR} szUserSid A  null-terminated string value that specifies the security identifier (SID) for a user in the system.  The function gets the paths of installed components  of applications installed under the user accounts identified by this SID. The special SID string s-1-1-0 (Everyone) specifies all users in the system. If this parameter is <b>NULL</b>, the function gets the path of an installed component for the currently logged-on user only.
      * 
      * <table>
      * <tr>
@@ -13830,7 +13836,7 @@ class ApplicationInstallationAndServicing {
      * <div class="alert"><b>Note</b>  The special SID string s-1-5-18 (System) cannot be used to search applications installed in the per-machine installation context.  Setting the SID value to s-1-5-18 returns <b>ERROR_INVALID_PARAMETER</b>. When <i>dwContext</i> is set to MSIINSTALLCONTEXT_MACHINE only, <i>szUserSid</i> must be <b>NULL</b>.</div>
      * <div> </div>
      * @param {Integer} dwContext 
-     * @param {Pointer<Byte>} lpOutPathBuffer A string value that receives the path to the component. This parameter can be <b>NULL</b>. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
+     * @param {PSTR} lpOutPathBuffer A string value that receives the path to the component. This parameter can be <b>NULL</b>. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
      * 
      * 
      * 
@@ -14000,10 +14006,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentPathExA(szProductCode, szComponentCode, szUserSid, dwContext, lpOutPathBuffer, pcchOutPathBuffer) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        lpOutPathBuffer := lpOutPathBuffer is String? StrPtr(lpOutPathBuffer) : lpOutPathBuffer
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szComponentCode := szComponentCode is String ? StrPtr(szComponentCode) : szComponentCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        lpOutPathBuffer := lpOutPathBuffer is String ? StrPtr(lpOutPathBuffer) : lpOutPathBuffer
 
         result := DllCall("msi.dll\MsiGetComponentPathExA", "ptr", szProductCode, "ptr", szComponentCode, "ptr", szUserSid, "int", dwContext, "ptr", lpOutPathBuffer, "uint*", pcchOutPathBuffer, "int")
         return result
@@ -14011,9 +14017,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Returns the full path to an installed component.
-     * @param {Pointer<Char>} szProductCode A null-terminated string value that specifies an application's product code GUID. The function gets  the path of installed components used by this application.
-     * @param {Pointer<Char>} szComponentCode A null-terminated string value that specifies a component code GUID. The function gets the path of an installed component having this component code.
-     * @param {Pointer<Char>} szUserSid A  null-terminated string value that specifies the security identifier (SID) for a user in the system.  The function gets the paths of installed components  of applications installed under the user accounts identified by this SID. The special SID string s-1-1-0 (Everyone) specifies all users in the system. If this parameter is <b>NULL</b>, the function gets the path of an installed component for the currently logged-on user only.
+     * @param {PWSTR} szProductCode A null-terminated string value that specifies an application's product code GUID. The function gets  the path of installed components used by this application.
+     * @param {PWSTR} szComponentCode A null-terminated string value that specifies a component code GUID. The function gets the path of an installed component having this component code.
+     * @param {PWSTR} szUserSid A  null-terminated string value that specifies the security identifier (SID) for a user in the system.  The function gets the paths of installed components  of applications installed under the user accounts identified by this SID. The special SID string s-1-1-0 (Everyone) specifies all users in the system. If this parameter is <b>NULL</b>, the function gets the path of an installed component for the currently logged-on user only.
      * 
      * <table>
      * <tr>
@@ -14056,7 +14062,7 @@ class ApplicationInstallationAndServicing {
      * <div class="alert"><b>Note</b>  The special SID string s-1-5-18 (System) cannot be used to search applications installed in the per-machine installation context.  Setting the SID value to s-1-5-18 returns <b>ERROR_INVALID_PARAMETER</b>. When <i>dwContext</i> is set to MSIINSTALLCONTEXT_MACHINE only, <i>szUserSid</i> must be <b>NULL</b>.</div>
      * <div> </div>
      * @param {Integer} dwContext 
-     * @param {Pointer<Char>} lpOutPathBuffer A string value that receives the path to the component. This parameter can be <b>NULL</b>. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
+     * @param {PWSTR} lpOutPathBuffer A string value that receives the path to the component. This parameter can be <b>NULL</b>. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
      * 
      * 
      * 
@@ -14226,10 +14232,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentPathExW(szProductCode, szComponentCode, szUserSid, dwContext, lpOutPathBuffer, pcchOutPathBuffer) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        lpOutPathBuffer := lpOutPathBuffer is String? StrPtr(lpOutPathBuffer) : lpOutPathBuffer
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szComponentCode := szComponentCode is String ? StrPtr(szComponentCode) : szComponentCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        lpOutPathBuffer := lpOutPathBuffer is String ? StrPtr(lpOutPathBuffer) : lpOutPathBuffer
 
         result := DllCall("msi.dll\MsiGetComponentPathExW", "ptr", szProductCode, "ptr", szComponentCode, "ptr", szUserSid, "int", dwContext, "ptr", lpOutPathBuffer, "uint*", pcchOutPathBuffer, "int")
         return result
@@ -14237,11 +14243,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiProvideAssembly function returns the full path to a Windows Installer component that contains an assembly. The function prompts for a source and performs any necessary installation. MsiProvideAssembly increments the usage count for the feature.
-     * @param {Pointer<Byte>} szAssemblyName The assembly name as a string.
-     * @param {Pointer<Byte>} szAppContext Set to null for global assemblies. For private assemblies, set <i>szAppContext</i> to the full path of the application configuration file  or to the full path of the executable file of the application to which the assembly has been made private.
+     * @param {PSTR} szAssemblyName The assembly name as a string.
+     * @param {PSTR} szAppContext Set to null for global assemblies. For private assemblies, set <i>szAppContext</i> to the full path of the application configuration file  or to the full path of the executable file of the application to which the assembly has been made private.
      * @param {Integer} dwInstallMode 
      * @param {Integer} dwAssemblyInfo 
-     * @param {Pointer<Byte>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
+     * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -14405,9 +14411,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideAssemblyA(szAssemblyName, szAppContext, dwInstallMode, dwAssemblyInfo, lpPathBuf, pcchPathBuf) {
-        szAssemblyName := szAssemblyName is String? StrPtr(szAssemblyName) : szAssemblyName
-        szAppContext := szAppContext is String? StrPtr(szAppContext) : szAppContext
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szAssemblyName := szAssemblyName is String ? StrPtr(szAssemblyName) : szAssemblyName
+        szAppContext := szAppContext is String ? StrPtr(szAppContext) : szAppContext
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiProvideAssemblyA", "ptr", szAssemblyName, "ptr", szAppContext, "uint", dwInstallMode, "uint", dwAssemblyInfo, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -14415,11 +14421,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiProvideAssembly function returns the full path to a Windows Installer component that contains an assembly. The function prompts for a source and performs any necessary installation. MsiProvideAssembly increments the usage count for the feature.
-     * @param {Pointer<Char>} szAssemblyName The assembly name as a string.
-     * @param {Pointer<Char>} szAppContext Set to null for global assemblies. For private assemblies, set <i>szAppContext</i> to the full path of the application configuration file  or to the full path of the executable file of the application to which the assembly has been made private.
+     * @param {PWSTR} szAssemblyName The assembly name as a string.
+     * @param {PWSTR} szAppContext Set to null for global assemblies. For private assemblies, set <i>szAppContext</i> to the full path of the application configuration file  or to the full path of the executable file of the application to which the assembly has been made private.
      * @param {Integer} dwInstallMode 
      * @param {Integer} dwAssemblyInfo 
-     * @param {Pointer<Char>} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
+     * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -14583,9 +14589,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiProvideAssemblyW(szAssemblyName, szAppContext, dwInstallMode, dwAssemblyInfo, lpPathBuf, pcchPathBuf) {
-        szAssemblyName := szAssemblyName is String? StrPtr(szAssemblyName) : szAssemblyName
-        szAppContext := szAppContext is String? StrPtr(szAppContext) : szAppContext
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szAssemblyName := szAssemblyName is String ? StrPtr(szAssemblyName) : szAssemblyName
+        szAppContext := szAppContext is String ? StrPtr(szAppContext) : szAppContext
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiProvideAssemblyW", "ptr", szAssemblyName, "ptr", szAppContext, "uint", dwInstallMode, "uint", dwAssemblyInfo, "ptr", lpPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -14593,8 +14599,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiQueryComponentState function returns the installed state for a component.
-     * @param {Pointer<Byte>} szProductCode Specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product that contains the component.
-     * @param {Pointer<Byte>} szUserSid Specifies the security identifier (SID) of the account under which the instance of the product being queried exists. If <i>dwContext</i> is not MSIINSTALLCONTEXT_MACHINE, null specifies the current user.
+     * @param {PSTR} szProductCode Specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product that contains the component.
+     * @param {PSTR} szUserSid Specifies the security identifier (SID) of the account under which the instance of the product being queried exists. If <i>dwContext</i> is not MSIINSTALLCONTEXT_MACHINE, null specifies the current user.
      * 
      * <table>
      * <tr>
@@ -14664,7 +14670,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szComponentCode Specifies the component being queried. Component code GUID of the component as found in the ComponentID column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component</a> table.
+     * @param {PSTR} szComponentCode Specifies the component being queried. Component code GUID of the component as found in the ComponentID column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component</a> table.
      * @param {Pointer<Int32>} pdwState Installation state of the component for the specified product instance. This parameter can return one of the following or null values.
      * 
      * <table>
@@ -14797,9 +14803,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryComponentStateA(szProductCode, szUserSid, dwContext, szComponentCode, pdwState) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szComponentCode := szComponentCode is String ? StrPtr(szComponentCode) : szComponentCode
 
         result := DllCall("msi.dll\MsiQueryComponentStateA", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szComponentCode, "int*", pdwState, "uint")
         return result
@@ -14807,8 +14813,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiQueryComponentState function returns the installed state for a component.
-     * @param {Pointer<Char>} szProductCode Specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product that contains the component.
-     * @param {Pointer<Char>} szUserSid Specifies the security identifier (SID) of the account under which the instance of the product being queried exists. If <i>dwContext</i> is not MSIINSTALLCONTEXT_MACHINE, null specifies the current user.
+     * @param {PWSTR} szProductCode Specifies the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product that contains the component.
+     * @param {PWSTR} szUserSid Specifies the security identifier (SID) of the account under which the instance of the product being queried exists. If <i>dwContext</i> is not MSIINSTALLCONTEXT_MACHINE, null specifies the current user.
      * 
      * <table>
      * <tr>
@@ -14878,7 +14884,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szComponentCode Specifies the component being queried. Component code GUID of the component as found in the ComponentID column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component</a> table.
+     * @param {PWSTR} szComponentCode Specifies the component being queried. Component code GUID of the component as found in the ComponentID column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component</a> table.
      * @param {Pointer<Int32>} pdwState Installation state of the component for the specified product instance. This parameter can return one of the following or null values.
      * 
      * <table>
@@ -15011,9 +15017,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiQueryComponentStateW(szProductCode, szUserSid, dwContext, szComponentCode, pdwState) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szComponentCode := szComponentCode is String ? StrPtr(szComponentCode) : szComponentCode
 
         result := DllCall("msi.dll\MsiQueryComponentStateW", "ptr", szProductCode, "ptr", szUserSid, "int", dwContext, "ptr", szComponentCode, "int*", pdwState, "uint")
         return result
@@ -15023,7 +15029,7 @@ class ApplicationInstallationAndServicing {
      * The MsiEnumProducts function enumerates through all the products currently advertised or installed. Products that are installed in both the per-user and per-machine installation context and advertisements are enumerated.
      * @param {Integer} iProductIndex Specifies the index of the product to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumProducts</b> function and then incremented for subsequent calls. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.
-     * @param {Pointer<Byte>} lpProductBuf Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
+     * @param {PSTR} lpProductBuf Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15089,7 +15095,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumProductsA(iProductIndex, lpProductBuf) {
-        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+        lpProductBuf := lpProductBuf is String ? StrPtr(lpProductBuf) : lpProductBuf
 
         result := DllCall("msi.dll\MsiEnumProductsA", "uint", iProductIndex, "ptr", lpProductBuf, "uint")
         return result
@@ -15099,7 +15105,7 @@ class ApplicationInstallationAndServicing {
      * The MsiEnumProducts function enumerates through all the products currently advertised or installed. Products that are installed in both the per-user and per-machine installation context and advertisements are enumerated.
      * @param {Integer} iProductIndex Specifies the index of the product to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumProducts</b> function and then incremented for subsequent calls. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.
-     * @param {Pointer<Char>} lpProductBuf Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
+     * @param {PWSTR} lpProductBuf Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15165,7 +15171,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumProductsW(iProductIndex, lpProductBuf) {
-        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+        lpProductBuf := lpProductBuf is String ? StrPtr(lpProductBuf) : lpProductBuf
 
         result := DllCall("msi.dll\MsiEnumProductsW", "uint", iProductIndex, "ptr", lpProductBuf, "uint")
         return result
@@ -15173,8 +15179,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Enumerates through one or all the instances of products that are currently advertised or installed in the specified contexts.
-     * @param {Pointer<Byte>} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product  to be enumerated.  Only instances of products within the scope of the context specified by the <i>szUserSid</i> and <i>dwContext</i> parameters are enumerated. This parameter can be set to <b>NULL</b> to enumerate all products in the specified context.
-     * @param {Pointer<Byte>} szUserSid Null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string s-1-1-0 (Everyone) specifies enumeration across all users in the system. A SID value other than s-1-1-0 is considered a user-SID and restricts enumeration to the current user or any user in the system. This parameter can be set to <b>NULL</b> to restrict the enumeration scope to the current user. 
+     * @param {PSTR} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product  to be enumerated.  Only instances of products within the scope of the context specified by the <i>szUserSid</i> and <i>dwContext</i> parameters are enumerated. This parameter can be set to <b>NULL</b> to enumerate all products in the specified context.
+     * @param {PSTR} szUserSid Null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string s-1-1-0 (Everyone) specifies enumeration across all users in the system. A SID value other than s-1-1-0 is considered a user-SID and restricts enumeration to the current user or any user in the system. This parameter can be set to <b>NULL</b> to restrict the enumeration scope to the current user. 
      * 
      * <table>
      * <tr>
@@ -15256,9 +15262,9 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Integer} dwIndex Specifies the index of the product to retrieve. This parameter must be zero for the first call to the <b>MsiEnumProductsEx</b> function and then incremented for subsequent calls. The index should be incremented, only if the previous call has returned ERROR_SUCCESS. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.
-     * @param {Pointer<Byte>} szInstalledProductCode Null-terminated string of <b>TCHAR</b> that gives the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance being enumerated. This parameter can be <b>NULL</b>.
+     * @param {PSTR} szInstalledProductCode Null-terminated string of <b>TCHAR</b> that gives the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance being enumerated. This parameter can be <b>NULL</b>.
      * @param {Pointer<Int32>} pdwInstalledContext Returns the context of the product instance  being enumerated. The output value can be MSIINSTALLCONTEXT_USERMANAGED, MSIINSTALLCONTEXT_USERUNMANAGED, or MSIINSTALLCONTEXT_MACHINE. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Byte>} szSid An output buffer that receives the string SID of the account under which this product instance exists.  This buffer returns an empty string for an instance installed in a per-machine context. 
+     * @param {PSTR} szSid An output buffer that receives the string SID of the account under which this product instance exists.  This buffer returns an empty string for an instance installed in a per-machine context. 
      *  
      * 
      * 
@@ -15370,10 +15376,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumProductsExA(szProductCode, szUserSid, dwContext, dwIndex, szInstalledProductCode, pdwInstalledContext, szSid, pcchSid) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szInstalledProductCode := szInstalledProductCode is String? StrPtr(szInstalledProductCode) : szInstalledProductCode
-        szSid := szSid is String? StrPtr(szSid) : szSid
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szInstalledProductCode := szInstalledProductCode is String ? StrPtr(szInstalledProductCode) : szInstalledProductCode
+        szSid := szSid is String ? StrPtr(szSid) : szSid
 
         result := DllCall("msi.dll\MsiEnumProductsExA", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledProductCode, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
         return result
@@ -15381,8 +15387,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Enumerates through one or all the instances of products that are currently advertised or installed in the specified contexts.
-     * @param {Pointer<Char>} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product  to be enumerated.  Only instances of products within the scope of the context specified by the <i>szUserSid</i> and <i>dwContext</i> parameters are enumerated. This parameter can be set to <b>NULL</b> to enumerate all products in the specified context.
-     * @param {Pointer<Char>} szUserSid Null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string s-1-1-0 (Everyone) specifies enumeration across all users in the system. A SID value other than s-1-1-0 is considered a user-SID and restricts enumeration to the current user or any user in the system. This parameter can be set to <b>NULL</b> to restrict the enumeration scope to the current user. 
+     * @param {PWSTR} szProductCode <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product  to be enumerated.  Only instances of products within the scope of the context specified by the <i>szUserSid</i> and <i>dwContext</i> parameters are enumerated. This parameter can be set to <b>NULL</b> to enumerate all products in the specified context.
+     * @param {PWSTR} szUserSid Null-terminated string that specifies a security identifier (SID) that restricts the context of enumeration. The special SID string s-1-1-0 (Everyone) specifies enumeration across all users in the system. A SID value other than s-1-1-0 is considered a user-SID and restricts enumeration to the current user or any user in the system. This parameter can be set to <b>NULL</b> to restrict the enumeration scope to the current user. 
      * 
      * <table>
      * <tr>
@@ -15464,9 +15470,9 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Integer} dwIndex Specifies the index of the product to retrieve. This parameter must be zero for the first call to the <b>MsiEnumProductsEx</b> function and then incremented for subsequent calls. The index should be incremented, only if the previous call has returned ERROR_SUCCESS. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.
-     * @param {Pointer<Char>} szInstalledProductCode Null-terminated string of <b>TCHAR</b> that gives the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance being enumerated. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} szInstalledProductCode Null-terminated string of <b>TCHAR</b> that gives the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance being enumerated. This parameter can be <b>NULL</b>.
      * @param {Pointer<Int32>} pdwInstalledContext Returns the context of the product instance  being enumerated. The output value can be MSIINSTALLCONTEXT_USERMANAGED, MSIINSTALLCONTEXT_USERUNMANAGED, or MSIINSTALLCONTEXT_MACHINE. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Char>} szSid An output buffer that receives the string SID of the account under which this product instance exists.  This buffer returns an empty string for an instance installed in a per-machine context. 
+     * @param {PWSTR} szSid An output buffer that receives the string SID of the account under which this product instance exists.  This buffer returns an empty string for an instance installed in a per-machine context. 
      *  
      * 
      * 
@@ -15578,10 +15584,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumProductsExW(szProductCode, szUserSid, dwContext, dwIndex, szInstalledProductCode, pdwInstalledContext, szSid, pcchSid) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szInstalledProductCode := szInstalledProductCode is String? StrPtr(szInstalledProductCode) : szInstalledProductCode
-        szSid := szSid is String? StrPtr(szSid) : szSid
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szInstalledProductCode := szInstalledProductCode is String ? StrPtr(szInstalledProductCode) : szInstalledProductCode
+        szSid := szSid is String ? StrPtr(szSid) : szSid
 
         result := DllCall("msi.dll\MsiEnumProductsExW", "ptr", szProductCode, "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledProductCode, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
         return result
@@ -15589,9 +15595,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumRelatedProducts function enumerates products with a specified upgrade code. This function lists the currently installed and advertised products that have the specified UpgradeCode property in their Property table.
-     * @param {Pointer<Byte>} lpUpgradeCode The null-terminated string specifying the upgrade code of related products that the installer is to enumerate.
+     * @param {PSTR} lpUpgradeCode The null-terminated string specifying the upgrade code of related products that the installer is to enumerate.
      * @param {Integer} iProductIndex The zero-based index into the registered products.
-     * @param {Pointer<Byte>} lpProductBuf A buffer to receive the product code GUID. This buffer must be 39 characters long. The first 38 characters are for the 
+     * @param {PSTR} lpProductBuf A buffer to receive the product code GUID. This buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character.
      * @returns {Integer} <table>
      * <tr>
@@ -15660,8 +15666,8 @@ class ApplicationInstallationAndServicing {
     static MsiEnumRelatedProductsA(lpUpgradeCode, iProductIndex, lpProductBuf) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpUpgradeCode := lpUpgradeCode is String? StrPtr(lpUpgradeCode) : lpUpgradeCode
-        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+        lpUpgradeCode := lpUpgradeCode is String ? StrPtr(lpUpgradeCode) : lpUpgradeCode
+        lpProductBuf := lpProductBuf is String ? StrPtr(lpProductBuf) : lpProductBuf
 
         result := DllCall("msi.dll\MsiEnumRelatedProductsA", "ptr", lpUpgradeCode, "uint", dwReserved, "uint", iProductIndex, "ptr", lpProductBuf, "uint")
         return result
@@ -15669,9 +15675,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumRelatedProducts function enumerates products with a specified upgrade code. This function lists the currently installed and advertised products that have the specified UpgradeCode property in their Property table.
-     * @param {Pointer<Char>} lpUpgradeCode The null-terminated string specifying the upgrade code of related products that the installer is to enumerate.
+     * @param {PWSTR} lpUpgradeCode The null-terminated string specifying the upgrade code of related products that the installer is to enumerate.
      * @param {Integer} iProductIndex The zero-based index into the registered products.
-     * @param {Pointer<Char>} lpProductBuf A buffer to receive the product code GUID. This buffer must be 39 characters long. The first 38 characters are for the 
+     * @param {PWSTR} lpProductBuf A buffer to receive the product code GUID. This buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character.
      * @returns {Integer} <table>
      * <tr>
@@ -15740,8 +15746,8 @@ class ApplicationInstallationAndServicing {
     static MsiEnumRelatedProductsW(lpUpgradeCode, iProductIndex, lpProductBuf) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpUpgradeCode := lpUpgradeCode is String? StrPtr(lpUpgradeCode) : lpUpgradeCode
-        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+        lpUpgradeCode := lpUpgradeCode is String ? StrPtr(lpUpgradeCode) : lpUpgradeCode
+        lpProductBuf := lpProductBuf is String ? StrPtr(lpProductBuf) : lpProductBuf
 
         result := DllCall("msi.dll\MsiEnumRelatedProductsW", "ptr", lpUpgradeCode, "uint", dwReserved, "uint", iProductIndex, "ptr", lpProductBuf, "uint")
         return result
@@ -15749,11 +15755,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumFeatures function enumerates the published features for a given product. This function retrieves one feature ID each time it is called.
-     * @param {Pointer<Byte>} szProduct Null-terminated string specifying the product code of the product whose features are to be enumerated.
+     * @param {PSTR} szProduct Null-terminated string specifying the product code of the product whose features are to be enumerated.
      * @param {Integer} iFeatureIndex Specifies the index of the feature to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumFeatures</b> function and then incremented for subsequent calls. Because features are not ordered, any new feature has an arbitrary index. This means that the function can return features in any order.
-     * @param {Pointer<Byte>} lpFeatureBuf Pointer to a buffer that receives the feature ID. The size of the buffer must hold a string value of length MAX_FEATURE_CHARS+1.  The function returns <b>ERROR_MORE_DATA</b> if the length of the feature ID exceeds <b>MAX_FEATURE_CHARS</b>.
-     * @param {Pointer<Byte>} lpParentBuf Pointer to a buffer that receives the feature ID of the parent of the feature. The size of the buffer must hold a string value of length MAX_FEATURE_CHARS+1.  If the length of the feature ID of the parent feature exceeds <b>MAX_FEATURE_CHARS</b>, only the first <b>MAX_FEATURE_CHARS</b> characters get copied into the buffer.
+     * @param {PSTR} lpFeatureBuf Pointer to a buffer that receives the feature ID. The size of the buffer must hold a string value of length MAX_FEATURE_CHARS+1.  The function returns <b>ERROR_MORE_DATA</b> if the length of the feature ID exceeds <b>MAX_FEATURE_CHARS</b>.
+     * @param {PSTR} lpParentBuf Pointer to a buffer that receives the feature ID of the parent of the feature. The size of the buffer must hold a string value of length MAX_FEATURE_CHARS+1.  If the length of the feature ID of the parent feature exceeds <b>MAX_FEATURE_CHARS</b>, only the first <b>MAX_FEATURE_CHARS</b> characters get copied into the buffer.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15834,9 +15840,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumFeaturesA(szProduct, iFeatureIndex, lpFeatureBuf, lpParentBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        lpFeatureBuf := lpFeatureBuf is String? StrPtr(lpFeatureBuf) : lpFeatureBuf
-        lpParentBuf := lpParentBuf is String? StrPtr(lpParentBuf) : lpParentBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        lpFeatureBuf := lpFeatureBuf is String ? StrPtr(lpFeatureBuf) : lpFeatureBuf
+        lpParentBuf := lpParentBuf is String ? StrPtr(lpParentBuf) : lpParentBuf
 
         result := DllCall("msi.dll\MsiEnumFeaturesA", "ptr", szProduct, "uint", iFeatureIndex, "ptr", lpFeatureBuf, "ptr", lpParentBuf, "uint")
         return result
@@ -15844,11 +15850,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumFeatures function enumerates the published features for a given product. This function retrieves one feature ID each time it is called.
-     * @param {Pointer<Char>} szProduct Null-terminated string specifying the product code of the product whose features are to be enumerated.
+     * @param {PWSTR} szProduct Null-terminated string specifying the product code of the product whose features are to be enumerated.
      * @param {Integer} iFeatureIndex Specifies the index of the feature to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumFeatures</b> function and then incremented for subsequent calls. Because features are not ordered, any new feature has an arbitrary index. This means that the function can return features in any order.
-     * @param {Pointer<Char>} lpFeatureBuf Pointer to a buffer that receives the feature ID. The size of the buffer must hold a string value of length MAX_FEATURE_CHARS+1.  The function returns <b>ERROR_MORE_DATA</b> if the length of the feature ID exceeds <b>MAX_FEATURE_CHARS</b>.
-     * @param {Pointer<Char>} lpParentBuf Pointer to a buffer that receives the feature ID of the parent of the feature. The size of the buffer must hold a string value of length MAX_FEATURE_CHARS+1.  If the length of the feature ID of the parent feature exceeds <b>MAX_FEATURE_CHARS</b>, only the first <b>MAX_FEATURE_CHARS</b> characters get copied into the buffer.
+     * @param {PWSTR} lpFeatureBuf Pointer to a buffer that receives the feature ID. The size of the buffer must hold a string value of length MAX_FEATURE_CHARS+1.  The function returns <b>ERROR_MORE_DATA</b> if the length of the feature ID exceeds <b>MAX_FEATURE_CHARS</b>.
+     * @param {PWSTR} lpParentBuf Pointer to a buffer that receives the feature ID of the parent of the feature. The size of the buffer must hold a string value of length MAX_FEATURE_CHARS+1.  If the length of the feature ID of the parent feature exceeds <b>MAX_FEATURE_CHARS</b>, only the first <b>MAX_FEATURE_CHARS</b> characters get copied into the buffer.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15929,9 +15935,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumFeaturesW(szProduct, iFeatureIndex, lpFeatureBuf, lpParentBuf) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        lpFeatureBuf := lpFeatureBuf is String? StrPtr(lpFeatureBuf) : lpFeatureBuf
-        lpParentBuf := lpParentBuf is String? StrPtr(lpParentBuf) : lpParentBuf
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        lpFeatureBuf := lpFeatureBuf is String ? StrPtr(lpFeatureBuf) : lpFeatureBuf
+        lpParentBuf := lpParentBuf is String ? StrPtr(lpParentBuf) : lpParentBuf
 
         result := DllCall("msi.dll\MsiEnumFeaturesW", "ptr", szProduct, "uint", iFeatureIndex, "ptr", lpFeatureBuf, "ptr", lpParentBuf, "uint")
         return result
@@ -15941,7 +15947,7 @@ class ApplicationInstallationAndServicing {
      * The MsiEnumComponents function enumerates the installed components for all products. This function retrieves one component code each time it is called.
      * @param {Integer} iComponentIndex Specifies the index of the component to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponents</b> function and then incremented for subsequent calls. Because components are not ordered, any new component has an arbitrary index. This means that the function can return components in any order.
-     * @param {Pointer<Byte>} lpComponentBuf Pointer to a buffer that receives the component code. This buffer must be 39 characters long. The first 38 characters are for the 
+     * @param {PSTR} lpComponentBuf Pointer to a buffer that receives the component code. This buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character.
      * @returns {Integer} <table>
      * <tr>
@@ -16012,7 +16018,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentsA(iComponentIndex, lpComponentBuf) {
-        lpComponentBuf := lpComponentBuf is String? StrPtr(lpComponentBuf) : lpComponentBuf
+        lpComponentBuf := lpComponentBuf is String ? StrPtr(lpComponentBuf) : lpComponentBuf
 
         result := DllCall("msi.dll\MsiEnumComponentsA", "uint", iComponentIndex, "ptr", lpComponentBuf, "uint")
         return result
@@ -16022,7 +16028,7 @@ class ApplicationInstallationAndServicing {
      * The MsiEnumComponents function enumerates the installed components for all products. This function retrieves one component code each time it is called.
      * @param {Integer} iComponentIndex Specifies the index of the component to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponents</b> function and then incremented for subsequent calls. Because components are not ordered, any new component has an arbitrary index. This means that the function can return components in any order.
-     * @param {Pointer<Char>} lpComponentBuf Pointer to a buffer that receives the component code. This buffer must be 39 characters long. The first 38 characters are for the 
+     * @param {PWSTR} lpComponentBuf Pointer to a buffer that receives the component code. This buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character.
      * @returns {Integer} <table>
      * <tr>
@@ -16093,7 +16099,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentsW(iComponentIndex, lpComponentBuf) {
-        lpComponentBuf := lpComponentBuf is String? StrPtr(lpComponentBuf) : lpComponentBuf
+        lpComponentBuf := lpComponentBuf is String ? StrPtr(lpComponentBuf) : lpComponentBuf
 
         result := DllCall("msi.dll\MsiEnumComponentsW", "uint", iComponentIndex, "ptr", lpComponentBuf, "uint")
         return result
@@ -16101,7 +16107,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumComponentsEx function enumerates installed components. The function retrieves the component code for one component each time it is called. The component code is the string GUID unique to the component, version, and language.
-     * @param {Pointer<Byte>} szUserSid A null-terminated string that contains a security identifier (SID.) The enumeration of installed components extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) specifies an enumeration of all installed components across all products of all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and restricts the enumeration to instances of  applications installed by the specified user.
+     * @param {PSTR} szUserSid A null-terminated string that contains a security identifier (SID.) The enumeration of installed components extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) specifies an enumeration of all installed components across all products of all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and restricts the enumeration to instances of  applications installed by the specified user.
      * 
      * <table>
      * <tr>
@@ -16190,7 +16196,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Integer} dwIndex Specifies the index of the component to retrieve.  This parameter must be zero (0) for the first call to <b>MsiEnumComponentsEx</b> function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns ERROR_SUCCESS.
      * Components are not ordered and can be returned by the function in any order.
-     * @param {Pointer<Byte>} szInstalledComponentCode An output buffer that receives the component code GUID for the installed component. The length of the buffer should be large enough to hold a  null-terminated string value containing the component code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
+     * @param {PSTR} szInstalledComponentCode An output buffer that receives the component code GUID for the installed component. The length of the buffer should be large enough to hold a  null-terminated string value containing the component code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
      * @param {Pointer<Int32>} pdwInstalledContext A flag that gives the installation context the application that installed the component.
      * 
      * 
@@ -16233,7 +16239,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szSid Receives the security identifier (SID) that identifies the user that installed the application that owns the component. The location receives an empty string if this instance of the application is installed in a per-machine installation context. 
+     * @param {PSTR} szSid Receives the security identifier (SID) that identifies the user that installed the application that owns the component. The location receives an empty string if this instance of the application is installed in a per-machine installation context. 
      * 
      * The length of the buffer at this location should be large enough to hold a null-terminated string  value containing the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and the location pointed to by <i>pcchSid</i> receives  the number of <b>TCHAR</b> in the SID, not including the terminating NULL character.
      * 
@@ -16362,9 +16368,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentsExA(szUserSid, dwContext, dwIndex, szInstalledComponentCode, pdwInstalledContext, szSid, pcchSid) {
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szInstalledComponentCode := szInstalledComponentCode is String? StrPtr(szInstalledComponentCode) : szInstalledComponentCode
-        szSid := szSid is String? StrPtr(szSid) : szSid
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szInstalledComponentCode := szInstalledComponentCode is String ? StrPtr(szInstalledComponentCode) : szInstalledComponentCode
+        szSid := szSid is String ? StrPtr(szSid) : szSid
 
         result := DllCall("msi.dll\MsiEnumComponentsExA", "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledComponentCode, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
         return result
@@ -16372,7 +16378,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumComponentsEx function enumerates installed components. The function retrieves the component code for one component each time it is called. The component code is the string GUID unique to the component, version, and language.
-     * @param {Pointer<Char>} szUserSid A null-terminated string that contains a security identifier (SID.) The enumeration of installed components extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) specifies an enumeration of all installed components across all products of all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and restricts the enumeration to instances of  applications installed by the specified user.
+     * @param {PWSTR} szUserSid A null-terminated string that contains a security identifier (SID.) The enumeration of installed components extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) specifies an enumeration of all installed components across all products of all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and restricts the enumeration to instances of  applications installed by the specified user.
      * 
      * <table>
      * <tr>
@@ -16461,7 +16467,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Integer} dwIndex Specifies the index of the component to retrieve.  This parameter must be zero (0) for the first call to <b>MsiEnumComponentsEx</b> function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns ERROR_SUCCESS.
      * Components are not ordered and can be returned by the function in any order.
-     * @param {Pointer<Char>} szInstalledComponentCode An output buffer that receives the component code GUID for the installed component. The length of the buffer should be large enough to hold a  null-terminated string value containing the component code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
+     * @param {PWSTR} szInstalledComponentCode An output buffer that receives the component code GUID for the installed component. The length of the buffer should be large enough to hold a  null-terminated string value containing the component code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
      * @param {Pointer<Int32>} pdwInstalledContext A flag that gives the installation context the application that installed the component.
      * 
      * 
@@ -16504,7 +16510,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szSid Receives the security identifier (SID) that identifies the user that installed the application that owns the component. The location receives an empty string if this instance of the application is installed in a per-machine installation context. 
+     * @param {PWSTR} szSid Receives the security identifier (SID) that identifies the user that installed the application that owns the component. The location receives an empty string if this instance of the application is installed in a per-machine installation context. 
      * 
      * The length of the buffer at this location should be large enough to hold a null-terminated string  value containing the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and the location pointed to by <i>pcchSid</i> receives  the number of <b>TCHAR</b> in the SID, not including the terminating NULL character.
      * 
@@ -16633,9 +16639,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentsExW(szUserSid, dwContext, dwIndex, szInstalledComponentCode, pdwInstalledContext, szSid, pcchSid) {
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szInstalledComponentCode := szInstalledComponentCode is String? StrPtr(szInstalledComponentCode) : szInstalledComponentCode
-        szSid := szSid is String? StrPtr(szSid) : szSid
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szInstalledComponentCode := szInstalledComponentCode is String ? StrPtr(szInstalledComponentCode) : szInstalledComponentCode
+        szSid := szSid is String ? StrPtr(szSid) : szSid
 
         result := DllCall("msi.dll\MsiEnumComponentsExW", "ptr", szUserSid, "uint", dwContext, "uint", dwIndex, "ptr", szInstalledComponentCode, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
         return result
@@ -16643,10 +16649,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumClients function enumerates the clients for a given installed component. The function retrieves one product code each time it is called.
-     * @param {Pointer<Byte>} szComponent Specifies the component whose clients are to be enumerated.
+     * @param {PSTR} szComponent Specifies the component whose clients are to be enumerated.
      * @param {Integer} iProductIndex Specifies the index of the client to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumClients</b> function and then incremented for subsequent calls. Because clients are not ordered, any new client has an arbitrary index. This means that the function can return clients in any order.
-     * @param {Pointer<Byte>} lpProductBuf Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
+     * @param {PSTR} lpProductBuf Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -16723,8 +16729,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumClientsA(szComponent, iProductIndex, lpProductBuf) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpProductBuf := lpProductBuf is String ? StrPtr(lpProductBuf) : lpProductBuf
 
         result := DllCall("msi.dll\MsiEnumClientsA", "ptr", szComponent, "uint", iProductIndex, "ptr", lpProductBuf, "uint")
         return result
@@ -16732,10 +16738,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumClients function enumerates the clients for a given installed component. The function retrieves one product code each time it is called.
-     * @param {Pointer<Char>} szComponent Specifies the component whose clients are to be enumerated.
+     * @param {PWSTR} szComponent Specifies the component whose clients are to be enumerated.
      * @param {Integer} iProductIndex Specifies the index of the client to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumClients</b> function and then incremented for subsequent calls. Because clients are not ordered, any new client has an arbitrary index. This means that the function can return clients in any order.
-     * @param {Pointer<Char>} lpProductBuf Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
+     * @param {PWSTR} lpProductBuf Pointer to a buffer that receives the product code. This buffer must be 39 characters long. The first 38 characters are for the GUID, and the last character is for the terminating null character.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -16812,8 +16818,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumClientsW(szComponent, iProductIndex, lpProductBuf) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpProductBuf := lpProductBuf is String? StrPtr(lpProductBuf) : lpProductBuf
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpProductBuf := lpProductBuf is String ? StrPtr(lpProductBuf) : lpProductBuf
 
         result := DllCall("msi.dll\MsiEnumClientsW", "ptr", szComponent, "uint", iProductIndex, "ptr", lpProductBuf, "uint")
         return result
@@ -16821,8 +16827,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumClientsEx function enumerates the installed applications that use a specified component. The function retrieves a product code for an application each time it is called.
-     * @param {Pointer<Byte>} szComponent The component code GUID that identifies the component. The function enumerates the applications that use this component.
-     * @param {Pointer<Byte>} szUserSid A null-terminated string value that contains a security identifier (SID.) The enumeration of applications extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) enumerates all applications for all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and enumerates the instances of  applications installed by the specified user.
+     * @param {PSTR} szComponent The component code GUID that identifies the component. The function enumerates the applications that use this component.
+     * @param {PSTR} szUserSid A null-terminated string value that contains a security identifier (SID.) The enumeration of applications extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) enumerates all applications for all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and enumerates the instances of  applications installed by the specified user.
      * 
      * <table>
      * <tr>
@@ -16867,9 +16873,9 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * @param {Integer} dwContext A flag that extends the enumeration to instances of applications installed in the specified installation context. The enumeration includes only instances of applications that are installed by the users identified by  <i>szUserSid</i>.
      * @param {Integer} dwProductIndex Specifies the index of the application to retrieve.  The value of this parameter must be zero (0) in the first call to the function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns <b>ERROR_SUCCESS</b>.
-     * @param {Pointer<Byte>} szProductBuf A string value that receives the product code for the application. The length of the buffer at this location should be large enough to hold a  null-terminated string value containing the product code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
+     * @param {PSTR} szProductBuf A string value that receives the product code for the application. The length of the buffer at this location should be large enough to hold a  null-terminated string value containing the product code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
      * @param {Pointer<Int32>} pdwInstalledContext A flag that gives the installation context of the application.
-     * @param {Pointer<Byte>} szSid Receives the security identifier (SID) that identifies the user that installed the application. The location receives an empty string value if this instance of the application exists in a per-machine installation context. 
+     * @param {PSTR} szSid Receives the security identifier (SID) that identifies the user that installed the application. The location receives an empty string value if this instance of the application exists in a per-machine installation context. 
      * 
      * The length of the buffer should be large enough to hold a null-terminated string  value containing the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and the location pointed to by <i>pcchSid</i> receives  the number of <b>TCHAR</b> in the SID, not including the terminating NULL character.
      * 
@@ -16998,10 +17004,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumClientsExA(szComponent, szUserSid, dwContext, dwProductIndex, szProductBuf, pdwInstalledContext, szSid, pcchSid) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szProductBuf := szProductBuf is String? StrPtr(szProductBuf) : szProductBuf
-        szSid := szSid is String? StrPtr(szSid) : szSid
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szProductBuf := szProductBuf is String ? StrPtr(szProductBuf) : szProductBuf
+        szSid := szSid is String ? StrPtr(szSid) : szSid
 
         result := DllCall("msi.dll\MsiEnumClientsExA", "ptr", szComponent, "ptr", szUserSid, "uint", dwContext, "uint", dwProductIndex, "ptr", szProductBuf, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
         return result
@@ -17009,8 +17015,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumClientsEx function enumerates the installed applications that use a specified component. The function retrieves a product code for an application each time it is called.
-     * @param {Pointer<Char>} szComponent The component code GUID that identifies the component. The function enumerates the applications that use this component.
-     * @param {Pointer<Char>} szUserSid A null-terminated string value that contains a security identifier (SID.) The enumeration of applications extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) enumerates all applications for all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and enumerates the instances of  applications installed by the specified user.
+     * @param {PWSTR} szComponent The component code GUID that identifies the component. The function enumerates the applications that use this component.
+     * @param {PWSTR} szUserSid A null-terminated string value that contains a security identifier (SID.) The enumeration of applications extends to users identified by this SID. The special SID string s-1-1-0 (Everyone) enumerates all applications for all users in the system. A SID value other than s-1-1-0 specifies a user SID for a particular user and enumerates the instances of  applications installed by the specified user.
      * 
      * <table>
      * <tr>
@@ -17055,9 +17061,9 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * @param {Integer} dwContext A flag that extends the enumeration to instances of applications installed in the specified installation context. The enumeration includes only instances of applications that are installed by the users identified by  <i>szUserSid</i>.
      * @param {Integer} dwProductIndex Specifies the index of the application to retrieve.  The value of this parameter must be zero (0) in the first call to the function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns <b>ERROR_SUCCESS</b>.
-     * @param {Pointer<Char>} szProductBuf A string value that receives the product code for the application. The length of the buffer at this location should be large enough to hold a  null-terminated string value containing the product code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
+     * @param {PWSTR} szProductBuf A string value that receives the product code for the application. The length of the buffer at this location should be large enough to hold a  null-terminated string value containing the product code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
      * @param {Pointer<Int32>} pdwInstalledContext A flag that gives the installation context of the application.
-     * @param {Pointer<Char>} szSid Receives the security identifier (SID) that identifies the user that installed the application. The location receives an empty string value if this instance of the application exists in a per-machine installation context. 
+     * @param {PWSTR} szSid Receives the security identifier (SID) that identifies the user that installed the application. The location receives an empty string value if this instance of the application exists in a per-machine installation context. 
      * 
      * The length of the buffer should be large enough to hold a null-terminated string  value containing the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and the location pointed to by <i>pcchSid</i> receives  the number of <b>TCHAR</b> in the SID, not including the terminating NULL character.
      * 
@@ -17186,10 +17192,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumClientsExW(szComponent, szUserSid, dwContext, dwProductIndex, szProductBuf, pdwInstalledContext, szSid, pcchSid) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szProductBuf := szProductBuf is String? StrPtr(szProductBuf) : szProductBuf
-        szSid := szSid is String? StrPtr(szSid) : szSid
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szProductBuf := szProductBuf is String ? StrPtr(szProductBuf) : szProductBuf
+        szSid := szSid is String ? StrPtr(szSid) : szSid
 
         result := DllCall("msi.dll\MsiEnumClientsExW", "ptr", szComponent, "ptr", szUserSid, "uint", dwContext, "uint", dwProductIndex, "ptr", szProductBuf, "int*", pdwInstalledContext, "ptr", szSid, "uint*", pcchSid, "uint")
         return result
@@ -17197,12 +17203,12 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumComponentQualifiers function enumerates the advertised qualifiers for the given component. This function retrieves one qualifier each time it is called.
-     * @param {Pointer<Byte>} szComponent Specifies component whose qualifiers are to be enumerated.
+     * @param {PSTR} szComponent Specifies component whose qualifiers are to be enumerated.
      * @param {Integer} iIndex Specifies the index of the qualifier to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponentQualifiers</b> function and then incremented for subsequent calls. Because qualifiers are not ordered, any new qualifier has an arbitrary index. This means that the function can return qualifiers in any order.
-     * @param {Pointer<Byte>} lpQualifierBuf Pointer to a buffer that receives the qualifier code.
+     * @param {PSTR} lpQualifierBuf Pointer to a buffer that receives the qualifier code.
      * @param {Pointer<UInt32>} pcchQualifierBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpQualifierBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character.
-     * @param {Pointer<Byte>} lpApplicationDataBuf Pointer to a buffer that receives the application registered data for the qualifier. This parameter can be null.
+     * @param {PSTR} lpApplicationDataBuf Pointer to a buffer that receives the application registered data for the qualifier. This parameter can be null.
      * @param {Pointer<UInt32>} pcchApplicationDataBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpApplicationDataBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character. This parameter can be null only if the <i>lpApplicationDataBuf </i>parameter is null.
      * @returns {Integer} <table>
      * <tr>
@@ -17291,9 +17297,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentQualifiersA(szComponent, iIndex, lpQualifierBuf, pcchQualifierBuf, lpApplicationDataBuf, pcchApplicationDataBuf) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpQualifierBuf := lpQualifierBuf is String? StrPtr(lpQualifierBuf) : lpQualifierBuf
-        lpApplicationDataBuf := lpApplicationDataBuf is String? StrPtr(lpApplicationDataBuf) : lpApplicationDataBuf
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpQualifierBuf := lpQualifierBuf is String ? StrPtr(lpQualifierBuf) : lpQualifierBuf
+        lpApplicationDataBuf := lpApplicationDataBuf is String ? StrPtr(lpApplicationDataBuf) : lpApplicationDataBuf
 
         result := DllCall("msi.dll\MsiEnumComponentQualifiersA", "ptr", szComponent, "uint", iIndex, "ptr", lpQualifierBuf, "uint*", pcchQualifierBuf, "ptr", lpApplicationDataBuf, "uint*", pcchApplicationDataBuf, "uint")
         return result
@@ -17301,12 +17307,12 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEnumComponentQualifiers function enumerates the advertised qualifiers for the given component. This function retrieves one qualifier each time it is called.
-     * @param {Pointer<Char>} szComponent Specifies component whose qualifiers are to be enumerated.
+     * @param {PWSTR} szComponent Specifies component whose qualifiers are to be enumerated.
      * @param {Integer} iIndex Specifies the index of the qualifier to retrieve. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponentQualifiers</b> function and then incremented for subsequent calls. Because qualifiers are not ordered, any new qualifier has an arbitrary index. This means that the function can return qualifiers in any order.
-     * @param {Pointer<Char>} lpQualifierBuf Pointer to a buffer that receives the qualifier code.
+     * @param {PWSTR} lpQualifierBuf Pointer to a buffer that receives the qualifier code.
      * @param {Pointer<UInt32>} pcchQualifierBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpQualifierBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character.
-     * @param {Pointer<Char>} lpApplicationDataBuf Pointer to a buffer that receives the application registered data for the qualifier. This parameter can be null.
+     * @param {PWSTR} lpApplicationDataBuf Pointer to a buffer that receives the application registered data for the qualifier. This parameter can be null.
      * @param {Pointer<UInt32>} pcchApplicationDataBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpApplicationDataBuf</i> parameter. On input, this size should include the terminating null character. On return, the value does not include the null character. This parameter can be null only if the <i>lpApplicationDataBuf </i>parameter is null.
      * @returns {Integer} <table>
      * <tr>
@@ -17395,9 +17401,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentQualifiersW(szComponent, iIndex, lpQualifierBuf, pcchQualifierBuf, lpApplicationDataBuf, pcchApplicationDataBuf) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpQualifierBuf := lpQualifierBuf is String? StrPtr(lpQualifierBuf) : lpQualifierBuf
-        lpApplicationDataBuf := lpApplicationDataBuf is String? StrPtr(lpApplicationDataBuf) : lpApplicationDataBuf
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpQualifierBuf := lpQualifierBuf is String ? StrPtr(lpQualifierBuf) : lpQualifierBuf
+        lpApplicationDataBuf := lpApplicationDataBuf is String ? StrPtr(lpApplicationDataBuf) : lpApplicationDataBuf
 
         result := DllCall("msi.dll\MsiEnumComponentQualifiersW", "ptr", szComponent, "uint", iIndex, "ptr", lpQualifierBuf, "uint*", pcchQualifierBuf, "ptr", lpApplicationDataBuf, "uint*", pcchApplicationDataBuf, "uint")
         return result
@@ -17405,8 +17411,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiOpenProduct function opens a product for use with the functions that access the product database. The MsiCloseHandle function must be called with the handle when the handle is no longer needed.
-     * @param {Pointer<Byte>} szProduct Specifies the product code of the product to be opened.
-     * @param {Pointer<UInt32>} hProduct Pointer to a variable that receives the product handle.
+     * @param {PSTR} szProduct Specifies the product code of the product to be opened.
+     * @param {Pointer<MSIHANDLE>} hProduct Pointer to a variable that receives the product handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -17487,16 +17493,16 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenProductA(szProduct, hProduct) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
-        result := DllCall("msi.dll\MsiOpenProductA", "ptr", szProduct, "uint*", hProduct, "uint")
+        result := DllCall("msi.dll\MsiOpenProductA", "ptr", szProduct, "ptr", hProduct, "uint")
         return result
     }
 
     /**
      * The MsiOpenProduct function opens a product for use with the functions that access the product database. The MsiCloseHandle function must be called with the handle when the handle is no longer needed.
-     * @param {Pointer<Char>} szProduct Specifies the product code of the product to be opened.
-     * @param {Pointer<UInt32>} hProduct Pointer to a variable that receives the product handle.
+     * @param {PWSTR} szProduct Specifies the product code of the product to be opened.
+     * @param {Pointer<MSIHANDLE>} hProduct Pointer to a variable that receives the product handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -17577,16 +17583,16 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenProductW(szProduct, hProduct) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
-        result := DllCall("msi.dll\MsiOpenProductW", "ptr", szProduct, "uint*", hProduct, "uint")
+        result := DllCall("msi.dll\MsiOpenProductW", "ptr", szProduct, "ptr", hProduct, "uint")
         return result
     }
 
     /**
      * The MsiOpenPackage function opens a package to use with the functions that access the product database.
-     * @param {Pointer<Byte>} szPackagePath The path to the package.
-     * @param {Pointer<UInt32>} hProduct A pointer to a variable that receives the product handle.
+     * @param {PSTR} szPackagePath The path to the package.
+     * @param {Pointer<MSIHANDLE>} hProduct A pointer to a variable that receives the product handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -17656,16 +17662,16 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenPackageA(szPackagePath, hProduct) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
 
-        result := DllCall("msi.dll\MsiOpenPackageA", "ptr", szPackagePath, "uint*", hProduct, "uint")
+        result := DllCall("msi.dll\MsiOpenPackageA", "ptr", szPackagePath, "ptr", hProduct, "uint")
         return result
     }
 
     /**
      * The MsiOpenPackage function opens a package to use with the functions that access the product database.
-     * @param {Pointer<Char>} szPackagePath The path to the package.
-     * @param {Pointer<UInt32>} hProduct A pointer to a variable that receives the product handle.
+     * @param {PWSTR} szPackagePath The path to the package.
+     * @param {Pointer<MSIHANDLE>} hProduct A pointer to a variable that receives the product handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -17735,15 +17741,15 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenPackageW(szPackagePath, hProduct) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
 
-        result := DllCall("msi.dll\MsiOpenPackageW", "ptr", szPackagePath, "uint*", hProduct, "uint")
+        result := DllCall("msi.dll\MsiOpenPackageW", "ptr", szPackagePath, "ptr", hProduct, "uint")
         return result
     }
 
     /**
      * The MsiOpenPackageEx function opens a package to use with functions that access the product database.
-     * @param {Pointer<Byte>} szPackagePath The path to the package.
+     * @param {PSTR} szPackagePath The path to the package.
      * @param {Integer} dwOptions The bit flags to indicate whether or not to ignore the computer state. Pass in 0 (zero) to use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a> behavior. 
      * 
@@ -17766,7 +17772,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} hProduct A pointer to a variable that receives the product handle.
+     * @param {Pointer<MSIHANDLE>} hProduct A pointer to a variable that receives the product handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -17836,15 +17842,15 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenPackageExA(szPackagePath, dwOptions, hProduct) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
 
-        result := DllCall("msi.dll\MsiOpenPackageExA", "ptr", szPackagePath, "uint", dwOptions, "uint*", hProduct, "uint")
+        result := DllCall("msi.dll\MsiOpenPackageExA", "ptr", szPackagePath, "uint", dwOptions, "ptr", hProduct, "uint")
         return result
     }
 
     /**
      * The MsiOpenPackageEx function opens a package to use with functions that access the product database.
-     * @param {Pointer<Char>} szPackagePath The path to the package.
+     * @param {PWSTR} szPackagePath The path to the package.
      * @param {Integer} dwOptions The bit flags to indicate whether or not to ignore the computer state. Pass in 0 (zero) to use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a> behavior. 
      * 
@@ -17867,7 +17873,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} hProduct A pointer to a variable that receives the product handle.
+     * @param {Pointer<MSIHANDLE>} hProduct A pointer to a variable that receives the product handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -17937,18 +17943,18 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiOpenPackageExW(szPackagePath, dwOptions, hProduct) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
 
-        result := DllCall("msi.dll\MsiOpenPackageExW", "ptr", szPackagePath, "uint", dwOptions, "uint*", hProduct, "uint")
+        result := DllCall("msi.dll\MsiOpenPackageExW", "ptr", szPackagePath, "uint", dwOptions, "ptr", hProduct, "uint")
         return result
     }
 
     /**
      * The MsiGetPatchFileList function is provided a list of .msp files, delimited by semicolons, and retrieves the list of files that can be updated by the patches.
-     * @param {Pointer<Byte>} szProductCode A null-terminated string value containing the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product which is the target of the patches.  This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szPatchPackages A null-terminated string value that contains the list of Windows Installer patches (.msp files).  Each patch can be specified by the full path to the patch package. The patches in the list are delimited by semicolons. At least one patch must be specified.
+     * @param {PSTR} szProductCode A null-terminated string value containing the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product which is the target of the patches.  This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szPatchPackages A null-terminated string value that contains the list of Windows Installer patches (.msp files).  Each patch can be specified by the full path to the patch package. The patches in the list are delimited by semicolons. At least one patch must be specified.
      * @param {Pointer<UInt32>} pcFiles A pointer to a location that receives the number of files that will be updated on this system by this list of patches specified by <i>szPatchList</i>. This parameter is required.
-     * @param {Pointer<UInt32>} pphFileRecords A pointer to a location that receives a pointer to an array of records. The first field (0-index) of each record  contains the full file path of a file that can be updated when the list of patches in <i>szPatchList</i> are applied on this computer. This parameter is required.
+     * @param {Pointer<MSIHANDLE>} pphFileRecords A pointer to a location that receives a pointer to an array of records. The first field (0-index) of each record  contains the full file path of a file that can be updated when the list of patches in <i>szPatchList</i> are applied on this computer. This parameter is required.
      * @returns {Integer} The <b>MsiGetPatchFileList</b> function returns the following values.
      * 
      * <table>
@@ -17994,8 +18000,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchFileListA(szProductCode, szPatchPackages, pcFiles, pphFileRecords) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szPatchPackages := szPatchPackages is String? StrPtr(szPatchPackages) : szPatchPackages
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szPatchPackages := szPatchPackages is String ? StrPtr(szPatchPackages) : szPatchPackages
 
         result := DllCall("msi.dll\MsiGetPatchFileListA", "ptr", szProductCode, "ptr", szPatchPackages, "uint*", pcFiles, "ptr", pphFileRecords, "uint")
         return result
@@ -18003,10 +18009,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetPatchFileList function is provided a list of .msp files, delimited by semicolons, and retrieves the list of files that can be updated by the patches.
-     * @param {Pointer<Char>} szProductCode A null-terminated string value containing the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product which is the target of the patches.  This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szPatchPackages A null-terminated string value that contains the list of Windows Installer patches (.msp files).  Each patch can be specified by the full path to the patch package. The patches in the list are delimited by semicolons. At least one patch must be specified.
+     * @param {PWSTR} szProductCode A null-terminated string value containing the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product which is the target of the patches.  This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szPatchPackages A null-terminated string value that contains the list of Windows Installer patches (.msp files).  Each patch can be specified by the full path to the patch package. The patches in the list are delimited by semicolons. At least one patch must be specified.
      * @param {Pointer<UInt32>} pcFiles A pointer to a location that receives the number of files that will be updated on this system by this list of patches specified by <i>szPatchList</i>. This parameter is required.
-     * @param {Pointer<UInt32>} pphFileRecords A pointer to a location that receives a pointer to an array of records. The first field (0-index) of each record  contains the full file path of a file that can be updated when the list of patches in <i>szPatchList</i> are applied on this computer. This parameter is required.
+     * @param {Pointer<MSIHANDLE>} pphFileRecords A pointer to a location that receives a pointer to an array of records. The first field (0-index) of each record  contains the full file path of a file that can be updated when the list of patches in <i>szPatchList</i> are applied on this computer. This parameter is required.
      * @returns {Integer} The <b>MsiGetPatchFileList</b> function returns the following values.
      * 
      * <table>
@@ -18052,8 +18058,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPatchFileListW(szProductCode, szPatchPackages, pcFiles, pphFileRecords) {
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szPatchPackages := szPatchPackages is String? StrPtr(szPatchPackages) : szPatchPackages
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szPatchPackages := szPatchPackages is String ? StrPtr(szPatchPackages) : szPatchPackages
 
         result := DllCall("msi.dll\MsiGetPatchFileListW", "ptr", szProductCode, "ptr", szPatchPackages, "uint*", pcFiles, "ptr", pphFileRecords, "uint")
         return result
@@ -18061,10 +18067,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetProductProperty function retrieves product properties. These properties are in the product database.
-     * @param {Integer} hProduct Handle to the product obtained from 
+     * @param {MSIHANDLE} hProduct Handle to the product obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szProperty Specifies the property to retrieve. This is case-sensitive.
-     * @param {Pointer<Byte>} lpValueBuf Pointer to a buffer that receives the property value. The value is truncated and null-terminated if <i>lpValueBuf</i> is too small. This parameter can be null.
+     * @param {PSTR} szProperty Specifies the property to retrieve. This is case-sensitive.
+     * @param {PSTR} lpValueBuf Pointer to a buffer that receives the property value. The value is truncated and null-terminated if <i>lpValueBuf</i> is too small. This parameter can be null.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -18132,19 +18138,20 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductPropertyA(hProduct, szProperty, lpValueBuf, pcchValueBuf) {
-        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
-        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+        szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
+        lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
+        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
 
-        result := DllCall("msi.dll\MsiGetProductPropertyA", "uint", hProduct, "ptr", szProperty, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
+        result := DllCall("msi.dll\MsiGetProductPropertyA", "ptr", hProduct, "ptr", szProperty, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
         return result
     }
 
     /**
      * The MsiGetProductProperty function retrieves product properties. These properties are in the product database.
-     * @param {Integer} hProduct Handle to the product obtained from 
+     * @param {MSIHANDLE} hProduct Handle to the product obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szProperty Specifies the property to retrieve. This is case-sensitive.
-     * @param {Pointer<Char>} lpValueBuf Pointer to a buffer that receives the property value. The value is truncated and null-terminated if <i>lpValueBuf</i> is too small. This parameter can be null.
+     * @param {PWSTR} szProperty Specifies the property to retrieve. This is case-sensitive.
+     * @param {PWSTR} lpValueBuf Pointer to a buffer that receives the property value. The value is truncated and null-terminated if <i>lpValueBuf</i> is too small. This parameter can be null.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpValueBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
      * 
@@ -18212,16 +18219,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductPropertyW(hProduct, szProperty, lpValueBuf, pcchValueBuf) {
-        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
-        lpValueBuf := lpValueBuf is String? StrPtr(lpValueBuf) : lpValueBuf
+        szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
+        lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
+        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
 
-        result := DllCall("msi.dll\MsiGetProductPropertyW", "uint", hProduct, "ptr", szProperty, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
+        result := DllCall("msi.dll\MsiGetProductPropertyW", "ptr", hProduct, "ptr", szProperty, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
         return result
     }
 
     /**
      * The MsiVerifyPackage function verifies that the given file is an installation package.
-     * @param {Pointer<Byte>} szPackagePath Specifies the path and file name of the package.
+     * @param {PSTR} szPackagePath Specifies the path and file name of the package.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -18280,7 +18288,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiVerifyPackageA(szPackagePath) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
 
         result := DllCall("msi.dll\MsiVerifyPackageA", "ptr", szPackagePath, "uint")
         return result
@@ -18288,7 +18296,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiVerifyPackage function verifies that the given file is an installation package.
-     * @param {Pointer<Char>} szPackagePath Specifies the path and file name of the package.
+     * @param {PWSTR} szPackagePath Specifies the path and file name of the package.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -18347,7 +18355,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiVerifyPackageW(szPackagePath) {
-        szPackagePath := szPackagePath is String? StrPtr(szPackagePath) : szPackagePath
+        szPackagePath := szPackagePath is String ? StrPtr(szPackagePath) : szPackagePath
 
         result := DllCall("msi.dll\MsiVerifyPackageW", "ptr", szPackagePath, "uint")
         return result
@@ -18355,15 +18363,15 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Returns descriptive information for a feature.
-     * @param {Integer} hProduct Handle to the product that owns the feature. This handle is obtained from 
+     * @param {MSIHANDLE} hProduct Handle to the product that owns the feature. This handle is obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szFeature Feature code for the feature about which information should be returned.
+     * @param {PSTR} szFeature Feature code for the feature about which information should be returned.
      * @param {Pointer<UInt32>} lpAttributes Pointer to a location containing one or more of the following Attribute flags.
-     * @param {Pointer<Byte>} lpTitleBuf Pointer to a buffer to receive the localized name of the feature, which corresponds to the Title field in the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature Table</a>.
+     * @param {PSTR} lpTitleBuf Pointer to a buffer to receive the localized name of the feature, which corresponds to the Title field in the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature Table</a>.
      * 
      * This parameter is optional and can be null.
      * @param {Pointer<UInt32>} pcchTitleBuf As input, the size of <i>lpTitleBuf</i>. As output, the number of characters returned in <i>lpTitleBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer that is passed in is too small, the count returned does not include the terminating null character.
-     * @param {Pointer<Byte>} lpHelpBuf Pointer to a buffer to receive the localized description of the feature, which corresponds to the Description field for the feature in the  <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
+     * @param {PSTR} lpHelpBuf Pointer to a buffer to receive the localized description of the feature, which corresponds to the Description field for the feature in the  <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
      * This parameter is optional and can be null.
      * @param {Pointer<UInt32>} pcchHelpBuf As input, the size of <i>lpHelpBuf</i>. As output, the number of characters returned in <i>lpHelpBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
@@ -18431,25 +18439,26 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureInfoA(hProduct, szFeature, lpAttributes, lpTitleBuf, pcchTitleBuf, lpHelpBuf, pcchHelpBuf) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
-        lpTitleBuf := lpTitleBuf is String? StrPtr(lpTitleBuf) : lpTitleBuf
-        lpHelpBuf := lpHelpBuf is String? StrPtr(lpHelpBuf) : lpHelpBuf
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        lpTitleBuf := lpTitleBuf is String ? StrPtr(lpTitleBuf) : lpTitleBuf
+        lpHelpBuf := lpHelpBuf is String ? StrPtr(lpHelpBuf) : lpHelpBuf
+        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
 
-        result := DllCall("msi.dll\MsiGetFeatureInfoA", "uint", hProduct, "ptr", szFeature, "uint*", lpAttributes, "ptr", lpTitleBuf, "uint*", pcchTitleBuf, "ptr", lpHelpBuf, "uint*", pcchHelpBuf, "uint")
+        result := DllCall("msi.dll\MsiGetFeatureInfoA", "ptr", hProduct, "ptr", szFeature, "uint*", lpAttributes, "ptr", lpTitleBuf, "uint*", pcchTitleBuf, "ptr", lpHelpBuf, "uint*", pcchHelpBuf, "uint")
         return result
     }
 
     /**
      * Returns descriptive information for a feature.
-     * @param {Integer} hProduct Handle to the product that owns the feature. This handle is obtained from 
+     * @param {MSIHANDLE} hProduct Handle to the product that owns the feature. This handle is obtained from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szFeature Feature code for the feature about which information should be returned.
+     * @param {PWSTR} szFeature Feature code for the feature about which information should be returned.
      * @param {Pointer<UInt32>} lpAttributes Pointer to a location containing one or more of the following Attribute flags.
-     * @param {Pointer<Char>} lpTitleBuf Pointer to a buffer to receive the localized name of the feature, which corresponds to the Title field in the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature Table</a>.
+     * @param {PWSTR} lpTitleBuf Pointer to a buffer to receive the localized name of the feature, which corresponds to the Title field in the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature Table</a>.
      * 
      * This parameter is optional and can be null.
      * @param {Pointer<UInt32>} pcchTitleBuf As input, the size of <i>lpTitleBuf</i>. As output, the number of characters returned in <i>lpTitleBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer that is passed in is too small, the count returned does not include the terminating null character.
-     * @param {Pointer<Char>} lpHelpBuf Pointer to a buffer to receive the localized description of the feature, which corresponds to the Description field for the feature in the  <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
+     * @param {PWSTR} lpHelpBuf Pointer to a buffer to receive the localized description of the feature, which corresponds to the Description field for the feature in the  <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
      * This parameter is optional and can be null.
      * @param {Pointer<UInt32>} pcchHelpBuf As input, the size of <i>lpHelpBuf</i>. As output, the number of characters returned in <i>lpHelpBuf</i>. On input, this is the full size of the buffer, and includes a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @returns {Integer} <table>
@@ -18517,18 +18526,19 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureInfoW(hProduct, szFeature, lpAttributes, lpTitleBuf, pcchTitleBuf, lpHelpBuf, pcchHelpBuf) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
-        lpTitleBuf := lpTitleBuf is String? StrPtr(lpTitleBuf) : lpTitleBuf
-        lpHelpBuf := lpHelpBuf is String? StrPtr(lpHelpBuf) : lpHelpBuf
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        lpTitleBuf := lpTitleBuf is String ? StrPtr(lpTitleBuf) : lpTitleBuf
+        lpHelpBuf := lpHelpBuf is String ? StrPtr(lpHelpBuf) : lpHelpBuf
+        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
 
-        result := DllCall("msi.dll\MsiGetFeatureInfoW", "uint", hProduct, "ptr", szFeature, "uint*", lpAttributes, "ptr", lpTitleBuf, "uint*", pcchTitleBuf, "ptr", lpHelpBuf, "uint*", pcchHelpBuf, "uint")
+        result := DllCall("msi.dll\MsiGetFeatureInfoW", "ptr", hProduct, "ptr", szFeature, "uint*", lpAttributes, "ptr", lpTitleBuf, "uint*", pcchTitleBuf, "ptr", lpHelpBuf, "uint*", pcchHelpBuf, "uint")
         return result
     }
 
     /**
      * The MsiInstallMissingComponent function installs files that are unexpectedly missing.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product that owns the component to be installed.
-     * @param {Pointer<Byte>} szComponent Identifies the component to be installed.
+     * @param {PSTR} szProduct Specifies the product code for the product that owns the component to be installed.
+     * @param {PSTR} szComponent Identifies the component to be installed.
      * @param {Integer} eInstallState 
      * @returns {Integer} <table>
      * <tr>
@@ -18632,8 +18642,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallMissingComponentA(szProduct, szComponent, eInstallState) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
 
         result := DllCall("msi.dll\MsiInstallMissingComponentA", "ptr", szProduct, "ptr", szComponent, "int", eInstallState, "uint")
         return result
@@ -18641,8 +18651,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiInstallMissingComponent function installs files that are unexpectedly missing.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product that owns the component to be installed.
-     * @param {Pointer<Char>} szComponent Identifies the component to be installed.
+     * @param {PWSTR} szProduct Specifies the product code for the product that owns the component to be installed.
+     * @param {PWSTR} szComponent Identifies the component to be installed.
      * @param {Integer} eInstallState 
      * @returns {Integer} <table>
      * <tr>
@@ -18746,8 +18756,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallMissingComponentW(szProduct, szComponent, eInstallState) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
 
         result := DllCall("msi.dll\MsiInstallMissingComponentW", "ptr", szProduct, "ptr", szComponent, "int", eInstallState, "uint")
         return result
@@ -18755,8 +18765,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiInstallMissingFile function installs files that are unexpectedly missing.
-     * @param {Pointer<Byte>} szProduct Specifies the product code for the product that owns the file to be installed.
-     * @param {Pointer<Byte>} szFile Specifies the file to be installed.
+     * @param {PSTR} szProduct Specifies the product code for the product that owns the file to be installed.
+     * @param {PSTR} szFile Specifies the file to be installed.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -18859,8 +18869,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallMissingFileA(szProduct, szFile) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFile := szFile is String? StrPtr(szFile) : szFile
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("msi.dll\MsiInstallMissingFileA", "ptr", szProduct, "ptr", szFile, "uint")
         return result
@@ -18868,8 +18878,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiInstallMissingFile function installs files that are unexpectedly missing.
-     * @param {Pointer<Char>} szProduct Specifies the product code for the product that owns the file to be installed.
-     * @param {Pointer<Char>} szFile Specifies the file to be installed.
+     * @param {PWSTR} szProduct Specifies the product code for the product that owns the file to be installed.
+     * @param {PWSTR} szFile Specifies the file to be installed.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -18972,8 +18982,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiInstallMissingFileW(szProduct, szFile) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szFile := szFile is String? StrPtr(szFile) : szFile
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("msi.dll\MsiInstallMissingFileW", "ptr", szProduct, "ptr", szFile, "uint")
         return result
@@ -18981,8 +18991,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiLocateComponent function returns the full path to an installed component without a product code.
-     * @param {Pointer<Byte>} szComponent Specifies the component ID of the component to be located.
-     * @param {Pointer<Byte>} lpPathBuf Pointer to a variable that receives the path to the component. The variable includes the terminating null character.
+     * @param {PSTR} szComponent Specifies the component ID of the component to be located.
+     * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. The variable includes the terminating null character.
      * @param {Pointer<UInt32>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. Upon success of the 
      * <b>MsiLocateComponent</b> function, the variable pointed to by <i>pcchBuf</i> contains the count of characters not including the terminating null character. If the size of the buffer passed in is too small, the function returns INSTALLSTATE_MOREDATA. 
      * 
@@ -19088,8 +19098,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiLocateComponentA(szComponent, lpPathBuf, pcchBuf) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiLocateComponentA", "ptr", szComponent, "ptr", lpPathBuf, "uint*", pcchBuf, "int")
         return result
@@ -19097,8 +19107,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiLocateComponent function returns the full path to an installed component without a product code.
-     * @param {Pointer<Char>} szComponent Specifies the component ID of the component to be located.
-     * @param {Pointer<Char>} lpPathBuf Pointer to a variable that receives the path to the component. The variable includes the terminating null character.
+     * @param {PWSTR} szComponent Specifies the component ID of the component to be located.
+     * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. The variable includes the terminating null character.
      * @param {Pointer<UInt32>} pcchBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. Upon success of the 
      * <b>MsiLocateComponent</b> function, the variable pointed to by <i>pcchBuf</i> contains the count of characters not including the terminating null character. If the size of the buffer passed in is too small, the function returns INSTALLSTATE_MOREDATA. 
      * 
@@ -19204,8 +19214,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiLocateComponentW(szComponent, lpPathBuf, pcchBuf) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        lpPathBuf := lpPathBuf is String? StrPtr(lpPathBuf) : lpPathBuf
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        lpPathBuf := lpPathBuf is String ? StrPtr(lpPathBuf) : lpPathBuf
 
         result := DllCall("msi.dll\MsiLocateComponentW", "ptr", szComponent, "ptr", lpPathBuf, "uint*", pcchBuf, "int")
         return result
@@ -19213,8 +19223,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListClearAll function removes all network sources from the source list of a patch or product in a specified context. For more information, see Source Resiliency.
-     * @param {Pointer<Byte>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
-     * @param {Pointer<Byte>} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).  
+     * @param {PSTR} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
+     * @param {PSTR} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).  
      * 
      * 
      * An empty string or <b>NULL</b> for a per-machine installation.
@@ -19320,8 +19330,8 @@ class ApplicationInstallationAndServicing {
     static MsiSourceListClearAllA(szProduct, szUserName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String ? StrPtr(szUserName) : szUserName
 
         result := DllCall("msi.dll\MsiSourceListClearAllA", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved, "uint")
         return result
@@ -19329,8 +19339,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListClearAll function removes all network sources from the source list of a patch or product in a specified context. For more information, see Source Resiliency.
-     * @param {Pointer<Char>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
-     * @param {Pointer<Char>} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).  
+     * @param {PWSTR} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
+     * @param {PWSTR} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).  
      * 
      * 
      * An empty string or <b>NULL</b> for a per-machine installation.
@@ -19436,8 +19446,8 @@ class ApplicationInstallationAndServicing {
     static MsiSourceListClearAllW(szProduct, szUserName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String ? StrPtr(szUserName) : szUserName
 
         result := DllCall("msi.dll\MsiSourceListClearAllW", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved, "uint")
         return result
@@ -19445,11 +19455,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Adds to the list of valid network sources that contain the specified type of sources for a product or patch in a specified user context.
-     * @param {Pointer<Byte>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
-     * @param {Pointer<Byte>} szUserName The user name for a per-user installation. On Windows 2000 or Windows XP, the user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).
+     * @param {PSTR} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
+     * @param {PSTR} szUserName The user name for a per-user installation. On Windows 2000 or Windows XP, the user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).
      * 
      * An empty string or <b>NULL</b> for a per-machine installation.
-     * @param {Pointer<Byte>} szSource Pointer to the string specifying the source.
+     * @param {PSTR} szSource Pointer to the string specifying the source.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -19550,9 +19560,9 @@ class ApplicationInstallationAndServicing {
     static MsiSourceListAddSourceA(szProduct, szUserName, szSource) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
-        szSource := szSource is String? StrPtr(szSource) : szSource
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String ? StrPtr(szUserName) : szUserName
+        szSource := szSource is String ? StrPtr(szSource) : szSource
 
         result := DllCall("msi.dll\MsiSourceListAddSourceA", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved, "ptr", szSource, "uint")
         return result
@@ -19560,11 +19570,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Adds to the list of valid network sources that contain the specified type of sources for a product or patch in a specified user context.
-     * @param {Pointer<Char>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
-     * @param {Pointer<Char>} szUserName The user name for a per-user installation. On Windows 2000 or Windows XP, the user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).
+     * @param {PWSTR} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
+     * @param {PWSTR} szUserName The user name for a per-user installation. On Windows 2000 or Windows XP, the user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user).
      * 
      * An empty string or <b>NULL</b> for a per-machine installation.
-     * @param {Pointer<Char>} szSource Pointer to the string specifying the source.
+     * @param {PWSTR} szSource Pointer to the string specifying the source.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -19665,9 +19675,9 @@ class ApplicationInstallationAndServicing {
     static MsiSourceListAddSourceW(szProduct, szUserName, szSource) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
-        szSource := szSource is String? StrPtr(szSource) : szSource
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String ? StrPtr(szUserName) : szUserName
+        szSource := szSource is String ? StrPtr(szSource) : szSource
 
         result := DllCall("msi.dll\MsiSourceListAddSourceW", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved, "ptr", szSource, "uint")
         return result
@@ -19675,8 +19685,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListForceResolution function forces the installer to search the source list for a valid product source the next time a source is required.
-     * @param {Pointer<Byte>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
-     * @param {Pointer<Byte>} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user). 
+     * @param {PSTR} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
+     * @param {PSTR} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user). 
      * 
      * An empty string or <b>NULL</b> for a per-machine installation.
      * @returns {Integer} The <b>MsiSourceListForceResolution</b> function returns the following values.
@@ -19781,8 +19791,8 @@ class ApplicationInstallationAndServicing {
     static MsiSourceListForceResolutionA(szProduct, szUserName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String ? StrPtr(szUserName) : szUserName
 
         result := DllCall("msi.dll\MsiSourceListForceResolutionA", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved, "uint")
         return result
@@ -19790,8 +19800,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListForceResolution function forces the installer to search the source list for a valid product source the next time a source is required.
-     * @param {Pointer<Char>} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
-     * @param {Pointer<Char>} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user). 
+     * @param {PWSTR} szProduct The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> of the product to modify.
+     * @param {PWSTR} szUserName The user name for a per-user installation. The user name should always be in the format of DOMAIN\USERNAME (or MACHINENAME\USERNAME for a local user). 
      * 
      * An empty string or <b>NULL</b> for a per-machine installation.
      * @returns {Integer} The <b>MsiSourceListForceResolution</b> function returns the following values.
@@ -19896,8 +19906,8 @@ class ApplicationInstallationAndServicing {
     static MsiSourceListForceResolutionW(szProduct, szUserName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
-        szUserName := szUserName is String? StrPtr(szUserName) : szUserName
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
+        szUserName := szUserName is String ? StrPtr(szUserName) : szUserName
 
         result := DllCall("msi.dll\MsiSourceListForceResolutionW", "ptr", szProduct, "ptr", szUserName, "uint", dwReserved, "uint")
         return result
@@ -19905,8 +19915,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Adds or reorders the set of sources of a patch or product in a specified context. It can also create a source list for a patch that does not exist in the specified context.
-     * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
+     * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
      * <table>
      * <tr>
@@ -19989,7 +19999,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szSource Source to add or move. This parameter is expected to contain only the path without the filename. 
+     * @param {PSTR} szSource Source to add or move. This parameter is expected to contain only the path without the filename. 
      * The filename is already registered as "PackageName" and can be manipulated through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisourcelistsetinfoa">MsiSourceListSetInfo</a>. This argument is required.
      * @param {Integer} dwIndex This parameter provides the new index for the source. All sources are indexed in the source list from 1 to <i>N</i>, where <i>N</i> is the count of sources in the list. Every source in the list has a unique index.
      * 
@@ -20087,9 +20097,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListAddSourceExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource, dwIndex) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szSource := szSource is String? StrPtr(szSource) : szSource
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String ? StrPtr(szSource) : szSource
 
         result := DllCall("msi.dll\MsiSourceListAddSourceExA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szSource, "uint", dwIndex, "uint")
         return result
@@ -20097,8 +20107,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Adds or reorders the set of sources of a patch or product in a specified context. It can also create a source list for a patch that does not exist in the specified context.
-     * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
+     * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
      * <table>
      * <tr>
@@ -20181,7 +20191,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szSource Source to add or move. This parameter is expected to contain only the path without the filename. 
+     * @param {PWSTR} szSource Source to add or move. This parameter is expected to contain only the path without the filename. 
      * The filename is already registered as "PackageName" and can be manipulated through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisourcelistsetinfoa">MsiSourceListSetInfo</a>. This argument is required.
      * @param {Integer} dwIndex This parameter provides the new index for the source. All sources are indexed in the source list from 1 to <i>N</i>, where <i>N</i> is the count of sources in the list. Every source in the list has a unique index.
      * 
@@ -20279,9 +20289,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListAddSourceExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource, dwIndex) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szSource := szSource is String? StrPtr(szSource) : szSource
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String ? StrPtr(szSource) : szSource
 
         result := DllCall("msi.dll\MsiSourceListAddSourceExW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szSource, "uint", dwIndex, "uint")
         return result
@@ -20289,8 +20299,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListAddMediaDisk function adds or updates a disk of the media source of a registered product or patch.
-     * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH.
+     * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH.
      * 
      * <table>
      * <tr>
@@ -20359,8 +20369,8 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Integer} dwDiskId This parameter provides the ID of the disk being added or updated.
-     * @param {Pointer<Byte>} szVolumeLabel The <i>szVolumeLabel</i> provides the label of the disk being added or updated. An update  overwrites the existing volume label in the registry. To change the disk prompt only, get the existing volume label from the registry and provide it in this call along with the new disk prompt.  Passing a <b>NULL</b> or empty string for <i>szVolumeLabel</i> registers an empty string (0 bytes in length) as the volume label.
-     * @param {Pointer<Byte>} szDiskPrompt On entry to <b>MsiSourceListAddMediaDisk</b>, <i>szDiskPrompt</i> provides the disk prompt of the disk being added or updated. An update overwrites the registered disk prompt.  
+     * @param {PSTR} szVolumeLabel The <i>szVolumeLabel</i> provides the label of the disk being added or updated. An update  overwrites the existing volume label in the registry. To change the disk prompt only, get the existing volume label from the registry and provide it in this call along with the new disk prompt.  Passing a <b>NULL</b> or empty string for <i>szVolumeLabel</i> registers an empty string (0 bytes in length) as the volume label.
+     * @param {PSTR} szDiskPrompt On entry to <b>MsiSourceListAddMediaDisk</b>, <i>szDiskPrompt</i> provides the disk prompt of the disk being added or updated. An update overwrites the registered disk prompt.  
      * To change the volume label  only, get the existing disk prompt that is registered and provide it when calling <b>MsiSourceListAddMediaDisk</b> along with the new volume label. Passing <b>NULL</b> or an empty string registers an empty string (0 bytes in length) as the disk prompt.
      * @returns {Integer} The <b>MsiSourceListAddMediaDisk</b> function returns the following values.
      * 
@@ -20462,10 +20472,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListAddMediaDiskA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId, szVolumeLabel, szDiskPrompt) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szVolumeLabel := szVolumeLabel is String? StrPtr(szVolumeLabel) : szVolumeLabel
-        szDiskPrompt := szDiskPrompt is String? StrPtr(szDiskPrompt) : szDiskPrompt
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szVolumeLabel := szVolumeLabel is String ? StrPtr(szVolumeLabel) : szVolumeLabel
+        szDiskPrompt := szDiskPrompt is String ? StrPtr(szDiskPrompt) : szDiskPrompt
 
         result := DllCall("msi.dll\MsiSourceListAddMediaDiskA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwDiskId, "ptr", szVolumeLabel, "ptr", szDiskPrompt, "uint")
         return result
@@ -20473,8 +20483,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListAddMediaDisk function adds or updates a disk of the media source of a registered product or patch.
-     * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH.
+     * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH.
      * 
      * <table>
      * <tr>
@@ -20543,8 +20553,8 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Integer} dwDiskId This parameter provides the ID of the disk being added or updated.
-     * @param {Pointer<Char>} szVolumeLabel The <i>szVolumeLabel</i> provides the label of the disk being added or updated. An update  overwrites the existing volume label in the registry. To change the disk prompt only, get the existing volume label from the registry and provide it in this call along with the new disk prompt.  Passing a <b>NULL</b> or empty string for <i>szVolumeLabel</i> registers an empty string (0 bytes in length) as the volume label.
-     * @param {Pointer<Char>} szDiskPrompt On entry to <b>MsiSourceListAddMediaDisk</b>, <i>szDiskPrompt</i> provides the disk prompt of the disk being added or updated. An update overwrites the registered disk prompt.  
+     * @param {PWSTR} szVolumeLabel The <i>szVolumeLabel</i> provides the label of the disk being added or updated. An update  overwrites the existing volume label in the registry. To change the disk prompt only, get the existing volume label from the registry and provide it in this call along with the new disk prompt.  Passing a <b>NULL</b> or empty string for <i>szVolumeLabel</i> registers an empty string (0 bytes in length) as the volume label.
+     * @param {PWSTR} szDiskPrompt On entry to <b>MsiSourceListAddMediaDisk</b>, <i>szDiskPrompt</i> provides the disk prompt of the disk being added or updated. An update overwrites the registered disk prompt.  
      * To change the volume label  only, get the existing disk prompt that is registered and provide it when calling <b>MsiSourceListAddMediaDisk</b> along with the new volume label. Passing <b>NULL</b> or an empty string registers an empty string (0 bytes in length) as the disk prompt.
      * @returns {Integer} The <b>MsiSourceListAddMediaDisk</b> function returns the following values.
      * 
@@ -20646,10 +20656,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListAddMediaDiskW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId, szVolumeLabel, szDiskPrompt) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szVolumeLabel := szVolumeLabel is String? StrPtr(szVolumeLabel) : szVolumeLabel
-        szDiskPrompt := szDiskPrompt is String? StrPtr(szDiskPrompt) : szDiskPrompt
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szVolumeLabel := szVolumeLabel is String ? StrPtr(szVolumeLabel) : szVolumeLabel
+        szDiskPrompt := szDiskPrompt is String ? StrPtr(szDiskPrompt) : szDiskPrompt
 
         result := DllCall("msi.dll\MsiSourceListAddMediaDiskW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwDiskId, "ptr", szVolumeLabel, "ptr", szDiskPrompt, "uint")
         return result
@@ -20657,8 +20667,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Removes an existing source for a product or patch in a specified context.
-     * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
+     * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
      * <table>
      * <tr>
@@ -20741,7 +20751,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szSource Source to remove. This parameter is expected to contain only the path without the filename. 
+     * @param {PSTR} szSource Source to remove. This parameter is expected to contain only the path without the filename. 
      * The filename is already registered as "PackageName" and can be manipulated through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisourcelistsetinfoa">MsiSourceListSetInfo</a>. This argument is required.
      * @returns {Integer} The <b>MsiSourceListClearSource</b> function returns the following values.
      * 
@@ -20843,9 +20853,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearSourceA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szSource := szSource is String? StrPtr(szSource) : szSource
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String ? StrPtr(szSource) : szSource
 
         result := DllCall("msi.dll\MsiSourceListClearSourceA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szSource, "uint")
         return result
@@ -20853,8 +20863,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Removes an existing source for a product or patch in a specified context.
-     * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
+     * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
      * <table>
      * <tr>
@@ -20937,7 +20947,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szSource Source to remove. This parameter is expected to contain only the path without the filename. 
+     * @param {PWSTR} szSource Source to remove. This parameter is expected to contain only the path without the filename. 
      * The filename is already registered as "PackageName" and can be manipulated through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisourcelistsetinfoa">MsiSourceListSetInfo</a>. This argument is required.
      * @returns {Integer} The <b>MsiSourceListClearSource</b> function returns the following values.
      * 
@@ -21039,9 +21049,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearSourceW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szSource := szSource is String? StrPtr(szSource) : szSource
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String ? StrPtr(szSource) : szSource
 
         result := DllCall("msi.dll\MsiSourceListClearSourceW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szSource, "uint")
         return result
@@ -21049,8 +21059,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListClearMediaDisk function provides the ability to remove an existing registered disk under the media source for a product or patch in a specific context.
-     * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. 
+     * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. 
      * 
      * <table>
      * <tr>
@@ -21219,8 +21229,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearMediaDiskA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
 
         result := DllCall("msi.dll\MsiSourceListClearMediaDiskA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwDiskId, "uint")
         return result
@@ -21228,8 +21238,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListClearMediaDisk function provides the ability to remove an existing registered disk under the media source for a product or patch in a specific context.
-     * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. 
+     * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. 
      * 
      * <table>
      * <tr>
@@ -21398,8 +21408,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearMediaDiskW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
 
         result := DllCall("msi.dll\MsiSourceListClearMediaDiskW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwDiskId, "uint")
         return result
@@ -21407,8 +21417,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListClearAllEx function removes all the existing sources of a given source type for the specified product or patch instance.
-     * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
+     * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
      * @param {Integer} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value and the type of sources to clear. This parameter must be a combination of one of the following MSISOURCETYPE_* constants and one of the following MSICODE_* constants.
      * 
@@ -21570,8 +21580,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearAllExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
 
         result := DllCall("msi.dll\MsiSourceListClearAllExA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint")
         return result
@@ -21579,8 +21589,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListClearAllEx function removes all the existing sources of a given source type for the specified product or patch instance.
-     * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
+     * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
      * @param {Integer} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value and the type of sources to clear. This parameter must be a combination of one of the following MSISOURCETYPE_* constants and one of the following MSICODE_* constants.
      * 
@@ -21742,8 +21752,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListClearAllExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
 
         result := DllCall("msi.dll\MsiSourceListClearAllExW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint")
         return result
@@ -21751,8 +21761,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListForceResolutionEx function removes the registration of the property called &quot;LastUsedSource&quot;.
-     * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
+     * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
      * @param {Integer} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value . 
      * 
@@ -21887,8 +21897,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListForceResolutionExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
 
         result := DllCall("msi.dll\MsiSourceListForceResolutionExA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint")
         return result
@@ -21896,8 +21906,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListForceResolutionEx function removes the registration of the property called &quot;LastUsedSource&quot;.
-     * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
+     * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
      * @param {Integer} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value . 
      * 
@@ -22032,8 +22042,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListForceResolutionExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
 
         result := DllCall("msi.dll\MsiSourceListForceResolutionExW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint")
         return result
@@ -22041,8 +22051,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Sets information about the source list for a product or patch in a specific context.
-     * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
+     * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
      * <table>
      * <tr>
@@ -22127,8 +22137,8 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szProperty 
-     * @param {Pointer<Byte>} szValue The new value of the property. No validation of the new value is performed. This value cannot be <b>NULL</b>. It can be an empty string.
+     * @param {PSTR} szProperty 
+     * @param {PSTR} szValue The new value of the property. No validation of the new value is performed. This value cannot be <b>NULL</b>. It can be an empty string.
      * @returns {Integer} The <b>MsiSourceListSetInfo</b> function returns the following values.
      * 
      * <table>
@@ -22240,10 +22250,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListSetInfoA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("msi.dll\MsiSourceListSetInfoA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue, "uint")
         return result
@@ -22251,8 +22261,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Sets information about the source list for a product or patch in a specific context.
-     * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
+     * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return <b>ERROR_UNKNOWN_PRODUCT</b> or <b>ERROR_UNKNOWN_PATCH</b>. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be <b>MSIINSTALLCONTEXT_MACHINE</b>.
      * 
      * <table>
      * <tr>
@@ -22337,8 +22347,8 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szProperty 
-     * @param {Pointer<Char>} szValue The new value of the property. No validation of the new value is performed. This value cannot be <b>NULL</b>. It can be an empty string.
+     * @param {PWSTR} szProperty 
+     * @param {PWSTR} szValue The new value of the property. No validation of the new value is performed. This value cannot be <b>NULL</b>. It can be an empty string.
      * @returns {Integer} The <b>MsiSourceListSetInfo</b> function returns the following values.
      * 
      * <table>
@@ -22450,10 +22460,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListSetInfoW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("msi.dll\MsiSourceListSetInfoW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue, "uint")
         return result
@@ -22461,8 +22471,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListGetInfo function retrieves information about the source list for a product or patch in a specific context.
-     * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid This parameter can be a string security identifier (SID) that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE.
+     * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid This parameter can be a string security identifier (SID) that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE.
      * 
      * <table>
      * <tr>
@@ -22529,8 +22539,8 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} szProperty 
-     * @param {Pointer<Byte>} szValue An output buffer that receives  the information. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PSTR} szProperty 
+     * @param {PSTR} szValue An output buffer that receives  the information. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
@@ -22652,10 +22662,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListGetInfoA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue, pcchValue) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("msi.dll\MsiSourceListGetInfoA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue, "uint*", pcchValue, "uint")
         return result
@@ -22663,8 +22673,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListGetInfo function retrieves information about the source list for a product or patch in a specific context.
-     * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid This parameter can be a string security identifier (SID) that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE.
+     * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid This parameter can be a string security identifier (SID) that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE.
      * 
      * <table>
      * <tr>
@@ -22731,8 +22741,8 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} szProperty 
-     * @param {Pointer<Char>} szValue An output buffer that receives  the information. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PWSTR} szProperty 
+     * @param {PWSTR} szValue An output buffer that receives  the information. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchValue</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
@@ -22854,10 +22864,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListGetInfoW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue, pcchValue) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szProperty := szProperty is String? StrPtr(szProperty) : szProperty
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("msi.dll\MsiSourceListGetInfoW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "ptr", szProperty, "ptr", szValue, "uint*", pcchValue, "uint")
         return result
@@ -22865,8 +22875,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListEnumSources function enumerates the sources in the source list of a specified patch or product.
-     * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
+     * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
      * 
      * <table>
      * <tr>
@@ -22962,7 +22972,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Integer} dwIndex The index of the source to retrieve. This parameter must be 0 (zero) for the first call to the <b>MsiSourceListEnumSources</b> function, and then incremented for subsequent calls until the function returns ERROR_NO_MORE_ITEMS.  The index should be incremented only if the previous call returned ERROR_SUCCESS.
-     * @param {Pointer<Byte>} szSource A pointer to a  buffer that receives the path to the source that is  being enumerated. This buffer should be large enough to contain the received value. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchSource</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PSTR} szSource A pointer to a  buffer that receives the path to the source that is  being enumerated. This buffer should be large enough to contain the received value. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchSource</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
@@ -23083,9 +23093,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListEnumSourcesA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, szSource, pcchSource) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szSource := szSource is String? StrPtr(szSource) : szSource
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String ? StrPtr(szSource) : szSource
 
         result := DllCall("msi.dll\MsiSourceListEnumSourcesA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "ptr", szSource, "uint*", pcchSource, "uint")
         return result
@@ -23093,8 +23103,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListEnumSources function enumerates the sources in the source list of a specified patch or product.
-     * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
+     * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
      * 
      * <table>
      * <tr>
@@ -23190,7 +23200,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Integer} dwIndex The index of the source to retrieve. This parameter must be 0 (zero) for the first call to the <b>MsiSourceListEnumSources</b> function, and then incremented for subsequent calls until the function returns ERROR_NO_MORE_ITEMS.  The index should be incremented only if the previous call returned ERROR_SUCCESS.
-     * @param {Pointer<Char>} szSource A pointer to a  buffer that receives the path to the source that is  being enumerated. This buffer should be large enough to contain the received value. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchSource</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PWSTR} szSource A pointer to a  buffer that receives the path to the source that is  being enumerated. This buffer should be large enough to contain the received value. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchSource</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
@@ -23311,9 +23321,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListEnumSourcesW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, szSource, pcchSource) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szSource := szSource is String? StrPtr(szSource) : szSource
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szSource := szSource is String ? StrPtr(szSource) : szSource
 
         result := DllCall("msi.dll\MsiSourceListEnumSourcesW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "ptr", szSource, "uint*", pcchSource, "uint")
         return result
@@ -23321,8 +23331,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListEnumMediaDisks function enumerates the list of disks registered for the media source for a patch or product.
-     * @param {Pointer<Byte>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
+     * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
      * 
      * <table>
      * <tr>
@@ -23399,7 +23409,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Integer} dwIndex The index of the source to retrieve. This parameter must be 0 (zero) for the first call to the <b>MsiSourceListEnumMediaDisks</b>  function, and then incremented for subsequent calls until the function returns ERROR_NO_MORE_ITEMS.
      * @param {Pointer<UInt32>} pdwDiskId On entry to <b>MsiSourceListEnumMediaDisks</b> this parameter provides a pointer to a <b>DWORD</b> to receive the ID of the disk that is being enumerated.   This parameter is optional.
-     * @param {Pointer<Byte>} szVolumeLabel An output buffer that receives  the volume label of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchVolumeLabel</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PSTR} szVolumeLabel An output buffer that receives  the volume label of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchVolumeLabel</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
@@ -23407,7 +23417,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<UInt32>} pcchVolumeLabel A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szVolumeLabel</i> buffer. When the function returns, this parameter is the number of <b>TCHAR</b> in the received  value,  not including the terminating null character. 
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szVolumeLabel</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
-     * @param {Pointer<Byte>} szDiskPrompt An output buffer that receives  the disk prompt of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchDiskPrompt</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PSTR} szDiskPrompt An output buffer that receives  the disk prompt of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchDiskPrompt</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
@@ -23528,10 +23538,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListEnumMediaDisksA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, pdwDiskId, szVolumeLabel, pcchVolumeLabel, szDiskPrompt, pcchDiskPrompt) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szVolumeLabel := szVolumeLabel is String? StrPtr(szVolumeLabel) : szVolumeLabel
-        szDiskPrompt := szDiskPrompt is String? StrPtr(szDiskPrompt) : szDiskPrompt
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szVolumeLabel := szVolumeLabel is String ? StrPtr(szVolumeLabel) : szVolumeLabel
+        szDiskPrompt := szDiskPrompt is String ? StrPtr(szDiskPrompt) : szDiskPrompt
 
         result := DllCall("msi.dll\MsiSourceListEnumMediaDisksA", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "uint*", pdwDiskId, "ptr", szVolumeLabel, "uint*", pcchVolumeLabel, "ptr", szDiskPrompt, "uint*", pcchDiskPrompt, "uint")
         return result
@@ -23539,8 +23549,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiSourceListEnumMediaDisks function enumerates the list of disks registered for the media source for a patch or product.
-     * @param {Pointer<Char>} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
+     * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} szUserSid A string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. 
      * 
      * <table>
      * <tr>
@@ -23617,7 +23627,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Integer} dwIndex The index of the source to retrieve. This parameter must be 0 (zero) for the first call to the <b>MsiSourceListEnumMediaDisks</b>  function, and then incremented for subsequent calls until the function returns ERROR_NO_MORE_ITEMS.
      * @param {Pointer<UInt32>} pdwDiskId On entry to <b>MsiSourceListEnumMediaDisks</b> this parameter provides a pointer to a <b>DWORD</b> to receive the ID of the disk that is being enumerated.   This parameter is optional.
-     * @param {Pointer<Char>} szVolumeLabel An output buffer that receives  the volume label of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchVolumeLabel</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PWSTR} szVolumeLabel An output buffer that receives  the volume label of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchVolumeLabel</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
@@ -23625,7 +23635,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<UInt32>} pcchVolumeLabel A pointer to a variable that specifies the number of <b>TCHAR</b> in the <i>szVolumeLabel</i> buffer. When the function returns, this parameter is the number of <b>TCHAR</b> in the received  value,  not including the terminating null character. 
      * 
      * This parameter can be set to <b>NULL</b> only if <i>szVolumeLabel</i> is also <b>NULL</b>, otherwise the function returns ERROR_INVALID_PARAMETER.
-     * @param {Pointer<Char>} szDiskPrompt An output buffer that receives  the disk prompt of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchDiskPrompt</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
+     * @param {PWSTR} szDiskPrompt An output buffer that receives  the disk prompt of the disk that is being enumerated. This buffer should be large enough to contain the information. If the buffer is too small, the function returns ERROR_MORE_DATA and sets *<i>pcchDiskPrompt</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
      * 
      * 
      * 
@@ -23746,10 +23756,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSourceListEnumMediaDisksW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, pdwDiskId, szVolumeLabel, pcchVolumeLabel, szDiskPrompt, pcchDiskPrompt) {
-        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
-        szUserSid := szUserSid is String? StrPtr(szUserSid) : szUserSid
-        szVolumeLabel := szVolumeLabel is String? StrPtr(szVolumeLabel) : szVolumeLabel
-        szDiskPrompt := szDiskPrompt is String? StrPtr(szDiskPrompt) : szDiskPrompt
+        szProductCodeOrPatchCode := szProductCodeOrPatchCode is String ? StrPtr(szProductCodeOrPatchCode) : szProductCodeOrPatchCode
+        szUserSid := szUserSid is String ? StrPtr(szUserSid) : szUserSid
+        szVolumeLabel := szVolumeLabel is String ? StrPtr(szVolumeLabel) : szVolumeLabel
+        szDiskPrompt := szDiskPrompt is String ? StrPtr(szDiskPrompt) : szDiskPrompt
 
         result := DllCall("msi.dll\MsiSourceListEnumMediaDisksW", "ptr", szProductCodeOrPatchCode, "ptr", szUserSid, "int", dwContext, "uint", dwOptions, "uint", dwIndex, "uint*", pdwDiskId, "ptr", szVolumeLabel, "uint*", pcchVolumeLabel, "ptr", szDiskPrompt, "uint*", pcchDiskPrompt, "uint")
         return result
@@ -23757,14 +23767,14 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetFileVersion returns the version string and language string in the format that the installer expects to find them in the database.
-     * @param {Pointer<Byte>} szFilePath Specifies the path to the file.
-     * @param {Pointer<Byte>} lpVersionBuf Returns the file version. 
+     * @param {PSTR} szFilePath Specifies the path to the file.
+     * @param {PSTR} lpVersionBuf Returns the file version. 
      * 
      * Set to 0 for language information only.
      * @param {Pointer<UInt32>} pcchVersionBuf In and out buffer count as the number of <b>TCHAR</b>. 
      * 
      * Set to 0 (zero) for language information only. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
-     * @param {Pointer<Byte>} lpLangBuf Returns the file language. 
+     * @param {PSTR} lpLangBuf Returns the file language. 
      * 
      * Set to 0 (zero) for version information only.
      * @param {Pointer<UInt32>} pcchLangBuf In and out buffer count as the number of <b>TCHAR</b>. 
@@ -23846,9 +23856,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileVersionA(szFilePath, lpVersionBuf, pcchVersionBuf, lpLangBuf, pcchLangBuf) {
-        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
-        lpVersionBuf := lpVersionBuf is String? StrPtr(lpVersionBuf) : lpVersionBuf
-        lpLangBuf := lpLangBuf is String? StrPtr(lpLangBuf) : lpLangBuf
+        szFilePath := szFilePath is String ? StrPtr(szFilePath) : szFilePath
+        lpVersionBuf := lpVersionBuf is String ? StrPtr(lpVersionBuf) : lpVersionBuf
+        lpLangBuf := lpLangBuf is String ? StrPtr(lpLangBuf) : lpLangBuf
 
         result := DllCall("msi.dll\MsiGetFileVersionA", "ptr", szFilePath, "ptr", lpVersionBuf, "uint*", pcchVersionBuf, "ptr", lpLangBuf, "uint*", pcchLangBuf, "uint")
         return result
@@ -23856,14 +23866,14 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetFileVersion returns the version string and language string in the format that the installer expects to find them in the database.
-     * @param {Pointer<Char>} szFilePath Specifies the path to the file.
-     * @param {Pointer<Char>} lpVersionBuf Returns the file version. 
+     * @param {PWSTR} szFilePath Specifies the path to the file.
+     * @param {PWSTR} lpVersionBuf Returns the file version. 
      * 
      * Set to 0 for language information only.
      * @param {Pointer<UInt32>} pcchVersionBuf In and out buffer count as the number of <b>TCHAR</b>. 
      * 
      * Set to 0 (zero) for language information only. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
-     * @param {Pointer<Char>} lpLangBuf Returns the file language. 
+     * @param {PWSTR} lpLangBuf Returns the file language. 
      * 
      * Set to 0 (zero) for version information only.
      * @param {Pointer<UInt32>} pcchLangBuf In and out buffer count as the number of <b>TCHAR</b>. 
@@ -23945,9 +23955,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileVersionW(szFilePath, lpVersionBuf, pcchVersionBuf, lpLangBuf, pcchLangBuf) {
-        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
-        lpVersionBuf := lpVersionBuf is String? StrPtr(lpVersionBuf) : lpVersionBuf
-        lpLangBuf := lpLangBuf is String? StrPtr(lpLangBuf) : lpLangBuf
+        szFilePath := szFilePath is String ? StrPtr(szFilePath) : szFilePath
+        lpVersionBuf := lpVersionBuf is String ? StrPtr(lpVersionBuf) : lpVersionBuf
+        lpLangBuf := lpLangBuf is String ? StrPtr(lpLangBuf) : lpLangBuf
 
         result := DllCall("msi.dll\MsiGetFileVersionW", "ptr", szFilePath, "ptr", lpVersionBuf, "uint*", pcchVersionBuf, "ptr", lpLangBuf, "uint*", pcchLangBuf, "uint")
         return result
@@ -23955,7 +23965,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetFileHash function takes the path to a file and returns a 128-bit hash of that file. Authoring tools may use MsiGetFileHash to obtain the file hash needed to populate the MsiFileHash table.
-     * @param {Pointer<Byte>} szFilePath Path to file that is to be hashed.
+     * @param {PSTR} szFilePath Path to file that is to be hashed.
      * @param {Integer} dwOptions The value in this column must be 0. This parameter is reserved for future use.
      * @param {Pointer<MSIFILEHASHINFO>} pHash Pointer to the returned file hash information.
      * @returns {Integer} <table>
@@ -24016,7 +24026,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileHashA(szFilePath, dwOptions, pHash) {
-        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
+        szFilePath := szFilePath is String ? StrPtr(szFilePath) : szFilePath
 
         result := DllCall("msi.dll\MsiGetFileHashA", "ptr", szFilePath, "uint", dwOptions, "ptr", pHash, "uint")
         return result
@@ -24024,7 +24034,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetFileHash function takes the path to a file and returns a 128-bit hash of that file. Authoring tools may use MsiGetFileHash to obtain the file hash needed to populate the MsiFileHash table.
-     * @param {Pointer<Char>} szFilePath Path to file that is to be hashed.
+     * @param {PWSTR} szFilePath Path to file that is to be hashed.
      * @param {Integer} dwOptions The value in this column must be 0. This parameter is reserved for future use.
      * @param {Pointer<MSIFILEHASHINFO>} pHash Pointer to the returned file hash information.
      * @returns {Integer} <table>
@@ -24085,7 +24095,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileHashW(szFilePath, dwOptions, pHash) {
-        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
+        szFilePath := szFilePath is String ? StrPtr(szFilePath) : szFilePath
 
         result := DllCall("msi.dll\MsiGetFileHashW", "ptr", szFilePath, "uint", dwOptions, "ptr", pHash, "uint")
         return result
@@ -24093,7 +24103,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetFileSignatureInformation function takes the path to a file that has been digitally signed and returns the file's signer certificate and hash.
-     * @param {Pointer<Byte>} szSignedObjectPath Pointer to a null-terminated string specifying the full path to the file that contains the digital signature.
+     * @param {PSTR} szSignedObjectPath Pointer to a null-terminated string specifying the full path to the file that contains the digital signature.
      * @param {Integer} dwFlags Special error case flags. 
      * 
      * 
@@ -24265,7 +24275,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileSignatureInformationA(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
-        szSignedObjectPath := szSignedObjectPath is String? StrPtr(szSignedObjectPath) : szSignedObjectPath
+        szSignedObjectPath := szSignedObjectPath is String ? StrPtr(szSignedObjectPath) : szSignedObjectPath
 
         result := DllCall("msi.dll\MsiGetFileSignatureInformationA", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr", ppcCertContext, "ptr", pbHashData, "uint*", pcbHashData, "int")
         if(result != 0)
@@ -24276,7 +24286,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetFileSignatureInformation function takes the path to a file that has been digitally signed and returns the file's signer certificate and hash.
-     * @param {Pointer<Char>} szSignedObjectPath Pointer to a null-terminated string specifying the full path to the file that contains the digital signature.
+     * @param {PWSTR} szSignedObjectPath Pointer to a null-terminated string specifying the full path to the file that contains the digital signature.
      * @param {Integer} dwFlags Special error case flags. 
      * 
      * 
@@ -24448,7 +24458,7 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFileSignatureInformationW(szSignedObjectPath, dwFlags, ppcCertContext, pbHashData, pcbHashData) {
-        szSignedObjectPath := szSignedObjectPath is String? StrPtr(szSignedObjectPath) : szSignedObjectPath
+        szSignedObjectPath := szSignedObjectPath is String ? StrPtr(szSignedObjectPath) : szSignedObjectPath
 
         result := DllCall("msi.dll\MsiGetFileSignatureInformationW", "ptr", szSignedObjectPath, "uint", dwFlags, "ptr", ppcCertContext, "ptr", pbHashData, "uint*", pcbHashData, "int")
         if(result != 0)
@@ -24459,21 +24469,21 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetShortcutTarget function examines a shortcut and returns its product, feature name, and component if available.
-     * @param {Pointer<Byte>} szShortcutPath A null-terminated string specifying the full path to a shortcut.
-     * @param {Pointer<Byte>} szProductCode A GUID for the product code of the shortcut. This string buffer must be 39 characters long. The first 38 characters are for the 
+     * @param {PSTR} szShortcutPath A null-terminated string specifying the full path to a shortcut.
+     * @param {PSTR} szProductCode A GUID for the product code of the shortcut. This string buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character. This parameter can be null.
-     * @param {Pointer<Byte>} szFeatureId The feature name of the shortcut. The string buffer must be MAX_FEATURE_CHARS+1 characters long. This parameter can be null.
-     * @param {Pointer<Byte>} szComponentCode A GUID of the component code. This string buffer must be 39 characters long. The first 38 characters are for the 
+     * @param {PSTR} szFeatureId The feature name of the shortcut. The string buffer must be MAX_FEATURE_CHARS+1 characters long. This parameter can be null.
+     * @param {PSTR} szComponentCode A GUID of the component code. This string buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character. This parameter can be null.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetshortcuttargeta
      * @since windows8.0
      */
     static MsiGetShortcutTargetA(szShortcutPath, szProductCode, szFeatureId, szComponentCode) {
-        szShortcutPath := szShortcutPath is String? StrPtr(szShortcutPath) : szShortcutPath
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szFeatureId := szFeatureId is String? StrPtr(szFeatureId) : szFeatureId
-        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
+        szShortcutPath := szShortcutPath is String ? StrPtr(szShortcutPath) : szShortcutPath
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szFeatureId := szFeatureId is String ? StrPtr(szFeatureId) : szFeatureId
+        szComponentCode := szComponentCode is String ? StrPtr(szComponentCode) : szComponentCode
 
         result := DllCall("msi.dll\MsiGetShortcutTargetA", "ptr", szShortcutPath, "ptr", szProductCode, "ptr", szFeatureId, "ptr", szComponentCode, "uint")
         return result
@@ -24481,21 +24491,21 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiGetShortcutTarget function examines a shortcut and returns its product, feature name, and component if available.
-     * @param {Pointer<Char>} szShortcutPath A null-terminated string specifying the full path to a shortcut.
-     * @param {Pointer<Char>} szProductCode A GUID for the product code of the shortcut. This string buffer must be 39 characters long. The first 38 characters are for the 
+     * @param {PWSTR} szShortcutPath A null-terminated string specifying the full path to a shortcut.
+     * @param {PWSTR} szProductCode A GUID for the product code of the shortcut. This string buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character. This parameter can be null.
-     * @param {Pointer<Char>} szFeatureId The feature name of the shortcut. The string buffer must be MAX_FEATURE_CHARS+1 characters long. This parameter can be null.
-     * @param {Pointer<Char>} szComponentCode A GUID of the component code. This string buffer must be 39 characters long. The first 38 characters are for the 
+     * @param {PWSTR} szFeatureId The feature name of the shortcut. The string buffer must be MAX_FEATURE_CHARS+1 characters long. This parameter can be null.
+     * @param {PWSTR} szComponentCode A GUID of the component code. This string buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character. This parameter can be null.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msi/nf-msi-msigetshortcuttargetw
      * @since windows8.0
      */
     static MsiGetShortcutTargetW(szShortcutPath, szProductCode, szFeatureId, szComponentCode) {
-        szShortcutPath := szShortcutPath is String? StrPtr(szShortcutPath) : szShortcutPath
-        szProductCode := szProductCode is String? StrPtr(szProductCode) : szProductCode
-        szFeatureId := szFeatureId is String? StrPtr(szFeatureId) : szFeatureId
-        szComponentCode := szComponentCode is String? StrPtr(szComponentCode) : szComponentCode
+        szShortcutPath := szShortcutPath is String ? StrPtr(szShortcutPath) : szShortcutPath
+        szProductCode := szProductCode is String ? StrPtr(szProductCode) : szProductCode
+        szFeatureId := szFeatureId is String ? StrPtr(szFeatureId) : szFeatureId
+        szComponentCode := szComponentCode is String ? StrPtr(szComponentCode) : szComponentCode
 
         result := DllCall("msi.dll\MsiGetShortcutTargetW", "ptr", szShortcutPath, "ptr", szProductCode, "ptr", szFeatureId, "ptr", szComponentCode, "uint")
         return result
@@ -24503,10 +24513,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiIsProductElevated function returns whether or not the product is managed.
-     * @param {Pointer<Byte>} szProduct The full product code GUID of the product. 
+     * @param {PSTR} szProduct The full product code GUID of the product. 
      * 
      * This parameter is required and cannot be <b>NULL</b> or empty.
-     * @param {Pointer<Int32>} pfElevated A pointer to a BOOL for the result. 
+     * @param {Pointer<BOOL>} pfElevated A pointer to a BOOL for the result. 
      * 
      * This parameter cannot be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS, and <i>pfElevated</i> is set to <b>TRUE</b> if the product is a managed application.
@@ -24578,18 +24588,18 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiIsProductElevatedA(szProduct, pfElevated) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
-        result := DllCall("msi.dll\MsiIsProductElevatedA", "ptr", szProduct, "int*", pfElevated, "uint")
+        result := DllCall("msi.dll\MsiIsProductElevatedA", "ptr", szProduct, "ptr", pfElevated, "uint")
         return result
     }
 
     /**
      * The MsiIsProductElevated function returns whether or not the product is managed.
-     * @param {Pointer<Char>} szProduct The full product code GUID of the product. 
+     * @param {PWSTR} szProduct The full product code GUID of the product. 
      * 
      * This parameter is required and cannot be <b>NULL</b> or empty.
-     * @param {Pointer<Int32>} pfElevated A pointer to a BOOL for the result. 
+     * @param {Pointer<BOOL>} pfElevated A pointer to a BOOL for the result. 
      * 
      * This parameter cannot be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS, and <i>pfElevated</i> is set to <b>TRUE</b> if the product is a managed application.
@@ -24661,16 +24671,16 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiIsProductElevatedW(szProduct, pfElevated) {
-        szProduct := szProduct is String? StrPtr(szProduct) : szProduct
+        szProduct := szProduct is String ? StrPtr(szProduct) : szProduct
 
-        result := DllCall("msi.dll\MsiIsProductElevatedW", "ptr", szProduct, "int*", pfElevated, "uint")
+        result := DllCall("msi.dll\MsiIsProductElevatedW", "ptr", szProduct, "ptr", pfElevated, "uint")
         return result
     }
 
     /**
      * The MsiNotifySidChange function notifies and updates the Windows Installer internal information with changes to user SIDs.
-     * @param {Pointer<Byte>} pOldSid Null-terminated string that specifies the string value of the previous security identifier(SID).
-     * @param {Pointer<Byte>} pNewSid Null-terminated string that specifies the string value of the new security identifier(SID).
+     * @param {PSTR} pOldSid Null-terminated string that specifies the string value of the previous security identifier(SID).
+     * @param {PSTR} pNewSid Null-terminated string that specifies the string value of the new security identifier(SID).
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -24727,8 +24737,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiNotifySidChangeA(pOldSid, pNewSid) {
-        pOldSid := pOldSid is String? StrPtr(pOldSid) : pOldSid
-        pNewSid := pNewSid is String? StrPtr(pNewSid) : pNewSid
+        pOldSid := pOldSid is String ? StrPtr(pOldSid) : pOldSid
+        pNewSid := pNewSid is String ? StrPtr(pNewSid) : pNewSid
 
         result := DllCall("msi.dll\MsiNotifySidChangeA", "ptr", pOldSid, "ptr", pNewSid, "uint")
         return result
@@ -24736,8 +24746,8 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiNotifySidChange function notifies and updates the Windows Installer internal information with changes to user SIDs.
-     * @param {Pointer<Char>} pOldSid Null-terminated string that specifies the string value of the previous security identifier(SID).
-     * @param {Pointer<Char>} pNewSid Null-terminated string that specifies the string value of the new security identifier(SID).
+     * @param {PWSTR} pOldSid Null-terminated string that specifies the string value of the previous security identifier(SID).
+     * @param {PWSTR} pNewSid Null-terminated string that specifies the string value of the new security identifier(SID).
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -24794,8 +24804,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiNotifySidChangeW(pOldSid, pNewSid) {
-        pOldSid := pOldSid is String? StrPtr(pOldSid) : pOldSid
-        pNewSid := pNewSid is String? StrPtr(pNewSid) : pNewSid
+        pOldSid := pOldSid is String ? StrPtr(pOldSid) : pOldSid
+        pNewSid := pNewSid is String ? StrPtr(pNewSid) : pNewSid
 
         result := DllCall("msi.dll\MsiNotifySidChangeW", "ptr", pOldSid, "ptr", pNewSid, "uint")
         return result
@@ -24803,7 +24813,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiBeginTransaction function starts transaction processing of a multiple-package installation and returns an identifier for the transaction.
-     * @param {Pointer<Byte>} szName Name of the multiple-package installation.
+     * @param {PSTR} szName Name of the multiple-package installation.
      * @param {Integer} dwTransactionAttributes Attributes of the multiple-package installation. 
      * 
      * <table>
@@ -24834,8 +24844,8 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} phTransactionHandle Transaction ID is a <b>MSIHANDLE</b> value that identifies the transaction. Only one process can own a transaction at a  time.
-     * @param {Pointer<Void>} phChangeOfOwnerEvent This parameter returns a handle to an event that  is set when the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msijointransaction">MsiJoinTransaction</a> function changes the owner of the transaction to a new owner. The current owner can use this to determine when ownership of the transaction has changed. Leaving a transaction without an owner will roll back the transaction.
+     * @param {Pointer<MSIHANDLE>} phTransactionHandle Transaction ID is a <b>MSIHANDLE</b> value that identifies the transaction. Only one process can own a transaction at a  time.
+     * @param {Pointer<HANDLE>} phChangeOfOwnerEvent This parameter returns a handle to an event that  is set when the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msijointransaction">MsiJoinTransaction</a> function changes the owner of the transaction to a new owner. The current owner can use this to determine when ownership of the transaction has changed. Leaving a transaction without an owner will roll back the transaction.
      * @returns {Integer} The <b>MsiBeginTransaction</b> function returns the following values.
      * 					
      * 
@@ -24894,15 +24904,15 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiBeginTransactionA(szName, dwTransactionAttributes, phTransactionHandle, phChangeOfOwnerEvent) {
-        szName := szName is String? StrPtr(szName) : szName
+        szName := szName is String ? StrPtr(szName) : szName
 
-        result := DllCall("msi.dll\MsiBeginTransactionA", "ptr", szName, "uint", dwTransactionAttributes, "uint*", phTransactionHandle, "ptr", phChangeOfOwnerEvent, "uint")
+        result := DllCall("msi.dll\MsiBeginTransactionA", "ptr", szName, "uint", dwTransactionAttributes, "ptr", phTransactionHandle, "ptr", phChangeOfOwnerEvent, "uint")
         return result
     }
 
     /**
      * The MsiBeginTransaction function starts transaction processing of a multiple-package installation and returns an identifier for the transaction.
-     * @param {Pointer<Char>} szName Name of the multiple-package installation.
+     * @param {PWSTR} szName Name of the multiple-package installation.
      * @param {Integer} dwTransactionAttributes Attributes of the multiple-package installation. 
      * 
      * <table>
@@ -24933,8 +24943,8 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} phTransactionHandle Transaction ID is a <b>MSIHANDLE</b> value that identifies the transaction. Only one process can own a transaction at a  time.
-     * @param {Pointer<Void>} phChangeOfOwnerEvent This parameter returns a handle to an event that  is set when the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msijointransaction">MsiJoinTransaction</a> function changes the owner of the transaction to a new owner. The current owner can use this to determine when ownership of the transaction has changed. Leaving a transaction without an owner will roll back the transaction.
+     * @param {Pointer<MSIHANDLE>} phTransactionHandle Transaction ID is a <b>MSIHANDLE</b> value that identifies the transaction. Only one process can own a transaction at a  time.
+     * @param {Pointer<HANDLE>} phChangeOfOwnerEvent This parameter returns a handle to an event that  is set when the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msijointransaction">MsiJoinTransaction</a> function changes the owner of the transaction to a new owner. The current owner can use this to determine when ownership of the transaction has changed. Leaving a transaction without an owner will roll back the transaction.
      * @returns {Integer} The <b>MsiBeginTransaction</b> function returns the following values.
      * 					
      * 
@@ -24993,9 +25003,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiBeginTransactionW(szName, dwTransactionAttributes, phTransactionHandle, phChangeOfOwnerEvent) {
-        szName := szName is String? StrPtr(szName) : szName
+        szName := szName is String ? StrPtr(szName) : szName
 
-        result := DllCall("msi.dll\MsiBeginTransactionW", "ptr", szName, "uint", dwTransactionAttributes, "uint*", phTransactionHandle, "ptr", phChangeOfOwnerEvent, "uint")
+        result := DllCall("msi.dll\MsiBeginTransactionW", "ptr", szName, "uint", dwTransactionAttributes, "ptr", phTransactionHandle, "ptr", phChangeOfOwnerEvent, "uint")
         return result
     }
 
@@ -25094,7 +25104,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiJoinTransaction function requests that the Windows Installer make the current process the owner of the transaction installing the multiple-package installation.
-     * @param {Integer} hTransactionHandle The transaction ID, which identifies the transaction and is the identifier returned by the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msibegintransactiona">MsiBeginTransaction</a> function.
+     * @param {MSIHANDLE} hTransactionHandle The transaction ID, which identifies the transaction and is the identifier returned by the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msibegintransactiona">MsiBeginTransaction</a> function.
      * @param {Integer} dwTransactionAttributes Attributes of the multiple-package installation.
      * 
      * <table>
@@ -25136,7 +25146,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} phChangeOfOwnerEvent This parameter returns a handle to an event that  is set when the <b>MsiJoinTransaction</b> function changes the owner of the transaction to a new owner. The current owner can use this to determine when ownership of the transaction has changed. Leaving a transaction without an owner will roll back the transaction.
+     * @param {Pointer<HANDLE>} phChangeOfOwnerEvent This parameter returns a handle to an event that  is set when the <b>MsiJoinTransaction</b> function changes the owner of the transaction to a new owner. The current owner can use this to determine when ownership of the transaction has changed. Leaving a transaction without an owner will roll back the transaction.
      * @returns {Integer} The <b>MsiJoinTransaction</b> function can return the following values.
      * 					
      * 
@@ -25194,50 +25204,54 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiJoinTransaction(hTransactionHandle, dwTransactionAttributes, phChangeOfOwnerEvent) {
-        result := DllCall("msi.dll\MsiJoinTransaction", "uint", hTransactionHandle, "uint", dwTransactionAttributes, "ptr", phChangeOfOwnerEvent, "uint")
+        hTransactionHandle := hTransactionHandle is Win32Handle ? NumGet(hTransactionHandle, "ptr") : hTransactionHandle
+
+        result := DllCall("msi.dll\MsiJoinTransaction", "ptr", hTransactionHandle, "uint", dwTransactionAttributes, "ptr", phChangeOfOwnerEvent, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseOpenView function prepares a database query and creates a view object. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Integer} hDatabase Handle to the database to which you want to open a view object. You can get the handle as described in <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
-     * @param {Pointer<Byte>} szQuery Specifies a SQL query string for querying the database. For correct syntax, see 
+     * @param {MSIHANDLE} hDatabase Handle to the database to which you want to open a view object. You can get the handle as described in <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
+     * @param {PSTR} szQuery Specifies a SQL query string for querying the database. For correct syntax, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/sql-syntax">SQL Syntax</a>.
-     * @param {Pointer<UInt32>} phView Pointer to a handle for the returned view.
+     * @param {Pointer<MSIHANDLE>} phView Pointer to a handle for the returned view.
      * @returns {Integer} The 
      * <b>MsiDatabaseOpenView</b> function  returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseopenviewa
      * @since windows8.0
      */
     static MsiDatabaseOpenViewA(hDatabase, szQuery, phView) {
-        szQuery := szQuery is String? StrPtr(szQuery) : szQuery
+        szQuery := szQuery is String ? StrPtr(szQuery) : szQuery
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseOpenViewA", "uint", hDatabase, "ptr", szQuery, "uint*", phView, "uint")
+        result := DllCall("msi.dll\MsiDatabaseOpenViewA", "ptr", hDatabase, "ptr", szQuery, "ptr", phView, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseOpenView function prepares a database query and creates a view object. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Integer} hDatabase Handle to the database to which you want to open a view object. You can get the handle as described in <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
-     * @param {Pointer<Char>} szQuery Specifies a SQL query string for querying the database. For correct syntax, see 
+     * @param {MSIHANDLE} hDatabase Handle to the database to which you want to open a view object. You can get the handle as described in <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
+     * @param {PWSTR} szQuery Specifies a SQL query string for querying the database. For correct syntax, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/sql-syntax">SQL Syntax</a>.
-     * @param {Pointer<UInt32>} phView Pointer to a handle for the returned view.
+     * @param {Pointer<MSIHANDLE>} phView Pointer to a handle for the returned view.
      * @returns {Integer} The 
      * <b>MsiDatabaseOpenView</b> function  returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseopenvieww
      * @since windows8.0
      */
     static MsiDatabaseOpenViewW(hDatabase, szQuery, phView) {
-        szQuery := szQuery is String? StrPtr(szQuery) : szQuery
+        szQuery := szQuery is String ? StrPtr(szQuery) : szQuery
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseOpenViewW", "uint", hDatabase, "ptr", szQuery, "uint*", phView, "uint")
+        result := DllCall("msi.dll\MsiDatabaseOpenViewW", "ptr", hDatabase, "ptr", szQuery, "ptr", phView, "uint")
         return result
     }
 
     /**
      * The MsiViewGetError function returns the error that occurred in the MsiViewModify function.
-     * @param {Integer} hView Handle to the view.
-     * @param {Pointer<Byte>} szColumnNameBuffer Pointer to the buffer that receives the null-terminated column name. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szColumnName</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns MSIDBERROR_MOREDATA and <i>pcchBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of MSIDBERROR_NOERROR, <i>pcchBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
+     * @param {MSIHANDLE} hView Handle to the view.
+     * @param {PSTR} szColumnNameBuffer Pointer to the buffer that receives the null-terminated column name. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szColumnName</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns MSIDBERROR_MOREDATA and <i>pcchBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of MSIDBERROR_NOERROR, <i>pcchBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
      * @param {Pointer<UInt32>} pcchBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szColumnNameBuffer</i>. When the function returns MSIDBERROR_NOERROR, this variable contains the size of the data copied to <i>szColumnNameBuffer</i>, not including the terminating null character. If <i>szColumnNameBuffer</i> is not large enough, the function returns MSIDBERROR_MOREDATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchBuf</i>.
      * @returns {Integer} This function returns one of the following values.
      * 
@@ -25624,16 +25638,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiViewGetErrorA(hView, szColumnNameBuffer, pcchBuf) {
-        szColumnNameBuffer := szColumnNameBuffer is String? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
+        szColumnNameBuffer := szColumnNameBuffer is String ? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
+        hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
 
-        result := DllCall("msi.dll\MsiViewGetErrorA", "uint", hView, "ptr", szColumnNameBuffer, "uint*", pcchBuf, "int")
+        result := DllCall("msi.dll\MsiViewGetErrorA", "ptr", hView, "ptr", szColumnNameBuffer, "uint*", pcchBuf, "int")
         return result
     }
 
     /**
      * The MsiViewGetError function returns the error that occurred in the MsiViewModify function.
-     * @param {Integer} hView Handle to the view.
-     * @param {Pointer<Char>} szColumnNameBuffer Pointer to the buffer that receives the null-terminated column name. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szColumnName</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns MSIDBERROR_MOREDATA and <i>pcchBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of MSIDBERROR_NOERROR, <i>pcchBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
+     * @param {MSIHANDLE} hView Handle to the view.
+     * @param {PWSTR} szColumnNameBuffer Pointer to the buffer that receives the null-terminated column name. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szColumnName</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns MSIDBERROR_MOREDATA and <i>pcchBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of MSIDBERROR_NOERROR, <i>pcchBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
      * @param {Pointer<UInt32>} pcchBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szColumnNameBuffer</i>. When the function returns MSIDBERROR_NOERROR, this variable contains the size of the data copied to <i>szColumnNameBuffer</i>, not including the terminating null character. If <i>szColumnNameBuffer</i> is not large enough, the function returns MSIDBERROR_MOREDATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchBuf</i>.
      * @returns {Integer} This function returns one of the following values.
      * 
@@ -26020,44 +26035,50 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiViewGetErrorW(hView, szColumnNameBuffer, pcchBuf) {
-        szColumnNameBuffer := szColumnNameBuffer is String? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
+        szColumnNameBuffer := szColumnNameBuffer is String ? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
+        hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
 
-        result := DllCall("msi.dll\MsiViewGetErrorW", "uint", hView, "ptr", szColumnNameBuffer, "uint*", pcchBuf, "int")
+        result := DllCall("msi.dll\MsiViewGetErrorW", "ptr", hView, "ptr", szColumnNameBuffer, "uint*", pcchBuf, "int")
         return result
     }
 
     /**
      * The MsiViewExecute function executes a SQL view query and supplies any required parameters.
-     * @param {Integer} hView Handle to the view upon which to execute the query.
-     * @param {Integer} hRecord Handle to a record that supplies the parameters. This parameter contains values to replace the parameter tokens in the SQL query. It is optional, so <i>hRecord</i> can be zero. For a reference on syntax, see 
+     * @param {MSIHANDLE} hView Handle to the view upon which to execute the query.
+     * @param {MSIHANDLE} hRecord Handle to a record that supplies the parameters. This parameter contains values to replace the parameter tokens in the SQL query. It is optional, so <i>hRecord</i> can be zero. For a reference on syntax, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/sql-syntax">SQL Syntax</a>.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewexecute
      * @since windows8.0
      */
     static MsiViewExecute(hView, hRecord) {
-        result := DllCall("msi.dll\MsiViewExecute", "uint", hView, "uint", hRecord, "uint")
+        hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+
+        result := DllCall("msi.dll\MsiViewExecute", "ptr", hView, "ptr", hRecord, "uint")
         return result
     }
 
     /**
      * The MsiViewFetch function fetches the next sequential record from the view. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Integer} hView Handle to the view to fetch from.
-     * @param {Pointer<UInt32>} phRecord Pointer to the handle for the fetched record.
+     * @param {MSIHANDLE} hView Handle to the view to fetch from.
+     * @param {Pointer<MSIHANDLE>} phRecord Pointer to the handle for the fetched record.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewfetch
      * @since windows8.0
      */
     static MsiViewFetch(hView, phRecord) {
-        result := DllCall("msi.dll\MsiViewFetch", "uint", hView, "uint*", phRecord, "uint")
+        hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
+
+        result := DllCall("msi.dll\MsiViewFetch", "ptr", hView, "ptr", phRecord, "uint")
         return result
     }
 
     /**
      * The MsiViewModify function updates a fetched record.
-     * @param {Integer} hView Handle to a view.
+     * @param {MSIHANDLE} hView Handle to a view.
      * @param {Integer} eModifyMode 
-     * @param {Integer} hRecord Handle to the record to modify.
+     * @param {MSIHANDLE} hRecord Handle to the record to modify.
      * @returns {Integer} The 
      * <b>MsiViewModify</b> function returns the following values:
      * 
@@ -26066,200 +26087,217 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiViewModify(hView, eModifyMode, hRecord) {
-        result := DllCall("msi.dll\MsiViewModify", "uint", hView, "int", eModifyMode, "uint", hRecord, "uint")
+        hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+
+        result := DllCall("msi.dll\MsiViewModify", "ptr", hView, "int", eModifyMode, "ptr", hRecord, "uint")
         return result
     }
 
     /**
      * The MsiViewGetColumnInfo function returns a record containing column names or definitions. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Integer} hView Handle to the view from which to obtain column information.
+     * @param {MSIHANDLE} hView Handle to the view from which to obtain column information.
      * @param {Integer} eColumnInfo 
-     * @param {Pointer<UInt32>} phRecord Pointer to a handle to receive the column information data record.
+     * @param {Pointer<MSIHANDLE>} phRecord Pointer to a handle to receive the column information data record.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewgetcolumninfo
      * @since windows8.0
      */
     static MsiViewGetColumnInfo(hView, eColumnInfo, phRecord) {
-        result := DllCall("msi.dll\MsiViewGetColumnInfo", "uint", hView, "int", eColumnInfo, "uint*", phRecord, "uint")
+        hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
+
+        result := DllCall("msi.dll\MsiViewGetColumnInfo", "ptr", hView, "int", eColumnInfo, "ptr", phRecord, "uint")
         return result
     }
 
     /**
      * The MsiViewClose function releases the result set for an executed view.
-     * @param {Integer} hView Handle to a view that is set to release.
+     * @param {MSIHANDLE} hView Handle to a view that is set to release.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiviewclose
      * @since windows8.0
      */
     static MsiViewClose(hView) {
-        result := DllCall("msi.dll\MsiViewClose", "uint", hView, "uint")
+        hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
+
+        result := DllCall("msi.dll\MsiViewClose", "ptr", hView, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseGetPrimaryKeys function returns a record containing the names of all the primary key columns for a specified table. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Integer} hDatabase Handle to the database. See 
+     * @param {MSIHANDLE} hDatabase Handle to the database. See 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
-     * @param {Pointer<Byte>} szTableName Specifies the name of the table from which to obtain primary key names.
-     * @param {Pointer<UInt32>} phRecord Pointer to the handle of the record that holds the primary key names.
+     * @param {PSTR} szTableName Specifies the name of the table from which to obtain primary key names.
+     * @param {Pointer<MSIHANDLE>} phRecord Pointer to the handle of the record that holds the primary key names.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabasegetprimarykeysa
      * @since windows8.0
      */
     static MsiDatabaseGetPrimaryKeysA(hDatabase, szTableName, phRecord) {
-        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseGetPrimaryKeysA", "uint", hDatabase, "ptr", szTableName, "uint*", phRecord, "uint")
+        result := DllCall("msi.dll\MsiDatabaseGetPrimaryKeysA", "ptr", hDatabase, "ptr", szTableName, "ptr", phRecord, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseGetPrimaryKeys function returns a record containing the names of all the primary key columns for a specified table. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Integer} hDatabase Handle to the database. See 
+     * @param {MSIHANDLE} hDatabase Handle to the database. See 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
-     * @param {Pointer<Char>} szTableName Specifies the name of the table from which to obtain primary key names.
-     * @param {Pointer<UInt32>} phRecord Pointer to the handle of the record that holds the primary key names.
+     * @param {PWSTR} szTableName Specifies the name of the table from which to obtain primary key names.
+     * @param {Pointer<MSIHANDLE>} phRecord Pointer to the handle of the record that holds the primary key names.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabasegetprimarykeysw
      * @since windows8.0
      */
     static MsiDatabaseGetPrimaryKeysW(hDatabase, szTableName, phRecord) {
-        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseGetPrimaryKeysW", "uint", hDatabase, "ptr", szTableName, "uint*", phRecord, "uint")
+        result := DllCall("msi.dll\MsiDatabaseGetPrimaryKeysW", "ptr", hDatabase, "ptr", szTableName, "ptr", phRecord, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseIsTablePersistent function returns an enumeration that describes the state of a specific table.
-     * @param {Integer} hDatabase Handle to the database that belongs to the relevant table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
-     * @param {Pointer<Byte>} szTableName Specifies the name of the relevant table.
+     * @param {MSIHANDLE} hDatabase Handle to the database that belongs to the relevant table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
+     * @param {PSTR} szTableName Specifies the name of the relevant table.
      * @returns {Integer} This function returns MSICONDITION.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseistablepersistenta
      * @since windows8.0
      */
     static MsiDatabaseIsTablePersistentA(hDatabase, szTableName) {
-        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseIsTablePersistentA", "uint", hDatabase, "ptr", szTableName, "int")
+        result := DllCall("msi.dll\MsiDatabaseIsTablePersistentA", "ptr", hDatabase, "ptr", szTableName, "int")
         return result
     }
 
     /**
      * The MsiDatabaseIsTablePersistent function returns an enumeration that describes the state of a specific table.
-     * @param {Integer} hDatabase Handle to the database that belongs to the relevant table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
-     * @param {Pointer<Char>} szTableName Specifies the name of the relevant table.
+     * @param {MSIHANDLE} hDatabase Handle to the database that belongs to the relevant table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
+     * @param {PWSTR} szTableName Specifies the name of the relevant table.
      * @returns {Integer} This function returns MSICONDITION.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseistablepersistentw
      * @since windows8.0
      */
     static MsiDatabaseIsTablePersistentW(hDatabase, szTableName) {
-        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseIsTablePersistentW", "uint", hDatabase, "ptr", szTableName, "int")
+        result := DllCall("msi.dll\MsiDatabaseIsTablePersistentW", "ptr", hDatabase, "ptr", szTableName, "int")
         return result
     }
 
     /**
      * The MsiGetSummaryInformation function obtains a handle to the _SummaryInformation stream for an installer database. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Integer} hDatabase Handle to the database.
-     * @param {Pointer<Byte>} szDatabasePath Specifies the path to the database.
+     * @param {MSIHANDLE} hDatabase Handle to the database.
+     * @param {PSTR} szDatabasePath Specifies the path to the database.
      * @param {Integer} uiUpdateCount Specifies the maximum number of updated values.
-     * @param {Pointer<UInt32>} phSummaryInfo Pointer to the location from which to receive the summary information handle.
+     * @param {Pointer<MSIHANDLE>} phSummaryInfo Pointer to the location from which to receive the summary information handle.
      * @returns {Integer} The 
      * <b>MsiGetSummaryInformation</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetsummaryinformationa
      * @since windows8.0
      */
     static MsiGetSummaryInformationA(hDatabase, szDatabasePath, uiUpdateCount, phSummaryInfo) {
-        szDatabasePath := szDatabasePath is String? StrPtr(szDatabasePath) : szDatabasePath
+        szDatabasePath := szDatabasePath is String ? StrPtr(szDatabasePath) : szDatabasePath
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiGetSummaryInformationA", "uint", hDatabase, "ptr", szDatabasePath, "uint", uiUpdateCount, "uint*", phSummaryInfo, "uint")
+        result := DllCall("msi.dll\MsiGetSummaryInformationA", "ptr", hDatabase, "ptr", szDatabasePath, "uint", uiUpdateCount, "ptr", phSummaryInfo, "uint")
         return result
     }
 
     /**
      * The MsiGetSummaryInformation function obtains a handle to the _SummaryInformation stream for an installer database. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Integer} hDatabase Handle to the database.
-     * @param {Pointer<Char>} szDatabasePath Specifies the path to the database.
+     * @param {MSIHANDLE} hDatabase Handle to the database.
+     * @param {PWSTR} szDatabasePath Specifies the path to the database.
      * @param {Integer} uiUpdateCount Specifies the maximum number of updated values.
-     * @param {Pointer<UInt32>} phSummaryInfo Pointer to the location from which to receive the summary information handle.
+     * @param {Pointer<MSIHANDLE>} phSummaryInfo Pointer to the location from which to receive the summary information handle.
      * @returns {Integer} The 
      * <b>MsiGetSummaryInformation</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetsummaryinformationw
      * @since windows8.0
      */
     static MsiGetSummaryInformationW(hDatabase, szDatabasePath, uiUpdateCount, phSummaryInfo) {
-        szDatabasePath := szDatabasePath is String? StrPtr(szDatabasePath) : szDatabasePath
+        szDatabasePath := szDatabasePath is String ? StrPtr(szDatabasePath) : szDatabasePath
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiGetSummaryInformationW", "uint", hDatabase, "ptr", szDatabasePath, "uint", uiUpdateCount, "uint*", phSummaryInfo, "uint")
+        result := DllCall("msi.dll\MsiGetSummaryInformationW", "ptr", hDatabase, "ptr", szDatabasePath, "uint", uiUpdateCount, "ptr", phSummaryInfo, "uint")
         return result
     }
 
     /**
      * The MsiSummaryInfoGetPropertyCount function returns the number of existing properties in the summary information stream.
-     * @param {Integer} hSummaryInfo Handle to summary information.
+     * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
      * @param {Pointer<UInt32>} puiPropertyCount Location to receive the total property count.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfogetpropertycount
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyCount(hSummaryInfo, puiPropertyCount) {
-        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyCount", "uint", hSummaryInfo, "uint*", puiPropertyCount, "uint")
+        hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
+
+        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyCount", "ptr", hSummaryInfo, "uint*", puiPropertyCount, "uint")
         return result
     }
 
     /**
      * The MsiSummaryInfoSetProperty function sets a single summary information property.
-     * @param {Integer} hSummaryInfo Handle to summary information.
+     * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
      * @param {Integer} uiProperty Specifies the property ID of the summary property being set. This parameter can be a property ID  listed in the <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.  This function does not set values for PID_DICTIONARY OR PID_THUMBNAIL property.
      * @param {Integer} uiDataType Specifies the type of property to set. This parameter can be a type listed in the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.
      * @param {Integer} iValue Specifies the integer value.
      * @param {Pointer<FILETIME>} pftValue Specifies the file-time value.
-     * @param {Pointer<Byte>} szValue Specifies the text value.
+     * @param {PSTR} szValue Specifies the text value.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoSetProperty</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfosetpropertya
      * @since windows8.0
      */
     static MsiSummaryInfoSetPropertyA(hSummaryInfo, uiProperty, uiDataType, iValue, pftValue, szValue) {
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szValue := szValue is String ? StrPtr(szValue) : szValue
+        hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
 
-        result := DllCall("msi.dll\MsiSummaryInfoSetPropertyA", "uint", hSummaryInfo, "uint", uiProperty, "uint", uiDataType, "int", iValue, "ptr", pftValue, "ptr", szValue, "uint")
+        result := DllCall("msi.dll\MsiSummaryInfoSetPropertyA", "ptr", hSummaryInfo, "uint", uiProperty, "uint", uiDataType, "int", iValue, "ptr", pftValue, "ptr", szValue, "uint")
         return result
     }
 
     /**
      * The MsiSummaryInfoSetProperty function sets a single summary information property.
-     * @param {Integer} hSummaryInfo Handle to summary information.
+     * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
      * @param {Integer} uiProperty Specifies the property ID of the summary property being set. This parameter can be a property ID  listed in the <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.  This function does not set values for PID_DICTIONARY OR PID_THUMBNAIL property.
      * @param {Integer} uiDataType Specifies the type of property to set. This parameter can be a type listed in the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.
      * @param {Integer} iValue Specifies the integer value.
      * @param {Pointer<FILETIME>} pftValue Specifies the file-time value.
-     * @param {Pointer<Char>} szValue Specifies the text value.
+     * @param {PWSTR} szValue Specifies the text value.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoSetProperty</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfosetpropertyw
      * @since windows8.0
      */
     static MsiSummaryInfoSetPropertyW(hSummaryInfo, uiProperty, uiDataType, iValue, pftValue, szValue) {
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szValue := szValue is String ? StrPtr(szValue) : szValue
+        hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
 
-        result := DllCall("msi.dll\MsiSummaryInfoSetPropertyW", "uint", hSummaryInfo, "uint", uiProperty, "uint", uiDataType, "int", iValue, "ptr", pftValue, "ptr", szValue, "uint")
+        result := DllCall("msi.dll\MsiSummaryInfoSetPropertyW", "ptr", hSummaryInfo, "uint", uiProperty, "uint", uiDataType, "int", iValue, "ptr", pftValue, "ptr", szValue, "uint")
         return result
     }
 
     /**
      * The MsiSummaryInfoGetProperty function gets a single property from the summary information stream.
-     * @param {Integer} hSummaryInfo Handle to summary information.
+     * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
      * @param {Integer} uiProperty Specifies the property ID of the summary property. This parameter can be a property ID  listed in the <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.  This function does not return values for PID_DICTIONARY OR PID_THUMBNAIL property.
      * @param {Pointer<UInt32>} puiDataType Receives the returned property type. This  parameter can be a type listed in the  
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.
      * @param {Pointer<Int32>} piValue Receives the returned integer property data.
      * @param {Pointer<FILETIME>} pftValue Pointer to a file value.
-     * @param {Pointer<Byte>} szValueBuf Pointer to the buffer that receives the null terminated summary information property value. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchValueBuf</i> contains the required buffer size in <b>TCHARs</b>, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
+     * @param {PSTR} szValueBuf Pointer to the buffer that receives the null terminated summary information property value. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchValueBuf</i> contains the required buffer size in <b>TCHARs</b>, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoGetProperty</b> function returns one of the following values:
@@ -26267,21 +26305,22 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyA(hSummaryInfo, uiProperty, puiDataType, piValue, pftValue, szValueBuf, pcchValueBuf) {
-        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
+        hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
 
-        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyA", "uint", hSummaryInfo, "uint", uiProperty, "uint*", puiDataType, "int*", piValue, "ptr", pftValue, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyA", "ptr", hSummaryInfo, "uint", uiProperty, "uint*", puiDataType, "int*", piValue, "ptr", pftValue, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
     }
 
     /**
      * The MsiSummaryInfoGetProperty function gets a single property from the summary information stream.
-     * @param {Integer} hSummaryInfo Handle to summary information.
+     * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
      * @param {Integer} uiProperty Specifies the property ID of the summary property. This parameter can be a property ID  listed in the <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.  This function does not return values for PID_DICTIONARY OR PID_THUMBNAIL property.
      * @param {Pointer<UInt32>} puiDataType Receives the returned property type. This  parameter can be a type listed in the  
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/summary-information-stream-property-set">Summary Information Stream Property Set</a>.
      * @param {Pointer<Int32>} piValue Receives the returned integer property data.
      * @param {Pointer<FILETIME>} pftValue Pointer to a file value.
-     * @param {Pointer<Char>} szValueBuf Pointer to the buffer that receives the null terminated summary information property value. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchValueBuf</i> contains the required buffer size in <b>TCHARs</b>, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
+     * @param {PWSTR} szValueBuf Pointer to the buffer that receives the null terminated summary information property value. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchValueBuf</i> contains the required buffer size in <b>TCHARs</b>, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoGetProperty</b> function returns one of the following values:
@@ -26289,28 +26328,31 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyW(hSummaryInfo, uiProperty, puiDataType, piValue, pftValue, szValueBuf, pcchValueBuf) {
-        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
+        hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
 
-        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyW", "uint", hSummaryInfo, "uint", uiProperty, "uint*", puiDataType, "int*", piValue, "ptr", pftValue, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        result := DllCall("msi.dll\MsiSummaryInfoGetPropertyW", "ptr", hSummaryInfo, "uint", uiProperty, "uint*", puiDataType, "int*", piValue, "ptr", pftValue, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
     }
 
     /**
      * The MsiSummaryInfoPersist function writes changed summary information back to the summary information stream.
-     * @param {Integer} hSummaryInfo Handle to summary information.
+     * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisummaryinfopersist
      * @since windows8.0
      */
     static MsiSummaryInfoPersist(hSummaryInfo) {
-        result := DllCall("msi.dll\MsiSummaryInfoPersist", "uint", hSummaryInfo, "uint")
+        hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
+
+        result := DllCall("msi.dll\MsiSummaryInfoPersist", "ptr", hSummaryInfo, "uint")
         return result
     }
 
     /**
      * The MsiOpenDatabase function opens a database file for data access. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Pointer<Byte>} szDatabasePath Specifies the full path or relative path to the database file.
-     * @param {Pointer<Byte>} szPersist Receives the full path to the file or the persistence mode. You can use the <i>szPersist</i> parameter to direct the persistent output to a new file or to specify one of the following predefined persistence modes.
+     * @param {PSTR} szDatabasePath Specifies the full path or relative path to the database file.
+     * @param {PSTR} szPersist Receives the full path to the file or the persistence mode. You can use the <i>szPersist</i> parameter to direct the persistent output to a new file or to specify one of the following predefined persistence modes.
      * 
      * <table>
      * <tr>
@@ -26378,24 +26420,24 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} phDatabase Pointer to the location of the returned database handle.
+     * @param {Pointer<MSIHANDLE>} phDatabase Pointer to the location of the returned database handle.
      * @returns {Integer} The 
      * <b>MsiOpenDatabase</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiopendatabasea
      * @since windows8.0
      */
     static MsiOpenDatabaseA(szDatabasePath, szPersist, phDatabase) {
-        szDatabasePath := szDatabasePath is String? StrPtr(szDatabasePath) : szDatabasePath
-        szPersist := szPersist is String? StrPtr(szPersist) : szPersist
+        szDatabasePath := szDatabasePath is String ? StrPtr(szDatabasePath) : szDatabasePath
+        szPersist := szPersist is String ? StrPtr(szPersist) : szPersist
 
-        result := DllCall("msi.dll\MsiOpenDatabaseA", "ptr", szDatabasePath, "ptr", szPersist, "uint*", phDatabase, "uint")
+        result := DllCall("msi.dll\MsiOpenDatabaseA", "ptr", szDatabasePath, "ptr", szPersist, "ptr", phDatabase, "uint")
         return result
     }
 
     /**
      * The MsiOpenDatabase function opens a database file for data access. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Pointer<Char>} szDatabasePath Specifies the full path or relative path to the database file.
-     * @param {Pointer<Char>} szPersist Receives the full path to the file or the persistence mode. You can use the <i>szPersist</i> parameter to direct the persistent output to a new file or to specify one of the following predefined persistence modes.
+     * @param {PWSTR} szDatabasePath Specifies the full path or relative path to the database file.
+     * @param {PWSTR} szPersist Receives the full path to the file or the persistence mode. You can use the <i>szPersist</i> parameter to direct the persistent output to a new file or to specify one of the following predefined persistence modes.
      * 
      * <table>
      * <tr>
@@ -26463,62 +26505,64 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} phDatabase Pointer to the location of the returned database handle.
+     * @param {Pointer<MSIHANDLE>} phDatabase Pointer to the location of the returned database handle.
      * @returns {Integer} The 
      * <b>MsiOpenDatabase</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiopendatabasew
      * @since windows8.0
      */
     static MsiOpenDatabaseW(szDatabasePath, szPersist, phDatabase) {
-        szDatabasePath := szDatabasePath is String? StrPtr(szDatabasePath) : szDatabasePath
-        szPersist := szPersist is String? StrPtr(szPersist) : szPersist
+        szDatabasePath := szDatabasePath is String ? StrPtr(szDatabasePath) : szDatabasePath
+        szPersist := szPersist is String ? StrPtr(szPersist) : szPersist
 
-        result := DllCall("msi.dll\MsiOpenDatabaseW", "ptr", szDatabasePath, "ptr", szPersist, "uint*", phDatabase, "uint")
+        result := DllCall("msi.dll\MsiOpenDatabaseW", "ptr", szDatabasePath, "ptr", szPersist, "ptr", phDatabase, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseImport function imports an installer text archive file into an open database table.
-     * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
-     * @param {Pointer<Byte>} szFolderPath Specifies the path to the folder that contains archive files.
-     * @param {Pointer<Byte>} szFileName Specifies the name of the file to import.
+     * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
+     * @param {PSTR} szFolderPath Specifies the path to the folder that contains archive files.
+     * @param {PSTR} szFileName Specifies the name of the file to import.
      * @returns {Integer} The 
      * <b>MsiDatabaseImport</b> function returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseimporta
      * @since windows8.0
      */
     static MsiDatabaseImportA(hDatabase, szFolderPath, szFileName) {
-        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
-        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+        szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseImportA", "uint", hDatabase, "ptr", szFolderPath, "ptr", szFileName, "uint")
+        result := DllCall("msi.dll\MsiDatabaseImportA", "ptr", hDatabase, "ptr", szFolderPath, "ptr", szFileName, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseImport function imports an installer text archive file into an open database table.
-     * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
-     * @param {Pointer<Char>} szFolderPath Specifies the path to the folder that contains archive files.
-     * @param {Pointer<Char>} szFileName Specifies the name of the file to import.
+     * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
+     * @param {PWSTR} szFolderPath Specifies the path to the folder that contains archive files.
+     * @param {PWSTR} szFileName Specifies the name of the file to import.
      * @returns {Integer} The 
      * <b>MsiDatabaseImport</b> function returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabaseimportw
      * @since windows8.0
      */
     static MsiDatabaseImportW(hDatabase, szFolderPath, szFileName) {
-        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
-        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+        szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseImportW", "uint", hDatabase, "ptr", szFolderPath, "ptr", szFileName, "uint")
+        result := DllCall("msi.dll\MsiDatabaseImportW", "ptr", hDatabase, "ptr", szFolderPath, "ptr", szFileName, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseExport function exports a Microsoft Installer table from an open database to a Text Archive File.
-     * @param {Integer} hDatabase The handle to a database  from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
-     * @param {Pointer<Byte>} szTableName The name of the table to export.
-     * @param {Pointer<Byte>} szFolderPath The name of the folder that contains archive files.
-     * @param {Pointer<Byte>} szFileName The name of the exported table archive file.
+     * @param {MSIHANDLE} hDatabase The handle to a database  from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
+     * @param {PSTR} szTableName The name of the table to export.
+     * @param {PSTR} szFolderPath The name of the folder that contains archive files.
+     * @param {PSTR} szFileName The name of the exported table archive file.
      * @returns {Integer} The 
      * <b>MsiDatabaseExport</b> function returns one of the following values:
      * 
@@ -26587,20 +26631,21 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseExportA(hDatabase, szTableName, szFolderPath, szFileName) {
-        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
-        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
-        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
+        szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseExportA", "uint", hDatabase, "ptr", szTableName, "ptr", szFolderPath, "ptr", szFileName, "uint")
+        result := DllCall("msi.dll\MsiDatabaseExportA", "ptr", hDatabase, "ptr", szTableName, "ptr", szFolderPath, "ptr", szFileName, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseExport function exports a Microsoft Installer table from an open database to a Text Archive File.
-     * @param {Integer} hDatabase The handle to a database  from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
-     * @param {Pointer<Char>} szTableName The name of the table to export.
-     * @param {Pointer<Char>} szFolderPath The name of the folder that contains archive files.
-     * @param {Pointer<Char>} szFileName The name of the exported table archive file.
+     * @param {MSIHANDLE} hDatabase The handle to a database  from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
+     * @param {PWSTR} szTableName The name of the table to export.
+     * @param {PWSTR} szFolderPath The name of the folder that contains archive files.
+     * @param {PWSTR} szFileName The name of the exported table archive file.
      * @returns {Integer} The 
      * <b>MsiDatabaseExport</b> function returns one of the following values:
      * 
@@ -26669,19 +26714,20 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseExportW(hDatabase, szTableName, szFolderPath, szFileName) {
-        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
-        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
-        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
+        szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseExportW", "uint", hDatabase, "ptr", szTableName, "ptr", szFolderPath, "ptr", szFileName, "uint")
+        result := DllCall("msi.dll\MsiDatabaseExportW", "ptr", hDatabase, "ptr", szTableName, "ptr", szFolderPath, "ptr", szFileName, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseMerge function merges two databases together, which allows duplicate rows.
-     * @param {Integer} hDatabase The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
-     * @param {Integer} hDatabaseMerge The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to merge into the base database.
-     * @param {Pointer<Byte>} szTableName The name of the table to receive merge conflict information.
+     * @param {MSIHANDLE} hDatabase The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
+     * @param {MSIHANDLE} hDatabaseMerge The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to merge into the base database.
+     * @param {PSTR} szTableName The name of the table to receive merge conflict information.
      * @returns {Integer} The 
      * <b>MsiDatabaseMerge</b> function returns one of the following values:
      * 					
@@ -26751,17 +26797,19 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseMergeA(hDatabase, hDatabaseMerge, szTableName) {
-        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        hDatabaseMerge := hDatabaseMerge is Win32Handle ? NumGet(hDatabaseMerge, "ptr") : hDatabaseMerge
 
-        result := DllCall("msi.dll\MsiDatabaseMergeA", "uint", hDatabase, "uint", hDatabaseMerge, "ptr", szTableName, "uint")
+        result := DllCall("msi.dll\MsiDatabaseMergeA", "ptr", hDatabase, "ptr", hDatabaseMerge, "ptr", szTableName, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseMerge function merges two databases together, which allows duplicate rows.
-     * @param {Integer} hDatabase The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
-     * @param {Integer} hDatabaseMerge The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to merge into the base database.
-     * @param {Pointer<Char>} szTableName The name of the table to receive merge conflict information.
+     * @param {MSIHANDLE} hDatabase The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
+     * @param {MSIHANDLE} hDatabaseMerge The handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to merge into the base database.
+     * @param {PWSTR} szTableName The name of the table to receive merge conflict information.
      * @returns {Integer} The 
      * <b>MsiDatabaseMerge</b> function returns one of the following values:
      * 					
@@ -26831,17 +26879,19 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseMergeW(hDatabase, hDatabaseMerge, szTableName) {
-        szTableName := szTableName is String? StrPtr(szTableName) : szTableName
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        hDatabaseMerge := hDatabaseMerge is Win32Handle ? NumGet(hDatabaseMerge, "ptr") : hDatabaseMerge
 
-        result := DllCall("msi.dll\MsiDatabaseMergeW", "uint", hDatabase, "uint", hDatabaseMerge, "ptr", szTableName, "uint")
+        result := DllCall("msi.dll\MsiDatabaseMergeW", "ptr", hDatabase, "ptr", hDatabaseMerge, "ptr", szTableName, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseGenerateTransform function generates a transform file of differences between two databases.
-     * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that includes the changes.
-     * @param {Integer} hDatabaseReference Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that does not include the changes.
-     * @param {Pointer<Byte>} szTransformFile A null-terminated string that specifies the name of the transform file being generated. This parameter can be null. If <i>szTransformFile</i> is null, you can use 
+     * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that includes the changes.
+     * @param {MSIHANDLE} hDatabaseReference Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that does not include the changes.
+     * @param {PSTR} szTransformFile A null-terminated string that specifies the name of the transform file being generated. This parameter can be null. If <i>szTransformFile</i> is null, you can use 
      * <b>MsiDatabaseGenerateTransform</b> to test whether two databases are identical without creating a transform. If the databases are identical, the function returns ERROR_NO_DATA. If the databases are different the function returns NOERROR.
      * @param {Integer} iReserved1 This is a reserved argument and must be set to 0.
      * @param {Integer} iReserved2 This is a reserved argument and must be set to 0.
@@ -26851,17 +26901,19 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseGenerateTransformA(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
-        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        hDatabaseReference := hDatabaseReference is Win32Handle ? NumGet(hDatabaseReference, "ptr") : hDatabaseReference
 
-        result := DllCall("msi.dll\MsiDatabaseGenerateTransformA", "uint", hDatabase, "uint", hDatabaseReference, "ptr", szTransformFile, "int", iReserved1, "int", iReserved2, "uint")
+        result := DllCall("msi.dll\MsiDatabaseGenerateTransformA", "ptr", hDatabase, "ptr", hDatabaseReference, "ptr", szTransformFile, "int", iReserved1, "int", iReserved2, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseGenerateTransform function generates a transform file of differences between two databases.
-     * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that includes the changes.
-     * @param {Integer} hDatabaseReference Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that does not include the changes.
-     * @param {Pointer<Char>} szTransformFile A null-terminated string that specifies the name of the transform file being generated. This parameter can be null. If <i>szTransformFile</i> is null, you can use 
+     * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that includes the changes.
+     * @param {MSIHANDLE} hDatabaseReference Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> that does not include the changes.
+     * @param {PWSTR} szTransformFile A null-terminated string that specifies the name of the transform file being generated. This parameter can be null. If <i>szTransformFile</i> is null, you can use 
      * <b>MsiDatabaseGenerateTransform</b> to test whether two databases are identical without creating a transform. If the databases are identical, the function returns ERROR_NO_DATA. If the databases are different the function returns NOERROR.
      * @param {Integer} iReserved1 This is a reserved argument and must be set to 0.
      * @param {Integer} iReserved2 This is a reserved argument and must be set to 0.
@@ -26871,16 +26923,18 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseGenerateTransformW(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
-        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        hDatabaseReference := hDatabaseReference is Win32Handle ? NumGet(hDatabaseReference, "ptr") : hDatabaseReference
 
-        result := DllCall("msi.dll\MsiDatabaseGenerateTransformW", "uint", hDatabase, "uint", hDatabaseReference, "ptr", szTransformFile, "int", iReserved1, "int", iReserved2, "uint")
+        result := DllCall("msi.dll\MsiDatabaseGenerateTransformW", "ptr", hDatabase, "ptr", hDatabaseReference, "ptr", szTransformFile, "int", iReserved1, "int", iReserved2, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseApplyTransform function applies a transform to a database.
-     * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to the transform.
-     * @param {Pointer<Byte>} szTransformFile Specifies the name of the transform file to apply.
+     * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to the transform.
+     * @param {PSTR} szTransformFile Specifies the name of the transform file to apply.
      * @param {Integer} iErrorConditions Error conditions that should be suppressed. This parameter is a bit field that can contain the following bits. 
      * 
      * 
@@ -26975,16 +27029,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseApplyTransformA(hDatabase, szTransformFile, iErrorConditions) {
-        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseApplyTransformA", "uint", hDatabase, "ptr", szTransformFile, "int", iErrorConditions, "uint")
+        result := DllCall("msi.dll\MsiDatabaseApplyTransformA", "ptr", hDatabase, "ptr", szTransformFile, "int", iErrorConditions, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseApplyTransform function applies a transform to a database.
-     * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to the transform.
-     * @param {Pointer<Char>} szTransformFile Specifies the name of the transform file to apply.
+     * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to the transform.
+     * @param {PWSTR} szTransformFile Specifies the name of the transform file to apply.
      * @param {Integer} iErrorConditions Error conditions that should be suppressed. This parameter is a bit field that can contain the following bits. 
      * 
      * 
@@ -27079,17 +27134,18 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseApplyTransformW(hDatabase, szTransformFile, iErrorConditions) {
-        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
-        result := DllCall("msi.dll\MsiDatabaseApplyTransformW", "uint", hDatabase, "ptr", szTransformFile, "int", iErrorConditions, "uint")
+        result := DllCall("msi.dll\MsiDatabaseApplyTransformW", "ptr", hDatabase, "ptr", szTransformFile, "int", iErrorConditions, "uint")
         return result
     }
 
     /**
      * The MsiCreateTransformSummaryInfo function creates summary information of an existing transform to include validation and error conditions. Execution of this function sets the error record, which is accessible by using MsiGetLastErrorRecord.
-     * @param {Integer} hDatabase The handle to the database that contains the new database summary information.
-     * @param {Integer} hDatabaseReference The handle to the database that contains the original summary information.
-     * @param {Pointer<Byte>} szTransformFile The name of the transform to which the summary information is added.
+     * @param {MSIHANDLE} hDatabase The handle to the database that contains the new database summary information.
+     * @param {MSIHANDLE} hDatabaseReference The handle to the database that contains the original summary information.
+     * @param {PSTR} szTransformFile The name of the transform to which the summary information is added.
      * @param {Integer} iErrorConditions 
      * @param {Integer} iValidation 
      * @returns {Integer} This function returns UINT.
@@ -27097,17 +27153,19 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCreateTransformSummaryInfoA(hDatabase, hDatabaseReference, szTransformFile, iErrorConditions, iValidation) {
-        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        hDatabaseReference := hDatabaseReference is Win32Handle ? NumGet(hDatabaseReference, "ptr") : hDatabaseReference
 
-        result := DllCall("msi.dll\MsiCreateTransformSummaryInfoA", "uint", hDatabase, "uint", hDatabaseReference, "ptr", szTransformFile, "int", iErrorConditions, "int", iValidation, "uint")
+        result := DllCall("msi.dll\MsiCreateTransformSummaryInfoA", "ptr", hDatabase, "ptr", hDatabaseReference, "ptr", szTransformFile, "int", iErrorConditions, "int", iValidation, "uint")
         return result
     }
 
     /**
      * The MsiCreateTransformSummaryInfo function creates summary information of an existing transform to include validation and error conditions. Execution of this function sets the error record, which is accessible by using MsiGetLastErrorRecord.
-     * @param {Integer} hDatabase The handle to the database that contains the new database summary information.
-     * @param {Integer} hDatabaseReference The handle to the database that contains the original summary information.
-     * @param {Pointer<Char>} szTransformFile The name of the transform to which the summary information is added.
+     * @param {MSIHANDLE} hDatabase The handle to the database that contains the new database summary information.
+     * @param {MSIHANDLE} hDatabaseReference The handle to the database that contains the original summary information.
+     * @param {PWSTR} szTransformFile The name of the transform to which the summary information is added.
      * @param {Integer} iErrorConditions 
      * @param {Integer} iValidation 
      * @returns {Integer} This function returns UINT.
@@ -27115,67 +27173,75 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCreateTransformSummaryInfoW(hDatabase, hDatabaseReference, szTransformFile, iErrorConditions, iValidation) {
-        szTransformFile := szTransformFile is String? StrPtr(szTransformFile) : szTransformFile
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        hDatabaseReference := hDatabaseReference is Win32Handle ? NumGet(hDatabaseReference, "ptr") : hDatabaseReference
 
-        result := DllCall("msi.dll\MsiCreateTransformSummaryInfoW", "uint", hDatabase, "uint", hDatabaseReference, "ptr", szTransformFile, "int", iErrorConditions, "int", iValidation, "uint")
+        result := DllCall("msi.dll\MsiCreateTransformSummaryInfoW", "ptr", hDatabase, "ptr", hDatabaseReference, "ptr", szTransformFile, "int", iErrorConditions, "int", iValidation, "uint")
         return result
     }
 
     /**
      * The MsiDatabaseCommit function commits changes to a database.
-     * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
+     * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @returns {Integer} The 
      * <b>MsiDatabaseCommit</b> function returns one of the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidatabasecommit
      * @since windows8.0
      */
     static MsiDatabaseCommit(hDatabase) {
-        result := DllCall("msi.dll\MsiDatabaseCommit", "uint", hDatabase, "uint")
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+
+        result := DllCall("msi.dll\MsiDatabaseCommit", "ptr", hDatabase, "uint")
         return result
     }
 
     /**
      * The MsiGetDatabaseState function returns the state of the database.
-     * @param {Integer} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
+     * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @returns {Integer} This function returns MSIDBSTATE.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetdatabasestate
      * @since windows8.0
      */
     static MsiGetDatabaseState(hDatabase) {
-        result := DllCall("msi.dll\MsiGetDatabaseState", "uint", hDatabase, "int")
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+
+        result := DllCall("msi.dll\MsiGetDatabaseState", "ptr", hDatabase, "int")
         return result
     }
 
     /**
      * The MsiCreateRecord function creates a new record object with the specified number of fields. This function returns a handle that should be closed using MsiCloseHandle.
      * @param {Integer} cParams Specifies the number of fields the record will have. The maximum number of fields in a record is limited to 65535.
-     * @returns {Integer} If the function succeeds, the return value is handle to a new record object.
+     * @returns {MSIHANDLE} If the function succeeds, the return value is handle to a new record object.
      * 
      * If the function fails, the return value is null.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msicreaterecord
      * @since windows8.0
      */
     static MsiCreateRecord(cParams) {
-        result := DllCall("msi.dll\MsiCreateRecord", "uint", cParams, "uint")
-        return result
+        result := DllCall("msi.dll\MsiCreateRecord", "uint", cParams, "ptr")
+        return MSIHANDLE({Value: result}, True)
     }
 
     /**
      * Reports a null record field.
-     * @param {Integer} hRecord Handle to a record.
+     * @param {MSIHANDLE} hRecord Handle to a record.
      * @param {Integer} iField Specifies the field to check.
-     * @returns {Integer} This function returns BOOL.
+     * @returns {BOOL} This function returns BOOL.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordisnull
      * @since windows8.0
      */
     static MsiRecordIsNull(hRecord, iField) {
-        result := DllCall("msi.dll\MsiRecordIsNull", "uint", hRecord, "uint", iField, "int")
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+
+        result := DllCall("msi.dll\MsiRecordIsNull", "ptr", hRecord, "uint", iField, "ptr")
         return result
     }
 
     /**
      * The MsiRecordDataSize function returns the length of a record field. The count does not include the terminating null character.
-     * @param {Integer} hRecord Handle to the record.
+     * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies a field of the record.
      * @returns {Integer} The 
      * <b>MsiRecordDataSize</b> function returns 0 if the field is null, nonexistent, or an internal object pointer. The function also returns 0 if the handle is not a valid record handle.
@@ -27189,13 +27255,15 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordDataSize(hRecord, iField) {
-        result := DllCall("msi.dll\MsiRecordDataSize", "uint", hRecord, "uint", iField, "uint")
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+
+        result := DllCall("msi.dll\MsiRecordDataSize", "ptr", hRecord, "uint", iField, "uint")
         return result
     }
 
     /**
      * Sets a record field to an integer field.
-     * @param {Integer} hRecord Handle to the record.
+     * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record to set.
      * @param {Integer} iValue Specifies the value to which to set the field.
      * @returns {Integer} This function returns UINT.
@@ -27203,60 +27271,66 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordSetInteger(hRecord, iField, iValue) {
-        result := DllCall("msi.dll\MsiRecordSetInteger", "uint", hRecord, "uint", iField, "int", iValue, "uint")
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+
+        result := DllCall("msi.dll\MsiRecordSetInteger", "ptr", hRecord, "uint", iField, "int", iValue, "uint")
         return result
     }
 
     /**
      * The MsiRecordSetString function copies a string into the designated field.
-     * @param {Integer} hRecord Handle to the record.
+     * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record to set.
-     * @param {Pointer<Byte>} szValue Specifies the string value of the field.
+     * @param {PSTR} szValue Specifies the string value of the field.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordsetstringa
      * @since windows8.0
      */
     static MsiRecordSetStringA(hRecord, iField, szValue) {
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szValue := szValue is String ? StrPtr(szValue) : szValue
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("msi.dll\MsiRecordSetStringA", "uint", hRecord, "uint", iField, "ptr", szValue, "uint")
+        result := DllCall("msi.dll\MsiRecordSetStringA", "ptr", hRecord, "uint", iField, "ptr", szValue, "uint")
         return result
     }
 
     /**
      * The MsiRecordSetString function copies a string into the designated field.
-     * @param {Integer} hRecord Handle to the record.
+     * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record to set.
-     * @param {Pointer<Char>} szValue Specifies the string value of the field.
+     * @param {PWSTR} szValue Specifies the string value of the field.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordsetstringw
      * @since windows8.0
      */
     static MsiRecordSetStringW(hRecord, iField, szValue) {
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szValue := szValue is String ? StrPtr(szValue) : szValue
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("msi.dll\MsiRecordSetStringW", "uint", hRecord, "uint", iField, "ptr", szValue, "uint")
+        result := DllCall("msi.dll\MsiRecordSetStringW", "ptr", hRecord, "uint", iField, "ptr", szValue, "uint")
         return result
     }
 
     /**
      * The MsiRecordGetInteger function returns the integer value from a record field.
-     * @param {Integer} hRecord Handle to a record.
+     * @param {MSIHANDLE} hRecord Handle to a record.
      * @param {Integer} iField Specifies the field of the record from which to obtain the value.
      * @returns {Integer} If the function succeeds, the return value is the integer value of the field.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordgetinteger
      * @since windows8.0
      */
     static MsiRecordGetInteger(hRecord, iField) {
-        result := DllCall("msi.dll\MsiRecordGetInteger", "uint", hRecord, "uint", iField, "int")
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+
+        result := DllCall("msi.dll\MsiRecordGetInteger", "ptr", hRecord, "uint", iField, "int")
         return result
     }
 
     /**
      * The MsiRecordGetString function returns the string value of a record field.
-     * @param {Integer} hRecord Handle to the record.
+     * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field requested.
-     * @param {Pointer<Byte>} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the record field. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchValueBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character.
+     * @param {PSTR} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the record field. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchValueBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiRecordGetString</b> function returns one of the following values:
@@ -27264,17 +27338,18 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordGetStringA(hRecord, iField, szValueBuf, pcchValueBuf) {
-        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("msi.dll\MsiRecordGetStringA", "uint", hRecord, "uint", iField, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        result := DllCall("msi.dll\MsiRecordGetStringA", "ptr", hRecord, "uint", iField, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
     }
 
     /**
      * The MsiRecordGetString function returns the string value of a record field.
-     * @param {Integer} hRecord Handle to the record.
+     * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field requested.
-     * @param {Pointer<Char>} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the record field. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchValueBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character.
+     * @param {PWSTR} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the record field. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchValueBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchValueBuf</i> contains the number of <b>TCHARs</b> written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiRecordGetString</b> function returns one of the following values:
@@ -27282,61 +27357,66 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordGetStringW(hRecord, iField, szValueBuf, pcchValueBuf) {
-        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("msi.dll\MsiRecordGetStringW", "uint", hRecord, "uint", iField, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        result := DllCall("msi.dll\MsiRecordGetStringW", "ptr", hRecord, "uint", iField, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
     }
 
     /**
      * Returns the number of fields in a record.
-     * @param {Integer} hRecord Handle to a record.
+     * @param {MSIHANDLE} hRecord Handle to a record.
      * @returns {Integer} If the function succeeds, the return value is the number of fields in the record.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordgetfieldcount
      * @since windows8.0
      */
     static MsiRecordGetFieldCount(hRecord) {
-        result := DllCall("msi.dll\MsiRecordGetFieldCount", "uint", hRecord, "uint")
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+
+        result := DllCall("msi.dll\MsiRecordGetFieldCount", "ptr", hRecord, "uint")
         return result
     }
 
     /**
      * The MsiRecordSetStream function sets a record stream field from a file. Stream data cannot be inserted into temporary fields.
-     * @param {Integer} hRecord Handle to the record.
+     * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record to set.
-     * @param {Pointer<Byte>} szFilePath Specifies the path to the file containing the stream.
+     * @param {PSTR} szFilePath Specifies the path to the file containing the stream.
      * @returns {Integer} The 
      * <b>MsiRecordSetStream</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordsetstreama
      * @since windows8.0
      */
     static MsiRecordSetStreamA(hRecord, iField, szFilePath) {
-        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
+        szFilePath := szFilePath is String ? StrPtr(szFilePath) : szFilePath
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("msi.dll\MsiRecordSetStreamA", "uint", hRecord, "uint", iField, "ptr", szFilePath, "uint")
+        result := DllCall("msi.dll\MsiRecordSetStreamA", "ptr", hRecord, "uint", iField, "ptr", szFilePath, "uint")
         return result
     }
 
     /**
      * The MsiRecordSetStream function sets a record stream field from a file. Stream data cannot be inserted into temporary fields.
-     * @param {Integer} hRecord Handle to the record.
+     * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record to set.
-     * @param {Pointer<Char>} szFilePath Specifies the path to the file containing the stream.
+     * @param {PWSTR} szFilePath Specifies the path to the file containing the stream.
      * @returns {Integer} The 
      * <b>MsiRecordSetStream</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordsetstreamw
      * @since windows8.0
      */
     static MsiRecordSetStreamW(hRecord, iField, szFilePath) {
-        szFilePath := szFilePath is String? StrPtr(szFilePath) : szFilePath
+        szFilePath := szFilePath is String ? StrPtr(szFilePath) : szFilePath
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("msi.dll\MsiRecordSetStreamW", "uint", hRecord, "uint", iField, "ptr", szFilePath, "uint")
+        result := DllCall("msi.dll\MsiRecordSetStreamW", "ptr", hRecord, "uint", iField, "ptr", szFilePath, "uint")
         return result
     }
 
     /**
      * The MsiRecordReadStream function reads bytes from a record stream field into a buffer.
-     * @param {Integer} hRecord Handle to the record.
+     * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record.
      * @param {Pointer} szDataBuf A buffer to receive the stream field. You should ensure the destination buffer is the same size or larger than the source buffer. See the Remarks section.
      * @param {Pointer<UInt32>} pcbDataBuf Specifies the in and out buffer count. On input, this is the full size of the buffer. On output, this is the number of bytes that were actually written to the buffer. See the Remarks section.
@@ -27345,107 +27425,117 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordReadStream(hRecord, iField, szDataBuf, pcbDataBuf) {
-        result := DllCall("msi.dll\MsiRecordReadStream", "uint", hRecord, "uint", iField, "ptr", szDataBuf, "uint*", pcbDataBuf, "uint")
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+
+        result := DllCall("msi.dll\MsiRecordReadStream", "ptr", hRecord, "uint", iField, "ptr", szDataBuf, "uint*", pcbDataBuf, "uint")
         return result
     }
 
     /**
      * The MsiRecordClearData function sets all fields in a record to null.
-     * @param {Integer} hRecord Handle to the record.
+     * @param {MSIHANDLE} hRecord Handle to the record.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msirecordcleardata
      * @since windows8.0
      */
     static MsiRecordClearData(hRecord) {
-        result := DllCall("msi.dll\MsiRecordClearData", "uint", hRecord, "uint")
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+
+        result := DllCall("msi.dll\MsiRecordClearData", "ptr", hRecord, "uint")
         return result
     }
 
     /**
      * The MsiGetActiveDatabase function returns the active database for the installation. This function returns a read-only handle that should be closed using MsiCloseHandle.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @returns {Integer} If the function succeeds, it returns a read-only handle to the database currently in use by the installer. If the function fails, the function returns zero, 0.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @returns {MSIHANDLE} If the function succeeds, it returns a read-only handle to the database currently in use by the installer. If the function fails, the function returns zero, 0.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetactivedatabase
      * @since windows8.0
      */
     static MsiGetActiveDatabase(hInstall) {
-        result := DllCall("msi.dll\MsiGetActiveDatabase", "uint", hInstall, "uint")
-        return result
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+
+        result := DllCall("msi.dll\MsiGetActiveDatabase", "ptr", hInstall, "ptr")
+        return MSIHANDLE({Value: result}, True)
     }
 
     /**
      * The MsiSetProperty function sets the value for an installation property.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szName Specifies the name of the property.
-     * @param {Pointer<Byte>} szValue Specifies the value of the property.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szName Specifies the name of the property.
+     * @param {PSTR} szValue Specifies the value of the property.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetpropertya
      * @since windows8.0
      */
     static MsiSetPropertyA(hInstall, szName, szValue) {
-        szName := szName is String? StrPtr(szName) : szName
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szName := szName is String ? StrPtr(szName) : szName
+        szValue := szValue is String ? StrPtr(szValue) : szValue
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetPropertyA", "uint", hInstall, "ptr", szName, "ptr", szValue, "uint")
+        result := DllCall("msi.dll\MsiSetPropertyA", "ptr", hInstall, "ptr", szName, "ptr", szValue, "uint")
         return result
     }
 
     /**
      * The MsiSetProperty function sets the value for an installation property.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szName Specifies the name of the property.
-     * @param {Pointer<Char>} szValue Specifies the value of the property.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szName Specifies the name of the property.
+     * @param {PWSTR} szValue Specifies the value of the property.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetpropertyw
      * @since windows8.0
      */
     static MsiSetPropertyW(hInstall, szName, szValue) {
-        szName := szName is String? StrPtr(szName) : szName
-        szValue := szValue is String? StrPtr(szValue) : szValue
+        szName := szName is String ? StrPtr(szName) : szName
+        szValue := szValue is String ? StrPtr(szValue) : szValue
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetPropertyW", "uint", hInstall, "ptr", szName, "ptr", szValue, "uint")
+        result := DllCall("msi.dll\MsiSetPropertyW", "ptr", hInstall, "ptr", szName, "ptr", szValue, "uint")
         return result
     }
 
     /**
      * The MsiGetProperty function gets the value for an installer property.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szName A null-terminated string that specifies the name of the property.
-     * @param {Pointer<Byte>} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i>will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i>contains the number of TCHARs written to the buffer, not including the terminating null character.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szName A null-terminated string that specifies the name of the property.
+     * @param {PSTR} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i>will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i>contains the number of TCHARs written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i>is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetpropertya
      * @since windows8.0
      */
     static MsiGetPropertyA(hInstall, szName, szValueBuf, pcchValueBuf) {
-        szName := szName is String? StrPtr(szName) : szName
-        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+        szName := szName is String ? StrPtr(szName) : szName
+        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetPropertyA", "uint", hInstall, "ptr", szName, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        result := DllCall("msi.dll\MsiGetPropertyA", "ptr", hInstall, "ptr", szName, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
     }
 
     /**
      * The MsiGetProperty function gets the value for an installer property.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szName A null-terminated string that specifies the name of the property.
-     * @param {Pointer<Char>} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i>will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i>contains the number of TCHARs written to the buffer, not including the terminating null character.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szName A null-terminated string that specifies the name of the property.
+     * @param {PWSTR} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i>will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i>contains the number of TCHARs written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i>is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetpropertyw
      * @since windows8.0
      */
     static MsiGetPropertyW(hInstall, szName, szValueBuf, pcchValueBuf) {
-        szName := szName is String? StrPtr(szName) : szName
-        szValueBuf := szValueBuf is String? StrPtr(szValueBuf) : szValueBuf
+        szName := szName is String ? StrPtr(szName) : szName
+        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetPropertyW", "uint", hInstall, "ptr", szName, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
+        result := DllCall("msi.dll\MsiGetPropertyW", "ptr", hInstall, "ptr", szName, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
     }
 
     /**
      * The MsiGetLanguage function returns the numeric language of the installation that is currently running.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @returns {Integer} If the function succeeds, the return value is the numeric LANGID for the install.
      * 
      * If the function fails, the return value can be the following value.
@@ -27453,44 +27543,50 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetLanguage(hInstall) {
-        result := DllCall("msi.dll\MsiGetLanguage", "uint", hInstall, "ushort")
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+
+        result := DllCall("msi.dll\MsiGetLanguage", "ptr", hInstall, "ushort")
         return result
     }
 
     /**
      * The MsiGetMode function is used to determine whether the installer is currently running in a specified mode, as listed in the table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Integer} eRunMode 
-     * @returns {Integer} <b>TRUE</b> indicates the specific property passed into the function is currently set.
+     * @returns {BOOL} <b>TRUE</b> indicates the specific property passed into the function is currently set.
      * 
      * <b>FALSE</b> indicates the specific property passed into the function is currently not set.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetmode
      * @since windows8.0
      */
     static MsiGetMode(hInstall, eRunMode) {
-        result := DllCall("msi.dll\MsiGetMode", "uint", hInstall, "int", eRunMode, "int")
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+
+        result := DllCall("msi.dll\MsiGetMode", "ptr", hInstall, "int", eRunMode, "ptr")
         return result
     }
 
     /**
      * The MsiSetMode function sets an internal engine Boolean state.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Integer} eRunMode 
-     * @param {Integer} fState Specifies the state to set to <b>TRUE</b> or <b>FALSE</b>.
+     * @param {BOOL} fState Specifies the state to set to <b>TRUE</b> or <b>FALSE</b>.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisetmode
      * @since windows8.0
      */
     static MsiSetMode(hInstall, eRunMode, fState) {
-        result := DllCall("msi.dll\MsiSetMode", "uint", hInstall, "int", eRunMode, "int", fState, "uint")
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+
+        result := DllCall("msi.dll\MsiSetMode", "ptr", hInstall, "int", eRunMode, "ptr", fState, "uint")
         return result
     }
 
     /**
      * The MsiFormatRecord function formats record field data and properties using a format string.
-     * @param {Integer} hInstall Handle to the installation. This may be omitted, in which case only the record field parameters are processed and properties are not available for substitution.
-     * @param {Integer} hRecord Handle to the record to format. The template string must be stored in record field 0 followed by referenced data parameters.
-     * @param {Pointer<Byte>} szResultBuf Pointer to the buffer that receives the null terminated formatted string. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szResultBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchResultBuf</i> contains the required buffer size in <b>TCHAR</b>s, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchResultBuf</i> contains the number of <b>TCHAR</b>s written to the buffer, not including the terminating null character.
+     * @param {MSIHANDLE} hInstall Handle to the installation. This may be omitted, in which case only the record field parameters are processed and properties are not available for substitution.
+     * @param {MSIHANDLE} hRecord Handle to the record to format. The template string must be stored in record field 0 followed by referenced data parameters.
+     * @param {PSTR} szResultBuf Pointer to the buffer that receives the null terminated formatted string. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szResultBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchResultBuf</i> contains the required buffer size in <b>TCHAR</b>s, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchResultBuf</i> contains the number of <b>TCHAR</b>s written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchResultBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szResultBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szResultBuf</i>, not including the terminating null character. If <i>szResultBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchResultBuf</i>.
      * @returns {Integer} The 
      * <b>MsiFormatRecord</b> function returns one of the following values:
@@ -27498,17 +27594,19 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiFormatRecordA(hInstall, hRecord, szResultBuf, pcchResultBuf) {
-        szResultBuf := szResultBuf is String? StrPtr(szResultBuf) : szResultBuf
+        szResultBuf := szResultBuf is String ? StrPtr(szResultBuf) : szResultBuf
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("msi.dll\MsiFormatRecordA", "uint", hInstall, "uint", hRecord, "ptr", szResultBuf, "uint*", pcchResultBuf, "uint")
+        result := DllCall("msi.dll\MsiFormatRecordA", "ptr", hInstall, "ptr", hRecord, "ptr", szResultBuf, "uint*", pcchResultBuf, "uint")
         return result
     }
 
     /**
      * The MsiFormatRecord function formats record field data and properties using a format string.
-     * @param {Integer} hInstall Handle to the installation. This may be omitted, in which case only the record field parameters are processed and properties are not available for substitution.
-     * @param {Integer} hRecord Handle to the record to format. The template string must be stored in record field 0 followed by referenced data parameters.
-     * @param {Pointer<Char>} szResultBuf Pointer to the buffer that receives the null terminated formatted string. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szResultBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchResultBuf</i> contains the required buffer size in <b>TCHAR</b>s, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchResultBuf</i> contains the number of <b>TCHAR</b>s written to the buffer, not including the terminating null character.
+     * @param {MSIHANDLE} hInstall Handle to the installation. This may be omitted, in which case only the record field parameters are processed and properties are not available for substitution.
+     * @param {MSIHANDLE} hRecord Handle to the record to format. The template string must be stored in record field 0 followed by referenced data parameters.
+     * @param {PWSTR} szResultBuf Pointer to the buffer that receives the null terminated formatted string. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szResultBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns <b>ERROR_MORE_DATA</b> and <i>pcchResultBuf</i> contains the required buffer size in <b>TCHAR</b>s, not including the terminating null character. On return of <b>ERROR_SUCCESS</b>, <i>pcchResultBuf</i> contains the number of <b>TCHAR</b>s written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchResultBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szResultBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szResultBuf</i>, not including the terminating null character. If <i>szResultBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchResultBuf</i>.
      * @returns {Integer} The 
      * <b>MsiFormatRecord</b> function returns one of the following values:
@@ -27516,77 +27614,83 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiFormatRecordW(hInstall, hRecord, szResultBuf, pcchResultBuf) {
-        szResultBuf := szResultBuf is String? StrPtr(szResultBuf) : szResultBuf
+        szResultBuf := szResultBuf is String ? StrPtr(szResultBuf) : szResultBuf
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("msi.dll\MsiFormatRecordW", "uint", hInstall, "uint", hRecord, "ptr", szResultBuf, "uint*", pcchResultBuf, "uint")
+        result := DllCall("msi.dll\MsiFormatRecordW", "ptr", hInstall, "ptr", hRecord, "ptr", szResultBuf, "uint*", pcchResultBuf, "uint")
         return result
     }
 
     /**
      * The MsiDoAction function executes a built-in action, custom action, or user-interface wizard action.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szAction Specifies the action to execute.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szAction Specifies the action to execute.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidoactiona
      * @since windows8.0
      */
     static MsiDoActionA(hInstall, szAction) {
-        szAction := szAction is String? StrPtr(szAction) : szAction
+        szAction := szAction is String ? StrPtr(szAction) : szAction
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiDoActionA", "uint", hInstall, "ptr", szAction, "uint")
+        result := DllCall("msi.dll\MsiDoActionA", "ptr", hInstall, "ptr", szAction, "uint")
         return result
     }
 
     /**
      * The MsiDoAction function executes a built-in action, custom action, or user-interface wizard action.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szAction Specifies the action to execute.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szAction Specifies the action to execute.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msidoactionw
      * @since windows8.0
      */
     static MsiDoActionW(hInstall, szAction) {
-        szAction := szAction is String? StrPtr(szAction) : szAction
+        szAction := szAction is String ? StrPtr(szAction) : szAction
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiDoActionW", "uint", hInstall, "ptr", szAction, "uint")
+        result := DllCall("msi.dll\MsiDoActionW", "ptr", hInstall, "ptr", szAction, "uint")
         return result
     }
 
     /**
      * The MsiSequence function executes another action sequence, as described in the specified table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szTable Specifies the name of the table containing the action sequence.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szTable Specifies the name of the table containing the action sequence.
      * @param {Integer} iSequenceMode This parameter is currently unimplemented. It is reserved for future use and must be 0.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisequencea
      * @since windows8.0
      */
     static MsiSequenceA(hInstall, szTable, iSequenceMode) {
-        szTable := szTable is String? StrPtr(szTable) : szTable
+        szTable := szTable is String ? StrPtr(szTable) : szTable
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSequenceA", "uint", hInstall, "ptr", szTable, "int", iSequenceMode, "uint")
+        result := DllCall("msi.dll\MsiSequenceA", "ptr", hInstall, "ptr", szTable, "int", iSequenceMode, "uint")
         return result
     }
 
     /**
      * The MsiSequence function executes another action sequence, as described in the specified table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szTable Specifies the name of the table containing the action sequence.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szTable Specifies the name of the table containing the action sequence.
      * @param {Integer} iSequenceMode This parameter is currently unimplemented. It is reserved for future use and must be 0.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisequencew
      * @since windows8.0
      */
     static MsiSequenceW(hInstall, szTable, iSequenceMode) {
-        szTable := szTable is String? StrPtr(szTable) : szTable
+        szTable := szTable is String ? StrPtr(szTable) : szTable
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSequenceW", "uint", hInstall, "ptr", szTable, "int", iSequenceMode, "uint")
+        result := DllCall("msi.dll\MsiSequenceW", "ptr", hInstall, "ptr", szTable, "int", iSequenceMode, "uint")
         return result
     }
 
     /**
      * The MsiProcessMessage function sends an error record to the installer for processing.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Integer} eMessageType The <i>eMessage</i> parameter must be a value specifying one of the following message types. To display a message box with push buttons or icons, use OR-operators to add INSTALLMESSAGE_ERROR, INSTALLMESSAGE_WARNING, or INSTALLMESSAGE_USER to the standard message box styles used by 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messageboxexa">MessageBoxEx</a> functions. For more information, see the Remarks below. 
@@ -27735,52 +27839,57 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} hRecord Handle to a record containing message format and data.
+     * @param {MSIHANDLE} hRecord Handle to a record containing message format and data.
      * @returns {Integer} This function returns int.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiprocessmessage
      * @since windows8.0
      */
     static MsiProcessMessage(hInstall, eMessageType, hRecord) {
-        result := DllCall("msi.dll\MsiProcessMessage", "uint", hInstall, "int", eMessageType, "uint", hRecord, "int")
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+
+        result := DllCall("msi.dll\MsiProcessMessage", "ptr", hInstall, "int", eMessageType, "ptr", hRecord, "int")
         return result
     }
 
     /**
      * The MsiEvaluateCondition function evaluates a conditional expression containing property names and values.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szCondition Specifies the conditional expression. This parameter must not be <b>NULL</b>. For the syntax of conditional expressions see 
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szCondition Specifies the conditional expression. This parameter must not be <b>NULL</b>. For the syntax of conditional expressions see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/conditional-statement-syntax">Conditional Statement Syntax</a>.
      * @returns {Integer} This function returns MSICONDITION.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msievaluateconditiona
      * @since windows8.0
      */
     static MsiEvaluateConditionA(hInstall, szCondition) {
-        szCondition := szCondition is String? StrPtr(szCondition) : szCondition
+        szCondition := szCondition is String ? StrPtr(szCondition) : szCondition
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiEvaluateConditionA", "uint", hInstall, "ptr", szCondition, "int")
+        result := DllCall("msi.dll\MsiEvaluateConditionA", "ptr", hInstall, "ptr", szCondition, "int")
         return result
     }
 
     /**
      * The MsiEvaluateCondition function evaluates a conditional expression containing property names and values.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szCondition Specifies the conditional expression. This parameter must not be <b>NULL</b>. For the syntax of conditional expressions see 
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szCondition Specifies the conditional expression. This parameter must not be <b>NULL</b>. For the syntax of conditional expressions see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/conditional-statement-syntax">Conditional Statement Syntax</a>.
      * @returns {Integer} This function returns MSICONDITION.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msievaluateconditionw
      * @since windows8.0
      */
     static MsiEvaluateConditionW(hInstall, szCondition) {
-        szCondition := szCondition is String? StrPtr(szCondition) : szCondition
+        szCondition := szCondition is String ? StrPtr(szCondition) : szCondition
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiEvaluateConditionW", "uint", hInstall, "ptr", szCondition, "int")
+        result := DllCall("msi.dll\MsiEvaluateConditionW", "ptr", hInstall, "ptr", szCondition, "int")
         return result
     }
 
     /**
      * The MsiGetFeatureState function gets the requested state of a feature.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szFeature Specifies the feature name within the product.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szFeature Specifies the feature name within the product.
      * @param {Pointer<Int32>} piInstalled 
      * @param {Pointer<Int32>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
@@ -27789,16 +27898,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureStateA(hInstall, szFeature, piInstalled, piAction) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetFeatureStateA", "uint", hInstall, "ptr", szFeature, "int*", piInstalled, "int*", piAction, "uint")
+        result := DllCall("msi.dll\MsiGetFeatureStateA", "ptr", hInstall, "ptr", szFeature, "int*", piInstalled, "int*", piAction, "uint")
         return result
     }
 
     /**
      * The MsiGetFeatureState function gets the requested state of a feature.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szFeature Specifies the feature name within the product.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szFeature Specifies the feature name within the product.
      * @param {Pointer<Int32>} piInstalled 
      * @param {Pointer<Int32>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
@@ -27807,16 +27917,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureStateW(hInstall, szFeature, piInstalled, piAction) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetFeatureStateW", "uint", hInstall, "ptr", szFeature, "int*", piInstalled, "int*", piAction, "uint")
+        result := DllCall("msi.dll\MsiGetFeatureStateW", "ptr", hInstall, "ptr", szFeature, "int*", piInstalled, "int*", piAction, "uint")
         return result
     }
 
     /**
      * The MsiSetFeatureState function sets a feature to a specified state.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szFeature Specifies the name of the feature.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szFeature Specifies the name of the feature.
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetFeatureState</b> function returns the following values:
@@ -27824,16 +27935,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureStateA(hInstall, szFeature, iState) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetFeatureStateA", "uint", hInstall, "ptr", szFeature, "int", iState, "uint")
+        result := DllCall("msi.dll\MsiSetFeatureStateA", "ptr", hInstall, "ptr", szFeature, "int", iState, "uint")
         return result
     }
 
     /**
      * The MsiSetFeatureState function sets a feature to a specified state.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szFeature Specifies the name of the feature.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szFeature Specifies the name of the feature.
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetFeatureState</b> function returns the following values:
@@ -27841,16 +27953,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureStateW(hInstall, szFeature, iState) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetFeatureStateW", "uint", hInstall, "ptr", szFeature, "int", iState, "uint")
+        result := DllCall("msi.dll\MsiSetFeatureStateW", "ptr", hInstall, "ptr", szFeature, "int", iState, "uint")
         return result
     }
 
     /**
      * The MsiSetFeatureAttributes function can modify the default attributes of a feature at runtime. Note that the default attributes of features are authored in the Attributes column of the Feature table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szFeature Specifies the feature name within the product.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szFeature Specifies the feature name within the product.
      * @param {Integer} dwAttributes Feature attributes specified at run time as a set of bit flags: 
      * 
      * 
@@ -27938,16 +28051,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureAttributesA(hInstall, szFeature, dwAttributes) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetFeatureAttributesA", "uint", hInstall, "ptr", szFeature, "uint", dwAttributes, "uint")
+        result := DllCall("msi.dll\MsiSetFeatureAttributesA", "ptr", hInstall, "ptr", szFeature, "uint", dwAttributes, "uint")
         return result
     }
 
     /**
      * The MsiSetFeatureAttributes function can modify the default attributes of a feature at runtime. Note that the default attributes of features are authored in the Attributes column of the Feature table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szFeature Specifies the feature name within the product.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szFeature Specifies the feature name within the product.
      * @param {Integer} dwAttributes Feature attributes specified at run time as a set of bit flags: 
      * 
      * 
@@ -28035,16 +28149,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureAttributesW(hInstall, szFeature, dwAttributes) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetFeatureAttributesW", "uint", hInstall, "ptr", szFeature, "uint", dwAttributes, "uint")
+        result := DllCall("msi.dll\MsiSetFeatureAttributesW", "ptr", hInstall, "ptr", szFeature, "uint", dwAttributes, "uint")
         return result
     }
 
     /**
      * The MsiGetComponentState function obtains the state of a component.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szComponent A null-terminated string that specifies the component name within the product.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szComponent A null-terminated string that specifies the component name within the product.
      * @param {Pointer<Int32>} piInstalled 
      * @param {Pointer<Int32>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
@@ -28053,16 +28168,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentStateA(hInstall, szComponent, piInstalled, piAction) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetComponentStateA", "uint", hInstall, "ptr", szComponent, "int*", piInstalled, "int*", piAction, "uint")
+        result := DllCall("msi.dll\MsiGetComponentStateA", "ptr", hInstall, "ptr", szComponent, "int*", piInstalled, "int*", piAction, "uint")
         return result
     }
 
     /**
      * The MsiGetComponentState function obtains the state of a component.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szComponent A null-terminated string that specifies the component name within the product.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szComponent A null-terminated string that specifies the component name within the product.
      * @param {Pointer<Int32>} piInstalled 
      * @param {Pointer<Int32>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
@@ -28071,16 +28187,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentStateW(hInstall, szComponent, piInstalled, piAction) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetComponentStateW", "uint", hInstall, "ptr", szComponent, "int*", piInstalled, "int*", piAction, "uint")
+        result := DllCall("msi.dll\MsiGetComponentStateW", "ptr", hInstall, "ptr", szComponent, "int*", piInstalled, "int*", piAction, "uint")
         return result
     }
 
     /**
      * The MsiSetComponentState function sets a component to the requested state.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szComponent Specifies the name of the component.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szComponent Specifies the name of the component.
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetComponentState</b> function returns the following values:
@@ -28088,16 +28205,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetComponentStateA(hInstall, szComponent, iState) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetComponentStateA", "uint", hInstall, "ptr", szComponent, "int", iState, "uint")
+        result := DllCall("msi.dll\MsiSetComponentStateA", "ptr", hInstall, "ptr", szComponent, "int", iState, "uint")
         return result
     }
 
     /**
      * The MsiSetComponentState function sets a component to the requested state.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szComponent Specifies the name of the component.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szComponent Specifies the name of the component.
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetComponentState</b> function returns the following values:
@@ -28105,16 +28223,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetComponentStateW(hInstall, szComponent, iState) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetComponentStateW", "uint", hInstall, "ptr", szComponent, "int", iState, "uint")
+        result := DllCall("msi.dll\MsiSetComponentStateW", "ptr", hInstall, "ptr", szComponent, "int", iState, "uint")
         return result
     }
 
     /**
      * The MsiGetFeatureCost function returns the disk space required by a feature and its selected children and parent features.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szFeature Specifies the name of the feature.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szFeature Specifies the name of the feature.
      * @param {Integer} iCostTree 
      * @param {Integer} iState 
      * @param {Pointer<Int32>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
@@ -28124,16 +28243,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureCostA(hInstall, szFeature, iCostTree, iState, piCost) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetFeatureCostA", "uint", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, "int*", piCost, "uint")
+        result := DllCall("msi.dll\MsiGetFeatureCostA", "ptr", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, "int*", piCost, "uint")
         return result
     }
 
     /**
      * The MsiGetFeatureCost function returns the disk space required by a feature and its selected children and parent features.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szFeature Specifies the name of the feature.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szFeature Specifies the name of the feature.
      * @param {Integer} iCostTree 
      * @param {Integer} iState 
      * @param {Pointer<Int32>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
@@ -28143,22 +28263,23 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureCostW(hInstall, szFeature, iCostTree, iState, piCost) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetFeatureCostW", "uint", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, "int*", piCost, "uint")
+        result := DllCall("msi.dll\MsiGetFeatureCostW", "ptr", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, "int*", piCost, "uint")
         return result
     }
 
     /**
      * The MsiEnumComponentCosts function enumerates the disk-space per drive required to install a component.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szComponent A null-terminated string specifying the component's name as it is listed in the Component column of the 
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szComponent A null-terminated string specifying the component's name as it is listed in the Component column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component table</a>. This parameter can be null. If <i>szComponent</i> is null or an empty string, 
      * <b>MsiEnumComponentCosts</b> enumerates the total disk-space per drive used during the installation. In this case, <i>iState</i> is ignored. The costs of the installer include those costs for caching the database in the secure folder as well as the cost to create the installation script. Note that the total disk-space used during the installation may be larger than the space used after the component is installed.
      * @param {Integer} dwIndex 0-based index for drives. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponentCosts</b> function and then incremented for subsequent calls.
      * @param {Integer} iState Requested component state to be enumerated. If <i>szComponent</i> is passed as Null or an empty string, the installer ignores the <i>iState</i> parameter.
-     * @param {Pointer<Byte>} szDriveBuf Buffer that holds the drive name including the null terminator. This is an empty string in case of an error.
+     * @param {PSTR} szDriveBuf Buffer that holds the drive name including the null terminator. This is an empty string in case of an error.
      * @param {Pointer<UInt32>} pcchDriveBuf Pointer to a variable that specifies the size, in TCHARs, of the buffer pointed to by the <i>lpDriveBuf</i> parameter. This size should include the terminating null character. If the buffer provided is too small, the variable pointed to by <i>pcchDriveBuf</i> contains the count of characters not including the null terminator.
      * @param {Pointer<Int32>} piCost Cost of the component per drive expressed in multiples of 512 bytes. This value is 0 if an error has occurred. The value returned in <i>piCost</i> is final disk-space used by the component after installation. If <i>szComponent</i> is passed as Null or an empty string, the installer sets the value at <i>piCost</i> to 0.
      * @param {Pointer<Int32>} piTempCost The component cost per drive for the duration of the installation, or 0 if an error occurred. The value in *<i>piTempCost</i> represents the temporary space requirements for the duration of the installation. This temporary space requirement is space needed only for the duration of the installation. This does not affect the final disk space requirement.
@@ -28264,23 +28385,24 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentCostsA(hInstall, szComponent, dwIndex, iState, szDriveBuf, pcchDriveBuf, piCost, piTempCost) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        szDriveBuf := szDriveBuf is String? StrPtr(szDriveBuf) : szDriveBuf
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        szDriveBuf := szDriveBuf is String ? StrPtr(szDriveBuf) : szDriveBuf
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiEnumComponentCostsA", "uint", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, "uint*", pcchDriveBuf, "int*", piCost, "int*", piTempCost, "uint")
+        result := DllCall("msi.dll\MsiEnumComponentCostsA", "ptr", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, "uint*", pcchDriveBuf, "int*", piCost, "int*", piTempCost, "uint")
         return result
     }
 
     /**
      * The MsiEnumComponentCosts function enumerates the disk-space per drive required to install a component.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szComponent A null-terminated string specifying the component's name as it is listed in the Component column of the 
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szComponent A null-terminated string specifying the component's name as it is listed in the Component column of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component table</a>. This parameter can be null. If <i>szComponent</i> is null or an empty string, 
      * <b>MsiEnumComponentCosts</b> enumerates the total disk-space per drive used during the installation. In this case, <i>iState</i> is ignored. The costs of the installer include those costs for caching the database in the secure folder as well as the cost to create the installation script. Note that the total disk-space used during the installation may be larger than the space used after the component is installed.
      * @param {Integer} dwIndex 0-based index for drives. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponentCosts</b> function and then incremented for subsequent calls.
      * @param {Integer} iState Requested component state to be enumerated. If <i>szComponent</i> is passed as Null or an empty string, the installer ignores the <i>iState</i> parameter.
-     * @param {Pointer<Char>} szDriveBuf Buffer that holds the drive name including the null terminator. This is an empty string in case of an error.
+     * @param {PWSTR} szDriveBuf Buffer that holds the drive name including the null terminator. This is an empty string in case of an error.
      * @param {Pointer<UInt32>} pcchDriveBuf Pointer to a variable that specifies the size, in TCHARs, of the buffer pointed to by the <i>lpDriveBuf</i> parameter. This size should include the terminating null character. If the buffer provided is too small, the variable pointed to by <i>pcchDriveBuf</i> contains the count of characters not including the null terminator.
      * @param {Pointer<Int32>} piCost Cost of the component per drive expressed in multiples of 512 bytes. This value is 0 if an error has occurred. The value returned in <i>piCost</i> is final disk-space used by the component after installation. If <i>szComponent</i> is passed as Null or an empty string, the installer sets the value at <i>piCost</i> to 0.
      * @param {Pointer<Int32>} piTempCost The component cost per drive for the duration of the installation, or 0 if an error occurred. The value in *<i>piTempCost</i> represents the temporary space requirements for the duration of the installation. This temporary space requirement is space needed only for the duration of the installation. This does not affect the final disk space requirement.
@@ -28386,16 +28508,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentCostsW(hInstall, szComponent, dwIndex, iState, szDriveBuf, pcchDriveBuf, piCost, piTempCost) {
-        szComponent := szComponent is String? StrPtr(szComponent) : szComponent
-        szDriveBuf := szDriveBuf is String? StrPtr(szDriveBuf) : szDriveBuf
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
+        szDriveBuf := szDriveBuf is String ? StrPtr(szDriveBuf) : szDriveBuf
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiEnumComponentCostsW", "uint", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, "uint*", pcchDriveBuf, "int*", piCost, "int*", piTempCost, "uint")
+        result := DllCall("msi.dll\MsiEnumComponentCostsW", "ptr", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, "uint*", pcchDriveBuf, "int*", piCost, "int*", piTempCost, "uint")
         return result
     }
 
     /**
      * The MsiSetInstallLevel function sets the installation level for a full product installation.
-     * @param {Integer} hInstall Handle to the installation that is provided to a DLL custom action or obtained by using <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {MSIHANDLE} hInstall Handle to the installation that is provided to a DLL custom action or obtained by using <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {Integer} iInstallLevel The installation level.
      * @returns {Integer} The 
      * <b>MsiSetInstallLevel</b> function returns one of the following values:
@@ -28403,14 +28526,16 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetInstallLevel(hInstall, iInstallLevel) {
-        result := DllCall("msi.dll\MsiSetInstallLevel", "uint", hInstall, "int", iInstallLevel, "uint")
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+
+        result := DllCall("msi.dll\MsiSetInstallLevel", "ptr", hInstall, "int", iInstallLevel, "uint")
         return result
     }
 
     /**
      * The MsiGetFeatureValidStates function returns a valid installation state.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szFeature Specifies the feature name.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szFeature Specifies the feature name.
      * @param {Pointer<UInt32>} lpInstallStates 
      * @returns {Integer} The 
      * <b>MsiGetFeatureValidStates</b> function returns the following values:
@@ -28418,16 +28543,17 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureValidStatesA(hInstall, szFeature, lpInstallStates) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetFeatureValidStatesA", "uint", hInstall, "ptr", szFeature, "uint*", lpInstallStates, "uint")
+        result := DllCall("msi.dll\MsiGetFeatureValidStatesA", "ptr", hInstall, "ptr", szFeature, "uint*", lpInstallStates, "uint")
         return result
     }
 
     /**
      * The MsiGetFeatureValidStates function returns a valid installation state.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szFeature Specifies the feature name.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szFeature Specifies the feature name.
      * @param {Pointer<UInt32>} lpInstallStates 
      * @returns {Integer} The 
      * <b>MsiGetFeatureValidStates</b> function returns the following values:
@@ -28435,18 +28561,19 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureValidStatesW(hInstall, szFeature, lpInstallStates) {
-        szFeature := szFeature is String? StrPtr(szFeature) : szFeature
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetFeatureValidStatesW", "uint", hInstall, "ptr", szFeature, "uint*", lpInstallStates, "uint")
+        result := DllCall("msi.dll\MsiGetFeatureValidStatesW", "ptr", hInstall, "ptr", szFeature, "uint*", lpInstallStates, "uint")
         return result
     }
 
     /**
      * The MsiGetSourcePath function returns the full source path for a folder in the Directory table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szFolder A null-terminated string that specifies a record of the 
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
-     * @param {Pointer<Byte>} szPathBuf Pointer to the buffer that receives the null terminated full source path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
+     * @param {PSTR} szPathBuf Pointer to the buffer that receives the null terminated full source path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szPathBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetSourcePath</b> function returns the following values:
@@ -28454,19 +28581,20 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetSourcePathA(hInstall, szFolder, szPathBuf, pcchPathBuf) {
-        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
-        szPathBuf := szPathBuf is String? StrPtr(szPathBuf) : szPathBuf
+        szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
+        szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetSourcePathA", "uint", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
+        result := DllCall("msi.dll\MsiGetSourcePathA", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
         return result
     }
 
     /**
      * The MsiGetSourcePath function returns the full source path for a folder in the Directory table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szFolder A null-terminated string that specifies a record of the 
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
-     * @param {Pointer<Char>} szPathBuf Pointer to the buffer that receives the null terminated full source path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
+     * @param {PWSTR} szPathBuf Pointer to the buffer that receives the null terminated full source path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szPathBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetSourcePath</b> function returns the following values:
@@ -28474,19 +28602,20 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetSourcePathW(hInstall, szFolder, szPathBuf, pcchPathBuf) {
-        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
-        szPathBuf := szPathBuf is String? StrPtr(szPathBuf) : szPathBuf
+        szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
+        szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetSourcePathW", "uint", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
+        result := DllCall("msi.dll\MsiGetSourcePathW", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
         return result
     }
 
     /**
      * The MsiGetTargetPath function returns the full target path for a folder in the Directory table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szFolder A null-terminated string that specifies a record of the 
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
-     * @param {Pointer<Byte>} szPathBuf Pointer to the buffer that receives the null terminated full target path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
+     * @param {PSTR} szPathBuf Pointer to the buffer that receives the null terminated full target path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szPathBuf</i> When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetTargetPath</b> function returns the following values:
@@ -28494,19 +28623,20 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetTargetPathA(hInstall, szFolder, szPathBuf, pcchPathBuf) {
-        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
-        szPathBuf := szPathBuf is String? StrPtr(szPathBuf) : szPathBuf
+        szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
+        szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetTargetPathA", "uint", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
+        result := DllCall("msi.dll\MsiGetTargetPathA", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
         return result
     }
 
     /**
      * The MsiGetTargetPath function returns the full target path for a folder in the Directory table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szFolder A null-terminated string that specifies a record of the 
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szFolder A null-terminated string that specifies a record of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/directory-table">Directory table</a>. If the directory is a root directory, this can be a value from the DefaultDir column. Otherwise it must be a value from the Directory column.
-     * @param {Pointer<Char>} szPathBuf Pointer to the buffer that receives the null terminated full target path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
+     * @param {PWSTR} szPathBuf Pointer to the buffer that receives the null terminated full target path. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szPathBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns ERROR_MORE_DATA and <i>pcchPathBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchPathBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character.
      * @param {Pointer<UInt32>} pcchPathBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szPathBuf</i> When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetTargetPath</b> function returns the following values:
@@ -28514,153 +28644,164 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetTargetPathW(hInstall, szFolder, szPathBuf, pcchPathBuf) {
-        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
-        szPathBuf := szPathBuf is String? StrPtr(szPathBuf) : szPathBuf
+        szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
+        szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetTargetPathW", "uint", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
+        result := DllCall("msi.dll\MsiGetTargetPathW", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
         return result
     }
 
     /**
      * The MsiSetTargetPath function sets the full target path for a folder in the Directory table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Byte>} szFolder Specifies the folder identifier. This is a primary key in the Directory table.
-     * @param {Pointer<Byte>} szFolderPath Specifies the full path for the folder, ending in a directory separator.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PSTR} szFolder Specifies the folder identifier. This is a primary key in the Directory table.
+     * @param {PSTR} szFolderPath Specifies the full path for the folder, ending in a directory separator.
      * @returns {Integer} The 
      * <b>MsiSetTargetPath</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisettargetpatha
      * @since windows8.0
      */
     static MsiSetTargetPathA(hInstall, szFolder, szFolderPath) {
-        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
-        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
+        szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
+        szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetTargetPathA", "uint", hInstall, "ptr", szFolder, "ptr", szFolderPath, "uint")
+        result := DllCall("msi.dll\MsiSetTargetPathA", "ptr", hInstall, "ptr", szFolder, "ptr", szFolderPath, "uint")
         return result
     }
 
     /**
      * The MsiSetTargetPath function sets the full target path for a folder in the Directory table.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Pointer<Char>} szFolder Specifies the folder identifier. This is a primary key in the Directory table.
-     * @param {Pointer<Char>} szFolderPath Specifies the full path for the folder, ending in a directory separator.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {PWSTR} szFolder Specifies the folder identifier. This is a primary key in the Directory table.
+     * @param {PWSTR} szFolderPath Specifies the full path for the folder, ending in a directory separator.
      * @returns {Integer} The 
      * <b>MsiSetTargetPath</b> function returns the following values:
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msisettargetpathw
      * @since windows8.0
      */
     static MsiSetTargetPathW(hInstall, szFolder, szFolderPath) {
-        szFolder := szFolder is String? StrPtr(szFolder) : szFolder
-        szFolderPath := szFolderPath is String? StrPtr(szFolderPath) : szFolderPath
+        szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
+        szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetTargetPathW", "uint", hInstall, "ptr", szFolder, "ptr", szFolderPath, "uint")
+        result := DllCall("msi.dll\MsiSetTargetPathW", "ptr", hInstall, "ptr", szFolder, "ptr", szFolderPath, "uint")
         return result
     }
 
     /**
      * The MsiVerifyDiskSpace function checks to see if sufficient disk space is present for the current installation.
-     * @param {Integer} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
+     * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msiverifydiskspace
      * @since windows8.0
      */
     static MsiVerifyDiskSpace(hInstall) {
-        result := DllCall("msi.dll\MsiVerifyDiskSpace", "uint", hInstall, "uint")
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+
+        result := DllCall("msi.dll\MsiVerifyDiskSpace", "ptr", hInstall, "uint")
         return result
     }
 
     /**
      * The MsiEnableUIPreview function enables preview mode of the user interface to facilitate authoring of user-interface dialog boxes. This function returns a handle that should be closed using MsiCloseHandle.
-     * @param {Integer} hDatabase Handle to the database.
-     * @param {Pointer<UInt32>} phPreview Pointer to a returned handle for user-interface preview capability.
+     * @param {MSIHANDLE} hDatabase Handle to the database.
+     * @param {Pointer<MSIHANDLE>} phPreview Pointer to a returned handle for user-interface preview capability.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msienableuipreview
      * @since windows8.0
      */
     static MsiEnableUIPreview(hDatabase, phPreview) {
-        result := DllCall("msi.dll\MsiEnableUIPreview", "uint", hDatabase, "uint*", phPreview, "uint")
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+
+        result := DllCall("msi.dll\MsiEnableUIPreview", "ptr", hDatabase, "ptr", phPreview, "uint")
         return result
     }
 
     /**
      * The MsiPreviewDialog function displays a dialog box as modeless and inactive.
-     * @param {Integer} hPreview Handle to the preview.
-     * @param {Pointer<Byte>} szDialogName Specifies the name of the dialog box to preview.
+     * @param {MSIHANDLE} hPreview Handle to the preview.
+     * @param {PSTR} szDialogName Specifies the name of the dialog box to preview.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msipreviewdialoga
      * @since windows8.0
      */
     static MsiPreviewDialogA(hPreview, szDialogName) {
-        szDialogName := szDialogName is String? StrPtr(szDialogName) : szDialogName
+        szDialogName := szDialogName is String ? StrPtr(szDialogName) : szDialogName
+        hPreview := hPreview is Win32Handle ? NumGet(hPreview, "ptr") : hPreview
 
-        result := DllCall("msi.dll\MsiPreviewDialogA", "uint", hPreview, "ptr", szDialogName, "uint")
+        result := DllCall("msi.dll\MsiPreviewDialogA", "ptr", hPreview, "ptr", szDialogName, "uint")
         return result
     }
 
     /**
      * The MsiPreviewDialog function displays a dialog box as modeless and inactive.
-     * @param {Integer} hPreview Handle to the preview.
-     * @param {Pointer<Char>} szDialogName Specifies the name of the dialog box to preview.
+     * @param {MSIHANDLE} hPreview Handle to the preview.
+     * @param {PWSTR} szDialogName Specifies the name of the dialog box to preview.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msipreviewdialogw
      * @since windows8.0
      */
     static MsiPreviewDialogW(hPreview, szDialogName) {
-        szDialogName := szDialogName is String? StrPtr(szDialogName) : szDialogName
+        szDialogName := szDialogName is String ? StrPtr(szDialogName) : szDialogName
+        hPreview := hPreview is Win32Handle ? NumGet(hPreview, "ptr") : hPreview
 
-        result := DllCall("msi.dll\MsiPreviewDialogW", "uint", hPreview, "ptr", szDialogName, "uint")
+        result := DllCall("msi.dll\MsiPreviewDialogW", "ptr", hPreview, "ptr", szDialogName, "uint")
         return result
     }
 
     /**
      * The MsiPreviewBillboard function displays a billboard with the host control in the displayed dialog box.
-     * @param {Integer} hPreview Handle to the preview.
-     * @param {Pointer<Byte>} szControlName Specifies the name of the host control.
-     * @param {Pointer<Byte>} szBillboard Specifies the name of the billboard to display.
+     * @param {MSIHANDLE} hPreview Handle to the preview.
+     * @param {PSTR} szControlName Specifies the name of the host control.
+     * @param {PSTR} szBillboard Specifies the name of the billboard to display.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msipreviewbillboarda
      * @since windows8.0
      */
     static MsiPreviewBillboardA(hPreview, szControlName, szBillboard) {
-        szControlName := szControlName is String? StrPtr(szControlName) : szControlName
-        szBillboard := szBillboard is String? StrPtr(szBillboard) : szBillboard
+        szControlName := szControlName is String ? StrPtr(szControlName) : szControlName
+        szBillboard := szBillboard is String ? StrPtr(szBillboard) : szBillboard
+        hPreview := hPreview is Win32Handle ? NumGet(hPreview, "ptr") : hPreview
 
-        result := DllCall("msi.dll\MsiPreviewBillboardA", "uint", hPreview, "ptr", szControlName, "ptr", szBillboard, "uint")
+        result := DllCall("msi.dll\MsiPreviewBillboardA", "ptr", hPreview, "ptr", szControlName, "ptr", szBillboard, "uint")
         return result
     }
 
     /**
      * The MsiPreviewBillboard function displays a billboard with the host control in the displayed dialog box.
-     * @param {Integer} hPreview Handle to the preview.
-     * @param {Pointer<Char>} szControlName Specifies the name of the host control.
-     * @param {Pointer<Char>} szBillboard Specifies the name of the billboard to display.
+     * @param {MSIHANDLE} hPreview Handle to the preview.
+     * @param {PWSTR} szControlName Specifies the name of the host control.
+     * @param {PWSTR} szBillboard Specifies the name of the billboard to display.
      * @returns {Integer} This function returns UINT.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msipreviewbillboardw
      * @since windows8.0
      */
     static MsiPreviewBillboardW(hPreview, szControlName, szBillboard) {
-        szControlName := szControlName is String? StrPtr(szControlName) : szControlName
-        szBillboard := szBillboard is String? StrPtr(szBillboard) : szBillboard
+        szControlName := szControlName is String ? StrPtr(szControlName) : szControlName
+        szBillboard := szBillboard is String ? StrPtr(szBillboard) : szBillboard
+        hPreview := hPreview is Win32Handle ? NumGet(hPreview, "ptr") : hPreview
 
-        result := DllCall("msi.dll\MsiPreviewBillboardW", "uint", hPreview, "ptr", szControlName, "ptr", szBillboard, "uint")
+        result := DllCall("msi.dll\MsiPreviewBillboardW", "ptr", hPreview, "ptr", szControlName, "ptr", szBillboard, "uint")
         return result
     }
 
     /**
      * The MsiGetLastErrorRecord function returns the error record that was last returned for the calling process. This function returns a handle that should be closed using MsiCloseHandle.
-     * @returns {Integer} A handle to the error record. If the last function was successful, 
+     * @returns {MSIHANDLE} A handle to the error record. If the last function was successful, 
      * <b>MsiGetLastErrorRecord</b> returns a null <b>MSIHANDLE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//msiquery/nf-msiquery-msigetlasterrorrecord
      * @since windows8.0
      */
     static MsiGetLastErrorRecord() {
-        result := DllCall("msi.dll\MsiGetLastErrorRecord", "uint")
-        return result
+        result := DllCall("msi.dll\MsiGetLastErrorRecord", "ptr")
+        return MSIHANDLE({Value: result}, True)
     }
 
     /**
      * Retrieves the complete list of protected files.
-     * @param {Pointer<Void>} RpcHandle This parameter must be <b>NULL</b>.
+     * @param {HANDLE} RpcHandle This parameter must be <b>NULL</b>.
      * @param {Pointer<PROTECTED_FILE_DATA>} ProtFileData The list of protected files. The format of this structure is as follows. 
      * 
      * 
@@ -28671,7 +28812,7 @@ class ApplicationInstallationAndServicing {
      *     DWORD   FileNumber;
      * } PROTECTED_FILE_DATA, *PPROTECTED_FILE_DATA;</code></pre>
      * Before calling this function the first time, set the <b>FileNumber</b> member to zero.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If there are no more protected files to enumerate, the return value is zero and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NO_MORE_FILES. If the function fails, <b>GetLastError</b> will return a different error code.
@@ -28679,9 +28820,11 @@ class ApplicationInstallationAndServicing {
      * @since windows5.1.2600
      */
     static SfcGetNextProtectedFile(RpcHandle, ProtFileData) {
+        RpcHandle := RpcHandle is Win32Handle ? NumGet(RpcHandle, "ptr") : RpcHandle
+
         A_LastError := 0
 
-        result := DllCall("sfc.dll\SfcGetNextProtectedFile", "ptr", RpcHandle, "ptr", ProtFileData, "int")
+        result := DllCall("sfc.dll\SfcGetNextProtectedFile", "ptr", RpcHandle, "ptr", ProtFileData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -28690,24 +28833,25 @@ class ApplicationInstallationAndServicing {
 
     /**
      * Determines whether the specified file is protected.
-     * @param {Pointer<Void>} RpcHandle This parameter must be <b>NULL</b>.
-     * @param {Pointer<Char>} ProtFileName The name of the file.
-     * @returns {Integer} If the file is protected, the return value is a nonzero value.
+     * @param {HANDLE} RpcHandle This parameter must be <b>NULL</b>.
+     * @param {PWSTR} ProtFileName The name of the file.
+     * @returns {BOOL} If the file is protected, the return value is a nonzero value.
      * 
      * If the file is not protected, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//sfc/nf-sfc-sfcisfileprotected
      * @since windows5.1.2600
      */
     static SfcIsFileProtected(RpcHandle, ProtFileName) {
-        ProtFileName := ProtFileName is String? StrPtr(ProtFileName) : ProtFileName
+        ProtFileName := ProtFileName is String ? StrPtr(ProtFileName) : ProtFileName
+        RpcHandle := RpcHandle is Win32Handle ? NumGet(RpcHandle, "ptr") : RpcHandle
 
-        result := DllCall("sfc.dll\SfcIsFileProtected", "ptr", RpcHandle, "ptr", ProtFileName, "int")
+        result := DllCall("sfc.dll\SfcIsFileProtected", "ptr", RpcHandle, "ptr", ProtFileName, "ptr")
         return result
     }
 
     /**
      * Determines whether the specified registry key is protected.
-     * @param {Pointer<Void>} KeyHandle A handle to the root registry key. This must be a handle to one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>.
+     * @param {HKEY} KeyHandle A handle to the root registry key. This must be a handle to one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>.
      * 
      * <p class="indent">HKEY_CLASSES_ROOT
      * 
@@ -28716,7 +28860,7 @@ class ApplicationInstallationAndServicing {
      * <p class="indent">HKEY_LOCAL_MACHINE
      * 
      * <p class="indent">HKEY_USERS
-     * @param {Pointer<Char>} SubKeyName A <b>null</b>-terminated string value containing the name of the subkey. This key must a subkey of the key identified by the <i>hKey</i> parameter. For more information about key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>. 
+     * @param {PWSTR} SubKeyName A <b>null</b>-terminated string value containing the name of the subkey. This key must a subkey of the key identified by the <i>hKey</i> parameter. For more information about key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>. 
      * If this parameter is <b>NULL</b>, the function only checks whether the root registry key is protected.
      * @param {Integer} KeySam A constant that specifies the alternate registry view that should be used by applications that run on 64-bit Windows.  This flag is ignored on the x86 platform. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg64/accessing-an-alternate-registry-view">Accessing an Alternate Registry View</a>.
      * 
@@ -28759,81 +28903,86 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the key is protected, the return value is a nonzero value.
+     * @returns {BOOL} If the key is protected, the return value is a nonzero value.
      * 
      * If the key is not protected, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//sfc/nf-sfc-sfciskeyprotected
      * @since windows6.0.6000
      */
     static SfcIsKeyProtected(KeyHandle, SubKeyName, KeySam) {
-        SubKeyName := SubKeyName is String? StrPtr(SubKeyName) : SubKeyName
+        SubKeyName := SubKeyName is String ? StrPtr(SubKeyName) : SubKeyName
+        KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
-        result := DllCall("sfc.dll\SfcIsKeyProtected", "ptr", KeyHandle, "ptr", SubKeyName, "uint", KeySam, "int")
+        result := DllCall("sfc.dll\SfcIsKeyProtected", "ptr", KeyHandle, "ptr", SubKeyName, "uint", KeySam, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} pszFileName 
-     * @param {Pointer<Byte>} pszError 
+     * @param {PSTR} pszFileName 
+     * @param {PSTR} pszError 
      * @param {Integer} dwErrSize 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SfpVerifyFile(pszFileName, pszError, dwErrSize) {
-        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
-        pszError := pszError is String? StrPtr(pszError) : pszError
+        pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
+        pszError := pszError is String ? StrPtr(pszError) : pszError
 
-        result := DllCall("sfc.dll\SfpVerifyFile", "ptr", pszFileName, "ptr", pszError, "uint", dwErrSize, "int")
+        result := DllCall("sfc.dll\SfpVerifyFile", "ptr", pszFileName, "ptr", pszError, "uint", dwErrSize, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} OldFileName 
-     * @param {Pointer<Byte>} NewFileName 
-     * @param {Pointer<Byte>} PatchFileName 
+     * @param {PSTR} OldFileName 
+     * @param {PSTR} NewFileName 
+     * @param {PSTR} PatchFileName 
      * @param {Integer} OptionFlags 
      * @param {Pointer<PATCH_OPTION_DATA>} OptionData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static CreatePatchFileA(OldFileName, NewFileName, PatchFileName, OptionFlags, OptionData) {
-        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
-        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
 
-        result := DllCall("mspatchc.dll\CreatePatchFileA", "ptr", OldFileName, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "int")
+        result := DllCall("mspatchc.dll\CreatePatchFileA", "ptr", OldFileName, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} OldFileName 
-     * @param {Pointer<Char>} NewFileName 
-     * @param {Pointer<Char>} PatchFileName 
+     * @param {PWSTR} OldFileName 
+     * @param {PWSTR} NewFileName 
+     * @param {PWSTR} PatchFileName 
      * @param {Integer} OptionFlags 
      * @param {Pointer<PATCH_OPTION_DATA>} OptionData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static CreatePatchFileW(OldFileName, NewFileName, PatchFileName, OptionFlags, OptionData) {
-        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
-        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
 
-        result := DllCall("mspatchc.dll\CreatePatchFileW", "ptr", OldFileName, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "int")
+        result := DllCall("mspatchc.dll\CreatePatchFileW", "ptr", OldFileName, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} OldFileHandle 
-     * @param {Pointer<Void>} NewFileHandle 
-     * @param {Pointer<Void>} PatchFileHandle 
+     * @param {HANDLE} OldFileHandle 
+     * @param {HANDLE} NewFileHandle 
+     * @param {HANDLE} PatchFileHandle 
      * @param {Integer} OptionFlags 
      * @param {Pointer<PATCH_OPTION_DATA>} OptionData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static CreatePatchFileByHandles(OldFileHandle, NewFileHandle, PatchFileHandle, OptionFlags, OptionData) {
-        result := DllCall("mspatchc.dll\CreatePatchFileByHandles", "ptr", OldFileHandle, "ptr", NewFileHandle, "ptr", PatchFileHandle, "uint", OptionFlags, "ptr", OptionData, "int")
+        OldFileHandle := OldFileHandle is Win32Handle ? NumGet(OldFileHandle, "ptr") : OldFileHandle
+        NewFileHandle := NewFileHandle is Win32Handle ? NumGet(NewFileHandle, "ptr") : NewFileHandle
+        PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
+
+        result := DllCall("mspatchc.dll\CreatePatchFileByHandles", "ptr", OldFileHandle, "ptr", NewFileHandle, "ptr", PatchFileHandle, "uint", OptionFlags, "ptr", OptionData, "ptr")
         return result
     }
 
@@ -28841,19 +28990,19 @@ class ApplicationInstallationAndServicing {
      * 
      * @param {Integer} OldFileCount 
      * @param {Pointer<PATCH_OLD_FILE_INFO_A>} OldFileInfoArray 
-     * @param {Pointer<Byte>} NewFileName 
-     * @param {Pointer<Byte>} PatchFileName 
+     * @param {PSTR} NewFileName 
+     * @param {PSTR} PatchFileName 
      * @param {Integer} OptionFlags 
      * @param {Pointer<PATCH_OPTION_DATA>} OptionData 
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
      * @param {Pointer<Void>} CallbackContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static CreatePatchFileExA(OldFileCount, OldFileInfoArray, NewFileName, PatchFileName, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
-        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
 
-        result := DllCall("mspatchc.dll\CreatePatchFileExA", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        result := DllCall("mspatchc.dll\CreatePatchFileExA", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
         return result
     }
 
@@ -28861,19 +29010,19 @@ class ApplicationInstallationAndServicing {
      * 
      * @param {Integer} OldFileCount 
      * @param {Pointer<PATCH_OLD_FILE_INFO_W>} OldFileInfoArray 
-     * @param {Pointer<Char>} NewFileName 
-     * @param {Pointer<Char>} PatchFileName 
+     * @param {PWSTR} NewFileName 
+     * @param {PWSTR} PatchFileName 
      * @param {Integer} OptionFlags 
      * @param {Pointer<PATCH_OPTION_DATA>} OptionData 
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
      * @param {Pointer<Void>} CallbackContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static CreatePatchFileExW(OldFileCount, OldFileInfoArray, NewFileName, PatchFileName, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
-        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
+        NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
 
-        result := DllCall("mspatchc.dll\CreatePatchFileExW", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        result := DllCall("mspatchc.dll\CreatePatchFileExW", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
         return result
     }
 
@@ -28881,97 +29030,106 @@ class ApplicationInstallationAndServicing {
      * 
      * @param {Integer} OldFileCount 
      * @param {Pointer<PATCH_OLD_FILE_INFO_H>} OldFileInfoArray 
-     * @param {Pointer<Void>} NewFileHandle 
-     * @param {Pointer<Void>} PatchFileHandle 
+     * @param {HANDLE} NewFileHandle 
+     * @param {HANDLE} PatchFileHandle 
      * @param {Integer} OptionFlags 
      * @param {Pointer<PATCH_OPTION_DATA>} OptionData 
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
      * @param {Pointer<Void>} CallbackContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static CreatePatchFileByHandlesEx(OldFileCount, OldFileInfoArray, NewFileHandle, PatchFileHandle, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
-        result := DllCall("mspatchc.dll\CreatePatchFileByHandlesEx", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileHandle, "ptr", PatchFileHandle, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        NewFileHandle := NewFileHandle is Win32Handle ? NumGet(NewFileHandle, "ptr") : NewFileHandle
+        PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
+
+        result := DllCall("mspatchc.dll\CreatePatchFileByHandlesEx", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileHandle, "ptr", PatchFileHandle, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} PatchFileName 
-     * @param {Pointer<Byte>} PatchHeaderFileName 
-     * @returns {Integer} 
+     * @param {PSTR} PatchFileName 
+     * @param {PSTR} PatchHeaderFileName 
+     * @returns {BOOL} 
      */
     static ExtractPatchHeaderToFileA(PatchFileName, PatchHeaderFileName) {
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
-        PatchHeaderFileName := PatchHeaderFileName is String? StrPtr(PatchHeaderFileName) : PatchHeaderFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
+        PatchHeaderFileName := PatchHeaderFileName is String ? StrPtr(PatchHeaderFileName) : PatchHeaderFileName
 
-        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileA", "ptr", PatchFileName, "ptr", PatchHeaderFileName, "int")
+        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileA", "ptr", PatchFileName, "ptr", PatchHeaderFileName, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} PatchFileName 
-     * @param {Pointer<Char>} PatchHeaderFileName 
-     * @returns {Integer} 
+     * @param {PWSTR} PatchFileName 
+     * @param {PWSTR} PatchHeaderFileName 
+     * @returns {BOOL} 
      */
     static ExtractPatchHeaderToFileW(PatchFileName, PatchHeaderFileName) {
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
-        PatchHeaderFileName := PatchHeaderFileName is String? StrPtr(PatchHeaderFileName) : PatchHeaderFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
+        PatchHeaderFileName := PatchHeaderFileName is String ? StrPtr(PatchHeaderFileName) : PatchHeaderFileName
 
-        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileW", "ptr", PatchFileName, "ptr", PatchHeaderFileName, "int")
+        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileW", "ptr", PatchFileName, "ptr", PatchHeaderFileName, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} PatchFileHandle 
-     * @param {Pointer<Void>} PatchHeaderFileHandle 
-     * @returns {Integer} 
+     * @param {HANDLE} PatchFileHandle 
+     * @param {HANDLE} PatchHeaderFileHandle 
+     * @returns {BOOL} 
      */
     static ExtractPatchHeaderToFileByHandles(PatchFileHandle, PatchHeaderFileHandle) {
-        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileByHandles", "ptr", PatchFileHandle, "ptr", PatchHeaderFileHandle, "int")
+        PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
+        PatchHeaderFileHandle := PatchHeaderFileHandle is Win32Handle ? NumGet(PatchHeaderFileHandle, "ptr") : PatchHeaderFileHandle
+
+        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileByHandles", "ptr", PatchFileHandle, "ptr", PatchHeaderFileHandle, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} PatchFileName 
-     * @param {Pointer<Byte>} OldFileName 
+     * @param {PSTR} PatchFileName 
+     * @param {PSTR} OldFileName 
      * @param {Integer} ApplyOptionFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static TestApplyPatchToFileA(PatchFileName, OldFileName, ApplyOptionFlags) {
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
-        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
 
-        result := DllCall("mspatcha.dll\TestApplyPatchToFileA", "ptr", PatchFileName, "ptr", OldFileName, "uint", ApplyOptionFlags, "int")
+        result := DllCall("mspatcha.dll\TestApplyPatchToFileA", "ptr", PatchFileName, "ptr", OldFileName, "uint", ApplyOptionFlags, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} PatchFileName 
-     * @param {Pointer<Char>} OldFileName 
+     * @param {PWSTR} PatchFileName 
+     * @param {PWSTR} OldFileName 
      * @param {Integer} ApplyOptionFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static TestApplyPatchToFileW(PatchFileName, OldFileName, ApplyOptionFlags) {
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
-        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
 
-        result := DllCall("mspatcha.dll\TestApplyPatchToFileW", "ptr", PatchFileName, "ptr", OldFileName, "uint", ApplyOptionFlags, "int")
+        result := DllCall("mspatcha.dll\TestApplyPatchToFileW", "ptr", PatchFileName, "ptr", OldFileName, "uint", ApplyOptionFlags, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} PatchFileHandle 
-     * @param {Pointer<Void>} OldFileHandle 
+     * @param {HANDLE} PatchFileHandle 
+     * @param {HANDLE} OldFileHandle 
      * @param {Integer} ApplyOptionFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static TestApplyPatchToFileByHandles(PatchFileHandle, OldFileHandle, ApplyOptionFlags) {
-        result := DllCall("mspatcha.dll\TestApplyPatchToFileByHandles", "ptr", PatchFileHandle, "ptr", OldFileHandle, "uint", ApplyOptionFlags, "int")
+        PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
+        OldFileHandle := OldFileHandle is Win32Handle ? NumGet(OldFileHandle, "ptr") : OldFileHandle
+
+        result := DllCall("mspatcha.dll\TestApplyPatchToFileByHandles", "ptr", PatchFileHandle, "ptr", OldFileHandle, "uint", ApplyOptionFlags, "ptr")
         return result
     }
 
@@ -28983,110 +29141,118 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} OldFileSize 
      * @param {Pointer<UInt32>} NewFileSize 
      * @param {Integer} ApplyOptionFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static TestApplyPatchToFileByBuffers(PatchFileBuffer, PatchFileSize, OldFileBuffer, OldFileSize, NewFileSize, ApplyOptionFlags) {
-        result := DllCall("mspatcha.dll\TestApplyPatchToFileByBuffers", "ptr", PatchFileBuffer, "uint", PatchFileSize, "ptr", OldFileBuffer, "uint", OldFileSize, "uint*", NewFileSize, "uint", ApplyOptionFlags, "int")
+        result := DllCall("mspatcha.dll\TestApplyPatchToFileByBuffers", "ptr", PatchFileBuffer, "uint", PatchFileSize, "ptr", OldFileBuffer, "uint", OldFileSize, "uint*", NewFileSize, "uint", ApplyOptionFlags, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} PatchFileName 
-     * @param {Pointer<Byte>} OldFileName 
-     * @param {Pointer<Byte>} NewFileName 
+     * @param {PSTR} PatchFileName 
+     * @param {PSTR} OldFileName 
+     * @param {PSTR} NewFileName 
      * @param {Integer} ApplyOptionFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ApplyPatchToFileA(PatchFileName, OldFileName, NewFileName, ApplyOptionFlags) {
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
-        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
-        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "int")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} PatchFileName 
-     * @param {Pointer<Char>} OldFileName 
-     * @param {Pointer<Char>} NewFileName 
+     * @param {PWSTR} PatchFileName 
+     * @param {PWSTR} OldFileName 
+     * @param {PWSTR} NewFileName 
      * @param {Integer} ApplyOptionFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ApplyPatchToFileW(PatchFileName, OldFileName, NewFileName, ApplyOptionFlags) {
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
-        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
-        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "int")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} PatchFileHandle 
-     * @param {Pointer<Void>} OldFileHandle 
-     * @param {Pointer<Void>} NewFileHandle 
+     * @param {HANDLE} PatchFileHandle 
+     * @param {HANDLE} OldFileHandle 
+     * @param {HANDLE} NewFileHandle 
      * @param {Integer} ApplyOptionFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ApplyPatchToFileByHandles(PatchFileHandle, OldFileHandle, NewFileHandle, ApplyOptionFlags) {
-        result := DllCall("mspatcha.dll\ApplyPatchToFileByHandles", "ptr", PatchFileHandle, "ptr", OldFileHandle, "ptr", NewFileHandle, "uint", ApplyOptionFlags, "int")
+        PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
+        OldFileHandle := OldFileHandle is Win32Handle ? NumGet(OldFileHandle, "ptr") : OldFileHandle
+        NewFileHandle := NewFileHandle is Win32Handle ? NumGet(NewFileHandle, "ptr") : NewFileHandle
+
+        result := DllCall("mspatcha.dll\ApplyPatchToFileByHandles", "ptr", PatchFileHandle, "ptr", OldFileHandle, "ptr", NewFileHandle, "uint", ApplyOptionFlags, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} PatchFileName 
-     * @param {Pointer<Byte>} OldFileName 
-     * @param {Pointer<Byte>} NewFileName 
+     * @param {PSTR} PatchFileName 
+     * @param {PSTR} OldFileName 
+     * @param {PSTR} NewFileName 
      * @param {Integer} ApplyOptionFlags 
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
      * @param {Pointer<Void>} CallbackContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ApplyPatchToFileExA(PatchFileName, OldFileName, NewFileName, ApplyOptionFlags, ProgressCallback, CallbackContext) {
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
-        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
-        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileExA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileExA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} PatchFileName 
-     * @param {Pointer<Char>} OldFileName 
-     * @param {Pointer<Char>} NewFileName 
+     * @param {PWSTR} PatchFileName 
+     * @param {PWSTR} OldFileName 
+     * @param {PWSTR} NewFileName 
      * @param {Integer} ApplyOptionFlags 
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
      * @param {Pointer<Void>} CallbackContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ApplyPatchToFileExW(PatchFileName, OldFileName, NewFileName, ApplyOptionFlags, ProgressCallback, CallbackContext) {
-        PatchFileName := PatchFileName is String? StrPtr(PatchFileName) : PatchFileName
-        OldFileName := OldFileName is String? StrPtr(OldFileName) : OldFileName
-        NewFileName := NewFileName is String? StrPtr(NewFileName) : NewFileName
+        PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
+        OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
+        NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileExW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileExW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} PatchFileHandle 
-     * @param {Pointer<Void>} OldFileHandle 
-     * @param {Pointer<Void>} NewFileHandle 
+     * @param {HANDLE} PatchFileHandle 
+     * @param {HANDLE} OldFileHandle 
+     * @param {HANDLE} NewFileHandle 
      * @param {Integer} ApplyOptionFlags 
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
      * @param {Pointer<Void>} CallbackContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ApplyPatchToFileByHandlesEx(PatchFileHandle, OldFileHandle, NewFileHandle, ApplyOptionFlags, ProgressCallback, CallbackContext) {
-        result := DllCall("mspatcha.dll\ApplyPatchToFileByHandlesEx", "ptr", PatchFileHandle, "ptr", OldFileHandle, "ptr", NewFileHandle, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
+        OldFileHandle := OldFileHandle is Win32Handle ? NumGet(OldFileHandle, "ptr") : OldFileHandle
+        NewFileHandle := NewFileHandle is Win32Handle ? NumGet(NewFileHandle, "ptr") : NewFileHandle
+
+        result := DllCall("mspatcha.dll\ApplyPatchToFileByHandlesEx", "ptr", PatchFileHandle, "ptr", OldFileHandle, "ptr", NewFileHandle, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
         return result
     }
 
@@ -29103,16 +29269,16 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} ApplyOptionFlags 
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback 
      * @param {Pointer<Void>} CallbackContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ApplyPatchToFileByBuffers(PatchFileMapped, PatchFileSize, OldFileMapped, OldFileSize, NewFileBuffer, NewFileBufferSize, NewFileActualSize, NewFileTime, ApplyOptionFlags, ProgressCallback, CallbackContext) {
-        result := DllCall("mspatcha.dll\ApplyPatchToFileByBuffers", "ptr", PatchFileMapped, "uint", PatchFileSize, "ptr", OldFileMapped, "uint", OldFileSize, "ptr", NewFileBuffer, "uint", NewFileBufferSize, "uint*", NewFileActualSize, "ptr", NewFileTime, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileByBuffers", "ptr", PatchFileMapped, "uint", PatchFileSize, "ptr", OldFileMapped, "uint", OldFileSize, "ptr", NewFileBuffer, "uint", NewFileBufferSize, "uint*", NewFileActualSize, "ptr", NewFileTime, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} FileName 
+     * @param {PSTR} FileName 
      * @param {Integer} OptionFlags 
      * @param {Pointer<Void>} OptionData 
      * @param {Integer} IgnoreRangeCount 
@@ -29121,18 +29287,18 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<PATCH_RETAIN_RANGE>} RetainRangeArray 
      * @param {Integer} SignatureBufferSize 
      * @param {Pointer} SignatureBuffer 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetFilePatchSignatureA(FileName, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureA", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureA", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} FileName 
+     * @param {PWSTR} FileName 
      * @param {Integer} OptionFlags 
      * @param {Pointer<Void>} OptionData 
      * @param {Integer} IgnoreRangeCount 
@@ -29141,18 +29307,18 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<PATCH_RETAIN_RANGE>} RetainRangeArray 
      * @param {Integer} SignatureBufferSize 
      * @param {Pointer} SignatureBuffer 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetFilePatchSignatureW(FileName, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureW", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureW", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} FileHandle 
+     * @param {HANDLE} FileHandle 
      * @param {Integer} OptionFlags 
      * @param {Pointer<Void>} OptionData 
      * @param {Integer} IgnoreRangeCount 
@@ -29161,10 +29327,12 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<PATCH_RETAIN_RANGE>} RetainRangeArray 
      * @param {Integer} SignatureBufferSize 
      * @param {Pointer} SignatureBuffer 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetFilePatchSignatureByHandle(FileHandle, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureByHandle", "ptr", FileHandle, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureByHandle", "ptr", FileHandle, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "ptr")
         return result
     }
 
@@ -29180,10 +29348,10 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<PATCH_RETAIN_RANGE>} RetainRangeArray 
      * @param {Integer} SignatureBufferSize 
      * @param {Pointer} SignatureBuffer 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetFilePatchSignatureByBuffer(FileBufferWritable, FileSize, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureByBuffer", "ptr", FileBufferWritable, "uint", FileSize, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureByBuffer", "ptr", FileBufferWritable, "uint", FileSize, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "ptr")
         return result
     }
 
@@ -29208,114 +29376,114 @@ class ApplicationInstallationAndServicing {
 
     /**
      * 
-     * @param {Pointer} Delta 
+     * @param {DELTA_INPUT} Delta 
      * @param {Pointer<DELTA_HEADER_INFO>} lpHeaderInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetDeltaInfoB(Delta, lpHeaderInfo) {
-        result := DllCall("msdelta.dll\GetDeltaInfoB", "ptr", Delta, "ptr", lpHeaderInfo, "int")
+        result := DllCall("msdelta.dll\GetDeltaInfoB", "ptr", Delta, "ptr", lpHeaderInfo, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} lpDeltaName 
+     * @param {PSTR} lpDeltaName 
      * @param {Pointer<DELTA_HEADER_INFO>} lpHeaderInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetDeltaInfoA(lpDeltaName, lpHeaderInfo) {
-        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
+        lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
 
-        result := DllCall("msdelta.dll\GetDeltaInfoA", "ptr", lpDeltaName, "ptr", lpHeaderInfo, "int")
+        result := DllCall("msdelta.dll\GetDeltaInfoA", "ptr", lpDeltaName, "ptr", lpHeaderInfo, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} lpDeltaName 
+     * @param {PWSTR} lpDeltaName 
      * @param {Pointer<DELTA_HEADER_INFO>} lpHeaderInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetDeltaInfoW(lpDeltaName, lpHeaderInfo) {
-        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
+        lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
 
-        result := DllCall("msdelta.dll\GetDeltaInfoW", "ptr", lpDeltaName, "ptr", lpHeaderInfo, "int")
+        result := DllCall("msdelta.dll\GetDeltaInfoW", "ptr", lpDeltaName, "ptr", lpHeaderInfo, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} ApplyFlags 
-     * @param {Pointer} Source 
-     * @param {Pointer} Delta 
+     * @param {DELTA_INPUT} Source 
+     * @param {DELTA_INPUT} Delta 
      * @param {Pointer<FILETIME>} lpReverseFileTime 
      * @param {Pointer<DELTA_OUTPUT>} lpTarget 
      * @param {Pointer<DELTA_OUTPUT>} lpTargetReverse 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ApplyDeltaGetReverseB(ApplyFlags, Source, Delta, lpReverseFileTime, lpTarget, lpTargetReverse) {
-        result := DllCall("msdelta.dll\ApplyDeltaGetReverseB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpReverseFileTime, "ptr", lpTarget, "ptr", lpTargetReverse, "int")
+        result := DllCall("msdelta.dll\ApplyDeltaGetReverseB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpReverseFileTime, "ptr", lpTarget, "ptr", lpTargetReverse, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} ApplyFlags 
-     * @param {Pointer} Source 
-     * @param {Pointer} Delta 
+     * @param {DELTA_INPUT} Source 
+     * @param {DELTA_INPUT} Delta 
      * @param {Pointer<DELTA_OUTPUT>} lpTarget 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ApplyDeltaB(ApplyFlags, Source, Delta, lpTarget) {
-        result := DllCall("msdelta.dll\ApplyDeltaB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "int")
+        result := DllCall("msdelta.dll\ApplyDeltaB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} ApplyFlags 
-     * @param {Pointer} Source 
-     * @param {Pointer} Delta 
+     * @param {DELTA_INPUT} Source 
+     * @param {DELTA_INPUT} Delta 
      * @param {Pointer} lpTarget 
      * @param {Pointer} uTargetSize 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ApplyDeltaProvidedB(ApplyFlags, Source, Delta, lpTarget, uTargetSize) {
-        result := DllCall("msdelta.dll\ApplyDeltaProvidedB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "ptr", uTargetSize, "int")
+        result := DllCall("msdelta.dll\ApplyDeltaProvidedB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "ptr", uTargetSize, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} ApplyFlags 
-     * @param {Pointer<Byte>} lpSourceName 
-     * @param {Pointer<Byte>} lpDeltaName 
-     * @param {Pointer<Byte>} lpTargetName 
-     * @returns {Integer} 
+     * @param {PSTR} lpSourceName 
+     * @param {PSTR} lpDeltaName 
+     * @param {PSTR} lpTargetName 
+     * @returns {BOOL} 
      */
     static ApplyDeltaA(ApplyFlags, lpSourceName, lpDeltaName, lpTargetName) {
-        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
-        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
-        lpTargetName := lpTargetName is String? StrPtr(lpTargetName) : lpTargetName
+        lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
+        lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
+        lpTargetName := lpTargetName is String ? StrPtr(lpTargetName) : lpTargetName
 
-        result := DllCall("msdelta.dll\ApplyDeltaA", "int64", ApplyFlags, "ptr", lpSourceName, "ptr", lpDeltaName, "ptr", lpTargetName, "int")
+        result := DllCall("msdelta.dll\ApplyDeltaA", "int64", ApplyFlags, "ptr", lpSourceName, "ptr", lpDeltaName, "ptr", lpTargetName, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} ApplyFlags 
-     * @param {Pointer<Char>} lpSourceName 
-     * @param {Pointer<Char>} lpDeltaName 
-     * @param {Pointer<Char>} lpTargetName 
-     * @returns {Integer} 
+     * @param {PWSTR} lpSourceName 
+     * @param {PWSTR} lpDeltaName 
+     * @param {PWSTR} lpTargetName 
+     * @returns {BOOL} 
      */
     static ApplyDeltaW(ApplyFlags, lpSourceName, lpDeltaName, lpTargetName) {
-        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
-        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
-        lpTargetName := lpTargetName is String? StrPtr(lpTargetName) : lpTargetName
+        lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
+        lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
+        lpTargetName := lpTargetName is String ? StrPtr(lpTargetName) : lpTargetName
 
-        result := DllCall("msdelta.dll\ApplyDeltaW", "int64", ApplyFlags, "ptr", lpSourceName, "ptr", lpDeltaName, "ptr", lpTargetName, "int")
+        result := DllCall("msdelta.dll\ApplyDeltaW", "int64", ApplyFlags, "ptr", lpSourceName, "ptr", lpDeltaName, "ptr", lpTargetName, "ptr")
         return result
     }
 
@@ -29324,18 +29492,18 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} FileTypeSet 
      * @param {Integer} SetFlags 
      * @param {Integer} ResetFlags 
-     * @param {Pointer} Source 
-     * @param {Pointer} Target 
-     * @param {Pointer} SourceOptions 
-     * @param {Pointer} TargetOptions 
-     * @param {Pointer} GlobalOptions 
+     * @param {DELTA_INPUT} Source 
+     * @param {DELTA_INPUT} Target 
+     * @param {DELTA_INPUT} SourceOptions 
+     * @param {DELTA_INPUT} TargetOptions 
+     * @param {DELTA_INPUT} GlobalOptions 
      * @param {Pointer<FILETIME>} lpTargetFileTime 
      * @param {Integer} HashAlgId 
      * @param {Pointer<DELTA_OUTPUT>} lpDelta 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static CreateDeltaB(FileTypeSet, SetFlags, ResetFlags, Source, Target, SourceOptions, TargetOptions, GlobalOptions, lpTargetFileTime, HashAlgId, lpDelta) {
-        result := DllCall("msdelta.dll\CreateDeltaB", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", Source, "ptr", Target, "ptr", SourceOptions, "ptr", TargetOptions, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDelta, "int")
+        result := DllCall("msdelta.dll\CreateDeltaB", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", Source, "ptr", Target, "ptr", SourceOptions, "ptr", TargetOptions, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDelta, "ptr")
         return result
     }
 
@@ -29344,24 +29512,24 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} FileTypeSet 
      * @param {Integer} SetFlags 
      * @param {Integer} ResetFlags 
-     * @param {Pointer<Byte>} lpSourceName 
-     * @param {Pointer<Byte>} lpTargetName 
-     * @param {Pointer<Byte>} lpSourceOptionsName 
-     * @param {Pointer<Byte>} lpTargetOptionsName 
-     * @param {Pointer} GlobalOptions 
+     * @param {PSTR} lpSourceName 
+     * @param {PSTR} lpTargetName 
+     * @param {PSTR} lpSourceOptionsName 
+     * @param {PSTR} lpTargetOptionsName 
+     * @param {DELTA_INPUT} GlobalOptions 
      * @param {Pointer<FILETIME>} lpTargetFileTime 
      * @param {Integer} HashAlgId 
-     * @param {Pointer<Byte>} lpDeltaName 
-     * @returns {Integer} 
+     * @param {PSTR} lpDeltaName 
+     * @returns {BOOL} 
      */
     static CreateDeltaA(FileTypeSet, SetFlags, ResetFlags, lpSourceName, lpTargetName, lpSourceOptionsName, lpTargetOptionsName, GlobalOptions, lpTargetFileTime, HashAlgId, lpDeltaName) {
-        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
-        lpTargetName := lpTargetName is String? StrPtr(lpTargetName) : lpTargetName
-        lpSourceOptionsName := lpSourceOptionsName is String? StrPtr(lpSourceOptionsName) : lpSourceOptionsName
-        lpTargetOptionsName := lpTargetOptionsName is String? StrPtr(lpTargetOptionsName) : lpTargetOptionsName
-        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
+        lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
+        lpTargetName := lpTargetName is String ? StrPtr(lpTargetName) : lpTargetName
+        lpSourceOptionsName := lpSourceOptionsName is String ? StrPtr(lpSourceOptionsName) : lpSourceOptionsName
+        lpTargetOptionsName := lpTargetOptionsName is String ? StrPtr(lpTargetOptionsName) : lpTargetOptionsName
+        lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
 
-        result := DllCall("msdelta.dll\CreateDeltaA", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", lpSourceName, "ptr", lpTargetName, "ptr", lpSourceOptionsName, "ptr", lpTargetOptionsName, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDeltaName, "int")
+        result := DllCall("msdelta.dll\CreateDeltaA", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", lpSourceName, "ptr", lpTargetName, "ptr", lpSourceOptionsName, "ptr", lpTargetOptionsName, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDeltaName, "ptr")
         return result
     }
 
@@ -29370,24 +29538,24 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} FileTypeSet 
      * @param {Integer} SetFlags 
      * @param {Integer} ResetFlags 
-     * @param {Pointer<Char>} lpSourceName 
-     * @param {Pointer<Char>} lpTargetName 
-     * @param {Pointer<Char>} lpSourceOptionsName 
-     * @param {Pointer<Char>} lpTargetOptionsName 
-     * @param {Pointer} GlobalOptions 
+     * @param {PWSTR} lpSourceName 
+     * @param {PWSTR} lpTargetName 
+     * @param {PWSTR} lpSourceOptionsName 
+     * @param {PWSTR} lpTargetOptionsName 
+     * @param {DELTA_INPUT} GlobalOptions 
      * @param {Pointer<FILETIME>} lpTargetFileTime 
      * @param {Integer} HashAlgId 
-     * @param {Pointer<Char>} lpDeltaName 
-     * @returns {Integer} 
+     * @param {PWSTR} lpDeltaName 
+     * @returns {BOOL} 
      */
     static CreateDeltaW(FileTypeSet, SetFlags, ResetFlags, lpSourceName, lpTargetName, lpSourceOptionsName, lpTargetOptionsName, GlobalOptions, lpTargetFileTime, HashAlgId, lpDeltaName) {
-        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
-        lpTargetName := lpTargetName is String? StrPtr(lpTargetName) : lpTargetName
-        lpSourceOptionsName := lpSourceOptionsName is String? StrPtr(lpSourceOptionsName) : lpSourceOptionsName
-        lpTargetOptionsName := lpTargetOptionsName is String? StrPtr(lpTargetOptionsName) : lpTargetOptionsName
-        lpDeltaName := lpDeltaName is String? StrPtr(lpDeltaName) : lpDeltaName
+        lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
+        lpTargetName := lpTargetName is String ? StrPtr(lpTargetName) : lpTargetName
+        lpSourceOptionsName := lpSourceOptionsName is String ? StrPtr(lpSourceOptionsName) : lpSourceOptionsName
+        lpTargetOptionsName := lpTargetOptionsName is String ? StrPtr(lpTargetOptionsName) : lpTargetOptionsName
+        lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
 
-        result := DllCall("msdelta.dll\CreateDeltaW", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", lpSourceName, "ptr", lpTargetName, "ptr", lpSourceOptionsName, "ptr", lpTargetOptionsName, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDeltaName, "int")
+        result := DllCall("msdelta.dll\CreateDeltaW", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", lpSourceName, "ptr", lpTargetName, "ptr", lpSourceOptionsName, "ptr", lpTargetOptionsName, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDeltaName, "ptr")
         return result
     }
 
@@ -29395,12 +29563,12 @@ class ApplicationInstallationAndServicing {
      * 
      * @param {Integer} FileTypeSet 
      * @param {Integer} HashAlgId 
-     * @param {Pointer} Source 
+     * @param {DELTA_INPUT} Source 
      * @param {Pointer<DELTA_HASH>} lpHash 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetDeltaSignatureB(FileTypeSet, HashAlgId, Source, lpHash) {
-        result := DllCall("msdelta.dll\GetDeltaSignatureB", "int64", FileTypeSet, "uint", HashAlgId, "ptr", Source, "ptr", lpHash, "int")
+        result := DllCall("msdelta.dll\GetDeltaSignatureB", "int64", FileTypeSet, "uint", HashAlgId, "ptr", Source, "ptr", lpHash, "ptr")
         return result
     }
 
@@ -29408,14 +29576,14 @@ class ApplicationInstallationAndServicing {
      * 
      * @param {Integer} FileTypeSet 
      * @param {Integer} HashAlgId 
-     * @param {Pointer<Byte>} lpSourceName 
+     * @param {PSTR} lpSourceName 
      * @param {Pointer<DELTA_HASH>} lpHash 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetDeltaSignatureA(FileTypeSet, HashAlgId, lpSourceName, lpHash) {
-        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+        lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
 
-        result := DllCall("msdelta.dll\GetDeltaSignatureA", "int64", FileTypeSet, "uint", HashAlgId, "ptr", lpSourceName, "ptr", lpHash, "int")
+        result := DllCall("msdelta.dll\GetDeltaSignatureA", "int64", FileTypeSet, "uint", HashAlgId, "ptr", lpSourceName, "ptr", lpHash, "ptr")
         return result
     }
 
@@ -29423,14 +29591,14 @@ class ApplicationInstallationAndServicing {
      * 
      * @param {Integer} FileTypeSet 
      * @param {Integer} HashAlgId 
-     * @param {Pointer<Char>} lpSourceName 
+     * @param {PWSTR} lpSourceName 
      * @param {Pointer<DELTA_HASH>} lpHash 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetDeltaSignatureW(FileTypeSet, HashAlgId, lpSourceName, lpHash) {
-        lpSourceName := lpSourceName is String? StrPtr(lpSourceName) : lpSourceName
+        lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
 
-        result := DllCall("msdelta.dll\GetDeltaSignatureW", "int64", FileTypeSet, "uint", HashAlgId, "ptr", lpSourceName, "ptr", lpHash, "int")
+        result := DllCall("msdelta.dll\GetDeltaSignatureW", "int64", FileTypeSet, "uint", HashAlgId, "ptr", lpSourceName, "ptr", lpHash, "ptr")
         return result
     }
 
@@ -29438,23 +29606,23 @@ class ApplicationInstallationAndServicing {
      * 
      * @param {Integer} FileTypeSet 
      * @param {Integer} NormalizeFlags 
-     * @param {Pointer} NormalizeOptions 
+     * @param {DELTA_INPUT} NormalizeOptions 
      * @param {Pointer} lpSource 
      * @param {Pointer} uSourceSize 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DeltaNormalizeProvidedB(FileTypeSet, NormalizeFlags, NormalizeOptions, lpSource, uSourceSize) {
-        result := DllCall("msdelta.dll\DeltaNormalizeProvidedB", "int64", FileTypeSet, "int64", NormalizeFlags, "ptr", NormalizeOptions, "ptr", lpSource, "ptr", uSourceSize, "int")
+        result := DllCall("msdelta.dll\DeltaNormalizeProvidedB", "int64", FileTypeSet, "int64", NormalizeFlags, "ptr", NormalizeOptions, "ptr", lpSource, "ptr", uSourceSize, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} lpMemory 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DeltaFree(lpMemory) {
-        result := DllCall("msdelta.dll\DeltaFree", "ptr", lpMemory, "int")
+        result := DllCall("msdelta.dll\DeltaFree", "ptr", lpMemory, "ptr")
         return result
     }
 
@@ -29462,7 +29630,7 @@ class ApplicationInstallationAndServicing {
      * The CreateActCtx function creates an activation context.
      * @param {Pointer<ACTCTXA>} pActCtx Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information about the activation context to be created.
-     * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the returned activation context. Otherwise, it returns INVALID_HANDLE_VALUE.
+     * @returns {HANDLE} If the function succeeds, it returns a handle to the returned activation context. Otherwise, it returns INVALID_HANDLE_VALUE.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -29478,14 +29646,14 @@ class ApplicationInstallationAndServicing {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * The CreateActCtx function creates an activation context.
      * @param {Pointer<ACTCTXW>} pActCtx Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information about the activation context to be created.
-     * @returns {Pointer<Void>} If the function succeeds, it returns a handle to the returned activation context. Otherwise, it returns INVALID_HANDLE_VALUE.
+     * @returns {HANDLE} If the function succeeds, it returns a handle to the returned activation context. Otherwise, it returns INVALID_HANDLE_VALUE.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -29501,7 +29669,7 @@ class ApplicationInstallationAndServicing {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -29511,32 +29679,36 @@ class ApplicationInstallationAndServicing {
      * This function is provided so that multiple clients can access a single activation context.
      * 
      * 
-     * @param {Pointer<Void>} hActCtx Handle to an 
+     * @param {HANDLE} hActCtx Handle to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the activation context for which the reference count is to be incremented.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-addrefactctx
      * @since windows5.1.2600
      */
     static AddRefActCtx(hActCtx) {
+        hActCtx := hActCtx is Win32Handle ? NumGet(hActCtx, "ptr") : hActCtx
+
         DllCall("KERNEL32.dll\AddRefActCtx", "ptr", hActCtx)
     }
 
     /**
      * The ReleaseActCtx function decrements the reference count of the specified activation context.
-     * @param {Pointer<Void>} hActCtx Handle to the 
+     * @param {HANDLE} hActCtx Handle to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the activation context for which the reference count is to be decremented.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-releaseactctx
      * @since windows5.1.2600
      */
     static ReleaseActCtx(hActCtx) {
+        hActCtx := hActCtx is Win32Handle ? NumGet(hActCtx, "ptr") : hActCtx
+
         DllCall("KERNEL32.dll\ReleaseActCtx", "ptr", hActCtx)
     }
 
     /**
      * The ZombifyActCtx function deactivates the specified activation context, but does not deallocate it.
-     * @param {Pointer<Void>} hActCtx Handle to the activation context that is to be deactivated.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. If a <b>null</b> handle is passed in the <i>hActCtx</i> parameter, NULL_INVALID_PARAMETER will be returned. Otherwise, it returns <b>FALSE</b>.
+     * @param {HANDLE} hActCtx Handle to the activation context that is to be deactivated.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. If a <b>null</b> handle is passed in the <i>hActCtx</i> parameter, NULL_INVALID_PARAMETER will be returned. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -29546,9 +29718,11 @@ class ApplicationInstallationAndServicing {
      * @since windows5.1.2600
      */
     static ZombifyActCtx(hActCtx) {
+        hActCtx := hActCtx is Win32Handle ? NumGet(hActCtx, "ptr") : hActCtx
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ZombifyActCtx", "ptr", hActCtx, "int")
+        result := DllCall("KERNEL32.dll\ZombifyActCtx", "ptr", hActCtx, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -29557,10 +29731,10 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The ActivateActCtx function activates the specified activation context.
-     * @param {Pointer<Void>} hActCtx Handle to an 
+     * @param {HANDLE} hActCtx Handle to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the activation context that is to be made active.
      * @param {Pointer<UIntPtr>} lpCookie Pointer to a <b>ULONG_PTR</b> that functions as a cookie, uniquely identifying a specific, activated activation context.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -29570,9 +29744,11 @@ class ApplicationInstallationAndServicing {
      * @since windows5.1.2600
      */
     static ActivateActCtx(hActCtx, lpCookie) {
+        hActCtx := hActCtx is Win32Handle ? NumGet(hActCtx, "ptr") : hActCtx
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ActivateActCtx", "ptr", hActCtx, "ptr*", lpCookie, "int")
+        result := DllCall("KERNEL32.dll\ActivateActCtx", "ptr", hActCtx, "ptr*", lpCookie, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -29632,7 +29808,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Pointer} ulCookie The ULONG_PTR that was passed into the call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-activateactctx">ActivateActCtx</a>. This value is used as a cookie to identify a specific activated activation context.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -29644,7 +29820,7 @@ class ApplicationInstallationAndServicing {
     static DeactivateActCtx(dwFlags, ulCookie) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeactivateActCtx", "uint", dwFlags, "ptr", ulCookie, "int")
+        result := DllCall("KERNEL32.dll\DeactivateActCtx", "uint", dwFlags, "ptr", ulCookie, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -29653,9 +29829,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The GetCurrentActCtx function returns the handle to the active activation context of the calling thread.
-     * @param {Pointer<Void>} lphActCtx Pointer to the returned 
+     * @param {Pointer<HANDLE>} lphActCtx Pointer to the returned 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the active activation context.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -29667,7 +29843,7 @@ class ApplicationInstallationAndServicing {
     static GetCurrentActCtx(lphActCtx) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCurrentActCtx", "ptr", lphActCtx, "int")
+        result := DllCall("KERNEL32.dll\GetCurrentActCtx", "ptr", lphActCtx, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -29711,10 +29887,10 @@ class ApplicationInstallationAndServicing {
      * <li>ACTIVATION_CONTEXT_SECTION_WINDOW_CLASS_REDIRECTION</li>
      * <li>ACTIVATION_CONTEXT_SECTION_COM_PROGID_REDIRECTION</li>
      * </ul>
-     * @param {Pointer<Byte>} lpStringToFind Pointer to a null-terminated string to be used as the search criteria.
+     * @param {PSTR} lpStringToFind Pointer to a null-terminated string to be used as the search criteria.
      * @param {Pointer<ACTCTX_SECTION_KEYED_DATA>} ReturnedData Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctx_section_keyed_data">ACTCTX_SECTION_KEYED_DATA</a> structure to be filled out with the requested string information.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -29726,11 +29902,11 @@ class ApplicationInstallationAndServicing {
     static FindActCtxSectionStringA(dwFlags, ulSectionId, lpStringToFind, ReturnedData) {
         static lpExtensionGuid := 0 ;Reserved parameters must always be NULL
 
-        lpStringToFind := lpStringToFind is String? StrPtr(lpStringToFind) : lpStringToFind
+        lpStringToFind := lpStringToFind is String ? StrPtr(lpStringToFind) : lpStringToFind
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindActCtxSectionStringA", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "int")
+        result := DllCall("KERNEL32.dll\FindActCtxSectionStringA", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -29774,10 +29950,10 @@ class ApplicationInstallationAndServicing {
      * <li>ACTIVATION_CONTEXT_SECTION_WINDOW_CLASS_REDIRECTION</li>
      * <li>ACTIVATION_CONTEXT_SECTION_COM_PROGID_REDIRECTION</li>
      * </ul>
-     * @param {Pointer<Char>} lpStringToFind Pointer to a null-terminated string to be used as the search criteria.
+     * @param {PWSTR} lpStringToFind Pointer to a null-terminated string to be used as the search criteria.
      * @param {Pointer<ACTCTX_SECTION_KEYED_DATA>} ReturnedData Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctx_section_keyed_data">ACTCTX_SECTION_KEYED_DATA</a> structure to be filled out with the requested string information.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -29789,11 +29965,11 @@ class ApplicationInstallationAndServicing {
     static FindActCtxSectionStringW(dwFlags, ulSectionId, lpStringToFind, ReturnedData) {
         static lpExtensionGuid := 0 ;Reserved parameters must always be NULL
 
-        lpStringToFind := lpStringToFind is String? StrPtr(lpStringToFind) : lpStringToFind
+        lpStringToFind := lpStringToFind is String ? StrPtr(lpStringToFind) : lpStringToFind
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindActCtxSectionStringW", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "int")
+        result := DllCall("KERNEL32.dll\FindActCtxSectionStringW", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -29844,7 +30020,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Guid>} lpGuidToFind Pointer to a GUID to be used as the search criteria.
      * @param {Pointer<ACTCTX_SECTION_KEYED_DATA>} ReturnedData Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctx_section_keyed_data">ACTCTX_SECTION_KEYED_DATA</a> structure to be filled out with the requested GUID information.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -29858,7 +30034,7 @@ class ApplicationInstallationAndServicing {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindActCtxSectionGuid", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpGuidToFind, "ptr", ReturnedData, "int")
+        result := DllCall("KERNEL32.dll\FindActCtxSectionGuid", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpGuidToFind, "ptr", ReturnedData, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -29920,7 +30096,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hActCtx Handle to the activation context that is being queried.
+     * @param {HANDLE} hActCtx Handle to the activation context that is being queried.
      * @param {Pointer<Void>} pvSubInstance Index of the assembly, or assembly and file combination, in the activation context. The meaning of the <i>pvSubInstance</i> depends on the option specified by the value of the <i>ulInfoClass</i> parameter. 
      * 
      *  This parameter may be null.
@@ -30050,7 +30226,7 @@ class ApplicationInstallationAndServicing {
      * <b>QueryActCtxW</b> returns ERROR_INSUFFICIENT_BUFFER and no data is written into the buffer. See the Remarks section for the method you can use to determine the required size of the buffer.
      * @param {Pointer} cbBuffer Size of the buffer in bytes pointed to by <i>pvBuffer</i>. This parameter is optional.
      * @param {Pointer<UIntPtr>} pcbWrittenOrRequired Number of bytes written or required. The parameter <i>pcbWrittenOrRequired</i> can only be <b>NULL</b> when <i>pvBuffer</i> is <b>NULL</b>. If <i>pcbWrittenOrRequired</i> is non-<b>NULL</b>, it is filled with the number of bytes required to store the returned buffer.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -30060,9 +30236,11 @@ class ApplicationInstallationAndServicing {
      * @since windows5.1.2600
      */
     static QueryActCtxW(dwFlags, hActCtx, pvSubInstance, ulInfoClass, pvBuffer, cbBuffer, pcbWrittenOrRequired) {
+        hActCtx := hActCtx is Win32Handle ? NumGet(hActCtx, "ptr") : hActCtx
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryActCtxW", "uint", dwFlags, "ptr", hActCtx, "ptr", pvSubInstance, "uint", ulInfoClass, "ptr", pvBuffer, "ptr", cbBuffer, "ptr*", pcbWrittenOrRequired, "int")
+        result := DllCall("KERNEL32.dll\QueryActCtxW", "uint", dwFlags, "ptr", hActCtx, "ptr", pvSubInstance, "uint", ulInfoClass, "ptr", pvBuffer, "ptr", cbBuffer, "ptr*", pcbWrittenOrRequired, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -30072,16 +30250,16 @@ class ApplicationInstallationAndServicing {
     /**
      * The QueryActCtxSettingsW function specifies the activation context, and the namespace and name of the attribute that is to be queried.
      * @param {Integer} dwFlags This value must be 0.
-     * @param {Pointer<Void>} hActCtx A handle to the activation context that is being queried.
-     * @param {Pointer<Char>} settingsNameSpace A pointer to a string that contains the value <b>"http://schemas.microsoft.com/SMI/2005/WindowsSettings"</b> or <b>NULL</b>. These values are equivalent.
+     * @param {HANDLE} hActCtx A handle to the activation context that is being queried.
+     * @param {PWSTR} settingsNameSpace A pointer to a string that contains the value <b>"http://schemas.microsoft.com/SMI/2005/WindowsSettings"</b> or <b>NULL</b>. These values are equivalent.
      * 
      * 
      * <b>Windows 8 and Windows Server 2012:  </b>A pointer to a string that contains the value <b>"http://schemas.microsoft.com/SMI/2011/WindowsSettings"</b> is also a valid parameter.  A <b>NULL</b> is still equivalent to the previous value.
-     * @param {Pointer<Char>} settingName The name of the attribute to be queried.
+     * @param {PWSTR} settingName The name of the attribute to be queried.
      * @param {Pointer} pvBuffer A pointer to the buffer that receives the query result.
      * @param {Pointer} dwBuffer The size of the buffer  in characters that receives the query result.
      * @param {Pointer<UIntPtr>} pdwWrittenOrRequired A pointer to a value which is the number of characters written to the buffer specified by <i>pvBuffer</i> or that is required to hold the query result.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
      * 
      * This function sets errors that can be retrieved by calling 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
@@ -30091,12 +30269,13 @@ class ApplicationInstallationAndServicing {
      * @since windows6.0.6000
      */
     static QueryActCtxSettingsW(dwFlags, hActCtx, settingsNameSpace, settingName, pvBuffer, dwBuffer, pdwWrittenOrRequired) {
-        settingsNameSpace := settingsNameSpace is String? StrPtr(settingsNameSpace) : settingsNameSpace
-        settingName := settingName is String? StrPtr(settingName) : settingName
+        settingsNameSpace := settingsNameSpace is String ? StrPtr(settingsNameSpace) : settingsNameSpace
+        settingName := settingName is String ? StrPtr(settingName) : settingName
+        hActCtx := hActCtx is Win32Handle ? NumGet(hActCtx, "ptr") : hActCtx
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryActCtxSettingsW", "uint", dwFlags, "ptr", hActCtx, "ptr", settingsNameSpace, "ptr", settingName, "ptr", pvBuffer, "ptr", dwBuffer, "ptr*", pdwWrittenOrRequired, "int")
+        result := DllCall("KERNEL32.dll\QueryActCtxSettingsW", "uint", dwFlags, "ptr", hActCtx, "ptr", settingsNameSpace, "ptr", settingName, "ptr", pvBuffer, "ptr", dwBuffer, "ptr*", pdwWrittenOrRequired, "ptr")
         if(A_LastError)
             throw OSError()
 

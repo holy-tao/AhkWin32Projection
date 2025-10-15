@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\WinSock\SOCKADDR_STORAGE.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_KEY_EX.ahk
+#Include .\HTTP2_WINDOW_SIZE_PARAM.ahk
 #Include .\HTTP2_SETTINGS_LIMITS_PARAM.ahk
 #Include .\HTTP_PERFORMANCE_PARAM.ahk
 #Include .\HTTP_TLS_RESTRICTIONS_PARAM.ahk

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains parameters for the SHBrowseForFolder function and receives information about the folder selected by the user.
@@ -23,11 +26,14 @@ class BROWSEINFOA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window for the dialog box.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(this.ptr + 0)
+            return this.__hwndOwner
+        }
     }
 
     /**
@@ -45,22 +51,28 @@ class BROWSEINFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Pointer to a buffer to receive the display name of the folder selected by the user. The size of this buffer is assumed to be MAX_PATH characters.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszDisplayName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszDisplayName{
+        get {
+            if(!this.HasProp("__pszDisplayName"))
+                this.__pszDisplayName := PSTR(this.ptr + 16)
+            return this.__pszDisplayName
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that is displayed above the tree view control in the dialog box. This string can be used to specify instructions to the user.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpszTitle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpszTitle{
+        get {
+            if(!this.HasProp("__lpszTitle"))
+                this.__lpszTitle := PSTR(this.ptr + 24)
+            return this.__lpszTitle
+        }
     }
 
     /**
@@ -87,11 +99,14 @@ class BROWSEINFOA extends Win32Struct
      * Type: <b>LPARAM</b>
      * 
      * An application-defined value that the dialog box passes to the callback function, if one is specified in <b>lpfn</b>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 48)
+            return this.__lParam
+        }
     }
 
     /**

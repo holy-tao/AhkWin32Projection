@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Provides detail about whether a DirectML device supports a particular data type within tensors.
@@ -17,10 +18,13 @@ class DML_FEATURE_DATA_TENSOR_DATA_TYPE_SUPPORT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the tensor data type is supported within tensors by the DirectML device. Otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    IsSupported{
+        get {
+            if(!this.HasProp("__IsSupported"))
+                this.__IsSupported := BOOL(this.ptr + 0)
+            return this.__IsSupported
+        }
     }
 }

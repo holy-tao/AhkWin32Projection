@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The DEVICE_POWER_DESCRIPTOR structure describes the power capabilities of a storage device.
@@ -35,58 +36,76 @@ class DEVICE_POWER_DESCRIPTOR extends Win32Struct
 
     /**
      * True if device attention is supported. Otherwise, false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    DeviceAttentionSupported {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    DeviceAttentionSupported{
+        get {
+            if(!this.HasProp("__DeviceAttentionSupported"))
+                this.__DeviceAttentionSupported := BOOLEAN(this.ptr + 8)
+            return this.__DeviceAttentionSupported
+        }
     }
 
     /**
      * True if the device supports asynchronous notifications, delivered via 
      *       <b>IOCTL_STORAGE_EVENT_NOTIFICATION</b>. Otherwise, false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    AsynchronousNotificationSupported {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    AsynchronousNotificationSupported{
+        get {
+            if(!this.HasProp("__AsynchronousNotificationSupported"))
+                this.__AsynchronousNotificationSupported := BOOLEAN(this.ptr + 9)
+            return this.__AsynchronousNotificationSupported
+        }
     }
 
     /**
      * True if the device has been registered for runtime idle power management. Otherwise, false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IdlePowerManagementEnabled {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
+    IdlePowerManagementEnabled{
+        get {
+            if(!this.HasProp("__IdlePowerManagementEnabled"))
+                this.__IdlePowerManagementEnabled := BOOLEAN(this.ptr + 10)
+            return this.__IdlePowerManagementEnabled
+        }
     }
 
     /**
      * True if the device will be powered off when put into D3 power state. Otherwise, false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    D3ColdEnabled {
-        get => NumGet(this, 11, "char")
-        set => NumPut("char", value, this, 11)
+    D3ColdEnabled{
+        get {
+            if(!this.HasProp("__D3ColdEnabled"))
+                this.__D3ColdEnabled := BOOLEAN(this.ptr + 11)
+            return this.__D3ColdEnabled
+        }
     }
 
     /**
      * True if the platform supports <b>D3ColdEnabled</b> for this device. Otherwise, 
      *       false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    D3ColdSupported {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+    D3ColdSupported{
+        get {
+            if(!this.HasProp("__D3ColdSupported"))
+                this.__D3ColdSupported := BOOLEAN(this.ptr + 12)
+            return this.__D3ColdSupported
+        }
     }
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    NoVerifyDuringIdlePower {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
+    NoVerifyDuringIdlePower{
+        get {
+            if(!this.HasProp("__NoVerifyDuringIdlePower"))
+                this.__NoVerifyDuringIdlePower := BOOLEAN(this.ptr + 13)
+            return this.__NoVerifyDuringIdlePower
+        }
     }
 
     /**

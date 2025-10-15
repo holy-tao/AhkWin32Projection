@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_PROPERTY_FLAGS.ahk
 
 /**
  * Defines the application-specific connection timeout limits.
@@ -74,11 +75,14 @@ class HTTP_TIMEOUT_LIMIT_INFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure that specifies whether the property is present.
-     * @type {Integer}
+     * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := HTTP_PROPERTY_FLAGS(this.ptr + 0)
+            return this.__Flags
+        }
     }
 
     /**

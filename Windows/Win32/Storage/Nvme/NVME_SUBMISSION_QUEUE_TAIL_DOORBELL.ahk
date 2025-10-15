@@ -12,11 +12,30 @@ class NVME_SUBMISSION_QUEUE_TAIL_DOORBELL extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - SQT
+     * - Reserved0
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SQT {
+        get => (this._bitfield >> 0) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**

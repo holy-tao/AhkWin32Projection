@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -28,34 +29,46 @@ class KSPROPERTY_NETWORKCAMERACONTROL_METADATA_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PTZStatus {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    PTZStatus{
+        get {
+            if(!this.HasProp("__PTZStatus"))
+                this.__PTZStatus := BOOL(this.ptr + 8)
+            return this.__PTZStatus
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Events {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    Events{
+        get {
+            if(!this.HasProp("__Events"))
+                this.__Events := BOOL(this.ptr + 12)
+            return this.__Events
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Analytics {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    Analytics{
+        get {
+            if(!this.HasProp("__Analytics"))
+                this.__Analytics := BOOL(this.ptr + 16)
+            return this.__Analytics
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Reserved {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    Reserved{
+        get {
+            if(!this.HasProp("__Reserved"))
+                this.__Reserved := BOOL(this.ptr + 20)
+            return this.__Reserved
+        }
     }
 }

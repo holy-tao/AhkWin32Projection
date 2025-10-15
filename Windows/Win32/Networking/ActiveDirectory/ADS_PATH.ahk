@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADS_PATH structure is an ADSI representation of the Path attribute syntax.
@@ -29,19 +30,25 @@ class ADS_PATH extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the name of an existing volume in the file system.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    VolumeName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    VolumeName{
+        get {
+            if(!this.HasProp("__VolumeName"))
+                this.__VolumeName := PWSTR(this.ptr + 8)
+            return this.__VolumeName
+        }
     }
 
     /**
      * The null-terminated Unicode string that contains the path of a directory in the file system.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Path {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Path{
+        get {
+            if(!this.HasProp("__Path"))
+                this.__Path := PWSTR(this.ptr + 16)
+            return this.__Path
+        }
     }
 }

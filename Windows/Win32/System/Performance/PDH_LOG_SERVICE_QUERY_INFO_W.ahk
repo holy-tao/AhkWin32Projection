@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -38,27 +39,36 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szLogFileCaption {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    szLogFileCaption{
+        get {
+            if(!this.HasProp("__szLogFileCaption"))
+                this.__szLogFileCaption := PWSTR(this.ptr + 16)
+            return this.__szLogFileCaption
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szDefaultDir {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    szDefaultDir{
+        get {
+            if(!this.HasProp("__szDefaultDir"))
+                this.__szDefaultDir := PWSTR(this.ptr + 24)
+            return this.__szDefaultDir
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szBaseFileName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    szBaseFileName{
+        get {
+            if(!this.HasProp("__szBaseFileName"))
+                this.__szBaseFileName := PWSTR(this.ptr + 32)
+            return this.__szBaseFileName
+        }
     }
 
     /**
@@ -94,19 +104,25 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PdlCommandFilename {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    PdlCommandFilename{
+        get {
+            if(!this.HasProp("__PdlCommandFilename"))
+                this.__PdlCommandFilename := PWSTR(this.ptr + 56)
+            return this.__PdlCommandFilename
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PdlCounterList {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    PdlCounterList{
+        get {
+            if(!this.HasProp("__PdlCounterList"))
+                this.__PdlCounterList := PWSTR(this.ptr + 64)
+            return this.__PdlCounterList
+        }
     }
 
     /**
@@ -220,10 +236,13 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    TlLogFileName {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    TlLogFileName{
+        get {
+            if(!this.HasProp("__TlLogFileName"))
+                this.__TlLogFileName := PWSTR(this.ptr + 88)
+            return this.__TlLogFileName
+        }
     }
 }

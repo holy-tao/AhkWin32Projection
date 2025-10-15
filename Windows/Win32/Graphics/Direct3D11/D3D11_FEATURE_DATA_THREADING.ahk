@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the multi-threading features that are supported by the current graphics driver.
@@ -22,21 +23,27 @@ class D3D11_FEATURE_DATA_THREADING extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> means resources can be created concurrently on multiple threads while drawing; <b>FALSE</b> means that the presence of coarse synchronization will prevent concurrency.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    DriverConcurrentCreates {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    DriverConcurrentCreates{
+        get {
+            if(!this.HasProp("__DriverConcurrentCreates"))
+                this.__DriverConcurrentCreates := BOOL(this.ptr + 0)
+            return this.__DriverConcurrentCreates
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> means command lists are supported by the current driver; <b>FALSE</b> means that the API will emulate deferred contexts and command lists with software.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    DriverCommandLists {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    DriverCommandLists{
+        get {
+            if(!this.HasProp("__DriverCommandLists"))
+                this.__DriverCommandLists := BOOL(this.ptr + 4)
+            return this.__DriverCommandLists
+        }
     }
 }

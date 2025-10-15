@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a result for a single command in a read batch.
@@ -40,20 +41,26 @@ class CLUSTER_READ_BATCH_COMMAND extends Win32Struct
 
     /**
      * The name of the key requested in the read command.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wzSubkeyName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    wzSubkeyName{
+        get {
+            if(!this.HasProp("__wzSubkeyName"))
+                this.__wzSubkeyName := PWSTR(this.ptr + 8)
+            return this.__wzSubkeyName
+        }
     }
 
     /**
      * The name of the value requested in the read command.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wzValueName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    wzValueName{
+        get {
+            if(!this.HasProp("__wzValueName"))
+                this.__wzValueName := PWSTR(this.ptr + 16)
+            return this.__wzValueName
+        }
     }
 
     /**

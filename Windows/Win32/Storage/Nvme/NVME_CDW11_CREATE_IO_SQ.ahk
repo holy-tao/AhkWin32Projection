@@ -12,11 +12,48 @@ class NVME_CDW11_CREATE_IO_SQ extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - PC
+     * - QPRIO
+     * - Reserved0
+     * - CQID
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PC {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    QPRIO {
+        get => (this._bitfield >> 1) & 0x3
+        set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 3) & 0x1FFF
+        set => this._bitfield := ((value & 0x1FFF) << 3) | (this._bitfield & ~(0x1FFF << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CQID {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**

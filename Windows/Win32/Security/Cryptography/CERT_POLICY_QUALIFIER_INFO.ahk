@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -16,11 +17,14 @@ class CERT_POLICY_QUALIFIER_INFO extends Win32Struct
 
     /**
      * OID specifying the qualifier.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszPolicyQualifierId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszPolicyQualifierId{
+        get {
+            if(!this.HasProp("__pszPolicyQualifierId"))
+                this.__pszPolicyQualifierId := PSTR(this.ptr + 0)
+            return this.__pszPolicyQualifierId
+        }
     }
 
     /**

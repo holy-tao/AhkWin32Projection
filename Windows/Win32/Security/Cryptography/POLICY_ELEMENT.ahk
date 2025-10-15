@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The POLICY_ELEMENT structure contains an RSVP policy element.
@@ -14,35 +16,47 @@ class POLICY_ELEMENT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    targetEndpointAddress {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    targetEndpointAddress{
+        get {
+            if(!this.HasProp("__targetEndpointAddress"))
+                this.__targetEndpointAddress := PWSTR(this.ptr + 0)
+            return this.__targetEndpointAddress
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    issuerEndpointAddress {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    issuerEndpointAddress{
+        get {
+            if(!this.HasProp("__issuerEndpointAddress"))
+                this.__issuerEndpointAddress := PWSTR(this.ptr + 8)
+            return this.__issuerEndpointAddress
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    issuedTokenParameters {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    issuedTokenParameters{
+        get {
+            if(!this.HasProp("__issuedTokenParameters"))
+                this.__issuedTokenParameters := PWSTR(this.ptr + 16)
+            return this.__issuedTokenParameters
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    privacyNoticeLink {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    privacyNoticeLink{
+        get {
+            if(!this.HasProp("__privacyNoticeLink"))
+                this.__privacyNoticeLink := PWSTR(this.ptr + 24)
+            return this.__privacyNoticeLink
+        }
     }
 
     /**
@@ -54,10 +68,13 @@ class POLICY_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    useManagedPresentation {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    useManagedPresentation{
+        get {
+            if(!this.HasProp("__useManagedPresentation"))
+                this.__useManagedPresentation := BOOL(this.ptr + 36)
+            return this.__useManagedPresentation
+        }
     }
 }

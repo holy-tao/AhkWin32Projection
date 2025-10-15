@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -20,27 +21,36 @@ class PRINTPROCESSOROPENDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDatatype {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pDatatype{
+        get {
+            if(!this.HasProp("__pDatatype"))
+                this.__pDatatype := PWSTR(this.ptr + 8)
+            return this.__pDatatype
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pParameters {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pParameters{
+        get {
+            if(!this.HasProp("__pParameters"))
+                this.__pParameters := PWSTR(this.ptr + 16)
+            return this.__pParameters
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDocumentName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pDocumentName{
+        get {
+            if(!this.HasProp("__pDocumentName"))
+                this.__pDocumentName := PWSTR(this.ptr + 24)
+            return this.__pDocumentName
+        }
     }
 
     /**
@@ -52,18 +62,24 @@ class PRINTPROCESSOROPENDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pOutputFile {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pOutputFile{
+        get {
+            if(!this.HasProp("__pOutputFile"))
+                this.__pOutputFile := PWSTR(this.ptr + 40)
+            return this.__pOutputFile
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pPrinterName{
+        get {
+            if(!this.HasProp("__pPrinterName"))
+                this.__pPrinterName := PWSTR(this.ptr + 48)
+            return this.__pPrinterName
+        }
     }
 }

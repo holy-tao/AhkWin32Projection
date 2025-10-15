@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WM_SYNCHRONISED_LYRICS structure is used as the data item for the WM/Lyrics_Synchronised complex metadata attribute.
@@ -38,11 +39,14 @@ class WM_SYNCHRONISED_LYRICS extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing data from the encoding application. An individual application can use this member in any way desired.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszContentDescriptor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszContentDescriptor{
+        get {
+            if(!this.HasProp("__pwszContentDescriptor"))
+                this.__pwszContentDescriptor := PWSTR(this.ptr + 8)
+            return this.__pwszContentDescriptor
+        }
     }
 
     /**

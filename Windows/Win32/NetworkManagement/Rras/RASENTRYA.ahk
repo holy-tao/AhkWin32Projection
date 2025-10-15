@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RASIPADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -495,11 +496,14 @@ class RASENTRYA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIsImsConfig {
-        get => NumGet(this, 3460, "int")
-        set => NumPut("int", value, this, 3460)
+    fIsImsConfig{
+        get {
+            if(!this.HasProp("__fIsImsConfig"))
+                this.__fIsImsConfig := BOOL(this.ptr + 3460)
+            return this.__fIsImsConfig
+        }
     }
 
     /**
@@ -519,10 +523,13 @@ class RASENTRYA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fDisableIKEv2Fragmentation {
-        get => NumGet(this, 3472, "int")
-        set => NumPut("int", value, this, 3472)
+    fDisableIKEv2Fragmentation{
+        get {
+            if(!this.HasProp("__fDisableIKEv2Fragmentation"))
+                this.__fDisableIKEv2Fragmentation := BOOL(this.ptr + 3472)
+            return this.__fDisableIKEv2Fragmentation
+        }
     }
 }

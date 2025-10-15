@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -28,11 +29,14 @@ class CARD_DERIVE_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszKDF {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszKDF{
+        get {
+            if(!this.HasProp("__pwszKDF"))
+                this.__pwszKDF := PWSTR(this.ptr + 8)
+            return this.__pwszKDF
+        }
     }
 
     /**
@@ -68,11 +72,14 @@ class CARD_DERIVE_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszAlgId {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pwszAlgId{
+        get {
+            if(!this.HasProp("__pwszAlgId"))
+                this.__pwszAlgId := PWSTR(this.ptr + 48)
+            return this.__pwszAlgId
+        }
     }
 
     /**

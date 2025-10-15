@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3DPRIMCAPS.ahk
 
 /**
@@ -29,11 +30,14 @@ class D3DFINDDEVICESEARCH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bHardware {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    bHardware{
+        get {
+            if(!this.HasProp("__bHardware"))
+                this.__bHardware := BOOL(this.ptr + 8)
+            return this.__bHardware
+        }
     }
 
     /**

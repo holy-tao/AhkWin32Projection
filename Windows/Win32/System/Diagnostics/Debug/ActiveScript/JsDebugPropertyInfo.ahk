@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -12,35 +13,47 @@ class JsDebugPropertyInfo extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    name{
+        get {
+            if(!this.HasProp("__name"))
+                this.__name := BSTR(this.ptr + 0)
+            return this.__name
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    type {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    type{
+        get {
+            if(!this.HasProp("__type"))
+                this.__type := BSTR(this.ptr + 8)
+            return this.__type
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    value {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    value{
+        get {
+            if(!this.HasProp("__value"))
+                this.__value := BSTR(this.ptr + 16)
+            return this.__value
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    fullName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    fullName{
+        get {
+            if(!this.HasProp("__fullName"))
+                this.__fullName := BSTR(this.ptr + 24)
+            return this.__fullName
+        }
     }
 
     /**

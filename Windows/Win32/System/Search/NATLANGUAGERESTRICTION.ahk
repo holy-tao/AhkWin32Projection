@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 
@@ -25,11 +26,14 @@ class NATLANGUAGERESTRICTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwcsPhrase {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwcsPhrase{
+        get {
+            if(!this.HasProp("__pwcsPhrase"))
+                this.__pwcsPhrase := PWSTR(this.ptr + 24)
+            return this.__pwcsPhrase
+        }
     }
 
     /**

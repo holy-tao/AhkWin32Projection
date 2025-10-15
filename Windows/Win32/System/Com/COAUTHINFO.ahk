@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the authentication settings used while making a remote activation request from the client computer to the server computer.
@@ -51,11 +52,14 @@ class COAUTHINFO extends Win32Struct
 
     /**
      * The server principal name to use with the authentication service. If you are using RPC_C_AUTHN_WINNT, the principal name must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszServerPrincName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszServerPrincName{
+        get {
+            if(!this.HasProp("__pwszServerPrincName"))
+                this.__pwszServerPrincName := PWSTR(this.ptr + 8)
+            return this.__pwszServerPrincName
+        }
     }
 
     /**

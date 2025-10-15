@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The MMC_EXPANDSYNC_STRUCT structure is introduced in MMC 1.1.
@@ -23,20 +24,26 @@ class MMC_EXPANDSYNC_STRUCT extends Win32Struct
      * A value that specifies whether the snap-in has expanded the specified scope item. If this value is <b>TRUE</b>, the snap-in handles <b>MMC_EXPANDSYNC</b>, and consequently MMC does not send a further <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-expand">MMCN_EXPAND</a> notification to the snap-in.
      * 
      * The default value for <b>bHandled</b> is <b>FALSE</b>. If the snap-in does not handle <b>MMC_EXPANDSYNC</b> or sets <b>bHandled</b> to <b>FALSE</b>, MMC sends an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-expand">MMCN_EXPAND</a> notification to the snap-in.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bHandled {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    bHandled{
+        get {
+            if(!this.HasProp("__bHandled"))
+                this.__bHandled := BOOL(this.ptr + 0)
+            return this.__bHandled
+        }
     }
 
     /**
      * A value that specifies whether the snap-in is expanding or collapsing. <b>TRUE</b> if the folder is being expanded. <b>FALSE</b> if the folder is being collapsed.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bExpanding {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    bExpanding{
+        get {
+            if(!this.HasProp("__bExpanding"))
+                this.__bExpanding := BOOL(this.ptr + 4)
+            return this.__bExpanding
+        }
     }
 
     /**

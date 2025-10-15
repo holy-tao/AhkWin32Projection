@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MPEG_BCS_DEMUX.ahk
+#Include .\MPEG_WINSOCK.ahk
 
 /**
  * The MPEG_CONTEXT structure identifies the source of an MPEG-2 data stream.
@@ -23,18 +25,24 @@ class MPEG_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MPEG_BCS_DEMUX}
      */
-    Demux {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    Demux{
+        get {
+            if(!this.HasProp("__Demux"))
+                this.__Demux := MPEG_BCS_DEMUX(this.ptr + 4)
+            return this.__Demux
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {MPEG_WINSOCK}
      */
-    Winsock {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    Winsock{
+        get {
+            if(!this.HasProp("__Winsock"))
+                this.__Winsock := MPEG_WINSOCK(this.ptr + 4)
+            return this.__Winsock
+        }
     }
 }

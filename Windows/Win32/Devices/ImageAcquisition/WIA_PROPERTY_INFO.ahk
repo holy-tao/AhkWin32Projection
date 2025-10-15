@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -206,15 +207,18 @@ class WIA_PROPERTY_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {BSTR}
          */
-        Nom {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        Nom{
+            get {
+                if(!this.HasProp("__Nom"))
+                    this.__Nom := BSTR(this.ptr + 8)
+                return this.__Nom
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {Pointer<BSTR>}
          */
         pList {
             get => NumGet(this, 16, "ptr")
@@ -241,6 +245,20 @@ class WIA_PROPERTY_INFO extends Win32Struct
         ValidBits {
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
+        }
+    
+    }
+
+    class _None extends Win32Struct {
+        static sizeof => 36
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Dummy {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
         }
     
     }
@@ -323,10 +341,13 @@ class WIA_PROPERTY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_None}
      */
-    None {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    None{
+        get {
+            if(!this.HasProp("__None"))
+                this.__None := %this.__Class%._None(this.ptr + 8)
+            return this.__None
+        }
     }
 }

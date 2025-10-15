@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -13,11 +14,14 @@ class APP_CACHE_GROUP_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszManifestUrl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszManifestUrl{
+        get {
+            if(!this.HasProp("__pwszManifestUrl"))
+                this.__pwszManifestUrl := PWSTR(this.ptr + 0)
+            return this.__pwszManifestUrl
+        }
     }
 
     /**

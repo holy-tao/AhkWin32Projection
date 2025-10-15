@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\WINML_TENSOR_VARIABLE_DESC.ahk
 #Include .\WINML_SEQUENCE_VARIABLE_DESC.ahk
 #Include .\WINML_MAP_VARIABLE_DESC.ahk
@@ -19,20 +21,26 @@ class WINML_VARIABLE_DESC extends Win32Struct
 
     /**
      * The name of the variable.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := PWSTR(this.ptr + 0)
+            return this.__Name
+        }
     }
 
     /**
      * The description of the variable.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Description {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Description{
+        get {
+            if(!this.HasProp("__Description"))
+                this.__Description := PWSTR(this.ptr + 8)
+            return this.__Description
+        }
     }
 
     /**
@@ -46,11 +54,14 @@ class WINML_VARIABLE_DESC extends Win32Struct
 
     /**
      * <b>true</b> if the variable is required; otherwise, <b>false</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Required {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    Required{
+        get {
+            if(!this.HasProp("__Required"))
+                this.__Required := BOOL(this.ptr + 20)
+            return this.__Required
+        }
     }
 
     /**

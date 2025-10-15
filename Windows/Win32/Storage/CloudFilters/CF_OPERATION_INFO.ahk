@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CF_CONNECTION_KEY.ahk
 
 /**
  * Information about an operation on a placeholder file or folder.
@@ -37,11 +38,14 @@ class CF_OPERATION_INFO extends Win32Struct
 
     /**
      * A connection key obtained for the communication channel.
-     * @type {Integer}
+     * @type {CF_CONNECTION_KEY}
      */
-    ConnectionKey {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+    ConnectionKey{
+        get {
+            if(!this.HasProp("__ConnectionKey"))
+                this.__ConnectionKey := CF_CONNECTION_KEY(this.ptr + 8)
+            return this.__ConnectionKey
+        }
     }
 
     /**

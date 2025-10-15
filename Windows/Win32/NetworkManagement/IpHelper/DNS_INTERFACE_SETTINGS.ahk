@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -28,27 +29,36 @@ class DNS_INTERFACE_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Domain {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Domain{
+        get {
+            if(!this.HasProp("__Domain"))
+                this.__Domain := PWSTR(this.ptr + 16)
+            return this.__Domain
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    NameServer {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    NameServer{
+        get {
+            if(!this.HasProp("__NameServer"))
+                this.__NameServer := PWSTR(this.ptr + 24)
+            return this.__NameServer
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SearchList {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    SearchList{
+        get {
+            if(!this.HasProp("__SearchList"))
+                this.__SearchList := PWSTR(this.ptr + 32)
+            return this.__SearchList
+        }
     }
 
     /**
@@ -84,10 +94,13 @@ class DNS_INTERFACE_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ProfileNameServer {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    ProfileNameServer{
+        get {
+            if(!this.HasProp("__ProfileNameServer"))
+                this.__ProfileNameServer := PWSTR(this.ptr + 56)
+            return this.__ProfileNameServer
+        }
     }
 }

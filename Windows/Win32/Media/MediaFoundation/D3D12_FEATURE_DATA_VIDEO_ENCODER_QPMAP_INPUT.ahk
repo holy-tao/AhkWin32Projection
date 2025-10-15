@@ -6,6 +6,7 @@
 #Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA.ahk
 #Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -45,11 +46,14 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_QPMAP_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsSupported {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
+    IsSupported{
+        get {
+            if(!this.HasProp("__IsSupported"))
+                this.__IsSupported := BOOL(this.ptr + 108)
+            return this.__IsSupported
+        }
     }
 
     /**

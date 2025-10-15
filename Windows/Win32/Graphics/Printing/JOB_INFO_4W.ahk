@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -22,75 +24,102 @@ class JOB_INFO_4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pPrinterName{
+        get {
+            if(!this.HasProp("__pPrinterName"))
+                this.__pPrinterName := PWSTR(this.ptr + 8)
+            return this.__pPrinterName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pMachineName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pMachineName{
+        get {
+            if(!this.HasProp("__pMachineName"))
+                this.__pMachineName := PWSTR(this.ptr + 16)
+            return this.__pMachineName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pUserName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pUserName{
+        get {
+            if(!this.HasProp("__pUserName"))
+                this.__pUserName := PWSTR(this.ptr + 24)
+            return this.__pUserName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDocument {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pDocument{
+        get {
+            if(!this.HasProp("__pDocument"))
+                this.__pDocument := PWSTR(this.ptr + 32)
+            return this.__pDocument
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pNotifyName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pNotifyName{
+        get {
+            if(!this.HasProp("__pNotifyName"))
+                this.__pNotifyName := PWSTR(this.ptr + 40)
+            return this.__pNotifyName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDatatype {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pDatatype{
+        get {
+            if(!this.HasProp("__pDatatype"))
+                this.__pDatatype := PWSTR(this.ptr + 48)
+            return this.__pDatatype
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pPrintProcessor {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pPrintProcessor{
+        get {
+            if(!this.HasProp("__pPrintProcessor"))
+                this.__pPrintProcessor := PWSTR(this.ptr + 56)
+            return this.__pPrintProcessor
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pParameters {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pParameters{
+        get {
+            if(!this.HasProp("__pParameters"))
+                this.__pParameters := PWSTR(this.ptr + 64)
+            return this.__pParameters
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDriverName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pDriverName{
+        get {
+            if(!this.HasProp("__pDriverName"))
+                this.__pDriverName := PWSTR(this.ptr + 72)
+            return this.__pDriverName
+        }
     }
 
     /**
@@ -102,19 +131,25 @@ class JOB_INFO_4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pStatus {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    pStatus{
+        get {
+            if(!this.HasProp("__pStatus"))
+                this.__pStatus := PWSTR(this.ptr + 88)
+            return this.__pStatus
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    pSecurityDescriptor{
+        get {
+            if(!this.HasProp("__pSecurityDescriptor"))
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 96)
+            return this.__pSecurityDescriptor
+        }
     }
 
     /**

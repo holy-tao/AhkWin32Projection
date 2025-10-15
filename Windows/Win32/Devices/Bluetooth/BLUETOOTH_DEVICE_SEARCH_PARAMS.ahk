@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies search criteria for Bluetooth device searches.
@@ -24,47 +26,62 @@ class BLUETOOTH_DEVICE_SEARCH_PARAMS extends Win32Struct
 
     /**
      * A value that specifies that the search should return authenticated Bluetooth devices.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fReturnAuthenticated {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fReturnAuthenticated{
+        get {
+            if(!this.HasProp("__fReturnAuthenticated"))
+                this.__fReturnAuthenticated := BOOL(this.ptr + 4)
+            return this.__fReturnAuthenticated
+        }
     }
 
     /**
      * A value that specifies that the search should return remembered Bluetooth devices.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fReturnRemembered {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fReturnRemembered{
+        get {
+            if(!this.HasProp("__fReturnRemembered"))
+                this.__fReturnRemembered := BOOL(this.ptr + 8)
+            return this.__fReturnRemembered
+        }
     }
 
     /**
      * A value that specifies that the search should return unknown Bluetooth devices.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fReturnUnknown {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    fReturnUnknown{
+        get {
+            if(!this.HasProp("__fReturnUnknown"))
+                this.__fReturnUnknown := BOOL(this.ptr + 12)
+            return this.__fReturnUnknown
+        }
     }
 
     /**
      * A value that specifies that the search should return connected Bluetooth devices.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fReturnConnected {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    fReturnConnected{
+        get {
+            if(!this.HasProp("__fReturnConnected"))
+                this.__fReturnConnected := BOOL(this.ptr + 16)
+            return this.__fReturnConnected
+        }
     }
 
     /**
      * A value that specifies that a new inquiry should be issued.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIssueInquiry {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    fIssueInquiry{
+        get {
+            if(!this.HasProp("__fIssueInquiry"))
+                this.__fIssueInquiry := BOOL(this.ptr + 20)
+            return this.__fIssueInquiry
+        }
     }
 
     /**
@@ -78,10 +95,13 @@ class BLUETOOTH_DEVICE_SEARCH_PARAMS extends Win32Struct
 
     /**
      * A handle for the radio on which to perform the inquiry. Set to <b>NULL</b> to perform the inquiry on all local Bluetooth radios.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hRadio {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hRadio{
+        get {
+            if(!this.HasProp("__hRadio"))
+                this.__hRadio := HANDLE(this.ptr + 32)
+            return this.__hRadio
+        }
     }
 }

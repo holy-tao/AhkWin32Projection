@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a network-service type value. This information may be specific to a namespace.
@@ -241,11 +242,14 @@ class SERVICE_TYPE_VALUE_ABSA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpValueName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpValueName{
+        get {
+            if(!this.HasProp("__lpValueName"))
+                this.__lpValueName := PSTR(this.ptr + 16)
+            return this.__lpValueName
+        }
     }
 
     /**

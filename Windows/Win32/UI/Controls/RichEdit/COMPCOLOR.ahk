@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains color settings for a composition string.
@@ -17,22 +18,28 @@ class COMPCOLOR extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Color of text. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crText {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    crText{
+        get {
+            if(!this.HasProp("__crText"))
+                this.__crText := COLORREF(this.ptr + 0)
+            return this.__crText
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Color of background. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBackground {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    crBackground{
+        get {
+            if(!this.HasProp("__crBackground"))
+                this.__crBackground := COLORREF(this.ptr + 4)
+            return this.__crBackground
+        }
     }
 
     /**

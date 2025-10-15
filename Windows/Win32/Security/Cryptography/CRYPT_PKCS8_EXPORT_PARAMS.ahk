@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Identifies the private key and a callback function to encrypt the private key. CRYPT_PKCS8_EXPORT_PARAMS is used as a parameter to the CryptExportPKCS8Ex function, which exports a private key in PKCS
@@ -60,11 +61,14 @@ class CRYPT_PKCS8_EXPORT_PARAMS extends Win32Struct
 
     /**
      * An <b>LPSTR</b>  variable that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the private key to be exported.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszPrivateKeyObjId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszPrivateKeyObjId{
+        get {
+            if(!this.HasProp("__pszPrivateKeyObjId"))
+                this.__pszPrivateKeyObjId := PSTR(this.ptr + 16)
+            return this.__pszPrivateKeyObjId
+        }
     }
 
     /**

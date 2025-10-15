@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a string that identifies a trustee by name and additional strings that identify the object types of an object-specific access control entry (ACE).
@@ -49,11 +50,14 @@ class OBJECTS_AND_NAME_W extends Win32Struct
      * A pointer to a null-terminated string that identifies the type of object to which the ACE applies.
      * 
      * This string must be a valid <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">LDAP</a> display name in the Active Directory schema.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ObjectTypeName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ObjectTypeName{
+        get {
+            if(!this.HasProp("__ObjectTypeName"))
+                this.__ObjectTypeName := PWSTR(this.ptr + 8)
+            return this.__ObjectTypeName
+        }
     }
 
     /**
@@ -65,19 +69,25 @@ class OBJECTS_AND_NAME_W extends Win32Struct
      * This string must be a valid <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">LDAP</a> display name in the Active Directory schema.
      * 
      * If the ACE_INHERITED_OBJECT_TYPE_PRESENT bit is not set in the <b>ObjectsPresent</b> member, the <b>InheritedObjectTypeName</b> member is ignored, and all types of child objects can inherit the ACE. Otherwise, only the specified object type can inherit the ACE. In either case, inheritance is also controlled by the inheritance flags in the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a>structure as well as by any protection against inheritance placed on the child objects.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    InheritedObjectTypeName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    InheritedObjectTypeName{
+        get {
+            if(!this.HasProp("__InheritedObjectTypeName"))
+                this.__InheritedObjectTypeName := PWSTR(this.ptr + 16)
+            return this.__InheritedObjectTypeName
+        }
     }
 
     /**
      * A pointer to a null-terminated string that contains the name of the trustee.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ptstrName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ptstrName{
+        get {
+            if(!this.HasProp("__ptstrName"))
+                this.__ptstrName := PWSTR(this.ptr + 24)
+            return this.__ptstrName
+        }
     }
 }

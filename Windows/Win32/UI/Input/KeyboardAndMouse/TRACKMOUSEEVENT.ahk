@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 
 /**
  * Used by the TrackMouseEvent function to track when the mouse pointer leaves a window or hovers over a window for a specified amount of time.
@@ -44,11 +45,14 @@ class TRACKMOUSEEVENT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window to track.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndTrack {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndTrack{
+        get {
+            if(!this.HasProp("__hwndTrack"))
+                this.__hwndTrack := HWND(this.ptr + 8)
+            return this.__hwndTrack
+        }
     }
 
     /**

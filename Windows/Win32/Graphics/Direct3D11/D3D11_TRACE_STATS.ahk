@@ -1,8 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_VERTEX_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_HULL_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_DOMAIN_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_GEOMETRY_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_PIXEL_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_COMPUTE_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_SHADER_TRACE_DESC.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies statistics about a trace.
@@ -226,20 +231,26 @@ class D3D11_TRACE_STATS extends Win32Struct
 
     /**
      * A value that specifies whether this trace is for a pixel shader that outputs the oDepth register. TRUE indicates that the pixel shader outputs the oDepth register; otherwise, FALSE.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PSOutputsDepth {
-        get => NumGet(this, 8536, "int")
-        set => NumPut("int", value, this, 8536)
+    PSOutputsDepth{
+        get {
+            if(!this.HasProp("__PSOutputsDepth"))
+                this.__PSOutputsDepth := BOOL(this.ptr + 8536)
+            return this.__PSOutputsDepth
+        }
     }
 
     /**
      * A value that specifies whether this trace is for a pixel shader that outputs the oMask register. TRUE indicates that the pixel shader outputs the oMask register; otherwise, FALSE.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PSOutputsMask {
-        get => NumGet(this, 8540, "int")
-        set => NumPut("int", value, this, 8540)
+    PSOutputsMask{
+        get {
+            if(!this.HasProp("__PSOutputsMask"))
+                this.__PSOutputsMask := BOOL(this.ptr + 8540)
+            return this.__PSOutputsMask
+        }
     }
 
     /**
@@ -253,11 +264,14 @@ class D3D11_TRACE_STATS extends Win32Struct
 
     /**
      * A value that specifies whether this trace is for a geometry shader that inputs the PrimitiveID register. TRUE indicates that the geometry shader inputs the PrimitiveID register; otherwise, FALSE.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    GSInputsPrimitiveID {
-        get => NumGet(this, 8548, "int")
-        set => NumPut("int", value, this, 8548)
+    GSInputsPrimitiveID{
+        get {
+            if(!this.HasProp("__GSInputsPrimitiveID"))
+                this.__GSInputsPrimitiveID := BOOL(this.ptr + 8548)
+            return this.__GSInputsPrimitiveID
+        }
     }
 
     /**

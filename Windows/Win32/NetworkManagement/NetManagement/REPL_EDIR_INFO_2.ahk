@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -12,11 +13,14 @@ class REPL_EDIR_INFO_2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    rped2_dirname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    rped2_dirname{
+        get {
+            if(!this.HasProp("__rped2_dirname"))
+                this.__rped2_dirname := PWSTR(this.ptr + 0)
+            return this.__rped2_dirname
+        }
     }
 
     /**

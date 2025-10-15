@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -36,18 +38,24 @@ class DOC_INFO_INTERNAL extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bLowILJob {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    bLowILJob{
+        get {
+            if(!this.HasProp("__bLowILJob"))
+                this.__bLowILJob := BOOL(this.ptr + 24)
+            return this.__bLowILJob
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hTokenLowIL {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hTokenLowIL{
+        get {
+            if(!this.HasProp("__hTokenLowIL"))
+                this.__hTokenLowIL := HANDLE(this.ptr + 32)
+            return this.__hTokenLowIL
+        }
     }
 }

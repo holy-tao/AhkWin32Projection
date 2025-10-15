@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\NMCUSTOMDRAW.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW (tree view) notification code sent by a tree-view control.
@@ -36,11 +40,14 @@ class NMTVCUSTOMDRAW extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value representing the color that will be used to display text foreground in the tree-view control.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    clrText {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+    clrText{
+        get {
+            if(!this.HasProp("__clrText"))
+                this.__clrText := COLORREF(this.ptr + 80)
+            return this.__clrText
+        }
     }
 
     /**
@@ -48,11 +55,14 @@ class NMTVCUSTOMDRAW extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value representing the color that will be used to display text background in the tree-view control.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    clrTextBk {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+    clrTextBk{
+        get {
+            if(!this.HasProp("__clrTextBk"))
+                this.__clrTextBk := COLORREF(this.ptr + 84)
+            return this.__clrTextBk
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\WinSock\SOCKADDR_STORAGE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Serves as the key by which a given Secure Sockets Layer (SSL) Server Name Indication (SNI) certificate record is identified in the SSL SNI store.
@@ -28,10 +29,13 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_KEY extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode UTF-16 string that represents the hostname.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Host {
-        get => NumGet(this, 248, "ptr")
-        set => NumPut("ptr", value, this, 248)
+    Host{
+        get {
+            if(!this.HasProp("__Host"))
+                this.__Host := PWSTR(this.ptr + 248)
+            return this.__Host
+        }
     }
 }

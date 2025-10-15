@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKET.ahk
 
 /**
  * Represents info supplied to the [ProcessSocketNotifications](/windows/win32/api/winsock2/nf-winsock2-processsocketnotifications) function.
@@ -20,11 +21,14 @@ class SOCK_NOTIFY_REGISTRATION extends Win32Struct
      * Type: **SOCKET**
      * 
      * A handle to a Winsock socket opened by any of the [WSASocket](/windows/win32/api/winsock2/nf-winsock2-wsasocketw), [socket](/windows/win32/api/winsock2/nf-winsock2-socket), [WSAAccept](/windows/win32/api/winsock2/nf-winsock2-wsaaccept), [accept](/windows/win32/api/winsock2/nf-winsock2-accept), or [WSADuplicateSocket](/windows/win32/api/winsock2/nf-winsock2-wsaduplicatesocketw) functions. Only Microsoft [Winsock](/windows/win32/winsock/windows-sockets-start-page-2) provider sockets are supported.
-     * @type {Pointer}
+     * @type {SOCKET}
      */
-    socket {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    socket{
+        get {
+            if(!this.HasProp("__socket"))
+                this.__socket := SOCKET(this.ptr + 0)
+            return this.__socket
+        }
     }
 
     /**

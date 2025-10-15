@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCRYPTPROV_LEGACY.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\BCRYPT_KEY_HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information shared between the PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY, PFN_CMSG_EXPORT_KEY_TRANS, PFN_CMSG_EXPORT_KEY_AGREE, and PFN_CMSG_EXPORT_MAIL_LIST functions.
@@ -63,11 +67,14 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
 
     /**
      * A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP). If the <b>fCNG</b> member is <b>FALSE</b> and the <b>hCryptProv</b> member is <b>NULL</b> upon input, <b>hCryptProv</b> must be updated by the callback function. If a provider is acquired that must be released, the <b>CMSG_CONTENT_ENCRYPT_RELEASE_CONTEXT_FLAG</b> must be set in the <b>dwFlags</b> member.
-     * @type {Pointer}
+     * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hCryptProv{
+        get {
+            if(!this.HasProp("__hCryptProv"))
+                this.__hCryptProv := HCRYPTPROV_LEGACY(this.ptr + 8)
+            return this.__hCryptProv
+        }
     }
 
     /**
@@ -179,11 +186,14 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {BCRYPT_KEY_HANDLE}
      */
-    hCNGContentEncryptKey {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    hCNGContentEncryptKey{
+        get {
+            if(!this.HasProp("__hCNGContentEncryptKey"))
+                this.__hCNGContentEncryptKey := BCRYPT_KEY_HANDLE(this.ptr + 88)
+            return this.__hCNGContentEncryptKey
+        }
     }
 
     /**
@@ -241,11 +251,14 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
      * If the <b>fCNG</b> member is <b>FALSE</b>, the <b>CMSG_OID_GEN_CONTENT_ENCRYPT_KEY_FUNC</b> function is called to update the <b>hContentEncryptKey</b> member.
      * 
      * If the <b>fCNG</b> member is <b>TRUE</b>, the  <b>CMSG_OID_CNG_GEN_CONTENT_ENCRYPT_KEY_FUNC</b> function is called to update the <b>hCNGContentEncryptKey</b> and <b>cbContentEncryptKey</b> members, and the <b>pbCNGContentEncryptKeyObject</b> and <b>pbContentEncryptKey</b> members must be allocated by the <b>pfnAlloc</b> member. Free and release the content encryption key by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgclose">CryptMsgClose</a> function.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCNG {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
+    fCNG{
+        get {
+            if(!this.HasProp("__fCNG"))
+                this.__fCNG := BOOL(this.ptr + 100)
+            return this.__fCNG
+        }
     }
 
     /**

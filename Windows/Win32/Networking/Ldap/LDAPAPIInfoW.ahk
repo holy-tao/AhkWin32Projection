@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Retrieves data about the API and implementations used.
@@ -55,7 +56,7 @@ class LDAPAPIInfoW extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated strings that indicate what API extensions are supported.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ldapai_extensions {
         get => NumGet(this, 16, "ptr")
@@ -64,11 +65,14 @@ class LDAPAPIInfoW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the API vendor.  This implementation returns the string ""Microsoft Corporation."".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ldapai_vendor_name {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ldapai_vendor_name{
+        get {
+            if(!this.HasProp("__ldapai_vendor_name"))
+                this.__ldapai_vendor_name := PWSTR(this.ptr + 24)
+            return this.__ldapai_vendor_name
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains trust information.
@@ -33,20 +35,26 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * Indicates whether all ActiveX permissions were requested.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAllActiveXPermissions {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fAllActiveXPermissions{
+        get {
+            if(!this.HasProp("__fAllActiveXPermissions"))
+                this.__fAllActiveXPermissions := BOOL(this.ptr + 8)
+            return this.__fAllActiveXPermissions
+        }
     }
 
     /**
      * Indicates whether all Java permissions were requested.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAllPermissions {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    fAllPermissions{
+        get {
+            if(!this.HasProp("__fAllPermissions"))
+                this.__fAllPermissions := BOOL(this.ptr + 12)
+            return this.__fAllPermissions
+        }
     }
 
     /**
@@ -96,11 +104,14 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * The zone index.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszZone {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pwszZone{
+        get {
+            if(!this.HasProp("__pwszZone"))
+                this.__pwszZone := PWSTR(this.ptr + 56)
+            return this.__pwszZone
+        }
     }
 
     /**

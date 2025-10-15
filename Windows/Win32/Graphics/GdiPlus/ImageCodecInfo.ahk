@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * An ImageCodecInfo object stores information about an image codec (encoder/decoder).
@@ -30,43 +31,58 @@ class ImageCodecInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    CodecName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    CodecName{
+        get {
+            if(!this.HasProp("__CodecName"))
+                this.__CodecName := PWSTR(this.ptr + 16)
+            return this.__CodecName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DllName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    DllName{
+        get {
+            if(!this.HasProp("__DllName"))
+                this.__DllName := PWSTR(this.ptr + 24)
+            return this.__DllName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FormatDescription {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    FormatDescription{
+        get {
+            if(!this.HasProp("__FormatDescription"))
+                this.__FormatDescription := PWSTR(this.ptr + 32)
+            return this.__FormatDescription
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FilenameExtension {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    FilenameExtension{
+        get {
+            if(!this.HasProp("__FilenameExtension"))
+                this.__FilenameExtension := PWSTR(this.ptr + 40)
+            return this.__FilenameExtension
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    MimeType {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    MimeType{
+        get {
+            if(!this.HasProp("__MimeType"))
+                this.__MimeType := PWSTR(this.ptr + 48)
+            return this.__MimeType
+        }
     }
 
     /**

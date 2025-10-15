@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The USB_DRIVER_VERSION_PARAMETERS structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve version information.
@@ -47,20 +48,26 @@ class USB_DRIVER_VERSION_PARAMETERS extends Win32Struct
 
     /**
      * A Boolean value that indicates whether the checked version of the host controller driver is loaded. If <b>TRUE</b>, the checked version of the host controller driver is loaded. If <b>FALSE</b>, the checked version is not loaded.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    CheckedPortDriver {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+    CheckedPortDriver{
+        get {
+            if(!this.HasProp("__CheckedPortDriver"))
+                this.__CheckedPortDriver := BOOLEAN(this.ptr + 12)
+            return this.__CheckedPortDriver
+        }
     }
 
     /**
      * A Boolean value that indicates whether the checked version of the host controller miniport driver is loaded. If <b>TRUE</b>, the checked version of the host controller miniport driver is loaded. If <b>FALSE</b>, the checked version is not loaded.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    CheckedMiniportDriver {
-        get => NumGet(this, 13, "char")
-        set => NumPut("char", value, this, 13)
+    CheckedMiniportDriver{
+        get {
+            if(!this.HasProp("__CheckedMiniportDriver"))
+                this.__CheckedMiniportDriver := BOOLEAN(this.ptr + 13)
+            return this.__CheckedMiniportDriver
+        }
     }
 
     /**

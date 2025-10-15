@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_SERVICE_CONFIG_SSL_KEY.ahk
 
 /**
  * Used to specify a particular record to query in the SSL configuration store.
@@ -25,11 +26,14 @@ class HTTP_SERVICE_CONFIG_SSL_QUERY extends Win32Struct
     /**
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryExact</b>, then <i>KeyDesc</i> should contain an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_ssl_key">HTTP_SERVICE_CONFIG_SSL_KEY</a> structure that identifies the SSL certificate record queried. If the <i>QueryDesc</i> parameter is equal to HTTPServiceConfigQueryNext, then <i>KeyDesc</i> is ignored.
-     * @type {Pointer<TypeHandle>}
+     * @type {HTTP_SERVICE_CONFIG_SSL_KEY}
      */
-    KeyDesc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    KeyDesc{
+        get {
+            if(!this.HasProp("__KeyDesc"))
+                this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_KEY(this.ptr + 8)
+            return this.__KeyDesc
+        }
     }
 
     /**

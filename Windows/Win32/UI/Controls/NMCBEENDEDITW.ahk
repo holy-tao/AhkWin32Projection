@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about the conclusion of an edit operation within a ComboBoxEx control. This structure is used with the CBEN_ENDEDIT notification code.
@@ -38,11 +40,14 @@ class NMCBEENDEDITW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A value indicating whether the contents of the control's edit box have changed. This value is nonzero if the contents have been modified, or zero otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fChanged {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fChanged{
+        get {
+            if(!this.HasProp("__fChanged"))
+                this.__fChanged := BOOL(this.ptr + 24)
+            return this.__fChanged
+        }
     }
 
     /**

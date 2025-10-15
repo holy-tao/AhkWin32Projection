@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets
@@ -52,26 +53,35 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fReserve {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    fReserve{
+        get {
+            if(!this.HasProp("__fReserve"))
+                this.__fReserve := BOOL(this.ptr + 12)
+            return this.__fReserve
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    hasprev {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    hasprev{
+        get {
+            if(!this.HasProp("__hasprev"))
+                this.__hasprev := BOOL(this.ptr + 16)
+            return this.__hasprev
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    hasnext {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    hasnext{
+        get {
+            if(!this.HasProp("__hasnext"))
+                this.__hasnext := BOOL(this.ptr + 20)
+            return this.__hasnext
+        }
     }
 }

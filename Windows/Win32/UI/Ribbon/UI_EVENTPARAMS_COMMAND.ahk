@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a Command associated with a event.
@@ -33,11 +34,14 @@ class UI_EVENTPARAMS_COMMAND extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-command">Command</a> name that is associated with <b>CommandId</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    CommandName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    CommandName{
+        get {
+            if(!this.HasProp("__CommandName"))
+                this.__CommandName := PWSTR(this.ptr + 8)
+            return this.__CommandName
+        }
     }
 
     /**
@@ -51,11 +55,14 @@ class UI_EVENTPARAMS_COMMAND extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-command">Command</a> name  of the parent that is associated with <b>CommandId</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ParentCommandName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ParentCommandName{
+        get {
+            if(!this.HasProp("__ParentCommandName"))
+                this.__ParentCommandName := PWSTR(this.ptr + 24)
+            return this.__ParentCommandName
+        }
     }
 
     /**

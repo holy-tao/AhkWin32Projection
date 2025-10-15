@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DSOP_INIT_INFO structure contains data required to initialize an object picker dialog box. This structure is used with the IDsObjectPicker::Initialize method.
@@ -24,11 +25,14 @@ class DSOP_INIT_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the name of the target computer. The dialog box operates as if it is running on the target computer, using the target computer to determine the joined domain and enterprise. If this value is <b>NULL</b>, the target computer is the local computer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzTargetComputer {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwzTargetComputer{
+        get {
+            if(!this.HasProp("__pwzTargetComputer"))
+                this.__pwzTargetComputer := PWSTR(this.ptr + 8)
+            return this.__pwzTargetComputer
+        }
     }
 
     /**
@@ -70,7 +74,7 @@ class DSOP_INIT_INFO extends Win32Struct
 
     /**
      * Pointer to an array of null-terminated Unicode strings that contain the names of the attributes to retrieve for each selected object. If <b>cAttributesToFetch</b> is zero, this member is ignored.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     apwzAttributeNames {
         get => NumGet(this, 40, "ptr")

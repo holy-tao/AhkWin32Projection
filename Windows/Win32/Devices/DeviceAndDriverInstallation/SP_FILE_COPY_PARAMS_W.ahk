@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -29,59 +30,80 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SourceRootPath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    SourceRootPath{
+        get {
+            if(!this.HasProp("__SourceRootPath"))
+                this.__SourceRootPath := PWSTR(this.ptr + 16)
+            return this.__SourceRootPath
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SourcePath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    SourcePath{
+        get {
+            if(!this.HasProp("__SourcePath"))
+                this.__SourcePath := PWSTR(this.ptr + 24)
+            return this.__SourcePath
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SourceFilename {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    SourceFilename{
+        get {
+            if(!this.HasProp("__SourceFilename"))
+                this.__SourceFilename := PWSTR(this.ptr + 32)
+            return this.__SourceFilename
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SourceDescription {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    SourceDescription{
+        get {
+            if(!this.HasProp("__SourceDescription"))
+                this.__SourceDescription := PWSTR(this.ptr + 40)
+            return this.__SourceDescription
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SourceTagfile {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    SourceTagfile{
+        get {
+            if(!this.HasProp("__SourceTagfile"))
+                this.__SourceTagfile := PWSTR(this.ptr + 48)
+            return this.__SourceTagfile
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    TargetDirectory {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    TargetDirectory{
+        get {
+            if(!this.HasProp("__TargetDirectory"))
+                this.__TargetDirectory := PWSTR(this.ptr + 56)
+            return this.__TargetDirectory
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    TargetFilename {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    TargetFilename{
+        get {
+            if(!this.HasProp("__TargetFilename"))
+                this.__TargetFilename := PWSTR(this.ptr + 64)
+            return this.__TargetFilename
+        }
     }
 
     /**
@@ -101,11 +123,14 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    SecurityDescriptor {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    SecurityDescriptor{
+        get {
+            if(!this.HasProp("__SecurityDescriptor"))
+                this.__SecurityDescriptor := PWSTR(this.ptr + 88)
+            return this.__SecurityDescriptor
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include .\DNS_RECORD_FLAGS.ahk
 #Include .\DNS_HEADER_EXT.ahk
 #Include .\DNS_OPT_DATA.ahk
 
@@ -22,11 +24,14 @@ class _DnsRecordOptA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PSTR(this.ptr + 8)
+            return this.__pName
+        }
     }
 
     /**
@@ -54,11 +59,14 @@ class _DnsRecordOptA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DNS_RECORD_FLAGS}
      */
-    S {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    S{
+        get {
+            if(!this.HasProp("__S"))
+                this.__S := DNS_RECORD_FLAGS(this.ptr + 20)
+            return this.__S
+        }
     }
 
     /**

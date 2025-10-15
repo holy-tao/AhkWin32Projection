@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -13,19 +14,25 @@ class SHNAMEMAPPINGA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszOldPath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszOldPath{
+        get {
+            if(!this.HasProp("__pszOldPath"))
+                this.__pszOldPath := PSTR(this.ptr + 0)
+            return this.__pszOldPath
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszNewPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszNewPath{
+        get {
+            if(!this.HasProp("__pszNewPath"))
+                this.__pszNewPath := PSTR(this.ptr + 8)
+            return this.__pszNewPath
+        }
     }
 
     /**

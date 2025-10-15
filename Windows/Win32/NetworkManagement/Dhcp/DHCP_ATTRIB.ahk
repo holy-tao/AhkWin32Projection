@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines an attribute set on the DHCP server.
@@ -109,11 +110,14 @@ class DHCP_ATTRIB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    DhcpAttribBool {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    DhcpAttribBool{
+        get {
+            if(!this.HasProp("__DhcpAttribBool"))
+                this.__DhcpAttribBool := BOOL(this.ptr + 8)
+            return this.__DhcpAttribBool
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the value and value type for a parameter used to expand the value resource string.
@@ -15,11 +16,14 @@ class WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR extends Win32Struct
 
     /**
      * Specifies the value for the parameter.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    m_wszObStatusEntryPairValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    m_wszObStatusEntryPairValue{
+        get {
+            if(!this.HasProp("__m_wszObStatusEntryPairValue"))
+                this.__m_wszObStatusEntryPairValue := PWSTR(this.ptr + 0)
+            return this.__m_wszObStatusEntryPairValue
+        }
     }
 
     /**

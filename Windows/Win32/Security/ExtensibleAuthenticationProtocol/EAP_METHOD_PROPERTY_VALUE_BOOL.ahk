@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains a Boolean value of an EAP method property.
@@ -24,10 +25,13 @@ class EAP_METHOD_PROPERTY_VALUE_BOOL extends Win32Struct
 
     /**
      * <b>BOOL</b> value of the method property.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    value {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    value{
+        get {
+            if(!this.HasProp("__value"))
+                this.__value := BOOL(this.ptr + 4)
+            return this.__value
+        }
     }
 }

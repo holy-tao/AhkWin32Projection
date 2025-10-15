@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The MMC_EXT_VIEW_DATA structure is introduced in MMC 2.0.
@@ -31,37 +33,49 @@ class MMC_EXT_VIEW_DATA extends Win32Struct
 
     /**
      * URL to the HTML used in the result pane; this typically points to an HTML resource in the snap-in's DLL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszURL {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszURL{
+        get {
+            if(!this.HasProp("__pszURL"))
+                this.__pszURL := PWSTR(this.ptr + 8)
+            return this.__pszURL
+        }
     }
 
     /**
      * Title of the view extension.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszViewTitle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszViewTitle{
+        get {
+            if(!this.HasProp("__pszViewTitle"))
+                this.__pszViewTitle := PWSTR(this.ptr + 16)
+            return this.__pszViewTitle
+        }
     }
 
     /**
      * This value is reserved for future use.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszTooltipText {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszTooltipText{
+        get {
+            if(!this.HasProp("__pszTooltipText"))
+                this.__pszTooltipText := PWSTR(this.ptr + 24)
+            return this.__pszTooltipText
+        }
     }
 
     /**
      * If <b>TRUE</b>, the <b>Standard</b> tab does not appear in the tab selector; otherwise, the <b>Standard</b> tab appears. There is usually no need to display the <b>Standard</b> tab if the view extension snap-in displays the list of the primary snap-in.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bReplacesDefaultView {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    bReplacesDefaultView{
+        get {
+            if(!this.HasProp("__bReplacesDefaultView"))
+                this.__bReplacesDefaultView := BOOL(this.ptr + 32)
+            return this.__bReplacesDefaultView
+        }
     }
 }

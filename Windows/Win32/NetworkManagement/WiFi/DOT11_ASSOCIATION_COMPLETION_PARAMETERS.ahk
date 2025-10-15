@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -43,19 +44,25 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bReAssocReq {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    bReAssocReq{
+        get {
+            if(!this.HasProp("__bReAssocReq"))
+                this.__bReAssocReq := BOOLEAN(this.ptr + 16)
+            return this.__bReAssocReq
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bReAssocResp {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+    bReAssocResp{
+        get {
+            if(!this.HasProp("__bReAssocResp"))
+                this.__bReAssocResp := BOOLEAN(this.ptr + 17)
+            return this.__bReAssocResp
+        }
     }
 
     /**
@@ -163,19 +170,25 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bFourAddressSupported {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
+    bFourAddressSupported{
+        get {
+            if(!this.HasProp("__bFourAddressSupported"))
+                this.__bFourAddressSupported := BOOLEAN(this.ptr + 72)
+            return this.__bFourAddressSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bPortAuthorized {
-        get => NumGet(this, 73, "char")
-        set => NumPut("char", value, this, 73)
+    bPortAuthorized{
+        get {
+            if(!this.HasProp("__bPortAuthorized"))
+                this.__bPortAuthorized := BOOLEAN(this.ptr + 73)
+            return this.__bPortAuthorized
+        }
     }
 
     /**

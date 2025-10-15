@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains a requested parameter.
@@ -36,11 +37,14 @@ class DHCPV6CAPI_PARAMS extends Win32Struct
 
     /**
      * This option is set to <b>TRUE</b> if this parameter is vendor-specific.  Otherwise, it is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsVendor {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    IsVendor{
+        get {
+            if(!this.HasProp("__IsVendor"))
+                this.__IsVendor := BOOL(this.ptr + 8)
+            return this.__IsVendor
+        }
     }
 
     /**

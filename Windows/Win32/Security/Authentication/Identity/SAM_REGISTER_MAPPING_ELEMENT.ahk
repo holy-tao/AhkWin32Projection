@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -12,26 +14,35 @@ class SAM_REGISTER_MAPPING_ELEMENT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Original {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Original{
+        get {
+            if(!this.HasProp("__Original"))
+                this.__Original := PSTR(this.ptr + 0)
+            return this.__Original
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Mapped {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Mapped{
+        get {
+            if(!this.HasProp("__Mapped"))
+                this.__Mapped := PSTR(this.ptr + 8)
+            return this.__Mapped
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Continuable {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    Continuable{
+        get {
+            if(!this.HasProp("__Continuable"))
+                this.__Continuable := BOOLEAN(this.ptr + 16)
+            return this.__Continuable
+        }
     }
 }

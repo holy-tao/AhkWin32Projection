@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
@@ -12,7 +13,7 @@ class DUMP_POINTERS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<_ADAPTER_OBJECT>}
      */
     AdapterObject {
         get => NumGet(this, 0, "ptr")
@@ -60,19 +61,25 @@ class DUMP_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    AllocateCommonBuffers {
-        get => NumGet(this, 44, "char")
-        set => NumPut("char", value, this, 44)
+    AllocateCommonBuffers{
+        get {
+            if(!this.HasProp("__AllocateCommonBuffers"))
+                this.__AllocateCommonBuffers := BOOLEAN(this.ptr + 44)
+            return this.__AllocateCommonBuffers
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    UseDiskDump {
-        get => NumGet(this, 45, "char")
-        set => NumPut("char", value, this, 45)
+    UseDiskDump{
+        get {
+            if(!this.HasProp("__UseDiskDump"))
+                this.__UseDiskDump := BOOLEAN(this.ptr + 45)
+            return this.__UseDiskDump
+        }
     }
 
     /**

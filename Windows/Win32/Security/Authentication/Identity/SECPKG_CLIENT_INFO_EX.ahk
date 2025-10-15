@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -40,27 +42,36 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    HasTcbPrivilege {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    HasTcbPrivilege{
+        get {
+            if(!this.HasProp("__HasTcbPrivilege"))
+                this.__HasTcbPrivilege := BOOLEAN(this.ptr + 16)
+            return this.__HasTcbPrivilege
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Impersonating {
-        get => NumGet(this, 17, "char")
-        set => NumPut("char", value, this, 17)
+    Impersonating{
+        get {
+            if(!this.HasProp("__Impersonating"))
+                this.__Impersonating := BOOLEAN(this.ptr + 17)
+            return this.__Impersonating
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Restricted {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
+    Restricted{
+        get {
+            if(!this.HasProp("__Restricted"))
+                this.__Restricted := BOOLEAN(this.ptr + 18)
+            return this.__Restricted
+        }
     }
 
     /**
@@ -80,11 +91,14 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ClientToken {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ClientToken{
+        get {
+            if(!this.HasProp("__ClientToken"))
+                this.__ClientToken := HANDLE(this.ptr + 24)
+            return this.__ClientToken
+        }
     }
 
     /**
@@ -99,10 +113,13 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    IdentificationToken {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    IdentificationToken{
+        get {
+            if(!this.HasProp("__IdentificationToken"))
+                this.__IdentificationToken := HANDLE(this.ptr + 40)
+            return this.__IdentificationToken
+        }
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\PM_INVOCATIONINFO.ahk
 
 /**
@@ -29,11 +31,14 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    TileID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    TileID{
+        get {
+            if(!this.HasProp("__TileID"))
+                this.__TileID := BSTR(this.ptr + 16)
+            return this.__TileID
+        }
     }
 
     /**
@@ -64,11 +69,14 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsDefault {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
+    IsDefault{
+        get {
+            if(!this.HasProp("__IsDefault"))
+                this.__IsDefault := BOOL(this.ptr + 160)
+            return this.__IsDefault
+        }
     }
 
     /**
@@ -96,19 +104,25 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsRestoring {
-        get => NumGet(this, 180, "int")
-        set => NumPut("int", value, this, 180)
+    IsRestoring{
+        get {
+            if(!this.HasProp("__IsRestoring"))
+                this.__IsRestoring := BOOL(this.ptr + 180)
+            return this.__IsRestoring
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsModern {
-        get => NumGet(this, 184, "int")
-        set => NumPut("int", value, this, 184)
+    IsModern{
+        get {
+            if(!this.HasProp("__IsModern"))
+                this.__IsModern := BOOL(this.ptr + 184)
+            return this.__IsModern
+        }
     }
 
     /**

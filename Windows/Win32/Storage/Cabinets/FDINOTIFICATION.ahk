@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The FDINOTIFICATION structure to provide information to FNFDINOTIFY.
@@ -24,29 +25,38 @@ class FDINOTIFICATION extends Win32Struct
 
     /**
      * A null-terminated string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    psz1 {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    psz1{
+        get {
+            if(!this.HasProp("__psz1"))
+                this.__psz1 := PSTR(this.ptr + 8)
+            return this.__psz1
+        }
     }
 
     /**
      * A null-terminated string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    psz2 {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    psz2{
+        get {
+            if(!this.HasProp("__psz2"))
+                this.__psz2 := PSTR(this.ptr + 16)
+            return this.__psz2
+        }
     }
 
     /**
      * A null-terminated string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    psz3 {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    psz3{
+        get {
+            if(!this.HasProp("__psz3"))
+                this.__psz3 := PSTR(this.ptr + 24)
+            return this.__psz3
+        }
     }
 
     /**

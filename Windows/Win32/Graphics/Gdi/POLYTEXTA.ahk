@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -49,11 +50,14 @@ class POLYTEXTA extends Win32Struct
 
     /**
      * Pointer to a string of text to be drawn by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polytextouta">PolyTextOut</a> function. This string need not be null-terminated, since <b>n</b> specifies the length of the string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpstr {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpstr{
+        get {
+            if(!this.HasProp("__lpstr"))
+                this.__lpstr := PSTR(this.ptr + 16)
+            return this.__lpstr
+        }
     }
 
     /**

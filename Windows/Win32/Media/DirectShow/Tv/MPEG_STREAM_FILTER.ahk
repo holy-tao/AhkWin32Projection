@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -28,11 +29,14 @@ class MPEG_STREAM_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCrcEnabled {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fCrcEnabled{
+        get {
+            if(!this.HasProp("__fCrcEnabled"))
+                this.__fCrcEnabled := BOOL(this.ptr + 8)
+            return this.__fCrcEnabled
+        }
     }
 
     /**

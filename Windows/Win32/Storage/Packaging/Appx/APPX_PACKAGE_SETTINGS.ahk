@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Represents package settings used to create a package.
@@ -28,11 +29,14 @@ class APPX_PACKAGE_SETTINGS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the package is created as Zip32; <b>FALSE</b> if the package is created as Zip64. The default is Zip64.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    forceZip32 {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    forceZip32{
+        get {
+            if(!this.HasProp("__forceZip32"))
+                this.__forceZip32 := BOOL(this.ptr + 0)
+            return this.__forceZip32
+        }
     }
 
     /**

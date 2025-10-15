@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information representing the Netscape certificate sequence of certificates.
@@ -15,11 +16,14 @@ class CRYPT_CONTENT_INFO_SEQUENCE_OF_ANY extends Win32Struct
 
     /**
      * Object identifier (OID) specifying the type of data contained in the <b>rgValue</b> array.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszObjId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszObjId{
+        get {
+            if(!this.HasProp("__pszObjId"))
+                this.__pszObjId := PSTR(this.ptr + 0)
+            return this.__pszObjId
+        }
     }
 
     /**

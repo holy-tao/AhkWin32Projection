@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains stream-level data for the ID3D11VideoContext::VideoProcessorBlt method.
@@ -22,11 +23,14 @@ class D3D11_VIDEO_PROCESSOR_STREAM extends Win32Struct
      * Specifies whether this input stream is enabled. If the value is <b>TRUE</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorblt">VideoProcessorBlt</a> method blits this stream to the output surface. Otherwise, this stream is not blitted. 
      * 
      * The maximum number of streams that can be enabled at one time is given in the <b>MaxInputStreams</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_processor_caps">D3D11_VIDEO_PROCESSOR_CAPS</a> structure.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Enable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    Enable{
+        get {
+            if(!this.HasProp("__Enable"))
+                this.__Enable := BOOL(this.ptr + 0)
+            return this.__Enable
+        }
     }
 
     /**

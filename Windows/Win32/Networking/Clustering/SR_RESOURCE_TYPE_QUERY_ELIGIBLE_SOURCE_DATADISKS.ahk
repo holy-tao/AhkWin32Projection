@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes a set of retrieved data disks that can be used as source sites for replication.
@@ -24,10 +25,13 @@ class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_SOURCE_DATADISKS extends Win32Struct
 
     /**
      * <b>true</b> if the result set includes disks in the available storage group.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IncludeAvailableStoargeDisks {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    IncludeAvailableStoargeDisks{
+        get {
+            if(!this.HasProp("__IncludeAvailableStoargeDisks"))
+                this.__IncludeAvailableStoargeDisks := BOOLEAN(this.ptr + 8)
+            return this.__IncludeAvailableStoargeDisks
+        }
     }
 }

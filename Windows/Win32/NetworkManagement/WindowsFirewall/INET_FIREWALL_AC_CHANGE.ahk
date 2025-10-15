@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\INET_FIREWALL_AC_CAPABILITIES.ahk
 #Include .\INET_FIREWALL_AC_BINARIES.ahk
 
@@ -63,11 +64,14 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Friendly name of the app container.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    displayName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    displayName{
+        get {
+            if(!this.HasProp("__displayName"))
+                this.__displayName := PWSTR(this.ptr + 24)
+            return this.__displayName
+        }
     }
 
     /**

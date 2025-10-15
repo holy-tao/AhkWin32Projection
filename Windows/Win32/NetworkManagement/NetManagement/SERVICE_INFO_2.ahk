@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -12,11 +13,14 @@ class SERVICE_INFO_2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    svci2_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    svci2_name{
+        get {
+            if(!this.HasProp("__svci2_name"))
+                this.__svci2_name := PWSTR(this.ptr + 0)
+            return this.__svci2_name
+        }
     }
 
     /**
@@ -44,11 +48,14 @@ class SERVICE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    svci2_text {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    svci2_text{
+        get {
+            if(!this.HasProp("__svci2_text"))
+                this.__svci2_text := PWSTR(this.ptr + 24)
+            return this.__svci2_text
+        }
     }
 
     /**
@@ -60,10 +67,13 @@ class SERVICE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    svci2_display_name {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    svci2_display_name{
+        get {
+            if(!this.HasProp("__svci2_display_name"))
+                this.__svci2_display_name := PWSTR(this.ptr + 40)
+            return this.__svci2_display_name
+        }
     }
 }

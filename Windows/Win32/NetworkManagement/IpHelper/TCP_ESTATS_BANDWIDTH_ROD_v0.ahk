@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains read-only dynamic information for extended TCP statistics on bandwidth estimation for a TCP connection.
@@ -72,21 +73,27 @@ class TCP_ESTATS_BANDWIDTH_ROD_v0 extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A boolean value that indicates if the computed outbound bandwidth estimate for the network path for the TCP connection has reached its peak value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    OutboundBandwidthPeaked {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
+    OutboundBandwidthPeaked{
+        get {
+            if(!this.HasProp("__OutboundBandwidthPeaked"))
+                this.__OutboundBandwidthPeaked := BOOLEAN(this.ptr + 32)
+            return this.__OutboundBandwidthPeaked
+        }
     }
 
     /**
      * Type: <b>BOOLEAN</b>
      * 
      * A boolean value that indicates if the computed inbound bandwidth estimate for the network path for the TCP connection has reached its peak value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    InboundBandwidthPeaked {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
+    InboundBandwidthPeaked{
+        get {
+            if(!this.HasProp("__InboundBandwidthPeaked"))
+                this.__InboundBandwidthPeaked := BOOLEAN(this.ptr + 33)
+            return this.__InboundBandwidthPeaked
+        }
     }
 }

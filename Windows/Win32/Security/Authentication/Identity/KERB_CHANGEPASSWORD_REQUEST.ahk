@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information used to change a password.
@@ -73,10 +75,13 @@ class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
 
     /**
      * TRUE if the client is impersonating another <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security principal</a>. Otherwise, false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Impersonating {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
+    Impersonating{
+        get {
+            if(!this.HasProp("__Impersonating"))
+                this.__Impersonating := BOOLEAN(this.ptr + 72)
+            return this.__Impersonating
+        }
     }
 }

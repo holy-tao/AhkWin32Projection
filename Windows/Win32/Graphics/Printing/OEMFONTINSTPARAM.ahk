@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -20,27 +22,36 @@ class OEMFONTINSTPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hPrinter {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hPrinter{
+        get {
+            if(!this.HasProp("__hPrinter"))
+                this.__hPrinter := HANDLE(this.ptr + 8)
+            return this.__hPrinter
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hModule {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hModule{
+        get {
+            if(!this.HasProp("__hModule"))
+                this.__hModule := HANDLE(this.ptr + 16)
+            return this.__hModule
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hHeap {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hHeap{
+        get {
+            if(!this.HasProp("__hHeap"))
+                this.__hHeap := HANDLE(this.ptr + 24)
+            return this.__hHeap
+        }
     }
 
     /**
@@ -52,11 +63,14 @@ class OEMFONTINSTPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pFontInstallerName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pFontInstallerName{
+        get {
+            if(!this.HasProp("__pFontInstallerName"))
+                this.__pFontInstallerName := PWSTR(this.ptr + 40)
+            return this.__pFontInstallerName
+        }
     }
 
     /**

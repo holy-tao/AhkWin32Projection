@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTREEITEM.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\TVITEMEXW.ahk
 #Include .\TVITEMW.ahk
 
@@ -32,20 +36,26 @@ class TVINSERTSTRUCTW extends Win32Struct
      * Type: <b>HTREEITEM</b>
      * 
      * Handle to the parent item. If this member is the TVI_ROOT value or <b>NULL</b>, the item is inserted at the root of the tree-view control.
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
-    hParent {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hParent{
+        get {
+            if(!this.HasProp("__hParent"))
+                this.__hParent := HTREEITEM(this.ptr + 0)
+            return this.__hParent
+        }
     }
 
     /**
      * Type: <b>HTREEITEM</b>
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
-    hInsertAfter {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hInsertAfter{
+        get {
+            if(!this.HasProp("__hInsertAfter"))
+                this.__hInsertAfter := HTREEITEM(this.ptr + 8)
+            return this.__hInsertAfter
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
+#Include .\NET_IF_COMPARTMENT_ID.ahk
 
 /**
  * The NDIS_INTERFACE_INFORMATION structure provides information about a network interface for the OID_GEN_INTERFACE_INFO OID.
@@ -82,21 +84,27 @@ class NDIS_INTERFACE_INFORMATION extends Win32Struct
      *      value is the same as the value that 
      *      <a href="https://docs.microsoft.com/windows-hardware/drivers/network/oid-gen-promiscuous-mode">OID_GEN_PROMISCUOUS_MODE</a> OID query
      *      returns.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ifPromiscuousMode {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
+    ifPromiscuousMode{
+        get {
+            if(!this.HasProp("__ifPromiscuousMode"))
+                this.__ifPromiscuousMode := BOOLEAN(this.ptr + 20)
+            return this.__ifPromiscuousMode
+        }
     }
 
     /**
      * A Boolean value that is <b>TRUE</b> if the interface supports wake-on-LAN capability and the capability is enabled, or <b>FALSE</b> if it does
      *      not.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ifDeviceWakeUpEnable {
-        get => NumGet(this, 21, "char")
-        set => NumPut("char", value, this, 21)
+    ifDeviceWakeUpEnable{
+        get {
+            if(!this.HasProp("__ifDeviceWakeUpEnable"))
+                this.__ifDeviceWakeUpEnable := BOOLEAN(this.ptr + 21)
+            return this.__ifDeviceWakeUpEnable
+        }
     }
 
     /**
@@ -370,11 +378,14 @@ class NDIS_INTERFACE_INFORMATION extends Win32Struct
      *      compartment to which the interface belongs. Otherwise, it should return
      *      NET_IF_COMPARTMENT_ID_UNSPECIFIED. If the interface provider returns NET_IF_COMPARTMENT_ID_UNSPECIFIED
      *      for the compartment ID, NDIS will return the right compartment ID for this interface.
-     * @type {Integer}
+     * @type {NET_IF_COMPARTMENT_ID}
      */
-    CompartmentId {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
+    CompartmentId{
+        get {
+            if(!this.HasProp("__CompartmentId"))
+                this.__CompartmentId := NET_IF_COMPARTMENT_ID(this.ptr + 208)
+            return this.__CompartmentId
+        }
     }
 
     /**

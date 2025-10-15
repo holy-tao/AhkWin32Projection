@@ -9,6 +9,7 @@
 #Include .\WHV_CPUID_OUTPUT.ahk
 #Include .\WHV_X64_CPUID_RESULT2.ahk
 #Include .\WHV_MSR_ACTION_ENTRY.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\WHV_X64_MSR_EXIT_BITMAP.ahk
 #Include .\WHV_PROCESSOR_FEATURES1.ahk
 #Include .\WHV_PROCESSOR_FEATURES_BANKS.ahk
@@ -153,19 +154,25 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SeparateSecurityDomain {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    SeparateSecurityDomain{
+        get {
+            if(!this.HasProp("__SeparateSecurityDomain"))
+                this.__SeparateSecurityDomain := BOOL(this.ptr + 0)
+            return this.__SeparateSecurityDomain
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    NestedVirtualization {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    NestedVirtualization{
+        get {
+            if(!this.HasProp("__NestedVirtualization"))
+                this.__NestedVirtualization := BOOL(this.ptr + 0)
+            return this.__NestedVirtualization
+        }
     }
 
     /**
@@ -196,11 +203,14 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    ApicRemoteRead {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    ApicRemoteRead{
+        get {
+            if(!this.HasProp("__ApicRemoteRead"))
+                this.__ApicRemoteRead := BOOL(this.ptr + 0)
+            return this.__ApicRemoteRead
+        }
     }
 
     /**
@@ -271,11 +281,14 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    AllowDeviceAssignment {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    AllowDeviceAssignment{
+        get {
+            if(!this.HasProp("__AllowDeviceAssignment"))
+                this.__AllowDeviceAssignment := BOOL(this.ptr + 0)
+            return this.__AllowDeviceAssignment
+        }
     }
 
     /**
@@ -290,10 +303,13 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    DisableSmt {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    DisableSmt{
+        get {
+            if(!this.HasProp("__DisableSmt"))
+                this.__DisableSmt := BOOL(this.ptr + 0)
+            return this.__DisableSmt
+        }
     }
 }

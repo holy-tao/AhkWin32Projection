@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -141,11 +142,14 @@ class OCSP_RESPONSE_INFO extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszObjId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszObjId{
+        get {
+            if(!this.HasProp("__pszObjId"))
+                this.__pszObjId := PSTR(this.ptr + 8)
+            return this.__pszObjId
+        }
     }
 
     /**

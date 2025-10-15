@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -77,11 +78,14 @@ class DNS_SIG_DATAA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pNameSigner {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pNameSigner{
+        get {
+            if(!this.HasProp("__pNameSigner"))
+                this.__pNameSigner := PSTR(this.ptr + 24)
+            return this.__pNameSigner
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -13,27 +14,36 @@ class CABINET_INFO_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    CabinetPath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    CabinetPath{
+        get {
+            if(!this.HasProp("__CabinetPath"))
+                this.__CabinetPath := PSTR(this.ptr + 0)
+            return this.__CabinetPath
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    CabinetFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    CabinetFile{
+        get {
+            if(!this.HasProp("__CabinetFile"))
+                this.__CabinetFile := PSTR(this.ptr + 8)
+            return this.__CabinetFile
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    DiskName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    DiskName{
+        get {
+            if(!this.HasProp("__DiskName"))
+                this.__DiskName := PSTR(this.ptr + 16)
+            return this.__DiskName
+        }
     }
 
     /**

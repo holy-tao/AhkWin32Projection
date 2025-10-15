@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\COLORREF.ahk
 
 /**
  * Defines the attributes of cells in a table row.
@@ -152,65 +153,83 @@ class TABLECELLPARMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Left border color (\clbrdrl\brdrcf).
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBrdrLeft {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    crBrdrLeft{
+        get {
+            if(!this.HasProp("__crBrdrLeft"))
+                this.__crBrdrLeft := COLORREF(this.ptr + 16)
+            return this.__crBrdrLeft
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Top border color (\clbrdrt\brdrcf).
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBrdrTop {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    crBrdrTop{
+        get {
+            if(!this.HasProp("__crBrdrTop"))
+                this.__crBrdrTop := COLORREF(this.ptr + 20)
+            return this.__crBrdrTop
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Right border color (\clbrdrr\brdrcf).
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBrdrRight {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    crBrdrRight{
+        get {
+            if(!this.HasProp("__crBrdrRight"))
+                this.__crBrdrRight := COLORREF(this.ptr + 24)
+            return this.__crBrdrRight
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Bottom border color (\clbrdrb\brdrcf).
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBrdrBottom {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+    crBrdrBottom{
+        get {
+            if(!this.HasProp("__crBrdrBottom"))
+                this.__crBrdrBottom := COLORREF(this.ptr + 28)
+            return this.__crBrdrBottom
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Background color (\clcbpat).
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crBackPat {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    crBackPat{
+        get {
+            if(!this.HasProp("__crBackPat"))
+                this.__crBackPat := COLORREF(this.ptr + 32)
+            return this.__crBackPat
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Foreground color (\clcfpat).
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crForePat {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+    crForePat{
+        get {
+            if(!this.HasProp("__crForePat"))
+                this.__crForePat := COLORREF(this.ptr + 36)
+            return this.__crForePat
+        }
     }
 }

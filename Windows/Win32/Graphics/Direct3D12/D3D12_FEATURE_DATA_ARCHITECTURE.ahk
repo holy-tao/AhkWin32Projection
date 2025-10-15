@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Provides detail about the adapter architecture, so that your application can better optimize for certain adapter properties.
@@ -78,30 +79,39 @@ class D3D12_FEATURE_DATA_ARCHITECTURE extends Win32Struct
     /**
      * Specifies whether the hardware and driver support a tile-based renderer.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support a tile-based renderer.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    TileBasedRenderer {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    TileBasedRenderer{
+        get {
+            if(!this.HasProp("__TileBasedRenderer"))
+                this.__TileBasedRenderer := BOOL(this.ptr + 4)
+            return this.__TileBasedRenderer
+        }
     }
 
     /**
      * Specifies whether the hardware and driver support UMA.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support UMA.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    UMA {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    UMA{
+        get {
+            if(!this.HasProp("__UMA"))
+                this.__UMA := BOOL(this.ptr + 8)
+            return this.__UMA
+        }
     }
 
     /**
      * Specifies whether the hardware and driver support cache-coherent UMA.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support cache-coherent UMA.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    CacheCoherentUMA {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    CacheCoherentUMA{
+        get {
+            if(!this.HasProp("__CacheCoherentUMA"))
+                this.__CacheCoherentUMA := BOOL(this.ptr + 12)
+            return this.__CacheCoherentUMA
+        }
     }
 }

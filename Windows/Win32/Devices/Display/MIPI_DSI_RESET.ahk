@@ -20,11 +20,39 @@ class MIPI_DSI_RESET extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - MipiErrors
+     * - ResetFailed
+     * - NeedModeSet
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 4, "uint")
         set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MipiErrors {
+        get => (this._bitfield >> 0) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ResetFailed {
+        get => (this._bitfield >> 16) & 0x1
+        set => this._bitfield := ((value & 0x1) << 16) | (this._bitfield & ~(0x1 << 16))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NeedModeSet {
+        get => (this._bitfield >> 17) & 0x1
+        set => this._bitfield := ((value & 0x1) << 17) | (this._bitfield & ~(0x1 << 17))
     }
 
     /**

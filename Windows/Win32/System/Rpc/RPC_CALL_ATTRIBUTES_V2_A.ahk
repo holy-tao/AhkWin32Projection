@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The RPC_CALL_ATTRIBUTES_V2 structure provides parameters to the RpcServerInqCallAttributes function. Version 2 specifies support for local addresses and client process IDs.
@@ -168,20 +170,26 @@ class RPC_CALL_ATTRIBUTES_V2_A extends Win32Struct
 
     /**
      * Specifies whether a <b>Null</b> session is used. Zero indicates the call is not coming over a <b>Null</b> session; any other value indicates a <b>Null</b> session.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    NullSession {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    NullSession{
+        get {
+            if(!this.HasProp("__NullSession"))
+                this.__NullSession := BOOL(this.ptr + 48)
+            return this.__NullSession
+        }
     }
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOL}
      */
-    KernelModeCaller {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    KernelModeCaller{
+        get {
+            if(!this.HasProp("__KernelModeCaller"))
+                this.__KernelModeCaller := BOOL(this.ptr + 52)
+            return this.__KernelModeCaller
+        }
     }
 
     /**
@@ -204,11 +212,14 @@ class RPC_CALL_ATTRIBUTES_V2_A extends Win32Struct
 
     /**
      * Handle that contains the process ID of the calling client. This field is only supported for the ncalrpc protocol sequence, and is populated only when <b>RPC_QUERY_CLIENT_PID</b> is specified in the <i>Flags</i> parameter.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ClientPID {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    ClientPID{
+        get {
+            if(!this.HasProp("__ClientPID"))
+                this.__ClientPID := HANDLE(this.ptr + 64)
+            return this.__ClientPID
+        }
     }
 
     /**

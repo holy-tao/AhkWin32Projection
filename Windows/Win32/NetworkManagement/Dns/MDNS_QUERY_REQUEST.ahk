@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the necessary information to perform an mDNS query.
@@ -36,11 +38,14 @@ class MDNS_QUERY_REQUEST extends Win32Struct
 
     /**
      * A string representing the name to be queried over mDNS.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Query {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Query{
+        get {
+            if(!this.HasProp("__Query"))
+                this.__Query := PWSTR(this.ptr + 8)
+            return this.__Query
+        }
     }
 
     /**
@@ -90,11 +95,14 @@ class MDNS_QUERY_REQUEST extends Win32Struct
 
     /**
      * Reserved. Do not use.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAnswerReceived {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    fAnswerReceived{
+        get {
+            if(!this.HasProp("__fAnswerReceived"))
+                this.__fAnswerReceived := BOOL(this.ptr + 56)
+            return this.__fAnswerReceived
+        }
     }
 
     /**

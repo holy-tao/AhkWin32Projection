@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Holds handle trace information returned by PssQuerySnapshot.
@@ -20,11 +21,14 @@ class PSS_HANDLE_TRACE_INFORMATION extends Win32Struct
 
     /**
      * A handle to a section containing the handle trace information.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    SectionHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    SectionHandle{
+        get {
+            if(!this.HasProp("__SectionHandle"))
+                this.__SectionHandle := HANDLE(this.ptr + 0)
+            return this.__SectionHandle
+        }
     }
 
     /**

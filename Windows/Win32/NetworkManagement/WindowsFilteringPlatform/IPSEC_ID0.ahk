@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information corresponding to identities that are authenticated by IPsec.
@@ -20,20 +21,26 @@ class IPSEC_ID0 extends Win32Struct
 
     /**
      * Optional main mode target service principal name (SPN).  This is often the machine name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    mmTargetName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    mmTargetName{
+        get {
+            if(!this.HasProp("__mmTargetName"))
+                this.__mmTargetName := PWSTR(this.ptr + 0)
+            return this.__mmTargetName
+        }
     }
 
     /**
      * Optional extended mode target SPN.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    emTargetName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    emTargetName{
+        get {
+            if(!this.HasProp("__emTargetName"))
+                this.__emTargetName := PWSTR(this.ptr + 8)
+            return this.__emTargetName
+        }
     }
 
     /**

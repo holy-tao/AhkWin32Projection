@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -20,35 +22,47 @@ class SIGNER_ATTR_AUTHCODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCommercial {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fCommercial{
+        get {
+            if(!this.HasProp("__fCommercial"))
+                this.__fCommercial := BOOL(this.ptr + 4)
+            return this.__fCommercial
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIndividual {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fIndividual{
+        get {
+            if(!this.HasProp("__fIndividual"))
+                this.__fIndividual := BOOL(this.ptr + 8)
+            return this.__fIndividual
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszName{
+        get {
+            if(!this.HasProp("__pwszName"))
+                this.__pwszName := PWSTR(this.ptr + 16)
+            return this.__pwszName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszInfo {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszInfo{
+        get {
+            if(!this.HasProp("__pwszInfo"))
+                this.__pwszInfo := PWSTR(this.ptr + 24)
+            return this.__pwszInfo
+        }
     }
 
     /**

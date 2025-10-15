@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
@@ -18600,16 +18601,16 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Byte>} param2 
-     * @param {Pointer<Byte>} param3 
+     * @param {PSTR} param1 
+     * @param {PSTR} param2 
+     * @param {PSTR} param3 
      * @param {Integer} param4 
      * @returns {Integer} 
      */
     static bcp_initA(param0, param1, param2, param3, param4) {
-        param1 := param1 is String? StrPtr(param1) : param1
-        param2 := param2 is String? StrPtr(param2) : param2
-        param3 := param3 is String? StrPtr(param3) : param3
+        param1 := param1 is String ? StrPtr(param1) : param1
+        param2 := param2 is String ? StrPtr(param2) : param2
+        param3 := param3 is String ? StrPtr(param3) : param3
 
         result := DllCall("odbcbcp.dll\bcp_initA", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "int", param4, "short")
         return result
@@ -18618,16 +18619,16 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Char>} param1 
-     * @param {Pointer<Char>} param2 
-     * @param {Pointer<Char>} param3 
+     * @param {PWSTR} param1 
+     * @param {PWSTR} param2 
+     * @param {PWSTR} param3 
      * @param {Integer} param4 
      * @returns {Integer} 
      */
     static bcp_initW(param0, param1, param2, param3, param4) {
-        param1 := param1 is String? StrPtr(param1) : param1
-        param2 := param2 is String? StrPtr(param2) : param2
-        param3 := param3 is String? StrPtr(param3) : param3
+        param1 := param1 is String ? StrPtr(param1) : param1
+        param2 := param2 is String ? StrPtr(param2) : param2
+        param3 := param3 is String ? StrPtr(param3) : param3
 
         result := DllCall("odbcbcp.dll\bcp_initW", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "int", param4, "short")
         return result
@@ -18648,11 +18649,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param1 
      * @returns {Integer} 
      */
     static bcp_readfmtA(param0, param1) {
-        param1 := param1 is String? StrPtr(param1) : param1
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("odbcbcp.dll\bcp_readfmtA", "ptr", param0, "ptr", param1, "short")
         return result
@@ -18661,11 +18662,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param1 
      * @returns {Integer} 
      */
     static bcp_readfmtW(param0, param1) {
-        param1 := param1 is String? StrPtr(param1) : param1
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("odbcbcp.dll\bcp_readfmtW", "ptr", param0, "ptr", param1, "short")
         return result
@@ -18698,11 +18699,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param1 
      * @returns {Integer} 
      */
     static bcp_writefmtA(param0, param1) {
-        param1 := param1 is String? StrPtr(param1) : param1
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("odbcbcp.dll\bcp_writefmtA", "ptr", param0, "ptr", param1, "short")
         return result
@@ -18711,11 +18712,11 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param1 
      * @returns {Integer} 
      */
     static bcp_writefmtW(param0, param1) {
-        param1 := param1 is String? StrPtr(param1) : param1
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("odbcbcp.dll\bcp_writefmtW", "ptr", param0, "ptr", param1, "short")
         return result
@@ -18724,20 +18725,20 @@ class Search {
     /**
      * 
      * @param {Integer} param0 
-     * @returns {Pointer<Byte>} 
+     * @returns {PSTR} 
      */
     static dbprtypeA(param0) {
-        result := DllCall("odbcbcp.dll\dbprtypeA", "int", param0, "char*")
+        result := DllCall("odbcbcp.dll\dbprtypeA", "int", param0, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} param0 
-     * @returns {Pointer<Char>} 
+     * @returns {PWSTR} 
      */
     static dbprtypeW(param0) {
-        result := DllCall("odbcbcp.dll\dbprtypeW", "int", param0, "char*")
+        result := DllCall("odbcbcp.dll\dbprtypeW", "int", param0, "ptr")
         return result
     }
 
@@ -18754,12 +18755,12 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param1 
      * @param {Integer} param2 
      * @returns {Integer} 
      */
     static SQLLinkedCatalogsA(param0, param1, param2) {
-        param1 := param1 is String? StrPtr(param1) : param1
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("odbcbcp.dll\SQLLinkedCatalogsA", "ptr", param0, "ptr", param1, "short", param2, "short")
         return result
@@ -18768,12 +18769,12 @@ class Search {
     /**
      * 
      * @param {Pointer<Void>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param1 
      * @param {Integer} param2 
      * @returns {Integer} 
      */
     static SQLLinkedCatalogsW(param0, param1, param2) {
-        param1 := param1 is String? StrPtr(param1) : param1
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("odbcbcp.dll\SQLLinkedCatalogsW", "ptr", param0, "ptr", param1, "short", param2, "short")
         return result
@@ -18781,36 +18782,40 @@ class Search {
 
     /**
      * 
-     * @param {Pointer<Char>} pwchServerName 
-     * @param {Pointer<Char>} pwchInstanceName 
-     * @returns {Pointer<Void>} 
+     * @param {PWSTR} pwchServerName 
+     * @param {PWSTR} pwchInstanceName 
+     * @returns {HANDLE} 
      */
     static SQLInitEnumServers(pwchServerName, pwchInstanceName) {
-        pwchServerName := pwchServerName is String? StrPtr(pwchServerName) : pwchServerName
-        pwchInstanceName := pwchInstanceName is String? StrPtr(pwchInstanceName) : pwchInstanceName
+        pwchServerName := pwchServerName is String ? StrPtr(pwchServerName) : pwchServerName
+        pwchInstanceName := pwchInstanceName is String ? StrPtr(pwchInstanceName) : pwchInstanceName
 
         result := DllCall("odbcbcp.dll\SQLInitEnumServers", "ptr", pwchServerName, "ptr", pwchInstanceName, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hEnumHandle 
+     * @param {HANDLE} hEnumHandle 
      * @param {Pointer<Byte>} prgEnumData 
      * @param {Pointer<Int32>} piEnumLength 
      * @returns {Integer} 
      */
     static SQLGetNextEnumeration(hEnumHandle, prgEnumData, piEnumLength) {
+        hEnumHandle := hEnumHandle is Win32Handle ? NumGet(hEnumHandle, "ptr") : hEnumHandle
+
         result := DllCall("odbcbcp.dll\SQLGetNextEnumeration", "ptr", hEnumHandle, "char*", prgEnumData, "int*", piEnumLength, "short")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hEnumHandle 
+     * @param {HANDLE} hEnumHandle 
      * @returns {Integer} 
      */
     static SQLCloseEnumServers(hEnumHandle) {
+        hEnumHandle := hEnumHandle is Win32Handle ? NumGet(hEnumHandle, "ptr") : hEnumHandle
+
         result := DllCall("odbcbcp.dll\SQLCloseEnumServers", "ptr", hEnumHandle, "short")
         return result
     }
@@ -19032,10 +19037,10 @@ class Search {
     /**
      * 
      * @param {Integer} dwValue 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ODBCSetTryWaitValue(dwValue) {
-        result := DllCall("ODBC32.dll\ODBCSetTryWaitValue", "uint", dwValue, "int")
+        result := DllCall("ODBC32.dll\ODBCSetTryWaitValue", "uint", dwValue, "ptr")
         return result
     }
 

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -12,27 +14,36 @@ class DBLITERALINFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszLiteralValue {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszLiteralValue{
+        get {
+            if(!this.HasProp("__pwszLiteralValue"))
+                this.__pwszLiteralValue := PWSTR(this.ptr + 0)
+            return this.__pwszLiteralValue
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszInvalidChars {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszInvalidChars{
+        get {
+            if(!this.HasProp("__pwszInvalidChars"))
+                this.__pwszInvalidChars := PWSTR(this.ptr + 8)
+            return this.__pwszInvalidChars
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszInvalidStartingChars {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszInvalidStartingChars{
+        get {
+            if(!this.HasProp("__pwszInvalidStartingChars"))
+                this.__pwszInvalidStartingChars := PWSTR(this.ptr + 16)
+            return this.__pwszInvalidStartingChars
+        }
     }
 
     /**
@@ -44,11 +55,14 @@ class DBLITERALINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSupported {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    fSupported{
+        get {
+            if(!this.HasProp("__fSupported"))
+                this.__fSupported := BOOL(this.ptr + 28)
+            return this.__fSupported
+        }
     }
 
     /**

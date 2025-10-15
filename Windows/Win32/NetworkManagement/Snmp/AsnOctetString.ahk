@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AsnOctetString structure contains octet quantities, usually bytes. This structure is used by multiple SNMP functions. This structure is not used by the WinSNMP API functions.
@@ -43,10 +44,13 @@ class AsnOctetString extends Win32Struct
     /**
      * Flag that specifies whether the data stream has been dynamically allocated with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemalloc">SnmpUtilMemAlloc</a> function.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    dynamic {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    dynamic{
+        get {
+            if(!this.HasProp("__dynamic"))
+                this.__dynamic := BOOL(this.ptr + 12)
+            return this.__dynamic
+        }
     }
 }

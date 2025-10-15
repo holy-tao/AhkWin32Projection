@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -36,11 +37,14 @@ class DebugStackFrameDescriptor64 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fFinal {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fFinal{
+        get {
+            if(!this.HasProp("__fFinal"))
+                this.__fFinal := BOOL(this.ptr + 24)
+            return this.__fFinal
+        }
     }
 
     /**

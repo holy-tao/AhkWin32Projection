@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes a set of retrieved disks that can be used as log disks for the specified data disk.
@@ -24,10 +25,13 @@ class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_LOGDISKS extends Win32Struct
 
     /**
      * When <b>TRUE</b>, the result set includes all the offline disks in the available storage group.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IncludeOfflineDisks {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    IncludeOfflineDisks{
+        get {
+            if(!this.HasProp("__IncludeOfflineDisks"))
+                this.__IncludeOfflineDisks := BOOLEAN(this.ptr + 8)
+            return this.__IncludeOfflineDisks
+        }
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines settings for the DHCP server.
@@ -75,29 +77,38 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server database name that is used by the DHCP server for persistent storage.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DatabaseName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    DatabaseName{
+        get {
+            if(!this.HasProp("__DatabaseName"))
+                this.__DatabaseName := PWSTR(this.ptr + 8)
+            return this.__DatabaseName
+        }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path, where the DHCP server database is stored.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DatabasePath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    DatabasePath{
+        get {
+            if(!this.HasProp("__DatabasePath"))
+                this.__DatabasePath := PWSTR(this.ptr + 16)
+            return this.__DatabasePath
+        }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path for backup storage that is used by the DHCP server for backup.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    BackupPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    BackupPath{
+        get {
+            if(!this.HasProp("__BackupPath"))
+                this.__BackupPath := PWSTR(this.ptr + 24)
+            return this.__BackupPath
+        }
     }
 
     /**
@@ -525,29 +536,38 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path of the BOOTP TABLE given to the BOOTP client.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszBootTableString {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    wszBootTableString{
+        get {
+            if(!this.HasProp("__wszBootTableString"))
+                this.__wszBootTableString := PWSTR(this.ptr + 64)
+            return this.__wszBootTableString
+        }
     }
 
     /**
      * If <b>TRUE</b>, an audit log will be written by the DHCP server; if <b>FALSE</b>, it will not.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAuditLog {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+    fAuditLog{
+        get {
+            if(!this.HasProp("__fAuditLog"))
+                this.__fAuditLog := BOOL(this.ptr + 72)
+            return this.__fAuditLog
+        }
     }
 
     /**
      * If <b>TRUE</b>, Quarantine is turned ON on the DHCP server; if <b>FALSE</b>, it is turned OFF.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    QuarantineOn {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+    QuarantineOn{
+        get {
+            if(!this.HasProp("__QuarantineOn"))
+                this.__QuarantineOn := BOOL(this.ptr + 76)
+            return this.__QuarantineOn
+        }
     }
 
     /**
@@ -561,10 +581,13 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * If <b>TRUE</b>, NAP is enabled on the DHCP server; if <b>FALSE</b>, it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    QuarRuntimeStatus {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+    QuarRuntimeStatus{
+        get {
+            if(!this.HasProp("__QuarRuntimeStatus"))
+                this.__QuarRuntimeStatus := BOOL(this.ptr + 84)
+            return this.__QuarRuntimeStatus
+        }
     }
 }

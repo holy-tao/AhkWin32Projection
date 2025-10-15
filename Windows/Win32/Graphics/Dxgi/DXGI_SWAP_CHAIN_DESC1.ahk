@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include Common\DXGI_SAMPLE_DESC.ahk
 
 /**
@@ -92,11 +93,14 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
      *       must also specify a flip-model swap chain (that is, a swap chain that has the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</a> 
      *       value set in the <b>SwapEffect</b> member).
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Stereo {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    Stereo{
+        get {
+            if(!this.HasProp("__Stereo"))
+                this.__Stereo := BOOL(this.ptr + 12)
+            return this.__Stereo
+        }
     }
 
     /**

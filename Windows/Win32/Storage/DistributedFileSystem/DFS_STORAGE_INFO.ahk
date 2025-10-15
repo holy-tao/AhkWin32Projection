@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a DFS root or link target in a DFS namespace or from the cache maintained by the DFS client.
@@ -37,20 +38,26 @@ class DFS_STORAGE_INFO extends Win32Struct
     /**
      * Pointer to a null-terminated Unicode string that specifies the DFS root target or link target server 
      *       name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ServerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ServerName{
+        get {
+            if(!this.HasProp("__ServerName"))
+                this.__ServerName := PWSTR(this.ptr + 8)
+            return this.__ServerName
+        }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the DFS root target or link target share 
      *       name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ShareName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    ShareName{
+        get {
+            if(!this.HasProp("__ShareName"))
+                this.__ShareName := PWSTR(this.ptr + 16)
+            return this.__ShareName
+        }
     }
 }

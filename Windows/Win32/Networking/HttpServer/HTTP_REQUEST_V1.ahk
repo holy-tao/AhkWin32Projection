@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_VERSION.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_COOKED_URL.ahk
 #Include .\HTTP_TRANSPORT_ADDRESS.ahk
 #Include .\HTTP_KNOWN_HEADER.ahk
@@ -151,20 +153,26 @@ class HTTP_REQUEST_V1 extends Win32Struct
 
     /**
      * If the <b>Verb</b> member is equal to <b>HttpVerbUnknown</b>, <b>pUnknownVerb</b>, points to a null-terminated string of octets that contains the HTTP verb for this request; otherwise, the application ignores this parameter.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pUnknownVerb {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pUnknownVerb{
+        get {
+            if(!this.HasProp("__pUnknownVerb"))
+                this.__pUnknownVerb := PSTR(this.ptr + 48)
+            return this.__pUnknownVerb
+        }
     }
 
     /**
      * A pointer to a string of octets that contains the original, unprocessed URL targeted by this request.  Use this unprocessed URL only for tracking or statistical purposes; the  <b>CookedUrl</b> member contains the canonical form of the URL for general use.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pRawUrl {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pRawUrl{
+        get {
+            if(!this.HasProp("__pRawUrl"))
+                this.__pRawUrl := PSTR(this.ptr + 56)
+            return this.__pRawUrl
+        }
     }
 
     /**

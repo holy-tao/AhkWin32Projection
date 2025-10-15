@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines a subject interface package (SIP). This structure is used by the CryptSIPAddProvider function.
@@ -33,93 +34,123 @@ class SIP_ADD_NEWPROVIDER extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the DLL file.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszDLLFileName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszDLLFileName{
+        get {
+            if(!this.HasProp("__pwszDLLFileName"))
+                this.__pwszDLLFileName := PWSTR(this.ptr + 16)
+            return this.__pwszDLLFileName
+        }
     }
 
     /**
      * This member is not used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszMagicNumber {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszMagicNumber{
+        get {
+            if(!this.HasProp("__pwszMagicNumber"))
+                this.__pwszMagicNumber := PWSTR(this.ptr + 24)
+            return this.__pwszMagicNumber
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that determines whether the file contents are supported by this SIP. This member can be <b>NULL</b>. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nc-mssip-pfnisfilesupported">pfnIsFileSupported</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszIsFunctionName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwszIsFunctionName{
+        get {
+            if(!this.HasProp("__pwszIsFunctionName"))
+                this.__pwszIsFunctionName := PWSTR(this.ptr + 32)
+            return this.__pwszIsFunctionName
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that retrieves the signed data. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipgetsigneddatamsg">CryptSIPGetSignedDataMsg</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszGetFuncName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pwszGetFuncName{
+        get {
+            if(!this.HasProp("__pwszGetFuncName"))
+                this.__pwszGetFuncName := PWSTR(this.ptr + 40)
+            return this.__pwszGetFuncName
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that stores the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Authenticode</a> signature in the target file. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipputsigneddatamsg">CryptSIPPutSignedDataMsg</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszPutFuncName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pwszPutFuncName{
+        get {
+            if(!this.HasProp("__pwszPutFuncName"))
+                this.__pwszPutFuncName := PWSTR(this.ptr + 48)
+            return this.__pwszPutFuncName
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that creates the hash. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipcreateindirectdata">CryptSIPCreateIndirectData</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszCreateFuncName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pwszCreateFuncName{
+        get {
+            if(!this.HasProp("__pwszCreateFuncName"))
+                this.__pwszCreateFuncName := PWSTR(this.ptr + 56)
+            return this.__pwszCreateFuncName
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that verifies the hash. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipverifyindirectdata">CryptSIPVerifyIndirectData</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszVerifyFuncName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pwszVerifyFuncName{
+        get {
+            if(!this.HasProp("__pwszVerifyFuncName"))
+                this.__pwszVerifyFuncName := PWSTR(this.ptr + 64)
+            return this.__pwszVerifyFuncName
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that removes the signed data. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipremovesigneddatamsg">CryptSIPRemoveSignedDataMsg</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszRemoveFuncName {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pwszRemoveFuncName{
+        get {
+            if(!this.HasProp("__pwszRemoveFuncName"))
+                this.__pwszRemoveFuncName := PWSTR(this.ptr + 72)
+            return this.__pwszRemoveFuncName
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the name of the function that determines whether the file name extension is supported by this SIP. This member can be <b>NULL</b>. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nc-mssip-pfnisfilesupportedname">pfnIsFileSupportedName</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszIsFunctionNameFmt2 {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    pwszIsFunctionNameFmt2{
+        get {
+            if(!this.HasProp("__pwszIsFunctionNameFmt2"))
+                this.__pwszIsFunctionNameFmt2 := PWSTR(this.ptr + 80)
+            return this.__pwszIsFunctionNameFmt2
+        }
     }
 
     /**
      * Pointer to a null-terminated string that contains the name  of the function that determines the capabilities of the SIP. If this parameter is set to <b>NULL</b>, multiple signatures are not available for this SIP. The signature for this function pointer is described in <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nc-mssip-pcryptsipgetcaps">pCryptSIPGetCaps</a>.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This member is not available.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszGetCapFuncName {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    pwszGetCapFuncName{
+        get {
+            if(!this.HasProp("__pwszGetCapFuncName"))
+                this.__pwszGetCapFuncName := PWSTR(this.ptr + 88)
+            return this.__pwszGetCapFuncName
+        }
     }
 }

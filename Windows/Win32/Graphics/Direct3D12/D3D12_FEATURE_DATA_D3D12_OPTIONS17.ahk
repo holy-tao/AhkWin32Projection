@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -12,18 +13,24 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS17 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    NonNormalizedCoordinateSamplersSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    NonNormalizedCoordinateSamplersSupported{
+        get {
+            if(!this.HasProp("__NonNormalizedCoordinateSamplersSupported"))
+                this.__NonNormalizedCoordinateSamplersSupported := BOOL(this.ptr + 0)
+            return this.__NonNormalizedCoordinateSamplersSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    ManualWriteTrackingResourceSupported {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    ManualWriteTrackingResourceSupported{
+        get {
+            if(!this.HasProp("__ManualWriteTrackingResourceSupported"))
+                this.__ManualWriteTrackingResourceSupported := BOOL(this.ptr + 4)
+            return this.__ManualWriteTrackingResourceSupported
+        }
     }
 }

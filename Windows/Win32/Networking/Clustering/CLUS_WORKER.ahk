@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a worker thread.
@@ -27,19 +29,25 @@ class CLUS_WORKER extends Win32Struct
 
     /**
      * Handle to the worker thread.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hThread {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hThread{
+        get {
+            if(!this.HasProp("__hThread"))
+                this.__hThread := HANDLE(this.ptr + 0)
+            return this.__hThread
+        }
     }
 
     /**
      * Flag that indicates whether the thread is to be terminated.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Terminate {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    Terminate{
+        get {
+            if(!this.HasProp("__Terminate"))
+                this.__Terminate := BOOL(this.ptr + 8)
+            return this.__Terminate
+        }
     }
 }

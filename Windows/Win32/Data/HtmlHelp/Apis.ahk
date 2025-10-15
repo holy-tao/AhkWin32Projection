@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HWND.ahk
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
@@ -1232,14 +1233,14 @@ class HtmlHelp {
 ;@region Methods
     /**
      * Displays a help window.
-     * @param {Pointer<Void>} hwndCaller Specifies the handle (<i>hwnd</i>) of the window calling <b>HtmlHelp</b>. The help window is owned by this window. 
+     * @param {HWND} hwndCaller Specifies the handle (<i>hwnd</i>) of the window calling <b>HtmlHelp</b>. The help window is owned by this window. 
      * 
      * 
      * 
      * When the help window is closed, <b>HtmlHelp</b> will return focus to the owner unless the owner is the desktop. If <i>hwndCaller</i> is the desktop, then the operating system determines where focus is returned.
      * 
      * In addition, if <b>HtmlHelp</b> sends any notification messages from the help window, they are sent to <i>hwndCaller</i> as long as you have enabled <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-notification-messages">notification message</a> tracking in the help window definition.
-     * @param {Pointer<Byte>} pszFile Depending on the <i>uCommand</i> value, specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-html-help-urls">file path</a> to either a compiled help (.chm) file, or a topic file within a specified help file. 
+     * @param {PSTR} pszFile Depending on the <i>uCommand</i> value, specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-html-help-urls">file path</a> to either a compiled help (.chm) file, or a topic file within a specified help file. 
      * 
      * 
      * 
@@ -1248,7 +1249,7 @@ class HtmlHelp {
      * If the specified command does not require a file, this value may be NULL.
      * @param {Integer} uCommand Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-commands">command</a> to complete.
      * @param {Pointer} dwData Specifies any data that may be required, based on the value of the <i>uCommand</i> parameter.
-     * @returns {Pointer<Void>} Depending on the specified <i>uCommand</i> and the result, <b>HtmlHelp</b> returns one or both of the following: 
+     * @returns {HWND} Depending on the specified <i>uCommand</i> and the result, <b>HtmlHelp</b> returns one or both of the following: 
      * 
      * <ul>
      * <li>The handle (hwnd) of the help window.</li>
@@ -1257,22 +1258,23 @@ class HtmlHelp {
      * @see https://docs.microsoft.com/windows/win32/api//htmlhelp/nf-htmlhelp-htmlhelpa
      */
     static HtmlHelpA(hwndCaller, pszFile, uCommand, dwData) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
+        hwndCaller := hwndCaller is Win32Handle ? NumGet(hwndCaller, "ptr") : hwndCaller
 
         result := DllCall("hhctrl.ocx\HtmlHelpA", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Displays a help window.
-     * @param {Pointer<Void>} hwndCaller Specifies the handle (<i>hwnd</i>) of the window calling <b>HtmlHelp</b>. The help window is owned by this window. 
+     * @param {HWND} hwndCaller Specifies the handle (<i>hwnd</i>) of the window calling <b>HtmlHelp</b>. The help window is owned by this window. 
      * 
      * 
      * 
      * When the help window is closed, <b>HtmlHelp</b> will return focus to the owner unless the owner is the desktop. If <i>hwndCaller</i> is the desktop, then the operating system determines where focus is returned.
      * 
      * In addition, if <b>HtmlHelp</b> sends any notification messages from the help window, they are sent to <i>hwndCaller</i> as long as you have enabled <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-notification-messages">notification message</a> tracking in the help window definition.
-     * @param {Pointer<Char>} pszFile Depending on the <i>uCommand</i> value, specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-html-help-urls">file path</a> to either a compiled help (.chm) file, or a topic file within a specified help file. 
+     * @param {PWSTR} pszFile Depending on the <i>uCommand</i> value, specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-html-help-urls">file path</a> to either a compiled help (.chm) file, or a topic file within a specified help file. 
      * 
      * 
      * 
@@ -1281,7 +1283,7 @@ class HtmlHelp {
      * If the specified command does not require a file, this value may be NULL.
      * @param {Integer} uCommand Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-commands">command</a> to complete.
      * @param {Pointer} dwData Specifies any data that may be required, based on the value of the <i>uCommand</i> parameter.
-     * @returns {Pointer<Void>} Depending on the specified <i>uCommand</i> and the result, <b>HtmlHelp</b> returns one or both of the following: 
+     * @returns {HWND} Depending on the specified <i>uCommand</i> and the result, <b>HtmlHelp</b> returns one or both of the following: 
      * 
      * <ul>
      * <li>The handle (hwnd) of the help window.</li>
@@ -1290,10 +1292,11 @@ class HtmlHelp {
      * @see https://docs.microsoft.com/windows/win32/api//htmlhelp/nf-htmlhelp-htmlhelpw
      */
     static HtmlHelpW(hwndCaller, pszFile, uCommand, dwData) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
+        hwndCaller := hwndCaller is Win32Handle ? NumGet(hwndCaller, "ptr") : hwndCaller
 
         result := DllCall("hhctrl.ocx\HtmlHelpW", "ptr", hwndCaller, "ptr", pszFile, "uint", uCommand, "ptr", dwData, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
 ;@endregion Methods

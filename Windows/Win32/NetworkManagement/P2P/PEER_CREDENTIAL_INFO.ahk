@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -34,11 +35,14 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the issuer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzFriendlyName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwzFriendlyName{
+        get {
+            if(!this.HasProp("__pwzFriendlyName"))
+                this.__pwzFriendlyName := PWSTR(this.ptr + 8)
+            return this.__pwzFriendlyName
+        }
     }
 
     /**
@@ -52,20 +56,26 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the membership issuer's PNRP name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzIssuerPeerName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwzIssuerPeerName{
+        get {
+            if(!this.HasProp("__pwzIssuerPeerName"))
+                this.__pwzIssuerPeerName := PWSTR(this.ptr + 24)
+            return this.__pwzIssuerPeerName
+        }
     }
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the issuer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzIssuerFriendlyName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwzIssuerFriendlyName{
+        get {
+            if(!this.HasProp("__pwzIssuerFriendlyName"))
+                this.__pwzIssuerFriendlyName := PWSTR(this.ptr + 32)
+            return this.__pwzIssuerFriendlyName
+        }
     }
 
     /**

@@ -11,6 +11,57 @@ class OS_INFO_v1 extends Win32Struct
 
     static packingSize => 8
 
+    class _s extends Win32Struct {
+        static sizeof => 352
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - Checked
+         * - Pae
+         * - MultiProc
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Checked {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Pae {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MultiProc {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 3) & 0x1FFFFFFF
+            set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -77,11 +128,14 @@ class OS_INFO_v1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_s}
      */
-    s {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    s{
+        get {
+            if(!this.HasProp("__s"))
+                this.__s := %this.__Class%._s(this.ptr + 24)
+            return this.__s
+        }
     }
 
     /**

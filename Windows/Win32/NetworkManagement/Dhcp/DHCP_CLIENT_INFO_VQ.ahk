@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_BINARY_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DATE_TIME.ahk
 #Include .\DHCP_HOST_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines information about the DHCPv4 client.
@@ -53,20 +55,26 @@ class DHCP_CLIENT_INFO_VQ extends Win32Struct
 
     /**
      * Ppointer to a null-terminated Unicode string that represents the DHCPv4 client's machine name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClientName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ClientName{
+        get {
+            if(!this.HasProp("__ClientName"))
+                this.__ClientName := PWSTR(this.ptr + 24)
+            return this.__ClientName
+        }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description given to the DHCPv4 client.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClientComment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    ClientComment{
+        get {
+            if(!this.HasProp("__ClientComment"))
+                this.__ClientComment := PWSTR(this.ptr + 32)
+            return this.__ClientComment
+        }
     }
 
     /**
@@ -258,10 +266,13 @@ class DHCP_CLIENT_INFO_VQ extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the DHCPv4 client is quarantine-enabled; if <b>FALSE</b>, it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    QuarantineCapable {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+    QuarantineCapable{
+        get {
+            if(!this.HasProp("__QuarantineCapable"))
+                this.__QuarantineCapable := BOOL(this.ptr + 88)
+            return this.__QuarantineCapable
+        }
     }
 }

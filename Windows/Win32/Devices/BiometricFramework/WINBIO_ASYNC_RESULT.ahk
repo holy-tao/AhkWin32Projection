@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\WINBIO_IDENTITY.ahk
 #Include .\WINBIO_EVENT.ahk
 #Include .\WINBIO_PROTECTION_POLICY.ahk
@@ -218,11 +219,14 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
-        Match {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        Match{
+            get {
+                if(!this.HasProp("__Match"))
+                    this.__Match := BOOLEAN(this.ptr + 0)
+                return this.__Match
+            }
         }
     
         /**
@@ -268,6 +272,34 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     
     }
 
+    class _EnrollBegin extends Win32Struct {
+        static sizeof => 320
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        SubFactor {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
+    class _EnrollCapture extends Win32Struct {
+        static sizeof => 320
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        RejectDetail {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     class _EnrollCommit extends Win32Struct {
         static sizeof => 320
         static packingSize => 8
@@ -284,11 +316,14 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
-        IsNewTemplate {
-            get => NumGet(this, 80, "char")
-            set => NumPut("char", value, this, 80)
+        IsNewTemplate{
+            get {
+                if(!this.HasProp("__IsNewTemplate"))
+                    this.__IsNewTemplate := BOOLEAN(this.ptr + 80)
+                return this.__IsNewTemplate
+            }
         }
     
     }
@@ -653,11 +688,14 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
-        Match {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        Match{
+            get {
+                if(!this.HasProp("__Match"))
+                    this.__Match := BOOLEAN(this.ptr + 0)
+                return this.__Match
+            }
         }
     
         /**
@@ -715,6 +753,20 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Ticket {
             get => NumGet(this, 88, "uint")
             set => NumPut("uint", value, this, 88)
+        }
+    
+    }
+
+    class _EnrollSelect extends Win32Struct {
+        static sizeof => 320
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        SelectorValue {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
         }
     
     }
@@ -817,19 +869,25 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_EnrollBegin}
      */
-    EnrollBegin {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
+    EnrollBegin{
+        get {
+            if(!this.HasProp("__EnrollBegin"))
+                this.__EnrollBegin := %this.__Class%._EnrollBegin(this.ptr + 40)
+            return this.__EnrollBegin
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_EnrollCapture}
      */
-    EnrollCapture {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+    EnrollCapture{
+        get {
+            if(!this.HasProp("__EnrollCapture"))
+                this.__EnrollCapture := %this.__Class%._EnrollCapture(this.ptr + 40)
+            return this.__EnrollCapture
+        }
     }
 
     /**
@@ -976,11 +1034,14 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_EnrollSelect}
      */
-    EnrollSelect {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+    EnrollSelect{
+        get {
+            if(!this.HasProp("__EnrollSelect"))
+                this.__EnrollSelect := %this.__Class%._EnrollSelect(this.ptr + 40)
+            return this.__EnrollSelect
+        }
     }
 
     /**

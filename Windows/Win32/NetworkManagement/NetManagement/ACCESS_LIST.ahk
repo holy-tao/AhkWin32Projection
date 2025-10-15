@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -12,11 +13,14 @@ class ACCESS_LIST extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    acl_ugname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    acl_ugname{
+        get {
+            if(!this.HasProp("__acl_ugname"))
+                this.__acl_ugname := PWSTR(this.ptr + 0)
+            return this.__acl_ugname
+        }
     }
 
     /**

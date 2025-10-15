@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -12,19 +13,25 @@ class ENDPOINTADDRESS2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    serviceUrl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    serviceUrl{
+        get {
+            if(!this.HasProp("__serviceUrl"))
+                this.__serviceUrl := PWSTR(this.ptr + 0)
+            return this.__serviceUrl
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    policyUrl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    policyUrl{
+        get {
+            if(!this.HasProp("__policyUrl"))
+                this.__policyUrl := PWSTR(this.ptr + 8)
+            return this.__policyUrl
+        }
     }
 
     /**

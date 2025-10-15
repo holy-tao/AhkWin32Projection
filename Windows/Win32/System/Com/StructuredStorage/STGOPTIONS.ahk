@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies features of the storage object, such as sector size, in the StgCreateStorageEx and StgOpenStorageEx functions.
@@ -59,10 +60,13 @@ class STGOPTIONS extends Win32Struct
      * Specifies the name of a file whose Encrypted File System (EFS) metadata will be transferred to a newly created Structured Storage file. This member is valid only when <b>STGFMT_DOCFILE</b> is used with <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/nf-coml2api-stgcreatestorageex">StgCreateStorageEx</a>.
      * 
      * <b>In Windows XP and later:  </b>The <b>pwcsTemplateFile</b> member is only valid if version 2 or later is specified in the <b>usVersion</b> member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwcsTemplateFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwcsTemplateFile{
+        get {
+            if(!this.HasProp("__pwcsTemplateFile"))
+                this.__pwcsTemplateFile := PWSTR(this.ptr + 8)
+            return this.__pwcsTemplateFile
+        }
     }
 }

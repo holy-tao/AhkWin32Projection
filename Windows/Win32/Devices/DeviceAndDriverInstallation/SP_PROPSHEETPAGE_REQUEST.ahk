@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HDEVINFO.ahk
 
 /**
  * An SP_PROPSHEETPAGE_REQUEST structure can be passed as the first parameter (lpv) to the ExtensionPropSheetPageProc entry point in the SetupAPI DLL.
@@ -96,11 +97,14 @@ class SP_PROPSHEETPAGE_REQUEST extends Win32Struct
 
     /**
      * The handle for the device information set that contains the device being installed.
-     * @type {Pointer}
+     * @type {HDEVINFO}
      */
-    DeviceInfoSet {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    DeviceInfoSet{
+        get {
+            if(!this.HasProp("__DeviceInfoSet"))
+                this.__DeviceInfoSet := HDEVINFO(this.ptr + 8)
+            return this.__DeviceInfoSet
+        }
     }
 
     /**

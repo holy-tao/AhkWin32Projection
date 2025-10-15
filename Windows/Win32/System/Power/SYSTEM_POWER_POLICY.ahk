@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\POWER_ACTION_POLICY.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\SYSTEM_POWER_LEVEL.ahk
 
 /**
@@ -226,11 +227,14 @@ class SYSTEM_POWER_POLICY extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system includes support for display dimming.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    VideoDimDisplay {
-        get => NumGet(this, 148, "char")
-        set => NumPut("char", value, this, 148)
+    VideoDimDisplay{
+        get {
+            if(!this.HasProp("__VideoDimDisplay"))
+                this.__VideoDimDisplay := BOOLEAN(this.ptr + 148)
+            return this.__VideoDimDisplay
+        }
     }
 
     /**
@@ -256,11 +260,14 @@ class SYSTEM_POWER_POLICY extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system will turn on cooling fans and run the processor at full speed when passive cooling is specified. This causes the operating system to be biased toward using the fan and running the processor at full speed.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    OptimizeForPower {
-        get => NumGet(this, 168, "char")
-        set => NumPut("char", value, this, 168)
+    OptimizeForPower{
+        get {
+            if(!this.HasProp("__OptimizeForPower"))
+                this.__OptimizeForPower := BOOLEAN(this.ptr + 168)
+            return this.__OptimizeForPower
+        }
     }
 
     /**

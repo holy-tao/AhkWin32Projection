@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines an individual environment variable by using a name and value pair.
@@ -15,19 +16,25 @@ class WSMAN_ENVIRONMENT_VARIABLE extends Win32Struct
 
     /**
      * Defines the environment variable name. This parameter cannot be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    name{
+        get {
+            if(!this.HasProp("__name"))
+                this.__name := PWSTR(this.ptr + 0)
+            return this.__name
+        }
     }
 
     /**
      * Defines the environment variable value. <b>NULL</b> or empty string values are permitted.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    value {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    value{
+        get {
+            if(!this.HasProp("__value"))
+                this.__value := PWSTR(this.ptr + 8)
+            return this.__value
+        }
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes an effect shader.
@@ -33,11 +35,14 @@ class D3D10_EFFECT_SHADER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> is the shader is defined inline; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsInline {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    IsInline{
+        get {
+            if(!this.HasProp("__IsInline"))
+                this.__IsInline := BOOL(this.ptr + 8)
+            return this.__IsInline
+        }
     }
 
     /**
@@ -66,11 +71,14 @@ class D3D10_EFFECT_SHADER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that constains a declaration of the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-pipeline-stages">stream output </a> from a geometry shader.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    SODecl {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    SODecl{
+        get {
+            if(!this.HasProp("__SODecl"))
+                this.__SODecl := PSTR(this.ptr + 32)
+            return this.__SODecl
+        }
     }
 
     /**

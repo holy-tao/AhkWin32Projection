@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Provides removable media locking data. It is used by the IOCTL_STORAGE_MEDIA_REMOVAL control code.
@@ -15,10 +16,13 @@ class PREVENT_MEDIA_REMOVAL extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the media is to be locked. Otherwise, it is not.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    PreventMediaRemoval {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    PreventMediaRemoval{
+        get {
+            if(!this.HasProp("__PreventMediaRemoval"))
+                this.__PreventMediaRemoval := BOOLEAN(this.ptr + 0)
+            return this.__PreventMediaRemoval
+        }
     }
 }

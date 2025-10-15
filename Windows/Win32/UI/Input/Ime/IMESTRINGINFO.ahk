@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -20,10 +21,13 @@ class IMESTRINGINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpwstr {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpwstr{
+        get {
+            if(!this.HasProp("__lpwstr"))
+                this.__lpwstr := PWSTR(this.ptr + 8)
+            return this.__lpwstr
+        }
     }
 }

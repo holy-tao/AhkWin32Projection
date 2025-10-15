@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Provides information about the stylus.
@@ -33,10 +34,13 @@ class StylusInfo extends Win32Struct
 
     /**
      * <b>TRUE</b> if the stylus is upside down, otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bIsInvertedCursor {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    bIsInvertedCursor{
+        get {
+            if(!this.HasProp("__bIsInvertedCursor"))
+                this.__bIsInvertedCursor := BOOL(this.ptr + 8)
+            return this.__bIsInvertedCursor
+        }
     }
 }

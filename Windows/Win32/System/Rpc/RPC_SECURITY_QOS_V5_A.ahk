@@ -247,10 +247,9 @@ class RPC_SECURITY_QOS_V5_A extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<RPC_HTTP_TRANSPORT_CREDENTIALS_A>}
      */
-    u {
+    HttpCredentials {
         get => NumGet(this, 24, "ptr")
         set => NumPut("ptr", value, this, 24)
     }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -39,11 +41,14 @@ class NMDATETIMEFORMATW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * A pointer to the substring that defines a DTP control callback field. The substring consists of one or more "X" characters followed by a NULL character. (For more information about callback fields, see <a href="https://docs.microsoft.com/windows/desktop/Controls/date-and-time-picker-controls">Callback fields</a>.)
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszFormat {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszFormat{
+        get {
+            if(!this.HasProp("__pszFormat"))
+                this.__pszFormat := PWSTR(this.ptr + 24)
+            return this.__pszFormat
+        }
     }
 
     /**
@@ -66,11 +71,14 @@ class NMDATETIMEFORMATW extends Win32Struct
      * A pointer to a null-terminated string that contains the display text of the control. By default, this is the address of the 
      * 					<b>szDisplay</b> member of this structure. It is acceptable to have <b>pszDisplay</b> point to an existing string. In this case, you do not need to assign a value to <b>szDisplay</b>. However, the string that 
      * <b>pszDisplay</b> points to must remain valid until another <a href="https://docs.microsoft.com/windows/desktop/Controls/dtn-format">DTN_FORMAT</a> notification is sent, or until the control is destroyed.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDisplay {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pszDisplay{
+        get {
+            if(!this.HasProp("__pszDisplay"))
+                this.__pszDisplay := PWSTR(this.ptr + 48)
+            return this.__pszDisplay
+        }
     }
 
     /**

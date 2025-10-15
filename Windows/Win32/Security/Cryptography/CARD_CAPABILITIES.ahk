@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -20,18 +21,24 @@ class CARD_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCertificateCompression {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fCertificateCompression{
+        get {
+            if(!this.HasProp("__fCertificateCompression"))
+                this.__fCertificateCompression := BOOL(this.ptr + 4)
+            return this.__fCertificateCompression
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fKeyGen {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fKeyGen{
+        get {
+            if(!this.HasProp("__fKeyGen"))
+                this.__fKeyGen := BOOL(this.ptr + 8)
+            return this.__fKeyGen
+        }
     }
 }

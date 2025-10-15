@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
@@ -437,10 +437,10 @@ class Xps {
 ;@region Methods
     /**
      * The DeviceCapabilities function retrieves the capabilities of a printer driver.
-     * @param {Pointer<Byte>} pDevice A pointer to a null-terminated string that contains the name of the printer. Note that this is the name of the printer, not of the printer driver.
-     * @param {Pointer<Byte>} pPort A pointer to a null-terminated string that contains the name of the port to which the device is connected, such as LPT1.
+     * @param {PSTR} pDevice A pointer to a null-terminated string that contains the name of the printer. Note that this is the name of the printer, not of the printer driver.
+     * @param {PSTR} pPort A pointer to a null-terminated string that contains the name of the port to which the device is connected, such as LPT1.
      * @param {Integer} fwCapability 
-     * @param {Pointer<Byte>} pOutput A pointer to an array. The format of the array depends on the setting of the <i>fwCapability</i> parameter. See each capability above to find out what is returned if <i>pOutput</i> is <b>NULL</b>.
+     * @param {PSTR} pOutput A pointer to an array. The format of the array depends on the setting of the <i>fwCapability</i> parameter. See each capability above to find out what is returned if <i>pOutput</i> is <b>NULL</b>.
      * @param {Pointer<DEVMODEA>} pDevMode A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure. If this parameter is <b>NULL</b>, <b>DeviceCapabilities</b> retrieves the current default initialization values for the specified printer driver. Otherwise, the function retrieves the values contained in the structure to which <i>pDevMode</i> points.
      * @returns {Integer} If the function succeeds, the return value depends on the setting of the <i>fwCapability</i> parameter. A return value of zero generally indicates that, while the function completed successfully, there was some type of failure, such as a capability that is not supported. For more details, see the descriptions for the <i>fwCapability</i> values.
      * 
@@ -449,9 +449,9 @@ class Xps {
      * @since windows5.0
      */
     static DeviceCapabilitiesA(pDevice, pPort, fwCapability, pOutput, pDevMode) {
-        pDevice := pDevice is String? StrPtr(pDevice) : pDevice
-        pPort := pPort is String? StrPtr(pPort) : pPort
-        pOutput := pOutput is String? StrPtr(pOutput) : pOutput
+        pDevice := pDevice is String ? StrPtr(pDevice) : pDevice
+        pPort := pPort is String ? StrPtr(pPort) : pPort
+        pOutput := pOutput is String ? StrPtr(pOutput) : pOutput
 
         result := DllCall("winspool.drv\DeviceCapabilitiesA", "ptr", pDevice, "ptr", pPort, "ushort", fwCapability, "ptr", pOutput, "ptr", pDevMode, "int")
         return result
@@ -459,10 +459,10 @@ class Xps {
 
     /**
      * The DeviceCapabilities function retrieves the capabilities of a printer driver.
-     * @param {Pointer<Char>} pDevice A pointer to a null-terminated string that contains the name of the printer. Note that this is the name of the printer, not of the printer driver.
-     * @param {Pointer<Char>} pPort A pointer to a null-terminated string that contains the name of the port to which the device is connected, such as LPT1.
+     * @param {PWSTR} pDevice A pointer to a null-terminated string that contains the name of the printer. Note that this is the name of the printer, not of the printer driver.
+     * @param {PWSTR} pPort A pointer to a null-terminated string that contains the name of the port to which the device is connected, such as LPT1.
      * @param {Integer} fwCapability 
-     * @param {Pointer<Char>} pOutput A pointer to an array. The format of the array depends on the setting of the <i>fwCapability</i> parameter. See each capability above to find out what is returned if <i>pOutput</i> is <b>NULL</b>.
+     * @param {PWSTR} pOutput A pointer to an array. The format of the array depends on the setting of the <i>fwCapability</i> parameter. See each capability above to find out what is returned if <i>pOutput</i> is <b>NULL</b>.
      * @param {Pointer<DEVMODEW>} pDevMode A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure. If this parameter is <b>NULL</b>, <b>DeviceCapabilities</b> retrieves the current default initialization values for the specified printer driver. Otherwise, the function retrieves the values contained in the structure to which <i>pDevMode</i> points.
      * @returns {Integer} If the function succeeds, the return value depends on the setting of the <i>fwCapability</i> parameter. A return value of zero generally indicates that, while the function completed successfully, there was some type of failure, such as a capability that is not supported. For more details, see the descriptions for the <i>fwCapability</i> values.
      * 
@@ -471,9 +471,9 @@ class Xps {
      * @since windows5.0
      */
     static DeviceCapabilitiesW(pDevice, pPort, fwCapability, pOutput, pDevMode) {
-        pDevice := pDevice is String? StrPtr(pDevice) : pDevice
-        pPort := pPort is String? StrPtr(pPort) : pPort
-        pOutput := pOutput is String? StrPtr(pOutput) : pOutput
+        pDevice := pDevice is String ? StrPtr(pDevice) : pDevice
+        pPort := pPort is String ? StrPtr(pPort) : pPort
+        pOutput := pOutput is String ? StrPtr(pOutput) : pOutput
 
         result := DllCall("winspool.drv\DeviceCapabilitiesW", "ptr", pDevice, "ptr", pPort, "ushort", fwCapability, "ptr", pOutput, "ptr", pDevMode, "int")
         return result
@@ -481,7 +481,7 @@ class Xps {
 
     /**
      * Enables an application to access the system-defined device capabilities that are not available through GDI.
-     * @param {Pointer<Void>} hdc A handle to the device context.
+     * @param {HDC} hdc A handle to the device context.
      * @param {Integer} iEscape The escape function to be performed. This parameter must be one of the predefined escape values listed in Remarks. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extescape">ExtEscape</a> function if your application defines a private escape value.
      * @param {Integer} cjIn The number of bytes of data pointed to by the <i>lpvInData</i> parameter. This can be 0.
      * @param {Pointer} pvIn A pointer to the input structure required for the specified escape.
@@ -493,13 +493,15 @@ class Xps {
      * @since windows5.0
      */
     static Escape(hdc, iEscape, cjIn, pvIn, pvOut) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\Escape", "ptr", hdc, "int", iEscape, "int", cjIn, "ptr", pvIn, "ptr", pvOut, "int")
         return result
     }
 
     /**
      * The ExtEscape function enables an application to access device capabilities that are not available through GDI.
-     * @param {Pointer<Void>} hdc A handle to the device context.
+     * @param {HDC} hdc A handle to the device context.
      * @param {Integer} iEscape The escape function to be performed. It can be one of the following or it can be an application-defined escape function.
      * 
      * <table>
@@ -637,13 +639,15 @@ class Xps {
      * @since windows5.0
      */
     static ExtEscape(hdc, iEscape, cjInput, lpInData, cjOutput, lpOutData) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\ExtEscape", "ptr", hdc, "int", iEscape, "int", cjInput, "ptr", lpInData, "int", cjOutput, "ptr", lpOutData, "int")
         return result
     }
 
     /**
      * The StartDoc function starts a print job.
-     * @param {Pointer<Void>} hdc A handle to the device context for the print job.
+     * @param {HDC} hdc A handle to the device context for the print job.
      * @param {Pointer<DOCINFOA>} lpdi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-docinfoa">DOCINFO</a> structure containing the name of the document file and the name of the output file.
      * @returns {Integer} If the function succeeds, the return value is greater than zero. This value is the print job identifier for the document.
      * 
@@ -652,13 +656,15 @@ class Xps {
      * @since windows5.0
      */
     static StartDocA(hdc, lpdi) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\StartDocA", "ptr", hdc, "ptr", lpdi, "int")
         return result
     }
 
     /**
      * The StartDoc function starts a print job.
-     * @param {Pointer<Void>} hdc A handle to the device context for the print job.
+     * @param {HDC} hdc A handle to the device context for the print job.
      * @param {Pointer<DOCINFOW>} lpdi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-docinfoa">DOCINFO</a> structure containing the name of the document file and the name of the output file.
      * @returns {Integer} If the function succeeds, the return value is greater than zero. This value is the print job identifier for the document.
      * 
@@ -667,13 +673,15 @@ class Xps {
      * @since windows5.0
      */
     static StartDocW(hdc, lpdi) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\StartDocW", "ptr", hdc, "ptr", lpdi, "int")
         return result
     }
 
     /**
      * The EndDoc function ends a print job.
-     * @param {Pointer<Void>} hdc Handle to the device context for the print job.
+     * @param {HDC} hdc Handle to the device context for the print job.
      * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is less than or equal to zero.
@@ -681,13 +689,15 @@ class Xps {
      * @since windows5.0
      */
     static EndDoc(hdc) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\EndDoc", "ptr", hdc, "int")
         return result
     }
 
     /**
      * The StartPage function prepares the printer driver to accept data.
-     * @param {Pointer<Void>} hdc A handle to the device context for the print job.
+     * @param {HDC} hdc A handle to the device context for the print job.
      * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is less than or equal to zero.
@@ -695,13 +705,15 @@ class Xps {
      * @since windows5.0
      */
     static StartPage(hdc) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\StartPage", "ptr", hdc, "int")
         return result
     }
 
     /**
      * The EndPage function notifies the device that the application has finished writing to a page. This function is typically used to direct the device driver to advance to a new page.
-     * @param {Pointer<Void>} hdc A handle to the device context for the print job.
+     * @param {HDC} hdc A handle to the device context for the print job.
      * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is less than or equal to zero.
@@ -709,13 +721,15 @@ class Xps {
      * @since windows5.0
      */
     static EndPage(hdc) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\EndPage", "ptr", hdc, "int")
         return result
     }
 
     /**
      * The AbortDoc function stops the current print job and erases everything drawn since the last call to the StartDoc function.
-     * @param {Pointer<Void>} hdc Handle to the device context for the print job.
+     * @param {HDC} hdc Handle to the device context for the print job.
      * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is SP_ERROR.
@@ -723,13 +737,15 @@ class Xps {
      * @since windows5.0
      */
     static AbortDoc(hdc) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\AbortDoc", "ptr", hdc, "int")
         return result
     }
 
     /**
      * The SetAbortProc function sets the application-defined abort function that allows a print job to be canceled during spooling.
-     * @param {Pointer<Void>} hdc Handle to the device context for the print job.
+     * @param {HDC} hdc Handle to the device context for the print job.
      * @param {Pointer<ABORTPROC>} proc Pointer to the application-defined abort function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-abortproc">AbortProc</a> callback function.
      * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
@@ -738,23 +754,28 @@ class Xps {
      * @since windows5.0
      */
     static SetAbortProc(hdc, proc) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\SetAbortProc", "ptr", hdc, "ptr", proc, "int")
         return result
     }
 
     /**
      * The PrintWindow function copies a visual window into the specified device context (DC), typically a printer DC.
-     * @param {Pointer<Void>} hwnd A handle to the window that will be copied.
-     * @param {Pointer<Void>} hdcBlt A handle to the device context.
+     * @param {HWND} hwnd A handle to the window that will be copied.
+     * @param {HDC} hdcBlt A handle to the device context.
      * @param {Integer} nFlags 
-     * @returns {Integer} If the function succeeds, it returns a nonzero value.
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, it returns zero.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-printwindow
      * @since windows5.1.2600
      */
     static PrintWindow(hwnd, hdcBlt, nFlags) {
-        result := DllCall("USER32.dll\PrintWindow", "ptr", hwnd, "ptr", hdcBlt, "uint", nFlags, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hdcBlt := hdcBlt is Win32Handle ? NumGet(hdcBlt, "ptr") : hdcBlt
+
+        result := DllCall("USER32.dll\PrintWindow", "ptr", hwnd, "ptr", hdcBlt, "uint", nFlags, "ptr")
         return result
     }
 

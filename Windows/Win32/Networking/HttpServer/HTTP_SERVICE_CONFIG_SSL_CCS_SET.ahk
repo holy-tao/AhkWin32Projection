@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\WinSock\SOCKADDR_STORAGE.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_CCS_KEY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_PARAM.ahk
 
 /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_TEXT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * A Boolean value that represents the text &quot;true&quot; or &quot;false&quot;.
@@ -28,10 +29,13 @@ class WS_XML_BOOL_TEXT extends Win32Struct
 
     /**
      * The Boolean value.  0 represents the text "false", while 1 represents the text "true".
-     * @type {Integer}
+     * @type {BOOL}
      */
-    value {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    value{
+        get {
+            if(!this.HasProp("__value"))
+                this.__value := BOOL(this.ptr + 4)
+            return this.__value
+        }
     }
 }

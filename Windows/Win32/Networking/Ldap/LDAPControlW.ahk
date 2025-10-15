@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\LDAP_BERVAL.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Represents both client-side and server controls.
@@ -33,11 +36,14 @@ class LDAPControlW extends Win32Struct
 
     /**
      * Pointer to a wide, null-terminated string that indicates  control type, such as "1.2.840.113556.1.4.805".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ldctl_oid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    ldctl_oid{
+        get {
+            if(!this.HasProp("__ldctl_oid"))
+                this.__ldctl_oid := PWSTR(this.ptr + 0)
+            return this.__ldctl_oid
+        }
     }
 
     /**
@@ -54,10 +60,13 @@ class LDAPControlW extends Win32Struct
 
     /**
      * Indicates whether the control is critical, called the Criticality field.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ldctl_iscritical {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+    ldctl_iscritical{
+        get {
+            if(!this.HasProp("__ldctl_iscritical"))
+                this.__ldctl_iscritical := BOOLEAN(this.ptr + 24)
+            return this.__ldctl_iscritical
+        }
     }
 }

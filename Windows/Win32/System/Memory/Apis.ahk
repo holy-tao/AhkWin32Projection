@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\MEMORY_MAPPED_VIEW_ADDRESS.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\Foundation\HLOCAL.ahk
 /**
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
@@ -79,7 +83,7 @@ class Memory {
      * 
      * If <i>dwMaximumSize</i> is 0, the heap can grow in size. The heap's size is limited only by the available memory. Requests to allocate memory blocks larger than the limit for a fixed-size heap do not automatically fail; instead, the system calls the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a> function to obtain the memory that is needed for large blocks. Applications that need to allocate large memory blocks should set <i>dwMaximumSize</i> to 0.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created heap.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the newly created heap.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -93,15 +97,15 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Destroys the specified heap object. It decommits and releases all the pages of a private heap object, and it invalidates the handle to the heap.
-     * @param {Pointer<Void>} hHeap A handle to the heap to be destroyed. This handle is returned by the 
+     * @param {HANDLE} hHeap A handle to the heap to be destroyed. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> function. Do not use the handle to the process heap returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -109,9 +113,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapDestroy(hHeap) {
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\HeapDestroy", "ptr", hHeap, "int")
+        result := DllCall("KERNEL32.dll\HeapDestroy", "ptr", hHeap, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -120,7 +126,7 @@ class Memory {
 
     /**
      * Allocates a block of memory from a heap. The allocated memory is not movable.
-     * @param {Pointer<Void>} hHeap A handle to the heap from which the memory will be allocated. This handle is returned by the 
+     * @param {HANDLE} hHeap A handle to the heap from which the memory will be allocated. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
      * @param {Integer} dwFlags The heap allocation options. Specifying any of these values will override the corresponding value specified when the heap was created with
@@ -154,13 +160,15 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapAlloc(hHeap, dwFlags, dwBytes) {
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
         result := DllCall("KERNEL32.dll\HeapAlloc", "ptr", hHeap, "uint", dwFlags, "ptr", dwBytes, "ptr")
         return result
     }
 
     /**
      * Reallocates a block of memory from a heap. This function enables you to resize a memory block and change other memory block properties.
-     * @param {Pointer<Void>} hHeap A handle to the heap from which the memory is to be reallocated. This handle is a returned by either the 
+     * @param {HANDLE} hHeap A handle to the heap from which the memory is to be reallocated. This handle is a returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
      * @param {Integer} dwFlags The heap reallocation options. Specifying a value overrides the corresponding value specified in the <i>flOptions</i> parameter when the heap was created by using the
@@ -198,13 +206,15 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapReAlloc(hHeap, dwFlags, lpMem, dwBytes) {
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
         result := DllCall("KERNEL32.dll\HeapReAlloc", "ptr", hHeap, "uint", dwFlags, "ptr", lpMem, "ptr", dwBytes, "ptr")
         return result
     }
 
     /**
      * Frees a memory block allocated from a heap by the HeapAlloc or HeapReAlloc function.
-     * @param {Pointer<Void>} hHeap A handle to the heap whose memory block is to be freed. This handle is returned by either the 
+     * @param {HANDLE} hHeap A handle to the heap whose memory block is to be freed. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
      * @param {Integer} dwFlags The heap free options. Specifying the following value overrides the corresponding value specified in the <i>flOptions</i> parameter when the heap was created by using the 
@@ -236,7 +246,7 @@ class Memory {
      * @param {Pointer<Void>} lpMem A pointer to the memory block to be freed. This pointer is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heaprealloc">HeapReAlloc</a> function. This pointer can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. An application can call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
@@ -244,9 +254,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapFree(hHeap, dwFlags, lpMem) {
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\HeapFree", "ptr", hHeap, "uint", dwFlags, "ptr", lpMem, "int")
+        result := DllCall("KERNEL32.dll\HeapFree", "ptr", hHeap, "uint", dwFlags, "ptr", lpMem, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -255,7 +267,7 @@ class Memory {
 
     /**
      * Retrieves the size of a memory block allocated from a heap by the HeapAlloc or HeapReAlloc function.
-     * @param {Pointer<Void>} hHeap A handle to the heap in which the memory block resides. This handle is returned by either the 
+     * @param {HANDLE} hHeap A handle to the heap in which the memory block resides. This handle is returned by either the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
      * @param {Integer} dwFlags The heap size options. Specifying the following value overrides the corresponding value specified in the 
@@ -306,13 +318,15 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapSize(hHeap, dwFlags, lpMem) {
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
         result := DllCall("KERNEL32.dll\HeapSize", "ptr", hHeap, "uint", dwFlags, "ptr", lpMem, "ptr")
         return result
     }
 
     /**
      * Retrieves a handle to the default heap of the calling process.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the calling process's heap.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the calling process's heap.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -326,12 +340,12 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, False)
     }
 
     /**
      * Returns the size of the largest committed free block in the specified heap. If the Disable heap coalesce on free global flag is set, this function also coalesces adjacent free blocks of memory in the heap.
-     * @param {Pointer<Void>} hHeap A handle to the heap. This handle is returned by either the 
+     * @param {HANDLE} hHeap A handle to the heap. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
      * @param {Integer} dwFlags The heap access options. This parameter can be the following value. 
@@ -372,6 +386,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapCompact(hHeap, dwFlags) {
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\HeapCompact", "ptr", hHeap, "uint", dwFlags, "ptr")
@@ -383,7 +399,7 @@ class Memory {
 
     /**
      * Enables features for a specified heap.
-     * @param {Pointer<Void>} HeapHandle A handle to the heap where information is to be set. This handle is returned by either the 
+     * @param {HANDLE} HeapHandle A handle to the heap where information is to be set. This handle is returned by either the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
      * @param {Integer} HeapInformationClass 
@@ -399,7 +415,7 @@ class Memory {
      *        parameter should be <b>NULL</b> and <i>HeapInformationLength</i> should 
      *        be 0
      * @param {Pointer} HeapInformationLength The size of the <i>HeapInformation</i> buffer, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -407,9 +423,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapSetInformation(HeapHandle, HeapInformationClass, HeapInformation, HeapInformationLength) {
+        HeapHandle := HeapHandle is Win32Handle ? NumGet(HeapHandle, "ptr") : HeapHandle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\HeapSetInformation", "ptr", HeapHandle, "int", HeapInformationClass, "ptr", HeapInformation, "ptr", HeapInformationLength, "int")
+        result := DllCall("KERNEL32.dll\HeapSetInformation", "ptr", HeapHandle, "int", HeapInformationClass, "ptr", HeapInformation, "ptr", HeapInformationLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -418,7 +436,7 @@ class Memory {
 
     /**
      * Validates the specified heap. The function scans all the memory blocks in the heap and verifies that the heap control structures maintained by the heap manager are in a consistent state.
-     * @param {Pointer<Void>} hHeap A handle to the heap to be validated. This handle is returned by either the 
+     * @param {HANDLE} hHeap A handle to the heap to be validated. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
      * @param {Integer} dwFlags The heap access options. This parameter can be the following value. 
@@ -454,7 +472,7 @@ class Memory {
      * If this parameter is <b>NULL</b>, the function attempts to validate the entire heap specified by <i>hHeap</i>.
      * 
      * If this parameter is not <b>NULL</b>, the function attempts to validate the memory block pointed to by <i>lpMem</i>. It does not attempt to validate the rest of the heap.
-     * @returns {Integer} If the specified heap or memory block is valid, the return value is nonzero.
+     * @returns {BOOL} If the specified heap or memory block is valid, the return value is nonzero.
      * 
      * If the specified heap or memory block is invalid, the return value is zero. On a system set up for debugging, the 
      * <b>HeapValidate</b> function then displays debugging messages that describe the part of the heap or memory block that is invalid, and stops at a hard-coded breakpoint so that you can examine the system to determine the source of the invalidity. The 
@@ -463,29 +481,33 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapValidate(hHeap, dwFlags, lpMem) {
-        result := DllCall("KERNEL32.dll\HeapValidate", "ptr", hHeap, "uint", dwFlags, "ptr", lpMem, "int")
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
+        result := DllCall("KERNEL32.dll\HeapValidate", "ptr", hHeap, "uint", dwFlags, "ptr", lpMem, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hHeap A handle to the heap to be summarized. This handle is returned by either the 
+     * @param {HANDLE} hHeap A handle to the heap to be summarized. This handle is returned by either the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
      * @param {Integer} dwFlags The heap summary options.
      * @param {Pointer<HEAP_SUMMARY>} lpSummary Receives a pointer to a [Heap_Summary](ns-heapapi-heap_summary.md) structure representing the heap summary.
-     * @returns {Integer} Returns S_OK on success.
+     * @returns {BOOL} Returns S_OK on success.
      * @see https://docs.microsoft.com/windows/win32/api//heapapi/nf-heapapi-heapsummary
      */
     static HeapSummary(hHeap, dwFlags, lpSummary) {
-        result := DllCall("KERNEL32.dll\HeapSummary", "ptr", hHeap, "uint", dwFlags, "ptr", lpSummary, "int")
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
+        result := DllCall("KERNEL32.dll\HeapSummary", "ptr", hHeap, "uint", dwFlags, "ptr", lpSummary, "ptr")
         return result
     }
 
     /**
      * Returns the number of active heaps and retrieves handles to all of the active heaps for the calling process.
      * @param {Integer} NumberOfHeaps The maximum number of heap handles that can be stored into the buffer pointed to by <i>ProcessHeaps</i>.
-     * @param {Pointer<Void>} ProcessHeaps A pointer to a buffer that receives an array of heap handles.
+     * @param {Pointer<HANDLE>} ProcessHeaps A pointer to a buffer that receives an array of heap handles.
      * @returns {Integer} The return value is the number of handles to heaps that are active for the calling process.
      * 
      * If the return value is less than or equal to <i>NumberOfHeaps</i>, the function has stored that number of heap handles in the buffer pointed to by <i>ProcessHeaps</i>.
@@ -509,10 +531,10 @@ class Memory {
 
     /**
      * Attempts to acquire the critical section object, or lock, that is associated with a specified heap.
-     * @param {Pointer<Void>} hHeap A handle to the heap to be locked. This handle is returned by either the 
+     * @param {HANDLE} hHeap A handle to the heap to be locked. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -520,9 +542,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapLock(hHeap) {
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\HeapLock", "ptr", hHeap, "int")
+        result := DllCall("KERNEL32.dll\HeapLock", "ptr", hHeap, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -531,10 +555,10 @@ class Memory {
 
     /**
      * Releases ownership of the critical section object, or lock, that is associated with a specified heap.
-     * @param {Pointer<Void>} hHeap A handle to the heap to be unlocked. This handle is returned by either the 
+     * @param {HANDLE} hHeap A handle to the heap to be unlocked. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -542,9 +566,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapUnlock(hHeap) {
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\HeapUnlock", "ptr", hHeap, "int")
+        result := DllCall("KERNEL32.dll\HeapUnlock", "ptr", hHeap, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -553,7 +579,7 @@ class Memory {
 
     /**
      * Enumerates the memory blocks in the specified heap.
-     * @param {Pointer<Void>} hHeap A handle to the heap. This handle is returned by either the 
+     * @param {HANDLE} hHeap A handle to the heap. This handle is returned by either the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
      * @param {Pointer<PROCESS_HEAP_ENTRY>} lpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-process_heap_entry">PROCESS_HEAP_ENTRY</a> structure 
@@ -569,7 +595,7 @@ class Memory {
      *        <b>HeapWalk</b> function repeatedly, with no changes to 
      *        <i>hHeap</i>, <i>lpEntry</i>, or any of the members of the 
      *        <b>PROCESS_HEAP_ENTRY</b> structure.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -581,9 +607,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapWalk(hHeap, lpEntry) {
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\HeapWalk", "ptr", hHeap, "ptr", lpEntry, "int")
+        result := DllCall("KERNEL32.dll\HeapWalk", "ptr", hHeap, "ptr", lpEntry, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -592,7 +620,7 @@ class Memory {
 
     /**
      * Retrieves information about the specified heap.
-     * @param {Pointer<Void>} HeapHandle A handle to the heap whose information is to be retrieved. This handle is returned by either the 
+     * @param {HANDLE} HeapHandle A handle to the heap whose information is to be retrieved. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
      * @param {Integer} HeapInformationClass The class of information to be retrieved. This parameter can be the following value from the <b>HEAP_INFORMATION_CLASS</b> enumeration type.
@@ -633,7 +661,7 @@ class Memory {
      * 
      * 
      * If you do not want to receive this information, specify <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -641,9 +669,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static HeapQueryInformation(HeapHandle, HeapInformationClass, HeapInformation, HeapInformationLength, ReturnLength) {
+        HeapHandle := HeapHandle is Win32Handle ? NumGet(HeapHandle, "ptr") : HeapHandle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\HeapQueryInformation", "ptr", HeapHandle, "int", HeapInformationClass, "ptr", HeapInformation, "ptr", HeapInformationLength, "ptr*", ReturnLength, "int")
+        result := DllCall("KERNEL32.dll\HeapQueryInformation", "ptr", HeapHandle, "int", HeapInformationClass, "ptr", HeapInformation, "ptr", HeapInformationLength, "ptr*", ReturnLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -714,7 +744,7 @@ class Memory {
      * @param {Pointer<UInt32>} lpflOldProtect A pointer to a variable that receives the previous access protection value of the first page in the 
      *       specified region of pages. If this parameter is <b>NULL</b> or does not point to a valid 
      *       variable, the function fails.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -724,7 +754,7 @@ class Memory {
     static VirtualProtect(lpAddress, dwSize, flNewProtect, lpflOldProtect) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VirtualProtect", "ptr", lpAddress, "ptr", dwSize, "uint", flNewProtect, "uint*", lpflOldProtect, "int")
+        result := DllCall("KERNEL32.dll\VirtualProtect", "ptr", lpAddress, "ptr", dwSize, "uint", flNewProtect, "uint*", lpflOldProtect, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -752,7 +782,7 @@ class Memory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a> and <i>dwSize</i> is 0 (zero), the function decommits the entire region that is allocated by 
      * <b>VirtualAlloc</b>. After that, the entire region is in the reserved state.
      * @param {Integer} dwFreeType 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -762,7 +792,7 @@ class Memory {
     static VirtualFree(lpAddress, dwSize, dwFreeType) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VirtualFree", "ptr", lpAddress, "ptr", dwSize, "uint", dwFreeType, "int")
+        result := DllCall("KERNEL32.dll\VirtualFree", "ptr", lpAddress, "ptr", dwSize, "uint", dwFreeType, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -796,7 +826,7 @@ class Memory {
 
     /**
      * Reserves, commits, or changes the state of a region of memory within the virtual address space of a specified process. The function initializes the memory it allocates to zero.
-     * @param {Pointer<Void>} hProcess The handle to a process. The function allocates memory within the virtual address space of this process.
+     * @param {HANDLE} hProcess The handle to a process. The function allocates memory within the virtual address space of this process.
      * 
      * The handle must have the <b>PROCESS_VM_OPERATION</b> access right. For more information, 
      *        see 
@@ -837,6 +867,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static VirtualAllocEx(hProcess, lpAddress, dwSize, flAllocationType, flProtect) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VirtualAllocEx", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "ptr")
@@ -848,7 +880,7 @@ class Memory {
 
     /**
      * Changes the protection on a region of committed pages in the virtual address space of a specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose memory protection is to be changed. The handle must have the 
+     * @param {HANDLE} hProcess A handle to the process whose memory protection is to be changed. The handle must have the 
      *       <b>PROCESS_VM_OPERATION</b> access right. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<Void>} lpAddress A pointer to the base address of the region of pages whose access protection attributes are to be changed.
@@ -874,7 +906,7 @@ class Memory {
      * @param {Pointer<UInt32>} lpflOldProtect A pointer to a variable that receives the previous access protection of the first page in the specified 
      *       region of pages. If this parameter is <b>NULL</b> or does not point to a valid variable, the 
      *       function fails.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -882,9 +914,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static VirtualProtectEx(hProcess, lpAddress, dwSize, flNewProtect, lpflOldProtect) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VirtualProtectEx", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "uint", flNewProtect, "uint*", lpflOldProtect, "int")
+        result := DllCall("KERNEL32.dll\VirtualProtectEx", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "uint", flNewProtect, "uint*", lpflOldProtect, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -893,7 +927,7 @@ class Memory {
 
     /**
      * Retrieves information about a range of pages within the virtual address space of a specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose memory information is queried. The handle must have been opened with the <b>PROCESS_QUERY_INFORMATION</b> access right, which enables using the handle to read information from the process object. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process whose memory information is queried. The handle must have been opened with the <b>PROCESS_QUERY_INFORMATION</b> access right, which enables using the handle to read information from the process object. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<Void>} lpAddress A pointer to the base address of the region of pages to be queried. This value is rounded down to the next page boundary. To determine the size of a page on the host computer, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsysteminfo">GetSystemInfo</a> function.
@@ -909,6 +943,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static VirtualQueryEx(hProcess, lpAddress, lpBuffer, dwLength) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VirtualQueryEx", "ptr", hProcess, "ptr", lpAddress, "ptr", lpBuffer, "ptr", dwLength, "ptr")
@@ -920,7 +956,7 @@ class Memory {
 
     /**
      * Creates or opens a named or unnamed file mapping object for a specified file.
-     * @param {Pointer<Void>} hFile A handle to the file from which to create a file mapping object.
+     * @param {HANDLE} hFile A handle to the file from which to create a file mapping object.
      * 
      * The file must be opened with access rights that are compatible with the protection flags that the 
      *        <i>flProtect</i> parameter specifies. It is not required, but it is recommended that files 
@@ -954,7 +990,7 @@ class Memory {
      * An attempt to map a file with a length of 0 (zero) fails with an error code of 
      *        <b>ERROR_FILE_INVALID</b>. Applications should test for files with a length of 0 (zero) and 
      *        reject those files.
-     * @param {Pointer<Char>} lpName The name of the file mapping object.
+     * @param {PWSTR} lpName The name of the file mapping object.
      * 
      * If this parameter matches the name of an existing mapping object, the function requests access to the 
      *        object with the protection that <i>flProtect</i> specifies.
@@ -977,7 +1013,7 @@ class Memory {
      * Fast user switching is implemented by using Terminal Services sessions. The first user to log on uses session 
      *        0 (zero), the next user to log on uses session 1 (one), and so on. Kernel object names must follow the 
      *        guidelines that are outlined for Terminal Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created file mapping object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the newly created file mapping object.
      * 
      * If the object exists before the function call, the function returns a handle to the existing object (with its 
      *        current size, not the specified size), and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>returns <b>ERROR_ALREADY_EXISTS</b>.
@@ -988,7 +1024,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static CreateFileMappingW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -996,7 +1033,7 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -1004,10 +1041,10 @@ class Memory {
      * @param {Integer} dwDesiredAccess The access to the file mapping object. This access is checked against any security descriptor on the target 
      *       file mapping object. For a list of values, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Memory/file-mapping-security-and-access-rights">File Mapping Security and Access Rights</a>.
-     * @param {Integer} bInheritHandle If this parameter is <b>TRUE</b>, a process created by the 
+     * @param {BOOL} bInheritHandle If this parameter is <b>TRUE</b>, a process created by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function can inherit the handle; 
      *       otherwise, the handle cannot be inherited.
-     * @param {Pointer<Char>} lpName The name of the file mapping object to be opened. If there is an open handle to a file mapping object by 
+     * @param {PWSTR} lpName The name of the file mapping object to be opened. If there is an open handle to a file mapping object by 
      *       this name and the security descriptor on the mapping object does not conflict with the 
      *       <i>dwDesiredAccess</i> parameter, the open operation succeeds. The name can have a 
      *       "Global\" or "Local\" prefix to explicitly open an object in the global or 
@@ -1017,7 +1054,7 @@ class Memory {
      *       switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next 
      *       user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal 
      *       Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file mapping object.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file mapping object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1025,20 +1062,20 @@ class Memory {
      * @since windows5.1.2600
      */
     static OpenFileMappingW(dwDesiredAccess, bInheritHandle, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenFileMappingW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenFileMappingW", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Maps a view of a file mapping into the address space of a calling process.
-     * @param {Pointer<Void>} hFileMappingObject A handle to a file mapping object. The 
+     * @param {HANDLE} hFileMappingObject A handle to a file mapping object. The 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a> and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openfilemappinga">OpenFileMapping</a> functions return this handle.
      * @param {Integer} dwDesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
@@ -1052,7 +1089,7 @@ class Memory {
      * @param {Pointer} dwNumberOfBytesToMap The number of bytes of a file mapping to map to the view. All bytes must be within the maximum size specified 
      *        by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a>. If this parameter is 0 
      *        (zero), the mapping extends from the specified offset to the end of the file mapping.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is the starting address of the mapped view.
+     * @returns {MEMORY_MAPPED_VIEW_ADDRESS} If the function succeeds, the return value is the starting address of the mapped view.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1060,18 +1097,20 @@ class Memory {
      * @since windows5.1.2600
      */
     static MapViewOfFile(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap) {
+        hFileMappingObject := hFileMappingObject is Win32Handle ? NumGet(hFileMappingObject, "ptr") : hFileMappingObject
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MapViewOfFile", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
     }
 
     /**
      * Maps a view of a file mapping into the address space of a calling process. A caller can optionally specify a suggested base memory address for the view.
-     * @param {Pointer<Void>} hFileMappingObject A handle to a file mapping object. The 
+     * @param {HANDLE} hFileMappingObject A handle to a file mapping object. The 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a> and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openfilemappinga">OpenFileMapping</a> functions return this handle.
      * @param {Integer} dwDesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
@@ -1099,7 +1138,7 @@ class Memory {
      *        guarantee that the address will remain safe over time. Therefore, it is better to let the operating system 
      *        choose the address. In this case, you would not store pointers in the memory mapped file, you would store 
      *        offsets from the base of the file mapping so that the mapping can be used at any address.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is the starting address of the mapped view.
+     * @returns {MEMORY_MAPPED_VIEW_ADDRESS} If the function succeeds, the return value is the starting address of the mapped view.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1107,18 +1146,20 @@ class Memory {
      * @since windows5.1.2600
      */
     static MapViewOfFileEx(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap, lpBaseAddress) {
+        hFileMappingObject := hFileMappingObject is Win32Handle ? NumGet(hFileMappingObject, "ptr") : hFileMappingObject
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MapViewOfFileEx", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, "ptr", lpBaseAddress, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
     }
 
     /**
      * Releases, decommits, or releases and decommits a region of memory within the virtual address space of a specified process.
-     * @param {Pointer<Void>} hProcess A handle to a process. The function frees memory within the virtual address space of the process. 
+     * @param {HANDLE} hProcess A handle to a process. The function frees memory within the virtual address space of the process. 
      * 
      * 
      * 
@@ -1144,7 +1185,7 @@ class Memory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualallocex">VirtualAllocEx</a> and <i>dwSize</i> is 0 (zero), the function decommits the entire region that is allocated by 
      * <b>VirtualAllocEx</b>. After that, the entire region is in the reserved state.
      * @param {Integer} dwFreeType 
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1152,9 +1193,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static VirtualFreeEx(hProcess, lpAddress, dwSize, dwFreeType) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VirtualFreeEx", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "uint", dwFreeType, "int")
+        result := DllCall("KERNEL32.dll\VirtualFreeEx", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "uint", dwFreeType, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1165,7 +1208,7 @@ class Memory {
      * Writes to the disk a byte range within a mapped view of a file.
      * @param {Pointer<Void>} lpBaseAddress A pointer to the base address of the byte range to be flushed to the disk representation of the mapped file.
      * @param {Pointer} dwNumberOfBytesToFlush The number of bytes to be flushed. If <i>dwNumberOfBytesToFlush</i> is zero, the file is flushed from the base address to the end of the mapping.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1175,7 +1218,7 @@ class Memory {
     static FlushViewOfFile(lpBaseAddress, dwNumberOfBytesToFlush) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FlushViewOfFile", "ptr", lpBaseAddress, "ptr", dwNumberOfBytesToFlush, "int")
+        result := DllCall("KERNEL32.dll\FlushViewOfFile", "ptr", lpBaseAddress, "ptr", dwNumberOfBytesToFlush, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1184,10 +1227,10 @@ class Memory {
 
     /**
      * Unmaps a mapped view of a file from the calling process's address space.
-     * @param {Pointer<Void>} lpBaseAddress A pointer to the base address of the mapped view of a file that is to be unmapped. This value must be identical to the value returned by a previous call to the 
+     * @param {MEMORY_MAPPED_VIEW_ADDRESS} lpBaseAddress A pointer to the base address of the mapped view of a file that is to be unmapped. This value must be identical to the value returned by a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffileex">MapViewOfFileEx</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1195,9 +1238,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static UnmapViewOfFile(lpBaseAddress) {
+        lpBaseAddress := lpBaseAddress is Win32Handle ? NumGet(lpBaseAddress, "ptr") : lpBaseAddress
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UnmapViewOfFile", "ptr", lpBaseAddress, "int")
+        result := DllCall("KERNEL32.dll\UnmapViewOfFile", "ptr", lpBaseAddress, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1224,7 +1269,7 @@ class Memory {
      * The "working set" of a process is the set of memory pages currently visible to the process in physical RAM memory. These pages are resident and available for an application to use without triggering a page fault. The minimum and maximum working set sizes affect the virtual memory paging behavior of a process.
      * 
      * 
-     * @param {Pointer<Void>} hProcess A handle to the process whose working set sizes will be obtained. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
+     * @param {HANDLE} hProcess A handle to the process whose working set sizes will be obtained. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
@@ -1282,18 +1327,20 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} 
+     * @returns {BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-getprocessworkingsetsizeex
      * @since windows6.0.6000
      */
     static GetProcessWorkingSetSizeEx(hProcess, lpMinimumWorkingSetSize, lpMaximumWorkingSetSize, Flags) {
-        result := DllCall("KERNEL32.dll\GetProcessWorkingSetSizeEx", "ptr", hProcess, "ptr*", lpMinimumWorkingSetSize, "ptr*", lpMaximumWorkingSetSize, "uint*", Flags, "int")
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
+        result := DllCall("KERNEL32.dll\GetProcessWorkingSetSizeEx", "ptr", hProcess, "ptr*", lpMinimumWorkingSetSize, "ptr*", lpMaximumWorkingSetSize, "uint*", Flags, "ptr")
         return result
     }
 
     /**
      * Sets the minimum and maximum working set sizes for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose working set sizes is to be set.
+     * @param {HANDLE} hProcess A handle to the process whose working set sizes is to be set.
      * 
      * The handle must have <b>PROCESS_SET_QUOTA</b> access rights. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
@@ -1367,7 +1414,7 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function is succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function is succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function fails, the return value is zero. To get extended error information, call 
@@ -1376,9 +1423,11 @@ class Memory {
      * @since windows6.0.6000
      */
     static SetProcessWorkingSetSizeEx(hProcess, dwMinimumWorkingSetSize, dwMaximumWorkingSetSize, Flags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessWorkingSetSizeEx", "ptr", hProcess, "ptr", dwMinimumWorkingSetSize, "ptr", dwMaximumWorkingSetSize, "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\SetProcessWorkingSetSizeEx", "ptr", hProcess, "ptr", dwMinimumWorkingSetSize, "ptr", dwMaximumWorkingSetSize, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1389,7 +1438,7 @@ class Memory {
      * Locks the specified region of the process's virtual address space into physical memory, ensuring that subsequent access to the region will not incur a page fault.
      * @param {Pointer<Void>} lpAddress A pointer to the base address of the region of pages to be locked.
      * @param {Pointer} dwSize The size of the region to be locked, in bytes. The region of affected pages includes all pages that contain one or more bytes in the range from the <i>lpAddress</i> parameter to <c>(lpAddress+dwSize)</c>. This means that a 2-byte range straddling a page boundary causes both pages to be locked.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1399,7 +1448,7 @@ class Memory {
     static VirtualLock(lpAddress, dwSize) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VirtualLock", "ptr", lpAddress, "ptr", dwSize, "int")
+        result := DllCall("KERNEL32.dll\VirtualLock", "ptr", lpAddress, "ptr", dwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1410,7 +1459,7 @@ class Memory {
      * Unlocks a specified range of pages in the virtual address space of a process, enabling the system to swap the pages out to the paging file if necessary.
      * @param {Pointer<Void>} lpAddress A pointer to the base address of the region of pages to be unlocked.
      * @param {Pointer} dwSize The size of the region being unlocked, in bytes. The region of affected pages includes all pages containing one or more bytes in the range from the <i>lpAddress</i> parameter to <c>(lpAddress+dwSize)</c>. This means that a 2-byte range straddling a page boundary causes both pages to be unlocked.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1420,7 +1469,7 @@ class Memory {
     static VirtualUnlock(lpAddress, dwSize) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VirtualUnlock", "ptr", lpAddress, "ptr", dwSize, "int")
+        result := DllCall("KERNEL32.dll\VirtualUnlock", "ptr", lpAddress, "ptr", dwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1513,7 +1562,7 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a memory resource notification object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to a memory resource notification object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended  information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1527,15 +1576,15 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Retrieves the state of the specified memory resource object.
-     * @param {Pointer<Void>} ResourceNotificationHandle A handle to a memory resource notification object. The 
+     * @param {HANDLE} ResourceNotificationHandle A handle to a memory resource notification object. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-creatememoryresourcenotification">CreateMemoryResourceNotification</a> function returns this handle.
-     * @param {Pointer<Int32>} ResourceState The memory pointed to by this parameter receives the state of the memory resource notification object. The value of this parameter is set to <b>TRUE</b> if the specified memory condition exists, and  <b>FALSE</b> if the specified memory condition does not exist.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {Pointer<BOOL>} ResourceState The memory pointed to by this parameter receives the state of the memory resource notification object. The value of this parameter is set to <b>TRUE</b> if the specified memory condition exists, and  <b>FALSE</b> if the specified memory condition does not exist.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. For more error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1543,9 +1592,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static QueryMemoryResourceNotification(ResourceNotificationHandle, ResourceState) {
+        ResourceNotificationHandle := ResourceNotificationHandle is Win32Handle ? NumGet(ResourceNotificationHandle, "ptr") : ResourceNotificationHandle
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryMemoryResourceNotification", "ptr", ResourceNotificationHandle, "int*", ResourceState, "int")
+        result := DllCall("KERNEL32.dll\QueryMemoryResourceNotification", "ptr", ResourceNotificationHandle, "ptr", ResourceState, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1586,7 +1637,7 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1596,7 +1647,7 @@ class Memory {
     static GetSystemFileCacheSize(lpMinimumFileCacheSize, lpMaximumFileCacheSize, lpFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemFileCacheSize", "ptr*", lpMinimumFileCacheSize, "ptr*", lpMaximumFileCacheSize, "uint*", lpFlags, "int")
+        result := DllCall("KERNEL32.dll\GetSystemFileCacheSize", "ptr*", lpMinimumFileCacheSize, "ptr*", lpMaximumFileCacheSize, "uint*", lpFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1671,7 +1722,7 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1681,7 +1732,7 @@ class Memory {
     static SetSystemFileCacheSize(MinimumFileCacheSize, MaximumFileCacheSize, Flags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetSystemFileCacheSize", "ptr", MinimumFileCacheSize, "ptr", MaximumFileCacheSize, "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\SetSystemFileCacheSize", "ptr", MinimumFileCacheSize, "ptr", MaximumFileCacheSize, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1690,7 +1741,7 @@ class Memory {
 
     /**
      * Creates or opens a named or unnamed file mapping object for a specified file and specifies the NUMA node for the physical memory.
-     * @param {Pointer<Void>} hFile A handle to the file from which to create a file mapping object. 
+     * @param {HANDLE} hFile A handle to the file from which to create a file mapping object. 
      * 
      * The file must be opened with access 
      *        rights that are compatible with the protection flags that the <i>flProtect</i> parameter 
@@ -1727,7 +1778,7 @@ class Memory {
      * An attempt to map a file with a length of 0 (zero) fails with an error code of 
      *         <b>ERROR_FILE_INVALID</b>. Applications should test for files with a length of 0 (zero) and 
      *         reject those files.
-     * @param {Pointer<Char>} lpName The name of the file mapping object.
+     * @param {PWSTR} lpName The name of the file mapping object.
      * 
      * If this parameter matches the name of an existing file mapping object, the function requests access to the 
      *         object with the protection that the <i>flProtect</i> parameter specifies.
@@ -1769,7 +1820,7 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the file mapping object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the file mapping object.
      * 
      * If the object exists 
      *        before the function call, the function returns a handle to the existing object (with its current size, not the 
@@ -1781,7 +1832,8 @@ class Memory {
      * @since windows6.0.6000
      */
     static CreateFileMappingNumaW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName, nndPreferred) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -1789,12 +1841,12 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Provides an efficient mechanism to bring into memory potentially discontiguous virtual address ranges in a process address space.
-     * @param {Pointer<Void>} hProcess Handle to the process whose virtual address ranges are to be prefetched. Use the 
+     * @param {HANDLE} hProcess Handle to the process whose virtual address ranges are to be prefetched. Use the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> function to use the current 
      *       process.
      * @param {Pointer} NumberOfEntries Number of entries in the array pointed to by the <i>VirtualAddresses</i> 
@@ -1804,7 +1856,7 @@ class Memory {
      *       each specify a virtual address range to be prefetched. The virtual address ranges may cover any part of the 
      *       process address space accessible by the target process.
      * @param {Integer} Flags Reserved. Must be 0.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1812,9 +1864,11 @@ class Memory {
      * @since windows8.0
      */
     static PrefetchVirtualMemory(hProcess, NumberOfEntries, VirtualAddresses, Flags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PrefetchVirtualMemory", "ptr", hProcess, "ptr", NumberOfEntries, "ptr", VirtualAddresses, "uint", Flags, "int")
+        result := DllCall("KERNEL32.dll\PrefetchVirtualMemory", "ptr", hProcess, "ptr", NumberOfEntries, "ptr", VirtualAddresses, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1823,7 +1877,7 @@ class Memory {
 
     /**
      * Creates or opens a named or unnamed file mapping object for a specified file from a Windows Store app.
-     * @param {Pointer<Void>} hFile A handle to the file from which to create a file mapping object.
+     * @param {HANDLE} hFile A handle to the file from which to create a file mapping object.
      * 
      * The file must be opened with access rights that are compatible with the protection flags that the 
      *        <i>flProtect</i> parameter specifies. It is not required, but it is recommended that files 
@@ -1854,7 +1908,7 @@ class Memory {
      * An attempt to map a file with a length of 0 (zero) fails with an error code of 
      *        <b>ERROR_FILE_INVALID</b>. Applications should test for files with a length of 0 (zero) and 
      *        reject those files.
-     * @param {Pointer<Char>} Name The name of the file mapping object.
+     * @param {PWSTR} Name The name of the file mapping object.
      * 
      * If this parameter matches the name of an existing mapping object, the function requests access to the 
      *        object with the protection that <i>flProtect</i> specifies.
@@ -1876,7 +1930,7 @@ class Memory {
      * Fast user switching is implemented by using Terminal Services sessions. The first user to log on uses session 
      *        0 (zero), the next user to log on uses session 1 (one), and so on. Kernel object names must follow the 
      *        guidelines that are outlined for Terminal Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created file mapping object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the newly created file mapping object.
      * 
      * If the object exists before the function call, the function returns a handle to the existing object (with its 
      *        current size, not the specified size), and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> 
@@ -1888,7 +1942,8 @@ class Memory {
      * @since windows8.0
      */
     static CreateFileMappingFromApp(hFile, SecurityAttributes, PageProtection, MaximumSize, Name) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -1896,12 +1951,12 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Maps a view of a file mapping into the address space of a calling Windows Store app.
-     * @param {Pointer<Void>} hFileMappingObject A handle to a file mapping object. The 
+     * @param {HANDLE} hFileMappingObject A handle to a file mapping object. The 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-createfilemappingfromapp">CreateFileMappingFromApp</a>  function returns 
      *        this handle.
      * @param {Integer} DesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
@@ -1913,7 +1968,7 @@ class Memory {
      * @param {Pointer} NumberOfBytesToMap The number of bytes of a file mapping to map to the view. All bytes must be within the maximum size specified 
      *        by <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-createfilemappingfromapp">CreateFileMappingFromApp</a>. If this 
      *        parameter is 0 (zero), the mapping extends from the specified offset to the end of the file mapping.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is the starting address of the mapped view.
+     * @returns {MEMORY_MAPPED_VIEW_ADDRESS} If the function succeeds, the return value is the starting address of the mapped view.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1921,22 +1976,24 @@ class Memory {
      * @since windows8.0
      */
     static MapViewOfFileFromApp(hFileMappingObject, DesiredAccess, FileOffset, NumberOfBytesToMap) {
+        hFileMappingObject := hFileMappingObject is Win32Handle ? NumGet(hFileMappingObject, "ptr") : hFileMappingObject
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MapViewOfFileFromApp", "ptr", hFileMappingObject, "uint", DesiredAccess, "uint", FileOffset, "ptr", NumberOfBytesToMap, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
     }
 
     /**
      * This is an extended version of UnmapViewOfFile that takes an additional flags parameter.
-     * @param {Pointer<Void>} BaseAddress A pointer to the base address of the mapped view of a file that is to be unmapped. This value must be identical to the value returned by a previous call to the 
+     * @param {MEMORY_MAPPED_VIEW_ADDRESS} BaseAddress A pointer to the base address of the mapped view of a file that is to be unmapped. This value must be identical to the value returned by a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffileex">MapViewOfFileEx</a> function.
      * @param {Integer} UnmapFlags 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1944,9 +2001,11 @@ class Memory {
      * @since windows8.0
      */
     static UnmapViewOfFileEx(BaseAddress, UnmapFlags) {
+        BaseAddress := BaseAddress is Win32Handle ? NumGet(BaseAddress, "ptr") : BaseAddress
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UnmapViewOfFileEx", "ptr", BaseAddress, "uint", UnmapFlags, "int")
+        result := DllCall("KERNEL32.dll\UnmapViewOfFileEx", "ptr", BaseAddress, "uint", UnmapFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1955,7 +2014,7 @@ class Memory {
 
     /**
      * Allocates physical memory pages to be mapped and unmapped within any Address Windowing Extensions (AWE) region of a specified process.
-     * @param {Pointer<Void>} hProcess A handle to a process.
+     * @param {HANDLE} hProcess A handle to a process.
      * 
      * The function allocates memory that can later be mapped within the virtual address space of this process. The handle must have the <b>PROCESS_VM_OPERATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UIntPtr>} NumberOfPages The size of the physical memory to allocate, in pages.
@@ -1972,7 +2031,7 @@ class Memory {
      * 
      * Do not attempt to modify this buffer. It contains operating system data, and corruption could be 
      *        catastrophic. The information in the buffer is not useful to an application.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * Fewer pages than requested can be allocated. 
      *       The caller must check the value of the <i>NumberOfPages</i> parameter on return to see how 
@@ -1986,9 +2045,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static AllocateUserPhysicalPages(hProcess, NumberOfPages, PageArray) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AllocateUserPhysicalPages", "ptr", hProcess, "ptr*", NumberOfPages, "ptr*", PageArray, "int")
+        result := DllCall("KERNEL32.dll\AllocateUserPhysicalPages", "ptr", hProcess, "ptr*", NumberOfPages, "ptr*", PageArray, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1997,7 +2058,7 @@ class Memory {
 
     /**
      * Frees physical memory pages that are allocated previously by using AllocateUserPhysicalPages or AllocateUserPhysicalPagesNuma.
-     * @param {Pointer<Void>} hProcess The handle to a process. 
+     * @param {HANDLE} hProcess The handle to a process. 
      * 
      * The function frees memory within the virtual address space of this process.
      * @param {Pointer<UIntPtr>} NumberOfPages The size of the physical memory to free, in pages. 
@@ -2005,7 +2066,7 @@ class Memory {
      * On return, if the function fails, this parameter indicates 
      *       the number of pages that are freed.
      * @param {Pointer<UIntPtr>} PageArray A pointer to an array of page frame numbers of the allocated memory to be freed.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. In this case, the <i>NumberOfPages</i> 
      *        parameter reflect how many pages have actually been released. To get extended error information, call 
@@ -2014,9 +2075,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static FreeUserPhysicalPages(hProcess, NumberOfPages, PageArray) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FreeUserPhysicalPages", "ptr", hProcess, "ptr*", NumberOfPages, "ptr*", PageArray, "int")
+        result := DllCall("KERNEL32.dll\FreeUserPhysicalPages", "ptr", hProcess, "ptr*", NumberOfPages, "ptr*", PageArray, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2054,7 +2117,7 @@ class Memory {
      * If this parameter is <b>NULL</b>, the specified address range is unmapped.  Also, the specified physical pages are not 
      *        freed, and you must call <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-freeuserphysicalpages">FreeUserPhysicalPages</a> to 
      *        free them.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b> and no mapping is done—partial or otherwise. 
      *        To get extended error information, call 
@@ -2065,7 +2128,7 @@ class Memory {
     static MapUserPhysicalPages(VirtualAddress, NumberOfPages, PageArray) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MapUserPhysicalPages", "ptr", VirtualAddress, "ptr", NumberOfPages, "ptr*", PageArray, "int")
+        result := DllCall("KERNEL32.dll\MapUserPhysicalPages", "ptr", VirtualAddress, "ptr", NumberOfPages, "ptr*", PageArray, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2074,7 +2137,7 @@ class Memory {
 
     /**
      * Allocates physical memory pages to be mapped and unmapped within any Address Windowing Extensions (AWE) region of a specified process and specifies the NUMA node for the physical memory.
-     * @param {Pointer<Void>} hProcess A handle to a process. 
+     * @param {HANDLE} hProcess A handle to a process. 
      * 
      * The function allocates memory that can later be mapped within the virtual address 
      *       space of this process. The handle must have the <b>PROCESS_VM_OPERATION</b> access right. For 
@@ -2094,7 +2157,7 @@ class Memory {
      *        could be catastrophic. The information in the buffer is not useful to an application.</div>
      * <div> </div>
      * @param {Integer} nndPreferred The NUMA node where the physical memory should reside.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * Fewer pages than requested can be allocated. The caller must check the value of the 
      *        <i>NumberOfPages</i> parameter on return to see how many pages are allocated. All allocated 
@@ -2108,9 +2171,11 @@ class Memory {
      * @since windows6.0.6000
      */
     static AllocateUserPhysicalPagesNuma(hProcess, NumberOfPages, PageArray, nndPreferred) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AllocateUserPhysicalPagesNuma", "ptr", hProcess, "ptr*", NumberOfPages, "ptr*", PageArray, "uint", nndPreferred, "int")
+        result := DllCall("KERNEL32.dll\AllocateUserPhysicalPagesNuma", "ptr", hProcess, "ptr*", NumberOfPages, "ptr*", PageArray, "uint", nndPreferred, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2119,7 +2184,7 @@ class Memory {
 
     /**
      * Reserves, commits, or changes the state of a region of memory within the virtual address space of the specified process, and specifies the NUMA node for the physical memory.
-     * @param {Pointer<Void>} hProcess The handle to a process. The function allocates memory within the virtual address space of this process.
+     * @param {HANDLE} hProcess The handle to a process. The function allocates memory within the virtual address space of this process.
      * 
      * The handle must have the <b>PROCESS_VM_OPERATION</b> access right. For more information, 
      *        see 
@@ -2163,6 +2228,8 @@ class Memory {
      * @since windows6.0.6000
      */
     static VirtualAllocExNuma(hProcess, lpAddress, dwSize, flAllocationType, flProtect, nndPreferred) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\VirtualAllocExNuma", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "uint", nndPreferred, "ptr")
@@ -2193,7 +2260,7 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2203,7 +2270,7 @@ class Memory {
     static GetMemoryErrorHandlingCapabilities(Capabilities) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetMemoryErrorHandlingCapabilities", "uint*", Capabilities, "int")
+        result := DllCall("KERNEL32.dll\GetMemoryErrorHandlingCapabilities", "uint*", Capabilities, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2231,7 +2298,7 @@ class Memory {
      * @param {Pointer<Void>} RegistrationHandle Registration handle returned from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-registerbadmemorynotification">RegisterBadMemoryNotification</a> 
      *       function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2241,7 +2308,7 @@ class Memory {
     static UnregisterBadMemoryNotification(RegistrationHandle) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UnregisterBadMemoryNotification", "ptr", RegistrationHandle, "int")
+        result := DllCall("KERNEL32.dll\UnregisterBadMemoryNotification", "ptr", RegistrationHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2296,19 +2363,21 @@ class Memory {
 
     /**
      * Provides Control Flow Guard (CFG) with a list of valid indirect call targets and specifies whether they should be marked valid or not.
-     * @param {Pointer<Void>} hProcess The handle to the target process.
+     * @param {HANDLE} hProcess The handle to the target process.
      * @param {Pointer<Void>} VirtualAddress The start of the virtual memory region whose call targets are being marked valid. The memory region must be allocated using one of the executable [memory protection constants](/windows/desktop/Memory/memory-protection-constants).
      * @param {Pointer} RegionSize The size of the virtual memory region.
      * @param {Integer} NumberOfOffsets The number of offsets relative to the virtual memory ranges.
      * @param {Pointer<CFG_CALL_TARGET_INFO>} OffsetInformation A list of offsets and flags relative to the virtual memory ranges.
-     * @returns {Integer} <b>TRUE</b> if the operation was successful; otherwise, <b>FALSE</b>. To retrieve error values for this function, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
+     * @returns {BOOL} <b>TRUE</b> if the operation was successful; otherwise, <b>FALSE</b>. To retrieve error values for this function, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-setprocessvalidcalltargets
      * @since windows10.0.10240
      */
     static SetProcessValidCallTargets(hProcess, VirtualAddress, RegionSize, NumberOfOffsets, OffsetInformation) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\SetProcessValidCallTargets", "ptr", hProcess, "ptr", VirtualAddress, "ptr", RegionSize, "uint", NumberOfOffsets, "ptr", OffsetInformation, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\SetProcessValidCallTargets", "ptr", hProcess, "ptr", VirtualAddress, "ptr", RegionSize, "uint", NumberOfOffsets, "ptr", OffsetInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2317,17 +2386,20 @@ class Memory {
 
     /**
      * 
-     * @param {Pointer<Void>} Process 
+     * @param {HANDLE} Process 
      * @param {Pointer<Void>} VirtualAddress 
      * @param {Pointer} RegionSize 
      * @param {Integer} NumberOfOffsets 
      * @param {Pointer<CFG_CALL_TARGET_INFO>} OffsetInformation 
-     * @param {Pointer<Void>} Section 
+     * @param {HANDLE} Section 
      * @param {Integer} ExpectedFileOffset 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetProcessValidCallTargetsForMappedView(Process, VirtualAddress, RegionSize, NumberOfOffsets, OffsetInformation, Section, ExpectedFileOffset) {
-        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\SetProcessValidCallTargetsForMappedView", "ptr", Process, "ptr", VirtualAddress, "ptr", RegionSize, "uint", NumberOfOffsets, "ptr", OffsetInformation, "ptr", Section, "uint", ExpectedFileOffset, "int")
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+        Section := Section is Win32Handle ? NumGet(Section, "ptr") : Section
+
+        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\SetProcessValidCallTargetsForMappedView", "ptr", Process, "ptr", VirtualAddress, "ptr", RegionSize, "uint", NumberOfOffsets, "ptr", OffsetInformation, "ptr", Section, "uint", ExpectedFileOffset, "ptr")
         return result
     }
 
@@ -2412,7 +2484,7 @@ class Memory {
      * @param {Pointer<UInt32>} OldProtection A pointer to a variable that receives the previous access protection value of the first page in the 
      *       specified region of pages. If this parameter is <b>NULL</b> or does not point to a valid 
      *       variable, the function fails.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2422,7 +2494,7 @@ class Memory {
     static VirtualProtectFromApp(Address, Size, NewProtection, OldProtection) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualProtectFromApp", "ptr", Address, "ptr", Size, "uint", NewProtection, "uint*", OldProtection, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualProtectFromApp", "ptr", Address, "ptr", Size, "uint", NewProtection, "uint*", OldProtection, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2434,10 +2506,10 @@ class Memory {
      * @param {Integer} DesiredAccess The access to the file mapping object. This access is checked against any security descriptor on the target 
      *       file mapping object. For a list of values, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Memory/file-mapping-security-and-access-rights">File Mapping Security and Access Rights</a>. You can only open the file mapping object for <b>FILE_MAP_EXECUTE</b> access if your app has the <b>codeGeneration</b> capability.
-     * @param {Integer} InheritHandle If this parameter is <b>TRUE</b>, a process created by the 
+     * @param {BOOL} InheritHandle If this parameter is <b>TRUE</b>, a process created by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function can inherit the handle; 
      *       otherwise, the handle cannot be inherited.
-     * @param {Pointer<Char>} Name The name of the file mapping object to be opened. If there is an open handle to a file mapping object by 
+     * @param {PWSTR} Name The name of the file mapping object to be opened. If there is an open handle to a file mapping object by 
      *       this name and the security descriptor on the mapping object does not conflict with the 
      *       <i>DesiredAccess</i> parameter, the open operation succeeds. The name can have a 
      *       "Global\" or "Local\" prefix to explicitly open an object in the global or 
@@ -2447,7 +2519,7 @@ class Memory {
      *       switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next 
      *       user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal 
      *       Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file mapping object.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file mapping object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2455,20 +2527,20 @@ class Memory {
      * @since windows10.0.10240
      */
     static OpenFileMappingFromApp(DesiredAccess, InheritHandle, Name) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\OpenFileMappingFromApp", "uint", DesiredAccess, "int", InheritHandle, "ptr", Name, "ptr")
+        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\OpenFileMappingFromApp", "uint", DesiredAccess, "ptr", InheritHandle, "ptr", Name, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * The QueryVirtualMemoryInformation function returns information about a page or a set of pages within the virtual address space of the specified process.
-     * @param {Pointer<Void>} Process A handle for the process in whose context the pages to be queried reside.
+     * @param {HANDLE} Process A handle for the process in whose context the pages to be queried reside.
      * @param {Pointer<Void>} VirtualAddress The address of the region of pages to be queried. This value is rounded down to the next host-page-address boundary.
      * @param {Integer} MemoryInformationClass The memory information class about which to retrieve information. The only supported value is <b>MemoryRegionInfo</b>.
      * @param {Pointer} MemoryInformation A pointer to a buffer that receives the specified information.
@@ -2476,14 +2548,16 @@ class Memory {
      * If the <i>MemoryInformationClass</i> parameter has a value of  <b>MemoryRegionInfo</b>, this parameter must point to a <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/ns-memoryapi-win32_memory_region_information">WIN32_MEMORY_REGION_INFORMATION</a> structure.
      * @param {Pointer} MemoryInformationSize Specifies the length in bytes of the memory information buffer.
      * @param {Pointer<UIntPtr>} ReturnSize An optional pointer which, if specified, receives the number of bytes placed in the memory information buffer.
-     * @returns {Integer} Returns <b>TRUE</b> on success. Returns <b>FALSE</b> for failure. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} Returns <b>TRUE</b> on success. Returns <b>FALSE</b> for failure. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-queryvirtualmemoryinformation
      * @since windows10.0.14393
      */
     static QueryVirtualMemoryInformation(Process, VirtualAddress, MemoryInformationClass, MemoryInformation, MemoryInformationSize, ReturnSize) {
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-4.dll\QueryVirtualMemoryInformation", "ptr", Process, "ptr", VirtualAddress, "int", MemoryInformationClass, "ptr", MemoryInformation, "ptr", MemoryInformationSize, "ptr*", ReturnSize, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-4.dll\QueryVirtualMemoryInformation", "ptr", Process, "ptr", VirtualAddress, "int", MemoryInformationClass, "ptr", MemoryInformation, "ptr", MemoryInformationSize, "ptr*", ReturnSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2492,9 +2566,9 @@ class Memory {
 
     /**
      * Maps a view of a file or a pagefile-backed section into the address space of the specified process.
-     * @param {Pointer<Void>} FileMappingHandle A <b>HANDLE</b> to a section that is to be mapped
+     * @param {HANDLE} FileMappingHandle A <b>HANDLE</b> to a section that is to be mapped
      *                         into the address space of the specified process.
-     * @param {Pointer<Void>} ProcessHandle A <b>HANDLE</b> to a process into which the section
+     * @param {HANDLE} ProcessHandle A <b>HANDLE</b> to a process into which the section
      *                     will be mapped.
      * @param {Integer} Offset The offset from the beginning of the section.
      *              This must be 64k aligned.
@@ -2516,39 +2590,45 @@ class Memory {
      *        <i>PageProtection</i> parameter has no effect, and should be set to any valid value such as 
      *        <b>PAGE_READONLY</b>.
      * @param {Integer} PreferredNode The preferred NUMA node for this memory.
-     * @returns {Pointer<Void>} Returns the base address of the mapped view, if successful. Otherwise, returns <b>NULL</b> and extended error status is available
+     * @returns {MEMORY_MAPPED_VIEW_ADDRESS} Returns the base address of the mapped view, if successful. Otherwise, returns <b>NULL</b> and extended error status is available
      *            using <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-mapviewoffilenuma2
      * @since windows10.0.15063
      */
     static MapViewOfFileNuma2(FileMappingHandle, ProcessHandle, Offset, BaseAddress, ViewSize, AllocationType, PageProtection, PreferredNode) {
+        FileMappingHandle := FileMappingHandle is Win32Handle ? NumGet(FileMappingHandle, "ptr") : FileMappingHandle
+        ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
+
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-5.dll\MapViewOfFileNuma2", "ptr", FileMappingHandle, "ptr", ProcessHandle, "uint", Offset, "ptr", BaseAddress, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "uint", PreferredNode, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
     }
 
     /**
      * Unmaps a previously mapped view of a file or a pagefile-backed section.
-     * @param {Pointer<Void>} Process A <b>HANDLE</b> to the process from which the section
+     * @param {HANDLE} Process A <b>HANDLE</b> to the process from which the section
      *                     will be unmapped.
-     * @param {Pointer<Void>} BaseAddress The base address of a previously mapped
+     * @param {MEMORY_MAPPED_VIEW_ADDRESS} BaseAddress The base address of a previously mapped
      *                   view that is to be unmapped.  This value must be
      *                   identical to the value returned by a previous call
      *                   to <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile2">MapViewOfFile2</a>.
      * @param {Integer} UnmapFlags 
-     * @returns {Integer} Returns <b>TRUE</b> if sucessful. Otherwise, returns <b>FALSE</b> and extended error status is available
+     * @returns {BOOL} Returns <b>TRUE</b> if sucessful. Otherwise, returns <b>FALSE</b> and extended error status is available
      *             using <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-unmapviewoffile2
      * @since windows10.0.15063
      */
     static UnmapViewOfFile2(Process, BaseAddress, UnmapFlags) {
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+        BaseAddress := BaseAddress is Win32Handle ? NumGet(BaseAddress, "ptr") : BaseAddress
+
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-5.dll\UnmapViewOfFile2", "ptr", Process, "ptr", BaseAddress, "uint", UnmapFlags, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-5.dll\UnmapViewOfFile2", "ptr", Process, "ptr", BaseAddress, "uint", UnmapFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2557,19 +2637,21 @@ class Memory {
 
     /**
      * 
-     * @param {Pointer<Void>} Process 
+     * @param {HANDLE} Process 
      * @param {Pointer<Void>} Address 
      * @param {Pointer} Size 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static VirtualUnlockEx(Process, Address, Size) {
-        result := DllCall("api-ms-win-core-memory-l1-1-5.dll\VirtualUnlockEx", "ptr", Process, "ptr", Address, "ptr", Size, "int")
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
+        result := DllCall("api-ms-win-core-memory-l1-1-5.dll\VirtualUnlockEx", "ptr", Process, "ptr", Address, "ptr", Size, "ptr")
         return result
     }
 
     /**
      * Reserves, commits, or changes the state of a region of memory within the virtual address space of a specified process. The function initializes the memory it allocates to zero.
-     * @param {Pointer<Void>} Process The handle to a process. The function allocates memory within the virtual address space of this process.
+     * @param {HANDLE} Process The handle to a process. The function allocates memory within the virtual address space of this process.
      * 
      * The handle must have the <b>PROCESS_VM_OPERATION</b> access right. For more information, 
      *        see 
@@ -2607,6 +2689,8 @@ class Memory {
      * @since windows10.0.10240
      */
     static VirtualAlloc2(Process, BaseAddress, Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2", "ptr", Process, "ptr", BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
@@ -2618,9 +2702,9 @@ class Memory {
 
     /**
      * Maps a view of a file or a pagefile-backed section into the address space of the specified process.
-     * @param {Pointer<Void>} FileMapping A <b>HANDLE</b> to a section that is to be mapped
+     * @param {HANDLE} FileMapping A <b>HANDLE</b> to a section that is to be mapped
      *                         into the address space of the specified process.
-     * @param {Pointer<Void>} Process A <b>HANDLE</b> to a process into which the section
+     * @param {HANDLE} Process A <b>HANDLE</b> to a process into which the section
      *                     will be mapped.
      * @param {Pointer<Void>} BaseAddress The desired base address of the view.
      *                   The address is rounded down to the nearest 64k boundary.
@@ -2640,24 +2724,27 @@ class Memory {
      *        <b>PAGE_READONLY</b>.
      * @param {Pointer<MEM_EXTENDED_PARAMETER>} ExtendedParameters An optional pointer to one or more extended parameters of type <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-mem_extended_parameter">MEM_EXTENDED_PARAMETER</a>. Each of those extended parameter values can itself have a <i>Type</i> field of either <b>MemExtendedParameterAddressRequirements</b> or <b>MemExtendedParameterNumaNode</b>. If no <b>MemExtendedParameterNumaNode</b> extended parameter is provided, then the behavior is the same as for the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a>/<a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> functions (that is, the preferred NUMA node for the physical pages is determined based on the ideal processor of the thread that first accesses the memory).
      * @param {Integer} ParameterCount The number of extended parameters pointed to by <i>ExtendedParameters</i>.
-     * @returns {Pointer<Void>} Returns the base address of the mapped view, if successful. Otherwise, returns <b>NULL</b> and extended error status is available
+     * @returns {MEMORY_MAPPED_VIEW_ADDRESS} Returns the base address of the mapped view, if successful. Otherwise, returns <b>NULL</b> and extended error status is available
      *            using <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-mapviewoffile3
      * @since windows10.0.17134
      */
     static MapViewOfFile3(FileMapping, Process, BaseAddress, Offset, ViewSize, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
+        FileMapping := FileMapping is Win32Handle ? NumGet(FileMapping, "ptr") : FileMapping
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3", "ptr", FileMapping, "ptr", Process, "ptr", BaseAddress, "uint", Offset, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
     }
 
     /**
      * Reserves, commits, or changes the state of a region of pages in the virtual address space of the calling process.
-     * @param {Pointer<Void>} Process The handle to a process. The function allocates memory within the virtual address space of this process.
+     * @param {HANDLE} Process The handle to a process. The function allocates memory within the virtual address space of this process.
      * 
      * The handle must have the <b>PROCESS_VM_OPERATION</b> access right. For more information, 
      *        see 
@@ -2698,6 +2785,8 @@ class Memory {
      * @since windows10.0.10240
      */
     static VirtualAlloc2FromApp(Process, BaseAddress, Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2FromApp", "ptr", Process, "ptr", BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
@@ -2709,9 +2798,9 @@ class Memory {
 
     /**
      * Maps a view of a file mapping into the address space of a calling Windows Store app.
-     * @param {Pointer<Void>} FileMapping A <b>HANDLE</b> to a section that is to be mapped
+     * @param {HANDLE} FileMapping A <b>HANDLE</b> to a section that is to be mapped
      *                         into the address space of the specified process.
-     * @param {Pointer<Void>} Process A <b>HANDLE</b> to a process into which the section
+     * @param {HANDLE} Process A <b>HANDLE</b> to a process into which the section
      *                     will be mapped.
      * @param {Pointer<Void>} BaseAddress The desired base address of the view.
      *                   The address is rounded down to the nearest 64k boundary.
@@ -2731,24 +2820,27 @@ class Memory {
      *        <b>PAGE_READONLY</b>.
      * @param {Pointer<MEM_EXTENDED_PARAMETER>} ExtendedParameters An optional pointer to one or more extended parameters of type <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-mem_extended_parameter">MEM_EXTENDED_PARAMETER</a>. Each of those extended parameter values can itself have a <i>Type</i> field of either <b>MemExtendedParameterAddressRequirements</b> or <b>MemExtendedParameterNumaNode</b>. If no <b>MemExtendedParameterNumaNode</b> extended parameter is provided, then the behavior is the same as for the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a>/<a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> functions (that is, the preferred NUMA node for the physical pages is determined based on the ideal processor of the thread that first accesses the memory).
      * @param {Integer} ParameterCount The number of extended parameters pointed to by <i>ExtendedParameters</i>.
-     * @returns {Pointer<Void>} Returns the base address of the mapped view, if successful. Otherwise, returns <b>NULL</b> and extended error status is available
+     * @returns {MEMORY_MAPPED_VIEW_ADDRESS} Returns the base address of the mapped view, if successful. Otherwise, returns <b>NULL</b> and extended error status is available
      *            using <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-mapviewoffile3fromapp
      * @since windows10.0.10240
      */
     static MapViewOfFile3FromApp(FileMapping, Process, BaseAddress, Offset, ViewSize, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
+        FileMapping := FileMapping is Win32Handle ? NumGet(FileMapping, "ptr") : FileMapping
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
         A_LastError := 0
 
         result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3FromApp", "ptr", FileMapping, "ptr", Process, "ptr", BaseAddress, "uint", Offset, "ptr", ViewSize, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
     }
 
     /**
      * Creates or opens a named or unnamed file mapping object for a specified file. You can specify a preferred NUMA node for the physical memory as an extended parameter; see the *ExtendedParameters* parameter.
-     * @param {Pointer<Void>} File Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * @param {HANDLE} File Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
      * 
      * A handle to the file from which to create a file mapping object.
      * 
@@ -2941,7 +3033,7 @@ class Memory {
      * If this parameter is 0 (zero), then the maximum size of the file mapping object is equal to the current size of the file that <i>hFile</i> identifies.
      * 
      * An attempt to map a file with a length of 0 (zero) fails with an error code of <b>ERROR_FILE_INVALID</b>. You should test for files with a length of 0 (zero), and reject those files.
-     * @param {Pointer<Char>} Name Type: \_In_opt\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
+     * @param {PWSTR} Name Type: \_In_opt\_ **[PCWSTR](/windows/win32/winprog/windows-data-types)**
      * 
      * The name of the file mapping object.
      * 
@@ -2960,7 +3052,7 @@ class Memory {
      * @param {Integer} ParameterCount _In_ ULONG ParameterCount
      * 
      * The number of extended parameters pointed to by *ExtendedParameters*.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created file mapping object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the newly created file mapping object.
      * 
      * If the object exists before the function call, the function returns a handle to the existing object (with its current size, not the specified size), and <a href="/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
@@ -2968,7 +3060,8 @@ class Memory {
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-createfilemapping2
      */
     static CreateFileMapping2(File, SecurityAttributes, DesiredAccess, PageProtection, AllocationAttributes, MaximumSize, Name, ExtendedParameters, ParameterCount) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        File := File is Win32Handle ? NumGet(File, "ptr") : File
 
         A_LastError := 0
 
@@ -2976,46 +3069,52 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} ObjectHandle 
+     * @param {HANDLE} ObjectHandle 
      * @param {Pointer<UIntPtr>} NumberOfPages 
      * @param {Pointer<UIntPtr>} PageArray 
      * @param {Pointer<MEM_EXTENDED_PARAMETER>} ExtendedParameters 
      * @param {Integer} ExtendedParameterCount 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AllocateUserPhysicalPages2(ObjectHandle, NumberOfPages, PageArray, ExtendedParameters, ExtendedParameterCount) {
-        result := DllCall("api-ms-win-core-memory-l1-1-8.dll\AllocateUserPhysicalPages2", "ptr", ObjectHandle, "ptr*", NumberOfPages, "ptr*", PageArray, "ptr", ExtendedParameters, "uint", ExtendedParameterCount, "int")
+        ObjectHandle := ObjectHandle is Win32Handle ? NumGet(ObjectHandle, "ptr") : ObjectHandle
+
+        result := DllCall("api-ms-win-core-memory-l1-1-8.dll\AllocateUserPhysicalPages2", "ptr", ObjectHandle, "ptr*", NumberOfPages, "ptr*", PageArray, "ptr", ExtendedParameters, "uint", ExtendedParameterCount, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Partition 
+     * @param {HANDLE} Partition 
      * @param {Integer} DedicatedMemoryTypeId 
      * @param {Integer} DesiredAccess 
-     * @param {Integer} InheritHandle 
-     * @returns {Pointer<Void>} 
+     * @param {BOOL} InheritHandle 
+     * @returns {HANDLE} 
      */
     static OpenDedicatedMemoryPartition(Partition, DedicatedMemoryTypeId, DesiredAccess, InheritHandle) {
-        result := DllCall("api-ms-win-core-memory-l1-1-8.dll\OpenDedicatedMemoryPartition", "ptr", Partition, "uint", DedicatedMemoryTypeId, "uint", DesiredAccess, "int", InheritHandle, "ptr")
-        return result
+        Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
+
+        result := DllCall("api-ms-win-core-memory-l1-1-8.dll\OpenDedicatedMemoryPartition", "ptr", Partition, "uint", DedicatedMemoryTypeId, "uint", DesiredAccess, "ptr", InheritHandle, "ptr")
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Partition 
+     * @param {HANDLE} Partition 
      * @param {Integer} PartitionInformationClass 
      * @param {Pointer} PartitionInformation 
      * @param {Integer} PartitionInformationLength 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static QueryPartitionInformation(Partition, PartitionInformationClass, PartitionInformation, PartitionInformationLength) {
-        result := DllCall("api-ms-win-core-memory-l1-1-8.dll\QueryPartitionInformation", "ptr", Partition, "int", PartitionInformationClass, "ptr", PartitionInformation, "uint", PartitionInformationLength, "int")
+        Partition := Partition is Win32Handle ? NumGet(Partition, "ptr") : Partition
+
+        result := DllCall("api-ms-win-core-memory-l1-1-8.dll\QueryPartitionInformation", "ptr", Partition, "int", PartitionInformationClass, "ptr", PartitionInformation, "uint", PartitionInformationLength, "ptr")
         return result
     }
 
@@ -3023,10 +3122,10 @@ class Memory {
      * 
      * @param {Integer} TargetNodeNumber 
      * @param {Pointer<UInt32>} InitiatorNodeNumber 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetMemoryNumaClosestInitiatorNode(TargetNodeNumber, InitiatorNodeNumber) {
-        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaClosestInitiatorNode", "uint", TargetNodeNumber, "uint*", InitiatorNodeNumber, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaClosestInitiatorNode", "uint", TargetNodeNumber, "uint*", InitiatorNodeNumber, "ptr")
         return result
     }
 
@@ -3035,10 +3134,10 @@ class Memory {
      * @param {Integer} NodeNumber 
      * @param {Integer} DataType 
      * @param {Pointer<WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT>} PerfInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetMemoryNumaPerformanceInformation(NodeNumber, DataType, PerfInfo) {
-        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaPerformanceInformation", "uint", NodeNumber, "char", DataType, "ptr", PerfInfo, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaPerformanceInformation", "uint", NodeNumber, "char", DataType, "ptr", PerfInfo, "ptr")
         return result
     }
 
@@ -3082,10 +3181,10 @@ class Memory {
      * 
      * @param {Pointer<Void>} Buffer 
      * @param {Pointer} Length 
-     * @returns {Integer} 
+     * @returns {BOOLEAN} 
      */
     static RtlIsZeroMemory(Buffer, Length) {
-        result := DllCall("ntdll.dll\RtlIsZeroMemory", "ptr", Buffer, "ptr", Length, "char")
+        result := DllCall("ntdll.dll\RtlIsZeroMemory", "ptr", Buffer, "ptr", Length, "ptr")
         return result
     }
 
@@ -3093,7 +3192,7 @@ class Memory {
      * Allocates the specified number of bytes from the heap.
      * @param {Integer} uFlags 
      * @param {Pointer} dwBytes The number of bytes to allocate. If this parameter is zero and the <i>uFlags</i> parameter specifies <b>GMEM_MOVEABLE</b>, the function returns a handle to a memory object that is marked as discarded.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly allocated memory object.
+     * @returns {HGLOBAL} If the function succeeds, the return value is a handle to the newly allocated memory object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3107,12 +3206,12 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HGLOBAL({Value: result}, True)
     }
 
     /**
      * Changes the size or attributes of a specified global memory object. The size can increase or decrease.
-     * @param {Pointer<Void>} hMem A handle to the global memory object to be reallocated. This handle is returned by either the 
+     * @param {HGLOBAL} hMem A handle to the global memory object to be reallocated. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or 
      * <b>GlobalReAlloc</b> function.
      * @param {Pointer} dwBytes The new size of the memory block, in bytes. If <i>uFlags</i> specifies <b>GMEM_MODIFY</b>, this parameter is ignored.
@@ -3160,7 +3259,7 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the reallocated memory object.
+     * @returns {HGLOBAL} If the function succeeds, the return value is a handle to the reallocated memory object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3168,18 +3267,20 @@ class Memory {
      * @since windows5.1.2600
      */
     static GlobalReAlloc(hMem, dwBytes, uFlags) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalReAlloc", "ptr", hMem, "ptr", dwBytes, "uint", uFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HGLOBAL({Value: result}, True)
     }
 
     /**
      * Retrieves the current size of the specified global memory object, in bytes.
-     * @param {Pointer<Void>} hMem A handle to the global memory object. This handle is returned by either the 
+     * @param {HGLOBAL} hMem A handle to the global memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalrealloc">GlobalReAlloc</a> function.
      * @returns {Pointer} If the function succeeds, the return value is the size of the specified global memory object, in bytes.
@@ -3190,6 +3291,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static GlobalSize(hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalSize", "ptr", hMem, "ptr")
@@ -3201,10 +3304,10 @@ class Memory {
 
     /**
      * Decrements the lock count associated with a memory object that was allocated with GMEM_MOVEABLE.
-     * @param {Pointer<Void>} hMem A handle to the global memory object. This handle is returned by either the 
+     * @param {HGLOBAL} hMem A handle to the global memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalrealloc">GlobalReAlloc</a> function.
-     * @returns {Integer} If the memory object is still locked after decrementing the lock count, the return value is a nonzero value. If the memory object is unlocked after decrementing the lock count, the function returns zero and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>NO_ERROR</b>.
+     * @returns {BOOL} If the memory object is still locked after decrementing the lock count, the return value is a nonzero value. If the memory object is unlocked after decrementing the lock count, the function returns zero and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is zero and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns a value other than <b>NO_ERROR</b>.
@@ -3212,9 +3315,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static GlobalUnlock(hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalUnlock", "ptr", hMem, "int")
+        result := DllCall("KERNEL32.dll\GlobalUnlock", "ptr", hMem, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3223,7 +3328,7 @@ class Memory {
 
     /**
      * Locks a global memory object and returns a pointer to the first byte of the object's memory block.
-     * @param {Pointer<Void>} hMem A handle to the global memory object. This handle is returned by either the 
+     * @param {HGLOBAL} hMem A handle to the global memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalrealloc">GlobalReAlloc</a> function.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the first byte of the memory block.
@@ -3234,6 +3339,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static GlobalLock(hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalLock", "ptr", hMem, "ptr")
@@ -3245,7 +3352,7 @@ class Memory {
 
     /**
      * Retrieves information about the specified global memory object.
-     * @param {Pointer<Void>} hMem A handle to the global memory object. This handle is returned by either the 
+     * @param {HGLOBAL} hMem A handle to the global memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalrealloc">GlobalReAlloc</a> function.
      * @returns {Integer} If the function succeeds, the return value specifies the allocation values and the lock count for the memory object.
@@ -3256,6 +3363,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static GlobalFlags(hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GlobalFlags", "ptr", hMem, "uint")
@@ -3269,7 +3378,7 @@ class Memory {
      * Retrieves the handle associated with the specified pointer to a global memory block.
      * @param {Pointer<Void>} pMem A pointer to the first byte of the global memory block. This pointer is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globallock">GlobalLock</a> function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified global memory object.
+     * @returns {HGLOBAL} If the function succeeds, the return value is a handle to the specified global memory object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3283,14 +3392,14 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HGLOBAL({Value: result}, True)
     }
 
     /**
      * Allocates the specified number of bytes from the heap.
      * @param {Integer} uFlags 
      * @param {Pointer} uBytes The number of bytes to allocate. If this parameter is zero and the <i>uFlags</i> parameter specifies <b>LMEM_MOVEABLE</b>, the function returns a handle to a memory object that is marked as discarded.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly allocated memory object.
+     * @returns {HLOCAL} If the function succeeds, the return value is a handle to the newly allocated memory object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3304,12 +3413,12 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HLOCAL({Value: result}, True)
     }
 
     /**
      * Changes the size or the attributes of a specified local memory object. The size can increase or decrease.
-     * @param {Pointer<Void>} hMem A handle to the local memory object to be reallocated. This handle is returned by either the 
+     * @param {HLOCAL} hMem A handle to the local memory object to be reallocated. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or 
      * <b>LocalReAlloc</b> function.
      * @param {Pointer} uBytes The new size of the memory block, in bytes. If <i>uFlags</i> specifies <b>LMEM_MODIFY</b>, this parameter is ignored.
@@ -3360,25 +3469,27 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the reallocated memory object.
+     * @returns {HLOCAL} If the function succeeds, the return value is a handle to the reallocated memory object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-localrealloc
      * @since windows5.1.2600
      */
     static LocalReAlloc(hMem, uBytes, uFlags) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LocalReAlloc", "ptr", hMem, "ptr", uBytes, "uint", uFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HLOCAL({Value: result}, True)
     }
 
     /**
      * Locks a local memory object and returns a pointer to the first byte of the object's memory block.
-     * @param {Pointer<Void>} hMem A handle to the local memory object. This handle is returned by either the 
+     * @param {HLOCAL} hMem A handle to the local memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localrealloc">LocalReAlloc</a> function.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the first byte of the memory block.
@@ -3389,6 +3500,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static LocalLock(hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LocalLock", "ptr", hMem, "ptr")
@@ -3402,7 +3515,7 @@ class Memory {
      * Retrieves the handle associated with the specified pointer to a local memory object.
      * @param {Pointer<Void>} pMem A pointer to the first byte of the local memory object. This pointer is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-locallock">LocalLock</a> function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified local memory object.
+     * @returns {HLOCAL} If the function succeeds, the return value is a handle to the specified local memory object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3416,15 +3529,15 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HLOCAL({Value: result}, True)
     }
 
     /**
      * Decrements the lock count associated with a memory object that was allocated with LMEM_MOVEABLE.
-     * @param {Pointer<Void>} hMem A handle to the local memory object. This handle is returned by either the 
+     * @param {HLOCAL} hMem A handle to the local memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localrealloc">LocalReAlloc</a> function.
-     * @returns {Integer} If the memory object is still locked after decrementing the lock count, the return value is nonzero. If the memory object is unlocked after decrementing the lock count, the function returns zero and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>NO_ERROR</b>.
+     * @returns {BOOL} If the memory object is still locked after decrementing the lock count, the return value is nonzero. If the memory object is unlocked after decrementing the lock count, the function returns zero and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is zero and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns a value other than <b>NO_ERROR</b>.
@@ -3432,9 +3545,11 @@ class Memory {
      * @since windows5.1.2600
      */
     static LocalUnlock(hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LocalUnlock", "ptr", hMem, "int")
+        result := DllCall("KERNEL32.dll\LocalUnlock", "ptr", hMem, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3443,7 +3558,7 @@ class Memory {
 
     /**
      * Retrieves the current size of the specified local memory object, in bytes.
-     * @param {Pointer<Void>} hMem A handle to the local memory object. This handle is returned by the 
+     * @param {HLOCAL} hMem A handle to the local memory object. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localrealloc">LocalReAlloc</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localhandle">LocalHandle</a> function.
@@ -3453,6 +3568,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static LocalSize(hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LocalSize", "ptr", hMem, "ptr")
@@ -3464,7 +3581,7 @@ class Memory {
 
     /**
      * Retrieves information about the specified local memory object.
-     * @param {Pointer<Void>} hMem A handle to the local memory object. This handle is returned by either the 
+     * @param {HLOCAL} hMem A handle to the local memory object. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localrealloc">LocalReAlloc</a> function.
      * @returns {Integer} If the function succeeds, the return value specifies the allocation values and the lock count for the memory object.
@@ -3475,6 +3592,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static LocalFlags(hMem) {
+        hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\LocalFlags", "ptr", hMem, "uint")
@@ -3486,7 +3605,7 @@ class Memory {
 
     /**
      * Creates or opens a named or unnamed file mapping object for a specified file.
-     * @param {Pointer<Void>} hFile A handle to the file from which to create a file mapping object.
+     * @param {HANDLE} hFile A handle to the file from which to create a file mapping object.
      * 
      * The file must be opened with access rights that are compatible with the protection flags that the 
      *        <i>flProtect</i> parameter specifies. It is not required, but it is recommended that files 
@@ -3520,7 +3639,7 @@ class Memory {
      * An attempt to map a file with a length of 0 (zero) fails with an error code of 
      *        <b>ERROR_FILE_INVALID</b>. Applications should test for files with a length of 0 (zero) and 
      *        reject those files.
-     * @param {Pointer<Byte>} lpName The name of the file mapping object.
+     * @param {PSTR} lpName The name of the file mapping object.
      * 
      * If this parameter matches the name of an existing mapping object, the function requests access to the 
      *        object with the protection that <i>flProtect</i> specifies.
@@ -3543,7 +3662,7 @@ class Memory {
      * Fast user switching is implemented by using Terminal Services sessions. The first user to log on uses session 
      *        0 (zero), the next user to log on uses session 1 (one), and so on. Kernel object names must follow the 
      *        guidelines that are outlined for Terminal Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the newly created file mapping object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the newly created file mapping object.
      * 
      * If the object exists before the function call, the function returns a handle to the existing object (with its 
      *        current size, not the specified size), and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>returns <b>ERROR_ALREADY_EXISTS</b>.
@@ -3554,7 +3673,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static CreateFileMappingA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -3562,12 +3682,12 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates or opens a named or unnamed file mapping object for a specified file and specifies the NUMA node for the physical memory.
-     * @param {Pointer<Void>} hFile A handle to the file from which to create a file mapping object. 
+     * @param {HANDLE} hFile A handle to the file from which to create a file mapping object. 
      * 
      * The file must be opened with access 
      *        rights that are compatible with the protection flags that the <i>flProtect</i> parameter 
@@ -3604,7 +3724,7 @@ class Memory {
      * An attempt to map a file with a length of 0 (zero) fails with an error code of 
      *         <b>ERROR_FILE_INVALID</b>. Applications should test for files with a length of 0 (zero) and 
      *         reject those files.
-     * @param {Pointer<Byte>} lpName The name of the file mapping object.
+     * @param {PSTR} lpName The name of the file mapping object.
      * 
      * If this parameter matches the name of an existing file mapping object, the function requests access to the 
      *         object with the protection that the <i>flProtect</i> parameter specifies.
@@ -3646,7 +3766,7 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the file mapping object.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the file mapping object.
      * 
      * If the object exists 
      *        before the function call, the function returns a handle to the existing object (with its current size, not the 
@@ -3658,7 +3778,8 @@ class Memory {
      * @since windows6.0.6000
      */
     static CreateFileMappingNumaA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName, nndPreferred) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -3666,7 +3787,7 @@ class Memory {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -3674,10 +3795,10 @@ class Memory {
      * @param {Integer} dwDesiredAccess The access to the file mapping object. This access is checked against any security descriptor on the target 
      *       file mapping object. For a list of values, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Memory/file-mapping-security-and-access-rights">File Mapping Security and Access Rights</a>.
-     * @param {Integer} bInheritHandle If this parameter is <b>TRUE</b>, a process created by the 
+     * @param {BOOL} bInheritHandle If this parameter is <b>TRUE</b>, a process created by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> function can inherit the handle; 
      *       otherwise, the handle cannot be inherited.
-     * @param {Pointer<Byte>} lpName The name of the file mapping object to be opened. If there is an open handle to a file mapping object by 
+     * @param {PSTR} lpName The name of the file mapping object to be opened. If there is an open handle to a file mapping object by 
      *       this name and the security descriptor on the mapping object does not conflict with the 
      *       <i>dwDesiredAccess</i> parameter, the open operation succeeds. The name can have a 
      *       "Global\\" or "Local\\" prefix to explicitly open an object in the global or 
@@ -3687,7 +3808,7 @@ class Memory {
      *       switching is implemented using Terminal Services sessions. The first user to log on uses session 0, the next 
      *       user to log on uses session 1, and so on. Kernel object names must follow the guidelines outlined for Terminal 
      *       Services so that applications can support multiple users.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the specified file mapping object.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file mapping object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3695,20 +3816,20 @@ class Memory {
      * @since windows5.1.2600
      */
     static OpenFileMappingA(dwDesiredAccess, bInheritHandle, lpName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenFileMappingA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenFileMappingA", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Maps a view of a file mapping into the address space of a calling process and specifies the NUMA node for the physical memory.
-     * @param {Pointer<Void>} hFileMappingObject A handle to a file mapping object. The 
+     * @param {HANDLE} hFileMappingObject A handle to a file mapping object. The 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappingnumaa">CreateFileMappingNuma</a> and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openfilemappinga">OpenFileMapping</a> functions return this handle.
      * @param {Integer} dwDesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
@@ -3755,7 +3876,7 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} If the function succeeds, the return value is the starting address of the mapped view.
+     * @returns {MEMORY_MAPPED_VIEW_ADDRESS} If the function succeeds, the return value is the starting address of the mapped view.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -3763,20 +3884,22 @@ class Memory {
      * @since windows6.0.6000
      */
     static MapViewOfFileExNuma(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap, lpBaseAddress, nndPreferred) {
+        hFileMappingObject := hFileMappingObject is Win32Handle ? NumGet(hFileMappingObject, "ptr") : hFileMappingObject
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\MapViewOfFileExNuma", "ptr", hFileMappingObject, "uint", dwDesiredAccess, "uint", dwFileOffsetHigh, "uint", dwFileOffsetLow, "ptr", dwNumberOfBytesToMap, "ptr", lpBaseAddress, "uint", nndPreferred, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return MEMORY_MAPPED_VIEW_ADDRESS({Value: result}, True)
     }
 
     /**
      * Verifies that the calling process has read access to the specified range of memory.
      * @param {Pointer<Void>} lp A pointer to the first byte of the memory block.
      * @param {Pointer} ucb The size of the memory block, in bytes. If this parameter is zero, the return value is zero.
-     * @returns {Integer} If the calling process has read access to all bytes in the specified memory range, the return value is zero.
+     * @returns {BOOL} If the calling process has read access to all bytes in the specified memory range, the return value is zero.
      * 
      * If the calling process does not have read access to all bytes in the specified memory range, the return value is nonzero.
      * 
@@ -3785,7 +3908,7 @@ class Memory {
      * @since windows5.1.2600
      */
     static IsBadReadPtr(lp, ucb) {
-        result := DllCall("KERNEL32.dll\IsBadReadPtr", "ptr", lp, "ptr", ucb, "int")
+        result := DllCall("KERNEL32.dll\IsBadReadPtr", "ptr", lp, "ptr", ucb, "ptr")
         return result
     }
 
@@ -3793,7 +3916,7 @@ class Memory {
      * Verifies that the calling process has write access to the specified range of memory.
      * @param {Pointer<Void>} lp A pointer to the first byte of the memory block.
      * @param {Pointer} ucb The size of the memory block, in bytes. If this parameter is zero, the return value is zero.
-     * @returns {Integer} If the calling process has write access to all bytes in the specified memory range, the return value is zero.
+     * @returns {BOOL} If the calling process has write access to all bytes in the specified memory range, the return value is zero.
      * 
      * If the calling process does not have write access to all bytes in the specified memory range, the return value is nonzero.
      * 
@@ -3802,14 +3925,14 @@ class Memory {
      * @since windows5.1.2600
      */
     static IsBadWritePtr(lp, ucb) {
-        result := DllCall("KERNEL32.dll\IsBadWritePtr", "ptr", lp, "ptr", ucb, "int")
+        result := DllCall("KERNEL32.dll\IsBadWritePtr", "ptr", lp, "ptr", ucb, "ptr")
         return result
     }
 
     /**
      * Determines whether the calling process has read access to the memory at the specified address.
      * @param {Pointer<FARPROC>} lpfn A pointer to a memory address.
-     * @returns {Integer} If the calling process has read access to the specified memory, the return value is zero.
+     * @returns {BOOL} If the calling process has read access to the specified memory, the return value is zero.
      * 
      * If the calling process does not have read access to the specified memory, the return value is nonzero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3821,7 +3944,7 @@ class Memory {
     static IsBadCodePtr(lpfn) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsBadCodePtr", "ptr", lpfn, "int")
+        result := DllCall("KERNEL32.dll\IsBadCodePtr", "ptr", lpfn, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3830,9 +3953,9 @@ class Memory {
 
     /**
      * Verifies that the calling process has read access to the specified range of memory.
-     * @param {Pointer<Byte>} lpsz A pointer to a null-terminated string, either Unicode or ASCII.
+     * @param {PSTR} lpsz A pointer to a null-terminated string, either Unicode or ASCII.
      * @param {Pointer} ucchMax The maximum size of the string, in <b>TCHARs</b>. The function checks for read access in all characters up to the string's terminating null character or up to the number of characters specified by this parameter, whichever is smaller. If this parameter is zero, the return value is zero.
-     * @returns {Integer} If the calling process has read access to all characters up to the string's terminating null character or up to the number of characters specified by <i>ucchMax</i>, the return value is zero.
+     * @returns {BOOL} If the calling process has read access to all characters up to the string's terminating null character or up to the number of characters specified by <i>ucchMax</i>, the return value is zero.
      * 
      * If the calling process does not have read access to all characters up to the string's terminating null character or up to the number of characters specified by <i>ucchMax</i>, the return value is nonzero.
      * 
@@ -3841,17 +3964,17 @@ class Memory {
      * @since windows5.1.2600
      */
     static IsBadStringPtrA(lpsz, ucchMax) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-        result := DllCall("KERNEL32.dll\IsBadStringPtrA", "ptr", lpsz, "ptr", ucchMax, "int")
+        result := DllCall("KERNEL32.dll\IsBadStringPtrA", "ptr", lpsz, "ptr", ucchMax, "ptr")
         return result
     }
 
     /**
      * Verifies that the calling process has read access to the specified range of memory.
-     * @param {Pointer<Char>} lpsz A pointer to a null-terminated string, either Unicode or ASCII.
+     * @param {PWSTR} lpsz A pointer to a null-terminated string, either Unicode or ASCII.
      * @param {Pointer} ucchMax The maximum size of the string, in <b>TCHARs</b>. The function checks for read access in all characters up to the string's terminating null character or up to the number of characters specified by this parameter, whichever is smaller. If this parameter is zero, the return value is zero.
-     * @returns {Integer} If the calling process has read access to all characters up to the string's terminating null character or up to the number of characters specified by <i>ucchMax</i>, the return value is zero.
+     * @returns {BOOL} If the calling process has read access to all characters up to the string's terminating null character or up to the number of characters specified by <i>ucchMax</i>, the return value is zero.
      * 
      * If the calling process does not have read access to all characters up to the string's terminating null character or up to the number of characters specified by <i>ucchMax</i>, the return value is nonzero.
      * 
@@ -3860,9 +3983,9 @@ class Memory {
      * @since windows5.1.2600
      */
     static IsBadStringPtrW(lpsz, ucchMax) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-        result := DllCall("KERNEL32.dll\IsBadStringPtrW", "ptr", lpsz, "ptr", ucchMax, "int")
+        result := DllCall("KERNEL32.dll\IsBadStringPtrW", "ptr", lpsz, "ptr", ucchMax, "ptr")
         return result
     }
 
@@ -3889,7 +4012,7 @@ class Memory {
      *        unmapped.
      * 
      * The value in <i>NumberOfPages</i> indicates the size of the array.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>, and the function does not map or unmap—partial or 
      *        otherwise. To get extended error information, call 
@@ -3900,7 +4023,7 @@ class Memory {
     static MapUserPhysicalPagesScatter(VirtualAddresses, NumberOfPages, PageArray) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MapUserPhysicalPagesScatter", "ptr", VirtualAddresses, "ptr", NumberOfPages, "ptr*", PageArray, "int")
+        result := DllCall("KERNEL32.dll\MapUserPhysicalPagesScatter", "ptr", VirtualAddresses, "ptr", NumberOfPages, "ptr*", PageArray, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3912,7 +4035,7 @@ class Memory {
      * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} pfnCallBack A pointer to the application-defined 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-psecure_memory_cache_callback">SecureMemoryCacheCallback</a> function to 
      *       register.
-     * @returns {Integer} If the function succeeds, it registers the callback function and returns 
+     * @returns {BOOL} If the function succeeds, it registers the callback function and returns 
      *       <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -3923,7 +4046,7 @@ class Memory {
     static AddSecureMemoryCacheCallback(pfnCallBack) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", "ptr", pfnCallBack, "int")
+        result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", "ptr", pfnCallBack, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3933,14 +4056,14 @@ class Memory {
     /**
      * Unregisters a callback function that was previously registered with the AddSecureMemoryCacheCallback function.
      * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} pfnCallBack A pointer to the application-defined <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-psecure_memory_cache_callback">SecureMemoryCacheCallback</a> function to remove.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-removesecurememorycachecallback
      * @since windows6.0.6000
      */
     static RemoveSecureMemoryCacheCallback(pfnCallBack) {
-        result := DllCall("KERNEL32.dll\RemoveSecureMemoryCacheCallback", "ptr", pfnCallBack, "int")
+        result := DllCall("KERNEL32.dll\RemoveSecureMemoryCacheCallback", "ptr", pfnCallBack, "ptr")
         return result
     }
 

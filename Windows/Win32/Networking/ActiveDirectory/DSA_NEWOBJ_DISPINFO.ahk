@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used with the IDsAdminNewObjExt::Initialize method to supply additional data about an Active Directory Domain Services object creation wizard.
@@ -24,28 +26,37 @@ class DSA_NEWOBJ_DISPINFO extends Win32Struct
 
     /**
      * Contains the handle  of the class icon for the object created.
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hObjClassIcon {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hObjClassIcon{
+        get {
+            if(!this.HasProp("__hObjClassIcon"))
+                this.__hObjClassIcon := HICON(this.ptr + 8)
+            return this.__hObjClassIcon
+        }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the title of the wizard.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszWizTitle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpszWizTitle{
+        get {
+            if(!this.HasProp("__lpszWizTitle"))
+                this.__lpszWizTitle := PWSTR(this.ptr + 16)
+            return this.__lpszWizTitle
+        }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the display name, or canonical name,  of the container the object is created in.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszContDisplayName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpszContDisplayName{
+        get {
+            if(!this.HasProp("__lpszContDisplayName"))
+                this.__lpszContDisplayName := PWSTR(this.ptr + 24)
+            return this.__lpszContDisplayName
+        }
     }
 }

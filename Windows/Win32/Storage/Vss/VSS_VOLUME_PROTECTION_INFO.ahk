@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a volume's shadow copy protection level.
@@ -24,11 +25,14 @@ class VSS_VOLUME_PROTECTION_INFO extends Win32Struct
 
     /**
      * TRUE if the volume is offline due to a protection fault, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    m_volumeIsOfflineForProtection {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    m_volumeIsOfflineForProtection{
+        get {
+            if(!this.HasProp("__m_volumeIsOfflineForProtection"))
+                this.__m_volumeIsOfflineForProtection := BOOL(this.ptr + 4)
+            return this.__m_volumeIsOfflineForProtection
+        }
     }
 
     /**
@@ -51,11 +55,14 @@ class VSS_VOLUME_PROTECTION_INFO extends Win32Struct
 
     /**
      * TRUE if the volume has unused shadow copy storage area files, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    m_volumeHasUnusedDiffArea {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    m_volumeHasUnusedDiffArea{
+        get {
+            if(!this.HasProp("__m_volumeHasUnusedDiffArea"))
+                this.__m_volumeHasUnusedDiffArea := BOOL(this.ptr + 16)
+            return this.__m_volumeHasUnusedDiffArea
+        }
     }
 
     /**

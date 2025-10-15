@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\PAGERANGE.ahk
 
 /**
@@ -25,20 +26,26 @@ class PAGESET extends Win32Struct
 
     /**
      * If <b>TRUE</b>, only the odd-numbered pages in the page-set indicated by <b>rgPages</b> are to be printed.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fOddPages {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fOddPages{
+        get {
+            if(!this.HasProp("__fOddPages"))
+                this.__fOddPages := BOOL(this.ptr + 4)
+            return this.__fOddPages
+        }
     }
 
     /**
      * If <b>TRUE</b>, only the even-numbered pages in the page-set indicated by <b>rgPages</b> are to be printed.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fEvenPages {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fEvenPages{
+        get {
+            if(!this.HasProp("__fEvenPages"))
+                this.__fEvenPages := BOOL(this.ptr + 8)
+            return this.__fEvenPages
+        }
     }
 
     /**

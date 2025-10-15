@@ -12,11 +12,57 @@ class NVME_COMMAND_DWORD0 extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - OPC
+     * - FUSE
+     * - Reserved0
+     * - PSDT
+     * - CID
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    OPC {
+        get => (this._bitfield >> 0) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FUSE {
+        get => (this._bitfield >> 8) & 0x3
+        set => this._bitfield := ((value & 0x3) << 8) | (this._bitfield & ~(0x3 << 8))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 10) & 0xF
+        set => this._bitfield := ((value & 0xF) << 10) | (this._bitfield & ~(0xF << 10))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PSDT {
+        get => (this._bitfield >> 14) & 0x3
+        set => this._bitfield := ((value & 0x3) << 14) | (this._bitfield & ~(0x3 << 14))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CID {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**

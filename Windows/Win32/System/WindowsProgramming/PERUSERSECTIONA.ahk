@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -69,10 +70,13 @@ class PERUSERSECTIONA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bRollback {
-        get => NumGet(this, 1404, "int")
-        set => NumPut("int", value, this, 1404)
+    bRollback{
+        get {
+            if(!this.HasProp("__bRollback"))
+                this.__bRollback := BOOL(this.ptr + 1404)
+            return this.__bRollback
+        }
     }
 }

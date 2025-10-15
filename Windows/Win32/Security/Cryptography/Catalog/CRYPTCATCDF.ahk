@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information used to create a signed catalog file (.cat) from a catalog definition file (CDF).
@@ -29,11 +32,14 @@ class CRYPTCATCDF extends Win32Struct
 
     /**
      * A handle to the catalog definition file (.cdf).
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hFile{
+        get {
+            if(!this.HasProp("__hFile"))
+                this.__hFile := HANDLE(this.ptr + 8)
+            return this.__hFile
+        }
     }
 
     /**
@@ -56,28 +62,37 @@ class CRYPTCATCDF extends Win32Struct
 
     /**
      * An integer that indicates whether the parser finished reading the file. <b>TRUE</b> indicates that the last read operation returned zero bytes.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fEOF {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fEOF{
+        get {
+            if(!this.HasProp("__fEOF"))
+                this.__fEOF := BOOL(this.ptr + 24)
+            return this.__fEOF
+        }
     }
 
     /**
      * A pointer to a null-terminated string that contains the name of a directory where the catalog file (.cat) will be written.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszResultDir {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwszResultDir{
+        get {
+            if(!this.HasProp("__pwszResultDir"))
+                this.__pwszResultDir := PWSTR(this.ptr + 32)
+            return this.__pwszResultDir
+        }
     }
 
     /**
      * A handle to the catalog file (.cat).
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hCATStore {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hCATStore{
+        get {
+            if(!this.HasProp("__hCATStore"))
+                this.__hCATStore := HANDLE(this.ptr + 40)
+            return this.__hCATStore
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides information about the title of a tooltip control.
@@ -50,10 +51,13 @@ class TTGETTITLE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WCHAR</a>*</b>
      * 
      * Pointer to a wide character string that contains the title.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszTitle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszTitle{
+        get {
+            if(!this.HasProp("__pszTitle"))
+                this.__pszTitle := PWSTR(this.ptr + 16)
+            return this.__pszTitle
+        }
     }
 }

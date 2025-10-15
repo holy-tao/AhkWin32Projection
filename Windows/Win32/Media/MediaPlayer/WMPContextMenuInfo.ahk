@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The WMPContextMenuInfo structure contains data about a context menu command.
@@ -29,19 +30,25 @@ class WMPContextMenuInfo extends Win32Struct
 
     /**
      * The menu text to display for the command.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrMenuText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    bstrMenuText{
+        get {
+            if(!this.HasProp("__bstrMenuText"))
+                this.__bstrMenuText := BSTR(this.ptr + 8)
+            return this.__bstrMenuText
+        }
     }
 
     /**
      * The help text to display for the command.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrHelpText {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    bstrHelpText{
+        get {
+            if(!this.HasProp("__bstrHelpText"))
+                this.__bstrHelpText := BSTR(this.ptr + 16)
+            return this.__bstrHelpText
+        }
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * The CAPSTATUS structure defines the current state of the capture window.
@@ -39,29 +41,38 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Live window flag. The value of this member is <b>TRUE</b> if the window is displaying video using the preview method.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fLiveWindow {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fLiveWindow{
+        get {
+            if(!this.HasProp("__fLiveWindow"))
+                this.__fLiveWindow := BOOL(this.ptr + 8)
+            return this.__fLiveWindow
+        }
     }
 
     /**
      * Overlay window flag. The value of this member is <b>TRUE</b> if the window is displaying video using hardware overlay.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fOverlayWindow {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    fOverlayWindow{
+        get {
+            if(!this.HasProp("__fOverlayWindow"))
+                this.__fOverlayWindow := BOOL(this.ptr + 12)
+            return this.__fOverlayWindow
+        }
     }
 
     /**
      * Input scaling flag. The value of this member is <b>TRUE</b> if the window is scaling the input video to the client area when displaying video using preview. This parameter has no effect when displaying video using overlay.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fScale {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    fScale{
+        get {
+            if(!this.HasProp("__fScale"))
+                this.__fScale := BOOL(this.ptr + 16)
+            return this.__fScale
+        }
     }
 
     /**
@@ -78,29 +89,38 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Default palette flag. The value of this member is <b>TRUE</b> if the capture driver is using its default palette.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fUsingDefaultPalette {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    fUsingDefaultPalette{
+        get {
+            if(!this.HasProp("__fUsingDefaultPalette"))
+                this.__fUsingDefaultPalette := BOOL(this.ptr + 32)
+            return this.__fUsingDefaultPalette
+        }
     }
 
     /**
      * Audio hardware flag. The value of this member is <b>TRUE</b> if the system has waveform-audio hardware installed.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAudioHardware {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    fAudioHardware{
+        get {
+            if(!this.HasProp("__fAudioHardware"))
+                this.__fAudioHardware := BOOL(this.ptr + 36)
+            return this.__fAudioHardware
+        }
     }
 
     /**
      * Capture file flag. The value of this member is <b>TRUE</b> if a valid capture file has been generated.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCapFileExists {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+    fCapFileExists{
+        get {
+            if(!this.HasProp("__fCapFileExists"))
+                this.__fCapFileExists := BOOL(this.ptr + 40)
+            return this.__fCapFileExists
+        }
     }
 
     /**
@@ -141,20 +161,26 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Handle to current palette.
-     * @type {Pointer<Void>}
+     * @type {HPALETTE}
      */
-    hPalCurrent {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    hPalCurrent{
+        get {
+            if(!this.HasProp("__hPalCurrent"))
+                this.__hPalCurrent := HPALETTE(this.ptr + 64)
+            return this.__hPalCurrent
+        }
     }
 
     /**
      * Capturing flag. The value of this member is <b>TRUE</b> when capturing is in progress.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCapturingNow {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+    fCapturingNow{
+        get {
+            if(!this.HasProp("__fCapturingNow"))
+                this.__fCapturingNow := BOOL(this.ptr + 72)
+            return this.__fCapturingNow
+        }
     }
 
     /**

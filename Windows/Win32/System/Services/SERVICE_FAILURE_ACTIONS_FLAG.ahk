@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the failure actions flag setting of a service. This setting determines when failure actions are to be executed.
@@ -26,10 +27,13 @@ class SERVICE_FAILURE_ACTIONS_FLAG extends Win32Struct
      * If this member is <b>FALSE</b> and the service has configured failure actions, the failure actions are queued only if the service terminates without reporting a status of SERVICE_STOPPED.
      * 
      * This setting is ignored unless the service has configured failure actions. For information on configuring failure actions, see <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-changeserviceconfig2a">ChangeServiceConfig2</a>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fFailureActionsOnNonCrashFailures {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    fFailureActionsOnNonCrashFailures{
+        get {
+            if(!this.HasProp("__fFailureActionsOnNonCrashFailures"))
+                this.__fFailureActionsOnNonCrashFailures := BOOL(this.ptr + 0)
+            return this.__fFailureActionsOnNonCrashFailures
+        }
     }
 }

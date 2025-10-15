@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DRIVE_LAYOUT_INFORMATION_MBR.ahk
 #Include .\DRIVE_LAYOUT_INFORMATION_GPT.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\PARTITION_INFORMATION_MBR.ahk
 #Include .\PARTITION_INFORMATION_GPT.ahk
 #Include .\PARTITION_INFORMATION_EX.ahk

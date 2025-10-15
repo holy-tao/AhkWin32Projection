@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 #Include .\DDCOLORKEY.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -35,11 +36,14 @@ class DD_SURFACE_LOCAL extends Win32Struct
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550286(v=vs.85)">DDSCAPS</a> structure that describes the capabilities of the surface.
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    ddsCaps {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    ddsCaps{
+        get {
+            if(!this.HasProp("__ddsCaps"))
+                this.__ddsCaps := DDSCAPS(this.ptr + 12)
+            return this.__ddsCaps
+        }
     }
 
     /**

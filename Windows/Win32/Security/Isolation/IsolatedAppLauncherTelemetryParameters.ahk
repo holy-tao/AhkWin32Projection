@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Security.Isolation
@@ -12,11 +13,14 @@ class IsolatedAppLauncherTelemetryParameters extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    EnableForLaunch {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    EnableForLaunch{
+        get {
+            if(!this.HasProp("__EnableForLaunch"))
+                this.__EnableForLaunch := BOOL(this.ptr + 0)
+            return this.__EnableForLaunch
+        }
     }
 
     /**

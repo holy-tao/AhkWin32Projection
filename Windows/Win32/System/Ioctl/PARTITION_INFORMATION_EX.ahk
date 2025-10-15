@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\PARTITION_INFORMATION_MBR.ahk
 #Include .\PARTITION_INFORMATION_GPT.ahk
 
@@ -59,20 +60,26 @@ class PARTITION_INFORMATION_EX extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the partition is rewritable. The value of this parameter should be set to <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    RewritePartition {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
+    RewritePartition{
+        get {
+            if(!this.HasProp("__RewritePartition"))
+                this.__RewritePartition := BOOLEAN(this.ptr + 28)
+            return this.__RewritePartition
+        }
     }
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsServicePartition {
-        get => NumGet(this, 29, "char")
-        set => NumPut("char", value, this, 29)
+    IsServicePartition{
+        get {
+            if(!this.HasProp("__IsServicePartition"))
+                this.__IsServicePartition := BOOLEAN(this.ptr + 29)
+            return this.__IsServicePartition
+        }
     }
 
     /**

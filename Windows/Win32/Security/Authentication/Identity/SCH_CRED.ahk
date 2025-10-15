@@ -52,7 +52,7 @@ class SCH_CRED extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<_HMAPPER>}
      */
     aphMappers {
         get => NumGet(this, 32, "ptr")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains the Transmission Control Protocol (TCP) statistics that were collected for a socket.
@@ -49,11 +50,14 @@ class TCP_INFO_v0 extends Win32Struct
 
     /**
      * <b>TRUE</b> if TCP time stamps are turned on for the connection; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    TimestampsEnabled {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    TimestampsEnabled{
+        get {
+            if(!this.HasProp("__TimestampsEnabled"))
+                this.__TimestampsEnabled := BOOLEAN(this.ptr + 16)
+            return this.__TimestampsEnabled
+        }
     }
 
     /**

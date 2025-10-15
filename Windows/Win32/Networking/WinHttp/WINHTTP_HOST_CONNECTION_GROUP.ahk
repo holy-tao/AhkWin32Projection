@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
@@ -12,11 +13,14 @@ class WINHTTP_HOST_CONNECTION_GROUP extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszHost {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszHost{
+        get {
+            if(!this.HasProp("__pwszHost"))
+                this.__pwszHost := PWSTR(this.ptr + 0)
+            return this.__pwszHost
+        }
     }
 
     /**

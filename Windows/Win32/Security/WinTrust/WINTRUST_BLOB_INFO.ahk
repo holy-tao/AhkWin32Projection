@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used when calling WinVerifyTrust to verify a memory BLOB.
@@ -33,11 +34,14 @@ class WINTRUST_BLOB_INFO extends Win32Struct
 
     /**
      * A string that contains the name of the memory object pointed to by <b>pbMem</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszDisplayName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pcwszDisplayName{
+        get {
+            if(!this.HasProp("__pcwszDisplayName"))
+                this.__pcwszDisplayName := PWSTR(this.ptr + 16)
+            return this.__pcwszDisplayName
+        }
     }
 
     /**

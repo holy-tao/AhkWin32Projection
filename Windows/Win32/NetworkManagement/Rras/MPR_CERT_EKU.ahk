@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -20,18 +22,24 @@ class MPR_CERT_EKU extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsEKUOID {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    IsEKUOID{
+        get {
+            if(!this.HasProp("__IsEKUOID"))
+                this.__IsEKUOID := BOOL(this.ptr + 4)
+            return this.__IsEKUOID
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszEKU {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszEKU{
+        get {
+            if(!this.HasProp("__pwszEKU"))
+                this.__pwszEKU := PWSTR(this.ptr + 8)
+            return this.__pwszEKU
+        }
     }
 }

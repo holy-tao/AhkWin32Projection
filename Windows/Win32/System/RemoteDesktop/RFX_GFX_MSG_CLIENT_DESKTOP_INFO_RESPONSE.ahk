@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RFX_GFX_MSG_HEADER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\RFX_GFX_MONITOR_INFO.ahk
 
 /**

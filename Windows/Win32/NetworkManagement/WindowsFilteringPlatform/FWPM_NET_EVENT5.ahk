@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\FWP_BYTE_BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWPM_NET_EVENT_HEADER3.ahk
 
 /**
@@ -115,7 +116,7 @@ class FWPM_NET_EVENT5 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<FWPM_NET_EVENT_LPM_PACKET_ARRIVAL0>}
      */
     lpmPacketArrival {
         get => NumGet(this, 144, "ptr")

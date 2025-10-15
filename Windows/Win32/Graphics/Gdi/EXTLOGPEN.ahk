@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The EXTLOGPEN structure defines the pen style, width, and brush attributes for an extended pen.
@@ -198,11 +199,14 @@ class EXTLOGPEN extends Win32Struct
      *  
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro is used to generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    elpColor {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    elpColor{
+        get {
+            if(!this.HasProp("__elpColor"))
+                this.__elpColor := COLORREF(this.ptr + 12)
+            return this.__elpColor
+        }
     }
 
     /**

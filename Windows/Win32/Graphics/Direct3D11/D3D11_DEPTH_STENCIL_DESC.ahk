@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D11_DEPTH_STENCILOP_DESC.ahk
 
 /**
@@ -105,11 +106,14 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Enable depth testing.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    DepthEnable {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    DepthEnable{
+        get {
+            if(!this.HasProp("__DepthEnable"))
+                this.__DepthEnable := BOOL(this.ptr + 0)
+            return this.__DepthEnable
+        }
     }
 
     /**
@@ -138,11 +142,14 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Enable stencil testing.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    StencilEnable {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    StencilEnable{
+        get {
+            if(!this.HasProp("__StencilEnable"))
+                this.__StencilEnable := BOOL(this.ptr + 12)
+            return this.__StencilEnable
+        }
     }
 
     /**

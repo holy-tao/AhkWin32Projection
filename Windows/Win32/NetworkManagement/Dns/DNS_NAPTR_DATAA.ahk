@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The DNS_NAPTR_DATA structure represents a Naming Authority Pointer (NAPTR) DNS Resource Record (RR) as specified in RFC 2915.
@@ -40,37 +41,49 @@ class DNS_NAPTR_DATAA extends Win32Struct
 
     /**
      * A pointer to a string  that represents a set of NAPTR RR flags which determine the interpretation and processing of NAPTR record fields as defined in section 2 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pFlags {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pFlags{
+        get {
+            if(!this.HasProp("__pFlags"))
+                this.__pFlags := PSTR(this.ptr + 8)
+            return this.__pFlags
+        }
     }
 
     /**
      * A pointer to a string that represents the available services in this rewrite path as defined in section 2 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pService {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pService{
+        get {
+            if(!this.HasProp("__pService"))
+                this.__pService := PSTR(this.ptr + 16)
+            return this.__pService
+        }
     }
 
     /**
      * A pointer to a string that represents a substitution expression as defined in sections 2 and 3 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pRegularExpression {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pRegularExpression{
+        get {
+            if(!this.HasProp("__pRegularExpression"))
+                this.__pRegularExpression := PSTR(this.ptr + 24)
+            return this.__pRegularExpression
+        }
     }
 
     /**
      * A pointer to a string that represents the next NAPTR query name as defined in section 2 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pReplacement {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pReplacement{
+        get {
+            if(!this.HasProp("__pReplacement"))
+                this.__pReplacement := PSTR(this.ptr + 32)
+            return this.__pReplacement
+        }
     }
 }

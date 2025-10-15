@@ -12,11 +12,66 @@ class WHV_SCHEDULER_FEATURES extends Win32Struct
     static packingSize => 8
 
     /**
+     * This bitfield backs the following members:
+     * - CpuReserve
+     * - CpuCap
+     * - CpuWeight
+     * - CpuGroupId
+     * - DisableSmt
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CpuReserve {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CpuCap {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CpuWeight {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CpuGroupId {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DisableSmt {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 5) & 0x7FFFFFFFFFFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFFFFFFFFFF) << 5) | (this._bitfield & ~(0x7FFFFFFFFFFFFFF << 5))
     }
 
     /**

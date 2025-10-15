@@ -116,10 +116,9 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_A extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Byte>}
      */
-    u1 {
+    Reserved {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
     }

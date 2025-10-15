@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The SCOPEDATAITEM structure specifies items to be inserted into the scope pane.
@@ -40,11 +42,14 @@ class SCOPEDATAITEM extends Win32Struct
      * Be aware that the snap-in can use <b>MMC_TEXTCALLBACK</b> instead of <b>MMC_CALLBACK</b>. The <b>MMC_TEXTCALLBACK</b> value is a type-correct (no casting necessary) version of <b>MMC_CALLBACK</b>.
      * 
      * <b>MMC_TEXTCALLBACK</b> is introduced in MMC version 1.2.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    displayname {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    displayname{
+        get {
+            if(!this.HasProp("__displayname"))
+                this.__displayname := PWSTR(this.ptr + 8)
+            return this.__displayname
+        }
     }
 
     /**
@@ -109,11 +114,14 @@ class SCOPEDATAITEM extends Win32Struct
     /**
      * A value that specifies a user-supplied 32-bit value to associate with the item. This item, also called a cookie, is the value that is passed as the first parameter to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponentdata-querydataobject">IComponentData::QueryDataObject</a>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 32)
+            return this.__lParam
+        }
     }
 
     /**

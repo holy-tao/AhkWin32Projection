@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\HKL.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  * @version v4.0.30319
@@ -680,7 +682,7 @@ class KeyboardAndMouse {
      * @param {Pointer<TRACKMOUSEEVENT>} lpEventTrack Type: <b>LPTRACKMOUSEEVENT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-trackmouseevent">TRACKMOUSEEVENT</a> structure that contains tracking information.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -689,17 +691,17 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static _TrackMouseEvent(lpEventTrack) {
-        result := DllCall("COMCTL32.dll\_TrackMouseEvent", "ptr", lpEventTrack, "int")
+        result := DllCall("COMCTL32.dll\_TrackMouseEvent", "ptr", lpEventTrack, "ptr")
         return result
     }
 
     /**
      * Loads a new input locale identifier (formerly called the keyboard layout) into the system.
-     * @param {Pointer<Byte>} pwszKLID Type: <b>LPCTSTR</b>
+     * @param {PSTR} pwszKLID Type: <b>LPCTSTR</b>
      * 
      * The name of the input locale identifier to load. This name is a string composed of the hexadecimal value of the <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifier</a> (low word) and a device identifier (high word). For example, U.S. English has a language identifier of 0x0409, so the primary U.S. English layout is named "00000409". Variants of U.S. English layout (such as the Dvorak layout) are named "00010409", "00020409", and so on.
      * @param {Integer} Flags Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HKL</b>
+     * @returns {HKL} Type: <b>HKL</b>
      * 
      * If the function succeeds, the return value is the input locale identifier corresponding to the name specified in <i>pwszKLID</i>. If no matching locale is available, the return value is the default language of the system.
      * 
@@ -710,7 +712,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static LoadKeyboardLayoutA(pwszKLID, Flags) {
-        pwszKLID := pwszKLID is String? StrPtr(pwszKLID) : pwszKLID
+        pwszKLID := pwszKLID is String ? StrPtr(pwszKLID) : pwszKLID
 
         A_LastError := 0
 
@@ -718,16 +720,16 @@ class KeyboardAndMouse {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HKL({Value: result}, True)
     }
 
     /**
      * Loads a new input locale identifier (formerly called the keyboard layout) into the system.
-     * @param {Pointer<Char>} pwszKLID Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pwszKLID Type: <b>LPCTSTR</b>
      * 
      * The name of the input locale identifier to load. This name is a string composed of the hexadecimal value of the <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifier</a> (low word) and a device identifier (high word). For example, U.S. English has a language identifier of 0x0409, so the primary U.S. English layout is named "00000409". Variants of U.S. English layout (such as the Dvorak layout) are named "00010409", "00020409", and so on.
      * @param {Integer} Flags Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HKL</b>
+     * @returns {HKL} Type: <b>HKL</b>
      * 
      * If the function succeeds, the return value is the input locale identifier corresponding to the name specified in <i>pwszKLID</i>. If no matching locale is available, the return value is the default language of the system.
      * 
@@ -738,7 +740,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static LoadKeyboardLayoutW(pwszKLID, Flags) {
-        pwszKLID := pwszKLID is String? StrPtr(pwszKLID) : pwszKLID
+        pwszKLID := pwszKLID is String ? StrPtr(pwszKLID) : pwszKLID
 
         A_LastError := 0
 
@@ -746,16 +748,16 @@ class KeyboardAndMouse {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HKL({Value: result}, True)
     }
 
     /**
      * Sets the input locale identifier (formerly called the keyboard layout handle) for the calling thread or the current process. The input locale identifier specifies a locale as well as the physical layout of the keyboard.
-     * @param {Pointer<Void>} hkl Type: <b>HKL</b>
+     * @param {HKL} hkl Type: <b>HKL</b>
      * 
      * Input locale identifier to be activated.
      * @param {Integer} Flags Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HKL</b>
+     * @returns {HKL} Type: <b>HKL</b>
      * 
      * The return value is of type 
      *       <b>HKL</b>. If the function succeeds, the return value is the previous input locale identifier. Otherwise, it is zero.
@@ -765,13 +767,15 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static ActivateKeyboardLayout(hkl, Flags) {
+        hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ActivateKeyboardLayout", "ptr", hkl, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HKL({Value: result}, True)
     }
 
     /**
@@ -785,7 +789,7 @@ class KeyboardAndMouse {
      * @param {Pointer<Byte>} lpKeyState Type: <b>const BYTE*</b>
      * 
      * A pointer to a 256-byte array that contains the current keyboard state. Each element (byte) in the array contains the state of one key. If the high-order bit of a byte is set, the key is down.
-     * @param {Pointer<Char>} pwszBuff Type: <b>LPWSTR</b>
+     * @param {PWSTR} pwszBuff Type: <b>LPWSTR</b>
      * 
      * The buffer that receives the translated Unicode character or characters. However, this buffer may be returned without being null-terminated even though the variable name suggests that it is null-terminated.
      * @param {Integer} cchBuff Type: <b>int</b>
@@ -802,7 +806,7 @@ class KeyboardAndMouse {
      * If bit 2 is set, keyboard state is not changed (Windows 10, version 1607 and newer)
      * 
      * All other bits (through 31) are reserved.
-     * @param {Pointer<Void>} dwhkl Type: <b>HKL</b>
+     * @param {HKL} dwhkl Type: <b>HKL</b>
      * 
      * The input locale identifier used to translate the specified code. This parameter can be any input locale identifier previously returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadkeyboardlayouta">LoadKeyboardLayout</a> function.
      * @returns {Integer} Type: <b>int</b>
@@ -863,7 +867,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static ToUnicodeEx(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags, dwhkl) {
-        pwszBuff := pwszBuff is String? StrPtr(pwszBuff) : pwszBuff
+        pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
+        dwhkl := dwhkl is Win32Handle ? NumGet(dwhkl, "ptr") : dwhkl
 
         result := DllCall("USER32.dll\ToUnicodeEx", "uint", wVirtKey, "uint", wScanCode, "char*", lpKeyState, "ptr", pwszBuff, "int", cchBuff, "uint", wFlags, "ptr", dwhkl, "int")
         return result
@@ -871,10 +876,10 @@ class KeyboardAndMouse {
 
     /**
      * Unloads an input locale identifier (formerly called a keyboard layout).
-     * @param {Pointer<Void>} hkl Type: <b>HKL</b>
+     * @param {HKL} hkl Type: <b>HKL</b>
      * 
      * The input locale identifier to be unloaded.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -890,9 +895,11 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static UnloadKeyboardLayout(hkl) {
+        hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnloadKeyboardLayout", "ptr", hkl, "int")
+        result := DllCall("USER32.dll\UnloadKeyboardLayout", "ptr", hkl, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -901,10 +908,10 @@ class KeyboardAndMouse {
 
     /**
      * Retrieves the name of the active input locale identifier (formerly called the keyboard layout) for the system.
-     * @param {Pointer<Byte>} pwszKLID Type: <b>LPTSTR</b>
+     * @param {PSTR} pwszKLID Type: <b>LPTSTR</b>
      * 
      * The buffer (of at least <b>KL_NAMELENGTH</b> characters in length) that receives the name of the input locale identifier, including the terminating null character. This will be a copy of the string provided to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadkeyboardlayouta">LoadKeyboardLayout</a> function, unless layout substitution took place.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -913,11 +920,11 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetKeyboardLayoutNameA(pwszKLID) {
-        pwszKLID := pwszKLID is String? StrPtr(pwszKLID) : pwszKLID
+        pwszKLID := pwszKLID is String ? StrPtr(pwszKLID) : pwszKLID
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetKeyboardLayoutNameA", "ptr", pwszKLID, "int")
+        result := DllCall("USER32.dll\GetKeyboardLayoutNameA", "ptr", pwszKLID, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -926,10 +933,10 @@ class KeyboardAndMouse {
 
     /**
      * Retrieves the name of the active input locale identifier (formerly called the keyboard layout) for the system.
-     * @param {Pointer<Char>} pwszKLID Type: <b>LPTSTR</b>
+     * @param {PWSTR} pwszKLID Type: <b>LPTSTR</b>
      * 
      * The buffer (of at least <b>KL_NAMELENGTH</b> characters in length) that receives the name of the input locale identifier, including the terminating null character. This will be a copy of the string provided to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadkeyboardlayouta">LoadKeyboardLayout</a> function, unless layout substitution took place.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -938,11 +945,11 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetKeyboardLayoutNameW(pwszKLID) {
-        pwszKLID := pwszKLID is String? StrPtr(pwszKLID) : pwszKLID
+        pwszKLID := pwszKLID is String ? StrPtr(pwszKLID) : pwszKLID
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetKeyboardLayoutNameW", "ptr", pwszKLID, "int")
+        result := DllCall("USER32.dll\GetKeyboardLayoutNameW", "ptr", pwszKLID, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -954,7 +961,7 @@ class KeyboardAndMouse {
      * @param {Integer} nBuff Type: <b>int</b>
      * 
      * The maximum number of handles that the buffer can hold.
-     * @param {Pointer<Void>} lpList Type: <b>HKL*</b>
+     * @param {Pointer<HKL>} lpList Type: <b>HKL*</b>
      * 
      * A pointer to the buffer that receives the array of input locale identifiers.
      * @returns {Integer} Type: <b>int</b>
@@ -981,7 +988,7 @@ class KeyboardAndMouse {
      * @param {Integer} idThread Type: <b>DWORD</b>
      * 
      * The identifier of the thread to query, or 0 for the current thread.
-     * @returns {Pointer<Void>} Type: <b>HKL</b>
+     * @returns {HKL} Type: <b>HKL</b>
      * 
      * The return value is the input locale identifier for the thread. The low word contains a <a href="/windows/desktop/Intl/language-identifiers">Language Identifier</a> for the input language and the high word contains a device handle to the physical layout of the keyboard.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getkeyboardlayout
@@ -989,7 +996,7 @@ class KeyboardAndMouse {
      */
     static GetKeyboardLayout(idThread) {
         result := DllCall("USER32.dll\GetKeyboardLayout", "uint", idThread, "ptr")
-        return result
+        return HKL({Value: result}, True)
     }
 
     /**
@@ -1038,7 +1045,7 @@ class KeyboardAndMouse {
      * @param {Pointer<TRACKMOUSEEVENT>} lpEventTrack Type: <b>LPTRACKMOUSEEVENT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-trackmouseevent">TRACKMOUSEEVENT</a> structure that contains tracking information.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero . 
      * 
@@ -1049,7 +1056,7 @@ class KeyboardAndMouse {
     static TrackMouseEvent(lpEventTrack) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\TrackMouseEvent", "ptr", lpEventTrack, "int")
+        result := DllCall("USER32.dll\TrackMouseEvent", "ptr", lpEventTrack, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1058,7 +1065,7 @@ class KeyboardAndMouse {
 
     /**
      * Defines a system-wide hot key.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window that will receive <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-hotkey">WM_HOTKEY</a> messages generated by the hot key. If this parameter is <b>NULL</b>, <b>WM_HOTKEY</b> messages are posted to the message queue of the calling thread and must be processed in the message loop.
      * @param {Integer} id Type: <b>int</b>
@@ -1070,7 +1077,7 @@ class KeyboardAndMouse {
      * @param {Integer} vk Type: <b>UINT</b>
      * 
      * The virtual-key code of the hot key. See <a href="https://docs.microsoft.com/windows/desktop/inputdev/virtual-key-codes">Virtual Key Codes</a>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1079,9 +1086,11 @@ class KeyboardAndMouse {
      * @since windows6.0.6000
      */
     static RegisterHotKey(hWnd, id, fsModifiers, vk) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterHotKey", "ptr", hWnd, "int", id, "uint", fsModifiers, "uint", vk, "int")
+        result := DllCall("USER32.dll\RegisterHotKey", "ptr", hWnd, "int", id, "uint", fsModifiers, "uint", vk, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1090,13 +1099,13 @@ class KeyboardAndMouse {
 
     /**
      * Frees a hot key previously registered by the calling thread.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window associated with the hot key to be freed. This parameter should be <b>NULL</b> if the hot key is not associated with a window.
      * @param {Integer} id Type: <b>int</b>
      * 
      * The identifier of the hot key to be freed.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1105,9 +1114,11 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static UnregisterHotKey(hWnd, id) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterHotKey", "ptr", hWnd, "int", id, "int")
+        result := DllCall("USER32.dll\UnregisterHotKey", "ptr", hWnd, "int", id, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1116,10 +1127,10 @@ class KeyboardAndMouse {
 
     /**
      * Reverses or restores the meaning of the left and right mouse buttons.
-     * @param {Integer} fSwap Type: <b>BOOL</b>
+     * @param {BOOL} fSwap Type: <b>BOOL</b>
      * 
      * If this parameter is <b>TRUE</b>, the left button generates right-button messages and the right button generates left-button messages. If this parameter is <b>FALSE</b>, the buttons are restored to their original meanings.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the meaning of the mouse buttons was reversed previously, before the function was called, the return value is nonzero.
      * 
@@ -1128,7 +1139,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static SwapMouseButton(fSwap) {
-        result := DllCall("USER32.dll\SwapMouseButton", "int", fSwap, "int")
+        result := DllCall("USER32.dll\SwapMouseButton", "ptr", fSwap, "ptr")
         return result
     }
 
@@ -1148,7 +1159,7 @@ class KeyboardAndMouse {
     /**
      * Sets the double-click time for the mouse.
      * @param {Integer} param0 
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1159,7 +1170,7 @@ class KeyboardAndMouse {
     static SetDoubleClickTime(param0) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetDoubleClickTime", "uint", param0, "int")
+        result := DllCall("USER32.dll\SetDoubleClickTime", "uint", param0, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1168,10 +1179,10 @@ class KeyboardAndMouse {
 
     /**
      * Sets the keyboard focus to the specified window. The window must be attached to the calling thread's message queue.
-     * @param {Pointer<Void>} hWnd Type: **HWND**
+     * @param {HWND} hWnd Type: **HWND**
      * 
      * A handle to the window that will receive the keyboard input. If this parameter is NULL, keystrokes are ignored.
-     * @returns {Pointer<Void>} Type: **HWND**
+     * @returns {HWND} Type: **HWND**
      * 
      * If the function succeeds, the return value is the handle to the window that previously had the keyboard focus. If the *hWnd* parameter is invalid or the window is not attached to the calling thread's message queue, the return value is NULL. To get extended error information, call [GetLastError function](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * 
@@ -1180,18 +1191,20 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static SetFocus(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetFocus", "ptr", hWnd, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves the window handle to the active window attached to the calling thread's message queue.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is the handle to the active window attached to the calling thread's message queue. Otherwise, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getactivewindow
@@ -1199,12 +1212,12 @@ class KeyboardAndMouse {
      */
     static GetActiveWindow() {
         result := DllCall("USER32.dll\GetActiveWindow", "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves the handle to the window that has the keyboard focus, if the window is attached to the calling thread's message queue.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is the handle to the window with the keyboard focus. If the calling thread's message queue does not have an associated window with the keyboard focus, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getfocus
@@ -1212,7 +1225,7 @@ class KeyboardAndMouse {
      */
     static GetFocus() {
         result := DllCall("USER32.dll\GetFocus", "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
@@ -1282,7 +1295,7 @@ class KeyboardAndMouse {
      * @param {Pointer<Byte>} lpKeyState Type: <b>PBYTE</b>
      * 
      * The 256-byte array that receives the status data for each virtual key.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1293,7 +1306,7 @@ class KeyboardAndMouse {
     static GetKeyboardState(lpKeyState) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetKeyboardState", "char*", lpKeyState, "int")
+        result := DllCall("USER32.dll\GetKeyboardState", "char*", lpKeyState, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1305,7 +1318,7 @@ class KeyboardAndMouse {
      * @param {Pointer<Byte>} lpKeyState Type: <b>LPBYTE</b>
      * 
      * A pointer to a 256-byte array that contains keyboard key states.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -1316,7 +1329,7 @@ class KeyboardAndMouse {
     static SetKeyboardState(lpKeyState) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetKeyboardState", "char*", lpKeyState, "int")
+        result := DllCall("USER32.dll\SetKeyboardState", "char*", lpKeyState, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1366,7 +1379,7 @@ class KeyboardAndMouse {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpString Type: <b>LPTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that will receive the key name.
      * @param {Integer} cchSize Type: <b>int</b>
@@ -1383,7 +1396,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetKeyNameTextA(lParam, lpString, cchSize) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -1437,7 +1450,7 @@ class KeyboardAndMouse {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpString Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that will receive the key name.
      * @param {Integer} cchSize Type: <b>int</b>
@@ -1454,7 +1467,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetKeyNameTextW(lParam, lpString, cchSize) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -1575,7 +1588,7 @@ class KeyboardAndMouse {
      * @param {Integer} uFlags Type: <b>UINT</b>
      * 
      * This parameter must be 1 if a menu is active, zero otherwise.
-     * @param {Pointer<Void>} dwhkl Type: <b>HKL</b>
+     * @param {HKL} dwhkl Type: <b>HKL</b>
      * 
      * Input locale identifier to use to translate the code. This parameter can be any input locale identifier previously returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadkeyboardlayouta">LoadKeyboardLayout</a> function.
      * @returns {Integer} Type: <b>int</b>
@@ -1625,6 +1638,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static ToAsciiEx(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags, dwhkl) {
+        dwhkl := dwhkl is Win32Handle ? NumGet(dwhkl, "ptr") : dwhkl
+
         result := DllCall("USER32.dll\ToAsciiEx", "uint", uVirtKey, "uint", uScanCode, "char*", lpKeyState, "ushort*", lpChar, "uint", uFlags, "ptr", dwhkl, "int")
         return result
     }
@@ -1640,7 +1655,7 @@ class KeyboardAndMouse {
      * @param {Pointer<Byte>} lpKeyState Type: <b>const BYTE*</b>
      * 
      * A pointer to a 256-byte array that contains the current keyboard state. Each element (byte) in the array contains the state of one key. If the high-order bit of a byte is set, the key is down.
-     * @param {Pointer<Char>} pwszBuff Type: <b>LPWSTR</b>
+     * @param {PWSTR} pwszBuff Type: <b>LPWSTR</b>
      * 
      * The buffer that receives the translated Unicode character or characters. However, this buffer may be returned without being null-terminated even though the variable name suggests that it is null-terminated.
      * @param {Integer} cchBuff Type: <b>int</b>
@@ -1715,7 +1730,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static ToUnicode(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags) {
-        pwszBuff := pwszBuff is String? StrPtr(pwszBuff) : pwszBuff
+        pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
 
         result := DllCall("USER32.dll\ToUnicode", "uint", wVirtKey, "uint", wScanCode, "char*", lpKeyState, "ptr", pwszBuff, "int", cchBuff, "uint", wFlags, "int")
         return result
@@ -1816,7 +1831,7 @@ class KeyboardAndMouse {
 
     /**
      * Translates a character to the corresponding virtual-key code and shift state for the current keyboard.
-     * @param {Integer} ch Type: <b>TCHAR</b>
+     * @param {CHAR} ch Type: <b>TCHAR</b>
      * 
      * The character to be translated into a virtual-key code.
      * @returns {Integer} Type: <b>SHORT</b>
@@ -1903,7 +1918,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static VkKeyScanA(ch) {
-        result := DllCall("USER32.dll\VkKeyScanA", "char", ch, "short")
+        result := DllCall("USER32.dll\VkKeyScanA", "ptr", ch, "short")
         return result
     }
 
@@ -2002,10 +2017,10 @@ class KeyboardAndMouse {
 
     /**
      * Translates a character to the corresponding virtual-key code and shift state. The function translates the character using the input language and physical keyboard layout identified by the input locale identifier.
-     * @param {Integer} ch Type: <b>TCHAR</b>
+     * @param {CHAR} ch Type: <b>TCHAR</b>
      * 
      * The character to be translated into a virtual-key code.
-     * @param {Pointer<Void>} dwhkl Type: <b>HKL</b>
+     * @param {HKL} dwhkl Type: <b>HKL</b>
      * 
      * Input locale identifier used to translate the character. This parameter can be any input locale identifier previously returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadkeyboardlayouta">LoadKeyboardLayout</a> function.
      * @returns {Integer} Type: <b>SHORT</b>
@@ -2092,7 +2107,9 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static VkKeyScanExA(ch, dwhkl) {
-        result := DllCall("USER32.dll\VkKeyScanExA", "char", ch, "ptr", dwhkl, "short")
+        dwhkl := dwhkl is Win32Handle ? NumGet(dwhkl, "ptr") : dwhkl
+
+        result := DllCall("USER32.dll\VkKeyScanExA", "ptr", ch, "ptr", dwhkl, "short")
         return result
     }
 
@@ -2101,7 +2118,7 @@ class KeyboardAndMouse {
      * @param {Integer} ch Type: <b>TCHAR</b>
      * 
      * The character to be translated into a virtual-key code.
-     * @param {Pointer<Void>} dwhkl Type: <b>HKL</b>
+     * @param {HKL} dwhkl Type: <b>HKL</b>
      * 
      * Input locale identifier used to translate the character. This parameter can be any input locale identifier previously returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadkeyboardlayouta">LoadKeyboardLayout</a> function.
      * @returns {Integer} Type: <b>SHORT</b>
@@ -2188,6 +2205,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static VkKeyScanExW(ch, dwhkl) {
+        dwhkl := dwhkl is Win32Handle ? NumGet(dwhkl, "ptr") : dwhkl
+
         result := DllCall("USER32.dll\VkKeyScanExW", "char", ch, "ptr", dwhkl, "short")
         return result
     }
@@ -2343,7 +2362,7 @@ class KeyboardAndMouse {
      * @param {Pointer<LASTINPUTINFO>} plii Type: <b>PLASTINPUTINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-lastinputinfo">LASTINPUTINFO</a> structure that receives the time of the last input event.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -2352,7 +2371,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetLastInputInfo(plii) {
-        result := DllCall("USER32.dll\GetLastInputInfo", "ptr", plii, "int")
+        result := DllCall("USER32.dll\GetLastInputInfo", "ptr", plii, "ptr")
         return result
     }
 
@@ -2432,7 +2451,7 @@ class KeyboardAndMouse {
      * | **MAPVK\_VK\_TO\_CHAR**<br>2 | The *uCode* parameter is a virtual-key code and is translated into an unshifted character value in the low order word of the return value. Dead keys (diacritics) are indicated by setting the top bit of the return value. If there is no translation, the function returns 0. |
      * | **MAPVK\_VSC\_TO\_VK\_EX**<br>3 | The *uCode* parameter is a scan code and is translated into a virtual-key code that distinguishes between left- and right-hand keys. If there is no translation, the function returns 0. |
      * | **MAPVK\_VK\_TO\_VSC\_EX**<br>4 | **Windows Vista and later:** The *uCode* parameter is a virtual-key code and is translated into a scan code. If it is a virtual-key code that does not distinguish between left- and right-hand keys, the left-hand scan code is returned. If the scan code is an extended scan code, the high byte of the *uCode* value can contain either 0xe0 or 0xe1 to specify the extended scan code. If there is no translation, the function returns 0. |
-     * @param {Pointer<Void>} dwhkl Type: **HKL**
+     * @param {HKL} dwhkl Type: **HKL**
      * 
      * Input locale identifier to use for translating the specified code. This parameter can be any input locale identifier previously returned by the [LoadKeyboardLayout](nf-winuser-loadkeyboardlayouta.md) function.
      * @returns {Integer} Type: **UINT**
@@ -2442,6 +2461,8 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static MapVirtualKeyExA(uCode, uMapType, dwhkl) {
+        dwhkl := dwhkl is Win32Handle ? NumGet(dwhkl, "ptr") : dwhkl
+
         result := DllCall("USER32.dll\MapVirtualKeyExA", "uint", uCode, "uint", uMapType, "ptr", dwhkl, "uint")
         return result
     }
@@ -2464,7 +2485,7 @@ class KeyboardAndMouse {
      * | **MAPVK\_VK\_TO\_CHAR**<br>2 | The *uCode* parameter is a virtual-key code and is translated into an unshifted character value in the low order word of the return value. Dead keys (diacritics) are indicated by setting the top bit of the return value. If there is no translation, the function returns 0. |
      * | **MAPVK\_VSC\_TO\_VK\_EX**<br>3 | The *uCode* parameter is a scan code and is translated into a virtual-key code that distinguishes between left- and right-hand keys. If there is no translation, the function returns 0. |
      * | **MAPVK\_VK\_TO\_VSC\_EX**<br>4 | **Windows Vista and later:** The *uCode* parameter is a virtual-key code and is translated into a scan code. If it is a virtual-key code that does not distinguish between left- and right-hand keys, the left-hand scan code is returned. If the scan code is an extended scan code, the high byte of the *uCode* value can contain either 0xe0 or 0xe1 to specify the extended scan code. If there is no translation, the function returns 0. |
-     * @param {Pointer<Void>} dwhkl Type: **HKL**
+     * @param {HKL} dwhkl Type: **HKL**
      * 
      * Input locale identifier to use for translating the specified code. This parameter can be any input locale identifier previously returned by the [LoadKeyboardLayout](nf-winuser-loadkeyboardlayoutw.md) function.
      * @returns {Integer} Type: **UINT**
@@ -2474,13 +2495,15 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static MapVirtualKeyExW(uCode, uMapType, dwhkl) {
+        dwhkl := dwhkl is Win32Handle ? NumGet(dwhkl, "ptr") : dwhkl
+
         result := DllCall("USER32.dll\MapVirtualKeyExW", "uint", uCode, "uint", uMapType, "ptr", dwhkl, "uint")
         return result
     }
 
     /**
      * Retrieves a handle to the window (if any) that has captured the mouse. Only one window at a time can capture the mouse; this window receives mouse input whether or not the cursor is within its borders.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the capture window associated with the current thread. If no window in the thread has captured the mouse, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getcapture
@@ -2488,28 +2511,30 @@ class KeyboardAndMouse {
      */
     static GetCapture() {
         result := DllCall("USER32.dll\GetCapture", "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Sets the mouse capture to the specified window belonging to the current thread.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window in the current thread that is to capture the mouse.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the window that had previously captured the mouse. If there is no such window, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setcapture
      * @since windows5.0
      */
     static SetCapture(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\SetCapture", "ptr", hWnd, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Releases the mouse capture from a window in the current thread and restores normal mouse input processing.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -2520,7 +2545,7 @@ class KeyboardAndMouse {
     static ReleaseCapture() {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ReleaseCapture", "int")
+        result := DllCall("USER32.dll\ReleaseCapture", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2529,13 +2554,13 @@ class KeyboardAndMouse {
 
     /**
      * Enables or disables mouse and keyboard input to the specified window or control. When input is disabled, the window does not receive input such as mouse clicks and key presses. When input is enabled, the window receives all input.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be enabled or disabled.
-     * @param {Integer} bEnable Type: <b>BOOL</b>
+     * @param {BOOL} bEnable Type: <b>BOOL</b>
      * 
      * Indicates whether to enable or disable the window. If this parameter is <b>TRUE</b>, the window is enabled. If the parameter is <b>FALSE</b>, the window is disabled.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window was previously disabled, the return value is nonzero.
      * 
@@ -2544,16 +2569,18 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static EnableWindow(hWnd, bEnable) {
-        result := DllCall("USER32.dll\EnableWindow", "ptr", hWnd, "int", bEnable, "int")
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
+        result := DllCall("USER32.dll\EnableWindow", "ptr", hWnd, "ptr", bEnable, "ptr")
         return result
     }
 
     /**
      * Determines whether the specified window is enabled for mouse and keyboard input.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is enabled, the return value is nonzero.
      * 
@@ -2562,19 +2589,21 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static IsWindowEnabled(hWnd) {
-        result := DllCall("USER32.dll\IsWindowEnabled", "ptr", hWnd, "int")
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
+        result := DllCall("USER32.dll\IsWindowEnabled", "ptr", hWnd, "ptr")
         return result
     }
 
     /**
      * Captures the mouse and tracks its movement until the user releases the left button, presses the ESC key, or moves the mouse outside the drag rectangle around the specified point.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window receiving mouse input.
-     * @param {Pointer} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * Initial position of the mouse, in screen coordinates. The function determines the coordinates of the drag rectangle by using this point.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the user moved the mouse outside of the drag rectangle while holding down the left button, the return value is nonzero.
      * 
@@ -2583,16 +2612,18 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static DragDetect(hwnd, pt) {
-        result := DllCall("USER32.dll\DragDetect", "ptr", hwnd, "ptr", pt, "int")
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
+        result := DllCall("USER32.dll\DragDetect", "ptr", hwnd, "ptr", pt, "ptr")
         return result
     }
 
     /**
      * Activates a window. The window must be attached to the calling thread's message queue.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the top-level window to be activated.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the window that was previously active.
      * 
@@ -2601,21 +2632,23 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static SetActiveWindow(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetActiveWindow", "ptr", hWnd, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Blocks keyboard and mouse input events from reaching applications.
-     * @param {Integer} fBlockIt Type: <b>BOOL</b>
+     * @param {BOOL} fBlockIt Type: <b>BOOL</b>
      * 
      * The function's purpose. If this parameter is <b>TRUE</b>, keyboard and mouse input events are blocked. If this parameter is <b>FALSE</b>, keyboard and mouse events are unblocked. Note that only the thread that blocked input can successfully unblock input.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -2626,7 +2659,7 @@ class KeyboardAndMouse {
     static BlockInput(fBlockIt) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BlockInput", "int", fBlockIt, "int")
+        result := DllCall("USER32.dll\BlockInput", "ptr", fBlockIt, "ptr")
         if(A_LastError)
             throw OSError()
 

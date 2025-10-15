@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -13,19 +14,25 @@ class FILEPATHS_W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Target {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Target{
+        get {
+            if(!this.HasProp("__Target"))
+                this.__Target := PWSTR(this.ptr + 0)
+            return this.__Target
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Source {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Source{
+        get {
+            if(!this.HasProp("__Source"))
+                this.__Source := PWSTR(this.ptr + 8)
+            return this.__Source
+        }
     }
 
     /**

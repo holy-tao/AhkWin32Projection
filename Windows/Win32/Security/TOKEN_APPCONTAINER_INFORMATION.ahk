@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\PSID.ahk
 
 /**
  * Specifies all the information in a token that is necessary for an app container.
@@ -15,10 +16,13 @@ class TOKEN_APPCONTAINER_INFORMATION extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the app container.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    TokenAppContainer {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    TokenAppContainer{
+        get {
+            if(!this.HasProp("__TokenAppContainer"))
+                this.__TokenAppContainer := PSID(this.ptr + 0)
+            return this.__TokenAppContainer
+        }
     }
 }

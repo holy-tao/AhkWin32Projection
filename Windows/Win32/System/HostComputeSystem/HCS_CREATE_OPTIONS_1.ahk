@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.HostComputeSystem
@@ -20,11 +21,14 @@ class HCS_CREATE_OPTIONS_1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    UserToken {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    UserToken{
+        get {
+            if(!this.HasProp("__UserToken"))
+                this.__UserToken := HANDLE(this.ptr + 8)
+            return this.__UserToken
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DOT11_ACCESSNETWORKOPTIONS.ahk
 #Include .\DOT11_VENUEINFO.ahk
 #Include .\WLAN_AVAILABLE_NETWORK_V2.ahk

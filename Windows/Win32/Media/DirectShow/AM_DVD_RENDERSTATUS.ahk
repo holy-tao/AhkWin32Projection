@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AM_DVD_RENDERSTATUS structure contains codes indicating the status of DVD-Video playback. These codes are used in the IDvdGraphBuilder::RenderDvdVideoVolume method.
@@ -24,38 +25,50 @@ class AM_DVD_RENDERSTATUS extends Win32Struct
 
     /**
      * <b>TRUE</b> if the specified DVD volume to be played does not exist; <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bDvdVolInvalid {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    bDvdVolInvalid{
+        get {
+            if(!this.HasProp("__bDvdVolInvalid"))
+                this.__bDvdVolInvalid := BOOL(this.ptr + 4)
+            return this.__bDvdVolInvalid
+        }
     }
 
     /**
      * <b>TRUE</b> if no DVD volume is specified or if it isn't found; <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bDvdVolUnknown {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    bDvdVolUnknown{
+        get {
+            if(!this.HasProp("__bDvdVolUnknown"))
+                this.__bDvdVolUnknown := BOOL(this.ptr + 8)
+            return this.__bDvdVolUnknown
+        }
     }
 
     /**
      * <b>TRUE</b> if the video decoder doesn't produce line 21 (closed captioning) data; <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bNoLine21In {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    bNoLine21In{
+        get {
+            if(!this.HasProp("__bNoLine21In"))
+                this.__bNoLine21In := BOOL(this.ptr + 12)
+            return this.__bNoLine21In
+        }
     }
 
     /**
      * <b>TRUE</b> if the video decoder can't be shown as closed captioning on video due to a problem with graph building; <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bNoLine21Out {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    bNoLine21Out{
+        get {
+            if(!this.HasProp("__bNoLine21Out"))
+                this.__bNoLine21Out := BOOL(this.ptr + 16)
+            return this.__bNoLine21Out
+        }
     }
 
     /**

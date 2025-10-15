@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\PSID.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The LOCALGROUP_MEMBERS_INFO_2 structure contains the security identifier (SID) and account information associated with a local group member.
@@ -23,11 +25,14 @@ class LOCALGROUP_MEMBERS_INFO_2 extends Win32Struct
      * 
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the security identifier (SID) of a local group member. The local group member can be a user account or a global group account.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    lgrmi2_sid {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lgrmi2_sid{
+        get {
+            if(!this.HasProp("__lgrmi2_sid"))
+                this.__lgrmi2_sid := PSID(this.ptr + 0)
+            return this.__lgrmi2_sid
+        }
     }
 
     /**
@@ -111,10 +116,13 @@ class LOCALGROUP_MEMBERS_INFO_2 extends Win32Struct
      * 
      * <pre class="syntax" xml:space="preserve"><code>&lt;DomainName&gt;\&lt;AccountName&gt;
      * </code></pre>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lgrmi2_domainandname {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lgrmi2_domainandname{
+        get {
+            if(!this.HasProp("__lgrmi2_domainandname"))
+                this.__lgrmi2_domainandname := PWSTR(this.ptr + 16)
+            return this.__lgrmi2_domainandname
+        }
     }
 }

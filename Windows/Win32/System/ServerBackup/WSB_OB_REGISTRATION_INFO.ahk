@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information to register a cloud backup provider with Windows Server Backup.
@@ -15,11 +17,14 @@ class WSB_OB_REGISTRATION_INFO extends Win32Struct
 
     /**
      * The complete path to the resource DLL where the provider name and icon resources can be loaded from.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    m_wszResourceDLL {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    m_wszResourceDLL{
+        get {
+            if(!this.HasProp("__m_wszResourceDLL"))
+                this.__m_wszResourceDLL := PWSTR(this.ptr + 0)
+            return this.__m_wszResourceDLL
+        }
     }
 
     /**
@@ -51,10 +56,13 @@ class WSB_OB_REGISTRATION_INFO extends Win32Struct
 
     /**
      * A flag to indicate whether the cloud backup provider can communicate with a remote cloud backup provider engine.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    m_bSupportsRemoting {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+    m_bSupportsRemoting{
+        get {
+            if(!this.HasProp("__m_bSupportsRemoting"))
+                this.__m_bSupportsRemoting := BOOLEAN(this.ptr + 24)
+            return this.__m_bSupportsRemoting
+        }
     }
 }

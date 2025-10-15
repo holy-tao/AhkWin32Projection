@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -52,11 +53,14 @@ class HTTP_FILTER_AUTH_COMPLETE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fResetAuth {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    fResetAuth{
+        get {
+            if(!this.HasProp("__fResetAuth"))
+                this.__fResetAuth := BOOL(this.ptr + 36)
+            return this.__fResetAuth
+        }
     }
 
     /**

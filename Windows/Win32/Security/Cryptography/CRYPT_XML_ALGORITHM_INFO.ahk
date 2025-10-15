@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains algorithm information.
@@ -24,20 +25,26 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the URI associated with the attribute of the <b>SignatureMethod</b> or <b>DigestMethod</b> element of the XML signature.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszAlgorithmURI {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    wszAlgorithmURI{
+        get {
+            if(!this.HasProp("__wszAlgorithmURI"))
+                this.__wszAlgorithmURI := PWSTR(this.ptr + 8)
+            return this.__wszAlgorithmURI
+        }
     }
 
     /**
      * Optional. A pointer to a null-terminated Unicode string that contains the display name of the algorithm.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    wszName{
+        get {
+            if(!this.HasProp("__wszName"))
+                this.__wszName := PWSTR(this.ptr + 16)
+            return this.__wszName
+        }
     }
 
     /**
@@ -55,11 +62,14 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  BCrypt* and NCrypt* functions are defined in Bcrypt.h and Ncrypt.h.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszCNGAlgid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    wszCNGAlgid{
+        get {
+            if(!this.HasProp("__wszCNGAlgid"))
+                this.__wszCNGAlgid := PWSTR(this.ptr + 32)
+            return this.__wszCNGAlgid
+        }
     }
 
     /**
@@ -68,11 +78,14 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  BCrypt* and NCrypt* functions are defined in Bcrypt.h and Ncrypt.h.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    wszCNGExtraAlgid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    wszCNGExtraAlgid{
+        get {
+            if(!this.HasProp("__wszCNGExtraAlgid"))
+                this.__wszCNGExtraAlgid := PWSTR(this.ptr + 40)
+            return this.__wszCNGExtraAlgid
+        }
     }
 
     /**

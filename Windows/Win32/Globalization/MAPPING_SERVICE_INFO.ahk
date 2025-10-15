@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about an ELS service.
@@ -29,11 +30,14 @@ class MAPPING_SERVICE_INFO extends Win32Struct
 
     /**
      * Pointer to copyright information about the service.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszCopyright {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszCopyright{
+        get {
+            if(!this.HasProp("__pszCopyright"))
+                this.__pszCopyright := PWSTR(this.ptr + 8)
+            return this.__pszCopyright
+        }
     }
 
     /**
@@ -86,7 +90,7 @@ class MAPPING_SERVICE_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  In Windows 7, the ELS services support only the content type "text/plain". A content types specification can be found at <a href="https://www.iana.org/assignments/media-types/text">Text Media Types</a>.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     prgInputContentTypes {
         get => NumGet(this, 32, "ptr")
@@ -104,7 +108,7 @@ class MAPPING_SERVICE_INFO extends Win32Struct
 
     /**
      * Optional. Pointer to an array of output content types, following the format of the MIME content types, that identify the format in which the service retrieves data.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     prgOutputContentTypes {
         get => NumGet(this, 48, "ptr")
@@ -122,7 +126,7 @@ class MAPPING_SERVICE_INFO extends Win32Struct
 
     /**
      * Pointer to an array of the input languages, following the IETF naming convention, that the service accepts. This member is set to <b>NULL</b> if the service can work with any input language.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     prgInputLanguages {
         get => NumGet(this, 64, "ptr")
@@ -140,7 +144,7 @@ class MAPPING_SERVICE_INFO extends Win32Struct
 
     /**
      * Pointer to an array of output languages, following the IETF naming convention, in which the service can retrieve results. This member is set to <b>NULL</b> if the service can retrieve results in any language, or if the service ignores the output language.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     prgOutputLanguages {
         get => NumGet(this, 80, "ptr")
@@ -158,7 +162,7 @@ class MAPPING_SERVICE_INFO extends Win32Struct
 
     /**
      * Pointer to an array of input scripts, with Unicode standard script names, that are supported by the service. This member is set to <b>NULL</b> if the service can work with any scripts, or if the service ignores the input scripts.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     prgInputScripts {
         get => NumGet(this, 96, "ptr")
@@ -176,7 +180,7 @@ class MAPPING_SERVICE_INFO extends Win32Struct
 
     /**
      * Pointer to an array of output scripts supported by the service. This member is set to <b>NULL</b> if the service can work with any scripts, or the service ignores the output scripts.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     prgOutputScripts {
         get => NumGet(this, 112, "ptr")
@@ -194,20 +198,26 @@ class MAPPING_SERVICE_INFO extends Win32Struct
 
     /**
      * Pointer to the service category for the service, for example, "Language Detection".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszCategory {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    pszCategory{
+        get {
+            if(!this.HasProp("__pszCategory"))
+                this.__pszCategory := PWSTR(this.ptr + 128)
+            return this.__pszCategory
+        }
     }
 
     /**
      * Pointer to the service description. This text can be localized.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDescription {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    pszDescription{
+        get {
+            if(!this.HasProp("__pszDescription"))
+                this.__pszDescription := PWSTR(this.ptr + 136)
+            return this.__pszDescription
+        }
     }
 
     /**

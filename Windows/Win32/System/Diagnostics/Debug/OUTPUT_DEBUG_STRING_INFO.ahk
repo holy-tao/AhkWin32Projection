@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the address, format, and length, in bytes, of a debugging string.
@@ -16,11 +17,14 @@ class OUTPUT_DEBUG_STRING_INFO extends Win32Struct
     /**
      * The debugging string in the calling process's address space. The debugger can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-readprocessmemory">ReadProcessMemory</a> function to retrieve the value of the string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpDebugStringData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lpDebugStringData{
+        get {
+            if(!this.HasProp("__lpDebugStringData"))
+                this.__lpDebugStringData := PSTR(this.ptr + 0)
+            return this.__lpDebugStringData
+        }
     }
 
     /**

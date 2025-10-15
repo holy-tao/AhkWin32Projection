@@ -33,7 +33,7 @@ class TOKENBINDING_RESULT_DATA extends Win32Struct
 
     /**
      * Pointer to the token binding identifier for the token binding that was generated or verified.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<TOKENBINDING_IDENTIFIER>}
      */
     identifierData {
         get => NumGet(this, 8, "ptr")

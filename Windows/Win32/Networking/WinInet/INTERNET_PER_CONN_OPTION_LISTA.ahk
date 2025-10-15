@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the list of options for a particular Internet connection.
@@ -44,11 +45,14 @@ class INTERNET_PER_CONN_OPTION_LISTA extends Win32Struct
 
     /**
      * Pointer to a string that contains the name of the RAS connection or <b>NULL</b>, which indicates the default or LAN connection, to set or query options on.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszConnection {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszConnection{
+        get {
+            if(!this.HasProp("__pszConnection"))
+                this.__pszConnection := PSTR(this.ptr + 8)
+            return this.__pszConnection
+        }
     }
 
     /**

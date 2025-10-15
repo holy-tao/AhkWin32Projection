@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security
@@ -20,19 +21,25 @@ class SE_IMPERSONATION_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    CopyOnOpen {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    CopyOnOpen{
+        get {
+            if(!this.HasProp("__CopyOnOpen"))
+                this.__CopyOnOpen := BOOLEAN(this.ptr + 8)
+            return this.__CopyOnOpen
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    EffectiveOnly {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    EffectiveOnly{
+        get {
+            if(!this.HasProp("__EffectiveOnly"))
+                this.__EffectiveOnly := BOOLEAN(this.ptr + 9)
+            return this.__EffectiveOnly
+        }
     }
 
     /**

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The **COLORMATCHSETUP** structure contains information that the [**SetupColorMatchingW**](/windows/win32/api/icm/nf-icm-setupcolormatchingw) function uses to initialize the **ColorManagement** dialog box.
@@ -66,38 +69,50 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * The window handle to the owner of the dialog box, or **NULL** if the dialog box has no owner.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(this.ptr + 16)
+            return this.__hwndOwner
+        }
     }
 
     /**
      * Pointer to an application-specified string which describes the source profile of the item for which color management is to be performed. If this is **NULL**, the Image Source control displays the name of the Windows default color profile.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pSourceName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pSourceName{
+        get {
+            if(!this.HasProp("__pSourceName"))
+                this.__pSourceName := PSTR(this.ptr + 24)
+            return this.__pSourceName
+        }
     }
 
     /**
      * Points to a string naming the monitor to be used for color management. If this is not the name of a valid monitor, the first enumerated monitor is used.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pDisplayName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pDisplayName{
+        get {
+            if(!this.HasProp("__pDisplayName"))
+                this.__pDisplayName := PSTR(this.ptr + 32)
+            return this.__pDisplayName
+        }
     }
 
     /**
      * Points to a string naming the printer on which the image is to be rendered. If this is not a valid printer name, the default printer is used and named in the dialog.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pPrinterName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pPrinterName{
+        get {
+            if(!this.HasProp("__pPrinterName"))
+                this.__pPrinterName := PSTR(this.ptr + 40)
+            return this.__pPrinterName
+        }
     }
 
     /**
@@ -140,11 +155,14 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Pointer to a buffer in which to place the name of the user-selected monitor profile. If the CMS\_SETMONITORPROFILE flag is used, this flag can also be used to select a profile other than the monitor default when the dialog is first displayed.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pMonitorProfile {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pMonitorProfile{
+        get {
+            if(!this.HasProp("__pMonitorProfile"))
+                this.__pMonitorProfile := PSTR(this.ptr + 56)
+            return this.__pMonitorProfile
+        }
     }
 
     /**
@@ -158,11 +176,14 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Points to a buffer in which to place the name of the user-selected printer profile. If the CMS\_SETPRINTERPROFILE flag is used, this flag can also be used to select a profile other than the printer default when the dialog is first displayed.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pPrinterProfile {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pPrinterProfile{
+        get {
+            if(!this.HasProp("__pPrinterProfile"))
+                this.__pPrinterProfile := PSTR(this.ptr + 72)
+            return this.__pPrinterProfile
+        }
     }
 
     /**
@@ -176,11 +197,14 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Points to a buffer in which to place the name of the user-selected target profile for proofing. If the CMS\_SETTARGETPROFILE flag is used, this flag can also be used to select a profile other than the printer default when the dialog is first displayed.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pTargetProfile {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    pTargetProfile{
+        get {
+            if(!this.HasProp("__pTargetProfile"))
+                this.__pTargetProfile := PSTR(this.ptr + 88)
+            return this.__pTargetProfile
+        }
     }
 
     /**
@@ -205,11 +229,14 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * If the CMS\_USEHOOK flag is set, this member is passed to the application-provided hook procedure as the *lParam* parameter when the WM\_INITDIALOG message is processed.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 112)
+            return this.__lParam
+        }
     }
 
     /**
@@ -223,10 +250,13 @@ class COLORMATCHSETUPA extends Win32Struct
 
     /**
      * Contains a value that will be passed to the function **ApplyCallbackFunction** through its *lParam* parameter. The meaning and content of the value is specified by the application.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParamApplyCallback {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    lParamApplyCallback{
+        get {
+            if(!this.HasProp("__lParamApplyCallback"))
+                this.__lParamApplyCallback := LPARAM(this.ptr + 128)
+            return this.__lParamApplyCallback
+        }
     }
 }

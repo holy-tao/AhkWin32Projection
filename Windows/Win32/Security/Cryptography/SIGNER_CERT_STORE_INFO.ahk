@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCERTSTORE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -36,11 +37,14 @@ class SIGNER_CERT_STORE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hCertStore {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hCertStore{
+        get {
+            if(!this.HasProp("__hCertStore"))
+                this.__hCertStore := HCERTSTORE(this.ptr + 24)
+            return this.__hCertStore
+        }
     }
 
     /**

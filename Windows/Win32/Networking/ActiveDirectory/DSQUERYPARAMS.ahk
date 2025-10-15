@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include .\DSCOLUMN.ahk
 
 /**
@@ -34,11 +35,14 @@ class DSQUERYPARAMS extends Win32Struct
 
     /**
      * Contains an instance handle used for extracting resources.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(this.ptr + 8)
+            return this.__hInstance
+        }
     }
 
     /**

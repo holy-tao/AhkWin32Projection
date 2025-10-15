@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -13,19 +14,25 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszSourceUrlName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pwszSourceUrlName{
+        get {
+            if(!this.HasProp("__pwszSourceUrlName"))
+                this.__pwszSourceUrlName := PWSTR(this.ptr + 0)
+            return this.__pwszSourceUrlName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszLocalFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszLocalFileName{
+        get {
+            if(!this.HasProp("__pwszLocalFileName"))
+                this.__pwszLocalFileName := PWSTR(this.ptr + 8)
+            return this.__pwszLocalFileName
+        }
     }
 
     /**

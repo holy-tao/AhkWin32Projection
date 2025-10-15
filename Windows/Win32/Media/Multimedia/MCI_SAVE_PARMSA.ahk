@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -21,10 +22,13 @@ class MCI_SAVE_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpfilename {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpfilename{
+        get {
+            if(!this.HasProp("__lpfilename"))
+                this.__lpfilename := PSTR(this.ptr + 8)
+            return this.__lpfilename
+        }
     }
 }

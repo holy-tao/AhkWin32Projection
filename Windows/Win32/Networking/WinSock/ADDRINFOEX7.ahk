@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -52,11 +54,14 @@ class ADDRINFOEX7 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ai_canonname {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ai_canonname{
+        get {
+            if(!this.HasProp("__ai_canonname"))
+                this.__ai_canonname := PWSTR(this.ptr + 24)
+            return this.__ai_canonname
+        }
     }
 
     /**
@@ -108,11 +113,14 @@ class ADDRINFOEX7 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ai_fqdn {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    ai_fqdn{
+        get {
+            if(!this.HasProp("__ai_fqdn"))
+                this.__ai_fqdn := PWSTR(this.ptr + 80)
+            return this.__ai_fqdn
+        }
     }
 
     /**
@@ -124,11 +132,14 @@ class ADDRINFOEX7 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ai_resolutionhandle {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    ai_resolutionhandle{
+        get {
+            if(!this.HasProp("__ai_resolutionhandle"))
+                this.__ai_resolutionhandle := HANDLE(this.ptr + 96)
+            return this.__ai_resolutionhandle
+        }
     }
 
     /**

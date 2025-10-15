@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D11_ENCRYPTED_BLOCK_INFO.ahk
 
 /**
@@ -124,11 +125,14 @@ class D3D11_VIDEO_DECODER_BUFFER_DESC extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the video surfaces are partially encrypted.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PartialEncryption {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    PartialEncryption{
+        get {
+            if(!this.HasProp("__PartialEncryption"))
+                this.__PartialEncryption := BOOL(this.ptr + 52)
+            return this.__PartialEncryption
+        }
     }
 
     /**

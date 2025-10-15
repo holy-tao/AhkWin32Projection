@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
@@ -1718,12 +1719,12 @@ class Debug {
      * @param {Integer} EntryCount The number of entries in the <i>FunctionTable</i> array.
      * @param {Pointer} BaseAddress The base address to use when computing full virtual addresses from relative virtual addresses of function 
      *        table entries.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, the return value 
+     * @returns {BOOLEAN} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, the return value 
      *        is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtladdfunctiontable
      */
     static RtlAddFunctionTable(FunctionTable, EntryCount, BaseAddress) {
-        result := DllCall("KERNEL32.dll\RtlAddFunctionTable", "ptr", FunctionTable, "uint", EntryCount, "ptr", BaseAddress, "char")
+        result := DllCall("KERNEL32.dll\RtlAddFunctionTable", "ptr", FunctionTable, "uint", EntryCount, "ptr", BaseAddress, "ptr")
         return result
     }
 
@@ -1734,12 +1735,12 @@ class Debug {
      *       passed to 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-rtlinstallfunctiontablecallback">RtlInstallFunctionTableCallback</a>. For 
      *       a definition of the <b>PRUNTIME_FUNCTION</b> type, see WinNT.h.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, the return value 
+     * @returns {BOOLEAN} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, the return value 
      *       is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtldeletefunctiontable
      */
     static RtlDeleteFunctionTable(FunctionTable) {
-        result := DllCall("KERNEL32.dll\RtlDeleteFunctionTable", "ptr", FunctionTable, "char")
+        result := DllCall("KERNEL32.dll\RtlDeleteFunctionTable", "ptr", FunctionTable, "ptr")
         return result
     }
 
@@ -1753,21 +1754,21 @@ class Debug {
      *       in the specified region of memory. For a definition of the 
      *       <b>PGET_RUNTIME_FUNCTION_CALLBACK</b> type, see WinNT.h.
      * @param {Pointer<Void>} Context A pointer to the user-defined data to be passed to the callback function.
-     * @param {Pointer<Char>} OutOfProcessCallbackDll An optional pointer to a string that specifies the path of a DLL that provides function table entries that 
+     * @param {PWSTR} OutOfProcessCallbackDll An optional pointer to a string that specifies the path of a DLL that provides function table entries that 
      *        are outside the process.
      * 
      * When a debugger unwinds to a function in the range of addresses managed by the callback function, it loads 
      *        this DLL and calls the <b>OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK_EXPORT_NAME</b> 
      *        function, whose type is <b>POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK</b>. For more 
      *        information, see the definitions of these items in WinNT.h.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the 
+     * @returns {BOOLEAN} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the 
      *       return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtlinstallfunctiontablecallback
      */
     static RtlInstallFunctionTableCallback(TableIdentifier, BaseAddress, Length, Callback, Context, OutOfProcessCallbackDll) {
-        OutOfProcessCallbackDll := OutOfProcessCallbackDll is String? StrPtr(OutOfProcessCallbackDll) : OutOfProcessCallbackDll
+        OutOfProcessCallbackDll := OutOfProcessCallbackDll is String ? StrPtr(OutOfProcessCallbackDll) : OutOfProcessCallbackDll
 
-        result := DllCall("KERNEL32.dll\RtlInstallFunctionTableCallback", "uint", TableIdentifier, "uint", BaseAddress, "uint", Length, "ptr", Callback, "ptr", Context, "ptr", OutOfProcessCallbackDll, "char")
+        result := DllCall("KERNEL32.dll\RtlInstallFunctionTableCallback", "uint", TableIdentifier, "uint", BaseAddress, "uint", Length, "ptr", Callback, "ptr", Context, "ptr", OutOfProcessCallbackDll, "ptr")
         return result
     }
 
@@ -1842,12 +1843,12 @@ class Debug {
 
     /**
      * Reads data from an area of memory in a specified process. The entire area to be read must be accessible or the operation fails.
-     * @param {Pointer<Void>} hProcess A handle to the process with memory that is being read. The handle must have PROCESS_VM_READ access to the process.
+     * @param {HANDLE} hProcess A handle to the process with memory that is being read. The handle must have PROCESS_VM_READ access to the process.
      * @param {Pointer<Void>} lpBaseAddress A pointer to the base address in the specified process from which to read. Before any data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for read access, and if it is not accessible the function fails.
      * @param {Pointer} lpBuffer A pointer to a buffer that receives the contents from the address space of the specified process.
      * @param {Pointer} nSize The number of bytes to be read from the specified process.
      * @param {Pointer<UIntPtr>} lpNumberOfBytesRead A pointer to a variable that receives the number of bytes transferred into the specified buffer. If *lpNumberOfBytesRead* is **NULL**, the parameter is ignored.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * [GetLastError](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
@@ -1857,9 +1858,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static ReadProcessMemory(hProcess, lpBaseAddress, lpBuffer, nSize, lpNumberOfBytesRead) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadProcessMemory", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", nSize, "ptr*", lpNumberOfBytesRead, "int")
+        result := DllCall("KERNEL32.dll\ReadProcessMemory", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", nSize, "ptr*", lpNumberOfBytesRead, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1868,12 +1871,12 @@ class Debug {
 
     /**
      * Writes data to an area of memory in a specified process. The entire area to be written to must be accessible or the operation fails.
-     * @param {Pointer<Void>} hProcess A handle to the process memory to be modified. The handle must have PROCESS_VM_WRITE and PROCESS_VM_OPERATION access to the process.
+     * @param {HANDLE} hProcess A handle to the process memory to be modified. The handle must have PROCESS_VM_WRITE and PROCESS_VM_OPERATION access to the process.
      * @param {Pointer<Void>} lpBaseAddress A pointer to the base address in the specified process to which data is written. Before data transfer occurs, the system verifies that all data in the base address and memory of the specified size is accessible for write access, and if it is not accessible, the function fails.
      * @param {Pointer} lpBuffer A pointer to the buffer that contains data to be written in  the address space of the specified process.
      * @param {Pointer} nSize The number of bytes to be written to the specified process.
      * @param {Pointer<UIntPtr>} lpNumberOfBytesWritten A pointer to a variable that receives the number of bytes transferred into the specified process. This parameter is optional. If <i>lpNumberOfBytesWritten</i> is <b>NULL</b>, the parameter is ignored.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The function fails if the requested write operation crosses into an area of the process that is inaccessible.
@@ -1881,9 +1884,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static WriteProcessMemory(hProcess, lpBaseAddress, lpBuffer, nSize, lpNumberOfBytesWritten) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteProcessMemory", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", nSize, "ptr*", lpNumberOfBytesWritten, "int")
+        result := DllCall("KERNEL32.dll\WriteProcessMemory", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", nSize, "ptr*", lpNumberOfBytesWritten, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1892,21 +1897,23 @@ class Debug {
 
     /**
      * Retrieves the context of the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread whose context is to be retrieved. The handle must have **THREAD_GET_CONTEXT** access to the thread. For more information, see [Thread Security and Access Rights](/windows/desktop/ProcThread/thread-security-and-access-rights).
+     * @param {HANDLE} hThread A handle to the thread whose context is to be retrieved. The handle must have **THREAD_GET_CONTEXT** access to the thread. For more information, see [Thread Security and Access Rights](/windows/desktop/ProcThread/thread-security-and-access-rights).
      *       
      * 
      * **WOW64:** The handle must also have **THREAD_QUERY_INFORMATION** access.
      * @param {Pointer<CONTEXT>} lpContext A pointer to a [CONTEXT](/windows/win32/api/winnt/ns-winnt-context) structure (such as [ARM64_NT_CONTEXT](/windows/win32/api/winnt/ns-winnt-arm64_nt_context)) that receives the appropriate context of the specified thread. The value of the **ContextFlags** member of this structure specifies which portions of a thread's context are retrieved. The       **CONTEXT** structure is highly processor specific. Refer to the WinNT.h header file for processor-specific definitions of this structures and any alignment requirements.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadcontext
      * @since windows5.1.2600
      */
     static GetThreadContext(hThread, lpContext) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadContext", "ptr", hThread, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\GetThreadContext", "ptr", hThread, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1915,7 +1922,7 @@ class Debug {
 
     /**
      * Sets the context for the specified thread.
-     * @param {Pointer<Void>} hThread A handle to the thread whose context is to be set. The handle must have the 
+     * @param {HANDLE} hThread A handle to the thread whose context is to be set. The handle must have the 
      *       <b>THREAD_SET_CONTEXT</b> access right to the thread. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Pointer<CONTEXT>} lpContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure that contains the 
@@ -1925,7 +1932,7 @@ class Debug {
      *       set to the correct value. This includes bits in the CPU status register that specify the privileged processor 
      *       mode, global enabling bits in the debugging register, and other states that must be controlled by the operating 
      *       system.
-     * @returns {Integer} If the context was set, the return value is nonzero.
+     * @returns {BOOL} If the context was set, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1933,9 +1940,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static SetThreadContext(hThread, lpContext) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadContext", "ptr", hThread, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\SetThreadContext", "ptr", hThread, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1944,10 +1953,10 @@ class Debug {
 
     /**
      * Flushes the instruction cache for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to a process whose instruction cache is to be flushed.
+     * @param {HANDLE} hProcess A handle to a process whose instruction cache is to be flushed.
      * @param {Pointer} lpBaseAddress A pointer to the base of the region to be flushed. This parameter can be <b>NULL</b>.
      * @param {Pointer} dwSize The size of the region to be flushed if the <i>lpBaseAddress</i> parameter is not <b>NULL</b>, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1955,9 +1964,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static FlushInstructionCache(hProcess, lpBaseAddress, dwSize) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FlushInstructionCache", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", dwSize, "int")
+        result := DllCall("KERNEL32.dll\FlushInstructionCache", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", dwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1966,12 +1977,12 @@ class Debug {
 
     /**
      * Retrieves the context of the specified WOW64 thread.
-     * @param {Pointer<Void>} hThread A handle to the thread whose context is to be retrieved. The handle must have 
+     * @param {HANDLE} hThread A handle to the thread whose context is to be retrieved. The handle must have 
      *       <b>THREAD_GET_CONTEXT</b> access to the thread. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Pointer<WOW64_CONTEXT>} lpContext A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-wow64_context">WOW64_CONTEXT</a> structure. The caller must 
      *       initialize the <b>ContextFlags</b> member of this structure.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1979,9 +1990,11 @@ class Debug {
      * @since windows6.0.6000
      */
     static Wow64GetThreadContext(hThread, lpContext) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Wow64GetThreadContext", "ptr", hThread, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\Wow64GetThreadContext", "ptr", hThread, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1990,10 +2003,10 @@ class Debug {
 
     /**
      * Sets the context of the specified WOW64 thread.
-     * @param {Pointer<Void>} hThread A handle to the thread whose context is to be set.
+     * @param {HANDLE} hThread A handle to the thread whose context is to be set.
      * @param {Pointer<WOW64_CONTEXT>} lpContext A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-wow64_context">WOW64_CONTEXT</a> structure. The caller must 
      *       initialize the <b>ContextFlags</b> member of this structure.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2001,9 +2014,11 @@ class Debug {
      * @since windows6.0.6000
      */
     static Wow64SetThreadContext(hThread, lpContext) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Wow64SetThreadContext", "ptr", hThread, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\Wow64SetThreadContext", "ptr", hThread, "ptr", lpContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2093,7 +2108,7 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nf-imagehlp-mapandload">MapAndLoad</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nf-imagehlp-imageload">ImageLoad</a>.
      * @param {Pointer<IMAGE_LOAD_CONFIG_DIRECTORY64>} ImageConfigInformation A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-image_load_config_directory32">IMAGE_LOAD_CONFIG_DIRECTORY64</a> structure that receives the configuration information.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2103,7 +2118,7 @@ class Debug {
     static GetImageConfigInformation(LoadedImage, ImageConfigInformation) {
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\GetImageConfigInformation", "ptr", LoadedImage, "ptr", ImageConfigInformation, "int")
+        result := DllCall("imagehlp.dll\GetImageConfigInformation", "ptr", LoadedImage, "ptr", ImageConfigInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2117,7 +2132,7 @@ class Debug {
      * <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nf-imagehlp-mapandload">MapAndLoad</a> or <b>LoadImage</b>.
      * @param {Pointer<IMAGE_LOAD_CONFIG_DIRECTORY64>} ImageConfigInformation A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-image_load_config_directory32">IMAGE_LOAD_CONFIG_DIRECTORY64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2127,7 +2142,7 @@ class Debug {
     static SetImageConfigInformation(LoadedImage, ImageConfigInformation) {
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\SetImageConfigInformation", "ptr", LoadedImage, "ptr", ImageConfigInformation, "int")
+        result := DllCall("imagehlp.dll\SetImageConfigInformation", "ptr", LoadedImage, "ptr", ImageConfigInformation, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2295,14 +2310,14 @@ class Debug {
 
     /**
      * Determines whether the calling process is being debugged by a user-mode debugger.
-     * @returns {Integer} If the current process is running in the context of a debugger, the return value is nonzero.
+     * @returns {BOOL} If the current process is running in the context of a debugger, the return value is nonzero.
      * 
      * If the current process is not running in the context of a debugger, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//debugapi/nf-debugapi-isdebuggerpresent
      * @since windows5.1.2600
      */
     static IsDebuggerPresent() {
-        result := DllCall("KERNEL32.dll\IsDebuggerPresent", "int")
+        result := DllCall("KERNEL32.dll\IsDebuggerPresent", "ptr")
         return result
     }
 
@@ -2345,13 +2360,13 @@ class Debug {
      * > The debugapi.h header defines OutputDebugString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
      * 
-     * @param {Pointer<Byte>} lpOutputString The null-terminated string to be displayed.
+     * @param {PSTR} lpOutputString The null-terminated string to be displayed.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//debugapi/nf-debugapi-outputdebugstringa
      * @since windows5.1.2600
      */
     static OutputDebugStringA(lpOutputString) {
-        lpOutputString := lpOutputString is String? StrPtr(lpOutputString) : lpOutputString
+        lpOutputString := lpOutputString is String ? StrPtr(lpOutputString) : lpOutputString
 
         DllCall("KERNEL32.dll\OutputDebugStringA", "ptr", lpOutputString)
     }
@@ -2379,13 +2394,13 @@ class Debug {
      * > The debugapi.h header defines OutputDebugString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
      * 
-     * @param {Pointer<Char>} lpOutputString The null-terminated string to be displayed.
+     * @param {PWSTR} lpOutputString The null-terminated string to be displayed.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//debugapi/nf-debugapi-outputdebugstringw
      * @since windows5.1.2600
      */
     static OutputDebugStringW(lpOutputString) {
-        lpOutputString := lpOutputString is String? StrPtr(lpOutputString) : lpOutputString
+        lpOutputString := lpOutputString is String ? StrPtr(lpOutputString) : lpOutputString
 
         DllCall("KERNEL32.dll\OutputDebugStringW", "ptr", lpOutputString)
     }
@@ -2394,7 +2409,7 @@ class Debug {
      * Enables a debugger to continue a thread that previously reported a debugging event.
      * @param {Integer} dwProcessId The process identifier  of the process to continue.
      * @param {Integer} dwThreadId The thread identifier of the thread to continue. The combination of process identifier and thread identifier must identify a thread that has previously reported a debugging event.
-     * @param {Integer} dwContinueStatus The options to continue the thread that reported the debugging event. 
+     * @param {NTSTATUS} dwContinueStatus The options to continue the thread that reported the debugging event. 
      * 
      * 
      * 
@@ -2438,7 +2453,7 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2448,7 +2463,7 @@ class Debug {
     static ContinueDebugEvent(dwProcessId, dwThreadId, dwContinueStatus) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ContinueDebugEvent", "uint", dwProcessId, "uint", dwThreadId, "int", dwContinueStatus, "int")
+        result := DllCall("KERNEL32.dll\ContinueDebugEvent", "uint", dwProcessId, "uint", dwThreadId, "ptr", dwContinueStatus, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2460,7 +2475,7 @@ class Debug {
      * @param {Pointer<DEBUG_EVENT>} lpDebugEvent A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-debug_event">DEBUG_EVENT</a> structure that receives information about the debugging event.
      * @param {Integer} dwMilliseconds The number of milliseconds to wait for a debugging event. If this parameter is zero, the function tests for a debugging event and returns immediately. If the parameter is INFINITE, the function does not return until a debugging event has occurred.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2470,7 +2485,7 @@ class Debug {
     static WaitForDebugEvent(lpDebugEvent, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitForDebugEvent", "ptr", lpDebugEvent, "uint", dwMilliseconds, "int")
+        result := DllCall("KERNEL32.dll\WaitForDebugEvent", "ptr", lpDebugEvent, "uint", dwMilliseconds, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2482,7 +2497,7 @@ class Debug {
      * @param {Integer} dwProcessId The identifier for the process to be debugged. The debugger is granted debugging access to the process as 
      *       if it created the process with the <b>DEBUG_ONLY_THIS_PROCESS</b> flag. For more information, 
      *       see the Remarks section of this topic.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2492,7 +2507,7 @@ class Debug {
     static DebugActiveProcess(dwProcessId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DebugActiveProcess", "uint", dwProcessId, "int")
+        result := DllCall("KERNEL32.dll\DebugActiveProcess", "uint", dwProcessId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2502,7 +2517,7 @@ class Debug {
     /**
      * Stops the debugger from debugging the specified process.
      * @param {Integer} dwProcessId The identifier of the process to stop debugging.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2512,7 +2527,7 @@ class Debug {
     static DebugActiveProcessStop(dwProcessId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DebugActiveProcessStop", "uint", dwProcessId, "int")
+        result := DllCall("KERNEL32.dll\DebugActiveProcessStop", "uint", dwProcessId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2521,18 +2536,20 @@ class Debug {
 
     /**
      * Determines whether the specified process is being debugged.
-     * @param {Pointer<Void>} hProcess A handle to the process.
-     * @param {Pointer<Int32>} pbDebuggerPresent A pointer to a variable that the function sets to <b>TRUE</b> if the specified process is being debugged, or <b>FALSE</b> otherwise.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. 
+     * @param {HANDLE} hProcess A handle to the process.
+     * @param {Pointer<BOOL>} pbDebuggerPresent A pointer to a variable that the function sets to <b>TRUE</b> if the specified process is being debugged, or <b>FALSE</b> otherwise.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * If the function fails, the return value is zero. To get  extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//debugapi/nf-debugapi-checkremotedebuggerpresent
      * @since windows6.0.6000
      */
     static CheckRemoteDebuggerPresent(hProcess, pbDebuggerPresent) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CheckRemoteDebuggerPresent", "ptr", hProcess, "int*", pbDebuggerPresent, "int")
+        result := DllCall("KERNEL32.dll\CheckRemoteDebuggerPresent", "ptr", hProcess, "ptr", pbDebuggerPresent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2544,7 +2561,7 @@ class Debug {
      * @param {Pointer<DEBUG_EVENT>} lpDebugEvent A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-debug_event">DEBUG_EVENT</a> structure that receives information about the debugging event.
      * @param {Integer} dwMilliseconds The number of milliseconds to wait for a debugging event. If this parameter is zero, the function tests for a debugging event and returns immediately. If the parameter is INFINITE, the function does not return until a debugging event has occurred.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2554,7 +2571,7 @@ class Debug {
     static WaitForDebugEventEx(lpDebugEvent, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitForDebugEventEx", "ptr", lpDebugEvent, "uint", dwMilliseconds, "int")
+        result := DllCall("KERNEL32.dll\WaitForDebugEventEx", "ptr", lpDebugEvent, "uint", dwMilliseconds, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2603,12 +2620,14 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Void>} ProcessHandle 
+     * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} Ptr 
      * @param {Pointer<Void>} EncodedPtr 
      * @returns {HRESULT} 
      */
     static EncodeRemotePointer(ProcessHandle, Ptr, EncodedPtr) {
+        ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
+
         result := DllCall("api-ms-win-core-util-l1-1-1.dll\EncodeRemotePointer", "ptr", ProcessHandle, "ptr", Ptr, "ptr", EncodedPtr, "int")
         if(result != 0)
             throw OSError(result)
@@ -2618,12 +2637,14 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Void>} ProcessHandle 
+     * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} Ptr 
      * @param {Pointer<Void>} DecodedPtr 
      * @returns {HRESULT} 
      */
     static DecodeRemotePointer(ProcessHandle, Ptr, DecodedPtr) {
+        ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
+
         result := DllCall("api-ms-win-core-util-l1-1-1.dll\DecodeRemotePointer", "ptr", ProcessHandle, "ptr", Ptr, "ptr", DecodedPtr, "int")
         if(result != 0)
             throw OSError(result)
@@ -2635,7 +2656,7 @@ class Debug {
      * Generates simple tones on the speaker.
      * @param {Integer} dwFreq The frequency of the sound, in hertz. This parameter must be in the range 37 through 32,767 (0x25 through 0x7FFF).
      * @param {Integer} dwDuration The duration of the sound, in milliseconds.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2645,7 +2666,7 @@ class Debug {
     static Beep(dwFreq, dwDuration) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Beep", "uint", dwFreq, "uint", dwDuration, "int")
+        result := DllCall("KERNEL32.dll\Beep", "uint", dwFreq, "uint", dwDuration, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2940,13 +2961,13 @@ class Debug {
      * 
      * 
      * @param {Integer} uAction This parameter must be zero.
-     * @param {Pointer<Byte>} lpMessageText The null-terminated string that is displayed in the message box.
+     * @param {PSTR} lpMessageText The null-terminated string that is displayed in the message box.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-fatalappexita
      * @since windows5.1.2600
      */
     static FatalAppExitA(uAction, lpMessageText) {
-        lpMessageText := lpMessageText is String? StrPtr(lpMessageText) : lpMessageText
+        lpMessageText := lpMessageText is String ? StrPtr(lpMessageText) : lpMessageText
 
         DllCall("KERNEL32.dll\FatalAppExitA", "uint", uAction, "ptr", lpMessageText)
     }
@@ -2968,13 +2989,13 @@ class Debug {
      * 
      * 
      * @param {Integer} uAction This parameter must be zero.
-     * @param {Pointer<Char>} lpMessageText The null-terminated string that is displayed in the message box.
+     * @param {PWSTR} lpMessageText The null-terminated string that is displayed in the message box.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-fatalappexitw
      * @since windows5.1.2600
      */
     static FatalAppExitW(uAction, lpMessageText) {
-        lpMessageText := lpMessageText is String? StrPtr(lpMessageText) : lpMessageText
+        lpMessageText := lpMessageText is String ? StrPtr(lpMessageText) : lpMessageText
 
         DllCall("KERNEL32.dll\FatalAppExitW", "uint", uAction, "ptr", lpMessageText)
     }
@@ -3037,7 +3058,7 @@ class Debug {
      * Controls whether the system will handle the specified types of serious errors or whether the calling thread will handle them.
      * @param {Integer} dwNewMode 
      * @param {Pointer<UInt32>} lpOldMode If the function succeeds, this parameter is set to the thread's previous error mode. This parameter can be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3047,7 +3068,7 @@ class Debug {
     static SetThreadErrorMode(dwNewMode, lpOldMode) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadErrorMode", "uint", dwNewMode, "uint*", lpOldMode, "int")
+        result := DllCall("KERNEL32.dll\SetThreadErrorMode", "uint", dwNewMode, "uint*", lpOldMode, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3112,10 +3133,10 @@ class Debug {
      * @param {Pointer<WAITCHAIN_NODE_INFO>} NodeInfoArray An array of <a href="https://docs.microsoft.com/windows/desktop/api/wct/ns-wct-waitchain_node_info">WAITCHAIN_NODE_INFO</a> structures that receives the wait chain.
      * 
      * For asynchronous sessions, check the value that is passed to the callback function. Do not free the array until the callback function has returned.
-     * @param {Pointer<Int32>} IsCycle If the function detects a deadlock, this variable is set to <b>TRUE</b>; otherwise, it is set to <b>FALSE</b>.
+     * @param {Pointer<BOOL>} IsCycle If the function detects a deadlock, this variable is set to <b>TRUE</b>; otherwise, it is set to <b>FALSE</b>.
      * 
      * For asynchronous sessions, check the value that is passed to the callback function. Do not free the variable until the callback function has returned.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3209,7 +3230,7 @@ class Debug {
     static GetThreadWaitChain(WctHandle, Context, Flags, ThreadId, NodeCount, NodeInfoArray, IsCycle) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetThreadWaitChain", "ptr", WctHandle, "ptr", Context, "uint", Flags, "uint", ThreadId, "uint*", NodeCount, "ptr", NodeInfoArray, "int*", IsCycle, "int")
+        result := DllCall("ADVAPI32.dll\GetThreadWaitChain", "ptr", WctHandle, "ptr", Context, "uint", Flags, "uint", ThreadId, "uint*", NodeCount, "ptr", NodeInfoArray, "ptr", IsCycle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3236,7 +3257,7 @@ class Debug {
 
     /**
      * Writes user-mode minidump information to the specified file.
-     * @param {Pointer<Void>} hProcess A handle to the process for which the information is to be generated.
+     * @param {HANDLE} hProcess A handle to the process for which the information is to be generated.
      * 
      * This handle must have <b>PROCESS_QUERY_INFORMATION</b> and 
      *        <b>PROCESS_VM_READ</b> access to the process. If handle information is to be collected then 
@@ -3246,7 +3267,7 @@ class Debug {
      *        process. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Integer} ProcessId The identifier of the process for which the information is to be generated.
-     * @param {Pointer<Void>} hFile A handle to the file in which the information is to be written.
+     * @param {HANDLE} hFile A handle to the file in which the information is to be written.
      * @param {Integer} DumpType The type of information to be generated. This parameter can be one or more of the values from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-minidump_type">MINIDUMP_TYPE</a> enumeration.
      * @param {Pointer<MINIDUMP_EXCEPTION_INFORMATION>} ExceptionParam A pointer to a 
@@ -3261,7 +3282,7 @@ class Debug {
      *       <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_callback_information">MINIDUMP_CALLBACK_INFORMATION</a> 
      *       structure that specifies a callback routine which is to receive extended minidump information. If the value of 
      *       this parameter is <b>NULL</b>, no callbacks are performed.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>; otherwise, the return value is 
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>; otherwise, the return value is 
      *        <b>FALSE</b>. To retrieve extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Note that the last error will be an 
      *        <b>HRESULT</b> value.
@@ -3271,9 +3292,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/nf-minidumpapiset-minidumpwritedump
      */
     static MiniDumpWriteDump(hProcess, ProcessId, hFile, DumpType, ExceptionParam, UserStreamParam, CallbackParam) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\MiniDumpWriteDump", "ptr", hProcess, "uint", ProcessId, "ptr", hFile, "int", DumpType, "ptr", ExceptionParam, "ptr", UserStreamParam, "ptr", CallbackParam, "int")
+        result := DllCall("dbghelp.dll\MiniDumpWriteDump", "ptr", hProcess, "uint", ProcessId, "ptr", hFile, "int", DumpType, "ptr", ExceptionParam, "ptr", UserStreamParam, "ptr", CallbackParam, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3292,21 +3316,21 @@ class Debug {
      *       <i>StreamNumber</i>. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ne-minidumpapiset-minidump_stream_type">MINIDUMP_STREAM_TYPE</a>.
      * @param {Pointer<UInt32>} StreamSize The size of the stream pointed to by <i>StreamPointer</i>, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>; otherwise, the return 
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>; otherwise, the return 
      *        value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/nf-minidumpapiset-minidumpreaddumpstream
      */
     static MiniDumpReadDumpStream(BaseOfDump, StreamNumber, Dir, StreamPointer, StreamSize) {
-        result := DllCall("dbghelp.dll\MiniDumpReadDumpStream", "ptr", BaseOfDump, "uint", StreamNumber, "ptr", Dir, "ptr", StreamPointer, "uint*", StreamSize, "int")
+        result := DllCall("dbghelp.dll\MiniDumpReadDumpStream", "ptr", BaseOfDump, "uint", StreamNumber, "ptr", Dir, "ptr", StreamPointer, "uint*", StreamSize, "ptr")
         return result
     }
 
     /**
      * Computes the virtual address of each imported function.
-     * @param {Pointer<Byte>} ImageName The name of the file to be bound. This value can be a file name, a partial path, or a full path.
-     * @param {Pointer<Byte>} DllPath The root of the search path to use if the file specified by the <i>ImageName</i> parameter cannot be opened.
-     * @param {Pointer<Byte>} SymbolPath The root of the path to search for the file's corresponding symbol file.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {PSTR} ImageName The name of the file to be bound. This value can be a file name, a partial path, or a full path.
+     * @param {PSTR} DllPath The root of the search path to use if the file specified by the <i>ImageName</i> parameter cannot be opened.
+     * @param {PSTR} SymbolPath The root of the path to search for the file's corresponding symbol file.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3314,13 +3338,13 @@ class Debug {
      * @since windows5.1.2600
      */
     static BindImage(ImageName, DllPath, SymbolPath) {
-        ImageName := ImageName is String? StrPtr(ImageName) : ImageName
-        DllPath := DllPath is String? StrPtr(DllPath) : DllPath
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        DllPath := DllPath is String ? StrPtr(DllPath) : DllPath
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\BindImage", "ptr", ImageName, "ptr", DllPath, "ptr", SymbolPath, "int")
+        result := DllCall("imagehlp.dll\BindImage", "ptr", ImageName, "ptr", DllPath, "ptr", SymbolPath, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3330,12 +3354,12 @@ class Debug {
     /**
      * Computes the virtual address of each function that is imported.
      * @param {Integer} Flags 
-     * @param {Pointer<Byte>} ImageName The name of the file to be bound. This value can be a file name, a partial path, or a full path.
-     * @param {Pointer<Byte>} DllPath The root of the search path to use if the file specified by the <i>ImageName</i> parameter cannot be opened.
-     * @param {Pointer<Byte>} SymbolPath The root of the path to search for the file's corresponding symbol file.
+     * @param {PSTR} ImageName The name of the file to be bound. This value can be a file name, a partial path, or a full path.
+     * @param {PSTR} DllPath The root of the search path to use if the file specified by the <i>ImageName</i> parameter cannot be opened.
+     * @param {PSTR} SymbolPath The root of the path to search for the file's corresponding symbol file.
      * @param {Pointer<PIMAGEHLP_STATUS_ROUTINE>} StatusRoutine A pointer to a status routine. The status routine is called during the progress of the image binding. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nc-imagehlp-pimagehlp_status_routine">StatusRoutine</a>.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3343,13 +3367,13 @@ class Debug {
      * @since windows5.1.2600
      */
     static BindImageEx(Flags, ImageName, DllPath, SymbolPath, StatusRoutine) {
-        ImageName := ImageName is String? StrPtr(ImageName) : ImageName
-        DllPath := DllPath is String? StrPtr(DllPath) : DllPath
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        DllPath := DllPath is String ? StrPtr(DllPath) : DllPath
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\BindImageEx", "uint", Flags, "ptr", ImageName, "ptr", DllPath, "ptr", SymbolPath, "ptr", StatusRoutine, "int")
+        result := DllCall("imagehlp.dll\BindImageEx", "uint", Flags, "ptr", ImageName, "ptr", DllPath, "ptr", SymbolPath, "ptr", StatusRoutine, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3358,11 +3382,11 @@ class Debug {
 
     /**
      * Changes the load address for the specified image, which reduces the required load time for a DLL.
-     * @param {Pointer<Byte>} CurrentImageName The name of the file to be rebased. You must specify the full path to the file unless the module is in the current working directory of the calling process.
-     * @param {Pointer<Byte>} SymbolPath The path used to find the corresponding symbol file. Specify this path for executable images that have symbolic information because when image addresses change, the corresponding symbol database file (PDB) may also need to be changed.    Note that even if the symbol path is not valid, the function will succeed if it is able to rebases your image.
-     * @param {Integer} fReBase If this value is <b>TRUE</b>, the image is rebased. Otherwise, the image is not rebased.
-     * @param {Integer} fRebaseSysfileOk If this value is <b>TRUE</b>, the system image is rebased. Otherwise, the system image is not rebased.
-     * @param {Integer} fGoingDown If this value is <b>TRUE</b>, the image can be rebased below the given base; otherwise, it cannot.
+     * @param {PSTR} CurrentImageName The name of the file to be rebased. You must specify the full path to the file unless the module is in the current working directory of the calling process.
+     * @param {PSTR} SymbolPath The path used to find the corresponding symbol file. Specify this path for executable images that have symbolic information because when image addresses change, the corresponding symbol database file (PDB) may also need to be changed.    Note that even if the symbol path is not valid, the function will succeed if it is able to rebases your image.
+     * @param {BOOL} fReBase If this value is <b>TRUE</b>, the image is rebased. Otherwise, the image is not rebased.
+     * @param {BOOL} fRebaseSysfileOk If this value is <b>TRUE</b>, the system image is rebased. Otherwise, the system image is not rebased.
+     * @param {BOOL} fGoingDown If this value is <b>TRUE</b>, the image can be rebased below the given base; otherwise, it cannot.
      * @param {Integer} CheckImageSize The maximum size that the image can grow to, in bytes, or zero if there is no limit.
      * @param {Pointer<UInt32>} OldImageSize A pointer to a variable that receives the original image size, in bytes.
      * @param {Pointer<UIntPtr>} OldImageBase A pointer to a variable that receives the original image base.
@@ -3371,7 +3395,7 @@ class Debug {
      * @param {Integer} TimeStamp The new time date stamp for the image file header. The value must be represented in the number of seconds elapsed since midnight (00:00:00), January 1, 1970, Universal Coordinated Time, according to the system clock.
      * 
      * If this parameter is 0, the current file header time date stamp is incremented by 1 second.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3379,12 +3403,12 @@ class Debug {
      * @since windows5.1.2600
      */
     static ReBaseImage(CurrentImageName, SymbolPath, fReBase, fRebaseSysfileOk, fGoingDown, CheckImageSize, OldImageSize, OldImageBase, NewImageSize, NewImageBase, TimeStamp) {
-        CurrentImageName := CurrentImageName is String? StrPtr(CurrentImageName) : CurrentImageName
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
+        CurrentImageName := CurrentImageName is String ? StrPtr(CurrentImageName) : CurrentImageName
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ReBaseImage", "ptr", CurrentImageName, "ptr", SymbolPath, "int", fReBase, "int", fRebaseSysfileOk, "int", fGoingDown, "uint", CheckImageSize, "uint*", OldImageSize, "ptr*", OldImageBase, "uint*", NewImageSize, "ptr*", NewImageBase, "uint", TimeStamp, "int")
+        result := DllCall("imagehlp.dll\ReBaseImage", "ptr", CurrentImageName, "ptr", SymbolPath, "ptr", fReBase, "ptr", fRebaseSysfileOk, "ptr", fGoingDown, "uint", CheckImageSize, "uint*", OldImageSize, "ptr*", OldImageBase, "uint*", NewImageSize, "ptr*", NewImageBase, "uint", TimeStamp, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3393,11 +3417,11 @@ class Debug {
 
     /**
      * Changes the load address for the specified image, which reduces the required load time for a DLL.
-     * @param {Pointer<Byte>} CurrentImageName The name of the file to be rebased. You must specify the full path to the file unless the module is in the current working directory of the calling process.
-     * @param {Pointer<Byte>} SymbolPath The path used to find the corresponding symbol file. Specify this path for executable images that have symbolic information because when image addresses change, the corresponding symbol database file (PDB) may also need to be changed.    Note that even if the symbol path is not valid, the function will succeed if it is able to rebases your image.
-     * @param {Integer} fReBase If this value is <b>TRUE</b>, the image is rebased. Otherwise, the image is not rebased.
-     * @param {Integer} fRebaseSysfileOk If this value is <b>TRUE</b>, the system image is rebased. Otherwise, the system image is not rebased.
-     * @param {Integer} fGoingDown If this value is <b>TRUE</b>, the image can be rebased below the given base; otherwise, it cannot.
+     * @param {PSTR} CurrentImageName The name of the file to be rebased. You must specify the full path to the file unless the module is in the current working directory of the calling process.
+     * @param {PSTR} SymbolPath The path used to find the corresponding symbol file. Specify this path for executable images that have symbolic information because when image addresses change, the corresponding symbol database file (PDB) may also need to be changed.    Note that even if the symbol path is not valid, the function will succeed if it is able to rebases your image.
+     * @param {BOOL} fReBase If this value is <b>TRUE</b>, the image is rebased. Otherwise, the image is not rebased.
+     * @param {BOOL} fRebaseSysfileOk If this value is <b>TRUE</b>, the system image is rebased. Otherwise, the system image is not rebased.
+     * @param {BOOL} fGoingDown If this value is <b>TRUE</b>, the image can be rebased below the given base; otherwise, it cannot.
      * @param {Integer} CheckImageSize The maximum size that the image can grow to, in bytes, or zero if there is no limit.
      * @param {Pointer<UInt32>} OldImageSize A pointer to a variable that receives the original image size, in bytes.
      * @param {Pointer<UInt64>} OldImageBase A pointer to a variable that receives the original image base.
@@ -3406,7 +3430,7 @@ class Debug {
      * @param {Integer} TimeStamp The new time date stamp for the image file header. The value must be represented in the number of seconds elapsed since midnight (00:00:00), January 1, 1970, Universal Coordinated Time, according to the system clock.
      * 
      * If this parameter is 0, the current file header time date stamp is incremented by 1 second.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3414,12 +3438,12 @@ class Debug {
      * @since windows5.1.2600
      */
     static ReBaseImage64(CurrentImageName, SymbolPath, fReBase, fRebaseSysfileOk, fGoingDown, CheckImageSize, OldImageSize, OldImageBase, NewImageSize, NewImageBase, TimeStamp) {
-        CurrentImageName := CurrentImageName is String? StrPtr(CurrentImageName) : CurrentImageName
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
+        CurrentImageName := CurrentImageName is String ? StrPtr(CurrentImageName) : CurrentImageName
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ReBaseImage64", "ptr", CurrentImageName, "ptr", SymbolPath, "int", fReBase, "int", fRebaseSysfileOk, "int", fGoingDown, "uint", CheckImageSize, "uint*", OldImageSize, "uint*", OldImageBase, "uint*", NewImageSize, "uint*", NewImageBase, "uint", TimeStamp, "int")
+        result := DllCall("imagehlp.dll\ReBaseImage64", "ptr", CurrentImageName, "ptr", SymbolPath, "ptr", fReBase, "ptr", fRebaseSysfileOk, "ptr", fGoingDown, "uint", CheckImageSize, "uint*", OldImageSize, "uint*", OldImageBase, "uint*", NewImageSize, "uint*", NewImageBase, "uint", TimeStamp, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3428,7 +3452,7 @@ class Debug {
 
     /**
      * Computes the checksum of the specified file.
-     * @param {Pointer<Byte>} Filename The file name of the file for which the checksum is to be computed.
+     * @param {PSTR} Filename The file name of the file for which the checksum is to be computed.
      * @param {Pointer<UInt32>} HeaderSum A pointer to a variable that receives the original checksum from the image file, or zero if there is an error.
      * @param {Pointer<UInt32>} CheckSum A pointer to a variable that receives the computed checksum.
      * @returns {Integer} If the function succeeds, the return value is CHECKSUM_SUCCESS (0).
@@ -3493,7 +3517,7 @@ class Debug {
      * @since windows5.1.2600
      */
     static MapFileAndCheckSumA(Filename, HeaderSum, CheckSum) {
-        Filename := Filename is String? StrPtr(Filename) : Filename
+        Filename := Filename is String ? StrPtr(Filename) : Filename
 
         result := DllCall("imagehlp.dll\MapFileAndCheckSumA", "ptr", Filename, "uint*", HeaderSum, "uint*", CheckSum, "uint")
         return result
@@ -3501,7 +3525,7 @@ class Debug {
 
     /**
      * Computes the checksum of the specified file.
-     * @param {Pointer<Char>} Filename The file name of the file for which the checksum is to be computed.
+     * @param {PWSTR} Filename The file name of the file for which the checksum is to be computed.
      * @param {Pointer<UInt32>} HeaderSum A pointer to a variable that receives the original checksum from the image file, or zero if there is an error.
      * @param {Pointer<UInt32>} CheckSum A pointer to a variable that receives the computed checksum.
      * @returns {Integer} If the function succeeds, the return value is CHECKSUM_SUCCESS (0).
@@ -3566,7 +3590,7 @@ class Debug {
      * @since windows5.1.2600
      */
     static MapFileAndCheckSumW(Filename, HeaderSum, CheckSum) {
-        Filename := Filename is String? StrPtr(Filename) : Filename
+        Filename := Filename is String ? StrPtr(Filename) : Filename
 
         result := DllCall("imagehlp.dll\MapFileAndCheckSumW", "ptr", Filename, "uint*", HeaderSum, "uint*", CheckSum, "uint")
         return result
@@ -3597,12 +3621,12 @@ class Debug {
 
     /**
      * Retrieves the requested data from the specified image file.
-     * @param {Pointer<Void>} FileHandle A handle to the image file. This handle must be opened for FILE_READ_DATA access.
+     * @param {HANDLE} FileHandle A handle to the image file. This handle must be opened for FILE_READ_DATA access.
      * @param {Integer} DigestLevel 
      * @param {Pointer<DIGEST_FUNCTION>} DigestFunction A pointer to a callback routine to process the data. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nc-imagehlp-digest_function">DigestFunction</a>.
      * @param {Pointer<Void>} DigestHandle A user-supplied handle to the digest. This parameter is passed to <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nc-imagehlp-digest_function">DigestFunction</a> as the first argument.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3610,9 +3634,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static ImageGetDigestStream(FileHandle, DigestLevel, DigestFunction, DigestHandle) {
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageGetDigestStream", "ptr", FileHandle, "uint", DigestLevel, "ptr", DigestFunction, "ptr", DigestHandle, "int")
+        result := DllCall("imagehlp.dll\ImageGetDigestStream", "ptr", FileHandle, "uint", DigestLevel, "ptr", DigestFunction, "ptr", DigestHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3621,10 +3647,10 @@ class Debug {
 
     /**
      * Adds a certificate to the specified file.
-     * @param {Pointer<Void>} FileHandle A handle to the image file to be modified. This handle must be opened for FILE_READ_DATA and FILE_WRITE_DATA access.
+     * @param {HANDLE} FileHandle A handle to the image file to be modified. This handle must be opened for FILE_READ_DATA and FILE_WRITE_DATA access.
      * @param {Pointer<WIN_CERTIFICATE>} Certificate A pointer to a <b>WIN_CERTIFICATE</b> header and all associated sections. The <b>Length</b> member in the certificate header will be used to determine the length of this buffer.
      * @param {Pointer<UInt32>} Index A pointer to a variable that receives the index of the newly added certificate.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3632,9 +3658,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static ImageAddCertificate(FileHandle, Certificate, Index) {
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageAddCertificate", "ptr", FileHandle, "ptr", Certificate, "uint*", Index, "int")
+        result := DllCall("imagehlp.dll\ImageAddCertificate", "ptr", FileHandle, "ptr", Certificate, "uint*", Index, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3643,9 +3671,9 @@ class Debug {
 
     /**
      * Removes the specified certificate from the given file.
-     * @param {Pointer<Void>} FileHandle A handle to the image file to be modified. This handle must be opened for FILE_READ_DATA and FILE_WRITE_DATA access.
+     * @param {HANDLE} FileHandle A handle to the image file to be modified. This handle must be opened for FILE_READ_DATA and FILE_WRITE_DATA access.
      * @param {Integer} Index The index of the certificate to be removed.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3653,9 +3681,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static ImageRemoveCertificate(FileHandle, Index) {
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageRemoveCertificate", "ptr", FileHandle, "uint", Index, "int")
+        result := DllCall("imagehlp.dll\ImageRemoveCertificate", "ptr", FileHandle, "uint", Index, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3664,12 +3694,12 @@ class Debug {
 
     /**
      * Retrieves information about the certificates currently contained in an image file.
-     * @param {Pointer<Void>} FileHandle A handle to the image file to be examined. This handle must be opened for FILE_READ_DATA access.
+     * @param {HANDLE} FileHandle A handle to the image file to be examined. This handle must be opened for FILE_READ_DATA access.
      * @param {Integer} TypeFilter The certificate section type to be used as a filter when returning certificate information. CERT_SECTION_TYPE_ANY should be passed for information on all section types present in the image.
      * @param {Pointer<UInt32>} CertificateCount A pointer to a variable that receives the number of certificates in the image containing sections of the type specified by the <i>TypeFilter</i> parameter. If none are found, this parameter is zero.
      * @param {Pointer<UInt32>} Indices Optionally provides a buffer to use to return an array of indices to the certificates containing sections of the specified type. No ordering should be assumed for the index values, nor are they guaranteed to be contiguous when CERT_SECTION_TYPE_ANY is queried.
      * @param {Integer} IndexCount The size of the <i>Indices</i> buffer, in <b>DWORDs</b>. This parameter will be examined whenever <i>Indices</i> is present. If <i>CertificateCount</i> is greater than <i>IndexCount</i>, <i>Indices</i> will be filled in with the first <i>IndexCount</i> sections found in the image; any others will not be returned.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3677,9 +3707,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static ImageEnumerateCertificates(FileHandle, TypeFilter, CertificateCount, Indices, IndexCount) {
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageEnumerateCertificates", "ptr", FileHandle, "ushort", TypeFilter, "uint*", CertificateCount, "uint*", Indices, "uint", IndexCount, "int")
+        result := DllCall("imagehlp.dll\ImageEnumerateCertificates", "ptr", FileHandle, "ushort", TypeFilter, "uint*", CertificateCount, "uint*", Indices, "uint", IndexCount, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3688,11 +3720,11 @@ class Debug {
 
     /**
      * Retrieves a complete certificate from a file.
-     * @param {Pointer<Void>} FileHandle A handle to the image file. This handle must be opened for <b>FILE_READ_DATA</b> access.
+     * @param {HANDLE} FileHandle A handle to the image file. This handle must be opened for <b>FILE_READ_DATA</b> access.
      * @param {Integer} CertificateIndex The index of the certificate to be returned.
      * @param {Pointer<WIN_CERTIFICATE>} Certificate A pointer to a <b>WIN_CERTIFICATE</b> structure that receives the certificate data. If the buffer is not large enough to contain the structure, the function fails and the last error code is set to <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @param {Pointer<UInt32>} RequiredLength On input, this parameter specifies the length of the <i>Certificate</i> buffer in bytes. On success, it receives the length of the certificate.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3700,9 +3732,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static ImageGetCertificateData(FileHandle, CertificateIndex, Certificate, RequiredLength) {
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageGetCertificateData", "ptr", FileHandle, "uint", CertificateIndex, "ptr", Certificate, "uint*", RequiredLength, "int")
+        result := DllCall("imagehlp.dll\ImageGetCertificateData", "ptr", FileHandle, "uint", CertificateIndex, "ptr", Certificate, "uint*", RequiredLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3711,10 +3745,10 @@ class Debug {
 
     /**
      * Retrieves the header of the specified certificate, up to, but not including, the section offset array.
-     * @param {Pointer<Void>} FileHandle A handle to the image file. This handle must be opened for FILE_READ_DATA access.
+     * @param {HANDLE} FileHandle A handle to the image file. This handle must be opened for FILE_READ_DATA access.
      * @param {Integer} CertificateIndex The index of the certificate whose header is to be returned.
      * @param {Pointer<WIN_CERTIFICATE>} Certificateheader A pointer to the <b>WIN_CERTIFICATE</b> structure that receives the certificate header.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3722,9 +3756,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static ImageGetCertificateHeader(FileHandle, CertificateIndex, Certificateheader) {
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageGetCertificateHeader", "ptr", FileHandle, "uint", CertificateIndex, "ptr", Certificateheader, "int")
+        result := DllCall("imagehlp.dll\ImageGetCertificateHeader", "ptr", FileHandle, "uint", CertificateIndex, "ptr", Certificateheader, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3733,8 +3769,8 @@ class Debug {
 
     /**
      * Maintains a list of loaded DLLs.
-     * @param {Pointer<Byte>} DllName The name of the image.
-     * @param {Pointer<Byte>} DllPath The path used to locate the image if the name provided cannot be found. If <b>NULL</b> is used, then the search path rules set forth in the 
+     * @param {PSTR} DllName The name of the image.
+     * @param {PSTR} DllPath The path used to locate the image if the name provided cannot be found. If <b>NULL</b> is used, then the search path rules set forth in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processenv/nf-processenv-searchpathw">SearchPath</a> function apply.
      * @returns {Pointer<LOADED_IMAGE>} If the function succeeds, the return value is a pointer to a 
      * <a href="/windows/desktop/api/dbghelp/ns-dbghelp-loaded_image">LOADED_IMAGE</a> structure.
@@ -3745,8 +3781,8 @@ class Debug {
      * @since windows5.1.2600
      */
     static ImageLoad(DllName, DllPath) {
-        DllName := DllName is String? StrPtr(DllName) : DllName
-        DllPath := DllPath is String? StrPtr(DllPath) : DllPath
+        DllName := DllName is String ? StrPtr(DllName) : DllName
+        DllPath := DllPath is String ? StrPtr(DllPath) : DllPath
 
         A_LastError := 0
 
@@ -3762,7 +3798,7 @@ class Debug {
      * @param {Pointer<LOADED_IMAGE>} LoadedImage A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-loaded_image">LOADED_IMAGE</a> structure that is returned from a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nf-imagehlp-imageload">ImageLoad</a> function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3779,7 +3815,7 @@ class Debug {
     static ImageUnload(LoadedImage) {
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageUnload", "ptr", LoadedImage, "int")
+        result := DllCall("imagehlp.dll\ImageUnload", "ptr", LoadedImage, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3788,14 +3824,14 @@ class Debug {
 
     /**
      * Maps an image and preloads data from the mapped file.
-     * @param {Pointer<Byte>} ImageName The file name of the image (executable file or DLL) that is loaded.
-     * @param {Pointer<Byte>} DllPath The path used to locate the image if the name provided cannot be found. If this parameter is <b>NULL</b>, then the search path rules set using the 
+     * @param {PSTR} ImageName The file name of the image (executable file or DLL) that is loaded.
+     * @param {PSTR} DllPath The path used to locate the image if the name provided cannot be found. If this parameter is <b>NULL</b>, then the search path rules set using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processenv/nf-processenv-searchpathw">SearchPath</a> function apply.
      * @param {Pointer<LOADED_IMAGE>} LoadedImage A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-loaded_image">LOADED_IMAGE</a> structure that receives information about the image after it is loaded.
-     * @param {Integer} DotDll The default extension to be used if the image name does not contain a file name extension. If the value is <b>TRUE</b>, a .DLL extension is used. If the value is <b>FALSE</b>, then an .EXE extension is used.
-     * @param {Integer} ReadOnly The access mode. If this value is <b>TRUE</b>, the file is mapped for read-access only. If the value is <b>FALSE</b>, the file is mapped for read and write access.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {BOOL} DotDll The default extension to be used if the image name does not contain a file name extension. If the value is <b>TRUE</b>, a .DLL extension is used. If the value is <b>FALSE</b>, then an .EXE extension is used.
+     * @param {BOOL} ReadOnly The access mode. If this value is <b>TRUE</b>, the file is mapped for read-access only. If the value is <b>FALSE</b>, the file is mapped for read and write access.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3803,12 +3839,12 @@ class Debug {
      * @since windows5.1.2600
      */
     static MapAndLoad(ImageName, DllPath, LoadedImage, DotDll, ReadOnly) {
-        ImageName := ImageName is String? StrPtr(ImageName) : ImageName
-        DllPath := DllPath is String? StrPtr(DllPath) : DllPath
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        DllPath := DllPath is String ? StrPtr(DllPath) : DllPath
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\MapAndLoad", "ptr", ImageName, "ptr", DllPath, "ptr", LoadedImage, "int", DotDll, "int", ReadOnly, "int")
+        result := DllCall("imagehlp.dll\MapAndLoad", "ptr", ImageName, "ptr", DllPath, "ptr", LoadedImage, "ptr", DotDll, "ptr", ReadOnly, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3820,7 +3856,7 @@ class Debug {
      * @param {Pointer<LOADED_IMAGE>} LoadedImage A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-loaded_image">LOADED_IMAGE</a> structure. This structure is obtained through a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nf-imagehlp-mapandload">MapAndLoad</a> function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3830,7 +3866,7 @@ class Debug {
     static UnMapAndLoad(LoadedImage) {
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\UnMapAndLoad", "ptr", LoadedImage, "int")
+        result := DllCall("imagehlp.dll\UnMapAndLoad", "ptr", LoadedImage, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3839,10 +3875,10 @@ class Debug {
 
     /**
      * Updates the date and time at which the specified file was last modified.
-     * @param {Pointer<Void>} FileHandle A handle to the file of interest.
+     * @param {HANDLE} FileHandle A handle to the file of interest.
      * @param {Pointer<SYSTEMTIME>} pSystemTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure. If this parameter is <b>NULL</b>, the current system date and time is used.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3850,9 +3886,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static TouchFileTimes(FileHandle, pSystemTime) {
+        FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
+
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\TouchFileTimes", "ptr", FileHandle, "ptr", pSystemTime, "int")
+        result := DllCall("imagehlp.dll\TouchFileTimes", "ptr", FileHandle, "ptr", pSystemTime, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3861,12 +3899,12 @@ class Debug {
 
     /**
      * Uses the specified information to update the corresponding fields in the symbol file.
-     * @param {Pointer<Byte>} ImageFileName The name of the image that is now out of date with respect to its symbol file.
-     * @param {Pointer<Byte>} SymbolPath The path in which to look for the symbol file.
-     * @param {Pointer<Byte>} DebugFilePath A pointer to a buffer that receives the name of the symbol file that was updated.
+     * @param {PSTR} ImageFileName The name of the image that is now out of date with respect to its symbol file.
+     * @param {PSTR} SymbolPath The path in which to look for the symbol file.
+     * @param {PSTR} DebugFilePath A pointer to a buffer that receives the name of the symbol file that was updated.
      * @param {Pointer<IMAGE_NT_HEADERS32>} NtHeaders A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-image_nt_headers32">IMAGE_NT_HEADERS</a> structure that specifies the new header information.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3874,13 +3912,13 @@ class Debug {
      * @since windows5.1.2600
      */
     static UpdateDebugInfoFile(ImageFileName, SymbolPath, DebugFilePath, NtHeaders) {
-        ImageFileName := ImageFileName is String? StrPtr(ImageFileName) : ImageFileName
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
-        DebugFilePath := DebugFilePath is String? StrPtr(DebugFilePath) : DebugFilePath
+        ImageFileName := ImageFileName is String ? StrPtr(ImageFileName) : ImageFileName
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
+        DebugFilePath := DebugFilePath is String ? StrPtr(DebugFilePath) : DebugFilePath
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\UpdateDebugInfoFile", "ptr", ImageFileName, "ptr", SymbolPath, "ptr", DebugFilePath, "ptr", NtHeaders, "int")
+        result := DllCall("imagehlp.dll\UpdateDebugInfoFile", "ptr", ImageFileName, "ptr", SymbolPath, "ptr", DebugFilePath, "ptr", NtHeaders, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3889,33 +3927,33 @@ class Debug {
 
     /**
      * Uses the specified extended information to update the corresponding fields in the symbol file.
-     * @param {Pointer<Byte>} ImageFileName The name of the image that is now out of date with respect to its symbol file.
-     * @param {Pointer<Byte>} SymbolPath The path in which to look for the symbol file.
-     * @param {Pointer<Byte>} DebugFilePath A pointer to a buffer that receives the name of the symbol file that was updated.
+     * @param {PSTR} ImageFileName The name of the image that is now out of date with respect to its symbol file.
+     * @param {PSTR} SymbolPath The path in which to look for the symbol file.
+     * @param {PSTR} DebugFilePath A pointer to a buffer that receives the name of the symbol file that was updated.
      * @param {Pointer<IMAGE_NT_HEADERS32>} NtHeaders A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-image_nt_headers32">IMAGE_NT_HEADERS</a> structure that specifies the new header information.
      * @param {Integer} OldCheckSum The original checksum value. If this value does not match the checksum that is present in the mapped image, the flags in the symbol file contain IMAGE_SEPARATE_DEBUG_MISMATCH and the last error value is set to ERROR_INVALID_DATA.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//imagehlp/nf-imagehlp-updatedebuginfofileex
      * @since windows5.1.2600
      */
     static UpdateDebugInfoFileEx(ImageFileName, SymbolPath, DebugFilePath, NtHeaders, OldCheckSum) {
-        ImageFileName := ImageFileName is String? StrPtr(ImageFileName) : ImageFileName
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
-        DebugFilePath := DebugFilePath is String? StrPtr(DebugFilePath) : DebugFilePath
+        ImageFileName := ImageFileName is String ? StrPtr(ImageFileName) : ImageFileName
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
+        DebugFilePath := DebugFilePath is String ? StrPtr(DebugFilePath) : DebugFilePath
 
-        result := DllCall("imagehlp.dll\UpdateDebugInfoFileEx", "ptr", ImageFileName, "ptr", SymbolPath, "ptr", DebugFilePath, "ptr", NtHeaders, "uint", OldCheckSum, "int")
+        result := DllCall("imagehlp.dll\UpdateDebugInfoFileEx", "ptr", ImageFileName, "ptr", SymbolPath, "ptr", DebugFilePath, "ptr", NtHeaders, "uint", OldCheckSum, "ptr")
         return result
     }
 
     /**
      * Locates a .dbg file in the process search path.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} FileName The name of the .dbg file. You can use a partial path.
-     * @param {Pointer<Byte>} DebugFilePath The fully qualified path of the .dbg file. This buffer must be at least MAX_PATH characters.
+     * @param {PSTR} FileName The name of the .dbg file. You can use a partial path.
+     * @param {PSTR} DebugFilePath The fully qualified path of the .dbg file. This buffer must be at least MAX_PATH characters.
      * @param {Pointer<PFIND_DEBUG_FILE_CALLBACK>} Callback An application-defined callback function that verifies whether the correct file was found or the function should continue its search. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfind_debug_file_callback">FindDebugInfoFileProc</a>. 
      * 
@@ -3924,15 +3962,16 @@ class Debug {
      * 
      * This parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} CallerData A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. This parameter is typically used by an application to pass a pointer to a data structure that provides some context for the callback function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the .dbg file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the .dbg file.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfinddebuginfofile
      */
     static SymFindDebugInfoFile(hProcess, FileName, DebugFilePath, Callback, CallerData) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        DebugFilePath := DebugFilePath is String? StrPtr(DebugFilePath) : DebugFilePath
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        DebugFilePath := DebugFilePath is String ? StrPtr(DebugFilePath) : DebugFilePath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -3940,15 +3979,15 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Locates a .dbg file in the process search path.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} FileName The name of the .dbg file. You can use a partial path.
-     * @param {Pointer<Char>} DebugFilePath The fully qualified path of the .dbg file. This buffer must be at least MAX_PATH characters.
+     * @param {PWSTR} FileName The name of the .dbg file. You can use a partial path.
+     * @param {PWSTR} DebugFilePath The fully qualified path of the .dbg file. This buffer must be at least MAX_PATH characters.
      * @param {Pointer<PFIND_DEBUG_FILE_CALLBACKW>} Callback An application-defined callback function that verifies whether the correct file was found or the function should continue its search. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfind_debug_file_callback">FindDebugInfoFileProc</a>. 
      * 
@@ -3957,15 +3996,16 @@ class Debug {
      * 
      * This parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} CallerData A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. This parameter is typically used by an application to pass a pointer to a data structure that provides some context for the callback function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the .dbg file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the .dbg file.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfinddebuginfofilew
      */
     static SymFindDebugInfoFileW(hProcess, FileName, DebugFilePath, Callback, CallerData) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        DebugFilePath := DebugFilePath is String? StrPtr(DebugFilePath) : DebugFilePath
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        DebugFilePath := DebugFilePath is String ? StrPtr(DebugFilePath) : DebugFilePath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -3973,25 +4013,25 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Locates a debug (.dbg) file.
-     * @param {Pointer<Byte>} FileName The name of the .dbg file that is desired. You can use a partial path.
-     * @param {Pointer<Byte>} SymbolPath The path where symbol files are located. This can be multiple paths separated by semicolons. To retrieve the symbol path, use the 
+     * @param {PSTR} FileName The name of the .dbg file that is desired. You can use a partial path.
+     * @param {PSTR} SymbolPath The path where symbol files are located. This can be multiple paths separated by semicolons. To retrieve the symbol path, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symgetsearchpath">SymGetSearchPath</a> function.
-     * @param {Pointer<Byte>} DebugFilePath A pointer to a buffer that receives the full path of the .dbg file.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the .dbg file.
+     * @param {PSTR} DebugFilePath A pointer to a buffer that receives the full path of the .dbg file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the .dbg file.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-finddebuginfofile
      */
     static FindDebugInfoFile(FileName, SymbolPath, DebugFilePath) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
-        DebugFilePath := DebugFilePath is String? StrPtr(DebugFilePath) : DebugFilePath
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
+        DebugFilePath := DebugFilePath is String ? StrPtr(DebugFilePath) : DebugFilePath
 
         A_LastError := 0
 
@@ -3999,15 +4039,15 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Locates the specified debug (.dbg) file.
-     * @param {Pointer<Byte>} FileName The name of the .dbg file to locate. You can use a partial path.
-     * @param {Pointer<Byte>} SymbolPath The path where symbol files are located. This can be multiple paths separated by semicolons. To retrieve the symbol path, use the 
+     * @param {PSTR} FileName The name of the .dbg file to locate. You can use a partial path.
+     * @param {PSTR} SymbolPath The path where symbol files are located. This can be multiple paths separated by semicolons. To retrieve the symbol path, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symgetsearchpath">SymGetSearchPath</a> function.
-     * @param {Pointer<Byte>} DebugFilePath A pointer to a buffer that receives the full path of the .dbg file.
+     * @param {PSTR} DebugFilePath A pointer to a buffer that receives the full path of the .dbg file.
      * @param {Pointer<PFIND_DEBUG_FILE_CALLBACK>} Callback An application-defined callback function that verifies whether the correct file was found or the function should continue its search. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfind_debug_file_callback">FindDebugInfoFileProc</a>. 
      * 
@@ -4016,16 +4056,16 @@ class Debug {
      * 
      * This parameter may be <b>NULL</b>.
      * @param {Pointer<Void>} CallerData Optional user-defined data to pass to the callback function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the .dbg file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the .dbg file.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-finddebuginfofileex
      */
     static FindDebugInfoFileEx(FileName, SymbolPath, DebugFilePath, Callback, CallerData) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
-        DebugFilePath := DebugFilePath is String? StrPtr(DebugFilePath) : DebugFilePath
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
+        DebugFilePath := DebugFilePath is String ? StrPtr(DebugFilePath) : DebugFilePath
 
         A_LastError := 0
 
@@ -4033,15 +4073,15 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Locates the specified debug (.dbg) file.
-     * @param {Pointer<Char>} FileName The name of the .dbg file to locate. You can use a partial path.
-     * @param {Pointer<Char>} SymbolPath The path where symbol files are located. This can be multiple paths separated by semicolons. To retrieve the symbol path, use the 
+     * @param {PWSTR} FileName The name of the .dbg file to locate. You can use a partial path.
+     * @param {PWSTR} SymbolPath The path where symbol files are located. This can be multiple paths separated by semicolons. To retrieve the symbol path, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symgetsearchpath">SymGetSearchPath</a> function.
-     * @param {Pointer<Char>} DebugFilePath A pointer to a buffer that receives the full path of the .dbg file.
+     * @param {PWSTR} DebugFilePath A pointer to a buffer that receives the full path of the .dbg file.
      * @param {Pointer<PFIND_DEBUG_FILE_CALLBACKW>} Callback An application-defined callback function that verifies whether the correct file was found or the function should continue its search. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfind_debug_file_callback">FindDebugInfoFileProc</a>. 
      * 
@@ -4050,16 +4090,16 @@ class Debug {
      * 
      * This parameter may be <b>NULL</b>.
      * @param {Pointer<Void>} CallerData Optional user-defined data to pass to the callback function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the .dbg file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the .dbg file.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-finddebuginfofileexw
      */
     static FindDebugInfoFileExW(FileName, SymbolPath, DebugFilePath, Callback, CallerData) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
-        DebugFilePath := DebugFilePath is String? StrPtr(DebugFilePath) : DebugFilePath
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
+        DebugFilePath := DebugFilePath is String ? StrPtr(DebugFilePath) : DebugFilePath
 
         A_LastError := 0
 
@@ -4067,34 +4107,35 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Locates a symbol file or executable image.
-     * @param {Pointer<Void>} hprocess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hprocess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} SearchPathA 
-     * @param {Pointer<Byte>} FileName The name of the file. You can specify a path; however, only the file name is used.
+     * @param {PSTR} SearchPathA 
+     * @param {PSTR} FileName The name of the file. You can specify a path; however, only the file name is used.
      * @param {Pointer<Void>} id The first of three identifying parameters (see Remarks).
      * @param {Integer} two The second of three identifying parameters (see Remarks).
      * @param {Integer} three The third of three identifying parameters (see Remarks).
      * @param {Integer} flags 
-     * @param {Pointer<Byte>} FoundFile A pointer to a buffer that receives the fully qualified path to the symbol file. This buffer must be at least MAX_PATH characters.
+     * @param {PSTR} FoundFile A pointer to a buffer that receives the fully qualified path to the symbol file. This buffer must be at least MAX_PATH characters.
      * @param {Pointer<PFINDFILEINPATHCALLBACK>} callback A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfindfileinpathcallback">SymFindFileInPathProc</a> callback function.
      * @param {Pointer<Void>} context A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. This parameter is typically used by an application to pass a pointer to a data structure that provides some context for the callback function.
-     * @returns {Integer} If the server locates a valid symbol file, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> and 
+     * @returns {BOOL} If the server locates a valid symbol file, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns a value that indicates why the symbol file was not returned.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfindfileinpath
      */
     static SymFindFileInPath(hprocess, SearchPathA, FileName, id, two, three, flags, FoundFile, callback, context) {
-        SearchPathA := SearchPathA is String? StrPtr(SearchPathA) : SearchPathA
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        FoundFile := FoundFile is String? StrPtr(FoundFile) : FoundFile
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        FoundFile := FoundFile is String ? StrPtr(FoundFile) : FoundFile
+        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFindFileInPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FoundFile, "ptr", callback, "ptr", context, "int")
+        result := DllCall("dbghelp.dll\SymFindFileInPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FoundFile, "ptr", callback, "ptr", context, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4103,29 +4144,30 @@ class Debug {
 
     /**
      * Locates a symbol file or executable image.
-     * @param {Pointer<Void>} hprocess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hprocess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} SearchPathA 
-     * @param {Pointer<Char>} FileName The name of the file. You can specify a path; however, only the file name is used.
+     * @param {PWSTR} SearchPathA 
+     * @param {PWSTR} FileName The name of the file. You can specify a path; however, only the file name is used.
      * @param {Pointer<Void>} id The first of three identifying parameters (see Remarks).
      * @param {Integer} two The second of three identifying parameters (see Remarks).
      * @param {Integer} three The third of three identifying parameters (see Remarks).
      * @param {Integer} flags 
-     * @param {Pointer<Char>} FoundFile A pointer to a buffer that receives the fully qualified path to the symbol file. This buffer must be at least MAX_PATH characters.
+     * @param {PWSTR} FoundFile A pointer to a buffer that receives the fully qualified path to the symbol file. This buffer must be at least MAX_PATH characters.
      * @param {Pointer<PFINDFILEINPATHCALLBACKW>} callback A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfindfileinpathcallback">SymFindFileInPathProc</a> callback function.
      * @param {Pointer<Void>} context A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. This parameter is typically used by an application to pass a pointer to a data structure that provides some context for the callback function.
-     * @returns {Integer} If the server locates a valid symbol file, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> and 
+     * @returns {BOOL} If the server locates a valid symbol file, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns a value that indicates why the symbol file was not returned.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfindfileinpathw
      */
     static SymFindFileInPathW(hprocess, SearchPathA, FileName, id, two, three, flags, FoundFile, callback, context) {
-        SearchPathA := SearchPathA is String? StrPtr(SearchPathA) : SearchPathA
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        FoundFile := FoundFile is String? StrPtr(FoundFile) : FoundFile
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        FoundFile := FoundFile is String ? StrPtr(FoundFile) : FoundFile
+        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFindFileInPathW", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FoundFile, "ptr", callback, "ptr", context, "int")
+        result := DllCall("dbghelp.dll\SymFindFileInPathW", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FoundFile, "ptr", callback, "ptr", context, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4134,10 +4176,10 @@ class Debug {
 
     /**
      * Locates an executable file in the process search path.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} FileName The name of the executable file. You can use a partial path.
-     * @param {Pointer<Byte>} ImageFilePath The fully qualified path of the executable file. This buffer must be at least MAX_PATH characters.
+     * @param {PSTR} FileName The name of the executable file. You can use a partial path.
+     * @param {PSTR} ImageFilePath The fully qualified path of the executable file. This buffer must be at least MAX_PATH characters.
      * @param {Pointer<PFIND_EXE_FILE_CALLBACK>} Callback An application-defined callback function that verifies whether the correct executable file was found, or whether the function should continue its search. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfind_exe_file_callback">FindExecutableImageProc</a>. 
      * 
@@ -4146,15 +4188,16 @@ class Debug {
      * 
      * This parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} CallerData A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. This parameter is typically used by an application to pass a pointer to a data structure that provides some context for the callback function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the executable file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the executable file.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfindexecutableimage
      */
     static SymFindExecutableImage(hProcess, FileName, ImageFilePath, Callback, CallerData) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        ImageFilePath := ImageFilePath is String? StrPtr(ImageFilePath) : ImageFilePath
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        ImageFilePath := ImageFilePath is String ? StrPtr(ImageFilePath) : ImageFilePath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -4162,15 +4205,15 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Locates an executable file in the process search path.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} FileName The name of the executable file. You can use a partial path.
-     * @param {Pointer<Char>} ImageFilePath The fully qualified path of the executable file. This buffer must be at least MAX_PATH characters.
+     * @param {PWSTR} FileName The name of the executable file. You can use a partial path.
+     * @param {PWSTR} ImageFilePath The fully qualified path of the executable file. This buffer must be at least MAX_PATH characters.
      * @param {Pointer<PFIND_EXE_FILE_CALLBACKW>} Callback An application-defined callback function that verifies whether the correct executable file was found, or whether the function should continue its search. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfind_exe_file_callback">FindExecutableImageProc</a>. 
      * 
@@ -4179,15 +4222,16 @@ class Debug {
      * 
      * This parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} CallerData A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. This parameter is typically used by an application to pass a pointer to a data structure that provides some context for the callback function.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the executable file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the executable file.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfindexecutableimagew
      */
     static SymFindExecutableImageW(hProcess, FileName, ImageFilePath, Callback, CallerData) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        ImageFilePath := ImageFilePath is String? StrPtr(ImageFilePath) : ImageFilePath
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        ImageFilePath := ImageFilePath is String ? StrPtr(ImageFilePath) : ImageFilePath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -4195,25 +4239,25 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Locates an executable file.
-     * @param {Pointer<Byte>} FileName The name of the symbol file to be located. This parameter can be a partial path.
-     * @param {Pointer<Byte>} SymbolPath The path where symbol files are located. This can be multiple paths separated by semicolons. To retrieve the symbol path, use the 
+     * @param {PSTR} FileName The name of the symbol file to be located. This parameter can be a partial path.
+     * @param {PSTR} SymbolPath The path where symbol files are located. This can be multiple paths separated by semicolons. To retrieve the symbol path, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symgetsearchpath">SymGetSearchPath</a> function.
-     * @param {Pointer<Byte>} ImageFilePath A pointer to a buffer that receives the full path of the executable file.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the executable file.
+     * @param {PSTR} ImageFilePath A pointer to a buffer that receives the full path of the executable file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the executable file.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-findexecutableimage
      */
     static FindExecutableImage(FileName, SymbolPath, ImageFilePath) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
-        ImageFilePath := ImageFilePath is String? StrPtr(ImageFilePath) : ImageFilePath
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
+        ImageFilePath := ImageFilePath is String ? StrPtr(ImageFilePath) : ImageFilePath
 
         A_LastError := 0
 
@@ -4221,15 +4265,15 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Locates the specified executable file.
-     * @param {Pointer<Byte>} FileName The name of the symbol file to be located. This parameter can be a partial path.
-     * @param {Pointer<Byte>} SymbolPath The path where symbol files are located. This string can contain multiple paths separated by semicolons. To retrieve the symbol path, use the 
+     * @param {PSTR} FileName The name of the symbol file to be located. This parameter can be a partial path.
+     * @param {PSTR} SymbolPath The path where symbol files are located. This string can contain multiple paths separated by semicolons. To retrieve the symbol path, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symgetsearchpath">SymGetSearchPath</a> function.
-     * @param {Pointer<Byte>} ImageFilePath A pointer to a buffer that receives the full path of the executable file.
+     * @param {PSTR} ImageFilePath A pointer to a buffer that receives the full path of the executable file.
      * @param {Pointer<PFIND_EXE_FILE_CALLBACK>} Callback An application-defined callback function that verifies whether the correct executable file was found, or whether the function should continue its search. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfind_exe_file_callback">FindExecutableImageProc</a>. 
      * 
@@ -4238,16 +4282,16 @@ class Debug {
      * 
      * This parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} CallerData Optional user-defined data for the callback function. This parameter can be <b>NULL</b>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the executable file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the executable file.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-findexecutableimageex
      */
     static FindExecutableImageEx(FileName, SymbolPath, ImageFilePath, Callback, CallerData) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
-        ImageFilePath := ImageFilePath is String? StrPtr(ImageFilePath) : ImageFilePath
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
+        ImageFilePath := ImageFilePath is String ? StrPtr(ImageFilePath) : ImageFilePath
 
         A_LastError := 0
 
@@ -4255,15 +4299,15 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Locates the specified executable file.
-     * @param {Pointer<Char>} FileName The name of the symbol file to be located. This parameter can be a partial path.
-     * @param {Pointer<Char>} SymbolPath The path where symbol files are located. This string can contain multiple paths separated by semicolons. To retrieve the symbol path, use the 
+     * @param {PWSTR} FileName The name of the symbol file to be located. This parameter can be a partial path.
+     * @param {PWSTR} SymbolPath The path where symbol files are located. This string can contain multiple paths separated by semicolons. To retrieve the symbol path, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symgetsearchpath">SymGetSearchPath</a> function.
-     * @param {Pointer<Char>} ImageFilePath A pointer to a buffer that receives the full path of the executable file.
+     * @param {PWSTR} ImageFilePath A pointer to a buffer that receives the full path of the executable file.
      * @param {Pointer<PFIND_EXE_FILE_CALLBACKW>} Callback An application-defined callback function that verifies whether the correct executable file was found, or whether the function should continue its search. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-pfind_exe_file_callback">FindExecutableImageProc</a>. 
      * 
@@ -4272,16 +4316,16 @@ class Debug {
      * 
      * This parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} CallerData Optional user-defined data for the callback function. This parameter can be <b>NULL</b>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is an open handle to the executable file.
+     * @returns {HANDLE} If the function succeeds, the return value is an open handle to the executable file.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-findexecutableimageexw
      */
     static FindExecutableImageExW(FileName, SymbolPath, ImageFilePath, Callback, CallerData) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        SymbolPath := SymbolPath is String? StrPtr(SymbolPath) : SymbolPath
-        ImageFilePath := ImageFilePath is String? StrPtr(ImageFilePath) : ImageFilePath
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
+        ImageFilePath := ImageFilePath is String ? StrPtr(ImageFilePath) : ImageFilePath
 
         A_LastError := 0
 
@@ -4289,13 +4333,13 @@ class Debug {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Locates a directory entry within the image header and returns the address of the data for the directory entry. This function returns the section header for the data located, if one exists.
      * @param {Pointer<Void>} Base The base address of the image or data file.
-     * @param {Integer} MappedAsImage If the flag is <b>TRUE</b>, the file is mapped by the system as an image. If this flag is <b>FALSE</b>, the file is mapped as a data file by the 
+     * @param {BOOLEAN} MappedAsImage If the flag is <b>TRUE</b>, the file is mapped by the system as an image. If this flag is <b>FALSE</b>, the file is mapped as a data file by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> function.
      * @param {Integer} DirectoryEntry 
      * @param {Pointer<UInt32>} Size A pointer to a variable that receives the size of the data for the directory entry that is located.
@@ -4312,7 +4356,7 @@ class Debug {
     static ImageDirectoryEntryToDataEx(Base, MappedAsImage, DirectoryEntry, Size, FoundHeader) {
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\ImageDirectoryEntryToDataEx", "ptr", Base, "char", MappedAsImage, "ushort", DirectoryEntry, "uint*", Size, "ptr", FoundHeader, "ptr")
+        result := DllCall("dbghelp.dll\ImageDirectoryEntryToDataEx", "ptr", Base, "ptr", MappedAsImage, "ushort", DirectoryEntry, "uint*", Size, "ptr", FoundHeader, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4322,7 +4366,7 @@ class Debug {
     /**
      * Obtains access to image-specific data.
      * @param {Pointer<Void>} Base The base address of the image.
-     * @param {Integer} MappedAsImage If this parameter is <b>TRUE</b>, the file is mapped by the system as an image. If the flag is <b>FALSE</b>, the file is mapped as a data file by the 
+     * @param {BOOLEAN} MappedAsImage If this parameter is <b>TRUE</b>, the file is mapped by the system as an image. If the flag is <b>FALSE</b>, the file is mapped as a data file by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> function.
      * @param {Integer} DirectoryEntry 
      * @param {Pointer<UInt32>} Size A pointer to a variable that receives the size of the data for the directory entry, in bytes.
@@ -4335,7 +4379,7 @@ class Debug {
     static ImageDirectoryEntryToData(Base, MappedAsImage, DirectoryEntry, Size) {
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\ImageDirectoryEntryToData", "ptr", Base, "char", MappedAsImage, "ushort", DirectoryEntry, "uint*", Size, "ptr")
+        result := DllCall("dbghelp.dll\ImageDirectoryEntryToData", "ptr", Base, "ptr", MappedAsImage, "ushort", DirectoryEntry, "uint*", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4344,23 +4388,23 @@ class Debug {
 
     /**
      * Searches a directory tree for a specified file.
-     * @param {Pointer<Byte>} RootPath The path where the function should begin searching for the file.
-     * @param {Pointer<Byte>} InputPathName The file for which the function will search. You can use a partial path.
-     * @param {Pointer<Byte>} OutputPathBuffer A pointer to a buffer that receives the full path to the file that is found. This string is not modified if the return value is <b>FALSE</b>.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {PSTR} RootPath The path where the function should begin searching for the file.
+     * @param {PSTR} InputPathName The file for which the function will search. You can use a partial path.
+     * @param {PSTR} OutputPathBuffer A pointer to a buffer that receives the full path to the file that is found. This string is not modified if the return value is <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-searchtreeforfile
      */
     static SearchTreeForFile(RootPath, InputPathName, OutputPathBuffer) {
-        RootPath := RootPath is String? StrPtr(RootPath) : RootPath
-        InputPathName := InputPathName is String? StrPtr(InputPathName) : InputPathName
-        OutputPathBuffer := OutputPathBuffer is String? StrPtr(OutputPathBuffer) : OutputPathBuffer
+        RootPath := RootPath is String ? StrPtr(RootPath) : RootPath
+        InputPathName := InputPathName is String ? StrPtr(InputPathName) : InputPathName
+        OutputPathBuffer := OutputPathBuffer is String ? StrPtr(OutputPathBuffer) : OutputPathBuffer
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SearchTreeForFile", "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "int")
+        result := DllCall("dbghelp.dll\SearchTreeForFile", "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4369,23 +4413,23 @@ class Debug {
 
     /**
      * Searches a directory tree for a specified file.
-     * @param {Pointer<Char>} RootPath The path where the function should begin searching for the file.
-     * @param {Pointer<Char>} InputPathName The file for which the function will search. You can use a partial path.
-     * @param {Pointer<Char>} OutputPathBuffer A pointer to a buffer that receives the full path to the file that is found. This string is not modified if the return value is <b>FALSE</b>.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {PWSTR} RootPath The path where the function should begin searching for the file.
+     * @param {PWSTR} InputPathName The file for which the function will search. You can use a partial path.
+     * @param {PWSTR} OutputPathBuffer A pointer to a buffer that receives the full path to the file that is found. This string is not modified if the return value is <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-searchtreeforfilew
      */
     static SearchTreeForFileW(RootPath, InputPathName, OutputPathBuffer) {
-        RootPath := RootPath is String? StrPtr(RootPath) : RootPath
-        InputPathName := InputPathName is String? StrPtr(InputPathName) : InputPathName
-        OutputPathBuffer := OutputPathBuffer is String? StrPtr(OutputPathBuffer) : OutputPathBuffer
+        RootPath := RootPath is String ? StrPtr(RootPath) : RootPath
+        InputPathName := InputPathName is String ? StrPtr(InputPathName) : InputPathName
+        OutputPathBuffer := OutputPathBuffer is String ? StrPtr(OutputPathBuffer) : OutputPathBuffer
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SearchTreeForFileW", "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "int")
+        result := DllCall("dbghelp.dll\SearchTreeForFileW", "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4394,30 +4438,31 @@ class Debug {
 
     /**
      * Enumerates all occurrences of the specified file in the specified directory tree.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} RootPath The path where the function should begin searching for the file.
-     * @param {Pointer<Byte>} InputPathName The name of the file to be found. You can specify a partial path.
-     * @param {Pointer<Byte>} OutputPathBuffer A pointer to a buffer that receives the full path of the file. If the function fails or does not find a matching file, this buffer will still contain the last full path that was found. 
+     * @param {PSTR} RootPath The path where the function should begin searching for the file.
+     * @param {PSTR} InputPathName The name of the file to be found. You can specify a partial path.
+     * @param {PSTR} OutputPathBuffer A pointer to a buffer that receives the full path of the file. If the function fails or does not find a matching file, this buffer will still contain the last full path that was found. 
      * 
      * This parameter is optional and can be <b>NULL</b>.
      * @param {Pointer<PENUMDIRTREE_CALLBACK>} cb An application-defined callback function, or <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-penumdirtree_callback">EnumDirTreeProc</a>.
      * @param {Pointer<Void>} data The user-defined data or <b>NULL</b>. This value is passed to the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-enumdirtree
      */
     static EnumDirTree(hProcess, RootPath, InputPathName, OutputPathBuffer, cb, data) {
-        RootPath := RootPath is String? StrPtr(RootPath) : RootPath
-        InputPathName := InputPathName is String? StrPtr(InputPathName) : InputPathName
-        OutputPathBuffer := OutputPathBuffer is String? StrPtr(OutputPathBuffer) : OutputPathBuffer
+        RootPath := RootPath is String ? StrPtr(RootPath) : RootPath
+        InputPathName := InputPathName is String ? StrPtr(InputPathName) : InputPathName
+        OutputPathBuffer := OutputPathBuffer is String ? StrPtr(OutputPathBuffer) : OutputPathBuffer
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumDirTree", "ptr", hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr", cb, "ptr", data, "int")
+        result := DllCall("dbghelp.dll\EnumDirTree", "ptr", hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr", cb, "ptr", data, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4426,30 +4471,31 @@ class Debug {
 
     /**
      * Enumerates all occurrences of the specified file in the specified directory tree.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} RootPath The path where the function should begin searching for the file.
-     * @param {Pointer<Char>} InputPathName The name of the file to be found. You can specify a partial path.
-     * @param {Pointer<Char>} OutputPathBuffer A pointer to a buffer that receives the full path of the file. If the function fails or does not find a matching file, this buffer will still contain the last full path that was found. 
+     * @param {PWSTR} RootPath The path where the function should begin searching for the file.
+     * @param {PWSTR} InputPathName The name of the file to be found. You can specify a partial path.
+     * @param {PWSTR} OutputPathBuffer A pointer to a buffer that receives the full path of the file. If the function fails or does not find a matching file, this buffer will still contain the last full path that was found. 
      * 
      * This parameter is optional and can be <b>NULL</b>.
      * @param {Pointer<PENUMDIRTREE_CALLBACKW>} cb An application-defined callback function, or <b>NULL</b>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-penumdirtree_callback">EnumDirTreeProc</a>.
      * @param {Pointer<Void>} data The user-defined data or <b>NULL</b>. This value is passed to the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-enumdirtreew
      */
     static EnumDirTreeW(hProcess, RootPath, InputPathName, OutputPathBuffer, cb, data) {
-        RootPath := RootPath is String? StrPtr(RootPath) : RootPath
-        InputPathName := InputPathName is String? StrPtr(InputPathName) : InputPathName
-        OutputPathBuffer := OutputPathBuffer is String? StrPtr(OutputPathBuffer) : OutputPathBuffer
+        RootPath := RootPath is String ? StrPtr(RootPath) : RootPath
+        InputPathName := InputPathName is String ? StrPtr(InputPathName) : InputPathName
+        OutputPathBuffer := OutputPathBuffer is String ? StrPtr(OutputPathBuffer) : OutputPathBuffer
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumDirTreeW", "ptr", hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr", cb, "ptr", data, "int")
+        result := DllCall("dbghelp.dll\EnumDirTreeW", "ptr", hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr", cb, "ptr", data, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4458,20 +4504,20 @@ class Debug {
 
     /**
      * Creates all the directories in the specified path, beginning with the root.
-     * @param {Pointer<Byte>} DirPath A valid path name. If the final component of the path is a directory, not a file name, the string must end 
+     * @param {PSTR} DirPath A valid path name. If the final component of the path is a directory, not a file name, the string must end 
      *       with a backslash (\\) character.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-makesuredirectorypathexists
      */
     static MakeSureDirectoryPathExists(DirPath) {
-        DirPath := DirPath is String? StrPtr(DirPath) : DirPath
+        DirPath := DirPath is String ? StrPtr(DirPath) : DirPath
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\MakeSureDirectoryPathExists", "ptr", DirPath, "int")
+        result := DllCall("dbghelp.dll\MakeSureDirectoryPathExists", "ptr", DirPath, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4480,9 +4526,9 @@ class Debug {
 
     /**
      * Undecorates the specified decorated C++ symbol name.
-     * @param {Pointer<Byte>} name The decorated C++ symbol name. This name can be identified by the first character of the name, which is 
+     * @param {PSTR} name The decorated C++ symbol name. This name can be identified by the first character of the name, which is 
      *       always a question mark (?).
-     * @param {Pointer<Byte>} outputString A pointer to a string buffer that receives the undecorated name.
+     * @param {PSTR} outputString A pointer to a string buffer that receives the undecorated name.
      * @param {Integer} maxStringLength The size of the <i>UnDecoratedName</i> buffer, in characters.
      * @param {Integer} flags The options for how the decorated name is undecorated. This parameter can be zero or more of the following 
      *       values.
@@ -4694,8 +4740,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-undecoratesymbolname
      */
     static UnDecorateSymbolName(name, outputString, maxStringLength, flags) {
-        name := name is String? StrPtr(name) : name
-        outputString := outputString is String? StrPtr(outputString) : outputString
+        name := name is String ? StrPtr(name) : name
+        outputString := outputString is String ? StrPtr(outputString) : outputString
 
         A_LastError := 0
 
@@ -4708,9 +4754,9 @@ class Debug {
 
     /**
      * Undecorates the specified decorated C++ symbol name.
-     * @param {Pointer<Char>} name The decorated C++ symbol name. This name can be identified by the first character of the name, which is 
+     * @param {PWSTR} name The decorated C++ symbol name. This name can be identified by the first character of the name, which is 
      *       always a question mark (?).
-     * @param {Pointer<Char>} outputString A pointer to a string buffer that receives the undecorated name.
+     * @param {PWSTR} outputString A pointer to a string buffer that receives the undecorated name.
      * @param {Integer} maxStringLength The size of the <i>UnDecoratedName</i> buffer, in characters.
      * @param {Integer} flags The options for how the decorated name is undecorated. This parameter can be zero or more of the following 
      *       values.
@@ -4922,8 +4968,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-undecoratesymbolnamew
      */
     static UnDecorateSymbolNameW(name, outputString, maxStringLength, flags) {
-        name := name is String? StrPtr(name) : name
-        outputString := outputString is String? StrPtr(outputString) : outputString
+        name := name is String ? StrPtr(name) : name
+        outputString := outputString is String ? StrPtr(outputString) : outputString
 
         A_LastError := 0
 
@@ -4978,13 +5024,13 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hProcess A handle to the process for which the stack trace is generated. If the caller supplies a valid callback 
+     * @param {HANDLE} hProcess A handle to the process for which the stack trace is generated. If the caller supplies a valid callback 
      *       pointer for the <i>ReadMemoryRoutine</i> parameter, then this value does not have to be a 
      *       valid process handle. It can be a token that is unique and consistently the same for all calls to the 
      *       <b>StackWalk64</b> function. If the symbol handler is used with 
      *       <b>StackWalk64</b>, use the same process handles for the calls 
      *       to each function.
-     * @param {Pointer<Void>} hThread A handle to the thread for which the stack trace is generated. If the caller supplies a valid callback 
+     * @param {HANDLE} hThread A handle to the thread for which the stack trace is generated. If the caller supplies a valid callback 
      *      pointer for the <i>ReadMemoryRoutine</i> parameter, then this value does not have to be a 
      *      valid thread handle. It can be a token that is unique and consistently the same for all calls to the 
      *      <b>StackWalk64</b> function.
@@ -5028,7 +5074,7 @@ class Debug {
      * 
      * Most callers of <b>StackWalk64</b> can safely pass 
      *        <b>NULL</b> for this parameter.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. Note that 
      *        <b>StackWalk64</b> generally does not set the last error 
@@ -5036,7 +5082,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-stackwalk64
      */
     static StackWalk64(MachineType, hProcess, hThread, StackFrame, ContextRecord, ReadMemoryRoutine, FunctionTableAccessRoutine, GetModuleBaseRoutine, TranslateAddress) {
-        result := DllCall("dbghelp.dll\StackWalk64", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "int")
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
+        result := DllCall("dbghelp.dll\StackWalk64", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "ptr")
         return result
     }
 
@@ -5084,13 +5133,13 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hProcess A handle to the process for which the stack trace is generated. If the caller supplies a valid callback 
+     * @param {HANDLE} hProcess A handle to the process for which the stack trace is generated. If the caller supplies a valid callback 
      *       pointer for the <i>ReadMemoryRoutine</i> parameter, then this value does not have to be a 
      *       valid process handle. It can be a token that is unique and consistently the same for all calls to the 
      *       <b>StackWalkEx</b> function. If the symbol handler is used with 
      *       <b>StackWalkEx</b>, use the same process handles for the calls 
      *       to each function.
-     * @param {Pointer<Void>} hThread A handle to the thread for which the stack trace is generated. If the caller supplies a valid callback 
+     * @param {HANDLE} hThread A handle to the thread for which the stack trace is generated. If the caller supplies a valid callback 
      *       pointer for the <i>ReadMemoryRoutine</i> parameter, then this value does not have to be a 
      *       valid thread handle. It can be a token that is unique and consistently the same for all calls to the 
      *       <b>StackWalkEx</b> function.
@@ -5136,7 +5185,7 @@ class Debug {
      * Most callers of <b>StackWalkEx</b> can safely pass 
      *        <b>NULL</b> for this parameter.
      * @param {Integer} Flags A combination of zero or more flags.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. Note that 
      *        <b>StackWalkEx</b> generally does not set the last error 
@@ -5144,15 +5193,18 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-stackwalkex
      */
     static StackWalkEx(MachineType, hProcess, hThread, StackFrame, ContextRecord, ReadMemoryRoutine, FunctionTableAccessRoutine, GetModuleBaseRoutine, TranslateAddress, Flags) {
-        result := DllCall("dbghelp.dll\StackWalkEx", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "uint", Flags, "int")
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
+        result := DllCall("dbghelp.dll\StackWalkEx", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "uint", Flags, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} MachineType 
-     * @param {Pointer<Void>} hProcess 
-     * @param {Pointer<Void>} hThread 
+     * @param {HANDLE} hProcess 
+     * @param {HANDLE} hThread 
      * @param {Pointer<STACKFRAME_EX>} StackFrame 
      * @param {Pointer<Void>} ContextRecord 
      * @param {Pointer<PREAD_PROCESS_MEMORY_ROUTINE64>} ReadMemoryRoutine 
@@ -5161,10 +5213,13 @@ class Debug {
      * @param {Pointer<PTRANSLATE_ADDRESS_ROUTINE64>} TranslateAddress 
      * @param {Pointer<PGET_TARGET_ATTRIBUTE_VALUE64>} GetTargetAttributeValue 
      * @param {Integer} Flags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static StackWalk2(MachineType, hProcess, hThread, StackFrame, ContextRecord, ReadMemoryRoutine, FunctionTableAccessRoutine, GetModuleBaseRoutine, TranslateAddress, GetTargetAttributeValue, Flags) {
-        result := DllCall("dbghelp.dll\StackWalk2", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "ptr", GetTargetAttributeValue, "uint", Flags, "int")
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
+        result := DllCall("dbghelp.dll\StackWalk2", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "ptr", GetTargetAttributeValue, "uint", Flags, "ptr")
         return result
     }
 
@@ -5212,13 +5267,13 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hProcess A handle to the process for which the stack trace is generated. If the caller supplies a valid callback 
+     * @param {HANDLE} hProcess A handle to the process for which the stack trace is generated. If the caller supplies a valid callback 
      *       pointer for the <i>ReadMemoryRoutine</i> parameter, then this value does not have to be a 
      *       valid process handle. It can be a token that is unique and consistently the same for all calls to the 
      *       <b>StackWalk64</b> function. If the symbol handler is used with 
      *       <b>StackWalk64</b>, use the same process handles for the calls 
      *       to each function.
-     * @param {Pointer<Void>} hThread A handle to the thread for which the stack trace is generated. If the caller supplies a valid callback 
+     * @param {HANDLE} hThread A handle to the thread for which the stack trace is generated. If the caller supplies a valid callback 
      *      pointer for the <i>ReadMemoryRoutine</i> parameter, then this value does not have to be a 
      *      valid thread handle. It can be a token that is unique and consistently the same for all calls to the 
      *      <b>StackWalk64</b> function.
@@ -5262,7 +5317,7 @@ class Debug {
      * 
      * Most callers of <b>StackWalk64</b> can safely pass 
      *        <b>NULL</b> for this parameter.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. Note that 
      *        <b>StackWalk64</b> generally does not set the last error 
@@ -5270,7 +5325,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-stackwalk
      */
     static StackWalk(MachineType, hProcess, hThread, StackFrame, ContextRecord, ReadMemoryRoutine, FunctionTableAccessRoutine, GetModuleBaseRoutine, TranslateAddress) {
-        result := DllCall("dbghelp.dll\StackWalk", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "int")
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
+        result := DllCall("dbghelp.dll\StackWalk", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "ptr")
         return result
     }
 
@@ -5300,7 +5358,7 @@ class Debug {
 
     /**
      * Retrieves the time stamp of a loaded image.
-     * @param {Pointer<Void>} Module The base address of an image that is mapped into memory by a call to the 
+     * @param {HMODULE} Module The base address of an image that is mapped into memory by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> function.
      * @returns {Integer} If the function succeeds, the return value is the time stamp from the image.
      * 
@@ -5309,6 +5367,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-gettimestampforloadedlibrary
      */
     static GetTimestampForLoadedLibrary(Module) {
+        Module := Module is Win32Handle ? NumGet(Module, "ptr") : Module
+
         A_LastError := 0
 
         result := DllCall("dbghelp.dll\GetTimestampForLoadedLibrary", "ptr", Module, "uint")
@@ -5320,17 +5380,19 @@ class Debug {
 
     /**
      * Sets the window that the caller will use to display a user interface.
-     * @param {Pointer<Void>} hwnd A handle to the window.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {HWND} hwnd A handle to the window.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetparentwindow
      */
     static SymSetParentWindow(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetParentWindow", "ptr", hwnd, "int")
+        result := DllCall("dbghelp.dll\SymSetParentWindow", "ptr", hwnd, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5339,30 +5401,31 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Void>} pHwnd 
-     * @returns {Integer} 
+     * @param {Pointer<HWND>} pHwnd 
+     * @returns {BOOL} 
      */
     static SymGetParentWindow(pHwnd) {
-        result := DllCall("dbghelp.dll\SymGetParentWindow", "ptr", pHwnd, "int")
+        result := DllCall("dbghelp.dll\SymGetParentWindow", "ptr", pHwnd, "ptr")
         return result
     }
 
     /**
      * Sets the home directory used by Dbghelp.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} dir The home directory. This directory must be writable, otherwise the home directory is the common application directory specified with [CSIDL_COMMON_APPDATA](/windows/win32/shell/csidl). If this parameter is <b>NULL</b>, the function uses the default directory.
-     * @returns {Pointer<Byte>} If the function succeeds, the return value is a pointer to the <i>dir</i> parameter.
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
+     * @param {PSTR} dir The home directory. This directory must be writable, otherwise the home directory is the common application directory specified with [CSIDL_COMMON_APPDATA](/windows/win32/shell/csidl). If this parameter is <b>NULL</b>, the function uses the default directory.
+     * @returns {PSTR} If the function succeeds, the return value is a pointer to the <i>dir</i> parameter.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsethomedirectory
      */
     static SymSetHomeDirectory(hProcess, dir) {
-        dir := dir is String? StrPtr(dir) : dir
+        dir := dir is String ? StrPtr(dir) : dir
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetHomeDirectory", "ptr", hProcess, "ptr", dir, "char*")
+        result := DllCall("dbghelp.dll\SymSetHomeDirectory", "ptr", hProcess, "ptr", dir, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5371,20 +5434,21 @@ class Debug {
 
     /**
      * Sets the home directory used by Dbghelp.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} dir The home directory. This directory must be writable, otherwise the home directory is the common application directory specified with [CSIDL_COMMON_APPDATA](/windows/win32/shell/csidl). If this parameter is <b>NULL</b>, the function uses the default directory.
-     * @returns {Pointer<Char>} If the function succeeds, the return value is a pointer to the <i>dir</i> parameter.
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
+     * @param {PWSTR} dir The home directory. This directory must be writable, otherwise the home directory is the common application directory specified with [CSIDL_COMMON_APPDATA](/windows/win32/shell/csidl). If this parameter is <b>NULL</b>, the function uses the default directory.
+     * @returns {PWSTR} If the function succeeds, the return value is a pointer to the <i>dir</i> parameter.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsethomedirectoryw
      */
     static SymSetHomeDirectoryW(hProcess, dir) {
-        dir := dir is String? StrPtr(dir) : dir
+        dir := dir is String ? StrPtr(dir) : dir
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetHomeDirectoryW", "ptr", hProcess, "ptr", dir, "char*")
+        result := DllCall("dbghelp.dll\SymSetHomeDirectoryW", "ptr", hProcess, "ptr", dir, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5394,20 +5458,20 @@ class Debug {
     /**
      * Retrieves the home directory used by Dbghelp.
      * @param {Integer} type 
-     * @param {Pointer<Byte>} dir A pointer to a string that receives the directory.
+     * @param {PSTR} dir A pointer to a string that receives the directory.
      * @param {Pointer} size The size of the output buffer, in characters.
-     * @returns {Pointer<Byte>} If the function succeeds, the return value is a pointer to the <i>dir</i> parameter.
+     * @returns {PSTR} If the function succeeds, the return value is a pointer to the <i>dir</i> parameter.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgethomedirectory
      */
     static SymGetHomeDirectory(type, dir, size) {
-        dir := dir is String? StrPtr(dir) : dir
+        dir := dir is String ? StrPtr(dir) : dir
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetHomeDirectory", "uint", type, "ptr", dir, "ptr", size, "char*")
+        result := DllCall("dbghelp.dll\SymGetHomeDirectory", "uint", type, "ptr", dir, "ptr", size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5417,20 +5481,20 @@ class Debug {
     /**
      * Retrieves the home directory used by Dbghelp.
      * @param {Integer} type 
-     * @param {Pointer<Char>} dir A pointer to a string that receives the directory.
+     * @param {PWSTR} dir A pointer to a string that receives the directory.
      * @param {Pointer} size The size of the output buffer, in characters.
-     * @returns {Pointer<Char>} If the function succeeds, the return value is a pointer to the <i>dir</i> parameter.
+     * @returns {PWSTR} If the function succeeds, the return value is a pointer to the <i>dir</i> parameter.
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgethomedirectoryw
      */
     static SymGetHomeDirectoryW(type, dir, size) {
-        dir := dir is String? StrPtr(dir) : dir
+        dir := dir is String ? StrPtr(dir) : dir
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetHomeDirectoryW", "uint", type, "ptr", dir, "ptr", size, "char*")
+        result := DllCall("dbghelp.dll\SymGetHomeDirectoryW", "uint", type, "ptr", dir, "ptr", size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5439,23 +5503,25 @@ class Debug {
 
     /**
      * Retrieves the omap tables within a loaded module.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {Pointer<OMAP>} OmapTo An array of address map entries to the new image layout taken from the original layout. For details on the map entries, see the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-omap">OMAP</a> structure.
      * @param {Pointer<UInt64>} cOmapTo The number of entries in the <i>OmapTo</i> array.
      * @param {Pointer<OMAP>} OmapFrom An array of address map entries from the new image layout to the original layout (as described by the debug symbols). For details on the map entries, see the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-omap">OMAP</a> structure.
      * @param {Pointer<UInt64>} cOmapFrom The number of entries in the <i>OmapFrom</i> array.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails (the omap is not found), the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetomaps
      */
     static SymGetOmaps(hProcess, BaseOfDll, OmapTo, cOmapTo, OmapFrom, cOmapFrom) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetOmaps", "ptr", hProcess, "uint", BaseOfDll, "ptr", OmapTo, "uint*", cOmapTo, "ptr", OmapFrom, "uint*", cOmapFrom, "int")
+        result := DllCall("dbghelp.dll\SymGetOmaps", "ptr", hProcess, "uint", BaseOfDll, "ptr", OmapTo, "uint*", cOmapTo, "ptr", OmapFrom, "uint*", cOmapFrom, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5811,18 +5877,20 @@ class Debug {
 
     /**
      * Deallocates all resources associated with the process handle.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symcleanup
      */
     static SymCleanup(hProcess) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymCleanup", "ptr", hProcess, "int")
+        result := DllCall("dbghelp.dll\SymCleanup", "ptr", hProcess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5850,11 +5918,11 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The value of the specified symbol option.
+     * @returns {BOOL} The value of the specified symbol option.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetextendedoption
      */
     static SymGetExtendedOption(option) {
-        result := DllCall("dbghelp.dll\SymGetExtendedOption", "int", option, "int")
+        result := DllCall("dbghelp.dll\SymGetExtendedOption", "int", option, "ptr")
         return result
     }
 
@@ -5879,21 +5947,21 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} value The value to set for the specified option, either TRUE or FALSE.
-     * @returns {Integer} The previous value of the specified extended option.
+     * @param {BOOL} value The value to set for the specified option, either TRUE or FALSE.
+     * @returns {BOOL} The previous value of the specified extended option.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetextendedoption
      */
     static SymSetExtendedOption(option, value) {
-        result := DllCall("dbghelp.dll\SymSetExtendedOption", "int", option, "int", value, "int")
+        result := DllCall("dbghelp.dll\SymSetExtendedOption", "int", option, "ptr", value, "ptr")
         return result
     }
 
     /**
      * Compares the specified string to the specified wildcard expression.
-     * @param {Pointer<Byte>} string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
-     * @param {Pointer<Byte>} expression The wildcard expression to compare to the <i>string</i> parameter.  The wildcard expression supports the inclusion of the * and ? characters.  * matches any string and ? matches any single character.
-     * @param {Integer} fCase A variable that indicates whether or not the comparison is to be case sensitive.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {PSTR} string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
+     * @param {PSTR} expression The wildcard expression to compare to the <i>string</i> parameter.  The wildcard expression supports the inclusion of the * and ? characters.  * matches any string and ? matches any single character.
+     * @param {BOOL} fCase A variable that indicates whether or not the comparison is to be case sensitive.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -5901,12 +5969,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symmatchstring
      */
     static SymMatchString(string, expression, fCase) {
-        string := string is String? StrPtr(string) : string
-        expression := expression is String? StrPtr(expression) : expression
+        string := string is String ? StrPtr(string) : string
+        expression := expression is String ? StrPtr(expression) : expression
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchString", "ptr", string, "ptr", expression, "int", fCase, "int")
+        result := DllCall("dbghelp.dll\SymMatchString", "ptr", string, "ptr", expression, "ptr", fCase, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5915,28 +5983,28 @@ class Debug {
 
     /**
      * Compares the specified string to the specified wildcard expression.
-     * @param {Pointer<Byte>} string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
-     * @param {Pointer<Byte>} expression The wildcard expression to compare to the <i>string</i> parameter. The wildcard expression supports the inclusion of the * and ? characters. * matches any string and ? matches any single character.
-     * @param {Integer} fCase A variable that indicates whether or not the comparison is to be case sensitive.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.  
+     * @param {PSTR} string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
+     * @param {PSTR} expression The wildcard expression to compare to the <i>string</i> parameter. The wildcard expression supports the inclusion of the * and ? characters. * matches any string and ? matches any single character.
+     * @param {BOOL} fCase A variable that indicates whether or not the comparison is to be case sensitive.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.  
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symmatchstringa
      */
     static SymMatchStringA(string, expression, fCase) {
-        string := string is String? StrPtr(string) : string
-        expression := expression is String? StrPtr(expression) : expression
+        string := string is String ? StrPtr(string) : string
+        expression := expression is String ? StrPtr(expression) : expression
 
-        result := DllCall("dbghelp.dll\SymMatchStringA", "ptr", string, "ptr", expression, "int", fCase, "int")
+        result := DllCall("dbghelp.dll\SymMatchStringA", "ptr", string, "ptr", expression, "ptr", fCase, "ptr")
         return result
     }
 
     /**
      * Compares the specified string to the specified wildcard expression.
-     * @param {Pointer<Char>} string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
-     * @param {Pointer<Char>} expression The wildcard expression to compare to the <i>string</i> parameter.  The wildcard expression supports the inclusion of the * and ? characters.  * matches any string and ? matches any single character.
-     * @param {Integer} fCase A variable that indicates whether or not the comparison is to be case sensitive.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {PWSTR} string The string, such as a symbol name, to be compared to the <i>expression</i> parameter.
+     * @param {PWSTR} expression The wildcard expression to compare to the <i>string</i> parameter.  The wildcard expression supports the inclusion of the * and ? characters.  * matches any string and ? matches any single character.
+     * @param {BOOL} fCase A variable that indicates whether or not the comparison is to be case sensitive.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -5944,12 +6012,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symmatchstringw
      */
     static SymMatchStringW(string, expression, fCase) {
-        string := string is String? StrPtr(string) : string
-        expression := expression is String? StrPtr(expression) : expression
+        string := string is String ? StrPtr(string) : string
+        expression := expression is String ? StrPtr(expression) : expression
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchStringW", "ptr", string, "ptr", expression, "int", fCase, "int")
+        result := DllCall("dbghelp.dll\SymMatchStringW", "ptr", string, "ptr", expression, "ptr", fCase, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5958,17 +6026,17 @@ class Debug {
 
     /**
      * Enumerates all source files in a process.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} ModBase The base address of the module. If this value is zero and <i>Mask</i> contains an exclamation point (!), the function looks across modules. If this value is zero and <i>Mask</i> does not contain an exclamation point, the function uses the scope established by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetcontext">SymSetContext</a> function.
-     * @param {Pointer<Byte>} Mask A wildcard expression that indicates the names of the source files to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
+     * @param {PSTR} Mask A wildcard expression that indicates the names of the source files to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
      * 
      * If this parameter is <b>NULL</b>, the function will enumerate all files.
      * @param {Pointer<PSYM_ENUMSOURCEFILES_CALLBACK>} cbSrcFiles Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumsourcefiles_callback">SymEnumSourceFilesProc</a> callback function that receives the source file information.
      * @param {Pointer<Void>} UserContext User-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -5976,11 +6044,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsourcefiles
      */
     static SymEnumSourceFiles(hProcess, ModBase, Mask, cbSrcFiles, UserContext) {
-        Mask := Mask is String? StrPtr(Mask) : Mask
+        Mask := Mask is String ? StrPtr(Mask) : Mask
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSourceFiles", "ptr", hProcess, "uint", ModBase, "ptr", Mask, "ptr", cbSrcFiles, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumSourceFiles", "ptr", hProcess, "uint", ModBase, "ptr", Mask, "ptr", cbSrcFiles, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5989,17 +6058,17 @@ class Debug {
 
     /**
      * Enumerates all source files in a process.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} ModBase The base address of the module. If this value is zero and <i>Mask</i> contains an exclamation point (!), the function looks across modules. If this value is zero and <i>Mask</i> does not contain an exclamation point, the function uses the scope established by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetcontext">SymSetContext</a> function.
-     * @param {Pointer<Char>} Mask A wildcard expression that indicates the names of the source files to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
+     * @param {PWSTR} Mask A wildcard expression that indicates the names of the source files to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
      * 
      * If this parameter is <b>NULL</b>, the function will enumerate all files.
      * @param {Pointer<PSYM_ENUMSOURCEFILES_CALLBACKW>} cbSrcFiles Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumsourcefiles_callback">SymEnumSourceFilesProc</a> callback function that receives the source file information.
      * @param {Pointer<Void>} UserContext User-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -6007,11 +6076,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsourcefilesw
      */
     static SymEnumSourceFilesW(hProcess, ModBase, Mask, cbSrcFiles, UserContext) {
-        Mask := Mask is String? StrPtr(Mask) : Mask
+        Mask := Mask is String ? StrPtr(Mask) : Mask
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSourceFilesW", "ptr", hProcess, "uint", ModBase, "ptr", Mask, "ptr", cbSrcFiles, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumSourceFilesW", "ptr", hProcess, "uint", ModBase, "ptr", Mask, "ptr", cbSrcFiles, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6020,21 +6090,23 @@ class Debug {
 
     /**
      * Enumerates all modules that have been loaded for the process by the SymLoadModule64 or SymLoadModuleEx function.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<PSYM_ENUMMODULES_CALLBACK64>} EnumModulesCallback The enumeration callback function. This function is called once per module. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enummodules_callback">SymEnumerateModulesProc64</a>.
      * @param {Pointer<Void>} UserContext A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. Normally, this parameter is used by an application to pass a pointer to a data structure that lets the callback function establish some type of context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumeratemodules64
      */
     static SymEnumerateModules64(hProcess, EnumModulesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateModules64", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumerateModules64", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6043,21 +6115,23 @@ class Debug {
 
     /**
      * Enumerates all modules that have been loaded for the process by the SymLoadModule64 or SymLoadModuleEx function.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<PSYM_ENUMMODULES_CALLBACKW64>} EnumModulesCallback The enumeration callback function. This function is called once per module. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enummodules_callback">SymEnumerateModulesProc64</a>.
      * @param {Pointer<Void>} UserContext A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. Normally, this parameter is used by an application to pass a pointer to a data structure that lets the callback function establish some type of context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumeratemodulesw64
      */
     static SymEnumerateModulesW64(hProcess, EnumModulesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateModulesW64", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumerateModulesW64", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6066,21 +6140,23 @@ class Debug {
 
     /**
      * Enumerates all modules that have been loaded for the process by the SymLoadModule64 or SymLoadModuleEx function.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<PSYM_ENUMMODULES_CALLBACK>} EnumModulesCallback The enumeration callback function. This function is called once per module. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enummodules_callback">SymEnumerateModulesProc64</a>.
      * @param {Pointer<Void>} UserContext A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. Normally, this parameter is used by an application to pass a pointer to a data structure that lets the callback function establish some type of context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumeratemodules
      */
     static SymEnumerateModules(hProcess, EnumModulesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateModules", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumerateModules", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6089,20 +6165,22 @@ class Debug {
 
     /**
      * Enumerates the loaded modules for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose modules will be enumerated.
+     * @param {HANDLE} hProcess A handle to the process whose modules will be enumerated.
      * @param {Pointer<PENUMLOADED_MODULES_CALLBACK64>} EnumLoadedModulesCallback An application-defined callback function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-penumloaded_modules_callback">EnumerateLoadedModulesProc64</a>.
      * @param {Pointer<Void>} UserContext Optional user-defined data. This value is passed to the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-enumerateloadedmodulesex
      */
     static EnumerateLoadedModulesEx(hProcess, EnumLoadedModulesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumerateLoadedModulesEx", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\EnumerateLoadedModulesEx", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6111,20 +6189,22 @@ class Debug {
 
     /**
      * Enumerates the loaded modules for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose modules will be enumerated.
+     * @param {HANDLE} hProcess A handle to the process whose modules will be enumerated.
      * @param {Pointer<PENUMLOADED_MODULES_CALLBACKW64>} EnumLoadedModulesCallback An application-defined callback function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-penumloaded_modules_callback">EnumerateLoadedModulesProc64</a>.
      * @param {Pointer<Void>} UserContext Optional user-defined data. This value is passed to the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-enumerateloadedmodulesexw
      */
     static EnumerateLoadedModulesExW(hProcess, EnumLoadedModulesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumerateLoadedModulesExW", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\EnumerateLoadedModulesExW", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6133,20 +6213,22 @@ class Debug {
 
     /**
      * Enumerates the loaded modules for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose modules will be enumerated.
+     * @param {HANDLE} hProcess A handle to the process whose modules will be enumerated.
      * @param {Pointer<PENUMLOADED_MODULES_CALLBACK64>} EnumLoadedModulesCallback An application-defined callback function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-penumloaded_modules_callback">EnumerateLoadedModulesProc64</a>.
      * @param {Pointer<Void>} UserContext Optional user-defined data. This value is passed to the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-enumerateloadedmodules64
      */
     static EnumerateLoadedModules64(hProcess, EnumLoadedModulesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumerateLoadedModules64", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\EnumerateLoadedModules64", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6155,20 +6237,22 @@ class Debug {
 
     /**
      * Enumerates the loaded modules for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose modules will be enumerated.
+     * @param {HANDLE} hProcess A handle to the process whose modules will be enumerated.
      * @param {Pointer<PENUMLOADED_MODULES_CALLBACKW64>} EnumLoadedModulesCallback An application-defined callback function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-penumloaded_modules_callback">EnumerateLoadedModulesProc64</a>.
      * @param {Pointer<Void>} UserContext Optional user-defined data. This value is passed to the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-enumerateloadedmodulesw64
      */
     static EnumerateLoadedModulesW64(hProcess, EnumLoadedModulesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumerateLoadedModulesW64", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\EnumerateLoadedModulesW64", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6177,20 +6261,22 @@ class Debug {
 
     /**
      * Enumerates the loaded modules for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process whose modules will be enumerated.
+     * @param {HANDLE} hProcess A handle to the process whose modules will be enumerated.
      * @param {Pointer<PENUMLOADED_MODULES_CALLBACK>} EnumLoadedModulesCallback An application-defined callback function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-penumloaded_modules_callback">EnumerateLoadedModulesProc64</a>.
      * @param {Pointer<Void>} UserContext Optional user-defined data. This value is passed to the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-enumerateloadedmodules
      */
     static EnumerateLoadedModules(hProcess, EnumLoadedModulesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumerateLoadedModules", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\EnumerateLoadedModules", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6199,7 +6285,7 @@ class Debug {
 
     /**
      * Retrieves the function table entry for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} AddrBase The base address for which function table information is required.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the function table entry.
@@ -6209,6 +6295,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfunctiontableaccess64
      */
     static SymFunctionTableAccess64(hProcess, AddrBase) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("dbghelp.dll\SymFunctionTableAccess64", "ptr", hProcess, "uint", AddrBase, "ptr")
@@ -6220,7 +6308,7 @@ class Debug {
 
     /**
      * Finds a function table entry or frame pointer omission (FPO) record for an address.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} AddrBase The base address for which function table information is required.
      * @param {Pointer<PREAD_PROCESS_MEMORY_ROUTINE64>} ReadMemoryRoutine Pointer to a read memory callback function.
@@ -6229,13 +6317,15 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfunctiontableaccess64accessroutines
      */
     static SymFunctionTableAccess64AccessRoutines(hProcess, AddrBase, ReadMemoryRoutine, GetModuleBaseRoutine) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         result := DllCall("dbghelp.dll\SymFunctionTableAccess64AccessRoutines", "ptr", hProcess, "uint", AddrBase, "ptr", ReadMemoryRoutine, "ptr", GetModuleBaseRoutine, "ptr")
         return result
     }
 
     /**
      * Retrieves the function table entry for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} AddrBase The base address for which function table information is required.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the function table entry.
@@ -6245,6 +6335,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfunctiontableaccess
      */
     static SymFunctionTableAccess(hProcess, AddrBase) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("dbghelp.dll\SymFunctionTableAccess", "ptr", hProcess, "uint", AddrBase, "ptr")
@@ -6256,36 +6348,40 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Void>} hProcess 
+     * @param {HANDLE} hProcess 
      * @param {Integer} Address 
      * @param {Pointer} Buffer 
      * @param {Pointer<UInt32>} Size 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SymGetUnwindInfo(hProcess, Address, Buffer, Size) {
-        result := DllCall("dbghelp.dll\SymGetUnwindInfo", "ptr", hProcess, "uint", Address, "ptr", Buffer, "uint*", Size, "int")
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
+        result := DllCall("dbghelp.dll\SymGetUnwindInfo", "ptr", hProcess, "uint", Address, "ptr", Buffer, "uint*", Size, "ptr")
         return result
     }
 
     /**
      * Retrieves the module information of the specified module.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} qwAddr The virtual address that is contained in one of the modules loaded by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function.
      * @param {Pointer<IMAGEHLP_MODULE64>} ModuleInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_module">IMAGEHLP_MODULE64</a> structure. The <b>SizeOfStruct</b> member must be set to the size of the 
      * <b>IMAGEHLP_MODULE64</b> structure. An invalid value will result in an error.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetmoduleinfo64
      */
     static SymGetModuleInfo64(hProcess, qwAddr, ModuleInfo) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetModuleInfo64", "ptr", hProcess, "uint", qwAddr, "ptr", ModuleInfo, "int")
+        result := DllCall("dbghelp.dll\SymGetModuleInfo64", "ptr", hProcess, "uint", qwAddr, "ptr", ModuleInfo, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6294,23 +6390,25 @@ class Debug {
 
     /**
      * Retrieves the module information of the specified module.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} qwAddr The virtual address that is contained in one of the modules loaded by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function.
      * @param {Pointer<IMAGEHLP_MODULEW64>} ModuleInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_modulew64">IMAGEHLP_MODULEW64</a> structure. The <b>SizeOfStruct</b> member must be set to the size of the 
      * <b>IMAGEHLP_MODULEW64</b> structure. An invalid value will result in an error.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetmoduleinfow64
      */
     static SymGetModuleInfoW64(hProcess, qwAddr, ModuleInfo) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetModuleInfoW64", "ptr", hProcess, "uint", qwAddr, "ptr", ModuleInfo, "int")
+        result := DllCall("dbghelp.dll\SymGetModuleInfoW64", "ptr", hProcess, "uint", qwAddr, "ptr", ModuleInfo, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6319,23 +6417,25 @@ class Debug {
 
     /**
      * Retrieves the module information of the specified module.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} dwAddr The virtual address that is contained in one of the modules loaded by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function
      * @param {Pointer<IMAGEHLP_MODULE>} ModuleInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_module">IMAGEHLP_MODULE64</a> structure. The <b>SizeOfStruct</b> member must be set to the size of the 
      * <b>IMAGEHLP_MODULE64</b> structure. An invalid value will result in an error.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetmoduleinfo
      */
     static SymGetModuleInfo(hProcess, dwAddr, ModuleInfo) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetModuleInfo", "ptr", hProcess, "uint", dwAddr, "ptr", ModuleInfo, "int")
+        result := DllCall("dbghelp.dll\SymGetModuleInfo", "ptr", hProcess, "uint", dwAddr, "ptr", ModuleInfo, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6344,23 +6444,25 @@ class Debug {
 
     /**
      * Retrieves the module information of the specified module.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} dwAddr The virtual address that is contained in one of the modules loaded by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function
      * @param {Pointer<IMAGEHLP_MODULEW>} ModuleInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_module">IMAGEHLP_MODULE64</a> structure. The <b>SizeOfStruct</b> member must be set to the size of the 
      * <b>IMAGEHLP_MODULE64</b> structure. An invalid value will result in an error.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetmoduleinfow
      */
     static SymGetModuleInfoW(hProcess, dwAddr, ModuleInfo) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetModuleInfoW", "ptr", hProcess, "uint", dwAddr, "ptr", ModuleInfo, "int")
+        result := DllCall("dbghelp.dll\SymGetModuleInfoW", "ptr", hProcess, "uint", dwAddr, "ptr", ModuleInfo, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6369,7 +6471,7 @@ class Debug {
 
     /**
      * Retrieves the base address of the module that contains the specified address.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} qwAddr The virtual address that is contained in one of the modules loaded by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function.
@@ -6380,6 +6482,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetmodulebase64
      */
     static SymGetModuleBase64(hProcess, qwAddr) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("dbghelp.dll\SymGetModuleBase64", "ptr", hProcess, "uint", qwAddr, "uint")
@@ -6391,7 +6495,7 @@ class Debug {
 
     /**
      * Retrieves the base address of the module that contains the specified address.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} dwAddr The virtual address that is contained in one of the modules loaded by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function.
@@ -6402,6 +6506,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetmodulebase
      */
     static SymGetModuleBase(hProcess, dwAddr) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("dbghelp.dll\SymGetModuleBase", "ptr", hProcess, "uint", dwAddr, "uint")
@@ -6413,27 +6519,28 @@ class Debug {
 
     /**
      * Enumerates all lines in the specified module.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Byte>} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
-     * @param {Pointer<Byte>} File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
+     * @param {PSTR} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
+     * @param {PSTR} File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
      * @param {Pointer<PSYM_ENUMLINES_CALLBACK>} EnumLinesCallback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumlines_callback">SymEnumLinesProc</a> callback function that receives the line information.
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumlines
      */
     static SymEnumLines(hProcess, Base, Obj, File, EnumLinesCallback, UserContext) {
-        Obj := Obj is String? StrPtr(Obj) : Obj
-        File := File is String? StrPtr(File) : File
+        Obj := Obj is String ? StrPtr(Obj) : Obj
+        File := File is String ? StrPtr(File) : File
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumLines", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "ptr", EnumLinesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumLines", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "ptr", EnumLinesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6442,27 +6549,28 @@ class Debug {
 
     /**
      * Enumerates all lines in the specified module.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Char>} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
-     * @param {Pointer<Char>} File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
+     * @param {PWSTR} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
+     * @param {PWSTR} File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
      * @param {Pointer<PSYM_ENUMLINES_CALLBACKW>} EnumLinesCallback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumlines_callback">SymEnumLinesProc</a> callback function that receives the line information.
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumlinesw
      */
     static SymEnumLinesW(hProcess, Base, Obj, File, EnumLinesCallback, UserContext) {
-        Obj := Obj is String? StrPtr(Obj) : Obj
-        File := File is String? StrPtr(File) : File
+        Obj := Obj is String ? StrPtr(Obj) : Obj
+        File := File is String ? StrPtr(File) : File
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumLinesW", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "ptr", EnumLinesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumLinesW", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "ptr", EnumLinesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6471,7 +6579,7 @@ class Debug {
 
     /**
      * Locates the source line for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} qwAddr The address for which a line should be located. It is not necessary for the address to be on a line 
      *       boundary. If the address appears after the beginning of a line and before the end of the line, the line is 
@@ -6479,16 +6587,18 @@ class Debug {
      * @param {Pointer<UInt32>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINE64>} Line64 A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> 
      *       structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefromaddr64
      */
     static SymGetLineFromAddr64(hProcess, qwAddr, pdwDisplacement, Line64) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromAddr64", "ptr", hProcess, "uint", qwAddr, "uint*", pdwDisplacement, "ptr", Line64, "int")
+        result := DllCall("dbghelp.dll\SymGetLineFromAddr64", "ptr", hProcess, "uint", qwAddr, "uint*", pdwDisplacement, "ptr", Line64, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6497,7 +6607,7 @@ class Debug {
 
     /**
      * Locates the source line for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} dwAddr The address for which a line should be located. It is not necessary for the address to be on a line 
      *       boundary. If the address appears after the beginning of a line and before the end of the line, the line is 
@@ -6505,16 +6615,18 @@ class Debug {
      * @param {Pointer<UInt32>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINEW64>} Line A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> 
      *       structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefromaddrw64
      */
     static SymGetLineFromAddrW64(hProcess, dwAddr, pdwDisplacement, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromAddrW64", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLineFromAddrW64", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6523,7 +6635,7 @@ class Debug {
 
     /**
      * Locates the source line for the specified inline context.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} qwAddr The address for which a line should be located. It is not necessary for the address to be on a line 
      *       boundary. If the address appears after the beginning of a line and before the end of the line, the line is 
@@ -6533,16 +6645,18 @@ class Debug {
      * @param {Pointer<UInt32>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINE64>} Line64 A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> 
      *       structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefrominlinecontext
      */
     static SymGetLineFromInlineContext(hProcess, qwAddr, InlineContext, qwModuleBaseAddress, pdwDisplacement, Line64) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromInlineContext", "ptr", hProcess, "uint", qwAddr, "uint", InlineContext, "uint", qwModuleBaseAddress, "uint*", pdwDisplacement, "ptr", Line64, "int")
+        result := DllCall("dbghelp.dll\SymGetLineFromInlineContext", "ptr", hProcess, "uint", qwAddr, "uint", InlineContext, "uint", qwModuleBaseAddress, "uint*", pdwDisplacement, "ptr", Line64, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6551,7 +6665,7 @@ class Debug {
 
     /**
      * Locates the source line for the specified inline context.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} dwAddr The address for which a line should be located. It is not necessary for the address to be on a line 
      *       boundary. If the address appears after the beginning of a line and before the end of the line, the line is 
@@ -6561,16 +6675,18 @@ class Debug {
      * @param {Pointer<UInt32>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINEW64>} Line A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> 
      *       structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefrominlinecontextw
      */
     static SymGetLineFromInlineContextW(hProcess, dwAddr, InlineContext, qwModuleBaseAddress, pdwDisplacement, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromInlineContextW", "ptr", hProcess, "uint", dwAddr, "uint", InlineContext, "uint", qwModuleBaseAddress, "uint*", pdwDisplacement, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLineFromInlineContextW", "ptr", hProcess, "uint", dwAddr, "uint", InlineContext, "uint", qwModuleBaseAddress, "uint*", pdwDisplacement, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6579,17 +6695,17 @@ class Debug {
 
     /**
      * Enumerates all source lines in a module.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Byte>} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
-     * @param {Pointer<Byte>} File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
+     * @param {PSTR} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
+     * @param {PSTR} File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
      * @param {Integer} Line The line number of a line within the module. The scope of the enumeration is limited to this line. If this parameter is 0, all lines are searched.
      * @param {Integer} Flags If this parameter is ESLFLAG_FULLPATH, the function matches the full path in the <i>File</i> parameter.
      * @param {Pointer<PSYM_ENUMLINES_CALLBACK>} EnumLinesCallback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumlines_callback">SymEnumLinesProc</a> callback function that receives the line information.
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -6597,12 +6713,13 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsourcelines
      */
     static SymEnumSourceLines(hProcess, Base, Obj, File, Line, Flags, EnumLinesCallback, UserContext) {
-        Obj := Obj is String? StrPtr(Obj) : Obj
-        File := File is String? StrPtr(File) : File
+        Obj := Obj is String ? StrPtr(Obj) : Obj
+        File := File is String ? StrPtr(File) : File
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSourceLines", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "uint", Line, "uint", Flags, "ptr", EnumLinesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumSourceLines", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "uint", Line, "uint", Flags, "ptr", EnumLinesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6611,17 +6728,17 @@ class Debug {
 
     /**
      * Enumerates all source lines in a module.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Char>} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
-     * @param {Pointer<Char>} File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
+     * @param {PWSTR} Obj The name of an .obj file within the module. The scope of the enumeration is limited to this file. If this parameter is <b>NULL</b> or an empty string, all .obj files are searched.
+     * @param {PWSTR} File A wildcard expression that indicates the names of the source files to be searched. If this parameter is <b>NULL</b> or an empty string, all files are searched.
      * @param {Integer} Line The line number of a line within the module. The scope of the enumeration is limited to this line. If this parameter is 0, all lines are searched.
      * @param {Integer} Flags If this parameter is ESLFLAG_FULLPATH, the function matches the full path in the <i>File</i> parameter.
      * @param {Pointer<PSYM_ENUMLINES_CALLBACKW>} EnumLinesCallback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumlines_callback">SymEnumLinesProc</a> callback function that receives the line information.
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -6629,12 +6746,13 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsourcelinesw
      */
     static SymEnumSourceLinesW(hProcess, Base, Obj, File, Line, Flags, EnumLinesCallback, UserContext) {
-        Obj := Obj is String? StrPtr(Obj) : Obj
-        File := File is String? StrPtr(File) : File
+        Obj := Obj is String ? StrPtr(Obj) : Obj
+        File := File is String ? StrPtr(File) : File
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSourceLinesW", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "uint", Line, "uint", Flags, "ptr", EnumLinesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumSourceLinesW", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "uint", Line, "uint", Flags, "ptr", EnumLinesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6643,20 +6761,22 @@ class Debug {
 
     /**
      * Indicates whether the specified address is within an inline frame.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address.
      * @returns {Integer} Returns zero if the address is not within an inline frame.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddrincludeinlinetrace
      */
     static SymAddrIncludeInlineTrace(hProcess, Address) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         result := DllCall("dbghelp.dll\SymAddrIncludeInlineTrace", "ptr", hProcess, "uint", Address, "uint")
         return result
     }
 
     /**
      * Compares two inline traces.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address1 The first address to be compared.
      * @param {Integer} InlineContext1 The inline context for the first trace to be compared.
@@ -6746,6 +6866,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symcompareinlinetrace
      */
     static SymCompareInlineTrace(hProcess, Address1, InlineContext1, RetAddress1, Address2, RetAddress2) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         result := DllCall("dbghelp.dll\SymCompareInlineTrace", "ptr", hProcess, "uint", Address1, "uint", InlineContext1, "uint", RetAddress1, "uint", Address2, "uint", RetAddress2, "uint")
         return result
     }
@@ -6756,7 +6878,7 @@ class Debug {
      * 
      * Either the <i>StartAddress</i> or <i>StartRetAddress</i> parameters must be within the same function scope as the <i>CurAddress</i> parameter. The former indicates a step-over within the same function and the latter indicates a step-over from <i>StartAddress</i>.
      * 
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} StartAddress The start address.
      * @param {Integer} StartContext Contains the context of the start of block.
@@ -6767,13 +6889,15 @@ class Debug {
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @returns {Integer} 
+     * @returns {BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symqueryinlinetrace
      */
     static SymQueryInlineTrace(hProcess, StartAddress, StartContext, StartRetAddress, CurAddress, CurContext, CurFrameIndex) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymQueryInlineTrace", "ptr", hProcess, "uint", StartAddress, "uint", StartContext, "uint", StartRetAddress, "uint", CurAddress, "uint*", CurContext, "uint*", CurFrameIndex, "int")
+        result := DllCall("dbghelp.dll\SymQueryInlineTrace", "ptr", hProcess, "uint", StartAddress, "uint", StartContext, "uint", StartRetAddress, "uint", CurAddress, "uint*", CurContext, "uint*", CurFrameIndex, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6782,7 +6906,7 @@ class Debug {
 
     /**
      * Locates the source line for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} dwAddr The address for which a line should be located. It is not necessary for the address to be on a line 
      *       boundary. If the address appears after the beginning of a line and before the end of the line, the line is 
@@ -6790,16 +6914,18 @@ class Debug {
      * @param {Pointer<UInt32>} pdwDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINE>} Line A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> 
      *       structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefromaddr
      */
     static SymGetLineFromAddr(hProcess, dwAddr, pdwDisplacement, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromAddr", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLineFromAddr", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6808,27 +6934,28 @@ class Debug {
 
     /**
      * Locates a source line for the specified module, file name, and line number.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} ModuleName The name of the module in which a line is to be located.
-     * @param {Pointer<Byte>} FileName The name of the file in which a line is to be located. If the application has more than one source file with this name, be sure to specify a full path.
+     * @param {PSTR} ModuleName The name of the module in which a line is to be located.
+     * @param {PSTR} FileName The name of the file in which a line is to be located. If the application has more than one source file with this name, be sure to specify a full path.
      * @param {Integer} dwLineNumber The line number to be located.
      * @param {Pointer<Int32>} plDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINE64>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefromname64
      */
     static SymGetLineFromName64(hProcess, ModuleName, FileName, dwLineNumber, plDisplacement, Line) {
-        ModuleName := ModuleName is String? StrPtr(ModuleName) : ModuleName
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromName64", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLineFromName64", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6837,27 +6964,28 @@ class Debug {
 
     /**
      * Locates a source line for the specified module, file name, and line number.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} ModuleName The name of the module in which a line is to be located.
-     * @param {Pointer<Char>} FileName The name of the file in which a line is to be located. If the application has more than one source file with this name, be sure to specify a full path.
+     * @param {PWSTR} ModuleName The name of the module in which a line is to be located.
+     * @param {PWSTR} FileName The name of the file in which a line is to be located. If the application has more than one source file with this name, be sure to specify a full path.
      * @param {Integer} dwLineNumber The line number to be located.
      * @param {Pointer<Int32>} plDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINEW64>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefromnamew64
      */
     static SymGetLineFromNameW64(hProcess, ModuleName, FileName, dwLineNumber, plDisplacement, Line) {
-        ModuleName := ModuleName is String? StrPtr(ModuleName) : ModuleName
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromNameW64", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLineFromNameW64", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6866,27 +6994,28 @@ class Debug {
 
     /**
      * Locates a source line for the specified module, file name, and line number.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} ModuleName The name of the module in which a line is to be located.
-     * @param {Pointer<Byte>} FileName The name of the file in which a line is to be located. If the application has more than one source file with this name, be sure to specify a full path.
+     * @param {PSTR} ModuleName The name of the module in which a line is to be located.
+     * @param {PSTR} FileName The name of the file in which a line is to be located. If the application has more than one source file with this name, be sure to specify a full path.
      * @param {Integer} dwLineNumber The line number to be located.
      * @param {Pointer<Int32>} plDisplacement The displacement in bytes from the beginning of the line, or zero.
      * @param {Pointer<IMAGEHLP_LINE>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefromname
      */
     static SymGetLineFromName(hProcess, ModuleName, FileName, dwLineNumber, plDisplacement, Line) {
-        ModuleName := ModuleName is String? StrPtr(ModuleName) : ModuleName
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromName", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLineFromName", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6895,20 +7024,22 @@ class Debug {
 
     /**
      * Retrieves the line information for the next source line.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_LINE64>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure that contains the line information.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinenext64
      */
     static SymGetLineNext64(hProcess, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineNext64", "ptr", hProcess, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLineNext64", "ptr", hProcess, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6917,20 +7048,22 @@ class Debug {
 
     /**
      * Retrieves the line information for the next source line.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_LINEW64>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure that contains the line information.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinenextw64
      */
     static SymGetLineNextW64(hProcess, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineNextW64", "ptr", hProcess, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLineNextW64", "ptr", hProcess, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6939,20 +7072,22 @@ class Debug {
 
     /**
      * Retrieves the line information for the next source line.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_LINE>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure that contains the line information.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinenext
      */
     static SymGetLineNext(hProcess, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineNext", "ptr", hProcess, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLineNext", "ptr", hProcess, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6961,20 +7096,22 @@ class Debug {
 
     /**
      * Retrieves the line information for the previous source line.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_LINE64>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlineprev64
      */
     static SymGetLinePrev64(hProcess, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLinePrev64", "ptr", hProcess, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLinePrev64", "ptr", hProcess, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -6983,20 +7120,22 @@ class Debug {
 
     /**
      * Retrieves the line information for the previous source line.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_LINEW64>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlineprevw64
      */
     static SymGetLinePrevW64(hProcess, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLinePrevW64", "ptr", hProcess, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLinePrevW64", "ptr", hProcess, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7005,20 +7144,22 @@ class Debug {
 
     /**
      * Retrieves the line information for the previous source line.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_LINE>} Line A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_line">IMAGEHLP_LINE64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlineprev
      */
     static SymGetLinePrev(hProcess, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLinePrev", "ptr", hProcess, "ptr", Line, "int")
+        result := DllCall("dbghelp.dll\SymGetLinePrev", "ptr", hProcess, "ptr", Line, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7027,10 +7168,10 @@ class Debug {
 
     /**
      * Locates line information for the specified module and file name.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} ModuleName The name of the module in which  lines are to be located. If this parameter is <b>NULL</b>, the function searches all modules.
-     * @param {Pointer<Byte>} FileName The name of the file in which lines are to be located.
+     * @param {PSTR} ModuleName The name of the module in which  lines are to be located. If this parameter is <b>NULL</b>, the function searches all modules.
+     * @param {PSTR} FileName The name of the file in which lines are to be located.
      * @param {Pointer<UInt64>} Buffer An array of offsets for each line. The offset for the line n is stored in element n-1. Array elements for lines that do not have line information are left unchanged.
      * @param {Integer} BufferLines The size of the <i>Buffer</i> array, in elements.
      * @returns {Integer} If the function succeeds, the return value is the highest line number found.
@@ -7041,8 +7182,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetfilelineoffsets64
      */
     static SymGetFileLineOffsets64(hProcess, ModuleName, FileName, Buffer, BufferLines) {
-        ModuleName := ModuleName is String? StrPtr(ModuleName) : ModuleName
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -7055,23 +7197,23 @@ class Debug {
 
     /**
      * Compares a string to a file name and path.
-     * @param {Pointer<Byte>} FileName The file name to be compared to the <i>Match</i> parameter.
-     * @param {Pointer<Byte>} Match The string to be compared to the <i>FileName</i> parameter.
-     * @param {Pointer<Byte>} FileNameStop A pointer to a string buffer that receives a pointer to the location in <i>FileName</i> where matching stopped. For a complete match, this value can be one character before <i>FileName</i>. This value can also be <b>NULL</b>.
-     * @param {Pointer<Byte>} MatchStop A pointer to a string buffer that receives a pointer to the location in <i>Match</i> where matching stopped. For a complete match, this value may be one character before <i>Match</i>. This value may be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {PSTR} FileName The file name to be compared to the <i>Match</i> parameter.
+     * @param {PSTR} Match The string to be compared to the <i>FileName</i> parameter.
+     * @param {Pointer<PSTR>} FileNameStop A pointer to a string buffer that receives a pointer to the location in <i>FileName</i> where matching stopped. For a complete match, this value can be one character before <i>FileName</i>. This value can also be <b>NULL</b>.
+     * @param {Pointer<PSTR>} MatchStop A pointer to a string buffer that receives a pointer to the location in <i>Match</i> where matching stopped. For a complete match, this value may be one character before <i>Match</i>. This value may be <b>NULL</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symmatchfilename
      */
     static SymMatchFileName(FileName, Match, FileNameStop, MatchStop) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        Match := Match is String? StrPtr(Match) : Match
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        Match := Match is String ? StrPtr(Match) : Match
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchFileName", "ptr", FileName, "ptr", Match, "ptr", FileNameStop, "ptr", MatchStop, "int")
+        result := DllCall("dbghelp.dll\SymMatchFileName", "ptr", FileName, "ptr", Match, "ptr", FileNameStop, "ptr", MatchStop, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7080,23 +7222,23 @@ class Debug {
 
     /**
      * Compares a string to a file name and path.
-     * @param {Pointer<Char>} FileName The file name to be compared to the <i>Match</i> parameter.
-     * @param {Pointer<Char>} Match The string to be compared to the <i>FileName</i> parameter.
-     * @param {Pointer<Char>} FileNameStop A pointer to a string buffer that receives a pointer to the location in <i>FileName</i> where matching stopped. For a complete match, this value can be one character before <i>FileName</i>. This value can also be <b>NULL</b>.
-     * @param {Pointer<Char>} MatchStop A pointer to a string buffer that receives a pointer to the location in <i>Match</i> where matching stopped. For a complete match, this value may be one character before <i>Match</i>. This value may be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {PWSTR} FileName The file name to be compared to the <i>Match</i> parameter.
+     * @param {PWSTR} Match The string to be compared to the <i>FileName</i> parameter.
+     * @param {Pointer<PWSTR>} FileNameStop A pointer to a string buffer that receives a pointer to the location in <i>FileName</i> where matching stopped. For a complete match, this value can be one character before <i>FileName</i>. This value can also be <b>NULL</b>.
+     * @param {Pointer<PWSTR>} MatchStop A pointer to a string buffer that receives a pointer to the location in <i>Match</i> where matching stopped. For a complete match, this value may be one character before <i>Match</i>. This value may be <b>NULL</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symmatchfilenamew
      */
     static SymMatchFileNameW(FileName, Match, FileNameStop, MatchStop) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        Match := Match is String? StrPtr(Match) : Match
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        Match := Match is String ? StrPtr(Match) : Match
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchFileNameW", "ptr", FileName, "ptr", Match, "ptr", FileNameStop, "ptr", MatchStop, "int")
+        result := DllCall("dbghelp.dll\SymMatchFileNameW", "ptr", FileName, "ptr", Match, "ptr", FileNameStop, "ptr", MatchStop, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7105,15 +7247,15 @@ class Debug {
 
     /**
      * Retrieves the specified source file from the source server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Byte>} Params This parameter is unused.
-     * @param {Pointer<Byte>} FileSpec The name of the source file.
-     * @param {Pointer<Byte>} FilePath A pointer to a 
+     * @param {PSTR} Params This parameter is unused.
+     * @param {PSTR} FileSpec The name of the source file.
+     * @param {PSTR} FilePath A pointer to a 
      * buffer that receives the fully qualified path of the source file.
      * @param {Integer} Size The size of the <i>FilePath</i> buffer, in characters.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7121,13 +7263,14 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefile
      */
     static SymGetSourceFile(hProcess, Base, Params, FileSpec, FilePath, Size) {
-        Params := Params is String? StrPtr(Params) : Params
-        FileSpec := FileSpec is String? StrPtr(FileSpec) : FileSpec
-        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+        Params := Params is String ? StrPtr(Params) : Params
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
+        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFile", "ptr", hProcess, "uint", Base, "ptr", Params, "ptr", FileSpec, "ptr", FilePath, "uint", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFile", "ptr", hProcess, "uint", Base, "ptr", Params, "ptr", FileSpec, "ptr", FilePath, "uint", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7136,15 +7279,15 @@ class Debug {
 
     /**
      * Retrieves the specified source file from the source server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Char>} Params This parameter is unused.
-     * @param {Pointer<Char>} FileSpec The name of the source file.
-     * @param {Pointer<Char>} FilePath A pointer to a 
+     * @param {PWSTR} Params This parameter is unused.
+     * @param {PWSTR} FileSpec The name of the source file.
+     * @param {PWSTR} FilePath A pointer to a 
      * buffer that receives the fully qualified path of the source file.
      * @param {Integer} Size The size of the <i>FilePath</i> buffer, in characters.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7152,13 +7295,14 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefilew
      */
     static SymGetSourceFileW(hProcess, Base, Params, FileSpec, FilePath, Size) {
-        Params := Params is String? StrPtr(Params) : Params
-        FileSpec := FileSpec is String? StrPtr(FileSpec) : FileSpec
-        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+        Params := Params is String ? StrPtr(Params) : Params
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
+        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileW", "ptr", hProcess, "uint", Base, "ptr", Params, "ptr", FileSpec, "ptr", FilePath, "uint", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileW", "ptr", hProcess, "uint", Base, "ptr", Params, "ptr", FileSpec, "ptr", FilePath, "uint", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7167,14 +7311,14 @@ class Debug {
 
     /**
      * Retrieves token for the specified source file from the source server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Byte>} FileSpec The name of the source file.
+     * @param {PSTR} FileSpec The name of the source file.
      * @param {Pointer<Void>} Token A pointer to a 
      * buffer that receives the token.
      * @param {Pointer<UInt32>} Size The size of the <i>Token</i> buffer, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7182,11 +7326,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefiletoken
      */
     static SymGetSourceFileToken(hProcess, Base, FileSpec, Token, Size) {
-        FileSpec := FileSpec is String? StrPtr(FileSpec) : FileSpec
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileToken", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Token, "uint*", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileToken", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Token, "uint*", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7195,35 +7340,36 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Void>} hProcess 
+     * @param {HANDLE} hProcess 
      * @param {Integer} Base 
-     * @param {Pointer<Byte>} FileSpec 
-     * @param {Pointer<Byte>} TokenName 
-     * @param {Pointer<Byte>} TokenParameters 
+     * @param {PSTR} FileSpec 
+     * @param {PSTR} TokenName 
+     * @param {PSTR} TokenParameters 
      * @param {Pointer<Void>} Token 
      * @param {Pointer<UInt32>} Size 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SymGetSourceFileTokenByTokenName(hProcess, Base, FileSpec, TokenName, TokenParameters, Token, Size) {
-        FileSpec := FileSpec is String? StrPtr(FileSpec) : FileSpec
-        TokenName := TokenName is String? StrPtr(TokenName) : TokenName
-        TokenParameters := TokenParameters is String? StrPtr(TokenParameters) : TokenParameters
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
+        TokenName := TokenName is String ? StrPtr(TokenName) : TokenName
+        TokenParameters := TokenParameters is String ? StrPtr(TokenParameters) : TokenParameters
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenName", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr", Token, "uint*", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenName", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr", Token, "uint*", Size, "ptr")
         return result
     }
 
     /**
      * Retrieves the specified source file checksum from the source server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Char>} FileSpec The name of the source file.
+     * @param {PWSTR} FileSpec The name of the source file.
      * @param {Pointer<UInt32>} pCheckSumType On success, points to the checksum type.
      * @param {Pointer<Byte>} pChecksum pointer to a buffer that receives the checksum. If <b>NULL</b>, then when the call returns <i>pActualBytesWritten</i> returns the number of bytes required.
      * @param {Integer} checksumSize The size of the <i>pChecksum</i> buffer, in bytes.
      * @param {Pointer<UInt32>} pActualBytesWritten Pointer to the actual bytes written in the buffer.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7231,11 +7377,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefilechecksumw
      */
     static SymGetSourceFileChecksumW(hProcess, Base, FileSpec, pCheckSumType, pChecksum, checksumSize, pActualBytesWritten) {
-        FileSpec := FileSpec is String? StrPtr(FileSpec) : FileSpec
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileChecksumW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "uint*", pCheckSumType, "char*", pChecksum, "uint", checksumSize, "uint*", pActualBytesWritten, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileChecksumW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "uint*", pCheckSumType, "char*", pChecksum, "uint", checksumSize, "uint*", pActualBytesWritten, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7244,15 +7391,15 @@ class Debug {
 
     /**
      * Retrieves the specified source file checksum from the source server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Byte>} FileSpec The name of the source file.
+     * @param {PSTR} FileSpec The name of the source file.
      * @param {Pointer<UInt32>} pCheckSumType On success, points to the checksum type.
      * @param {Pointer<Byte>} pChecksum pointer to a buffer that receives the checksum. If <b>NULL</b>, then when the call returns <i>pActualBytesWritten</i> returns the number of bytes required.
      * @param {Integer} checksumSize The size of the <i>pChecksum</i> buffer, in bytes.
      * @param {Pointer<UInt32>} pActualBytesWritten Pointer to the actual bytes written in the buffer.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7260,11 +7407,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefilechecksum
      */
     static SymGetSourceFileChecksum(hProcess, Base, FileSpec, pCheckSumType, pChecksum, checksumSize, pActualBytesWritten) {
-        FileSpec := FileSpec is String? StrPtr(FileSpec) : FileSpec
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileChecksum", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "uint*", pCheckSumType, "char*", pChecksum, "uint", checksumSize, "uint*", pActualBytesWritten, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileChecksum", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "uint*", pCheckSumType, "char*", pChecksum, "uint", checksumSize, "uint*", pActualBytesWritten, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7273,14 +7421,14 @@ class Debug {
 
     /**
      * Retrieves token for the specified source file from the source server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Char>} FileSpec The name of the source file.
+     * @param {PWSTR} FileSpec The name of the source file.
      * @param {Pointer<Void>} Token A pointer to a 
      * buffer that receives the token.
      * @param {Pointer<UInt32>} Size The size of the <i>Token</i> buffer, in bytes.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7288,11 +7436,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefiletokenw
      */
     static SymGetSourceFileTokenW(hProcess, Base, FileSpec, Token, Size) {
-        FileSpec := FileSpec is String? StrPtr(FileSpec) : FileSpec
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Token, "uint*", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Token, "uint*", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7301,34 +7450,35 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Void>} hProcess 
+     * @param {HANDLE} hProcess 
      * @param {Integer} Base 
-     * @param {Pointer<Char>} FileSpec 
-     * @param {Pointer<Char>} TokenName 
-     * @param {Pointer<Char>} TokenParameters 
+     * @param {PWSTR} FileSpec 
+     * @param {PWSTR} TokenName 
+     * @param {PWSTR} TokenParameters 
      * @param {Pointer<Void>} Token 
      * @param {Pointer<UInt32>} Size 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SymGetSourceFileTokenByTokenNameW(hProcess, Base, FileSpec, TokenName, TokenParameters, Token, Size) {
-        FileSpec := FileSpec is String? StrPtr(FileSpec) : FileSpec
-        TokenName := TokenName is String? StrPtr(TokenName) : TokenName
-        TokenParameters := TokenParameters is String? StrPtr(TokenParameters) : TokenParameters
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
+        TokenName := TokenName is String ? StrPtr(TokenName) : TokenName
+        TokenParameters := TokenParameters is String ? StrPtr(TokenParameters) : TokenParameters
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenNameW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr", Token, "uint*", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenNameW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr", Token, "uint*", Size, "ptr")
         return result
     }
 
     /**
      * Retrieves the source file associated with the specified token from the source server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<Void>} Token A pointer to the token.
-     * @param {Pointer<Byte>} Params This parameter is unused.
-     * @param {Pointer<Byte>} FilePath A pointer to a 
+     * @param {PSTR} Params This parameter is unused.
+     * @param {PSTR} FilePath A pointer to a 
      * buffer that receives the fully qualified path of the source file.
      * @param {Integer} Size The size of the <i>FilePath</i> buffer, in characters.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7336,12 +7486,13 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefilefromtoken
      */
     static SymGetSourceFileFromToken(hProcess, Token, Params, FilePath, Size) {
-        Params := Params is String? StrPtr(Params) : Params
-        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+        Params := Params is String ? StrPtr(Params) : Params
+        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileFromToken", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", FilePath, "uint", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileFromToken", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", FilePath, "uint", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7350,33 +7501,34 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Void>} hProcess 
+     * @param {HANDLE} hProcess 
      * @param {Pointer<Void>} Token 
-     * @param {Pointer<Byte>} TokenName 
-     * @param {Pointer<Byte>} Params 
-     * @param {Pointer<Byte>} FilePath 
+     * @param {PSTR} TokenName 
+     * @param {PSTR} Params 
+     * @param {PSTR} FilePath 
      * @param {Integer} Size 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SymGetSourceFileFromTokenByTokenName(hProcess, Token, TokenName, Params, FilePath, Size) {
-        TokenName := TokenName is String? StrPtr(TokenName) : TokenName
-        Params := Params is String? StrPtr(Params) : Params
-        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+        TokenName := TokenName is String ? StrPtr(TokenName) : TokenName
+        Params := Params is String ? StrPtr(Params) : Params
+        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenByTokenName", "ptr", hProcess, "ptr", Token, "ptr", TokenName, "ptr", Params, "ptr", FilePath, "uint", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenByTokenName", "ptr", hProcess, "ptr", Token, "ptr", TokenName, "ptr", Params, "ptr", FilePath, "uint", Size, "ptr")
         return result
     }
 
     /**
      * Retrieves the source file associated with the specified token from the source server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<Void>} Token A pointer to the token.
-     * @param {Pointer<Char>} Params This parameter is unused.
-     * @param {Pointer<Char>} FilePath A pointer to a 
+     * @param {PWSTR} Params This parameter is unused.
+     * @param {PWSTR} FilePath A pointer to a 
      * buffer that receives the fully qualified path of the source file.
      * @param {Integer} Size The size of the <i>FilePath</i> buffer, in characters.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7384,12 +7536,13 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefilefromtokenw
      */
     static SymGetSourceFileFromTokenW(hProcess, Token, Params, FilePath, Size) {
-        Params := Params is String? StrPtr(Params) : Params
-        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+        Params := Params is String ? StrPtr(Params) : Params
+        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenW", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", FilePath, "uint", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenW", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", FilePath, "uint", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7398,47 +7551,49 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Void>} hProcess 
+     * @param {HANDLE} hProcess 
      * @param {Pointer<Void>} Token 
-     * @param {Pointer<Char>} TokenName 
-     * @param {Pointer<Char>} Params 
-     * @param {Pointer<Char>} FilePath 
+     * @param {PWSTR} TokenName 
+     * @param {PWSTR} Params 
+     * @param {PWSTR} FilePath 
      * @param {Integer} Size 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SymGetSourceFileFromTokenByTokenNameW(hProcess, Token, TokenName, Params, FilePath, Size) {
-        TokenName := TokenName is String? StrPtr(TokenName) : TokenName
-        Params := Params is String? StrPtr(Params) : Params
-        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+        TokenName := TokenName is String ? StrPtr(TokenName) : TokenName
+        Params := Params is String ? StrPtr(Params) : Params
+        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenByTokenNameW", "ptr", hProcess, "ptr", Token, "ptr", TokenName, "ptr", Params, "ptr", FilePath, "uint", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenByTokenNameW", "ptr", hProcess, "ptr", Token, "ptr", TokenName, "ptr", Params, "ptr", FilePath, "uint", Size, "ptr")
         return result
     }
 
     /**
      * Retrieves the value associated with the specified variable name from the Source Server token.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<Void>} Token A pointer to the token.
-     * @param {Pointer<Byte>} Params This parameter is unused.
-     * @param {Pointer<Byte>} VarName The name of the variable token whose value you want to retrieve.
-     * @param {Pointer<Byte>} Value A pointer to a 
+     * @param {PSTR} Params This parameter is unused.
+     * @param {PSTR} VarName The name of the variable token whose value you want to retrieve.
+     * @param {PSTR} Value A pointer to a 
      * buffer that receives the value associated with the variable token specified in the <i>VarName</i> parameter.
      * @param {Integer} Size The size of the <i>Value</i> buffer, in characters.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcevarfromtoken
      */
     static SymGetSourceVarFromToken(hProcess, Token, Params, VarName, Value, Size) {
-        Params := Params is String? StrPtr(Params) : Params
-        VarName := VarName is String? StrPtr(VarName) : VarName
-        Value := Value is String? StrPtr(Value) : Value
+        Params := Params is String ? StrPtr(Params) : Params
+        VarName := VarName is String ? StrPtr(VarName) : VarName
+        Value := Value is String ? StrPtr(Value) : Value
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceVarFromToken", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", VarName, "ptr", Value, "uint", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceVarFromToken", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", VarName, "ptr", Value, "uint", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7447,28 +7602,29 @@ class Debug {
 
     /**
      * Retrieves the value associated with the specified variable name from the Source Server token.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<Void>} Token A pointer to the token.
-     * @param {Pointer<Char>} Params This parameter is unused.
-     * @param {Pointer<Char>} VarName The name of the variable token whose value you want to retrieve.
-     * @param {Pointer<Char>} Value A pointer to a 
+     * @param {PWSTR} Params This parameter is unused.
+     * @param {PWSTR} VarName The name of the variable token whose value you want to retrieve.
+     * @param {PWSTR} Value A pointer to a 
      * buffer that receives the value associated with the variable token specified in the <i>VarName</i> parameter.
      * @param {Integer} Size The size of the <i>Value</i> buffer, in characters.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcevarfromtokenw
      */
     static SymGetSourceVarFromTokenW(hProcess, Token, Params, VarName, Value, Size) {
-        Params := Params is String? StrPtr(Params) : Params
-        VarName := VarName is String? StrPtr(VarName) : VarName
-        Value := Value is String? StrPtr(Value) : Value
+        Params := Params is String ? StrPtr(Params) : Params
+        VarName := VarName is String ? StrPtr(VarName) : VarName
+        Value := Value is String ? StrPtr(Value) : Value
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceVarFromTokenW", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", VarName, "ptr", Value, "uint", Size, "int")
+        result := DllCall("dbghelp.dll\SymGetSourceVarFromTokenW", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", VarName, "ptr", Value, "uint", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7477,21 +7633,23 @@ class Debug {
 
     /**
      * Enumerates all individual entries in a module's source server data, if available.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
      * @param {Pointer<PENUMSOURCEFILETOKENSCALLBACK>} Callback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-penumsourcefiletokenscallback">SymEnumSourceFileTokensProc</a> callback function that receives the symbol information.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsourcefiletokens
      */
     static SymEnumSourceFileTokens(hProcess, Base, Callback) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSourceFileTokens", "ptr", hProcess, "uint", Base, "ptr", Callback, "int")
+        result := DllCall("dbghelp.dll\SymEnumSourceFileTokens", "ptr", hProcess, "uint", Base, "ptr", Callback, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7500,13 +7658,13 @@ class Debug {
 
     /**
      * Initializes the symbol handler for a process.
-     * @param {Pointer<Void>} hProcess A handle that identifies the caller. This value should be unique and nonzero, but need not be a process handle. However, if you do use a process handle, be sure to use the correct handle. If the application is a debugger, use the process handle for the process being debugged. Do not use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> when debugging another process, because calling functions like <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmoduleex">SymLoadModuleEx</a> can have unexpected results. 
+     * @param {HANDLE} hProcess A handle that identifies the caller. This value should be unique and nonzero, but need not be a process handle. However, if you do use a process handle, be sure to use the correct handle. If the application is a debugger, use the process handle for the process being debugged. Do not use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> when debugging another process, because calling functions like <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmoduleex">SymLoadModuleEx</a> can have unexpected results. 
      * 
      * 
      * 
      * 
      * This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} UserSearchPath The path, or series of paths separated by a semicolon (;), that is used to search for symbol files. If this parameter is <b>NULL</b>, the library attempts to form a symbol path from the following sources: 
+     * @param {PSTR} UserSearchPath The path, or series of paths separated by a semicolon (;), that is used to search for symbol files. If this parameter is <b>NULL</b>, the library attempts to form a symbol path from the following sources: 
      * 
      * 
      * 
@@ -7517,20 +7675,21 @@ class Debug {
      * <li>The _NT_ALTERNATE_SYMBOL_PATH environment variable</li>
      * </ul>
      * Note that the search path can also be set using the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetsearchpath">SymSetSearchPath</a> function.
-     * @param {Integer} fInvadeProcess If this value is <b>TRUE</b>, enumerates the loaded modules for the process and effectively calls the 
+     * @param {BOOL} fInvadeProcess If this value is <b>TRUE</b>, enumerates the loaded modules for the process and effectively calls the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function for each module.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-syminitialize
      */
     static SymInitialize(hProcess, UserSearchPath, fInvadeProcess) {
-        UserSearchPath := UserSearchPath is String? StrPtr(UserSearchPath) : UserSearchPath
+        UserSearchPath := UserSearchPath is String ? StrPtr(UserSearchPath) : UserSearchPath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymInitialize", "ptr", hProcess, "ptr", UserSearchPath, "int", fInvadeProcess, "int")
+        result := DllCall("dbghelp.dll\SymInitialize", "ptr", hProcess, "ptr", UserSearchPath, "ptr", fInvadeProcess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7539,13 +7698,13 @@ class Debug {
 
     /**
      * Initializes the symbol handler for a process.
-     * @param {Pointer<Void>} hProcess A handle that identifies the caller. This value should be unique and nonzero, but need not be a process handle. However, if you do use a process handle, be sure to use the correct handle. If the application is a debugger, use the process handle for the process being debugged. Do not use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> when debugging another process, because calling functions like <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmoduleex">SymLoadModuleEx</a> can have unexpected results. 
+     * @param {HANDLE} hProcess A handle that identifies the caller. This value should be unique and nonzero, but need not be a process handle. However, if you do use a process handle, be sure to use the correct handle. If the application is a debugger, use the process handle for the process being debugged. Do not use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> when debugging another process, because calling functions like <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmoduleex">SymLoadModuleEx</a> can have unexpected results. 
      * 
      * 
      * 
      * 
      * This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} UserSearchPath The path, or series of paths separated by a semicolon (;), that is used to search for symbol files. If this parameter is <b>NULL</b>, the library attempts to form a symbol path from the following sources: 
+     * @param {PWSTR} UserSearchPath The path, or series of paths separated by a semicolon (;), that is used to search for symbol files. If this parameter is <b>NULL</b>, the library attempts to form a symbol path from the following sources: 
      * 
      * 
      * 
@@ -7556,20 +7715,21 @@ class Debug {
      * <li>The _NT_ALTERNATE_SYMBOL_PATH environment variable</li>
      * </ul>
      * Note that the search path can also be set using the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetsearchpath">SymSetSearchPath</a> function.
-     * @param {Integer} fInvadeProcess If this value is <b>TRUE</b>, enumerates the loaded modules for the process and effectively calls the 
+     * @param {BOOL} fInvadeProcess If this value is <b>TRUE</b>, enumerates the loaded modules for the process and effectively calls the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symloadmodule">SymLoadModule64</a> function for each module.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-syminitializew
      */
     static SymInitializeW(hProcess, UserSearchPath, fInvadeProcess) {
-        UserSearchPath := UserSearchPath is String? StrPtr(UserSearchPath) : UserSearchPath
+        UserSearchPath := UserSearchPath is String ? StrPtr(UserSearchPath) : UserSearchPath
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymInitializeW", "ptr", hProcess, "ptr", UserSearchPath, "int", fInvadeProcess, "int")
+        result := DllCall("dbghelp.dll\SymInitializeW", "ptr", hProcess, "ptr", UserSearchPath, "ptr", fInvadeProcess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7578,22 +7738,23 @@ class Debug {
 
     /**
      * Retrieves the symbol search path for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} SearchPathA 
+     * @param {PSTR} SearchPathA 
      * @param {Integer} SearchPathLength The size of the <i>SearchPath</i> buffer, in characters.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsearchpath
      */
     static SymGetSearchPath(hProcess, SearchPathA, SearchPathLength) {
-        SearchPathA := SearchPathA is String? StrPtr(SearchPathA) : SearchPathA
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSearchPath", "ptr", hProcess, "ptr", SearchPathA, "uint", SearchPathLength, "int")
+        result := DllCall("dbghelp.dll\SymGetSearchPath", "ptr", hProcess, "ptr", SearchPathA, "uint", SearchPathLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7602,22 +7763,23 @@ class Debug {
 
     /**
      * Retrieves the symbol search path for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} SearchPathA 
+     * @param {PWSTR} SearchPathA 
      * @param {Integer} SearchPathLength The size of the <i>SearchPath</i> buffer, in characters.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsearchpathw
      */
     static SymGetSearchPathW(hProcess, SearchPathA, SearchPathLength) {
-        SearchPathA := SearchPathA is String? StrPtr(SearchPathA) : SearchPathA
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSearchPathW", "ptr", hProcess, "ptr", SearchPathA, "uint", SearchPathLength, "int")
+        result := DllCall("dbghelp.dll\SymGetSearchPathW", "ptr", hProcess, "ptr", SearchPathA, "uint", SearchPathLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7626,21 +7788,22 @@ class Debug {
 
     /**
      * Sets the search path for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} SearchPathA 
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {PSTR} SearchPathA 
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetsearchpath
      */
     static SymSetSearchPath(hProcess, SearchPathA) {
-        SearchPathA := SearchPathA is String? StrPtr(SearchPathA) : SearchPathA
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetSearchPath", "ptr", hProcess, "ptr", SearchPathA, "int")
+        result := DllCall("dbghelp.dll\SymSetSearchPath", "ptr", hProcess, "ptr", SearchPathA, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7649,21 +7812,22 @@ class Debug {
 
     /**
      * Sets the search path for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} SearchPathA 
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @param {PWSTR} SearchPathA 
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetsearchpathw
      */
     static SymSetSearchPathW(hProcess, SearchPathA) {
-        SearchPathA := SearchPathA is String? StrPtr(SearchPathA) : SearchPathA
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetSearchPathW", "ptr", hProcess, "ptr", SearchPathA, "int")
+        result := DllCall("dbghelp.dll\SymSetSearchPathW", "ptr", hProcess, "ptr", SearchPathA, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7672,11 +7836,11 @@ class Debug {
 
     /**
      * Loads the symbol table for the specified module.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Void>} hFile A handle to the file for the executable image. This argument is used mostly by debuggers, where the debugger passes the file handle obtained from a debugging event. A value of <b>NULL</b> indicates that <i>hFile</i> is not used.
-     * @param {Pointer<Byte>} ImageName The name of the executable image. This name can contain a partial path, a full path, or no path at all. If the file cannot be located by the name provided, the symbol search path is used.
-     * @param {Pointer<Byte>} ModuleName A shortcut name for the module. If the pointer value is <b>NULL</b>, the library creates a name using the base name of the symbol file.
+     * @param {HANDLE} hFile A handle to the file for the executable image. This argument is used mostly by debuggers, where the debugger passes the file handle obtained from a debugging event. A value of <b>NULL</b> indicates that <i>hFile</i> is not used.
+     * @param {PSTR} ImageName The name of the executable image. This name can contain a partial path, a full path, or no path at all. If the file cannot be located by the name provided, the symbol search path is used.
+     * @param {PSTR} ModuleName A shortcut name for the module. If the pointer value is <b>NULL</b>, the library creates a name using the base name of the symbol file.
      * @param {Integer} BaseOfDll The load address of the module. If the value is zero, the library obtains the load address from the symbol file. The load address contained in the symbol file is not necessarily the actual load address. Debuggers and other applications having an actual load address should use the real load address when calling this function.
      * 
      * If the image is a .pdb file, this parameter cannot be zero.
@@ -7695,8 +7859,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symloadmoduleex
      */
     static SymLoadModuleEx(hProcess, hFile, ImageName, ModuleName, BaseOfDll, DllSize, Data, Flags) {
-        ImageName := ImageName is String? StrPtr(ImageName) : ImageName
-        ModuleName := ModuleName is String? StrPtr(ModuleName) : ModuleName
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -7709,11 +7875,11 @@ class Debug {
 
     /**
      * Loads the symbol table for the specified module.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Void>} hFile A handle to the file for the executable image. This argument is used mostly by debuggers, where the debugger passes the file handle obtained from a debugging event. A value of <b>NULL</b> indicates that <i>hFile</i> is not used.
-     * @param {Pointer<Char>} ImageName The name of the executable image. This name can contain a partial path, a full path, or no path at all. If the file cannot be located by the name provided, the symbol search path is used.
-     * @param {Pointer<Char>} ModuleName A shortcut name for the module. If the pointer value is <b>NULL</b>, the library creates a name using the base name of the symbol file.
+     * @param {HANDLE} hFile A handle to the file for the executable image. This argument is used mostly by debuggers, where the debugger passes the file handle obtained from a debugging event. A value of <b>NULL</b> indicates that <i>hFile</i> is not used.
+     * @param {PWSTR} ImageName The name of the executable image. This name can contain a partial path, a full path, or no path at all. If the file cannot be located by the name provided, the symbol search path is used.
+     * @param {PWSTR} ModuleName A shortcut name for the module. If the pointer value is <b>NULL</b>, the library creates a name using the base name of the symbol file.
      * @param {Integer} BaseOfDll The load address of the module. If the value is zero, the library obtains the load address from the symbol file. The load address contained in the symbol file is not necessarily the actual load address. Debuggers and other applications having an actual load address should use the real load address when calling this function.
      * 
      * If the image is a .pdb file, this parameter cannot be zero.
@@ -7732,8 +7898,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symloadmoduleexw
      */
     static SymLoadModuleExW(hProcess, hFile, ImageName, ModuleName, BaseOfDll, DllSize, Data, Flags) {
-        ImageName := ImageName is String? StrPtr(ImageName) : ImageName
-        ModuleName := ModuleName is String? StrPtr(ModuleName) : ModuleName
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -7746,19 +7914,21 @@ class Debug {
 
     /**
      * Unloads the symbol table.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module that is to be unloaded.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symunloadmodule64
      */
     static SymUnloadModule64(hProcess, BaseOfDll) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymUnloadModule64", "ptr", hProcess, "uint", BaseOfDll, "int")
+        result := DllCall("dbghelp.dll\SymUnloadModule64", "ptr", hProcess, "uint", BaseOfDll, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7767,19 +7937,21 @@ class Debug {
 
     /**
      * Unloads the symbol table.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module that is to be unloaded.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symunloadmodule
      */
     static SymUnloadModule(hProcess, BaseOfDll) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymUnloadModule", "ptr", hProcess, "uint", BaseOfDll, "int")
+        result := DllCall("dbghelp.dll\SymUnloadModule", "ptr", hProcess, "uint", BaseOfDll, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7790,20 +7962,20 @@ class Debug {
      * Undecorates a decorated C++ symbol name.
      * @param {Pointer<IMAGEHLP_SYMBOL64>} sym A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure that specifies the symbol to be undecorated.
-     * @param {Pointer<Byte>} UnDecName A pointer to a buffer that receives the undecorated name.
+     * @param {PSTR} UnDecName A pointer to a buffer that receives the undecorated name.
      * @param {Integer} UnDecNameLength The size of the <i>UnDecName</i> buffer, in characters.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symundname64
      */
     static SymUnDName64(sym, UnDecName, UnDecNameLength) {
-        UnDecName := UnDecName is String? StrPtr(UnDecName) : UnDecName
+        UnDecName := UnDecName is String ? StrPtr(UnDecName) : UnDecName
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymUnDName64", "ptr", sym, "ptr", UnDecName, "uint", UnDecNameLength, "int")
+        result := DllCall("dbghelp.dll\SymUnDName64", "ptr", sym, "ptr", UnDecName, "uint", UnDecNameLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7814,20 +7986,20 @@ class Debug {
      * Undecorates a decorated C++ symbol name.
      * @param {Pointer<IMAGEHLP_SYMBOL>} sym A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure that specifies the symbol to be undecorated.
-     * @param {Pointer<Byte>} UnDecName A pointer to a buffer that receives the undecorated name.
+     * @param {PSTR} UnDecName A pointer to a buffer that receives the undecorated name.
      * @param {Integer} UnDecNameLength The size of the <i>UnDecName</i> buffer, in characters.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symundname
      */
     static SymUnDName(sym, UnDecName, UnDecNameLength) {
-        UnDecName := UnDecName is String? StrPtr(UnDecName) : UnDecName
+        UnDecName := UnDecName is String ? StrPtr(UnDecName) : UnDecName
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymUnDName", "ptr", sym, "ptr", UnDecName, "uint", UnDecNameLength, "int")
+        result := DllCall("dbghelp.dll\SymUnDName", "ptr", sym, "ptr", UnDecName, "uint", UnDecNameLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7836,20 +8008,22 @@ class Debug {
 
     /**
      * Registers a callback function for use by the symbol handler.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<PSYMBOL_REGISTERED_CALLBACK64>} CallbackFunction A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psymbol_registered_callback">SymRegisterCallbackProc64</a> callback function.
      * @param {Integer} UserContext A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. Normally, this parameter is used by an application to pass a pointer to a data structure that lets the callback function establish some context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symregistercallback64
      */
     static SymRegisterCallback64(hProcess, CallbackFunction, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRegisterCallback64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymRegisterCallback64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7858,20 +8032,22 @@ class Debug {
 
     /**
      * Registers a callback function for use by the symbol handler.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<PSYMBOL_REGISTERED_CALLBACK64>} CallbackFunction A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psymbol_registered_callback">SymRegisterCallbackProc64</a> callback function.
      * @param {Integer} UserContext A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. Normally, this parameter is used by an application to pass a pointer to a data structure that lets the callback function establish some context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symregistercallbackw64
      */
     static SymRegisterCallbackW64(hProcess, CallbackFunction, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRegisterCallbackW64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymRegisterCallbackW64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7880,20 +8056,22 @@ class Debug {
 
     /**
      * Registers a callback function for use by the stack walking procedure on Alpha computers.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-stackwalk">StackWalk64</a> function.
      * @param {Pointer<PSYMBOL_FUNCENTRY_CALLBACK64>} CallbackFunction A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psymbol_funcentry_callback">SymRegisterFunctionEntryCallbackProc64</a> callback function.
      * @param {Integer} UserContext A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. Normally, this parameter is used by an application to pass a pointer to a data structure that lets the callback function establish some context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symregisterfunctionentrycallback64
      */
     static SymRegisterFunctionEntryCallback64(hProcess, CallbackFunction, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRegisterFunctionEntryCallback64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymRegisterFunctionEntryCallback64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7902,20 +8080,22 @@ class Debug {
 
     /**
      * Registers a callback function for use by the symbol handler.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<PSYMBOL_REGISTERED_CALLBACK>} CallbackFunction A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psymbol_registered_callback">SymRegisterCallbackProc64</a> callback function.
      * @param {Pointer<Void>} UserContext A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. Normally, this parameter is used by an application to pass a pointer to a data structure that lets the callback function establish some context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symregistercallback
      */
     static SymRegisterCallback(hProcess, CallbackFunction, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRegisterCallback", "ptr", hProcess, "ptr", CallbackFunction, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymRegisterCallback", "ptr", hProcess, "ptr", CallbackFunction, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7924,20 +8104,22 @@ class Debug {
 
     /**
      * Registers a callback function for use by the stack walking procedure on Alpha computers.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-stackwalk">StackWalk64</a> function.
      * @param {Pointer<PSYMBOL_FUNCENTRY_CALLBACK>} CallbackFunction A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psymbol_funcentry_callback">SymRegisterFunctionEntryCallbackProc64</a> callback function.
      * @param {Pointer<Void>} UserContext A user-defined value or <b>NULL</b>. This value is simply passed to the callback function. Normally, this parameter is used by an application to pass a pointer to a data structure that lets the callback function establish some context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symregisterfunctionentrycallback
      */
     static SymRegisterFunctionEntryCallback(hProcess, CallbackFunction, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRegisterFunctionEntryCallback", "ptr", hProcess, "ptr", CallbackFunction, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymRegisterFunctionEntryCallback", "ptr", hProcess, "ptr", CallbackFunction, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7946,21 +8128,23 @@ class Debug {
 
     /**
      * Sets context information used by the SymEnumSymbols function. This function only works with PDB symbols.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_STACK_FRAME>} StackFrame A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_stack_frame">IMAGEHLP_STACK_FRAME</a> 
      *       structure that contains frame information.
      * @param {Pointer<Void>} Context This parameter is ignored.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetcontext
      */
     static SymSetContext(hProcess, StackFrame, Context) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetContext", "ptr", hProcess, "ptr", StackFrame, "ptr", Context, "int")
+        result := DllCall("dbghelp.dll\SymSetContext", "ptr", hProcess, "ptr", StackFrame, "ptr", Context, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7969,10 +8153,10 @@ class Debug {
 
     /**
      * Sets the local scope to the symbol that matches the specified address.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -7980,9 +8164,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetscopefromaddr
      */
     static SymSetScopeFromAddr(hProcess, Address) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetScopeFromAddr", "ptr", hProcess, "uint", Address, "int")
+        result := DllCall("dbghelp.dll\SymSetScopeFromAddr", "ptr", hProcess, "uint", Address, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7991,20 +8177,22 @@ class Debug {
 
     /**
      * Sets the local scope to the symbol that matches the specified address and inline context.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address.
      * @param {Integer} InlineContext The inline context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetscopefrominlinecontext
      */
     static SymSetScopeFromInlineContext(hProcess, Address, InlineContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetScopeFromInlineContext", "ptr", hProcess, "uint", Address, "uint", InlineContext, "int")
+        result := DllCall("dbghelp.dll\SymSetScopeFromInlineContext", "ptr", hProcess, "uint", Address, "uint", InlineContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8013,20 +8201,22 @@ class Debug {
 
     /**
      * Sets the local scope to the symbol that matches the specified index.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {Integer} Index The unique value for the symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetscopefromindex
      */
     static SymSetScopeFromIndex(hProcess, BaseOfDll, Index) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetScopeFromIndex", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "int")
+        result := DllCall("dbghelp.dll\SymSetScopeFromIndex", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8037,7 +8227,7 @@ class Debug {
      * Enumerates each process that has called the SymInitialize function.
      * @param {Pointer<PSYM_ENUMPROCESSES_CALLBACK>} EnumProcessesCallback A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumprocesses_callback">SymEnumProcessesProc</a> callback function that receives the process information.
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -8047,7 +8237,7 @@ class Debug {
     static SymEnumProcesses(EnumProcessesCallback, UserContext) {
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumProcesses", "ptr", EnumProcessesCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumProcesses", "ptr", EnumProcessesCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8056,23 +8246,25 @@ class Debug {
 
     /**
      * Retrieves symbol information for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
      * @param {Pointer<UInt64>} Displacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<SYMBOL_INFO>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol. The symbol name is variable in length; therefore this buffer must be large enough to hold the name stored at the end of the 
      * <b>SYMBOL_INFO</b> structure. Be sure to set the <b>MaxNameLen</b> member to the number of bytes reserved for the name.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfromaddr
      */
     static SymFromAddr(hProcess, Address, Displacement, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromAddr", "ptr", hProcess, "uint", Address, "uint*", Displacement, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymFromAddr", "ptr", hProcess, "uint", Address, "uint*", Displacement, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8081,23 +8273,25 @@ class Debug {
 
     /**
      * Retrieves symbol information for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
      * @param {Pointer<UInt64>} Displacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<SYMBOL_INFOW>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol. The symbol name is variable in length; therefore this buffer must be large enough to hold the name stored at the end of the 
      * <b>SYMBOL_INFO</b> structure. Be sure to set the <b>MaxNameLen</b> member to the number of bytes reserved for the name.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfromaddrw
      */
     static SymFromAddrW(hProcess, Address, Displacement, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromAddrW", "ptr", hProcess, "uint", Address, "uint*", Displacement, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymFromAddrW", "ptr", hProcess, "uint", Address, "uint*", Displacement, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8106,7 +8300,7 @@ class Debug {
 
     /**
      * Retrieves symbol information for the specified address and inline context.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If 
      *       the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
@@ -8117,16 +8311,18 @@ class Debug {
      *       large enough to hold the name stored at the end of the 
      *       <b>SYMBOL_INFO</b> structure. Be sure to set the 
      *       <b>MaxNameLen</b> member to the number of bytes reserved for the name.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfrominlinecontext
      */
     static SymFromInlineContext(hProcess, Address, InlineContext, Displacement, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromInlineContext", "ptr", hProcess, "uint", Address, "uint", InlineContext, "uint*", Displacement, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymFromInlineContext", "ptr", hProcess, "uint", Address, "uint", InlineContext, "uint*", Displacement, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8135,7 +8331,7 @@ class Debug {
 
     /**
      * Retrieves symbol information for the specified address and inline context.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address for which a symbol should be located. The address does not have to be on a symbol boundary. If 
      *       the address comes after the beginning of a symbol and before the end of the symbol, the symbol is found.
@@ -8146,16 +8342,18 @@ class Debug {
      *       large enough to hold the name stored at the end of the 
      *       <b>SYMBOL_INFO</b> structure. Be sure to set the 
      *       <b>MaxNameLen</b> member to the number of bytes reserved for the name.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfrominlinecontextw
      */
     static SymFromInlineContextW(hProcess, Address, InlineContext, Displacement, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromInlineContextW", "ptr", hProcess, "uint", Address, "uint", InlineContext, "uint*", Displacement, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymFromInlineContextW", "ptr", hProcess, "uint", Address, "uint", InlineContext, "uint*", Displacement, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8164,22 +8362,24 @@ class Debug {
 
     /**
      * Retrieves symbol information for the specified managed code token.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the managed code module.
      * @param {Integer} Token The managed code token.
      * @param {Pointer<SYMBOL_INFO>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfromtoken
      */
     static SymFromToken(hProcess, Base, Token, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromToken", "ptr", hProcess, "uint", Base, "uint", Token, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymFromToken", "ptr", hProcess, "uint", Base, "uint", Token, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8188,22 +8388,24 @@ class Debug {
 
     /**
      * Retrieves symbol information for the specified managed code token.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the managed code module.
      * @param {Integer} Token The managed code token.
      * @param {Pointer<SYMBOL_INFOW>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfromtokenw
      */
     static SymFromTokenW(hProcess, Base, Token, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromTokenW", "ptr", hProcess, "uint", Base, "uint", Token, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymFromTokenW", "ptr", hProcess, "uint", Base, "uint", Token, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8212,11 +8414,11 @@ class Debug {
 
     /**
      * Retrieves symbol information for the next symbol.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<SYMBOL_INFO>} si A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the current symbol. Upon return, the structure contains information about the next symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -8224,9 +8426,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symnext
      */
     static SymNext(hProcess, si) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymNext", "ptr", hProcess, "ptr", si, "int")
+        result := DllCall("dbghelp.dll\SymNext", "ptr", hProcess, "ptr", si, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8235,11 +8439,11 @@ class Debug {
 
     /**
      * Retrieves symbol information for the next symbol.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<SYMBOL_INFOW>} siw A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the current symbol. Upon return, the structure contains information about the next symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -8247,9 +8451,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symnextw
      */
     static SymNextW(hProcess, siw) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymNextW", "ptr", hProcess, "ptr", siw, "int")
+        result := DllCall("dbghelp.dll\SymNextW", "ptr", hProcess, "ptr", siw, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8258,11 +8464,11 @@ class Debug {
 
     /**
      * Retrieves symbol information for the previous symbol.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<SYMBOL_INFO>} si A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the current symbol. Upon return, the structure contains information about the previous symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -8270,9 +8476,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symprev
      */
     static SymPrev(hProcess, si) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymPrev", "ptr", hProcess, "ptr", si, "int")
+        result := DllCall("dbghelp.dll\SymPrev", "ptr", hProcess, "ptr", si, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8281,11 +8489,11 @@ class Debug {
 
     /**
      * Retrieves symbol information for the previous symbol.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<SYMBOL_INFOW>} siw A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the current symbol. Upon return, the structure contains information about the previous symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -8293,9 +8501,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symprevw
      */
     static SymPrevW(hProcess, siw) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymPrevW", "ptr", hProcess, "ptr", siw, "int")
+        result := DllCall("dbghelp.dll\SymPrevW", "ptr", hProcess, "ptr", siw, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8304,23 +8514,24 @@ class Debug {
 
     /**
      * Retrieves symbol information for the specified name.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} Name The name of the symbol to be located.
+     * @param {PSTR} Name The name of the symbol to be located.
      * @param {Pointer<SYMBOL_INFO>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfromname
      */
     static SymFromName(hProcess, Name, Symbol) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromName", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymFromName", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8329,23 +8540,24 @@ class Debug {
 
     /**
      * Retrieves symbol information for the specified name.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} Name The name of the symbol to be located.
+     * @param {PWSTR} Name The name of the symbol to be located.
      * @param {Pointer<SYMBOL_INFOW>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfromnamew
      */
     static SymFromNameW(hProcess, Name, Symbol) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromNameW", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymFromNameW", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8354,13 +8566,13 @@ class Debug {
 
     /**
      * Enumerates all symbols in a process.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module. If this value is zero and <i>Mask</i> contains an 
      *       exclamation point (!), the function looks across modules. If this value is zero and 
      *       <i>Mask</i> does not contain an exclamation point, the function uses the scope established by 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetcontext">SymSetContext</a> function.
-     * @param {Pointer<Byte>} Mask A wildcard string that indicates the names of the symbols to be enumerated. The text can optionally contain 
+     * @param {PSTR} Mask A wildcard string that indicates the names of the symbols to be enumerated. The text can optionally contain 
      *        the wildcards, "*" and "?".
      * 
      * To specify a specific module or set of modules, begin the text with a wildcard string specifying the module, 
@@ -8437,18 +8649,19 @@ class Debug {
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This 
      *       parameter is typically used by an application to pass a pointer to a data structure that provides context for 
      *       the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsymbols
      */
     static SymEnumSymbols(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserContext) {
-        Mask := Mask is String? StrPtr(Mask) : Mask
+        Mask := Mask is String ? StrPtr(Mask) : Mask
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbols", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumSymbols", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8457,13 +8670,13 @@ class Debug {
 
     /**
      * Enumerates all symbols in a process.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module. If this value is zero and <i>Mask</i> contains an 
      *       exclamation point (!), the function looks across modules. If this value is zero and 
      *       <i>Mask</i> does not contain an exclamation point, the function uses the scope established by 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetcontext">SymSetContext</a> function.
-     * @param {Pointer<Byte>} Mask A wildcard string that indicates the names of the symbols to be enumerated. The text can optionally contain 
+     * @param {PSTR} Mask A wildcard string that indicates the names of the symbols to be enumerated. The text can optionally contain 
      *        the wildcards, "*" and "?".
      * 
      * To specify a specific module or set of modules, begin the text with a wildcard string specifying the module, 
@@ -8572,18 +8785,19 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsymbolsex
      */
     static SymEnumSymbolsEx(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserContext, Options) {
-        Mask := Mask is String? StrPtr(Mask) : Mask
+        Mask := Mask is String ? StrPtr(Mask) : Mask
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbolsEx", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "int")
+        result := DllCall("dbghelp.dll\SymEnumSymbolsEx", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8592,13 +8806,13 @@ class Debug {
 
     /**
      * Enumerates all symbols in a process.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module. If this value is zero and <i>Mask</i> contains an 
      *       exclamation point (!), the function looks across modules. If this value is zero and 
      *       <i>Mask</i> does not contain an exclamation point, the function uses the scope established by 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetcontext">SymSetContext</a> function.
-     * @param {Pointer<Char>} Mask A wildcard string that indicates the names of the symbols to be enumerated. The text can optionally contain 
+     * @param {PWSTR} Mask A wildcard string that indicates the names of the symbols to be enumerated. The text can optionally contain 
      *        the wildcards, "*" and "?".
      * 
      * To specify a specific module or set of modules, begin the text with a wildcard string specifying the module, 
@@ -8675,18 +8889,19 @@ class Debug {
      * @param {Pointer<Void>} UserContext A user-defined value that is passed to the callback function, or <b>NULL</b>. This 
      *       parameter is typically used by an application to pass a pointer to a data structure that provides context for 
      *       the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsymbolsw
      */
     static SymEnumSymbolsW(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserContext) {
-        Mask := Mask is String? StrPtr(Mask) : Mask
+        Mask := Mask is String ? StrPtr(Mask) : Mask
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbolsW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumSymbolsW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8695,13 +8910,13 @@ class Debug {
 
     /**
      * Enumerates all symbols in a process.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module. If this value is zero and <i>Mask</i> contains an 
      *       exclamation point (!), the function looks across modules. If this value is zero and 
      *       <i>Mask</i> does not contain an exclamation point, the function uses the scope established by 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetcontext">SymSetContext</a> function.
-     * @param {Pointer<Char>} Mask A wildcard string that indicates the names of the symbols to be enumerated. The text can optionally contain 
+     * @param {PWSTR} Mask A wildcard string that indicates the names of the symbols to be enumerated. The text can optionally contain 
      *        the wildcards, "*" and "?".
      * 
      * To specify a specific module or set of modules, begin the text with a wildcard string specifying the module, 
@@ -8810,18 +9025,19 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsymbolsexw
      */
     static SymEnumSymbolsExW(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserContext, Options) {
-        Mask := Mask is String? StrPtr(Mask) : Mask
+        Mask := Mask is String ? StrPtr(Mask) : Mask
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbolsExW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "int")
+        result := DllCall("dbghelp.dll\SymEnumSymbolsExW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8830,22 +9046,24 @@ class Debug {
 
     /**
      * Enumerates the symbols for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address for which symbols are to be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol (the beginning of the symbol plus the symbol size), the function will find the symbol.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACK>} EnumSymbolsCallback An application-defined callback function. This function is called for every symbol found at <i>Address</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a>.
      * @param {Pointer<Void>} UserContext Optional user-defined data. This value is passed to the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsymbolsforaddr
      */
     static SymEnumSymbolsForAddr(hProcess, Address, EnumSymbolsCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbolsForAddr", "ptr", hProcess, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumSymbolsForAddr", "ptr", hProcess, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8854,22 +9072,24 @@ class Debug {
 
     /**
      * Enumerates the symbols for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Address The address for which symbols are to be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol (the beginning of the symbol plus the symbol size), the function will find the symbol.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACKW>} EnumSymbolsCallback An application-defined callback function. This function is called for every symbol found at <i>Address</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a>.
      * @param {Pointer<Void>} UserContext Optional user-defined data. This value is passed to the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsymbolsforaddrw
      */
     static SymEnumSymbolsForAddrW(hProcess, Address, EnumSymbolsCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbolsForAddrW", "ptr", hProcess, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumSymbolsForAddrW", "ptr", hProcess, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8878,13 +9098,13 @@ class Debug {
 
     /**
      * Searches for PDB symbols that meet the specified criteria.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module. If this value is zero and <i>Mask</i> contains an exclamation point (!), the function looks across modules. If this value is zero and <i>Mask</i> does not contain an exclamation point, the function uses the scope established by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetcontext">SymSetContext</a> function.
      * @param {Integer} Index A unique value for the symbol.
      * @param {Integer} SymTag The PDB classification. These values are defined in Dbghelp.h in the <b>SymTagEnum</b> enumeration type. For  descriptions, see the PDB documentation.
-     * @param {Pointer<Byte>} Mask A wildcard expression that indicates the names of the symbols to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
+     * @param {PSTR} Mask A wildcard expression that indicates the names of the symbols to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
      * @param {Integer} Address The address of the symbol.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACK>} EnumSymbolsCallback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a> callback function that receives the symbol information.
@@ -8943,7 +9163,7 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -8951,11 +9171,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsearch
      */
     static SymSearch(hProcess, BaseOfDll, Index, SymTag, Mask, Address, EnumSymbolsCallback, UserContext, Options) {
-        Mask := Mask is String? StrPtr(Mask) : Mask
+        Mask := Mask is String ? StrPtr(Mask) : Mask
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSearch", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "uint", SymTag, "ptr", Mask, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "int")
+        result := DllCall("dbghelp.dll\SymSearch", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "uint", SymTag, "ptr", Mask, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8964,13 +9185,13 @@ class Debug {
 
     /**
      * Searches for PDB symbols that meet the specified criteria.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module. If this value is zero and <i>Mask</i> contains an exclamation point (!), the function looks across modules. If this value is zero and <i>Mask</i> does not contain an exclamation point, the function uses the scope established by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetcontext">SymSetContext</a> function.
      * @param {Integer} Index A unique value for the symbol.
      * @param {Integer} SymTag The PDB classification. These values are defined in Dbghelp.h in the <b>SymTagEnum</b> enumeration type. For  descriptions, see the PDB documentation.
-     * @param {Pointer<Char>} Mask A wildcard expression that indicates the names of the symbols to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
+     * @param {PWSTR} Mask A wildcard expression that indicates the names of the symbols to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
      * @param {Integer} Address The address of the symbol.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACKW>} EnumSymbolsCallback A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a> callback function that receives the symbol information.
@@ -9029,7 +9250,7 @@ class Debug {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9037,11 +9258,12 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsearchw
      */
     static SymSearchW(hProcess, BaseOfDll, Index, SymTag, Mask, Address, EnumSymbolsCallback, UserContext, Options) {
-        Mask := Mask is String? StrPtr(Mask) : Mask
+        Mask := Mask is String ? StrPtr(Mask) : Mask
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSearchW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "uint", SymTag, "ptr", Mask, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "int")
+        result := DllCall("dbghelp.dll\SymSearchW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "uint", SymTag, "ptr", Mask, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9050,13 +9272,13 @@ class Debug {
 
     /**
      * Retrieves the scope for the specified index.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {Integer} Index A unique value for the symbol.
      * @param {Pointer<SYMBOL_INFO>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure. The <b>Scope</b> member contains the scope.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9064,9 +9286,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetscope
      */
     static SymGetScope(hProcess, BaseOfDll, Index, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetScope", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetScope", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9075,13 +9299,13 @@ class Debug {
 
     /**
      * Retrieves the scope for the specified index.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {Integer} Index A unique value for the symbol.
      * @param {Pointer<SYMBOL_INFOW>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure. The <b>Scope</b> member contains the scope.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9089,9 +9313,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetscopew
      */
     static SymGetScopeW(hProcess, BaseOfDll, Index, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetScopeW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetScopeW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9100,13 +9326,13 @@ class Debug {
 
     /**
      * Retrieves symbol information for the specified index.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {Integer} Index A unique value for the symbol.
      * @param {Pointer<SYMBOL_INFO>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9114,9 +9340,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfromindex
      */
     static SymFromIndex(hProcess, BaseOfDll, Index, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromIndex", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymFromIndex", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9125,13 +9353,13 @@ class Debug {
 
     /**
      * Retrieves symbol information for the specified index.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {Integer} Index A unique value for the symbol.
      * @param {Pointer<SYMBOL_INFOW>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that provides information about the symbol.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9139,9 +9367,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfromindexw
      */
     static SymFromIndexW(hProcess, BaseOfDll, Index, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromIndexW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymFromIndexW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9150,23 +9380,25 @@ class Debug {
 
     /**
      * Retrieves type information for the specified type index.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} ModBase The base address of the module.
      * @param {Integer} TypeId The type index. (A number of functions return a type index in the <b>TypeIndex</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure.)
      * @param {Integer} GetType The information type. This parameter can be one of more of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ne-dbghelp-imagehlp_symbol_type_info">IMAGEHLP_SYMBOL_TYPE_INFO</a> enumeration type.
      * @param {Pointer<Void>} pInfo The data. The format of the data depends on the value of the <i>GetType</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgettypeinfo
      */
     static SymGetTypeInfo(hProcess, ModBase, TypeId, GetType, pInfo) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetTypeInfo", "ptr", hProcess, "uint", ModBase, "uint", TypeId, "int", GetType, "ptr", pInfo, "int")
+        result := DllCall("dbghelp.dll\SymGetTypeInfo", "ptr", hProcess, "uint", ModBase, "uint", TypeId, "int", GetType, "ptr", pInfo, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9175,20 +9407,22 @@ class Debug {
 
     /**
      * Retrieves multiple pieces of type information.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} ModBase The base address of the module.
      * @param {Pointer<IMAGEHLP_GET_TYPE_INFO_PARAMS>} Params A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_get_type_info_params">IMAGEHLP_GET_TYPE_INFO_PARAMS</a> structure that specifies input and output information for the query.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgettypeinfoex
      */
     static SymGetTypeInfoEx(hProcess, ModBase, Params) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetTypeInfoEx", "ptr", hProcess, "uint", ModBase, "ptr", Params, "int")
+        result := DllCall("dbghelp.dll\SymGetTypeInfoEx", "ptr", hProcess, "uint", ModBase, "ptr", Params, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9197,22 +9431,24 @@ class Debug {
 
     /**
      * Enumerates all user-defined types.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACK>} EnumSymbolsCallback A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a> callback function that receives the symbol information.
      * @param {Pointer<Void>} UserContext A user-defined value to be passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context information for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumtypes
      */
     static SymEnumTypes(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumTypes", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumTypes", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9221,22 +9457,24 @@ class Debug {
 
     /**
      * Enumerates all user-defined types.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACKW>} EnumSymbolsCallback A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a> callback function that receives the symbol information.
      * @param {Pointer<Void>} UserContext A user-defined value to be passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context information for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumtypesw
      */
     static SymEnumTypesW(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumTypesW", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumTypesW", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9245,25 +9483,26 @@ class Debug {
 
     /**
      * Enumerates all user-defined types.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
-     * @param {Pointer<Byte>} mask A wildcard expression that indicates the names of the symbols to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
+     * @param {PSTR} mask A wildcard expression that indicates the names of the symbols to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACK>} EnumSymbolsCallback A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a> callback function that receives the symbol information.
      * @param {Pointer<Void>} UserContext A user-defined value to be passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context information for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumtypesbyname
      */
     static SymEnumTypesByName(hProcess, BaseOfDll, mask, EnumSymbolsCallback, UserContext) {
-        mask := mask is String? StrPtr(mask) : mask
+        mask := mask is String ? StrPtr(mask) : mask
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumTypesByName", "ptr", hProcess, "uint", BaseOfDll, "ptr", mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumTypesByName", "ptr", hProcess, "uint", BaseOfDll, "ptr", mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9272,25 +9511,26 @@ class Debug {
 
     /**
      * Enumerates all user-defined types.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
-     * @param {Pointer<Char>} mask A wildcard expression that indicates the names of the symbols to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
+     * @param {PWSTR} mask A wildcard expression that indicates the names of the symbols to be enumerated. To specify a module name, use the !<i>mod</i> syntax.
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACKW>} EnumSymbolsCallback A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumeratesymbols_callback">SymEnumSymbolsProc</a> callback function that receives the symbol information.
      * @param {Pointer<Void>} UserContext A user-defined value to be passed to the callback function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context information for the callback function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumtypesbynamew
      */
     static SymEnumTypesByNameW(hProcess, BaseOfDll, mask, EnumSymbolsCallback, UserContext) {
-        mask := mask is String? StrPtr(mask) : mask
+        mask := mask is String ? StrPtr(mask) : mask
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumTypesByNameW", "ptr", hProcess, "uint", BaseOfDll, "ptr", mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumTypesByNameW", "ptr", hProcess, "uint", BaseOfDll, "ptr", mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9299,24 +9539,25 @@ class Debug {
 
     /**
      * Retrieves a type index for the specified type name.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
-     * @param {Pointer<Byte>} Name The name of the type.
+     * @param {PSTR} Name The name of the type.
      * @param {Pointer<SYMBOL_INFO>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure. The <b>TypeIndex</b> member contains the type index.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgettypefromname
      */
     static SymGetTypeFromName(hProcess, BaseOfDll, Name, Symbol) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetTypeFromName", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetTypeFromName", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9325,24 +9566,25 @@ class Debug {
 
     /**
      * Retrieves a type index for the specified type name.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
-     * @param {Pointer<Char>} Name The name of the type.
+     * @param {PWSTR} Name The name of the type.
      * @param {Pointer<SYMBOL_INFOW>} Symbol A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure. The <b>TypeIndex</b> member contains the type index.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgettypefromnamew
      */
     static SymGetTypeFromNameW(hProcess, BaseOfDll, Name, Symbol) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetTypeFromNameW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetTypeFromNameW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9351,25 +9593,26 @@ class Debug {
 
     /**
      * Adds a virtual symbol to the specified module.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
-     * @param {Pointer<Byte>} Name The name of the symbol. The maximum size of a symbol name is MAX_SYM_NAME characters.
+     * @param {PSTR} Name The name of the symbol. The maximum size of a symbol name is MAX_SYM_NAME characters.
      * @param {Integer} Address The address of the symbol. This address must be within the address range of the specified module.
      * @param {Integer} Size The size of the symbol, in bytes. This parameter is optional.
      * @param {Integer} Flags This parameter is unused.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddsymbol
      */
     static SymAddSymbol(hProcess, BaseOfDll, Name, Address, Size, Flags) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymAddSymbol", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Size, "uint", Flags, "int")
+        result := DllCall("dbghelp.dll\SymAddSymbol", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Size, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9378,25 +9621,26 @@ class Debug {
 
     /**
      * Adds a virtual symbol to the specified module.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
-     * @param {Pointer<Char>} Name The name of the symbol. The maximum size of a symbol name is MAX_SYM_NAME characters.
+     * @param {PWSTR} Name The name of the symbol. The maximum size of a symbol name is MAX_SYM_NAME characters.
      * @param {Integer} Address The address of the symbol. This address must be within the address range of the specified module.
      * @param {Integer} Size The size of the symbol, in bytes. This parameter is optional.
      * @param {Integer} Flags This parameter is unused.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddsymbolw
      */
     static SymAddSymbolW(hProcess, BaseOfDll, Name, Address, Size, Flags) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymAddSymbolW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Size, "uint", Flags, "int")
+        result := DllCall("dbghelp.dll\SymAddSymbolW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Size, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9405,24 +9649,25 @@ class Debug {
 
     /**
      * Deletes a virtual symbol from the specified module.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
-     * @param {Pointer<Byte>} Name The name of the symbol.
+     * @param {PSTR} Name The name of the symbol.
      * @param {Integer} Address The address of the symbol. This address must be within the address range of the specified module.
      * @param {Integer} Flags This parameter is unused.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symdeletesymbol
      */
     static SymDeleteSymbol(hProcess, BaseOfDll, Name, Address, Flags) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymDeleteSymbol", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Flags, "int")
+        result := DllCall("dbghelp.dll\SymDeleteSymbol", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9431,24 +9676,25 @@ class Debug {
 
     /**
      * Deletes a virtual symbol from the specified module.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module.
-     * @param {Pointer<Char>} Name The name of the symbol.
+     * @param {PWSTR} Name The name of the symbol.
      * @param {Integer} Address The address of the symbol. This address must be within the address range of the specified module.
      * @param {Integer} Flags This parameter is unused.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symdeletesymbolw
      */
     static SymDeleteSymbolW(hProcess, BaseOfDll, Name, Address, Flags) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymDeleteSymbolW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Flags, "int")
+        result := DllCall("dbghelp.dll\SymDeleteSymbolW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9457,9 +9703,9 @@ class Debug {
 
     /**
      * Refreshes the module list for the process.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9467,9 +9713,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symrefreshmodulelist
      */
     static SymRefreshModuleList(hProcess) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRefreshModuleList", "ptr", hProcess, "int")
+        result := DllCall("dbghelp.dll\SymRefreshModuleList", "ptr", hProcess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9478,24 +9726,25 @@ class Debug {
 
     /**
      * Adds the stream to the specified module for use by the Source Server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Byte>} StreamFile A null-terminated string that contains the absolute or relative path to a file that contains the source indexing stream. Can be <b>NULL</b> if <i>Buffer</i> is not <b>NULL</b>.
+     * @param {PSTR} StreamFile A null-terminated string that contains the absolute or relative path to a file that contains the source indexing stream. Can be <b>NULL</b> if <i>Buffer</i> is not <b>NULL</b>.
      * @param {Pointer} Buffer A buffer that contains the source indexing stream. Can be <b>NULL</b> if <i>StreamFile</i> is not <b>NULL</b>.
      * @param {Pointer} Size Size, in bytes, of the <i>Buffer</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddsourcestream
      */
     static SymAddSourceStream(hProcess, Base, StreamFile, Buffer, Size) {
-        StreamFile := StreamFile is String? StrPtr(StreamFile) : StreamFile
+        StreamFile := StreamFile is String ? StrPtr(StreamFile) : StreamFile
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymAddSourceStream", "ptr", hProcess, "uint", Base, "ptr", StreamFile, "ptr", Buffer, "ptr", Size, "int")
+        result := DllCall("dbghelp.dll\SymAddSourceStream", "ptr", hProcess, "uint", Base, "ptr", StreamFile, "ptr", Buffer, "ptr", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9504,44 +9753,46 @@ class Debug {
 
     /**
      * Adds the stream to the specified module for use by the Source Server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Byte>} StreamFile A null-terminated string that contains the absolute or relative path to a file that contains the source indexing stream. Can be <b>NULL</b> if <i>Buffer</i> is not <b>NULL</b>.
+     * @param {PSTR} StreamFile A null-terminated string that contains the absolute or relative path to a file that contains the source indexing stream. Can be <b>NULL</b> if <i>Buffer</i> is not <b>NULL</b>.
      * @param {Pointer} Buffer A buffer that contains the source indexing stream. Can be <b>NULL</b> if <i>StreamFile</i> is not <b>NULL</b>.
      * @param {Pointer} Size Size, in bytes, of the <i>Buffer</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddsourcestreama
      */
     static SymAddSourceStreamA(hProcess, Base, StreamFile, Buffer, Size) {
-        StreamFile := StreamFile is String? StrPtr(StreamFile) : StreamFile
+        StreamFile := StreamFile is String ? StrPtr(StreamFile) : StreamFile
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymAddSourceStreamA", "ptr", hProcess, "uint", Base, "ptr", StreamFile, "ptr", Buffer, "ptr", Size, "int")
+        result := DllCall("dbghelp.dll\SymAddSourceStreamA", "ptr", hProcess, "uint", Base, "ptr", StreamFile, "ptr", Buffer, "ptr", Size, "ptr")
         return result
     }
 
     /**
      * Adds the stream to the specified module for use by the Source Server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} Base The base address of the module.
-     * @param {Pointer<Char>} FileSpec A null-terminated string that contains the absolute or relative path to a file that contains the source indexing stream. Can be <b>NULL</b> if <i>Buffer</i> is not <b>NULL</b>.
+     * @param {PWSTR} FileSpec A null-terminated string that contains the absolute or relative path to a file that contains the source indexing stream. Can be <b>NULL</b> if <i>Buffer</i> is not <b>NULL</b>.
      * @param {Pointer} Buffer A buffer that contains the source indexing stream. Can be <b>NULL</b> if <i>StreamFile</i> is not <b>NULL</b>.
      * @param {Pointer} Size Size, in bytes, of the <i>Buffer</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddsourcestreamw
      */
     static SymAddSourceStreamW(hProcess, Base, FileSpec, Buffer, Size) {
-        FileSpec := FileSpec is String? StrPtr(FileSpec) : FileSpec
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymAddSourceStreamW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Buffer, "ptr", Size, "int")
+        result := DllCall("dbghelp.dll\SymAddSourceStreamW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Buffer, "ptr", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9550,18 +9801,19 @@ class Debug {
 
     /**
      * Determines whether the specified path points to a symbol store.
-     * @param {Pointer<Void>} hProcess The handle of a process that you previously passed to the 
+     * @param {HANDLE} hProcess The handle of a process that you previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function. If this parameter is set to  <b>NULL</b>, the function determines only whether the store exists; otherwise, the function determines whether the store exists and contains a process entry for the specified process handle.
-     * @param {Pointer<Char>} path The path to a symbol store. The path can specify the default symbol store (for example, SRV*), point to an HTTP or HTTPS symbol server, or specify a UNC, absolute, or relative path to the store.
-     * @returns {Integer} If the path specifies a symbol store, the function returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @param {PWSTR} path The path to a symbol store. The path can specify the default symbol store (for example, SRV*), point to an HTTP or HTTPS symbol server, or specify a UNC, absolute, or relative path to the store.
+     * @returns {BOOL} If the path specifies a symbol store, the function returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvisstorew
      */
     static SymSrvIsStoreW(hProcess, path) {
-        path := path is String? StrPtr(path) : path
+        path := path is String ? StrPtr(path) : path
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvIsStoreW", "ptr", hProcess, "ptr", path, "int")
+        result := DllCall("dbghelp.dll\SymSrvIsStoreW", "ptr", hProcess, "ptr", path, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9570,18 +9822,19 @@ class Debug {
 
     /**
      * Determines whether the specified path points to a symbol store.
-     * @param {Pointer<Void>} hProcess The handle of a process that you previously passed to the 
+     * @param {HANDLE} hProcess The handle of a process that you previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function. If this parameter is set to  <b>NULL</b>, the function determines only whether the store exists; otherwise, the function determines whether the store exists and contains a process entry for the specified process handle.
-     * @param {Pointer<Byte>} path The path to a symbol store. The path can specify the default symbol store (for example, SRV*), point to an HTTP or HTTPS symbol server, or specify a UNC, absolute, or relative path to the store.
-     * @returns {Integer} If the path specifies a symbol store, the function returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @param {PSTR} path The path to a symbol store. The path can specify the default symbol store (for example, SRV*), point to an HTTP or HTTPS symbol server, or specify a UNC, absolute, or relative path to the store.
+     * @returns {BOOL} If the path specifies a symbol store, the function returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvisstore
      */
     static SymSrvIsStore(hProcess, path) {
-        path := path is String? StrPtr(path) : path
+        path := path is String ? StrPtr(path) : path
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvIsStore", "ptr", hProcess, "ptr", path, "int")
+        result := DllCall("dbghelp.dll\SymSrvIsStore", "ptr", hProcess, "ptr", path, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9590,14 +9843,14 @@ class Debug {
 
     /**
      * Generates the name for a file that describes the relationship between two different versions of the same symbol or image file. Using this feature prevents applications from having to regenerate such information every time they analyze two files.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} SymPath The symbol path. The function uses only the symbol stores described in standard syntax for symbol stores. All other paths are ignored. If this parameter is <b>NULL</b>, the function uses the symbol path set using the 
+     * @param {PSTR} SymPath The symbol path. The function uses only the symbol stores described in standard syntax for symbol stores. All other paths are ignored. If this parameter is <b>NULL</b>, the function uses the symbol path set using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetsearchpath">SymSetSearchPath</a> function.
-     * @param {Pointer<Byte>} Type The extension for the generated file name.
-     * @param {Pointer<Byte>} File1 The path of the first version of the symbol or image file.
-     * @param {Pointer<Byte>} File2 The path of the second version of the symbol or image file.
-     * @returns {Pointer<Byte>} If the function succeeds, the return value is the resulting file name.
+     * @param {PSTR} Type The extension for the generated file name.
+     * @param {PSTR} File1 The path of the first version of the symbol or image file.
+     * @param {PSTR} File2 The path of the second version of the symbol or image file.
+     * @returns {PSTR} If the function succeeds, the return value is the resulting file name.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -9605,14 +9858,15 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvdeltaname
      */
     static SymSrvDeltaName(hProcess, SymPath, Type, File1, File2) {
-        SymPath := SymPath is String? StrPtr(SymPath) : SymPath
-        Type := Type is String? StrPtr(Type) : Type
-        File1 := File1 is String? StrPtr(File1) : File1
-        File2 := File2 is String? StrPtr(File2) : File2
+        SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
+        Type := Type is String ? StrPtr(Type) : Type
+        File1 := File1 is String ? StrPtr(File1) : File1
+        File2 := File2 is String ? StrPtr(File2) : File2
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvDeltaName", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "char*")
+        result := DllCall("dbghelp.dll\SymSrvDeltaName", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9621,14 +9875,14 @@ class Debug {
 
     /**
      * Generates the name for a file that describes the relationship between two different versions of the same symbol or image file. Using this feature prevents applications from having to regenerate such information every time they analyze two files.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} SymPath The symbol path. The function uses only the symbol stores described in standard syntax for symbol stores. All other paths are ignored. If this parameter is <b>NULL</b>, the function uses the symbol path set using the 
+     * @param {PWSTR} SymPath The symbol path. The function uses only the symbol stores described in standard syntax for symbol stores. All other paths are ignored. If this parameter is <b>NULL</b>, the function uses the symbol path set using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetsearchpath">SymSetSearchPath</a> function.
-     * @param {Pointer<Char>} Type The extension for the generated file name.
-     * @param {Pointer<Char>} File1 The path of the first version of the symbol or image file.
-     * @param {Pointer<Char>} File2 The path of the second version of the symbol or image file.
-     * @returns {Pointer<Char>} If the function succeeds, the return value is the resulting file name.
+     * @param {PWSTR} Type The extension for the generated file name.
+     * @param {PWSTR} File1 The path of the first version of the symbol or image file.
+     * @param {PWSTR} File2 The path of the second version of the symbol or image file.
+     * @returns {PWSTR} If the function succeeds, the return value is the resulting file name.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -9636,14 +9890,15 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvdeltanamew
      */
     static SymSrvDeltaNameW(hProcess, SymPath, Type, File1, File2) {
-        SymPath := SymPath is String? StrPtr(SymPath) : SymPath
-        Type := Type is String? StrPtr(Type) : Type
-        File1 := File1 is String? StrPtr(File1) : File1
-        File2 := File2 is String? StrPtr(File2) : File2
+        SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
+        Type := Type is String ? StrPtr(Type) : Type
+        File1 := File1 is String ? StrPtr(File1) : File1
+        File2 := File2 is String ? StrPtr(File2) : File2
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvDeltaNameW", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "char*")
+        result := DllCall("dbghelp.dll\SymSrvDeltaNameW", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9652,13 +9907,13 @@ class Debug {
 
     /**
      * Retrieves the specified file from the supplement for a symbol store.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} SymPath The symbol path. The function uses only the symbol stores described in standard syntax for symbol stores. All other paths are ignored. If this parameter is <b>NULL</b>, the function uses the symbol path set using the 
+     * @param {PSTR} SymPath The symbol path. The function uses only the symbol stores described in standard syntax for symbol stores. All other paths are ignored. If this parameter is <b>NULL</b>, the function uses the symbol path set using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetsearchpath">SymSetSearchPath</a> function.
-     * @param {Pointer<Byte>} Node The symbol file associated with the supplemental file.
-     * @param {Pointer<Byte>} File The name of the file.
-     * @returns {Pointer<Byte>} If the function succeeds, the return value is the fully qualified path for the supplemental file.
+     * @param {PSTR} Node The symbol file associated with the supplemental file.
+     * @param {PSTR} File The name of the file.
+     * @returns {PSTR} If the function succeeds, the return value is the fully qualified path for the supplemental file.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -9666,13 +9921,14 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetsupplement
      */
     static SymSrvGetSupplement(hProcess, SymPath, Node, File) {
-        SymPath := SymPath is String? StrPtr(SymPath) : SymPath
-        Node := Node is String? StrPtr(Node) : Node
-        File := File is String? StrPtr(File) : File
+        SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
+        Node := Node is String ? StrPtr(Node) : Node
+        File := File is String ? StrPtr(File) : File
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetSupplement", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "char*")
+        result := DllCall("dbghelp.dll\SymSrvGetSupplement", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9681,13 +9937,13 @@ class Debug {
 
     /**
      * Retrieves the specified file from the supplement for a symbol store.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} SymPath The symbol path. The function uses only the symbol stores described in standard syntax for symbol stores. All other paths are ignored. If this parameter is <b>NULL</b>, the function uses the symbol path set using the 
+     * @param {PWSTR} SymPath The symbol path. The function uses only the symbol stores described in standard syntax for symbol stores. All other paths are ignored. If this parameter is <b>NULL</b>, the function uses the symbol path set using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetsearchpath">SymSetSearchPath</a> function.
-     * @param {Pointer<Char>} Node The symbol file associated with the supplemental file.
-     * @param {Pointer<Char>} File The name of the file.
-     * @returns {Pointer<Char>} If the function succeeds, the return value is the fully qualified path for the supplemental file.
+     * @param {PWSTR} Node The symbol file associated with the supplemental file.
+     * @param {PWSTR} File The name of the file.
+     * @returns {PWSTR} If the function succeeds, the return value is the fully qualified path for the supplemental file.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -9695,13 +9951,14 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetsupplementw
      */
     static SymSrvGetSupplementW(hProcess, SymPath, Node, File) {
-        SymPath := SymPath is String? StrPtr(SymPath) : SymPath
-        Node := Node is String? StrPtr(Node) : Node
-        File := File is String? StrPtr(File) : File
+        SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
+        Node := Node is String ? StrPtr(Node) : Node
+        File := File is String ? StrPtr(File) : File
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "char*")
+        result := DllCall("dbghelp.dll\SymSrvGetSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9710,23 +9967,23 @@ class Debug {
 
     /**
      * Retrieves the indexes for the specified .pdb, .dbg, or image file that would be used to store the file. The combination of these values uniquely identifies the file in the symbol server.
-     * @param {Pointer<Byte>} File The name of the file.
+     * @param {PSTR} File The name of the file.
      * @param {Pointer<Guid>} Id The first of three identifying parameters.
      * @param {Pointer<UInt32>} Val1 The second of three identifying parameters.
      * @param {Pointer<UInt32>} Val2 The third of three identifying parameters.
      * @param {Integer} Flags This parameter is reserved for future use.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetfileindexes
      */
     static SymSrvGetFileIndexes(File, Id, Val1, Val2, Flags) {
-        File := File is String? StrPtr(File) : File
+        File := File is String ? StrPtr(File) : File
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexes", "ptr", File, "ptr", Id, "uint*", Val1, "uint*", Val2, "uint", Flags, "int")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexes", "ptr", File, "ptr", Id, "uint*", Val1, "uint*", Val2, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9735,23 +9992,23 @@ class Debug {
 
     /**
      * Retrieves the indexes for the specified .pdb, .dbg, or image file that would be used to store the file. The combination of these values uniquely identifies the file in the symbol server.
-     * @param {Pointer<Char>} File The name of the file.
+     * @param {PWSTR} File The name of the file.
      * @param {Pointer<Guid>} Id The first of three identifying parameters.
      * @param {Pointer<UInt32>} Val1 The second of three identifying parameters.
      * @param {Pointer<UInt32>} Val2 The third of three identifying parameters.
      * @param {Integer} Flags This parameter is reserved for future use.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetfileindexesw
      */
     static SymSrvGetFileIndexesW(File, Id, Val1, Val2, Flags) {
-        File := File is String? StrPtr(File) : File
+        File := File is String ? StrPtr(File) : File
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexesW", "ptr", File, "ptr", Id, "uint*", Val1, "uint*", Val2, "uint", Flags, "int")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexesW", "ptr", File, "ptr", Id, "uint*", Val1, "uint*", Val2, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9760,16 +10017,16 @@ class Debug {
 
     /**
      * Retrieves the index string for the specified .pdb, .dbg, or image file.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} SrvPath The path to the symbol server.
-     * @param {Pointer<Char>} File The name of the file.
-     * @param {Pointer<Char>} Index A pointer to a 
+     * @param {PWSTR} SrvPath The path to the symbol server.
+     * @param {PWSTR} File The name of the file.
+     * @param {PWSTR} Index A pointer to a 
      * buffer that receives the index string.
      * @param {Pointer} Size The size of 
      * the <i>Index</i> buffer, in characters.
      * @param {Integer} Flags This parameter is reserved for future use.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9777,13 +10034,14 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetfileindexstringw
      */
     static SymSrvGetFileIndexStringW(hProcess, SrvPath, File, Index, Size, Flags) {
-        SrvPath := SrvPath is String? StrPtr(SrvPath) : SrvPath
-        File := File is String? StrPtr(File) : File
-        Index := Index is String? StrPtr(Index) : Index
+        SrvPath := SrvPath is String ? StrPtr(SrvPath) : SrvPath
+        File := File is String ? StrPtr(File) : File
+        Index := Index is String ? StrPtr(Index) : Index
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexStringW", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "ptr", Index, "ptr", Size, "uint", Flags, "int")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexStringW", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "ptr", Index, "ptr", Size, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9792,16 +10050,16 @@ class Debug {
 
     /**
      * Retrieves the index string for the specified .pdb, .dbg, or image file.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} SrvPath The path to the symbol server.
-     * @param {Pointer<Byte>} File The name of the file.
-     * @param {Pointer<Byte>} Index A pointer to a 
+     * @param {PSTR} SrvPath The path to the symbol server.
+     * @param {PSTR} File The name of the file.
+     * @param {PSTR} Index A pointer to a 
      * buffer that receives the index string.
      * @param {Pointer} Size The size of 
      * the <i>Index</i> buffer, in characters.
      * @param {Integer} Flags This parameter is reserved for future use.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9809,13 +10067,14 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetfileindexstring
      */
     static SymSrvGetFileIndexString(hProcess, SrvPath, File, Index, Size, Flags) {
-        SrvPath := SrvPath is String? StrPtr(SrvPath) : SrvPath
-        File := File is String? StrPtr(File) : File
-        Index := Index is String? StrPtr(Index) : Index
+        SrvPath := SrvPath is String ? StrPtr(SrvPath) : SrvPath
+        File := File is String ? StrPtr(File) : File
+        Index := Index is String ? StrPtr(Index) : Index
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexString", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "ptr", Index, "ptr", Size, "uint", Flags, "int")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexString", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "ptr", Index, "ptr", Size, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9824,10 +10083,10 @@ class Debug {
 
     /**
      * Retrieves the index information for the specified .pdb, .dbg, or image file.
-     * @param {Pointer<Byte>} File The name of the file.
+     * @param {PSTR} File The name of the file.
      * @param {Pointer<SYMSRV_INDEX_INFO>} Info A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symsrv_index_info">SYMSRV_INDEX_INFO</a> structure that receives the index information.
      * @param {Integer} Flags This parameter is reserved for future use.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9835,11 +10094,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetfileindexinfo
      */
     static SymSrvGetFileIndexInfo(File, Info, Flags) {
-        File := File is String? StrPtr(File) : File
+        File := File is String ? StrPtr(File) : File
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexInfo", "ptr", File, "ptr", Info, "uint", Flags, "int")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexInfo", "ptr", File, "ptr", Info, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9848,10 +10107,10 @@ class Debug {
 
     /**
      * Retrieves the index information for the specified .pdb, .dbg, or image file.
-     * @param {Pointer<Char>} File The name of the file.
+     * @param {PWSTR} File The name of the file.
      * @param {Pointer<SYMSRV_INDEX_INFOW>} Info A <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symsrv_index_info">SYMSRV_INDEX_INFO</a> structure that receives the index information.
      * @param {Integer} Flags This parameter is reserved for future use.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
@@ -9859,11 +10118,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetfileindexinfow
      */
     static SymSrvGetFileIndexInfoW(File, Info, Flags) {
-        File := File is String? StrPtr(File) : File
+        File := File is String ? StrPtr(File) : File
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexInfoW", "ptr", File, "ptr", Info, "uint", Flags, "int")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexInfoW", "ptr", File, "ptr", Info, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9872,13 +10131,13 @@ class Debug {
 
     /**
      * Stores a file in the specified supplement to a symbol store. The file is typically associated with a file in the symbol server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} SrvPath The path to the symbol store.
-     * @param {Pointer<Byte>} Node The symbol file associated with the supplemental file.
-     * @param {Pointer<Byte>} File The name of the file.
+     * @param {PSTR} SrvPath The path to the symbol store.
+     * @param {PSTR} Node The symbol file associated with the supplemental file.
+     * @param {PSTR} File The name of the file.
      * @param {Integer} Flags If this parameter is <b>SYMSTOREOPT_COMPRESS</b>, the file is compressed in the symbol store. Currently, there are no other supported values.
-     * @returns {Pointer<Byte>} If the function succeeds, the return value is the fully qualified path for the supplemental file.
+     * @returns {PSTR} If the function succeeds, the return value is the fully qualified path for the supplemental file.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -9886,13 +10145,14 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvstoresupplement
      */
     static SymSrvStoreSupplement(hProcess, SrvPath, Node, File, Flags) {
-        SrvPath := SrvPath is String? StrPtr(SrvPath) : SrvPath
-        Node := Node is String? StrPtr(Node) : Node
-        File := File is String? StrPtr(File) : File
+        SrvPath := SrvPath is String ? StrPtr(SrvPath) : SrvPath
+        Node := Node is String ? StrPtr(Node) : Node
+        File := File is String ? StrPtr(File) : File
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreSupplement", "ptr", hProcess, "ptr", SrvPath, "ptr", Node, "ptr", File, "uint", Flags, "char*")
+        result := DllCall("dbghelp.dll\SymSrvStoreSupplement", "ptr", hProcess, "ptr", SrvPath, "ptr", Node, "ptr", File, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9901,13 +10161,13 @@ class Debug {
 
     /**
      * Stores a file in the specified supplement to a symbol store. The file is typically associated with a file in the symbol server.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} SymPath The path to the symbol store.
-     * @param {Pointer<Char>} Node The symbol file associated with the supplemental file.
-     * @param {Pointer<Char>} File The name of the file.
+     * @param {PWSTR} SymPath The path to the symbol store.
+     * @param {PWSTR} Node The symbol file associated with the supplemental file.
+     * @param {PWSTR} File The name of the file.
      * @param {Integer} Flags If this parameter is <b>SYMSTOREOPT_COMPRESS</b>, the file is compressed in the symbol store. Currently, there are no other supported values.
-     * @returns {Pointer<Char>} If the function succeeds, the return value is the fully qualified path for the supplemental file.
+     * @returns {PWSTR} If the function succeeds, the return value is the fully qualified path for the supplemental file.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -9915,13 +10175,14 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvstoresupplementw
      */
     static SymSrvStoreSupplementW(hProcess, SymPath, Node, File, Flags) {
-        SymPath := SymPath is String? StrPtr(SymPath) : SymPath
-        Node := Node is String? StrPtr(Node) : Node
-        File := File is String? StrPtr(File) : File
+        SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
+        Node := Node is String ? StrPtr(Node) : Node
+        File := File is String ? StrPtr(File) : File
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "uint", Flags, "char*")
+        result := DllCall("dbghelp.dll\SymSrvStoreSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9930,12 +10191,12 @@ class Debug {
 
     /**
      * Stores a file in the specified symbol store.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} SrvPath The symbol store.
-     * @param {Pointer<Byte>} File The name of the file.
+     * @param {PSTR} SrvPath The symbol store.
+     * @param {PSTR} File The name of the file.
      * @param {Integer} Flags The flags that control the function.
-     * @returns {Pointer<Byte>} If the function succeeds, the return value is a pointer to a null-terminated string that specifies the full-qualified path to the stored file.
+     * @returns {PSTR} If the function succeeds, the return value is a pointer to a null-terminated string that specifies the full-qualified path to the stored file.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -9943,12 +10204,13 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvstorefile
      */
     static SymSrvStoreFile(hProcess, SrvPath, File, Flags) {
-        SrvPath := SrvPath is String? StrPtr(SrvPath) : SrvPath
-        File := File is String? StrPtr(File) : File
+        SrvPath := SrvPath is String ? StrPtr(SrvPath) : SrvPath
+        File := File is String ? StrPtr(File) : File
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreFile", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "char*")
+        result := DllCall("dbghelp.dll\SymSrvStoreFile", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9957,12 +10219,12 @@ class Debug {
 
     /**
      * Stores a file in the specified symbol store.
-     * @param {Pointer<Void>} hProcess A handle to a process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to a process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Char>} SrvPath The symbol store.
-     * @param {Pointer<Char>} File The name of the file.
+     * @param {PWSTR} SrvPath The symbol store.
+     * @param {PWSTR} File The name of the file.
      * @param {Integer} Flags The flags that control the function.
-     * @returns {Pointer<Char>} If the function succeeds, the return value is a pointer to a null-terminated string that specifies the full-qualified path to the stored file.
+     * @returns {PWSTR} If the function succeeds, the return value is a pointer to a null-terminated string that specifies the full-qualified path to the stored file.
      * 						
      * 
      * If the function fails, the return value is <b>NULL</b>. To retrieve extended error information, call 
@@ -9970,12 +10232,13 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvstorefilew
      */
     static SymSrvStoreFileW(hProcess, SrvPath, File, Flags) {
-        SrvPath := SrvPath is String? StrPtr(SrvPath) : SrvPath
-        File := File is String? StrPtr(File) : File
+        SrvPath := SrvPath is String ? StrPtr(SrvPath) : SrvPath
+        File := File is String ? StrPtr(File) : File
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreFileW", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "char*")
+        result := DllCall("dbghelp.dll\SymSrvStoreFileW", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -9984,31 +10247,32 @@ class Debug {
 
     /**
      * Locates a symbol file in the specified symbol path.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function. 
      * 
      * If this handle is 0, <i>SymPath</i> cannot be <b>NULL</b>. Use this option to load a symbol file without calling <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symcleanup">SymCleanup</a>.
-     * @param {Pointer<Byte>} SymPath The symbol path. If this parameter is <b>NULL</b> or an empty string, the function uses the symbol path set using the 
+     * @param {PSTR} SymPath The symbol path. If this parameter is <b>NULL</b> or an empty string, the function uses the symbol path set using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetsearchpath">SymSetSearchPath</a> function.
-     * @param {Pointer<Byte>} ImageFile The name of the image  file.
+     * @param {PSTR} ImageFile The name of the image  file.
      * @param {Integer} Type 
-     * @param {Pointer<Byte>} SymbolFile A pointer to a null-terminated string that receives the name of the symbol file.
+     * @param {PSTR} SymbolFile A pointer to a null-terminated string that receives the name of the symbol file.
      * @param {Pointer} cSymbolFile The size of the <i>SymbolFile</i> buffer, in characters.
-     * @param {Pointer<Byte>} DbgFile A pointer to a buffer that receives the fully qualified path to the symbol file. This buffer must be at least MAX_PATH characters.
+     * @param {PSTR} DbgFile A pointer to a buffer that receives the fully qualified path to the symbol file. This buffer must be at least MAX_PATH characters.
      * @param {Pointer} cDbgFile The size of the <i>DbgFile</i> buffer, in characters.
-     * @returns {Integer} If the server locates a valid symbol file, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> and 
+     * @returns {BOOL} If the server locates a valid symbol file, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns a value that indicates why the symbol file was not returned.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymbolfile
      */
     static SymGetSymbolFile(hProcess, SymPath, ImageFile, Type, SymbolFile, cSymbolFile, DbgFile, cDbgFile) {
-        SymPath := SymPath is String? StrPtr(SymPath) : SymPath
-        ImageFile := ImageFile is String? StrPtr(ImageFile) : ImageFile
-        SymbolFile := SymbolFile is String? StrPtr(SymbolFile) : SymbolFile
-        DbgFile := DbgFile is String? StrPtr(DbgFile) : DbgFile
+        SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
+        ImageFile := ImageFile is String ? StrPtr(ImageFile) : ImageFile
+        SymbolFile := SymbolFile is String ? StrPtr(SymbolFile) : SymbolFile
+        DbgFile := DbgFile is String ? StrPtr(DbgFile) : DbgFile
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymbolFile", "ptr", hProcess, "ptr", SymPath, "ptr", ImageFile, "uint", Type, "ptr", SymbolFile, "ptr", cSymbolFile, "ptr", DbgFile, "ptr", cDbgFile, "int")
+        result := DllCall("dbghelp.dll\SymGetSymbolFile", "ptr", hProcess, "ptr", SymPath, "ptr", ImageFile, "uint", Type, "ptr", SymbolFile, "ptr", cSymbolFile, "ptr", DbgFile, "ptr", cDbgFile, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10017,31 +10281,32 @@ class Debug {
 
     /**
      * Locates a symbol file in the specified symbol path.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function. 
      * 
      * If this handle is 0, <i>SymPath</i> cannot be <b>NULL</b>. Use this option to load a symbol file without calling <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symcleanup">SymCleanup</a>.
-     * @param {Pointer<Char>} SymPath The symbol path. If this parameter is <b>NULL</b> or an empty string, the function uses the symbol path set using the 
+     * @param {PWSTR} SymPath The symbol path. If this parameter is <b>NULL</b> or an empty string, the function uses the symbol path set using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetsearchpath">SymSetSearchPath</a> function.
-     * @param {Pointer<Char>} ImageFile The name of the image  file.
+     * @param {PWSTR} ImageFile The name of the image  file.
      * @param {Integer} Type 
-     * @param {Pointer<Char>} SymbolFile A pointer to a null-terminated string that receives the name of the symbol file.
+     * @param {PWSTR} SymbolFile A pointer to a null-terminated string that receives the name of the symbol file.
      * @param {Pointer} cSymbolFile The size of the <i>SymbolFile</i> buffer, in characters.
-     * @param {Pointer<Char>} DbgFile A pointer to a buffer that receives the fully qualified path to the symbol file. This buffer must be at least MAX_PATH characters.
+     * @param {PWSTR} DbgFile A pointer to a buffer that receives the fully qualified path to the symbol file. This buffer must be at least MAX_PATH characters.
      * @param {Pointer} cDbgFile The size of the <i>DbgFile</i> buffer, in characters.
-     * @returns {Integer} If the server locates a valid symbol file, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> and 
+     * @returns {BOOL} If the server locates a valid symbol file, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns a value that indicates why the symbol file was not returned.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymbolfilew
      */
     static SymGetSymbolFileW(hProcess, SymPath, ImageFile, Type, SymbolFile, cSymbolFile, DbgFile, cDbgFile) {
-        SymPath := SymPath is String? StrPtr(SymPath) : SymPath
-        ImageFile := ImageFile is String? StrPtr(ImageFile) : ImageFile
-        SymbolFile := SymbolFile is String? StrPtr(SymbolFile) : SymbolFile
-        DbgFile := DbgFile is String? StrPtr(DbgFile) : DbgFile
+        SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
+        ImageFile := ImageFile is String ? StrPtr(ImageFile) : ImageFile
+        SymbolFile := SymbolFile is String ? StrPtr(SymbolFile) : SymbolFile
+        DbgFile := DbgFile is String ? StrPtr(DbgFile) : DbgFile
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymbolFileW", "ptr", hProcess, "ptr", SymPath, "ptr", ImageFile, "uint", Type, "ptr", SymbolFile, "ptr", cSymbolFile, "ptr", DbgFile, "ptr", cDbgFile, "int")
+        result := DllCall("dbghelp.dll\SymGetSymbolFileW", "ptr", hProcess, "ptr", SymPath, "ptr", ImageFile, "uint", Type, "ptr", SymbolFile, "ptr", cSymbolFile, "ptr", DbgFile, "ptr", cDbgFile, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10050,50 +10315,52 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Byte>} FileName 
+     * @param {PSTR} FileName 
      * @param {Pointer<PDBGHELP_CREATE_USER_DUMP_CALLBACK>} Callback 
      * @param {Pointer<Void>} UserData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DbgHelpCreateUserDump(FileName, Callback, UserData) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("dbghelp.dll\DbgHelpCreateUserDump", "ptr", FileName, "ptr", Callback, "ptr", UserData, "int")
+        result := DllCall("dbghelp.dll\DbgHelpCreateUserDump", "ptr", FileName, "ptr", Callback, "ptr", UserData, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} FileName 
+     * @param {PWSTR} FileName 
      * @param {Pointer<PDBGHELP_CREATE_USER_DUMP_CALLBACK>} Callback 
      * @param {Pointer<Void>} UserData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DbgHelpCreateUserDumpW(FileName, Callback, UserData) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("dbghelp.dll\DbgHelpCreateUserDumpW", "ptr", FileName, "ptr", Callback, "ptr", UserData, "int")
+        result := DllCall("dbghelp.dll\DbgHelpCreateUserDumpW", "ptr", FileName, "ptr", Callback, "ptr", UserData, "ptr")
         return result
     }
 
     /**
      * Locates the symbol for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} qwAddr The address for which a symbol is to be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol (the beginning of the symbol plus the symbol size), the symbol is found.
      * @param {Pointer<UInt64>} pdwDisplacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<IMAGEHLP_SYMBOL64>} Symbol A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymfromaddr64
      */
     static SymGetSymFromAddr64(hProcess, qwAddr, pdwDisplacement, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymFromAddr64", "ptr", hProcess, "uint", qwAddr, "uint*", pdwDisplacement, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetSymFromAddr64", "ptr", hProcess, "uint", qwAddr, "uint*", pdwDisplacement, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10102,22 +10369,24 @@ class Debug {
 
     /**
      * Locates the symbol for the specified address.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} dwAddr The address for which a symbol is to be located. The address does not have to be on a symbol boundary. If the address comes after the beginning of a symbol and before the end of the symbol (the beginning of the symbol plus the symbol size), the symbol is found.
      * @param {Pointer<UInt32>} pdwDisplacement The displacement from the beginning of the symbol, or zero.
      * @param {Pointer<IMAGEHLP_SYMBOL>} Symbol A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymfromaddr
      */
     static SymGetSymFromAddr(hProcess, dwAddr, pdwDisplacement, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymFromAddr", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetSymFromAddr", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10126,23 +10395,24 @@ class Debug {
 
     /**
      * Locates a symbol for the specified name.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} Name The symbol name for which a symbol is to be located.
+     * @param {PSTR} Name The symbol name for which a symbol is to be located.
      * @param {Pointer<IMAGEHLP_SYMBOL64>} Symbol A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymfromname64
      */
     static SymGetSymFromName64(hProcess, Name, Symbol) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymFromName64", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetSymFromName64", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10151,23 +10421,24 @@ class Debug {
 
     /**
      * Locates a symbol for the specified name.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Byte>} Name The symbol name for which a symbol is to be located.
+     * @param {PSTR} Name The symbol name for which a symbol is to be located.
      * @param {Pointer<IMAGEHLP_SYMBOL>} Symbol A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymfromname
      */
     static SymGetSymFromName(hProcess, Name, Symbol) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymFromName", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetSymFromName", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10176,70 +10447,74 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Void>} hprocess 
-     * @param {Pointer<Byte>} SearchPathA 
-     * @param {Pointer<Byte>} FileName 
+     * @param {HANDLE} hprocess 
+     * @param {PSTR} SearchPathA 
+     * @param {PSTR} FileName 
      * @param {Pointer<Void>} id 
      * @param {Integer} two 
      * @param {Integer} three 
      * @param {Integer} flags 
-     * @param {Pointer<Byte>} FilePath 
-     * @returns {Integer} 
+     * @param {PSTR} FilePath 
+     * @returns {BOOL} 
      * @deprecated
      */
     static FindFileInPath(hprocess, SearchPathA, FileName, id, two, three, flags, FilePath) {
-        SearchPathA := SearchPathA is String? StrPtr(SearchPathA) : SearchPathA
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
+        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
-        result := DllCall("dbghelp.dll\FindFileInPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FilePath, "int")
+        result := DllCall("dbghelp.dll\FindFileInPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FilePath, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hprocess 
-     * @param {Pointer<Byte>} SearchPathA 
-     * @param {Pointer<Byte>} FileName 
+     * @param {HANDLE} hprocess 
+     * @param {PSTR} SearchPathA 
+     * @param {PSTR} FileName 
      * @param {Integer} one 
      * @param {Integer} two 
      * @param {Integer} three 
-     * @param {Pointer<Byte>} FilePath 
-     * @returns {Integer} 
+     * @param {PSTR} FilePath 
+     * @returns {BOOL} 
      * @deprecated
      */
     static FindFileInSearchPath(hprocess, SearchPathA, FileName, one, two, three, FilePath) {
-        SearchPathA := SearchPathA is String? StrPtr(SearchPathA) : SearchPathA
-        FileName := FileName is String? StrPtr(FileName) : FileName
-        FilePath := FilePath is String? StrPtr(FilePath) : FilePath
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
+        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
-        result := DllCall("dbghelp.dll\FindFileInSearchPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "uint", one, "uint", two, "uint", three, "ptr", FilePath, "int")
+        result := DllCall("dbghelp.dll\FindFileInSearchPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "uint", one, "uint", two, "uint", three, "ptr", FilePath, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hProcess 
+     * @param {HANDLE} hProcess 
      * @param {Integer} BaseOfDll 
      * @param {Pointer<PSYM_ENUMERATESYMBOLS_CALLBACK>} EnumSymbolsCallback 
      * @param {Pointer<Void>} UserContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      * @deprecated
      */
     static SymEnumSym(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
-        result := DllCall("dbghelp.dll\SymEnumSym", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
+        result := DllCall("dbghelp.dll\SymEnumSym", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         return result
     }
 
     /**
      * Enumerates all the symbols for a specified module.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to the process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module for which symbols are to be enumerated.
      * @param {Pointer<PSYM_ENUMSYMBOLS_CALLBACK64>} EnumSymbolsCallback The callback function that receives the symbol information. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumsymbols_callback">SymEnumerateSymbolsProc64</a>.
      * @param {Pointer<Void>} UserContext A user-defined value or <b>NULL</b>. This value is passed to the callback function. Typically, this parameter is used by an application to pass a pointer to a data structure that enables the callback function establish some type of context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10247,9 +10522,11 @@ class Debug {
      * @deprecated
      */
     static SymEnumerateSymbols64(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateSymbols64", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumerateSymbols64", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10258,13 +10535,13 @@ class Debug {
 
     /**
      * Enumerates all the symbols for a specified module.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to the process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module for which symbols are to be enumerated.
      * @param {Pointer<PSYM_ENUMSYMBOLS_CALLBACK64W>} EnumSymbolsCallback The callback function that receives the symbol information. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumsymbols_callback">SymEnumerateSymbolsProc64</a>.
      * @param {Pointer<Void>} UserContext A user-defined value or <b>NULL</b>. This value is passed to the callback function. Typically, this parameter is used by an application to pass a pointer to a data structure that enables the callback function establish some type of context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10272,9 +10549,11 @@ class Debug {
      * @deprecated
      */
     static SymEnumerateSymbolsW64(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateSymbolsW64", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumerateSymbolsW64", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10283,13 +10562,13 @@ class Debug {
 
     /**
      * Enumerates all the symbols for a specified module.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to the process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module for which symbols are to be enumerated.
      * @param {Pointer<PSYM_ENUMSYMBOLS_CALLBACK>} EnumSymbolsCallback The callback function that receives the symbol information. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumsymbols_callback">SymEnumerateSymbolsProc64</a>.
      * @param {Pointer<Void>} UserContext A user-defined value or <b>NULL</b>. This value is passed to the callback function. Typically, this parameter is used by an application to pass a pointer to a data structure that enables the callback function establish some type of context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10297,9 +10576,11 @@ class Debug {
      * @deprecated
      */
     static SymEnumerateSymbols(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateSymbols", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumerateSymbols", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10308,13 +10589,13 @@ class Debug {
 
     /**
      * Enumerates all the symbols for a specified module.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to the process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} BaseOfDll The base address of the module for which symbols are to be enumerated.
      * @param {Pointer<PSYM_ENUMSYMBOLS_CALLBACKW>} EnumSymbolsCallback The callback function that receives the symbol information. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nc-dbghelp-psym_enumsymbols_callback">SymEnumerateSymbolsProc64</a>.
      * @param {Pointer<Void>} UserContext A user-defined value or <b>NULL</b>. This value is passed to the callback function. Typically, this parameter is used by an application to pass a pointer to a data structure that enables the callback function establish some type of context.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10322,9 +10603,11 @@ class Debug {
      * @deprecated
      */
     static SymEnumerateSymbolsW(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateSymbolsW", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
+        result := DllCall("dbghelp.dll\SymEnumerateSymbolsW", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10333,11 +10616,11 @@ class Debug {
 
     /**
      * Loads the symbol table.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to the process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Void>} hFile A handle to the file for the executable image. This argument is used mostly by debuggers, where the debugger passes the file handle obtained from a debugging event. A value of <b>NULL</b> indicates that <i>hFile</i> is not used.
-     * @param {Pointer<Byte>} ImageName The name of the executable image. This name can contain a partial path, a full path, or no path at all. If the file cannot be located by the name provided, the symbol search path is used.
-     * @param {Pointer<Byte>} ModuleName A shortcut name for the module. If the pointer value is <b>NULL</b>, the library creates a name using the base name of the symbol file.
+     * @param {HANDLE} hFile A handle to the file for the executable image. This argument is used mostly by debuggers, where the debugger passes the file handle obtained from a debugging event. A value of <b>NULL</b> indicates that <i>hFile</i> is not used.
+     * @param {PSTR} ImageName The name of the executable image. This name can contain a partial path, a full path, or no path at all. If the file cannot be located by the name provided, the symbol search path is used.
+     * @param {PSTR} ModuleName A shortcut name for the module. If the pointer value is <b>NULL</b>, the library creates a name using the base name of the symbol file.
      * @param {Integer} BaseOfDll The load address of the module. If the value is zero, the library obtains the load address from the symbol file. The load address contained in the symbol file is not necessarily the actual load address. Debuggers and other applications having an actual load address should use the real load address when calling this function.
      * 
      * If the image is a .pdb file, this parameter cannot be zero.
@@ -10353,8 +10636,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symloadmodule64
      */
     static SymLoadModule64(hProcess, hFile, ImageName, ModuleName, BaseOfDll, SizeOfDll) {
-        ImageName := ImageName is String? StrPtr(ImageName) : ImageName
-        ModuleName := ModuleName is String? StrPtr(ModuleName) : ModuleName
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -10367,11 +10652,11 @@ class Debug {
 
     /**
      * Loads the symbol table.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have been previously passed to the 
+     * @param {HANDLE} hProcess A handle to the process. This handle must have been previously passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
-     * @param {Pointer<Void>} hFile A handle to the file for the executable image. This argument is used mostly by debuggers, where the debugger passes the file handle obtained from a debugging event. A value of <b>NULL</b> indicates that <i>hFile</i> is not used.
-     * @param {Pointer<Byte>} ImageName The name of the executable image. This name can contain a partial path, a full path, or no path at all. If the file cannot be located by the name provided, the symbol search path is used.
-     * @param {Pointer<Byte>} ModuleName A shortcut name for the module. If the pointer value is <b>NULL</b>, the library creates a name using the base name of the symbol file.
+     * @param {HANDLE} hFile A handle to the file for the executable image. This argument is used mostly by debuggers, where the debugger passes the file handle obtained from a debugging event. A value of <b>NULL</b> indicates that <i>hFile</i> is not used.
+     * @param {PSTR} ImageName The name of the executable image. This name can contain a partial path, a full path, or no path at all. If the file cannot be located by the name provided, the symbol search path is used.
+     * @param {PSTR} ModuleName A shortcut name for the module. If the pointer value is <b>NULL</b>, the library creates a name using the base name of the symbol file.
      * @param {Integer} BaseOfDll The load address of the module. If the value is zero, the library obtains the load address from the symbol file. The load address contained in the symbol file is not necessarily the actual load address. Debuggers and other applications having an actual load address should use the real load address when calling this function.
      * 
      * If the image is a .pdb file, this parameter cannot be zero.
@@ -10387,8 +10672,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symloadmodule
      */
     static SymLoadModule(hProcess, hFile, ImageName, ModuleName, BaseOfDll, SizeOfDll) {
-        ImageName := ImageName is String? StrPtr(ImageName) : ImageName
-        ModuleName := ModuleName is String? StrPtr(ModuleName) : ModuleName
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -10401,20 +10688,22 @@ class Debug {
 
     /**
      * Retrieves the symbol information for the next symbol.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_SYMBOL64>} Symbol A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymnext64
      */
     static SymGetSymNext64(hProcess, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymNext64", "ptr", hProcess, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetSymNext64", "ptr", hProcess, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10423,20 +10712,22 @@ class Debug {
 
     /**
      * Retrieves the symbol information for the next symbol.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_SYMBOL>} Symbol A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymnext
      */
     static SymGetSymNext(hProcess, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymNext", "ptr", hProcess, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetSymNext", "ptr", hProcess, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10445,20 +10736,22 @@ class Debug {
 
     /**
      * Retrieves the symbol information for the previous symbol.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_SYMBOL64>} Symbol A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymprev64
      */
     static SymGetSymPrev64(hProcess, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymPrev64", "ptr", hProcess, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetSymPrev64", "ptr", hProcess, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10467,20 +10760,22 @@ class Debug {
 
     /**
      * Retrieves the symbol information for the previous symbol.
-     * @param {Pointer<Void>} hProcess A handle to the process that was originally passed to the 
+     * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Pointer<IMAGEHLP_SYMBOL>} Symbol A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-imagehlp_symbol">IMAGEHLP_SYMBOL64</a> structure.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. To retrieve extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymprev
      */
     static SymGetSymPrev(hProcess, Symbol) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymPrev", "ptr", hProcess, "ptr", Symbol, "int")
+        result := DllCall("dbghelp.dll\SymGetSymPrev", "ptr", hProcess, "ptr", Symbol, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10518,24 +10813,27 @@ class Debug {
 
     /**
      * 
-     * @param {Pointer<Void>} hProcess 
-     * @param {Pointer<Char>} pLoadModule 
+     * @param {HANDLE} hProcess 
+     * @param {PWSTR} pLoadModule 
      * @param {Pointer<DBGHELP_DATA_REPORT_STRUCT>} pSymbolData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ReportSymbolLoadSummary(hProcess, pLoadModule, pSymbolData) {
-        pLoadModule := pLoadModule is String? StrPtr(pLoadModule) : pLoadModule
+        pLoadModule := pLoadModule is String ? StrPtr(pLoadModule) : pLoadModule
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\ReportSymbolLoadSummary", "ptr", hProcess, "ptr", pLoadModule, "ptr", pSymbolData, "int")
+        result := DllCall("dbghelp.dll\ReportSymbolLoadSummary", "ptr", hProcess, "ptr", pLoadModule, "ptr", pSymbolData, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hProcess 
+     * @param {HANDLE} hProcess 
      * @returns {String} Nothing - always returns an empty string
      */
     static RemoveInvalidModuleList(hProcess) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         DllCall("dbghelp.dll\RemoveInvalidModuleList", "ptr", hProcess)
     }
 
@@ -10560,18 +10858,18 @@ class Debug {
     /**
      * 
      * @param {Pointer<Void>} RmapHandle 
-     * @param {Pointer<Char>} ImageName 
+     * @param {PWSTR} ImageName 
      * @param {Pointer} MappedImage 
      * @param {Integer} MappingBytes 
      * @param {Integer} ImageBase 
      * @param {Integer} UserTag 
      * @param {Integer} MappingFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static RangeMapAddPeImageSections(RmapHandle, ImageName, MappedImage, MappingBytes, ImageBase, UserTag, MappingFlags) {
-        ImageName := ImageName is String? StrPtr(ImageName) : ImageName
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        result := DllCall("dbghelp.dll\RangeMapAddPeImageSections", "ptr", RmapHandle, "ptr", ImageName, "ptr", MappedImage, "uint", MappingBytes, "uint", ImageBase, "uint", UserTag, "uint", MappingFlags, "int")
+        result := DllCall("dbghelp.dll\RangeMapAddPeImageSections", "ptr", RmapHandle, "ptr", ImageName, "ptr", MappedImage, "uint", MappingBytes, "uint", ImageBase, "uint", UserTag, "uint", MappingFlags, "ptr")
         return result
     }
 
@@ -10579,10 +10877,10 @@ class Debug {
      * 
      * @param {Pointer<Void>} RmapHandle 
      * @param {Integer} UserTag 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static RangeMapRemove(RmapHandle, UserTag) {
-        result := DllCall("dbghelp.dll\RangeMapRemove", "ptr", RmapHandle, "uint", UserTag, "int")
+        result := DllCall("dbghelp.dll\RangeMapRemove", "ptr", RmapHandle, "uint", UserTag, "ptr")
         return result
     }
 
@@ -10594,10 +10892,10 @@ class Debug {
      * @param {Integer} RequestBytes 
      * @param {Integer} Flags 
      * @param {Pointer<UInt32>} DoneBytes 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static RangeMapRead(RmapHandle, Offset, Buffer, RequestBytes, Flags, DoneBytes) {
-        result := DllCall("dbghelp.dll\RangeMapRead", "ptr", RmapHandle, "uint", Offset, "ptr", Buffer, "uint", RequestBytes, "uint", Flags, "uint*", DoneBytes, "int")
+        result := DllCall("dbghelp.dll\RangeMapRead", "ptr", RmapHandle, "uint", Offset, "ptr", Buffer, "uint", RequestBytes, "uint", Flags, "uint*", DoneBytes, "ptr")
         return result
     }
 
@@ -10609,10 +10907,10 @@ class Debug {
      * @param {Integer} RequestBytes 
      * @param {Integer} Flags 
      * @param {Pointer<UInt32>} DoneBytes 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static RangeMapWrite(RmapHandle, Offset, Buffer, RequestBytes, Flags, DoneBytes) {
-        result := DllCall("dbghelp.dll\RangeMapWrite", "ptr", RmapHandle, "uint", Offset, "ptr", Buffer, "uint", RequestBytes, "uint", Flags, "uint*", DoneBytes, "int")
+        result := DllCall("dbghelp.dll\RangeMapWrite", "ptr", RmapHandle, "uint", Offset, "ptr", Buffer, "uint", RequestBytes, "uint", Flags, "uint*", DoneBytes, "ptr")
         return result
     }
 
@@ -10620,7 +10918,7 @@ class Debug {
      * Plays a waveform sound. The waveform sound for each sound type is identified by an entry in the registry.
      * @param {Integer} uType The sound to be played. The sounds are set by the user through the Sound control panel application, and then 
      *        stored in the registry.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10630,7 +10928,7 @@ class Debug {
     static MessageBeep(uType) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\MessageBeep", "uint", uType, "int")
+        result := DllCall("USER32.dll\MessageBeep", "uint", uType, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10650,12 +10948,12 @@ class Debug {
 
     /**
      * Retrieves a descriptor table entry for the specified selector and thread.
-     * @param {Pointer<Void>} hThread A handle to the thread containing the specified selector. The handle must have THREAD_QUERY_INFORMATION access. For more information, see 
+     * @param {HANDLE} hThread A handle to the thread containing the specified selector. The handle must have THREAD_QUERY_INFORMATION access. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Integer} dwSelector The global or local selector value to look up in the thread's descriptor tables.
      * @param {Pointer<LDT_ENTRY>} lpSelectorEntry A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ldt_entry">LDT_ENTRY</a> structure that receives a copy of the descriptor table entry if the specified selector has an entry in the specified thread's descriptor table. This information can be used to convert a segment-relative address to a linear virtual address.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. In that case, the structure pointed to by the <i>lpSelectorEntry</i> parameter receives a copy of the specified descriptor table entry.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. In that case, the structure pointed to by the <i>lpSelectorEntry</i> parameter receives a copy of the specified descriptor table entry.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10663,9 +10961,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static GetThreadSelectorEntry(hThread, dwSelector, lpSelectorEntry) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadSelectorEntry", "ptr", hThread, "uint", dwSelector, "ptr", lpSelectorEntry, "int")
+        result := DllCall("KERNEL32.dll\GetThreadSelectorEntry", "ptr", hThread, "uint", dwSelector, "ptr", lpSelectorEntry, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10674,14 +10974,14 @@ class Debug {
 
     /**
      * Retrieves a descriptor table entry for the specified selector and WOW64 thread.
-     * @param {Pointer<Void>} hThread A handle to the thread containing the
+     * @param {HANDLE} hThread A handle to the thread containing the
      *         specified selector.  The handle must have been created with
      *         THREAD_QUERY_INFORMATION access to the thread. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * @param {Integer} dwSelector The global or local selector value to look up in the thread's descriptor tables.
      * @param {Pointer<WOW64_LDT_ENTRY>} lpSelectorEntry A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-wow64_ldt_entry">WOW64_LDT_ENTRY</a> structure that receives a copy of the descriptor table entry if the specified selector has an entry in the specified thread's descriptor table. This information can be used to convert a segment-relative address to a linear virtual address.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. In that case, the structure pointed to by the <i>lpSelectorEntry</i> parameter receives a copy of the specified descriptor table entry.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. In that case, the structure pointed to by the <i>lpSelectorEntry</i> parameter receives a copy of the specified descriptor table entry.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10689,9 +10989,11 @@ class Debug {
      * @since windows6.1
      */
     static Wow64GetThreadSelectorEntry(hThread, dwSelector, lpSelectorEntry) {
+        hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Wow64GetThreadSelectorEntry", "ptr", hThread, "uint", dwSelector, "ptr", lpSelectorEntry, "int")
+        result := DllCall("KERNEL32.dll\Wow64GetThreadSelectorEntry", "ptr", hThread, "uint", dwSelector, "ptr", lpSelectorEntry, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10700,8 +11002,8 @@ class Debug {
 
     /**
      * Sets the action to be performed when the calling thread exits.
-     * @param {Integer} KillOnExit If this parameter is <b>TRUE</b>, the thread terminates all attached processes on exit (note that this is the default). Otherwise, the thread detaches from all processes being debugged on exit.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} KillOnExit If this parameter is <b>TRUE</b>, the thread terminates all attached processes on exit (note that this is the default). Otherwise, the thread detaches from all processes being debugged on exit.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10711,7 +11013,7 @@ class Debug {
     static DebugSetProcessKillOnExit(KillOnExit) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DebugSetProcessKillOnExit", "int", KillOnExit, "int")
+        result := DllCall("KERNEL32.dll\DebugSetProcessKillOnExit", "ptr", KillOnExit, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10720,8 +11022,8 @@ class Debug {
 
     /**
      * Causes a breakpoint exception to occur in the specified process. This allows the calling thread to signal the debugger to handle the exception.
-     * @param {Pointer<Void>} Process A handle to the process.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {HANDLE} Process A handle to the process.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10729,9 +11031,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static DebugBreakProcess(Process) {
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DebugBreakProcess", "ptr", Process, "int")
+        result := DllCall("KERNEL32.dll\DebugBreakProcess", "ptr", Process, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -10803,7 +11107,7 @@ class Debug {
      * If <b>FormatMessage</b> does not locate a message for any 
      *        of the preceding <b>LANGIDs</b>, it returns any language message string that is present. 
      *        If that fails, it returns <b>ERROR_RESOURCE_LANG_NOT_FOUND</b>.
-     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the null-terminated string that specifies the formatted message. If 
+     * @param {PSTR} lpBuffer A pointer to a buffer that receives the null-terminated string that specifies the formatted message. If 
      *        <i>dwFlags</i> includes <b>FORMAT_MESSAGE_ALLOCATE_BUFFER</b>, the 
      *        function allocates a buffer using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> 
      *        function, and places the pointer to the buffer at the address specified in 
@@ -10843,11 +11147,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static FormatMessageA(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FormatMessageA", "uint", dwFlags, "ptr", lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, "ptr", Arguments, "uint")
+        result := DllCall("KERNEL32.dll\FormatMessageA", "uint", dwFlags, "ptr", lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, "char*", Arguments, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -10919,7 +11223,7 @@ class Debug {
      * If <b>FormatMessage</b> does not locate a message for any 
      *        of the preceding <b>LANGIDs</b>, it returns any language message string that is present. 
      *        If that fails, it returns <b>ERROR_RESOURCE_LANG_NOT_FOUND</b>.
-     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the null-terminated string that specifies the formatted message. If 
+     * @param {PWSTR} lpBuffer A pointer to a buffer that receives the null-terminated string that specifies the formatted message. If 
      *        <i>dwFlags</i> includes <b>FORMAT_MESSAGE_ALLOCATE_BUFFER</b>, the 
      *        function allocates a buffer using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> 
      *        function, and places the pointer to the buffer at the address specified in 
@@ -10959,11 +11263,11 @@ class Debug {
      * @since windows5.1.2600
      */
     static FormatMessageW(dwFlags, lpSource, dwMessageId, dwLanguageId, lpBuffer, nSize, Arguments) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FormatMessageW", "uint", dwFlags, "ptr", lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, "ptr", Arguments, "uint")
+        result := DllCall("KERNEL32.dll\FormatMessageW", "uint", dwFlags, "ptr", lpSource, "uint", dwMessageId, "uint", dwLanguageId, "ptr", lpBuffer, "uint", nSize, "char*", Arguments, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -10984,7 +11288,7 @@ class Debug {
      *       <i>Destination</i> <b>CONTEXT</b>.
      * @param {Pointer<CONTEXT>} Source A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure from which to copy 
      *       processor context data.
-     * @returns {Integer} This function returns <b>TRUE</b> if the context was copied successfully, otherwise 
+     * @returns {BOOL} This function returns <b>TRUE</b> if the context was copied successfully, otherwise 
      *       <b>FALSE</b>. To get extended error information, call 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-copycontext
@@ -10993,7 +11297,7 @@ class Debug {
     static CopyContext(Destination, ContextFlags, Source) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyContext", "ptr", Destination, "uint", ContextFlags, "ptr", Source, "int")
+        result := DllCall("KERNEL32.dll\CopyContext", "ptr", Destination, "uint", ContextFlags, "ptr", Source, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11030,7 +11334,7 @@ class Debug {
      *       required size of the buffer.  If the function fails with an error other than 
      *       <b>ERROR_INSUFFICIENT_BUFFER</b>, the contents of 
      *       <i>ContextLength</i> are undefined.
-     * @returns {Integer} This function returns <b>TRUE</b> if successful, otherwise 
+     * @returns {BOOL} This function returns <b>TRUE</b> if successful, otherwise 
      *       <b>FALSE</b>. To get extended error information, call 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-initializecontext
@@ -11039,7 +11343,7 @@ class Debug {
     static InitializeContext(Buffer, ContextFlags, Context, ContextLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeContext", "ptr", Buffer, "uint", ContextFlags, "ptr", Context, "uint*", ContextLength, "int")
+        result := DllCall("KERNEL32.dll\InitializeContext", "ptr", Buffer, "uint", ContextFlags, "ptr", Context, "uint*", ContextLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11078,7 +11382,7 @@ class Debug {
      *       <i>ContextLength</i> are undefined.
      * @param {Integer} XStateCompactionMask Supplies the XState compaction mask to use when allocating the <i>Context</i> structure.
      * This parameter is only used when <b>CONTEXT_XSTATE</b> is supplied to <i>ContextFlags</i> and the system has XState enabled in compaction mode.
-     * @returns {Integer} This function returns <b>TRUE</b> if successful, otherwise 
+     * @returns {BOOL} This function returns <b>TRUE</b> if successful, otherwise 
      *       <b>FALSE</b>. To get extended error information, call 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-initializecontext2
@@ -11086,7 +11390,7 @@ class Debug {
     static InitializeContext2(Buffer, ContextFlags, Context, ContextLength, XStateCompactionMask) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeContext2", "ptr", Buffer, "uint", ContextFlags, "ptr", Context, "uint*", ContextLength, "uint", XStateCompactionMask, "int")
+        result := DllCall("KERNEL32.dll\InitializeContext2", "ptr", Buffer, "uint", ContextFlags, "ptr", Context, "uint*", ContextLength, "uint", XStateCompactionMask, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11111,13 +11415,13 @@ class Debug {
      *       initialized with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializecontext">InitializeContext</a>.
      * @param {Pointer<UInt64>} FeatureMask A pointer to a variable that receives the mask of XState features which are present in the specified 
      *       <b>CONTEXT</b> structure.
-     * @returns {Integer} This function returns <b>TRUE</b> if successful, otherwise 
+     * @returns {BOOL} This function returns <b>TRUE</b> if successful, otherwise 
      *       <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getxstatefeaturesmask
      * @since windows6.1
      */
     static GetXStateFeaturesMask(Context, FeatureMask) {
-        result := DllCall("KERNEL32.dll\GetXStateFeaturesMask", "ptr", Context, "uint*", FeatureMask, "int")
+        result := DllCall("KERNEL32.dll\GetXStateFeaturesMask", "ptr", Context, "uint*", FeatureMask, "ptr")
         return result
     }
 
@@ -11155,13 +11459,13 @@ class Debug {
      *       initialized with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-initializecontext">InitializeContext</a>.
      * @param {Integer} FeatureMask A mask of XState features to set in the specified 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure.
-     * @returns {Integer} This function returns <b>TRUE</b> if successful, otherwise 
+     * @returns {BOOL} This function returns <b>TRUE</b> if successful, otherwise 
      *       <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-setxstatefeaturesmask
      * @since windows6.1
      */
     static SetXStateFeaturesMask(Context, FeatureMask) {
-        result := DllCall("KERNEL32.dll\SetXStateFeaturesMask", "ptr", Context, "uint", FeatureMask, "int")
+        result := DllCall("KERNEL32.dll\SetXStateFeaturesMask", "ptr", Context, "uint", FeatureMask, "ptr")
         return result
     }
 

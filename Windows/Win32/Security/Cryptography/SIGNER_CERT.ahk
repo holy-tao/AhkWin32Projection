@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -28,11 +30,14 @@ class SIGNER_CERT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszSpcFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszSpcFile{
+        get {
+            if(!this.HasProp("__pwszSpcFile"))
+                this.__pwszSpcFile := PWSTR(this.ptr + 8)
+            return this.__pwszSpcFile
+        }
     }
 
     /**
@@ -52,11 +57,14 @@ class SIGNER_CERT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(this.ptr + 16)
+            return this.__hwnd
+        }
     }
 
     /**

@@ -83,6 +83,20 @@ class WINBIO_EVENT extends Win32Struct
     
     }
 
+    class _Error extends Win32Struct {
+        static sizeof => 100
+        static packingSize => 8
+
+        /**
+         * @type {HRESULT}
+         */
+        ErrorCode {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {_Unclaimed}
      */
@@ -106,10 +120,13 @@ class WINBIO_EVENT extends Win32Struct
     }
 
     /**
-     * @type {HRESULT}
+     * @type {_Error}
      */
-    Error {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    Error{
+        get {
+            if(!this.HasProp("__Error"))
+                this.__Error := %this.__Class%._Error(this.ptr + 8)
+            return this.__Error
+        }
     }
 }

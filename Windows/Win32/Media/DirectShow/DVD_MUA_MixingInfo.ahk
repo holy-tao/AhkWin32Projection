@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DVD_MUA_MixingInfo structure describes the surround sound mixing information for the channels in one audio stream in a specified title.
@@ -86,38 +87,50 @@ class DVD_MUA_MixingInfo extends Win32Struct
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed to channel 0.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMixTo0 {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    fMixTo0{
+        get {
+            if(!this.HasProp("__fMixTo0"))
+                this.__fMixTo0 := BOOL(this.ptr + 0)
+            return this.__fMixTo0
+        }
     }
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed to channel 1.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMixTo1 {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fMixTo1{
+        get {
+            if(!this.HasProp("__fMixTo1"))
+                this.__fMixTo1 := BOOL(this.ptr + 4)
+            return this.__fMixTo1
+        }
     }
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed in phase to channel 0.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMix0InPhase {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fMix0InPhase{
+        get {
+            if(!this.HasProp("__fMix0InPhase"))
+                this.__fMix0InPhase := BOOL(this.ptr + 8)
+            return this.__fMix0InPhase
+        }
     }
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed in phase to channel 1.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMix1InPhase {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    fMix1InPhase{
+        get {
+            if(!this.HasProp("__fMix1InPhase"))
+                this.__fMix1InPhase := BOOL(this.ptr + 12)
+            return this.__fMix1InPhase
+        }
     }
 
     /**

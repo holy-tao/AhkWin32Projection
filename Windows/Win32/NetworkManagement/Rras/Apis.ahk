@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
@@ -3618,11 +3618,11 @@ class Rras {
     /**
      * The RasDial function establishes a RAS connection between a RAS client and a RAS server. The connection data includes callback and user-authentication information.
      * @param {Pointer<RASDIALEXTENSIONS>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param1 
      * @param {Pointer<RASDIALPARAMSA>} param2 
      * @param {Integer} param3 
      * @param {Pointer<Void>} param4 
-     * @param {Pointer<Void>} param5 
+     * @param {Pointer<HRASCONN>} param5 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and a handle to the RAS connection is returned in the variable pointed to by <i>lphRasConn</i>.
      * 
      * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3630,7 +3630,7 @@ class Rras {
      * @since windows5.0
      */
     static RasDialA(param0, param1, param2, param3, param4, param5) {
-        param1 := param1 is String? StrPtr(param1) : param1
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasDialA", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "ptr", param5, "uint")
         return result
@@ -3639,11 +3639,11 @@ class Rras {
     /**
      * The RasDial function establishes a RAS connection between a RAS client and a RAS server. The connection data includes callback and user-authentication information.
      * @param {Pointer<RASDIALEXTENSIONS>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param1 
      * @param {Pointer<RASDIALPARAMSW>} param2 
      * @param {Integer} param3 
      * @param {Pointer<Void>} param4 
-     * @param {Pointer<Void>} param5 
+     * @param {Pointer<HRASCONN>} param5 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and a handle to the RAS connection is returned in the variable pointed to by <i>lphRasConn</i>.
      * 
      * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -3651,7 +3651,7 @@ class Rras {
      * @since windows5.0
      */
     static RasDialW(param0, param1, param2, param3, param4, param5) {
-        param1 := param1 is String? StrPtr(param1) : param1
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasDialW", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "ptr", param5, "uint")
         return result
@@ -3727,8 +3727,8 @@ class Rras {
 
     /**
      * The RasEnumEntries function lists all entry names in a remote access phone book.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @param {Pointer<RASENTRYNAMEA>} param2 
      * @param {Pointer<UInt32>} param3 
      * @param {Pointer<UInt32>} param4 
@@ -3784,8 +3784,8 @@ class Rras {
      * @since windows5.0
      */
     static RasEnumEntriesA(param0, param1, param2, param3, param4) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasEnumEntriesA", "ptr", param0, "ptr", param1, "ptr", param2, "uint*", param3, "uint*", param4, "uint")
         return result
@@ -3793,8 +3793,8 @@ class Rras {
 
     /**
      * The RasEnumEntries function lists all entry names in a remote access phone book.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @param {Pointer<RASENTRYNAMEW>} param2 
      * @param {Pointer<UInt32>} param3 
      * @param {Pointer<UInt32>} param4 
@@ -3850,8 +3850,8 @@ class Rras {
      * @since windows5.0
      */
     static RasEnumEntriesW(param0, param1, param2, param3, param4) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasEnumEntriesW", "ptr", param0, "ptr", param1, "ptr", param2, "uint*", param3, "uint*", param4, "uint")
         return result
@@ -3859,7 +3859,7 @@ class Rras {
 
     /**
      * The RasGetConnectStatus function retrieves information on the current status of the specified remote access connection. An application can use this call to determine when an asynchronous RasDial call is complete.
-     * @param {Pointer<Void>} param0 
+     * @param {HRASCONN} param0 
      * @param {Pointer<RASCONNSTATUSA>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -3886,13 +3886,15 @@ class Rras {
      * @since windows5.0
      */
     static RasGetConnectStatusA(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("RASAPI32.dll\RasGetConnectStatusA", "ptr", param0, "ptr", param1, "uint")
         return result
     }
 
     /**
      * The RasGetConnectStatus function retrieves information on the current status of the specified remote access connection. An application can use this call to determine when an asynchronous RasDial call is complete.
-     * @param {Pointer<Void>} param0 
+     * @param {HRASCONN} param0 
      * @param {Pointer<RASCONNSTATUSW>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -3919,6 +3921,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetConnectStatusW(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("RASAPI32.dll\RasGetConnectStatusW", "ptr", param0, "ptr", param1, "uint")
         return result
     }
@@ -3926,7 +3930,7 @@ class Rras {
     /**
      * The RasGetErrorString function obtains an error message string for a specified RAS error value.
      * @param {Integer} ResourceId Specifies the error value of interest. These are values returned by one of the RAS functions: those listed in the RasError.h header file.
-     * @param {Pointer<Byte>} lpszString Pointer to a buffer that receives the error string. This parameter must not be <b>NULL</b>.
+     * @param {PSTR} lpszString Pointer to a buffer that receives the error string. This parameter must not be <b>NULL</b>.
      * @param {Integer} InBufSize Specifies the size, in characters, of the buffer pointed to by <i>lpszErrorString</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -3954,7 +3958,7 @@ class Rras {
      * @since windows5.0
      */
     static RasGetErrorStringA(ResourceId, lpszString, InBufSize) {
-        lpszString := lpszString is String? StrPtr(lpszString) : lpszString
+        lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
 
         result := DllCall("RASAPI32.dll\RasGetErrorStringA", "uint", ResourceId, "ptr", lpszString, "uint", InBufSize, "uint")
         return result
@@ -3963,7 +3967,7 @@ class Rras {
     /**
      * The RasGetErrorString function obtains an error message string for a specified RAS error value.
      * @param {Integer} ResourceId Specifies the error value of interest. These are values returned by one of the RAS functions: those listed in the RasError.h header file.
-     * @param {Pointer<Char>} lpszString Pointer to a buffer that receives the error string. This parameter must not be <b>NULL</b>.
+     * @param {PWSTR} lpszString Pointer to a buffer that receives the error string. This parameter must not be <b>NULL</b>.
      * @param {Integer} InBufSize Specifies the size, in characters, of the buffer pointed to by <i>lpszErrorString</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -3991,7 +3995,7 @@ class Rras {
      * @since windows5.0
      */
     static RasGetErrorStringW(ResourceId, lpszString, InBufSize) {
-        lpszString := lpszString is String? StrPtr(lpszString) : lpszString
+        lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
 
         result := DllCall("RASAPI32.dll\RasGetErrorStringW", "uint", ResourceId, "ptr", lpszString, "uint", InBufSize, "uint")
         return result
@@ -3999,7 +4003,7 @@ class Rras {
 
     /**
      * The RasHangUp function terminates a remote access connection. The connection is specified with a RAS connection handle. The function releases all RASAPI32.DLL resources associated with the handle.
-     * @param {Pointer<Void>} param0 
+     * @param {HRASCONN} param0 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4025,13 +4029,15 @@ class Rras {
      * @since windows5.0
      */
     static RasHangUpA(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("RASAPI32.dll\RasHangUpA", "ptr", param0, "uint")
         return result
     }
 
     /**
      * The RasHangUp function terminates a remote access connection. The connection is specified with a RAS connection handle. The function releases all RASAPI32.DLL resources associated with the handle.
-     * @param {Pointer<Void>} param0 
+     * @param {HRASCONN} param0 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4057,13 +4063,15 @@ class Rras {
      * @since windows5.0
      */
     static RasHangUpW(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("RASAPI32.dll\RasHangUpW", "ptr", param0, "uint")
         return result
     }
 
     /**
      * The RasGetProjectionInfo function obtains information about a remote access projection operation for a specified remote access component protocol.
-     * @param {Pointer<Void>} param0 
+     * @param {HRASCONN} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
      * @param {Pointer<UInt32>} param3 
@@ -4136,13 +4144,15 @@ class Rras {
      * @since windows5.0
      */
     static RasGetProjectionInfoA(param0, param1, param2, param3) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("RASAPI32.dll\RasGetProjectionInfoA", "ptr", param0, "int", param1, "ptr", param2, "uint*", param3, "uint")
         return result
     }
 
     /**
      * The RasGetProjectionInfo function obtains information about a remote access projection operation for a specified remote access component protocol.
-     * @param {Pointer<Void>} param0 
+     * @param {HRASCONN} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
      * @param {Pointer<UInt32>} param3 
@@ -4215,14 +4225,16 @@ class Rras {
      * @since windows5.0
      */
     static RasGetProjectionInfoW(param0, param1, param2, param3) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("RASAPI32.dll\RasGetProjectionInfoW", "ptr", param0, "int", param1, "ptr", param2, "uint*", param3, "uint")
         return result
     }
 
     /**
      * The RasCreatePhonebookEntry function creates a new phone-book entry. The function displays a dialog box in which the user types information for the phone-book entry.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {HWND} param0 
+     * @param {PSTR} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4248,7 +4260,8 @@ class Rras {
      * @since windows5.0
      */
     static RasCreatePhonebookEntryA(param0, param1) {
-        param1 := param1 is String? StrPtr(param1) : param1
+        param1 := param1 is String ? StrPtr(param1) : param1
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("RASAPI32.dll\RasCreatePhonebookEntryA", "ptr", param0, "ptr", param1, "uint")
         return result
@@ -4256,8 +4269,8 @@ class Rras {
 
     /**
      * The RasCreatePhonebookEntry function creates a new phone-book entry. The function displays a dialog box in which the user types information for the phone-book entry.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {HWND} param0 
+     * @param {PWSTR} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4283,7 +4296,8 @@ class Rras {
      * @since windows5.0
      */
     static RasCreatePhonebookEntryW(param0, param1) {
-        param1 := param1 is String? StrPtr(param1) : param1
+        param1 := param1 is String ? StrPtr(param1) : param1
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("RASAPI32.dll\RasCreatePhonebookEntryW", "ptr", param0, "ptr", param1, "uint")
         return result
@@ -4291,9 +4305,9 @@ class Rras {
 
     /**
      * The RasEditPhonebookEntry function edits an existing phone-book entry. The function displays a dialog box in which the user can modify the existing information.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Byte>} param2 
+     * @param {HWND} param0 
+     * @param {PSTR} param1 
+     * @param {PSTR} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4341,8 +4355,9 @@ class Rras {
      * @since windows5.0
      */
     static RasEditPhonebookEntryA(param0, param1, param2) {
-        param1 := param1 is String? StrPtr(param1) : param1
-        param2 := param2 is String? StrPtr(param2) : param2
+        param1 := param1 is String ? StrPtr(param1) : param1
+        param2 := param2 is String ? StrPtr(param2) : param2
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("RASAPI32.dll\RasEditPhonebookEntryA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
@@ -4350,9 +4365,9 @@ class Rras {
 
     /**
      * The RasEditPhonebookEntry function edits an existing phone-book entry. The function displays a dialog box in which the user can modify the existing information.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Char>} param1 
-     * @param {Pointer<Char>} param2 
+     * @param {HWND} param0 
+     * @param {PWSTR} param1 
+     * @param {PWSTR} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4400,8 +4415,9 @@ class Rras {
      * @since windows5.0
      */
     static RasEditPhonebookEntryW(param0, param1, param2) {
-        param1 := param1 is String? StrPtr(param1) : param1
-        param2 := param2 is String? StrPtr(param2) : param2
+        param1 := param1 is String ? StrPtr(param1) : param1
+        param2 := param2 is String ? StrPtr(param2) : param2
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("RASAPI32.dll\RasEditPhonebookEntryW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
@@ -4409,9 +4425,9 @@ class Rras {
 
     /**
      * The RasSetEntryDialParams function changes the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry.
-     * @param {Pointer<Byte>} param0 
+     * @param {PSTR} param0 
      * @param {Pointer<RASDIALPARAMSA>} param1 
-     * @param {Integer} param2 
+     * @param {BOOL} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4459,17 +4475,17 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEntryDialParamsA(param0, param1, param2) {
-        param0 := param0 is String? StrPtr(param0) : param0
+        param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := DllCall("RASAPI32.dll\RasSetEntryDialParamsA", "ptr", param0, "ptr", param1, "int", param2, "uint")
+        result := DllCall("RASAPI32.dll\RasSetEntryDialParamsA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
 
     /**
      * The RasSetEntryDialParams function changes the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry.
-     * @param {Pointer<Char>} param0 
+     * @param {PWSTR} param0 
      * @param {Pointer<RASDIALPARAMSW>} param1 
-     * @param {Integer} param2 
+     * @param {BOOL} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4517,17 +4533,17 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEntryDialParamsW(param0, param1, param2) {
-        param0 := param0 is String? StrPtr(param0) : param0
+        param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := DllCall("RASAPI32.dll\RasSetEntryDialParamsW", "ptr", param0, "ptr", param1, "int", param2, "uint")
+        result := DllCall("RASAPI32.dll\RasSetEntryDialParamsW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
 
     /**
      * The RasGetEntryDialParams function retrieves the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry.
-     * @param {Pointer<Byte>} param0 
+     * @param {PSTR} param0 
      * @param {Pointer<RASDIALPARAMSA>} param1 
-     * @param {Pointer<Int32>} param2 
+     * @param {Pointer<BOOL>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4575,17 +4591,17 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEntryDialParamsA(param0, param1, param2) {
-        param0 := param0 is String? StrPtr(param0) : param0
+        param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := DllCall("RASAPI32.dll\RasGetEntryDialParamsA", "ptr", param0, "ptr", param1, "int*", param2, "uint")
+        result := DllCall("RASAPI32.dll\RasGetEntryDialParamsA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
 
     /**
      * The RasGetEntryDialParams function retrieves the connection information saved by the last successful call to the RasDial or RasSetEntryDialParams function for a specified phone-book entry.
-     * @param {Pointer<Char>} param0 
+     * @param {PWSTR} param0 
      * @param {Pointer<RASDIALPARAMSW>} param1 
-     * @param {Pointer<Int32>} param2 
+     * @param {Pointer<BOOL>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -4633,9 +4649,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEntryDialParamsW(param0, param1, param2) {
-        param0 := param0 is String? StrPtr(param0) : param0
+        param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := DllCall("RASAPI32.dll\RasGetEntryDialParamsW", "ptr", param0, "ptr", param1, "int*", param2, "uint")
+        result := DllCall("RASAPI32.dll\RasGetEntryDialParamsW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
     }
 
@@ -4909,8 +4925,8 @@ class Rras {
 
     /**
      * The RasGetEntryProperties function retrieves the properties of a phone-book entry.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @param {Pointer<RASENTRYA>} param2 
      * @param {Pointer<UInt32>} param3 
      * @param {Pointer<Byte>} param4 
@@ -4984,8 +5000,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasGetEntryPropertiesA", "ptr", param0, "ptr", param1, "ptr", param2, "uint*", param3, "char*", param4, "uint*", param5, "uint")
         return result
@@ -4993,8 +5009,8 @@ class Rras {
 
     /**
      * The RasGetEntryProperties function retrieves the properties of a phone-book entry.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @param {Pointer<RASENTRYW>} param2 
      * @param {Pointer<UInt32>} param3 
      * @param {Pointer<Byte>} param4 
@@ -5068,8 +5084,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasGetEntryPropertiesW", "ptr", param0, "ptr", param1, "ptr", param2, "uint*", param3, "char*", param4, "uint*", param5, "uint")
         return result
@@ -5077,8 +5093,8 @@ class Rras {
 
     /**
      * The RasSetEntryProperties function changes the connection information for an entry in the phone book or creates a new phone-book entry.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @param {Pointer<RASENTRYA>} param2 
      * @param {Integer} param3 
      * @param {Pointer<Byte>} param4 
@@ -5146,8 +5162,8 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasSetEntryPropertiesA", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "char*", param4, "uint", param5, "uint")
         return result
@@ -5155,8 +5171,8 @@ class Rras {
 
     /**
      * The RasSetEntryProperties function changes the connection information for an entry in the phone book or creates a new phone-book entry.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @param {Pointer<RASENTRYW>} param2 
      * @param {Integer} param3 
      * @param {Pointer<Byte>} param4 
@@ -5224,8 +5240,8 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasSetEntryPropertiesW", "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "char*", param4, "uint", param5, "uint")
         return result
@@ -5233,9 +5249,9 @@ class Rras {
 
     /**
      * The RasRenameEntry function changes the name of an entry in a phone book.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Byte>} param2 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
+     * @param {PSTR} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5294,9 +5310,9 @@ class Rras {
      * @since windows5.0
      */
     static RasRenameEntryA(param0, param1, param2) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
-        param2 := param2 is String? StrPtr(param2) : param2
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
+        param2 := param2 is String ? StrPtr(param2) : param2
 
         result := DllCall("RASAPI32.dll\RasRenameEntryA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
@@ -5304,9 +5320,9 @@ class Rras {
 
     /**
      * The RasRenameEntry function changes the name of an entry in a phone book.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
-     * @param {Pointer<Char>} param2 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
+     * @param {PWSTR} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5365,9 +5381,9 @@ class Rras {
      * @since windows5.0
      */
     static RasRenameEntryW(param0, param1, param2) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
-        param2 := param2 is String? StrPtr(param2) : param2
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
+        param2 := param2 is String ? StrPtr(param2) : param2
 
         result := DllCall("RASAPI32.dll\RasRenameEntryW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
@@ -5375,8 +5391,8 @@ class Rras {
 
     /**
      * The RasDeleteEntry function deletes an entry from a phone book.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5414,8 +5430,8 @@ class Rras {
      * @since windows5.0
      */
     static RasDeleteEntryA(param0, param1) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasDeleteEntryA", "ptr", param0, "ptr", param1, "uint")
         return result
@@ -5423,8 +5439,8 @@ class Rras {
 
     /**
      * The RasDeleteEntry function deletes an entry from a phone book.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5462,8 +5478,8 @@ class Rras {
      * @since windows5.0
      */
     static RasDeleteEntryW(param0, param1) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasDeleteEntryW", "ptr", param0, "ptr", param1, "uint")
         return result
@@ -5471,8 +5487,8 @@ class Rras {
 
     /**
      * The RasValidateEntryName function validates the format of a connection entry name. The name must contain at least one non-white-space alphanumeric character.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5520,8 +5536,8 @@ class Rras {
      * @since windows5.0
      */
     static RasValidateEntryNameA(param0, param1) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasValidateEntryNameA", "ptr", param0, "ptr", param1, "uint")
         return result
@@ -5529,14 +5545,14 @@ class Rras {
 
     /**
      * 
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @returns {Integer} 
      * @since windows5.0
      */
     static RasValidateEntryNameW(param0, param1) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasValidateEntryNameW", "ptr", param0, "ptr", param1, "uint")
         return result
@@ -5544,8 +5560,8 @@ class Rras {
 
     /**
      * The RasConnectionNotification function specifies an event object that the system sets to the signaled state when a RAS connection is created or terminated.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {HRASCONN} param0 
+     * @param {HANDLE} param1 
      * @param {Integer} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -5554,14 +5570,17 @@ class Rras {
      * @since windows5.0
      */
     static RasConnectionNotificationA(param0, param1, param2) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
         result := DllCall("RASAPI32.dll\RasConnectionNotificationA", "ptr", param0, "ptr", param1, "uint", param2, "uint")
         return result
     }
 
     /**
      * The RasConnectionNotification function specifies an event object that the system sets to the signaled state when a RAS connection is created or terminated.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {HRASCONN} param0 
+     * @param {HANDLE} param1 
      * @param {Integer} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -5570,15 +5589,18 @@ class Rras {
      * @since windows5.0
      */
     static RasConnectionNotificationW(param0, param1, param2) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
         result := DllCall("RASAPI32.dll\RasConnectionNotificationW", "ptr", param0, "ptr", param1, "uint", param2, "uint")
         return result
     }
 
     /**
      * The RasGetSubEntryHandle function retrieves a connection handle for a specified subentry of a multilink connection.
-     * @param {Pointer<Void>} param0 
+     * @param {HRASCONN} param0 
      * @param {Integer} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HRASCONN>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5626,15 +5648,17 @@ class Rras {
      * @since windows5.0
      */
     static RasGetSubEntryHandleA(param0, param1, param2) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("RASAPI32.dll\RasGetSubEntryHandleA", "ptr", param0, "uint", param1, "ptr", param2, "uint")
         return result
     }
 
     /**
      * The RasGetSubEntryHandle function retrieves a connection handle for a specified subentry of a multilink connection.
-     * @param {Pointer<Void>} param0 
+     * @param {HRASCONN} param0 
      * @param {Integer} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HRASCONN>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -5682,14 +5706,16 @@ class Rras {
      * @since windows5.0
      */
     static RasGetSubEntryHandleW(param0, param1, param2) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("RASAPI32.dll\RasGetSubEntryHandleW", "ptr", param0, "uint", param1, "ptr", param2, "uint")
         return result
     }
 
     /**
      * The RasGetCredentials function retrieves the user credentials associated with a specified RAS phone-book entry.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @param {Pointer<RASCREDENTIALSA>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -5750,8 +5776,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetCredentialsA(param0, param1, param2) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasGetCredentialsA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
@@ -5759,8 +5785,8 @@ class Rras {
 
     /**
      * The RasGetCredentials function retrieves the user credentials associated with a specified RAS phone-book entry.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @param {Pointer<RASCREDENTIALSW>} param2 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -5821,8 +5847,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetCredentialsW(param0, param1, param2) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasGetCredentialsW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
@@ -5830,10 +5856,10 @@ class Rras {
 
     /**
      * Sets the user credentials associated with a specified RAS phone-book entry.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @param {Pointer<RASCREDENTIALSA>} param2 
-     * @param {Integer} param3 
+     * @param {BOOL} param3 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from 
@@ -5891,19 +5917,19 @@ class Rras {
      * @since windows5.0
      */
     static RasSetCredentialsA(param0, param1, param2, param3) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := DllCall("RASAPI32.dll\RasSetCredentialsA", "ptr", param0, "ptr", param1, "ptr", param2, "int", param3, "uint")
+        result := DllCall("RASAPI32.dll\RasSetCredentialsA", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "uint")
         return result
     }
 
     /**
      * Sets the user credentials associated with a specified RAS phone-book entry.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @param {Pointer<RASCREDENTIALSW>} param2 
-     * @param {Integer} param3 
+     * @param {BOOL} param3 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from 
@@ -5961,17 +5987,17 @@ class Rras {
      * @since windows5.0
      */
     static RasSetCredentialsW(param0, param1, param2, param3) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := DllCall("RASAPI32.dll\RasSetCredentialsW", "ptr", param0, "ptr", param1, "ptr", param2, "int", param3, "uint")
+        result := DllCall("RASAPI32.dll\RasSetCredentialsW", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "uint")
         return result
     }
 
     /**
      * The RasGetSubEntryProperties function retrieves information about a subentry for a specified phone-book entry.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @param {Integer} param2 
      * @param {Pointer<RASSUBENTRYA>} param3 
      * @param {Pointer<UInt32>} param4 
@@ -6046,8 +6072,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5, param6) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "uint*", param4, "char*", param5, "uint*", param6, "uint")
         return result
@@ -6055,8 +6081,8 @@ class Rras {
 
     /**
      * The RasGetSubEntryProperties function retrieves information about a subentry for a specified phone-book entry.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @param {Integer} param2 
      * @param {Pointer<RASSUBENTRYW>} param3 
      * @param {Pointer<UInt32>} param4 
@@ -6131,8 +6157,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5, param6) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "uint*", param4, "char*", param5, "uint*", param6, "uint")
         return result
@@ -6140,8 +6166,8 @@ class Rras {
 
     /**
      * The RasSetSubEntryProperties function creates a new subentry or modifies an existing subentry of a specified phone-book entry.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @param {Integer} param2 
      * @param {Pointer<RASSUBENTRYA>} param3 
      * @param {Integer} param4 
@@ -6205,8 +6231,8 @@ class Rras {
      * @since windows5.0
      */
     static RasSetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5, param6) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "uint", param4, "char*", param5, "uint", param6, "uint")
         return result
@@ -6214,8 +6240,8 @@ class Rras {
 
     /**
      * The RasSetSubEntryProperties function creates a new subentry or modifies an existing subentry of a specified phone-book entry.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @param {Integer} param2 
      * @param {Pointer<RASSUBENTRYW>} param3 
      * @param {Integer} param4 
@@ -6279,8 +6305,8 @@ class Rras {
      * @since windows5.0
      */
     static RasSetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5, param6) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "uint", param4, "char*", param5, "uint", param6, "uint")
         return result
@@ -6288,7 +6314,7 @@ class Rras {
 
     /**
      * The RasGetAutodialAddress function retrieves information about all the AutoDial entries associated with a network address in the AutoDial mapping database.
-     * @param {Pointer<Byte>} param0 
+     * @param {PSTR} param0 
      * @param {Pointer<UInt32>} param1 
      * @param {Pointer<RASAUTODIALENTRYA>} param2 
      * @param {Pointer<UInt32>} param3 
@@ -6330,7 +6356,7 @@ class Rras {
      * @since windows5.0
      */
     static RasGetAutodialAddressA(param0, param1, param2, param3, param4) {
-        param0 := param0 is String? StrPtr(param0) : param0
+        param0 := param0 is String ? StrPtr(param0) : param0
 
         result := DllCall("RASAPI32.dll\RasGetAutodialAddressA", "ptr", param0, "uint*", param1, "ptr", param2, "uint*", param3, "uint*", param4, "uint")
         return result
@@ -6338,7 +6364,7 @@ class Rras {
 
     /**
      * The RasGetAutodialAddress function retrieves information about all the AutoDial entries associated with a network address in the AutoDial mapping database.
-     * @param {Pointer<Char>} param0 
+     * @param {PWSTR} param0 
      * @param {Pointer<UInt32>} param1 
      * @param {Pointer<RASAUTODIALENTRYW>} param2 
      * @param {Pointer<UInt32>} param3 
@@ -6380,7 +6406,7 @@ class Rras {
      * @since windows5.0
      */
     static RasGetAutodialAddressW(param0, param1, param2, param3, param4) {
-        param0 := param0 is String? StrPtr(param0) : param0
+        param0 := param0 is String ? StrPtr(param0) : param0
 
         result := DllCall("RASAPI32.dll\RasGetAutodialAddressW", "ptr", param0, "uint*", param1, "ptr", param2, "uint*", param3, "uint*", param4, "uint")
         return result
@@ -6388,7 +6414,7 @@ class Rras {
 
     /**
      * The RasSetAutodialAddress function can add an address to the AutoDial mapping database. Alternatively, the function can delete or modify the data associated with an existing address in the database.
-     * @param {Pointer<Byte>} param0 
+     * @param {PSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<RASAUTODIALENTRYA>} param2 
      * @param {Integer} param3 
@@ -6441,7 +6467,7 @@ class Rras {
      * @since windows5.0
      */
     static RasSetAutodialAddressA(param0, param1, param2, param3, param4) {
-        param0 := param0 is String? StrPtr(param0) : param0
+        param0 := param0 is String ? StrPtr(param0) : param0
 
         result := DllCall("RASAPI32.dll\RasSetAutodialAddressA", "ptr", param0, "uint", param1, "ptr", param2, "uint", param3, "uint", param4, "uint")
         return result
@@ -6449,7 +6475,7 @@ class Rras {
 
     /**
      * The RasSetAutodialAddress function can add an address to the AutoDial mapping database. Alternatively, the function can delete or modify the data associated with an existing address in the database.
-     * @param {Pointer<Char>} param0 
+     * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<RASAUTODIALENTRYW>} param2 
      * @param {Integer} param3 
@@ -6502,7 +6528,7 @@ class Rras {
      * @since windows5.0
      */
     static RasSetAutodialAddressW(param0, param1, param2, param3, param4) {
-        param0 := param0 is String? StrPtr(param0) : param0
+        param0 := param0 is String ? StrPtr(param0) : param0
 
         result := DllCall("RASAPI32.dll\RasSetAutodialAddressW", "ptr", param0, "uint", param1, "ptr", param2, "uint", param3, "uint", param4, "uint")
         return result
@@ -6635,7 +6661,7 @@ class Rras {
     /**
      * The RasGetAutodialEnable function indicates whether the AutoDial feature is enabled for a specified TAPI dialing location.
      * @param {Integer} param0 
-     * @param {Pointer<Int32>} param1 
+     * @param {Pointer<BOOL>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6643,14 +6669,14 @@ class Rras {
      * @since windows5.0
      */
     static RasGetAutodialEnableA(param0, param1) {
-        result := DllCall("RASAPI32.dll\RasGetAutodialEnableA", "uint", param0, "int*", param1, "uint")
+        result := DllCall("RASAPI32.dll\RasGetAutodialEnableA", "uint", param0, "ptr", param1, "uint")
         return result
     }
 
     /**
      * The RasGetAutodialEnable function indicates whether the AutoDial feature is enabled for a specified TAPI dialing location.
      * @param {Integer} param0 
-     * @param {Pointer<Int32>} param1 
+     * @param {Pointer<BOOL>} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6658,14 +6684,14 @@ class Rras {
      * @since windows5.0
      */
     static RasGetAutodialEnableW(param0, param1) {
-        result := DllCall("RASAPI32.dll\RasGetAutodialEnableW", "uint", param0, "int*", param1, "uint")
+        result := DllCall("RASAPI32.dll\RasGetAutodialEnableW", "uint", param0, "ptr", param1, "uint")
         return result
     }
 
     /**
      * The RasSetAutodialEnable function enables or disables the AutoDial feature for a specified TAPI dialing location.
      * @param {Integer} param0 
-     * @param {Integer} param1 
+     * @param {BOOL} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is a non-zero error code from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6673,14 +6699,14 @@ class Rras {
      * @since windows5.0
      */
     static RasSetAutodialEnableA(param0, param1) {
-        result := DllCall("RASAPI32.dll\RasSetAutodialEnableA", "uint", param0, "int", param1, "uint")
+        result := DllCall("RASAPI32.dll\RasSetAutodialEnableA", "uint", param0, "ptr", param1, "uint")
         return result
     }
 
     /**
      * The RasSetAutodialEnable function enables or disables the AutoDial feature for a specified TAPI dialing location.
      * @param {Integer} param0 
-     * @param {Integer} param1 
+     * @param {BOOL} param1 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is a non-zero error code from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6688,7 +6714,7 @@ class Rras {
      * @since windows5.0
      */
     static RasSetAutodialEnableW(param0, param1) {
-        result := DllCall("RASAPI32.dll\RasSetAutodialEnableW", "uint", param0, "int", param1, "uint")
+        result := DllCall("RASAPI32.dll\RasSetAutodialEnableW", "uint", param0, "ptr", param1, "uint")
         return result
     }
 
@@ -6874,11 +6900,11 @@ class Rras {
 
     /**
      * 
-     * @param {Pointer<Char>} lpszPCscf 
+     * @param {PWSTR} lpszPCscf 
      * @returns {Integer} 
      */
     static RasGetPCscf(lpszPCscf) {
-        lpszPCscf := lpszPCscf is String? StrPtr(lpszPCscf) : lpszPCscf
+        lpszPCscf := lpszPCscf is String ? StrPtr(lpszPCscf) : lpszPCscf
 
         result := DllCall("RASAPI32.dll\RasGetPCscf", "ptr", lpszPCscf, "uint")
         return result
@@ -6886,10 +6912,10 @@ class Rras {
 
     /**
      * The RasInvokeEapUI function displays a custom user interface to obtain Extensible Authentication Protocol (EAP) information from the user.
-     * @param {Pointer<Void>} param0 
+     * @param {HRASCONN} param0 
      * @param {Integer} param1 
      * @param {Pointer<RASDIALEXTENSIONS>} param2 
-     * @param {Pointer<Void>} param3 
+     * @param {HWND} param3 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -6939,13 +6965,16 @@ class Rras {
      * @since windows5.0
      */
     static RasInvokeEapUI(param0, param1, param2, param3) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param3 := param3 is Win32Handle ? NumGet(param3, "ptr") : param3
+
         result := DllCall("RASAPI32.dll\RasInvokeEapUI", "ptr", param0, "uint", param1, "ptr", param2, "ptr", param3, "uint")
         return result
     }
 
     /**
      * The RasGetLinkStatistics function retrieves accumulated statistics for the specified link in a RAS multilink connection.
-     * @param {Pointer<Void>} hRasConn Handle to the connection. Use 
+     * @param {HRASCONN} hRasConn Handle to the connection. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @param {Integer} dwSubEntry Specifies the subentry that corresponds to the link for which to retrieve statistics.
@@ -7008,13 +7037,15 @@ class Rras {
      * @since windows5.0
      */
     static RasGetLinkStatistics(hRasConn, dwSubEntry, lpStatistics) {
+        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+
         result := DllCall("RASAPI32.dll\RasGetLinkStatistics", "ptr", hRasConn, "uint", dwSubEntry, "ptr", lpStatistics, "uint")
         return result
     }
 
     /**
      * The RasGetConnectionStatistics function retrieves accumulated connection statistics for the specified connection.
-     * @param {Pointer<Void>} hRasConn Handle to the connection. Use <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
+     * @param {HRASCONN} hRasConn Handle to the connection. Use <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @param {Pointer<RAS_STATS>} lpStatistics Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_stats">RAS_STATS</a> structure that, on output, receives the statistics. 
      * 
@@ -7073,13 +7104,15 @@ class Rras {
      * @since windows5.0
      */
     static RasGetConnectionStatistics(hRasConn, lpStatistics) {
+        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+
         result := DllCall("RASAPI32.dll\RasGetConnectionStatistics", "ptr", hRasConn, "ptr", lpStatistics, "uint")
         return result
     }
 
     /**
      * The RasClearLinkStatistics functions clears any accumulated statistics for the specified link in a RAS multilink connection.
-     * @param {Pointer<Void>} hRasConn Handle to the connection. Use 
+     * @param {HRASCONN} hRasConn Handle to the connection. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @param {Integer} dwSubEntry Specifies the subentry that corresponds to the link for which to clear statistics.
@@ -7153,13 +7186,15 @@ class Rras {
      * @since windows5.0
      */
     static RasClearLinkStatistics(hRasConn, dwSubEntry) {
+        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+
         result := DllCall("RASAPI32.dll\RasClearLinkStatistics", "ptr", hRasConn, "uint", dwSubEntry, "uint")
         return result
     }
 
     /**
      * The RasClearConnectionStatistics functions clears any accumulated statistics for the specified RAS connection.
-     * @param {Pointer<Void>} hRasConn Handle to the connection. Use 
+     * @param {HRASCONN} hRasConn Handle to the connection. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -7210,15 +7245,17 @@ class Rras {
      * @since windows5.0
      */
     static RasClearConnectionStatistics(hRasConn) {
+        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+
         result := DllCall("RASAPI32.dll\RasClearConnectionStatistics", "ptr", hRasConn, "uint")
         return result
     }
 
     /**
      * Use the RasGetEapUserData function to retrieve user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry.
-     * @param {Pointer<Void>} hToken Handle to a primary or impersonation access token that represents the user for which to retrieve data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
-     * @param {Pointer<Byte>} pszPhonebook Pointer to a null-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
-     * @param {Pointer<Byte>} pszEntry Pointer to a null-terminated string that specifies an existing entry name.
+     * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to retrieve data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
+     * @param {PSTR} pszPhonebook Pointer to a null-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
+     * @param {PSTR} pszEntry Pointer to a null-terminated string that specifies an existing entry name.
      * @param {Pointer<Byte>} pbEapData Pointer to a buffer that receives the retrieved EAP data for the user. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
      * <b>RasGetEapUserData</b>  returns <b>ERROR_BUFFER_TOO_SMALL</b>, and the <i>pdwSizeofEapData</i> parameter  contains the required size.
      * @param {Pointer<UInt32>} pdwSizeofEapData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbEapData</i> parameter. 
@@ -7299,8 +7336,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEapData) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("RASAPI32.dll\RasGetEapUserDataA", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "char*", pbEapData, "uint*", pdwSizeofEapData, "uint")
         return result
@@ -7308,9 +7346,9 @@ class Rras {
 
     /**
      * Use the RasGetEapUserData function to retrieve user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry.
-     * @param {Pointer<Void>} hToken Handle to a primary or impersonation access token that represents the user for which to retrieve data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
-     * @param {Pointer<Char>} pszPhonebook Pointer to a null-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
-     * @param {Pointer<Char>} pszEntry Pointer to a null-terminated string that specifies an existing entry name.
+     * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to retrieve data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
+     * @param {PWSTR} pszPhonebook Pointer to a null-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
+     * @param {PWSTR} pszEntry Pointer to a null-terminated string that specifies an existing entry name.
      * @param {Pointer<Byte>} pbEapData Pointer to a buffer that receives the retrieved EAP data for the user. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
      * <b>RasGetEapUserData</b>  returns <b>ERROR_BUFFER_TOO_SMALL</b>, and the <i>pdwSizeofEapData</i> parameter  contains the required size.
      * @param {Pointer<UInt32>} pdwSizeofEapData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbEapData</i> parameter. 
@@ -7391,8 +7429,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEapData) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("RASAPI32.dll\RasGetEapUserDataW", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "char*", pbEapData, "uint*", pdwSizeofEapData, "uint")
         return result
@@ -7400,9 +7439,9 @@ class Rras {
 
     /**
      * Use the RasSetEapUserData function to store user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry in the registry.
-     * @param {Pointer<Void>} hToken Handle to a primary or impersonation access token that represents the user for which to store data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
-     * @param {Pointer<Byte>} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
-     * @param {Pointer<Byte>} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
+     * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to store data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
+     * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
+     * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer<Byte>} pbEapData Pointer to the data to store for the user.
      * @param {Integer} dwSizeofEapData Specifies the size of the data pointed to by the <i>pbEapData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -7464,8 +7503,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEapData) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("RASAPI32.dll\RasSetEapUserDataA", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "char*", pbEapData, "uint", dwSizeofEapData, "uint")
         return result
@@ -7473,9 +7513,9 @@ class Rras {
 
     /**
      * Use the RasSetEapUserData function to store user-specific Extensible Authentication Protocol (EAP) information for the specified phone-book entry in the registry.
-     * @param {Pointer<Void>} hToken Handle to a primary or impersonation access token that represents the user for which to store data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
-     * @param {Pointer<Char>} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
-     * @param {Pointer<Char>} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
+     * @param {HANDLE} hToken Handle to a primary or impersonation access token that represents the user for which to store data. This parameter can be <b>NULL</b> if the function is called from a process already running in the user's context.
+     * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
+     * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer<Byte>} pbEapData Pointer to the data to store for the user.
      * @param {Integer} dwSizeofEapData Specifies the size of the data pointed to by the <i>pbEapData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -7537,8 +7577,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEapData) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("RASAPI32.dll\RasSetEapUserDataW", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "char*", pbEapData, "uint", dwSizeofEapData, "uint")
         return result
@@ -7546,8 +7587,8 @@ class Rras {
 
     /**
      * Use the RasGetCustomAuthData function to retrieve connection-specific authentication information. This information is not specific to a particular user.
-     * @param {Pointer<Byte>} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
-     * @param {Pointer<Byte>} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
+     * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
+     * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer} pbCustomAuthData Pointer to a buffer that receives the authentication data. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
      * <b>RasGetCustomAuthData</b>  returns ERROR_BUFFER_TOO_SMALL, and the <i>pdwSizeofEapData</i> parameter  contains the required size.
      * @param {Pointer<UInt32>} pdwSizeofCustomAuthData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbCustomAuthData</i> parameter. 
@@ -7628,8 +7669,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeofCustomAuthData) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
         result := DllCall("RASAPI32.dll\RasGetCustomAuthDataA", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, "uint*", pdwSizeofCustomAuthData, "uint")
         return result
@@ -7637,8 +7678,8 @@ class Rras {
 
     /**
      * Use the RasGetCustomAuthData function to retrieve connection-specific authentication information. This information is not specific to a particular user.
-     * @param {Pointer<Char>} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
-     * @param {Pointer<Char>} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
+     * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
+     * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer} pbCustomAuthData Pointer to a buffer that receives the authentication data. The caller should allocate the memory for this buffer. If the buffer is not large enough, 
      * <b>RasGetCustomAuthData</b>  returns ERROR_BUFFER_TOO_SMALL, and the <i>pdwSizeofEapData</i> parameter  contains the required size.
      * @param {Pointer<UInt32>} pdwSizeofCustomAuthData Pointer to a <b>DWORD</b> variable that, on input, specifies the size of the buffer pointed to by the <i>pbCustomAuthData</i> parameter. 
@@ -7719,8 +7760,8 @@ class Rras {
      * @since windows5.0
      */
     static RasGetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeofCustomAuthData) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
         result := DllCall("RASAPI32.dll\RasGetCustomAuthDataW", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, "uint*", pdwSizeofCustomAuthData, "uint")
         return result
@@ -7728,8 +7769,8 @@ class Rras {
 
     /**
      * Use the RasSetCustomAuthData function to set connection-specific authentication information. This information should not be specific to a particular user.
-     * @param {Pointer<Byte>} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
-     * @param {Pointer<Byte>} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
+     * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
+     * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer} pbCustomAuthData Pointer to a buffer that specifies the new authentication data.
      * @param {Integer} dwSizeofCustomAuthData Specifies the size of the data pointed to by the <i>pbCustomAuthData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -7793,8 +7834,8 @@ class Rras {
      * @since windows5.0
      */
     static RasSetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofCustomAuthData) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
         result := DllCall("RASAPI32.dll\RasSetCustomAuthDataA", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, "uint", dwSizeofCustomAuthData, "uint")
         return result
@@ -7802,8 +7843,8 @@ class Rras {
 
     /**
      * Use the RasSetCustomAuthData function to set connection-specific authentication information. This information should not be specific to a particular user.
-     * @param {Pointer<Char>} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
-     * @param {Pointer<Char>} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
+     * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function  uses the system phone book.
+     * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Pointer} pbCustomAuthData Pointer to a buffer that specifies the new authentication data.
      * @param {Integer} dwSizeofCustomAuthData Specifies the size of the data pointed to by the <i>pbCustomAuthData</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -7867,8 +7908,8 @@ class Rras {
      * @since windows5.0
      */
     static RasSetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofCustomAuthData) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
         result := DllCall("RASAPI32.dll\RasSetCustomAuthDataW", "ptr", pszPhonebook, "ptr", pszEntry, "ptr", pbCustomAuthData, "uint", dwSizeofCustomAuthData, "uint")
         return result
@@ -7876,8 +7917,8 @@ class Rras {
 
     /**
      * The RasGetEapUserIdentity function retrieves identity information for the current user. Use this information to call RasDial with a phone-book entry that requires Extensible Authentication Protocol (EAP).
-     * @param {Pointer<Char>} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the system phone book.
-     * @param {Pointer<Char>} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
+     * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the system phone book.
+     * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Integer} dwFlags Specifies zero or more of the following flags that qualify the authentication process.
      * 
      * <table>
@@ -7916,7 +7957,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
+     * @param {HWND} hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
      * @param {Pointer<RASEAPUSERIDENTITYW>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure that contains EAP user identity information. 
      * <b>RasGetEapUserIdentity</b> allocates the memory buffer for the 
@@ -7993,8 +8034,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEapUserIdentityW(pszPhonebook, pszEntry, dwFlags, hwnd, ppRasEapUserIdentity) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, "ptr", ppRasEapUserIdentity, "uint")
         return result
@@ -8002,8 +8044,8 @@ class Rras {
 
     /**
      * The RasGetEapUserIdentity function retrieves identity information for the current user. Use this information to call RasDial with a phone-book entry that requires Extensible Authentication Protocol (EAP).
-     * @param {Pointer<Byte>} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the system phone book.
-     * @param {Pointer<Byte>} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
+     * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path of the phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the system phone book.
+     * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that specifies an existing entry name.
      * @param {Integer} dwFlags Specifies zero or more of the following flags that qualify the authentication process.
      * 
      * <table>
@@ -8042,7 +8084,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
+     * @param {HWND} hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
      * @param {Pointer<RASEAPUSERIDENTITYA>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure that contains EAP user identity information. 
      * <b>RasGetEapUserIdentity</b> allocates the memory buffer for the 
@@ -8119,8 +8161,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEapUserIdentityA(pszPhonebook, pszEntry, dwFlags, hwnd, ppRasEapUserIdentity) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, "ptr", ppRasEapUserIdentity, "uint")
         return result
@@ -8180,8 +8223,8 @@ class Rras {
 
     /**
      * The RasDeleteSubEntry function deletes the specified subentry from the specified phone-book entry.
-     * @param {Pointer<Byte>} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file.
-     * @param {Pointer<Byte>} pszEntry Pointer to a <b>null</b>-terminated string that contains the name of an existing entry from which a subentry is to be deleted.
+     * @param {PSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file.
+     * @param {PSTR} pszEntry Pointer to a <b>null</b>-terminated string that contains the name of an existing entry from which a subentry is to be deleted.
      * @param {Integer} dwSubentryId TBD
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -8190,8 +8233,8 @@ class Rras {
      * @since windows5.1.2600
      */
     static RasDeleteSubEntryA(pszPhonebook, pszEntry, dwSubentryId) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
         result := DllCall("RASAPI32.dll\RasDeleteSubEntryA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwSubentryId, "uint")
         return result
@@ -8199,8 +8242,8 @@ class Rras {
 
     /**
      * The RasDeleteSubEntry function deletes the specified subentry from the specified phone-book entry.
-     * @param {Pointer<Char>} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file.
-     * @param {Pointer<Char>} pszEntry Pointer to a <b>null</b>-terminated string that contains the name of an existing entry from which a subentry is to be deleted.
+     * @param {PWSTR} pszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file.
+     * @param {PWSTR} pszEntry Pointer to a <b>null</b>-terminated string that contains the name of an existing entry from which a subentry is to be deleted.
      * @param {Integer} dwSubEntryId Specifies the one-based index of the subentry.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -8209,8 +8252,8 @@ class Rras {
      * @since windows5.1.2600
      */
     static RasDeleteSubEntryW(pszPhonebook, pszEntry, dwSubEntryId) {
-        pszPhonebook := pszPhonebook is String? StrPtr(pszPhonebook) : pszPhonebook
-        pszEntry := pszEntry is String? StrPtr(pszEntry) : pszEntry
+        pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
+        pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
         result := DllCall("RASAPI32.dll\RasDeleteSubEntryW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwSubEntryId, "uint")
         return result
@@ -8218,7 +8261,7 @@ class Rras {
 
     /**
      * The RasUpdateConnection function updates the tunnel endpoints of an Internet Key Exchange version 2 (IKEv2) connection.
-     * @param {Pointer<Void>} hrasconn A handle to the IKEv2 RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
+     * @param {HRASCONN} hrasconn A handle to the IKEv2 RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
      * @param {Pointer<RASUPDATECONN>} lprasupdateconn A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd408110(v=vs.85)">RASUPDATECONN</a> structure that contains the new tunnel endpoints  for the RAS connection specified by <i>hrasconn</i>.
@@ -8229,13 +8272,15 @@ class Rras {
      * @since windows6.1
      */
     static RasUpdateConnection(hrasconn, lprasupdateconn) {
+        hrasconn := hrasconn is Win32Handle ? NumGet(hrasconn, "ptr") : hrasconn
+
         result := DllCall("RASAPI32.dll\RasUpdateConnection", "ptr", hrasconn, "ptr", lprasupdateconn, "uint")
         return result
     }
 
     /**
      * Obtains information about Point-to-Point Protocol (PPP) or Internet Key Exchange version 2 (IKEv2) remote access projection operations for all RAS connections on the local client.
-     * @param {Pointer<Void>} hrasconn A handle to the RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
+     * @param {HRASCONN} hrasconn A handle to the RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
      * @param {Pointer<RAS_PROJECTION_INFO>} pRasProjection A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_projection_info">RAS_PROJECTION_INFO</a> structure that receives the projection information for the RAS connections.
@@ -8310,14 +8355,16 @@ class Rras {
      * @since windows6.1
      */
     static RasGetProjectionInfoEx(hrasconn, pRasProjection, lpdwSize) {
+        hrasconn := hrasconn is Win32Handle ? NumGet(hrasconn, "ptr") : hrasconn
+
         result := DllCall("RASAPI32.dll\RasGetProjectionInfoEx", "ptr", hrasconn, "ptr", pRasProjection, "uint*", lpdwSize, "uint")
         return result
     }
 
     /**
      * The RasPhonebookDlg function displays the main Dial-Up Networking dialog box.
-     * @param {Pointer<Byte>} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
-     * @param {Pointer<Byte>} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to highlight initially. If this parameter is <b>NULL</b>, or if the specified entry does not exist, the dialog box highlights the first entry in the alphabetic list.
+     * @param {PSTR} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {PSTR} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to highlight initially. If this parameter is <b>NULL</b>, or if the specified entry does not exist, the dialog box highlights the first entry in the alphabetic list.
      * @param {Pointer<RASPBDLGA>} lpInfo Pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377607(v=vs.85)">RASPBDLG</a> structure that specifies additional input and output parameters. 
      * 
@@ -8328,7 +8375,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377607(v=vs.85)">RASPBDLG</a>).
      * 
      * If an error occurs, the <b>dwError</b> member of the structure receives, on output, an error code; otherwise, it receives zero.
-     * @returns {Integer} If the user selects the <b>Connect</b> button and the function establishes a connection, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
+     * @returns {BOOL} If the user selects the <b>Connect</b> button and the function establishes a connection, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
      * 
      *  If an error occurs, the <b>dwError</b> member of the 
      * <a href="/previous-versions/windows/desktop/legacy/aa377607(v=vs.85)">RASPBDLG</a> structure returns a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -8341,17 +8388,17 @@ class Rras {
      * @since windows5.0
      */
     static RasPhonebookDlgA(lpszPhonebook, lpszEntry, lpInfo) {
-        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
-        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
+        lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-        result := DllCall("RASDLG.dll\RasPhonebookDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
+        result := DllCall("RASDLG.dll\RasPhonebookDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "ptr")
         return result
     }
 
     /**
      * The RasPhonebookDlg function displays the main Dial-Up Networking dialog box.
-     * @param {Pointer<Char>} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
-     * @param {Pointer<Char>} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to highlight initially. If this parameter is <b>NULL</b>, or if the specified entry does not exist, the dialog box highlights the first entry in the alphabetic list.
+     * @param {PWSTR} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {PWSTR} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to highlight initially. If this parameter is <b>NULL</b>, or if the specified entry does not exist, the dialog box highlights the first entry in the alphabetic list.
      * @param {Pointer<RASPBDLGW>} lpInfo Pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377607(v=vs.85)">RASPBDLG</a> structure that specifies additional input and output parameters. 
      * 
@@ -8362,7 +8409,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377607(v=vs.85)">RASPBDLG</a>).
      * 
      * If an error occurs, the <b>dwError</b> member of the structure receives, on output, an error code; otherwise, it receives zero.
-     * @returns {Integer} If the user selects the <b>Connect</b> button and the function establishes a connection, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
+     * @returns {BOOL} If the user selects the <b>Connect</b> button and the function establishes a connection, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
      * 
      *  If an error occurs, the <b>dwError</b> member of the 
      * <a href="/previous-versions/windows/desktop/legacy/aa377607(v=vs.85)">RASPBDLG</a> structure returns a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -8375,17 +8422,17 @@ class Rras {
      * @since windows5.0
      */
     static RasPhonebookDlgW(lpszPhonebook, lpszEntry, lpInfo) {
-        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
-        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
+        lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-        result := DllCall("RASDLG.dll\RasPhonebookDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
+        result := DllCall("RASDLG.dll\RasPhonebookDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "ptr")
         return result
     }
 
     /**
      * The RasEntryDlg function displays modal property sheets that allow a user to manipulate phone-book entries.
-     * @param {Pointer<Byte>} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
-     * @param {Pointer<Byte>} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to edit, copy, or create. 
+     * @param {PSTR} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {PSTR} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to edit, copy, or create. 
      * 
      * 
      * 
@@ -8400,7 +8447,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASENTRYDLG</a> structure.
      * @param {Pointer<RASENTRYDLGA>} lpInfo Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure that specifies additional input and output parameters. The <b>dwSize</b> member of this structure must specify sizeof(<b>RASENTRYDLG</b>). Use the <b>dwFlags</b> member to indicate whether you are creating, editing, or copying an entry. If an error occurs, the <b>dwError</b> member returns an error code; otherwise, it returns zero.
-     * @returns {Integer} If the user creates, copies, or edits a phone-book entry, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
+     * @returns {BOOL} If the user creates, copies, or edits a phone-book entry, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
      * 
      *  If an error occurs, <b>RasEntryDlg</b> sets the <b>dwError</b> member of the 
      * <a href="/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure to a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -8408,17 +8455,17 @@ class Rras {
      * @since windows5.0
      */
     static RasEntryDlgA(lpszPhonebook, lpszEntry, lpInfo) {
-        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
-        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
+        lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-        result := DllCall("RASDLG.dll\RasEntryDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
+        result := DllCall("RASDLG.dll\RasEntryDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "ptr")
         return result
     }
 
     /**
      * The RasEntryDlg function displays modal property sheets that allow a user to manipulate phone-book entries.
-     * @param {Pointer<Char>} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
-     * @param {Pointer<Char>} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to edit, copy, or create. 
+     * @param {PWSTR} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {PWSTR} lpszEntry Pointer to a <b>null</b>-terminated string that specifies the name of the phone-book entry to edit, copy, or create. 
      * 
      * 
      * 
@@ -8433,7 +8480,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASENTRYDLG</a> structure.
      * @param {Pointer<RASENTRYDLGW>} lpInfo Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure that specifies additional input and output parameters. The <b>dwSize</b> member of this structure must specify sizeof(<b>RASENTRYDLG</b>). Use the <b>dwFlags</b> member to indicate whether you are creating, editing, or copying an entry. If an error occurs, the <b>dwError</b> member returns an error code; otherwise, it returns zero.
-     * @returns {Integer} If the user creates, copies, or edits a phone-book entry, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
+     * @returns {BOOL} If the user creates, copies, or edits a phone-book entry, the return value is <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
      * 
      *  If an error occurs, <b>RasEntryDlg</b> sets the <b>dwError</b> member of the 
      * <a href="/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure to a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -8441,22 +8488,22 @@ class Rras {
      * @since windows5.0
      */
     static RasEntryDlgW(lpszPhonebook, lpszEntry, lpInfo) {
-        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
-        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
+        lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-        result := DllCall("RASDLG.dll\RasEntryDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
+        result := DllCall("RASDLG.dll\RasEntryDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "ptr")
         return result
     }
 
     /**
      * The RasDialDlg function establishes a RAS connection using a specified phone-book entry and the credentials of the logged-on user. The function displays a stream of dialog boxes that indicate the state of the connection operation.
-     * @param {Pointer<Byte>} lpszPhonebook Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
-     * @param {Pointer<Byte>} lpszEntry Pointer to a null-terminated string that specifies the name of the phone-book entry to dial.
-     * @param {Pointer<Byte>} lpszPhoneNumber Pointer to a null-terminated string that specifies a phone number that overrides the numbers stored in the phone-book entry. If this parameter is <b>NULL</b>, 
+     * @param {PSTR} lpszPhonebook Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {PSTR} lpszEntry Pointer to a null-terminated string that specifies the name of the phone-book entry to dial.
+     * @param {PSTR} lpszPhoneNumber Pointer to a null-terminated string that specifies a phone number that overrides the numbers stored in the phone-book entry. If this parameter is <b>NULL</b>, 
      * <b>RasDialDlg</b> uses the numbers in the phone-book entry.
      * @param {Pointer<RASDIALDLG>} lpInfo Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASDIALDLG</a> structure that specifies additional input and output parameters. The <b>dwSize</b> member of this structure must specify sizeof(<b>RASDIALDLG</b>). If an error occurs, the <b>dwError</b> member returns an error code; otherwise, it returns zero.
-     * @returns {Integer} If the function establishes a RAS connection, the return value is <b>TRUE</b>. Otherwise, the function should return <b>FALSE</b>.
+     * @returns {BOOL} If the function establishes a RAS connection, the return value is <b>TRUE</b>. Otherwise, the function should return <b>FALSE</b>.
      * 
      * If an error occurs, <b>RasDialDlg</b> should set the <b>dwError</b> member of the 
      * <a href="/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASDIALDLG</a> structure to a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -8464,23 +8511,23 @@ class Rras {
      * @since windows5.0
      */
     static RasDialDlgA(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
-        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
-        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
-        lpszPhoneNumber := lpszPhoneNumber is String? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
+        lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
+        lpszPhoneNumber := lpszPhoneNumber is String ? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
 
-        result := DllCall("RASDLG.dll\RasDialDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, "ptr", lpInfo, "int")
+        result := DllCall("RASDLG.dll\RasDialDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, "ptr", lpInfo, "ptr")
         return result
     }
 
     /**
      * The RasDialDlg function establishes a RAS connection using a specified phone-book entry and the credentials of the logged-on user. The function displays a stream of dialog boxes that indicate the state of the connection operation.
-     * @param {Pointer<Char>} lpszPhonebook Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
-     * @param {Pointer<Char>} lpszEntry Pointer to a null-terminated string that specifies the name of the phone-book entry to dial.
-     * @param {Pointer<Char>} lpszPhoneNumber Pointer to a null-terminated string that specifies a phone number that overrides the numbers stored in the phone-book entry. If this parameter is <b>NULL</b>, 
+     * @param {PWSTR} lpszPhonebook Pointer to a null-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
+     * @param {PWSTR} lpszEntry Pointer to a null-terminated string that specifies the name of the phone-book entry to dial.
+     * @param {PWSTR} lpszPhoneNumber Pointer to a null-terminated string that specifies a phone number that overrides the numbers stored in the phone-book entry. If this parameter is <b>NULL</b>, 
      * <b>RasDialDlg</b> uses the numbers in the phone-book entry.
      * @param {Pointer<RASDIALDLG>} lpInfo Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASDIALDLG</a> structure that specifies additional input and output parameters. The <b>dwSize</b> member of this structure must specify sizeof(<b>RASDIALDLG</b>). If an error occurs, the <b>dwError</b> member returns an error code; otherwise, it returns zero.
-     * @returns {Integer} If the function establishes a RAS connection, the return value is <b>TRUE</b>. Otherwise, the function should return <b>FALSE</b>.
+     * @returns {BOOL} If the function establishes a RAS connection, the return value is <b>TRUE</b>. Otherwise, the function should return <b>FALSE</b>.
      * 
      * If an error occurs, <b>RasDialDlg</b> should set the <b>dwError</b> member of the 
      * <a href="/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASDIALDLG</a> structure to a value from <a href="/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
@@ -8488,11 +8535,11 @@ class Rras {
      * @since windows5.0
      */
     static RasDialDlgW(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
-        lpszPhonebook := lpszPhonebook is String? StrPtr(lpszPhonebook) : lpszPhonebook
-        lpszEntry := lpszEntry is String? StrPtr(lpszEntry) : lpszEntry
-        lpszPhoneNumber := lpszPhoneNumber is String? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
+        lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
+        lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
+        lpszPhoneNumber := lpszPhoneNumber is String ? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
 
-        result := DllCall("RASDLG.dll\RasDialDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, "ptr", lpInfo, "int")
+        result := DllCall("RASDLG.dll\RasDialDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, "ptr", lpInfo, "ptr")
         return result
     }
 
@@ -8582,7 +8629,7 @@ class Rras {
     /**
      * Retrieves the connection information for a specific connection on a specified RRAS server.
      * @param {Pointer} hRasServer A handle to the computer from which the connection information is retrieved. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hRasConnection A handle to the connection to retrieve data about. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>.
+     * @param {HANDLE} hRasConnection A handle to the connection to retrieve data about. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>.
      * @param {Pointer<RAS_CONNECTION_EX>} pRasConnection A pointer, on output, to  a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_ex">RAS_CONNECTION_EX</a> structure that contains the connection information for the RRAS server in <i>hRasServer</i>.
      * 
      * To free this memory, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
@@ -8644,6 +8691,8 @@ class Rras {
      * @since windows6.1
      */
     static MprAdminConnectionGetInfoEx(hRasServer, hRasConnection, pRasConnection) {
+        hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
+
         result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfoEx", "ptr", hRasServer, "ptr", hRasConnection, "ptr", pRasConnection, "uint")
         return result
     }
@@ -8763,7 +8812,7 @@ class Rras {
 
     /**
      * The MprConfigServerGetInfoEx function retrieves port information for a specified server.
-     * @param {Pointer<Void>} hMprConfig A handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig A handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Pointer<MPR_SERVER_EX1>} pServerInfo A pointer, on output, to  a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_ex0">MPR_SERVER_EX</a> structure that contains the port information for the RRAS server in <i>hMprConfig</i>.
      * 
@@ -8827,13 +8876,15 @@ class Rras {
      * @since windowsserver2008
      */
     static MprConfigServerGetInfoEx(hMprConfig, pServerInfo) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
         result := DllCall("MPRAPI.dll\MprConfigServerGetInfoEx", "ptr", hMprConfig, "ptr", pServerInfo, "uint")
         return result
     }
 
     /**
      * The MprConfigServerSetInfoEx function sets port information on a specified RRAS server.
-     * @param {Pointer<Void>} hMprConfig A handle to the router configuration. Obtain this handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
+     * @param {HANDLE} hMprConfig A handle to the router configuration. Obtain this handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Pointer<MPR_SERVER_SET_CONFIG_EX1>} pSetServerConfig A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_server_set_config_ex0">MPR_SERVER_SET_CONFIG_EX</a> structure that contains the port information being set on the server in <i>hMprServer</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
@@ -8895,6 +8946,8 @@ class Rras {
      * @since windowsserver2008
      */
     static MprConfigServerSetInfoEx(hMprConfig, pSetServerConfig) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
         result := DllCall("MPRAPI.dll\MprConfigServerSetInfoEx", "ptr", hMprConfig, "ptr", pSetServerConfig, "uint")
         return result
     }
@@ -8902,19 +8955,21 @@ class Rras {
     /**
      * 
      * @param {Pointer} hRasServer 
-     * @param {Pointer<Void>} hRasConnection 
+     * @param {HANDLE} hRasConnection 
      * @param {Pointer<RAS_UPDATE_CONNECTION>} pRasUpdateConnection 
      * @returns {Integer} 
      */
     static MprAdminUpdateConnection(hRasServer, hRasConnection, pRasUpdateConnection) {
+        hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
+
         result := DllCall("MPRAPI.dll\MprAdminUpdateConnection", "ptr", hRasServer, "ptr", hRasConnection, "ptr", pRasUpdateConnection, "uint")
         return result
     }
 
     /**
      * The MprAdminIsServiceInitialized function checks whether the RRAS service is running on a specified server if the calling process has access.
-     * @param {Pointer<Char>} lpwsServerName A pointer to a <b>null</b>-terminated Unicode string that specifies the name of the server to query. If this parameter is <b>NULL</b>, the function queries the local machine.
-     * @param {Pointer<Int32>} fIsServiceInitialized On output, a pointer to a BOOL   that specifies whether the RRAS service is running on the server in <i>lpwsServerName</i>:
+     * @param {PWSTR} lpwsServerName A pointer to a <b>null</b>-terminated Unicode string that specifies the name of the server to query. If this parameter is <b>NULL</b>, the function queries the local machine.
+     * @param {Pointer<BOOL>} fIsServiceInitialized On output, a pointer to a BOOL   that specifies whether the RRAS service is running on the server in <i>lpwsServerName</i>:
      * 
      * <table>
      * <tr>
@@ -8989,16 +9044,16 @@ class Rras {
      * @since windowsserver2008
      */
     static MprAdminIsServiceInitialized(lpwsServerName, fIsServiceInitialized) {
-        lpwsServerName := lpwsServerName is String? StrPtr(lpwsServerName) : lpwsServerName
+        lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
-        result := DllCall("MPRAPI.dll\MprAdminIsServiceInitialized", "ptr", lpwsServerName, "int*", fIsServiceInitialized, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminIsServiceInitialized", "ptr", lpwsServerName, "ptr", fIsServiceInitialized, "uint")
         return result
     }
 
     /**
      * Sets the tunnel specific custom configuration for a specified demand dial interface on a specified server.
      * @param {Pointer} hMprServer The handle to the router to query. This handle is obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a> function.
-     * @param {Pointer<Void>} hInterface The handle to the interface.  This handle is  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacegethandle">MprAdminInterfaceGetHandle</a> function.
+     * @param {HANDLE} hInterface The handle to the interface.  This handle is  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacegethandle">MprAdminInterfaceGetHandle</a> function.
      * @param {Pointer<MPR_IF_CUSTOMINFOEX2>} pCustomInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_if_custominfoex0">MPR_IF_CUSTOMINFOEX</a>  structure that contains tunnel specific custom configuration.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>. If the function fails, the return value is one of the following error codes.
      * 
@@ -9056,6 +9111,8 @@ class Rras {
      * @since windowsserver2012
      */
     static MprAdminInterfaceSetCustomInfoEx(hMprServer, hInterface, pCustomInfo) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCustomInfoEx", "ptr", hMprServer, "ptr", hInterface, "ptr", pCustomInfo, "uint")
         return result
     }
@@ -9063,7 +9120,7 @@ class Rras {
     /**
      * Retrieves tunnel-specific configuration for a specified demand dial interface on a specified server.
      * @param {Pointer} hMprServer A handle to the router to query. This handle is obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a> function.
-     * @param {Pointer<Void>} hInterface A handle to the interface. This handle is obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a> function.
+     * @param {HANDLE} hInterface A handle to the interface. This handle is obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a> function.
      * @param {Pointer<MPR_IF_CUSTOMINFOEX2>} pCustomInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_if_custominfoex0">MPR_IF_CUSTOMINFOEX</a>  structure. When you have finished using the structure, free the memory by calling the  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a> function.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>. If the function fails, the return value is one of the following error codes.
      * 
@@ -9121,14 +9178,16 @@ class Rras {
      * @since windowsserver2012
      */
     static MprAdminInterfaceGetCustomInfoEx(hMprServer, hInterface, pCustomInfo) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCustomInfoEx", "ptr", hMprServer, "ptr", hInterface, "ptr", pCustomInfo, "uint")
         return result
     }
 
     /**
      * Retrieves the custom IKEv2 policy configuration for the specified interface.
-     * @param {Pointer<Void>} hMprConfig The handle to the router configuration. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a> function.
-     * @param {Pointer<Void>} hRouterInterface The handle to the interface configuration being updated. Obtain this handle by calling the  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a> function, the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a> function, or the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a> function.
+     * @param {HANDLE} hMprConfig The handle to the router configuration. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a> function.
+     * @param {HANDLE} hRouterInterface The handle to the interface configuration being updated. Obtain this handle by calling the  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a> function, the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a> function, or the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a> function.
      * @param {Pointer<MPR_IF_CUSTOMINFOEX2>} pCustomInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_if_custominfoex0">MPR_IF_CUSTOMINFOEX</a>  structure. When you have finished using the structure, free the buffer by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigbufferfree">MprConfigBufferFree</a> function.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>. If the function fails, the return value is one of the following error codes.
      * 
@@ -9180,14 +9239,17 @@ class Rras {
      * @since windowsserver2012
      */
     static MprConfigInterfaceGetCustomInfoEx(hMprConfig, hRouterInterface, pCustomInfo) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+
         result := DllCall("MPRAPI.dll\MprConfigInterfaceGetCustomInfoEx", "ptr", hMprConfig, "ptr", hRouterInterface, "ptr", pCustomInfo, "uint")
         return result
     }
 
     /**
      * Sets the custom IKEv2 policy configuration for the specified interface.
-     * @param {Pointer<Void>} hMprConfig The handle to the router configuration. Obtain this handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a> function.
-     * @param {Pointer<Void>} hRouterInterface The handle to the interface configuration being updated. Obtain this handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a> function, the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a> function, or the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a> function.
+     * @param {HANDLE} hMprConfig The handle to the router configuration. Obtain this handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a> function.
+     * @param {HANDLE} hRouterInterface The handle to the interface configuration being updated. Obtain this handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a> function, the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a> function, or the <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a> function.
      * @param {Pointer<MPR_IF_CUSTOMINFOEX2>} pCustomInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_if_custominfoex0">MPR_IF_CUSTOMINFOEX</a>  structure.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>. If the function fails, the return value is one of the following error codes.
      * 
@@ -9229,6 +9291,9 @@ class Rras {
      * @since windowsserver2012
      */
     static MprConfigInterfaceSetCustomInfoEx(hMprConfig, hRouterInterface, pCustomInfo) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+
         result := DllCall("MPRAPI.dll\MprConfigInterfaceSetCustomInfoEx", "ptr", hMprConfig, "ptr", hRouterInterface, "ptr", pCustomInfo, "uint")
         return result
     }
@@ -9355,7 +9420,7 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminConnectionEnum(hRasServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-        result := DllCall("MPRAPI.dll\MprAdminConnectionEnum", "ptr", hRasServer, "uint", dwLevel, "ptr", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminConnectionEnum", "ptr", hRasServer, "uint", dwLevel, "char*", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
@@ -9363,7 +9428,7 @@ class Rras {
      * Enumerates all active ports in a specific connection, or all ports available for use or currently used by RAS.
      * @param {Pointer} hRasServer A handle to the RAS server whose ports are to be enumerated. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Must be zero.
-     * @param {Pointer<Void>} hRasConnection A handle to a connection for which the active ports are enumerated. If this parameter is <b>INVALID_HANDLE_VALUE</b>, all the ports in use or available for use by RRAS are enumerated. To obtain this handle, call 
+     * @param {HANDLE} hRasConnection A handle to a connection for which the active ports are enumerated. If this parameter is <b>INVALID_HANDLE_VALUE</b>, all the ports in use or available for use by RRAS are enumerated. To obtain this handle, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>.
      * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_port_0">RAS_PORT_0</a> structures that describes the port. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
@@ -9462,7 +9527,9 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminPortEnum(hRasServer, dwLevel, hRasConnection, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-        result := DllCall("MPRAPI.dll\MprAdminPortEnum", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, "ptr", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
+
+        result := DllCall("MPRAPI.dll\MprAdminPortEnum", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, "char*", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
@@ -9500,7 +9567,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hRasConnection A handle to the connection to retrieve data about. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>.
+     * @param {HANDLE} hRasConnection A handle to the connection to retrieve data about. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>.
      * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to an array of structures that describe the connection. These structures are of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_0">RAS_CONNECTION_0</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_1">RAS_CONNECTION_1</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_2">RAS_CONNECTION_2</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_connection_3">RAS_CONNECTION_3</a>, depending on the value of the <i>dwLevel</i> parameter. 
      * 
      * To free this memory, call <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
@@ -9573,7 +9640,9 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminConnectionGetInfo(hRasServer, dwLevel, hRasConnection, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, "ptr", lplpbBuffer, "uint")
+        hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
+
+        result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hRasConnection, "char*", lplpbBuffer, "uint")
         return result
     }
 
@@ -9601,7 +9670,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hPort Handle to the port for which to collect information. Obtain this handle by calling 
+     * @param {HANDLE} hPort Handle to the port for which to collect information. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminportenum">MprAdminPortEnum</a>.
      * @param {Pointer<Byte>} lplpbBuffer On successful completion, a pointer to a structure that describes the port. These structures are of type <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_port_0">RAS_PORT_0</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-ras_port_1">RAS_PORT_1</a> depending on the value of the <i>dwLevel</i> parameter. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminbufferfree">MprAdminBufferFree</a>.
@@ -9689,7 +9758,9 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminPortGetInfo(hRasServer, dwLevel, hPort, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminPortGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hPort, "ptr", lplpbBuffer, "uint")
+        hPort := hPort is Win32Handle ? NumGet(hPort, "ptr") : hPort
+
+        result := DllCall("MPRAPI.dll\MprAdminPortGetInfo", "ptr", hRasServer, "uint", dwLevel, "ptr", hPort, "char*", lplpbBuffer, "uint")
         return result
     }
 
@@ -9698,7 +9769,7 @@ class Rras {
      * @param {Pointer} hRasServer Handle to the Remote Access Server on which to execute 
      * <b>MprAdminConnectionClearStats</b>. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hRasConnection Handle to the connection for which to reset the statistics. Obtain this handle by calling 
+     * @param {HANDLE} hRasConnection Handle to the connection for which to reset the statistics. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
@@ -9773,6 +9844,8 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminConnectionClearStats(hRasServer, hRasConnection) {
+        hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
+
         result := DllCall("MPRAPI.dll\MprAdminConnectionClearStats", "ptr", hRasServer, "ptr", hRasConnection, "uint")
         return result
     }
@@ -9781,7 +9854,7 @@ class Rras {
      * The MprAdminPortClearStats function resets the statistics for the specified port.
      * @param {Pointer} hRasServer Handle to the RAS server on which to clear the statistics for the specified port. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hPort Handle to the port for which statistics are reset. Obtain this handle by calling 
+     * @param {HANDLE} hPort Handle to the port for which statistics are reset. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminportenum">MprAdminPortEnum</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
@@ -9845,6 +9918,8 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminPortClearStats(hRasServer, hPort) {
+        hPort := hPort is Win32Handle ? NumGet(hPort, "ptr") : hPort
+
         result := DllCall("MPRAPI.dll\MprAdminPortClearStats", "ptr", hRasServer, "ptr", hPort, "uint")
         return result
     }
@@ -9853,7 +9928,7 @@ class Rras {
      * The MprAdminPortReset function resets the communication device attached to the specified port.
      * @param {Pointer} hRasServer Handle to the RAS server on which to reset the specified port. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hPort Handle to the port to be reset. Obtain this handle by calling 
+     * @param {HANDLE} hPort Handle to the port to be reset. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminportenum">MprAdminPortEnum</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
@@ -9917,6 +9992,8 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminPortReset(hRasServer, hPort) {
+        hPort := hPort is Win32Handle ? NumGet(hPort, "ptr") : hPort
+
         result := DllCall("MPRAPI.dll\MprAdminPortReset", "ptr", hRasServer, "ptr", hPort, "uint")
         return result
     }
@@ -9925,7 +10002,7 @@ class Rras {
      * The MprAdminPortDisconnect function disconnects a connection on a specific port.
      * @param {Pointer} hRasServer Handle to the RAS server on which to disconnect the port. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hPort Handle to the port to disconnect. Obtain this handle by calling 
+     * @param {HANDLE} hPort Handle to the port to disconnect. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminportenum">MprAdminPortEnum</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
@@ -9989,15 +10066,17 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminPortDisconnect(hRasServer, hPort) {
+        hPort := hPort is Win32Handle ? NumGet(hPort, "ptr") : hPort
+
         result := DllCall("MPRAPI.dll\MprAdminPortDisconnect", "ptr", hRasServer, "ptr", hPort, "uint")
         return result
     }
 
     /**
      * The MprAdminConnectionRemoveQuarantine function removes quarantine filters on a dialed-in RAS client if the filters were applied as a result of Internet Authentication Service (IAS) policies.
-     * @param {Pointer<Void>} hRasServer Handle to the RAS server that services the connection. Obtain this handle by calling 
+     * @param {HANDLE} hRasServer Handle to the RAS server that services the connection. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hRasConnection Handle to connection for the RAS client for which to remove the quarantine filters. Obtain this handle by calling 
+     * @param {HANDLE} hRasConnection Handle to connection for the RAS client for which to remove the quarantine filters. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>. 
      * 
      * 
@@ -10005,7 +10084,7 @@ class Rras {
      * 
      * Alternatively, this parameter specifies the IP address of the RAS client for which to remove the quarantine filter. The IP address should be specified as a <b>DWORD</b> in network byte order. Obtain the IP address by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a>. If this parameter specifies an IP address, the <i>fIsIpAddress</i> parameter should specify a <b>TRUE</b> value.
-     * @param {Integer} fIsIpAddress Specifies a Boolean value that indicates whether the <i>hRasConnection</i> parameter specifies the IP address of the client for which to remove the quarantine filters. If this parameter is a <b>TRUE</b> value, <i>hRasConnection</i> specifies an IP address. Otherwise, <i>hRasConnection</i> specifies a handle to a connection.
+     * @param {BOOL} fIsIpAddress Specifies a Boolean value that indicates whether the <i>hRasConnection</i> parameter specifies the IP address of the client for which to remove the quarantine filters. If this parameter is a <b>TRUE</b> value, <i>hRasConnection</i> specifies an IP address. Otherwise, <i>hRasConnection</i> specifies a handle to a connection.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -10053,20 +10132,23 @@ class Rras {
      * @since windows6.0.6000
      */
     static MprAdminConnectionRemoveQuarantine(hRasServer, hRasConnection, fIsIpAddress) {
-        result := DllCall("MPRAPI.dll\MprAdminConnectionRemoveQuarantine", "ptr", hRasServer, "ptr", hRasConnection, "int", fIsIpAddress, "uint")
+        hRasServer := hRasServer is Win32Handle ? NumGet(hRasServer, "ptr") : hRasServer
+        hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
+
+        result := DllCall("MPRAPI.dll\MprAdminConnectionRemoveQuarantine", "ptr", hRasServer, "ptr", hRasConnection, "ptr", fIsIpAddress, "uint")
         return result
     }
 
     /**
      * The MprAdminUserGetInfo function retrieves all RAS information for a particular user.
-     * @param {Pointer<Char>} lpszServer Pointer to a Unicode string that specifies the name of the server  with the master User Accounts Subsystem (UAS). If the remote access server is part of a domain, the computer with the UAS is either the primary domain controller or the backup domain controller. If the remote access server is not part of a domain, then the server itself  stores the UAS. In either case, call the 
+     * @param {PWSTR} lpszServer Pointer to a Unicode string that specifies the name of the server  with the master User Accounts Subsystem (UAS). If the remote access server is part of a domain, the computer with the UAS is either the primary domain controller or the backup domain controller. If the remote access server is not part of a domain, then the server itself  stores the UAS. In either case, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmingetpdcserver">MprAdminGetPDCServer</a> function to obtain the value for this parameter. 
      * 
      * 
      * 
      * 
      * If the server itself stores the UAS, this parameter can be <b>NULL</b>.
-     * @param {Pointer<Char>} lpszUser Pointer to a Unicode string that specifies the name of the user for which to get RAS information.
+     * @param {PWSTR} lpszUser Pointer to a Unicode string that specifies the name of the user for which to get RAS information.
      * @param {Integer} dwLevel This parameter may be zero or one.
      * 
      * <b>Windows NT Server 4.0 with SP3 and later:  </b>This parameter must be zero.
@@ -10136,8 +10218,8 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminUserGetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
-        lpszServer := lpszServer is String? StrPtr(lpszServer) : lpszServer
-        lpszUser := lpszUser is String? StrPtr(lpszUser) : lpszUser
+        lpszServer := lpszServer is String ? StrPtr(lpszServer) : lpszServer
+        lpszUser := lpszUser is String ? StrPtr(lpszUser) : lpszUser
 
         result := DllCall("MPRAPI.dll\MprAdminUserGetInfo", "ptr", lpszServer, "ptr", lpszUser, "uint", dwLevel, "char*", lpbBuffer, "uint")
         return result
@@ -10145,14 +10227,14 @@ class Rras {
 
     /**
      * The MprAdminUserSetInfo function sets RAS information for the specified user.
-     * @param {Pointer<Char>} lpszServer Pointer to a Unicode string that specifies the name of the server  with the master User Accounts Subsystem (UAS). If the remote access server is part of a domain, the computer with the UAS is either the primary domain controller or the backup domain controller. If the remote access server is not part of a domain, then the server itself  stores the UAS. In either case, call the 
+     * @param {PWSTR} lpszServer Pointer to a Unicode string that specifies the name of the server  with the master User Accounts Subsystem (UAS). If the remote access server is part of a domain, the computer with the UAS is either the primary domain controller or the backup domain controller. If the remote access server is not part of a domain, then the server itself  stores the UAS. In either case, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmingetpdcserver">MprAdminGetPDCServer</a> function to obtain the value for this parameter. 
      * 
      * 
      * 
      * 
      * If the server itself stores the UAS, this parameter can be <b>NULL</b>.
-     * @param {Pointer<Char>} lpszUser Pointer to a Unicode string that specifies the name of the user for which to set RAS information.
+     * @param {PWSTR} lpszUser Pointer to a Unicode string that specifies the name of the user for which to set RAS information.
      * @param {Integer} dwLevel This parameter can be zero or one, corresponding to the structure type pointed to by the <i>lpbBuffer</i> parameter.
      * 
      * <b>Windows NT Server 4.0 with SP3 and later:  </b>This parameter must be zero.
@@ -10222,8 +10304,8 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminUserSetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
-        lpszServer := lpszServer is String? StrPtr(lpszServer) : lpszServer
-        lpszUser := lpszUser is String? StrPtr(lpszUser) : lpszUser
+        lpszServer := lpszServer is String ? StrPtr(lpszServer) : lpszServer
+        lpszUser := lpszUser is String ? StrPtr(lpszUser) : lpszUser
 
         result := DllCall("MPRAPI.dll\MprAdminUserSetInfo", "ptr", lpszServer, "ptr", lpszUser, "uint", dwLevel, "char*", lpbBuffer, "uint")
         return result
@@ -10233,9 +10315,9 @@ class Rras {
      * The MprAdminSendUserMessage function sends a message to the user connected on the specified connection.
      * @param {Pointer} hMprServer Handle to the RAS server on which the user is connected. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hConnection Handle to the connection on which the user is connected. Use 
+     * @param {HANDLE} hConnection Handle to the connection on which the user is connected. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminconnectionenum">MprAdminConnectionEnum</a> to obtain this handle.
-     * @param {Pointer<Char>} lpwszMessage Pointer to a Unicode string that specifies the message to the user.
+     * @param {PWSTR} lpwszMessage Pointer to a Unicode string that specifies the message to the user.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -10294,7 +10376,8 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminSendUserMessage(hMprServer, hConnection, lpwszMessage) {
-        lpwszMessage := lpwszMessage is String? StrPtr(lpwszMessage) : lpwszMessage
+        lpwszMessage := lpwszMessage is String ? StrPtr(lpwszMessage) : lpwszMessage
+        hConnection := hConnection is Win32Handle ? NumGet(hConnection, "ptr") : hConnection
 
         result := DllCall("MPRAPI.dll\MprAdminSendUserMessage", "ptr", hMprServer, "ptr", hConnection, "ptr", lpwszMessage, "uint")
         return result
@@ -10302,9 +10385,9 @@ class Rras {
 
     /**
      * The MprAdminGetPDCServer function retrieves the name of the server with the master User Accounts Subsystem (UAS) from either a domain name or a server name. Either the domain name parameter or the server name parameter may be NULL, but not both.
-     * @param {Pointer<Char>} lpszDomain Pointer to a null-terminated Unicode string that specifies the name of the domain to which the RAS server belongs. This parameter can be <b>NULL</b> if you are running your RAS administration application on a Windows NT/Windows 2000 server that is not participating in a domain. If this parameter is <b>NULL</b>, the <i>lpwsServerName</i> parameter must not be <b>NULL</b>.
-     * @param {Pointer<Char>} lpszServer Pointer to a null-terminated Unicode string that specifies the name of the Windows NT/Windows 2000 RAS server. Specify the name with leading "\\" characters, in the form: <b>\\servername</b>. This parameter can be <b>NULL</b> if the <i>lpwsDomain</i> parameter is not <b>NULL</b>.
-     * @param {Pointer<Char>} lpszPDCServer Pointer to a buffer that receives a null-terminated Unicode string that contains the name of a domain controller that has the user account database. The buffer should be big enough to hold the server name (UNCLEN +1). The function prefixes the returned server name with leading "\\" characters, in the form: <b>\\servername</b>.
+     * @param {PWSTR} lpszDomain Pointer to a null-terminated Unicode string that specifies the name of the domain to which the RAS server belongs. This parameter can be <b>NULL</b> if you are running your RAS administration application on a Windows NT/Windows 2000 server that is not participating in a domain. If this parameter is <b>NULL</b>, the <i>lpwsServerName</i> parameter must not be <b>NULL</b>.
+     * @param {PWSTR} lpszServer Pointer to a null-terminated Unicode string that specifies the name of the Windows NT/Windows 2000 RAS server. Specify the name with leading "\\" characters, in the form: <b>\\servername</b>. This parameter can be <b>NULL</b> if the <i>lpwsDomain</i> parameter is not <b>NULL</b>.
+     * @param {PWSTR} lpszPDCServer Pointer to a buffer that receives a null-terminated Unicode string that contains the name of a domain controller that has the user account database. The buffer should be big enough to hold the server name (UNCLEN +1). The function prefixes the returned server name with leading "\\" characters, in the form: <b>\\servername</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails the return value is one of the following values.
@@ -10345,9 +10428,9 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminGetPDCServer(lpszDomain, lpszServer, lpszPDCServer) {
-        lpszDomain := lpszDomain is String? StrPtr(lpszDomain) : lpszDomain
-        lpszServer := lpszServer is String? StrPtr(lpszServer) : lpszServer
-        lpszPDCServer := lpszPDCServer is String? StrPtr(lpszPDCServer) : lpszPDCServer
+        lpszDomain := lpszDomain is String ? StrPtr(lpszDomain) : lpszDomain
+        lpszServer := lpszServer is String ? StrPtr(lpszServer) : lpszServer
+        lpszPDCServer := lpszPDCServer is String ? StrPtr(lpszPDCServer) : lpszPDCServer
 
         result := DllCall("MPRAPI.dll\MprAdminGetPDCServer", "ptr", lpszDomain, "ptr", lpszServer, "ptr", lpszPDCServer, "uint")
         return result
@@ -10355,8 +10438,8 @@ class Rras {
 
     /**
      * The MprAdminIsServiceRunning function checks whether the RRAS service is running on a specified server if the calling process has access.
-     * @param {Pointer<Char>} lpwsServerName A pointer to a <b>null</b>-terminated Unicode string that specifies the name of the server to query. If this parameter is <b>NULL</b>, the function queries the local machine.
-     * @returns {Integer} The return value is one of the following Boolean values.
+     * @param {PWSTR} lpwsServerName A pointer to a <b>null</b>-terminated Unicode string that specifies the name of the server to query. If this parameter is <b>NULL</b>, the function queries the local machine.
+     * @returns {BOOL} The return value is one of the following Boolean values.
      * 
      * <table>
      * <tr>
@@ -10390,15 +10473,15 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminIsServiceRunning(lpwsServerName) {
-        lpwsServerName := lpwsServerName is String? StrPtr(lpwsServerName) : lpwsServerName
+        lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
-        result := DllCall("MPRAPI.dll\MprAdminIsServiceRunning", "ptr", lpwsServerName, "int")
+        result := DllCall("MPRAPI.dll\MprAdminIsServiceRunning", "ptr", lpwsServerName, "ptr")
         return result
     }
 
     /**
      * The MprAdminServerConnect function establishes a connection to a router for the purpose of administering that router.
-     * @param {Pointer<Char>} lpwsServerName A pointer to a <b>null</b>-terminated Unicode string that specifies the name of the remote server. If this parameter is <b>NULL</b>, the function returns a handle to the local machine.
+     * @param {PWSTR} lpwsServerName A pointer to a <b>null</b>-terminated Unicode string that specifies the name of the remote server. If this parameter is <b>NULL</b>, the function returns a handle to the local machine.
      * @param {Pointer<IntPtr>} phMprServer A pointer to a <b>HANDLE</b> variable that receives a handle to the server. Use this handle in subsequent calls to administer the server.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -10447,7 +10530,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminServerConnect(lpwsServerName, phMprServer) {
-        lpwsServerName := lpwsServerName is String? StrPtr(lpwsServerName) : lpwsServerName
+        lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
         result := DllCall("MPRAPI.dll\MprAdminServerConnect", "ptr", lpwsServerName, "ptr*", phMprServer, "uint")
         return result
@@ -10531,7 +10614,7 @@ class Rras {
      * @since windowsserver2003
      */
     static MprAdminServerGetCredentials(hMprServer, dwLevel, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminServerGetCredentials", "ptr", hMprServer, "uint", dwLevel, "ptr", lplpbBuffer, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminServerGetCredentials", "ptr", hMprServer, "uint", dwLevel, "char*", lplpbBuffer, "uint")
         return result
     }
 
@@ -10639,7 +10722,7 @@ class Rras {
     /**
      * The MprAdminGetErrorString function returns the string associated with a router error from Mprerror.h.
      * @param {Integer} dwError Specifies the error code for a  router error.
-     * @param {Pointer<Char>} lplpwsErrorString Pointer to an <b>LPWSTR</b> variable that points to the text associated with the <i>dwError</i> code on successful return. Free this memory by calling 
+     * @param {Pointer<PWSTR>} lplpwsErrorString Pointer to an <b>LPWSTR</b> variable that points to the text associated with the <i>dwError</i> code on successful return. Free this memory by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -10764,7 +10847,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminServerGetInfo(hMprServer, dwLevel, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminServerGetInfo", "ptr", hMprServer, "uint", dwLevel, "ptr", lplpbBuffer, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminServerGetInfo", "ptr", hMprServer, "uint", dwLevel, "char*", lplpbBuffer, "uint")
         return result
     }
 
@@ -10895,9 +10978,9 @@ class Rras {
 
     /**
      * The MprAdminEstablishDomainRasServer function establishes the given machine as a Remote Access Server in the domain. This function must be executed only on a machine joined to a domain.
-     * @param {Pointer<Char>} pszDomain The domain  in which you want the server to be advertised.
-     * @param {Pointer<Char>} pszMachine The name of the RAS server.
-     * @param {Integer} bEnable A <b>BOOL</b> that is <b>TRUE</b> if the RAS server should be advertised in the domain. Otherwise, it is <b>FALSE</b>.
+     * @param {PWSTR} pszDomain The domain  in which you want the server to be advertised.
+     * @param {PWSTR} pszMachine The name of the RAS server.
+     * @param {BOOL} bEnable A <b>BOOL</b> that is <b>TRUE</b> if the RAS server should be advertised in the domain. Otherwise, it is <b>FALSE</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -10956,18 +11039,18 @@ class Rras {
      * @since windowsserver2003
      */
     static MprAdminEstablishDomainRasServer(pszDomain, pszMachine, bEnable) {
-        pszDomain := pszDomain is String? StrPtr(pszDomain) : pszDomain
-        pszMachine := pszMachine is String? StrPtr(pszMachine) : pszMachine
+        pszDomain := pszDomain is String ? StrPtr(pszDomain) : pszDomain
+        pszMachine := pszMachine is String ? StrPtr(pszMachine) : pszMachine
 
-        result := DllCall("MPRAPI.dll\MprAdminEstablishDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, "int", bEnable, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminEstablishDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, "ptr", bEnable, "uint")
         return result
     }
 
     /**
      * The MprAdminIsDomainRasServer function returns information regarding whether the given machine is registered as the remote access server in the domain.
-     * @param {Pointer<Char>} pszDomain The domain  in which you want to query the remote access server.
-     * @param {Pointer<Char>} pszMachine The name of the remote access server.
-     * @param {Pointer<Int32>} pbIsRasServer Returns <b>TRUE</b> if the machine is registered in the domain, otherwise it returns <b>FALSE</b>.
+     * @param {PWSTR} pszDomain The domain  in which you want to query the remote access server.
+     * @param {PWSTR} pszMachine The name of the remote access server.
+     * @param {Pointer<BOOL>} pbIsRasServer Returns <b>TRUE</b> if the machine is registered in the domain, otherwise it returns <b>FALSE</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -11026,10 +11109,10 @@ class Rras {
      * @since windowsserver2003
      */
     static MprAdminIsDomainRasServer(pszDomain, pszMachine, pbIsRasServer) {
-        pszDomain := pszDomain is String? StrPtr(pszDomain) : pszDomain
-        pszMachine := pszMachine is String? StrPtr(pszMachine) : pszMachine
+        pszDomain := pszDomain is String ? StrPtr(pszDomain) : pszDomain
+        pszMachine := pszMachine is String ? StrPtr(pszMachine) : pszMachine
 
-        result := DllCall("MPRAPI.dll\MprAdminIsDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, "int*", pbIsRasServer, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminIsDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, "ptr", pbIsRasServer, "uint")
         return result
     }
 
@@ -11065,7 +11148,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpwsTransportName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the transport.
+     * @param {PWSTR} lpwsTransportName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the transport.
      * @param {Pointer<Byte>} pGlobalInfo Pointer to a buffer that specifies global information for the transport. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers.
      * @param {Integer} dwGlobalInfoSize Specifies the size, in bytes, of the data pointed to by the <i>pGlobalInfo</i> parameter.
@@ -11076,7 +11159,7 @@ class Rras {
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not set the default client interface information.
      * @param {Integer} dwClientInterfaceInfoSize Specifies the size, in bytes, of the buffer pointed to by the <i>pClientInterfaceInfo</i> parameter.
-     * @param {Pointer<Char>} lpwsDLLPath Pointer to a <b>null</b>-terminated Unicode string that specifies the path to the DLL for the transport.
+     * @param {PWSTR} lpwsDLLPath Pointer to a <b>null</b>-terminated Unicode string that specifies the path to the DLL for the transport.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -11146,8 +11229,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminTransportCreate(hMprServer, dwTransportId, lpwsTransportName, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
-        lpwsTransportName := lpwsTransportName is String? StrPtr(lpwsTransportName) : lpwsTransportName
-        lpwsDLLPath := lpwsDLLPath is String? StrPtr(lpwsDLLPath) : lpwsDLLPath
+        lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
+        lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
 
         result := DllCall("MPRAPI.dll\MprAdminTransportCreate", "ptr", hMprServer, "uint", dwTransportId, "ptr", lpwsTransportName, "char*", pGlobalInfo, "uint", dwGlobalInfoSize, "char*", pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, "uint")
         return result
@@ -11379,7 +11462,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminTransportGetInfo(hMprServer, dwTransportId, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize) {
-        result := DllCall("MPRAPI.dll\MprAdminTransportGetInfo", "ptr", hMprServer, "uint", dwTransportId, "ptr", ppGlobalInfo, "uint*", lpdwGlobalInfoSize, "ptr", ppClientInterfaceInfo, "uint*", lpdwClientInterfaceInfoSize, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminTransportGetInfo", "ptr", hMprServer, "uint", dwTransportId, "char*", ppGlobalInfo, "uint*", lpdwGlobalInfoSize, "char*", ppClientInterfaceInfo, "uint*", lpdwClientInterfaceInfoSize, "uint")
         return result
     }
 
@@ -11427,7 +11510,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminDeviceEnum(hMprServer, dwLevel, lplpbBuffer, lpdwTotalEntries) {
-        result := DllCall("MPRAPI.dll\MprAdminDeviceEnum", "ptr", hMprServer, "uint", dwLevel, "ptr", lplpbBuffer, "uint*", lpdwTotalEntries, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminDeviceEnum", "ptr", hMprServer, "uint", dwLevel, "char*", lplpbBuffer, "uint*", lpdwTotalEntries, "uint")
         return result
     }
 
@@ -11435,9 +11518,9 @@ class Rras {
      * The MprAdminInterfaceGetHandle function retrieves a handle to a specified interface.
      * @param {Pointer} hMprServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Char>} lpwsInterfaceName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the interface to be retrieved.
-     * @param {Pointer<Void>} phInterface Pointer to a <b>HANDLE</b> variable that receives a handle to the interface specified by <i>lpwsInterfaceName</i>.
-     * @param {Integer} fIncludeClientInterfaces Specifies whether the function returns a client interface. If this parameter is <b>FALSE</b>, interfaces of type <b>ROUTER_IF_TYPE_CLIENT</b> are ignored in the search for the interface with the name specified by <i>lpwsInterfaceName</i>. If this parameter is <b>TRUE</b> and an interface with the specified name exists, 
+     * @param {PWSTR} lpwsInterfaceName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the interface to be retrieved.
+     * @param {Pointer<HANDLE>} phInterface Pointer to a <b>HANDLE</b> variable that receives a handle to the interface specified by <i>lpwsInterfaceName</i>.
+     * @param {BOOL} fIncludeClientInterfaces Specifies whether the function returns a client interface. If this parameter is <b>FALSE</b>, interfaces of type <b>ROUTER_IF_TYPE_CLIENT</b> are ignored in the search for the interface with the name specified by <i>lpwsInterfaceName</i>. If this parameter is <b>TRUE</b> and an interface with the specified name exists, 
      * <b>MprAdminInterfaceGetHandle</b> returns a handle to an interface of type <b>ROUTER_IF_TYPE_CLIENT</b>. Since it is possible that there are several interfaces of type <b>ROUTER_IF_TYPE_CLIENT</b>, the handle returned references the first interface found with the name specified by <i>lpwsInterfaceName</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
      * 
@@ -11501,9 +11584,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetHandle(hMprServer, lpwsInterfaceName, phInterface, fIncludeClientInterfaces) {
-        lpwsInterfaceName := lpwsInterfaceName is String? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
+        lpwsInterfaceName := lpwsInterfaceName is String ? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetHandle", "ptr", hMprServer, "ptr", lpwsInterfaceName, "ptr", phInterface, "int", fIncludeClientInterfaces, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetHandle", "ptr", hMprServer, "ptr", lpwsInterfaceName, "ptr", phInterface, "ptr", fIncludeClientInterfaces, "uint")
         return result
     }
 
@@ -11546,7 +11629,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>,  
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_3">MPR_INTERFACE_3</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
-     * @param {Pointer<Void>} phInterface Pointer to a <b>HANDLE</b> variable. The variable receives a handle to use in all subsequent calls to manage this interface.
+     * @param {Pointer<HANDLE>} phInterface Pointer to a <b>HANDLE</b> variable. The variable receives a handle to use in all subsequent calls to manage this interface.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -11624,7 +11707,7 @@ class Rras {
      * The MprAdminInterfaceGetInfo function retrieves information for a specified interface on a specified server.
      * @param {Pointer} hMprServer Handle to the  router to query. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface obtained by a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface obtained by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is structured in the <i>lplpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0, 1, 2, and 3, as listed in the following table.
      * 
@@ -11746,7 +11829,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetInfo(hMprServer, hInterface, dwLevel, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "ptr", lplpbBuffer, "uint")
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "char*", lplpbBuffer, "uint")
         return result
     }
 
@@ -11754,7 +11839,7 @@ class Rras {
      * The MprAdminInterfaceSetInfo function sets information for a specified interface on a specified server.
      * @param {Pointer} hMprServer Handle to the  router to query. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface obtained by a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface obtained by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is structured in the <i>lpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0, 1, 2, and 3, as listed in the following table.
      * 
@@ -11860,6 +11945,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceSetInfo(hMprServer, hInterface, dwLevel, lpbBuffer) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceSetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "char*", lpbBuffer, "uint")
         return result
     }
@@ -11868,7 +11955,7 @@ class Rras {
      * The MprAdminInterfaceDelete function deletes an interface on a specified server.
      * @param {Pointer} hMprServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface to delete. Obtain this handle by calling 
+     * @param {HANDLE} hInterface Handle to the interface to delete. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -11921,6 +12008,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceDelete(hMprServer, hInterface) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceDelete", "ptr", hMprServer, "ptr", hInterface, "uint")
         return result
     }
@@ -11929,7 +12018,7 @@ class Rras {
      * The MprAdminInterfaceDeviceGetInfo retrieves information about a device that is used in a router demand-dial interface.
      * @param {Pointer} hMprServer Handle to router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface. Obtain this handle from a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface. Obtain this handle from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>, or by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfaceenum">MprAdminInterfaceEnum</a>
      * @param {Integer} dwIndex Specifies the one-based index of the device. A multi-linked demand-dial interface uses multiple devices.
@@ -12029,7 +12118,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceDeviceGetInfo(hMprServer, hInterface, dwIndex, dwLevel, lplpBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwIndex, "uint", dwLevel, "ptr", lplpBuffer, "uint")
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwIndex, "uint", dwLevel, "char*", lplpBuffer, "uint")
         return result
     }
 
@@ -12037,7 +12128,7 @@ class Rras {
      * The MprAdminInterfaceDeviceSetInfo creates or modifies a device that is used in a router demand-dial interface.
      * @param {Pointer} hMprServer Handle to the  router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface. Obtain this handle from a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface. Obtain this handle from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>, or by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfaceenum">MprAdminInterfaceEnum</a>.
      * @param {Integer} dwIndex Specifies the one-based index of the device. A multi-linked demand-dial interface uses multiple devices.
@@ -12131,6 +12222,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceDeviceSetInfo(hMprServer, hInterface, dwIndex, dwLevel, lpbBuffer) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceSetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwIndex, "uint", dwLevel, "char*", lpbBuffer, "uint")
         return result
     }
@@ -12139,7 +12232,7 @@ class Rras {
      * The MprAdminInterfaceTransportRemove function removes a transport (for example, IP or IPX) from a specified interface.
      * @param {Pointer} hMprServer Handle to the router from which the transport is being removed. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface from which the transport is being removed. Obtain this handle by calling 
+     * @param {HANDLE} hInterface Handle to the interface from which the transport is being removed. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @param {Integer} dwTransportId A <b>DWORD</b> value that describes the transport type to remove. Acceptable values for <i>dwTransportId</i> are listed in the following table.
      * 
@@ -12238,6 +12331,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportRemove(hMprServer, hInterface, dwTransportId) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportRemove", "ptr", hMprServer, "ptr", hInterface, "uint", dwTransportId, "uint")
         return result
     }
@@ -12246,7 +12341,7 @@ class Rras {
      * The MprAdminInterfaceTransportAdd function adds a transport (for example, IP or IPX) to a specified interface.
      * @param {Pointer} hMprServer Handle to the router on which information is being added. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface on which the transport is being added. This handle is obtained by a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface on which the transport is being added. This handle is obtained by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @param {Integer} dwTransportId A <b>DWORD</b> value that describes the transport type to add to the interface. Acceptable values for <i>dwTransportId</i> are listed in the following table.
      * 
@@ -12337,6 +12432,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportAdd(hMprServer, hInterface, dwTransportId, pInterfaceInfo, dwInterfaceInfoSize) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportAdd", "ptr", hMprServer, "ptr", hInterface, "uint", dwTransportId, "char*", pInterfaceInfo, "uint", dwInterfaceInfoSize, "uint")
         return result
     }
@@ -12345,7 +12442,7 @@ class Rras {
      * The MprAdminInterfaceTransportGetInfo function retrieves information about a transport running on a specified interface.
      * @param {Pointer} hMprServer Handle to the router from which information is being retrieved. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface. This handle is obtained from a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @param {Integer} dwTransportId A <b>DWORD</b> value that describes the transport for which information is requested. Acceptable values for <i>dwTransportId</i> are listed in the following table.
      * 
@@ -12453,7 +12550,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportGetInfo(hMprServer, hInterface, dwTransportId, ppInterfaceInfo, lpdwInterfaceInfoSize) {
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwTransportId, "ptr", ppInterfaceInfo, "uint*", lpdwInterfaceInfoSize, "uint")
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportGetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwTransportId, "char*", ppInterfaceInfo, "uint*", lpdwInterfaceInfoSize, "uint")
         return result
     }
 
@@ -12461,7 +12560,7 @@ class Rras {
      * The MprAdminInterfaceTransportSetInfo function sets information for a transport running on a specified interface.
      * @param {Pointer} hMprServer Handle to the router on which the transport is being set. Obtain the handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface on which the transport is being set. Obtain this handle by calling 
+     * @param {HANDLE} hInterface Handle to the interface on which the transport is being set. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @param {Integer} dwTransportId A <b>DWORD</b> value that describes the transport type to set. Acceptable values for <i>dwTransportId</i> are listed in the following table.
      * 
@@ -12563,6 +12662,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportSetInfo(hMprServer, hInterface, dwTransportId, pInterfaceInfo, dwInterfaceInfoSize) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportSetInfo", "ptr", hMprServer, "ptr", hInterface, "uint", dwTransportId, "char*", pInterfaceInfo, "uint", dwInterfaceInfoSize, "uint")
         return result
     }
@@ -12641,33 +12742,33 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceEnum(hMprServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceEnum", "ptr", hMprServer, "uint", dwLevel, "ptr", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceEnum", "ptr", hMprServer, "uint", dwLevel, "char*", lplpbBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
     /**
      * Use MprAdminInterfaceSetCredentials function to set the domain, user name, and password that will be used for dialing out on the specified demand-dial interface.
-     * @param {Pointer<Char>} lpwsServer Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the router on which to execute this call. 
+     * @param {PWSTR} lpwsServer Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the router on which to execute this call. 
      * 
      * 
      * 
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the call is executed on the local machine.
-     * @param {Pointer<Char>} lpwsInterfaceName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the demand-dial interface. Use 
+     * @param {PWSTR} lpwsInterfaceName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the demand-dial interface. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacegetinfo">MprAdminInterfaceGetInfo</a> to obtain the interface name.
-     * @param {Pointer<Char>} lpwsUserName Pointer to a <b>null</b>-terminated Unicode string that specifies the user name. 
+     * @param {PWSTR} lpwsUserName Pointer to a <b>null</b>-terminated Unicode string that specifies the user name. 
      * 
      * 
      * 
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not change the user name associated with this interface.
-     * @param {Pointer<Char>} lpwsDomainName Pointer to a <b>null</b>-terminated Unicode string that specifies the domain name. 
+     * @param {PWSTR} lpwsDomainName Pointer to a <b>null</b>-terminated Unicode string that specifies the domain name. 
      * 
      * 
      * 
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not change the domain name associated with this interface.
-     * @param {Pointer<Char>} lpwsPassword Pointer to a <b>null</b>-terminated Unicode string that specifies the password. 
+     * @param {PWSTR} lpwsPassword Pointer to a <b>null</b>-terminated Unicode string that specifies the password. 
      * 
      * 
      * 
@@ -12732,11 +12833,11 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceSetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserName, lpwsDomainName, lpwsPassword) {
-        lpwsServer := lpwsServer is String? StrPtr(lpwsServer) : lpwsServer
-        lpwsInterfaceName := lpwsInterfaceName is String? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
-        lpwsUserName := lpwsUserName is String? StrPtr(lpwsUserName) : lpwsUserName
-        lpwsDomainName := lpwsDomainName is String? StrPtr(lpwsDomainName) : lpwsDomainName
-        lpwsPassword := lpwsPassword is String? StrPtr(lpwsPassword) : lpwsPassword
+        lpwsServer := lpwsServer is String ? StrPtr(lpwsServer) : lpwsServer
+        lpwsInterfaceName := lpwsInterfaceName is String ? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
+        lpwsUserName := lpwsUserName is String ? StrPtr(lpwsUserName) : lpwsUserName
+        lpwsDomainName := lpwsDomainName is String ? StrPtr(lpwsDomainName) : lpwsDomainName
+        lpwsPassword := lpwsPassword is String ? StrPtr(lpwsPassword) : lpwsPassword
 
         result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCredentials", "ptr", lpwsServer, "ptr", lpwsInterfaceName, "ptr", lpwsUserName, "ptr", lpwsDomainName, "ptr", lpwsPassword, "uint")
         return result
@@ -12744,27 +12845,27 @@ class Rras {
 
     /**
      * Use the MprAdminInterfaceGetCredentials function to retrieve the domain, user name, and password for dialing out on the specified demand-dial interface.
-     * @param {Pointer<Char>} lpwsServer Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the router on which to execute this call. 
+     * @param {PWSTR} lpwsServer Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the router on which to execute this call. 
      * 
      * 
      * 
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the call is executed on the local machine.
-     * @param {Pointer<Char>} lpwsInterfaceName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the demand-dial interface. Use 
+     * @param {PWSTR} lpwsInterfaceName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the demand-dial interface. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacegetinfo">MprAdminInterfaceGetInfo</a> to obtain the interface name.
-     * @param {Pointer<Char>} lpwsUserName Pointer to a Unicode string that receives the name of the user. This string should be UNLEN+1 long. 
+     * @param {PWSTR} lpwsUserName Pointer to a Unicode string that receives the name of the user. This string should be UNLEN+1 long. 
      * 
      * 
      * 
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not return the user name.
-     * @param {Pointer<Char>} lpwsPassword Pointer to a Unicode string that receives the password. This string should be PWLEN+1 long. 
+     * @param {PWSTR} lpwsPassword Pointer to a Unicode string that receives the password. This string should be PWLEN+1 long. 
      * 
      * 
      * 
      * 
      * This parameter is optional. If the calling application specifies <b>NULL</b> for this parameter, the function does not return the password.
-     * @param {Pointer<Char>} lpwsDomainName Pointer to a Unicode string that receives the domain name. This string should be DNLEN+1 long. 
+     * @param {PWSTR} lpwsDomainName Pointer to a Unicode string that receives the domain name. This string should be DNLEN+1 long. 
      * 
      * 
      * 
@@ -12830,11 +12931,11 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserName, lpwsPassword, lpwsDomainName) {
-        lpwsServer := lpwsServer is String? StrPtr(lpwsServer) : lpwsServer
-        lpwsInterfaceName := lpwsInterfaceName is String? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
-        lpwsUserName := lpwsUserName is String? StrPtr(lpwsUserName) : lpwsUserName
-        lpwsPassword := lpwsPassword is String? StrPtr(lpwsPassword) : lpwsPassword
-        lpwsDomainName := lpwsDomainName is String? StrPtr(lpwsDomainName) : lpwsDomainName
+        lpwsServer := lpwsServer is String ? StrPtr(lpwsServer) : lpwsServer
+        lpwsInterfaceName := lpwsInterfaceName is String ? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
+        lpwsUserName := lpwsUserName is String ? StrPtr(lpwsUserName) : lpwsUserName
+        lpwsPassword := lpwsPassword is String ? StrPtr(lpwsPassword) : lpwsPassword
+        lpwsDomainName := lpwsDomainName is String ? StrPtr(lpwsDomainName) : lpwsDomainName
 
         result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentials", "ptr", lpwsServer, "ptr", lpwsInterfaceName, "ptr", lpwsUserName, "ptr", lpwsPassword, "ptr", lpwsDomainName, "uint")
         return result
@@ -12844,7 +12945,7 @@ class Rras {
      * Use the MprAdminInterfaceSetCredentialsEx function to set extended credentials information for an interface. Use this function to set credentials information used for Extensible Authentication Protocols (EAPs).
      * @param {Pointer} hMprServer Handle to a  router. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface. This handle is obtained from a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is structured in the <i>lpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0 or 1 as listed in the following table. A value of 1 indicates the information is a pre-shared key for the interface.
      * 
@@ -12935,6 +13036,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceSetCredentialsEx(hMprServer, hInterface, dwLevel, lpbBuffer) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCredentialsEx", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "char*", lpbBuffer, "uint")
         return result
     }
@@ -12943,7 +13046,7 @@ class Rras {
      * Use the MprAdminInterfaceGetCredentialsEx function to retrieve extended credentials information for the specified interface. Use this function to retrieve credentials information used for Extensible Authentication Protocols (EAPs).
      * @param {Pointer} hMprServer Handle to a router. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface. This handle is obtained from a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0 or 1, as listed in the following table. 
      * 
@@ -13039,7 +13142,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetCredentialsEx(hMprServer, hInterface, dwLevel, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentialsEx", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "ptr", lplpbBuffer, "uint")
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentialsEx", "ptr", hMprServer, "ptr", hInterface, "uint", dwLevel, "char*", lplpbBuffer, "uint")
         return result
     }
 
@@ -13047,9 +13152,9 @@ class Rras {
      * The MprAdminInterfaceConnect function creates a connection to the specified WAN interface.
      * @param {Pointer} hMprServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface. This handle is obtained from a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
-     * @param {Pointer<Void>} hEvent Handle to an event that is signaled after the attempt to connect the interface has completed. The function initiates the connection attempt and returns immediately. After the event is signaled, you can obtain the result of the connection attempt by calling 
+     * @param {HANDLE} hEvent Handle to an event that is signaled after the attempt to connect the interface has completed. The function initiates the connection attempt and returns immediately. After the event is signaled, you can obtain the result of the connection attempt by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacegetinfo">MprAdminInterfaceGetInfo</a>. 
      * 
      * 
@@ -13058,7 +13163,7 @@ class Rras {
      * If this parameter is <b>NULL</b>, and <i>fBlocking</i> is <b>TRUE</b>, then this call is synchronous, that is, the function does not return until the connection attempt has completed.
      * 
      * The calling application must specify <b>NULL</b> for this parameter, if <i>hMprServer</i> specifies a remote router.
-     * @param {Integer} fSynchronous If <i>hEvent</i> is <b>NULL</b> and this parameter is set to <b>TRUE</b>, the function does not return until the connection attempt has completed. 
+     * @param {BOOL} fSynchronous If <i>hEvent</i> is <b>NULL</b> and this parameter is set to <b>TRUE</b>, the function does not return until the connection attempt has completed. 
      * 
      * 
      * 
@@ -13173,7 +13278,10 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceConnect(hMprServer, hInterface, hEvent, fSynchronous) {
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceConnect", "ptr", hMprServer, "ptr", hInterface, "ptr", hEvent, "int", fSynchronous, "uint")
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceConnect", "ptr", hMprServer, "ptr", hInterface, "ptr", hEvent, "ptr", fSynchronous, "uint")
         return result
     }
 
@@ -13181,7 +13289,7 @@ class Rras {
      * The MprAdminInterfaceDisconnect function disconnects a connected WAN interface.
      * @param {Pointer} hMprServer Handle to the  router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface. This handle is obtained from a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -13253,6 +13361,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceDisconnect(hMprServer, hInterface) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceDisconnect", "ptr", hMprServer, "ptr", hInterface, "uint")
         return result
     }
@@ -13261,7 +13371,7 @@ class Rras {
      * The MprAdminInterfaceUpdateRoutes function requests a specified router manager to update its routing information for a specified interface.
      * @param {Pointer} hMprServer Handle to the router on which information is being updated. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface being updated. Obtain this handle by calling 
+     * @param {HANDLE} hInterface Handle to the interface being updated. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @param {Integer} dwProtocolId A <b>DWORD</b> value that specifies which router manager is updating its routing information. The router uses a different router manager for each transport protocol. Acceptable values for <i>dwTransportId</i> are listed in the following table.
      * 
@@ -13291,7 +13401,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hEvent Handle to an event that is signaled when the attempt to update routing information for the specified interface has completed. If <b>NULL</b>, then the function is synchronous. The calling application must specify <b>NULL</b> for this parameter, if <i>hMprServer</i> specifies a remote router.
+     * @param {HANDLE} hEvent Handle to an event that is signaled when the attempt to update routing information for the specified interface has completed. If <b>NULL</b>, then the function is synchronous. The calling application must specify <b>NULL</b> for this parameter, if <i>hMprServer</i> specifies a remote router.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -13384,6 +13494,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceUpdateRoutes(hMprServer, hInterface, dwProtocolId, hEvent) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceUpdateRoutes", "ptr", hMprServer, "ptr", hInterface, "uint", dwProtocolId, "ptr", hEvent, "uint")
         return result
     }
@@ -13392,7 +13505,7 @@ class Rras {
      * The MprAdminInterfaceQueryUpdateResult function returns the result of the last request to a specified router manager to update its routes for an interface. For more information, see MprAdminInterfaceUpdateRoutes.
      * @param {Pointer} hMprServer Handle to the router from which information is being retrieved. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to the interface. This handle is obtained from a previous call to 
+     * @param {HANDLE} hInterface Handle to the interface. This handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @param {Integer} dwProtocolId A <b>DWORD</b> value that specifies which router manager is being queried. The router uses a different router manager for each transport protocol. Acceptable values for <i>dwTransportId</i> are listed in the following table.
      * 
@@ -13504,6 +13617,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceQueryUpdateResult(hMprServer, hInterface, dwProtocolId, lpdwUpdateResult) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceQueryUpdateResult", "ptr", hMprServer, "ptr", hInterface, "uint", dwProtocolId, "uint*", lpdwUpdateResult, "uint")
         return result
     }
@@ -13512,7 +13627,7 @@ class Rras {
      * The MprAdminInterfaceUpdatePhonebookInfo function forces the router to pick up changes made on a specified demand-dial interface. Call this function after changes are made to a phone-book entry for a demand-dial interface.
      * @param {Pointer} hMprServer Handle to the router on which to execute this call. Obtain the handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hInterface Handle to a demand-dial interface. Obtain this handle by calling 
+     * @param {HANDLE} hInterface Handle to a demand-dial interface. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -13621,6 +13736,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminInterfaceUpdatePhonebookInfo(hMprServer, hInterface) {
+        hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
+
         result := DllCall("MPRAPI.dll\MprAdminInterfaceUpdatePhonebookInfo", "ptr", hMprServer, "ptr", hInterface, "uint")
         return result
     }
@@ -13629,7 +13746,7 @@ class Rras {
      * The MprAdminRegisterConnectionNotification function registers an event object with the Demand Dial Manager (DDM) so that, if an interface connects or disconnects, the event is signaled.
      * @param {Pointer} hMprServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hEventNotification Handle to an event object. This event is signaled whenever an interface connects or disconnects.
+     * @param {HANDLE} hEventNotification Handle to an event object. This event is signaled whenever an interface connects or disconnects.
      * @returns {Integer} If the function is successful, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -13693,6 +13810,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminRegisterConnectionNotification(hMprServer, hEventNotification) {
+        hEventNotification := hEventNotification is Win32Handle ? NumGet(hEventNotification, "ptr") : hEventNotification
+
         result := DllCall("MPRAPI.dll\MprAdminRegisterConnectionNotification", "ptr", hMprServer, "ptr", hEventNotification, "uint")
         return result
     }
@@ -13701,7 +13820,7 @@ class Rras {
      * The MprAdminDeregisterConnectionNotification function deregisters an event object that was previously registered using MprAdminRegisterConnectionNotification. Once deregistered, this event is no longer signaled when an interface connects or disconnects.
      * @param {Pointer} hMprServer Handle to the router on which to execute this call. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
-     * @param {Pointer<Void>} hEventNotification Handle to an event object to deregister. This event is no longer  signaled when an interface connects or disconnects.
+     * @param {HANDLE} hEventNotification Handle to an event object to deregister. This event is no longer  signaled when an interface connects or disconnects.
      * @returns {Integer} If the function is successful, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -13765,20 +13884,22 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminDeregisterConnectionNotification(hMprServer, hEventNotification) {
+        hEventNotification := hEventNotification is Win32Handle ? NumGet(hEventNotification, "ptr") : hEventNotification
+
         result := DllCall("MPRAPI.dll\MprAdminDeregisterConnectionNotification", "ptr", hMprServer, "ptr", hEventNotification, "uint")
         return result
     }
 
     /**
      * The MprAdminMIBServerConnect function establishes a connection to the router being administered. This call should be made before any other calls to the server. The handle returned by this function is used in subsequent MIB calls.
-     * @param {Pointer<Char>} lpwsServerName Pointer to a Unicode string that specifies the name of the remote server. If the caller specifies <b>NULL</b> for this parameter, the function returns a handle to the local server.
+     * @param {PWSTR} lpwsServerName Pointer to a Unicode string that specifies the name of the remote server. If the caller specifies <b>NULL</b> for this parameter, the function returns a handle to the local server.
      * @param {Pointer<IntPtr>} phMibServer Pointer to a handle variable. This variable receives a handle to the server.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mpradminmibserverconnect
      * @since windowsserver2000
      */
     static MprAdminMIBServerConnect(lpwsServerName, phMibServer) {
-        lpwsServerName := lpwsServerName is String? StrPtr(lpwsServerName) : lpwsServerName
+        lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
         result := DllCall("MPRAPI.dll\MprAdminMIBServerConnect", "ptr", lpwsServerName, "ptr*", phMibServer, "uint")
         return result
@@ -14298,8 +14419,8 @@ class Rras {
 
     /**
      * The MprConfigServerConnect function connects to the router to be configured.
-     * @param {Pointer<Char>} lpwsServerName Pointer to a Unicode string that specifies the name of the remote server to configure. If this parameter is <b>NULL</b>, the function returns a handle to the router configuration on the local machine.
-     * @param {Pointer<Void>} phMprConfig Pointer to a handle variable. This variable receives a handle to the router configuration.
+     * @param {PWSTR} lpwsServerName Pointer to a Unicode string that specifies the name of the remote server to configure. If this parameter is <b>NULL</b>, the function returns a handle to the router configuration on the local machine.
+     * @param {Pointer<HANDLE>} phMprConfig Pointer to a handle variable. This variable receives a handle to the router configuration.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -14352,7 +14473,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigServerConnect(lpwsServerName, phMprConfig) {
-        lpwsServerName := lpwsServerName is String? StrPtr(lpwsServerName) : lpwsServerName
+        lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
         result := DllCall("MPRAPI.dll\MprConfigServerConnect", "ptr", lpwsServerName, "ptr", phMprConfig, "uint")
         return result
@@ -14360,22 +14481,26 @@ class Rras {
 
     /**
      * The MprConfigServerDisconnect function disconnects a connection made by a previous call to MprConfigServerConnect.
-     * @param {Pointer<Void>} hMprConfig Handle to a router configuration obtained from a previous call to 
+     * @param {HANDLE} hMprConfig Handle to a router configuration obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//mprapi/nf-mprapi-mprconfigserverdisconnect
      * @since windowsserver2000
      */
     static MprConfigServerDisconnect(hMprConfig) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
         DllCall("MPRAPI.dll\MprConfigServerDisconnect", "ptr", hMprConfig)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hMprConfig 
+     * @param {HANDLE} hMprConfig 
      * @returns {Integer} 
      */
     static MprConfigServerRefresh(hMprConfig) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
         result := DllCall("MPRAPI.dll\MprConfigServerRefresh", "ptr", hMprConfig, "uint")
         return result
     }
@@ -14406,7 +14531,7 @@ class Rras {
 
     /**
      * The MprConfigServerGetInfo function retrieves server-level configuration information for the specified router.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is returned in the <i>lplpBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0, 1, and 2 as listed in the following table.
      * 
@@ -14493,7 +14618,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigServerGetInfo(hMprConfig, dwLevel, lplpbBuffer) {
-        result := DllCall("MPRAPI.dll\MprConfigServerGetInfo", "ptr", hMprConfig, "uint", dwLevel, "ptr", lplpbBuffer, "uint")
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
+        result := DllCall("MPRAPI.dll\MprConfigServerGetInfo", "ptr", hMprConfig, "uint", dwLevel, "char*", lplpbBuffer, "uint")
         return result
     }
 
@@ -14613,9 +14740,9 @@ class Rras {
 
     /**
      * The MprConfigServerBackup function creates a backup of the router-manager, interface, and phone-book configuration for the router.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Char>} lpwsPath Pointer to a <b>null</b>-terminated Unicode string that specifies the path to the directory in which to write the backup files. This path should end with a trailing backslash.
+     * @param {PWSTR} lpwsPath Pointer to a <b>null</b>-terminated Unicode string that specifies the path to the directory in which to write the backup files. This path should end with a trailing backslash.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -14668,7 +14795,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigServerBackup(hMprConfig, lpwsPath) {
-        lpwsPath := lpwsPath is String? StrPtr(lpwsPath) : lpwsPath
+        lpwsPath := lpwsPath is String ? StrPtr(lpwsPath) : lpwsPath
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
         result := DllCall("MPRAPI.dll\MprConfigServerBackup", "ptr", hMprConfig, "ptr", lpwsPath, "uint")
         return result
@@ -14676,9 +14804,9 @@ class Rras {
 
     /**
      * The MprConfigServerRestore function restores the router-manager, interface, and phone-book configuration from a backup created by a previous call to MprConfigServerBackup.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Char>} lpwsPath Pointer to a Unicode string that specifies the path to the directory that contains the backup files. This path should end with a trailing backslash.
+     * @param {PWSTR} lpwsPath Pointer to a Unicode string that specifies the path to the directory that contains the backup files. This path should end with a trailing backslash.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -14731,7 +14859,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigServerRestore(hMprConfig, lpwsPath) {
-        lpwsPath := lpwsPath is String? StrPtr(lpwsPath) : lpwsPath
+        lpwsPath := lpwsPath is String ? StrPtr(lpwsPath) : lpwsPath
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
         result := DllCall("MPRAPI.dll\MprConfigServerRestore", "ptr", hMprConfig, "ptr", lpwsPath, "uint")
         return result
@@ -14739,7 +14868,7 @@ class Rras {
 
     /**
      * The MprConfigTransportCreate function adds the specified transport to the list of transport protocols present in the specified router configuration.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration to which to add the transport. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration to which to add the transport. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwTransportId A <b>DWORD</b> value that describes the transport to add to the configuration. This parameter also identifies the router manager for the transport. Acceptable values for <i>dwTransportId</i> are listed in the following table.
      * 
@@ -14769,7 +14898,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpwsTransportName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the transport being added. If this parameter is not specified, the <i>dwTransportId</i> parameter is converted into a string and used as the transport name.
+     * @param {PWSTR} lpwsTransportName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the transport being added. If this parameter is not specified, the <i>dwTransportId</i> parameter is converted into a string and used as the transport name.
      * @param {Pointer} pGlobalInfo Pointer to an information header that specifies global information for the transport. The router manager for the transport interprets this information. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers.
      * @param {Integer} dwGlobalInfoSize Specifies the size, in bytes, of the data pointed to by the <i>pGlobalInfo</i> parameter.
@@ -14781,13 +14910,13 @@ class Rras {
      * 
      * This parameter is optional; the calling application can specify <b>NULL</b> for this parameter.
      * @param {Integer} dwClientInterfaceInfoSize Specifies the size, in bytes, of the data pointed to by the <i>pClientInterfaceInfo</i> parameter. If the calling application specifies <b>NULL</b> for <i>pClientInterfaceInfo</i>, the calling application should specify zero for this parameter.
-     * @param {Pointer<Char>} lpwsDLLPath Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the router manager DLL for the specified transport. If this name is specified, the function sets the DLL path for this transport to this name. 
+     * @param {PWSTR} lpwsDLLPath Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the router manager DLL for the specified transport. If this name is specified, the function sets the DLL path for this transport to this name. 
      * 
      * 
      * 
      * 
      * This parameter is optional; the calling application can specify <b>NULL</b> for this parameter.
-     * @param {Pointer<Void>} phRouterTransport A pointer to a  
+     * @param {Pointer<HANDLE>} phRouterTransport A pointer to a  
      * <b>HANDLE</b> variable that receives the transport configuration handle type indicated in the <i>dwTransportId</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -14837,8 +14966,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportCreate(hMprConfig, dwTransportId, lpwsTransportName, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath, phRouterTransport) {
-        lpwsTransportName := lpwsTransportName is String? StrPtr(lpwsTransportName) : lpwsTransportName
-        lpwsDLLPath := lpwsDLLPath is String? StrPtr(lpwsDLLPath) : lpwsDLLPath
+        lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
+        lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
         result := DllCall("MPRAPI.dll\MprConfigTransportCreate", "ptr", hMprConfig, "uint", dwTransportId, "ptr", lpwsTransportName, "ptr", pGlobalInfo, "uint", dwGlobalInfoSize, "ptr", pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, "ptr", phRouterTransport, "uint")
         return result
@@ -14846,9 +14976,9 @@ class Rras {
 
     /**
      * The MprConfigTransportDelete function removes the specified transport from the list of transports present in the specified router configuration.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration from which to remove the transport. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration from which to remove the transport. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterTransport Handle to the configuration for the transport being deleted. Obtain this handle by calling 
+     * @param {HANDLE} hRouterTransport Handle to the configuration for the transport being deleted. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportcreate">MprConfigTransportCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportgethandle">MprConfigTransportGetHandle</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -14903,13 +15033,16 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportDelete(hMprConfig, hRouterTransport) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterTransport := hRouterTransport is Win32Handle ? NumGet(hRouterTransport, "ptr") : hRouterTransport
+
         result := DllCall("MPRAPI.dll\MprConfigTransportDelete", "ptr", hMprConfig, "ptr", hRouterTransport, "uint")
         return result
     }
 
     /**
      * The MprConfigTransportGetHandle function retrieves a handle to the specified transport protocol's configuration in the specified router configuration.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. The handle is obtained from a previous call to 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. The handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwTransportId A <b>DWORD</b> value that describes the transport configuration handle type in the <i>phRouterTransport</i> parameter. Acceptable values for <i>dwTransportId</i> are listed in the following table.
      * 
@@ -14939,7 +15072,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} phRouterTransport A pointer to a  
+     * @param {Pointer<HANDLE>} phRouterTransport A pointer to a  
      * <b>HANDLE</b> variable that receives the transport configuration handle type indicated in the <i>dwTransportId</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -15000,15 +15133,17 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportGetHandle(hMprConfig, dwTransportId, phRouterTransport) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
         result := DllCall("MPRAPI.dll\MprConfigTransportGetHandle", "ptr", hMprConfig, "uint", dwTransportId, "ptr", phRouterTransport, "uint")
         return result
     }
 
     /**
      * The MprConfigTransportSetInfo function changes the configuration for the specified transport protocol in the specified router configuration.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterTransport Handle to the transport protocol configuration being updated. Obtain this handle by calling 
+     * @param {HANDLE} hRouterTransport Handle to the transport protocol configuration being updated. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportcreate">MprConfigTransportCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportgethandle">MprConfigTransportGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportenum">MprConfigTransportEnum</a>. Supported transport protocol types are listed on <a href="https://docs.microsoft.com/windows/desktop/RRAS/transport-identifiers">Transport Identifiers</a>.
@@ -15028,7 +15163,7 @@ class Rras {
      * 
      * This parameter is optional; the calling application can specify <b>NULL</b> for this parameter.
      * @param {Integer} dwClientInterfaceInfoSize Specifies the size, in bytes, of the data pointed to by <i>pClientInterfaceInfo</i>. If the calling application specifies <b>NULL</b> for <i>pClientInterfaceInfo</i>, the calling application should specify zero for this parameter.
-     * @param {Pointer<Char>} lpwsDLLPath Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the router manager DLL for the specified transport. 
+     * @param {PWSTR} lpwsDLLPath Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the router manager DLL for the specified transport. 
      * 
      * 
      * 
@@ -15086,7 +15221,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportSetInfo(hMprConfig, hRouterTransport, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
-        lpwsDLLPath := lpwsDLLPath is String? StrPtr(lpwsDLLPath) : lpwsDLLPath
+        lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterTransport := hRouterTransport is Win32Handle ? NumGet(hRouterTransport, "ptr") : hRouterTransport
 
         result := DllCall("MPRAPI.dll\MprConfigTransportSetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, "ptr", pGlobalInfo, "uint", dwGlobalInfoSize, "ptr", pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, "uint")
         return result
@@ -15094,9 +15231,9 @@ class Rras {
 
     /**
      * The MprConfigTransportGetInfo function retrieves the configuration for the specified transport protocol from the router.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterTransport Handle to the transport protocol configuration being retrieved. Obtain this handle by calling 
+     * @param {HANDLE} hRouterTransport Handle to the transport protocol configuration being retrieved. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportcreate">MprConfigTransportCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportgethandle">MprConfigTransportGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigtransportenum">MprConfigTransportEnum</a>. Supported transport protocol types are listed on <a href="https://docs.microsoft.com/windows/desktop/RRAS/transport-identifiers">Transport Identifiers</a>.
@@ -15132,7 +15269,7 @@ class Rras {
      * 
      * 
      * This parameter is optional; the calling application may specify <b>NULL</b> for this parameter. However, if <i>ppClientInterfaceInfo</i> is not <b>NULL</b>, this parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} lplpwsDLLPath On input, pointer to a pointer to a <b>null</b>-terminated Unicode string. 
+     * @param {Pointer<PWSTR>} lplpwsDLLPath On input, pointer to a pointer to a <b>null</b>-terminated Unicode string. 
      * 
      * 
      * 
@@ -15208,13 +15345,16 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportGetInfo(hMprConfig, hRouterTransport, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize, lplpwsDLLPath) {
-        result := DllCall("MPRAPI.dll\MprConfigTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, "ptr", ppGlobalInfo, "uint*", lpdwGlobalInfoSize, "ptr", ppClientInterfaceInfo, "uint*", lpdwClientInterfaceInfoSize, "ptr", lplpwsDLLPath, "uint")
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterTransport := hRouterTransport is Win32Handle ? NumGet(hRouterTransport, "ptr") : hRouterTransport
+
+        result := DllCall("MPRAPI.dll\MprConfigTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, "char*", ppGlobalInfo, "uint*", lpdwGlobalInfoSize, "char*", ppClientInterfaceInfo, "uint*", lpdwClientInterfaceInfoSize, "ptr", lplpwsDLLPath, "uint")
         return result
     }
 
     /**
      * The MprConfigTransportEnum function enumerates the transports configured on the router.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration for the transports. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration for the transports. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwLevel A <b>DWORD</b> value that describes the format in which the information is returned in the <i>lplpBuffer</i> parameter. Must be zero.
      * @param {Pointer<Byte>} lplpBuffer On input, a non-<b>NULL</b> pointer. 
@@ -15311,13 +15451,15 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-        result := DllCall("MPRAPI.dll\MprConfigTransportEnum", "ptr", hMprConfig, "uint", dwLevel, "ptr", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
+        result := DllCall("MPRAPI.dll\MprConfigTransportEnum", "ptr", hMprConfig, "uint", dwLevel, "char*", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
     /**
      * The MprConfigInterfaceCreate function creates a router interface in the specified router configuration.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwLevel A DWORD value that describes the format in which the information is structured in the <i>lpbBuffer</i> parameter. Acceptable values for <i>dwLevel</i> include 0, 1, 2, and 3, as listed in the following table.
      * 
@@ -15354,7 +15496,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_0">MPR_INTERFACE_0</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_1">MPR_INTERFACE_1</a>,  
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_2">MPR_INTERFACE_2</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ns-mprapi-mpr_interface_3">MPR_INTERFACE_3</a> structure. The <i>dwLevel</i> parameter indicates the type of structure.
-     * @param {Pointer<Void>} phRouterInterface Pointer to a handle variable. This variable receives a handle to the interface configuration.
+     * @param {Pointer<HANDLE>} phRouterInterface Pointer to a handle variable. This variable receives a handle to the interface configuration.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -15412,15 +15554,17 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceCreate(hMprConfig, dwLevel, lpbBuffer, phRouterInterface) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
         result := DllCall("MPRAPI.dll\MprConfigInterfaceCreate", "ptr", hMprConfig, "uint", dwLevel, "char*", lpbBuffer, "ptr", phRouterInterface, "uint")
         return result
     }
 
     /**
      * The MprConfigInterfaceDelete function removes a router interface from the router configuration. All transport information associated with this interface is also removed.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterInterface Handle to the interface configuration. Obtain this handle by calling 
+     * @param {HANDLE} hRouterInterface Handle to the interface configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a>.
@@ -15476,16 +15620,19 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceDelete(hMprConfig, hRouterInterface) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+
         result := DllCall("MPRAPI.dll\MprConfigInterfaceDelete", "ptr", hMprConfig, "ptr", hRouterInterface, "uint")
         return result
     }
 
     /**
      * The MprConfigInterfaceGetHandle function retrieves a handle to the specified interface's configuration in the specified router configuration.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Char>} lpwsInterfaceName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the interface for which the configuration handle is requested. Use the interface GUID as the name of a LAN interface.
-     * @param {Pointer<Void>} phRouterInterface Pointer to a handle variable. This variable receives a handle to the interface configuration.
+     * @param {PWSTR} lpwsInterfaceName Pointer to a <b>null</b>-terminated Unicode string that specifies the name of the interface for which the configuration handle is requested. Use the interface GUID as the name of a LAN interface.
+     * @param {Pointer<HANDLE>} phRouterInterface Pointer to a handle variable. This variable receives a handle to the interface configuration.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -15549,7 +15696,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceGetHandle(hMprConfig, lpwsInterfaceName, phRouterInterface) {
-        lpwsInterfaceName := lpwsInterfaceName is String? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
+        lpwsInterfaceName := lpwsInterfaceName is String ? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
         result := DllCall("MPRAPI.dll\MprConfigInterfaceGetHandle", "ptr", hMprConfig, "ptr", lpwsInterfaceName, "ptr", phRouterInterface, "uint")
         return result
@@ -15557,9 +15705,9 @@ class Rras {
 
     /**
      * The MprConfigInterfaceGetInfo function retrieves the configuration for the specified interface from the router.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterInterface Handle to the interface configuration for which to retrieve information. Obtain this handle by calling 
+     * @param {HANDLE} hRouterInterface Handle to the interface configuration for which to retrieve information. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a>.
@@ -15660,15 +15808,18 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceGetInfo(hMprConfig, hRouterInterface, dwLevel, lplpBuffer, lpdwBufferSize) {
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "ptr", lplpBuffer, "uint*", lpdwBufferSize, "uint")
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "char*", lplpBuffer, "uint*", lpdwBufferSize, "uint")
         return result
     }
 
     /**
      * The MprConfigInterfaceSetInfo function sets the configuration for the specified interface.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterInterface Handle to the interface configuration being updated. Obtain this handle by calling 
+     * @param {HANDLE} hRouterInterface Handle to the interface configuration being updated. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a>.
@@ -15764,13 +15915,16 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceSetInfo(hMprConfig, hRouterInterface, dwLevel, lpbBuffer) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+
         result := DllCall("MPRAPI.dll\MprConfigInterfaceSetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "char*", lpbBuffer, "uint")
         return result
     }
 
     /**
      * The MprConfigInterfaceEnum function enumerates the interfaces that are configured for the router.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwLevel A <b>DWORD</b> value that describes the format in which the information is returned in the <i>lplpBuffer</i> parameter. Must be zero.
      * @param {Pointer<Byte>} lplpBuffer On input, a non-<b>NULL</b> pointer. 
@@ -15866,15 +16020,17 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceEnum", "ptr", hMprConfig, "uint", dwLevel, "ptr", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceEnum", "ptr", hMprConfig, "uint", dwLevel, "char*", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
     /**
      * The MprConfigInterfaceTransportAdd function adds a transport protocol to an interface configuration on the router.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterInterface Handle to the interface configuration to which the specified transport is added. Obtain this handle by calling 
+     * @param {HANDLE} hRouterInterface Handle to the interface configuration to which the specified transport is added. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a>.
@@ -15906,13 +16062,13 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpwsTransportName Pointer to a <b>null</b>-terminated Unicode string that specifies the name for the transport being added. If this parameter is not specified and the transport is IP or IPX, 
+     * @param {PWSTR} lpwsTransportName Pointer to a <b>null</b>-terminated Unicode string that specifies the name for the transport being added. If this parameter is not specified and the transport is IP or IPX, 
      * <b>MprConfigInterfaceTransportAdd</b> uses IP or IPX. If this parameter is not specified and the transport is other than IP or IPX, 
      * <b>MprConfigInterfaceTransportAdd</b> converts the <i>dwTransportId</i> parameter into a string and uses that as the transport name.
      * @param {Pointer} pInterfaceInfo Pointer to an information header that contains information for the specified interface and transport. The router manager for the specified transport interprets this information. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/router-information-functions">Information Header Functions</a> to manipulate information headers.
      * @param {Integer} dwInterfaceInfoSize Specifies the size, in bytes, of the data pointed to by <i>pInterfaceInfo</i>.
-     * @param {Pointer<Void>} phRouterIfTransport A pointer to a  
+     * @param {Pointer<HANDLE>} phRouterIfTransport A pointer to a  
      * <b>HANDLE</b> variable that receives the transport configuration handle type for this interface indicated in the <i>dwTransportId</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -15970,7 +16126,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportAdd(hMprConfig, hRouterInterface, dwTransportId, lpwsTransportName, pInterfaceInfo, dwInterfaceInfoSize, phRouterIfTransport) {
-        lpwsTransportName := lpwsTransportName is String? StrPtr(lpwsTransportName) : lpwsTransportName
+        lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
 
         result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportAdd", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwTransportId, "ptr", lpwsTransportName, "ptr", pInterfaceInfo, "uint", dwInterfaceInfoSize, "ptr", phRouterIfTransport, "uint")
         return result
@@ -15978,13 +16136,13 @@ class Rras {
 
     /**
      * The MprConfigInterfaceTransportRemove function removes the specified transport from the specified interface configuration on the router.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. The handle is obtained from a previous call to 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. The handle is obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterInterface Handle to the interface configuration from which to delete the specified transport. Obtain this handle by calling 
+     * @param {HANDLE} hRouterInterface Handle to the interface configuration from which to delete the specified transport. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a>.
-     * @param {Pointer<Void>} hRouterIfTransport Handle to the interface transport configuration to be deleted. Obtain this handle by calling 
+     * @param {HANDLE} hRouterIfTransport Handle to the interface transport configuration to be deleted. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportadd">MprConfigInterfaceTransportAdd</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportgethandle">MprConfigInterfaceTransportGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportenum">MprConfigInterfaceTransportEnum</a>. Supported transport protocol types are listed on <a href="https://docs.microsoft.com/windows/desktop/RRAS/transport-identifiers">Transport Identifiers</a>.
@@ -16037,15 +16195,19 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportRemove(hMprConfig, hRouterInterface, hRouterIfTransport) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+        hRouterIfTransport := hRouterIfTransport is Win32Handle ? NumGet(hRouterIfTransport, "ptr") : hRouterIfTransport
+
         result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportRemove", "ptr", hMprConfig, "ptr", hRouterInterface, "ptr", hRouterIfTransport, "uint")
         return result
     }
 
     /**
      * The MprConfigInterfaceTransportGetHandle function retrieves a handle to the transport configuration of an interface in the specified router configuration.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterInterface Handle to the interface configuration. Obtain this handle by calling 
+     * @param {HANDLE} hRouterInterface Handle to the interface configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a>.
@@ -16077,7 +16239,7 @@ class Rras {
      * <td>Windows Server 2008 or later: Internet Protocol version 6</td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} phRouterIfTransport A pointer to a  
+     * @param {Pointer<HANDLE>} phRouterIfTransport A pointer to a  
      * <b>HANDLE</b> variable that receives the transport configuration handle type for this interface indicated in the <i>dwTransportId</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -16146,19 +16308,22 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportGetHandle(hMprConfig, hRouterInterface, dwTransportId, phRouterIfTransport) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+
         result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportGetHandle", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwTransportId, "ptr", phRouterIfTransport, "uint")
         return result
     }
 
     /**
      * The MprConfigInterfaceTransportGetInfo function retrieves the configuration information for the specified client on the specified interface.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterInterface Handle to the interface configuration from which to retrieve the specified client information. Obtain this handle by calling 
+     * @param {HANDLE} hRouterInterface Handle to the interface configuration from which to retrieve the specified client information. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacegethandle">MprConfigInterfaceGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a>.
-     * @param {Pointer<Void>} hRouterIfTransport Handle to the transport configuration from which to retrieve the specified client information. Obtain this handle by calling 
+     * @param {HANDLE} hRouterIfTransport Handle to the transport configuration from which to retrieve the specified client information. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportadd">MprConfigInterfaceTransportAdd</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportgethandle">MprConfigInterfaceTransportGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportenum">MprConfigInterfaceTransportEnum</a>. Supported transport protocol types are listed on <a href="https://docs.microsoft.com/windows/desktop/RRAS/transport-identifiers">Transport Identifiers</a>.
@@ -16250,18 +16415,22 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportGetInfo(hMprConfig, hRouterInterface, hRouterIfTransport, ppInterfaceInfo, lpdwInterfaceInfoSize) {
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "ptr", hRouterIfTransport, "ptr", ppInterfaceInfo, "uint*", lpdwInterfaceInfoSize, "uint")
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+        hRouterIfTransport := hRouterIfTransport is Win32Handle ? NumGet(hRouterIfTransport, "ptr") : hRouterIfTransport
+
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "ptr", hRouterIfTransport, "char*", ppInterfaceInfo, "uint*", lpdwInterfaceInfoSize, "uint")
         return result
     }
 
     /**
      * The MprConfigInterfaceTransportSetInfo function updates the configuration information for the client on the specified interface and transport protocol.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterInterface Handle to the interface configuration in which to update the information. Obtain this handle by calling 
+     * @param {HANDLE} hRouterInterface Handle to the interface configuration in which to update the information. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a>.
-     * @param {Pointer<Void>} hRouterIfTransport Handle to the transport configuration in which to update the information for the client. Obtain this handle by calling 
+     * @param {HANDLE} hRouterIfTransport Handle to the transport configuration in which to update the information for the client. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportadd">MprConfigInterfaceTransportAdd</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportgethandle">MprConfigInterfaceTransportGetHandle</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacetransportenum">MprConfigInterfaceTransportEnum</a>. Supported transport protocol types are listed on <a href="https://docs.microsoft.com/windows/desktop/RRAS/transport-identifiers">Transport Identifiers</a>.
@@ -16334,15 +16503,19 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportSetInfo(hMprConfig, hRouterInterface, hRouterIfTransport, pInterfaceInfo, dwInterfaceInfoSize) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+        hRouterIfTransport := hRouterIfTransport is Win32Handle ? NumGet(hRouterIfTransport, "ptr") : hRouterIfTransport
+
         result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportSetInfo", "ptr", hMprConfig, "ptr", hRouterInterface, "ptr", hRouterIfTransport, "ptr", pInterfaceInfo, "uint", dwInterfaceInfoSize, "uint")
         return result
     }
 
     /**
      * The MprConfigInterfaceTransportEnum function enumerates the transports configured on the specified interface.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Void>} hRouterInterface Handle to the interface configuration from which to enumerate the transports. Obtain this handle by calling 
+     * @param {HANDLE} hRouterInterface Handle to the interface configuration from which to enumerate the transports. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfacecreate">MprConfigInterfaceCreate</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfiginterfaceenum">MprConfigInterfaceEnum</a>.
      * @param {Integer} dwLevel A <b>DWORD</b> value that describes the format in which the information is returned in the <i>lplpBuffer</i> parameter. Must be zero.
@@ -16440,15 +16613,18 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportEnum(hMprConfig, hRouterInterface, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportEnum", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "ptr", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+
+        result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportEnum", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwLevel, "char*", lplpBuffer, "uint", dwPrefMaxLen, "uint*", lpdwEntriesRead, "uint*", lpdwTotalEntries, "uint*", lpdwResumeHandle, "uint")
         return result
     }
 
     /**
      * The MprConfigGetFriendlyName function returns the friendly name for an interface that corresponds to the specified GUID name.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Char>} pszGuidName Pointer to a <b>null</b>-terminated Unicode string that specifies the GUID name for the interface.
+     * @param {PWSTR} pszGuidName Pointer to a <b>null</b>-terminated Unicode string that specifies the GUID name for the interface.
      * @param {Pointer} pszBuffer Pointer to a buffer that receives the friendly name for the interface.
      * @param {Integer} dwBufferSize Specifies the size, in bytes, of the buffer pointed to by <i>pszBuffer</i>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -16502,7 +16678,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigGetFriendlyName(hMprConfig, pszGuidName, pszBuffer, dwBufferSize) {
-        pszGuidName := pszGuidName is String? StrPtr(pszGuidName) : pszGuidName
+        pszGuidName := pszGuidName is String ? StrPtr(pszGuidName) : pszGuidName
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
         result := DllCall("MPRAPI.dll\MprConfigGetFriendlyName", "ptr", hMprConfig, "ptr", pszGuidName, "ptr", pszBuffer, "uint", dwBufferSize, "uint")
         return result
@@ -16510,9 +16687,9 @@ class Rras {
 
     /**
      * The MprConfigGetGuidName function returns the GUID name for an interface that corresponds to the specified friendly name.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
-     * @param {Pointer<Char>} pszFriendlyName Pointer to a Unicode string that specifies the friendly name for the interface.
+     * @param {PWSTR} pszFriendlyName Pointer to a Unicode string that specifies the friendly name for the interface.
      * @param {Pointer} pszBuffer Pointer to a buffer that receives the GUID name for the interface.
      * @param {Integer} dwBufferSize Specifies the size, in bytes, of the buffer pointed to by <i>pszBuffer</i>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -16566,7 +16743,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigGetGuidName(hMprConfig, pszFriendlyName, pszBuffer, dwBufferSize) {
-        pszFriendlyName := pszFriendlyName is String? StrPtr(pszFriendlyName) : pszFriendlyName
+        pszFriendlyName := pszFriendlyName is String ? StrPtr(pszFriendlyName) : pszFriendlyName
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
         result := DllCall("MPRAPI.dll\MprConfigGetGuidName", "ptr", hMprConfig, "ptr", pszFriendlyName, "ptr", pszBuffer, "uint", dwBufferSize, "uint")
         return result
@@ -16574,7 +16752,7 @@ class Rras {
 
     /**
      * Returns static filtering information for a specified transport protocol type.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwLevel A <b>DWORD</b> value that describes the format in which the information is returned in the <i>lpBuffer</i> parameter. Must be zero.
      * @param {Integer} dwTransportId A <b>DWORD</b> value that describes the transport protocol type of the static filtering information in the <i>lpBuffer</i> parameter. Acceptable values for <i>dwTransportId</i> are listed in the following table.
@@ -16632,13 +16810,15 @@ class Rras {
      * @since windowsserver2008
      */
     static MprConfigFilterGetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
         result := DllCall("MPRAPI.dll\MprConfigFilterGetInfo", "ptr", hMprConfig, "uint", dwLevel, "uint", dwTransportId, "char*", lpBuffer, "uint")
         return result
     }
 
     /**
      * Sets the static filtering information for a specified transport protocol type.
-     * @param {Pointer<Void>} hMprConfig Handle to the router configuration. Obtain this handle by calling 
+     * @param {HANDLE} hMprConfig Handle to the router configuration. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @param {Integer} dwLevel A <b>DWORD</b> value that describes the format in which the information is structured in the <i>lpBuffer</i> parameter. Must be zero.
      * @param {Integer} dwTransportId A <b>DWORD</b> value that describes the transport protocol type of the static filtering information in the <i>lpBuffer</i> parameter. Acceptable values for <i>dwTransportId</i> are listed in the following table.
@@ -16695,6 +16875,8 @@ class Rras {
      * @since windowsserver2008
      */
     static MprConfigFilterSetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+
         result := DllCall("MPRAPI.dll\MprConfigFilterSetInfo", "ptr", hMprConfig, "uint", dwLevel, "uint", dwTransportId, "char*", lpBuffer, "uint")
         return result
     }
@@ -17136,7 +17318,7 @@ class Rras {
      * @since windowsserver2000
      */
     static MprInfoBlockFind(lpHeader, dwInfoType, lpdwItemSize, lpdwItemCount, lplpItemData) {
-        result := DllCall("MPRAPI.dll\MprInfoBlockFind", "ptr", lpHeader, "uint", dwInfoType, "uint*", lpdwItemSize, "uint*", lpdwItemCount, "ptr", lplpItemData, "uint")
+        result := DllCall("MPRAPI.dll\MprInfoBlockFind", "ptr", lpHeader, "uint", dwInfoType, "uint*", lpdwItemSize, "uint*", lpdwItemCount, "char*", lplpItemData, "uint")
         return result
     }
 
@@ -17158,7 +17340,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/ns-mgm-routing_protocol_config">ROUTING_PROTOCOL_CONFIG</a> structure that contains pointers to callbacks into the client.
      * @param {Integer} dwProtocolId Specifies the ID of the client. The ID is unique for each client.
      * @param {Integer} dwComponentId Specifies the component ID for a specific instance of the client. This parameter is used with <i>dwProtocolId</i> to uniquely identify an instance of a client.
-     * @param {Pointer<Void>} phProtocol On input, the client must supply a pointer to a handle. 
+     * @param {Pointer<HANDLE>} phProtocol On input, the client must supply a pointer to a handle. 
      * 
      * 
      * 
@@ -17221,7 +17403,7 @@ class Rras {
 
     /**
      * The MgmDeRegisterMProtocol function deregisters a client handle obtained from a call to MgmRegisterMProtocol.
-     * @param {Pointer<Void>} hProtocol Handle to the protocol obtained from a previous call to 
+     * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -17263,13 +17445,15 @@ class Rras {
      * @since windowsserver2000
      */
     static MgmDeRegisterMProtocol(hProtocol) {
+        hProtocol := hProtocol is Win32Handle ? NumGet(hProtocol, "ptr") : hProtocol
+
         result := DllCall("rtm.dll\MgmDeRegisterMProtocol", "ptr", hProtocol, "uint")
         return result
     }
 
     /**
      * The MgmTakeInterfaceOwnership function is called by a client (such as a routing protocol) when it is enabled on an interface.
-     * @param {Pointer<Void>} hProtocol Handle to the protocol obtained from a previous call to 
+     * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @param {Integer} dwIfIndex Specifies the index of the interface of which to take ownership.
      * @param {Integer} dwIfNextHopAddr Specifies the address of the next hop that corresponds to the index specified by <i>dwIfIndex</i>. The <i>dwIfIndex</i> and <i>dwIfNextHopIPAddr</i> parameters uniquely identify a next hop on point-to-multipoint interfaces. A point-to-multipoint interface is a connection where one interface connects to multiple networks. Examples of point-to-multipoint interfaces include non-broadcast multiple access (NBMA) interfaces and the internal interface on which all dial-up clients connect. 
@@ -17340,13 +17524,15 @@ class Rras {
      * @since windowsserver2000
      */
     static MgmTakeInterfaceOwnership(hProtocol, dwIfIndex, dwIfNextHopAddr) {
+        hProtocol := hProtocol is Win32Handle ? NumGet(hProtocol, "ptr") : hProtocol
+
         result := DllCall("rtm.dll\MgmTakeInterfaceOwnership", "ptr", hProtocol, "uint", dwIfIndex, "uint", dwIfNextHopAddr, "uint")
         return result
     }
 
     /**
      * The MgmReleaseInterfaceOwnership function is used by a client to relinquish ownership of an interface. When this function is called, all MFEs maintained by the multicast group manager on behalf of the client and for the specified interface are deleted.
-     * @param {Pointer<Void>} hProtocol Handle to the protocol obtained from a previous call to 
+     * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @param {Integer} dwIfIndex Specifies the index of the interface to release.
      * @param {Integer} dwIfNextHopAddr Specifies the address of the next hop that corresponds to the index specified by <i>dwIfIndex</i>. The <i>dwIfIndex</i> and <i>dwIfNextHopIPAddr</i> parameters uniquely identify a next hop on point-to-multipoint interfaces. A point-to-multipoint interface is a connection where one interface connects to multiple networks. Examples of point-to-multipoint interfaces include non-broadcast multiple access (NBMA) interfaces and the internal interface on which all dial-up clients connect. 
@@ -17395,6 +17581,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MgmReleaseInterfaceOwnership(hProtocol, dwIfIndex, dwIfNextHopAddr) {
+        hProtocol := hProtocol is Win32Handle ? NumGet(hProtocol, "ptr") : hProtocol
+
         result := DllCall("rtm.dll\MgmReleaseInterfaceOwnership", "ptr", hProtocol, "uint", dwIfIndex, "uint", dwIfNextHopAddr, "uint")
         return result
     }
@@ -17466,7 +17654,7 @@ class Rras {
 
     /**
      * The MgmAddGroupMembershipEntry function notifies the multicast group manager that there are new receivers for the specified groups on the specified interface.
-     * @param {Pointer<Void>} hProtocol Handle to the protocol obtained from a previous call to 
+     * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @param {Integer} dwSourceAddr Specifies the source address from which to receive multicast data. Specify zero to receive data from all sources (a wildcard receiver for a group); otherwise, specify the IP address of the source or source network. 
      * 
@@ -17580,13 +17768,15 @@ class Rras {
      * @since windowsserver2000
      */
     static MgmAddGroupMembershipEntry(hProtocol, dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, dwIfIndex, dwIfNextHopIPAddr, dwFlags) {
+        hProtocol := hProtocol is Win32Handle ? NumGet(hProtocol, "ptr") : hProtocol
+
         result := DllCall("rtm.dll\MgmAddGroupMembershipEntry", "ptr", hProtocol, "uint", dwSourceAddr, "uint", dwSourceMask, "uint", dwGroupAddr, "uint", dwGroupMask, "uint", dwIfIndex, "uint", dwIfNextHopIPAddr, "uint", dwFlags, "uint")
         return result
     }
 
     /**
      * The MgmDeleteGroupMembershipEntry function notifies the multicast group manager that there are no more receivers present for the specified groups on the specified interface.
-     * @param {Pointer<Void>} hProtocol Handle to the protocol obtained from a previous call to 
+     * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @param {Integer} dwSourceAddr Specifies the source address from which to stop receiving multicast data. Specify zero to stop receiving data from all sources (a wildcard receiver for a group); otherwise, specify the IP address of the source or source network. 
      * 
@@ -17700,6 +17890,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MgmDeleteGroupMembershipEntry(hProtocol, dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, dwIfIndex, dwIfNextHopIPAddr, dwFlags) {
+        hProtocol := hProtocol is Win32Handle ? NumGet(hProtocol, "ptr") : hProtocol
+
         result := DllCall("rtm.dll\MgmDeleteGroupMembershipEntry", "ptr", hProtocol, "uint", dwSourceAddr, "uint", dwSourceMask, "uint", dwGroupAddr, "uint", dwGroupMask, "uint", dwIfIndex, "uint", dwIfNextHopIPAddr, "uint", dwFlags, "uint")
         return result
     }
@@ -18273,7 +18465,7 @@ class Rras {
 
     /**
      * The MgmGroupEnumerationStart function obtains an enumeration handle that is later used to obtain the list of groups that have been joined. After the client obtains the handle, it should use the MgmGroupEnumerationGetNext function to enumerate the groups.
-     * @param {Pointer<Void>} hProtocol Handle to the protocol obtained from a previous call to 
+     * @param {HANDLE} hProtocol Handle to the protocol obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmregistermprotocol">MgmRegisterMProtocol</a>.
      * @param {Integer} metEnumType Specifies the type of enumeration. The following enumerations are available. 
      * 
@@ -18305,7 +18497,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} phEnumHandle Receives the handle to the enumeration. Use this handle in calls to 
+     * @param {Pointer<HANDLE>} phEnumHandle Receives the handle to the enumeration. Use this handle in calls to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgroupenumerationgetnext">MgmGroupEnumerationGetNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgroupenumerationend">MgmGroupEnumerationEnd</a>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
@@ -18359,13 +18551,15 @@ class Rras {
      * @since windowsserver2000
      */
     static MgmGroupEnumerationStart(hProtocol, metEnumType, phEnumHandle) {
+        hProtocol := hProtocol is Win32Handle ? NumGet(hProtocol, "ptr") : hProtocol
+
         result := DllCall("rtm.dll\MgmGroupEnumerationStart", "ptr", hProtocol, "int", metEnumType, "ptr", phEnumHandle, "uint")
         return result
     }
 
     /**
      * The MgmGroupEnumerationGetNext function retrieves the next set of group entries. The information that is returned by this function is a list of groups joined and the sources requested, if any.
-     * @param {Pointer<Void>} hEnum Handle to the enumeration that was obtained from a previous call to 
+     * @param {HANDLE} hEnum Handle to the enumeration that was obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mgm/nf-mgm-mgmgroupenumerationstart">MgmGroupEnumerationStart</a>.
      * @param {Pointer<UInt32>} pdwBufferSize On input, <i>pdwBufferSize</i> is a pointer to a <b>DWORD</b>-sized memory location that contains the size, in bytes, of the buffer pointed to by <i>pbBuffer</i>. 
      * 
@@ -18470,13 +18664,15 @@ class Rras {
      * @since windowsserver2000
      */
     static MgmGroupEnumerationGetNext(hEnum, pdwBufferSize, pbBuffer, pdwNumEntries) {
+        hEnum := hEnum is Win32Handle ? NumGet(hEnum, "ptr") : hEnum
+
         result := DllCall("rtm.dll\MgmGroupEnumerationGetNext", "ptr", hEnum, "uint*", pdwBufferSize, "char*", pbBuffer, "uint*", pdwNumEntries, "uint")
         return result
     }
 
     /**
      * The MgmGroupEnumerationEnd function releases the specified enumeration handle that was obtained from a previous call to MgmGroupEnumerationStart.
-     * @param {Pointer<Void>} hEnum Specifies the enumeration handle to release.
+     * @param {HANDLE} hEnum Specifies the enumeration handle to release.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -18517,6 +18713,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MgmGroupEnumerationEnd(hEnum) {
+        hEnum := hEnum is Win32Handle ? NumGet(hEnum, "ptr") : hEnum
+
         result := DllCall("rtm.dll\MgmGroupEnumerationEnd", "ptr", hEnum, "uint")
         return result
     }
@@ -18537,7 +18735,7 @@ class Rras {
     /**
      * 
      * @param {Pointer<RTM_NET_ADDRESS>} pNetAddress 
-     * @param {Pointer} Address 
+     * @param {IN6_ADDR} Address 
      * @param {Integer} dwLength 
      * @param {Integer} dwAddressSize 
      * @returns {Integer} 
@@ -18554,7 +18752,7 @@ class Rras {
      * @param {Pointer<RTM_ENTITY_EXPORT_METHODS>} ExportMethods Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_entity_export_methods">RTM_ENTITY_EXPORT_METHODS</a> structure that contains a list of methods exported by the client. This parameter is optional and can be set to <b>NULL</b> if the calling client has no methods to export.
      * @param {Pointer<RTM_EVENT_CALLBACK>} EventCallback A <b>RTM_EVENT_CALLBACK</b> structure that specifies the callback the routing table manager  uses to notify the client of events. The events are when a client registers and unregisters, when routes expire, and when changes to the best route to a destination have occurred. Only those changes specified when the client called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterforchangenotification">RtmRegisterForChangeNotification</a>.
-     * @param {Integer} ReserveOpaquePointer Specifies whether to reserve an opaque pointer in each destination for this instance of the protocol. Specify <b>TRUE</b> to reserve an opaque pointer in each destination. Specify <b>FALSE</b> to skip this action. These opaque pointers can be used to point to a private, protocol-specific context for each destination.
+     * @param {BOOL} ReserveOpaquePointer Specifies whether to reserve an opaque pointer in each destination for this instance of the protocol. Specify <b>TRUE</b> to reserve an opaque pointer in each destination. Specify <b>FALSE</b> to skip this action. These opaque pointers can be used to point to a private, protocol-specific context for each destination.
      * @param {Pointer<RTM_REGN_PROFILE>} RtmRegProfile On input, <i>RtmRegProfile</i> is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_regn_profile">RTM_REGN_PROFILE</a> structure. 
      * 
@@ -18654,7 +18852,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmRegisterEntity(RtmEntityInfo, ExportMethods, EventCallback, ReserveOpaquePointer, RtmRegProfile, RtmRegHandle) {
-        result := DllCall("rtm.dll\RtmRegisterEntity", "ptr", RtmEntityInfo, "ptr", ExportMethods, "ptr", EventCallback, "int", ReserveOpaquePointer, "ptr", RtmRegProfile, "ptr*", RtmRegHandle, "uint")
+        result := DllCall("rtm.dll\RtmRegisterEntity", "ptr", RtmEntityInfo, "ptr", ExportMethods, "ptr", EventCallback, "ptr", ReserveOpaquePointer, "ptr", RtmRegProfile, "ptr*", RtmRegHandle, "uint")
         return result
     }
 
@@ -18787,8 +18985,8 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} DestHandle Handle to the destination to lock.
-     * @param {Integer} Exclusive Specifies whether to lock or unlock the destination in an exclusive (<b>TRUE</b>) or shared (<b>FALSE</b>) mode.
-     * @param {Integer} LockDest Specifies whether to lock or unlock the destination. Specify <b>TRUE</b> to lock the destination; specify <b>FALSE</b> to unlock it.
+     * @param {BOOL} Exclusive Specifies whether to lock or unlock the destination in an exclusive (<b>TRUE</b>) or shared (<b>FALSE</b>) mode.
+     * @param {BOOL} LockDest Specifies whether to lock or unlock the destination. Specify <b>TRUE</b> to lock the destination; specify <b>FALSE</b> to unlock it.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -18829,7 +19027,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmLockDestination(RtmRegHandle, DestHandle, Exclusive, LockDest) {
-        result := DllCall("rtm.dll\RtmLockDestination", "ptr", RtmRegHandle, "ptr", DestHandle, "int", Exclusive, "int", LockDest, "uint")
+        result := DllCall("rtm.dll\RtmLockDestination", "ptr", RtmRegHandle, "ptr", DestHandle, "ptr", Exclusive, "ptr", LockDest, "uint")
         return result
     }
 
@@ -18982,7 +19180,7 @@ class Rras {
      * The RtmBlockMethods function blocks or unblocks the execution of methods for a specified destination, route, or next hop, or for all destinations, routes, and next hops.
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
-     * @param {Pointer<Void>} TargetHandle Handle to a destination, route, or next hop for which to block methods. This parameter is optional and can be set to <b>NULL</b> to block methods for all targets.
+     * @param {HANDLE} TargetHandle Handle to a destination, route, or next hop for which to block methods. This parameter is optional and can be set to <b>NULL</b> to block methods for all targets.
      * @param {Integer} TargetType Specifies the type of the handle in <i>TargetHandle</i>. This parameter is optional and can be set to <b>NULL</b> to block methods for all targets. The following flags are used. 
      * 
      * 
@@ -19082,6 +19280,8 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmBlockMethods(RtmRegHandle, TargetHandle, TargetType, BlockingFlag) {
+        TargetHandle := TargetHandle is Win32Handle ? NumGet(TargetHandle, "ptr") : TargetHandle
+
         result := DllCall("rtm.dll\RtmBlockMethods", "ptr", RtmRegHandle, "ptr", TargetHandle, "char", TargetType, "uint", BlockingFlag, "uint")
         return result
     }
@@ -19741,8 +19941,8 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} RouteHandle Handle to the route to lock.
-     * @param {Integer} Exclusive Specifies whether to lock or unlock the route in an exclusive (<b>TRUE</b>) or shared (<b>FALSE</b>) mode.
-     * @param {Integer} LockRoute Specifies whether to lock or unlock the route. Specify <b>TRUE</b> to lock the route; specify <b>FALSE</b> to unlock it.
+     * @param {BOOL} Exclusive Specifies whether to lock or unlock the route in an exclusive (<b>TRUE</b>) or shared (<b>FALSE</b>) mode.
+     * @param {BOOL} LockRoute Specifies whether to lock or unlock the route. Specify <b>TRUE</b> to lock the route; specify <b>FALSE</b> to unlock it.
      * @param {Pointer<RTM_ROUTE_INFO>} RoutePointer If a pointer must be returned: On input, <i>RoutePointer</i> is a pointer to <b>NULL</b>. On output, if the client owns the route, <i>RoutePointer</i> receives a pointer to the next-hop; otherwise, <i>RoutePointer</i> remains unchanged. 
      * 
      * 
@@ -19789,7 +19989,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmLockRoute(RtmRegHandle, RouteHandle, Exclusive, LockRoute, RoutePointer) {
-        result := DllCall("rtm.dll\RtmLockRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, "int", Exclusive, "int", LockRoute, "ptr", RoutePointer, "uint")
+        result := DllCall("rtm.dll\RtmLockRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, "ptr", Exclusive, "ptr", LockRoute, "ptr", RoutePointer, "uint")
         return result
     }
 
@@ -20425,8 +20625,8 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NextHopHandle Handle to the next hop to lock or unlock.
-     * @param {Integer} Exclusive Specifies whether to lock or unlock the next hop in an exclusive (<b>TRUE</b>) or shared (<b>FALSE</b>) mode.
-     * @param {Integer} LockNextHop Specifies whether to lock or unlock the next hop. Specify <b>TRUE</b> to lock the next hop; specify <b>FALSE</b> to unlock it.
+     * @param {BOOL} Exclusive Specifies whether to lock or unlock the next hop in an exclusive (<b>TRUE</b>) or shared (<b>FALSE</b>) mode.
+     * @param {BOOL} LockNextHop Specifies whether to lock or unlock the next hop. Specify <b>TRUE</b> to lock the next hop; specify <b>FALSE</b> to unlock it.
      * @param {Pointer<RTM_NEXTHOP_INFO>} NextHopPointer On input, <i>NextHopPointer</i> is a pointer to <b>NULL</b>. 
      * 
      * 
@@ -20473,7 +20673,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmLockNextHop(RtmRegHandle, NextHopHandle, Exclusive, LockNextHop, NextHopPointer) {
-        result := DllCall("rtm.dll\RtmLockNextHop", "ptr", RtmRegHandle, "ptr", NextHopHandle, "int", Exclusive, "int", LockNextHop, "ptr", NextHopPointer, "uint")
+        result := DllCall("rtm.dll\RtmLockNextHop", "ptr", RtmRegHandle, "ptr", NextHopHandle, "ptr", Exclusive, "ptr", LockNextHop, "ptr", NextHopPointer, "uint")
         return result
     }
 
@@ -21644,7 +21844,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} NotifyHandle Handle to a change notification.
      * @param {Pointer} DestHandle Handle to the destination for which to return change status.
-     * @param {Pointer<Int32>} ChangeStatus On input, <i>ChangeStatus</i> is a pointer to a <b>BOOL</b> value. 
+     * @param {Pointer<BOOL>} ChangeStatus On input, <i>ChangeStatus</i> is a pointer to a <b>BOOL</b> value. 
      * 
      * 
      * 
@@ -21679,7 +21879,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmGetChangeStatus(RtmRegHandle, NotifyHandle, DestHandle, ChangeStatus) {
-        result := DllCall("rtm.dll\RtmGetChangeStatus", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, "int*", ChangeStatus, "uint")
+        result := DllCall("rtm.dll\RtmGetChangeStatus", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, "ptr", ChangeStatus, "uint")
         return result
     }
 
@@ -21690,7 +21890,7 @@ class Rras {
      * @param {Pointer} NotifyHandle Handle to a change notification obtained via a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterforchangenotification">RtmRegisterForChangeNotification</a>.
      * @param {Pointer} DestHandle Handle to the destination that the client is marking for notification of changes.
-     * @param {Integer} MarkDest Specifies whether to mark a destination and receive change notifications. Specify <b>TRUE</b> to mark a destination and start receive change notifications for the specified destination. Specify <b>FALSE</b> to stop receiving change notifications a previously marked destination.
+     * @param {BOOL} MarkDest Specifies whether to mark a destination and receive change notifications. Specify <b>TRUE</b> to mark a destination and start receive change notifications for the specified destination. Specify <b>FALSE</b> to stop receiving change notifications a previously marked destination.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -21720,7 +21920,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmMarkDestForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, MarkDest) {
-        result := DllCall("rtm.dll\RtmMarkDestForChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, "int", MarkDest, "uint")
+        result := DllCall("rtm.dll\RtmMarkDestForChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, "ptr", MarkDest, "uint")
         return result
     }
 
@@ -21731,7 +21931,7 @@ class Rras {
      * @param {Pointer} NotifyHandle Handle to a change notification, obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterforchangenotification">RtmRegisterForChangeNotification</a>.
      * @param {Pointer} DestHandle Handle to the destination to check.
-     * @param {Pointer<Int32>} DestMarked Pointer to a <b>BOOL</b> variable that is <b>TRUE</b> if the destination is marked, <b>FALSE</b> if it is not.
+     * @param {Pointer<BOOL>} DestMarked Pointer to a <b>BOOL</b> variable that is <b>TRUE</b> if the destination is marked, <b>FALSE</b> if it is not.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -21757,7 +21957,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmIsMarkedForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, DestMarked) {
-        result := DllCall("rtm.dll\RtmIsMarkedForChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, "int*", DestMarked, "uint")
+        result := DllCall("rtm.dll\RtmIsMarkedForChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, "ptr", DestMarked, "uint")
         return result
     }
 
@@ -22019,7 +22219,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Integer} NumHandles Specifies the number of handles in <i>RtmHandles</i>.
-     * @param {Pointer<Void>} RtmHandles Array of handles to increase the reference count for.
+     * @param {Pointer<HANDLE>} RtmHandles Array of handles to increase the reference count for.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.

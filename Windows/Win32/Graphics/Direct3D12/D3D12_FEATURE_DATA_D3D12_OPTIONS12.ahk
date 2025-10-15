@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -20,18 +21,24 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS12 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    EnhancedBarriersSupported {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    EnhancedBarriersSupported{
+        get {
+            if(!this.HasProp("__EnhancedBarriersSupported"))
+                this.__EnhancedBarriersSupported := BOOL(this.ptr + 4)
+            return this.__EnhancedBarriersSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    RelaxedFormatCastingSupported {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    RelaxedFormatCastingSupported{
+        get {
+            if(!this.HasProp("__RelaxedFormatCastingSupported"))
+                this.__RelaxedFormatCastingSupported := BOOL(this.ptr + 8)
+            return this.__RelaxedFormatCastingSupported
+        }
     }
 }

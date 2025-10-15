@@ -5,6 +5,7 @@
 #Include .\D3D10_TEX1D_ARRAY_SRV.ahk
 #Include .\D3D10_TEX2D_SRV.ahk
 #Include .\D3D10_TEX2D_ARRAY_SRV.ahk
+#Include .\D3D10_TEX2DMS_SRV.ahk
 #Include .\D3D10_TEX2DMS_ARRAY_SRV.ahk
 #Include .\D3D10_TEX3D_SRV.ahk
 #Include .\D3D10_TEXCUBE_SRV.ahk
@@ -109,11 +110,14 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D10_TEX2DMS_SRV}
      */
-    Texture2DMS {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Texture2DMS{
+        get {
+            if(!this.HasProp("__Texture2DMS"))
+                this.__Texture2DMS := D3D10_TEX2DMS_SRV(this.ptr + 8)
+            return this.__Texture2DMS
+        }
     }
 
     /**

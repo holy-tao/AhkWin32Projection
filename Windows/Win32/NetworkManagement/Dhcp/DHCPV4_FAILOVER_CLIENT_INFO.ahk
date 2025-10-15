@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_BINARY_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DATE_TIME.ahk
 #Include .\DHCP_HOST_INFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DHCPV4_FAILOVER_CLIENT_INFO structure defines DHCP server scope statistics that are part of a failover relationship.
@@ -48,20 +50,26 @@ class DHCPV4_FAILOVER_CLIENT_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCPv4 client machine name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClientName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ClientName{
+        get {
+            if(!this.HasProp("__ClientName"))
+                this.__ClientName := PWSTR(this.ptr + 24)
+            return this.__ClientName
+        }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description of the DHCPv4 client.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClientComment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    ClientComment{
+        get {
+            if(!this.HasProp("__ClientComment"))
+                this.__ClientComment := PWSTR(this.ptr + 32)
+            return this.__ClientComment
+        }
     }
 
     /**
@@ -363,11 +371,14 @@ class DHCPV4_FAILOVER_CLIENT_INFO extends Win32Struct
 
     /**
      * <b>TRUE</b>, if the DHCPv4 client is quarantine-enabled; Otherwise, it is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    QuarantineCapable {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+    QuarantineCapable{
+        get {
+            if(!this.HasProp("__QuarantineCapable"))
+                this.__QuarantineCapable := BOOL(this.ptr + 88)
+            return this.__QuarantineCapable
+        }
     }
 
     /**
@@ -435,11 +446,14 @@ class DHCPV4_FAILOVER_CLIENT_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server policy name that resulted in the IPv4 address assignment to the DHCPv4 client in the lease.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PolicyName {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+    PolicyName{
+        get {
+            if(!this.HasProp("__PolicyName"))
+                this.__PolicyName := PWSTR(this.ptr + 120)
+            return this.__PolicyName
+        }
     }
 
     /**

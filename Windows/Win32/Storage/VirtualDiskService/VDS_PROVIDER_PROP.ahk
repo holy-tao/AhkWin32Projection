@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of a provider object.
@@ -30,11 +31,14 @@ class VDS_PROVIDER_PROP extends Win32Struct
 
     /**
      * A string representing the name of the provider.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszName{
+        get {
+            if(!this.HasProp("__pwszName"))
+                this.__pwszName := PWSTR(this.ptr + 8)
+            return this.__pwszName
+        }
     }
 
     /**
@@ -48,11 +52,14 @@ class VDS_PROVIDER_PROP extends Win32Struct
 
     /**
      * A string representing the version of the provider.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszVersion {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszVersion{
+        get {
+            if(!this.HasProp("__pwszVersion"))
+                this.__pwszVersion := PWSTR(this.ptr + 24)
+            return this.__pwszVersion
+        }
     }
 
     /**

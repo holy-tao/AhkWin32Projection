@@ -76,11 +76,30 @@ class STORAGE_CRYPTO_CAPABILITY_V2 extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - FIPS
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 28, "char")
         set => NumPut("char", value, this, 28)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FIPS {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 1) & 0x7F
+        set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Specifies the ServiceMain function for a service that can run in the calling process. It is used by the StartServiceCtrlDispatcher function.
@@ -26,11 +27,14 @@ class SERVICE_TABLE_ENTRYA extends Win32Struct
      * 
      * If the service is installed with the SERVICE_WIN32_SHARE_PROCESS service type, this member specifies the name of the service that uses the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lpservice_main_functiona">ServiceMain</a> function pointed to by the <b>lpServiceProc</b> member.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpServiceName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lpServiceName{
+        get {
+            if(!this.HasProp("__lpServiceName"))
+                this.__lpServiceName := PSTR(this.ptr + 0)
+            return this.__lpServiceName
+        }
     }
 
     /**

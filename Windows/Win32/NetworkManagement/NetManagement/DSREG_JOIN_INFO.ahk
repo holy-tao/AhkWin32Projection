@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about how a device is joined to Microsoft Azure Active Directory.
@@ -33,83 +34,110 @@ class DSREG_JOIN_INFO extends Win32Struct
 
     /**
      * The identifier of the device.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDeviceId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszDeviceId{
+        get {
+            if(!this.HasProp("__pszDeviceId"))
+                this.__pszDeviceId := PWSTR(this.ptr + 16)
+            return this.__pszDeviceId
+        }
     }
 
     /**
      * A string that represents Azure Active Directory (Azure AD).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszIdpDomain {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszIdpDomain{
+        get {
+            if(!this.HasProp("__pszIdpDomain"))
+                this.__pszIdpDomain := PWSTR(this.ptr + 24)
+            return this.__pszIdpDomain
+        }
     }
 
     /**
      * The identifier of the joined Azure AD tenant.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszTenantId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszTenantId{
+        get {
+            if(!this.HasProp("__pszTenantId"))
+                this.__pszTenantId := PWSTR(this.ptr + 32)
+            return this.__pszTenantId
+        }
     }
 
     /**
      * The email address for the joined account.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszJoinUserEmail {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pszJoinUserEmail{
+        get {
+            if(!this.HasProp("__pszJoinUserEmail"))
+                this.__pszJoinUserEmail := PWSTR(this.ptr + 40)
+            return this.__pszJoinUserEmail
+        }
     }
 
     /**
      * The display name for the joined account.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszTenantDisplayName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pszTenantDisplayName{
+        get {
+            if(!this.HasProp("__pszTenantDisplayName"))
+                this.__pszTenantDisplayName := PWSTR(this.ptr + 48)
+            return this.__pszTenantDisplayName
+        }
     }
 
     /**
      * The URL to use to enroll in the Mobile Device Management (MDM) service.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszMdmEnrollmentUrl {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pszMdmEnrollmentUrl{
+        get {
+            if(!this.HasProp("__pszMdmEnrollmentUrl"))
+                this.__pszMdmEnrollmentUrl := PWSTR(this.ptr + 56)
+            return this.__pszMdmEnrollmentUrl
+        }
     }
 
     /**
      * The URL that provides information about the terms of use for the MDM service.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszMdmTermsOfUseUrl {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pszMdmTermsOfUseUrl{
+        get {
+            if(!this.HasProp("__pszMdmTermsOfUseUrl"))
+                this.__pszMdmTermsOfUseUrl := PWSTR(this.ptr + 64)
+            return this.__pszMdmTermsOfUseUrl
+        }
     }
 
     /**
      * The URL that provides information about compliance for the MDM service.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszMdmComplianceUrl {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pszMdmComplianceUrl{
+        get {
+            if(!this.HasProp("__pszMdmComplianceUrl"))
+                this.__pszMdmComplianceUrl := PWSTR(this.ptr + 72)
+            return this.__pszMdmComplianceUrl
+        }
     }
 
     /**
      * The URL for synchronizing user settings.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszUserSettingSyncUrl {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    pszUserSettingSyncUrl{
+        get {
+            if(!this.HasProp("__pszUserSettingSyncUrl"))
+                this.__pszUserSettingSyncUrl := PWSTR(this.ptr + 80)
+            return this.__pszUserSettingSyncUrl
+        }
     }
 
     /**

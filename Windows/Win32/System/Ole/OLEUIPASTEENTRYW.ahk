@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\FORMATETC.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * An array of entries to be specified in the OLEUIPASTESPECIAL structure for the Paste Special dialog box.
@@ -34,20 +35,26 @@ class OLEUIPASTEENTRYW extends Win32Struct
 
     /**
      * Pointer to the string that represents the format to the user. Any %s in this string is replaced by the FullUserTypeName of the object on the clipboard and the resulting string is placed in the list box of the dialog box. Only one %s is allowed. The presence or absence of %s specifies whether the result-text is to indicate that data is being pasted or that an object that can be activated by an application is being pasted. If %s is present, the resulting text says that an object is being pasted. Otherwise, it says that data is being pasted.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpstrFormatName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lpstrFormatName{
+        get {
+            if(!this.HasProp("__lpstrFormatName"))
+                this.__lpstrFormatName := PWSTR(this.ptr + 32)
+            return this.__lpstrFormatName
+        }
     }
 
     /**
      * Pointer to the string used to customize the resulting text of the dialog box when the user selects the format corresponding to this entry. Any %s in this string is replaced by the application name or FullUserTypeName of the object on the clipboard. Only one %s is allowed.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpstrResultText {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lpstrResultText{
+        get {
+            if(!this.HasProp("__lpstrResultText"))
+                this.__lpstrResultText := PWSTR(this.ptr + 40)
+            return this.__lpstrResultText
+        }
     }
 
     /**

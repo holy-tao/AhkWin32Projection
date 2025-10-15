@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -60,10 +61,13 @@ class IncomingCookieState extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszLocation {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszLocation{
+        get {
+            if(!this.HasProp("__pszLocation"))
+                this.__pszLocation := PSTR(this.ptr + 24)
+            return this.__pszLocation
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * This structure is used to set the over or under temperature threshold of a storage device (via IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD).
@@ -71,11 +72,14 @@ class STORAGE_TEMPERATURE_THRESHOLD extends Win32Struct
 
     /**
      * Indicates if the <i>Threshold</i> specifies the over or under temperature threshold. If <b>true</b>, set the <b>OverThreshold</b> temperature value of the device; otherwise, set the <b>UnderThreshold</b> temperature value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    OverThreshold {
-        get => NumGet(this, 14, "char")
-        set => NumPut("char", value, this, 14)
+    OverThreshold{
+        get {
+            if(!this.HasProp("__OverThreshold"))
+                this.__OverThreshold := BOOLEAN(this.ptr + 14)
+            return this.__OverThreshold
+        }
     }
 
     /**

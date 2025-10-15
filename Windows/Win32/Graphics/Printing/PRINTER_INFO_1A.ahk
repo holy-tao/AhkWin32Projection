@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -21,26 +22,35 @@ class PRINTER_INFO_1A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pDescription {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pDescription{
+        get {
+            if(!this.HasProp("__pDescription"))
+                this.__pDescription := PSTR(this.ptr + 8)
+            return this.__pDescription
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PSTR(this.ptr + 16)
+            return this.__pName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pComment {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pComment{
+        get {
+            if(!this.HasProp("__pComment"))
+                this.__pComment := PSTR(this.ptr + 24)
+            return this.__pComment
+        }
     }
 }

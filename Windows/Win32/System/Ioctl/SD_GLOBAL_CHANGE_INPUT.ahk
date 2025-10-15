@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SD_CHANGE_MACHINE_SID_INPUT.ahk
+#Include .\SD_QUERY_STATS_INPUT.ahk
 #Include .\SD_ENUM_SDS_INPUT.ahk
 
 /**
@@ -41,11 +42,14 @@ class SD_GLOBAL_CHANGE_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SD_QUERY_STATS_INPUT}
      */
-    SdQueryStats {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    SdQueryStats{
+        get {
+            if(!this.HasProp("__SdQueryStats"))
+                this.__SdQueryStats := SD_QUERY_STATS_INPUT(this.ptr + 8)
+            return this.__SdQueryStats
+        }
     }
 
     /**

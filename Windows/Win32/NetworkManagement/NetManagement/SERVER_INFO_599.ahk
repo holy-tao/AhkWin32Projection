@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -116,51 +118,69 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv599_enablesoftcompat {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    sv599_enablesoftcompat{
+        get {
+            if(!this.HasProp("__sv599_enablesoftcompat"))
+                this.__sv599_enablesoftcompat := BOOL(this.ptr + 52)
+            return this.__sv599_enablesoftcompat
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv599_enableforcedlogoff {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    sv599_enableforcedlogoff{
+        get {
+            if(!this.HasProp("__sv599_enableforcedlogoff"))
+                this.__sv599_enableforcedlogoff := BOOL(this.ptr + 56)
+            return this.__sv599_enableforcedlogoff
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv599_timesource {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    sv599_timesource{
+        get {
+            if(!this.HasProp("__sv599_timesource"))
+                this.__sv599_timesource := BOOL(this.ptr + 60)
+            return this.__sv599_timesource
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv599_acceptdownlevelapis {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    sv599_acceptdownlevelapis{
+        get {
+            if(!this.HasProp("__sv599_acceptdownlevelapis"))
+                this.__sv599_acceptdownlevelapis := BOOL(this.ptr + 64)
+            return this.__sv599_acceptdownlevelapis
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv599_lmannounce {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+    sv599_lmannounce{
+        get {
+            if(!this.HasProp("__sv599_lmannounce"))
+                this.__sv599_lmannounce := BOOL(this.ptr + 68)
+            return this.__sv599_lmannounce
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv599_domain {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    sv599_domain{
+        get {
+            if(!this.HasProp("__sv599_domain"))
+                this.__sv599_domain := PWSTR(this.ptr + 72)
+            return this.__sv599_domain
+        }
     }
 
     /**
@@ -292,43 +312,58 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv599_enableoplocks {
-        get => NumGet(this, 144, "int")
-        set => NumPut("int", value, this, 144)
+    sv599_enableoplocks{
+        get {
+            if(!this.HasProp("__sv599_enableoplocks"))
+                this.__sv599_enableoplocks := BOOL(this.ptr + 144)
+            return this.__sv599_enableoplocks
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv599_enableoplockforceclose {
-        get => NumGet(this, 148, "int")
-        set => NumPut("int", value, this, 148)
+    sv599_enableoplockforceclose{
+        get {
+            if(!this.HasProp("__sv599_enableoplockforceclose"))
+                this.__sv599_enableoplockforceclose := BOOL(this.ptr + 148)
+            return this.__sv599_enableoplockforceclose
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv599_enablefcbopens {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
+    sv599_enablefcbopens{
+        get {
+            if(!this.HasProp("__sv599_enablefcbopens"))
+                this.__sv599_enablefcbopens := BOOL(this.ptr + 152)
+            return this.__sv599_enablefcbopens
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv599_enableraw {
-        get => NumGet(this, 156, "int")
-        set => NumPut("int", value, this, 156)
+    sv599_enableraw{
+        get {
+            if(!this.HasProp("__sv599_enableraw"))
+                this.__sv599_enableraw := BOOL(this.ptr + 156)
+            return this.__sv599_enableraw
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv599_enablesharednetdrives {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
+    sv599_enablesharednetdrives{
+        get {
+            if(!this.HasProp("__sv599_enablesharednetdrives"))
+                this.__sv599_enablesharednetdrives := BOOL(this.ptr + 160)
+            return this.__sv599_enablesharednetdrives
+        }
     }
 
     /**

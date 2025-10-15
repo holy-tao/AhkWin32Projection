@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include .\WHEA_NOTIFICATION_FLAGS.ahk
 #Include .\WHEA_NOTIFICATION_DESCRIPTOR.ahk
 #Include .\XPF_MC_BANK_FLAGS.ahk
@@ -24,11 +25,14 @@ class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Enabled {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+    Enabled{
+        get {
+            if(!this.HasProp("__Enabled"))
+                this.__Enabled := BOOLEAN(this.ptr + 2)
+            return this.__Enabled
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -36,19 +37,25 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    LibrarySupportsDriveCleaning {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    LibrarySupportsDriveCleaning{
+        get {
+            if(!this.HasProp("__LibrarySupportsDriveCleaning"))
+                this.__LibrarySupportsDriveCleaning := BOOL(this.ptr + 24)
+            return this.__LibrarySupportsDriveCleaning
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    BarCodeReaderInstalled {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    BarCodeReaderInstalled{
+        get {
+            if(!this.HasProp("__BarCodeReaderInstalled"))
+                this.__BarCodeReaderInstalled := BOOL(this.ptr + 28)
+            return this.__BarCodeReaderInstalled
+        }
     }
 
     /**

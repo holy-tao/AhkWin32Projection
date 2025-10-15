@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents the context under which a resource is appropriate.
@@ -15,11 +16,14 @@ class IndexedResourceQualifier extends Win32Struct
 
     /**
      * The name of the qualifier, such as "language", "contrast", or "scale".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    name{
+        get {
+            if(!this.HasProp("__name"))
+                this.__name := PWSTR(this.ptr + 0)
+            return this.__name
+        }
     }
 
     /**
@@ -35,10 +39,13 @@ class IndexedResourceQualifier extends Win32Struct
      * <li>"high" for contrast.
      * </li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    value {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    value{
+        get {
+            if(!this.HasProp("__value"))
+                this.__value := PWSTR(this.ptr + 8)
+            return this.__value
+        }
     }
 }

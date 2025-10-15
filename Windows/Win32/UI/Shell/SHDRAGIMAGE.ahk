@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains the information needed to create a drag image.
@@ -64,21 +66,27 @@ class SHDRAGIMAGE extends Win32Struct
      * Type: <b>HBITMAP</b>
      * 
      * The drag image's bitmap handle.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmpDragImage {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hbmpDragImage{
+        get {
+            if(!this.HasProp("__hbmpDragImage"))
+                this.__hbmpDragImage := HBITMAP(this.ptr + 16)
+            return this.__hbmpDragImage
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * The color used by the control to fill the background of the drag image.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crColorKey {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    crColorKey{
+        get {
+            if(!this.HasProp("__crColorKey"))
+                this.__crColorKey := COLORREF(this.ptr + 24)
+            return this.__crColorKey
+        }
     }
 }

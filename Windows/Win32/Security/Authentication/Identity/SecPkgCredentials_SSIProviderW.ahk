@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * The SecPkgCredentials_SSIProvider structure holds the SSI provider information associated with a context. The QueryCredentialsAttributes function uses this structure.
@@ -39,10 +40,13 @@ class SecPkgCredentials_SSIProviderW extends Win32Struct
 
     /**
      * The provider information.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    ProviderInfo {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    ProviderInfo{
+        get {
+            if(!this.HasProp("__ProviderInfo"))
+                this.__ProviderInfo := PSTR(this.ptr + 16)
+            return this.__ProviderInfo
+        }
     }
 }

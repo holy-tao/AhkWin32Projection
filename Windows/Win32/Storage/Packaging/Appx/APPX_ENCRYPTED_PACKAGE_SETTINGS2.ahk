@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Encrypted Windows app package settings.
@@ -24,11 +25,14 @@ class APPX_ENCRYPTED_PACKAGE_SETTINGS2 extends Win32Struct
 
     /**
      * The encryption algorithm used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    encryptionAlgorithm {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    encryptionAlgorithm{
+        get {
+            if(!this.HasProp("__encryptionAlgorithm"))
+                this.__encryptionAlgorithm := PWSTR(this.ptr + 8)
+            return this.__encryptionAlgorithm
+        }
     }
 
     /**

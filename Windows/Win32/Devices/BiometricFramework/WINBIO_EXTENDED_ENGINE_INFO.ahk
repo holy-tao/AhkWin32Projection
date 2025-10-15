@@ -31,6 +31,20 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         static sizeof => 32
         static packingSize => 8
 
+        class _EnrollmentRequirements extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            Null {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
         /**
          * @type {Integer}
          */
@@ -40,11 +54,14 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {_EnrollmentRequirements}
          */
-        EnrollmentRequirements {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
+        EnrollmentRequirements{
+            get {
+                if(!this.HasProp("__EnrollmentRequirements"))
+                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(this.ptr + 4)
+                return this.__EnrollmentRequirements
+            }
         }
     
     }
@@ -132,6 +149,20 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         static sizeof => 32
         static packingSize => 8
 
+        class _EnrollmentRequirements extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            Null {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
         /**
          * @type {Integer}
          */
@@ -141,11 +172,14 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {_EnrollmentRequirements}
          */
-        EnrollmentRequirements {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
+        EnrollmentRequirements{
+            get {
+                if(!this.HasProp("__EnrollmentRequirements"))
+                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(this.ptr + 4)
+                return this.__EnrollmentRequirements
+            }
         }
     
     }
@@ -154,6 +188,20 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         static sizeof => 32
         static packingSize => 8
 
+        class _EnrollmentRequirements extends Win32Struct {
+            static sizeof => 8
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            Null {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
         /**
          * @type {Integer}
          */
@@ -163,11 +211,14 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {_EnrollmentRequirements}
          */
-        EnrollmentRequirements {
-            get => NumGet(this, 4, "uint")
-            set => NumPut("uint", value, this, 4)
+        EnrollmentRequirements{
+            get {
+                if(!this.HasProp("__EnrollmentRequirements"))
+                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(this.ptr + 4)
+                return this.__EnrollmentRequirements
+            }
         }
     
     }

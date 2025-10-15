@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
 #Include .\CHANGER_ELEMENT_LIST.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information that the IOCTL_CHANGER_GET_ELEMENT_STATUS control code needs to determine the elements whose status is to be retrieved.
@@ -30,10 +31,13 @@ class CHANGER_READ_ELEMENT_STATUS extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, volume tag information is to be retrieved. Otherwise, no volume information is retrieved. A volume tag can be a bar code or an application-defined value. This member is valid only if the <b>Features0</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_BAR_CODE_SCANNER_INSTALLED or CHANGER_VOLUME_IDENTIFICATION.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    VolumeTagInfo {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    VolumeTagInfo{
+        get {
+            if(!this.HasProp("__VolumeTagInfo"))
+                this.__VolumeTagInfo := BOOLEAN(this.ptr + 16)
+            return this.__VolumeTagInfo
+        }
     }
 }

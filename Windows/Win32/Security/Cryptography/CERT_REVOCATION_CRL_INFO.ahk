@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information updated by a certificate revocation list (CRL) revocation type handler.
@@ -51,11 +52,14 @@ class CERT_REVOCATION_CRL_INFO extends Win32Struct
 
     /**
      * <b>TRUE</b> if <b>pCrlEntry</b> points to an entry in the delta CRL. <b>FALSE</b> if <b>pCrlEntry</b> points to an entry in the base CRL.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fDeltaCrlEntry {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    fDeltaCrlEntry{
+        get {
+            if(!this.HasProp("__fDeltaCrlEntry"))
+                this.__fDeltaCrlEntry := BOOL(this.ptr + 32)
+            return this.__fDeltaCrlEntry
+        }
     }
 
     /**

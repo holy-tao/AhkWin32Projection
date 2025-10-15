@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the width, thickness, offset, run height, reading direction, and flow direction of an underline.
@@ -88,11 +89,14 @@ class DWRITE_UNDERLINE extends Win32Struct
      * Type: <b>const WCHAR*</b>
      * 
      * An array of characters which contains the locale of the text that the underline is being drawn under.  For example, in vertical text, the underline belongs on the left for Chinese but on the right for Japanese.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    localeName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    localeName{
+        get {
+            if(!this.HasProp("__localeName"))
+                this.__localeName := PWSTR(this.ptr + 24)
+            return this.__localeName
+        }
     }
 
     /**

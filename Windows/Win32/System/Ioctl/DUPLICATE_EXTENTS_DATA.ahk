@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains parameters for the FSCTL_DUPLICATE_EXTENTS control code that performs the Block Cloning operation.
@@ -16,11 +17,14 @@ class DUPLICATE_EXTENTS_DATA extends Win32Struct
     /**
      * A handle to the source file from which the byte range is to be copied.
      * To retrieve a file handle, use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    FileHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    FileHandle{
+        get {
+            if(!this.HasProp("__FileHandle"))
+                this.__FileHandle := HANDLE(this.ptr + 0)
+            return this.__FileHandle
+        }
     }
 
     /**

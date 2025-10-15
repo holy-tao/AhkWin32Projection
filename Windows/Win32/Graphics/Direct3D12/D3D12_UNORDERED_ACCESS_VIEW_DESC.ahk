@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_BUFFER_UAV.ahk
+#Include .\D3D12_TEX1D_UAV.ahk
 #Include .\D3D12_TEX1D_ARRAY_UAV.ahk
 #Include .\D3D12_TEX2D_UAV.ahk
 #Include .\D3D12_TEX2D_ARRAY_UAV.ahk
+#Include .\D3D12_TEX2DMS_UAV.ahk
 #Include .\D3D12_TEX2DMS_ARRAY_UAV.ahk
 #Include .\D3D12_TEX3D_UAV.ahk
 
@@ -54,11 +56,14 @@ class D3D12_UNORDERED_ACCESS_VIEW_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_TEX1D_UAV}
      */
-    Texture1D {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Texture1D{
+        get {
+            if(!this.HasProp("__Texture1D"))
+                this.__Texture1D := D3D12_TEX1D_UAV(this.ptr + 8)
+            return this.__Texture1D
+        }
     }
 
     /**
@@ -95,11 +100,14 @@ class D3D12_UNORDERED_ACCESS_VIEW_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_TEX2DMS_UAV}
      */
-    Texture2DMS {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Texture2DMS{
+        get {
+            if(!this.HasProp("__Texture2DMS"))
+                this.__Texture2DMS := D3D12_TEX2DMS_UAV(this.ptr + 8)
+            return this.__Texture2DMS
+        }
     }
 
     /**

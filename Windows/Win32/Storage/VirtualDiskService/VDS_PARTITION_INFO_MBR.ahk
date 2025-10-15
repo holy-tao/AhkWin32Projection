@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Defines the details of a master boot record (MBR) partition.
@@ -31,20 +32,26 @@ class VDS_PARTITION_INFO_MBR extends Win32Struct
 
     /**
      * If true, the partition is active and can be booted; otherwise, the partition cannot be used to boot the computer.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bootIndicator {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
+    bootIndicator{
+        get {
+            if(!this.HasProp("__bootIndicator"))
+                this.__bootIndicator := BOOLEAN(this.ptr + 1)
+            return this.__bootIndicator
+        }
     }
 
     /**
      * If true, the operating system recognizes the partition style; otherwise, the partition style is unknown.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    recognizedPartition {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+    recognizedPartition{
+        get {
+            if(!this.HasProp("__recognizedPartition"))
+                this.__recognizedPartition := BOOLEAN(this.ptr + 2)
+            return this.__recognizedPartition
+        }
     }
 
     /**

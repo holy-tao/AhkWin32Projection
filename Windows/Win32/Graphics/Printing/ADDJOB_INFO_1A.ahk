@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -13,11 +14,14 @@ class ADDJOB_INFO_1A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Path {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Path{
+        get {
+            if(!this.HasProp("__Path"))
+                this.__Path := PSTR(this.ptr + 0)
+            return this.__Path
+        }
     }
 
     /**

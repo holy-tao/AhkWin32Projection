@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used when calling WinVerifyTrust to verify a CERT_CONTEXT.
@@ -25,11 +26,14 @@ class WINTRUST_CERT_INFO extends Win32Struct
     /**
      * String with the name of the memory object pointed to by the <b>pbMem</b> member of the 
      * [WINTRUST_BLOB_INFO](/windows/desktop/api/wintrust/ns-wintrust-wintrust_blob_info) structure.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszDisplayName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pcwszDisplayName{
+        get {
+            if(!this.HasProp("__pcwszDisplayName"))
+                this.__pcwszDisplayName := PWSTR(this.ptr + 8)
+            return this.__pcwszDisplayName
+        }
     }
 
     /**
@@ -53,7 +57,7 @@ class WINTRUST_CERT_INFO extends Win32Struct
 
     /**
      * An array of open <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate stores</a> to add to the list of stores that the policy provider looks in to find certificates while building a trust chain.
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     pahStores {
         get => NumGet(this, 32, "ptr")

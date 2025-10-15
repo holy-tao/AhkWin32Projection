@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_BINARY_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DATE_TIME.ahk
 #Include .\DHCP_HOST_INFO.ahk
 
@@ -48,20 +49,26 @@ class DHCP_CLIENT_INFO extends Win32Struct
 
     /**
      * Unicode string that specifies the network name of the DHCP client. This member is optional.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClientName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ClientName{
+        get {
+            if(!this.HasProp("__ClientName"))
+                this.__ClientName := PWSTR(this.ptr + 24)
+            return this.__ClientName
+        }
     }
 
     /**
      * Unicode string that contains a comment associated with the DHCP client. This member is optional.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClientComment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    ClientComment{
+        get {
+            if(!this.HasProp("__ClientComment"))
+                this.__ClientComment := PWSTR(this.ptr + 32)
+            return this.__ClientComment
+        }
     }
 
     /**

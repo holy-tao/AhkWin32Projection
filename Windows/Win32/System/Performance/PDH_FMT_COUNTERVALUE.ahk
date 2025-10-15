@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PDH_FMT_COUNTERVALUE structure contains the computed value of the counter and its status.
@@ -53,18 +55,24 @@ class PDH_FMT_COUNTERVALUE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    AnsiStringValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    AnsiStringValue{
+        get {
+            if(!this.HasProp("__AnsiStringValue"))
+                this.__AnsiStringValue := PSTR(this.ptr + 8)
+            return this.__AnsiStringValue
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    WideStringValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    WideStringValue{
+        get {
+            if(!this.HasProp("__WideStringValue"))
+                this.__WideStringValue := PWSTR(this.ptr + 8)
+            return this.__WideStringValue
+        }
     }
 }

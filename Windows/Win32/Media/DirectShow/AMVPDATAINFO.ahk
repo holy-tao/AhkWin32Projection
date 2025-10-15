@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\AMVPDIMINFO.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AMVPDATAINFO structure specifies the data-specific characteristics of the VP input stream.
@@ -65,29 +66,38 @@ class AMVPDATAINFO extends Win32Struct
 
     /**
      * Video port should enable double clocking.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bEnableDoubleClock {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    bEnableDoubleClock{
+        get {
+            if(!this.HasProp("__bEnableDoubleClock"))
+                this.__bEnableDoubleClock := BOOL(this.ptr + 48)
+            return this.__bEnableDoubleClock
+        }
     }
 
     /**
      * Video port should use an external VACT signal.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bEnableVACT {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    bEnableVACT{
+        get {
+            if(!this.HasProp("__bEnableVACT"))
+                this.__bEnableVACT := BOOL(this.ptr + 52)
+            return this.__bEnableVACT
+        }
     }
 
     /**
      * Indicates that the signal is interlaced.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bDataIsInterlaced {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    bDataIsInterlaced{
+        get {
+            if(!this.HasProp("__bDataIsInterlaced"))
+                this.__bDataIsInterlaced := BOOL(this.ptr + 56)
+            return this.__bDataIsInterlaced
+        }
     }
 
     /**
@@ -101,11 +111,14 @@ class AMVPDATAINFO extends Win32Struct
 
     /**
      * Video port should invert the field polarity.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bFieldPolarityInverted {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    bFieldPolarityInverted{
+        get {
+            if(!this.HasProp("__bFieldPolarityInverted"))
+                this.__bFieldPolarityInverted := BOOL(this.ptr + 64)
+            return this.__bFieldPolarityInverted
+        }
     }
 
     /**

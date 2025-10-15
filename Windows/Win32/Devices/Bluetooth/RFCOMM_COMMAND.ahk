@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RFCOMM_MSC_DATA.ahk
+#Include .\RFCOMM_RLS_DATA.ahk
 #Include .\RFCOMM_RPN_DATA.ahk
 
 /**
@@ -33,11 +34,14 @@ class RFCOMM_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RFCOMM_RLS_DATA}
      */
-    RLS {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+    RLS{
+        get {
+            if(!this.HasProp("__RLS"))
+                this.__RLS := RFCOMM_RLS_DATA(this.ptr + 7)
+            return this.__RLS
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include .\DOT11_WFD_GO_INTENT.ahk
 #Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
 
 /**
@@ -52,11 +53,14 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_WFD_GO_INTENT}
      */
-    GroupOwnerIntent {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    GroupOwnerIntent{
+        get {
+            if(!this.HasProp("__GroupOwnerIntent"))
+                this.__GroupOwnerIntent := DOT11_WFD_GO_INTENT(this.ptr + 16)
+            return this.__GroupOwnerIntent
+        }
     }
 
     /**

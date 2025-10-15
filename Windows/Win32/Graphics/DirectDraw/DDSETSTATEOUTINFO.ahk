@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DDSETSTATEOUTINFO structure contains the state information for the video port extensions (VPE) object.
@@ -22,11 +23,14 @@ class DDSETSTATEOUTINFO extends Win32Struct
 
     /**
      * When set to a nonzero value, causes Microsoft DirectDraw to revert to software autoflipping. Note that once software autoflipping has been initiated, you cannot revert back to hardware autoflipping until the VPE object and surface are destroyed and restarted.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bSoftwareAutoflip {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    bSoftwareAutoflip{
+        get {
+            if(!this.HasProp("__bSoftwareAutoflip"))
+                this.__bSoftwareAutoflip := BOOL(this.ptr + 0)
+            return this.__bSoftwareAutoflip
+        }
     }
 
     /**

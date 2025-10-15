@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -72,10 +73,13 @@ class DXVAHDETW_VIDEOPROCESSBLTHD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Enter {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    Enter{
+        get {
+            if(!this.HasProp("__Enter"))
+                this.__Enter := BOOL(this.ptr + 48)
+            return this.__Enter
+        }
     }
 }

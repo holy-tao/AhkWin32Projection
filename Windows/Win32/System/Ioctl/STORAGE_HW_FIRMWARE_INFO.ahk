@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\STORAGE_HW_FIRMWARE_SLOT_INFO.ahk
 
 /**
@@ -80,11 +81,14 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    FirmwareShared {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+    FirmwareShared{
+        get {
+            if(!this.HasProp("__FirmwareShared"))
+                this.__FirmwareShared := BOOLEAN(this.ptr + 12)
+            return this.__FirmwareShared
+        }
     }
 
     /**

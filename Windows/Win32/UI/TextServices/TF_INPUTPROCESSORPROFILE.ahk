@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Input\KeyboardAndMouse\HKL.ahk
 
 /**
  * This structure contains data for the input processor profile.
@@ -75,11 +76,14 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
 
     /**
      * The keyboard layout handle of the substitute for this text service. This can be <b>NULL</b> if the text service does not have a substitute or this profile is a keyboard layout.
-     * @type {Pointer<Void>}
+     * @type {HKL}
      */
-    hklSubstitute {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hklSubstitute{
+        get {
+            if(!this.HasProp("__hklSubstitute"))
+                this.__hklSubstitute := HKL(this.ptr + 32)
+            return this.__hklSubstitute
+        }
     }
 
     /**
@@ -128,11 +132,14 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
 
     /**
      * The keyboard layout handle. This is <b>NULL</b> if this profile is a text service.
-     * @type {Pointer<Void>}
+     * @type {HKL}
      */
-    hkl {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hkl{
+        get {
+            if(!this.HasProp("__hkl"))
+                this.__hkl := HKL(this.ptr + 48)
+            return this.__hkl
+        }
     }
 
     /**

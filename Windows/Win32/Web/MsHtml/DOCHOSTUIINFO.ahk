@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -36,19 +37,25 @@ class DOCHOSTUIINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pchHostCss {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pchHostCss{
+        get {
+            if(!this.HasProp("__pchHostCss"))
+                this.__pchHostCss := PWSTR(this.ptr + 16)
+            return this.__pchHostCss
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pchHostNS {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pchHostNS{
+        get {
+            if(!this.HasProp("__pchHostNS"))
+                this.__pchHostNS := PWSTR(this.ptr + 24)
+            return this.__pchHostNS
+        }
     }
 
     /**

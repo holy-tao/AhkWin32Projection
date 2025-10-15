@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECTL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The STROBJ class, or text string object, contains an enumeration of glyph handles and positions for the device driver.
@@ -69,10 +70,13 @@ class STROBJ extends Win32Struct
 
     /**
      * Pointer to the original Unicode string or <b>cGlyphs</b> characters. Contrary to its name, this string is not usually null-terminated. Also, this string is not always valid, such as in journalling with printer fonts, in which case this parameter will be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszOrg {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pwszOrg{
+        get {
+            if(!this.HasProp("__pwszOrg"))
+                this.__pwszOrg := PWSTR(this.ptr + 40)
+            return this.__pwszOrg
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CAPTUREPARMS structure contains parameters that control the streaming video capture process. This structure is used to get and set parameters that affect the capture rate, the number of buffers to use while capturing, and how capture is terminated.
@@ -31,11 +32,14 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * User-initiated capture flag. If this member is <b>TRUE</b>, AVICap displays a dialog box prompting the user to initiate capture. The default value is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMakeUserHitOKToCapture {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fMakeUserHitOKToCapture{
+        get {
+            if(!this.HasProp("__fMakeUserHitOKToCapture"))
+                this.__fMakeUserHitOKToCapture := BOOL(this.ptr + 4)
+            return this.__fMakeUserHitOKToCapture
+        }
     }
 
     /**
@@ -51,11 +55,14 @@ class CAPTUREPARMS extends Win32Struct
      * Yield flag. If this member is <b>TRUE</b>, the capture window spawns a separate background thread to perform step and streaming capture. The default value is <b>FALSE</b>.
      * 
      * Applications that set this flag must handle potential reentry issues because the controls in the application are not disabled while capture is in progress.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fYield {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    fYield{
+        get {
+            if(!this.HasProp("__fYield"))
+                this.__fYield := BOOL(this.ptr + 12)
+            return this.__fYield
+        }
     }
 
     /**
@@ -80,11 +87,14 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * Not used in Win32 applications.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fUsingDOSMemory {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fUsingDOSMemory{
+        get {
+            if(!this.HasProp("__fUsingDOSMemory"))
+                this.__fUsingDOSMemory := BOOL(this.ptr + 24)
+            return this.__fUsingDOSMemory
+        }
     }
 
     /**
@@ -98,11 +108,14 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * Capture audio flag. If this member is <b>TRUE</b>, audio is captured during streaming capture. This is the default value if audio hardware is installed.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCaptureAudio {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    fCaptureAudio{
+        get {
+            if(!this.HasProp("__fCaptureAudio"))
+                this.__fCaptureAudio := BOOL(this.ptr + 32)
+            return this.__fCaptureAudio
+        }
     }
 
     /**
@@ -127,29 +140,38 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * Abort flag for left mouse button. If this member is <b>TRUE</b>, streaming capture stops if the left mouse button is pressed. The default value is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAbortLeftMouse {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+    fAbortLeftMouse{
+        get {
+            if(!this.HasProp("__fAbortLeftMouse"))
+                this.__fAbortLeftMouse := BOOL(this.ptr + 44)
+            return this.__fAbortLeftMouse
+        }
     }
 
     /**
      * Abort flag for right mouse button. If this member is <b>TRUE</b>, streaming capture stops if the right mouse button is pressed. The default value is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAbortRightMouse {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    fAbortRightMouse{
+        get {
+            if(!this.HasProp("__fAbortRightMouse"))
+                this.__fAbortRightMouse := BOOL(this.ptr + 48)
+            return this.__fAbortRightMouse
+        }
     }
 
     /**
      * Time limit enabled flag. If this member is <b>TRUE</b>, streaming capture stops after the number of seconds in <b>wTimeLimit</b> has elapsed. The default value is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fLimitEnabled {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    fLimitEnabled{
+        get {
+            if(!this.HasProp("__fLimitEnabled"))
+                this.__fLimitEnabled := BOOL(this.ptr + 52)
+            return this.__fLimitEnabled
+        }
     }
 
     /**
@@ -163,20 +185,26 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * MCI device capture flag. If this member is <b>TRUE</b>, AVICap controls an MCI-compatible video source during streaming capture. MCI-compatible video sources include VCRs and laserdiscs.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMCIControl {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    fMCIControl{
+        get {
+            if(!this.HasProp("__fMCIControl"))
+                this.__fMCIControl := BOOL(this.ptr + 60)
+            return this.__fMCIControl
+        }
     }
 
     /**
      * MCI device step capture flag. If this member is <b>TRUE</b>, step capture using an MCI device as a video source is enabled. If it is <b>FALSE</b>, real-time capture using an MCI device is enabled. (If <b>fMCIControl</b> is <b>FALSE</b>, this member is ignored.)
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fStepMCIDevice {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    fStepMCIDevice{
+        get {
+            if(!this.HasProp("__fStepMCIDevice"))
+                this.__fStepMCIDevice := BOOL(this.ptr + 64)
+            return this.__fStepMCIDevice
+        }
     }
 
     /**
@@ -201,11 +229,14 @@ class CAPTUREPARMS extends Win32Struct
      * Double-resolution step capture flag. If this member is <b>TRUE</b>, the capture hardware captures at twice the specified resolution. (The resolution for the height and width is doubled.)
      * 
      * Enable this option if the hardware does not support hardware-based decimation and you are capturing in the RGB format.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fStepCaptureAt2x {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+    fStepCaptureAt2x{
+        get {
+            if(!this.HasProp("__fStepCaptureAt2x"))
+                this.__fStepCaptureAt2x := BOOL(this.ptr + 76)
+            return this.__fStepCaptureAt2x
+        }
     }
 
     /**
@@ -228,11 +259,14 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * Not used in Win32 applications.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fDisableWriteCache {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+    fDisableWriteCache{
+        get {
+            if(!this.HasProp("__fDisableWriteCache"))
+                this.__fDisableWriteCache := BOOL(this.ptr + 88)
+            return this.__fDisableWriteCache
+        }
     }
 
     /**

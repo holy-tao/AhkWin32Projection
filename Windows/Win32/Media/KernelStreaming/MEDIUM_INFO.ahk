@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -12,11 +13,14 @@ class MEDIUM_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    MediaPresent {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    MediaPresent{
+        get {
+            if(!this.HasProp("__MediaPresent"))
+                this.__MediaPresent := BOOL(this.ptr + 0)
+            return this.__MediaPresent
+        }
     }
 
     /**
@@ -28,10 +32,13 @@ class MEDIUM_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    RecordInhibit {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    RecordInhibit{
+        get {
+            if(!this.HasProp("__RecordInhibit"))
+                this.__RecordInhibit := BOOL(this.ptr + 8)
+            return this.__RecordInhibit
+        }
     }
 }

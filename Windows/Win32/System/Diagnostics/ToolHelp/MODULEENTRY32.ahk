@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HMODULE.ahk
 
 /**
  * Describes an entry from a list of the modules belonging to the specified process.
@@ -87,11 +88,14 @@ class MODULEENTRY32 extends Win32Struct
 
     /**
      * A handle to the module in the context of the owning process.
-     * @type {Pointer<Void>}
+     * @type {HMODULE}
      */
-    hModule {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hModule{
+        get {
+            if(!this.HasProp("__hModule"))
+                this.__hModule := HMODULE(this.ptr + 40)
+            return this.__hModule
+        }
     }
 
     /**

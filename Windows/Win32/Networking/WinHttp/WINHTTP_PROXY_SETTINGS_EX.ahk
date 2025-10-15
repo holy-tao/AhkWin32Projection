@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
@@ -28,27 +29,36 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszAutoconfigUrl {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pcwszAutoconfigUrl{
+        get {
+            if(!this.HasProp("__pcwszAutoconfigUrl"))
+                this.__pcwszAutoconfigUrl := PWSTR(this.ptr + 16)
+            return this.__pcwszAutoconfigUrl
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszProxy {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pcwszProxy{
+        get {
+            if(!this.HasProp("__pcwszProxy"))
+                this.__pcwszProxy := PWSTR(this.ptr + 24)
+            return this.__pcwszProxy
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszSecureProxy {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pcwszSecureProxy{
+        get {
+            if(!this.HasProp("__pcwszSecureProxy"))
+                this.__pcwszSecureProxy := PWSTR(this.ptr + 32)
+            return this.__pcwszSecureProxy
+        }
     }
 
     /**
@@ -60,7 +70,7 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     rgpcwszProxyBypasses {
         get => NumGet(this, 48, "ptr")
@@ -76,10 +86,13 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pcwszConnectionName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pcwszConnectionName{
+        get {
+            if(!this.HasProp("__pcwszConnectionName"))
+                this.__pcwszConnectionName := PWSTR(this.ptr + 64)
+            return this.__pcwszConnectionName
+        }
     }
 }

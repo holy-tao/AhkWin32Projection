@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DMO_MEDIA_TYPE structure describes the format of the data used by a stream in a Microsoft DirectX Media Object (DMO).
@@ -38,20 +39,26 @@ class DMO_MEDIA_TYPE extends Win32Struct
 
     /**
      * If <b>TRUE</b>, samples are of a fixed size. This field is informational only. For audio, it is generally set to <b>TRUE</b>. For video, it is usually <b>TRUE</b> for uncompressed video and <b>FALSE</b> for compressed video.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bFixedSizeSamples {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    bFixedSizeSamples{
+        get {
+            if(!this.HasProp("__bFixedSizeSamples"))
+                this.__bFixedSizeSamples := BOOL(this.ptr + 16)
+            return this.__bFixedSizeSamples
+        }
     }
 
     /**
      * If <b>TRUE</b>, samples are compressed using temporal (interframe) compression. (A value of <b>TRUE</b> indicates that not all frames are key frames.) This field is informational only.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bTemporalCompression {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    bTemporalCompression{
+        get {
+            if(!this.HasProp("__bTemporalCompression"))
+                this.__bTemporalCompression := BOOL(this.ptr + 20)
+            return this.__bTemporalCompression
+        }
     }
 
     /**

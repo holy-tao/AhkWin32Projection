@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -12,11 +13,14 @@ class BLOCK_NTLM_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    BlockNTLM {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    BlockNTLM{
+        get {
+            if(!this.HasProp("__BlockNTLM"))
+                this.__BlockNTLM := BOOLEAN(this.ptr + 0)
+            return this.__BlockNTLM
+        }
     }
 
     /**

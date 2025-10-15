@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SERVER_INFO_403 structure contains information about a specified server.
@@ -52,11 +53,14 @@ class SERVER_INFO_403 extends Win32Struct
      * A pointer to a string that specifies the list of user names on the server. Spaces separate the names.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv403_alerts {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    sv403_alerts{
+        get {
+            if(!this.HasProp("__sv403_alerts"))
+                this.__sv403_alerts := PWSTR(this.ptr + 16)
+            return this.__sv403_alerts
+        }
     }
 
     /**
@@ -94,11 +98,14 @@ class SERVER_INFO_403 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of a reserved account for guest users on the server. The UNLEN constant specifies the maximum number of characters in the string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv403_guestacct {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    sv403_guestacct{
+        get {
+            if(!this.HasProp("__sv403_guestacct"))
+                this.__sv403_guestacct := PWSTR(this.ptr + 40)
+            return this.__sv403_guestacct
+        }
     }
 
     /**
@@ -347,11 +354,14 @@ class SERVER_INFO_403 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains flags that are used to control operations on a server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv403_srvheuristics {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    sv403_srvheuristics{
+        get {
+            if(!this.HasProp("__sv403_srvheuristics"))
+                this.__sv403_srvheuristics := PWSTR(this.ptr + 136)
+            return this.__sv403_srvheuristics
+        }
     }
 
     /**
@@ -409,10 +419,13 @@ class SERVER_INFO_403 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the path for the profile.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv403_autopath {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+    sv403_autopath{
+        get {
+            if(!this.HasProp("__sv403_autopath"))
+                this.__sv403_autopath := PWSTR(this.ptr + 152)
+            return this.__sv403_autopath
+        }
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used in the WNetDisconnectDialog1 function. The structure contains required information for the disconnect attempt.
@@ -35,33 +37,42 @@ class DISCDLGSTRUCTW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window of the dialog box.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(this.ptr + 8)
+            return this.__hwndOwner
+        }
     }
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated  string that specifies the local device name that is redirected to the network resource, such as "F:" or "LPT1".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpLocalName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpLocalName{
+        get {
+            if(!this.HasProp("__lpLocalName"))
+                this.__lpLocalName := PWSTR(this.ptr + 16)
+            return this.__lpLocalName
+        }
     }
 
     /**
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>NULL</b>-terminated  string that specifies the name of the network resource to disconnect. This member can be NULL if the <b>lpLocalName</b> member is specified. When <b>lpLocalName</b> is specified, the connection to the network resource redirected from <b>lpLocalName</b>  is disconnected.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpRemoteName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpRemoteName{
+        get {
+            if(!this.HasProp("__lpRemoteName"))
+                this.__lpRemoteName := PWSTR(this.ptr + 24)
+            return this.__lpRemoteName
+        }
     }
 
     /**

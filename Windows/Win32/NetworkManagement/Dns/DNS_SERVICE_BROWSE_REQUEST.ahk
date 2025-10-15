@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the query parameters used in a call to [DnsServiceBrowse](../windns/nf-windns-dnsservicebrowse.md).
@@ -36,11 +37,14 @@ class DNS_SERVICE_BROWSE_REQUEST extends Win32Struct
 
     /**
      * A pointer to a string that represents the service type whose matching services you wish to browse for. It takes the generalized form "\_\<ServiceType\>.\_\<TransportProtocol\>.local". For example, "_http._tcp.local", which defines a query to browse for http services on the local link.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    QueryName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    QueryName{
+        get {
+            if(!this.HasProp("__QueryName"))
+                this.__QueryName := PWSTR(this.ptr + 8)
+            return this.__QueryName
+        }
     }
 
     /**

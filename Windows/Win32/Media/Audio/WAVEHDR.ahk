@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The WAVEHDR structure defines the header used to identify a waveform-audio buffer.
@@ -22,11 +23,14 @@ class WAVEHDR extends Win32Struct
 
     /**
      * Pointer to the waveform buffer.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpData {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lpData{
+        get {
+            if(!this.HasProp("__lpData"))
+                this.__lpData := PSTR(this.ptr + 0)
+            return this.__lpData
+        }
     }
 
     /**

@@ -12,11 +12,39 @@ class WHV_X64_INTERRUPT_STATE_REGISTER extends Win32Struct
     static packingSize => 8
 
     /**
+     * This bitfield backs the following members:
+     * - InterruptShadow
+     * - NmiMasked
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    InterruptShadow {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NmiMasked {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 2) & 0x3FFFFFFFFFFFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFFFFFFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFFFFFFFFFF << 2))
     }
 
     /**

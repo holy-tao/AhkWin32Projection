@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -93,11 +94,14 @@ class ACMDRIVERDETAILSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hicon {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hicon{
+        get {
+            if(!this.HasProp("__hicon"))
+                this.__hicon := HICON(this.ptr + 40)
+            return this.__hicon
+        }
     }
 
     /**

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
@@ -2218,11 +2218,13 @@ class TextServices {
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} hEventForServiceStop 
-     * @returns {Integer} 
+     * @param {HANDLE} hEventForServiceStop 
+     * @returns {BOOL} 
      */
     static DoMsCtfMonitor(dwFlags, hEventForServiceStop) {
-        result := DllCall("MsCtfMonitor.dll\DoMsCtfMonitor", "uint", dwFlags, "ptr", hEventForServiceStop, "int")
+        hEventForServiceStop := hEventForServiceStop is Win32Handle ? NumGet(hEventForServiceStop, "ptr") : hEventForServiceStop
+
+        result := DllCall("MsCtfMonitor.dll\DoMsCtfMonitor", "uint", dwFlags, "ptr", hEventForServiceStop, "ptr")
         return result
     }
 

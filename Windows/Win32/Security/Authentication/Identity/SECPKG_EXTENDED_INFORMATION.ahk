@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\SECPKG_GSS_INFO.ahk
 #Include .\SECPKG_CONTEXT_THUNKS.ahk
+#Include .\SECPKG_MUTUAL_AUTH_LEVEL.ahk
 #Include .\SECURITY_STRING.ahk
 #Include .\SECPKG_WOW_CLIENT_DLL.ahk
 #Include .\SECPKG_SERIALIZED_OID.ahk
@@ -53,11 +54,14 @@ class SECPKG_EXTENDED_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECPKG_MUTUAL_AUTH_LEVEL}
      */
-    MutualAuthLevel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    MutualAuthLevel{
+        get {
+            if(!this.HasProp("__MutualAuthLevel"))
+                this.__MutualAuthLevel := SECPKG_MUTUAL_AUTH_LEVEL(this.ptr + 8)
+            return this.__MutualAuthLevel
+        }
     }
 
     /**

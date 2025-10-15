@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -12,19 +14,25 @@ class DOCEVENT_CREATEDCPRE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDriver {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszDriver{
+        get {
+            if(!this.HasProp("__pszDriver"))
+                this.__pszDriver := PWSTR(this.ptr + 0)
+            return this.__pszDriver
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDevice {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszDevice{
+        get {
+            if(!this.HasProp("__pszDevice"))
+                this.__pszDevice := PWSTR(this.ptr + 8)
+            return this.__pszDevice
+        }
     }
 
     /**
@@ -36,10 +44,13 @@ class DOCEVENT_CREATEDCPRE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bIC {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    bIC{
+        get {
+            if(!this.HasProp("__bIC"))
+                this.__bIC := BOOL(this.ptr + 24)
+            return this.__bIC
+        }
     }
 }

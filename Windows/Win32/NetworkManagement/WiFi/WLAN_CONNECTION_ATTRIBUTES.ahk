@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
 #Include .\WLAN_ASSOCIATION_ATTRIBUTES.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\WLAN_SECURITY_ATTRIBUTES.ahk
 
 /**

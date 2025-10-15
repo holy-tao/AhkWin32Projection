@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.System.CorrelationVector
@@ -12,11 +13,14 @@ class CORRELATION_VECTOR extends Win32Struct
     static packingSize => 2
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
-    Version {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    Version{
+        get {
+            if(!this.HasProp("__Version"))
+                this.__Version := CHAR(this.ptr + 0)
+            return this.__Version
+        }
     }
 
     /**

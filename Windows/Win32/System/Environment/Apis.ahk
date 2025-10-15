@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Environment
  * @version v4.0.30319
@@ -92,7 +92,7 @@ class Environment {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<Char>} NewEnvironment The environment variable string using the following format:
+     * @param {PWSTR} NewEnvironment The environment variable string using the following format:
      * 
      * <i>Var1</i>
      * <i>Value1</i>
@@ -102,69 +102,69 @@ class Environment {
      * <i>Value3</i>
      * <i>VarN</i>
      * <i>ValueN</i>
-     * @returns {Integer} Returns S_OK on success.
+     * @returns {BOOL} Returns S_OK on success.
      * @see https://docs.microsoft.com/windows/win32/api//processenv/nf-processenv-setenvironmentstringsw
      */
     static SetEnvironmentStringsW(NewEnvironment) {
-        NewEnvironment := NewEnvironment is String? StrPtr(NewEnvironment) : NewEnvironment
+        NewEnvironment := NewEnvironment is String ? StrPtr(NewEnvironment) : NewEnvironment
 
-        result := DllCall("KERNEL32.dll\SetEnvironmentStringsW", "ptr", NewEnvironment, "int")
+        result := DllCall("KERNEL32.dll\SetEnvironmentStringsW", "ptr", NewEnvironment, "ptr")
         return result
     }
 
     /**
      * Retrieves the command-line string for the current process.
-     * @returns {Pointer<Byte>} The return value is a pointer to the command-line string for the current process.
+     * @returns {PSTR} The return value is a pointer to the command-line string for the current process.
      * @see https://docs.microsoft.com/windows/win32/api//processenv/nf-processenv-getcommandlinea
      * @since windows5.1.2600
      */
     static GetCommandLineA() {
-        result := DllCall("KERNEL32.dll\GetCommandLineA", "char*")
+        result := DllCall("KERNEL32.dll\GetCommandLineA", "ptr")
         return result
     }
 
     /**
      * Retrieves the command-line string for the current process.
-     * @returns {Pointer<Char>} The return value is a pointer to the command-line string for the current process.
+     * @returns {PWSTR} The return value is a pointer to the command-line string for the current process.
      * @see https://docs.microsoft.com/windows/win32/api//processenv/nf-processenv-getcommandlinew
      * @since windows5.1.2600
      */
     static GetCommandLineW() {
-        result := DllCall("KERNEL32.dll\GetCommandLineW", "char*")
+        result := DllCall("KERNEL32.dll\GetCommandLineW", "ptr")
         return result
     }
 
     /**
      * Retrieves the environment variables for the current process.
-     * @returns {Pointer<Byte>} If the function succeeds, the return value is a pointer to the environment block of the current process.
+     * @returns {PSTR} If the function succeeds, the return value is a pointer to the environment block of the current process.
      * 
      * If the function fails, the return value is NULL.
      * @see https://docs.microsoft.com/windows/win32/api//processenv/nf-processenv-getenvironmentstrings
      * @since windows5.1.2600
      */
     static GetEnvironmentStrings() {
-        result := DllCall("KERNEL32.dll\GetEnvironmentStrings", "char*")
+        result := DllCall("KERNEL32.dll\GetEnvironmentStrings", "ptr")
         return result
     }
 
     /**
      * Retrieves the environment variables for the current process.
-     * @returns {Pointer<Char>} If the function succeeds, the return value is a pointer to the environment block of the current process.
+     * @returns {PWSTR} If the function succeeds, the return value is a pointer to the environment block of the current process.
      * 
      * If the function fails, the return value is NULL.
      * @see https://docs.microsoft.com/windows/win32/api//processenv/nf-processenv-getenvironmentstringsw
      * @since windows5.1.2600
      */
     static GetEnvironmentStringsW() {
-        result := DllCall("KERNEL32.dll\GetEnvironmentStringsW", "char*")
+        result := DllCall("KERNEL32.dll\GetEnvironmentStringsW", "ptr")
         return result
     }
 
     /**
      * Frees a block of environment strings.
-     * @param {Pointer<Byte>} penv A pointer to a block of environment strings. The pointer to the block must be obtained by calling the 
+     * @param {PSTR} penv A pointer to a block of environment strings. The pointer to the block must be obtained by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nf-rrascfg-ieapproviderconfig-initialize">GetEnvironmentStrings</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -172,11 +172,11 @@ class Environment {
      * @since windows5.1.2600
      */
     static FreeEnvironmentStringsA(penv) {
-        penv := penv is String? StrPtr(penv) : penv
+        penv := penv is String ? StrPtr(penv) : penv
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FreeEnvironmentStringsA", "ptr", penv, "int")
+        result := DllCall("KERNEL32.dll\FreeEnvironmentStringsA", "ptr", penv, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -185,9 +185,9 @@ class Environment {
 
     /**
      * Frees a block of environment strings.
-     * @param {Pointer<Char>} penv A pointer to a block of environment strings. The pointer to the block must be obtained by calling the 
+     * @param {PWSTR} penv A pointer to a block of environment strings. The pointer to the block must be obtained by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nf-rrascfg-ieapproviderconfig-initialize">GetEnvironmentStrings</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -195,11 +195,11 @@ class Environment {
      * @since windows5.1.2600
      */
     static FreeEnvironmentStringsW(penv) {
-        penv := penv is String? StrPtr(penv) : penv
+        penv := penv is String ? StrPtr(penv) : penv
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FreeEnvironmentStringsW", "ptr", penv, "int")
+        result := DllCall("KERNEL32.dll\FreeEnvironmentStringsW", "ptr", penv, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -208,8 +208,8 @@ class Environment {
 
     /**
      * Retrieves the contents of the specified variable from the environment block of the calling process.
-     * @param {Pointer<Byte>} lpName The name of the environment variable.
-     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the contents of the specified environment variable as a null-terminated string. An environment variable has a maximum size limit of 32,767 characters, including the null-terminating character.
+     * @param {PSTR} lpName The name of the environment variable.
+     * @param {PSTR} lpBuffer A pointer to a buffer that receives the contents of the specified environment variable as a null-terminated string. An environment variable has a maximum size limit of 32,767 characters, including the null-terminating character.
      * @param {Integer} nSize The size of the buffer pointed to by the *lpBuffer* parameter, including the null-terminating character, in characters.
      * @returns {Integer} If the function succeeds, the return value is the number of characters stored in the buffer pointed to by *lpBuffer*, not including the terminating null character.
      * 
@@ -221,8 +221,8 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetEnvironmentVariableA(lpName, lpBuffer, nSize) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -235,8 +235,8 @@ class Environment {
 
     /**
      * Retrieves the contents of the specified variable from the environment block of the calling process.
-     * @param {Pointer<Char>} lpName The name of the environment variable.
-     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the contents of the specified environment variable as a null-terminated string.
+     * @param {PWSTR} lpName The name of the environment variable.
+     * @param {PWSTR} lpBuffer A pointer to a buffer that receives the contents of the specified environment variable as a null-terminated string.
      * 
      * The maximum size of a user-defined environment variable is 32,767 characters. There is no technical limitation on the size of the environment block. However, there are practical limits depending on the mechanism used to access the block. For example, a batch file cannot set a variable that is longer than the maximum command line length. For more information, see [Environment Variables](/windows/desktop/ProcThread/environment-variables).
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpBuffer</i> parameter, including the null-terminating character, in characters.
@@ -250,8 +250,8 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetEnvironmentVariableW(lpName, lpBuffer, nSize) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -264,14 +264,14 @@ class Environment {
 
     /**
      * Sets the contents of the specified environment variable for the current process.
-     * @param {Pointer<Byte>} lpName The name of the environment variable. The operating system creates the environment variable if it does not exist and <i>lpValue</i> is not NULL.
-     * @param {Pointer<Byte>} lpValue The contents of the environment variable. The maximum size of a user-defined environment variable is 32,767 characters. For more information, see 
+     * @param {PSTR} lpName The name of the environment variable. The operating system creates the environment variable if it does not exist and <i>lpValue</i> is not NULL.
+     * @param {PSTR} lpValue The contents of the environment variable. The maximum size of a user-defined environment variable is 32,767 characters. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/environment-variables">Environment Variables</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The total size of the environment block for a process may not exceed 32,767 characters.
      * 
      * If this parameter is NULL, the variable is deleted from the current process's environment.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -279,12 +279,12 @@ class Environment {
      * @since windows5.1.2600
      */
     static SetEnvironmentVariableA(lpName, lpValue) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
-        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetEnvironmentVariableA", "ptr", lpName, "ptr", lpValue, "int")
+        result := DllCall("KERNEL32.dll\SetEnvironmentVariableA", "ptr", lpName, "ptr", lpValue, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -293,15 +293,15 @@ class Environment {
 
     /**
      * Sets the contents of the specified environment variable for the current process.
-     * @param {Pointer<Char>} lpName The name of the environment variable. The operating system creates the environment variable if it does not exist and <i>lpValue</i> is not NULL.
-     * @param {Pointer<Char>} lpValue The contents of the environment variable. 
+     * @param {PWSTR} lpName The name of the environment variable. The operating system creates the environment variable if it does not exist and <i>lpValue</i> is not NULL.
+     * @param {PWSTR} lpValue The contents of the environment variable. 
      * 
      * The maximum size of a user-defined environment variable is 32,767 characters. There is no technical limitation on the size of the environment block. However, there are practical limits depending on the mechanism used to access the block. For example, a batch file cannot set a variable that is longer than the maximum command line length. For more information, see [Environment Variables](/windows/desktop/ProcThread/environment-variables).
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The total size of the environment block for a process may not exceed 32,767 characters.
      * 
      * If this parameter is NULL, the variable is deleted from the current process's environment.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -309,12 +309,12 @@ class Environment {
      * @since windows5.1.2600
      */
     static SetEnvironmentVariableW(lpName, lpValue) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
-        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetEnvironmentVariableW", "ptr", lpName, "ptr", lpValue, "int")
+        result := DllCall("KERNEL32.dll\SetEnvironmentVariableW", "ptr", lpName, "ptr", lpValue, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -323,7 +323,7 @@ class Environment {
 
     /**
      * Expands environment-variable strings and replaces them with the values defined for the current user.
-     * @param {Pointer<Byte>} lpSrc A buffer that contains one or more environment-variable strings in the form: %<i>variableName</i>%. For each such reference, the %<i>variableName</i>% portion is replaced with the current value of that environment variable. 
+     * @param {PSTR} lpSrc A buffer that contains one or more environment-variable strings in the form: %<i>variableName</i>%. For each such reference, the %<i>variableName</i>% portion is replaced with the current value of that environment variable. 
      * 
      * 
      * 
@@ -331,7 +331,7 @@ class Environment {
      * Case is ignored when looking up the environment-variable name. If the name is not found, the %<i>variableName</i>% portion is left unexpanded.
      * 
      * Note that this function does not support all the features that Cmd.exe supports. For example, it does not support %<i>variableName</i>:<i>str1</i>=<i>str2</i>% or %<i>variableName</i>:~<i>offset</i>,<i>length</i>%.
-     * @param {Pointer<Byte>} lpDst A pointer to a buffer that receives the result of expanding the environment variable strings in the <i>lpSrc</i> buffer. Note that this buffer cannot be the same as the <i>lpSrc</i> buffer.
+     * @param {PSTR} lpDst A pointer to a buffer that receives the result of expanding the environment variable strings in the <i>lpSrc</i> buffer. Note that this buffer cannot be the same as the <i>lpSrc</i> buffer.
      * @param {Integer} nSize The maximum number of characters that can be stored in the buffer pointed to by the <i>lpDst</i> parameter. When using ANSI strings, the buffer size should be the string length, plus terminating null character, plus one. When using Unicode strings, the buffer size should be the string length plus the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is the number of <b>TCHARs</b> stored in the destination buffer, including the terminating null character. If the destination buffer is too small to hold the expanded string, the return value is the required buffer size, in characters.
      * 
@@ -341,8 +341,8 @@ class Environment {
      * @since windows5.0
      */
     static ExpandEnvironmentStringsA(lpSrc, lpDst, nSize) {
-        lpSrc := lpSrc is String? StrPtr(lpSrc) : lpSrc
-        lpDst := lpDst is String? StrPtr(lpDst) : lpDst
+        lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
+        lpDst := lpDst is String ? StrPtr(lpDst) : lpDst
 
         A_LastError := 0
 
@@ -355,7 +355,7 @@ class Environment {
 
     /**
      * Expands environment-variable strings and replaces them with the values defined for the current user.
-     * @param {Pointer<Char>} lpSrc A buffer that contains one or more environment-variable strings in the form: %<i>variableName</i>%. For each such reference, the %<i>variableName</i>% portion is replaced with the current value of that environment variable. 
+     * @param {PWSTR} lpSrc A buffer that contains one or more environment-variable strings in the form: %<i>variableName</i>%. For each such reference, the %<i>variableName</i>% portion is replaced with the current value of that environment variable. 
      * 
      * 
      * 
@@ -363,7 +363,7 @@ class Environment {
      * Case is ignored when looking up the environment-variable name. If the name is not found, the %<i>variableName</i>% portion is left unexpanded.
      * 
      * Note that this function does not support all the features that Cmd.exe supports. For example, it does not support %<i>variableName</i>:<i>str1</i>=<i>str2</i>% or %<i>variableName</i>:~<i>offset</i>,<i>length</i>%.
-     * @param {Pointer<Char>} lpDst A pointer to a buffer that receives the result of expanding the environment variable strings in the <i>lpSrc</i> buffer. Note that this buffer cannot be the same as the <i>lpSrc</i> buffer.
+     * @param {PWSTR} lpDst A pointer to a buffer that receives the result of expanding the environment variable strings in the <i>lpSrc</i> buffer. Note that this buffer cannot be the same as the <i>lpSrc</i> buffer.
      * @param {Integer} nSize The maximum number of characters that can be stored in the buffer pointed to by the <i>lpDst</i> parameter. When using ANSI strings, the buffer size should be the string length, plus terminating null character, plus one. When using Unicode strings, the buffer size should be the string length plus the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is the number of <b>TCHARs</b> stored in the destination buffer, including the terminating null character. If the destination buffer is too small to hold the expanded string, the return value is the required buffer size, in characters.
      * 
@@ -373,8 +373,8 @@ class Environment {
      * @since windows5.0
      */
     static ExpandEnvironmentStringsW(lpSrc, lpDst, nSize) {
-        lpSrc := lpSrc is String? StrPtr(lpSrc) : lpSrc
-        lpDst := lpDst is String? StrPtr(lpDst) : lpDst
+        lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
+        lpDst := lpDst is String ? StrPtr(lpDst) : lpDst
 
         A_LastError := 0
 
@@ -387,36 +387,36 @@ class Environment {
 
     /**
      * 
-     * @param {Pointer<Byte>} lpPathName 
-     * @returns {Integer} 
+     * @param {PSTR} lpPathName 
+     * @returns {BOOL} 
      */
     static SetCurrentDirectoryA(lpPathName) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
-        result := DllCall("KERNEL32.dll\SetCurrentDirectoryA", "ptr", lpPathName, "int")
+        result := DllCall("KERNEL32.dll\SetCurrentDirectoryA", "ptr", lpPathName, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} lpPathName 
-     * @returns {Integer} 
+     * @param {PWSTR} lpPathName 
+     * @returns {BOOL} 
      */
     static SetCurrentDirectoryW(lpPathName) {
-        lpPathName := lpPathName is String? StrPtr(lpPathName) : lpPathName
+        lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
-        result := DllCall("KERNEL32.dll\SetCurrentDirectoryW", "ptr", lpPathName, "int")
+        result := DllCall("KERNEL32.dll\SetCurrentDirectoryW", "ptr", lpPathName, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Integer} nBufferLength 
-     * @param {Pointer<Byte>} lpBuffer 
+     * @param {PSTR} lpBuffer 
      * @returns {Integer} 
      */
     static GetCurrentDirectoryA(nBufferLength, lpBuffer) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         result := DllCall("KERNEL32.dll\GetCurrentDirectoryA", "uint", nBufferLength, "ptr", lpBuffer, "uint")
         return result
@@ -425,11 +425,11 @@ class Environment {
     /**
      * 
      * @param {Integer} nBufferLength 
-     * @param {Pointer<Char>} lpBuffer 
+     * @param {PWSTR} lpBuffer 
      * @returns {Integer} 
      */
     static GetCurrentDirectoryW(nBufferLength, lpBuffer) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         result := DllCall("KERNEL32.dll\GetCurrentDirectoryW", "uint", nBufferLength, "ptr", lpBuffer, "uint")
         return result
@@ -437,29 +437,29 @@ class Environment {
 
     /**
      * Determines whether the current directory should be included in the search path for the specified executable.
-     * @param {Pointer<Byte>} ExeName The name of the executable file.
-     * @returns {Integer} If the current directory should be part of the search path, the return value is TRUE. Otherwise, the return value is FALSE.
+     * @param {PSTR} ExeName The name of the executable file.
+     * @returns {BOOL} If the current directory should be part of the search path, the return value is TRUE. Otherwise, the return value is FALSE.
      * @see https://docs.microsoft.com/windows/win32/api//processenv/nf-processenv-needcurrentdirectoryforexepatha
      * @since windows6.0.6000
      */
     static NeedCurrentDirectoryForExePathA(ExeName) {
-        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+        ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\NeedCurrentDirectoryForExePathA", "ptr", ExeName, "int")
+        result := DllCall("KERNEL32.dll\NeedCurrentDirectoryForExePathA", "ptr", ExeName, "ptr")
         return result
     }
 
     /**
      * Determines whether the current directory should be included in the search path for the specified executable.
-     * @param {Pointer<Char>} ExeName The name of the executable file.
-     * @returns {Integer} If the current directory should be part of the search path, the return value is TRUE. Otherwise, the return value is FALSE.
+     * @param {PWSTR} ExeName The name of the executable file.
+     * @returns {BOOL} If the current directory should be part of the search path, the return value is TRUE. Otherwise, the return value is FALSE.
      * @see https://docs.microsoft.com/windows/win32/api//processenv/nf-processenv-needcurrentdirectoryforexepathw
      * @since windows6.0.6000
      */
     static NeedCurrentDirectoryForExePathW(ExeName) {
-        ExeName := ExeName is String? StrPtr(ExeName) : ExeName
+        ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\NeedCurrentDirectoryForExePathW", "ptr", ExeName, "int")
+        result := DllCall("KERNEL32.dll\NeedCurrentDirectoryForExePathW", "ptr", ExeName, "ptr")
         return result
     }
 
@@ -468,7 +468,7 @@ class Environment {
      * @param {Pointer<Void>} lpEnvironment Type: <b>LPVOID*</b>
      * 
      * When this function returns, receives a pointer to the new environment block. The environment block is an array of null-terminated Unicode strings. The list ends with two nulls (\0\0).
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * Token for the user, returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a> function. If this is a primary token, the token must have <b>TOKEN_QUERY</b> and <b>TOKEN_DUPLICATE</b> access. If the token is an impersonation token, it must have <b>TOKEN_QUERY</b> access. For more information, see 
@@ -477,19 +477,21 @@ class Environment {
      *                     
      * 
      * If this parameter is <b>NULL</b>, the returned environment block contains system variables only.
-     * @param {Integer} bInherit Type: <b>BOOL</b>
+     * @param {BOOL} bInherit Type: <b>BOOL</b>
      * 
      * Specifies whether to inherit from the current process' environment. If this value is <b>TRUE</b>, the process inherits the current process' environment. If this value is <b>FALSE</b>, the process does not inherit the current process' environment.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-createenvironmentblock
      * @since windows5.0
      */
     static CreateEnvironmentBlock(lpEnvironment, hToken, bInherit) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\CreateEnvironmentBlock", "ptr", lpEnvironment, "ptr", hToken, "int", bInherit, "int")
+        result := DllCall("USERENV.dll\CreateEnvironmentBlock", "ptr", lpEnvironment, "ptr", hToken, "ptr", bInherit, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -502,7 +504,7 @@ class Environment {
      * 
      * Pointer to the environment block created by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-createenvironmentblock">CreateEnvironmentBlock</a>. The environment block is an array of null-terminated Unicode strings. The list ends with two nulls (\0\0).
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-destroyenvironmentblock
@@ -511,7 +513,7 @@ class Environment {
     static DestroyEnvironmentBlock(lpEnvironment) {
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\DestroyEnvironmentBlock", "ptr", lpEnvironment, "int")
+        result := DllCall("USERENV.dll\DestroyEnvironmentBlock", "ptr", lpEnvironment, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -520,35 +522,36 @@ class Environment {
 
     /**
      * Expands the source string by using the environment block established for the specified user.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * Token for the user, returned from the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocesstoken">OpenProcessToken</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function. The token must have TOKEN_IMPERSONATE and TOKEN_QUERY access. In addition, as of Windows 7 the token must also have TOKEN_DUPLICATE access. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
      * 
      * 
      * 
      * If <i>hToken</i> is <b>NULL</b>, the environment block contains system variables only.
-     * @param {Pointer<Byte>} lpSrc Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpSrc Type: <b>LPCTSTR</b>
      * 
      * Pointer to the null-terminated source string to be expanded.
-     * @param {Pointer<Byte>} lpDest Type: <b>LPTSTR</b>
+     * @param {PSTR} lpDest Type: <b>LPTSTR</b>
      * 
      * Pointer to a buffer that receives the expanded strings.
      * @param {Integer} dwSize Type: <b>DWORD</b>
      * 
      * Specifies the size of the <i>lpDest</i> buffer, in <b>TCHARs</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-expandenvironmentstringsforusera
      * @since windows5.0
      */
     static ExpandEnvironmentStringsForUserA(hToken, lpSrc, lpDest, dwSize) {
-        lpSrc := lpSrc is String? StrPtr(lpSrc) : lpSrc
-        lpDest := lpDest is String? StrPtr(lpDest) : lpDest
+        lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
+        lpDest := lpDest is String ? StrPtr(lpDest) : lpDest
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserA", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "int")
+        result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserA", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -557,35 +560,36 @@ class Environment {
 
     /**
      * Expands the source string by using the environment block established for the specified user.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * Token for the user, returned from the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocesstoken">OpenProcessToken</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function. The token must have TOKEN_IMPERSONATE and TOKEN_QUERY access. In addition, as of Windows 7 the token must also have TOKEN_DUPLICATE access. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
      * 
      * 
      * 
      * If <i>hToken</i> is <b>NULL</b>, the environment block contains system variables only.
-     * @param {Pointer<Char>} lpSrc Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpSrc Type: <b>LPCTSTR</b>
      * 
      * Pointer to the null-terminated source string to be expanded.
-     * @param {Pointer<Char>} lpDest Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpDest Type: <b>LPTSTR</b>
      * 
      * Pointer to a buffer that receives the expanded strings.
      * @param {Integer} dwSize Type: <b>DWORD</b>
      * 
      * Specifies the size of the <i>lpDest</i> buffer, in <b>TCHARs</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-expandenvironmentstringsforuserw
      * @since windows5.0
      */
     static ExpandEnvironmentStringsForUserW(hToken, lpSrc, lpDest, dwSize) {
-        lpSrc := lpSrc is String? StrPtr(lpSrc) : lpSrc
-        lpDest := lpDest is String? StrPtr(lpDest) : lpDest
+        lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
+        lpDest := lpDest is String ? StrPtr(lpDest) : lpDest
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserW", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "int")
+        result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserW", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -624,7 +628,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * For a list of common error codes, see <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>. The following error codes also apply for this function.
      * 
@@ -651,7 +655,7 @@ class Environment {
     static IsEnclaveTypeSupported(flEnclaveType) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsEnclaveTypeSupported", "uint", flEnclaveType, "int")
+        result := DllCall("KERNEL32.dll\IsEnclaveTypeSupported", "uint", flEnclaveType, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -660,7 +664,7 @@ class Environment {
 
     /**
      * Creates a new uninitialized enclave. An enclave is an isolated region of code and data within the address space for an application. Only code that runs within the enclave can access data within the same enclave.
-     * @param {Pointer<Void>} hProcess A handle to the process for which you want to create an enclave.
+     * @param {HANDLE} hProcess A handle to the process for which you want to create an enclave.
      * @param {Pointer<Void>} lpAddress The preferred base address of the enclave. Specify <b>NULL</b> to have the operating system assign the base address.
      * @param {Pointer} dwSize The size of the enclave that you want to create, including the size of the code that you will load into the enclave, in bytes.
      * @param {Pointer} dwInitialCommitment The amount of memory to commit for the enclave, in bytes.
@@ -746,6 +750,8 @@ class Environment {
      * @since windows10.0.10240
      */
     static CreateEnclave(hProcess, lpAddress, dwSize, dwInitialCommitment, flEnclaveType, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\CreateEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", dwSize, "ptr", dwInitialCommitment, "uint", flEnclaveType, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError, "ptr")
@@ -757,7 +763,7 @@ class Environment {
 
     /**
      * Loads data into an uninitialized enclave that you created by calling CreateEnclave.
-     * @param {Pointer<Void>} hProcess A handle to the process for which the enclave was created.
+     * @param {HANDLE} hProcess A handle to the process for which the enclave was created.
      * @param {Pointer<Void>} lpAddress The address in the enclave where you want to load the data.
      * @param {Pointer} lpBuffer A pointer to the data the you want to load into the enclave.
      * @param {Pointer} nSize The size of the data that you want to load into the enclave, in bytes. This value must be a whole-number multiple of the page size.
@@ -789,7 +795,7 @@ class Environment {
      * @param {Integer} dwInfoLength The length of the structure that the <i>lpPageInformation</i> parameter points to, in bytes. This value must be 0.
      * @param {Pointer<UIntPtr>} lpNumberOfBytesWritten A pointer to a variable that receives the number of bytes that <b>LoadEnclaveData</b> copied into the enclave.
      * @param {Pointer<UInt32>} lpEnclaveError An optional pointer to  a variable that receives an enclave error code that is architecture-specific. The <i>lpEnclaveError</i> parameter is not used.
-     * @returns {Integer} If all of the data is loaded into the enclave successfully, the return value is nonzero. Otherwise, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} If all of the data is loaded into the enclave successfully, the return value is nonzero. Otherwise, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * For a list of common error codes, see <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>. The following error codes also apply for this function.
      * 
@@ -814,9 +820,11 @@ class Environment {
      * @since windows10.0.10240
      */
     static LoadEnclaveData(hProcess, lpAddress, lpBuffer, nSize, flProtect, lpPageInformation, dwInfoLength, lpNumberOfBytesWritten, lpEnclaveError) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadEnclaveData", "ptr", hProcess, "ptr", lpAddress, "ptr", lpBuffer, "ptr", nSize, "uint", flProtect, "ptr", lpPageInformation, "uint", dwInfoLength, "ptr*", lpNumberOfBytesWritten, "uint*", lpEnclaveError, "int")
+        result := DllCall("KERNEL32.dll\LoadEnclaveData", "ptr", hProcess, "ptr", lpAddress, "ptr", lpBuffer, "ptr", nSize, "uint", flProtect, "ptr", lpPageInformation, "uint", dwInfoLength, "ptr*", lpNumberOfBytesWritten, "uint*", lpEnclaveError, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -825,7 +833,7 @@ class Environment {
 
     /**
      * Initializes an enclave that you created and loaded with data.
-     * @param {Pointer<Void>} hProcess A handle to the process for which the enclave was created.
+     * @param {HANDLE} hProcess A handle to the process for which the enclave was created.
      * @param {Pointer<Void>} lpAddress Any address within the enclave.
      * @param {Pointer} lpEnclaveInformation A pointer to architecture-specific information to use to initialize the enclave.
      * 
@@ -838,7 +846,7 @@ class Environment {
      * For the <b>ENCLAVE_TYPE_SGX</b> enclave type, the <i>lpEnclaveError</i> parameter contains the error that the EINIT instruction generated if the function fails and .<a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ENCLAVE_FAILURE</b>.
      * 
      * For the <b>ENCLAVE_TYPE_VBS</b> enclave type, the <i>lpEnclaveError</i> parameter  is not used.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * For a list of common error codes, see <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>. The following error codes also apply for this function.
      * 
@@ -887,9 +895,11 @@ class Environment {
      * @since windows10.0.10240
      */
     static InitializeEnclave(hProcess, lpAddress, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError, "int")
+        result := DllCall("KERNEL32.dll\InitializeEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -899,34 +909,34 @@ class Environment {
     /**
      * Loads an image and all of its imports into an enclave.
      * @param {Pointer<Void>} lpEnclaveAddress The base address of the image into which to load the image.
-     * @param {Pointer<Byte>} lpImageName A NULL-terminated string that contains the name of the image to load.
-     * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  
+     * @param {PSTR} lpImageName A NULL-terminated string that contains the name of the image to load.
+     * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  
      * 
      * To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//enclaveapi/nf-enclaveapi-loadenclaveimagea
      */
     static LoadEnclaveImageA(lpEnclaveAddress, lpImageName) {
-        lpImageName := lpImageName is String? StrPtr(lpImageName) : lpImageName
+        lpImageName := lpImageName is String ? StrPtr(lpImageName) : lpImageName
 
-        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageA", "ptr", lpEnclaveAddress, "ptr", lpImageName, "int")
+        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageA", "ptr", lpEnclaveAddress, "ptr", lpImageName, "ptr")
         return result
     }
 
     /**
      * Loads an image and all of its imports into an enclave.
      * @param {Pointer<Void>} lpEnclaveAddress The base address of the image into which to load the image.
-     * @param {Pointer<Char>} lpImageName A NULL-terminated string that contains the name of the image to load.
-     * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  To get extended error information, 
+     * @param {PWSTR} lpImageName A NULL-terminated string that contains the name of the image to load.
+     * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//enclaveapi/nf-enclaveapi-loadenclaveimagew
      * @since windows10.0.16299
      */
     static LoadEnclaveImageW(lpEnclaveAddress, lpImageName) {
-        lpImageName := lpImageName is String? StrPtr(lpImageName) : lpImageName
+        lpImageName := lpImageName is String ? StrPtr(lpImageName) : lpImageName
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageW", "ptr", lpEnclaveAddress, "ptr", lpImageName, "int")
+        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageW", "ptr", lpEnclaveAddress, "ptr", lpImageName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -937,13 +947,13 @@ class Environment {
      * Calls a function within an enclave.
      * @param {Pointer} lpRoutine The address of the function that you want to call.
      * @param {Pointer<Void>} lpParameter The parameter than you want to pass to the function.
-     * @param {Integer} fWaitForThread <b>TRUE</b> if the call to the specified function should block execution until an idle enclave thread becomes available when no idle enclave thread is available. 
+     * @param {BOOL} fWaitForThread <b>TRUE</b> if the call to the specified function should block execution until an idle enclave thread becomes available when no idle enclave thread is available. 
      * <b>FALSE</b> if the call to the specified function should fail when no idle enclave thread is available. 
      * 
      * 
      * This parameter is ignored when you use <b>CallEnclave</b> within an enclave to call a function that is not in any enclave.
      * @param {Pointer<Void>} lpReturnValue The return value of the function, if it is called successfully.
-     * @returns {Integer} <b>TRUE</b> if the specified function was called successfully; otherwise <b>FALSE</b>. To get extended error information, 
+     * @returns {BOOL} <b>TRUE</b> if the specified function was called successfully; otherwise <b>FALSE</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//enclaveapi/nf-enclaveapi-callenclave
      * @since windows10.0.16299
@@ -951,7 +961,7 @@ class Environment {
     static CallEnclave(lpRoutine, lpParameter, fWaitForThread, lpReturnValue) {
         A_LastError := 0
 
-        result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, "ptr", lpParameter, "int", fWaitForThread, "ptr", lpReturnValue, "int")
+        result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, "ptr", lpParameter, "ptr", fWaitForThread, "ptr", lpReturnValue, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -961,8 +971,8 @@ class Environment {
     /**
      * Ends the execution of the threads that are running within an enclave.
      * @param {Pointer<Void>} lpAddress The base address of the enclave in which to end the execution of the threads.
-     * @param {Integer} fWait <b>TRUE</b> if <b>TerminateEnclave</b> should not return  until all of the threads in the enclave end execution. <b>FALSE</b> if <b>TerminateEnclave</b> should return immediately.
-     * @returns {Integer} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  To get extended error information, 
+     * @param {BOOL} fWait <b>TRUE</b> if <b>TerminateEnclave</b> should not return  until all of the threads in the enclave end execution. <b>FALSE</b> if <b>TerminateEnclave</b> should return immediately.
+     * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//enclaveapi/nf-enclaveapi-terminateenclave
      * @since windows10.0.16299
@@ -970,7 +980,7 @@ class Environment {
     static TerminateEnclave(lpAddress, fWait) {
         A_LastError := 0
 
-        result := DllCall("vertdll.dll\TerminateEnclave", "ptr", lpAddress, "int", fWait, "int")
+        result := DllCall("vertdll.dll\TerminateEnclave", "ptr", lpAddress, "ptr", fWait, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -980,7 +990,7 @@ class Environment {
     /**
      * Deletes the specified enclave.
      * @param {Pointer<Void>} lpAddress The base address of the enclave that you want to delete.
-     * @returns {Integer} <b>TRUE</b> if the enclave was deleted successfully; otherwise <b>FALSE</b>. To get extended error information, 
+     * @returns {BOOL} <b>TRUE</b> if the enclave was deleted successfully; otherwise <b>FALSE</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
      * 
      * For a list of common error codes, see <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>. The following error codes also apply for this function.
@@ -1008,7 +1018,7 @@ class Environment {
     static DeleteEnclave(lpAddress) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\DeleteEnclave", "ptr", lpAddress, "int")
+        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\DeleteEnclave", "ptr", lpAddress, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1177,10 +1187,10 @@ class Environment {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {BOOLEAN} 
      */
     static EnclaveUsesAttestedKeys() {
-        result := DllCall("vertdll.dll\EnclaveUsesAttestedKeys", "char")
+        result := DllCall("vertdll.dll\EnclaveUsesAttestedKeys", "ptr")
         return result
     }
 

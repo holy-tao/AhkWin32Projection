@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\BTH_LE_UUID.ahk
 
 /**
@@ -40,19 +41,25 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
-        IsReliableWriteEnabled {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        IsReliableWriteEnabled{
+            get {
+                if(!this.HasProp("__IsReliableWriteEnabled"))
+                    this.__IsReliableWriteEnabled := BOOLEAN(this.ptr + 0)
+                return this.__IsReliableWriteEnabled
+            }
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
-        IsAuxiliariesWritable {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
+        IsAuxiliariesWritable{
+            get {
+                if(!this.HasProp("__IsAuxiliariesWritable"))
+                    this.__IsAuxiliariesWritable := BOOLEAN(this.ptr + 1)
+                return this.__IsAuxiliariesWritable
+            }
         }
     
     }
@@ -62,19 +69,42 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
-        IsSubscribeToNotification {
-            get => NumGet(this, 0, "char")
-            set => NumPut("char", value, this, 0)
+        IsSubscribeToNotification{
+            get {
+                if(!this.HasProp("__IsSubscribeToNotification"))
+                    this.__IsSubscribeToNotification := BOOLEAN(this.ptr + 0)
+                return this.__IsSubscribeToNotification
+            }
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
-        IsSubscribeToIndication {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
+        IsSubscribeToIndication{
+            get {
+                if(!this.HasProp("__IsSubscribeToIndication"))
+                    this.__IsSubscribeToIndication := BOOLEAN(this.ptr + 1)
+                return this.__IsSubscribeToIndication
+            }
+        }
+    
+    }
+
+    class _ServerCharacteristicConfiguration extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {BOOLEAN}
+         */
+        IsBroadcast{
+            get {
+                if(!this.HasProp("__IsBroadcast"))
+                    this.__IsBroadcast := BOOLEAN(this.ptr + 0)
+                return this.__IsBroadcast
+            }
         }
     
     }
@@ -154,11 +184,14 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_ServerCharacteristicConfiguration}
      */
-    ServerCharacteristicConfiguration {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+    ServerCharacteristicConfiguration{
+        get {
+            if(!this.HasProp("__ServerCharacteristicConfiguration"))
+                this.__ServerCharacteristicConfiguration := %this.__Class%._ServerCharacteristicConfiguration(this.ptr + 24)
+            return this.__ServerCharacteristicConfiguration
+        }
     }
 
     /**

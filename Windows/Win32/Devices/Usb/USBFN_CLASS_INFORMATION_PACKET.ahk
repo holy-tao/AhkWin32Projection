@@ -3,6 +3,7 @@
 #Include .\USB_ENDPOINT_DESCRIPTOR.ahk
 #Include .\USBFN_PIPE_INFORMATION.ahk
 #Include .\USBFN_CLASS_INTERFACE.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -53,11 +54,14 @@ class USBFN_CLASS_INFORMATION_PACKET extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    HasInterfaceGuid {
-        get => NumGet(this, 430, "char")
-        set => NumPut("char", value, this, 430)
+    HasInterfaceGuid{
+        get {
+            if(!this.HasProp("__HasInterfaceGuid"))
+                this.__HasInterfaceGuid := BOOLEAN(this.ptr + 430)
+            return this.__HasInterfaceGuid
+        }
     }
 
     /**

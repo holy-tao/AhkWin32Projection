@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDSCAPS2.ahk
+#Include .\DDOSCAPS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -40,11 +41,14 @@ class DDOPTSURFACEDESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DDOSCAPS}
      */
-    ddOSCaps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    ddOSCaps{
+        get {
+            if(!this.HasProp("__ddOSCaps"))
+                this.__ddOSCaps := DDOSCAPS(this.ptr + 24)
+            return this.__ddOSCaps
+        }
     }
 
     /**

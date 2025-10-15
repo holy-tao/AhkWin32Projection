@@ -12,11 +12,39 @@ class NVME_CDW10_SET_FEATURES extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - FID
+     * - Reserved0
+     * - SV
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FID {
+        get => (this._bitfield >> 0) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 8) & 0x7FFFFF
+        set => this._bitfield := ((value & 0x7FFFFF) << 8) | (this._bitfield & ~(0x7FFFFF << 8))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SV {
+        get => (this._bitfield >> 31) & 0x1
+        set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
     }
 
     /**

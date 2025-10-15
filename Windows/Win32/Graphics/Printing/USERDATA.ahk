@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -28,11 +29,14 @@ class USERDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pKeyWordName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pKeyWordName{
+        get {
+            if(!this.HasProp("__pKeyWordName"))
+                this.__pKeyWordName := PSTR(this.ptr + 16)
+            return this.__pKeyWordName
+        }
     }
 
     /**

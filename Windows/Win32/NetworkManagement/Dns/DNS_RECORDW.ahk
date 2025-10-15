@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include .\DNS_RECORD_FLAGS.ahk
+#Include .\DNS_A_DATA.ahk
 #Include .\DNS_SOA_DATAW.ahk
+#Include .\DNS_PTR_DATAW.ahk
 #Include .\DNS_MINFO_DATAW.ahk
 #Include .\DNS_MX_DATAW.ahk
 #Include .\DNS_TXT_DATAW.ahk
@@ -17,6 +21,7 @@
 #Include .\DNS_OPT_DATA.ahk
 #Include .\DNS_DS_DATA.ahk
 #Include .\DNS_NSEC_DATAW.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DNS_TKEY_DATAW.ahk
 #Include .\DNS_TSIG_DATAW.ahk
 #Include .\DNS_WINS_DATA.ahk
@@ -25,6 +30,7 @@
 #Include .\DNS_NSEC3_DATA.ahk
 #Include .\DNS_NSEC3PARAM_DATA.ahk
 #Include .\DNS_TLSA_DATA.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\DNS_SVCB_DATA.ahk
 #Include .\DNS_UNKNOWN_DATA.ahk
 
@@ -67,11 +73,14 @@ class DNS_RECORDW extends Win32Struct
 
     /**
      * A pointer to a string that represents the domain name of the record set. This must be in the string format that corresponds to the function called, such as ANSI, Unicode, or UTF8.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PWSTR(this.ptr + 8)
+            return this.__pName
+        }
     }
 
     /**
@@ -113,11 +122,14 @@ class DNS_RECORDW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DNS_RECORD_FLAGS}
      */
-    S {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+    S{
+        get {
+            if(!this.HasProp("__S"))
+                this.__S := DNS_RECORD_FLAGS(this.ptr + 20)
+            return this.__S
+        }
     }
 
     /**
@@ -139,11 +151,14 @@ class DNS_RECORDW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DNS_A_DATA}
      */
-    A {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    A{
+        get {
+            if(!this.HasProp("__A"))
+                this.__A := DNS_A_DATA(this.ptr + 32)
+            return this.__A
+        }
     }
 
     /**
@@ -158,75 +173,102 @@ class DNS_RECORDW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {DNS_PTR_DATAW}
      */
-    PTR {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    PTR{
+        get {
+            if(!this.HasProp("__PTR"))
+                this.__PTR := DNS_PTR_DATAW(this.ptr + 32)
+            return this.__PTR
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {DNS_PTR_DATAW}
      */
-    NS {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    NS{
+        get {
+            if(!this.HasProp("__NS"))
+                this.__NS := DNS_PTR_DATAW(this.ptr + 32)
+            return this.__NS
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {DNS_PTR_DATAW}
      */
-    CNAME {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    CNAME{
+        get {
+            if(!this.HasProp("__CNAME"))
+                this.__CNAME := DNS_PTR_DATAW(this.ptr + 32)
+            return this.__CNAME
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {DNS_PTR_DATAW}
      */
-    DNAME {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    DNAME{
+        get {
+            if(!this.HasProp("__DNAME"))
+                this.__DNAME := DNS_PTR_DATAW(this.ptr + 32)
+            return this.__DNAME
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {DNS_PTR_DATAW}
      */
-    MB {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    MB{
+        get {
+            if(!this.HasProp("__MB"))
+                this.__MB := DNS_PTR_DATAW(this.ptr + 32)
+            return this.__MB
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {DNS_PTR_DATAW}
      */
-    MD {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    MD{
+        get {
+            if(!this.HasProp("__MD"))
+                this.__MD := DNS_PTR_DATAW(this.ptr + 32)
+            return this.__MD
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {DNS_PTR_DATAW}
      */
-    MF {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    MF{
+        get {
+            if(!this.HasProp("__MF"))
+                this.__MF := DNS_PTR_DATAW(this.ptr + 32)
+            return this.__MF
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {DNS_PTR_DATAW}
      */
-    MG {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    MG{
+        get {
+            if(!this.HasProp("__MG"))
+                this.__MG := DNS_PTR_DATAW(this.ptr + 32)
+            return this.__MG
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {DNS_PTR_DATAW}
      */
-    MR {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    MR{
+        get {
+            if(!this.HasProp("__MR"))
+                this.__MR := DNS_PTR_DATAW(this.ptr + 32)
+            return this.__MR
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -28,11 +29,14 @@ class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bResult {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    bResult{
+        get {
+            if(!this.HasProp("__bResult"))
+                this.__bResult := BOOLEAN(this.ptr + 8)
+            return this.__bResult
+        }
     }
 
     /**

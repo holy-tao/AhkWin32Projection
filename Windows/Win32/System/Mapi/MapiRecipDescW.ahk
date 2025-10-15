@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * A MapiRecipDescW structure contains information about a message sender or recipient.
@@ -85,11 +86,14 @@ class MapiRecipDescW extends Win32Struct
 
     /**
      * Pointer to the display name of the message recipient or sender.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszName{
+        get {
+            if(!this.HasProp("__lpszName"))
+                this.__lpszName := PWSTR(this.ptr + 8)
+            return this.__lpszName
+        }
     }
 
     /**
@@ -98,11 +102,14 @@ class MapiRecipDescW extends Win32Struct
      * Generally, the messaging system provides such addresses for inbound messages. For outbound messages, the <b>lpszAddress</b> member can point to an address entered by the user for a recipient that is not in an address book (a custom recipient).
      * 
      * The format of the address is <i>address type</i>:<i>email address</i>. Two examples of valid addresses are FAX:206-555-1212 and SMTP:M@X.COM.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszAddress {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpszAddress{
+        get {
+            if(!this.HasProp("__lpszAddress"))
+                this.__lpszAddress := PWSTR(this.ptr + 16)
+            return this.__lpszAddress
+        }
     }
 
     /**

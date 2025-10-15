@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\UpdateAssessment.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The OSUpdateAssessment structure defines how up-to-date the OS on a targeted device is.
@@ -17,11 +19,14 @@ class OSUpdateAssessment extends Win32Struct
 
     /**
      * <b>true</b> if the OS on the device is no longer supported by Microsoft and will no longer receive servicing updates; otherwise, <b>false</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    isEndOfSupport {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    isEndOfSupport{
+        get {
+            if(!this.HasProp("__isEndOfSupport"))
+                this.__isEndOfSupport := BOOL(this.ptr + 0)
+            return this.__isEndOfSupport
+        }
     }
 
     /**
@@ -83,11 +88,14 @@ class OSUpdateAssessment extends Win32Struct
 
     /**
      * The latest OS build that Microsoft has released. This value is used to determine whether a device is current.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    currentOSBuild {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    currentOSBuild{
+        get {
+            if(!this.HasProp("__currentOSBuild"))
+                this.__currentOSBuild := PWSTR(this.ptr + 56)
+            return this.__currentOSBuild
+        }
     }
 
     /**
@@ -104,11 +112,14 @@ class OSUpdateAssessment extends Win32Struct
 
     /**
      * The latest applicable OS build in the device's servicing train. This value is used to determine whether a device is up-to-date.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    upToDateOSBuild {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    upToDateOSBuild{
+        get {
+            if(!this.HasProp("__upToDateOSBuild"))
+                this.__upToDateOSBuild := PWSTR(this.ptr + 72)
+            return this.__upToDateOSBuild
+        }
     }
 
     /**

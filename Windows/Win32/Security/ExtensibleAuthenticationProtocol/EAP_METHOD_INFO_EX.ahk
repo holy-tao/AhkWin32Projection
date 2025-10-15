@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EAP_TYPE.ahk
 #Include .\EAP_METHOD_TYPE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about an EAP method.
@@ -29,20 +30,26 @@ class EAP_METHOD_INFO_EX extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains the name of the EAP method's author.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszAuthorName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwszAuthorName{
+        get {
+            if(!this.HasProp("__pwszAuthorName"))
+                this.__pwszAuthorName := PWSTR(this.ptr + 16)
+            return this.__pwszAuthorName
+        }
     }
 
     /**
      * Pointer to a zero-terminated Unicode string that contains the display name of the EAP method.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszFriendlyName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pwszFriendlyName{
+        get {
+            if(!this.HasProp("__pwszFriendlyName"))
+                this.__pwszFriendlyName := PWSTR(this.ptr + 24)
+            return this.__pwszFriendlyName
+        }
     }
 
     /**

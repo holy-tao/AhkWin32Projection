@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\Controls\NMHDR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Use this structure to return the file name of the topic that has been navigated to, or to return the window type name of the help window that has been created.
@@ -28,10 +30,13 @@ class HHN_NOTIFY extends Win32Struct
 
     /**
      * A multi-byte, zero-terminated string that specifies the topic navigated to, or the name of the help window being created.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszUrl {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszUrl{
+        get {
+            if(!this.HasProp("__pszUrl"))
+                this.__pszUrl := PSTR(this.ptr + 24)
+            return this.__pszUrl
+        }
     }
 }

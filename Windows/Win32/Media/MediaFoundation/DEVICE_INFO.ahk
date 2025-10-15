@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Contains information about a media sharing device.
@@ -15,46 +16,61 @@ class DEVICE_INFO extends Win32Struct
 
     /**
      * The friendly name of the device.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    pFriendlyDeviceName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pFriendlyDeviceName{
+        get {
+            if(!this.HasProp("__pFriendlyDeviceName"))
+                this.__pFriendlyDeviceName := BSTR(this.ptr + 0)
+            return this.__pFriendlyDeviceName
+        }
     }
 
     /**
      * A string that uniquely identifes the device.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    pUniqueDeviceName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pUniqueDeviceName{
+        get {
+            if(!this.HasProp("__pUniqueDeviceName"))
+                this.__pUniqueDeviceName := BSTR(this.ptr + 8)
+            return this.__pUniqueDeviceName
+        }
     }
 
     /**
      * The manufacturer name.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    pManufacturerName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pManufacturerName{
+        get {
+            if(!this.HasProp("__pManufacturerName"))
+                this.__pManufacturerName := BSTR(this.ptr + 16)
+            return this.__pManufacturerName
+        }
     }
 
     /**
      * The model name.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    pModelName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pModelName{
+        get {
+            if(!this.HasProp("__pModelName"))
+                this.__pModelName := BSTR(this.ptr + 24)
+            return this.__pModelName
+        }
     }
 
     /**
      * The URL of an icon for the device.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    pIconURL {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pIconURL{
+        get {
+            if(!this.HasProp("__pIconURL"))
+                this.__pIconURL := BSTR(this.ptr + 32)
+            return this.__pIconURL
+        }
     }
 }

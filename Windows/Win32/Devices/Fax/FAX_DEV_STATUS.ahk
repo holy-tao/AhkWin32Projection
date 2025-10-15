@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The FAX_DEV_STATUS structure contains status and identification information about an individual active fax operation.
@@ -148,22 +149,28 @@ class FAX_DEV_STATUS extends Win32Struct
      * 				
      * 
      * If the operation is sending a fax, the identifier specifies the CSID of the remote device; if the operation is receiving a fax, the identifier specifies the TSID of the remote device.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    CSI {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    CSI{
+        get {
+            if(!this.HasProp("__CSI"))
+                this.__CSI := PWSTR(this.ptr + 16)
+            return this.__CSI
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode character string that identifies the calling device that sent the received fax document. This string can include the telephone number of the calling device.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    CallerId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    CallerId{
+        get {
+            if(!this.HasProp("__CallerId"))
+                this.__CallerId := PWSTR(this.ptr + 24)
+            return this.__CallerId
+        }
     }
 
     /**
@@ -180,11 +187,14 @@ class FAX_DEV_STATUS extends Win32Struct
      * If there is additional routing information, for example, subaddressing or DTMF tones, separate it from the canonical telephone number by a vertical bar character as indicated in the TAPI specification. You can specify multiple recipients.
      * 
      * For more information, see the Dialable Address and Canonical Address subheadings in the Address topic of the TAPI documentation.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    RoutingInfo {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    RoutingInfo{
+        get {
+            if(!this.HasProp("__RoutingInfo"))
+                this.__RoutingInfo := PWSTR(this.ptr + 32)
+            return this.__RoutingInfo
+        }
     }
 
     /**

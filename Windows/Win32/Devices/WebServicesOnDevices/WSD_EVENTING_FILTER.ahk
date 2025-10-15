@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents an event filter used in WS-Eventing Subscribe messages.
@@ -32,16 +33,19 @@ class WSD_EVENTING_FILTER extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Dialect {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Dialect{
+        get {
+            if(!this.HasProp("__Dialect"))
+                this.__Dialect := PWSTR(this.ptr + 0)
+            return this.__Dialect
+        }
     }
 
     /**
      * 
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<WSD_EVENTING_FILTER_ACTION>}
      */
     FilterAction {
         get => NumGet(this, 8, "ptr")

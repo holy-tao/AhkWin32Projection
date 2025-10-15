@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a section of metadata in a generic form.
@@ -53,20 +54,26 @@ class WSD_METADATA_SECTION extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Dialect {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Dialect{
+        get {
+            if(!this.HasProp("__Dialect"))
+                this.__Dialect := PWSTR(this.ptr + 0)
+            return this.__Dialect
+        }
     }
 
     /**
      * The dialect-specific identifier for the scope/domain/namespace of the metadata section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Identifier {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Identifier{
+        get {
+            if(!this.HasProp("__Identifier"))
+                this.__Identifier := PWSTR(this.ptr + 8)
+            return this.__Identifier
+        }
     }
 
     /**
@@ -89,11 +96,14 @@ class WSD_METADATA_SECTION extends Win32Struct
 
     /**
      * A URI that specifies the location from which metadata can be retrieved.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Location {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    Location{
+        get {
+            if(!this.HasProp("__Location"))
+                this.__Location := PWSTR(this.ptr + 32)
+            return this.__Location
+        }
     }
 
     /**

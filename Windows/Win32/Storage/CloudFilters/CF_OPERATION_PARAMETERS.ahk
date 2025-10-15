@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 
 /**
  * Parameters of an operation on a placeholder file or folder.
@@ -35,11 +36,14 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
-        CompletionStatus {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        CompletionStatus{
+            get {
+                if(!this.HasProp("__CompletionStatus"))
+                    this.__CompletionStatus := NTSTATUS(this.ptr + 4)
+                return this.__CompletionStatus
+            }
         }
     
         /**
@@ -127,11 +131,14 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
-        CompletionStatus {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        CompletionStatus{
+            get {
+                if(!this.HasProp("__CompletionStatus"))
+                    this.__CompletionStatus := NTSTATUS(this.ptr + 4)
+                return this.__CompletionStatus
+            }
         }
     
         /**
@@ -203,11 +210,14 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
-        CompletionStatus {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        CompletionStatus{
+            get {
+                if(!this.HasProp("__CompletionStatus"))
+                    this.__CompletionStatus := NTSTATUS(this.ptr + 4)
+                return this.__CompletionStatus
+            }
         }
     
         /**
@@ -257,11 +267,14 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
-        CompletionStatus {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        CompletionStatus{
+            get {
+                if(!this.HasProp("__CompletionStatus"))
+                    this.__CompletionStatus := NTSTATUS(this.ptr + 4)
+                return this.__CompletionStatus
+            }
         }
     
         /**
@@ -295,11 +308,14 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
-        CompletionStatus {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        CompletionStatus{
+            get {
+                if(!this.HasProp("__CompletionStatus"))
+                    this.__CompletionStatus := NTSTATUS(this.ptr + 4)
+                return this.__CompletionStatus
+            }
         }
     
     }
@@ -317,11 +333,14 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
-        CompletionStatus {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        CompletionStatus{
+            get {
+                if(!this.HasProp("__CompletionStatus"))
+                    this.__CompletionStatus := NTSTATUS(this.ptr + 4)
+                return this.__CompletionStatus
+            }
         }
     
     }

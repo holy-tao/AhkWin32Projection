@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SP_CLASSINSTALL_HEADER.ahk
+#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -32,12 +35,12 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<HPROPSHEETPAGE>}
      */
     DynamicPages{
         get {
             if(!this.HasProp("__DynamicPagesProxyArray"))
-                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 16, 20, Primitive, "ptr")
+                this.__DynamicPagesProxyArray := Win32FixedArray(this.ptr + 16, 20, HPROPSHEETPAGE, "")
             return this.__DynamicPagesProxyArray
         }
     }
@@ -67,18 +70,24 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    PrivateData {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+    PrivateData{
+        get {
+            if(!this.HasProp("__PrivateData"))
+                this.__PrivateData := LPARAM(this.ptr + 192)
+            return this.__PrivateData
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndWizardDlg {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+    hwndWizardDlg{
+        get {
+            if(!this.HasProp("__hwndWizardDlg"))
+                this.__hwndWizardDlg := HWND(this.ptr + 200)
+            return this.__hwndWizardDlg
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\WindowsProgramming\ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA.ahk
 
 /**
@@ -109,11 +110,14 @@ class ACTCTX_SECTION_KEYED_DATA extends Win32Struct
      * 
      * Note that when this is returned, the caller must call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-releaseactctx">ReleaseActCtx</a>() on the activation context handle returned to release system resources when all other references to the activation context have been released.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hActCtx {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hActCtx{
+        get {
+            if(!this.HasProp("__hActCtx"))
+                this.__hActCtx := HANDLE(this.ptr + 56)
+            return this.__hActCtx
+        }
     }
 
     /**

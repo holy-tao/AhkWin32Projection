@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -65,7 +66,7 @@ class WS_ENDPOINT_ADDRESS extends Win32Struct
      * 
      * This value of this field corresponds to the content of the 
      *                     ReferenceParameters element of the WS-Addressing specifications.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WS_XML_BUFFER>}
      */
     headers {
         get => NumGet(this, 16, "ptr")
@@ -89,7 +90,7 @@ class WS_ENDPOINT_ADDRESS extends Win32Struct
      * If the ReferenceProperties element is present (as defined by
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_addressing_version">WS_ADDRESSING_VERSION_0_9</a>), it must be the first element 
      *                     within the <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-buffer">WS_XML_BUFFER</a>.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WS_XML_BUFFER>}
      */
     extensions {
         get => NumGet(this, 24, "ptr")

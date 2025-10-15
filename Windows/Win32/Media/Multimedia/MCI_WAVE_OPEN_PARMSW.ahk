@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -29,27 +30,36 @@ class MCI_WAVE_OPEN_PARMSW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpstrDeviceType {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpstrDeviceType{
+        get {
+            if(!this.HasProp("__lpstrDeviceType"))
+                this.__lpstrDeviceType := PWSTR(this.ptr + 16)
+            return this.__lpstrDeviceType
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpstrElementName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpstrElementName{
+        get {
+            if(!this.HasProp("__lpstrElementName"))
+                this.__lpstrElementName := PWSTR(this.ptr + 24)
+            return this.__lpstrElementName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpstrAlias {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lpstrAlias{
+        get {
+            if(!this.HasProp("__lpstrAlias"))
+                this.__lpstrAlias := PWSTR(this.ptr + 32)
+            return this.__lpstrAlias
+        }
     }
 
     /**

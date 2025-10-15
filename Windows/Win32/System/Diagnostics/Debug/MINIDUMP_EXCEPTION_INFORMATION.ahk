@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the exception information written to the minidump file by the MiniDumpWriteDump function.
@@ -34,10 +35,13 @@ class MINIDUMP_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * Determines where to get the memory regions pointed to by the <b>ExceptionPointers</b> member. Set to <b>TRUE</b> if the memory resides in the process being debugged (the target process of the debugger). Otherwise, set to <b>FALSE</b> if the memory resides in the address space of the calling program (the debugger process). If you are accessing local memory (in the calling process) you should not set this member to <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    ClientPointers {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    ClientPointers{
+        get {
+            if(!this.HasProp("__ClientPointers"))
+                this.__ClientPointers := BOOL(this.ptr + 16)
+            return this.__ClientPointers
+        }
     }
 }

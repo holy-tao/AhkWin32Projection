@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_READER_ENCODING.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -49,11 +51,14 @@ class WS_XML_READER_MTOM_ENCODING extends Win32Struct
 
     /**
      * Specifies whether or not the reader should read the MIME header.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    readMimeHeader {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    readMimeHeader{
+        get {
+            if(!this.HasProp("__readMimeHeader"))
+                this.__readMimeHeader := BOOL(this.ptr + 16)
+            return this.__readMimeHeader
+        }
     }
 
     /**

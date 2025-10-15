@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_0 structure contains a user account name.
@@ -21,10 +22,13 @@ class USER_INFO_0 extends Win32Struct
     /**
      * Pointer to a Unicode string that specifies the name of the user account. For the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function, this member specifies the name of the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri0_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    usri0_name{
+        get {
+            if(!this.HasProp("__usri0_name"))
+                this.__usri0_name := PWSTR(this.ptr + 0)
+            return this.__usri0_name
+        }
     }
 }

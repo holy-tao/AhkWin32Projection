@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information that the IOCTL_CHANGER_MOVE_MEDIUM control code uses to move a piece of media to a destination.
@@ -56,10 +57,13 @@ class CHANGER_MOVE_MEDIUM extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the media should be flipped. Otherwise, it should not. This member is valid only if the <b>Features0</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_MEDIUM_FLIP.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Flip {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+    Flip{
+        get {
+            if(!this.HasProp("__Flip"))
+                this.__Flip := BOOLEAN(this.ptr + 24)
+            return this.__Flip
+        }
     }
 }

@@ -47,7 +47,7 @@ class DDENABLEIRQINFO extends Win32Struct
 
     /**
      * Points to the data to be sent to <b>IRQCallback</b> when <b>IRQCallback</b> is called.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<DX_IRQDATA>}
      */
     lpIRQData {
         get => NumGet(this, 16, "ptr")

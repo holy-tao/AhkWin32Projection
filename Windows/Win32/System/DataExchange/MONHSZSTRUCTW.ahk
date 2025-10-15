@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include .\HSZ.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) string handle. A DDE monitoring application can use this structure when monitoring the activity of the string manager component of the DDE Management Library.
@@ -85,11 +88,14 @@ class MONHSZSTRUCTW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fsAction {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fsAction{
+        get {
+            if(!this.HasProp("__fsAction"))
+                this.__fsAction := BOOL(this.ptr + 4)
+            return this.__fsAction
+        }
     }
 
     /**
@@ -107,22 +113,28 @@ class MONHSZSTRUCTW extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the string. Because string handles are local to the process, this member is a global atom.
-     * @type {Pointer<Void>}
+     * @type {HSZ}
      */
-    hsz {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hsz{
+        get {
+            if(!this.HasProp("__hsz"))
+                this.__hsz := HSZ(this.ptr + 16)
+            return this.__hsz
+        }
     }
 
     /**
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) performing the action on the string handle.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hTask {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hTask{
+        get {
+            if(!this.HasProp("__hTask"))
+                this.__hTask := HANDLE(this.ptr + 24)
+            return this.__hTask
+        }
     }
 
     /**

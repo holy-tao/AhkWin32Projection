@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_STATUS_PARMS structure contains parameters for the MCI_STATUS command for digital-video devices.
@@ -64,11 +65,14 @@ class MCI_DGV_STATUS_PARMSW extends Win32Struct
 
     /**
      * Specifies the approximate amount of disk space that can be obtained by the <a href="https://docs.microsoft.com/windows/desktop/Multimedia/mci-reserve">MCI_RESERVE</a> command.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpstrDrive {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpstrDrive{
+        get {
+            if(!this.HasProp("__lpstrDrive"))
+                this.__lpstrDrive := PWSTR(this.ptr + 24)
+            return this.__lpstrDrive
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HACCESSOR.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -28,10 +29,13 @@ class DBPARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {HACCESSOR}
      */
-    hAccessor {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hAccessor{
+        get {
+            if(!this.HasProp("__hAccessor"))
+                this.__hAccessor := HACCESSOR(this.ptr + 16)
+            return this.__hAccessor
+        }
     }
 }

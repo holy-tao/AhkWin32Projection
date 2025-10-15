@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Holds information about a handle returned by PssWalkSnapshot.
@@ -21,11 +24,14 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * The handle value.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    Handle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Handle{
+        get {
+            if(!this.HasProp("__Handle"))
+                this.__Handle := HANDLE(this.ptr + 0)
+            return this.__Handle
+        }
     }
 
     /**
@@ -135,11 +141,14 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * The type name of the object referenced by this handle. The buffer may not terminated by a <b>NULL</b> character. The pointer is valid for the lifetime of the walk marker passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    TypeName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    TypeName{
+        get {
+            if(!this.HasProp("__TypeName"))
+                this.__TypeName := PWSTR(this.ptr + 64)
+            return this.__TypeName
+        }
     }
 
     /**
@@ -153,11 +162,14 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * Specifies the name of the object referenced by this handle. The buffer may not terminated by a <b>NULL</b> character. The pointer is valid for the lifetime of the walk marker passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ObjectName {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    ObjectName{
+        get {
+            if(!this.HasProp("__ObjectName"))
+                this.__ObjectName := PWSTR(this.ptr + 80)
+            return this.__ObjectName
+        }
     }
 
     class _Process extends Win32Struct {
@@ -305,11 +317,14 @@ class PSS_HANDLE_ENTRY extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        Abandoned {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        Abandoned{
+            get {
+                if(!this.HasProp("__Abandoned"))
+                    this.__Abandoned := BOOL(this.ptr + 4)
+                return this.__Abandoned
+            }
         }
     
         /**
@@ -335,19 +350,25 @@ class PSS_HANDLE_ENTRY extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        ManualReset {
-            get => NumGet(this, 0, "int")
-            set => NumPut("int", value, this, 0)
+        ManualReset{
+            get {
+                if(!this.HasProp("__ManualReset"))
+                    this.__ManualReset := BOOL(this.ptr + 0)
+                return this.__ManualReset
+            }
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        Signaled {
-            get => NumGet(this, 4, "int")
-            set => NumPut("int", value, this, 4)
+        Signaled{
+            get {
+                if(!this.HasProp("__Signaled"))
+                    this.__Signaled := BOOL(this.ptr + 4)
+                return this.__Signaled
+            }
         }
     
     }

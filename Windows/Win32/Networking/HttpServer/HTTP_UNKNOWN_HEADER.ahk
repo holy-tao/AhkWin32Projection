@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the name and value for a header in an HTTP request or response whose name does not appear in the enumeration.
@@ -33,19 +34,25 @@ class HTTP_UNKNOWN_HEADER extends Win32Struct
 
     /**
      * A pointer to a string of octets that specifies the header name. Use <b>NameLength</b> to determine the end of the string, rather than relying on a terminating <b>null</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PSTR(this.ptr + 8)
+            return this.__pName
+        }
     }
 
     /**
      * A pointer to a string of octets that specifies the values for this header. Use <b>RawValueLength</b> to determine the end of the string, rather than relying on a terminating <b>null</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pRawValue {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pRawValue{
+        get {
+            if(!this.HasProp("__pRawValue"))
+                this.__pRawValue := PSTR(this.ptr + 16)
+            return this.__pRawValue
+        }
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PEER_DATA.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PEER_APPLICATION.ahk
 
 /**
@@ -37,20 +38,26 @@ class PEER_APPLICATION_REGISTRATION_INFO extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains the local path to the executable peer application. Note that this data is for local use only and that this structure is never transmitted remotely.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzApplicationToLaunch {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pwzApplicationToLaunch{
+        get {
+            if(!this.HasProp("__pwzApplicationToLaunch"))
+                this.__pwzApplicationToLaunch := PWSTR(this.ptr + 32)
+            return this.__pwzApplicationToLaunch
+        }
     }
 
     /**
      * Zero-terminated Unicode string that contains command-line arguments that must be supplied to the application when the application is launched. This data is for local use only. The PEER_APPLICATION_REGISTRATION_INFO  structure is never transmitted remotely.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzApplicationArguments {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pwzApplicationArguments{
+        get {
+            if(!this.HasProp("__pwzApplicationArguments"))
+                this.__pwzApplicationArguments := PWSTR(this.ptr + 40)
+            return this.__pwzApplicationArguments
+        }
     }
 
     /**

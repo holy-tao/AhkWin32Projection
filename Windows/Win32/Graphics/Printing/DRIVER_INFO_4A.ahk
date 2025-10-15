@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -21,82 +22,112 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PSTR(this.ptr + 8)
+            return this.__pName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pEnvironment {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pEnvironment{
+        get {
+            if(!this.HasProp("__pEnvironment"))
+                this.__pEnvironment := PSTR(this.ptr + 16)
+            return this.__pEnvironment
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pDriverPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pDriverPath{
+        get {
+            if(!this.HasProp("__pDriverPath"))
+                this.__pDriverPath := PSTR(this.ptr + 24)
+            return this.__pDriverPath
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pDataFile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pDataFile{
+        get {
+            if(!this.HasProp("__pDataFile"))
+                this.__pDataFile := PSTR(this.ptr + 32)
+            return this.__pDataFile
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pConfigFile {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pConfigFile{
+        get {
+            if(!this.HasProp("__pConfigFile"))
+                this.__pConfigFile := PSTR(this.ptr + 40)
+            return this.__pConfigFile
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pHelpFile {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    pHelpFile{
+        get {
+            if(!this.HasProp("__pHelpFile"))
+                this.__pHelpFile := PSTR(this.ptr + 48)
+            return this.__pHelpFile
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pDependentFiles {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pDependentFiles{
+        get {
+            if(!this.HasProp("__pDependentFiles"))
+                this.__pDependentFiles := PSTR(this.ptr + 56)
+            return this.__pDependentFiles
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pMonitorName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pMonitorName{
+        get {
+            if(!this.HasProp("__pMonitorName"))
+                this.__pMonitorName := PSTR(this.ptr + 64)
+            return this.__pMonitorName
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pDefaultDataType {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pDefaultDataType{
+        get {
+            if(!this.HasProp("__pDefaultDataType"))
+                this.__pDefaultDataType := PSTR(this.ptr + 72)
+            return this.__pDefaultDataType
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszzPreviousNames {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    pszzPreviousNames{
+        get {
+            if(!this.HasProp("__pszzPreviousNames"))
+                this.__pszzPreviousNames := PSTR(this.ptr + 80)
+            return this.__pszzPreviousNames
+        }
     }
 }

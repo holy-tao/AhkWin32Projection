@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Cryptography\HCERTSTORE.ahk
 
 /**
  * Contains the data for an Schannel credential.
@@ -71,11 +72,14 @@ class SCHANNEL_CRED extends Win32Struct
 
     /**
      * Optional. Valid for server applications only. Handle to a certificate store that contains self-signed <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">root certificates</a> for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authorities</a> (CAs) trusted by the application. This member is used only by server-side applications that require client authentication.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hRootStore {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hRootStore{
+        get {
+            if(!this.HasProp("__hRootStore"))
+                this.__hRootStore := HCERTSTORE(this.ptr + 16)
+            return this.__hRootStore
+        }
     }
 
     /**
@@ -89,7 +93,7 @@ class SCHANNEL_CRED extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<_HMAPPER>}
      */
     aphMappers {
         get => NumGet(this, 32, "ptr")

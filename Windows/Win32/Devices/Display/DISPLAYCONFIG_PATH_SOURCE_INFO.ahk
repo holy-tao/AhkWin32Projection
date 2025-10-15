@@ -51,11 +51,30 @@ class DISPLAYCONFIG_PATH_SOURCE_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - cloneGroupId
+     * - sourceModeInfoIdx
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 12, "uint")
         set => NumPut("uint", value, this, 12)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    cloneGroupId {
+        get => (this._bitfield >> 0) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    sourceModeInfoIdx {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**

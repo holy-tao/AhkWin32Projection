@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_SERVICE_CONFIG_SSL_KEY.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_PARAM.ahk
 
 /**
@@ -17,11 +19,14 @@ class HTTP_SERVICE_CONFIG_SSL_SET extends Win32Struct
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_ssl_key">HTTP_SERVICE_CONFIG_SSL_KEY</a> structure that identifies the SSL certificate record.
-     * @type {Pointer<TypeHandle>}
+     * @type {HTTP_SERVICE_CONFIG_SSL_KEY}
      */
-    KeyDesc {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    KeyDesc{
+        get {
+            if(!this.HasProp("__KeyDesc"))
+                this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_KEY(this.ptr + 0)
+            return this.__KeyDesc
+        }
     }
 
     /**

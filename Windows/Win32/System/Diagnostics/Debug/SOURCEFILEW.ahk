@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains source file information.
@@ -30,10 +31,13 @@ class SOURCEFILEW extends Win32Struct
 
     /**
      * The fully qualified source file name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    FileName{
+        get {
+            if(!this.HasProp("__FileName"))
+                this.__FileName := PWSTR(this.ptr + 8)
+            return this.__FileName
+        }
     }
 }

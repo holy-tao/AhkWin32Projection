@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Contains information about an icon or a cursor.
@@ -17,11 +19,14 @@ class ICONINFO extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Specifies whether this structure defines an icon or a cursor. A value of <b>TRUE</b> specifies an icon; <b>FALSE</b> specifies a cursor.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIcon {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    fIcon{
+        get {
+            if(!this.HasProp("__fIcon"))
+                this.__fIcon := BOOL(this.ptr + 0)
+            return this.__fIcon
+        }
     }
 
     /**
@@ -50,21 +55,27 @@ class ICONINFO extends Win32Struct
      * Type: <b>HBITMAP</b>
      * 
      * The icon bitmask bitmap. If this structure defines a black and white icon, this bitmask is formatted so that the upper half is the icon AND bitmask and the lower half is the icon XOR bitmask. Under this condition, the height should be an even multiple of two. If this structure defines a color icon, this mask only defines the AND bitmask of the icon.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmMask {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hbmMask{
+        get {
+            if(!this.HasProp("__hbmMask"))
+                this.__hbmMask := HBITMAP(this.ptr + 16)
+            return this.__hbmMask
+        }
     }
 
     /**
      * Type: <b>HBITMAP</b>
      * 
      * A handle to the icon color bitmap. This member can be optional if this structure defines a black and white icon. The AND bitmask of <b>hbmMask</b> is applied with the <b>SRCAND</b> flag to the destination; subsequently, the color bitmap is applied (using XOR) to the destination by using the <b>SRCINVERT</b> flag.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmColor {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hbmColor{
+        get {
+            if(!this.HasProp("__hbmColor"))
+                this.__hbmColor := HBITMAP(this.ptr + 24)
+            return this.__hbmColor
+        }
     }
 }

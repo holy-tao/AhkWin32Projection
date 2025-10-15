@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CTL_USAGE.ahk
 #Include .\CERT_USAGE_MATCH.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CERT_CHAIN_PARA structure establishes the searching and matching criteria to be used in building a certificate chain.
@@ -92,11 +93,14 @@ class CERT_CHAIN_PARA extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  This member can be used only if <b>CERT_CHAIN_PARA_HAS_EXTRA_FIELDS</b> is defined by using the <b>#define</b> directive before including Wincrypt.h. If this value is defined, the application must zero all unused fields.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fCheckRevocationFreshnessTime {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    fCheckRevocationFreshnessTime{
+        get {
+            if(!this.HasProp("__fCheckRevocationFreshnessTime"))
+                this.__fCheckRevocationFreshnessTime := BOOL(this.ptr + 60)
+            return this.__fCheckRevocationFreshnessTime
+        }
     }
 
     /**

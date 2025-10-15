@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * Used to specify and set applet configuration in IImePad.
@@ -134,11 +136,14 @@ class IMEAPPLETCFG extends Win32Struct
 
     /**
      * The icon handle for the ImePad applet's menu.
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hIcon {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+    hIcon{
+        get {
+            if(!this.HasProp("__hIcon"))
+                this.__hIcon := HICON(this.ptr + 208)
+            return this.__hIcon
+        }
     }
 
     /**
@@ -161,10 +166,13 @@ class IMEAPPLETCFG extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lReserved1 {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
+    lReserved1{
+        get {
+            if(!this.HasProp("__lReserved1"))
+                this.__lReserved1 := LPARAM(this.ptr + 224)
+            return this.__lReserved1
+        }
     }
 }

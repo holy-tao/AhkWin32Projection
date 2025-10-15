@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used with the ADSVALUE structure to contain a distinguished name attribute value that also contains binary data.
@@ -38,10 +39,13 @@ class ADS_DN_WITH_BINARY extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDNString {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszDNString{
+        get {
+            if(!this.HasProp("__pszDNString"))
+                this.__pszDNString := PWSTR(this.ptr + 16)
+            return this.__pszDNString
+        }
     }
 }

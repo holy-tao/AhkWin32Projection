@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the shared resource, including name of the resource, type and permissions, and the number of current connections.
@@ -16,11 +17,14 @@ class SHARE_INFO_2 extends Win32Struct
     /**
      * Pointer to a Unicode string specifying the share name of a resource. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    shi2_netname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    shi2_netname{
+        get {
+            if(!this.HasProp("__shi2_netname"))
+                this.__shi2_netname := PWSTR(this.ptr + 0)
+            return this.__shi2_netname
+        }
     }
 
     /**
@@ -35,11 +39,14 @@ class SHARE_INFO_2 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains an optional comment about the shared resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    shi2_remark {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    shi2_remark{
+        get {
+            if(!this.HasProp("__shi2_remark"))
+                this.__shi2_remark := PWSTR(this.ptr + 16)
+            return this.__shi2_remark
+        }
     }
 
     /**
@@ -73,20 +80,26 @@ class SHARE_INFO_2 extends Win32Struct
     /**
      * Pointer to a Unicode string specifying the local path for the shared resource. For disks, <b>shi2_path</b> is the path being shared. For print queues, <b>shi2_path</b> is the name of the print queue being shared. Calls to the 
      * <b>NetShareSetInfo</b> function ignore this member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    shi2_path {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    shi2_path{
+        get {
+            if(!this.HasProp("__shi2_path"))
+                this.__shi2_path := PWSTR(this.ptr + 40)
+            return this.__shi2_path
+        }
     }
 
     /**
      * Pointer to a Unicode string that specifies the share's password when the server is running with share-level security. If the server is running with user-level security, this member is ignored. The <b>shi2_passwd</b> member can be no longer than SHPWLEN+1 bytes (including a terminating null character). Calls to the 
      * <b>NetShareSetInfo</b> function ignore this member. Note that Windows does not support share-level security.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    shi2_passwd {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    shi2_passwd{
+        get {
+            if(!this.HasProp("__shi2_passwd"))
+                this.__shi2_passwd := PWSTR(this.ptr + 48)
+            return this.__shi2_passwd
+        }
     }
 }

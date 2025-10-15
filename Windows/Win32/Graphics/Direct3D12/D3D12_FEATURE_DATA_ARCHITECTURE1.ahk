@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Provides detail about each adapter's architectural details, so that your application can better optimize for certain adapter properties.
@@ -79,31 +80,40 @@ class D3D12_FEATURE_DATA_ARCHITECTURE1 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support a tile-based renderer.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support a tile-based renderer.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    TileBasedRenderer {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    TileBasedRenderer{
+        get {
+            if(!this.HasProp("__TileBasedRenderer"))
+                this.__TileBasedRenderer := BOOL(this.ptr + 4)
+            return this.__TileBasedRenderer
+        }
     }
 
     /**
      * Specifies whether the hardware and driver support UMA.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support UMA.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    UMA {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    UMA{
+        get {
+            if(!this.HasProp("__UMA"))
+                this.__UMA := BOOL(this.ptr + 8)
+            return this.__UMA
+        }
     }
 
     /**
      * Specifies whether the hardware and driver support cache-coherent UMA.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support cache-coherent UMA.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    CacheCoherentUMA {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    CacheCoherentUMA{
+        get {
+            if(!this.HasProp("__CacheCoherentUMA"))
+                this.__CacheCoherentUMA := BOOL(this.ptr + 12)
+            return this.__CacheCoherentUMA
+        }
     }
 
     /**
@@ -113,10 +123,13 @@ class D3D12_FEATURE_DATA_ARCHITECTURE1 extends Win32Struct
      *             The runtime sets this member to <b>TRUE</b> if the GPU honors CPU page table properties like <b>MEM_WRITE_WATCH</b> (for more information, see <a href="https://docs.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a>) and <b>PAGE_READONLY</b> (for more information, see <a href="https://docs.microsoft.com/windows/win32/Memory/memory-protection-constants">Memory Protection Constants</a>).
      * 
      * If <b>TRUE</b>, the application must take care to no use memory with these page table properties with the GPU, as the GPU might trigger these page table properties in unexpected ways. For example, GPU write operations might be coarser than the application expects, particularly writes from within shaders. Certain write-watch pages migth appear dirty, even when it isn't obvious how GPU writes may have affected them. GPU operations associated with upload and readback heap usage scenarios work well with write-watch pages, but might occasionally generate false positives that can be safely ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsolatedMMU {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    IsolatedMMU{
+        get {
+            if(!this.HasProp("__IsolatedMMU"))
+                this.__IsolatedMMU := BOOL(this.ptr + 16)
+            return this.__IsolatedMMU
+        }
     }
 }

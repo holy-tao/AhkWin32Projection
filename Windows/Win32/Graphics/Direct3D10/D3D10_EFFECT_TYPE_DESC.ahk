@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes an effect-variable type.
@@ -22,11 +23,14 @@ class D3D10_EFFECT_TYPE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that contains the variable name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    TypeName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    TypeName{
+        get {
+            if(!this.HasProp("__TypeName"))
+                this.__TypeName := PSTR(this.ptr + 0)
+            return this.__TypeName
+        }
     }
 
     /**

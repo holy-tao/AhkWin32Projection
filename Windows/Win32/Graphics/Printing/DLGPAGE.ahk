@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -60,11 +61,14 @@ class DLGPAGE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hDlgTemplate {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hDlgTemplate{
+        get {
+            if(!this.HasProp("__hDlgTemplate"))
+                this.__hDlgTemplate := HANDLE(this.ptr + 32)
+            return this.__hDlgTemplate
+        }
     }
 
     /**

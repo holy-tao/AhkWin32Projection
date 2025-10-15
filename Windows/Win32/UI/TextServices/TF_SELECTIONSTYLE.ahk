@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The TF_SELECTIONSTYLE structure represents the style of a selection.
@@ -29,10 +30,13 @@ class TF_SELECTIONSTYLE extends Win32Struct
 
     /**
      * Indicates if the selection is an interim character. If this value is nonzero, then the seleciton is an interim character and <b>ase</b> will be TF_AE_NONE. If this value is zero, the selection is not an interim character.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fInterimChar {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fInterimChar{
+        get {
+            if(!this.HasProp("__fInterimChar"))
+                this.__fInterimChar := BOOL(this.ptr + 4)
+            return this.__fInterimChar
+        }
     }
 }

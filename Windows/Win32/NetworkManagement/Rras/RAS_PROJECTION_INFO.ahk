@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\RASPPP_PROJECTION_INFO.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include .\RASIKEV2_PROJECTION_INFO.ahk

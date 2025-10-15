@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a method or property.
@@ -15,11 +16,14 @@ class METHODDATA extends Win32Struct
 
     /**
      * The method name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    szName{
+        get {
+            if(!this.HasProp("__szName"))
+                this.__szName := PWSTR(this.ptr + 0)
+            return this.__szName
+        }
     }
 
     /**

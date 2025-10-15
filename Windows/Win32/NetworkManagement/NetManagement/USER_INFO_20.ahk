@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a user account, including the account name, the user's full name, a comment associated with the account, and the user's relative ID (RID).
@@ -23,33 +24,42 @@ class USER_INFO_20 extends Win32Struct
      * 
      * A pointer to a Unicode string that specifies the name of the user account. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function ignore this member. For more information, see the following Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri20_name {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    usri20_name{
+        get {
+            if(!this.HasProp("__usri20_name"))
+                this.__usri20_name := PWSTR(this.ptr + 0)
+            return this.__usri20_name
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri20_full_name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    usri20_full_name{
+        get {
+            if(!this.HasProp("__usri20_full_name"))
+                this.__usri20_full_name := PWSTR(this.ptr + 8)
+            return this.__usri20_full_name
+        }
     }
 
     /**
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment associated with the user account. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    usri20_comment {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    usri20_comment{
+        get {
+            if(!this.HasProp("__usri20_comment"))
+                this.__usri20_comment := PWSTR(this.ptr + 16)
+            return this.__usri20_comment
+        }
     }
 
     /**

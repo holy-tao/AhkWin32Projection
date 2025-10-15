@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\RECTL.ahk
 #Include .\DDCOLORKEY.ahk
 #Include .\DDBLTFX.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -104,11 +105,14 @@ class DDHAL_BLTDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsClipped {
-        get => NumGet(this, 208, "int")
-        set => NumPut("int", value, this, 208)
+    IsClipped{
+        get {
+            if(!this.HasProp("__IsClipped"))
+                this.__IsClipped := BOOL(this.ptr + 208)
+            return this.__IsClipped
+        }
     }
 
     /**

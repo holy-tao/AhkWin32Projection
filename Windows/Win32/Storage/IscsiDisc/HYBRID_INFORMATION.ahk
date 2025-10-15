@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\NVCACHE_PRIORITY_LEVEL_DESCRIPTOR.ahk
 
 /**
@@ -11,6 +12,66 @@ class HYBRID_INFORMATION extends Win32Struct
     static sizeof => 88
 
     static packingSize => 8
+
+    class _Attributes extends Win32Struct {
+        static sizeof => 88
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - WriteCacheChangeable
+         * - WriteThroughIoSupported
+         * - FlushCacheSupported
+         * - Removable
+         * - ReservedBits
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WriteCacheChangeable {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WriteThroughIoSupported {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FlushCacheSupported {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Removable {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReservedBits {
+            get => (this._bitfield >> 4) & 0xFFFFFFF
+            set => this._bitfield := ((value & 0xFFFFFFF) << 4) | (this._bitfield & ~(0xFFFFFFF << 4))
+        }
+    
+    }
 
     class _Priorities extends Win32Struct {
         static sizeof => 88
@@ -118,11 +179,14 @@ class HYBRID_INFORMATION extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
-        MaxPriorityBehavior {
-            get => NumGet(this, 1, "char")
-            set => NumPut("char", value, this, 1)
+        MaxPriorityBehavior{
+            get {
+                if(!this.HasProp("__MaxPriorityBehavior"))
+                    this.__MaxPriorityBehavior := BOOLEAN(this.ptr + 1)
+                return this.__MaxPriorityBehavior
+            }
         }
     
         /**
@@ -198,11 +262,14 @@ class HYBRID_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    HybridSupported {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    HybridSupported{
+        get {
+            if(!this.HasProp("__HybridSupported"))
+                this.__HybridSupported := BOOLEAN(this.ptr + 8)
+            return this.__HybridSupported
+        }
     }
 
     /**
@@ -246,11 +313,14 @@ class HYBRID_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Attributes}
      */
-    Attributes {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+    Attributes{
+        get {
+            if(!this.HasProp("__Attributes"))
+                this.__Attributes := %this.__Class%._Attributes(this.ptr + 40)
+            return this.__Attributes
+        }
     }
 
     /**

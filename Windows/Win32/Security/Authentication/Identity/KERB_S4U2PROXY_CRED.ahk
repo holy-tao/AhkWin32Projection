@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include ..\..\..\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -43,11 +45,14 @@ class KERB_S4U2PROXY_CRED extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
-    LastStatus {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    LastStatus{
+        get {
+            if(!this.HasProp("__LastStatus"))
+                this.__LastStatus := NTSTATUS(this.ptr + 36)
+            return this.__LastStatus
+        }
     }
 
     /**

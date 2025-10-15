@@ -4,6 +4,7 @@
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include .\PEER_ADDRESS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_ENDPOINT structure contains the address and friendly name of a peer endpoint.
@@ -39,10 +40,13 @@ class PEER_ENDPOINT extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains the specific displayable name of the endpoint.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzEndpointName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pwzEndpointName{
+        get {
+            if(!this.HasProp("__pwzEndpointName"))
+                this.__pwzEndpointName := PWSTR(this.ptr + 40)
+            return this.__pwzEndpointName
+        }
     }
 }

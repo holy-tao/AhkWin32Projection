@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains a list of access-control entries for an object or a specified property on an object.
@@ -32,11 +33,14 @@ class ACTRL_PROPERTY_ENTRYA extends Win32Struct
 
     /**
      * The GUID of a property on an object. Use the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-uuidtostring">UuidToString</a> function to generate a string representation of a property GUID.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpProperty {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lpProperty{
+        get {
+            if(!this.HasProp("__lpProperty"))
+                this.__lpProperty := PSTR(this.ptr + 0)
+            return this.__lpProperty
+        }
     }
 
     /**

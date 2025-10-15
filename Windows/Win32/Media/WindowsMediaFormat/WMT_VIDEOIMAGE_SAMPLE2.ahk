@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The WMT_VIDEOIMAGE_SAMPLE2 structure describes a sample for a Video Image stream.
@@ -279,10 +280,13 @@ class WMT_VIDEOIMAGE_SAMPLE2 extends Win32Struct
 
     /**
      * For input samples, <b>TRUE</b> indicates that the new image should replace the current image and that the current image should be discarded. The default behavior, indicated by setting this member to <b>FALSE</b>, is for the current image to become the previous image and the new image to become the current image.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bKeepPrevImage {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
+    bKeepPrevImage{
+        get {
+            if(!this.HasProp("__bKeepPrevImage"))
+                this.__bKeepPrevImage := BOOL(this.ptr + 104)
+            return this.__bKeepPrevImage
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
@@ -2387,7 +2388,7 @@ class IpHelper {
 ;@region Methods
     /**
      * The IcmpCreateFile function opens a handle on which IPv4 ICMP echo requests can be issued.
-     * @returns {Pointer<Void>} The 
+     * @returns {HANDLE} The 
      * <b>IcmpCreateFile</b> function returns an open handle on success. On failure, the function returns <b>INVALID_HANDLE_VALUE</b>. Call the 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for extended error information.
      * @see https://docs.microsoft.com/windows/win32/api//icmpapi/nf-icmpapi-icmpcreatefile
@@ -2400,12 +2401,12 @@ class IpHelper {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * The Icmp6CreateFile function opens a handle on which IPv6 ICMP echo requests can be issued.
-     * @returns {Pointer<Void>} The 
+     * @returns {HANDLE} The 
      * <b>Icmp6CreateFile</b> function returns an open handle on success. On failure, the function returns <b>INVALID_HANDLE_VALUE</b>. Call the 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for extended error information.
      * @see https://docs.microsoft.com/windows/win32/api//icmpapi/nf-icmpapi-icmp6createfile
@@ -2418,21 +2419,23 @@ class IpHelper {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * The IcmpCloseHandle function closes a handle opened by a call to the IcmpCreateFile or Icmp6CreateFile functions.
-     * @param {Pointer<Void>} IcmpHandle The handle to close. This handle must have been returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">IcmpCreateFile</a> or <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmp6createfile">Icmp6CreateFile</a>.
-     * @returns {Integer} If the handle is closed successfully the return value is <b>TRUE</b>, otherwise <b>FALSE</b>. Call the 
+     * @param {HANDLE} IcmpHandle The handle to close. This handle must have been returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">IcmpCreateFile</a> or <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmp6createfile">Icmp6CreateFile</a>.
+     * @returns {BOOL} If the handle is closed successfully the return value is <b>TRUE</b>, otherwise <b>FALSE</b>. Call the 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for extended error information.
      * @see https://docs.microsoft.com/windows/win32/api//icmpapi/nf-icmpapi-icmpclosehandle
      * @since windows5.0
      */
     static IcmpCloseHandle(IcmpHandle) {
+        IcmpHandle := IcmpHandle is Win32Handle ? NumGet(IcmpHandle, "ptr") : IcmpHandle
+
         A_LastError := 0
 
-        result := DllCall("IPHLPAPI.dll\IcmpCloseHandle", "ptr", IcmpHandle, "int")
+        result := DllCall("IPHLPAPI.dll\IcmpCloseHandle", "ptr", IcmpHandle, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2441,7 +2444,7 @@ class IpHelper {
 
     /**
      * The IcmpSendEcho function sends an IPv4 ICMP echo request and returns any echo response replies. The call returns when the time-out has expired or the reply buffer is filled.
-     * @param {Pointer<Void>} IcmpHandle The open handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">IcmpCreateFile</a> function.
+     * @param {HANDLE} IcmpHandle The open handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">IcmpCreateFile</a> function.
      * @param {Integer} DestinationAddress The IPv4 destination address of the echo request, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
      * @param {Pointer} RequestData A pointer to a buffer that contains data to send in the request.
      * @param {Integer} RequestSize The size, in bytes, of the request data buffer pointed to by the <i>RequestData</i> parameter.
@@ -2541,6 +2544,8 @@ class IpHelper {
      * @since windows5.0
      */
     static IcmpSendEcho(IcmpHandle, DestinationAddress, RequestData, RequestSize, RequestOptions, ReplyBuffer, ReplySize, Timeout) {
+        IcmpHandle := IcmpHandle is Win32Handle ? NumGet(IcmpHandle, "ptr") : IcmpHandle
+
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpSendEcho", "ptr", IcmpHandle, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
@@ -2552,8 +2557,8 @@ class IpHelper {
 
     /**
      * The IcmpSendEcho2 function sends an IPv4 ICMP echo request and returns either immediately (if Event or ApcRoutine is non-NULL) or returns after the specified time-out. The ReplyBuffer contains the ICMP echo responses, if any.
-     * @param {Pointer<Void>} IcmpHandle The open handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">ICMPCreateFile</a> function.
-     * @param {Pointer<Void>} Event An event to be signaled whenever an ICMP response arrives. If this parameter is specified, it requires a handle to a valid event object. Use the 
+     * @param {HANDLE} IcmpHandle The open handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">ICMPCreateFile</a> function.
+     * @param {HANDLE} Event An event to be signaled whenever an ICMP response arrives. If this parameter is specified, it requires a handle to a valid event object. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventexa">CreateEventEx</a> function to create this event object. 
      * 
      * For more information on using events, see <a href="https://docs.microsoft.com/windows/desktop/Sync/event-objects">Event Objects</a>.
@@ -2666,6 +2671,9 @@ class IpHelper {
      * @since windows5.0
      */
     static IcmpSendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, DestinationAddress, RequestData, RequestSize, RequestOptions, ReplyBuffer, ReplySize, Timeout) {
+        IcmpHandle := IcmpHandle is Win32Handle ? NumGet(IcmpHandle, "ptr") : IcmpHandle
+        Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
+
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpSendEcho2", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, "ptr", ApcContext, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
@@ -2677,8 +2685,8 @@ class IpHelper {
 
     /**
      * Sends an IPv4 ICMP echo request and returns either immediately (if Event or ApcRoutine is non-NULL) or returns after the specified time-out. The ReplyBuffer contains the ICMP responses, if any.
-     * @param {Pointer<Void>} IcmpHandle An open handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">ICMPCreateFile</a> function.
-     * @param {Pointer<Void>} Event An event to be signaled whenever an ICMP response arrives. If this parameter is specified, it requires a handle to a valid event object. Use the 
+     * @param {HANDLE} IcmpHandle An open handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">ICMPCreateFile</a> function.
+     * @param {HANDLE} Event An event to be signaled whenever an ICMP response arrives. If this parameter is specified, it requires a handle to a valid event object. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventexa">CreateEventEx</a> function to create this event object. 
      * 
      * For more information on using events, see <a href="https://docs.microsoft.com/windows/desktop/Sync/event-objects">Event Objects</a>.
@@ -2789,6 +2797,9 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static IcmpSendEcho2Ex(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress, DestinationAddress, RequestData, RequestSize, RequestOptions, ReplyBuffer, ReplySize, Timeout) {
+        IcmpHandle := IcmpHandle is Win32Handle ? NumGet(IcmpHandle, "ptr") : IcmpHandle
+        Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
+
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\IcmpSendEcho2Ex", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, "ptr", ApcContext, "uint", SourceAddress, "uint", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
@@ -2800,8 +2811,8 @@ class IpHelper {
 
     /**
      * The Icmp6SendEcho2 function sends an IPv6 ICMPv6 echo request and returns either immediately (if Event or ApcRoutine is non-NULL) or returns after the specified time-out. The ReplyBuffer contains the IPv6 ICMPv6 echo response, if any.
-     * @param {Pointer<Void>} IcmpHandle The open handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmp6createfile">Icmp6CreateFile</a>.
-     * @param {Pointer<Void>} Event An event to be signaled whenever an ICMPv6 response arrives. If this parameter is specified, it requires a handle to a valid event object. Use the 
+     * @param {HANDLE} IcmpHandle The open handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmp6createfile">Icmp6CreateFile</a>.
+     * @param {HANDLE} Event An event to be signaled whenever an ICMPv6 response arrives. If this parameter is specified, it requires a handle to a valid event object. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventexa">CreateEventEx</a> function to create this event object. 
      * 
      * For more information on using events, see <a href="https://docs.microsoft.com/windows/desktop/Sync/event-objects">Event Objects</a>.
@@ -2935,6 +2946,9 @@ class IpHelper {
      * @since windows5.1.2600
      */
     static Icmp6SendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress, DestinationAddress, RequestData, RequestSize, RequestOptions, ReplyBuffer, ReplySize, Timeout) {
+        IcmpHandle := IcmpHandle is Win32Handle ? NumGet(IcmpHandle, "ptr") : IcmpHandle
+        Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
+
         A_LastError := 0
 
         result := DllCall("IPHLPAPI.dll\Icmp6SendEcho2", "ptr", IcmpHandle, "ptr", Event, "ptr", ApcRoutine, "ptr", ApcContext, "ptr", SourceAddress, "ptr", DestinationAddress, "ptr", RequestData, "ushort", RequestSize, "ptr", RequestOptions, "ptr", ReplyBuffer, "uint", ReplySize, "uint", Timeout, "uint")
@@ -3132,7 +3146,7 @@ class IpHelper {
      * @param {Pointer<UInt32>} pdwSize On input, specifies the size in bytes of the buffer pointed to by the <i>pIfTable</i> parameter.
      * 
      * On output, if the buffer is not large enough to hold the returned interface table, the function sets this parameter equal to the required buffer size in bytes.
-     * @param {Integer} bOrder A Boolean value that specifies whether the returned interface table should be sorted in ascending order by interface index. If this parameter is <b>TRUE</b>, the table is sorted.
+     * @param {BOOL} bOrder A Boolean value that specifies whether the returned interface table should be sorted in ascending order by interface index. If this parameter is <b>TRUE</b>, the table is sorted.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -3193,7 +3207,7 @@ class IpHelper {
      * @since windows5.0
      */
     static GetIfTable(pIfTable, pdwSize, bOrder) {
-        result := DllCall("IPHLPAPI.dll\GetIfTable", "ptr", pIfTable, "uint*", pdwSize, "int", bOrder, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIfTable", "ptr", pIfTable, "uint*", pdwSize, "ptr", bOrder, "uint")
         return result
     }
 
@@ -3207,7 +3221,7 @@ class IpHelper {
      * 
      * 
      * On output, if the buffer is not large enough to hold the returned mapping table, the function sets this parameter equal to the required buffer size in bytes.
-     * @param {Integer} bOrder If this parameter is <b>TRUE</b>, then
+     * @param {BOOL} bOrder If this parameter is <b>TRUE</b>, then
      * the returned mapping table
      * is sorted in ascending order by IPv4 address.
      * The sorting is performed in network byte order.
@@ -3272,7 +3286,7 @@ class IpHelper {
      * @since windows5.0
      */
     static GetIpAddrTable(pIpAddrTable, pdwSize, bOrder) {
-        result := DllCall("IPHLPAPI.dll\GetIpAddrTable", "ptr", pIpAddrTable, "uint*", pdwSize, "int", bOrder, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIpAddrTable", "ptr", pIpAddrTable, "uint*", pdwSize, "ptr", bOrder, "uint")
         return result
     }
 
@@ -3283,7 +3297,7 @@ class IpHelper {
      * @param {Pointer<UInt32>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>pIpNetTable</i> parameter.
      * 
      * On output, if the buffer is not large enough to hold the returned mapping table, the function sets this parameter equal to the required buffer size in bytes.
-     * @param {Integer} Order A Boolean value that specifies whether the returned mapping table should be sorted in ascending order by IP address. If this parameter is <b>TRUE</b>, the table is sorted.
+     * @param {BOOL} Order A Boolean value that specifies whether the returned mapping table should be sorted in ascending order by IP address. If this parameter is <b>TRUE</b>, the table is sorted.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR or ERROR_NO_DATA.
      * 
      * If the function fails or does not return any data, the return value is one of the following error codes.
@@ -3355,7 +3369,7 @@ class IpHelper {
      * @since windows5.0
      */
     static GetIpNetTable(IpNetTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetIpNetTable", "ptr", IpNetTable, "uint*", SizePointer, "int", Order, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIpNetTable", "ptr", IpNetTable, "uint*", SizePointer, "ptr", Order, "uint")
         return result
     }
 
@@ -3369,7 +3383,7 @@ class IpHelper {
      * 
      * 
      * On output, if the buffer is not large enough to hold the returned routing table, the function sets this parameter equal to the required buffer size in bytes.
-     * @param {Integer} bOrder A Boolean value that specifies whether the returned table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in the order of: 
+     * @param {BOOL} bOrder A Boolean value that specifies whether the returned table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in the order of: 
      * 
      * 
      * <ol>
@@ -3449,7 +3463,7 @@ class IpHelper {
      * @since windows5.0
      */
     static GetIpForwardTable(pIpForwardTable, pdwSize, bOrder) {
-        result := DllCall("IPHLPAPI.dll\GetIpForwardTable", "ptr", pIpForwardTable, "uint*", pdwSize, "int", bOrder, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIpForwardTable", "ptr", pIpForwardTable, "uint*", pdwSize, "ptr", bOrder, "uint")
         return result
     }
 
@@ -3462,7 +3476,7 @@ class IpHelper {
      * On output, if the buffer is not large enough to hold the returned connection table, the function sets this parameter equal to the required buffer size in bytes.
      * 
      * On the Windows SDK released for Windows Vista and later, the data type for this parameter is changed to a <b>PULONG</b> which is equivalent to a <b>PDWORD</b>.
-     * @param {Integer} Order A Boolean value that specifies whether the TCP connection table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in the order of: 
+     * @param {BOOL} Order A Boolean value that specifies whether the TCP connection table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in the order of: 
      * 
      * 
      * <ol>
@@ -3544,7 +3558,7 @@ class IpHelper {
      * @since windows5.0
      */
     static GetTcpTable(TcpTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetTcpTable", "ptr", TcpTable, "uint*", SizePointer, "int", Order, "uint")
+        result := DllCall("IPHLPAPI.dll\GetTcpTable", "ptr", TcpTable, "uint*", SizePointer, "ptr", Order, "uint")
         return result
     }
 
@@ -3552,7 +3566,7 @@ class IpHelper {
      * Retrieves a table that contains a list of TCP endpoints available to the application.
      * @param {Pointer} pTcpTable A pointer to the table structure that contains the filtered TCP endpoints available to the application. For information about how to determine the type of table returned based on specific input parameter combinations, see the Remarks section later in this document.
      * @param {Pointer<UInt32>} pdwSize The estimated size of the structure returned in <i>pTcpTable</i>, in bytes. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the structure.
-     * @param {Integer} bOrder A value that specifies whether the TCP connection table should be sorted. If this parameter is set to <b>TRUE</b>, the TCP endpoints in the table are sorted in ascending order, starting with the lowest local IP address. If this parameter is set to <b>FALSE</b>, the TCP endpoints in the table appear in the order in which they were retrieved.
+     * @param {BOOL} bOrder A value that specifies whether the TCP connection table should be sorted. If this parameter is set to <b>TRUE</b>, the TCP endpoints in the table are sorted in ascending order, starting with the lowest local IP address. If this parameter is set to <b>FALSE</b>, the TCP endpoints in the table appear in the order in which they were retrieved.
      * 
      * The following values are compared (as listed) when ordering the TCP endpoints:<ol>
      * <li>Local IP address</li>
@@ -3634,7 +3648,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetExtendedTcpTable(pTcpTable, pdwSize, bOrder, ulAf, TableClass, Reserved) {
-        result := DllCall("IPHLPAPI.dll\GetExtendedTcpTable", "ptr", pTcpTable, "uint*", pdwSize, "int", bOrder, "uint", ulAf, "int", TableClass, "uint", Reserved, "uint")
+        result := DllCall("IPHLPAPI.dll\GetExtendedTcpTable", "ptr", pTcpTable, "uint*", pdwSize, "ptr", bOrder, "uint", ulAf, "int", TableClass, "uint", Reserved, "uint")
         return result
     }
 
@@ -3748,7 +3762,7 @@ class IpHelper {
      * On output, if the buffer is not large enough to hold the returned listener table, the function sets this parameter equal to the required buffer size in bytes.
      * 
      * On the Windows SDK released for Windows Vista and later, the data type for this parameter is changed to a <b>PULONG</b> which is equivalent to a <b>PDWORD</b>.
-     * @param {Integer} Order A Boolean value that specifies whether the returned UDP listener table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in the order of: 
+     * @param {BOOL} Order A Boolean value that specifies whether the returned UDP listener table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in the order of: 
      * 
      * 
      * <ol>
@@ -3817,7 +3831,7 @@ class IpHelper {
      * @since windows5.0
      */
     static GetUdpTable(UdpTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetUdpTable", "ptr", UdpTable, "uint*", SizePointer, "int", Order, "uint")
+        result := DllCall("IPHLPAPI.dll\GetUdpTable", "ptr", UdpTable, "uint*", SizePointer, "ptr", Order, "uint")
         return result
     }
 
@@ -3825,7 +3839,7 @@ class IpHelper {
      * Retrieves a table that contains a list of UDP endpoints available to the application.
      * @param {Pointer} pUdpTable A pointer to the table structure that contains the filtered UDP endpoints available to the application.   For information about how to determine the type of table returned based on specific input parameter combinations, see the Remarks section later in this document.
      * @param {Pointer<UInt32>} pdwSize The estimated size of the structure returned in <i>pUdpTable</i>, in bytes. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the structure.
-     * @param {Integer} bOrder A value that specifies whether the UDP endpoint table should be sorted. If this parameter is set to <b>TRUE</b>, the UDP endpoints in the table are sorted in ascending order, starting with the lowest local IP address. If this parameter is set to <b>FALSE</b>, the UDP endpoints in the table appear in the order in which they were retrieved.
+     * @param {BOOL} bOrder A value that specifies whether the UDP endpoint table should be sorted. If this parameter is set to <b>TRUE</b>, the UDP endpoints in the table are sorted in ascending order, starting with the lowest local IP address. If this parameter is set to <b>FALSE</b>, the UDP endpoints in the table appear in the order in which they were retrieved.
      * 
      * The following values are compared as listed when ordering the UDP endpoints: <ol>
      * <li>Local IP address</li>
@@ -3904,7 +3918,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetExtendedUdpTable(pUdpTable, pdwSize, bOrder, ulAf, TableClass, Reserved) {
-        result := DllCall("IPHLPAPI.dll\GetExtendedUdpTable", "ptr", pUdpTable, "uint*", pdwSize, "int", bOrder, "uint", ulAf, "int", TableClass, "uint", Reserved, "uint")
+        result := DllCall("IPHLPAPI.dll\GetExtendedUdpTable", "ptr", pUdpTable, "uint*", pdwSize, "ptr", bOrder, "uint", ulAf, "int", TableClass, "uint", Reserved, "uint")
         return result
     }
 
@@ -3966,7 +3980,7 @@ class IpHelper {
      * 
      * 
      * On output, if the buffer is not large enough to hold the returned connection table, the function sets this parameter equal to the required buffer size.
-     * @param {Integer} Order A value that specifies whether the TCP connection table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in the order of: 
+     * @param {BOOL} Order A value that specifies whether the TCP connection table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in the order of: 
      * 
      * 
      * 
@@ -4039,7 +4053,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetTcpTable2(TcpTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetTcpTable2", "ptr", TcpTable, "uint*", SizePointer, "int", Order, "uint")
+        result := DllCall("IPHLPAPI.dll\GetTcpTable2", "ptr", TcpTable, "uint*", SizePointer, "ptr", Order, "uint")
         return result
     }
 
@@ -4050,7 +4064,7 @@ class IpHelper {
      * @param {Pointer<UInt32>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>TcpTable</i> parameter.
      * 
      * On output, if the buffer is not large enough to hold the returned TCP connection table, the function sets this parameter equal to the required buffer size in bytes.
-     * @param {Integer} Order A Boolean value that specifies whether the TCP connection table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in ascending order, starting with the lowest local IP address.  If this parameter is <b>FALSE</b>, the table appears in the order in which they were retrieved.
+     * @param {BOOL} Order A Boolean value that specifies whether the TCP connection table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in ascending order, starting with the lowest local IP address.  If this parameter is <b>FALSE</b>, the table appears in the order in which they were retrieved.
      * 
      * The following values are compared (as listed) when ordering the TCP endpoints:
      * 
@@ -4123,7 +4137,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetTcp6Table(TcpTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetTcp6Table", "ptr", TcpTable, "uint*", SizePointer, "int", Order, "uint")
+        result := DllCall("IPHLPAPI.dll\GetTcp6Table", "ptr", TcpTable, "uint*", SizePointer, "ptr", Order, "uint")
         return result
     }
 
@@ -4137,7 +4151,7 @@ class IpHelper {
      * 
      * 
      * On output, if the buffer is not large enough to hold the returned TCP connection table, the function sets this parameter equal to the required buffer size.
-     * @param {Integer} Order A value that specifies whether the TCP connection table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in ascending order, starting with the lowest local IP address.  If this parameter is <b>FALSE</b>, the table appears in the order in which they were retrieved.
+     * @param {BOOL} Order A value that specifies whether the TCP connection table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in ascending order, starting with the lowest local IP address.  If this parameter is <b>FALSE</b>, the table appears in the order in which they were retrieved.
      * 
      * The following values are compared (as listed) when ordering the TCP endpoints:
      * 
@@ -4209,7 +4223,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetTcp6Table2(TcpTable, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetTcp6Table2", "ptr", TcpTable, "uint*", SizePointer, "int", Order, "uint")
+        result := DllCall("IPHLPAPI.dll\GetTcp6Table2", "ptr", TcpTable, "uint*", SizePointer, "ptr", Order, "uint")
         return result
     }
 
@@ -5144,7 +5158,7 @@ class IpHelper {
      * 
      * 
      * On output, if the buffer is not large enough to hold the returned listener table, the function sets this parameter equal to the required buffer size in bytes.
-     * @param {Integer} Order A Boolean value that specifies whether the returned UDP listener table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in the order of: 
+     * @param {BOOL} Order A Boolean value that specifies whether the returned UDP listener table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in the order of: 
      * 
      * 
      * <ol>
@@ -5212,7 +5226,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetUdp6Table(Udp6Table, SizePointer, Order) {
-        result := DllCall("IPHLPAPI.dll\GetUdp6Table", "ptr", Udp6Table, "uint*", SizePointer, "int", Order, "uint")
+        result := DllCall("IPHLPAPI.dll\GetUdp6Table", "ptr", Udp6Table, "uint*", SizePointer, "ptr", Order, "uint")
         return result
     }
 
@@ -6921,15 +6935,17 @@ class IpHelper {
      * The NhpAllocateAndGetInterfaceInfoFromStack function obtains adapter information about the local computer.
      * @param {Pointer<IP_INTERFACE_NAME_INFO_W2KSP1>} ppTable An array of <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_interface_name_info_w2ksp1">IP_INTERFACE_NAME_INFO</a> structures that contains information about each adapter on the local system. The array contains one element for each adapter on the system.
      * @param {Pointer<UInt32>} pdwCount The number of elements in the <i>ppTable</i> array.
-     * @param {Integer} bOrder When <b>TRUE</b>, elements in the <i>ppTable</i> array are sorted by increasing index value.
-     * @param {Pointer<Void>} hHeap A handle that specifies the heap from which <i>ppTable</i> should be allocated. This parameter can be the process heap returned by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function, or a private heap created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> function.
+     * @param {BOOL} bOrder When <b>TRUE</b>, elements in the <i>ppTable</i> array are sorted by increasing index value.
+     * @param {HANDLE} hHeap A handle that specifies the heap from which <i>ppTable</i> should be allocated. This parameter can be the process heap returned by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function, or a private heap created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> function.
      * @param {Integer} dwFlags A set of flags to be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> function when allocating memory for <i>ppTable</i>. See the <b>HeapAlloc</b> function for more information.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion.
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-nhpallocateandgetinterfaceinfofromstack
      * @since windows5.1.2600
      */
     static NhpAllocateAndGetInterfaceInfoFromStack(ppTable, pdwCount, bOrder, hHeap, dwFlags) {
-        result := DllCall("IPHLPAPI.dll\NhpAllocateAndGetInterfaceInfoFromStack", "ptr", ppTable, "uint*", pdwCount, "int", bOrder, "ptr", hHeap, "uint", dwFlags, "uint")
+        hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
+
+        result := DllCall("IPHLPAPI.dll\NhpAllocateAndGetInterfaceInfoFromStack", "ptr", ppTable, "uint*", pdwCount, "ptr", bOrder, "ptr", hHeap, "uint", dwFlags, "uint")
         return result
     }
 
@@ -7092,7 +7108,7 @@ class IpHelper {
 
     /**
      * The NotifyAddrChange function causes a notification to be sent to the caller whenever a change occurs in the table that maps IPv4 addresses to interfaces.
-     * @param {Pointer<Void>} Handle A pointer to a <b>HANDLE</b> variable that receives a file handle for use in a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function. 
+     * @param {Pointer<HANDLE>} Handle A pointer to a <b>HANDLE</b> variable that receives a file handle for use in a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function. 
      * 
      * <div class="alert"><b>Warning</b>  Do not close this handle, and do not associate it with a completion port.</div>
      * <div> </div>
@@ -7164,7 +7180,7 @@ class IpHelper {
 
     /**
      * The NotifyRouteChange function causes a notification to be sent to the caller whenever a change occurs in the IPv4 routing table.
-     * @param {Pointer<Void>} Handle A pointer to a <b>HANDLE</b> variable that receives a handle to use in asynchronous notification.
+     * @param {Pointer<HANDLE>} Handle A pointer to a <b>HANDLE</b> variable that receives a handle to use in asynchronous notification.
      * @param {Pointer<OVERLAPPED>} overlapped A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  notifies the caller of any changes in the routing table.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR if the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters. If the caller specifies non-<b>NULL</b> parameters, the return value for success is ERROR_IO_PENDING. If the function fails, use 
@@ -7242,18 +7258,18 @@ class IpHelper {
      * 
      * 
      * @param {Pointer<OVERLAPPED>} notifyOverlapped A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure used in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-notifyaddrchange">NotifyAddrChange</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-notifyroutechange">NotifyRouteChange</a>.
-     * @returns {Integer} 
+     * @returns {BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-cancelipchangenotify
      * @since windows5.1.2600
      */
     static CancelIPChangeNotify(notifyOverlapped) {
-        result := DllCall("IPHLPAPI.dll\CancelIPChangeNotify", "ptr", notifyOverlapped, "int")
+        result := DllCall("IPHLPAPI.dll\CancelIPChangeNotify", "ptr", notifyOverlapped, "ptr")
         return result
     }
 
     /**
      * The GetAdapterIndex function obtains the index of an adapter, given its name.
-     * @param {Pointer<Char>} AdapterName A pointer to a Unicode string that specifies the name of the adapter.
+     * @param {PWSTR} AdapterName A pointer to a Unicode string that specifies the name of the adapter.
      * @param {Pointer<UInt32>} IfIndex A pointer to a <b>ULONG</b> variable that points to the index of the adapter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -7263,7 +7279,7 @@ class IpHelper {
      * @since windows5.0
      */
     static GetAdapterIndex(AdapterName, IfIndex) {
-        AdapterName := AdapterName is String? StrPtr(AdapterName) : AdapterName
+        AdapterName := AdapterName is String ? StrPtr(AdapterName) : AdapterName
 
         result := DllCall("IPHLPAPI.dll\GetAdapterIndex", "ptr", AdapterName, "uint*", IfIndex, "uint")
         return result
@@ -7855,7 +7871,7 @@ class IpHelper {
      * @param {Pointer<Void>} CallerContext Type: \_In_opt\_ **PVOID**
      * 
      * An optional caller-allocated context.
-     * @param {Pointer<Void>} NotificationHandle Type: \_Out\_ **HIFTIMESTAMPCHANGE**
+     * @param {Pointer<HIFTIMESTAMPCHANGE>} NotificationHandle Type: \_Out\_ **HIFTIMESTAMPCHANGE**
      * 
      * A handle, returned by the function, that identifies the registration.
      * @returns {Integer} Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
@@ -7870,13 +7886,15 @@ class IpHelper {
 
     /**
      * Cancels notifications about timestamp capability changes by unregistering the callback function you registered in a call to [**RegisterInterfaceTimestampConfigChange**](/windows/win32/api/iphlpapi/nf-iphlpapi-registerinterfacetimestampconfigchange).
-     * @param {Pointer<Void>} NotificationHandle Type: \_In\_ **HIFTIMESTAMPCHANGE**
+     * @param {HIFTIMESTAMPCHANGE} NotificationHandle Type: \_In\_ **HIFTIMESTAMPCHANGE**
      * 
      * The handle that was returned by [**RegisterInterfaceTimestampConfigChange**](/windows/win32/api/iphlpapi/nf-iphlpapi-registerinterfacetimestampconfigchange). This identifies the registration to be canceled.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-unregisterinterfacetimestampconfigchange
      */
     static UnregisterInterfaceTimestampConfigChange(NotificationHandle) {
+        NotificationHandle := NotificationHandle is Win32Handle ? NumGet(NotificationHandle, "ptr") : NotificationHandle
+
         DllCall("IPHLPAPI.dll\UnregisterInterfaceTimestampConfigChange", "ptr", NotificationHandle)
     }
 
@@ -7908,7 +7926,7 @@ class IpHelper {
      * This function is reserved for system use, and you should not call it from your code.
      * @param {Pointer<Void>} CallerContext Reserved.
      * @param {Pointer<PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK>} Callback Reserved.
-     * @param {Pointer<Void>} NotificationHandle Reserved.
+     * @param {Pointer<HIFTIMESTAMPCHANGE>} NotificationHandle Reserved.
      * @returns {Integer} Reserved.
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-notifyiftimestampconfigchange
      */
@@ -7919,11 +7937,13 @@ class IpHelper {
 
     /**
      * This function is reserved for system use, and you should not call it from your code.
-     * @param {Pointer<Void>} NotificationHandle Reserved.
+     * @param {HIFTIMESTAMPCHANGE} NotificationHandle Reserved.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//iphlpapi/nf-iphlpapi-canceliftimestampconfigchange
      */
     static CancelIfTimestampConfigChange(NotificationHandle) {
+        NotificationHandle := NotificationHandle is Win32Handle ? NumGet(NotificationHandle, "ptr") : NotificationHandle
+
         DllCall("IPHLPAPI.DLL\CancelIfTimestampConfigChange", "ptr", NotificationHandle)
     }
 
@@ -8164,7 +8184,7 @@ class IpHelper {
      * @param {Pointer<UInt32>} HopCount Pointer to a <b>ULONG</b> variable. This variable receives the hop count to the destination specified by the <i>DestIpAddress</i> parameter.
      * @param {Integer} MaxHops Maximum number of hops to search for the destination. If the number of hops to the destination exceeds this number, the function terminates the search and returns <b>FALSE</b>.
      * @param {Pointer<UInt32>} RTT Round-trip time, in milliseconds, to the destination specified by <i>DestIpAddress</i>.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. Call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to obtain the error code for the failure.
@@ -8174,7 +8194,7 @@ class IpHelper {
     static GetRTTAndHopCount(DestIpAddress, HopCount, MaxHops, RTT) {
         A_LastError := 0
 
-        result := DllCall("IPHLPAPI.dll\GetRTTAndHopCount", "uint", DestIpAddress, "uint*", HopCount, "uint", MaxHops, "uint*", RTT, "int")
+        result := DllCall("IPHLPAPI.dll\GetRTTAndHopCount", "uint", DestIpAddress, "uint*", HopCount, "uint", MaxHops, "uint*", RTT, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8195,7 +8215,7 @@ class IpHelper {
 
     /**
      * The EnableRouter function turns on IPv4 forwarding on the local computer. EnableRouter also increments a reference count that tracks the number of requests to enable IPv4 forwarding.
-     * @param {Pointer<Void>} pHandle A pointer to a handle. This parameter is currently unused.
+     * @param {Pointer<HANDLE>} pHandle A pointer to a handle. This parameter is currently unused.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. Except for the <b>hEvent</b> member, all members of this structure should be set to zero. The <b>hEvent</b> member should contain a handle to a valid event object. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function to create this event object.
@@ -8259,7 +8279,7 @@ class IpHelper {
 
     /**
      * The DisableMediaSense function disables the media sensing capability of the TCP/IP stack on a local computer.
-     * @param {Pointer<Void>} pHandle A pointer to a variable that is used to store a handle. If the <i>pOverlapped</i> parameter is not <b>NULL</b>, this variable will be used internally to store a handle required to call the IP driver and disable the media sensing capability.
+     * @param {Pointer<HANDLE>} pHandle A pointer to a variable that is used to store a handle. If the <i>pOverlapped</i> parameter is not <b>NULL</b>, this variable will be used internally to store a handle required to call the IP driver and disable the media sensing capability.
      * 
      * An application should not use the value pointed to by this variable. This handle is for internal use and should not be closed.
      * @param {Pointer<OVERLAPPED>} pOverLapped A pointer to an 
@@ -8422,7 +8442,7 @@ class IpHelper {
     /**
      * The GetIpErrorString function retrieves an IP Helper error string.
      * @param {Integer} ErrorCode The error code to be retrieved. The possible values for this parameter are defined in the <i>Ipexport.h</i> header file.
-     * @param {Pointer<Char>} Buffer A pointer to the buffer that contains the error code string if the function returns with NO_ERROR.
+     * @param {PWSTR} Buffer A pointer to the buffer that contains the error code string if the function returns with NO_ERROR.
      * @param {Pointer<UInt32>} Size A pointer to a <b>DWORD</b> that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i> parameter, excluding the terminating null (i.e. the size of Buffer in characters, minus one).
      * @returns {Integer} Returns NO_ERROR upon success.
      * 
@@ -8431,7 +8451,7 @@ class IpHelper {
      * @since windows5.1.2600
      */
     static GetIpErrorString(ErrorCode, Buffer, Size) {
-        Buffer := Buffer is String? StrPtr(Buffer) : Buffer
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
         result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", Buffer, "uint*", Size, "uint")
         return result
@@ -8860,7 +8880,7 @@ class IpHelper {
 
     /**
      * Parses the input network string and checks whether it is a legal representation of the specified IP network string type. If the string matches a type and its specification, the function can optionally return the parsed result.
-     * @param {Pointer<Char>} NetworkString A pointer to the NULL-terminated network string to parse.
+     * @param {PWSTR} NetworkString A pointer to the NULL-terminated network string to parse.
      * @param {Integer} Types The type of IP network string to parse. This parameter consists of one of network string types as defined in the <i>Iphlpapi.h</i> 
      *         header file.
      * 
@@ -9195,7 +9215,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ParseNetworkString(NetworkString, Types, AddressInfo, PortNumber, PrefixLength) {
-        NetworkString := NetworkString is String? StrPtr(NetworkString) : NetworkString
+        NetworkString := NetworkString is String ? StrPtr(NetworkString) : NetworkString
 
         result := DllCall("IPHLPAPI.dll\ParseNetworkString", "ptr", NetworkString, "uint", Types, "ptr", AddressInfo, "ushort*", PortNumber, "char*", PrefixLength, "uint")
         return result
@@ -9857,9 +9877,9 @@ class IpHelper {
      * @param {Pointer<PIPINTERFACE_CHANGE_CALLBACK>} Callback A pointer to the function to call when a change occurs. This function will be invoked
      *         when an interface notification is received.
      * @param {Pointer<Void>} CallerContext A user context passed to the callback function specified in the <i>Callback</i> parameter when an interface notification is received.
-     * @param {Integer} InitialNotification A value that indicates whether the callback should be invoked
+     * @param {BOOLEAN} InitialNotification A value that indicates whether the callback should be invoked
      *         immediately after registration for change notification completes. This initial notification does not indicate a change occurred to an IP interface. The purpose of this parameter to provide confirmation that the callback is registered.
-     * @param {Pointer<Void>} NotificationHandle A pointer used to return a handle that can be later used to
+     * @param {Pointer<HANDLE>} NotificationHandle A pointer used to return a handle that can be later used to
      *         deregister the change notification. On success, a notification handle is returned in this parameter. If an error occurs, <b>NULL</b> is returned.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -9920,7 +9940,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static NotifyIpInterfaceChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyIpInterfaceChange", "ushort", Family, "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        result := DllCall("IPHLPAPI.dll\NotifyIpInterfaceChange", "ushort", Family, "ptr", Callback, "ptr", CallerContext, "ptr", InitialNotification, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -10539,9 +10559,9 @@ class IpHelper {
      * @param {Pointer<PUNICAST_IPADDRESS_CHANGE_CALLBACK>} Callback A pointer to the function to call when a change occurs. This function will be invoked
      *         when a unicast IP address notification is received.
      * @param {Pointer<Void>} CallerContext A user context passed to the callback function specified in the <i>Callback</i> parameter when an interface notification is received.
-     * @param {Integer} InitialNotification A value that indicates whether the callback should be invoked
+     * @param {BOOLEAN} InitialNotification A value that indicates whether the callback should be invoked
      *         immediately after registration for change notification completes. This initial notification does not indicate a change occurred to a unicast IP address. The purpose of this parameter to provide confirmation that the callback is registered.
-     * @param {Pointer<Void>} NotificationHandle A pointer used to return a handle that can be later used to
+     * @param {Pointer<HANDLE>} NotificationHandle A pointer used to return a handle that can be later used to
      *         deregister the change notification. On success, a notification handle is returned in this parameter. If an error occurs, <b>NULL</b> is returned.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -10602,7 +10622,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static NotifyUnicastIpAddressChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyUnicastIpAddressChange", "ushort", Family, "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        result := DllCall("IPHLPAPI.dll\NotifyUnicastIpAddressChange", "ushort", Family, "ptr", Callback, "ptr", CallerContext, "ptr", InitialNotification, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -10662,7 +10682,7 @@ class IpHelper {
      * @param {Pointer<PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK>} CallerCallback A pointer to the function to call with the stable unicast IP address table. This function will be invoked
      *         if <b>NotifyStableUnicastIpAddressTable</b> returns <b>ERROR_IO_PENDING</b>, indicating that the I/O request is pending.
      * @param {Pointer<Void>} CallerContext A user context passed to the callback function specified in the <i>CallerCallback</i> parameter when the stable unicast IP address table si available.
-     * @param {Pointer<Void>} NotificationHandle A pointer used to return a handle that can be used to
+     * @param {Pointer<HANDLE>} NotificationHandle A pointer used to return a handle that can be used to
      *         cancel the request to retrieve the stable unicast IP address table. This parameter is returned if  the return value from <b>NotifyStableUnicastIpAddressTable</b> is <b>ERROR_IO_PENDING</b> indicating that the I/O request is pending.
      * @returns {Integer} If the function succeeds immediately, the return value is NO_ERROR and the stable unicast IP table is returned in the <i>Table</i> parameter.
      * 
@@ -11875,9 +11895,9 @@ class IpHelper {
      * @param {Pointer<PIPFORWARD_CHANGE_CALLBACK>} Callback A pointer to the function to call when a change occurs. This function will be invoked
      *         when an IP route notification is received.
      * @param {Pointer<Void>} CallerContext A user context passed to the callback function specified in the <i>Callback</i> parameter when an IP route notification is received.
-     * @param {Integer} InitialNotification A value that indicates whether the callback should be invoked
+     * @param {BOOLEAN} InitialNotification A value that indicates whether the callback should be invoked
      *         immediately after registration for change notification completes. This initial notification does not indicate a change occurred to an IP route entry. The purpose of this parameter to provide confirmation that the callback is registered.
-     * @param {Pointer<Void>} NotificationHandle A pointer used to return a handle that can be later used to
+     * @param {Pointer<HANDLE>} NotificationHandle A pointer used to return a handle that can be later used to
      *         deregister the change notification. On success, a notification handle is returned in this parameter. If an error occurs, <b>NULL</b> is returned.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -11938,7 +11958,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static NotifyRouteChange2(AddressFamily, Callback, CallerContext, InitialNotification, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyRouteChange2", "ushort", AddressFamily, "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        result := DllCall("IPHLPAPI.dll\NotifyRouteChange2", "ushort", AddressFamily, "ptr", Callback, "ptr", CallerContext, "ptr", InitialNotification, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -12976,9 +12996,9 @@ class IpHelper {
      * @param {Pointer<PTEREDO_PORT_CHANGE_CALLBACK>} Callback A pointer to the function to call when a Teredo client port change occurs. This function will be invoked
      *         when a Teredo port change notification is received.
      * @param {Pointer<Void>} CallerContext A user context passed to the callback function specified in the <i>Callback</i> parameter when a Teredo port change  notification is received.
-     * @param {Integer} InitialNotification A value that indicates whether the callback should be invoked
+     * @param {BOOLEAN} InitialNotification A value that indicates whether the callback should be invoked
      *         immediately after registration for change notification completes. This initial notification does not indicate a change occurred to the Teredo client port. The purpose of this parameter to provide confirmation that the callback is registered.
-     * @param {Pointer<Void>} NotificationHandle A pointer used to return a handle that can be later used to
+     * @param {Pointer<HANDLE>} NotificationHandle A pointer used to return a handle that can be later used to
      *         deregister the change notification. On success, a notification handle is returned in this parameter. If an error occurs, <b>NULL</b> is returned.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -13039,7 +13059,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static NotifyTeredoPortChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyTeredoPortChange", "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        result := DllCall("IPHLPAPI.dll\NotifyTeredoPortChange", "ptr", Callback, "ptr", CallerContext, "ptr", InitialNotification, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -13111,7 +13131,7 @@ class IpHelper {
 
     /**
      * Deregisters for change notifications for IP interface changes, IP address changes, IP route changes, Teredo port changes, and when the unicast IP address table is stable and can be retrieved.
-     * @param {Pointer<Void>} NotificationHandle The handle returned from a notification 
+     * @param {HANDLE} NotificationHandle The handle returned from a notification 
      *         registration or retrieval function to indicate which notification to cancel.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -13150,6 +13170,8 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static CancelMibChangeNotify2(NotificationHandle) {
+        NotificationHandle := NotificationHandle is Win32Handle ? NumGet(NotificationHandle, "ptr") : NotificationHandle
+
         result := DllCall("IPHLPAPI.dll\CancelMibChangeNotify2", "ptr", NotificationHandle, "uint")
         return result
     }
@@ -13252,18 +13274,18 @@ class IpHelper {
 
     /**
      * 
-     * @param {Integer} CompartmentId 
+     * @param {NET_IF_COMPARTMENT_ID} CompartmentId 
      * @param {Pointer<Guid>} CompartmentGuid 
      * @returns {Integer} 
      */
     static ConvertCompartmentIdToGuid(CompartmentId, CompartmentGuid) {
-        result := DllCall("IPHLPAPI.dll\ConvertCompartmentIdToGuid", "uint", CompartmentId, "ptr", CompartmentGuid, "uint")
+        result := DllCall("IPHLPAPI.dll\ConvertCompartmentIdToGuid", "ptr", CompartmentId, "ptr", CompartmentGuid, "uint")
         return result
     }
 
     /**
      * Converts an ANSI network interface name to the locally unique identifier (LUID) for the interface.
-     * @param {Pointer<Byte>} InterfaceName A pointer to a <b>NULL</b>-terminated ANSI string containing the network interface name.
+     * @param {PSTR} InterfaceName A pointer to a <b>NULL</b>-terminated ANSI string containing the network interface name.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for this interface.
      * @returns {Integer} On success, 
      * <b>ConvertInterfaceNameToLuidA</b> returns <b>NETIO_ERROR_SUCCESS</b>. Any nonzero return value indicates failure. 
@@ -13311,7 +13333,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceNameToLuidA(InterfaceName, InterfaceLuid) {
-        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+        InterfaceName := InterfaceName is String ? StrPtr(InterfaceName) : InterfaceName
 
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceNameToLuidA", "ptr", InterfaceName, "ptr", InterfaceLuid, "uint")
         return result
@@ -13319,7 +13341,7 @@ class IpHelper {
 
     /**
      * Converts a Unicode network interface name to the locally unique identifier (LUID) for the interface.
-     * @param {Pointer<Char>} InterfaceName A pointer to a <b>NULL</b>-terminated Unicode string containing the network interface name.
+     * @param {PWSTR} InterfaceName A pointer to a <b>NULL</b>-terminated Unicode string containing the network interface name.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for this interface.
      * @returns {Integer} On success, 
      * <b>ConvertInterfaceNameToLuidW</b> returns <b>NETIO_ERROR_SUCCESS</b>. Any nonzero return value indicates failure. 
@@ -13356,7 +13378,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceNameToLuidW(InterfaceName, InterfaceLuid) {
-        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+        InterfaceName := InterfaceName is String ? StrPtr(InterfaceName) : InterfaceName
 
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceNameToLuidW", "ptr", InterfaceName, "ptr", InterfaceLuid, "uint")
         return result
@@ -13365,7 +13387,7 @@ class IpHelper {
     /**
      * Converts a locally unique identifier (LUID) for a network interface to the ANSI interface name.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for a network interface.
-     * @param {Pointer<Byte>} InterfaceName A pointer to a buffer to hold the <b>NULL</b>-terminated ANSI string containing the interface name when the function returns successfully.
+     * @param {PSTR} InterfaceName A pointer to a buffer to hold the <b>NULL</b>-terminated ANSI string containing the interface name when the function returns successfully.
      * @param {Pointer} Length The length, in bytes, of the buffer pointed to by the <i>InterfaceName</i> parameter. This value must be large enough to accommodate the interface name
      *         and the terminating null character.  The maximum required length is
      *         <b>NDIS_IF_MAX_STRING_SIZE</b> + 1.
@@ -13404,7 +13426,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToNameA(InterfaceLuid, InterfaceName, Length) {
-        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+        InterfaceName := InterfaceName is String ? StrPtr(InterfaceName) : InterfaceName
 
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToNameA", "ptr", InterfaceLuid, "ptr", InterfaceName, "ptr", Length, "uint")
         return result
@@ -13413,7 +13435,7 @@ class IpHelper {
     /**
      * Converts a locally unique identifier (LUID) for a network interface to the Unicode interface name.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for a network interface.
-     * @param {Pointer<Char>} InterfaceName A pointer to a buffer to hold the <b>NULL</b>-terminated Unicode string containing the interface name when the function returns successfully.
+     * @param {PWSTR} InterfaceName A pointer to a buffer to hold the <b>NULL</b>-terminated Unicode string containing the interface name when the function returns successfully.
      * @param {Pointer} Length The number of characters in the array pointed to by the <i>InterfaceName</i> parameter. This value must be large enough to accommodate the interface name
      *         and the terminating null character.  The maximum required length is
      *         <b>NDIS_IF_MAX_STRING_SIZE</b> + 1.
@@ -13452,7 +13474,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToNameW(InterfaceLuid, InterfaceName, Length) {
-        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+        InterfaceName := InterfaceName is String ? StrPtr(InterfaceName) : InterfaceName
 
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToNameW", "ptr", InterfaceLuid, "ptr", InterfaceName, "ptr", Length, "uint")
         return result
@@ -13536,7 +13558,7 @@ class IpHelper {
     /**
      * Converts a locally unique identifier (LUID) for a network interface to an interface alias.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for a network interface.
-     * @param {Pointer<Char>} InterfaceAlias A pointer to a buffer to hold the <b>NULL</b>-terminated Unicode string containing the alias name of the network interface when the function returns successfully.
+     * @param {PWSTR} InterfaceAlias A pointer to a buffer to hold the <b>NULL</b>-terminated Unicode string containing the alias name of the network interface when the function returns successfully.
      * @param {Pointer} Length The length, in characters, of the buffer pointed to by the <i>InterfaceAlias</i> parameter. This value must be large enough to accommodate the alias name of the network interface and the terminating <b>NULL</b> character.  The maximum required length is
      *         <b>NDIS_IF_MAX_STRING_SIZE</b> + 1.
      * @returns {Integer} On success, 
@@ -13574,7 +13596,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToAlias(InterfaceLuid, InterfaceAlias, Length) {
-        InterfaceAlias := InterfaceAlias is String? StrPtr(InterfaceAlias) : InterfaceAlias
+        InterfaceAlias := InterfaceAlias is String ? StrPtr(InterfaceAlias) : InterfaceAlias
 
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceLuidToAlias", "ptr", InterfaceLuid, "ptr", InterfaceAlias, "ptr", Length, "uint")
         return result
@@ -13582,7 +13604,7 @@ class IpHelper {
 
     /**
      * Converts an interface alias name for a network interface to the locally unique identifier (LUID) for the interface.
-     * @param {Pointer<Char>} InterfaceAlias A pointer to a <b>NULL</b>-terminated Unicode string containing the alias name of the network interface.
+     * @param {PWSTR} InterfaceAlias A pointer to a <b>NULL</b>-terminated Unicode string containing the alias name of the network interface.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for this interface.
      * @returns {Integer} On success, 
      * <b>ConvertInterfaceAliasToLuid</b> returns NO_ERROR. Any nonzero return value indicates failure and a <b>NULL</b> is returned in the <i>InterfaceLuid</i> parameter. 
@@ -13608,7 +13630,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static ConvertInterfaceAliasToLuid(InterfaceAlias, InterfaceLuid) {
-        InterfaceAlias := InterfaceAlias is String? StrPtr(InterfaceAlias) : InterfaceAlias
+        InterfaceAlias := InterfaceAlias is String ? StrPtr(InterfaceAlias) : InterfaceAlias
 
         result := DllCall("IPHLPAPI.dll\ConvertInterfaceAliasToLuid", "ptr", InterfaceAlias, "ptr", InterfaceLuid, "uint")
         return result
@@ -13680,14 +13702,14 @@ class IpHelper {
 
     /**
      * Converts the ANSI interface name for a network interface to the local index for the interface.
-     * @param {Pointer<Byte>} InterfaceName A pointer to a <b>NULL</b>-terminated ANSI string containing the interface name.
+     * @param {PSTR} InterfaceName A pointer to a <b>NULL</b>-terminated ANSI string containing the interface name.
      * @returns {Integer} On success, 
      * <b>if_nametoindex</b> returns the local interface index. On failure, zero is returned.
      * @see https://docs.microsoft.com/windows/win32/api//netioapi/nf-netioapi-if_nametoindex
      * @since windows6.0.6000
      */
     static if_nametoindex(InterfaceName) {
-        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+        InterfaceName := InterfaceName is String ? StrPtr(InterfaceName) : InterfaceName
 
         result := DllCall("IPHLPAPI.dll\if_nametoindex", "ptr", InterfaceName, "uint")
         return result
@@ -13696,38 +13718,38 @@ class IpHelper {
     /**
      * Converts the local index for a network interface to the ANSI interface name.
      * @param {Integer} InterfaceIndex The local index for a network interface.
-     * @param {Pointer<Byte>} InterfaceName A pointer to a buffer to hold the <b>NULL</b>-terminated ANSI string containing the interface name when the function returns successfully. The length, in bytes, of the buffer pointed to by this parameter must be equal to or greater than 
+     * @param {PSTR} InterfaceName A pointer to a buffer to hold the <b>NULL</b>-terminated ANSI string containing the interface name when the function returns successfully. The length, in bytes, of the buffer pointed to by this parameter must be equal to or greater than 
      *         <b>IF_NAMESIZE</b>.
-     * @returns {Pointer<Byte>} On success, 
+     * @returns {PSTR} On success, 
      * <b>if_indextoname</b> returns a pointer to <b>NULL</b>-terminated ANSI string containing the interface name. On failure, a <b>NULL</b> pointer is returned.
      * @see https://docs.microsoft.com/windows/win32/api//netioapi/nf-netioapi-if_indextoname
      * @since windows6.0.6000
      */
     static if_indextoname(InterfaceIndex, InterfaceName) {
-        InterfaceName := InterfaceName is String? StrPtr(InterfaceName) : InterfaceName
+        InterfaceName := InterfaceName is String ? StrPtr(InterfaceName) : InterfaceName
 
-        result := DllCall("IPHLPAPI.dll\if_indextoname", "uint", InterfaceIndex, "ptr", InterfaceName, "char*")
+        result := DllCall("IPHLPAPI.dll\if_indextoname", "uint", InterfaceIndex, "ptr", InterfaceName, "ptr")
         return result
     }
 
     /**
      * Reserved for future use. Do not use this function.
-     * @returns {Integer} 
+     * @returns {NET_IF_COMPARTMENT_ID} 
      * @see https://docs.microsoft.com/windows/win32/api//netioapi/nf-netioapi-getcurrentthreadcompartmentid
      */
     static GetCurrentThreadCompartmentId() {
-        result := DllCall("IPHLPAPI.dll\GetCurrentThreadCompartmentId", "uint")
+        result := DllCall("IPHLPAPI.dll\GetCurrentThreadCompartmentId", "ptr")
         return result
     }
 
     /**
      * Reserved for future use. Do not use this function.
-     * @param {Integer} CompartmentId Reserved.
+     * @param {NET_IF_COMPARTMENT_ID} CompartmentId Reserved.
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//netioapi/nf-netioapi-setcurrentthreadcompartmentid
      */
     static SetCurrentThreadCompartmentId(CompartmentId) {
-        result := DllCall("IPHLPAPI.dll\SetCurrentThreadCompartmentId", "uint", CompartmentId, "uint")
+        result := DllCall("IPHLPAPI.dll\SetCurrentThreadCompartmentId", "ptr", CompartmentId, "uint")
         return result
     }
 
@@ -13753,51 +13775,55 @@ class IpHelper {
 
     /**
      * 
-     * @param {Pointer<Void>} JobHandle 
-     * @returns {Integer} 
+     * @param {HANDLE} JobHandle 
+     * @returns {NET_IF_COMPARTMENT_ID} 
      */
     static GetJobCompartmentId(JobHandle) {
-        result := DllCall("IPHLPAPI.dll\GetJobCompartmentId", "ptr", JobHandle, "uint")
+        JobHandle := JobHandle is Win32Handle ? NumGet(JobHandle, "ptr") : JobHandle
+
+        result := DllCall("IPHLPAPI.dll\GetJobCompartmentId", "ptr", JobHandle, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} JobHandle 
-     * @param {Integer} CompartmentId 
+     * @param {HANDLE} JobHandle 
+     * @param {NET_IF_COMPARTMENT_ID} CompartmentId 
      * @returns {Integer} 
      */
     static SetJobCompartmentId(JobHandle, CompartmentId) {
-        result := DllCall("IPHLPAPI.dll\SetJobCompartmentId", "ptr", JobHandle, "uint", CompartmentId, "uint")
+        JobHandle := JobHandle is Win32Handle ? NumGet(JobHandle, "ptr") : JobHandle
+
+        result := DllCall("IPHLPAPI.dll\SetJobCompartmentId", "ptr", JobHandle, "ptr", CompartmentId, "uint")
         return result
     }
 
     /**
      * Reserved for future use. Do not use this function.
      * @param {Integer} SessionId Reserved.
-     * @returns {Integer} 
+     * @returns {NET_IF_COMPARTMENT_ID} 
      * @see https://docs.microsoft.com/windows/win32/api//netioapi/nf-netioapi-getsessioncompartmentid
      */
     static GetSessionCompartmentId(SessionId) {
-        result := DllCall("IPHLPAPI.dll\GetSessionCompartmentId", "uint", SessionId, "uint")
+        result := DllCall("IPHLPAPI.dll\GetSessionCompartmentId", "uint", SessionId, "ptr")
         return result
     }
 
     /**
      * Reserved for future use. Do not use this function.
      * @param {Integer} SessionId Reserved.
-     * @param {Integer} CompartmentId Reserved.
+     * @param {NET_IF_COMPARTMENT_ID} CompartmentId Reserved.
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//netioapi/nf-netioapi-setsessioncompartmentid
      */
     static SetSessionCompartmentId(SessionId, CompartmentId) {
-        result := DllCall("IPHLPAPI.dll\SetSessionCompartmentId", "uint", SessionId, "uint", CompartmentId, "uint")
+        result := DllCall("IPHLPAPI.dll\SetSessionCompartmentId", "uint", SessionId, "ptr", CompartmentId, "uint")
         return result
     }
 
     /**
      * The GetDefaultCompartmentId function retrieves the default network routing compartment identifier for the local computer.
-     * @returns {Integer} If the function succeeds, the return value is the default Compartment ID.
+     * @returns {NET_IF_COMPARTMENT_ID} If the function succeeds, the return value is the default Compartment ID.
      * 
      * If the function fails, the return value is one of the following error codes.
      * 
@@ -13822,7 +13848,7 @@ class IpHelper {
      * @since windows10.0.10240
      */
     static GetDefaultCompartmentId() {
-        result := DllCall("IPHLPAPI.dll\GetDefaultCompartmentId", "uint")
+        result := DllCall("IPHLPAPI.dll\GetDefaultCompartmentId", "ptr")
         return result
     }
 
@@ -13831,13 +13857,13 @@ class IpHelper {
      * @param {Pointer<Guid>} NetworkGuid Reserved.
      * @param {Pointer<UInt32>} CompartmentId Reserved.
      * @param {Pointer<UInt32>} SiteId Reserved.
-     * @param {Pointer<Char>} NetworkName Reserved.
+     * @param {PWSTR} NetworkName Reserved.
      * @param {Integer} Length Reserved.
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//netioapi/nf-netioapi-getnetworkinformation
      */
     static GetNetworkInformation(NetworkGuid, CompartmentId, SiteId, NetworkName, Length) {
-        NetworkName := NetworkName is String? StrPtr(NetworkName) : NetworkName
+        NetworkName := NetworkName is String ? StrPtr(NetworkName) : NetworkName
 
         result := DllCall("IPHLPAPI.dll\GetNetworkInformation", "ptr", NetworkGuid, "uint*", CompartmentId, "uint*", SiteId, "ptr", NetworkName, "uint", Length, "uint")
         return result
@@ -13846,15 +13872,15 @@ class IpHelper {
     /**
      * Reserved for future use. Do not use this function.
      * @param {Pointer<Guid>} NetworkGuid Reserved.
-     * @param {Integer} CompartmentId Reserved.
-     * @param {Pointer<Char>} NetworkName Reserved.
+     * @param {NET_IF_COMPARTMENT_ID} CompartmentId Reserved.
+     * @param {PWSTR} NetworkName Reserved.
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//netioapi/nf-netioapi-setnetworkinformation
      */
     static SetNetworkInformation(NetworkGuid, CompartmentId, NetworkName) {
-        NetworkName := NetworkName is String? StrPtr(NetworkName) : NetworkName
+        NetworkName := NetworkName is String ? StrPtr(NetworkName) : NetworkName
 
-        result := DllCall("IPHLPAPI.dll\SetNetworkInformation", "ptr", NetworkGuid, "uint", CompartmentId, "ptr", NetworkName, "uint")
+        result := DllCall("IPHLPAPI.dll\SetNetworkInformation", "ptr", NetworkGuid, "ptr", CompartmentId, "ptr", NetworkName, "uint")
         return result
     }
 
@@ -14011,14 +14037,14 @@ class IpHelper {
      * Registers an application-defined callback function, to be called when the aggregate network connectivity level and cost hints change.
      * @param {Pointer<PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK>} Callback A function pointer of type [PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK](./nc-netioapi-pnetwork_connectivity_hint_change_callback.md), which points to your application-defined callback function. The callback function will be invoked when a network connectivity level or cost change occurs.
      * @param {Pointer<Void>} CallerContext The user-specific caller context. This context will be supplied to the callback function.
-     * @param {Integer} InitialNotification `True` if an initialization notification should be provided, otherwise `false`.
-     * @param {Pointer<Void>} NotificationHandle A pointer to a **HANDLE**. The function sets the value to a handle to the notification registration.
+     * @param {BOOLEAN} InitialNotification `True` if an initialization notification should be provided, otherwise `false`.
+     * @param {Pointer<HANDLE>} NotificationHandle A pointer to a **HANDLE**. The function sets the value to a handle to the notification registration.
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//netioapi/nf-netioapi-notifynetworkconnectivityhintchange
      * @since windows10.0.19041
      */
     static NotifyNetworkConnectivityHintChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", "ptr", Callback, "ptr", CallerContext, "char", InitialNotification, "ptr", NotificationHandle, "uint")
+        result := DllCall("IPHLPAPI.dll\NotifyNetworkConnectivityHintChange", "ptr", Callback, "ptr", CallerContext, "ptr", InitialNotification, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -14087,13 +14113,13 @@ class IpHelper {
      * @param {Integer} dwName 
      * @param {Integer} inAction 
      * @param {Integer} outAction 
-     * @param {Integer} bUseLog 
-     * @param {Integer} bMustBeUnique 
+     * @param {BOOL} bUseLog 
+     * @param {BOOL} bMustBeUnique 
      * @param {Pointer<Void>} ppInterface 
      * @returns {Integer} 
      */
     static PfCreateInterface(dwName, inAction, outAction, bUseLog, bMustBeUnique, ppInterface) {
-        result := DllCall("IPHLPAPI.dll\PfCreateInterface", "uint", dwName, "int", inAction, "int", outAction, "int", bUseLog, "int", bMustBeUnique, "ptr", ppInterface, "uint")
+        result := DllCall("IPHLPAPI.dll\PfCreateInterface", "uint", dwName, "int", inAction, "int", outAction, "ptr", bUseLog, "ptr", bMustBeUnique, "ptr", ppInterface, "uint")
         return result
     }
 
@@ -14218,10 +14244,12 @@ class IpHelper {
 
     /**
      * 
-     * @param {Pointer<Void>} hEvent 
+     * @param {HANDLE} hEvent 
      * @returns {Integer} 
      */
     static PfMakeLog(hEvent) {
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         result := DllCall("IPHLPAPI.dll\PfMakeLog", "ptr", hEvent, "uint")
         return result
     }
@@ -14256,11 +14284,11 @@ class IpHelper {
      * @param {Pointer<Void>} pInterface 
      * @param {Pointer<PF_INTERFACE_STATS>} ppfStats 
      * @param {Pointer<UInt32>} pdwBufferSize 
-     * @param {Integer} fResetCounters 
+     * @param {BOOL} fResetCounters 
      * @returns {Integer} 
      */
     static PfGetInterfaceStatistics(pInterface, ppfStats, pdwBufferSize, fResetCounters) {
-        result := DllCall("IPHLPAPI.dll\PfGetInterfaceStatistics", "ptr", pInterface, "ptr", ppfStats, "uint*", pdwBufferSize, "int", fResetCounters, "uint")
+        result := DllCall("IPHLPAPI.dll\PfGetInterfaceStatistics", "ptr", pInterface, "ptr", ppfStats, "uint*", pdwBufferSize, "ptr", fResetCounters, "uint")
         return result
     }
 

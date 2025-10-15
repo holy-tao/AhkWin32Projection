@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3DTRANSFORMCAPS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3DLIGHTINGCAPS.ahk
 #Include .\D3DPRIMCAPS.ahk
 
@@ -58,11 +59,14 @@ class D3DDEVICEDESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bClipping {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    bClipping{
+        get {
+            if(!this.HasProp("__bClipping"))
+                this.__bClipping := BOOL(this.ptr + 24)
+            return this.__bClipping
+        }
     }
 
     /**

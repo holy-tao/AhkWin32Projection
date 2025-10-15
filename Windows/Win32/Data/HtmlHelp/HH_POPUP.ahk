@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -26,11 +28,14 @@ class HH_POPUP extends Win32Struct
 
     /**
      * Instance handle of the program or DLL to retrieve the string resource from. Ignored if <i>idString</i> is zero, or if <i>idString</i> specifies a file name.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hinst {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hinst{
+        get {
+            if(!this.HasProp("__hinst"))
+                this.__hinst := HINSTANCE(this.ptr + 8)
+            return this.__hinst
+        }
     }
 
     /**
@@ -65,20 +70,26 @@ class HH_POPUP extends Win32Struct
 
     /**
      * Specifies the RGB value to use for the foreground color of the pop-up window. To use the system color for the window text, specify -1.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    clrForeground {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+    clrForeground{
+        get {
+            if(!this.HasProp("__clrForeground"))
+                this.__clrForeground := COLORREF(this.ptr + 40)
+            return this.__clrForeground
+        }
     }
 
     /**
      * Specifies the RGB value to use for the background color of the pop-up window. To use the system color for the window background, specify -1.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    clrBackground {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+    clrBackground{
+        get {
+            if(!this.HasProp("__clrBackground"))
+                this.__clrBackground := COLORREF(this.ptr + 44)
+            return this.__clrBackground
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -12,10 +13,13 @@ class MIB_ROUTESTATE extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bRoutesSetToStack {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    bRoutesSetToStack{
+        get {
+            if(!this.HasProp("__bRoutesSetToStack"))
+                this.__bRoutesSetToStack := BOOL(this.ptr + 0)
+            return this.__bRoutesSetToStack
+        }
     }
 }

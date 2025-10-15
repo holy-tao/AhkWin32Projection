@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
@@ -3503,11 +3503,11 @@ class Direct3D9 {
     /**
      * 
      * @param {Integer} col 
-     * @param {Pointer<Char>} wszName 
+     * @param {PWSTR} wszName 
      * @returns {Integer} 
      */
     static D3DPERF_BeginEvent(col, wszName) {
-        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszName := wszName is String ? StrPtr(wszName) : wszName
 
         result := DllCall("d3d9.dll\D3DPERF_BeginEvent", "uint", col, "ptr", wszName, "int")
         return result
@@ -3525,11 +3525,11 @@ class Direct3D9 {
     /**
      * 
      * @param {Integer} col 
-     * @param {Pointer<Char>} wszName 
+     * @param {PWSTR} wszName 
      * @returns {String} Nothing - always returns an empty string
      */
     static D3DPERF_SetMarker(col, wszName) {
-        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszName := wszName is String ? StrPtr(wszName) : wszName
 
         DllCall("d3d9.dll\D3DPERF_SetMarker", "uint", col, "ptr", wszName)
     }
@@ -3537,21 +3537,21 @@ class Direct3D9 {
     /**
      * 
      * @param {Integer} col 
-     * @param {Pointer<Char>} wszName 
+     * @param {PWSTR} wszName 
      * @returns {String} Nothing - always returns an empty string
      */
     static D3DPERF_SetRegion(col, wszName) {
-        wszName := wszName is String? StrPtr(wszName) : wszName
+        wszName := wszName is String ? StrPtr(wszName) : wszName
 
         DllCall("d3d9.dll\D3DPERF_SetRegion", "uint", col, "ptr", wszName)
     }
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static D3DPERF_QueryRepeatFrame() {
-        result := DllCall("d3d9.dll\D3DPERF_QueryRepeatFrame", "int")
+        result := DllCall("d3d9.dll\D3DPERF_QueryRepeatFrame", "ptr")
         return result
     }
 

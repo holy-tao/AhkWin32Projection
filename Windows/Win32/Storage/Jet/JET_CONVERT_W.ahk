@@ -29,10 +29,20 @@ class JET_CONVERT_W extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - fSchemaChangesOnly
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fSchemaChangesOnly {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 }

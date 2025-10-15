@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\NET_VALIDATE_PERSISTED_FIELDS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\NET_VALIDATE_PASSWORD_HASH.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * A client application passes the NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG structure to the NetValidatePasswordPolicy function when the application requests a password change validation.
@@ -30,20 +32,26 @@ class NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the new password, in plaintext format.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClearPassword {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    ClearPassword{
+        get {
+            if(!this.HasProp("__ClearPassword"))
+                this.__ClearPassword := PWSTR(this.ptr + 48)
+            return this.__ClearPassword
+        }
     }
 
     /**
      * Pointer to a Unicode string specifying the name of the user account.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    UserAccountName {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    UserAccountName{
+        get {
+            if(!this.HasProp("__UserAccountName"))
+                this.__UserAccountName := PWSTR(this.ptr + 56)
+            return this.__UserAccountName
+        }
     }
 
     /**
@@ -60,10 +68,13 @@ class NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG extends Win32Struct
 
     /**
      * BOOLEAN value that indicates the result of the application's attempt to validate the old password supplied by the user. If this parameter is <b>FALSE</b>, the password was not validated.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    PasswordMatch {
-        get => NumGet(this, 80, "char")
-        set => NumPut("char", value, this, 80)
+    PasswordMatch{
+        get {
+            if(!this.HasProp("__PasswordMatch"))
+                this.__PasswordMatch := BOOLEAN(this.ptr + 80)
+            return this.__PasswordMatch
+        }
     }
 }

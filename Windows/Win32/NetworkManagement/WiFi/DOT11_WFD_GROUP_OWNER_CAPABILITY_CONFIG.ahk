@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -24,43 +25,58 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bPersistentGroupEnabled {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    bPersistentGroupEnabled{
+        get {
+            if(!this.HasProp("__bPersistentGroupEnabled"))
+                this.__bPersistentGroupEnabled := BOOLEAN(this.ptr + 4)
+            return this.__bPersistentGroupEnabled
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bIntraBSSDistributionSupported {
-        get => NumGet(this, 5, "char")
-        set => NumPut("char", value, this, 5)
+    bIntraBSSDistributionSupported{
+        get {
+            if(!this.HasProp("__bIntraBSSDistributionSupported"))
+                this.__bIntraBSSDistributionSupported := BOOLEAN(this.ptr + 5)
+            return this.__bIntraBSSDistributionSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bCrossConnectionSupported {
-        get => NumGet(this, 6, "char")
-        set => NumPut("char", value, this, 6)
+    bCrossConnectionSupported{
+        get {
+            if(!this.HasProp("__bCrossConnectionSupported"))
+                this.__bCrossConnectionSupported := BOOLEAN(this.ptr + 6)
+            return this.__bCrossConnectionSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bPersistentReconnectSupported {
-        get => NumGet(this, 7, "char")
-        set => NumPut("char", value, this, 7)
+    bPersistentReconnectSupported{
+        get {
+            if(!this.HasProp("__bPersistentReconnectSupported"))
+                this.__bPersistentReconnectSupported := BOOLEAN(this.ptr + 7)
+            return this.__bPersistentReconnectSupported
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bGroupFormationEnabled {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    bGroupFormationEnabled{
+        get {
+            if(!this.HasProp("__bGroupFormationEnabled"))
+                this.__bGroupFormationEnabled := BOOLEAN(this.ptr + 8)
+            return this.__bGroupFormationEnabled
+        }
     }
 
     /**

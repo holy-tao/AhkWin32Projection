@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Settings for encrypted Windows app packages.
@@ -24,20 +26,26 @@ class APPX_ENCRYPTED_PACKAGE_SETTINGS extends Win32Struct
 
     /**
      * The encryption algorithm used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    encryptionAlgorithm {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    encryptionAlgorithm{
+        get {
+            if(!this.HasProp("__encryptionAlgorithm"))
+                this.__encryptionAlgorithm := PWSTR(this.ptr + 8)
+            return this.__encryptionAlgorithm
+        }
     }
 
     /**
      * True is diffusion is used, false otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    useDiffusion {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    useDiffusion{
+        get {
+            if(!this.HasProp("__useDiffusion"))
+                this.__useDiffusion := BOOL(this.ptr + 16)
+            return this.__useDiffusion
+        }
     }
 
     /**

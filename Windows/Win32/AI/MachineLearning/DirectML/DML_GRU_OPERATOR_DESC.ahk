@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Performs a (standard layers) one-layer gated recurrent unit (GRU) function on the input. This operator uses multiple gates to perform this layer. These gates are performed multiple times in a loop dictated by the sequence length dimension and the *SequenceLengthsTensor*.
@@ -138,10 +139,13 @@ class DML_GRU_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** to specify that, when computing the output of the hidden gate, the linear transformation should be applied before multiplying by the output of the reset gate. Otherwise, **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    LinearBeforeReset {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+    LinearBeforeReset{
+        get {
+            if(!this.HasProp("__LinearBeforeReset"))
+                this.__LinearBeforeReset := BOOL(this.ptr + 84)
+            return this.__LinearBeforeReset
+        }
     }
 }

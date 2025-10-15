@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 
 /**
  * Describes a request initiated by a call to the lineGetRequest function. This data structure is obsolete and should not be used.
@@ -16,20 +18,26 @@ class LINEREQMEDIACALL extends Win32Struct
 
     /**
      * A handle to the window of the application that  made the request.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWnd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hWnd{
+        get {
+            if(!this.HasProp("__hWnd"))
+                this.__hWnd := HWND(this.ptr + 0)
+            return this.__hWnd
+        }
     }
 
     /**
      * The identifier of the request. Used to match an asynchronous response.
-     * @type {Pointer}
+     * @type {WPARAM}
      */
-    wRequestID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    wRequestID{
+        get {
+            if(!this.HasProp("__wRequestID"))
+                this.__wRequestID := WPARAM(this.ptr + 8)
+            return this.__wRequestID
+        }
     }
 
     /**

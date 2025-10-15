@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Specifies the disc to close the current session for. This control code is used for UDF file systems. This structure is used for input when calling FSCTL_MAKE_MEDIA_COMPATIBLE.
@@ -15,10 +16,13 @@ class FILE_MAKE_COMPATIBLE_BUFFER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, indicates the media should be finalized. No new data can be appended to the media.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    CloseDisc {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    CloseDisc{
+        get {
+            if(!this.HasProp("__CloseDisc"))
+                this.__CloseDisc := BOOLEAN(this.ptr + 0)
+            return this.__CloseDisc
+        }
     }
 }

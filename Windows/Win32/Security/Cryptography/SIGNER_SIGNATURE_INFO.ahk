@@ -36,9 +36,9 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<SIGNER_ATTR_AUTHCODE>}
      */
-    Anonymous {
+    pAttrAuthcode {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
     }

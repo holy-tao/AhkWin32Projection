@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes an IP address for a cluster.
@@ -30,11 +31,14 @@ class CLUSTER_IP_ENTRY extends Win32Struct
     /**
      * A <b>NULL</b>-terminated Unicode string containing a valid IPv4 or IPv6 numeric network 
      *       address.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszIpAddress {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lpszIpAddress{
+        get {
+            if(!this.HasProp("__lpszIpAddress"))
+                this.__lpszIpAddress := PWSTR(this.ptr + 0)
+            return this.__lpszIpAddress
+        }
     }
 
     /**

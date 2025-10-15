@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -124,19 +125,25 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_restrictnullsessaccess {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    sv598_restrictnullsessaccess{
+        get {
+            if(!this.HasProp("__sv598_restrictnullsessaccess"))
+                this.__sv598_restrictnullsessaccess := BOOL(this.ptr + 56)
+            return this.__sv598_restrictnullsessaccess
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_enablewfw311directipx {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    sv598_enablewfw311directipx{
+        get {
+            if(!this.HasProp("__sv598_enablewfw311directipx"))
+                this.__sv598_enablewfw311directipx := BOOL(this.ptr + 60)
+            return this.__sv598_enablewfw311directipx
+        }
     }
 
     /**
@@ -212,11 +219,14 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_sendsfrompreferredprocessor {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
+    sv598_sendsfrompreferredprocessor{
+        get {
+            if(!this.HasProp("__sv598_sendsfrompreferredprocessor"))
+                this.__sv598_sendsfrompreferredprocessor := BOOL(this.ptr + 100)
+            return this.__sv598_sendsfrompreferredprocessor
+        }
     }
 
     /**
@@ -236,43 +246,58 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_enablecompression {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+    sv598_enablecompression{
+        get {
+            if(!this.HasProp("__sv598_enablecompression"))
+                this.__sv598_enablecompression := BOOL(this.ptr + 112)
+            return this.__sv598_enablecompression
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_autosharewks {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
+    sv598_autosharewks{
+        get {
+            if(!this.HasProp("__sv598_autosharewks"))
+                this.__sv598_autosharewks := BOOL(this.ptr + 116)
+            return this.__sv598_autosharewks
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_autoshareserver {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+    sv598_autoshareserver{
+        get {
+            if(!this.HasProp("__sv598_autoshareserver"))
+                this.__sv598_autoshareserver := BOOL(this.ptr + 120)
+            return this.__sv598_autoshareserver
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_enablesecuritysignature {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
+    sv598_enablesecuritysignature{
+        get {
+            if(!this.HasProp("__sv598_enablesecuritysignature"))
+                this.__sv598_enablesecuritysignature := BOOL(this.ptr + 124)
+            return this.__sv598_enablesecuritysignature
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_requiresecuritysignature {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
+    sv598_requiresecuritysignature{
+        get {
+            if(!this.HasProp("__sv598_requiresecuritysignature"))
+                this.__sv598_requiresecuritysignature := BOOL(this.ptr + 128)
+            return this.__sv598_requiresecuritysignature
+        }
     }
 
     /**
@@ -308,27 +333,36 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_enableW9xsecuritysignature {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
+    sv598_enableW9xsecuritysignature{
+        get {
+            if(!this.HasProp("__sv598_enableW9xsecuritysignature"))
+                this.__sv598_enableW9xsecuritysignature := BOOL(this.ptr + 152)
+            return this.__sv598_enableW9xsecuritysignature
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_enforcekerberosreauthentication {
-        get => NumGet(this, 156, "int")
-        set => NumPut("int", value, this, 156)
+    sv598_enforcekerberosreauthentication{
+        get {
+            if(!this.HasProp("__sv598_enforcekerberosreauthentication"))
+                this.__sv598_enforcekerberosreauthentication := BOOL(this.ptr + 156)
+            return this.__sv598_enforcekerberosreauthentication
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_disabledos {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
+    sv598_disabledos{
+        get {
+            if(!this.HasProp("__sv598_disabledos"))
+                this.__sv598_disabledos := BOOL(this.ptr + 160)
+            return this.__sv598_disabledos
+        }
     }
 
     /**
@@ -340,18 +374,24 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_disablestrictnamechecking {
-        get => NumGet(this, 168, "int")
-        set => NumPut("int", value, this, 168)
+    sv598_disablestrictnamechecking{
+        get {
+            if(!this.HasProp("__sv598_disablestrictnamechecking"))
+                this.__sv598_disablestrictnamechecking := BOOL(this.ptr + 168)
+            return this.__sv598_disablestrictnamechecking
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv598_enableauthenticateusersharing {
-        get => NumGet(this, 172, "int")
-        set => NumPut("int", value, this, 172)
+    sv598_enableauthenticateusersharing{
+        get {
+            if(!this.HasProp("__sv598_enableauthenticateusersharing"))
+                this.__sv598_enableauthenticateusersharing := BOOL(this.ptr + 172)
+            return this.__sv598_enableauthenticateusersharing
+        }
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\APOInitBaseStruct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * The APOInitSystemEffects2 structure was introduced with Windows 8.1, to make it possible to provide additional initialization context to the audio processing object (APO) for initialization.
@@ -91,10 +92,13 @@ class APOInitSystemEffects2 extends Win32Struct
 
     /**
      * Indicates whether the audio system is initializing the APO for effects discovery only.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    InitializeForDiscoveryOnly {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    InitializeForDiscoveryOnly{
+        get {
+            if(!this.HasProp("__InitializeForDiscoveryOnly"))
+                this.__InitializeForDiscoveryOnly := BOOL(this.ptr + 64)
+            return this.__InitializeForDiscoveryOnly
+        }
     }
 }

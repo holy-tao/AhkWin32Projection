@@ -14,7 +14,7 @@ class NVME_CDW10_RESERVATION_REPORT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Anonymous {
+    NUMD {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
     }

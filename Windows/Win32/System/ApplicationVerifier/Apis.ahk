@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.ApplicationVerifier
  * @version v4.0.30319
@@ -17,7 +17,7 @@ class ApplicationVerifier {
 ;@region Methods
     /**
      * Enumerates operating system resources for use by debugging and support tools.
-     * @param {Pointer<Void>} Process A handle to the process in which resources are being enumerated.
+     * @param {HANDLE} Process A handle to the process in which resources are being enumerated.
      * 
      * When the <i>ResourceType</i> parameter is AvrfResrouceHeapAllocation, the handle must be opened with the PROCESS_VM_READ and PROCESS_QUERY_INFORMATION access rights.
      * 
@@ -32,6 +32,8 @@ class ApplicationVerifier {
      * @see https://docs.microsoft.com/windows/win32/api//avrfsdk/nf-avrfsdk-verifierenumerateresource
      */
     static VerifierEnumerateResource(Process, Flags, ResourceType, ResourceCallback, EnumerationContext) {
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
+
         result := DllCall("verifier.dll\VerifierEnumerateResource", "ptr", Process, "uint", Flags, "uint", ResourceType, "ptr", ResourceCallback, "ptr", EnumerationContext, "uint")
         return result
     }

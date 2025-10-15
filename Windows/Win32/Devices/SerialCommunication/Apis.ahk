@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
  * @version v4.0.30319
@@ -402,7 +402,7 @@ class SerialCommunication {
 ;@region Methods
     /**
      * ComDBOpen returns a handle to the COM port database.
-     * @param {Pointer<Void>} PHComDB Pointer, if the routine succeeds, to a handle to the COM port database. Otherwise, the routine sets <i>*PHComDB</i> to <b>HCOMDB_INVALID_HANDLE_VALUE</b>. <i>PHComDB</i> must be non-NULL.
+     * @param {Pointer<HCOMDB>} PHComDB Pointer, if the routine succeeds, to a handle to the COM port database. Otherwise, the routine sets <i>*PHComDB</i> to <b>HCOMDB_INVALID_HANDLE_VALUE</b>. <i>PHComDB</i> must be non-NULL.
      * @returns {Integer} <b>ComDBOpen</b> returns one of the following status values.
      * 
      * <table>
@@ -442,7 +442,7 @@ class SerialCommunication {
 
     /**
      * ComDBClose closes a handle to the COM port database.
-     * @param {Pointer<Void>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {HCOMDB} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @returns {Integer} <b>ComDBClose</b> returns one of the following status values.
      * 
      * <table>
@@ -476,13 +476,15 @@ class SerialCommunication {
      * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbclose
      */
     static ComDBClose(HComDB) {
+        HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
+
         result := DllCall("MSPORTS.dll\ComDBClose", "ptr", HComDB, "int")
         return result
     }
 
     /**
      * ComDBGetCurrentPortUsage returns information about the COM port numbers that are currently logged as &quot;in use&quot; in the COM port database.
-     * @param {Pointer<Void>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {HCOMDB} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Pointer} Buffer Pointer to a caller-allocated buffer in which the routine returns information about COM port number. See the Remarks section for more information.
      * @param {Integer} BufferSize Specifies the size, in bytes, of a caller-allocated buffer at <i>Buffer</i>.
      * @param {Integer} ReportType Specifies one of the following flags.
@@ -558,13 +560,15 @@ class SerialCommunication {
      * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbgetcurrentportusage
      */
     static ComDBGetCurrentPortUsage(HComDB, Buffer, BufferSize, ReportType, MaxPortsReported) {
+        HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
+
         result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", "ptr", HComDB, "ptr", Buffer, "uint", BufferSize, "uint", ReportType, "uint*", MaxPortsReported, "int")
         return result
     }
 
     /**
      * ComDBClaimNextFreePort returns the lowest COM port number that is not already in use.
-     * @param {Pointer<Void>} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {HCOMDB} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Pointer<UInt32>} ComNumber Pointer to the COM port number that the routine returns to the caller. This pointer must be non-NULL. A port number is an integer that ranges from 1 to COMDB_MAX_PORTS_ARBITRATED.
      * @returns {Integer} <b>ComDBClaimNextFreePort</b> returns one of the following status values.
      * 
@@ -643,16 +647,18 @@ class SerialCommunication {
      * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbclaimnextfreeport
      */
     static ComDBClaimNextFreePort(HComDB, ComNumber) {
+        HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
+
         result := DllCall("MSPORTS.dll\ComDBClaimNextFreePort", "ptr", HComDB, "uint*", ComNumber, "int")
         return result
     }
 
     /**
      * ComDBClaimPort logs an unused COM port number as &quot;in use&quot; in the COM port database.
-     * @param {Pointer<Void>} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {HCOMDB} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Integer} ComNumber Specifies which COM port number the caller attempts to claim. A port number is an integer that can range from 1 to COMDB_MAX_PORTS_ARBITRATED.
-     * @param {Integer} ForceClaim Reserved for internal use only.
-     * @param {Pointer<Int32>} Forced Reserved for internal use only.
+     * @param {BOOL} ForceClaim Reserved for internal use only.
+     * @param {Pointer<BOOL>} Forced Reserved for internal use only.
      * @returns {Integer} <b>ComDBClaimPort</b> returns one of the following status values.
      * 
      * <table>
@@ -730,13 +736,15 @@ class SerialCommunication {
      * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbclaimport
      */
     static ComDBClaimPort(HComDB, ComNumber, ForceClaim, Forced) {
-        result := DllCall("MSPORTS.dll\ComDBClaimPort", "ptr", HComDB, "uint", ComNumber, "int", ForceClaim, "int*", Forced, "int")
+        HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
+
+        result := DllCall("MSPORTS.dll\ComDBClaimPort", "ptr", HComDB, "uint", ComNumber, "ptr", ForceClaim, "ptr", Forced, "int")
         return result
     }
 
     /**
      * ComDBReleasePort releases a COM port number in the COM port database.
-     * @param {Pointer<Void>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {HCOMDB} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Integer} ComNumber Specifies the COM port number to release. A port number is an integer that ranges from one to COMDB_MAX_PORTS_ARBITRATED.
      * @returns {Integer} <b>ComDBReleasePort</b> returns one of the following status values.
      * 
@@ -793,13 +801,15 @@ class SerialCommunication {
      * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbreleaseport
      */
     static ComDBReleasePort(HComDB, ComNumber) {
+        HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
+
         result := DllCall("MSPORTS.dll\ComDBReleasePort", "ptr", HComDB, "uint", ComNumber, "int")
         return result
     }
 
     /**
      * ComDBResizeDatabase resizes the COM port database.
-     * @param {Pointer<Void>} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
+     * @param {HCOMDB} HComDB Handle to the COM port database that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
      * @param {Integer} NewSize Specifies a new size for the COM port database, where the database size is the number of port numbers currently arbitrated in the database. This value must be an integer multiple of 1024, must be greater than the current size, and must be less than or equal to COMDB_MAX_PORTS_ARBITRATED.
      * @returns {Integer} <b>ComDBResizeDatabase</b> returns one of the following status values.
      * 
@@ -867,6 +877,8 @@ class SerialCommunication {
      * @see https://docs.microsoft.com/windows/win32/api//msports/nf-msports-comdbresizedatabase
      */
     static ComDBResizeDatabase(HComDB, NewSize) {
+        HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
+
         result := DllCall("MSPORTS.dll\ComDBResizeDatabase", "ptr", HComDB, "uint", NewSize, "int")
         return result
     }

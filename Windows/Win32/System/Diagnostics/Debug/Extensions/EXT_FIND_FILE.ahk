@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\PWSTR.ahk
+#Include ..\..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -12,11 +14,14 @@ class EXT_FIND_FILE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FileName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    FileName{
+        get {
+            if(!this.HasProp("__FileName"))
+                this.__FileName := PWSTR(this.ptr + 0)
+            return this.__FileName
+        }
     }
 
     /**
@@ -84,19 +89,25 @@ class EXT_FIND_FILE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    FileHandle {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    FileHandle{
+        get {
+            if(!this.HasProp("__FileHandle"))
+                this.__FileHandle := HANDLE(this.ptr + 56)
+            return this.__FileHandle
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    FoundFileName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    FoundFileName{
+        get {
+            if(!this.HasProp("__FoundFileName"))
+                this.__FoundFileName := PWSTR(this.ptr + 64)
+            return this.__FoundFileName
+        }
     }
 
     /**

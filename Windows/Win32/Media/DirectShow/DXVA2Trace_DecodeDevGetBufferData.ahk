@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\System\Diagnostics\Etw\EVENT_TRACE_HEADER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -40,10 +41,13 @@ class DXVA2Trace_DecodeDevGetBufferData extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Enter {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    Enter{
+        get {
+            if(!this.HasProp("__Enter"))
+                this.__Enter := BOOL(this.ptr + 52)
+            return this.__Enter
+        }
     }
 }

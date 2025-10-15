@@ -27,6 +27,20 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
+    class _MbrPartInfo extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        partitionType {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
     class _GptPartInfo extends Win32Struct {
         static sizeof => 8
         static packingSize => 8
@@ -42,11 +56,14 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_MbrPartInfo}
      */
-    MbrPartInfo {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    MbrPartInfo{
+        get {
+            if(!this.HasProp("__MbrPartInfo"))
+                this.__MbrPartInfo := %this.__Class%._MbrPartInfo(this.ptr + 8)
+            return this.__MbrPartInfo
+        }
     }
 
     /**

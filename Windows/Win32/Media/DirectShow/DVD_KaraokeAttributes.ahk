@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DVD_KaraokeAttributes structure contains information about a karaoke audio stream. The IDvdInfo2::GetKaraokeAttributes method fills in a DVD_KaraokeAttributes structure for a specified stream.
@@ -24,20 +25,26 @@ class DVD_KaraokeAttributes extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the "Guide Vocal 1" channel contains the "Master of Ceremonies" content.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fMasterOfCeremoniesInGuideVocal1 {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fMasterOfCeremoniesInGuideVocal1{
+        get {
+            if(!this.HasProp("__fMasterOfCeremoniesInGuideVocal1"))
+                this.__fMasterOfCeremoniesInGuideVocal1 := BOOL(this.ptr + 4)
+            return this.__fMasterOfCeremoniesInGuideVocal1
+        }
     }
 
     /**
      * A Boolean value indicating whether the song is intended to be sung as a duet.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fDuet {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fDuet{
+        get {
+            if(!this.HasProp("__fDuet"))
+                this.__fDuet := BOOL(this.ptr + 8)
+            return this.__fDuet
+        }
     }
 
     /**

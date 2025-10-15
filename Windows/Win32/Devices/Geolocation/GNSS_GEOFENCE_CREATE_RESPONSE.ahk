@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
@@ -28,11 +29,14 @@ class GNSS_GEOFENCE_CREATE_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
-    CreationStatus {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    CreationStatus{
+        get {
+            if(!this.HasProp("__CreationStatus"))
+                this.__CreationStatus := NTSTATUS(this.ptr + 8)
+            return this.__CreationStatus
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Provides information about the context in which marshalling should be carried out.
@@ -15,11 +16,14 @@ class CALLFRAME_MARSHALCONTEXT extends Win32Struct
 
     /**
      * <b>TRUE</b> if the in parameter values are to be marshaled and <b>FALSE</b> if the out parameter values are to be marshaled. The in parameter values are marshaled on the client side and the out parameter values are marshaled on the server side.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    fIn {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    fIn{
+        get {
+            if(!this.HasProp("__fIn"))
+                this.__fIn := BOOLEAN(this.ptr + 0)
+            return this.__fIn
+        }
     }
 
     /**

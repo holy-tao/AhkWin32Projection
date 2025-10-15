@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -12,10 +13,13 @@ class SERVER_INFO_1600 extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    sv1598_disabledos {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    sv1598_disabledos{
+        get {
+            if(!this.HasProp("__sv1598_disabledos"))
+                this.__sv1598_disabledos := BOOLEAN(this.ptr + 0)
+            return this.__sv1598_disabledos
+        }
     }
 }

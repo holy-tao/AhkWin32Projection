@@ -116,10 +116,9 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<UInt16>}
      */
-    u1 {
+    Reserved {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
     }

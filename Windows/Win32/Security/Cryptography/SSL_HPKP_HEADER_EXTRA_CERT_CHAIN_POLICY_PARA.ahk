@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -28,20 +30,23 @@ class SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszServerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszServerName{
+        get {
+            if(!this.HasProp("__pwszServerName"))
+                this.__pwszServerName := PWSTR(this.ptr + 8)
+            return this.__pwszServerName
+        }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<PSTR>}
      */
     rgpszHpkpValue{
         get {
             if(!this.HasProp("__rgpszHpkpValueProxyArray"))
-                this.__rgpszHpkpValueProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ptr")
+                this.__rgpszHpkpValueProxyArray := Win32FixedArray(this.ptr + 16, 2, PSTR, "")
             return this.__rgpszHpkpValueProxyArray
         }
     }

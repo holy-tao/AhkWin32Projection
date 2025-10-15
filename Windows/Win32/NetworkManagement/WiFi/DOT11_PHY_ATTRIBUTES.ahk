@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DOT11_HRDSSS_PHY_ATTRIBUTES.ahk
+#Include .\DOT11_OFDM_PHY_ATTRIBUTES.ahk
 #Include .\DOT11_ERP_PHY_ATTRIBUTES.ahk
 #Include .\DOT11_DATA_RATE_MAPPING_ENTRY.ahk
 #Include .\DOT11_SUPPORTED_DATA_RATES_VALUE_V2.ahk
@@ -36,27 +38,36 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bHardwarePhyState {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    bHardwarePhyState{
+        get {
+            if(!this.HasProp("__bHardwarePhyState"))
+                this.__bHardwarePhyState := BOOLEAN(this.ptr + 8)
+            return this.__bHardwarePhyState
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bSoftwarePhyState {
-        get => NumGet(this, 9, "char")
-        set => NumPut("char", value, this, 9)
+    bSoftwarePhyState{
+        get {
+            if(!this.HasProp("__bSoftwarePhyState"))
+                this.__bSoftwarePhyState := BOOLEAN(this.ptr + 9)
+            return this.__bSoftwarePhyState
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bCFPollable {
-        get => NumGet(this, 10, "char")
-        set => NumPut("char", value, this, 10)
+    bCFPollable{
+        get {
+            if(!this.HasProp("__bCFPollable"))
+                this.__bCFPollable := BOOLEAN(this.ptr + 10)
+            return this.__bCFPollable
+        }
     }
 
     /**
@@ -95,11 +106,14 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_OFDM_PHY_ATTRIBUTES}
      */
-    OFDMAttributes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    OFDMAttributes{
+        get {
+            if(!this.HasProp("__OFDMAttributes"))
+                this.__OFDMAttributes := DOT11_OFDM_PHY_ATTRIBUTES(this.ptr + 24)
+            return this.__OFDMAttributes
+        }
     }
 
     /**

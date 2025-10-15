@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\AAL5_PARAMETERS.ahk
+#Include .\AALUSER_PARAMETERS.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -32,10 +33,13 @@ class AAL_PARAMETERS_IE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {AALUSER_PARAMETERS}
      */
-    AALUserParameters {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    AALUserParameters{
+        get {
+            if(!this.HasProp("__AALUserParameters"))
+                this.__AALUserParameters := AALUSER_PARAMETERS(this.ptr + 8)
+            return this.__AALUserParameters
+        }
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the CF_HDROP clipboard format. The data that follows is a double null-terminated list of file names.
@@ -43,21 +44,27 @@ class DROPFILES extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A nonclient area flag. If this member is <b>TRUE</b>, <b>pt</b> specifies the screen coordinates of a point in a window's nonclient area. If it is <b>FALSE</b>, <b>pt</b> specifies the client coordinates of a point in the client area.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fNC {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    fNC{
+        get {
+            if(!this.HasProp("__fNC"))
+                this.__fNC := BOOL(this.ptr + 16)
+            return this.__fNC
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the file contains ANSI or Unicode characters. If the value is zero, the file contains ANSI characters. Otherwise, it contains Unicode characters.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fWide {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    fWide{
+        get {
+            if(!this.HasProp("__fWide"))
+                this.__fWide := BOOL(this.ptr + 20)
+            return this.__fWide
+        }
     }
 }

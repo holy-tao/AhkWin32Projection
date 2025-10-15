@@ -23,6 +23,93 @@ class MIB_IF_ROW2 extends Win32Struct
 
     static packingSize => 8
 
+    class _InterfaceAndOperStatusFlags extends Win32Struct {
+        static sizeof => 1352
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - HardwareInterface
+         * - FilterInterface
+         * - ConnectorPresent
+         * - NotAuthenticated
+         * - NotMediaConnected
+         * - Paused
+         * - LowPower
+         * - EndPointInterface
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HardwareInterface {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FilterInterface {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ConnectorPresent {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NotAuthenticated {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NotMediaConnected {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Paused {
+            get => (this._bitfield >> 5) & 0x1
+            set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LowPower {
+            get => (this._bitfield >> 6) & 0x1
+            set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        EndPointInterface {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+    }
+
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a></b>
      * 
@@ -1011,11 +1098,14 @@ class MIB_IF_ROW2 extends Win32Struct
 
     /**
      * A set of flags that provide information about the interface. These flags are combined with a bitwise OR operation. If none of the flags applies, then this member is set to zero.
-     * @type {Integer}
+     * @type {_InterfaceAndOperStatusFlags}
      */
-    InterfaceAndOperStatusFlags {
-        get => NumGet(this, 1156, "char")
-        set => NumPut("char", value, this, 1156)
+    InterfaceAndOperStatusFlags{
+        get {
+            if(!this.HasProp("__InterfaceAndOperStatusFlags"))
+                this.__InterfaceAndOperStatusFlags := %this.__Class%._InterfaceAndOperStatusFlags(this.ptr + 1156)
+            return this.__InterfaceAndOperStatusFlags
+        }
     }
 
     /**

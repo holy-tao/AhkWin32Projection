@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -33,19 +35,25 @@ class DRAGINFOA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fNC {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    fNC{
+        get {
+            if(!this.HasProp("__fNC"))
+                this.__fNC := BOOL(this.ptr + 16)
+            return this.__fNC
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpFileList {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpFileList{
+        get {
+            if(!this.HasProp("__lpFileList"))
+                this.__lpFileList := PSTR(this.ptr + 24)
+            return this.__lpFileList
+        }
     }
 
     /**

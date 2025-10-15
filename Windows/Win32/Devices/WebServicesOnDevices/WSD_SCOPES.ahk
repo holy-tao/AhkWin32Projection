@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * A collection of scopes used in WS-Discovery messaging.
@@ -15,11 +16,14 @@ class WSD_SCOPES extends Win32Struct
 
     /**
      * A matching rule used for scopes.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    MatchBy {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    MatchBy{
+        get {
+            if(!this.HasProp("__MatchBy"))
+                this.__MatchBy := PWSTR(this.ptr + 0)
+            return this.__MatchBy
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -16,11 +17,14 @@ class IORING_HANDLE_REF extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        Handle {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        Handle{
+            get {
+                if(!this.HasProp("__Handle"))
+                    this.__Handle := HANDLE(this.ptr + 0)
+                return this.__Handle
+            }
         }
     
         /**

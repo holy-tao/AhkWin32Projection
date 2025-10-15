@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 #Include .\LOGPEN.ahk
 
 /**

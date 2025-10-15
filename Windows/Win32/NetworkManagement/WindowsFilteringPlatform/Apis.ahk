@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
@@ -2966,7 +2966,7 @@ class WindowsFilteringPlatform {
 
     /**
      * Opens a session to the filter engine.
-     * @param {Pointer<Char>} serverName Type: <b>const wchar_t*</b>
+     * @param {PWSTR} serverName Type: <b>const wchar_t*</b>
      * 
      * This value must be <b>NULL</b>.
      * @param {Integer} authnService Type: <b>UINT32</b>
@@ -2978,7 +2978,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<FWPM_SESSION0>} session Type: [FWPM_SESSION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_session0)*</b>
      * 
      * Session-specific parameters for the session being opened. This pointer is optional and can be <b>NULL</b>.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} engineHandle Type: <b>HANDLE*</b>
      * 
      * Handle for the open session to the filter engine.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -3041,7 +3041,7 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmEngineOpen0(serverName, authnService, authIdentity, session, engineHandle) {
-        serverName := serverName is String? StrPtr(serverName) : serverName
+        serverName := serverName is String ? StrPtr(serverName) : serverName
 
         result := DllCall("fwpuclnt.dll\FwpmEngineOpen0", "ptr", serverName, "uint", authnService, "ptr", authIdentity, "ptr", session, "ptr", engineHandle, "uint")
         return result
@@ -3049,7 +3049,7 @@ class WindowsFilteringPlatform {
 
     /**
      * Closes a session to a filter engine.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -3100,13 +3100,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmEngineClose0(engineHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmEngineClose0", "ptr", engineHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a filter engine option.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} option Type: [FWPM_ENGINE_OPTION](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option)</b>
@@ -3197,13 +3199,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmEngineGetOption0(engineHandle, option, value) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmEngineGetOption0", "ptr", engineHandle, "int", option, "ptr", value, "uint")
         return result
     }
 
     /**
      * Changes the filter engine settings.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} option Type: [FWPM_ENGINE_OPTION](/windows/desktop/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option)</b>
@@ -3294,22 +3298,24 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmEngineSetOption0(engineHandle, option, newValue) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmEngineSetOption0", "ptr", engineHandle, "int", option, "ptr", newValue, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for the filter engine.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -3318,7 +3324,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -3369,13 +3375,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of the filter engine.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
@@ -3441,19 +3449,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmEngineSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmEngineSetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of session objects.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<UInt64>} enumTemplate Type: [FWPM_SESSION_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_session_enum_template0)*</b>
+     * @param {Pointer<FWPM_SESSION_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_SESSION_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_session_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle for filter enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -3504,16 +3514,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSessionCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-        result := DllCall("fwpuclnt.dll\FwpmSessionCreateEnumHandle0", "ptr", engineHandle, "uint*", enumTemplate, "ptr", enumHandle, "uint")
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
+        result := DllCall("fwpuclnt.dll\FwpmSessionCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the session enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a session enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsessioncreateenumhandle0">FwpmSessionCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -3573,16 +3585,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSessionEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSessionEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by FwpmSessionCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a session enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsessioncreateenumhandle0">FwpmSessionCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -3633,13 +3648,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSessionDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSessionDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Begins an explicit transaction within the current session.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} flags Type: <b>UINT32</b>
@@ -3721,13 +3739,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmTransactionBegin0(engineHandle, flags) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmTransactionBegin0", "ptr", engineHandle, "uint", flags, "uint")
         return result
     }
 
     /**
      * Commits the current transaction within the current session.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -3778,13 +3798,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmTransactionCommit0(engineHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmTransactionCommit0", "ptr", engineHandle, "uint")
         return result
     }
 
     /**
      * Causes the current transaction within the current session to abort and rollback.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -3835,19 +3857,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmTransactionAbort0(engineHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmTransactionAbort0", "ptr", engineHandle, "uint")
         return result
     }
 
     /**
      * Adds a new provider to the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_PROVIDER0>} provider Type: [FWPM_PROVIDER0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider0)*</b>
      * 
      * The provider object to be added.
-     * @param {Pointer<Void>} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
+     * @param {PSECURITY_DESCRIPTOR} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
      * 
      * Security information for the provider object.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -3898,13 +3922,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderAdd0(engineHandle, provider, sd) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmProviderAdd0", "ptr", engineHandle, "ptr", provider, "ptr", sd, "uint")
         return result
     }
 
     /**
      * Removes a provider from the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -3958,13 +3985,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderDeleteByKey0(engineHandle, key) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderDeleteByKey0", "ptr", engineHandle, "ptr", key, "uint")
         return result
     }
 
     /**
      * Retrieves a provider.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -4021,19 +4050,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderGetByKey0(engineHandle, key, provider) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderGetByKey0", "ptr", engineHandle, "ptr", key, "ptr", provider, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of providers.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<UInt64>} enumTemplate Type: [FWPM_PROVIDER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_enum_template0)*</b>
+     * @param {Pointer<FWPM_PROVIDER_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_PROVIDER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle for provider enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -4084,16 +4115,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-        result := DllCall("fwpuclnt.dll\FwpmProviderCreateEnumHandle0", "ptr", engineHandle, "uint*", enumTemplate, "ptr", enumHandle, "uint")
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the provider enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a provider  enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercreateenumhandle0">FwpmProviderCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -4153,16 +4186,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by FwpmProviderCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a provider enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercreateenumhandle0">FwpmProviderCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -4213,13 +4249,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for a provider object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -4228,10 +4267,10 @@ class WindowsFilteringPlatform {
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -4240,7 +4279,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -4291,13 +4330,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of a provider object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -4366,13 +4407,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderSetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding changes in a particular provider.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_PROVIDER_SUBSCRIPTION0>} subscription Type: [FWPM_PROVIDER_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_subscription0)*</b>
@@ -4384,7 +4427,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
-     * @param {Pointer<Void>} changeHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -4435,16 +4478,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderSubscribeChanges0(engineHandle, subscription, callback, context, changeHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", changeHandle, "uint")
         return result
     }
 
     /**
      * Is used to cancel a provider change subscription and stop receiving change notifications.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} changeHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} changeHandle Type: <b>HANDLE</b>
      * 
      * Handle of the subscribed change notification. This is the handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidersubscribechanges0">FwpmProviderSubscribeChanges0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -4495,13 +4540,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderUnsubscribeChanges0(engineHandle, changeHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        changeHandle := changeHandle is Win32Handle ? NumGet(changeHandle, "ptr") : changeHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderUnsubscribeChanges0", "ptr", engineHandle, "ptr", changeHandle, "uint")
         return result
     }
 
     /**
      * Retrieves an array of all the current provider change notification subscriptions.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_PROVIDER_SUBSCRIPTION0>} entries Type: [FWPM_PROVIDER_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_subscription0)***</b>
@@ -4558,19 +4606,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderSubscriptionsGet0(engineHandle, entries, numEntries) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderSubscriptionsGet0", "ptr", engineHandle, "ptr", entries, "uint*", numEntries, "uint")
         return result
     }
 
     /**
      * Adds a new provider context to the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_PROVIDER_CONTEXT0>} providerContext Type: [FWPM_PROVIDER_CONTEXT0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context0)*</b>
      * 
      * The provider context object to be added.
-     * @param {Pointer<Void>} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
+     * @param {PSECURITY_DESCRIPTOR} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
      * 
      * Security information associated with the provider context object.
      * @param {Pointer<UInt64>} id Type: <b>UINT64*</b>
@@ -4637,19 +4687,22 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextAdd0(engineHandle, providerContext, sd, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd0", "ptr", engineHandle, "ptr", providerContext, "ptr", sd, "uint*", id, "uint")
         return result
     }
 
     /**
      * Adds a new provider context to the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_PROVIDER_CONTEXT1>} providerContext Type: [FWPM_PROVIDER_CONTEXT1](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context1)*</b>
      * 
      * The provider context object to be added.
-     * @param {Pointer<Void>} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
+     * @param {PSECURITY_DESCRIPTOR} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
      * 
      * Security information associated with the provider context object.
      * @param {Pointer<UInt64>} id Type: <b>UINT64*</b>
@@ -4716,19 +4769,22 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static FwpmProviderContextAdd1(engineHandle, providerContext, sd, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd1", "ptr", engineHandle, "ptr", providerContext, "ptr", sd, "uint*", id, "uint")
         return result
     }
 
     /**
      * Adds a new provider context to the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_PROVIDER_CONTEXT2>} providerContext Type: [FWPM_PROVIDER_CONTEXT2](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context2)*</b>
      * 
      * The provider context object to be added.
-     * @param {Pointer<Void>} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
+     * @param {PSECURITY_DESCRIPTOR} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
      * 
      * Security information associated with the provider context object.
      * @param {Pointer<UInt64>} id Type: <b>UINT64*</b>
@@ -4795,26 +4851,32 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmProviderContextAdd2(engineHandle, providerContext, sd, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd2", "ptr", engineHandle, "ptr", providerContext, "ptr", sd, "uint*", id, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
+     * @param {HANDLE} engineHandle 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} providerContext 
-     * @param {Pointer<Void>} sd 
+     * @param {PSECURITY_DESCRIPTOR} sd 
      * @param {Pointer<UInt64>} id 
      * @returns {Integer} 
      */
     static FwpmProviderContextAdd3(engineHandle, providerContext, sd, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd3", "ptr", engineHandle, "ptr", providerContext, "ptr", sd, "uint*", id, "uint")
         return result
     }
 
     /**
      * Removes a provider context from the system .
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -4868,13 +4930,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextDeleteById0(engineHandle, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextDeleteById0", "ptr", engineHandle, "uint", id, "uint")
         return result
     }
 
     /**
      * Removes a provider context from the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -4928,13 +4992,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextDeleteByKey0(engineHandle, key) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextDeleteByKey0", "ptr", engineHandle, "ptr", key, "uint")
         return result
     }
 
     /**
      * Retrieves a provider context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -4991,13 +5057,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextGetById0(engineHandle, id, providerContext) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById0", "ptr", engineHandle, "uint", id, "ptr", providerContext, "uint")
         return result
     }
 
     /**
      * Retrieves a provider context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -5054,13 +5122,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static FwpmProviderContextGetById1(engineHandle, id, providerContext) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById1", "ptr", engineHandle, "uint", id, "ptr", providerContext, "uint")
         return result
     }
 
     /**
      * Retrieves a provider context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -5117,25 +5187,29 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmProviderContextGetById2(engineHandle, id, providerContext) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById2", "ptr", engineHandle, "uint", id, "ptr", providerContext, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
+     * @param {HANDLE} engineHandle 
      * @param {Integer} id 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} providerContext 
      * @returns {Integer} 
      */
     static FwpmProviderContextGetById3(engineHandle, id, providerContext) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById3", "ptr", engineHandle, "uint", id, "ptr", providerContext, "uint")
         return result
     }
 
     /**
      * Retrieves a provider context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -5192,13 +5266,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextGetByKey0(engineHandle, key, providerContext) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey0", "ptr", engineHandle, "ptr", key, "ptr", providerContext, "uint")
         return result
     }
 
     /**
      * Retrieves a provider context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -5255,13 +5331,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static FwpmProviderContextGetByKey1(engineHandle, key, providerContext) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey1", "ptr", engineHandle, "ptr", key, "ptr", providerContext, "uint")
         return result
     }
 
     /**
      * Retrieves a provider context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -5318,31 +5396,35 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmProviderContextGetByKey2(engineHandle, key, providerContext) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey2", "ptr", engineHandle, "ptr", key, "ptr", providerContext, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
+     * @param {HANDLE} engineHandle 
      * @param {Pointer<Guid>} key 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} providerContext 
      * @returns {Integer} 
      */
     static FwpmProviderContextGetByKey3(engineHandle, key, providerContext) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey3", "ptr", engineHandle, "ptr", key, "ptr", providerContext, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of provider contexts.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0>} enumTemplate Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context_enum_template0">FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0</a>*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle for provider context enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -5393,16 +5475,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the provider context enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a provider context enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0">FwpmProviderContextCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -5462,16 +5546,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the provider context enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a provider context enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0">FwpmProviderContextCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -5531,16 +5618,19 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static FwpmProviderContextEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the provider context enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a provider context enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0">FwpmProviderContextCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -5600,30 +5690,36 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmProviderContextEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum2", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
-     * @param {Pointer<Void>} enumHandle 
+     * @param {HANDLE} engineHandle 
+     * @param {HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} entries 
      * @param {Pointer<UInt32>} numEntriesReturned 
      * @returns {Integer} 
      */
     static FwpmProviderContextEnum3(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum3", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by FwpmProviderContextCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a provider context enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0">FwpmProviderContextCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -5674,13 +5770,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for a provider context object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -5689,10 +5788,10 @@ class WindowsFilteringPlatform {
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -5701,7 +5800,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -5752,13 +5851,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of a provider context object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -5827,13 +5928,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextSetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding changes in a particular provider context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0>} subscription Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context_subscription0">FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0</a>*</b>
@@ -5845,7 +5948,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
-     * @param {Pointer<Void>} changeHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -5896,16 +5999,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextSubscribeChanges0(engineHandle, subscription, callback, context, changeHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", changeHandle, "uint")
         return result
     }
 
     /**
      * Is used to cancel a provider context change subscription and stop receiving change notifications.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} changeHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} changeHandle Type: <b>HANDLE</b>
      * 
      * Handle of the subscribed change notification. This is the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextsubscribechanges0">FwpmProviderContextSubscribeChanges0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -5956,13 +6061,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextUnsubscribeChanges0(engineHandle, changeHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        changeHandle := changeHandle is Win32Handle ? NumGet(changeHandle, "ptr") : changeHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextUnsubscribeChanges0", "ptr", engineHandle, "ptr", changeHandle, "uint")
         return result
     }
 
     /**
      * Retrieves an array of all the current provider context change notification subscriptions.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0>} entries Type: <b><a href="https://docs.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context_subscription0">FWPM_PROVIDER_CONTEXT_SUBSCRIPTION0</a>***</b>
@@ -6019,19 +6127,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmProviderContextSubscriptionsGet0(engineHandle, entries, numEntries) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmProviderContextSubscriptionsGet0", "ptr", engineHandle, "ptr", entries, "uint*", numEntries, "uint")
         return result
     }
 
     /**
      * Adds a new sublayer to the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_SUBLAYER0>} subLayer Type: [FWPM_SUBLAYER0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer0)*</b>
      * 
      * The sublayer to be added.
-     * @param {Pointer<Void>} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
+     * @param {PSECURITY_DESCRIPTOR} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
      * 
      * Security information for the sublayer object.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6082,13 +6192,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerAdd0(engineHandle, subLayer, sd) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerAdd0", "ptr", engineHandle, "ptr", subLayer, "ptr", sd, "uint")
         return result
     }
 
     /**
      * Deletes a sublayer from the system by its key.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -6142,13 +6255,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerDeleteByKey0(engineHandle, key) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerDeleteByKey0", "ptr", engineHandle, "ptr", key, "uint")
         return result
     }
 
     /**
      * Retrieves a sublayer by its key.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -6205,19 +6320,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerGetByKey0(engineHandle, key, subLayer) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerGetByKey0", "ptr", engineHandle, "ptr", key, "ptr", subLayer, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of sublayers.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<TypeHandle>} enumTemplate Type: [FWPM_SUBLAYER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer_enum_template0)*</b>
+     * @param {Pointer<FWPM_SUBLAYER_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_SUBLAYER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle for sublayer enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6268,16 +6385,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the sublayer enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a sublayer enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsublayercreateenumhandle0">FwpmSubLayerCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -6337,16 +6456,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by FwpmSubLayerCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a sublayer enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsublayercreateenumhandle0">FwpmSubLayerCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6397,13 +6519,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for a sublayer.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -6412,10 +6537,10 @@ class WindowsFilteringPlatform {
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -6424,7 +6549,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6475,13 +6600,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of a sublayer.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -6550,13 +6677,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerSetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding changes in a particular sublayer.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_SUBLAYER_SUBSCRIPTION0>} subscription Type: [FWPM_SUBLAYER_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer_subscription0)*</b>
@@ -6568,7 +6697,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
-     * @param {Pointer<Void>} changeHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6619,16 +6748,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerSubscribeChanges0(engineHandle, subscription, callback, context, changeHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", changeHandle, "uint")
         return result
     }
 
     /**
      * Is used to cancel a sublayer change subscription and stop receiving change notifications.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} changeHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} changeHandle Type: <b>HANDLE</b>
      * 
      * Handle of the subscribed change notification. This is the returned handle from the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsublayersubscribechanges0">FwpmSubLayerSubscribeChanges0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6679,13 +6810,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerUnsubscribeChanges0(engineHandle, changeHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        changeHandle := changeHandle is Win32Handle ? NumGet(changeHandle, "ptr") : changeHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerUnsubscribeChanges0", "ptr", engineHandle, "ptr", changeHandle, "uint")
         return result
     }
 
     /**
      * Retrieves an array of all the current sub-layer change notification subscriptions.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_SUBLAYER_SUBSCRIPTION0>} entries Type: [FWPM_SUBLAYER_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer_subscription0)***</b>
@@ -6742,13 +6876,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmSubLayerSubscriptionsGet0(engineHandle, entries, numEntries) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSubLayerSubscriptionsGet0", "ptr", engineHandle, "ptr", entries, "uint*", numEntries, "uint")
         return result
     }
 
     /**
      * Retrieves a layer object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT16</b>
@@ -6805,13 +6941,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmLayerGetById0(engineHandle, id, layer) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmLayerGetById0", "ptr", engineHandle, "ushort", id, "ptr", layer, "uint")
         return result
     }
 
     /**
      * Retrieves a layer object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -6868,19 +7006,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmLayerGetByKey0(engineHandle, key, layer) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmLayerGetByKey0", "ptr", engineHandle, "ptr", key, "ptr", layer, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of layer objects.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<UInt64>} enumTemplate Type: [FWPM_LAYER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_layer_enum_template0)*</b>
+     * @param {Pointer<FWPM_LAYER_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_LAYER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_layer_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle for the layer enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -6931,16 +7071,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmLayerCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-        result := DllCall("fwpuclnt.dll\FwpmLayerCreateEnumHandle0", "ptr", engineHandle, "uint*", enumTemplate, "ptr", enumHandle, "uint")
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
+        result := DllCall("fwpuclnt.dll\FwpmLayerCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the layer enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a layer enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmlayercreateenumhandle0">FwpmLayerCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -7000,16 +7142,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmLayerEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmLayerEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by FwpmFilterCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a layer enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmlayercreateenumhandle0">FwpmLayerCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -7060,13 +7205,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmLayerDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmLayerDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for a layer object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -7075,10 +7223,10 @@ class WindowsFilteringPlatform {
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -7087,7 +7235,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -7138,13 +7286,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of a layer object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -7213,19 +7363,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmLayerSetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Adds a new callout object to the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_CALLOUT0>} callout Type: [FWPM_CALLOUT0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_callout0)*</b>
      * 
      * The callout object to be added.
-     * @param {Pointer<Void>} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
+     * @param {PSECURITY_DESCRIPTOR} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
      * 
      * The security information associated with the callout.
      * @param {Pointer<UInt32>} id Type: <b>UINT32*</b>
@@ -7292,13 +7444,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutAdd0(engineHandle, callout, sd, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutAdd0", "ptr", engineHandle, "ptr", callout, "ptr", sd, "uint*", id, "uint")
         return result
     }
 
     /**
      * Removes a callout object from the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT32</b>
@@ -7352,13 +7507,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutDeleteById0(engineHandle, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutDeleteById0", "ptr", engineHandle, "uint", id, "uint")
         return result
     }
 
     /**
      * Removes a callout object from the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -7412,13 +7569,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutDeleteByKey0(engineHandle, key) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutDeleteByKey0", "ptr", engineHandle, "ptr", key, "uint")
         return result
     }
 
     /**
      * Retrieves a callout object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT32</b>
@@ -7475,13 +7634,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutGetById0(engineHandle, id, callout) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutGetById0", "ptr", engineHandle, "uint", id, "ptr", callout, "uint")
         return result
     }
 
     /**
      * Retrieves a callout object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -7538,19 +7699,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutGetByKey0(engineHandle, key, callout) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutGetByKey0", "ptr", engineHandle, "ptr", key, "ptr", callout, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of callout objects.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_CALLOUT_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_CALLOUT_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_callout_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle of the newly created enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -7601,16 +7764,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the callout enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a callout enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmcalloutcreateenumhandle0">FwpmCalloutCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -7670,16 +7835,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by FwpmCalloutCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a callout enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmcalloutcreateenumhandle0">FwpmCalloutCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -7730,13 +7898,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for a callout object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -7745,10 +7916,10 @@ class WindowsFilteringPlatform {
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -7757,7 +7928,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -7808,13 +7979,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of a callout object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -7883,13 +8056,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutSetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding changes in a particular callout.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_CALLOUT_SUBSCRIPTION0>} subscription Type: [FWPM_CALLOUT_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_callout_subscription0)*</b>
@@ -7901,7 +8076,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
-     * @param {Pointer<Void>} changeHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -7952,16 +8127,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutSubscribeChanges0(engineHandle, subscription, callback, context, changeHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", changeHandle, "uint")
         return result
     }
 
     /**
      * Is used to cancel a callout change subscription and stop receiving change notifications.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} changeHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} changeHandle Type: <b>HANDLE</b>
      * 
      * Handle of the subscribed change notification. This is the handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmcalloutsubscribechanges0">FwpmCalloutSubscribeChanges0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -8012,13 +8189,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutUnsubscribeChanges0(engineHandle, changeHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        changeHandle := changeHandle is Win32Handle ? NumGet(changeHandle, "ptr") : changeHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutUnsubscribeChanges0", "ptr", engineHandle, "ptr", changeHandle, "uint")
         return result
     }
 
     /**
      * Retrieves an array of all the current callout change notification subscriptions.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_CALLOUT_SUBSCRIPTION0>} entries Type: [FWPM_CALLOUT_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_callout_subscription0)***</b>
@@ -8075,19 +8255,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmCalloutSubscriptionsGet0(engineHandle, entries, numEntries) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmCalloutSubscriptionsGet0", "ptr", engineHandle, "ptr", entries, "uint*", numEntries, "uint")
         return result
     }
 
     /**
      * Adds a new filter object to the system.
-     * @param {Pointer<Void>} engineHandle Type: **HANDLE**
+     * @param {HANDLE} engineHandle Type: **HANDLE**
      * 
      * Handle for an open session to the filter engine. Call  [FwpmEngineOpen0](nf-fwpmu-fwpmengineopen0.md) to open a session to the filter engine.
      * @param {Pointer<FWPM_FILTER0>} filter Type: **[FWPM_FILTER0](../fwpmtypes/ns-fwpmtypes-fwpm_filter0.md)***
      * 
      * The filter object to be added.
-     * @param {Pointer<Void>} sd Type: **[SECURITY_DESCRIPTOR](../winnt/ns-winnt-security_descriptor.md)**
+     * @param {PSECURITY_DESCRIPTOR} sd Type: **[SECURITY_DESCRIPTOR](../winnt/ns-winnt-security_descriptor.md)**
      * 
      * Security information about the filter object.
      * @param {Pointer<UInt64>} id Type: **UINT64***
@@ -8106,13 +8288,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterAdd0(engineHandle, filter, sd, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmFilterAdd0", "ptr", engineHandle, "ptr", filter, "ptr", sd, "uint*", id, "uint")
         return result
     }
 
     /**
      * Removes a filter object from the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -8166,13 +8351,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterDeleteById0(engineHandle, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterDeleteById0", "ptr", engineHandle, "uint", id, "uint")
         return result
     }
 
     /**
      * Removes a filter object from the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -8226,13 +8413,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterDeleteByKey0(engineHandle, key) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterDeleteByKey0", "ptr", engineHandle, "ptr", key, "uint")
         return result
     }
 
     /**
      * Retrieves a filter object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -8289,13 +8478,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterGetById0(engineHandle, id, filter) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterGetById0", "ptr", engineHandle, "uint", id, "ptr", filter, "uint")
         return result
     }
 
     /**
      * Retrieves a filter object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -8352,19 +8543,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterGetByKey0(engineHandle, key, filter) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterGetByKey0", "ptr", engineHandle, "ptr", key, "ptr", filter, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of filter objects.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_FILTER_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_FILTER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * The handle for filter enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -8415,16 +8608,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the filter enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a filter enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfiltercreateenumhandle0">FwpmFilterCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -8484,16 +8679,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by FwpmFilterCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a filter enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfiltercreateenumhandle0">FwpmFilterCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -8544,13 +8742,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for a filter object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -8559,10 +8760,10 @@ class WindowsFilteringPlatform {
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -8571,7 +8772,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -8622,13 +8823,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of a filter object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -8697,13 +8900,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterSetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding changes in a particular filter.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_FILTER_SUBSCRIPTION0>} subscription Type: [FWPM_FILTER_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_subscription0)*</b>
@@ -8715,7 +8920,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
-     * @param {Pointer<Void>} changeHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} changeHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -8766,16 +8971,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterSubscribeChanges0(engineHandle, subscription, callback, context, changeHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterSubscribeChanges0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", changeHandle, "uint")
         return result
     }
 
     /**
      * Is used to cancel a filter change subscription and stop receiving change notifications.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} changeHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} changeHandle Type: <b>HANDLE</b>
      * 
      * Handle of the subscribed change notification. This is the handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmfiltersubscribechanges0">FwpmFilterSubscribeChanges0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -8826,13 +9033,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterUnsubscribeChanges0(engineHandle, changeHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        changeHandle := changeHandle is Win32Handle ? NumGet(changeHandle, "ptr") : changeHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterUnsubscribeChanges0", "ptr", engineHandle, "ptr", changeHandle, "uint")
         return result
     }
 
     /**
      * Retrieves an array of all the current filter change notification subscriptions.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_FILTER_SUBSCRIPTION0>} entries Type: [FWPM_FILTER_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_subscription0)***</b>
@@ -8889,13 +9099,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFilterSubscriptionsGet0(engineHandle, entries, numEntries) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmFilterSubscriptionsGet0", "ptr", engineHandle, "ptr", entries, "uint*", numEntries, "uint")
         return result
     }
 
     /**
      * Retrieves an application identifier from a file name.
-     * @param {Pointer<Char>} fileName Type: <b>const wchar_t*</b>
+     * @param {PWSTR} fileName Type: <b>const wchar_t*</b>
      * 
      * File name from which the application identifier will be retrieved.
      * @param {Pointer<FWP_BYTE_BLOB>} appId Type: [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob)**</b>
@@ -8949,7 +9161,7 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmGetAppIdFromFileName0(fileName, appId) {
-        fileName := fileName is String? StrPtr(fileName) : fileName
+        fileName := fileName is String ? StrPtr(fileName) : fileName
 
         result := DllCall("fwpuclnt.dll\FwpmGetAppIdFromFileName0", "ptr", fileName, "ptr", appId, "uint")
         return result
@@ -8957,42 +9169,48 @@ class WindowsFilteringPlatform {
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
+     * @param {HANDLE} engineHandle 
      * @param {Integer} flags 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT0>} mainModePolicy 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT0>} tunnelPolicy 
      * @param {Integer} numFilterConditions 
      * @param {Pointer<FWPM_FILTER_CONDITION0>} filterConditions 
-     * @param {Pointer<Void>} sd 
+     * @param {PSECURITY_DESCRIPTOR} sd 
      * @returns {Integer} 
      * @since windows6.0.6000
      */
     static FwpmIPsecTunnelAdd0(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, sd) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd0", "ptr", engineHandle, "uint", flags, "ptr", mainModePolicy, "ptr", tunnelPolicy, "uint", numFilterConditions, "ptr", filterConditions, "ptr", sd, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
+     * @param {HANDLE} engineHandle 
      * @param {Integer} flags 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT1>} mainModePolicy 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT1>} tunnelPolicy 
      * @param {Integer} numFilterConditions 
      * @param {Pointer<FWPM_FILTER_CONDITION0>} filterConditions 
      * @param {Pointer<Guid>} keyModKey 
-     * @param {Pointer<Void>} sd 
+     * @param {PSECURITY_DESCRIPTOR} sd 
      * @returns {Integer} 
      * @since windows6.1
      */
     static FwpmIPsecTunnelAdd1(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd1", "ptr", engineHandle, "uint", flags, "ptr", mainModePolicy, "ptr", tunnelPolicy, "uint", numFilterConditions, "ptr", filterConditions, "ptr", keyModKey, "ptr", sd, "uint")
         return result
     }
 
     /**
      * Adds a new Internet Protocol Security (IPsec) tunnel mode policy to the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} flags Type: <b>UINT32</b>
@@ -9042,7 +9260,7 @@ class WindowsFilteringPlatform {
      * Pointer to a GUID that uniquely identifies the keying module key.
      * 
      * If the caller supplies this parameter, only that keying module will be used for the tunnel. Otherwise, the default keying policy applies.
-     * @param {Pointer<Void>} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
+     * @param {PSECURITY_DESCRIPTOR} sd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a></b>
      * 
      * The security information associated with the IPsec tunnel.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -9106,30 +9324,36 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmIPsecTunnelAdd2(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd2", "ptr", engineHandle, "uint", flags, "ptr", mainModePolicy, "ptr", tunnelPolicy, "uint", numFilterConditions, "ptr", filterConditions, "ptr", keyModKey, "ptr", sd, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
+     * @param {HANDLE} engineHandle 
      * @param {Integer} flags 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} mainModePolicy 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} tunnelPolicy 
      * @param {Integer} numFilterConditions 
      * @param {Pointer<FWPM_FILTER_CONDITION0>} filterConditions 
      * @param {Pointer<Guid>} keyModKey 
-     * @param {Pointer<Void>} sd 
+     * @param {PSECURITY_DESCRIPTOR} sd 
      * @returns {Integer} 
      */
     static FwpmIPsecTunnelAdd3(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd3", "ptr", engineHandle, "uint", flags, "ptr", mainModePolicy, "ptr", tunnelPolicy, "uint", numFilterConditions, "ptr", filterConditions, "ptr", keyModKey, "ptr", sd, "uint")
         return result
     }
 
     /**
      * Removes an Internet Protocol Security (IPsec) tunnel mode policy from the system.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<Guid>} key Type: <b>const GUID*</b>
@@ -9183,13 +9407,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmIPsecTunnelDeleteByKey0(engineHandle, key) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelDeleteByKey0", "ptr", engineHandle, "ptr", key, "uint")
         return result
     }
 
     /**
      * Retrieves Internet Protocol Security (IPsec) statistics.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_STATISTICS0>} ipsecStatistics Type: [IPSEC_STATISTICS0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_statistics0)*</b>
@@ -9243,13 +9469,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecGetStatistics0(engineHandle, ipsecStatistics) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecGetStatistics0", "ptr", engineHandle, "ptr", ipsecStatistics, "uint")
         return result
     }
 
     /**
      * Retrieves Internet Protocol Security (IPsec) statistics.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_STATISTICS1>} ipsecStatistics Type: [IPSEC_STATISTICS1](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_statistics1)*</b>
@@ -9303,13 +9531,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecGetStatistics1(engineHandle, ipsecStatistics) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecGetStatistics1", "ptr", engineHandle, "ptr", ipsecStatistics, "uint")
         return result
     }
 
     /**
      * Creates an IPsec security association (SA) context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_TRAFFIC0>} outboundTraffic Type: [IPSEC_TRAFFIC0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_traffic0)*</b>
@@ -9369,13 +9599,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaContextCreate0(engineHandle, outboundTraffic, inboundFilterId, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextCreate0", "ptr", engineHandle, "ptr", outboundTraffic, "uint*", inboundFilterId, "uint*", id, "uint")
         return result
     }
 
     /**
      * Creates an IPsec security association (SA) context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_TRAFFIC1>} outboundTraffic Type: [IPSEC_TRAFFIC1](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_traffic0)*</b>
@@ -9438,13 +9670,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecSaContextCreate1(engineHandle, outboundTraffic, virtualIfTunnelInfo, inboundFilterId, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextCreate1", "ptr", engineHandle, "ptr", outboundTraffic, "ptr", virtualIfTunnelInfo, "uint*", inboundFilterId, "uint*", id, "uint")
         return result
     }
 
     /**
      * Deletes an IPsec security association (SA) context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -9498,13 +9732,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaContextDeleteById0(engineHandle, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextDeleteById0", "ptr", engineHandle, "uint", id, "uint")
         return result
     }
 
     /**
      * Retrieves an IPsec security association (SA) context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -9561,13 +9797,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaContextGetById0(engineHandle, id, saContext) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextGetById0", "ptr", engineHandle, "uint", id, "ptr", saContext, "uint")
         return result
     }
 
     /**
      * Retrieves an IPsec security association (SA) context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -9624,13 +9862,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecSaContextGetById1(engineHandle, id, saContext) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextGetById1", "ptr", engineHandle, "uint", id, "ptr", saContext, "uint")
         return result
     }
 
     /**
      * Retrieves the security parameters index (SPI) for a security association (SA) context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -9690,13 +9930,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaContextGetSpi0(engineHandle, id, getSpi, inboundSpi) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextGetSpi0", "ptr", engineHandle, "uint", id, "ptr", getSpi, "uint*", inboundSpi, "uint")
         return result
     }
 
     /**
      * Retrieves the security parameters index (SPI) for a security association (SA) context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -9756,13 +9998,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecSaContextGetSpi1(engineHandle, id, getSpi, inboundSpi) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextGetSpi1", "ptr", engineHandle, "uint", id, "ptr", getSpi, "uint*", inboundSpi, "uint")
         return result
     }
 
     /**
      * Sets the security parameters index (SPI) for a security association (SA) context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -9822,13 +10066,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecSaContextSetSpi0(engineHandle, id, getSpi, inboundSpi) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextSetSpi0", "ptr", engineHandle, "uint", id, "ptr", getSpi, "uint", inboundSpi, "uint")
         return result
     }
 
     /**
      * The IPsecSaContextAddInbound0 function adds an inbound IPsec security association (SA) bundle to an existing SA context.Note  IPsecSaContextAddInbound0 is the specific implementation of IPsecSaContextAddInbound used in Windows Vista.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -9885,13 +10131,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaContextAddInbound0(engineHandle, id, inboundBundle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextAddInbound0", "ptr", engineHandle, "uint", id, "ptr", inboundBundle, "uint")
         return result
     }
 
     /**
      * The IPsecSaContextAddOutbound0 function adds an outbound IPsec security association (SA) bundle to an existing SA context.Note  IPsecSaContextAddOutbound0 is the specific implementation of IPsecSaContextAddOutbound used in Windows Vista.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -9948,13 +10196,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaContextAddOutbound0(engineHandle, id, outboundBundle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextAddOutbound0", "ptr", engineHandle, "uint", id, "ptr", outboundBundle, "uint")
         return result
     }
 
     /**
      * The IPsecSaContextAddInbound1 function adds an inbound IPsec security association (SA) bundle to an existing SA context.Note  IPsecSaContextAddInbound1 is the specific implementation of IPsecSaContextAddInbound used in Windows 7 and later.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -10011,13 +10261,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecSaContextAddInbound1(engineHandle, id, inboundBundle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextAddInbound1", "ptr", engineHandle, "uint", id, "ptr", inboundBundle, "uint")
         return result
     }
 
     /**
      * The IPsecSaContextAddOutbound1 function adds an outbound IPsec security association (SA) bundle to an existing SA context.Note  IPsecSaContextAddOutbound1 is the specific implementation of IPsecSaContextAddOutbound used in Windows 7 and later.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -10074,13 +10326,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecSaContextAddOutbound1(engineHandle, id, outboundBundle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextAddOutbound1", "ptr", engineHandle, "uint", id, "ptr", outboundBundle, "uint")
         return result
     }
 
     /**
      * Indicates that an IPsec security association (SA) context should be expired.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -10134,13 +10388,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaContextExpire0(engineHandle, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextExpire0", "ptr", engineHandle, "uint", id, "uint")
         return result
     }
 
     /**
      * Updates an IPsec security association (SA) context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} flags Type: <b>UINT32</b>
@@ -10276,19 +10532,21 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecSaContextUpdate0(engineHandle, flags, newValues) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextUpdate0", "ptr", engineHandle, "uint", flags, "ptr", newValues, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of IPsec security association (SA) context objects.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_SA_CONTEXT_ENUM_TEMPLATE0>} enumTemplate Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_context_enum_template0">IPSEC_SA_CONTEXT_ENUM_TEMPLATE0</a>*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Address of a <b>HANDLE</b> variable. On function return, it contains the handle for SA context enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -10339,16 +10597,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaContextCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the IPsec security association (SA) context enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an SA context enumeration returned by <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0">IPsecSaContextCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -10408,16 +10668,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaContextEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the IPsec security association (SA) context enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an SA context enumeration returned by <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0">IPsecSaContextCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -10477,16 +10740,19 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecSaContextEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by IPsecSaContextCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of an IPsec security association (SA) context enumeration returned by <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0">IPsecSaContextCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -10537,13 +10803,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaContextDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding a particular IPsec security association (SA) context.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_SA_CONTEXT_SUBSCRIPTION0>} subscription Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_context_subscription0">IPSEC_SA_CONTEXT_SUBSCRIPTION0</a>*</b>
@@ -10555,7 +10824,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
-     * @param {Pointer<Void>} eventsHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -10606,16 +10875,18 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static IPsecSaContextSubscribe0(engineHandle, subscription, callback, context, eventsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", eventsHandle, "uint")
         return result
     }
 
     /**
      * Is used to cancel an IPsec security association (SA) change subscription and stop receiving change notifications.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} eventsHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} eventsHandle Type: <b>HANDLE</b>
      * 
      * Handle of the subscribed SA change notification. This is the returned handle from the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacontextsubscribe0">IPsecSaContextSubscribe0</a>.
      * 
@@ -10668,13 +10939,16 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static IPsecSaContextUnsubscribe0(engineHandle, eventsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        eventsHandle := eventsHandle is Win32Handle ? NumGet(eventsHandle, "ptr") : eventsHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextUnsubscribe0", "ptr", engineHandle, "ptr", eventsHandle, "uint")
         return result
     }
 
     /**
      * Retrieves an array of all the current IPsec security association (SA) change notification subscriptions.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_SA_CONTEXT_SUBSCRIPTION0>} entries Type: <b><a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_context_subscription0">IPSEC_SA_CONTEXT_SUBSCRIPTION0</a>***</b>
@@ -10731,19 +11005,21 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static IPsecSaContextSubscriptionsGet0(engineHandle, entries, numEntries) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaContextSubscriptionsGet0", "ptr", engineHandle, "ptr", entries, "uint*", numEntries, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of Internet Protocol Security (IPsec) security association (SA) objects.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_SA_ENUM_TEMPLATE0>} enumTemplate Type: [IPSEC_SA_ENUM_TEMPLATE0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_enum_template0)*</b>
      * 
      * Template to selectively restrict the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Handle of the newly created enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -10794,16 +11070,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the IPsec security association (SA) enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IPsec SA enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacreateenumhandle0">IPsecSaCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -10863,16 +11141,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the IPsec security association (SA) enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IPsec SA enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacreateenumhandle0">IPsecSaCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -10932,16 +11213,19 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by IPsecSaCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of the enumeration to destroy. Previously created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecsacreateenumhandle0">IPsecSaCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -10992,22 +11276,25 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for the IPsec security association (SA) database.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -11016,7 +11303,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -11067,13 +11354,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of the IPsec security association database.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
@@ -11139,13 +11428,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IPsecSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecSaDbSetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * The IPsecDospGetStatistics0 function retrieves Internet Protocol Security (IPsec) DoS Protection statistics.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_DOSP_STATISTICS0>} idpStatistics Type: [IPSEC_DOSP_STATISTICS0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_dosp_statistics0)*</b>
@@ -11199,19 +11490,21 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecDospGetStatistics0(engineHandle, idpStatistics) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecDospGetStatistics0", "ptr", engineHandle, "ptr", idpStatistics, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of IPsec DoS Protection objects.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_DOSP_STATE_ENUM_TEMPLATE0>} enumTemplate Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_dosp_state_enum_template0">IPSEC_DOSP_STATE_ENUM_TEMPLATE0</a>*</b>
      * 
      * Template for selectively restricting the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Address of a <b>HANDLE</b> variable. On function return, it contains the handle for the newly created enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -11262,16 +11555,18 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecDospStateCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecDospStateCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the IPsec DoS Protection state enumerator. Each IPsec DoS Protection state entry corresponds to a flow that has successfully passed the IPsec DoS Protection authentication checks.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IPsec DoS Protection enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecdospstatecreateenumhandle0">IPsecDospStateCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -11331,16 +11626,19 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecDospStateEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntries) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IPsecDospStateEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntries, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by IPsecDospStateCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of the enumeration to destroy. Previously created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ipsecdospstatecreateenumhandle0">IPsecDospStateCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -11391,22 +11689,25 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecDospStateDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IPsecDospStateDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for the IPsec DoS Protection database.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -11415,7 +11716,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -11466,13 +11767,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * The IPsecDospSetSecurityInfo0 function sets specified security information in the security descriptor of the IPsec DoS Protection database.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
@@ -11538,13 +11841,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IPsecDospSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecDospSetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Registers a Trusted Intermediary Agent (TIA) with IPsec.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_KEY_MANAGER0>} keyManager Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_key_manager0">IPSEC_KEY_MANAGER0</a>*</b>
@@ -11553,7 +11858,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<IPSEC_KEY_MANAGER_CALLBACKS0>} keyManagerCallbacks Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/ns-fwpmu-ipsec_key_manager_callbacks0">IPSEC_KEY_MANAGER_CALLBACKS0</a>*</b>
      * 
      * The set of callbacks which should be invoked by IPsec at various stages of SA negotiation.
-     * @param {Pointer<Void>} keyMgmtHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} keyMgmtHandle Type: <b>HANDLE*</b>
      * 
      * Address of the newly created registration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -11640,16 +11945,18 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static IPsecKeyManagerAddAndRegister0(engineHandle, keyManager, keyManagerCallbacks, keyMgmtHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecKeyManagerAddAndRegister0", "ptr", engineHandle, "ptr", keyManager, "ptr", keyManagerCallbacks, "ptr", keyMgmtHandle, "uint")
         return result
     }
 
     /**
      * Unregisters a Trusted Intermediary Agent (TIA) which had previously been registered with IPsec.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} keyMgmtHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} keyMgmtHandle Type: <b>HANDLE</b>
      * 
      * Address of the previously created registration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -11700,13 +12007,16 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static IPsecKeyManagerUnregisterAndDelete0(engineHandle, keyMgmtHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        keyMgmtHandle := keyMgmtHandle is Win32Handle ? NumGet(keyMgmtHandle, "ptr") : keyMgmtHandle
+
         result := DllCall("fwpuclnt.dll\IPsecKeyManagerUnregisterAndDelete0", "ptr", engineHandle, "ptr", keyMgmtHandle, "uint")
         return result
     }
 
     /**
      * Returns a list of current Trusted Intermediary Agents (TIAs).
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<IPSEC_KEY_MANAGER0>} entries Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_key_manager0">IPSEC_KEY_MANAGER0</a>***</b>
@@ -11763,22 +12073,24 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static IPsecKeyManagersGet0(engineHandle, entries, numEntries) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecKeyManagersGet0", "ptr", engineHandle, "ptr", entries, "uint*", numEntries, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor that controls access to the key manager.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle to an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -11787,7 +12099,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -11840,13 +12152,15 @@ class WindowsFilteringPlatform {
     static IPsecKeyManagerGetSecurityInfoByKey0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecKeyManagerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", reserved, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor that controls access to the key manager.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle to an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
@@ -11914,13 +12228,15 @@ class WindowsFilteringPlatform {
     static IPsecKeyManagerSetSecurityInfoByKey0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IPsecKeyManagerSetSecurityInfoByKey0", "ptr", engineHandle, "ptr", reserved, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Retrieves Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) statistics.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
      * @param {Pointer<IKEEXT_STATISTICS0>} ikeextStatistics Type: [IKEEXT_STATISTICS0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_statistics0)*</b>
@@ -11974,13 +12290,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IkeextGetStatistics0(engineHandle, ikeextStatistics) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IkeextGetStatistics0", "ptr", engineHandle, "ptr", ikeextStatistics, "uint")
         return result
     }
 
     /**
      * Retrieves Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) statistics.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
      * @param {Pointer<IKEEXT_STATISTICS1>} ikeextStatistics Type: [IKEEXT_STATISTICS1](/windows/desktop/api/iketypes/ns-iketypes-ikeext_statistics1)*</b>
@@ -12034,13 +12352,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IkeextGetStatistics1(engineHandle, ikeextStatistics) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IkeextGetStatistics1", "ptr", engineHandle, "ptr", ikeextStatistics, "uint")
         return result
     }
 
     /**
      * The IkeextSaDeleteById0 function removes a security association (SA) from the database.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -12094,13 +12414,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IkeextSaDeleteById0(engineHandle, id) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaDeleteById0", "ptr", engineHandle, "uint", id, "uint")
         return result
     }
 
     /**
      * Retrieves an IKE/AuthIP security association (SA) from the database.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -12157,13 +12479,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IkeextSaGetById0(engineHandle, id, sa) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaGetById0", "ptr", engineHandle, "uint", id, "ptr", sa, "uint")
         return result
     }
 
     /**
      * Retrieves an IKE/AuthIP security association (SA) from the database.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -12223,13 +12547,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IkeextSaGetById1(engineHandle, id, saLookupContext, sa) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaGetById1", "ptr", engineHandle, "uint", id, "ptr", saLookupContext, "ptr", sa, "uint")
         return result
     }
 
     /**
      * Retrieves an IKE/AuthIP security association (SA) from the database.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -12289,19 +12615,21 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static IkeextSaGetById2(engineHandle, id, saLookupContext, sa) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaGetById2", "ptr", engineHandle, "uint", id, "ptr", saLookupContext, "ptr", sa, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of Internet Key Exchange (IKE) and Authenticated Internet Protocol (AuthIP) security association (SA) objects.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
      * @param {Pointer<IKEEXT_SA_ENUM_TEMPLATE0>} enumTemplate Type: [IKEEXT_SA_ENUM_TEMPLATE0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_sa_enum_template0)*</b>
      * 
      * Template for selectively restricting the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Address of a <b>HANDLE</b> variable. On function return, it contains the handle of the newly created enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -12352,16 +12680,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IkeextSaCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the IKE/AuthIP security association (SA) enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IKE/AuthIP SA enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0">IkeextSaCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -12421,16 +12751,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IkeextSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the IKE/AuthIP security association (SA) enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IKE/AuthIP SA enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0">IkeextSaCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -12490,16 +12823,19 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static IkeextSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the IKE/AuthIP security association (SA) enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for an IKE/AuthIP SA enumeration. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0">IkeextSaCreateEnumHandle0</a> to obtain an enumeration handle.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -12559,16 +12895,19 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static IkeextSaEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaEnum2", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by IkeextSaCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of the enumeration to destroy. Previously created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0">IkeextSaCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -12619,22 +12958,25 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IkeextSaDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * The IkeextSaDbGetSecurityInfo0 function retrieves a copy of the security descriptor for a security association (SA) database.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -12643,7 +12985,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -12694,13 +13036,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * The IkeextSaDbSetSecurityInfo0 function sets specified security information in the security descriptor of the IKE/AuthIP security association database.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine generated by a previous  call to  <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
@@ -12766,19 +13110,21 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static IkeextSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\IkeextSaDbSetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of network events.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_NET_EVENT_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_NET_EVENT_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_enum_template0)*</b>
      * 
      *   Template to selectively restrict the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * The handle for network event enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -12829,16 +13175,18 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmNetEventCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the network event enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -12911,16 +13259,19 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmNetEventEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the network event enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -12993,16 +13344,19 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static FwpmNetEventEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the network event enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -13075,14 +13429,17 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmNetEventEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventEnum2", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the network event enumerator.
-     * @param {Pointer<Void>} engineHandle Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
+     * @param {HANDLE} engineHandle Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
+     * @param {HANDLE} enumHandle Handle for a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested The number of enumeration entries requested.
      * @param {Pointer<FWPM_NET_EVENT3>} entries Addresses of enumeration entries.
      * @param {Pointer<UInt32>} numEntriesReturned The number of enumeration entries returned.
@@ -13145,44 +13502,53 @@ class WindowsFilteringPlatform {
      * @since windows10.0.14393
      */
     static FwpmNetEventEnum3(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventEnum3", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
-     * @param {Pointer<Void>} enumHandle 
+     * @param {HANDLE} engineHandle 
+     * @param {HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
      * @param {Pointer<FWPM_NET_EVENT4>} entries 
      * @param {Pointer<UInt32>} numEntriesReturned 
      * @returns {Integer} 
      */
     static FwpmNetEventEnum4(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventEnum4", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
-     * @param {Pointer<Void>} enumHandle 
+     * @param {HANDLE} engineHandle 
+     * @param {HANDLE} enumHandle 
      * @param {Integer} numEntriesRequested 
      * @param {Pointer<FWPM_NET_EVENT5>} entries 
      * @param {Pointer<UInt32>} numEntriesReturned 
      * @returns {Integer} 
      */
     static FwpmNetEventEnum5(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventEnum5", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by FwpmNetEventCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a network event enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0">FwpmNetEventCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -13233,13 +13599,16 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmNetEventDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * The FwpmNetEventsGetSecurityInfo0 function retrieves a copy of the security descriptor for a network event object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
@@ -13249,10 +13618,10 @@ class WindowsFilteringPlatform {
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -13261,7 +13630,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -13312,13 +13681,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of a network event object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
@@ -13384,13 +13755,15 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmNetEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventsSetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding a particular net event.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription Type: [FWPM_NET_EVENT_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_subscription0)*</b>
@@ -13402,7 +13775,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
-     * @param {Pointer<Void>} eventsHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -13453,16 +13826,18 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static FwpmNetEventSubscribe0(engineHandle, subscription, callback, context, eventsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", eventsHandle, "uint")
         return result
     }
 
     /**
      * Is used to cancel a net event subscription and stop receiving notifications.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} eventsHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} eventsHandle Type: <b>HANDLE</b>
      * 
      * Handle of the subscribed event notification. This is the returned handle from the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmneteventsubscribe0">FwpmNetEventSubscribe0</a>.
      * 
@@ -13515,13 +13890,16 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static FwpmNetEventUnsubscribe0(engineHandle, eventsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        eventsHandle := eventsHandle is Win32Handle ? NumGet(eventsHandle, "ptr") : eventsHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventUnsubscribe0", "ptr", engineHandle, "ptr", eventsHandle, "uint")
         return result
     }
 
     /**
      * Retrieves an array of all the current net event notification subscriptions.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} entries Type: [FWPM_NET_EVENT_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_subscription0)***</b>
@@ -13578,13 +13956,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static FwpmNetEventSubscriptionsGet0(engineHandle, entries, numEntries) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventSubscriptionsGet0", "ptr", engineHandle, "ptr", entries, "uint*", numEntries, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding a particular net event.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription Type: [FWPM_NET_EVENT_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_subscription0)*</b>
@@ -13596,7 +13976,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
-     * @param {Pointer<Void>} eventsHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -13647,17 +14027,19 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmNetEventSubscribe1(engineHandle, subscription, callback, context, eventsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe1", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", eventsHandle, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding a particular net event.
-     * @param {Pointer<Void>} engineHandle Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
+     * @param {HANDLE} engineHandle Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription The notifications which will be delivered.
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK2>} callback Function pointer that will be invoked when a notification is ready for delivery.
      * @param {Pointer<Void>} context Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
-     * @param {Pointer<Void>} eventsHandle Handle to the newly created subscription.
+     * @param {Pointer<HANDLE>} eventsHandle Handle to the newly created subscription.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -13704,34 +14086,40 @@ class WindowsFilteringPlatform {
      * @since windows10.0.14393
      */
     static FwpmNetEventSubscribe2(engineHandle, subscription, callback, context, eventsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe2", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", eventsHandle, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
+     * @param {HANDLE} engineHandle 
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription 
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK3>} callback 
      * @param {Pointer<Void>} context 
-     * @param {Pointer<Void>} eventsHandle 
+     * @param {Pointer<HANDLE>} eventsHandle 
      * @returns {Integer} 
      */
     static FwpmNetEventSubscribe3(engineHandle, subscription, callback, context, eventsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe3", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", eventsHandle, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
+     * @param {HANDLE} engineHandle 
      * @param {Pointer<FWPM_NET_EVENT_SUBSCRIPTION0>} subscription 
      * @param {Pointer<FWPM_NET_EVENT_CALLBACK4>} callback 
      * @param {Pointer<Void>} context 
-     * @param {Pointer<Void>} eventsHandle 
+     * @param {Pointer<HANDLE>} eventsHandle 
      * @returns {Integer} 
      */
     static FwpmNetEventSubscribe4(engineHandle, subscription, callback, context, eventsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmNetEventSubscribe4", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", eventsHandle, "uint")
         return result
     }
@@ -13741,7 +14129,7 @@ class WindowsFilteringPlatform {
      * @param {Integer} flags 
      * @param {Pointer<FWPM_DYNAMIC_KEYWORD_CALLBACK0>} callback 
      * @param {Pointer<Void>} context 
-     * @param {Pointer<Void>} subscriptionHandle 
+     * @param {Pointer<HANDLE>} subscriptionHandle 
      * @returns {Integer} 
      */
     static FwpmDynamicKeywordSubscribe0(flags, callback, context, subscriptionHandle) {
@@ -13751,17 +14139,19 @@ class WindowsFilteringPlatform {
 
     /**
      * 
-     * @param {Pointer<Void>} subscriptionHandle 
+     * @param {HANDLE} subscriptionHandle 
      * @returns {Integer} 
      */
     static FwpmDynamicKeywordUnsubscribe0(subscriptionHandle) {
+        subscriptionHandle := subscriptionHandle is Win32Handle ? NumGet(subscriptionHandle, "ptr") : subscriptionHandle
+
         result := DllCall("fwpuclnt.dll\FwpmDynamicKeywordUnsubscribe0", "ptr", subscriptionHandle, "uint")
         return result
     }
 
     /**
      * Retrieves an array of all of the system port types.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Optional handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_SYSTEM_PORTS0>} sysPorts Type: [FWPM_SYSTEM_PORTS0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_system_ports0)**</b>
@@ -13815,13 +14205,15 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static FwpmSystemPortsGet0(engineHandle, sysPorts) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSystemPortsGet0", "ptr", engineHandle, "ptr", sysPorts, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding a particular system port.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_SYSTEM_PORTS_CALLBACK0>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nc-fwpmu-fwpm_system_ports_callback0">FWPM_SYSTEM_PORTS_CALLBACK0</a></b>
@@ -13830,7 +14222,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the system port.
-     * @param {Pointer<Void>} sysPortsHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} sysPortsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -13883,16 +14275,18 @@ class WindowsFilteringPlatform {
     static FwpmSystemPortsSubscribe0(engineHandle, callback, context, sysPortsHandle) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSystemPortsSubscribe0", "ptr", engineHandle, "ptr", reserved, "ptr", callback, "ptr", context, "ptr", sysPortsHandle, "uint")
         return result
     }
 
     /**
      * Is used to cancel a system port subscription and stop receiving notifications.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} sysPortsHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} sysPortsHandle Type: <b>HANDLE</b>
      * 
      * Handle of the subscribed system port notification. This is the returned handle from the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsystemportssubscribe0">FwpmSystemPortsSubscribe0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -13943,13 +14337,16 @@ class WindowsFilteringPlatform {
      * @since windows6.1
      */
     static FwpmSystemPortsUnsubscribe0(engineHandle, sysPortsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sysPortsHandle := sysPortsHandle is Win32Handle ? NumGet(sysPortsHandle, "ptr") : sysPortsHandle
+
         result := DllCall("fwpuclnt.dll\FwpmSystemPortsUnsubscribe0", "ptr", engineHandle, "ptr", sysPortsHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a connection object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} id Type: <b>UINT64</b>
@@ -14006,16 +14403,18 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmConnectionGetById0(engineHandle, id, connection) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", "ptr", engineHandle, "uint", id, "ptr", connection, "uint")
         return result
     }
 
     /**
      * Returns the next page of results from the connection object enumerator.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle for a provider context enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmconnectioncreateenumhandle0">FwpmConnectionCreateEnumHandle0</a>.
      * @param {Integer} numEntriesRequested Type: <b>UINT32</b>
@@ -14073,19 +14472,22 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmConnectionEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmConnectionEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr", entries, "uint*", numEntriesReturned, "uint")
         return result
     }
 
     /**
      * Creates a handle used to enumerate a set of connection objects.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_CONNECTION_ENUM_TEMPLATE0>} enumTemplate Type: [FWPM_CONNECTION_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_connection_enum_template0)*</b>
      * 
      * Template for selectively restricting the enumeration.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} enumHandle Type: <b>HANDLE*</b>
      * 
      * Address of a <b>HANDLE</b> variable. On function return, it contains the handle for the enumeration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -14136,16 +14538,18 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmConnectionCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmConnectionCreateEnumHandle0", "ptr", engineHandle, "ptr", enumTemplate, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Frees a handle returned by FwpmConnectionCreateEnumHandle0.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} enumHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} enumHandle Type: <b>HANDLE</b>
      * 
      * Handle of a connection object enumeration created by a call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0">FwpmProviderContextCreateEnumHandle0</a>.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -14196,22 +14600,25 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmConnectionDestroyEnumHandle0(engineHandle, enumHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
+
         result := DllCall("fwpuclnt.dll\FwpmConnectionDestroyEnumHandle0", "ptr", engineHandle, "ptr", enumHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for a connection object change event.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -14220,7 +14627,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -14271,13 +14678,15 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor for a connection object change event.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle to an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
@@ -14343,13 +14752,15 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmConnectionSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmConnectionSetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications about changes to a connection object.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_CONNECTION_SUBSCRIPTION0>} subscription Type: [FWPM_CONNECTION_SUBSCRIPTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_connection_subscription0)*</b>
@@ -14361,7 +14772,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
-     * @param {Pointer<Void>} eventsHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} eventsHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -14412,16 +14823,18 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmConnectionSubscribe0(engineHandle, subscription, callback, context, eventsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmConnectionSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", eventsHandle, "uint")
         return result
     }
 
     /**
      * Is used to cancel a connection object change event subscription and stop receiving notifications.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} eventsHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} eventsHandle Type: <b>HANDLE</b>
      * 
      * Handle of the subscribed event notification. This is the returned handle from the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmconnectionsubscribe0">FwpmConnectionSubscribe0</a>.
      * 
@@ -14474,13 +14887,16 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmConnectionUnsubscribe0(engineHandle, eventsHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        eventsHandle := eventsHandle is Win32Handle ? NumGet(eventsHandle, "ptr") : eventsHandle
+
         result := DllCall("fwpuclnt.dll\FwpmConnectionUnsubscribe0", "ptr", engineHandle, "ptr", eventsHandle, "uint")
         return result
     }
 
     /**
      * Is used to request the delivery of notifications regarding a particular vSwitch event.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Pointer<FWPM_VSWITCH_EVENT_SUBSCRIPTION0>} subscription Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_vswitch_event_subscription0">FWPM_VSWITCH_EVENT_SUBSCRIPTION0</a>*</b>
@@ -14492,7 +14908,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Void>} context Type: <b>void*</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the event.
-     * @param {Pointer<Void>} subscriptionHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} subscriptionHandle Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created subscription.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -14543,16 +14959,18 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmvSwitchEventSubscribe0(engineHandle, subscription, callback, context, subscriptionHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmvSwitchEventSubscribe0", "ptr", engineHandle, "ptr", subscription, "ptr", callback, "ptr", context, "ptr", subscriptionHandle, "uint")
         return result
     }
 
     /**
      * Is used to cancel a vSwitch event subscription and stop receiving notifications.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
-     * @param {Pointer<Void>} subscriptionHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} subscriptionHandle Type: <b>HANDLE</b>
      * 
      * Handle of the subscribed event notification. This is the returned handle from the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmvswitcheventsubscribe0">FwpmvSwitchEventSubscribe0</a>.
      * 
@@ -14605,22 +15023,25 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmvSwitchEventUnsubscribe0(engineHandle, subscriptionHandle) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        subscriptionHandle := subscriptionHandle is Win32Handle ? NumGet(subscriptionHandle, "ptr") : subscriptionHandle
+
         result := DllCall("fwpuclnt.dll\FwpmvSwitchEventUnsubscribe0", "ptr", engineHandle, "ptr", subscriptionHandle, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor for a vSwitch event.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * Handle for an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
      * 
      * The type of security information to retrieve.
-     * @param {Pointer<Void>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The owner security identifier (SID) in the returned security descriptor.
-     * @param {Pointer<Void>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
+     * @param {Pointer<PSID>} sidGroup Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">PSID</a>*</b>
      * 
      * The primary group security identifier (SID) in the returned security descriptor.
      * @param {Pointer<ACL>} dacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
@@ -14629,7 +15050,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<ACL>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<Void>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -14680,13 +15101,15 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor for a vSwitch event.
-     * @param {Pointer<Void>} engineHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} engineHandle Type: <b>HANDLE</b>
      * 
      * A handle to an open session to the filter engine. Call <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a> to open a session to the filter engine.
      * @param {Integer} securityInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a></b>
@@ -14752,33 +15175,40 @@ class WindowsFilteringPlatform {
      * @since windows8.0
      */
     static FwpmvSwitchEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsSetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr", dacl, "ptr", sacl, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
+     * @param {HANDLE} engineHandle 
      * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} connectionPolicy 
      * @param {Integer} ipVersion 
      * @param {Integer} weight 
      * @param {Integer} numFilterConditions 
      * @param {Pointer<FWPM_FILTER_CONDITION0>} filterConditions 
-     * @param {Pointer<Void>} sd 
+     * @param {PSECURITY_DESCRIPTOR} sd 
      * @returns {Integer} 
      */
     static FwpmConnectionPolicyAdd0(engineHandle, connectionPolicy, ipVersion, weight, numFilterConditions, filterConditions, sd) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+        sd := sd is Win32Handle ? NumGet(sd, "ptr") : sd
+
         result := DllCall("fwpuclnt.dll\FwpmConnectionPolicyAdd0", "ptr", engineHandle, "ptr", connectionPolicy, "int", ipVersion, "uint", weight, "uint", numFilterConditions, "ptr", filterConditions, "ptr", sd, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} engineHandle 
+     * @param {HANDLE} engineHandle 
      * @param {Pointer<Guid>} key 
      * @returns {Integer} 
      */
     static FwpmConnectionPolicyDeleteByKey0(engineHandle, key) {
+        engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
+
         result := DllCall("fwpuclnt.dll\FwpmConnectionPolicyDeleteByKey0", "ptr", engineHandle, "ptr", key, "uint")
         return result
     }

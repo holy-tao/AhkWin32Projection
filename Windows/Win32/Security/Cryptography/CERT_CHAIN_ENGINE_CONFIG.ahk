@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCERTSTORE.ahk
 
 /**
  * Sets parameters for building a non-default certificate chain engine. The engine used determines the ways that certificate chains are built.
@@ -39,29 +40,38 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
 
     /**
      * This configuration parameter can be used to restrict the root store. If used, it can be the handle of any HCERTSTORE containing only a proper subset of the certificates in the root store.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hRestrictedRoot {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hRestrictedRoot{
+        get {
+            if(!this.HasProp("__hRestrictedRoot"))
+                this.__hRestrictedRoot := HCERTSTORE(this.ptr + 8)
+            return this.__hRestrictedRoot
+        }
     }
 
     /**
      * Store handle. If used, restricts the stores searched to find CTLs.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hRestrictedTrust {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hRestrictedTrust{
+        get {
+            if(!this.HasProp("__hRestrictedTrust"))
+                this.__hRestrictedTrust := HCERTSTORE(this.ptr + 16)
+            return this.__hRestrictedTrust
+        }
     }
 
     /**
      * Store handle. If used, restricts the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">stores</a> searched for certificates and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRLs</a>.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hRestrictedOther {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hRestrictedOther{
+        get {
+            if(!this.HasProp("__hRestrictedOther"))
+                this.__hRestrictedOther := HCERTSTORE(this.ptr + 24)
+            return this.__hRestrictedOther
+        }
     }
 
     /**
@@ -75,7 +85,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
 
     /**
      * A pointer to an array of store handles for any additional stores to be searched in building chains.
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghAdditionalStore {
         get => NumGet(this, 40, "ptr")
@@ -200,22 +210,28 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
      * Handle to a  certificate store that contains exclusive trust anchors.  If either the <b>hExclusiveRoot</b> or <b>hExclusiveTrustedPeople</b> member points to a valid store, exclusive trust mode is used for the chain building.
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>Support for this member begins.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hExclusiveRoot {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    hExclusiveRoot{
+        get {
+            if(!this.HasProp("__hExclusiveRoot"))
+                this.__hExclusiveRoot := HCERTSTORE(this.ptr + 64)
+            return this.__hExclusiveRoot
+        }
     }
 
     /**
      * Handle to a certificate store that contains  application-specific peer trusted certificates. If either the <b>hExclusiveRoot</b> or <b>hExclusiveTrustedPeople</b> member points to a valid store, exclusive trust mode is used for the chain building.
      * 
      * <b>Windows 7 and Windows Server 2008 R2:  </b>Support for this member begins.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hExclusiveTrustedPeople {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    hExclusiveTrustedPeople{
+        get {
+            if(!this.HasProp("__hExclusiveTrustedPeople"))
+                this.__hExclusiveTrustedPeople := HCERTSTORE(this.ptr + 72)
+            return this.__hExclusiveTrustedPeople
+        }
     }
 
     /**

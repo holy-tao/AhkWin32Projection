@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Defines the initial cluster configuration.
@@ -24,11 +26,14 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
 
     /**
      * Name of the cluster.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszClusterName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszClusterName{
+        get {
+            if(!this.HasProp("__lpszClusterName"))
+                this.__lpszClusterName := PWSTR(this.ptr + 8)
+            return this.__lpszClusterName
+        }
     }
 
     /**
@@ -42,7 +47,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
 
     /**
      * Address of array of pointers to strings, each naming a node to be added to the new cluster.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppszNodeNames {
         get => NumGet(this, 24, "ptr")
@@ -86,11 +91,14 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
      *        <b>cNodes</b> member must be one (1) or more, the <b>ppszNodeNames</b> 
      *        member must not be <b>NULL</b>, and the <b>lpszClusterName</b> member 
      *        must not be <b>NULL</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    fEmptyCluster {
-        get => NumGet(this, 48, "char")
-        set => NumPut("char", value, this, 48)
+    fEmptyCluster{
+        get {
+            if(!this.HasProp("__fEmptyCluster"))
+                this.__fEmptyCluster := BOOLEAN(this.ptr + 48)
+            return this.__fEmptyCluster
+        }
     }
 
     /**
@@ -114,26 +122,35 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszUserName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    pszUserName{
+        get {
+            if(!this.HasProp("__pszUserName"))
+                this.__pszUserName := PWSTR(this.ptr + 64)
+            return this.__pszUserName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszPassword {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    pszPassword{
+        get {
+            if(!this.HasProp("__pszPassword"))
+                this.__pszPassword := PWSTR(this.ptr + 72)
+            return this.__pszPassword
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDomain {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    pszDomain{
+        get {
+            if(!this.HasProp("__pszDomain"))
+                this.__pszDomain := PWSTR(this.ptr + 80)
+            return this.__pszDomain
+        }
     }
 }

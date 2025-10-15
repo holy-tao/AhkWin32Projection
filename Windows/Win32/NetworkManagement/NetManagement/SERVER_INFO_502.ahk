@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SERVER_INFO_502 structure is obsolete. The structure contains information about a specified server.
@@ -160,54 +161,69 @@ class SERVER_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server maps a request to a normal open request with shared-read access when the server receives a compatibility open request with read access. Mapping such requests allows several MS-DOS computers to open a single file for read access.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv502_enablesoftcompat {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    sv502_enablesoftcompat{
+        get {
+            if(!this.HasProp("__sv502_enablesoftcompat"))
+                this.__sv502_enablesoftcompat := BOOL(this.ptr + 52)
+            return this.__sv502_enablesoftcompat
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server should force a client to disconnect, even if the client has open files, once the client's logon time has expired.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv502_enableforcedlogoff {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    sv502_enableforcedlogoff{
+        get {
+            if(!this.HasProp("__sv502_enableforcedlogoff"))
+                this.__sv502_enableforcedlogoff := BOOL(this.ptr + 56)
+            return this.__sv502_enableforcedlogoff
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server is a reliable time source.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv502_timesource {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    sv502_timesource{
+        get {
+            if(!this.HasProp("__sv502_timesource"))
+                this.__sv502_timesource := BOOL(this.ptr + 60)
+            return this.__sv502_timesource
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server accepts function calls from previous-generation LAN Manager clients.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv502_acceptdownlevelapis {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    sv502_acceptdownlevelapis{
+        get {
+            if(!this.HasProp("__sv502_acceptdownlevelapis"))
+                this.__sv502_acceptdownlevelapis := BOOL(this.ptr + 64)
+            return this.__sv502_acceptdownlevelapis
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server is visible to LAN Manager 2.x clients.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv502_lmannounce {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+    sv502_lmannounce{
+        get {
+            if(!this.HasProp("__sv502_lmannounce"))
+                this.__sv502_lmannounce := BOOL(this.ptr + 68)
+            return this.__sv502_lmannounce
+        }
     }
 }

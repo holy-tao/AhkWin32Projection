@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
@@ -20,11 +21,14 @@ class GNSS_SATELLITEINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    UsedInPositiong {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    UsedInPositiong{
+        get {
+            if(!this.HasProp("__UsedInPositiong"))
+                this.__UsedInPositiong := BOOL(this.ptr + 4)
+            return this.__UsedInPositiong
+        }
     }
 
     /**

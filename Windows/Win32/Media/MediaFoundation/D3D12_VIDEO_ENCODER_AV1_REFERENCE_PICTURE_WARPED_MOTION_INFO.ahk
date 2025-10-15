@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -31,10 +32,13 @@ class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO extends Win32
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    InvalidAffineSet {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    InvalidAffineSet{
+        get {
+            if(!this.HasProp("__InvalidAffineSet"))
+                this.__InvalidAffineSet := BOOL(this.ptr + 36)
+            return this.__InvalidAffineSet
+        }
     }
 }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
@@ -1433,28 +1433,28 @@ class Authorization {
     /**
      * Determines which access bits can be granted to a client for a given set of security descriptors.
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} hAuthzClientContext A handle to a structure that represents the client.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to a structure that represents the client.
      * 					
      * 
      * Starting with Windows 8 and Windows Server 2012,  the client context can be local or remote.
      * @param {Pointer<AUTHZ_ACCESS_REQUEST>} pRequest A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_access_request">AUTHZ_ACCESS_REQUEST</a> structure that specifies the desired access mask, principal self <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID), and the object type list structure, if it exists.
-     * @param {Pointer<Void>} hAuditEvent A structure that contains object-specific audit information. When the value of this parameter is not <b>null</b>, an audit is automatically requested. Static audit information is read from the resource manager structure. 
+     * @param {AUTHZ_AUDIT_EVENT_HANDLE} hAuditEvent A structure that contains object-specific audit information. When the value of this parameter is not <b>null</b>, an audit is automatically requested. Static audit information is read from the resource manager structure. 
      * 
      * Starting with Windows 8 and Windows Server 2012,  when you use this function with a remote context handle, the value of the parameter must be <b>NULL</b>.
-     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure to be used for access checks. The owner SID for the object is picked from this security descriptor. A <b>NULL </b><a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) in this security descriptor represents a <b>NULL</b> DACL for the entire object. Make sure the security descriptor contains OWNER and DACL information, or an error code 87 or "invalid parameter" message will be generated.
      * 
      * <div class="alert"><b>Important</b>  <b>NULL</b> DACLs permit all types of access to all users; therefore, do not use <b>NULL</b> DACLs. For information about creating a DACL, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/creating-a-dacl">Creating a DACL</a>.</div>
      * <div> </div>
      *  A <b>NULL </b><a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) in this security descriptor is treated the same way as an empty SACL.
-     * @param {Pointer<Void>} OptionalSecurityDescriptorArray An array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structures. <b>NULL </b><a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control lists</a> (ACLs) in these security descriptors are treated as empty ACLs. The ACL for the entire object is the logical concatenation of all of the ACLs.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} OptionalSecurityDescriptorArray An array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structures. <b>NULL </b><a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control lists</a> (ACLs) in these security descriptors are treated as empty ACLs. The ACL for the entire object is the logical concatenation of all of the ACLs.
      * @param {Integer} OptionalSecurityDescriptorCount The number of security descriptors not including the primary security descriptor.
      * @param {Pointer<AUTHZ_ACCESS_REPLY>} pReply A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_access_reply">AUTHZ_ACCESS_REPLY</a> structure that contains the results of the access check. Before calling the <b>AuthzAccessCheck</b> function, an application must allocate memory for the <b>GrantedAccessMask</b> and <b>SaclEvaluationResults</b> members of the <b>AUTHZ_ACCESS_REPLY</b> structure referenced by <i>pReply</i>.
-     * @param {Pointer<Void>} phAccessCheckResults A pointer to return a handle to the cached results of the access check. When this parameter value is not <b>null</b>, the results of this access check call will be cached. This results in a MAXIMUM_ALLOWED check. 
+     * @param {Pointer<AUTHZ_ACCESS_CHECK_RESULTS_HANDLE>} phAccessCheckResults A pointer to return a handle to the cached results of the access check. When this parameter value is not <b>null</b>, the results of this access check call will be cached. This results in a MAXIMUM_ALLOWED check. 
      * 
      * Starting with Windows 8 and Windows Server 2012,  when you use this function with a remote context handle, the value of the parameter must be <b>NULL</b>.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1462,9 +1462,13 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzAccessCheck(Flags, hAuthzClientContext, pRequest, hAuditEvent, pSecurityDescriptor, OptionalSecurityDescriptorArray, OptionalSecurityDescriptorCount, pReply, phAccessCheckResults) {
+        hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
+        hAuditEvent := hAuditEvent is Win32Handle ? NumGet(hAuditEvent, "ptr") : hAuditEvent
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzAccessCheck", "uint", Flags, "ptr", hAuthzClientContext, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pSecurityDescriptor, "ptr", OptionalSecurityDescriptorArray, "uint", OptionalSecurityDescriptorCount, "ptr", pReply, "ptr", phAccessCheckResults, "int")
+        result := DllCall("AUTHZ.dll\AuthzAccessCheck", "uint", Flags, "ptr", hAuthzClientContext, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pSecurityDescriptor, "ptr", OptionalSecurityDescriptorArray, "uint", OptionalSecurityDescriptorCount, "ptr", pReply, "ptr", phAccessCheckResults, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1474,12 +1478,12 @@ class Authorization {
     /**
      * Performs a fast access check based on a cached handle containing the static granted bits from a previous AuthzAccessCheck call.
      * @param {Integer} Flags Reserved for future use.
-     * @param {Pointer<Void>} hAccessCheckResults A handle to the cached access check results.
+     * @param {AUTHZ_ACCESS_CHECK_RESULTS_HANDLE} hAccessCheckResults A handle to the cached access check results.
      * @param {Pointer<AUTHZ_ACCESS_REQUEST>} pRequest Access request handle specifying the desired <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a>, principal self <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SID</a>, and the object type list structure (if any).
-     * @param {Pointer<Void>} hAuditEvent A structure that contains object-specific audit information. When the value of this parameter is not null, an audit is automatically requested. Static audit information is read from the resource manager structure.
+     * @param {AUTHZ_AUDIT_EVENT_HANDLE} hAuditEvent A structure that contains object-specific audit information. When the value of this parameter is not null, an audit is automatically requested. Static audit information is read from the resource manager structure.
      * @param {Pointer<AUTHZ_ACCESS_REPLY>} pReply A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_access_reply">AUTHZ_ACCESS_REPLY</a> handle that returns the results of access check as an array of GrantedAccessMask/ErrorValue pairs. The number of pairs returned is supplied by the caller in the <b>ResultListLength</b> member of the <b>AUTHZ_ACCESS_REPLY</b> structure.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1537,9 +1541,12 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzCachedAccessCheck(Flags, hAccessCheckResults, pRequest, hAuditEvent, pReply) {
+        hAccessCheckResults := hAccessCheckResults is Win32Handle ? NumGet(hAccessCheckResults, "ptr") : hAccessCheckResults
+        hAuditEvent := hAuditEvent is Win32Handle ? NumGet(hAuditEvent, "ptr") : hAuditEvent
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzCachedAccessCheck", "uint", Flags, "ptr", hAccessCheckResults, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pReply, "int")
+        result := DllCall("AUTHZ.dll\AuthzCachedAccessCheck", "uint", Flags, "ptr", hAccessCheckResults, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pReply, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1549,26 +1556,30 @@ class Authorization {
     /**
      * Reads the system access control list (SACL) of the specified security descriptor and generates any appropriate audits specified by that SACL.
      * @param {Integer} Flags Reserved for future use.
-     * @param {Pointer<Void>} hAuthzClientContext A handle to the client context of the object to open.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the client context of the object to open.
      * @param {Pointer<AUTHZ_ACCESS_REQUEST>} pRequest A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_access_request">AUTHZ_ACCESS_REQUEST</a> structure.
-     * @param {Pointer<Void>} hAuditEvent A handle to the audit event to use.
-     * @param {Pointer<Void>} pSecurityDescriptor A pointer to the 
+     * @param {AUTHZ_AUDIT_EVENT_HANDLE} hAuditEvent A handle to the audit event to use.
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure for the object.
-     * @param {Pointer<Void>} OptionalSecurityDescriptorArray A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structures.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} OptionalSecurityDescriptorArray A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structures.
      * @param {Integer} OptionalSecurityDescriptorCount The number of elements in <i>SecurityDescriptorArray</i>.
      * @param {Pointer<AUTHZ_ACCESS_REPLY>} pReply A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_access_reply">AUTHZ_ACCESS_REPLY</a> structure.
-     * @returns {Integer} If the function succeeds, it returns a nonzero value. 
+     * @returns {BOOL} If the function succeeds, it returns a nonzero value. 
      * 
      * If the function fails, it returns a zero value. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzopenobjectaudit
      * @since windows5.1.2600
      */
     static AuthzOpenObjectAudit(Flags, hAuthzClientContext, pRequest, hAuditEvent, pSecurityDescriptor, OptionalSecurityDescriptorArray, OptionalSecurityDescriptorCount, pReply) {
+        hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
+        hAuditEvent := hAuditEvent is Win32Handle ? NumGet(hAuditEvent, "ptr") : hAuditEvent
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzOpenObjectAudit", "uint", Flags, "ptr", hAuthzClientContext, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pSecurityDescriptor, "ptr", OptionalSecurityDescriptorArray, "uint", OptionalSecurityDescriptorCount, "ptr", pReply, "int")
+        result := DllCall("AUTHZ.dll\AuthzOpenObjectAudit", "uint", Flags, "ptr", hAuthzClientContext, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pSecurityDescriptor, "ptr", OptionalSecurityDescriptorArray, "uint", OptionalSecurityDescriptorCount, "ptr", pReply, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1577,8 +1588,8 @@ class Authorization {
 
     /**
      * Finds and deletes a handle from the handle list.
-     * @param {Pointer<Void>} hAccessCheckResults A handle to be freed.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {AUTHZ_ACCESS_CHECK_RESULTS_HANDLE} hAccessCheckResults A handle to be freed.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1586,9 +1597,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzFreeHandle(hAccessCheckResults) {
+        hAccessCheckResults := hAccessCheckResults is Win32Handle ? NumGet(hAccessCheckResults, "ptr") : hAccessCheckResults
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzFreeHandle", "ptr", hAccessCheckResults, "int")
+        result := DllCall("AUTHZ.dll\AuthzFreeHandle", "ptr", hAccessCheckResults, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1658,20 +1671,20 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzcachedaccesscheck">AuthzCachedAccessCheck</a>.  This parameter can be <b>NULL</b> if no access check callback function is used.
      * @param {Pointer<PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS>} pfnComputeDynamicGroups A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzcomputegroupscallback">AuthzComputeGroupsCallback</a> callback function called by the resource manager during initialization of an <i>AuthzClientContext</i> handle. This parameter can be <b>NULL</b> if no callback function is used to compute dynamic groups.
      * @param {Pointer<PFN_AUTHZ_FREE_DYNAMIC_GROUPS>} pfnFreeDynamicGroups A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authzfreegroupscallback">AuthzFreeGroupsCallback</a> callback function called by the resource manager to free <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) attribute arrays allocated by the compute dynamic groups callback. This parameter can be <b>NULL</b> if no callback function is used to compute dynamic groups.
-     * @param {Pointer<Char>} szResourceManagerName A string that identifies the resource manager. This parameter can be <b>NULL</b> if the resource manager does not need a name.
-     * @param {Pointer<Void>} phAuthzResourceManager A pointer to the returned resource manager handle. When you have finished using the handle, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreeresourcemanager">AuthzFreeResourceManager</a> function.
-     * @returns {Integer} If the function succeeds, the function returns a nonzero value. 
+     * @param {PWSTR} szResourceManagerName A string that identifies the resource manager. This parameter can be <b>NULL</b> if the resource manager does not need a name.
+     * @param {Pointer<AUTHZ_RESOURCE_MANAGER_HANDLE>} phAuthzResourceManager A pointer to the returned resource manager handle. When you have finished using the handle, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreeresourcemanager">AuthzFreeResourceManager</a> function.
+     * @returns {BOOL} If the function succeeds, the function returns a nonzero value. 
      * 
      * If the function fails, it returns a zero value. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializeresourcemanager
      * @since windows5.1.2600
      */
     static AuthzInitializeResourceManager(Flags, pfnDynamicAccessCheck, pfnComputeDynamicGroups, pfnFreeDynamicGroups, szResourceManagerName, phAuthzResourceManager) {
-        szResourceManagerName := szResourceManagerName is String? StrPtr(szResourceManagerName) : szResourceManagerName
+        szResourceManagerName := szResourceManagerName is String ? StrPtr(szResourceManagerName) : szResourceManagerName
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeResourceManager", "uint", Flags, "ptr", pfnDynamicAccessCheck, "ptr", pfnComputeDynamicGroups, "ptr", pfnFreeDynamicGroups, "ptr", szResourceManagerName, "ptr", phAuthzResourceManager, "int")
+        result := DllCall("AUTHZ.dll\AuthzInitializeResourceManager", "uint", Flags, "ptr", pfnDynamicAccessCheck, "ptr", pfnComputeDynamicGroups, "ptr", pfnFreeDynamicGroups, "ptr", szResourceManagerName, "ptr", phAuthzResourceManager, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1682,8 +1695,8 @@ class Authorization {
      * Allocates and initializes a resource manager structure.
      * @param {Integer} Flags 
      * @param {Pointer<AUTHZ_INIT_INFO>} pAuthzInitInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_init_info">AUTHZ_INIT_INFO</a> structure that contains the authorization resource manager initialization information.
-     * @param {Pointer<Void>} phAuthzResourceManager A pointer to the returned resource manager handle. When you have finished using the handle, free it by using the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreeresourcemanager">AuthzFreeResourceManager</a> function.
-     * @returns {Integer} If the function succeeds, the function returns a value of <b>TRUE</b>. 
+     * @param {Pointer<AUTHZ_RESOURCE_MANAGER_HANDLE>} phAuthzResourceManager A pointer to the returned resource manager handle. When you have finished using the handle, free it by using the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreeresourcemanager">AuthzFreeResourceManager</a> function.
+     * @returns {BOOL} If the function succeeds, the function returns a value of <b>TRUE</b>. 
      * 
      * If the function fails, it returns a value of <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializeresourcemanagerex
@@ -1692,7 +1705,7 @@ class Authorization {
     static AuthzInitializeResourceManagerEx(Flags, pAuthzInitInfo, phAuthzResourceManager) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeResourceManagerEx", "uint", Flags, "ptr", pAuthzInitInfo, "ptr", phAuthzResourceManager, "int")
+        result := DllCall("AUTHZ.dll\AuthzInitializeResourceManagerEx", "uint", Flags, "ptr", pAuthzInitInfo, "ptr", phAuthzResourceManager, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1702,8 +1715,8 @@ class Authorization {
     /**
      * Allocates and initializes a remote resource manager. The caller can use the resulting handle to make RPC calls to a remote instance of the resource manager configured on a server.
      * @param {Pointer<AUTHZ_RPC_INIT_INFO_CLIENT>} pRpcInitInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_rpc_init_info_client">AUTHZ_RPC_INIT_INFO_CLIENT</a> structure containing the initial information needed to configure the connection.
-     * @param {Pointer<Void>} phAuthzResourceManager A handle to the resource manager. When you have finished using the handle, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreeresourcemanager">AuthzFreeResourceManager</a> function.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>. 
+     * @param {Pointer<AUTHZ_RESOURCE_MANAGER_HANDLE>} phAuthzResourceManager A handle to the resource manager. When you have finished using the handle, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreeresourcemanager">AuthzFreeResourceManager</a> function.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>. 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializeremoteresourcemanager
@@ -1712,7 +1725,7 @@ class Authorization {
     static AuthzInitializeRemoteResourceManager(pRpcInitInfo, phAuthzResourceManager) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeRemoteResourceManager", "ptr", pRpcInitInfo, "ptr", phAuthzResourceManager, "int")
+        result := DllCall("AUTHZ.dll\AuthzInitializeRemoteResourceManager", "ptr", pRpcInitInfo, "ptr", phAuthzResourceManager, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1721,8 +1734,8 @@ class Authorization {
 
     /**
      * Frees a resource manager object.
-     * @param {Pointer<Void>} hAuthzResourceManager The <b>AUTHZ_RESOURCE_MANAGER_HANDLE</b> to be freed.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {AUTHZ_RESOURCE_MANAGER_HANDLE} hAuthzResourceManager The <b>AUTHZ_RESOURCE_MANAGER_HANDLE</b> to be freed.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1730,9 +1743,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzFreeResourceManager(hAuthzResourceManager) {
+        hAuthzResourceManager := hAuthzResourceManager is Win32Handle ? NumGet(hAuthzResourceManager, "ptr") : hAuthzResourceManager
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzFreeResourceManager", "ptr", hAuthzResourceManager, "int")
+        result := DllCall("AUTHZ.dll\AuthzFreeResourceManager", "ptr", hAuthzResourceManager, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1742,14 +1757,14 @@ class Authorization {
     /**
      * Initializes a client authorization context from a kernel token. The kernel token must have been opened for TOKEN_QUERY.
      * @param {Integer} Flags Reserved for future use.
-     * @param {Pointer<Void>} TokenHandle A handle to the client token used to initialize the <i>pAuthzClientContext</i> parameter. The token must have been opened with TOKEN_QUERY access.
-     * @param {Pointer<Void>} hAuthzResourceManager A handle to the resource manager that created this client context. This handle is stored in the client context structure.
+     * @param {HANDLE} TokenHandle A handle to the client token used to initialize the <i>pAuthzClientContext</i> parameter. The token must have been opened with TOKEN_QUERY access.
+     * @param {AUTHZ_RESOURCE_MANAGER_HANDLE} hAuthzResourceManager A handle to the resource manager that created this client context. This handle is stored in the client context structure.
      * @param {Pointer<Int64>} pExpirationTime Expiration date and time of the token. If no value is passed, the token never expires. Expiration time is not currently enforced.
-     * @param {Pointer} Identifier Identifier that is specific to the resource manager. This parameter is not currently used.
+     * @param {LUID} Identifier Identifier that is specific to the resource manager. This parameter is not currently used.
      * @param {Pointer<Void>} DynamicGroupArgs A pointer to parameters to be passed to the callback function that computes dynamic groups.
-     * @param {Pointer<Void>} phAuthzClientContext A pointer to the <i>AuthzClientContext</i> handle returned. Call 
+     * @param {Pointer<AUTHZ_CLIENT_CONTEXT_HANDLE>} phAuthzClientContext A pointer to the <i>AuthzClientContext</i> handle returned. Call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreecontext">AuthzFreeContext</a> when done with the client context.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1757,9 +1772,12 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzInitializeContextFromToken(Flags, TokenHandle, hAuthzResourceManager, pExpirationTime, Identifier, DynamicGroupArgs, phAuthzClientContext) {
+        TokenHandle := TokenHandle is Win32Handle ? NumGet(TokenHandle, "ptr") : TokenHandle
+        hAuthzResourceManager := hAuthzResourceManager is Win32Handle ? NumGet(hAuthzResourceManager, "ptr") : hAuthzResourceManager
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromToken", "uint", Flags, "ptr", TokenHandle, "ptr", hAuthzResourceManager, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phAuthzClientContext, "int")
+        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromToken", "uint", Flags, "ptr", TokenHandle, "ptr", hAuthzResourceManager, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phAuthzClientContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1828,17 +1846,17 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} UserSid The SID of the user for whom a client context will be created. This must be a valid user or computer account unless the AUTHZ_SKIP_TOKEN_GROUPS flag is used.
-     * @param {Pointer<Void>} hAuthzResourceManager A handle to the resource manager creating this client context. This handle is stored in the client context structure. 
+     * @param {PSID} UserSid The SID of the user for whom a client context will be created. This must be a valid user or computer account unless the AUTHZ_SKIP_TOKEN_GROUPS flag is used.
+     * @param {AUTHZ_RESOURCE_MANAGER_HANDLE} hAuthzResourceManager A handle to the resource manager creating this client context. This handle is stored in the client context structure. 
      * 
      * Starting with Windows 8 and Windows Server 2012, the resource manager can be local or remote and is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzinitializeremoteresourcemanager">AuthzInitializeRemoteResourceManager</a> function.
      * @param {Pointer<Int64>} pExpirationTime Expiration date and time of the token. If no value is passed, the token never expires. Expiration time is not currently enforced.
-     * @param {Pointer} Identifier Specific identifier of the resource manager. This parameter is not currently used.
+     * @param {LUID} Identifier Specific identifier of the resource manager. This parameter is not currently used.
      * @param {Pointer<Void>} DynamicGroupArgs A pointer to parameters to be passed to the callback function that computes dynamic groups. This parameter can be <b>NULL</b> if no dynamic parameters are passed to the callback function. 
      * 
      * Starting with Windows 8 and Windows Server 2012, this parameter must be  <b>NULL</b> if the resource manager is remote. Otherwise, ERROR_NOT_SUPPORTED will be set.
-     * @param {Pointer<Void>} phAuthzClientContext A pointer to the handle to the client context that the <b>AuthzInitializeContextFromSid</b> function creates.  When you have finished using the handle, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreecontext">AuthzFreeContext</a> function.
-     * @returns {Integer} If the function succeeds, the function returns nonzero.
+     * @param {Pointer<AUTHZ_CLIENT_CONTEXT_HANDLE>} phAuthzClientContext A pointer to the handle to the client context that the <b>AuthzInitializeContextFromSid</b> function creates.  When you have finished using the handle, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreecontext">AuthzFreeContext</a> function.
+     * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1846,9 +1864,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzInitializeContextFromSid(Flags, UserSid, hAuthzResourceManager, pExpirationTime, Identifier, DynamicGroupArgs, phAuthzClientContext) {
+        hAuthzResourceManager := hAuthzResourceManager is Win32Handle ? NumGet(hAuthzResourceManager, "ptr") : hAuthzResourceManager
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromSid", "uint", Flags, "ptr", UserSid, "ptr", hAuthzResourceManager, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phAuthzClientContext, "int")
+        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromSid", "uint", Flags, "ptr", UserSid, "ptr", hAuthzResourceManager, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phAuthzClientContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1858,12 +1878,12 @@ class Authorization {
     /**
      * Creates a new client context based on an existing client context.
      * @param {Integer} Flags Reserved for future use.
-     * @param {Pointer<Void>} hAuthzClientContext The handle to an existing client context.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext The handle to an existing client context.
      * @param {Pointer<Int64>} pExpirationTime Sets the time limit for how long the returned context structure is valid. If no value is passed, then the token never expires. Expiration time is not currently enforced.
-     * @param {Pointer} Identifier The specific identifier for the resource manager.
+     * @param {LUID} Identifier The specific identifier for the resource manager.
      * @param {Pointer<Void>} DynamicGroupArgs A pointer to parameters to be passed to the callback function that computes dynamic groups. If the value is <b>NULL</b>, then the callback function is not called.
-     * @param {Pointer<Void>} phNewAuthzClientContext A pointer to the duplicated AUTHZ_CLIENT_CONTEXT_HANDLE handle. When you have finished using the handle, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreecontext">AuthzFreeContext</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {Pointer<AUTHZ_CLIENT_CONTEXT_HANDLE>} phNewAuthzClientContext A pointer to the duplicated AUTHZ_CLIENT_CONTEXT_HANDLE handle. When you have finished using the handle, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzfreecontext">AuthzFreeContext</a> function.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1871,9 +1891,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzInitializeContextFromAuthzContext(Flags, hAuthzClientContext, pExpirationTime, Identifier, DynamicGroupArgs, phNewAuthzClientContext) {
+        hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromAuthzContext", "uint", Flags, "ptr", hAuthzClientContext, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phNewAuthzClientContext, "int")
+        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromAuthzContext", "uint", Flags, "ptr", hAuthzClientContext, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phNewAuthzClientContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1882,10 +1904,10 @@ class Authorization {
 
     /**
      * Creates a user-mode context from the given user and device security contexts.
-     * @param {Pointer<Void>} UserContext User context to create the compound context from.
-     * @param {Pointer<Void>} DeviceContext Device context to create the compound context from. This must not be the same as the user context.
-     * @param {Pointer<Void>} phCompoundContext Used to return the resultant compound context.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} UserContext User context to create the compound context from.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} DeviceContext Device context to create the compound context from. This must not be the same as the user context.
+     * @param {Pointer<AUTHZ_CLIENT_CONTEXT_HANDLE>} phCompoundContext Used to return the resultant compound context.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1893,9 +1915,12 @@ class Authorization {
      * @since windows8.0
      */
     static AuthzInitializeCompoundContext(UserContext, DeviceContext, phCompoundContext) {
+        UserContext := UserContext is Win32Handle ? NumGet(UserContext, "ptr") : UserContext
+        DeviceContext := DeviceContext is Win32Handle ? NumGet(DeviceContext, "ptr") : DeviceContext
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeCompoundContext", "ptr", UserContext, "ptr", DeviceContext, "ptr", phCompoundContext, "int")
+        result := DllCall("AUTHZ.dll\AuthzInitializeCompoundContext", "ptr", UserContext, "ptr", DeviceContext, "ptr", phCompoundContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1904,14 +1929,14 @@ class Authorization {
 
     /**
      * Creates a copy of an existing context and appends a given set of security identifiers (SIDs) and restricted SIDs.
-     * @param {Pointer<Void>} hAuthzClientContext An <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure to be copied as the basis for <i>NewClientContext</i>.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext An <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure to be copied as the basis for <i>NewClientContext</i>.
      * @param {Pointer<SID_AND_ATTRIBUTES>} Sids A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_and_attributes">SID_AND_ATTRIBUTES</a> structure containing the SIDs and attributes to be added to the unrestricted part of the client context.
      * @param {Integer} SidCount The number of SIDs to be added.
      * @param {Pointer<SID_AND_ATTRIBUTES>} RestrictedSids A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_and_attributes">SID_AND_ATTRIBUTES</a> structure containing the SIDs and attributes to be added to the restricted part of the client context.
      * @param {Integer} RestrictedSidCount Number of restricted SIDs to be added.
-     * @param {Pointer<Void>} phNewAuthzClientContext A pointer to the created <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure containing input values for expiration time, identifier, flags, additional SIDs and restricted SIDs.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {Pointer<AUTHZ_CLIENT_CONTEXT_HANDLE>} phNewAuthzClientContext A pointer to the created <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure containing input values for expiration time, identifier, flags, additional SIDs and restricted SIDs.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1919,9 +1944,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzAddSidsToContext(hAuthzClientContext, Sids, SidCount, RestrictedSids, RestrictedSidCount, phNewAuthzClientContext) {
+        hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzAddSidsToContext", "ptr", hAuthzClientContext, "ptr", Sids, "uint", SidCount, "ptr", RestrictedSids, "uint", RestrictedSidCount, "ptr", phNewAuthzClientContext, "int")
+        result := DllCall("AUTHZ.dll\AuthzAddSidsToContext", "ptr", hAuthzClientContext, "ptr", Sids, "uint", SidCount, "ptr", RestrictedSids, "uint", RestrictedSidCount, "ptr", phNewAuthzClientContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1930,12 +1957,12 @@ class Authorization {
 
     /**
      * Modifies the security attribute information in the specified client context.
-     * @param {Pointer<Void>} hAuthzClientContext A handle to the client context to be modified.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the client context to be modified.
      * @param {Pointer<Int32>} pOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the types of modifications to make.
      * 
      * This array must have only one element if the value of that element is <b>AUTHZ_SECURITY_ATTRIBUTE_OPERATION_REPLACE_ALL</b>. Otherwise, the array has the same number of elements as the <i>pAttributes</i> array.
      * @param {Pointer<AUTHZ_SECURITY_ATTRIBUTES_INFORMATION>} pAttributes A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_security_attributes_information">AUTHZ_SECURITY_ATTRIBUTES_INFORMATION</a> structure that specifies the attributes to modify.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1943,9 +1970,11 @@ class Authorization {
      * @since windows6.1
      */
     static AuthzModifySecurityAttributes(hAuthzClientContext, pOperations, pAttributes) {
+        hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzModifySecurityAttributes", "ptr", hAuthzClientContext, "int*", pOperations, "ptr", pAttributes, "int")
+        result := DllCall("AUTHZ.dll\AuthzModifySecurityAttributes", "ptr", hAuthzClientContext, "int*", pOperations, "ptr", pAttributes, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1954,11 +1983,11 @@ class Authorization {
 
     /**
      * Adds, deletes, or modifies user and device claims in the Authz client context.
-     * @param {Pointer<Void>} hAuthzClientContext A handle to the client context to be modified.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the client context to be modified.
      * @param {Integer} ClaimClass Type of information to be modified. The caller can specify AuthzContextInfoUserClaims or AuthzContextInfoDeviceClaims.
      * @param {Pointer<Int32>} pClaimOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_security_attribute_operation">AUTHZ_SECURITY_ATTRIBUTE_OPERATION</a> enumeration values that specify the type of claim modification to make.
      * @param {Pointer<AUTHZ_SECURITY_ATTRIBUTES_INFORMATION>} pClaims A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_security_attributes_information">AUTHZ_SECURITY_ATTRIBUTES_INFORMATION</a> structure that specifies the claims to modify.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1966,9 +1995,11 @@ class Authorization {
      * @since windows8.0
      */
     static AuthzModifyClaims(hAuthzClientContext, ClaimClass, pClaimOperations, pClaims) {
+        hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzModifyClaims", "ptr", hAuthzClientContext, "int", ClaimClass, "int*", pClaimOperations, "ptr", pClaims, "int")
+        result := DllCall("AUTHZ.dll\AuthzModifyClaims", "ptr", hAuthzClientContext, "int", ClaimClass, "int*", pClaimOperations, "ptr", pClaims, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1977,11 +2008,11 @@ class Authorization {
 
     /**
      * Adds, deletes, or modifies user and device groups in the Authz client context.
-     * @param {Pointer<Void>} hAuthzClientContext A handle to the client context to be modified.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the client context to be modified.
      * @param {Integer} SidClass Type of information to be modified. The caller can specify AuthzContextInfoGroupsSids, AuthzContextInfoRestrictedSids, or AuthzContextInfoDeviceSids.
      * @param {Pointer<Int32>} pSidOperations A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_sid_operation">AUTHZ_SID_OPERATION</a> enumeration values that specify the group modifications to make.
      * @param {Pointer<TOKEN_GROUPS>} pSids A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that specifies the groups to modify.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1989,9 +2020,11 @@ class Authorization {
      * @since windows8.0
      */
     static AuthzModifySids(hAuthzClientContext, SidClass, pSidOperations, pSids) {
+        hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzModifySids", "ptr", hAuthzClientContext, "int", SidClass, "int*", pSidOperations, "ptr", pSids, "int")
+        result := DllCall("AUTHZ.dll\AuthzModifySids", "ptr", hAuthzClientContext, "int", SidClass, "int*", pSidOperations, "ptr", pSids, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2000,11 +2033,11 @@ class Authorization {
 
     /**
      * Sets the app container and capability information in a current Authz context.
-     * @param {Pointer<Void>} hAuthzClientContext The handle to the client context to which the given app container SID and capability SIDs will be added.
-     * @param {Pointer<Void>} pAppContainerSid The app container SID.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext The handle to the client context to which the given app container SID and capability SIDs will be added.
+     * @param {PSID} pAppContainerSid The app container SID.
      * @param {Integer} CapabilityCount The number of capability SIDs to be added. This value can be zero if no capability is to be added.
      * @param {Pointer<SID_AND_ATTRIBUTES>} pCapabilitySids The capability SIDs to be added to the context. This value must be <b>NULL</b> when the <i>CapabilityCount</i> parameter is zero.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2012,9 +2045,11 @@ class Authorization {
      * @since windows8.0
      */
     static AuthzSetAppContainerInformation(hAuthzClientContext, pAppContainerSid, CapabilityCount, pCapabilitySids) {
+        hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzSetAppContainerInformation", "ptr", hAuthzClientContext, "ptr", pAppContainerSid, "uint", CapabilityCount, "ptr", pCapabilitySids, "int")
+        result := DllCall("AUTHZ.dll\AuthzSetAppContainerInformation", "ptr", hAuthzClientContext, "ptr", pAppContainerSid, "uint", CapabilityCount, "ptr", pCapabilitySids, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2023,12 +2058,12 @@ class Authorization {
 
     /**
      * Returns information about an Authz context.
-     * @param {Pointer<Void>} hAuthzClientContext A handle to the context.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext A handle to the context.
      * @param {Integer} InfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ne-authz-authz_context_information_class">AUTHZ_CONTEXT_INFORMATION_CLASS</a> enumeration that indicates the type of information to be returned.
      * @param {Integer} BufferSize Size of the buffer passed.
      * @param {Pointer<UInt32>} pSizeRequired A pointer to a <b>DWORD</b> of  the buffer size required for returning the structure.
      * @param {Pointer<Void>} Buffer A pointer to memory that can receive the information. The structure returned depends on the information requested in the <i>InfoClass</i> parameter.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2036,9 +2071,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzGetInformationFromContext(hAuthzClientContext, InfoClass, BufferSize, pSizeRequired, Buffer) {
+        hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzGetInformationFromContext", "ptr", hAuthzClientContext, "int", InfoClass, "uint", BufferSize, "uint*", pSizeRequired, "ptr", Buffer, "int")
+        result := DllCall("AUTHZ.dll\AuthzGetInformationFromContext", "ptr", hAuthzClientContext, "int", InfoClass, "uint", BufferSize, "uint*", pSizeRequired, "ptr", Buffer, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2047,8 +2084,8 @@ class Authorization {
 
     /**
      * Frees all structures and memory associated with the client context. The list of handles for a client is freed in this call.
-     * @param {Pointer<Void>} hAuthzClientContext The <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure to be freed.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext The <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure to be freed.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2056,9 +2093,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzFreeContext(hAuthzClientContext) {
+        hAuthzClientContext := hAuthzClientContext is Win32Handle ? NumGet(hAuthzClientContext, "ptr") : hAuthzClientContext
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzFreeContext", "ptr", hAuthzClientContext, "int")
+        result := DllCall("AUTHZ.dll\AuthzFreeContext", "ptr", hAuthzClientContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2068,28 +2107,29 @@ class Authorization {
     /**
      * Initializes auditing for an object.
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} hAuditEventType Reserved. This parameter should be set to <b>NULL</b>.
-     * @param {Pointer<Char>} szOperationType String that indicates the operation that is to be audited.
-     * @param {Pointer<Char>} szObjectType String that indicates the type of object being accessed.
-     * @param {Pointer<Char>} szObjectName String the indicates the name of the object being accessed.
-     * @param {Pointer<Char>} szAdditionalInfo String, defined by the Resource Manager, for additional audit information.
-     * @param {Pointer<Void>} phAuditEvent Pointer that receives an <b>AUTHZ_AUDIT_EVENT_HANDLE</b> structure.
+     * @param {AUTHZ_AUDIT_EVENT_TYPE_HANDLE} hAuditEventType Reserved. This parameter should be set to <b>NULL</b>.
+     * @param {PWSTR} szOperationType String that indicates the operation that is to be audited.
+     * @param {PWSTR} szObjectType String that indicates the type of object being accessed.
+     * @param {PWSTR} szObjectName String the indicates the name of the object being accessed.
+     * @param {PWSTR} szAdditionalInfo String, defined by the Resource Manager, for additional audit information.
+     * @param {Pointer<AUTHZ_AUDIT_EVENT_HANDLE>} phAuditEvent Pointer that receives an <b>AUTHZ_AUDIT_EVENT_HANDLE</b> structure.
      * @param {Integer} dwAdditionalParameterCount Must be set to zero.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializeobjectaccessauditevent
      * @since windows5.1.2600
      */
     static AuthzInitializeObjectAccessAuditEvent(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, phAuditEvent, dwAdditionalParameterCount) {
-        szOperationType := szOperationType is String? StrPtr(szOperationType) : szOperationType
-        szObjectType := szObjectType is String? StrPtr(szObjectType) : szObjectType
-        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
-        szAdditionalInfo := szAdditionalInfo is String? StrPtr(szAdditionalInfo) : szAdditionalInfo
+        szOperationType := szOperationType is String ? StrPtr(szOperationType) : szOperationType
+        szObjectType := szObjectType is String ? StrPtr(szObjectType) : szObjectType
+        szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
+        szAdditionalInfo := szAdditionalInfo is String ? StrPtr(szAdditionalInfo) : szAdditionalInfo
+        hAuditEventType := hAuditEventType is Win32Handle ? NumGet(hAuditEventType, "ptr") : hAuditEventType
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl int")
+        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2136,30 +2176,31 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hAuditEventType Reserved. This parameter should be set to <b>NULL</b>.
-     * @param {Pointer<Char>} szOperationType A pointer to a string that indicates the operation that is to be audited.
-     * @param {Pointer<Char>} szObjectType A pointer to a string that indicates the type of object  accessed.
-     * @param {Pointer<Char>} szObjectName A pointer to a string that indicates the name of the object  accessed.
-     * @param {Pointer<Char>} szAdditionalInfo Pointer to a string defined by the Resource Manager that contains additional audit information.
-     * @param {Pointer<Char>} szAdditionalInfo2 Pointer to a string defined by the Resource Manager that contains additional audit information.
-     * @param {Pointer<Void>} phAuditEvent A pointer to the returned <b>AUTHZ_AUDIT_EVENT_HANDLE</b> handle.
+     * @param {AUTHZ_AUDIT_EVENT_TYPE_HANDLE} hAuditEventType Reserved. This parameter should be set to <b>NULL</b>.
+     * @param {PWSTR} szOperationType A pointer to a string that indicates the operation that is to be audited.
+     * @param {PWSTR} szObjectType A pointer to a string that indicates the type of object  accessed.
+     * @param {PWSTR} szObjectName A pointer to a string that indicates the name of the object  accessed.
+     * @param {PWSTR} szAdditionalInfo Pointer to a string defined by the Resource Manager that contains additional audit information.
+     * @param {PWSTR} szAdditionalInfo2 Pointer to a string defined by the Resource Manager that contains additional audit information.
+     * @param {Pointer<AUTHZ_AUDIT_EVENT_HANDLE>} phAuditEvent A pointer to the returned <b>AUTHZ_AUDIT_EVENT_HANDLE</b> handle.
      * @param {Integer} dwAdditionalParameterCount Must be set to zero.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinitializeobjectaccessauditevent2
      * @since windowsserver2003
      */
     static AuthzInitializeObjectAccessAuditEvent2(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, szAdditionalInfo2, phAuditEvent, dwAdditionalParameterCount) {
-        szOperationType := szOperationType is String? StrPtr(szOperationType) : szOperationType
-        szObjectType := szObjectType is String? StrPtr(szObjectType) : szObjectType
-        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
-        szAdditionalInfo := szAdditionalInfo is String? StrPtr(szAdditionalInfo) : szAdditionalInfo
-        szAdditionalInfo2 := szAdditionalInfo2 is String? StrPtr(szAdditionalInfo2) : szAdditionalInfo2
+        szOperationType := szOperationType is String ? StrPtr(szOperationType) : szOperationType
+        szObjectType := szObjectType is String ? StrPtr(szObjectType) : szObjectType
+        szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
+        szAdditionalInfo := szAdditionalInfo is String ? StrPtr(szAdditionalInfo) : szAdditionalInfo
+        szAdditionalInfo2 := szAdditionalInfo2 is String ? StrPtr(szAdditionalInfo2) : szAdditionalInfo2
+        hAuditEventType := hAuditEventType is Win32Handle ? NumGet(hAuditEventType, "ptr") : hAuditEventType
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent2", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", szAdditionalInfo2, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl int")
+        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent2", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", szAdditionalInfo2, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2168,8 +2209,8 @@ class Authorization {
 
     /**
      * Frees the structure allocated by the AuthzInitializeObjectAccessAuditEvent function.
-     * @param {Pointer<Void>} hAuditEvent A pointer to the <b>AUTHZ_AUDIT_EVENT_HANDLE</b> structure to be freed.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @param {AUTHZ_AUDIT_EVENT_HANDLE} hAuditEvent A pointer to the <b>AUTHZ_AUDIT_EVENT_HANDLE</b> structure to be freed.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2177,9 +2218,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzFreeAuditEvent(hAuditEvent) {
+        hAuditEvent := hAuditEvent is Win32Handle ? NumGet(hAuditEvent, "ptr") : hAuditEvent
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzFreeAuditEvent", "ptr", hAuditEvent, "int")
+        result := DllCall("AUTHZ.dll\AuthzFreeAuditEvent", "ptr", hAuditEvent, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2188,16 +2231,18 @@ class Authorization {
 
     /**
      * 
-     * @param {Pointer<Void>} AuthzClientContext 
+     * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} AuthzClientContext 
      * @param {Pointer<AUTHZ_ACCESS_REQUEST>} pRequest 
      * @param {Pointer<ACL>} Sacl 
      * @param {Integer} GrantedAccess 
-     * @param {Integer} AccessGranted 
-     * @param {Pointer<Int32>} pbGenerateAudit 
-     * @returns {Integer} 
+     * @param {BOOL} AccessGranted 
+     * @param {Pointer<BOOL>} pbGenerateAudit 
+     * @returns {BOOL} 
      */
     static AuthzEvaluateSacl(AuthzClientContext, pRequest, Sacl, GrantedAccess, AccessGranted, pbGenerateAudit) {
-        result := DllCall("AUTHZ.dll\AuthzEvaluateSacl", "ptr", AuthzClientContext, "ptr", pRequest, "ptr", Sacl, "uint", GrantedAccess, "int", AccessGranted, "int*", pbGenerateAudit, "int")
+        AuthzClientContext := AuthzClientContext is Win32Handle ? NumGet(AuthzClientContext, "ptr") : AuthzClientContext
+
+        result := DllCall("AUTHZ.dll\AuthzEvaluateSacl", "ptr", AuthzClientContext, "ptr", pRequest, "ptr", Sacl, "uint", GrantedAccess, "ptr", AccessGranted, "ptr", pbGenerateAudit, "ptr")
         return result
     }
 
@@ -2224,7 +2269,7 @@ class Authorization {
      * <li>If the <b>szEventSourceXmlSchemaFile</b> member is not <b>NULL</b>, it is added as the data in a REG_SZ value named <b>XmlSchemaFile</b> under the event source key. This value is not used.</li>
      * <li>The <b>szExecutableImagePath</b> member may be set to <b>NULL</b>.</li>
      * </ul>
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzinstallsecurityeventsource
@@ -2233,7 +2278,7 @@ class Authorization {
     static AuthzInstallSecurityEventSource(dwFlags, pRegistration) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInstallSecurityEventSource", "uint", dwFlags, "ptr", pRegistration, "int")
+        result := DllCall("AUTHZ.dll\AuthzInstallSecurityEventSource", "uint", dwFlags, "ptr", pRegistration, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2243,21 +2288,21 @@ class Authorization {
     /**
      * Removes the specified source from the list of valid security event sources.
      * @param {Integer} dwFlags Reserved for future use; set this parameter to zero.
-     * @param {Pointer<Char>} szEventSourceName Name of the source to remove from the list of valid security event sources. This corresponds to  the <b>szEventSourceName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_source_schema_registration">AUTHZ_SOURCE_SCHEMA_REGISTRATION</a> structure that defines the source.
+     * @param {PWSTR} szEventSourceName Name of the source to remove from the list of valid security event sources. This corresponds to  the <b>szEventSourceName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_source_schema_registration">AUTHZ_SOURCE_SCHEMA_REGISTRATION</a> structure that defines the source.
      * 
      * This function removes the source information from the registry. For more information about the registry keys and values affected, see the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzinstallsecurityeventsource">AuthzInstallSecurityEventSource</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzuninstallsecurityeventsource
      * @since windowsserver2003
      */
     static AuthzUninstallSecurityEventSource(dwFlags, szEventSourceName) {
-        szEventSourceName := szEventSourceName is String? StrPtr(szEventSourceName) : szEventSourceName
+        szEventSourceName := szEventSourceName is String ? StrPtr(szEventSourceName) : szEventSourceName
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzUninstallSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "int")
+        result := DllCall("AUTHZ.dll\AuthzUninstallSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2270,7 +2315,7 @@ class Authorization {
      * @param {Pointer<AUTHZ_SOURCE_SCHEMA_REGISTRATION>} Buffer A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/authz/ns-authz-authz_source_schema_registration">AUTHZ_SOURCE_SCHEMA_REGISTRATION</a> structures that returns the registered security event sources.
      * @param {Pointer<UInt32>} pdwCount A pointer to a  variable that receives the number of event sources found.
      * @param {Pointer<UInt32>} pdwLength A pointer to a variable that specifies the length of the <i>Buffer</i> parameter in bytes. On output, this parameter receives the number of bytes used or required.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzenumeratesecurityeventsources
@@ -2279,7 +2324,7 @@ class Authorization {
     static AuthzEnumerateSecurityEventSources(dwFlags, Buffer, pdwCount, pdwLength) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzEnumerateSecurityEventSources", "uint", dwFlags, "ptr", Buffer, "uint*", pdwCount, "uint*", pdwLength, "int")
+        result := DllCall("AUTHZ.dll\AuthzEnumerateSecurityEventSources", "uint", dwFlags, "ptr", Buffer, "uint*", pdwCount, "uint*", pdwLength, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2289,20 +2334,20 @@ class Authorization {
     /**
      * Registers a security event source with the Local Security Authority (LSA).
      * @param {Integer} dwFlags This parameter is reserved for future use. Set this parameter to zero.
-     * @param {Pointer<Char>} szEventSourceName A pointer to the name of the security event source to register.
-     * @param {Pointer<Void>} phEventProvider A pointer to a handle to the registered security event source.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @param {PWSTR} szEventSourceName A pointer to the name of the security event source to register.
+     * @param {Pointer<AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE>} phEventProvider A pointer to a handle to the registered security event source.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzregistersecurityeventsource
      * @since windowsserver2003
      */
     static AuthzRegisterSecurityEventSource(dwFlags, szEventSourceName, phEventProvider) {
-        szEventSourceName := szEventSourceName is String? StrPtr(szEventSourceName) : szEventSourceName
+        szEventSourceName := szEventSourceName is String ? StrPtr(szEventSourceName) : szEventSourceName
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzRegisterSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "ptr", phEventProvider, "int")
+        result := DllCall("AUTHZ.dll\AuthzRegisterSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "ptr", phEventProvider, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2312,8 +2357,8 @@ class Authorization {
     /**
      * Unregisters a security event source with the Local Security Authority (LSA).
      * @param {Integer} dwFlags This parameter is reserved for future use. Set this parameter to zero.
-     * @param {Pointer<Void>} phEventProvider A pointer to a handle to the security event source to unregister.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @param {Pointer<AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE>} phEventProvider A pointer to a handle to the security event source to unregister.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzunregistersecurityeventsource
@@ -2322,7 +2367,7 @@ class Authorization {
     static AuthzUnregisterSecurityEventSource(dwFlags, phEventProvider) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzUnregisterSecurityEventSource", "uint", dwFlags, "ptr", phEventProvider, "int")
+        result := DllCall("AUTHZ.dll\AuthzUnregisterSecurityEventSource", "uint", dwFlags, "ptr", phEventProvider, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2361,20 +2406,22 @@ class Authorization {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hEventProvider A handle to the registered security event source to use for the audit.
+     * @param {AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE} hEventProvider A handle to the registered security event source to use for the audit.
      * @param {Integer} dwAuditId The identifier of the audit.
-     * @param {Pointer<Void>} pUserSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) that will be listed as the source of the audit in the event log.
+     * @param {PSID} pUserSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) that will be listed as the source of the audit in the event log.
      * @param {Integer} dwCount The number of AuditParamFlag  type/value pairs that appear in the variable arguments section that follows this parameter.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzreportsecurityevent
      * @since windowsserver2003
      */
     static AuthzReportSecurityEvent(dwFlags, hEventProvider, dwAuditId, pUserSid, dwCount) {
+        hEventProvider := hEventProvider is Win32Handle ? NumGet(hEventProvider, "ptr") : hEventProvider
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzReportSecurityEvent", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "uint", dwCount, "CDecl int")
+        result := DllCall("AUTHZ.dll\AuthzReportSecurityEvent", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "uint", dwCount, "CDecl ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2384,20 +2431,22 @@ class Authorization {
     /**
      * Generates a security audit for a registered security event source by using the specified array of audit parameters.
      * @param {Integer} dwFlags Reserved for future use.
-     * @param {Pointer<Void>} hEventProvider A handle to the registered security event source to use for the audit.
+     * @param {AUTHZ_SECURITY_EVENT_PROVIDER_HANDLE} hEventProvider A handle to the registered security event source to use for the audit.
      * @param {Integer} dwAuditId The identifier of the audit.
-     * @param {Pointer<Void>} pUserSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) that will be listed as the source of the audit in the event log.
+     * @param {PSID} pUserSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) that will be listed as the source of the audit in the event log.
      * @param {Pointer<AUDIT_PARAMS>} pParams An array of audit parameters.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//authz/nf-authz-authzreportsecurityeventfromparams
      * @since windowsserver2003
      */
     static AuthzReportSecurityEventFromParams(dwFlags, hEventProvider, dwAuditId, pUserSid, pParams) {
+        hEventProvider := hEventProvider is Win32Handle ? NumGet(hEventProvider, "ptr") : hEventProvider
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzReportSecurityEventFromParams", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "ptr", pParams, "int")
+        result := DllCall("AUTHZ.dll\AuthzReportSecurityEventFromParams", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "ptr", pParams, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2406,10 +2455,10 @@ class Authorization {
 
     /**
      * Registers a CAP update notification callback.
-     * @param {Pointer<Void>} phCapChangeSubscription Pointer to the CAP change notification subscription handle. When you have finished using the handle, unsubscribe by passing this parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzunregistercapchangenotification">AuthzUnregisterCapChangeNotification</a> function.
+     * @param {Pointer<AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE>} phCapChangeSubscription Pointer to the CAP change notification subscription handle. When you have finished using the handle, unsubscribe by passing this parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/authz/nf-authz-authzunregistercapchangenotification">AuthzUnregisterCapChangeNotification</a> function.
      * @param {Pointer<LPTHREAD_START_ROUTINE>} pfnCapChangeCallback The CAP change notification callback function.
      * @param {Pointer<Void>} pCallbackContext The context of the user to be passed to the callback function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2419,7 +2468,7 @@ class Authorization {
     static AuthzRegisterCapChangeNotification(phCapChangeSubscription, pfnCapChangeCallback, pCallbackContext) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzRegisterCapChangeNotification", "ptr", phCapChangeSubscription, "ptr", pfnCapChangeCallback, "ptr", pCallbackContext, "int")
+        result := DllCall("AUTHZ.dll\AuthzRegisterCapChangeNotification", "ptr", phCapChangeSubscription, "ptr", pfnCapChangeCallback, "ptr", pCallbackContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2428,8 +2477,8 @@ class Authorization {
 
     /**
      * Removes a previously registered CAP update notification callback.
-     * @param {Pointer<Void>} hCapChangeSubscription Handle of the CAP change notification subscription to unregister.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {AUTHZ_CAP_CHANGE_SUBSCRIPTION_HANDLE} hCapChangeSubscription Handle of the CAP change notification subscription to unregister.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2437,9 +2486,11 @@ class Authorization {
      * @since windows8.0
      */
     static AuthzUnregisterCapChangeNotification(hCapChangeSubscription) {
+        hCapChangeSubscription := hCapChangeSubscription is Win32Handle ? NumGet(hCapChangeSubscription, "ptr") : hCapChangeSubscription
+
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzUnregisterCapChangeNotification", "ptr", hCapChangeSubscription, "int")
+        result := DllCall("AUTHZ.dll\AuthzUnregisterCapChangeNotification", "ptr", hCapChangeSubscription, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2448,7 +2499,7 @@ class Authorization {
 
     /**
      * Decreases the CAP cache reference count by one so that the CAP cache can be deallocated.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2458,7 +2509,7 @@ class Authorization {
     static AuthzFreeCentralAccessPolicyCache() {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzFreeCentralAccessPolicyCache", "int")
+        result := DllCall("AUTHZ.dll\AuthzFreeCentralAccessPolicyCache", "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2621,17 +2672,17 @@ class Authorization {
 
     /**
      * Retrieves a copy of the security descriptor for an object specified by name.
-     * @param {Pointer<Byte>} pObjectName A pointer to a null-terminated string that specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see 
+     * @param {PSTR} pObjectName A pointer to a null-terminated string that specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> returned in <i>ppSecurityDescriptor</i> or <b>NULL</b> if the security descriptor has no owner SID. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the owner SID.
-     * @param {Pointer<Void>} ppsidGroup A pointer to a variable that receives a pointer to the primary group SID in the returned security descriptor or <b>NULL</b> if  the security descriptor has no group SID. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the group SID.
+     * @param {Pointer<PSID>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> returned in <i>ppSecurityDescriptor</i> or <b>NULL</b> if the security descriptor has no owner SID. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the owner SID.
+     * @param {Pointer<PSID>} ppsidGroup A pointer to a variable that receives a pointer to the primary group SID in the returned security descriptor or <b>NULL</b> if  the security descriptor has no group SID. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the group SID.
      * @param {Pointer<ACL>} ppDacl A pointer to a variable that receives a pointer to the DACL in the returned security descriptor or <b>NULL</b> if the security descriptor has no DACL. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the DACL.
      * @param {Pointer<ACL>} ppSacl A pointer to a variable that receives a pointer to the SACL in the returned security descriptor  or <b>NULL</b> if the security descriptor has no SACL. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the SACL.
-     * @param {Pointer<Void>} ppSecurityDescriptor A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer,  free the returned buffer by calling the 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSecurityDescriptor A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer,  free the returned buffer by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * 
      * This parameter is required if any one of the <i>ppsidOwner</i>, <i>ppsidGroup</i>, <i>ppDacl</i>, or <i>ppSacl</i> parameters is not <b>NULL</b>.
@@ -2642,7 +2693,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
-        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr", ppDacl, "ptr", ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
@@ -2650,17 +2701,17 @@ class Authorization {
 
     /**
      * Retrieves a copy of the security descriptor for an object specified by name.
-     * @param {Pointer<Char>} pObjectName A pointer to a null-terminated string that specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see 
+     * @param {PWSTR} pObjectName A pointer to a null-terminated string that specifies the name of the object from which to retrieve security information. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType Specifies a value from the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> returned in <i>ppSecurityDescriptor</i> or <b>NULL</b> if the security descriptor has no owner SID. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the owner SID.
-     * @param {Pointer<Void>} ppsidGroup A pointer to a variable that receives a pointer to the primary group SID in the returned security descriptor or <b>NULL</b> if  the security descriptor has no group SID. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the group SID.
+     * @param {Pointer<PSID>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> returned in <i>ppSecurityDescriptor</i> or <b>NULL</b> if the security descriptor has no owner SID. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the owner SID.
+     * @param {Pointer<PSID>} ppsidGroup A pointer to a variable that receives a pointer to the primary group SID in the returned security descriptor or <b>NULL</b> if  the security descriptor has no group SID. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the group SID.
      * @param {Pointer<ACL>} ppDacl A pointer to a variable that receives a pointer to the DACL in the returned security descriptor or <b>NULL</b> if the security descriptor has no DACL. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the DACL.
      * @param {Pointer<ACL>} ppSacl A pointer to a variable that receives a pointer to the SACL in the returned security descriptor  or <b>NULL</b> if the security descriptor has no SACL. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. Also, this parameter can be <b>NULL</b> if you do not need the SACL.
-     * @param {Pointer<Void>} ppSecurityDescriptor A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer,  free the returned buffer by calling the 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSecurityDescriptor A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer,  free the returned buffer by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * 
      * This parameter is required if any one of the <i>ppsidOwner</i>, <i>ppsidGroup</i>, <i>ppDacl</i>, or <i>ppSacl</i> parameters is not <b>NULL</b>.
@@ -2671,7 +2722,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
-        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr", ppDacl, "ptr", ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
@@ -2679,16 +2730,16 @@ class Authorization {
 
     /**
      * Retrieves a copy of the security descriptor for an object specified by a handle.
-     * @param {Pointer<Void>} handle A handle to the object from which to retrieve security information.
+     * @param {HANDLE} handle A handle to the object from which to retrieve security information.
      * @param {Integer} ObjectType <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration value that indicates the type of object.
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the security descriptor returned in <i>ppSecurityDescriptor</i>. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the owner SID.
-     * @param {Pointer<Void>} ppsidGroup A pointer to a variable that receives a pointer to the primary group SID in the returned <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the group SID.
+     * @param {Pointer<PSID>} ppsidOwner A pointer to a variable that receives a pointer to the owner SID in the security descriptor returned in <i>ppSecurityDescriptor</i>. The returned pointer is valid only if you set the OWNER_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the owner SID.
+     * @param {Pointer<PSID>} ppsidGroup A pointer to a variable that receives a pointer to the primary group SID in the returned <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. The returned pointer is valid only if you set the GROUP_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the group SID.
      * @param {Pointer<ACL>} ppDacl A pointer to a variable that receives a pointer to the DACL in the returned security descriptor. The returned pointer is valid only if you set the DACL_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the DACL.
      * @param {Pointer<ACL>} ppSacl A pointer to a variable that receives a pointer to the SACL in the returned security descriptor. The returned pointer is valid only if you set the SACL_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you do not need the SACL.
-     * @param {Pointer<Void>} ppSecurityDescriptor A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer,  free the returned buffer by calling the 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSecurityDescriptor A pointer to a variable that receives a pointer to the security descriptor of the object. When you have finished using the pointer,  free the returned buffer by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * 
      * This parameter is required if any one of the <i>ppsidOwner</i>, <i>ppsidGroup</i>, <i>ppDacl</i>, or <i>ppSacl</i> parameters is not <b>NULL</b>.
@@ -2699,13 +2750,15 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetSecurityInfo(handle, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
+        handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
+
         result := DllCall("ADVAPI32.dll\GetSecurityInfo", "ptr", handle, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr", ppDacl, "ptr", ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of a specified object.
-     * @param {Pointer<Byte>} pObjectName A pointer to a <b>null</b>-terminated string that specifies the name of the object for which to set security information. This can be the name of a local or remote file or directory on an NTFS file system, network share, registry key, semaphore, event, mutex, file mapping, or waitable timer. 
+     * @param {PSTR} pObjectName A pointer to a <b>null</b>-terminated string that specifies the name of the object for which to set security information. This can be the name of a local or remote file or directory on an NTFS file system, network share, registry key, semaphore, event, mutex, file mapping, or waitable timer. 
      * 
      * 
      * 
@@ -2715,8 +2768,8 @@ class Authorization {
      * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} psidOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. If the caller does not have the <b>SeRestorePrivilege</b> constant (see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>), this <b>SID</b> must be contained in the caller's token, and must have the <b>SE_GROUP_OWNER</b> permission enabled. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to the object or have the SE_TAKE_OWNERSHIP_NAME privilege enabled. If you are not setting the owner <b>SID</b>, this parameter can be <b>NULL</b>.
-     * @param {Pointer<Void>} psidGroup A pointer to a SID that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
+     * @param {PSID} psidOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. If the caller does not have the <b>SeRestorePrivilege</b> constant (see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>), this <b>SID</b> must be contained in the caller's token, and must have the <b>SE_GROUP_OWNER</b> permission enabled. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to the object or have the SE_TAKE_OWNERSHIP_NAME privilege enabled. If you are not setting the owner <b>SID</b>, this parameter can be <b>NULL</b>.
+     * @param {PSID} psidGroup A pointer to a SID that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pDacl A pointer to the new DACL for the object. The <i>SecurityInfo</i> parameter must include the DACL_SECURITY_INFORMATION flag. The caller must have WRITE_DAC access to the object or be the owner of the object. If you are not setting the DACL, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pSacl A pointer to the new SACL for the object. The <i>SecurityInfo</i> parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION. 
      * 
@@ -2730,7 +2783,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static SetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
-        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         result := DllCall("ADVAPI32.dll\SetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
         return result
@@ -2738,7 +2791,7 @@ class Authorization {
 
     /**
      * Sets specified security information in the security descriptor of a specified object.
-     * @param {Pointer<Char>} pObjectName A pointer to a <b>null</b>-terminated string that specifies the name of the object for which to set security information. This can be the name of a local or remote file or directory on an NTFS file system, network share, registry key, semaphore, event, mutex, file mapping, or waitable timer. 
+     * @param {PWSTR} pObjectName A pointer to a <b>null</b>-terminated string that specifies the name of the object for which to set security information. This can be the name of a local or remote file or directory on an NTFS file system, network share, registry key, semaphore, event, mutex, file mapping, or waitable timer. 
      * 
      * 
      * 
@@ -2748,8 +2801,8 @@ class Authorization {
      * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object named by the <i>pObjectName</i> parameter.
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} psidOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. If the caller does not have the <b>SeRestorePrivilege</b> constant (see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>), this <b>SID</b> must be contained in the caller's token, and must have the <b>SE_GROUP_OWNER</b> permission enabled. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to the object or have the SE_TAKE_OWNERSHIP_NAME privilege enabled. If you are not setting the owner <b>SID</b>, this parameter can be <b>NULL</b>.
-     * @param {Pointer<Void>} psidGroup A pointer to a SID that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
+     * @param {PSID} psidOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. If the caller does not have the <b>SeRestorePrivilege</b> constant (see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>), this <b>SID</b> must be contained in the caller's token, and must have the <b>SE_GROUP_OWNER</b> permission enabled. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to the object or have the SE_TAKE_OWNERSHIP_NAME privilege enabled. If you are not setting the owner <b>SID</b>, this parameter can be <b>NULL</b>.
+     * @param {PSID} psidGroup A pointer to a SID that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pDacl A pointer to the new DACL for the object. The <i>SecurityInfo</i> parameter must include the DACL_SECURITY_INFORMATION flag. The caller must have WRITE_DAC access to the object or be the owner of the object. If you are not setting the DACL, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pSacl A pointer to the new SACL for the object. The <i>SecurityInfo</i> parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION. 
      * 
@@ -2763,7 +2816,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static SetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
-        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         result := DllCall("ADVAPI32.dll\SetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
         return result
@@ -2771,14 +2824,14 @@ class Authorization {
 
     /**
      * Sets specified security information in the security descriptor of a specified object. The caller identifies the object by a handle.
-     * @param {Pointer<Void>} handle A handle to the object for which to set security information.
+     * @param {HANDLE} handle A handle to the object for which to set security information.
      * @param {Integer} ObjectType A member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object identified by the <i>handle</i> parameter.
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} psidOwner A pointer to a SID that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you are not setting the owner SID.
-     * @param {Pointer<Void>} psidGroup A pointer to a SID that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you are not setting the primary group SID.
+     * @param {PSID} psidOwner A pointer to a SID that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you are not setting the owner SID.
+     * @param {PSID} psidGroup A pointer to a SID that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag. This parameter can be <b>NULL</b> if you are not setting the primary group SID.
      * @param {Pointer<ACL>} pDacl A pointer to the new DACL for the object. This parameter is ignored unless the value of the <i>SecurityInfo</i> parameter includes the <b>DACL_SECURITY_INFORMATION</b> flag.  If the value of the <i>SecurityInfo</i> parameter includes the <b>DACL_SECURITY_INFORMATION</b> flag and the value of this parameter is set to <b>NULL</b>, full access to the object is granted to everyone. For information about <b>null</b> DACLs, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/creating-a-dacl">Creating a DACL</a>.
      * @param {Pointer<ACL>} pSacl A pointer to the new SACL for the object. The <i>SecurityInfo</i> parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION. If setting SACL_SECURITY_INFORMATION or SCOPE_SECURITY_INFORMATION, the caller must have the SE_SECURITY_NAME privilege enabled. This parameter can be <b>NULL</b> if you are not setting the SACL.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
@@ -2788,20 +2841,22 @@ class Authorization {
      * @since windows5.1.2600
      */
     static SetSecurityInfo(handle, ObjectType, SecurityInfo, psidOwner, psidGroup, pDacl, pSacl) {
+        handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
+
         result := DllCall("ADVAPI32.dll\SetSecurityInfo", "ptr", handle, "int", ObjectType, "uint", SecurityInfo, "ptr", psidOwner, "ptr", psidGroup, "ptr", pDacl, "ptr", pSacl, "uint")
         return result
     }
 
     /**
      * Returns information about the source of inherited access control entries (ACEs) in an access control list (ACL).
-     * @param {Pointer<Byte>} pObjectName A pointer to the name of the object that uses the ACL to be checked.
+     * @param {PSTR} pObjectName A pointer to the name of the object that uses the ACL to be checked.
      * @param {Integer} ObjectType The type of object indicated by <i>pObjectName</i>. The possible values are SE_FILE_OBJECT, SE_REGISTRY_KEY, SE_DS_OBJECT, and SE_DS_OBJECT_ALL.
      * @param {Integer} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
-     * @param {Integer} Container <b>TRUE</b> if the object is a container object or <b>FALSE</b> if the object is a leaf object. Note that the only leaf object is SE_FILE_OBJECT.
+     * @param {BOOL} Container <b>TRUE</b> if the object is a container object or <b>FALSE</b> if the object is a leaf object. Note that the only leaf object is SE_FILE_OBJECT.
      * @param {Pointer<Guid>} pObjectClassGuids Optional list of GUIDs that identify the object types or names associated with <i>pObjectName</i>. This may be <b>NULL</b> if the object manager only supports one object class or has no GUID associated with the object class.
      * @param {Integer} GuidCount Number of GUIDs pointed to by <i>pObjectClassGuids</i>.
      * @param {Pointer<ACL>} pAcl The ACL for the object.
-     * @param {Pointer<UInt32>} pfnArray Reserved. Set this parameter to <b>NULL</b>.
+     * @param {Pointer<FN_OBJECT_MGR_FUNCTS>} pfnArray Reserved. Set this parameter to <b>NULL</b>.
      * @param {Pointer<GENERIC_MAPPING>} pGenericMapping The mapping of generic rights to specific rights for the object.
      * @param {Pointer<INHERITED_FROMA>} pInheritArray A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-inherited_froma">INHERITED_FROM</a> structures that the <b>GetInheritanceSource</b> function fills with the inheritance information. The caller must allocate enough memory for an entry for each ACE in the ACL.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
@@ -2811,22 +2866,22 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetInheritanceSourceA(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
-        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "uint*", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
+        result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
 
     /**
      * Returns information about the source of inherited access control entries (ACEs) in an access control list (ACL).
-     * @param {Pointer<Char>} pObjectName A pointer to the name of the object that uses the ACL to be checked.
+     * @param {PWSTR} pObjectName A pointer to the name of the object that uses the ACL to be checked.
      * @param {Integer} ObjectType The type of object indicated by <i>pObjectName</i>. The possible values are SE_FILE_OBJECT, SE_REGISTRY_KEY, SE_DS_OBJECT, and SE_DS_OBJECT_ALL.
      * @param {Integer} SecurityInfo The type of ACL used with the object. The possible values are DACL_SECURITY_INFORMATION or SACL_SECURITY_INFORMATION.
-     * @param {Integer} Container <b>TRUE</b> if the object is a container object or <b>FALSE</b> if the object is a leaf object. Note that the only leaf object is SE_FILE_OBJECT.
+     * @param {BOOL} Container <b>TRUE</b> if the object is a container object or <b>FALSE</b> if the object is a leaf object. Note that the only leaf object is SE_FILE_OBJECT.
      * @param {Pointer<Guid>} pObjectClassGuids Optional list of GUIDs that identify the object types or names associated with <i>pObjectName</i>. This may be <b>NULL</b> if the object manager only supports one object class or has no GUID associated with the object class.
      * @param {Integer} GuidCount Number of GUIDs pointed to by <i>pObjectClassGuids</i>.
      * @param {Pointer<ACL>} pAcl The ACL for the object.
-     * @param {Pointer<UInt32>} pfnArray Reserved. Set this parameter to <b>NULL</b>.
+     * @param {Pointer<FN_OBJECT_MGR_FUNCTS>} pfnArray Reserved. Set this parameter to <b>NULL</b>.
      * @param {Pointer<GENERIC_MAPPING>} pGenericMapping The mapping of generic rights to specific rights for the object.
      * @param {Pointer<INHERITED_FROMW>} pInheritArray A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-inherited_froma">INHERITED_FROM</a> structures that the <b>GetInheritanceSource</b> function fills with the inheritance information. The caller must allocate enough memory for an entry for each ACE in the ACL.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
@@ -2836,9 +2891,9 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetInheritanceSourceW(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
-        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "uint*", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
+        result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
 
@@ -2846,7 +2901,7 @@ class Authorization {
      * Frees memory allocated by the GetInheritanceSource function.
      * @param {Pointer<INHERITED_FROMW>} pInheritArray A pointer to the array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-inherited_froma">INHERITED_FROM</a> structures returned by <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getinheritancesourcea">GetInheritanceSource</a>.
      * @param {Integer} AceCnt Number of entries in <i>pInheritArray</i>.
-     * @param {Pointer<UInt32>} pfnArray Unused. Set to <b>NULL</b>.
+     * @param {Pointer<FN_OBJECT_MGR_FUNCTS>} pfnArray Unused. Set to <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
@@ -2854,23 +2909,23 @@ class Authorization {
      * @since windows5.1.2600
      */
     static FreeInheritedFromArray(pInheritArray, AceCnt, pfnArray) {
-        result := DllCall("ADVAPI32.dll\FreeInheritedFromArray", "ptr", pInheritArray, "ushort", AceCnt, "uint*", pfnArray, "uint")
+        result := DllCall("ADVAPI32.dll\FreeInheritedFromArray", "ptr", pInheritArray, "ushort", AceCnt, "ptr", pfnArray, "uint")
         return result
     }
 
     /**
      * Resets specified security information in the security descriptor of a specified tree of objects.
-     * @param {Pointer<Byte>} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
+     * @param {PSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to reset. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
-     * @param {Pointer<Void>} pGroup A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag.  To set the group, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
+     * @param {PSID} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
+     * @param {PSID} pGroup A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag.  To set the group, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pDacl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) structure that represents the new DACL for the objects being reset. The <i>SecurityInfo</i> parameter must include the DACL_SECURITY_INFORMATION flag. The caller must have READ_CONTROL and WRITE_DAC access to each  object, including the root object. If you are not setting the DACL, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pSacl A pointer to an ACL structure that represents the new SACL for the objects being reset.  The <i>SecurityInfo</i> parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION. If setting SACL_SECURITY_INFORMATION or SCOPE_SECURITY_INFORMATION, the caller must have the SE_SECURITY_NAME privilege enabled. If you are not setting the SACL, this parameter can be <b>NULL</b>.
-     * @param {Integer} KeepExplicit Boolean value that defines whether explicitly defined ACEs are kept or deleted for the sub-tree. If  <i>KeepExplicit</i> is <b>TRUE</b>, then explicitly defined ACEs are kept for each subtree DACL and SACL, and inherited ACEs are replaced by the inherited ACEs from <i>pDacl</i> and <i>pSacl</i>.  If  <i>KeepExplicit</i> is <b>FALSE</b>, then explicitly defined ACEs for each subtree DACL and SACL are deleted before the inherited ACEs are replaced by the inherited ACEs from <i>pDacl</i> and <i>pSacl</i>.
+     * @param {BOOL} KeepExplicit Boolean value that defines whether explicitly defined ACEs are kept or deleted for the sub-tree. If  <i>KeepExplicit</i> is <b>TRUE</b>, then explicitly defined ACEs are kept for each subtree DACL and SACL, and inherited ACEs are replaced by the inherited ACEs from <i>pDacl</i> and <i>pSacl</i>.  If  <i>KeepExplicit</i> is <b>FALSE</b>, then explicitly defined ACEs for each subtree DACL and SACL are deleted before the inherited ACEs are replaced by the inherited ACEs from <i>pDacl</i> and <i>pSacl</i>.
      * @param {Pointer<FN_PROGRESS>} fnProgress A pointer to the function used to track the progress of the <b>TreeResetNamedSecurityInfo</b> function. The prototype of the progress function is:
      * 
      * 
@@ -2884,25 +2939,25 @@ class Authorization {
      * @since windows5.1.2600
      */
     static TreeResetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
-        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "int", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
+        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "ptr", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
         return result
     }
 
     /**
      * Resets specified security information in the security descriptor of a specified tree of objects.
-     * @param {Pointer<Char>} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
+     * @param {PWSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to reset. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
-     * @param {Pointer<Void>} pGroup A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag.  To set the group, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
+     * @param {PSID} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
+     * @param {PSID} pGroup A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag.  To set the group, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pDacl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) structure that represents the new DACL for the objects being reset. The <i>SecurityInfo</i> parameter must include the DACL_SECURITY_INFORMATION flag. The caller must have READ_CONTROL and WRITE_DAC access to each  object, including the root object. If you are not setting the DACL, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pSacl A pointer to an ACL structure that represents the new SACL for the objects being reset.  The <i>SecurityInfo</i> parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION. If setting SACL_SECURITY_INFORMATION or SCOPE_SECURITY_INFORMATION, the caller must have the SE_SECURITY_NAME privilege enabled. If you are not setting the SACL, this parameter can be <b>NULL</b>.
-     * @param {Integer} KeepExplicit Boolean value that defines whether explicitly defined ACEs are kept or deleted for the sub-tree. If  <i>KeepExplicit</i> is <b>TRUE</b>, then explicitly defined ACEs are kept for each subtree DACL and SACL, and inherited ACEs are replaced by the inherited ACEs from <i>pDacl</i> and <i>pSacl</i>.  If  <i>KeepExplicit</i> is <b>FALSE</b>, then explicitly defined ACEs for each subtree DACL and SACL are deleted before the inherited ACEs are replaced by the inherited ACEs from <i>pDacl</i> and <i>pSacl</i>.
+     * @param {BOOL} KeepExplicit Boolean value that defines whether explicitly defined ACEs are kept or deleted for the sub-tree. If  <i>KeepExplicit</i> is <b>TRUE</b>, then explicitly defined ACEs are kept for each subtree DACL and SACL, and inherited ACEs are replaced by the inherited ACEs from <i>pDacl</i> and <i>pSacl</i>.  If  <i>KeepExplicit</i> is <b>FALSE</b>, then explicitly defined ACEs for each subtree DACL and SACL are deleted before the inherited ACEs are replaced by the inherited ACEs from <i>pDacl</i> and <i>pSacl</i>.
      * @param {Pointer<FN_PROGRESS>} fnProgress A pointer to the function used to track the progress of the <b>TreeResetNamedSecurityInfo</b> function. The prototype of the progress function is:
      * 
      * 
@@ -2916,22 +2971,22 @@ class Authorization {
      * @since windows5.1.2600
      */
     static TreeResetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
-        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "int", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
+        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "ptr", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
         return result
     }
 
     /**
      * Sets specified security information in the security descriptor of a specified tree of objects.
-     * @param {Pointer<Byte>} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
+     * @param {PSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
-     * @param {Pointer<Void>} pGroup A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag.  To set the group, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
+     * @param {PSID} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
+     * @param {PSID} pGroup A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag.  To set the group, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pDacl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) structure that represents the new DACL for the objects being reset. The <i>SecurityInfo</i> parameter must include the DACL_SECURITY_INFORMATION flag. The caller must have READ_CONTROL and WRITE_DAC access to each  object, including the root object. If you are not setting the DACL, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pSacl A pointer to an ACL structure that represents the new SACL for the objects being reset. The <i>SecurityInfo</i> parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION. If setting SACL_SECURITY_INFORMATION or SCOPE_SECURITY_INFORMATION, the caller must have the SE_SECURITY_NAME privilege enabled. If you are not setting the SACL, this parameter can be <b>NULL</b>.
      * @param {Integer} dwAction 
@@ -2948,7 +3003,7 @@ class Authorization {
      * @since windows6.0.6000
      */
     static TreeSetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, dwAction, fnProgress, ProgressInvokeSetting, Args) {
-        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "uint", dwAction, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
         return result
@@ -2956,14 +3011,14 @@ class Authorization {
 
     /**
      * Sets specified security information in the security descriptor of a specified tree of objects.
-     * @param {Pointer<Char>} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
+     * @param {PWSTR} pObjectName Pointer to a <b>null</b>-terminated string that specifies the name of the root node object for the objects  that are to receive updated security information. Supported objects are registry keys and file objects. For descriptions of the string formats for the different object types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>.
      * @param {Integer} ObjectType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a>  enumeration  that indicates the type of object named by the <i>pObjectName</i> parameter. The supported values are SE_REGISTRY_KEY and SE_FILE_OBJECT, for registry keys and file objects, respectively.
      * @param {Integer} SecurityInfo A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
-     * @param {Pointer<Void>} pGroup A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag.  To set the group, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
+     * @param {PSID} pOwner A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the owner of the object. The SID must be one that can be assigned as the owner SID of a security descriptor. The <i>SecurityInfo</i> parameter must include the OWNER_SECURITY_INFORMATION flag. To set the owner, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the owner SID, this parameter can be <b>NULL</b>.
+     * @param {PSID} pGroup A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the primary group of the object. The <i>SecurityInfo</i> parameter must include the GROUP_SECURITY_INFORMATION flag.  To set the group, the caller must have WRITE_OWNER access to each object, including the root object. If you are not setting the primary group SID, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pDacl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) structure that represents the new DACL for the objects being reset. The <i>SecurityInfo</i> parameter must include the DACL_SECURITY_INFORMATION flag. The caller must have READ_CONTROL and WRITE_DAC access to each  object, including the root object. If you are not setting the DACL, this parameter can be <b>NULL</b>.
      * @param {Pointer<ACL>} pSacl A pointer to an ACL structure that represents the new SACL for the objects being reset. The <i>SecurityInfo</i> parameter must include any of the following flags: SACL_SECURITY_INFORMATION, LABEL_SECURITY_INFORMATION, ATTRIBUTE_SECURITY_INFORMATION, SCOPE_SECURITY_INFORMATION, or BACKUP_SECURITY_INFORMATION. If setting SACL_SECURITY_INFORMATION or SCOPE_SECURITY_INFORMATION, the caller must have the SE_SECURITY_NAME privilege enabled. If you are not setting the SACL, this parameter can be <b>NULL</b>.
      * @param {Integer} dwAction 
@@ -2980,7 +3035,7 @@ class Authorization {
      * @since windows6.0.6000
      */
     static TreeSetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, dwAction, fnProgress, ProgressInvokeSetting, Args) {
-        pObjectName := pObjectName is String? StrPtr(pObjectName) : pObjectName
+        pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
         result := DllCall("ADVAPI32.dll\TreeSetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "uint", dwAction, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
         return result
@@ -3020,10 +3075,10 @@ class Authorization {
      * 
      * 
      * If <i>pListOfAuditEntries</i> is <b>NULL</b>, the new security descriptor gets the SACL from <i>pOldSD</i>. In this case, if <i>pOldSD</i> is <b>NULL</b>, or the SACL in <i>pOldSD</i> is <b>NULL</b>, the new SACL is <b>NULL</b>.
-     * @param {Pointer<Void>} pOldSD A pointer to an existing self-relative 
+     * @param {PSECURITY_DESCRIPTOR} pOldSD A pointer to an existing self-relative 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure and its associated security information. The function builds the new security descriptor by merging the specified owner, group, access control, and audit-control information with the information in this security descriptor. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} pSizeNewSD A pointer to a variable that receives the size, in bytes, of the security descriptor.
-     * @param {Pointer<Void>} pNewSD A pointer to a variable that receives a pointer to the new security descriptor. The function allocates memory for the new security descriptor. You must call the 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} pNewSD A pointer to a variable that receives a pointer to the new security descriptor. The function allocates memory for the new security descriptor. You must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 						
@@ -3033,6 +3088,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildSecurityDescriptorA(pOwner, pGroup, cCountOfAccessEntries, pListOfAccessEntries, cCountOfAuditEntries, pListOfAuditEntries, pOldSD, pSizeNewSD, pNewSD) {
+        pOldSD := pOldSD is Win32Handle ? NumGet(pOldSD, "ptr") : pOldSD
+
         result := DllCall("ADVAPI32.dll\BuildSecurityDescriptorA", "ptr", pOwner, "ptr", pGroup, "uint", cCountOfAccessEntries, "ptr", pListOfAccessEntries, "uint", cCountOfAuditEntries, "ptr", pListOfAuditEntries, "ptr", pOldSD, "uint*", pSizeNewSD, "ptr", pNewSD, "uint")
         return result
     }
@@ -3071,10 +3128,10 @@ class Authorization {
      * 
      * 
      * If <i>pListOfAuditEntries</i> is <b>NULL</b>, the new security descriptor gets the SACL from <i>pOldSD</i>. In this case, if <i>pOldSD</i> is <b>NULL</b>, or the SACL in <i>pOldSD</i> is <b>NULL</b>, the new SACL is <b>NULL</b>.
-     * @param {Pointer<Void>} pOldSD A pointer to an existing self-relative 
+     * @param {PSECURITY_DESCRIPTOR} pOldSD A pointer to an existing self-relative 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure and its associated security information. The function builds the new security descriptor by merging the specified owner, group, access control, and audit-control information with the information in this security descriptor. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} pSizeNewSD A pointer to a variable that receives the size, in bytes, of the security descriptor.
-     * @param {Pointer<Void>} pNewSD A pointer to a variable that receives a pointer to the new security descriptor. The function allocates memory for the new security descriptor. You must call the 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} pNewSD A pointer to a variable that receives a pointer to the new security descriptor. The function allocates memory for the new security descriptor. You must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the returned buffer.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 						
@@ -3084,6 +3141,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildSecurityDescriptorW(pOwner, pGroup, cCountOfAccessEntries, pListOfAccessEntries, cCountOfAuditEntries, pListOfAuditEntries, pOldSD, pSizeNewSD, pNewSD) {
+        pOldSD := pOldSD is Win32Handle ? NumGet(pOldSD, "ptr") : pOldSD
+
         result := DllCall("ADVAPI32.dll\BuildSecurityDescriptorW", "ptr", pOwner, "ptr", pGroup, "uint", cCountOfAccessEntries, "ptr", pListOfAccessEntries, "uint", cCountOfAuditEntries, "ptr", pListOfAuditEntries, "ptr", pOldSD, "uint*", pSizeNewSD, "ptr", pNewSD, "uint")
         return result
     }
@@ -3112,7 +3171,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getexplicitentriesfromacla">GetExplicitEntriesFromAcl</a> function. If this parameter is <b>NULL</b>, the <i>cCountOfAccessEntries</i> parameter must also be <b>NULL</b>.
      * @param {Pointer<UInt32>} pcCountOfAuditEntries A pointer to a <b>ULONG</b> that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfAuditEntries</i> array. This parameter can be <b>NULL</b> only if the <i>pListOfAuditEntries</i> parameter is also <b>NULL</b>.
      * @param {Pointer<EXPLICIT_ACCESS_A>} ppListOfAuditEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the security descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure in these <b>EXPLICIT_ACCESS</b> structures uses the TRUSTEE_IS_NAME form. If this parameter is <b>NULL</b>, the <i>cCountOfAuditEntries</i> parameter must also be <b>NULL</b>.
-     * @param {Pointer<Void>} pSD A pointer to an existing <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> from which the function retrieves security information.
+     * @param {PSECURITY_DESCRIPTOR} pSD A pointer to an existing <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> from which the function retrieves security information.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
@@ -3120,6 +3179,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static LookupSecurityDescriptorPartsA(ppOwner, ppGroup, pcCountOfAccessEntries, ppListOfAccessEntries, pcCountOfAuditEntries, ppListOfAuditEntries, pSD) {
+        pSD := pSD is Win32Handle ? NumGet(pSD, "ptr") : pSD
+
         result := DllCall("ADVAPI32.dll\LookupSecurityDescriptorPartsA", "ptr", ppOwner, "ptr", ppGroup, "uint*", pcCountOfAccessEntries, "ptr", ppListOfAccessEntries, "uint*", pcCountOfAuditEntries, "ptr", ppListOfAuditEntries, "ptr", pSD, "uint")
         return result
     }
@@ -3148,7 +3209,7 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclapi/nf-aclapi-getexplicitentriesfromacla">GetExplicitEntriesFromAcl</a> function. If this parameter is <b>NULL</b>, the <i>cCountOfAccessEntries</i> parameter must also be <b>NULL</b>.
      * @param {Pointer<UInt32>} pcCountOfAuditEntries A pointer to a <b>ULONG</b> that receives the number of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures returned in the <i>pListOfAuditEntries</i> array. This parameter can be <b>NULL</b> only if the <i>pListOfAuditEntries</i> parameter is also <b>NULL</b>.
      * @param {Pointer<EXPLICIT_ACCESS_W>} ppListOfAuditEntries A pointer to a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structures that describe the ACEs in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the security descriptor. The <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure in these <b>EXPLICIT_ACCESS</b> structures uses the TRUSTEE_IS_NAME form. If this parameter is <b>NULL</b>, the <i>cCountOfAuditEntries</i> parameter must also be <b>NULL</b>.
-     * @param {Pointer<Void>} pSD A pointer to an existing <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> from which the function retrieves security information.
+     * @param {PSECURITY_DESCRIPTOR} pSD A pointer to an existing <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> from which the function retrieves security information.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h.
@@ -3156,6 +3217,8 @@ class Authorization {
      * @since windows5.1.2600
      */
     static LookupSecurityDescriptorPartsW(ppOwner, ppGroup, pcCountOfAccessEntries, ppListOfAccessEntries, pcCountOfAuditEntries, ppListOfAuditEntries, pSD) {
+        pSD := pSD is Win32Handle ? NumGet(pSD, "ptr") : pSD
+
         result := DllCall("ADVAPI32.dll\LookupSecurityDescriptorPartsW", "ptr", ppOwner, "ptr", ppGroup, "uint*", pcCountOfAccessEntries, "ptr", ppListOfAccessEntries, "uint*", pcCountOfAuditEntries, "ptr", ppListOfAuditEntries, "ptr", pSD, "uint")
         return result
     }
@@ -3169,7 +3232,7 @@ class Authorization {
      * 
      * @param {Pointer<EXPLICIT_ACCESS_A>} pExplicitAccess A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure to initialize. The <b>BuildExplicitAccessWithName</b> function does not allocate any memory. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} pTrusteeName A pointer to a <b>null</b>-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the 
+     * @param {PSTR} pTrusteeName A pointer to a <b>null</b>-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The <b>BuildExplicitAccessWithName</b> function sets the other members of the <b>TRUSTEE</b> structure as follows.
      * 
      * <table>
@@ -3234,7 +3297,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildExplicitAccessWithNameA(pExplicitAccess, pTrusteeName, AccessPermissions, AccessMode, Inheritance) {
-        pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
+        pTrusteeName := pTrusteeName is String ? StrPtr(pTrusteeName) : pTrusteeName
 
         DllCall("ADVAPI32.dll\BuildExplicitAccessWithNameA", "ptr", pExplicitAccess, "ptr", pTrusteeName, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
@@ -3248,7 +3311,7 @@ class Authorization {
      * 
      * @param {Pointer<EXPLICIT_ACCESS_W>} pExplicitAccess A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-explicit_access_a">EXPLICIT_ACCESS</a> structure to initialize. The <b>BuildExplicitAccessWithName</b> function does not allocate any memory. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} pTrusteeName A pointer to a <b>null</b>-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the 
+     * @param {PWSTR} pTrusteeName A pointer to a <b>null</b>-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The <b>BuildExplicitAccessWithName</b> function sets the other members of the <b>TRUSTEE</b> structure as follows.
      * 
      * <table>
@@ -3313,7 +3376,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildExplicitAccessWithNameW(pExplicitAccess, pTrusteeName, AccessPermissions, AccessMode, Inheritance) {
-        pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
+        pTrusteeName := pTrusteeName is String ? StrPtr(pTrusteeName) : pTrusteeName
 
         DllCall("ADVAPI32.dll\BuildExplicitAccessWithNameW", "ptr", pExplicitAccess, "ptr", pTrusteeName, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
@@ -3321,7 +3384,7 @@ class Authorization {
     /**
      * 
      * @param {Pointer<EXPLICIT_ACCESS_A>} pExplicitAccess 
-     * @param {Pointer<Byte>} pTrusteeName 
+     * @param {PSTR} pTrusteeName 
      * @param {Pointer<TRUSTEE_A>} pTrustee 
      * @param {Integer} AccessPermissions 
      * @param {Integer} AccessMode 
@@ -3329,7 +3392,7 @@ class Authorization {
      * @returns {String} Nothing - always returns an empty string
      */
     static BuildImpersonateExplicitAccessWithNameA(pExplicitAccess, pTrusteeName, pTrustee, AccessPermissions, AccessMode, Inheritance) {
-        pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
+        pTrusteeName := pTrusteeName is String ? StrPtr(pTrusteeName) : pTrusteeName
 
         DllCall("ADVAPI32.dll\BuildImpersonateExplicitAccessWithNameA", "ptr", pExplicitAccess, "ptr", pTrusteeName, "ptr", pTrustee, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
@@ -3337,7 +3400,7 @@ class Authorization {
     /**
      * 
      * @param {Pointer<EXPLICIT_ACCESS_W>} pExplicitAccess 
-     * @param {Pointer<Char>} pTrusteeName 
+     * @param {PWSTR} pTrusteeName 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Integer} AccessPermissions 
      * @param {Integer} AccessMode 
@@ -3345,7 +3408,7 @@ class Authorization {
      * @returns {String} Nothing - always returns an empty string
      */
     static BuildImpersonateExplicitAccessWithNameW(pExplicitAccess, pTrusteeName, pTrustee, AccessPermissions, AccessMode, Inheritance) {
-        pTrusteeName := pTrusteeName is String? StrPtr(pTrusteeName) : pTrusteeName
+        pTrusteeName := pTrusteeName is String ? StrPtr(pTrusteeName) : pTrusteeName
 
         DllCall("ADVAPI32.dll\BuildImpersonateExplicitAccessWithNameW", "ptr", pExplicitAccess, "ptr", pTrusteeName, "ptr", pTrustee, "uint", AccessPermissions, "int", AccessMode, "uint", Inheritance)
     }
@@ -3359,7 +3422,7 @@ class Authorization {
      * 
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithName</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
-     * @param {Pointer<Byte>} pName A pointer to a null-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The <b>BuildTrusteeWithName</b> function sets the other members of the <b>TRUSTEE</b> structure as follows.
+     * @param {PSTR} pName A pointer to a null-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The <b>BuildTrusteeWithName</b> function sets the other members of the <b>TRUSTEE</b> structure as follows.
      * 
      * <table>
      * <tr>
@@ -3416,7 +3479,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildTrusteeWithNameA(pTrustee, pName) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         DllCall("ADVAPI32.dll\BuildTrusteeWithNameA", "ptr", pTrustee, "ptr", pName)
     }
@@ -3430,7 +3493,7 @@ class Authorization {
      * 
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithName</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
-     * @param {Pointer<Char>} pName A pointer to a null-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The <b>BuildTrusteeWithName</b> function sets the other members of the <b>TRUSTEE</b> structure as follows.
+     * @param {PWSTR} pName A pointer to a null-terminated string that contains the name of the trustee for the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The <b>BuildTrusteeWithName</b> function sets the other members of the <b>TRUSTEE</b> structure as follows.
      * 
      * <table>
      * <tr>
@@ -3487,7 +3550,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static BuildTrusteeWithNameW(pTrustee, pName) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         DllCall("ADVAPI32.dll\BuildTrusteeWithNameW", "ptr", pTrustee, "ptr", pName)
     }
@@ -3521,7 +3584,7 @@ class Authorization {
      * 
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithSid</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
-     * @param {Pointer<Void>} pSid A pointer to a 
+     * @param {PSID} pSid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee. The <b>BuildTrusteeWithSid</b> function assigns this pointer to the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function sets the other members of the <b>TRUSTEE</b> structure as follows.
      * 
      * <table>
@@ -3591,7 +3654,7 @@ class Authorization {
      * 
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure to initialize. The <b>BuildTrusteeWithSid</b> function does not allocate any memory. If this parameter is <b>NULL</b> or a pointer that is not valid, the results are undefined.
-     * @param {Pointer<Void>} pSid A pointer to a 
+     * @param {PSID} pSid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee. The <b>BuildTrusteeWithSid</b> function assigns this pointer to the <b>ptstrName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure. The function sets the other members of the <b>TRUSTEE</b> structure as follows.
      * 
      * <table>
@@ -3678,7 +3741,7 @@ class Authorization {
      * @param {Pointer<Guid>} pObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
      * @param {Pointer<Guid>} pInheritedObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @param {Pointer<Void>} pSid A pointer to a 
+     * @param {PSID} pSid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithobjectsandsida
@@ -3714,7 +3777,7 @@ class Authorization {
      * @param {Pointer<Guid>} pObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
      * @param {Pointer<Guid>} pInheritedObjectGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that describes the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @param {Pointer<Void>} pSid A pointer to a 
+     * @param {PSID} pSid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that identifies the trustee.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithobjectsandsidw
@@ -3748,18 +3811,18 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structure that contains information about the trustee and the securable object.
      * @param {Integer} ObjectType A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that contains information about the type of securable object.
-     * @param {Pointer<Byte>} ObjectTypeName A pointer to a string that specifies the name that corresponds to the ObjectType GUID to be added to the 
+     * @param {PSTR} ObjectTypeName A pointer to a string that specifies the name that corresponds to the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the ObjectType GUID that corresponds to this name.
-     * @param {Pointer<Byte>} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
-     * @param {Pointer<Byte>} Name A pointer to a string that specifies the name used to identify the trustee.
+     * @param {PSTR} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
+     * @param {PSTR} Name A pointer to a string that specifies the name used to identify the trustee.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithobjectsandnamea
      * @since windows5.1.2600
      */
     static BuildTrusteeWithObjectsAndNameA(pTrustee, pObjName, ObjectType, ObjectTypeName, InheritedObjectTypeName, Name) {
-        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
-        InheritedObjectTypeName := InheritedObjectTypeName is String? StrPtr(InheritedObjectTypeName) : InheritedObjectTypeName
-        Name := Name is String? StrPtr(Name) : Name
+        ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
+        InheritedObjectTypeName := InheritedObjectTypeName is String ? StrPtr(InheritedObjectTypeName) : InheritedObjectTypeName
+        Name := Name is String ? StrPtr(Name) : Name
 
         DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameA", "ptr", pTrustee, "ptr", pObjName, "int", ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
     }
@@ -3788,18 +3851,18 @@ class Authorization {
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-objects_and_name_a">OBJECTS_AND_NAME</a> structure that contains information about the trustee and the securable object.
      * @param {Integer} ObjectType A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that contains information about the type of securable object.
-     * @param {Pointer<Char>} ObjectTypeName A pointer to a string that specifies the name that corresponds to the ObjectType GUID to be added to the 
+     * @param {PWSTR} ObjectTypeName A pointer to a string that specifies the name that corresponds to the ObjectType GUID to be added to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the ObjectType GUID that corresponds to this name.
-     * @param {Pointer<Char>} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
-     * @param {Pointer<Char>} Name A pointer to a string that specifies the name used to identify the trustee.
+     * @param {PWSTR} InheritedObjectTypeName A pointer to a string that specifies the name that corresponds to the InheritedObjectType GUID to be added to the <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure returned in the <i>pTrustee</i> parameter. This function determines the InheritedObjectType GUID that corresponds to this name.
+     * @param {PWSTR} Name A pointer to a string that specifies the name used to identify the trustee.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-buildtrusteewithobjectsandnamew
      * @since windows5.1.2600
      */
     static BuildTrusteeWithObjectsAndNameW(pTrustee, pObjName, ObjectType, ObjectTypeName, InheritedObjectTypeName, Name) {
-        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
-        InheritedObjectTypeName := InheritedObjectTypeName is String? StrPtr(InheritedObjectTypeName) : InheritedObjectTypeName
-        Name := Name is String? StrPtr(Name) : Name
+        ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
+        InheritedObjectTypeName := InheritedObjectTypeName is String ? StrPtr(InheritedObjectTypeName) : InheritedObjectTypeName
+        Name := Name is String ? StrPtr(Name) : Name
 
         DllCall("ADVAPI32.dll\BuildTrusteeWithObjectsAndNameW", "ptr", pTrustee, "ptr", pObjName, "int", ObjectType, "ptr", ObjectTypeName, "ptr", InheritedObjectTypeName, "ptr", Name)
     }
@@ -3808,14 +3871,14 @@ class Authorization {
      * Retrieves the trustee name from the specified TRUSTEE structure.
      * @param {Pointer<TRUSTEE_A>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Pointer<Byte>} If the <b>TrusteeForm</b> member of the <a href="/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure is TRUSTEE_IS_NAME, the return value is the pointer assigned to the <b>ptstrName</b> member of the structure.
+     * @returns {PSTR} If the <b>TrusteeForm</b> member of the <a href="/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure is TRUSTEE_IS_NAME, the return value is the pointer assigned to the <b>ptstrName</b> member of the structure.
      * 
      * If the <b>TrusteeForm</b> member is TRUSTEE_IS_SID, the return value is <b>NULL</b>. The function does not look up the name associated with a <a href="/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
      * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-gettrusteenamea
      * @since windows5.1.2600
      */
     static GetTrusteeNameA(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetTrusteeNameA", "ptr", pTrustee, "char*")
+        result := DllCall("ADVAPI32.dll\GetTrusteeNameA", "ptr", pTrustee, "ptr")
         return result
     }
 
@@ -3823,14 +3886,14 @@ class Authorization {
      * Retrieves the trustee name from the specified TRUSTEE structure.
      * @param {Pointer<TRUSTEE_W>} pTrustee A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure.
-     * @returns {Pointer<Char>} If the <b>TrusteeForm</b> member of the <a href="/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure is TRUSTEE_IS_NAME, the return value is the pointer assigned to the <b>ptstrName</b> member of the structure.
+     * @returns {PWSTR} If the <b>TrusteeForm</b> member of the <a href="/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure is TRUSTEE_IS_NAME, the return value is the pointer assigned to the <b>ptstrName</b> member of the structure.
      * 
      * If the <b>TrusteeForm</b> member is TRUSTEE_IS_SID, the return value is <b>NULL</b>. The function does not look up the name associated with a <a href="/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
      * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-gettrusteenamew
      * @since windows5.1.2600
      */
     static GetTrusteeNameW(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetTrusteeNameW", "ptr", pTrustee, "char*")
+        result := DllCall("ADVAPI32.dll\GetTrusteeNameW", "ptr", pTrustee, "ptr")
         return result
     }
 
@@ -3930,10 +3993,10 @@ class Authorization {
 
     /**
      * Converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
-     * @param {Pointer<Void>} Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be converted.
-     * @param {Pointer<Byte>} StringSid A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the 
+     * @param {PSID} Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be converted.
+     * @param {Pointer<PSTR>} StringSid A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
@@ -3983,7 +4046,7 @@ class Authorization {
     static ConvertSidToStringSidA(Sid, StringSid) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidA", "ptr", Sid, "ptr", StringSid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidA", "ptr", Sid, "ptr", StringSid, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3992,10 +4055,10 @@ class Authorization {
 
     /**
      * Converts a security identifier (SID) to a string format suitable for display, storage, or transmission.
-     * @param {Pointer<Void>} Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be converted.
-     * @param {Pointer<Char>} StringSid A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the 
+     * @param {PSID} Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be converted.
+     * @param {Pointer<PWSTR>} StringSid A pointer to a variable that receives a pointer to a null-terminated SID string. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
@@ -4045,7 +4108,7 @@ class Authorization {
     static ConvertSidToStringSidW(Sid, StringSid) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidW", "ptr", Sid, "ptr", StringSid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidW", "ptr", Sid, "ptr", StringSid, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4054,15 +4117,15 @@ class Authorization {
 
     /**
      * Converts a string-format security identifier (SID) into a valid, functional SID. You can use this function to retrieve a SID that the ConvertSidToStringSid function converted to string format.
-     * @param {Pointer<Byte>} StringSid A pointer to a null-terminated string containing the string-format SID to convert. 
+     * @param {PSTR} StringSid A pointer to a null-terminated string containing the string-format SID to convert. 
      * 
      * 
      * The SID string can use either the standard 
      * 							S-<i>R</i>-<i>I</i>-<i>S</i>-<i>S</i>… format for SID strings, or the SID string constant format, such as "BA" for  built-in administrators. For more information about SID string notation, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * @param {Pointer<Void>} Sid A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the 
+     * @param {Pointer<PSID>} Sid A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
@@ -4099,11 +4162,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertStringSidToSidA(StringSid, Sid) {
-        StringSid := StringSid is String? StrPtr(StringSid) : StringSid
+        StringSid := StringSid is String ? StrPtr(StringSid) : StringSid
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidA", "ptr", StringSid, "ptr", Sid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidA", "ptr", StringSid, "ptr", Sid, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4112,15 +4175,15 @@ class Authorization {
 
     /**
      * Converts a string-format security identifier (SID) into a valid, functional SID. You can use this function to retrieve a SID that the ConvertSidToStringSid function converted to string format.
-     * @param {Pointer<Char>} StringSid A pointer to a null-terminated string containing the string-format SID to convert. 
+     * @param {PWSTR} StringSid A pointer to a null-terminated string containing the string-format SID to convert. 
      * 
      * 
      * The SID string can use either the standard 
      * 							S-<i>R</i>-<i>I</i>-<i>S</i>-<i>S</i>… format for SID strings, or the SID string constant format, such as "BA" for  built-in administrators. For more information about SID string notation, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/sid-components">SID Components</a>.
-     * @param {Pointer<Void>} Sid A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the 
+     * @param {Pointer<PSID>} Sid A pointer to a variable that receives a pointer to the converted SID. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
@@ -4157,11 +4220,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertStringSidToSidW(StringSid, Sid) {
-        StringSid := StringSid is String? StrPtr(StringSid) : StringSid
+        StringSid := StringSid is String ? StrPtr(StringSid) : StringSid
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidW", "ptr", StringSid, "ptr", Sid, "int")
+        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidW", "ptr", StringSid, "ptr", Sid, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4170,14 +4233,14 @@ class Authorization {
 
     /**
      * Converts a string-format security descriptor into a valid, functional security descriptor.
-     * @param {Pointer<Byte>} StringSecurityDescriptor A pointer to a null-terminated string containing the 
+     * @param {PSTR} StringSecurityDescriptor A pointer to a null-terminated string containing the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">string-format security descriptor</a> to convert.
      * @param {Integer} StringSDRevision Specifies the revision level of the <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
-     * @param {Pointer<Void>} SecurityDescriptor A pointer to a variable that receives a pointer to the converted security descriptor. The returned security descriptor is <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a>. To free the returned buffer, call the 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor A pointer to a variable that receives a pointer to the converted security descriptor. The returned security descriptor is <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a>. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. To convert the security descriptor to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">absolute security descriptor</a>, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd">MakeAbsoluteSD</a> function.
      * @param {Pointer<UInt32>} SecurityDescriptorSize A pointer to a variable that receives the size, in bytes, of the converted security descriptor. This parameter can be NULL.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes.
@@ -4225,11 +4288,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertStringSecurityDescriptorToSecurityDescriptorA(StringSecurityDescriptor, StringSDRevision, SecurityDescriptor, SecurityDescriptorSize) {
-        StringSecurityDescriptor := StringSecurityDescriptor is String? StrPtr(StringSecurityDescriptor) : StringSecurityDescriptor
+        StringSecurityDescriptor := StringSecurityDescriptor is String ? StrPtr(StringSecurityDescriptor) : StringSecurityDescriptor
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorA", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, "uint*", SecurityDescriptorSize, "int")
+        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorA", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, "uint*", SecurityDescriptorSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4238,14 +4301,14 @@ class Authorization {
 
     /**
      * Converts a string-format security descriptor into a valid, functional security descriptor.
-     * @param {Pointer<Char>} StringSecurityDescriptor A pointer to a null-terminated string containing the 
+     * @param {PWSTR} StringSecurityDescriptor A pointer to a null-terminated string containing the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">string-format security descriptor</a> to convert.
      * @param {Integer} StringSDRevision Specifies the revision level of the <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
-     * @param {Pointer<Void>} SecurityDescriptor A pointer to a variable that receives a pointer to the converted security descriptor. The returned security descriptor is <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a>. To free the returned buffer, call the 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor A pointer to a variable that receives a pointer to the converted security descriptor. The returned security descriptor is <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a>. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. To convert the security descriptor to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">absolute security descriptor</a>, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd">MakeAbsoluteSD</a> function.
      * @param {Pointer<UInt32>} SecurityDescriptorSize A pointer to a variable that receives the size, in bytes, of the converted security descriptor. This parameter can be NULL.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes.
@@ -4293,11 +4356,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertStringSecurityDescriptorToSecurityDescriptorW(StringSecurityDescriptor, StringSDRevision, SecurityDescriptor, SecurityDescriptorSize) {
-        StringSecurityDescriptor := StringSecurityDescriptor is String? StrPtr(StringSecurityDescriptor) : StringSecurityDescriptor
+        StringSecurityDescriptor := StringSecurityDescriptor is String ? StrPtr(StringSecurityDescriptor) : StringSecurityDescriptor
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorW", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, "uint*", SecurityDescriptorSize, "int")
+        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorW", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, "uint*", SecurityDescriptorSize, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4306,18 +4369,18 @@ class Authorization {
 
     /**
      * Converts a security descriptor to a string format. You can use the string format to store or transmit the security descriptor.
-     * @param {Pointer<Void>} SecurityDescriptor A pointer to the security descriptor to convert. The security descriptor can be in 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to the security descriptor to convert. The security descriptor can be in 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">absolute or self-relative format</a>.
      * @param {Integer} RequestedStringSDRevision Specifies the revision level of the output <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
      * @param {Integer} SecurityInformation Specifies a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags to indicate the components of the security descriptor to include in the output string. 
      * 
      * The BACKUP_SECURITY_INFORMATION flag is not applicable to this function. If the BACKUP_SECURITY_INFORMATION flag is passed in, the <i>SecurityInformation</i> parameter returns TRUE with <b>null</b> string output.
-     * @param {Pointer<Byte>} StringSecurityDescriptor A pointer to a variable that receives a pointer to a <b>null</b>-terminated security descriptor string. For a description of the string format, see 
+     * @param {Pointer<PSTR>} StringSecurityDescriptor A pointer to a variable that receives a pointer to a <b>null</b>-terminated security descriptor string. For a description of the string format, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor String Format</a>. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @param {Pointer<UInt32>} StringSecurityDescriptorLen A pointer to a variable that receives the size, in <b>TCHAR</b>s, of the security descriptor string returned in the <i>StringSecurityDescriptor</i> buffer. This parameter can be <b>NULL</b> if you do not need to retrieve the size. The size represents the size of the buffer in <b>WCHAR</b>s, not the number of <b>WCHAR</b>s in the string.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
@@ -4376,9 +4439,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertSecurityDescriptorToStringSecurityDescriptorA(SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
+        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorA", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, "uint*", StringSecurityDescriptorLen, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorA", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, "uint*", StringSecurityDescriptorLen, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4387,18 +4452,18 @@ class Authorization {
 
     /**
      * Converts a security descriptor to a string format. You can use the string format to store or transmit the security descriptor.
-     * @param {Pointer<Void>} SecurityDescriptor A pointer to the security descriptor to convert. The security descriptor can be in 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to the security descriptor to convert. The security descriptor can be in 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">absolute or self-relative format</a>.
      * @param {Integer} RequestedStringSDRevision Specifies the revision level of the output <i>StringSecurityDescriptor</i> string. Currently this value must be SDDL_REVISION_1.
      * @param {Integer} SecurityInformation Specifies a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags to indicate the components of the security descriptor to include in the output string. 
      * 
      * The BACKUP_SECURITY_INFORMATION flag is not applicable to this function. If the BACKUP_SECURITY_INFORMATION flag is passed in, the <i>SecurityInformation</i> parameter returns TRUE with <b>null</b> string output.
-     * @param {Pointer<Char>} StringSecurityDescriptor A pointer to a variable that receives a pointer to a <b>null</b>-terminated security descriptor string. For a description of the string format, see 
+     * @param {Pointer<PWSTR>} StringSecurityDescriptor A pointer to a variable that receives a pointer to a <b>null</b>-terminated security descriptor string. For a description of the string format, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor String Format</a>. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @param {Pointer<UInt32>} StringSecurityDescriptorLen A pointer to a variable that receives the size, in <b>TCHAR</b>s, of the security descriptor string returned in the <i>StringSecurityDescriptor</i> buffer. This parameter can be <b>NULL</b> if you do not need to retrieve the size. The size represents the size of the buffer in <b>WCHAR</b>s, not the number of <b>WCHAR</b>s in the string.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The <b>GetLastError</b> function may return one of the following error codes.
@@ -4457,9 +4522,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static ConvertSecurityDescriptorToStringSecurityDescriptorW(SecurityDescriptor, RequestedStringSDRevision, SecurityInformation, StringSecurityDescriptor, StringSecurityDescriptorLen) {
+        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorW", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, "uint*", StringSecurityDescriptorLen, "int")
+        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorW", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, "uint*", StringSecurityDescriptorLen, "ptr")
         if(A_LastError)
             throw OSError()
 

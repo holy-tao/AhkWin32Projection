@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_CREDENTIALS.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -76,15 +78,18 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszU2fAppId {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    pwszU2fAppId{
+        get {
+            if(!this.HasProp("__pwszU2fAppId"))
+                this.__pwszU2fAppId := PWSTR(this.ptr + 56)
+            return this.__pwszU2fAppId
+        }
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     pbU2fAppId {
         get => NumGet(this, 64, "ptr")
@@ -140,11 +145,14 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bBrowserInPrivateMode {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+    bBrowserInPrivateMode{
+        get {
+            if(!this.HasProp("__bBrowserInPrivateMode"))
+                this.__bBrowserInPrivateMode := BOOL(this.ptr + 112)
+            return this.__bBrowserInPrivateMode
+        }
     }
 
     /**
@@ -156,11 +164,14 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bAutoFill {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
+    bAutoFill{
+        get {
+            if(!this.HasProp("__bAutoFill"))
+                this.__bAutoFill := BOOL(this.ptr + 128)
+            return this.__bAutoFill
+        }
     }
 
     /**

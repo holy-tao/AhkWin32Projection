@@ -16,6 +16,9 @@
 #Include .\NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE.ahk
 #Include .\NVME_CDW11_FEATURE_IO_COMMAND_SET_PROFILE.ahk
 #Include .\NVME_CDW0_FEATURE_ERROR_INJECTION.ahk
+#Include .\NVME_CDW11_FEATURE_HOST_IDENTIFIER.ahk
+#Include .\NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE.ahk
+#Include .\NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK.ahk
 #Include .\NVME_CDW11_FEATURE_GET_HOST_METADATA.ahk
 #Include .\NVME_CDW11_FEATURE_SET_HOST_METADATA.ahk
 
@@ -206,27 +209,36 @@ class NVME_CDW11_FEATURES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_CDW11_FEATURE_HOST_IDENTIFIER}
      */
-    HostIdentifier {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    HostIdentifier{
+        get {
+            if(!this.HasProp("__HostIdentifier"))
+                this.__HostIdentifier := NVME_CDW11_FEATURE_HOST_IDENTIFIER(this.ptr + 0)
+            return this.__HostIdentifier
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE}
      */
-    ReservationPersistence {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    ReservationPersistence{
+        get {
+            if(!this.HasProp("__ReservationPersistence"))
+                this.__ReservationPersistence := NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE(this.ptr + 0)
+            return this.__ReservationPersistence
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK}
      */
-    ReservationNotificationMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    ReservationNotificationMask{
+        get {
+            if(!this.HasProp("__ReservationNotificationMask"))
+                this.__ReservationNotificationMask := NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK(this.ptr + 0)
+            return this.__ReservationNotificationMask
+        }
     }
 
     /**

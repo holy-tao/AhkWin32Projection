@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -12,19 +13,25 @@ class DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bEnable {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    bEnable{
+        get {
+            if(!this.HasProp("__bEnable"))
+                this.__bEnable := BOOLEAN(this.ptr + 0)
+            return this.__bEnable
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bOpenLoop {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
+    bOpenLoop{
+        get {
+            if(!this.HasProp("__bOpenLoop"))
+                this.__bOpenLoop := BOOLEAN(this.ptr + 1)
+            return this.__bOpenLoop
+        }
     }
 
     /**

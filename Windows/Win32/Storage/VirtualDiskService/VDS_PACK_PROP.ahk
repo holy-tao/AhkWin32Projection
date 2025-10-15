@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of a pack object.
@@ -29,11 +30,14 @@ class VDS_PACK_PROP extends Win32Struct
 
     /**
      * A string representing the pack name. Packs managed by the basic provider have no name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszName{
+        get {
+            if(!this.HasProp("__pwszName"))
+                this.__pwszName := PWSTR(this.ptr + 8)
+            return this.__pwszName
+        }
     }
 
     /**

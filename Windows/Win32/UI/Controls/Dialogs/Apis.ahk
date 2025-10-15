@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
@@ -513,7 +514,7 @@ class Dialogs {
     /**
      * Creates an Open dialog box that lets the user specify the drive, directory, and the name of a file or set of files to be opened.
      * @param {Pointer<OPENFILENAMEA>} param0 
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the user specifies a file name and clicks the <b>OK</b> button, the return value is nonzero. The buffer pointed to by the <b>lpstrFile</b> member of the <a href="/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure contains the full path and file name specified by the user.
      * 
@@ -522,14 +523,14 @@ class Dialogs {
      * @since windows5.0
      */
     static GetOpenFileNameA(param0) {
-        result := DllCall("COMDLG32.dll\GetOpenFileNameA", "ptr", param0, "int")
+        result := DllCall("COMDLG32.dll\GetOpenFileNameA", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * Creates an Open dialog box that lets the user specify the drive, directory, and the name of a file or set of files to be opened.
      * @param {Pointer<OPENFILENAMEW>} param0 
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the user specifies a file name and clicks the <b>OK</b> button, the return value is nonzero. The buffer pointed to by the <b>lpstrFile</b> member of the <a href="/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure contains the full path and file name specified by the user.
      * 
@@ -538,14 +539,14 @@ class Dialogs {
      * @since windows5.0
      */
     static GetOpenFileNameW(param0) {
-        result := DllCall("COMDLG32.dll\GetOpenFileNameW", "ptr", param0, "int")
+        result := DllCall("COMDLG32.dll\GetOpenFileNameW", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * Creates a Save dialog box that lets the user specify the drive, directory, and name of a file to save.
      * @param {Pointer<OPENFILENAMEA>} param0 
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the user specifies a file name and clicks the 
      * 						<b>OK</b> button and the function is successful, the return value is nonzero. The buffer pointed to by the 
@@ -557,14 +558,14 @@ class Dialogs {
      * @since windows5.0
      */
     static GetSaveFileNameA(param0) {
-        result := DllCall("COMDLG32.dll\GetSaveFileNameA", "ptr", param0, "int")
+        result := DllCall("COMDLG32.dll\GetSaveFileNameA", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * Creates a Save dialog box that lets the user specify the drive, directory, and name of a file to save.
      * @param {Pointer<OPENFILENAMEW>} param0 
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the user specifies a file name and clicks the 
      * 						<b>OK</b> button and the function is successful, the return value is nonzero. The buffer pointed to by the 
@@ -576,14 +577,14 @@ class Dialogs {
      * @since windows5.0
      */
     static GetSaveFileNameW(param0) {
-        result := DllCall("COMDLG32.dll\GetSaveFileNameW", "ptr", param0, "int")
+        result := DllCall("COMDLG32.dll\GetSaveFileNameW", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * Retrieves the name of the specified file.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} Buf Type: <b>LPTSTR</b>
+     * @param {PSTR} param0 
+     * @param {PSTR} Buf Type: <b>LPTSTR</b>
      * 
      * The buffer that receives the name of the file.
      * @param {Integer} cchSize Type: <b>WORD</b>
@@ -601,8 +602,8 @@ class Dialogs {
      * @since windows5.0
      */
     static GetFileTitleA(param0, Buf, cchSize) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        Buf := Buf is String? StrPtr(Buf) : Buf
+        param0 := param0 is String ? StrPtr(param0) : param0
+        Buf := Buf is String ? StrPtr(Buf) : Buf
 
         result := DllCall("COMDLG32.dll\GetFileTitleA", "ptr", param0, "ptr", Buf, "ushort", cchSize, "short")
         return result
@@ -610,8 +611,8 @@ class Dialogs {
 
     /**
      * Retrieves the name of the specified file.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} Buf Type: <b>LPTSTR</b>
+     * @param {PWSTR} param0 
+     * @param {PWSTR} Buf Type: <b>LPTSTR</b>
      * 
      * The buffer that receives the name of the file.
      * @param {Integer} cchSize Type: <b>WORD</b>
@@ -629,8 +630,8 @@ class Dialogs {
      * @since windows5.0
      */
     static GetFileTitleW(param0, Buf, cchSize) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        Buf := Buf is String? StrPtr(Buf) : Buf
+        param0 := param0 is String ? StrPtr(param0) : param0
+        Buf := Buf is String ? StrPtr(Buf) : Buf
 
         result := DllCall("COMDLG32.dll\GetFileTitleW", "ptr", param0, "ptr", Buf, "ushort", cchSize, "short")
         return result
@@ -639,27 +640,27 @@ class Dialogs {
     /**
      * 
      * @param {Pointer<CHOOSECOLORA>} param0 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ChooseColorA(param0) {
-        result := DllCall("COMDLG32.dll\ChooseColorA", "ptr", param0, "int")
+        result := DllCall("COMDLG32.dll\ChooseColorA", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<CHOOSECOLORW>} param0 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ChooseColorW(param0) {
-        result := DllCall("COMDLG32.dll\ChooseColorW", "ptr", param0, "int")
+        result := DllCall("COMDLG32.dll\ChooseColorW", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * Creates a system-defined modeless Find dialog box that lets the user specify a string to search for and options to use when searching for text in a document.
      * @param {Pointer<FINDREPLACEA>} param0 
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with or to close the dialog box.
      * 
@@ -669,13 +670,13 @@ class Dialogs {
      */
     static FindTextA(param0) {
         result := DllCall("COMDLG32.dll\FindTextA", "ptr", param0, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Creates a system-defined modeless Find dialog box that lets the user specify a string to search for and options to use when searching for text in a document.
      * @param {Pointer<FINDREPLACEW>} param0 
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with or to close the dialog box.
      * 
@@ -685,13 +686,13 @@ class Dialogs {
      */
     static FindTextW(param0) {
         result := DllCall("COMDLG32.dll\FindTextW", "ptr", param0, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Creates a system-defined modeless dialog box that lets the user specify a string to search for and a replacement string, as well as options to control the find and replace operations.
      * @param {Pointer<FINDREPLACEA>} param0 
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with the dialog box or close it.
      * 
@@ -701,13 +702,13 @@ class Dialogs {
      */
     static ReplaceTextA(param0) {
         result := DllCall("COMDLG32.dll\ReplaceTextA", "ptr", param0, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Creates a system-defined modeless dialog box that lets the user specify a string to search for and a replacement string, as well as options to control the find and replace operations.
      * @param {Pointer<FINDREPLACEW>} param0 
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with the dialog box or close it.
      * 
@@ -717,46 +718,46 @@ class Dialogs {
      */
     static ReplaceTextW(param0) {
         result := DllCall("COMDLG32.dll\ReplaceTextW", "ptr", param0, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * 
      * @param {Pointer<CHOOSEFONTA>} param0 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ChooseFontA(param0) {
-        result := DllCall("COMDLG32.dll\ChooseFontA", "ptr", param0, "int")
+        result := DllCall("COMDLG32.dll\ChooseFontA", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<CHOOSEFONTW>} param0 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ChooseFontW(param0) {
-        result := DllCall("COMDLG32.dll\ChooseFontW", "ptr", param0, "int")
+        result := DllCall("COMDLG32.dll\ChooseFontW", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<PRINTDLGA>} pPD 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static PrintDlgA(pPD) {
-        result := DllCall("COMDLG32.dll\PrintDlgA", "ptr", pPD, "int")
+        result := DllCall("COMDLG32.dll\PrintDlgA", "ptr", pPD, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<PRINTDLGW>} pPD 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static PrintDlgW(pPD) {
-        result := DllCall("COMDLG32.dll\PrintDlgW", "ptr", pPD, "int")
+        result := DllCall("COMDLG32.dll\PrintDlgW", "ptr", pPD, "ptr")
         return result
     }
 
@@ -1231,20 +1232,20 @@ class Dialogs {
     /**
      * 
      * @param {Pointer<PAGESETUPDLGA>} param0 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static PageSetupDlgA(param0) {
-        result := DllCall("COMDLG32.dll\PageSetupDlgA", "ptr", param0, "int")
+        result := DllCall("COMDLG32.dll\PageSetupDlgA", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<PAGESETUPDLGW>} param0 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static PageSetupDlgW(param0) {
-        result := DllCall("COMDLG32.dll\PageSetupDlgW", "ptr", param0, "int")
+        result := DllCall("COMDLG32.dll\PageSetupDlgW", "ptr", param0, "ptr")
         return result
     }
 

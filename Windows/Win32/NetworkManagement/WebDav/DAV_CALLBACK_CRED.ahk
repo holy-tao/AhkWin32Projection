@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DAV_CALLBACK_AUTH_BLOB.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DAV_CALLBACK_AUTH_UNP.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Stores user credential information that was retrieved by the DavAuthCallback callback function.
@@ -46,19 +48,25 @@ class DAV_CALLBACK_CRED extends Win32Struct
 
     /**
      * <b>TRUE</b> if the credential information is stored in the <b>AuthBlob</b> member, and the <b>UNPBlob</b> member should be ignored. <b>FALSE</b> if it is stored in the <b>UNPBlob</b> member, and the <b>AuthBlob</b> member should be ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bAuthBlobValid {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+    bAuthBlobValid{
+        get {
+            if(!this.HasProp("__bAuthBlobValid"))
+                this.__bAuthBlobValid := BOOL(this.ptr + 48)
+            return this.__bAuthBlobValid
+        }
     }
 
     /**
      * <b>TRUE</b> if the credential information was written to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/credential-manager">credential manager</a>, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bSave {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+    bSave{
+        get {
+            if(!this.HasProp("__bSave"))
+                this.__bSave := BOOL(this.ptr + 52)
+            return this.__bSave
+        }
     }
 }

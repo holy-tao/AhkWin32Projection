@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Performs a mean variance normalization function on the input tensor. This operator will calculate the mean and variance of the input tensor to perform normalization.
@@ -65,22 +66,28 @@ class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if the MeanVariance layer includes channels in the Mean and Variance calculations. Otherwise, **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    CrossChannel {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    CrossChannel{
+        get {
+            if(!this.HasProp("__CrossChannel"))
+                this.__CrossChannel := BOOL(this.ptr + 32)
+            return this.__CrossChannel
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if the Normalization layer includes Variance in the normalization calculation. Otherwise, **FALSE**. If **FALSE**, then normalization equation is `Output = FusedActivation(Scale * (Input - Mean) + Bias)`.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    NormalizeVariance {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+    NormalizeVariance{
+        get {
+            if(!this.HasProp("__NormalizeVariance"))
+                this.__NormalizeVariance := BOOL(this.ptr + 36)
+            return this.__NormalizeVariance
+        }
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\PHYSICAL_MEMORY_RUN32.ahk
 #Include .\PHYSICAL_MEMORY_DESCRIPTOR32.ahk
+#Include ..\..\..\Foundation\NTSTATUS.ahk
 #Include .\EXCEPTION_RECORD32.ahk
 #Include .\DUMP_FILE_ATTRIBUTES.ahk
 

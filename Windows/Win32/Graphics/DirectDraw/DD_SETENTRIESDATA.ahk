@@ -24,7 +24,7 @@ class DD_SETENTRIESDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_palette_global">DD_PALETTE_GLOBAL</a> structure that represents the DirectDrawPalette object.
-     * @type {Pointer<UIntPtr>}
+     * @type {Pointer<DD_PALETTE_GLOBAL>}
      */
     lpDDPalette {
         get => NumGet(this, 8, "ptr")

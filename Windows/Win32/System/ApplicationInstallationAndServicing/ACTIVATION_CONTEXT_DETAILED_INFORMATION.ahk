@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ACTIVATION_CONTEXT_DETAILED_INFORMATION structure is used by the QueryActCtxW function.
@@ -180,28 +181,37 @@ class ACTIVATION_CONTEXT_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Path of the application manifest.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpRootManifestPath {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lpRootManifestPath{
+        get {
+            if(!this.HasProp("__lpRootManifestPath"))
+                this.__lpRootManifestPath := PWSTR(this.ptr + 40)
+            return this.__lpRootManifestPath
+        }
     }
 
     /**
      * Path of the configuration file.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpRootConfigurationPath {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lpRootConfigurationPath{
+        get {
+            if(!this.HasProp("__lpRootConfigurationPath"))
+                this.__lpRootConfigurationPath := PWSTR(this.ptr + 48)
+            return this.__lpRootConfigurationPath
+        }
     }
 
     /**
      * Path of the application directory.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpAppDirPath {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    lpAppDirPath{
+        get {
+            if(!this.HasProp("__lpAppDirPath"))
+                this.__lpAppDirPath := PWSTR(this.ptr + 56)
+            return this.__lpAppDirPath
+        }
     }
 }

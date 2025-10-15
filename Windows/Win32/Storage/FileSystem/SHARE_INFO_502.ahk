@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Contains information about the shared resource, including name of the resource, type and permissions, number of connections, and other pertinent information.
@@ -16,11 +18,14 @@ class SHARE_INFO_502 extends Win32Struct
     /**
      * Pointer to a Unicode string specifying the name of a shared resource. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    shi502_netname {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    shi502_netname{
+        get {
+            if(!this.HasProp("__shi502_netname"))
+                this.__shi502_netname := PWSTR(this.ptr + 0)
+            return this.__shi502_netname
+        }
     }
 
     /**
@@ -35,11 +40,14 @@ class SHARE_INFO_502 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying an optional comment about the shared resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    shi502_remark {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    shi502_remark{
+        get {
+            if(!this.HasProp("__shi502_remark"))
+                this.__shi502_remark := PWSTR(this.ptr + 16)
+            return this.__shi502_remark
+        }
     }
 
     /**
@@ -73,11 +81,14 @@ class SHARE_INFO_502 extends Win32Struct
     /**
      * Pointer to a Unicode string that contains the local path for the shared resource. For disks, this member is the path being shared. For print queues, this member is the name of the print queue being shared. Calls to the 
      * <b>NetShareSetInfo</b> function ignore this member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    shi502_path {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    shi502_path{
+        get {
+            if(!this.HasProp("__shi502_path"))
+                this.__shi502_path := PWSTR(this.ptr + 40)
+            return this.__shi502_path
+        }
     }
 
     /**
@@ -88,11 +99,14 @@ class SHARE_INFO_502 extends Win32Struct
      * 
      * This member can be no longer than SHPWLEN+1 bytes (including a terminating null character). Calls to the 
      * <b>NetShareSetInfo</b> function ignore this member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    shi502_passwd {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    shi502_passwd{
+        get {
+            if(!this.HasProp("__shi502_passwd"))
+                this.__shi502_passwd := PWSTR(this.ptr + 48)
+            return this.__shi502_passwd
+        }
     }
 
     /**
@@ -108,10 +122,13 @@ class SHARE_INFO_502 extends Win32Struct
     /**
      * Specifies the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> associated with this share.
-     * @type {Pointer<Void>}
+     * @type {PSECURITY_DESCRIPTOR}
      */
-    shi502_security_descriptor {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    shi502_security_descriptor{
+        get {
+            if(!this.HasProp("__shi502_security_descriptor"))
+                this.__shi502_security_descriptor := PSECURITY_DESCRIPTOR(this.ptr + 64)
+            return this.__shi502_security_descriptor
+        }
     }
 }

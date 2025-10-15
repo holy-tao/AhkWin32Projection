@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\WNODE_HEADER.ahk
 
 /**
@@ -191,11 +192,14 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct
 
     /**
      * On output, the thread identifier for the event tracing session.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    LoggerThreadId {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    LoggerThreadId{
+        get {
+            if(!this.HasProp("__LoggerThreadId"))
+                this.__LoggerThreadId := HANDLE(this.ptr + 96)
+            return this.__LoggerThreadId
+        }
     }
 
     /**
@@ -235,11 +239,21 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - VersionNumber
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 112, "uint")
         set => NumPut("uint", value, this, 112)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    VersionNumber {
+        get => (this._bitfield >> 0) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
     }
 
     /**
@@ -270,6 +284,51 @@ class EVENT_TRACE_PROPERTIES_V2 extends Win32Struct
     FilterDesc {
         get => NumGet(this, 120, "ptr")
         set => NumPut("ptr", value, this, 120)
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - Wow
+     * - QpcDeltaTracking
+     * - LargeMdlPages
+     * - ExcludeKernelStack
+     * @type {Integer}
+     */
+    _bitfield1 {
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Wow {
+        get => (this._bitfield1 >> 0) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 0) | (this._bitfield1 & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    QpcDeltaTracking {
+        get => (this._bitfield1 >> 1) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 1) | (this._bitfield1 & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    LargeMdlPages {
+        get => (this._bitfield1 >> 2) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 2) | (this._bitfield1 & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ExcludeKernelStack {
+        get => (this._bitfield1 >> 3) & 0x1
+        set => this._bitfield1 := ((value & 0x1) << 3) | (this._bitfield1 & ~(0x1 << 3))
     }
 
     /**

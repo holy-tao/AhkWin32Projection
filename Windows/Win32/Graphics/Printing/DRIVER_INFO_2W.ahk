@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -21,42 +22,57 @@ class DRIVER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pName{
+        get {
+            if(!this.HasProp("__pName"))
+                this.__pName := PWSTR(this.ptr + 8)
+            return this.__pName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pEnvironment {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pEnvironment{
+        get {
+            if(!this.HasProp("__pEnvironment"))
+                this.__pEnvironment := PWSTR(this.ptr + 16)
+            return this.__pEnvironment
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDriverPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pDriverPath{
+        get {
+            if(!this.HasProp("__pDriverPath"))
+                this.__pDriverPath := PWSTR(this.ptr + 24)
+            return this.__pDriverPath
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pDataFile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pDataFile{
+        get {
+            if(!this.HasProp("__pDataFile"))
+                this.__pDataFile := PWSTR(this.ptr + 32)
+            return this.__pDataFile
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pConfigFile {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pConfigFile{
+        get {
+            if(!this.HasProp("__pConfigFile"))
+                this.__pConfigFile := PWSTR(this.ptr + 40)
+            return this.__pConfigFile
+        }
     }
 }

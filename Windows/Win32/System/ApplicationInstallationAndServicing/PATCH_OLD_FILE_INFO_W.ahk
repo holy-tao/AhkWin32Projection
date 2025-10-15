@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -21,11 +22,14 @@ class PATCH_OLD_FILE_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    OldFileName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    OldFileName{
+        get {
+            if(!this.HasProp("__OldFileName"))
+                this.__OldFileName := PWSTR(this.ptr + 8)
+            return this.__OldFileName
+        }
     }
 
     /**

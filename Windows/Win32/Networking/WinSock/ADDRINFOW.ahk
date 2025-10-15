@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used by the GetAddrInfoW function to hold host address information.
@@ -459,11 +460,14 @@ class ADDRINFOW extends Win32Struct
      * Type: <b>PWSTR</b>
      * 
      * The canonical name for the host.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ai_canonname {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ai_canonname{
+        get {
+            if(!this.HasProp("__ai_canonname"))
+                this.__ai_canonname := PWSTR(this.ptr + 24)
+            return this.__ai_canonname
+        }
     }
 
     /**

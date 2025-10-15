@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DS_DOMAIN_CONTROLLER_INFO_3 structure contains data about a domain controller. This structure is returned by the DsGetDomainControllerInfo function.
@@ -28,101 +30,134 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the NetBIOS name of the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    NetbiosName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    NetbiosName{
+        get {
+            if(!this.HasProp("__NetbiosName"))
+                this.__NetbiosName := PSTR(this.ptr + 0)
+            return this.__NetbiosName
+        }
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the DNS host name of the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    DnsHostName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    DnsHostName{
+        get {
+            if(!this.HasProp("__DnsHostName"))
+                this.__DnsHostName := PSTR(this.ptr + 8)
+            return this.__DnsHostName
+        }
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the site to which the domain controller belongs.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    SiteName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    SiteName{
+        get {
+            if(!this.HasProp("__SiteName"))
+                this.__SiteName := PSTR(this.ptr + 16)
+            return this.__SiteName
+        }
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the site object on the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    SiteObjectName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    SiteObjectName{
+        get {
+            if(!this.HasProp("__SiteObjectName"))
+                this.__SiteObjectName := PSTR(this.ptr + 24)
+            return this.__SiteObjectName
+        }
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the computer object on the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    ComputerObjectName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    ComputerObjectName{
+        get {
+            if(!this.HasProp("__ComputerObjectName"))
+                this.__ComputerObjectName := PSTR(this.ptr + 32)
+            return this.__ComputerObjectName
+        }
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the server object on the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    ServerObjectName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    ServerObjectName{
+        get {
+            if(!this.HasProp("__ServerObjectName"))
+                this.__ServerObjectName := PSTR(this.ptr + 40)
+            return this.__ServerObjectName
+        }
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the NTDS DSA object on the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    NtdsDsaObjectName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    NtdsDsaObjectName{
+        get {
+            if(!this.HasProp("__NtdsDsaObjectName"))
+                this.__NtdsDsaObjectName := PSTR(this.ptr + 48)
+            return this.__NtdsDsaObjectName
+        }
     }
 
     /**
      * A Boolean value that indicates whether or not this domain controller is the primary domain controller. If this value is <b>TRUE</b>, the domain controller is the primary domain controller; otherwise, the domain controller is not the primary domain controller.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIsPdc {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+    fIsPdc{
+        get {
+            if(!this.HasProp("__fIsPdc"))
+                this.__fIsPdc := BOOL(this.ptr + 56)
+            return this.__fIsPdc
+        }
     }
 
     /**
      * A Boolean value that indicates whether or not the domain controller is enabled. If this value is <b>TRUE</b>, the domain controller is enabled; otherwise, it is not enabled.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fDsEnabled {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+    fDsEnabled{
+        get {
+            if(!this.HasProp("__fDsEnabled"))
+                this.__fDsEnabled := BOOL(this.ptr + 60)
+            return this.__fDsEnabled
+        }
     }
 
     /**
      * A Boolean value that indicates whether or not the domain controller is global catalog server. If this value is <b>TRUE</b>, the domain controller is a global catalog server; otherwise, it is not a global catalog server.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIsGc {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+    fIsGc{
+        get {
+            if(!this.HasProp("__fIsGc"))
+                this.__fIsGc := BOOL(this.ptr + 64)
+            return this.__fIsGc
+        }
     }
 
     /**
      * A Boolean value that indicates if the domain controller is a read-only domain controller. If this value is <b>TRUE</b>, the domain controller is a read-only domain controller; otherwise, it is not a read-only domain controller.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fIsRodc {
-        get => NumGet(this, 68, "int")
-        set => NumPut("int", value, this, 68)
+    fIsRodc{
+        get {
+            if(!this.HasProp("__fIsRodc"))
+                this.__fIsRodc := BOOL(this.ptr + 68)
+            return this.__fIsRodc
+        }
     }
 
     /**

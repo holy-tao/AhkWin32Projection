@@ -212,6 +212,20 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
         static sizeof => 64
         static packingSize => 8
 
+        class _Server extends Win32Struct {
+            static sizeof => 16
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            Capabilities {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
         class _Share extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
@@ -235,11 +249,14 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {_Server}
          */
-        Server {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        Server{
+            get {
+                if(!this.HasProp("__Server"))
+                    this.__Server := %this.__Class%._Server(this.ptr + 0)
+                return this.__Server
+            }
         }
     
         /**

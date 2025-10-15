@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 #Include .\GNSS_FIXDATA_BASIC_2.ahk
 #Include .\GNSS_FIXDATA_ACCURACY_2.ahk
 #Include .\GNSS_SATELLITEINFO.ahk
@@ -52,19 +54,25 @@ class GNSS_FIXDATA_2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsFinalFix {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    IsFinalFix{
+        get {
+            if(!this.HasProp("__IsFinalFix"))
+                this.__IsFinalFix := BOOL(this.ptr + 24)
+            return this.__IsFinalFix
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
-    FixStatus {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    FixStatus{
+        get {
+            if(!this.HasProp("__FixStatus"))
+                this.__FixStatus := NTSTATUS(this.ptr + 28)
+            return this.__FixStatus
+        }
     }
 
     /**

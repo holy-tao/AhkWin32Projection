@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -67,11 +68,14 @@ class DOT11_BSS_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bInRegDomain {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
+    bInRegDomain{
+        get {
+            if(!this.HasProp("__bInRegDomain"))
+                this.__bInRegDomain := BOOLEAN(this.ptr + 52)
+            return this.__bInRegDomain
+        }
     }
 
     /**

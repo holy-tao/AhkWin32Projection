@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains a signed data content type in Cryptographic Message Syntax (CMS) format.
@@ -45,11 +47,14 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated string that specifies the Time Stamping Authority (TSA) policy under which the time stamp token was provided. This value must correspond with the value passed  in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_request">CRYPT_TIMESTAMP_REQUEST</a> structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    pszTSAPolicyId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszTSAPolicyId{
+        get {
+            if(!this.HasProp("__pszTSAPolicyId"))
+                this.__pszTSAPolicyId := PSTR(this.ptr + 8)
+            return this.__pszTSAPolicyId
+        }
     }
 
     /**
@@ -111,11 +116,14 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fOrdering {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+    fOrdering{
+        get {
+            if(!this.HasProp("__fOrdering"))
+                this.__fOrdering := BOOL(this.ptr + 88)
+            return this.__fOrdering
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\WindowsAndMessaging\HMENU.ahk
 
 /**
  * Contains information for merging menu items into Windows Explorer menus.
@@ -22,11 +23,14 @@ class QCMINFO extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * [in] The handle of the menu where the new commands are to be added.
-     * @type {Pointer<Void>}
+     * @type {HMENU}
      */
-    hmenu {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hmenu{
+        get {
+            if(!this.HasProp("__hmenu"))
+                this.__hmenu := HMENU(this.ptr + 0)
+            return this.__hmenu
+        }
     }
 
     /**

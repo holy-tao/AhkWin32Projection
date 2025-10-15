@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include ..\Foundation\BOOL.ahk
 
 /**
  * The SECURITY_ATTRIBUTES structure contains the security descriptor for an object and specifies whether the handle retrieved by specifying this structure is inheritable.
@@ -38,10 +39,13 @@ class SECURITY_ATTRIBUTES extends Win32Struct
 
     /**
      * A Boolean value that specifies whether the returned handle is inherited when a new process is created. If this member is **TRUE**, the new process inherits the handle.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bInheritHandle {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    bInheritHandle{
+        get {
+            if(!this.HasProp("__bInheritHandle"))
+                this.__bInheritHandle := BOOL(this.ptr + 16)
+            return this.__bInheritHandle
+        }
     }
 }

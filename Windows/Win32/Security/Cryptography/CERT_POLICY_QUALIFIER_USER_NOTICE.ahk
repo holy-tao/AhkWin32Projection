@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -20,10 +21,13 @@ class CERT_POLICY_QUALIFIER_USER_NOTICE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDisplayText {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszDisplayText{
+        get {
+            if(!this.HasProp("__pszDisplayText"))
+                this.__pszDisplayText := PWSTR(this.ptr + 8)
+            return this.__pszDisplayText
+        }
     }
 }

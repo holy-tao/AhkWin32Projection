@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_SECURITY_INTERFACE structure specifies the security interfaces that calls to Peer Graphing APIs use to validate, secure, and free records.
@@ -29,20 +30,26 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
 
     /**
      * Specifies the full path and file name of a .DLL that  implements the SSP interface. See the <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">SSPI documentation</a> for further information on the SSP interface.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzSspFilename {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwzSspFilename{
+        get {
+            if(!this.HasProp("__pwzSspFilename"))
+                this.__pwzSspFilename := PWSTR(this.ptr + 8)
+            return this.__pwzSspFilename
+        }
     }
 
     /**
      * Specifies the ID of the security module in the SSP to use.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzPackageName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwzPackageName{
+        get {
+            if(!this.HasProp("__pwzPackageName"))
+                this.__pwzPackageName := PWSTR(this.ptr + 16)
+            return this.__pwzPackageName
+        }
     }
 
     /**

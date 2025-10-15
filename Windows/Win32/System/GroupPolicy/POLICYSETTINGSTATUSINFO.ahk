@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -16,29 +17,38 @@ class POLICYSETTINGSTATUSINFO extends Win32Struct
 
     /**
      * This member is optional. If it is <b>NULL</b>, the system generates a value.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    szKey{
+        get {
+            if(!this.HasProp("__szKey"))
+                this.__szKey := PWSTR(this.ptr + 0)
+            return this.__szKey
+        }
     }
 
     /**
      * Pointer to a string specifying the name of the source (application, service, driver, subsystem) that generated the log entry.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szEventSource {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    szEventSource{
+        get {
+            if(!this.HasProp("__szEventSource"))
+                this.__szEventSource := PWSTR(this.ptr + 8)
+            return this.__szEventSource
+        }
     }
 
     /**
      * Pointer to a string specifying the name of the event log.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szEventLogName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    szEventLogName{
+        get {
+            if(!this.HasProp("__szEventLogName"))
+                this.__szEventLogName := PWSTR(this.ptr + 16)
+            return this.__szEventLogName
+        }
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_COSE_CREDENTIAL_PARAMETERS.ahk
 #Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -116,11 +117,14 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fEmptyPinAuth {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
+    fEmptyPinAuth{
+        get {
+            if(!this.HasProp("__fEmptyPinAuth"))
+                this.__fEmptyPinAuth := BOOL(this.ptr + 104)
+            return this.__fEmptyPinAuth
+        }
     }
 
     /**

@@ -36,6 +36,39 @@ class ND_OPTION_ROUTE_INFO extends Win32Struct
         set => NumPut("char", value, this, 2)
     }
 
+    class _Flags extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * This bitfield backs the following members:
+         * - Reserved
+         * - Preference
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved {
+            get => (this._bitfield >> 0) & 0x7
+            set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Preference {
+            get => (this._bitfield >> 3) & 0x3
+            set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -45,11 +78,14 @@ class ND_OPTION_ROUTE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Flags}
      */
-    Flags {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := %this.__Class%._Flags(this.ptr + 3)
+            return this.__Flags
+        }
     }
 
     /**

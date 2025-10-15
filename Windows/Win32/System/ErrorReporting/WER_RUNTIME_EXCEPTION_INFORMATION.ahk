@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\NTSTATUS.ahk
 #Include ..\Diagnostics\Debug\EXCEPTION_RECORD.ahk
 #Include ..\Diagnostics\Debug\ARM64_NT_NEON128.ahk
 #Include ..\Diagnostics\Debug\CONTEXT.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the exception information that you use to determine whether you want to claim the crash.
@@ -27,20 +31,26 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * The handle to the process that crashed.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hProcess {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hProcess{
+        get {
+            if(!this.HasProp("__hProcess"))
+                this.__hProcess := HANDLE(this.ptr + 8)
+            return this.__hProcess
+        }
     }
 
     /**
      * The handle to the thread that crashed.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hThread {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hThread{
+        get {
+            if(!this.HasProp("__hThread"))
+                this.__hThread := HANDLE(this.ptr + 16)
+            return this.__hThread
+        }
     }
 
     /**
@@ -69,19 +79,25 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * A pointer to a constant, null-terminated string that contains the size of the exception information.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszReportId {
-        get => NumGet(this, 832, "ptr")
-        set => NumPut("ptr", value, this, 832)
+    pwszReportId{
+        get {
+            if(!this.HasProp("__pwszReportId"))
+                this.__pwszReportId := PWSTR(this.ptr + 832)
+            return this.__pwszReportId
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bIsFatal {
-        get => NumGet(this, 840, "int")
-        set => NumPut("int", value, this, 840)
+    bIsFatal{
+        get {
+            if(!this.HasProp("__bIsFatal"))
+                this.__bIsFatal := BOOL(this.ptr + 840)
+            return this.__bIsFatal
+        }
     }
 
     /**

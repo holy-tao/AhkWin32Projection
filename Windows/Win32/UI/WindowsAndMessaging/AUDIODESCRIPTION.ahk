@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information associated with audio descriptions. This structure is used with the SystemParametersInfo function when the SPI_GETAUDIODESCRIPTION or SPI_SETAUDIODESCRIPTION action value is specified.
@@ -30,11 +31,14 @@ class AUDIODESCRIPTION extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, audio descriptions are enabled; Otherwise, this member is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Enabled {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    Enabled{
+        get {
+            if(!this.HasProp("__Enabled"))
+                this.__Enabled := BOOL(this.ptr + 4)
+            return this.__Enabled
+        }
     }
 
     /**

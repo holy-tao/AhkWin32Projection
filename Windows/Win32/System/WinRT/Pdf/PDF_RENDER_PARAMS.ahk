@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Graphics\Direct2D\Common\D2D_RECT_F.ahk
 #Include ..\..\..\Graphics\Direct2D\Common\D2D_COLOR_F.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Pdf
@@ -52,10 +53,13 @@ class PDF_RENDER_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IgnoreHighContrast {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
+    IgnoreHighContrast{
+        get {
+            if(!this.HasProp("__IgnoreHighContrast"))
+                this.__IgnoreHighContrast := BOOLEAN(this.ptr + 40)
+            return this.__IgnoreHighContrast
+        }
     }
 }

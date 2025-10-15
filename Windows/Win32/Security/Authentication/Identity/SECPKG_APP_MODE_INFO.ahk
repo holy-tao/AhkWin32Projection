@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\SecBuffer.ahk
+#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -48,10 +49,13 @@ class SECPKG_APP_MODE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    ReturnToLsa {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
+    ReturnToLsa{
+        get {
+            if(!this.HasProp("__ReturnToLsa"))
+                this.__ReturnToLsa := BOOLEAN(this.ptr + 40)
+            return this.__ReturnToLsa
+        }
     }
 }

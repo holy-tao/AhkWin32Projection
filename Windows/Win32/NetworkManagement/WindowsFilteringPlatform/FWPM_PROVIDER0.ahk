@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
 #Include .\FWP_BYTE_BLOB.ahk
 
@@ -97,10 +98,13 @@ class FWPM_PROVIDER0 extends Win32Struct
     /**
      * Optional name of the Windows service hosting the provider. This allows
      *    BFE to detect that a provider has been disabled.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    serviceName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    serviceName{
+        get {
+            if(!this.HasProp("__serviceName"))
+                this.__serviceName := PWSTR(this.ptr + 48)
+            return this.__serviceName
+        }
     }
 }

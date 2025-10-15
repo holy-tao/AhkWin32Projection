@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\COORD.ahk
 #Include .\SMALL_RECT.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -9,7 +11,7 @@
  */
 class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 168
 
     static packingSize => 8
 
@@ -82,20 +84,23 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bFullscreenSupported {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+    bFullscreenSupported{
+        get {
+            if(!this.HasProp("__bFullscreenSupported"))
+                this.__bFullscreenSupported := BOOL(this.ptr + 32)
+            return this.__bFullscreenSupported
+        }
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<COLORREF>}
      */
     ColorTable{
         get {
             if(!this.HasProp("__ColorTableProxyArray"))
-                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 36, 16, Primitive, "uint")
+                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 40, 16, COLORREF, "")
             return this.__ColorTableProxyArray
         }
     }
@@ -106,6 +111,6 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
      */
     __New(ptr := 0){
         super.__New(ptr)
-        this.cbSize := 104
+        this.cbSize := 168
     }
 }

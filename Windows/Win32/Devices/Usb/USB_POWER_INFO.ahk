@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The USB_POWER_INFO structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve device power state that the host controller power policy specifies for the indicated system power state.
@@ -92,19 +93,25 @@ class USB_POWER_INFO extends Win32Struct
 
     /**
      * A Boolean value that indicates whether the host controller device can wake up the system from the specified system power state. If <b>TRUE</b>, the host controller device can wake up the system. If <b>FALSE</b>, the host controller cannot wake up the system.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    CanWakeup {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
+    CanWakeup{
+        get {
+            if(!this.HasProp("__CanWakeup"))
+                this.__CanWakeup := BOOLEAN(this.ptr + 32)
+            return this.__CanWakeup
+        }
     }
 
     /**
      * A Boolean value that indicates whether the host controller is powered when in the specified system power state. If <b>TRUE</b>, the host controller is powered. If <b>FALSE</b>, the host controller is not powered.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    IsPowered {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
+    IsPowered{
+        get {
+            if(!this.HasProp("__IsPowered"))
+                this.__IsPowered := BOOLEAN(this.ptr + 33)
+            return this.__IsPowered
+        }
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CERT_BASIC_CONSTRAINTS_INFO structure contains information that indicates whether the certified subject can act as a certification authority (CA), an end entity, or both.
@@ -35,11 +36,14 @@ class CERT_BASIC_CONSTRAINTS_INFO extends Win32Struct
 
     /**
      * A Boolean value that indicates whether the <b>dwPathLenConstraint</b> field sets the maximum length of the certification path.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fPathLenConstraint {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fPathLenConstraint{
+        get {
+            if(!this.HasProp("__fPathLenConstraint"))
+                this.__fPathLenConstraint := BOOL(this.ptr + 24)
+            return this.__fPathLenConstraint
+        }
     }
 
     /**

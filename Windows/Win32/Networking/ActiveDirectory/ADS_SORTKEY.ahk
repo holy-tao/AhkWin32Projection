@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The ADS_SORTKEY structure specifies how to sort a query.
@@ -22,28 +24,37 @@ class ADS_SORTKEY extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the attribute type.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszAttrType {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszAttrType{
+        get {
+            if(!this.HasProp("__pszAttrType"))
+                this.__pszAttrType := PWSTR(this.ptr + 0)
+            return this.__pszAttrType
+        }
     }
 
     /**
      * Reserved.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszReserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszReserved{
+        get {
+            if(!this.HasProp("__pszReserved"))
+                this.__pszReserved := PWSTR(this.ptr + 8)
+            return this.__pszReserved
+        }
     }
 
     /**
      * Reverse the order of the sorted results.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    fReverseorder {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    fReverseorder{
+        get {
+            if(!this.HasProp("__fReverseorder"))
+                this.__fReverseorder := BOOLEAN(this.ptr + 16)
+            return this.__fReverseorder
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides metadata about the relationship between two or more services.
@@ -15,11 +16,14 @@ class WSD_RELATIONSHIP_METADATA extends Win32Struct
 
     /**
      * A WS-Discovery Type.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Type {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Type{
+        get {
+            if(!this.HasProp("__Type"))
+                this.__Type := PWSTR(this.ptr + 0)
+            return this.__Type
+        }
     }
 
     /**

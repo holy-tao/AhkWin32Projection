@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used to contain information about a CNG key.
@@ -15,20 +16,26 @@ class NCryptKeyName extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the key.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszName{
+        get {
+            if(!this.HasProp("__pszName"))
+                this.__pszName := PWSTR(this.ptr + 0)
+            return this.__pszName
+        }
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic algorithm that the key was created with. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszAlgid {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszAlgid{
+        get {
+            if(!this.HasProp("__pszAlgid"))
+                this.__pszAlgid := PWSTR(this.ptr + 8)
+            return this.__pszAlgid
+        }
     }
 
     /**

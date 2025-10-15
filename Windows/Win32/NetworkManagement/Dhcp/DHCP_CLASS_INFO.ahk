@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines a DHCP option class.
@@ -15,20 +17,26 @@ class DHCP_CLASS_INFO extends Win32Struct
 
     /**
      * Unicode string that contains the name of the class.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClassName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    ClassName{
+        get {
+            if(!this.HasProp("__ClassName"))
+                this.__ClassName := PWSTR(this.ptr + 0)
+            return this.__ClassName
+        }
     }
 
     /**
      * Unicode string that contains a comment associated with the class.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ClassComment {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ClassComment{
+        get {
+            if(!this.HasProp("__ClassComment"))
+                this.__ClassComment := PWSTR(this.ptr + 8)
+            return this.__ClassComment
+        }
     }
 
     /**
@@ -42,11 +50,14 @@ class DHCP_CLASS_INFO extends Win32Struct
 
     /**
      * Specifies whether or not this option class is a vendor-defined option class. If <b>TRUE</b>, it is a vendor class; if not, it is not a vendor class. Vendor-defined option classes can be used by DHCP clients that are configured to optionally identify themselves by their vendor type to the DHCP server when obtaining a lease.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    IsVendor {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    IsVendor{
+        get {
+            if(!this.HasProp("__IsVendor"))
+                this.__IsVendor := BOOL(this.ptr + 20)
+            return this.__IsVendor
+        }
     }
 
     /**

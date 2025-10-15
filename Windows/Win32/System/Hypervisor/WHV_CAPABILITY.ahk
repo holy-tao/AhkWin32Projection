@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\WHV_CAPABILITY_FEATURES.ahk
 #Include .\WHV_EXTENDED_VM_EXITS.ahk
 #Include .\WHV_PROCESSOR_FEATURES.ahk
@@ -25,11 +26,14 @@ class WHV_CAPABILITY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    HypervisorPresent {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    HypervisorPresent{
+        get {
+            if(!this.HasProp("__HypervisorPresent"))
+                this.__HypervisorPresent := BOOL(this.ptr + 0)
+            return this.__HypervisorPresent
+        }
     }
 
     /**

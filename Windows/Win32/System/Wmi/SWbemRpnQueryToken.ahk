@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\SWbemRpnConst.ahk
 
 /**
@@ -112,19 +114,25 @@ class SWbemRpnQueryToken extends Win32Struct
 
     /**
      * Specifies a function on the right of the operator in a WHERE clause. If there is no function on the right of the operator in this token, this field is <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    m_pszRightFunc {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+    m_pszRightFunc{
+        get {
+            if(!this.HasProp("__m_pszRightFunc"))
+                this.__m_pszRightFunc := PWSTR(this.ptr + 144)
+            return this.__m_pszRightFunc
+        }
     }
 
     /**
      * Specifies a function on the left of the operator in a WHERE clause. If there is no function on the left of the operator in this token, this field is <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    m_pszLeftFunc {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+    m_pszLeftFunc{
+        get {
+            if(!this.HasProp("__m_pszLeftFunc"))
+                this.__m_pszLeftFunc := PWSTR(this.ptr + 152)
+            return this.__m_pszLeftFunc
+        }
     }
 }

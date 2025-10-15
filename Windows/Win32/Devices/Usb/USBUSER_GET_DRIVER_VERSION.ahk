@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USBUSER_REQUEST_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\USB_DRIVER_VERSION_PARAMETERS.ahk
 
 /**

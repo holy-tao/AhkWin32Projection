@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\WLAN_RATE_SET.ahk
 #Include .\WLAN_BSS_ENTRY.ahk
 

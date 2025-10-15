@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\SECPKG_BYTE_VECTOR.ahk
 
 /**
@@ -74,11 +75,14 @@ class SECPKG_CREDENTIAL extends Win32Struct
 
     /**
      * The client token of the caller.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ClientToken {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    ClientToken{
+        get {
+            if(!this.HasProp("__ClientToken"))
+                this.__ClientToken := HANDLE(this.ptr + 32)
+            return this.__ClientToken
+        }
     }
 
     /**

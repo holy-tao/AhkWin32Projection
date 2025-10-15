@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates the level of support for the sharing of resources between different adapters&mdash;for example, multiple GPUs.
@@ -31,10 +32,13 @@ class D3D12_FEATURE_DATA_CROSS_NODE extends Win32Struct
      * Type: <b>[BOOL](/windows/desktop/winprog/windows-data-types)</b>
      * 
      * Indicates there is support for shader instructions which operate across adapters.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    AtomicShaderInstructions {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    AtomicShaderInstructions{
+        get {
+            if(!this.HasProp("__AtomicShaderInstructions"))
+                this.__AtomicShaderInstructions := BOOL(this.ptr + 4)
+            return this.__AtomicShaderInstructions
+        }
     }
 }

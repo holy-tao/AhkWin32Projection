@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes Direct3D 11.3 feature options in the current graphics driver.
@@ -30,31 +31,40 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support <b>PSSpecifiedStencilRef</b>.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    PSSpecifiedStencilRefSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    PSSpecifiedStencilRefSupported{
+        get {
+            if(!this.HasProp("__PSSpecifiedStencilRefSupported"))
+                this.__PSSpecifiedStencilRefSupported := BOOL(this.ptr + 0)
+            return this.__PSSpecifiedStencilRefSupported
+        }
     }
 
     /**
      * Specifies whether the hardware and driver support <b>TypedUAVLoadAdditionalFormats</b>.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    TypedUAVLoadAdditionalFormats {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    TypedUAVLoadAdditionalFormats{
+        get {
+            if(!this.HasProp("__TypedUAVLoadAdditionalFormats"))
+                this.__TypedUAVLoadAdditionalFormats := BOOL(this.ptr + 4)
+            return this.__TypedUAVLoadAdditionalFormats
+        }
     }
 
     /**
      * Specifies whether the hardware and driver support ROVs.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    ROVsSupported {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    ROVsSupported{
+        get {
+            if(!this.HasProp("__ROVsSupported"))
+                this.__ROVsSupported := BOOL(this.ptr + 8)
+            return this.__ROVsSupported
+        }
     }
 
     /**
@@ -80,30 +90,39 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support mapping on default textures.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    MapOnDefaultTextures {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    MapOnDefaultTextures{
+        get {
+            if(!this.HasProp("__MapOnDefaultTextures"))
+                this.__MapOnDefaultTextures := BOOL(this.ptr + 20)
+            return this.__MapOnDefaultTextures
+        }
     }
 
     /**
      * Specifies whether the hardware and driver support standard swizzle.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    StandardSwizzle {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    StandardSwizzle{
+        get {
+            if(!this.HasProp("__StandardSwizzle"))
+                this.__StandardSwizzle := BOOL(this.ptr + 24)
+            return this.__StandardSwizzle
+        }
     }
 
     /**
      * Specifies whether the hardware and driver support Unified Memory Architecture.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    UnifiedMemoryArchitecture {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    UnifiedMemoryArchitecture{
+        get {
+            if(!this.HasProp("__UnifiedMemoryArchitecture"))
+                this.__UnifiedMemoryArchitecture := BOOL(this.ptr + 28)
+            return this.__UnifiedMemoryArchitecture
+        }
     }
 }

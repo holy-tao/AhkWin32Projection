@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -13,19 +14,25 @@ class FILEPATHS_SIGNERINFO_W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Target {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Target{
+        get {
+            if(!this.HasProp("__Target"))
+                this.__Target := PWSTR(this.ptr + 0)
+            return this.__Target
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Source {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Source{
+        get {
+            if(!this.HasProp("__Source"))
+                this.__Source := PWSTR(this.ptr + 8)
+            return this.__Source
+        }
     }
 
     /**
@@ -45,26 +52,35 @@ class FILEPATHS_SIGNERINFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    DigitalSigner {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    DigitalSigner{
+        get {
+            if(!this.HasProp("__DigitalSigner"))
+                this.__DigitalSigner := PWSTR(this.ptr + 24)
+            return this.__DigitalSigner
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    Version {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    Version{
+        get {
+            if(!this.HasProp("__Version"))
+                this.__Version := PWSTR(this.ptr + 32)
+            return this.__Version
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    CatalogFile {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    CatalogFile{
+        get {
+            if(!this.HasProp("__CatalogFile"))
+                this.__CatalogFile := PWSTR(this.ptr + 40)
+            return this.__CatalogFile
+        }
     }
 }

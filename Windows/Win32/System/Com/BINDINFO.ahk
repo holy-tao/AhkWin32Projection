@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
 #Include .\STGMEDIUM.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
 
 /**
@@ -22,11 +27,14 @@ class BINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szExtraInfo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    szExtraInfo{
+        get {
+            if(!this.HasProp("__szExtraInfo"))
+                this.__szExtraInfo := PWSTR(this.ptr + 8)
+            return this.__szExtraInfo
+        }
     }
 
     /**
@@ -57,11 +65,14 @@ class BINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    szCustomVerb {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    szCustomVerb{
+        get {
+            if(!this.HasProp("__szCustomVerb"))
+                this.__szCustomVerb := PWSTR(this.ptr + 48)
+            return this.__szCustomVerb
+        }
     }
 
     /**

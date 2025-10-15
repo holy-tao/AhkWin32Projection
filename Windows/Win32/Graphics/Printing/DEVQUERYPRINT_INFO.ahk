@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -28,11 +30,14 @@ class DEVQUERYPRINT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hPrinter {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hPrinter{
+        get {
+            if(!this.HasProp("__hPrinter"))
+                this.__hPrinter := HANDLE(this.ptr + 8)
+            return this.__hPrinter
+        }
     }
 
     /**
@@ -44,11 +49,14 @@ class DEVQUERYPRINT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszErrorStr {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszErrorStr{
+        get {
+            if(!this.HasProp("__pszErrorStr"))
+                this.__pszErrorStr := PWSTR(this.ptr + 24)
+            return this.__pszErrorStr
+        }
     }
 
     /**

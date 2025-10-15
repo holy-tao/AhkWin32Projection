@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a node in a wait chain.
@@ -52,11 +53,14 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
-        Alertable {
-            get => NumGet(this, 264, "int")
-            set => NumPut("int", value, this, 264)
+        Alertable{
+            get {
+                if(!this.HasProp("__Alertable"))
+                    this.__Alertable := BOOL(this.ptr + 264)
+                return this.__Alertable
+            }
         }
     
     }

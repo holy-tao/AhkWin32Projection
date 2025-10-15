@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The WINHTTP_AUTOPROXY_OPTIONS structure is used to indicate to the WinHttpGetProxyForURL function whether to specify the URL of the Proxy Auto-Configuration (PAC) file or to automatically locate the URL with DHCP or DNS queries to the network.
@@ -214,11 +216,14 @@ class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct
      * If <b>dwFlags</b> includes the WINHTTP_AUTOPROXY_CONFIG_URL flag, the <b>lpszAutoConfigUrl</b> must point to a <b>null</b>-terminated Unicode string that contains the URL of the proxy auto-configuration (PAC) file.
      * 
      * If <b>dwFlags</b> does not include the WINHTTP_AUTOPROXY_CONFIG_URL flag, then <b>lpszAutoConfigUrl</b> must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszAutoConfigUrl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszAutoConfigUrl{
+        get {
+            if(!this.HasProp("__lpszAutoConfigUrl"))
+                this.__lpszAutoConfigUrl := PWSTR(this.ptr + 8)
+            return this.__lpszAutoConfigUrl
+        }
     }
 
     /**
@@ -243,10 +248,13 @@ class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct
      * Specifies whether the client's domain credentials should be automatically sent in response to an NTLM or Negotiate Authentication challenge when WinHTTP requests the PAC file.
      * 
      * If this flag is TRUE, credentials should automatically be sent in response to an authentication challenge. If this flag is FALSE and authentication is required to download the PAC file, the <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpgetproxyforurl">WinHttpGetProxyForUrl</a> function fails.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fAutoLogonIfChallenged {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    fAutoLogonIfChallenged{
+        get {
+            if(!this.HasProp("__fAutoLogonIfChallenged"))
+                this.__fAutoLogonIfChallenged := BOOL(this.ptr + 28)
+            return this.__fAutoLogonIfChallenged
+        }
     }
 }

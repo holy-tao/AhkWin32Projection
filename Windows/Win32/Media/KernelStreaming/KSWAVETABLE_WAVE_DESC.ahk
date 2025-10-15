@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\KSDATAFORMAT.ahk
 
 /**
@@ -33,11 +34,14 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Looped {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+    Looped{
+        get {
+            if(!this.HasProp("__Looped"))
+                this.__Looped := BOOL(this.ptr + 20)
+            return this.__Looped
+        }
     }
 
     /**
@@ -49,11 +53,14 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    InROM {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+    InROM{
+        get {
+            if(!this.HasProp("__InROM"))
+                this.__InROM := BOOL(this.ptr + 28)
+            return this.__InROM
+        }
     }
 
     /**

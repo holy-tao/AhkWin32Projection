@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DATABLOCK_HEADER.ahk
 #Include ..\..\System\Console\COORD.ahk
+#Include ..\..\Foundation\BOOL.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Holds an extra data block used by IShellLinkDataList. It holds console properties.
@@ -11,7 +13,7 @@
  */
 class NT_CONSOLE_PROPS extends Win32Struct
 {
-    static sizeof => 208
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -177,44 +179,56 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A boolean value that is set to <b>TRUE</b> if the console is in full-screen mode, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bFullScreen {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+    bFullScreen{
+        get {
+            if(!this.HasProp("__bFullScreen"))
+                this.__bFullScreen := BOOL(this.ptr + 112)
+            return this.__bFullScreen
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A boolean value that is set to <b>TRUE</b> if the console is in quick-edit mode, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bQuickEdit {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
+    bQuickEdit{
+        get {
+            if(!this.HasProp("__bQuickEdit"))
+                this.__bQuickEdit := BOOL(this.ptr + 116)
+            return this.__bQuickEdit
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A boolean value that is set to <b>TRUE</b> if the console is in insert mode, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bInsertMode {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+    bInsertMode{
+        get {
+            if(!this.HasProp("__bInsertMode"))
+                this.__bInsertMode := BOOL(this.ptr + 120)
+            return this.__bInsertMode
+        }
     }
 
     /**
      * Type: <b>BOOL</b>
      * 
      * A boolean value that is set to <b>TRUE</b> if the console is in auto-position mode, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bAutoPosition {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
+    bAutoPosition{
+        get {
+            if(!this.HasProp("__bAutoPosition"))
+                this.__bAutoPosition := BOOL(this.ptr + 124)
+            return this.__bAutoPosition
+        }
     }
 
     /**
@@ -243,23 +257,26 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A boolean value that is set to <b>TRUE</b> if old duplicate history lists should be discarded, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bHistoryNoDup {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
+    bHistoryNoDup{
+        get {
+            if(!this.HasProp("__bHistoryNoDup"))
+                this.__bHistoryNoDup := BOOL(this.ptr + 136)
+            return this.__bHistoryNoDup
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>[16]</b>
      * 
      * An array of <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> values with the console's color settings.
-     * @type {Array<UInt32>}
+     * @type {Array<COLORREF>}
      */
     ColorTable{
         get {
             if(!this.HasProp("__ColorTableProxyArray"))
-                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 140, 16, Primitive, "uint")
+                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 144, 16, COLORREF, "")
             return this.__ColorTableProxyArray
         }
     }

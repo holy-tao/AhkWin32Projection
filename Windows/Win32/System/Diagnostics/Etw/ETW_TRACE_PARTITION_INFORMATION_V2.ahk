@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
@@ -28,18 +29,24 @@ class ETW_TRACE_PARTITION_INFORMATION_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PartitionId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    PartitionId{
+        get {
+            if(!this.HasProp("__PartitionId"))
+                this.__PartitionId := PWSTR(this.ptr + 16)
+            return this.__PartitionId
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    ParentId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ParentId{
+        get {
+            if(!this.HasProp("__ParentId"))
+                this.__ParentId := PWSTR(this.ptr + 24)
+            return this.__ParentId
+        }
     }
 }

@@ -3,6 +3,7 @@
 #Include .\MANIPULATION_TRANSFORM.ahk
 #Include .\MANIPULATION_VELOCITY.ahk
 #Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
+#Include .\INTERACTION_ARGUMENTS_TAP.ahk
 #Include .\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk
 
 /**
@@ -83,11 +84,14 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {INTERACTION_ARGUMENTS_TAP}
      */
-    tap {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    tap{
+        get {
+            if(!this.HasProp("__tap"))
+                this.__tap := INTERACTION_ARGUMENTS_TAP(this.ptr + 32)
+            return this.__tap
+        }
     }
 
     /**

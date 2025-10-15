@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains encoding statistics from the Digital Living Network Alliance (DLNA) media sink.
@@ -24,11 +25,14 @@ class MFMPEG2DLNASINKSTATS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the video stream is a PAL format. Otherwise, the video stream is an NTSC format.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fPAL {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    fPAL{
+        get {
+            if(!this.HasProp("__fPAL"))
+                this.__fPAL := BOOL(this.ptr + 8)
+            return this.__fPAL
+        }
     }
 
     /**

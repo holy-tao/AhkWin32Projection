@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -20,11 +21,14 @@ class uCLSSPEC extends Win32Struct
             static packingSize => 8
     
             /**
-             * @type {Pointer<Char>}
+             * @type {PWSTR}
              */
-            pPackageName {
-                get => NumGet(this, 0, "ptr")
-                set => NumPut("ptr", value, this, 0)
+            pPackageName{
+                get {
+                    if(!this.HasProp("__pPackageName"))
+                        this.__pPackageName := PWSTR(this.ptr + 0)
+                    return this.__pPackageName
+                }
             }
         
             /**
@@ -68,35 +72,47 @@ class uCLSSPEC extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pFileExt {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        pFileExt{
+            get {
+                if(!this.HasProp("__pFileExt"))
+                    this.__pFileExt := PWSTR(this.ptr + 0)
+                return this.__pFileExt
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pMimeType {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        pMimeType{
+            get {
+                if(!this.HasProp("__pMimeType"))
+                    this.__pMimeType := PWSTR(this.ptr + 0)
+                return this.__pMimeType
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pProgId {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        pProgId{
+            get {
+                if(!this.HasProp("__pProgId"))
+                    this.__pProgId := PWSTR(this.ptr + 0)
+                return this.__pProgId
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pFileName {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        pFileName{
+            get {
+                if(!this.HasProp("__pFileName"))
+                    this.__pFileName := PWSTR(this.ptr + 0)
+                return this.__pFileName
+            }
         }
     
         /**

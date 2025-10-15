@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCONV.ahk
+#Include .\HSZ.ahk
+#Include .\HCONVLIST.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include .\CONVCONTEXT.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) conversation.
@@ -41,55 +46,70 @@ class CONVINFO extends Win32Struct
      * Type: <b>HCONV</b>
      * 
      * A handle to the partner application in the DDE conversation. This member is zero if the partner has not registered itself (using the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function) to make DDEML function calls. An application should not pass this member to any DDEML function except <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddequeryconvinfo">DdeQueryConvInfo</a>.
-     * @type {Pointer<Void>}
+     * @type {HCONV}
      */
-    hConvPartner {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hConvPartner{
+        get {
+            if(!this.HasProp("__hConvPartner"))
+                this.__hConvPartner := HCONV(this.ptr + 16)
+            return this.__hConvPartner
+        }
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name of the partner application.
-     * @type {Pointer<Void>}
+     * @type {HSZ}
      */
-    hszSvcPartner {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hszSvcPartner{
+        get {
+            if(!this.HasProp("__hszSvcPartner"))
+                this.__hszSvcPartner := HSZ(this.ptr + 24)
+            return this.__hszSvcPartner
+        }
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name of the server application that was requested for connection.
-     * @type {Pointer<Void>}
+     * @type {HSZ}
      */
-    hszServiceReq {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hszServiceReq{
+        get {
+            if(!this.HasProp("__hszServiceReq"))
+                this.__hszServiceReq := HSZ(this.ptr + 32)
+            return this.__hszServiceReq
+        }
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the name of the requested topic.
-     * @type {Pointer<Void>}
+     * @type {HSZ}
      */
-    hszTopic {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hszTopic{
+        get {
+            if(!this.HasProp("__hszTopic"))
+                this.__hszTopic := HSZ(this.ptr + 40)
+            return this.__hszTopic
+        }
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the name of the requested item. This member is transaction specific.
-     * @type {Pointer<Void>}
+     * @type {HSZ}
      */
-    hszItem {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hszItem{
+        get {
+            if(!this.HasProp("__hszItem"))
+                this.__hszItem := HSZ(this.ptr + 48)
+            return this.__hszItem
+        }
     }
 
     /**
@@ -145,11 +165,14 @@ class CONVINFO extends Win32Struct
      * Type: <b>HCONVLIST</b>
      * 
      * A handle to the conversation list if the handle to the current conversation is in a conversation list. This member is <b>NULL</b> if the conversation is not in a conversation list.
-     * @type {Pointer<Void>}
+     * @type {HCONVLIST}
      */
-    hConvList {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    hConvList{
+        get {
+            if(!this.HasProp("__hConvList"))
+                this.__hConvList := HCONVLIST(this.ptr + 80)
+            return this.__hConvList
+        }
     }
 
     /**
@@ -170,21 +193,27 @@ class CONVINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window of the calling application involved in the conversation.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(this.ptr + 128)
+            return this.__hwnd
+        }
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window of the partner application involved in the current conversation.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndPartner {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    hwndPartner{
+        get {
+            if(!this.HasProp("__hwndPartner"))
+                this.__hwndPartner := HWND(this.ptr + 136)
+            return this.__hwndPartner
+        }
     }
 }

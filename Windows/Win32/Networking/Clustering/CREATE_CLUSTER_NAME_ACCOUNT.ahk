@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes a cluster name resource and domain credentials used by the CreateClusterNameAccount function to add a cluster to a domain. PCREATE_CLUSTER_NAME_ACCOUNT defines a pointer to this structure.
@@ -24,11 +26,14 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * The cluster name that represents the cluster on the domain.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszClusterName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpszClusterName{
+        get {
+            if(!this.HasProp("__lpszClusterName"))
+                this.__lpszClusterName := PWSTR(this.ptr + 8)
+            return this.__lpszClusterName
+        }
     }
 
     /**
@@ -42,29 +47,38 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * The user name for the domain credentials.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszUserName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszUserName{
+        get {
+            if(!this.HasProp("__pszUserName"))
+                this.__pszUserName := PWSTR(this.ptr + 24)
+            return this.__pszUserName
+        }
     }
 
     /**
      * The password for the domain credentials.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszPassword {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszPassword{
+        get {
+            if(!this.HasProp("__pszPassword"))
+                this.__pszPassword := PWSTR(this.ptr + 32)
+            return this.__pszPassword
+        }
     }
 
     /**
      * The domain name to join.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszDomain {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    pszDomain{
+        get {
+            if(!this.HasProp("__pszDomain"))
+                this.__pszDomain := PWSTR(this.ptr + 40)
+            return this.__pszDomain
+        }
     }
 
     /**
@@ -87,10 +101,13 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bUpgradeVCOs {
-        get => NumGet(this, 56, "char")
-        set => NumPut("char", value, this, 56)
+    bUpgradeVCOs{
+        get {
+            if(!this.HasProp("__bUpgradeVCOs"))
+                this.__bUpgradeVCOs := BOOLEAN(this.ptr + 56)
+            return this.__bUpgradeVCOs
+        }
     }
 }

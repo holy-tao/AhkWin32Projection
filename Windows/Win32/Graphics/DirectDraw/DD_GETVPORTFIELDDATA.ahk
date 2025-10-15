@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DD_GETVPORTFIELDDATA structure contains the information required for the driver to determine whether the current field of an interlaced signal is even or odd.
@@ -15,7 +16,7 @@ class DD_GETVPORTFIELDDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure that is relevant to the current Microsoft DirectDraw process only.
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
      */
     lpDD {
         get => NumGet(this, 0, "ptr")
@@ -33,11 +34,14 @@ class DD_GETVPORTFIELDDATA extends Win32Struct
 
     /**
      * Specifies the location in which the driver should indicate the polarity of the field. This member should be set to <b>TRUE</b> if the current field is the even field of an interlaced signal and to <b>FALSE</b> if the current field is the odd field.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bField {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    bField{
+        get {
+            if(!this.HasProp("__bField"))
+                this.__bField := BOOL(this.ptr + 16)
+            return this.__bField
+        }
     }
 
     /**

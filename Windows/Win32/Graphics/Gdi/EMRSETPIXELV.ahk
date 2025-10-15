@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
 #Include ..\..\Foundation\POINTL.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The EMRSETPIXELV structure contains members for the SetPixelV enhanced metafile record. When an enhanced metafile is created, calls to SetPixel are also recorded in this record.
@@ -41,10 +42,13 @@ class EMRSETPIXELV extends Win32Struct
 
     /**
      * Color value. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    crColor {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    crColor{
+        get {
+            if(!this.HasProp("__crColor"))
+                this.__crColor := COLORREF(this.ptr + 16)
+            return this.__crColor
+        }
     }
 }

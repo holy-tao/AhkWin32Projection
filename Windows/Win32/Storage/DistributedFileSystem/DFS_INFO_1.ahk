@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the name of a Distributed File System (DFS) root or link.
@@ -43,10 +44,13 @@ class DFS_INFO_1 extends Win32Struct
      * &#92;&#92;<i>DomainName</i>&#92;<i>DomDfsname</i>
      * 
      * where the values of the names are the same as those described previously.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    EntryPath {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    EntryPath{
+        get {
+            if(!this.HasProp("__EntryPath"))
+                this.__EntryPath := PWSTR(this.ptr + 0)
+            return this.__EntryPath
+        }
     }
 }

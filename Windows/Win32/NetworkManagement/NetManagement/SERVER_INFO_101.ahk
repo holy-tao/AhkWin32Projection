@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SERVER_INFO_101 structure contains information about the specified server, including name, platform, type of server, and associated software.
@@ -99,11 +100,14 @@ class SERVER_INFO_101 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the name of a server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv101_name {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    sv101_name{
+        get {
+            if(!this.HasProp("__sv101_name"))
+                this.__sv101_name := PWSTR(this.ptr + 8)
+            return this.__sv101_name
+        }
     }
 
     /**
@@ -147,10 +151,13 @@ class SERVER_INFO_101 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying a comment describing the server. The comment can be null.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    sv101_comment {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    sv101_comment{
+        get {
+            if(!this.HasProp("__sv101_comment"))
+                this.__sv101_comment := PWSTR(this.ptr + 32)
+            return this.__sv101_comment
+        }
     }
 }

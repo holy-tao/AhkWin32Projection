@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\VMR9NormalizedRect.ahk
+#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The VMR9AlphaBitmap structure is used with the IVMRMixerBitmap9 interface when an application provides a static bitmap for alpha blending with the video frame.
@@ -38,11 +40,14 @@ class VMR9AlphaBitmap extends Win32Struct
 
     /**
      * Handle to the GDI device context (HDC) for the bitmap. If this member contains a non-<b>NULL</b> value, set <b>pDDS</b> to <b>NULL</b> and set the <b>VMR9AlphaBitmap_hDC</b> flag in the <b>dwFlags</b> member. The device context is not compatible with GDI+.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hdc{
+        get {
+            if(!this.HasProp("__hdc"))
+                this.__hdc := HDC(this.ptr + 8)
+            return this.__hdc
+        }
     }
 
     /**
@@ -93,11 +98,14 @@ class VMR9AlphaBitmap extends Win32Struct
 
     /**
      * Specifies the source color key. This value is used if the <b>dwFlags</b> member contains the <b>VMR9AlphaBitmap_SrcColorKey</b>. A color key cannot be used with a Direct3D surface that contains per-pixel alpha.
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    clrSrcKey {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+    clrSrcKey{
+        get {
+            if(!this.HasProp("__clrSrcKey"))
+                this.__clrSrcKey := COLORREF(this.ptr + 60)
+            return this.__clrSrcKey
+        }
     }
 
     /**

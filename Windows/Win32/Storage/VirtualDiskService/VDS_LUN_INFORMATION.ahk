@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\VDS_STORAGE_DEVICE_ID_DESCRIPTOR.ahk
 
 /**
@@ -61,11 +62,14 @@ class VDS_LUN_INFORMATION extends Win32Struct
      * If <b>TRUE</b>, the LUN supports multiple outstanding commands; otherwise, 
      *       <b>FALSE</b>. The synchronization of the queue is the responsibility of the port 
      *       driver.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    m_bCommandQueueing {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    m_bCommandQueueing{
+        get {
+            if(!this.HasProp("__m_bCommandQueueing"))
+                this.__m_bCommandQueueing := BOOL(this.ptr + 8)
+            return this.__m_bCommandQueueing
+        }
     }
 
     /**

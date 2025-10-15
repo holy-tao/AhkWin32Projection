@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -24,11 +25,14 @@ class DOT11_TKIPMIC_FAILURE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bDefaultKeyFailure {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    bDefaultKeyFailure{
+        get {
+            if(!this.HasProp("__bDefaultKeyFailure"))
+                this.__bDefaultKeyFailure := BOOLEAN(this.ptr + 4)
+            return this.__bDefaultKeyFailure
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\BLUETOOTH_ADDRESS.ahk
 
 /**
@@ -13,11 +14,14 @@ class BLUETOOTH_LOCAL_SERVICE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    Enabled {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    Enabled{
+        get {
+            if(!this.HasProp("__Enabled"))
+                this.__Enabled := BOOL(this.ptr + 0)
+            return this.__Enabled
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a shader.
@@ -41,11 +42,14 @@ class D3D12_SHADER_DESC extends Win32Struct
 
     /**
      * The name of the originator of the shader.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    Creator {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Creator{
+        get {
+            if(!this.HasProp("__Creator"))
+                this.__Creator := PSTR(this.ptr + 8)
+            return this.__Creator
+        }
     }
 
     /**

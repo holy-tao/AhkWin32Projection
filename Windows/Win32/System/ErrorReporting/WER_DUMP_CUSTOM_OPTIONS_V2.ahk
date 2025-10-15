@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
@@ -36,11 +37,14 @@ class WER_DUMP_CUSTOM_OPTIONS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bOnlyThisThread {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    bOnlyThisThread{
+        get {
+            if(!this.HasProp("__bOnlyThisThread"))
+                this.__bOnlyThisThread := BOOL(this.ptr + 12)
+            return this.__bOnlyThisThread
+        }
     }
 
     /**

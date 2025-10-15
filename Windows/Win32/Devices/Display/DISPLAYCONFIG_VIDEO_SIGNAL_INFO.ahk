@@ -72,12 +72,57 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
         }
     }
 
+    class _AdditionalSignalInfo extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * This bitfield backs the following members:
+         * - videoStandard
+         * - vSyncFreqDivider
+         * - reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        videoStandard {
+            get => (this._bitfield >> 0) & 0xFFFF
+            set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        vSyncFreqDivider {
+            get => (this._bitfield >> 16) & 0x3F
+            set => this._bitfield := ((value & 0x3F) << 16) | (this._bitfield & ~(0x3F << 16))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        reserved {
+            get => (this._bitfield >> 22) & 0x3FF
+            set => this._bitfield := ((value & 0x3FF) << 22) | (this._bitfield & ~(0x3FF << 22))
+        }
+    
+    }
+
     /**
-     * @type {Integer}
+     * @type {_AdditionalSignalInfo}
      */
-    AdditionalSignalInfo {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+    AdditionalSignalInfo{
+        get {
+            if(!this.HasProp("__AdditionalSignalInfo"))
+                this.__AdditionalSignalInfo := %this.__Class%._AdditionalSignalInfo(this.ptr + 40)
+            return this.__AdditionalSignalInfo
+        }
     }
 
     /**

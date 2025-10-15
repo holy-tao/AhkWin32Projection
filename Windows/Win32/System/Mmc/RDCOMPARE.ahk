@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The RDCOMPARE structure is introduced in MMC 1.2.
@@ -50,11 +51,14 @@ class RDCOMPARE extends Win32Struct
     /**
      * A value that specifies user-provided information that is passed into 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdata-sort">IResultData::Sort</a>. MMC does not interpret this parameter.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lUserParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lUserParam{
+        get {
+            if(!this.HasProp("__lUserParam"))
+                this.__lUserParam := LPARAM(this.ptr + 16)
+            return this.__lUserParam
+        }
     }
 
     /**

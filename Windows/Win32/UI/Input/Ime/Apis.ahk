@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\KeyboardAndMouse\HKL.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\HIMC.ahk
+#Include .\HIMCC.ahk
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
@@ -3007,52 +3011,54 @@ class Ime {
 ;@region Methods
     /**
      * Installs an IME.
-     * @param {Pointer<Byte>} lpszIMEFileName Pointer to a null-terminated string that specifies the full path of the IME.
-     * @param {Pointer<Byte>} lpszLayoutText Pointer to a null-terminated string that specifies the name of the IME and the associated layout text.
-     * @returns {Pointer<Void>} Returns the input locale identifier for the IME.
+     * @param {PSTR} lpszIMEFileName Pointer to a null-terminated string that specifies the full path of the IME.
+     * @param {PSTR} lpszLayoutText Pointer to a null-terminated string that specifies the name of the IME and the associated layout text.
+     * @returns {HKL} Returns the input locale identifier for the IME.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-imminstallimea
      * @since windows5.1.2600
      */
     static ImmInstallIMEA(lpszIMEFileName, lpszLayoutText) {
-        lpszIMEFileName := lpszIMEFileName is String? StrPtr(lpszIMEFileName) : lpszIMEFileName
-        lpszLayoutText := lpszLayoutText is String? StrPtr(lpszLayoutText) : lpszLayoutText
+        lpszIMEFileName := lpszIMEFileName is String ? StrPtr(lpszIMEFileName) : lpszIMEFileName
+        lpszLayoutText := lpszLayoutText is String ? StrPtr(lpszLayoutText) : lpszLayoutText
 
         result := DllCall("IMM32.dll\ImmInstallIMEA", "ptr", lpszIMEFileName, "ptr", lpszLayoutText, "ptr")
-        return result
+        return HKL({Value: result}, True)
     }
 
     /**
      * Installs an IME.
-     * @param {Pointer<Char>} lpszIMEFileName Pointer to a null-terminated string that specifies the full path of the IME.
-     * @param {Pointer<Char>} lpszLayoutText Pointer to a null-terminated string that specifies the name of the IME and the associated layout text.
-     * @returns {Pointer<Void>} Returns the input locale identifier for the IME.
+     * @param {PWSTR} lpszIMEFileName Pointer to a null-terminated string that specifies the full path of the IME.
+     * @param {PWSTR} lpszLayoutText Pointer to a null-terminated string that specifies the name of the IME and the associated layout text.
+     * @returns {HKL} Returns the input locale identifier for the IME.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-imminstallimew
      * @since windows5.1.2600
      */
     static ImmInstallIMEW(lpszIMEFileName, lpszLayoutText) {
-        lpszIMEFileName := lpszIMEFileName is String? StrPtr(lpszIMEFileName) : lpszIMEFileName
-        lpszLayoutText := lpszLayoutText is String? StrPtr(lpszLayoutText) : lpszLayoutText
+        lpszIMEFileName := lpszIMEFileName is String ? StrPtr(lpszIMEFileName) : lpszIMEFileName
+        lpszLayoutText := lpszLayoutText is String ? StrPtr(lpszLayoutText) : lpszLayoutText
 
         result := DllCall("IMM32.dll\ImmInstallIMEW", "ptr", lpszIMEFileName, "ptr", lpszLayoutText, "ptr")
-        return result
+        return HKL({Value: result}, True)
     }
 
     /**
      * Retrieves the default window handle to the IME class.
-     * @param {Pointer<Void>} param0 
-     * @returns {Pointer<Void>} Returns the default window handle to the IME class if successful, or <b>NULL</b> otherwise.
+     * @param {HWND} param0 
+     * @returns {HWND} Returns the default window handle to the IME class if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetdefaultimewnd
      * @since windows5.1.2600
      */
     static ImmGetDefaultIMEWnd(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetDefaultIMEWnd", "ptr", param0, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Copies the description of the IME to the specified buffer.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} lpszDescription Pointer to a buffer in which the function retrieves the null-terminated string describing the IME.
+     * @param {HKL} param0 
+     * @param {PSTR} lpszDescription Pointer to a buffer in which the function retrieves the null-terminated string describing the IME.
      * @param {Integer} uBufLen Size, in characters, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed for the complete description, excluding the terminating null character.
      * 
      * <b>Windows NT, Windows 2000, Windows XP:</b> The size of the buffer is in Unicode characters, each consisting of two bytes. If the parameter is set to 0, the function returns the size of the buffer required in Unicode characters, excluding the Unicode terminating null character.
@@ -3061,7 +3067,8 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetDescriptionA(param0, lpszDescription, uBufLen) {
-        lpszDescription := lpszDescription is String? StrPtr(lpszDescription) : lpszDescription
+        lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmGetDescriptionA", "ptr", param0, "ptr", lpszDescription, "uint", uBufLen, "uint")
         return result
@@ -3069,8 +3076,8 @@ class Ime {
 
     /**
      * Copies the description of the IME to the specified buffer.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Char>} lpszDescription Pointer to a buffer in which the function retrieves the null-terminated string describing the IME.
+     * @param {HKL} param0 
+     * @param {PWSTR} lpszDescription Pointer to a buffer in which the function retrieves the null-terminated string describing the IME.
      * @param {Integer} uBufLen Size, in characters, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed for the complete description, excluding the terminating null character.
      * 
      * <b>Windows NT, Windows 2000, Windows XP:</b> The size of the buffer is in Unicode characters, each consisting of two bytes. If the parameter is set to 0, the function returns the size of the buffer required in Unicode characters, excluding the Unicode terminating null character.
@@ -3079,7 +3086,8 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetDescriptionW(param0, lpszDescription, uBufLen) {
-        lpszDescription := lpszDescription is String? StrPtr(lpszDescription) : lpszDescription
+        lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmGetDescriptionW", "ptr", param0, "ptr", lpszDescription, "uint", uBufLen, "uint")
         return result
@@ -3087,8 +3095,8 @@ class Ime {
 
     /**
      * Retrieves the file name of the IME associated with the specified input locale.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} lpszFileName Pointer to a buffer in which the function retrieves the file name. This parameter contains <b>NULL</b> when <i>uBufLen</i> is set to <b>NULL</b>.
+     * @param {HKL} param0 
+     * @param {PSTR} lpszFileName Pointer to a buffer in which the function retrieves the file name. This parameter contains <b>NULL</b> when <i>uBufLen</i> is set to <b>NULL</b>.
      * @param {Integer} uBufLen Size, in bytes, of the output buffer. The application specifies 0 if the function is to return the buffer size needed to receive the file name, not including the terminating null character. For Unicode, <i>uBufLen</i> specifies the size in Unicode characters, not including the terminating null character.
      * @returns {Integer} Returns the number of bytes in the file name copied to the output buffer. If the application sets <i>uBufLen</i> to 0, the function returns the size of the buffer required for the file name. In either case, the terminating null character is not included.
      * 
@@ -3097,7 +3105,8 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetIMEFileNameA(param0, lpszFileName, uBufLen) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmGetIMEFileNameA", "ptr", param0, "ptr", lpszFileName, "uint", uBufLen, "uint")
         return result
@@ -3105,8 +3114,8 @@ class Ime {
 
     /**
      * Retrieves the file name of the IME associated with the specified input locale.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Char>} lpszFileName Pointer to a buffer in which the function retrieves the file name. This parameter contains <b>NULL</b> when <i>uBufLen</i> is set to <b>NULL</b>.
+     * @param {HKL} param0 
+     * @param {PWSTR} lpszFileName Pointer to a buffer in which the function retrieves the file name. This parameter contains <b>NULL</b> when <i>uBufLen</i> is set to <b>NULL</b>.
      * @param {Integer} uBufLen Size, in bytes, of the output buffer. The application specifies 0 if the function is to return the buffer size needed to receive the file name, not including the terminating null character. For Unicode, <i>uBufLen</i> specifies the size in Unicode characters, not including the terminating null character.
      * @returns {Integer} Returns the number of bytes in the file name copied to the output buffer. If the application sets <i>uBufLen</i> to 0, the function returns the size of the buffer required for the file name. In either case, the terminating null character is not included.
      * 
@@ -3115,7 +3124,8 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetIMEFileNameW(param0, lpszFileName, uBufLen) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmGetIMEFileNameW", "ptr", param0, "ptr", lpszFileName, "uint", uBufLen, "uint")
         return result
@@ -3123,7 +3133,7 @@ class Ime {
 
     /**
      * Retrieves the property and capabilities of the IME associated with the specified input locale.
-     * @param {Pointer<Void>} param0 
+     * @param {HKL} param0 
      * @param {Integer} param1 
      * @returns {Integer} Returns the property or capability value, depending on the value of the <i>dwIndex</i> parameter. If <i>dwIndex</i> is set to IGP_PROPERTY, the function returns one or more of the following values:
      * 
@@ -3241,113 +3251,132 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetProperty(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetProperty", "ptr", param0, "uint", param1, "uint")
         return result
     }
 
     /**
      * Determines if the specified input locale has an IME.
-     * @param {Pointer<Void>} param0 
-     * @returns {Integer} Returns a nonzero value if the specified locale has an IME, or 0 otherwise.
+     * @param {HKL} param0 
+     * @returns {BOOL} Returns a nonzero value if the specified locale has an IME, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immisime
      * @since windows5.1.2600
      */
     static ImmIsIME(param0) {
-        result := DllCall("IMM32.dll\ImmIsIME", "ptr", param0, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmIsIME", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * Simulates the specified IME hot key, causing the same response as if the user presses the hot key in the specified window.
-     * @param {Pointer<Void>} param0 
+     * @param {HWND} param0 
      * @param {Integer} param1 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsimulatehotkey
      * @since windows5.1.2600
      */
     static ImmSimulateHotKey(param0, param1) {
-        result := DllCall("IMM32.dll\ImmSimulateHotKey", "ptr", param0, "uint", param1, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmSimulateHotKey", "ptr", param0, "uint", param1, "ptr")
         return result
     }
 
     /**
      * Creates a new input context, allocating memory for the context and initializing it. An application calls this function to prepare its own input context.
-     * @returns {Pointer<Void>} Returns the handle to the new input context if successful, or <b>NULL</b> otherwise.
+     * @returns {HIMC} Returns the handle to the new input context if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immcreatecontext
      * @since windows5.1.2600
      */
     static ImmCreateContext() {
         result := DllCall("IMM32.dll\ImmCreateContext", "ptr")
-        return result
+        return HIMC({Value: result}, True)
     }
 
     /**
      * Releases the input context and frees associated memory.
-     * @param {Pointer<Void>} param0 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @param {HIMC} param0 
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immdestroycontext
      * @since windows5.1.2600
      */
     static ImmDestroyContext(param0) {
-        result := DllCall("IMM32.dll\ImmDestroyContext", "ptr", param0, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmDestroyContext", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * Returns the input context associated with the specified window.
-     * @param {Pointer<Void>} param0 
-     * @returns {Pointer<Void>} Returns the handle to the input context.
+     * @param {HWND} param0 
+     * @returns {HIMC} Returns the handle to the input context.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcontext
      * @since windows5.1.2600
      */
     static ImmGetContext(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetContext", "ptr", param0, "ptr")
-        return result
+        return HIMC({Value: result}, True)
     }
 
     /**
      * Releases the input context and unlocks the memory associated in the input context. An application must call this function for each call to the ImmGetContext function.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @param {HWND} param0 
+     * @param {HIMC} param1 
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immreleasecontext
      * @since windows5.1.2600
      */
     static ImmReleaseContext(param0, param1) {
-        result := DllCall("IMM32.dll\ImmReleaseContext", "ptr", param0, "ptr", param1, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
+        result := DllCall("IMM32.dll\ImmReleaseContext", "ptr", param0, "ptr", param1, "ptr")
         return result
     }
 
     /**
      * Associates the specified input context with the specified window. By default, the operating system associates the default input context with each window as it is created.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
-     * @returns {Pointer<Void>} Returns the handle to the input context previously associated with the window.
+     * @param {HWND} param0 
+     * @param {HIMC} param1 
+     * @returns {HIMC} Returns the handle to the input context previously associated with the window.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immassociatecontext
      * @since windows5.1.2600
      */
     static ImmAssociateContext(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
         result := DllCall("IMM32.dll\ImmAssociateContext", "ptr", param0, "ptr", param1, "ptr")
-        return result
+        return HIMC({Value: result}, True)
     }
 
     /**
      * Changes the association between the input method context and the specified window or its children.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {HWND} param0 
+     * @param {HIMC} param1 
      * @param {Integer} param2 
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immassociatecontextex
      * @since windows5.1.2600
      */
     static ImmAssociateContextEx(param0, param1, param2) {
-        result := DllCall("IMM32.dll\ImmAssociateContextEx", "ptr", param0, "ptr", param1, "uint", param2, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
+        result := DllCall("IMM32.dll\ImmAssociateContextEx", "ptr", param0, "ptr", param1, "uint", param2, "ptr")
         return result
     }
 
     /**
      * Retrieves information about the composition string.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the composition string information.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer, even if the output is a Unicode string. The application sets this parameter to 0 if the function is to return the size of the required output buffer.
@@ -3364,13 +3393,15 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetCompositionStringA(param0, param1, lpBuf, dwBufLen) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetCompositionStringA", "ptr", param0, "uint", param1, "ptr", lpBuf, "uint", dwBufLen, "int")
         return result
     }
 
     /**
      * Retrieves information about the composition string.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the composition string information.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer, even if the output is a Unicode string. The application sets this parameter to 0 if the function is to return the size of the required output buffer.
@@ -3387,73 +3418,83 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetCompositionStringW(param0, param1, lpBuf, dwBufLen) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetCompositionStringW", "ptr", param0, "uint", param1, "ptr", lpBuf, "uint", dwBufLen, "int")
         return result
     }
 
     /**
      * Sets the characters, attributes, and clauses of the composition and reading strings.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} dwIndex 
      * @param {Pointer} lpComp Pointer to a buffer containing the information to set for the composition string, as specified by the value of <i>dwIndex</i>.
      * @param {Integer} dwCompLen Size, in bytes, of the information buffer for the composition string, even if SCS_SETSTR is specified and the buffer contains a Unicode string.
      * @param {Pointer} lpRead Pointer to a buffer containing the information to set for the reading string, as specified by the value of <i>dwIndex</i>. The application can set this parameter to <b>NULL</b>.
      * @param {Integer} dwReadLen Size, in bytes, of the information buffer for the reading string, even if SCS_SETSTR is specified and the buffer contains a Unicode string.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcompositionstringa
      * @since windows5.1.2600
      */
     static ImmSetCompositionStringA(param0, dwIndex, lpComp, dwCompLen, lpRead, dwReadLen) {
-        result := DllCall("IMM32.dll\ImmSetCompositionStringA", "ptr", param0, "uint", dwIndex, "ptr", lpComp, "uint", dwCompLen, "ptr", lpRead, "uint", dwReadLen, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmSetCompositionStringA", "ptr", param0, "uint", dwIndex, "ptr", lpComp, "uint", dwCompLen, "ptr", lpRead, "uint", dwReadLen, "ptr")
         return result
     }
 
     /**
      * Sets the characters, attributes, and clauses of the composition and reading strings.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} dwIndex 
      * @param {Pointer} lpComp Pointer to a buffer containing the information to set for the composition string, as specified by the value of <i>dwIndex</i>.
      * @param {Integer} dwCompLen Size, in bytes, of the information buffer for the composition string, even if SCS_SETSTR is specified and the buffer contains a Unicode string.
      * @param {Pointer} lpRead Pointer to a buffer containing the information to set for the reading string, as specified by the value of <i>dwIndex</i>. The application can set this parameter to <b>NULL</b>.
      * @param {Integer} dwReadLen Size, in bytes, of the information buffer for the reading string, even if SCS_SETSTR is specified and the buffer contains a Unicode string.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcompositionstringw
      * @since windows5.1.2600
      */
     static ImmSetCompositionStringW(param0, dwIndex, lpComp, dwCompLen, lpRead, dwReadLen) {
-        result := DllCall("IMM32.dll\ImmSetCompositionStringW", "ptr", param0, "uint", dwIndex, "ptr", lpComp, "uint", dwCompLen, "ptr", lpRead, "uint", dwReadLen, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmSetCompositionStringW", "ptr", param0, "uint", dwIndex, "ptr", lpComp, "uint", dwCompLen, "ptr", lpRead, "uint", dwReadLen, "ptr")
         return result
     }
 
     /**
      * Retrieves the size of the candidate lists.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<UInt32>} lpdwListCount Pointer to the buffer in which this function retrieves the size of the candidate lists.
      * @returns {Integer} Returns the number of bytes required for all candidate lists if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcandidatelistcounta
      * @since windows5.1.2600
      */
     static ImmGetCandidateListCountA(param0, lpdwListCount) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetCandidateListCountA", "ptr", param0, "uint*", lpdwListCount, "uint")
         return result
     }
 
     /**
      * Retrieves the size of the candidate lists.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<UInt32>} lpdwListCount Pointer to the buffer in which this function retrieves the size of the candidate lists.
      * @returns {Integer} Returns the number of bytes required for all candidate lists if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcandidatelistcountw
      * @since windows5.1.2600
      */
     static ImmGetCandidateListCountW(param0, lpdwListCount) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetCandidateListCountW", "ptr", param0, "uint*", lpdwListCount, "uint")
         return result
     }
 
     /**
      * Retrieves a candidate list.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} deIndex Zero-based index of the candidate list.
      * @param {Pointer} lpCandList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the candidate list.
      * @param {Integer} dwBufLen Size, in bytes, of the buffer to receive the candidate list. The application can specify 0 for this parameter if the function is to return the required size of the output buffer only.
@@ -3464,13 +3505,15 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetCandidateListA(param0, deIndex, lpCandList, dwBufLen) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetCandidateListA", "ptr", param0, "uint", deIndex, "ptr", lpCandList, "uint", dwBufLen, "uint")
         return result
     }
 
     /**
      * Retrieves a candidate list.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} deIndex Zero-based index of the candidate list.
      * @param {Pointer} lpCandList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the candidate list.
      * @param {Integer} dwBufLen Size, in bytes, of the buffer to receive the candidate list. The application can specify 0 for this parameter if the function is to return the required size of the output buffer only.
@@ -3481,13 +3524,15 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetCandidateListW(param0, deIndex, lpCandList, dwBufLen) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetCandidateListW", "ptr", param0, "uint", deIndex, "ptr", lpCandList, "uint", dwBufLen, "uint")
         return result
     }
 
     /**
      * Retrieves information about errors. Applications use the information for user notifications.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} dwIndex 
      * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed to receive the error message string, not including the terminating null character.
@@ -3590,13 +3635,15 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetGuideLineA(param0, dwIndex, lpBuf, dwBufLen) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetGuideLineA", "ptr", param0, "uint", dwIndex, "ptr", lpBuf, "uint", dwBufLen, "uint")
         return result
     }
 
     /**
      * Retrieves information about errors. Applications use the information for user notifications.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} dwIndex 
      * @param {Pointer} lpBuf Pointer to a buffer in which the function retrieves the error message string. This parameter contains <b>NULL</b> if <i>dwIndex</i> is not GGL_STRING or GGL_PRIVATE or if <i>dwBufLen</i> is set to 0.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size needed to receive the error message string, not including the terminating null character.
@@ -3699,180 +3746,210 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetGuideLineW(param0, dwIndex, lpBuf, dwBufLen) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetGuideLineW", "ptr", param0, "uint", dwIndex, "ptr", lpBuf, "uint", dwBufLen, "uint")
         return result
     }
 
     /**
      * Retrieves the current conversion status.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<UInt32>} lpfdwConversion Pointer to a variable in which the function retrieves a combination of conversion mode values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-conversion-mode-values">IME Conversion Mode Values</a>.
      * @param {Pointer<UInt32>} lpfdwSentence Pointer to a variable in which the function retrieves a sentence mode value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-sentence-mode-values">IME Sentence Mode Values</a>.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetconversionstatus
      * @since windows5.1.2600
      */
     static ImmGetConversionStatus(param0, lpfdwConversion, lpfdwSentence) {
-        result := DllCall("IMM32.dll\ImmGetConversionStatus", "ptr", param0, "uint*", lpfdwConversion, "uint*", lpfdwSentence, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmGetConversionStatus", "ptr", param0, "uint*", lpfdwConversion, "uint*", lpfdwSentence, "ptr")
         return result
     }
 
     /**
      * Sets the current conversion status.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetconversionstatus
      * @since windows5.1.2600
      */
     static ImmSetConversionStatus(param0, param1, param2) {
-        result := DllCall("IMM32.dll\ImmSetConversionStatus", "ptr", param0, "uint", param1, "uint", param2, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmSetConversionStatus", "ptr", param0, "uint", param1, "uint", param2, "ptr")
         return result
     }
 
     /**
      * Determines whether the IME is open or closed.
-     * @param {Pointer<Void>} param0 
-     * @returns {Integer} Returns a nonzero value if the IME is open, or 0 otherwise.
+     * @param {HIMC} param0 
+     * @returns {BOOL} Returns a nonzero value if the IME is open, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetopenstatus
      * @since windows5.1.2600
      */
     static ImmGetOpenStatus(param0) {
-        result := DllCall("IMM32.dll\ImmGetOpenStatus", "ptr", param0, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmGetOpenStatus", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * Opens or closes the IME.
-     * @param {Pointer<Void>} param0 
-     * @param {Integer} param1 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @param {HIMC} param0 
+     * @param {BOOL} param1 
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetopenstatus
      * @since windows5.1.2600
      */
     static ImmSetOpenStatus(param0, param1) {
-        result := DllCall("IMM32.dll\ImmSetOpenStatus", "ptr", param0, "int", param1, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmSetOpenStatus", "ptr", param0, "ptr", param1, "ptr")
         return result
     }
 
     /**
      * Retrieves information about the logical font currently used to display characters in the composition window.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<LOGFONTA>} lplf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure in which this function retrieves the font information.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcompositionfonta
      * @since windows5.1.2600
      */
     static ImmGetCompositionFontA(param0, lplf) {
-        result := DllCall("IMM32.dll\ImmGetCompositionFontA", "ptr", param0, "ptr", lplf, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmGetCompositionFontA", "ptr", param0, "ptr", lplf, "ptr")
         return result
     }
 
     /**
      * Retrieves information about the logical font currently used to display characters in the composition window.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<LOGFONTW>} lplf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure in which this function retrieves the font information.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcompositionfontw
      * @since windows5.1.2600
      */
     static ImmGetCompositionFontW(param0, lplf) {
-        result := DllCall("IMM32.dll\ImmGetCompositionFontW", "ptr", param0, "ptr", lplf, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmGetCompositionFontW", "ptr", param0, "ptr", lplf, "ptr")
         return result
     }
 
     /**
      * Sets the logical font to use to display characters in the composition window.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<LOGFONTA>} lplf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure containing the font information to set.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcompositionfonta
      * @since windows5.1.2600
      */
     static ImmSetCompositionFontA(param0, lplf) {
-        result := DllCall("IMM32.dll\ImmSetCompositionFontA", "ptr", param0, "ptr", lplf, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmSetCompositionFontA", "ptr", param0, "ptr", lplf, "ptr")
         return result
     }
 
     /**
      * Sets the logical font to use to display characters in the composition window.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<LOGFONTW>} lplf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure containing the font information to set.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcompositionfontw
      * @since windows5.1.2600
      */
     static ImmSetCompositionFontW(param0, lplf) {
-        result := DllCall("IMM32.dll\ImmSetCompositionFontW", "ptr", param0, "ptr", lplf, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmSetCompositionFontW", "ptr", param0, "ptr", lplf, "ptr")
         return result
     }
 
     /**
      * Displays the configuration dialog box for the IME of the specified input locale identifier.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {HKL} param0 
+     * @param {HWND} param1 
      * @param {Integer} param2 
      * @param {Pointer<Void>} param3 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immconfigureimea
      * @since windows5.1.2600
      */
     static ImmConfigureIMEA(param0, param1, param2, param3) {
-        result := DllCall("IMM32.dll\ImmConfigureIMEA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
+        result := DllCall("IMM32.dll\ImmConfigureIMEA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "ptr")
         return result
     }
 
     /**
      * Displays the configuration dialog box for the IME of the specified input locale identifier.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {HKL} param0 
+     * @param {HWND} param1 
      * @param {Integer} param2 
      * @param {Pointer<Void>} param3 
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immconfigureimew
      * @since windows5.1.2600
      */
     static ImmConfigureIMEW(param0, param1, param2, param3) {
-        result := DllCall("IMM32.dll\ImmConfigureIMEW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
+        result := DllCall("IMM32.dll\ImmConfigureIMEW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "ptr")
         return result
     }
 
     /**
      * Accesses capabilities of particular IMEs that are not available through other IME API functions. This function is used mainly for country-specific operations.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {HKL} param0 
+     * @param {HIMC} param1 
      * @param {Integer} param2 
      * @param {Pointer<Void>} param3 
-     * @returns {Pointer} Returns an operation-specific value if successful, or 0 otherwise.
+     * @returns {LRESULT} Returns an operation-specific value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immescapea
      * @since windows5.1.2600
      */
     static ImmEscapeA(param0, param1, param2, param3) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
         result := DllCall("IMM32.dll\ImmEscapeA", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "ptr")
         return result
     }
 
     /**
      * Accesses capabilities of particular IMEs that are not available through other IME API functions. This function is used mainly for country-specific operations.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {HKL} param0 
+     * @param {HIMC} param1 
      * @param {Integer} param2 
      * @param {Pointer<Void>} param3 
-     * @returns {Pointer} Returns an operation-specific value if successful, or 0 otherwise.
+     * @returns {LRESULT} Returns an operation-specific value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immescapew
      * @since windows5.1.2600
      */
     static ImmEscapeW(param0, param1, param2, param3) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
         result := DllCall("IMM32.dll\ImmEscapeW", "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "ptr")
         return result
     }
 
     /**
      * Retrieves the conversion result list of characters or words without generating any IME-related messages.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
-     * @param {Pointer<Byte>} lpSrc Pointer to a null-terminated character string specifying the source of the list.
+     * @param {HKL} param0 
+     * @param {HIMC} param1 
+     * @param {PSTR} lpSrc Pointer to a null-terminated character string specifying the source of the list.
      * @param {Pointer} lpDst Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the list.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size required for the complete conversion result list.
      * @param {Integer} uFlag 
@@ -3881,7 +3958,9 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetConversionListA(param0, param1, lpSrc, lpDst, dwBufLen, uFlag) {
-        lpSrc := lpSrc is String? StrPtr(lpSrc) : lpSrc
+        lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
         result := DllCall("IMM32.dll\ImmGetConversionListA", "ptr", param0, "ptr", param1, "ptr", lpSrc, "ptr", lpDst, "uint", dwBufLen, "uint", uFlag, "uint")
         return result
@@ -3889,9 +3968,9 @@ class Ime {
 
     /**
      * Retrieves the conversion result list of characters or words without generating any IME-related messages.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Void>} param1 
-     * @param {Pointer<Char>} lpSrc Pointer to a null-terminated character string specifying the source of the list.
+     * @param {HKL} param0 
+     * @param {HIMC} param1 
+     * @param {PWSTR} lpSrc Pointer to a null-terminated character string specifying the source of the list.
      * @param {Pointer} lpDst Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidatelist">CANDIDATELIST</a> structure in which the function retrieves the list.
      * @param {Integer} dwBufLen Size, in bytes, of the output buffer. The application sets this parameter to 0 if the function is to return the buffer size required for the complete conversion result list.
      * @param {Integer} uFlag 
@@ -3900,7 +3979,9 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetConversionListW(param0, param1, lpSrc, lpDst, dwBufLen, uFlag) {
-        lpSrc := lpSrc is String? StrPtr(lpSrc) : lpSrc
+        lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
         result := DllCall("IMM32.dll\ImmGetConversionListW", "ptr", param0, "ptr", param1, "ptr", lpSrc, "ptr", lpDst, "uint", dwBufLen, "uint", uFlag, "uint")
         return result
@@ -3908,215 +3989,239 @@ class Ime {
 
     /**
      * Notifies the IME about changes to the status of the input context.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} dwAction 
      * @param {Integer} dwIndex 
      * @param {Integer} dwValue Index of a candidate string. The application can set this parameter or ignore it, depending on the value of the <i>dwAction</i> parameter.
-     * @returns {Integer} Returns nonzero if successful, or 0 otherwise.
+     * @returns {BOOL} Returns nonzero if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immnotifyime
      * @since windows5.1.2600
      */
     static ImmNotifyIME(param0, dwAction, dwIndex, dwValue) {
-        result := DllCall("IMM32.dll\ImmNotifyIME", "ptr", param0, "uint", dwAction, "uint", dwIndex, "uint", dwValue, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmNotifyIME", "ptr", param0, "uint", dwAction, "uint", dwIndex, "uint", dwValue, "ptr")
         return result
     }
 
     /**
      * Retrieves the position of the status window.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<POINT>} lpptPos Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure in which the function retrieves the position coordinates. These are screen coordinates, relative to the upper left corner of the screen.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetstatuswindowpos
      * @since windows5.1.2600
      */
     static ImmGetStatusWindowPos(param0, lpptPos) {
-        result := DllCall("IMM32.dll\ImmGetStatusWindowPos", "ptr", param0, "ptr", lpptPos, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmGetStatusWindowPos", "ptr", param0, "ptr", lpptPos, "ptr")
         return result
     }
 
     /**
      * Sets the position of the status window.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<POINT>} lpptPos Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure containing the new position of the status window, in screen coordinates relative to the upper left corner of the display screen.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetstatuswindowpos
      * @since windows5.1.2600
      */
     static ImmSetStatusWindowPos(param0, lpptPos) {
-        result := DllCall("IMM32.dll\ImmSetStatusWindowPos", "ptr", param0, "ptr", lpptPos, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmSetStatusWindowPos", "ptr", param0, "ptr", lpptPos, "ptr")
         return result
     }
 
     /**
      * Retrieves information about the composition window.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<COMPOSITIONFORM>} lpCompForm Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-compositionform">COMPOSITIONFORM</a> structure in which the function retrieves information about the composition window.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcompositionwindow
      * @since windows5.1.2600
      */
     static ImmGetCompositionWindow(param0, lpCompForm) {
-        result := DllCall("IMM32.dll\ImmGetCompositionWindow", "ptr", param0, "ptr", lpCompForm, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmGetCompositionWindow", "ptr", param0, "ptr", lpCompForm, "ptr")
         return result
     }
 
     /**
      * Sets the position of the composition window.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<COMPOSITIONFORM>} lpCompForm Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-compositionform">COMPOSITIONFORM</a> structure that contains the new position and other related information about the composition window.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcompositionwindow
      * @since windows5.1.2600
      */
     static ImmSetCompositionWindow(param0, lpCompForm) {
-        result := DllCall("IMM32.dll\ImmSetCompositionWindow", "ptr", param0, "ptr", lpCompForm, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmSetCompositionWindow", "ptr", param0, "ptr", lpCompForm, "ptr")
         return result
     }
 
     /**
      * Retrieves information about the candidates window.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Pointer<CANDIDATEFORM>} lpCandidate Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidateform">CANDIDATEFORM</a> structure in which this function retrieves information about the candidates window.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcandidatewindow
      * @since windows5.1.2600
      */
     static ImmGetCandidateWindow(param0, param1, lpCandidate) {
-        result := DllCall("IMM32.dll\ImmGetCandidateWindow", "ptr", param0, "uint", param1, "ptr", lpCandidate, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmGetCandidateWindow", "ptr", param0, "uint", param1, "ptr", lpCandidate, "ptr")
         return result
     }
 
     /**
      * Sets information about the candidates window.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Pointer<CANDIDATEFORM>} lpCandidate Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-candidateform">CANDIDATEFORM</a> structure that contains information about the candidates window.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immsetcandidatewindow
      * @since windows5.1.2600
      */
     static ImmSetCandidateWindow(param0, lpCandidate) {
-        result := DllCall("IMM32.dll\ImmSetCandidateWindow", "ptr", param0, "ptr", lpCandidate, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmSetCandidateWindow", "ptr", param0, "ptr", lpCandidate, "ptr")
         return result
     }
 
     /**
      * Checks for messages intended for the IME window and sends those messages to the window.
-     * @param {Pointer<Void>} param0 
+     * @param {HWND} param0 
      * @param {Integer} param1 
-     * @param {Pointer} param2 
-     * @param {Pointer} param3 
-     * @returns {Integer} Returns a nonzero value if the message is processed by the IME window, or 0 otherwise.
+     * @param {WPARAM} param2 
+     * @param {LPARAM} param3 
+     * @returns {BOOL} Returns a nonzero value if the message is processed by the IME window, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immisuimessagea
      * @since windows5.1.2600
      */
     static ImmIsUIMessageA(param0, param1, param2, param3) {
-        result := DllCall("IMM32.dll\ImmIsUIMessageA", "ptr", param0, "uint", param1, "ptr", param2, "ptr", param3, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmIsUIMessageA", "ptr", param0, "uint", param1, "ptr", param2, "ptr", param3, "ptr")
         return result
     }
 
     /**
      * Checks for messages intended for the IME window and sends those messages to the window.
-     * @param {Pointer<Void>} param0 
+     * @param {HWND} param0 
      * @param {Integer} param1 
-     * @param {Pointer} param2 
-     * @param {Pointer} param3 
-     * @returns {Integer} Returns a nonzero value if the message is processed by the IME window, or 0 otherwise.
+     * @param {WPARAM} param2 
+     * @param {LPARAM} param3 
+     * @returns {BOOL} Returns a nonzero value if the message is processed by the IME window, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immisuimessagew
      * @since windows5.1.2600
      */
     static ImmIsUIMessageW(param0, param1, param2, param3) {
-        result := DllCall("IMM32.dll\ImmIsUIMessageW", "ptr", param0, "uint", param1, "ptr", param2, "ptr", param3, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmIsUIMessageW", "ptr", param0, "uint", param1, "ptr", param2, "ptr", param3, "ptr")
         return result
     }
 
     /**
      * Retrieves the original virtual key value associated with a key input message that the IME has already processed.
-     * @param {Pointer<Void>} param0 
+     * @param {HWND} param0 
      * @returns {Integer} If <a href="/windows/desktop/api/winuser/nf-winuser-translatemessage">TranslateMessage</a> has been called by the application, <b>ImmGetVirtualKey</b> returns VK_PROCESSKEY; otherwise, it returns the virtual key.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetvirtualkey
      * @since windows5.1.2600
      */
     static ImmGetVirtualKey(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetVirtualKey", "ptr", param0, "uint")
         return result
     }
 
     /**
      * Registers a string with the dictionary of the IME associated with the specified input locale.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} lpszReading Pointer to a null-terminated reading string associated with the string to register.
+     * @param {HKL} param0 
+     * @param {PSTR} lpszReading Pointer to a null-terminated reading string associated with the string to register.
      * @param {Integer} param2 
-     * @param {Pointer<Byte>} lpszRegister Pointer to the null-terminated string to register.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @param {PSTR} lpszRegister Pointer to the null-terminated string to register.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immregisterworda
      * @since windows5.1.2600
      */
     static ImmRegisterWordA(param0, lpszReading, param2, lpszRegister) {
-        lpszReading := lpszReading is String? StrPtr(lpszReading) : lpszReading
-        lpszRegister := lpszRegister is String? StrPtr(lpszRegister) : lpszRegister
+        lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
+        lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("IMM32.dll\ImmRegisterWordA", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszRegister, "int")
+        result := DllCall("IMM32.dll\ImmRegisterWordA", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszRegister, "ptr")
         return result
     }
 
     /**
      * Registers a string with the dictionary of the IME associated with the specified input locale.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Char>} lpszReading Pointer to a null-terminated reading string associated with the string to register.
+     * @param {HKL} param0 
+     * @param {PWSTR} lpszReading Pointer to a null-terminated reading string associated with the string to register.
      * @param {Integer} param2 
-     * @param {Pointer<Char>} lpszRegister Pointer to the null-terminated string to register.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @param {PWSTR} lpszRegister Pointer to the null-terminated string to register.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immregisterwordw
      * @since windows5.1.2600
      */
     static ImmRegisterWordW(param0, lpszReading, param2, lpszRegister) {
-        lpszReading := lpszReading is String? StrPtr(lpszReading) : lpszReading
-        lpszRegister := lpszRegister is String? StrPtr(lpszRegister) : lpszRegister
+        lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
+        lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("IMM32.dll\ImmRegisterWordW", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszRegister, "int")
+        result := DllCall("IMM32.dll\ImmRegisterWordW", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszRegister, "ptr")
         return result
     }
 
     /**
      * Removes a register string from the dictionary of the IME associated with the specified input locale.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Byte>} lpszReading Pointer to a null-terminated reading string associated with the string to remove.
+     * @param {HKL} param0 
+     * @param {PSTR} lpszReading Pointer to a null-terminated reading string associated with the string to remove.
      * @param {Integer} param2 
-     * @param {Pointer<Byte>} lpszUnregister Pointer to a null-terminated string specifying the register string to remove.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @param {PSTR} lpszUnregister Pointer to a null-terminated string specifying the register string to remove.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immunregisterworda
      * @since windows5.1.2600
      */
     static ImmUnregisterWordA(param0, lpszReading, param2, lpszUnregister) {
-        lpszReading := lpszReading is String? StrPtr(lpszReading) : lpszReading
-        lpszUnregister := lpszUnregister is String? StrPtr(lpszUnregister) : lpszUnregister
+        lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
+        lpszUnregister := lpszUnregister is String ? StrPtr(lpszUnregister) : lpszUnregister
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("IMM32.dll\ImmUnregisterWordA", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszUnregister, "int")
+        result := DllCall("IMM32.dll\ImmUnregisterWordA", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszUnregister, "ptr")
         return result
     }
 
     /**
      * Removes a register string from the dictionary of the IME associated with the specified input locale.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer<Char>} lpszReading Pointer to a null-terminated reading string associated with the string to remove.
+     * @param {HKL} param0 
+     * @param {PWSTR} lpszReading Pointer to a null-terminated reading string associated with the string to remove.
      * @param {Integer} param2 
-     * @param {Pointer<Char>} lpszUnregister Pointer to a null-terminated string specifying the register string to remove.
-     * @returns {Integer} Returns a nonzero value if successful, or 0 otherwise.
+     * @param {PWSTR} lpszUnregister Pointer to a null-terminated string specifying the register string to remove.
+     * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immunregisterwordw
      * @since windows5.1.2600
      */
     static ImmUnregisterWordW(param0, lpszReading, param2, lpszUnregister) {
-        lpszReading := lpszReading is String? StrPtr(lpszReading) : lpszReading
-        lpszUnregister := lpszUnregister is String? StrPtr(lpszUnregister) : lpszUnregister
+        lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
+        lpszUnregister := lpszUnregister is String ? StrPtr(lpszUnregister) : lpszUnregister
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("IMM32.dll\ImmUnregisterWordW", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszUnregister, "int")
+        result := DllCall("IMM32.dll\ImmUnregisterWordW", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszUnregister, "ptr")
         return result
     }
 
     /**
      * Retrieves a list of the styles supported by the IME associated with the specified input locale.
-     * @param {Pointer<Void>} param0 
+     * @param {HKL} param0 
      * @param {Integer} nItem Maximum number of styles that the output buffer can hold. The application sets this parameter to 0 if the function is to count the number of styles available in the IME.
      * @param {Pointer<STYLEBUFA>} lpStyleBuf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-stylebufa">STYLEBUF</a> structure in which the function retrieves the style information.
      * @returns {Integer} Returns the number of styles copied to the buffer. If the application sets the <i>nItem</i> parameter to 0, the return value is the number of styles available in the IME.
@@ -4124,13 +4229,15 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetRegisterWordStyleA(param0, nItem, lpStyleBuf) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetRegisterWordStyleA", "ptr", param0, "uint", nItem, "ptr", lpStyleBuf, "uint")
         return result
     }
 
     /**
      * Retrieves a list of the styles supported by the IME associated with the specified input locale.
-     * @param {Pointer<Void>} param0 
+     * @param {HKL} param0 
      * @param {Integer} nItem Maximum number of styles that the output buffer can hold. The application sets this parameter to 0 if the function is to count the number of styles available in the IME.
      * @param {Pointer<STYLEBUFW>} lpStyleBuf Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-stylebufa">STYLEBUF</a> structure in which the function retrieves the style information.
      * @returns {Integer} Returns the number of styles copied to the buffer. If the application sets the <i>nItem</i> parameter to 0, the return value is the number of styles available in the IME.
@@ -4138,25 +4245,28 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetRegisterWordStyleW(param0, nItem, lpStyleBuf) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetRegisterWordStyleW", "ptr", param0, "uint", nItem, "ptr", lpStyleBuf, "uint")
         return result
     }
 
     /**
      * Enumerates the register strings having the specified reading string, style, and register string.
-     * @param {Pointer<Void>} param0 
+     * @param {HKL} param0 
      * @param {Pointer<REGISTERWORDENUMPROCA>} param1 
-     * @param {Pointer<Byte>} lpszReading Pointer to the reading string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all available reading strings that match the <i>dwStyle</i> and <i>lpszRegister</i> settings.
+     * @param {PSTR} lpszReading Pointer to the reading string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all available reading strings that match the <i>dwStyle</i> and <i>lpszRegister</i> settings.
      * @param {Integer} param3 
-     * @param {Pointer<Byte>} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
+     * @param {PSTR} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
      * @param {Pointer<Void>} param5 
      * @returns {Integer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immenumregisterworda
      * @since windows5.1.2600
      */
     static ImmEnumRegisterWordA(param0, param1, lpszReading, param3, lpszRegister, param5) {
-        lpszReading := lpszReading is String? StrPtr(lpszReading) : lpszReading
-        lpszRegister := lpszRegister is String? StrPtr(lpszRegister) : lpszRegister
+        lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
+        lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmEnumRegisterWordA", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, "ptr", param5, "uint")
         return result
@@ -4164,19 +4274,20 @@ class Ime {
 
     /**
      * Enumerates the register strings having the specified reading string, style, and register string.
-     * @param {Pointer<Void>} param0 
+     * @param {HKL} param0 
      * @param {Pointer<REGISTERWORDENUMPROCW>} param1 
-     * @param {Pointer<Char>} lpszReading Pointer to the reading string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all available reading strings that match the <i>dwStyle</i> and <i>lpszRegister</i> settings.
+     * @param {PWSTR} lpszReading Pointer to the reading string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all available reading strings that match the <i>dwStyle</i> and <i>lpszRegister</i> settings.
      * @param {Integer} param3 
-     * @param {Pointer<Char>} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
+     * @param {PWSTR} lpszRegister Pointer to the register string to enumerate. The application sets this parameter to <b>NULL</b> if the function is to enumerate all register strings that match the <i>lpszReading</i> and <i>dwStyle</i> settings.
      * @param {Pointer<Void>} param5 
      * @returns {Integer} Returns the last value returned by the callback function, with the meaning defined by the application. The function returns 0 if it cannot enumerate the register strings.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immenumregisterwordw
      * @since windows5.1.2600
      */
     static ImmEnumRegisterWordW(param0, param1, lpszReading, param3, lpszRegister, param5) {
-        lpszReading := lpszReading is String? StrPtr(lpszReading) : lpszReading
-        lpszRegister := lpszRegister is String? StrPtr(lpszRegister) : lpszRegister
+        lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
+        lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmEnumRegisterWordW", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, "ptr", param5, "uint")
         return result
@@ -4185,12 +4296,12 @@ class Ime {
     /**
      * Disables the IME for a thread or for all threads in a process.
      * @param {Integer} param0 
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immdisableime
      * @since windows5.1.2600
      */
     static ImmDisableIME(param0) {
-        result := DllCall("IMM32.dll\ImmDisableIME", "uint", param0, "int")
+        result := DllCall("IMM32.dll\ImmDisableIME", "uint", param0, "ptr")
         return result
     }
 
@@ -4198,19 +4309,19 @@ class Ime {
      * Retrieves the input context for the specified thread.
      * @param {Integer} idThread 
      * @param {Pointer<IMCENUMPROC>} lpfn Pointer to the enumeration callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/imm/nc-imm-imcenumproc">EnumInputContext</a>.
-     * @param {Pointer} lParam Application-supplied data. The function passes this data to the callback function.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
+     * @param {LPARAM} lParam Application-supplied data. The function passes this data to the callback function.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immenuminputcontext
      * @since windows5.1.2600
      */
     static ImmEnumInputContext(idThread, lpfn, lParam) {
-        result := DllCall("IMM32.dll\ImmEnumInputContext", "uint", idThread, "ptr", lpfn, "ptr", lParam, "int")
+        result := DllCall("IMM32.dll\ImmEnumInputContext", "uint", idThread, "ptr", lpfn, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Retrieves the menu items that are registered in the IME menu of a specified input context.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Pointer<IMEMENUITEMINFOA>} lpImeParentMenu Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure in which the function retrieves parent menu information. To retrieve information about the submenu items of this parent menu, the application sets the <b>fType</b> member to MFT_SUBMENU. This parameter contains <b>NULL</b> if the function retrieves only top-level menu items.
@@ -4221,13 +4332,15 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetImeMenuItemsA(param0, param1, param2, lpImeParentMenu, lpImeMenu, dwSize) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetImeMenuItemsA", "ptr", param0, "uint", param1, "uint", param2, "ptr", lpImeParentMenu, "ptr", lpImeMenu, "uint", dwSize, "uint")
         return result
     }
 
     /**
      * Retrieves the menu items that are registered in the IME menu of a specified input context.
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Pointer<IMEMENUITEMINFOW>} lpImeParentMenu Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imm/ns-imm-imemenuiteminfoa">IMEMENUITEMINFO</a> structure in which the function retrieves parent menu information. To retrieve information about the submenu items of this parent menu, the application sets the <b>fType</b> member to MFT_SUBMENU. This parameter contains <b>NULL</b> if the function retrieves only top-level menu items.
@@ -4238,6 +4351,8 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetImeMenuItemsW(param0, param1, param2, lpImeParentMenu, lpImeMenu, dwSize) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetImeMenuItemsW", "ptr", param0, "uint", param1, "uint", param2, "ptr", lpImeParentMenu, "ptr", lpImeMenu, "uint", dwSize, "uint")
         return result
     }
@@ -4245,22 +4360,22 @@ class Ime {
     /**
      * ImmDisableTextFrameService is no longer available for use as of Windows Vista.
      * @param {Integer} idThread Identifier of the thread for which to disable the text service. The thread must be in the same process as the application. The application sets this parameter to 0 to disable the service for the current thread. The application sets the parameter to –1 to disable the service for all threads in the current process.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immdisabletextframeservice
      * @since windows5.1.2600
      */
     static ImmDisableTextFrameService(idThread) {
-        result := DllCall("IMM32.dll\ImmDisableTextFrameService", "uint", idThread, "int")
+        result := DllCall("IMM32.dll\ImmDisableTextFrameService", "uint", idThread, "ptr")
         return result
     }
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      * @since windows8.0
      */
     static ImmDisableLegacyIME() {
-        result := DllCall("IMM32.dll\ImmDisableLegacyIME", "int")
+        result := DllCall("IMM32.dll\ImmDisableLegacyIME", "ptr")
         return result
     }
 
@@ -4269,11 +4384,11 @@ class Ime {
      * @param {Integer} param0 
      * @param {Pointer<UInt32>} lpuModifiers 
      * @param {Pointer<UInt32>} lpuVKey 
-     * @param {Pointer<Void>} phKL 
-     * @returns {Integer} 
+     * @param {Pointer<HKL>} phKL 
+     * @returns {BOOL} 
      */
     static ImmGetHotKey(param0, lpuModifiers, lpuVKey, phKL) {
-        result := DllCall("IMM32.dll\ImmGetHotKey", "uint", param0, "uint*", lpuModifiers, "uint*", lpuVKey, "ptr", phKL, "int")
+        result := DllCall("IMM32.dll\ImmGetHotKey", "uint", param0, "uint*", lpuModifiers, "uint*", lpuVKey, "ptr", phKL, "ptr")
         return result
     }
 
@@ -4282,48 +4397,56 @@ class Ime {
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
-     * @param {Pointer<Void>} param3 
-     * @returns {Integer} 
+     * @param {HKL} param3 
+     * @returns {BOOL} 
      */
     static ImmSetHotKey(param0, param1, param2, param3) {
-        result := DllCall("IMM32.dll\ImmSetHotKey", "uint", param0, "uint", param1, "uint", param2, "ptr", param3, "int")
+        param3 := param3 is Win32Handle ? NumGet(param3, "ptr") : param3
+
+        result := DllCall("IMM32.dll\ImmSetHotKey", "uint", param0, "uint", param1, "uint", param2, "ptr", param3, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
-     * @returns {Integer} 
+     * @param {HIMC} param0 
+     * @returns {BOOL} 
      */
     static ImmGenerateMessage(param0) {
-        result := DllCall("IMM32.dll\ImmGenerateMessage", "ptr", param0, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmGenerateMessage", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * Generates a WM_IME_REQUEST message.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer} param1 
-     * @param {Pointer} param2 
-     * @returns {Pointer} Returns an operation-specific value if successful, or 0 otherwise.
+     * @param {HIMC} param0 
+     * @param {WPARAM} param1 
+     * @param {LPARAM} param2 
+     * @returns {LRESULT} Returns an operation-specific value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//immdev/nf-immdev-immrequestmessagea
      * @since windows5.1.2600
      */
     static ImmRequestMessageA(param0, param1, param2) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmRequestMessageA", "ptr", param0, "ptr", param1, "ptr", param2, "ptr")
         return result
     }
 
     /**
      * Generates a WM_IME_REQUEST message.
-     * @param {Pointer<Void>} param0 
-     * @param {Pointer} param1 
-     * @param {Pointer} param2 
-     * @returns {Pointer} Returns an operation-specific value if successful, or 0 otherwise.
+     * @param {HIMC} param0 
+     * @param {WPARAM} param1 
+     * @param {LPARAM} param2 
+     * @returns {LRESULT} Returns an operation-specific value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//immdev/nf-immdev-immrequestmessagew
      * @since windows5.1.2600
      */
     static ImmRequestMessageW(param0, param1, param2) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmRequestMessageW", "ptr", param0, "ptr", param1, "ptr", param2, "ptr")
         return result
     }
@@ -4331,63 +4454,75 @@ class Ime {
     /**
      * 
      * @param {Integer} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {HWND} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
-     * @returns {Pointer<Void>} 
+     * @returns {HWND} 
      */
     static ImmCreateSoftKeyboard(param0, param1, param2, param3) {
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+
         result := DllCall("IMM32.dll\ImmCreateSoftKeyboard", "uint", param0, "ptr", param1, "int", param2, "int", param3, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
-     * @returns {Integer} 
+     * @param {HWND} param0 
+     * @returns {BOOL} 
      */
     static ImmDestroySoftKeyboard(param0) {
-        result := DllCall("IMM32.dll\ImmDestroySoftKeyboard", "ptr", param0, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmDestroySoftKeyboard", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
+     * @param {HWND} param0 
      * @param {Integer} param1 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ImmShowSoftKeyboard(param0, param1) {
-        result := DllCall("IMM32.dll\ImmShowSoftKeyboard", "ptr", param0, "int", param1, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmShowSoftKeyboard", "ptr", param0, "int", param1, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @returns {Pointer<INPUTCONTEXT>} 
      */
     static ImmLockIMC(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmLockIMC", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
-     * @returns {Integer} 
+     * @param {HIMC} param0 
+     * @returns {BOOL} 
      */
     static ImmUnlockIMC(param0) {
-        result := DllCall("IMM32.dll\ImmUnlockIMC", "ptr", param0, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmUnlockIMC", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
+     * @param {HIMC} param0 
      * @returns {Integer} 
      */
     static ImmGetIMCLockCount(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetIMCLockCount", "ptr", param0, "uint")
         return result
     }
@@ -4395,70 +4530,82 @@ class Ime {
     /**
      * 
      * @param {Integer} param0 
-     * @returns {Pointer<Void>} 
+     * @returns {HIMCC} 
      */
     static ImmCreateIMCC(param0) {
         result := DllCall("IMM32.dll\ImmCreateIMCC", "uint", param0, "ptr")
-        return result
+        return HIMCC({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
-     * @returns {Pointer<Void>} 
+     * @param {HIMCC} param0 
+     * @returns {HIMCC} 
      */
     static ImmDestroyIMCC(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmDestroyIMCC", "ptr", param0, "ptr")
-        return result
+        return HIMCC({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
+     * @param {HIMCC} param0 
      * @returns {Pointer<Void>} 
      */
     static ImmLockIMCC(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmLockIMCC", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
-     * @returns {Integer} 
+     * @param {HIMCC} param0 
+     * @returns {BOOL} 
      */
     static ImmUnlockIMCC(param0) {
-        result := DllCall("IMM32.dll\ImmUnlockIMCC", "ptr", param0, "int")
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
+        result := DllCall("IMM32.dll\ImmUnlockIMCC", "ptr", param0, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
+     * @param {HIMCC} param0 
      * @returns {Integer} 
      */
     static ImmGetIMCCLockCount(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetIMCCLockCount", "ptr", param0, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
+     * @param {HIMCC} param0 
      * @param {Integer} param1 
-     * @returns {Pointer<Void>} 
+     * @returns {HIMCC} 
      */
     static ImmReSizeIMCC(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmReSizeIMCC", "ptr", param0, "uint", param1, "ptr")
-        return result
+        return HIMCC({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} param0 
+     * @param {HIMCC} param0 
      * @returns {Integer} 
      */
     static ImmGetIMCCSize(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("IMM32.dll\ImmGetIMCCSize", "ptr", param0, "uint")
         return result
     }

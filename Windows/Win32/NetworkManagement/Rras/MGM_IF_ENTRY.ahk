@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The MGM_IF_ENTRY structure describes a router interface.
@@ -38,19 +39,25 @@ class MGM_IF_ENTRY extends Win32Struct
 
     /**
      * Indicates whether or not IGMP is enabled on this interface. If <b>bIGMP</b> is <b>TRUE</b>, then IGMP is enabled on this interface. If <b>bIGMP</b> is <b>FALSE</b>, then IGMP is not enabled on this interface.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bIGMP {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    bIGMP{
+        get {
+            if(!this.HasProp("__bIGMP"))
+                this.__bIGMP := BOOL(this.ptr + 8)
+            return this.__bIGMP
+        }
     }
 
     /**
      * Indicates whether or not multicast forwarding is enabled on this interface. If <b>bIsEnabled</b> is <b>TRUE</b>, multicast forwarding is enabled on this interface. If <b>bIsEnabled</b> is <b>FALSE</b>, multicast forwarding is disabled on this interface.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bIsEnabled {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    bIsEnabled{
+        get {
+            if(!this.HasProp("__bIsEnabled"))
+                this.__bIsEnabled := BOOL(this.ptr + 12)
+            return this.__bIsEnabled
+        }
     }
 }

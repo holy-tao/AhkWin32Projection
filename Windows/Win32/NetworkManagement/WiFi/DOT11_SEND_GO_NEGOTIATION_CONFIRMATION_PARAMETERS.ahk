@@ -3,6 +3,7 @@
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_SSID.ahk
 #Include .\DOT11_WFD_GROUP_ID.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -88,11 +89,14 @@ class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bUseGroupID {
-        get => NumGet(this, 80, "char")
-        set => NumPut("char", value, this, 80)
+    bUseGroupID{
+        get {
+            if(!this.HasProp("__bUseGroupID"))
+                this.__bUseGroupID := BOOLEAN(this.ptr + 80)
+            return this.__bUseGroupID
+        }
     }
 
     /**

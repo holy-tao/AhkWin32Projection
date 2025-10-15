@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\UI\Controls\HIMAGELIST.ahk
 
 /**
  * An SP_CLASSIMAGELIST_DATA structure describes a class image list.
@@ -24,11 +25,14 @@ class SP_CLASSIMAGELIST_DATA extends Win32Struct
 
     /**
      * A handle to the class image list.
-     * @type {Pointer}
+     * @type {HIMAGELIST}
      */
-    ImageList {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ImageList{
+        get {
+            if(!this.HasProp("__ImageList"))
+                this.__ImageList := HIMAGELIST(this.ptr + 8)
+            return this.__ImageList
+        }
     }
 
     /**

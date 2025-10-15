@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the identification number and other pertinent information about files, devices, and pipes.
@@ -44,21 +45,27 @@ class FILE_INFO_3 extends Win32Struct
      * Pointer to a string that specifies the path of the opened resource.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    fi3_pathname {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    fi3_pathname{
+        get {
+            if(!this.HasProp("__fi3_pathname"))
+                this.__fi3_pathname := PWSTR(this.ptr + 16)
+            return this.__fi3_pathname
+        }
     }
 
     /**
      * Pointer to a string that specifies which user (on servers that have user-level security) or which computer (on servers that have share-level security) opened the resource. Note that Windows does not support share-level security.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    fi3_username {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    fi3_username{
+        get {
+            if(!this.HasProp("__fi3_username"))
+                this.__fi3_username := PWSTR(this.ptr + 24)
+            return this.__fi3_username
+        }
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -44,10 +45,13 @@ class DOT11_POWER_MGMT_MODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    bReceiveDTIMs {
-        get => NumGet(this, 12, "char")
-        set => NumPut("char", value, this, 12)
+    bReceiveDTIMs{
+        get {
+            if(!this.HasProp("__bReceiveDTIMs"))
+                this.__bReceiveDTIMs := BOOLEAN(this.ptr + 12)
+            return this.__bReceiveDTIMs
+        }
     }
 }

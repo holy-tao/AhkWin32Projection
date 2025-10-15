@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
@@ -24,10 +26,13 @@ class GROUPTYPINGCHANGE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fGroupTyping {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+    fGroupTyping{
+        get {
+            if(!this.HasProp("__fGroupTyping"))
+                this.__fGroupTyping := BOOL(this.ptr + 24)
+            return this.__fGroupTyping
+        }
     }
 }

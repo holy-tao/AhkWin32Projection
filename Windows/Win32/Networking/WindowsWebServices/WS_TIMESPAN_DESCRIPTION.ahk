@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_TIMESPAN.ahk
 
 /**
  * This type description is used with WS_TIMESPAN_TYPE and is optional. It is used to specify constraints on the set of values which can be deserialized.
@@ -15,19 +16,25 @@ class WS_TIMESPAN_DESCRIPTION extends Win32Struct
 
     /**
      * The minimum value.
-     * @type {Integer}
+     * @type {WS_TIMESPAN}
      */
-    minValue {
-        get => NumGet(this, 0, "int64")
-        set => NumPut("int64", value, this, 0)
+    minValue{
+        get {
+            if(!this.HasProp("__minValue"))
+                this.__minValue := WS_TIMESPAN(this.ptr + 0)
+            return this.__minValue
+        }
     }
 
     /**
      * The maximum value.
-     * @type {Integer}
+     * @type {WS_TIMESPAN}
      */
-    maxValue {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+    maxValue{
+        get {
+            if(!this.HasProp("__maxValue"))
+                this.__maxValue := WS_TIMESPAN(this.ptr + 8)
+            return this.__maxValue
+        }
     }
 }

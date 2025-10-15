@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The CREDENTIAL_TARGET_INFORMATION structure contains the target computer's name, domain, and tree.
@@ -21,65 +22,86 @@ class CREDENTIAL_TARGET_INFORMATIONA extends Win32Struct
 
     /**
      * Name of the target server as specified by the caller accessing the target. It is typically the NetBIOS or DNS name of the target server.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    TargetName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    TargetName{
+        get {
+            if(!this.HasProp("__TargetName"))
+                this.__TargetName := PSTR(this.ptr + 0)
+            return this.__TargetName
+        }
     }
 
     /**
      * NetBIOS name of the target server. If the name is not known, this member can be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    NetbiosServerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    NetbiosServerName{
+        get {
+            if(!this.HasProp("__NetbiosServerName"))
+                this.__NetbiosServerName := PSTR(this.ptr + 8)
+            return this.__NetbiosServerName
+        }
     }
 
     /**
      * DNS name of the target server. If the name is not known, this member can be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    DnsServerName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    DnsServerName{
+        get {
+            if(!this.HasProp("__DnsServerName"))
+                this.__DnsServerName := PSTR(this.ptr + 16)
+            return this.__DnsServerName
+        }
     }
 
     /**
      * NetBIOS name of the target server's domain. If the name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    NetbiosDomainName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    NetbiosDomainName{
+        get {
+            if(!this.HasProp("__NetbiosDomainName"))
+                this.__NetbiosDomainName := PSTR(this.ptr + 24)
+            return this.__NetbiosDomainName
+        }
     }
 
     /**
      * DNS name of the target server's domain. If the name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    DnsDomainName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    DnsDomainName{
+        get {
+            if(!this.HasProp("__DnsDomainName"))
+                this.__DnsDomainName := PSTR(this.ptr + 32)
+            return this.__DnsDomainName
+        }
     }
 
     /**
      * DNS name of the target server's tree. If the tree name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    DnsTreeName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    DnsTreeName{
+        get {
+            if(!this.HasProp("__DnsTreeName"))
+                this.__DnsTreeName := PSTR(this.ptr + 40)
+            return this.__DnsTreeName
+        }
     }
 
     /**
      * Name of the authentication package that determined the values <b>NetbiosServerName</b>, <b>DnsServerName</b>, <b>NetbiosDomainName</b>, <b>DnsDomainName</b>, and <b>DnsTreeName</b> as a function of <b>TargetName</b>. This member can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acquirecredentialshandlea">AcquireCredentialsHandle</a> as the package name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    PackageName {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    PackageName{
+        get {
+            if(!this.HasProp("__PackageName"))
+                this.__PackageName := PSTR(this.ptr + 48)
+            return this.__PackageName
+        }
     }
 
     /**

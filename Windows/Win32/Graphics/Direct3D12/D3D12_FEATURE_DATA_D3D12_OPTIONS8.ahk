@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -12,10 +13,13 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS8 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    UnalignedBlockTexturesSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    UnalignedBlockTexturesSupported{
+        get {
+            if(!this.HasProp("__UnalignedBlockTexturesSupported"))
+                this.__UnalignedBlockTexturesSupported := BOOL(this.ptr + 0)
+            return this.__UnalignedBlockTexturesSupported
+        }
     }
 }

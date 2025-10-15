@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The GROUP_POLICY_OBJECT structure provides information about a GPO in a GPO list.
@@ -55,29 +57,38 @@ class GROUP_POLICY_OBJECTW extends Win32Struct
 
     /**
      * Pointer to a string that specifies the path to the directory service portion of the GPO.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpDSPath {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpDSPath{
+        get {
+            if(!this.HasProp("__lpDSPath"))
+                this.__lpDSPath := PWSTR(this.ptr + 8)
+            return this.__lpDSPath
+        }
     }
 
     /**
      * Pointer to a string that specifies the path to the file system portion of the GPO.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpFileSysPath {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpFileSysPath{
+        get {
+            if(!this.HasProp("__lpFileSysPath"))
+                this.__lpFileSysPath := PWSTR(this.ptr + 16)
+            return this.__lpFileSysPath
+        }
     }
 
     /**
      * Pointer to the display name of the GPO.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpDisplayName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpDisplayName{
+        get {
+            if(!this.HasProp("__lpDisplayName"))
+                this.__lpDisplayName := PWSTR(this.ptr + 24)
+            return this.__lpDisplayName
+        }
     }
 
     /**
@@ -100,11 +111,14 @@ class GROUP_POLICY_OBJECTW extends Win32Struct
 
     /**
      * User-supplied data.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(this.ptr + 136)
+            return this.__lParam
+        }
     }
 
     /**
@@ -127,28 +141,37 @@ class GROUP_POLICY_OBJECTW extends Win32Struct
 
     /**
      * Extensions that have stored data in this GPO. The format is a string of <b>GUID</b>s grouped in brackets. For more information, see the following Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpExtensions {
-        get => NumGet(this, 160, "ptr")
-        set => NumPut("ptr", value, this, 160)
+    lpExtensions{
+        get {
+            if(!this.HasProp("__lpExtensions"))
+                this.__lpExtensions := PWSTR(this.ptr + 160)
+            return this.__lpExtensions
+        }
     }
 
     /**
      * User-supplied data.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lParam2 {
-        get => NumGet(this, 168, "ptr")
-        set => NumPut("ptr", value, this, 168)
+    lParam2{
+        get {
+            if(!this.HasProp("__lParam2"))
+                this.__lParam2 := LPARAM(this.ptr + 168)
+            return this.__lParam2
+        }
     }
 
     /**
      * Path to the Active Directory site, domain, or organization unit to which this GPO is linked. If the GPO is linked to the local GPO, this member is "Local".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpLink {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+    lpLink{
+        get {
+            if(!this.HasProp("__lpLink"))
+                this.__lpLink := PWSTR(this.ptr + 176)
+            return this.__lpLink
+        }
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\RM_UNIQUE_PROCESS.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes an application that is to be registered with the Restart Manager.
@@ -77,10 +78,13 @@ class RM_PROCESS_INFO extends Win32Struct
     /**
      * <b>TRUE</b> if the application can be restarted by the Restart Manager; otherwise, <b>FALSE</b>.
      * This member is always <b>TRUE</b> if the process is a service. This member is always  <b>FALSE</b> if the process is a critical system process.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bRestartable {
-        get => NumGet(this, 668, "int")
-        set => NumPut("int", value, this, 668)
+    bRestartable{
+        get {
+            if(!this.HasProp("__bRestartable"))
+                this.__bRestartable := BOOL(this.ptr + 668)
+            return this.__bRestartable
+        }
     }
 }

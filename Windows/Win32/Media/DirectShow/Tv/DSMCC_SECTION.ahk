@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MPEG_HEADER_BITS_MIDL.ahk
+#Include .\MPEG_HEADER_VERSION_BITS_MIDL.ahk
 
 /**
  * The DSMCC_SECTION structure represents a DSM-CC section header. If a section contains a DSM-CC header, you can cast a SECTION pointer to a DSMCC_SECTION pointer. For more information, see the Remarks section in the SECTION reference.
@@ -28,11 +30,14 @@ class DSMCC_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MPEG_HEADER_BITS_MIDL}
      */
-    S {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    S{
+        get {
+            if(!this.HasProp("__S"))
+                this.__S := MPEG_HEADER_BITS_MIDL(this.ptr + 2)
+            return this.__S
+        }
     }
 
     /**

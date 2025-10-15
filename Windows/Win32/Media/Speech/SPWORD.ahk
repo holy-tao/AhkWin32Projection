@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -44,11 +45,14 @@ class SPWORD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszWord {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pszWord{
+        get {
+            if(!this.HasProp("__pszWord"))
+                this.__pszWord := PWSTR(this.ptr + 16)
+            return this.__pszWord
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes the tape in the tape drive. It is used by the GetTapeParametersfunction.
@@ -57,10 +58,13 @@ class TAPE_GET_MEDIA_PARAMETERS extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the tape is write-protected. Otherwise, it is not.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    WriteProtected {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+    WriteProtected{
+        get {
+            if(!this.HasProp("__WriteProtected"))
+                this.__WriteProtected := BOOLEAN(this.ptr + 24)
+            return this.__WriteProtected
+        }
     }
 }

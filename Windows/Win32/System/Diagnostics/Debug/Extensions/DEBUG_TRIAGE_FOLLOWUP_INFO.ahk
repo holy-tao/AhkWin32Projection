@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -28,10 +29,13 @@ class DEBUG_TRIAGE_FOLLOWUP_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    OwnerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    OwnerName{
+        get {
+            if(!this.HasProp("__OwnerName"))
+                this.__OwnerName := PSTR(this.ptr + 8)
+            return this.__OwnerName
+        }
     }
 }

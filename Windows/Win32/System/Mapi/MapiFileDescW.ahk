@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * A MapiFileDescW structure contains information about a file containing a message attachment stored as a temporary file. That file can contain a static OLE object, an embedded OLE object, an embedded message, and other types of files.
@@ -110,11 +111,14 @@ class MapiFileDescW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * Pointer to the fully qualified path of the attached file. This path should include the disk drive letter and directory name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszPathName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpszPathName{
+        get {
+            if(!this.HasProp("__lpszPathName"))
+                this.__lpszPathName := PWSTR(this.ptr + 16)
+            return this.__lpszPathName
+        }
     }
 
     /**
@@ -123,11 +127,14 @@ class MapiFileDescW extends Win32Struct
      * Pointer to the filename of the attachment as seen by the recipient. The filename that is seen by the recipient may differ from the filename in the <b>lpszPathName</b> member if temporary files are being used.
      * 
      * If the <b>lpszFileName</b> member is empty or <b>NULL</b>, the filename from <b>lpszPathName</b> is used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    lpszFileName {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpszFileName{
+        get {
+            if(!this.HasProp("__lpszFileName"))
+                this.__lpszFileName := PWSTR(this.ptr + 24)
+            return this.__lpszFileName
+        }
     }
 
     /**

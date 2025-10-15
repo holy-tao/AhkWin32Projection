@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used by the ParseURL function to return the parsed URL.
@@ -34,11 +35,14 @@ class PARSEDURLW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * [out] A pointer to the beginning of the protocol part of the URL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszProtocol {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pszProtocol{
+        get {
+            if(!this.HasProp("__pszProtocol"))
+                this.__pszProtocol := PWSTR(this.ptr + 8)
+            return this.__pszProtocol
+        }
     }
 
     /**
@@ -56,11 +60,14 @@ class PARSEDURLW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * [out] A pointer to the section of the URL that follows the protocol and colon (':'). For file URLs, the function also skips the leading "//" characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszSuffix {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pszSuffix{
+        get {
+            if(!this.HasProp("__pszSuffix"))
+                this.__pszSuffix := PWSTR(this.ptr + 24)
+            return this.__pszSuffix
+        }
     }
 
     /**

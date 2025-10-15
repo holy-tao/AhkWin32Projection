@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Security\Authentication\Identity\SecPkgContext_ConnectionInfo.ahk
 #Include ..\..\Security\Authentication\Identity\SecPkgContext_CipherInfo.ahk
 
@@ -22,11 +23,14 @@ class INTERNET_SECURITY_CONNECTION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    fSecure {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    fSecure{
+        get {
+            if(!this.HasProp("__fSecure"))
+                this.__fSecure := BOOL(this.ptr + 4)
+            return this.__fSecure
+        }
     }
 
     /**

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
@@ -1722,8 +1722,8 @@ class WindowsMediaFormat {
 ;@region Methods
     /**
      * The WMIsContentProtected function checks a file for DRM-protected content. This function is a shortcut so that your application can quickly identify protected files.
-     * @param {Pointer<Char>} pwszFileName Pointer to a wide-character <b>null</b>-terminated string containing the name of the file to check for DRM-protected content.
-     * @param {Pointer<Int32>} pfIsProtected Pointer to a Boolean value that is set to True on function return if the file contains DRM-protected content.
+     * @param {PWSTR} pwszFileName Pointer to a wide-character <b>null</b>-terminated string containing the name of the file to check for DRM-protected content.
+     * @param {Pointer<BOOL>} pfIsProtected Pointer to a Boolean value that is set to True on function return if the file contains DRM-protected content.
      * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -1769,9 +1769,9 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMIsContentProtected(pwszFileName, pfIsProtected) {
-        pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
+        pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-        result := DllCall("WMVCore.dll\WMIsContentProtected", "ptr", pwszFileName, "int*", pfIsProtected, "int")
+        result := DllCall("WMVCore.dll\WMIsContentProtected", "ptr", pwszFileName, "ptr", pfIsProtected, "int")
         if(result != 0)
             throw OSError(result)
 

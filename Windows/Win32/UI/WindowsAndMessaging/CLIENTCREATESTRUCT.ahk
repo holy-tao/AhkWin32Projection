@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about the menu and first multiple-document interface (MDI) child window of an MDI client window.
@@ -24,11 +25,14 @@ class CLIENTCREATESTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the MDI application's window menu. An MDI application can retrieve this handle from the menu of the MDI frame window by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsubmenu">GetSubMenu</a> function.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hWindowMenu {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hWindowMenu{
+        get {
+            if(!this.HasProp("__hWindowMenu"))
+                this.__hWindowMenu := HANDLE(this.ptr + 0)
+            return this.__hWindowMenu
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies optional extended information for directory enumeration and placeholder information.
@@ -34,11 +35,31 @@ class PRJ_EXTENDED_INFO extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
+    class _Symlink extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {PWSTR}
+         */
+        TargetName{
+            get {
+                if(!this.HasProp("__TargetName"))
+                    this.__TargetName := PWSTR(this.ptr + 0)
+                return this.__TargetName
+            }
+        }
+    
+    }
+
     /**
-     * @type {Pointer<Char>}
+     * @type {_Symlink}
      */
-    Anonymous {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Symlink{
+        get {
+            if(!this.HasProp("__Symlink"))
+                this.__Symlink := %this.__Class%._Symlink(this.ptr + 8)
+            return this.__Symlink
+        }
     }
 }

@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\COLORREF.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
+#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
@@ -21,31 +25,40 @@ class CHOOSECOLORA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(this.ptr + 8)
+            return this.__hwndOwner
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HWND(this.ptr + 16)
+            return this.__hInstance
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {COLORREF}
      */
-    rgbResult {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    rgbResult{
+        get {
+            if(!this.HasProp("__rgbResult"))
+                this.__rgbResult := COLORREF(this.ptr + 24)
+            return this.__rgbResult
+        }
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<COLORREF>}
      */
     lpCustColors {
         get => NumGet(this, 32, "ptr")
@@ -61,11 +74,14 @@ class CHOOSECOLORA extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(this.ptr + 48)
+            return this.__lCustData
+        }
     }
 
     /**
@@ -77,10 +93,13 @@ class CHOOSECOLORA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpTemplateName {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    lpTemplateName{
+        get {
+            if(!this.HasProp("__lpTemplateName"))
+                this.__lpTemplateName := PSTR(this.ptr + 64)
+            return this.__lpTemplateName
+        }
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\POWER_ACTION_POLICY.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\SYSTEM_POWER_LEVEL.ahk
 #Include .\GLOBAL_USER_POWER_POLICY.ahk
 #Include .\GLOBAL_MACHINE_POWER_POLICY.ahk

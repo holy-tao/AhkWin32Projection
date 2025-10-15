@@ -12,11 +12,66 @@ class NVME_CDW12_ZONE_APPEND extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - NLB
+     * - Reserved
+     * - PIREMAP
+     * - PRINFO
+     * - FUA
+     * - LR
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NLB {
+        get => (this._bitfield >> 0) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved {
+        get => (this._bitfield >> 16) & 0x1FF
+        set => this._bitfield := ((value & 0x1FF) << 16) | (this._bitfield & ~(0x1FF << 16))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PIREMAP {
+        get => (this._bitfield >> 25) & 0x1
+        set => this._bitfield := ((value & 0x1) << 25) | (this._bitfield & ~(0x1 << 25))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PRINFO {
+        get => (this._bitfield >> 26) & 0xF
+        set => this._bitfield := ((value & 0xF) << 26) | (this._bitfield & ~(0xF << 26))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FUA {
+        get => (this._bitfield >> 30) & 0x1
+        set => this._bitfield := ((value & 0x1) << 30) | (this._bitfield & ~(0x1 << 30))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    LR {
+        get => (this._bitfield >> 31) & 0x1
+        set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
     }
 
     /**

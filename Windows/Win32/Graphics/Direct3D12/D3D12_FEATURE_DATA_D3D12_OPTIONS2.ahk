@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates the level of support that the adapter provides for depth-bounds tests and programmable sample positions.
@@ -24,11 +25,14 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS2 extends Win32Struct
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-structs-and-classes?view=vs-2015">SAL</a>: <c>_Out_</c>
      * 
      * On return, contains true if depth-bounds tests are supported; otherwise, false.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    DepthBoundsTestSupported {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    DepthBoundsTestSupported{
+        get {
+            if(!this.HasProp("__DepthBoundsTestSupported"))
+                this.__DepthBoundsTestSupported := BOOL(this.ptr + 0)
+            return this.__DepthBoundsTestSupported
+        }
     }
 
     /**

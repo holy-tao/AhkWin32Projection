@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 #Include .\DDVIDEOPORTCONNECT.ahk
 
 /**
@@ -21,11 +22,14 @@ class DDVIDEOPORTSTATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    bInUse {
-        get => NumGet(this, 4, "int")
-        set => NumPut("int", value, this, 4)
+    bInUse{
+        get {
+            if(!this.HasProp("__bInUse"))
+                this.__bInUse := BOOL(this.ptr + 4)
+            return this.__bInUse
+        }
     }
 
     /**

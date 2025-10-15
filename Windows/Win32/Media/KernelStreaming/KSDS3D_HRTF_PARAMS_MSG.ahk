@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -28,27 +29,36 @@ class KSDS3D_HRTF_PARAMS_MSG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    SwapChannels {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    SwapChannels{
+        get {
+            if(!this.HasProp("__SwapChannels"))
+                this.__SwapChannels := BOOL(this.ptr + 8)
+            return this.__SwapChannels
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    ZeroAzimuth {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+    ZeroAzimuth{
+        get {
+            if(!this.HasProp("__ZeroAzimuth"))
+                this.__ZeroAzimuth := BOOL(this.ptr + 12)
+            return this.__ZeroAzimuth
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    CrossFadeOutput {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+    CrossFadeOutput{
+        get {
+            if(!this.HasProp("__CrossFadeOutput"))
+                this.__CrossFadeOutput := BOOL(this.ptr + 16)
+            return this.__CrossFadeOutput
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_NAME_PAIR structure contains the results of a call to PeerGetNextItem.
@@ -33,19 +34,25 @@ class PEER_NAME_PAIR extends Win32Struct
 
     /**
      * Specifies the peer name of the peer identity or peer group.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzPeerName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwzPeerName{
+        get {
+            if(!this.HasProp("__pwzPeerName"))
+                this.__pwzPeerName := PWSTR(this.ptr + 8)
+            return this.__pwzPeerName
+        }
     }
 
     /**
      * Specifies the friendly name of the peer identity or peer group.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwzFriendlyName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    pwzFriendlyName{
+        get {
+            if(!this.HasProp("__pwzFriendlyName"))
+                this.__pwzFriendlyName := PWSTR(this.ptr + 16)
+            return this.__pwzFriendlyName
+        }
     }
 }

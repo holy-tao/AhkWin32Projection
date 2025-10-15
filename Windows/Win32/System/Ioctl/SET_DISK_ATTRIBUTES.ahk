@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Specifies the attributes to be set on a disk device.
@@ -24,11 +25,14 @@ class SET_DISK_ATTRIBUTES extends Win32Struct
 
     /**
      * If <b>TRUE</b>, these settings are persisted across reboots.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
-    Persist {
-        get => NumGet(this, 4, "char")
-        set => NumPut("char", value, this, 4)
+    Persist{
+        get {
+            if(!this.HasProp("__Persist"))
+                this.__Persist := BOOLEAN(this.ptr + 4)
+            return this.__Persist
+        }
     }
 
     /**

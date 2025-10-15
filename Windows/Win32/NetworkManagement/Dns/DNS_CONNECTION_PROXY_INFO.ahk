@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -20,11 +21,14 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pwszFriendlyName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    pwszFriendlyName{
+        get {
+            if(!this.HasProp("__pwszFriendlyName"))
+                this.__pwszFriendlyName := PWSTR(this.ptr + 8)
+            return this.__pwszFriendlyName
+        }
     }
 
     /**
@@ -48,43 +52,58 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwszServer {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        pwszServer{
+            get {
+                if(!this.HasProp("__pwszServer"))
+                    this.__pwszServer := PWSTR(this.ptr + 0)
+                return this.__pwszServer
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwszUsername {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        pwszUsername{
+            get {
+                if(!this.HasProp("__pwszUsername"))
+                    this.__pwszUsername := PWSTR(this.ptr + 8)
+                return this.__pwszUsername
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwszPassword {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        pwszPassword{
+            get {
+                if(!this.HasProp("__pwszPassword"))
+                    this.__pwszPassword := PWSTR(this.ptr + 16)
+                return this.__pwszPassword
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwszException {
-            get => NumGet(this, 24, "ptr")
-            set => NumPut("ptr", value, this, 24)
+        pwszException{
+            get {
+                if(!this.HasProp("__pwszException"))
+                    this.__pwszException := PWSTR(this.ptr + 24)
+                return this.__pwszException
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwszExtraInfo {
-            get => NumGet(this, 32, "ptr")
-            set => NumPut("ptr", value, this, 32)
+        pwszExtraInfo{
+            get {
+                if(!this.HasProp("__pwszExtraInfo"))
+                    this.__pwszExtraInfo := PWSTR(this.ptr + 32)
+                return this.__pwszExtraInfo
+            }
         }
     
         /**
@@ -102,27 +121,36 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwszScript {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        pwszScript{
+            get {
+                if(!this.HasProp("__pwszScript"))
+                    this.__pwszScript := PWSTR(this.ptr + 0)
+                return this.__pwszScript
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwszUsername {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        pwszUsername{
+            get {
+                if(!this.HasProp("__pwszUsername"))
+                    this.__pwszUsername := PWSTR(this.ptr + 8)
+                return this.__pwszUsername
+            }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
-        pwszPassword {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        pwszPassword{
+            get {
+                if(!this.HasProp("__pwszPassword"))
+                    this.__pwszPassword := PWSTR(this.ptr + 16)
+                return this.__pwszPassword
+            }
         }
     
     }

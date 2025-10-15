@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include ..\..\PSID.ahk
 #Include .\LSA_LAST_INTER_LOGON_INFO.ahk
 
 /**
@@ -100,11 +102,14 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
 
     /**
      * A pointer to the user's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    Sid {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    Sid{
+        get {
+            if(!this.HasProp("__Sid"))
+                this.__Sid := PSID(this.ptr + 72)
+            return this.__Sid
+        }
     }
 
     /**

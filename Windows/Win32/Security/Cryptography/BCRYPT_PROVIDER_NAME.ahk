@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the name of a CNG provider.
@@ -15,10 +16,13 @@ class BCRYPT_PROVIDER_NAME extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the provider.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszProviderName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pszProviderName{
+        get {
+            if(!this.HasProp("__pszProviderName"))
+                this.__pszProviderName := PWSTR(this.ptr + 0)
+            return this.__pszProviderName
+        }
     }
 }

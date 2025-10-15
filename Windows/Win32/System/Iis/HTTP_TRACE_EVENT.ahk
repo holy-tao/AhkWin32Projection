@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -44,11 +45,14 @@ class HTTP_TRACE_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pszEventName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    pszEventName{
+        get {
+            if(!this.HasProp("__pszEventName"))
+                this.__pszEventName := PWSTR(this.ptr + 32)
+            return this.__pszEventName
+        }
     }
 
     /**

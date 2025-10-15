@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SERVER_INFO_1515 structure specifies whether the server should force a client to disconnect once the client's logon time has expired.
@@ -15,10 +16,13 @@ class SERVER_INFO_1515 extends Win32Struct
 
     /**
      * Specifies whether the server should force a client to disconnect, even if the client has open files, once the client's logon time has expired.
-     * @type {Integer}
+     * @type {BOOL}
      */
-    sv1515_enableforcedlogoff {
-        get => NumGet(this, 0, "int")
-        set => NumPut("int", value, this, 0)
+    sv1515_enableforcedlogoff{
+        get {
+            if(!this.HasProp("__sv1515_enableforcedlogoff"))
+                this.__sv1515_enableforcedlogoff := BOOL(this.ptr + 0)
+            return this.__sv1515_enableforcedlogoff
+        }
     }
 }

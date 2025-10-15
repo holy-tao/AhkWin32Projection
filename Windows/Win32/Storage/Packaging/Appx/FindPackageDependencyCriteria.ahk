@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Security\PSID.ahk
+#Include ..\..\..\Foundation\BOOL.ahk
+#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
@@ -12,26 +15,35 @@ class FindPackageDependencyCriteria extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
-    User {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    User{
+        get {
+            if(!this.HasProp("__User"))
+                this.__User := PSID(this.ptr + 0)
+            return this.__User
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
-    ScopeIsSystem {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    ScopeIsSystem{
+        get {
+            if(!this.HasProp("__ScopeIsSystem"))
+                this.__ScopeIsSystem := BOOL(this.ptr + 8)
+            return this.__ScopeIsSystem
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    PackageFamilyName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    PackageFamilyName{
+        get {
+            if(!this.HasProp("__PackageFamilyName"))
+                this.__PackageFamilyName := PWSTR(this.ptr + 16)
+            return this.__PackageFamilyName
+        }
     }
 }

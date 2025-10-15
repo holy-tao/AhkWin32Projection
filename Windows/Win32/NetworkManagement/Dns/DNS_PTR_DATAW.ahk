@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DNS_PTR_DATA structure represents a DNS pointer (PTR) record as specified in section 3.3.12 of RFC 1035.
@@ -30,10 +31,13 @@ class DNS_PTR_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the pointer (PTR) record data.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
-    pNameHost {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    pNameHost{
+        get {
+            if(!this.HasProp("__pNameHost"))
+                this.__pNameHost := PWSTR(this.ptr + 0)
+            return this.__pNameHost
+        }
     }
 }

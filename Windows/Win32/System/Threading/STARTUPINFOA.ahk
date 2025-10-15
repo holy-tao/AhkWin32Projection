@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\PSTR.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies the window station, desktop, standard handles, and appearance of the main window for a process at creation time.
@@ -43,31 +45,40 @@ class STARTUPINFOA extends Win32Struct
 
     /**
      * Reserved; must be NULL.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpReserved {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lpReserved{
+        get {
+            if(!this.HasProp("__lpReserved"))
+                this.__lpReserved := PSTR(this.ptr + 8)
+            return this.__lpReserved
+        }
     }
 
     /**
      * The name of the desktop, or the name of both the desktop and window station for this process. A backslash in the string indicates that the string includes both the desktop and window station names. 
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/winstation/thread-connection-to-a-desktop">Thread Connection to a Desktop</a>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpDesktop {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpDesktop{
+        get {
+            if(!this.HasProp("__lpDesktop"))
+                this.__lpDesktop := PSTR(this.ptr + 16)
+            return this.__lpDesktop
+        }
     }
 
     /**
      * For console processes, this is the title displayed in the title bar if a new console window is created. If NULL, the name of the executable file is used as the window title instead. This parameter must be NULL for GUI or console processes that do not create a new console window.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
-    lpTitle {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lpTitle{
+        get {
+            if(!this.HasProp("__lpTitle"))
+                this.__lpTitle := PSTR(this.ptr + 24)
+            return this.__lpTitle
+        }
     }
 
     /**
@@ -201,30 +212,39 @@ class STARTUPINFOA extends Win32Struct
      * If <b>dwFlags</b> specifies STARTF_USEHOTKEY, this member specifies a hotkey value that is sent as the <i>wParam</i> parameter of a <a href="https://docs.microsoft.com/windows/win32/inputdev/wm-sethotkey">WM_SETHOTKEY</a> message to the first  eligible top-level window created by the application that owns the process. If the window is created with the WS_POPUP window style, it is not eligible unless the WS_EX_APPWINDOW extended window style is also set. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a>.  
      * 
      * Otherwise, this member is ignored.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hStdInput {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    hStdInput{
+        get {
+            if(!this.HasProp("__hStdInput"))
+                this.__hStdInput := HANDLE(this.ptr + 80)
+            return this.__hStdInput
+        }
     }
 
     /**
      * If <b>dwFlags</b> specifies STARTF_USESTDHANDLES, this member is the standard output handle for the process. Otherwise, this member is ignored and the default for standard output is the console window's buffer.
      * 
      * If a process is launched from the taskbar or jump list, the system sets <b>hStdOutput</b> to a handle to the monitor that contains the taskbar or jump list used to launch the process. For more information, see Remarks.<b>Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2008, Windows XP and Windows Server 2003:  </b>This behavior was introduced in Windows 8 and Windows Server 2012.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hStdOutput {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    hStdOutput{
+        get {
+            if(!this.HasProp("__hStdOutput"))
+                this.__hStdOutput := HANDLE(this.ptr + 88)
+            return this.__hStdOutput
+        }
     }
 
     /**
      * If <b>dwFlags</b> specifies STARTF_USESTDHANDLES, this member is the standard error handle for the process. Otherwise, this member is ignored and the default for standard error is the console window's buffer.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hStdError {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    hStdError{
+        get {
+            if(!this.HasProp("__hStdError"))
+                this.__hStdError := HANDLE(this.ptr + 96)
+            return this.__hStdError
+        }
     }
 }

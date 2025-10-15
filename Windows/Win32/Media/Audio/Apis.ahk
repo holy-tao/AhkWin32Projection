@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
@@ -2315,55 +2315,57 @@ class Audio {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszSound 
+     * @param {PSTR} pszSound 
      * @param {Integer} fuSound 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static sndPlaySoundA(pszSound, fuSound) {
-        pszSound := pszSound is String? StrPtr(pszSound) : pszSound
+        pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
 
-        result := DllCall("WINMM.dll\sndPlaySoundA", "ptr", pszSound, "uint", fuSound, "int")
+        result := DllCall("WINMM.dll\sndPlaySoundA", "ptr", pszSound, "uint", fuSound, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} pszSound 
+     * @param {PWSTR} pszSound 
      * @param {Integer} fuSound 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static sndPlaySoundW(pszSound, fuSound) {
-        pszSound := pszSound is String? StrPtr(pszSound) : pszSound
+        pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
 
-        result := DllCall("WINMM.dll\sndPlaySoundW", "ptr", pszSound, "uint", fuSound, "int")
+        result := DllCall("WINMM.dll\sndPlaySoundW", "ptr", pszSound, "uint", fuSound, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} pszSound 
-     * @param {Pointer<Void>} hmod 
+     * @param {PSTR} pszSound 
+     * @param {HMODULE} hmod 
      * @param {Integer} fdwSound 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static PlaySoundA(pszSound, hmod, fdwSound) {
-        pszSound := pszSound is String? StrPtr(pszSound) : pszSound
+        pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
+        hmod := hmod is Win32Handle ? NumGet(hmod, "ptr") : hmod
 
-        result := DllCall("WINMM.dll\PlaySoundA", "ptr", pszSound, "ptr", hmod, "uint", fdwSound, "int")
+        result := DllCall("WINMM.dll\PlaySoundA", "ptr", pszSound, "ptr", hmod, "uint", fdwSound, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} pszSound 
-     * @param {Pointer<Void>} hmod 
+     * @param {PWSTR} pszSound 
+     * @param {HMODULE} hmod 
      * @param {Integer} fdwSound 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static PlaySoundW(pszSound, hmod, fdwSound) {
-        pszSound := pszSound is String? StrPtr(pszSound) : pszSound
+        pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
+        hmod := hmod is Win32Handle ? NumGet(hmod, "ptr") : hmod
 
-        result := DllCall("WINMM.dll\PlaySoundW", "ptr", pszSound, "ptr", hmod, "uint", fdwSound, "int")
+        result := DllCall("WINMM.dll\PlaySoundW", "ptr", pszSound, "ptr", hmod, "uint", fdwSound, "ptr")
         return result
     }
 
@@ -2404,7 +2406,7 @@ class Audio {
 
     /**
      * The waveOutGetVolume function retrieves the current volume level of the specified waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to an open waveform-audio output device. This parameter can also be a device identifier.
+     * @param {HWAVEOUT} hwo Handle to an open waveform-audio output device. This parameter can also be a device identifier.
      * @param {Pointer<UInt32>} pdwVolume Pointer to a variable to be filled with the current volume setting. The low-order word of this location contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
      * If a device does not support both left and right volume control, the low-order word of the specified location contains the mono volume level.
@@ -2466,13 +2468,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutGetVolume(hwo, pdwVolume) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutGetVolume", "ptr", hwo, "uint*", pdwVolume, "uint")
         return result
     }
 
     /**
      * The waveOutSetVolume function sets the volume level of the specified waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to an open waveform-audio output device. This parameter can also be a device identifier.
+     * @param {HWAVEOUT} hwo Handle to an open waveform-audio output device. This parameter can also be a device identifier.
      * @param {Integer} dwVolume New volume setting. The low-order word contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
      * If a device does not support both left and right volume control, the low-order word of <i>dwVolume</i> specifies the volume level, and the high-order word is ignored.
@@ -2532,6 +2536,8 @@ class Audio {
      * @since windows5.0
      */
     static waveOutSetVolume(hwo, dwVolume) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutSetVolume", "ptr", hwo, "uint", dwVolume, "uint")
         return result
     }
@@ -2539,12 +2545,12 @@ class Audio {
     /**
      * 
      * @param {Integer} mmrError 
-     * @param {Pointer<Byte>} pszText 
+     * @param {PSTR} pszText 
      * @param {Integer} cchText 
      * @returns {Integer} 
      */
     static waveOutGetErrorTextA(mmrError, pszText, cchText) {
-        pszText := pszText is String? StrPtr(pszText) : pszText
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("WINMM.dll\waveOutGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
@@ -2553,12 +2559,12 @@ class Audio {
     /**
      * 
      * @param {Integer} mmrError 
-     * @param {Pointer<Char>} pszText 
+     * @param {PWSTR} pszText 
      * @param {Integer} cchText 
      * @returns {Integer} 
      */
     static waveOutGetErrorTextW(mmrError, pszText, cchText) {
-        pszText := pszText is String? StrPtr(pszText) : pszText
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("WINMM.dll\waveOutGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
@@ -2566,7 +2572,7 @@ class Audio {
 
     /**
      * The waveOutOpen function opens the given waveform-audio output device for playback.
-     * @param {Pointer<Void>} phwo Pointer to a buffer that receives a handle identifying the open waveform-audio output device. Use the handle to identify the device when calling other waveform-audio output functions. This parameter might be <b>NULL</b> if the <b>WAVE_FORMAT_QUERY</b> flag is specified for <i>fdwOpen</i>.
+     * @param {Pointer<HWAVEOUT>} phwo Pointer to a buffer that receives a handle identifying the open waveform-audio output device. Use the handle to identify the device when calling other waveform-audio output functions. This parameter might be <b>NULL</b> if the <b>WAVE_FORMAT_QUERY</b> flag is specified for <i>fdwOpen</i>.
      * @param {Integer} uDeviceID Identifier of the waveform-audio output device to open. It can be either a device identifier or a handle of an open waveform-audio input device. You can also use the following flag instead of a device identifier:
      * 
      * <table>
@@ -2735,7 +2741,7 @@ class Audio {
 
     /**
      * The waveOutClose function closes the given waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device. If the function succeeds, the handle is no longer valid after this call.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device. If the function succeeds, the handle is no longer valid after this call.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -2792,13 +2798,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutClose(hwo) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutClose", "ptr", hwo, "uint")
         return result
     }
 
     /**
      * The waveOutPrepareHeader function prepares a waveform-audio data block for playback.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the data block to be prepared.
      * @param {Integer} cbwh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure.
      * @returns {Integer} Returns <b>MMSYSERR_NOERROR</b> if successful or an error otherwise. Possible error values include the following.
@@ -2846,13 +2854,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutPrepareHeader(hwo, pwh, cbwh) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutPrepareHeader", "ptr", hwo, "ptr", pwh, "uint", cbwh, "uint")
         return result
     }
 
     /**
      * The waveOutUnprepareHeader function cleans up the preparation performed by the waveOutPrepareHeader function. This function must be called after the device driver is finished with a data block. You must call this function before freeing the buffer.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure identifying the data block to be cleaned up.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -2911,13 +2921,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutUnprepareHeader(hwo, pwh, cbwh) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutUnprepareHeader", "ptr", hwo, "ptr", pwh, "uint", cbwh, "uint")
         return result
     }
 
     /**
      * The waveOutWrite function sends a data block to the given waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure containing information about the data block.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -2976,13 +2988,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutWrite(hwo, pwh, cbwh) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutWrite", "ptr", hwo, "ptr", pwh, "uint", cbwh, "uint")
         return result
     }
 
     /**
      * The waveOutPause function pauses playback on the given waveform-audio output device. The current position is saved. Use the waveOutRestart function to resume playback from the current position.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -3039,13 +3053,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutPause(hwo) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutPause", "ptr", hwo, "uint")
         return result
     }
 
     /**
      * The waveOutRestart function resumes playback on a paused waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -3102,13 +3118,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutRestart(hwo) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutRestart", "ptr", hwo, "uint")
         return result
     }
 
     /**
      * The waveOutReset function stops playback on the given waveform-audio output device and resets the current position to zero. All pending playback buffers are marked as done (WHDR_DONE) and returned to the application.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -3165,13 +3183,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutReset(hwo) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutReset", "ptr", hwo, "uint")
         return result
     }
 
     /**
      * The waveOutBreakLoop function breaks a loop on the given waveform-audio output device and allows playback to continue with the next block in the driver list.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -3217,13 +3237,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutBreakLoop(hwo) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutBreakLoop", "ptr", hwo, "uint")
         return result
     }
 
     /**
      * The waveOutGetPosition function retrieves the current playback position of the given waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <b>MMTIME</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -3271,13 +3293,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutGetPosition(hwo, pmmt, cbmmt) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutGetPosition", "ptr", hwo, "ptr", pmmt, "uint", cbmmt, "uint")
         return result
     }
 
     /**
      * The waveOutGetPitch function retrieves the current pitch setting for the specified waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer<UInt32>} pdwPitch Pointer to a variable to be filled with the current pitch multiplier setting. The pitch multiplier indicates the current change in pitch from the original authored setting. The pitch multiplier must be a positive value.
      * 
      * The pitch multiplier is specified as a fixed-point value. The high-order word of the variable contains the signed integer part of the number, and the low-order word contains the fractional part. A value of 0x8000 in the low-order word represents one-half, and 0x4000 represents one-quarter. For example, the value 0x00010000 specifies a multiplier of 1.0 (no pitch change), and a value of 0x000F8000 specifies a multiplier of 15.5.
@@ -3337,13 +3361,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutGetPitch(hwo, pdwPitch) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutGetPitch", "ptr", hwo, "uint*", pdwPitch, "uint")
         return result
     }
 
     /**
      * The waveOutSetPitch function sets the pitch for the specified waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Integer} dwPitch New pitch multiplier setting. This setting indicates the current change in pitch from the original authored setting. The pitch multiplier must be a positive value.
      * 
      * The pitch multiplier is specified as a fixed-point value. The high-order word contains the signed integer part of the number, and the low-order word contains the fractional part. A value of 0x8000 in the low-order word represents one-half, and 0x4000 represents one-quarter. For example, the value 0x00010000 specifies a multiplier of 1.0 (no pitch change), and a value of 0x000F8000 specifies a multiplier of 15.5.
@@ -3403,13 +3429,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutSetPitch(hwo, dwPitch) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutSetPitch", "ptr", hwo, "uint", dwPitch, "uint")
         return result
     }
 
     /**
      * The waveOutGetPlaybackRate function retrieves the current playback rate for the specified waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer<UInt32>} pdwRate Pointer to a variable to be filled with the current playback rate. The playback rate setting is a multiplier indicating the current change in playback rate from the original authored setting. The playback rate multiplier must be a positive value.
      * 
      * The rate is specified as a fixed-point value. The high-order word of the variable contains the signed integer part of the number, and the low-order word contains the fractional part. A value of 0x8000 in the low-order word represents one-half, and 0x4000 represents one-quarter. For example, the value 0x00010000 specifies a multiplier of 1.0 (no playback rate change), and a value of 0x000F8000 specifies a multiplier of 15.5.
@@ -3469,13 +3497,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutGetPlaybackRate(hwo, pdwRate) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutGetPlaybackRate", "ptr", hwo, "uint*", pdwRate, "uint")
         return result
     }
 
     /**
      * The waveOutSetPlaybackRate function sets the playback rate for the specified waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Integer} dwRate New playback rate setting. This setting is a multiplier indicating the current change in playback rate from the original authored setting. The playback rate multiplier must be a positive value.
      * 
      * The rate is specified as a fixed-point value. The high-order word contains the signed integer part of the number, and the low-order word contains the fractional part. A value of 0x8000 in the low-order word represents one-half, and 0x4000 represents one-quarter. For example, the value 0x00010000 specifies a multiplier of 1.0 (no playback rate change), and a value of 0x000F8000 specifies a multiplier of 15.5.
@@ -3535,13 +3565,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutSetPlaybackRate(hwo, dwRate) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutSetPlaybackRate", "ptr", hwo, "uint", dwRate, "uint")
         return result
     }
 
     /**
      * The waveOutGetID function retrieves the device identifier for the given waveform-audio output device.
-     * @param {Pointer<Void>} hwo Handle to the waveform-audio output device.
+     * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
      * @param {Pointer<UInt32>} puDeviceID Pointer to a variable to be filled with the device identifier.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -3588,13 +3620,15 @@ class Audio {
      * @since windows5.0
      */
     static waveOutGetID(hwo, puDeviceID) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutGetID", "ptr", hwo, "uint*", puDeviceID, "uint")
         return result
     }
 
     /**
      * The waveOutMessage function sends messages to the waveform-audio output device drivers.
-     * @param {Pointer<Void>} hwo Identifier of the waveform device that receives the message. You must cast the device ID to the <b>HWAVEOUT</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
+     * @param {HWAVEOUT} hwo Identifier of the waveform device that receives the message. You must cast the device ID to the <b>HWAVEOUT</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
      * @param {Integer} uMsg Message to send.
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
@@ -3603,6 +3637,8 @@ class Audio {
      * @since windows5.0
      */
     static waveOutMessage(hwo, uMsg, dw1, dw2) {
+        hwo := hwo is Win32Handle ? NumGet(hwo, "ptr") : hwo
+
         result := DllCall("WINMM.dll\waveOutMessage", "ptr", hwo, "uint", uMsg, "ptr", dw1, "ptr", dw2, "uint")
         return result
     }
@@ -3645,12 +3681,12 @@ class Audio {
     /**
      * 
      * @param {Integer} mmrError 
-     * @param {Pointer<Byte>} pszText 
+     * @param {PSTR} pszText 
      * @param {Integer} cchText 
      * @returns {Integer} 
      */
     static waveInGetErrorTextA(mmrError, pszText, cchText) {
-        pszText := pszText is String? StrPtr(pszText) : pszText
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("WINMM.dll\waveInGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
@@ -3659,12 +3695,12 @@ class Audio {
     /**
      * 
      * @param {Integer} mmrError 
-     * @param {Pointer<Char>} pszText 
+     * @param {PWSTR} pszText 
      * @param {Integer} cchText 
      * @returns {Integer} 
      */
     static waveInGetErrorTextW(mmrError, pszText, cchText) {
-        pszText := pszText is String? StrPtr(pszText) : pszText
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("WINMM.dll\waveInGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
@@ -3672,7 +3708,7 @@ class Audio {
 
     /**
      * The waveInOpen function opens the given waveform-audio input device for recording.
-     * @param {Pointer<Void>} phwi Pointer to a buffer that receives a handle identifying the open waveform-audio input device. Use this handle to identify the device when calling other waveform-audio input functions. This parameter can be <b>NULL</b> if <b>WAVE_FORMAT_QUERY</b> is specified for <i>fdwOpen</i>.
+     * @param {Pointer<HWAVEIN>} phwi Pointer to a buffer that receives a handle identifying the open waveform-audio input device. Use this handle to identify the device when calling other waveform-audio input functions. This parameter can be <b>NULL</b> if <b>WAVE_FORMAT_QUERY</b> is specified for <i>fdwOpen</i>.
      * @param {Integer} uDeviceID Identifier of the waveform-audio input device to open. It can be either a device identifier or a handle of an open waveform-audio input device. You can use the following flag instead of a device identifier.
      * 
      * <table>
@@ -3818,7 +3854,7 @@ class Audio {
 
     /**
      * The waveInClose function closes the given waveform-audio input device.
-     * @param {Pointer<Void>} hwi Handle to the waveform-audio input device. If the function succeeds, the handle is no longer valid after this call.
+     * @param {HWAVEIN} hwi Handle to the waveform-audio input device. If the function succeeds, the handle is no longer valid after this call.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -3875,13 +3911,15 @@ class Audio {
      * @since windows5.0
      */
     static waveInClose(hwi) {
+        hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
+
         result := DllCall("WINMM.dll\waveInClose", "ptr", hwi, "uint")
         return result
     }
 
     /**
      * The waveInPrepareHeader function prepares a buffer for waveform-audio input.
-     * @param {Pointer<Void>} hwi Handle to the waveform-audio input device.
+     * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the buffer to be prepared.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -3929,13 +3967,15 @@ class Audio {
      * @since windows5.0
      */
     static waveInPrepareHeader(hwi, pwh, cbwh) {
+        hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
+
         result := DllCall("WINMM.dll\waveInPrepareHeader", "ptr", hwi, "ptr", pwh, "uint", cbwh, "uint")
         return result
     }
 
     /**
      * The waveInUnprepareHeader function cleans up the preparation performed by the waveInPrepareHeader function.
-     * @param {Pointer<Void>} hwi Handle to the waveform-audio input device.
+     * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure identifying the buffer to be cleaned up.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -3994,13 +4034,15 @@ class Audio {
      * @since windows5.0
      */
     static waveInUnprepareHeader(hwi, pwh, cbwh) {
+        hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
+
         result := DllCall("WINMM.dll\waveInUnprepareHeader", "ptr", hwi, "ptr", pwh, "uint", cbwh, "uint")
         return result
     }
 
     /**
      * The waveInAddBuffer function sends an input buffer to the given waveform-audio input device. When the buffer is filled, the application is notified.
-     * @param {Pointer<Void>} hwi Handle to the waveform-audio input device.
+     * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the buffer.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -4059,13 +4101,15 @@ class Audio {
      * @since windows5.0
      */
     static waveInAddBuffer(hwi, pwh, cbwh) {
+        hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
+
         result := DllCall("WINMM.dll\waveInAddBuffer", "ptr", hwi, "ptr", pwh, "uint", cbwh, "uint")
         return result
     }
 
     /**
      * The waveInStart function starts input on the given waveform-audio input device.
-     * @param {Pointer<Void>} hwi Handle to the waveform-audio input device.
+     * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -4111,13 +4155,15 @@ class Audio {
      * @since windows5.0
      */
     static waveInStart(hwi) {
+        hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
+
         result := DllCall("WINMM.dll\waveInStart", "ptr", hwi, "uint")
         return result
     }
 
     /**
      * The waveInStop function stops waveform-audio input.
-     * @param {Pointer<Void>} hwi Handle to the waveform-audio input device.
+     * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -4163,13 +4209,15 @@ class Audio {
      * @since windows5.0
      */
     static waveInStop(hwi) {
+        hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
+
         result := DllCall("WINMM.dll\waveInStop", "ptr", hwi, "uint")
         return result
     }
 
     /**
      * The waveInReset function stops input on the given waveform-audio input device and resets the current position to zero. All pending buffers are marked as done and returned to the application.
-     * @param {Pointer<Void>} hwi Handle to the waveform-audio input device.
+     * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -4215,13 +4263,15 @@ class Audio {
      * @since windows5.0
      */
     static waveInReset(hwi) {
+        hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
+
         result := DllCall("WINMM.dll\waveInReset", "ptr", hwi, "uint")
         return result
     }
 
     /**
      * waveInGetPosition is no longer supported for use as of Windows Vista.
-     * @param {Pointer<Void>} hwi Handle to the waveform-audio input device.
+     * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @param {Pointer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -4270,13 +4320,15 @@ class Audio {
      * @since windows5.0
      */
     static waveInGetPosition(hwi, pmmt, cbmmt) {
+        hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
+
         result := DllCall("WINMM.dll\waveInGetPosition", "ptr", hwi, "ptr", pmmt, "uint", cbmmt, "uint")
         return result
     }
 
     /**
      * The waveInGetID function gets the device identifier for the given waveform-audio input device.
-     * @param {Pointer<Void>} hwi Handle to the waveform-audio input device.
+     * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
      * @param {Pointer<UInt32>} puDeviceID Pointer to a variable to be filled with the device identifier.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -4323,13 +4375,15 @@ class Audio {
      * @since windows5.0
      */
     static waveInGetID(hwi, puDeviceID) {
+        hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
+
         result := DllCall("WINMM.dll\waveInGetID", "ptr", hwi, "uint*", puDeviceID, "uint")
         return result
     }
 
     /**
      * The waveInMessage function sends messages to the waveform-audio input device drivers.
-     * @param {Pointer<Void>} hwi Identifier of the waveform device that receives the message. You must cast the device ID to the <b>HWAVEIN</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
+     * @param {HWAVEIN} hwi Identifier of the waveform device that receives the message. You must cast the device ID to the <b>HWAVEIN</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
      * @param {Integer} uMsg Message to send.
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
@@ -4338,6 +4392,8 @@ class Audio {
      * @since windows5.0
      */
     static waveInMessage(hwi, uMsg, dw1, dw2) {
+        hwi := hwi is Win32Handle ? NumGet(hwi, "ptr") : hwi
+
         result := DllCall("WINMM.dll\waveInMessage", "ptr", hwi, "uint", uMsg, "ptr", dw1, "ptr", dw2, "uint")
         return result
     }
@@ -4355,7 +4411,7 @@ class Audio {
 
     /**
      * The midiStreamOpen function opens a MIDI stream for output. By default, the device is opened in paused mode. The stream handle retrieved by this function must be used in all subsequent references to the stream.
-     * @param {Pointer<Void>} phms Pointer to a variable to contain the stream handle when the function returns.
+     * @param {Pointer<HMIDISTRM>} phms Pointer to a variable to contain the stream handle when the function returns.
      * @param {Pointer<UInt32>} puDeviceID Pointer to a device identifier. The device is opened on behalf of the stream and closed again when the stream is closed.
      * @param {Integer} cMidi Reserved; must be 1.
      * @param {Pointer} dwCallback Pointer to a callback function, an event handle, a thread identifier, or a handle of a window or thread called during MIDI playback to process messages related to the progress of the playback. If no callback mechanism is desired, specify <b>NULL</b> for this parameter.
@@ -4441,7 +4497,7 @@ class Audio {
 
     /**
      * The midiStreamClose function closes an open MIDI stream.
-     * @param {Pointer<Void>} hms Handle to a MIDI stream, as retrieved by using the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function.
+     * @param {HMIDISTRM} hms Handle to a MIDI stream, as retrieved by using the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -4465,13 +4521,15 @@ class Audio {
      * @since windows5.0
      */
     static midiStreamClose(hms) {
+        hms := hms is Win32Handle ? NumGet(hms, "ptr") : hms
+
         result := DllCall("WINMM.dll\midiStreamClose", "ptr", hms, "uint")
         return result
     }
 
     /**
      * The midiStreamProperty function sets or retrieves properties of a MIDI data stream associated with a MIDI output device.
-     * @param {Pointer<Void>} hms Handle to the MIDI device that the property is associated with.
+     * @param {HMIDISTRM} hms Handle to the MIDI device that the property is associated with.
      * @param {Pointer<Byte>} lppropdata Pointer to the property data.
      * @param {Integer} dwProperty Flags that specify the action to perform and identify the appropriate property of the MIDI data stream. The <b>midiStreamProperty</b> function requires setting two flags in each use. One flag (either MIDIPROP_GET or MIDIPROP_SET) specifies an action, and the other identifies a specific property to examine or edit.
      * 
@@ -4533,13 +4591,15 @@ class Audio {
      * @since windows5.0
      */
     static midiStreamProperty(hms, lppropdata, dwProperty) {
+        hms := hms is Win32Handle ? NumGet(hms, "ptr") : hms
+
         result := DllCall("WINMM.dll\midiStreamProperty", "ptr", hms, "char*", lppropdata, "uint", dwProperty, "uint")
         return result
     }
 
     /**
      * The midiStreamPosition function retrieves the current position in a MIDI stream.
-     * @param {Pointer<Void>} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
+     * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
      * @param {Pointer} lpmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -4576,13 +4636,15 @@ class Audio {
      * @since windows5.0
      */
     static midiStreamPosition(hms, lpmmt, cbmmt) {
+        hms := hms is Win32Handle ? NumGet(hms, "ptr") : hms
+
         result := DllCall("WINMM.dll\midiStreamPosition", "ptr", hms, "ptr", lpmmt, "uint", cbmmt, "uint")
         return result
     }
 
     /**
      * The midiStreamOut function plays or queues a stream (buffer) of MIDI data to a MIDI output device.
-     * @param {Pointer<Void>} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
+     * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the MIDI buffer.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -4652,13 +4714,15 @@ class Audio {
      * @since windows5.0
      */
     static midiStreamOut(hms, pmh, cbmh) {
+        hms := hms is Win32Handle ? NumGet(hms, "ptr") : hms
+
         result := DllCall("WINMM.dll\midiStreamOut", "ptr", hms, "ptr", pmh, "uint", cbmh, "uint")
         return result
     }
 
     /**
      * The midiStreamPause function pauses playback of a specified MIDI stream.
-     * @param {Pointer<Void>} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798448(v=vs.85)">MIDIEVENT</a> function. This handle identifies the output device.
+     * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798448(v=vs.85)">MIDIEVENT</a> function. This handle identifies the output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -4682,13 +4746,15 @@ class Audio {
      * @since windows5.0
      */
     static midiStreamPause(hms) {
+        hms := hms is Win32Handle ? NumGet(hms, "ptr") : hms
+
         result := DllCall("WINMM.dll\midiStreamPause", "ptr", hms, "uint")
         return result
     }
 
     /**
      * The midiStreamRestart function restarts a paused MIDI stream.
-     * @param {Pointer<Void>} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
+     * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -4712,13 +4778,15 @@ class Audio {
      * @since windows5.0
      */
     static midiStreamRestart(hms) {
+        hms := hms is Win32Handle ? NumGet(hms, "ptr") : hms
+
         result := DllCall("WINMM.dll\midiStreamRestart", "ptr", hms, "uint")
         return result
     }
 
     /**
      * The midiStreamStop function turns off all notes on all MIDI channels for the specified MIDI output device.
-     * @param {Pointer<Void>} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
+     * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -4742,14 +4810,16 @@ class Audio {
      * @since windows5.0
      */
     static midiStreamStop(hms) {
+        hms := hms is Win32Handle ? NumGet(hms, "ptr") : hms
+
         result := DllCall("WINMM.dll\midiStreamStop", "ptr", hms, "uint")
         return result
     }
 
     /**
      * The midiConnect function connects a MIDI input device to a MIDI thru or output device, or connects a MIDI thru device to a MIDI output device.
-     * @param {Pointer<Void>} hmi Handle to a MIDI input device or a MIDI thru device. (For thru devices, this handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798476(v=vs.85)">midiOutOpen</a> function.)
-     * @param {Pointer<Void>} hmo Handle to the MIDI output or thru device.
+     * @param {HMIDI} hmi Handle to a MIDI input device or a MIDI thru device. (For thru devices, this handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798476(v=vs.85)">midiOutOpen</a> function.)
+     * @param {HMIDIOUT} hmo Handle to the MIDI output or thru device.
      * @param {Pointer<Void>} pReserved Reserved; must be <b>NULL</b>.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -4785,14 +4855,17 @@ class Audio {
      * @since windows5.0
      */
     static midiConnect(hmi, hmo, pReserved) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiConnect", "ptr", hmi, "ptr", hmo, "ptr", pReserved, "uint")
         return result
     }
 
     /**
      * The midiDisconnect function disconnects a MIDI input device from a MIDI thru or output device, or disconnects a MIDI thru device from a MIDI output device.
-     * @param {Pointer<Void>} hmi Handle to a MIDI input device or a MIDI thru device.
-     * @param {Pointer<Void>} hmo Handle to the MIDI output device to be disconnected.
+     * @param {HMIDI} hmi Handle to a MIDI input device or a MIDI thru device.
+     * @param {HMIDIOUT} hmo Handle to the MIDI output device to be disconnected.
      * @param {Pointer<Void>} pReserved Reserved; must be <b>NULL</b>.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following:.
      * 
@@ -4817,6 +4890,9 @@ class Audio {
      * @since windows5.0
      */
     static midiDisconnect(hmi, hmo, pReserved) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiDisconnect", "ptr", hmi, "ptr", hmo, "ptr", pReserved, "uint")
         return result
     }
@@ -4957,7 +5033,7 @@ class Audio {
 
     /**
      * The midiOutGetVolume function retrieves the current volume setting of a MIDI output device.
-     * @param {Pointer<Void>} hmo Handle to an open MIDI output device. This parameter can also contain the handle of a MIDI stream, as long as it is cast to <b>HMIDIOUT</b>. This parameter can also be a device identifier.
+     * @param {HMIDIOUT} hmo Handle to an open MIDI output device. This parameter can also contain the handle of a MIDI stream, as long as it is cast to <b>HMIDIOUT</b>. This parameter can also be a device identifier.
      * @param {Pointer<UInt32>} pdwVolume Pointer to the location to contain the current volume setting. The low-order word of this location contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
      * If a device does not support both left and right volume control, the low-order word of the specified location contains the mono volume level.
@@ -5019,13 +5095,15 @@ class Audio {
      * @since windows5.0
      */
     static midiOutGetVolume(hmo, pdwVolume) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutGetVolume", "ptr", hmo, "uint*", pdwVolume, "uint")
         return result
     }
 
     /**
      * The midiOutSetVolume function sets the volume of a MIDI output device.
-     * @param {Pointer<Void>} hmo Handle to an open MIDI output device. This parameter can also contain the handle of a MIDI stream, as long as it is cast to <b>HMIDIOUT</b>. This parameter can also be a device identifier.
+     * @param {HMIDIOUT} hmo Handle to an open MIDI output device. This parameter can also contain the handle of a MIDI stream, as long as it is cast to <b>HMIDIOUT</b>. This parameter can also be a device identifier.
      * @param {Integer} dwVolume New volume setting. The low-order word contains the left-channel volume setting, and the high-order word contains the right-channel setting. A value of 0xFFFF represents full volume, and a value of 0x0000 is silence.
      * 
      * If a device does not support both left and right volume control, the low-order word of <i>dwVolume</i> specifies the mono volume level, and the high-order word is ignored.
@@ -5074,6 +5152,8 @@ class Audio {
      * @since windows5.0
      */
     static midiOutSetVolume(hmo, dwVolume) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutSetVolume", "ptr", hmo, "uint", dwVolume, "uint")
         return result
     }
@@ -5081,7 +5161,7 @@ class Audio {
     /**
      * The midiOutGetErrorText function retrieves a textual description for an error identified by the specified error code.
      * @param {Integer} mmrError Error code.
-     * @param {Pointer<Byte>} pszText Pointer to a buffer to be filled with the textual error description.
+     * @param {PSTR} pszText Pointer to a buffer to be filled with the textual error description.
      * @param {Integer} cchText Length, in characters, of the buffer pointed to by <i>lpText</i>.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5117,7 +5197,7 @@ class Audio {
      * @since windows5.0
      */
     static midiOutGetErrorTextA(mmrError, pszText, cchText) {
-        pszText := pszText is String? StrPtr(pszText) : pszText
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("WINMM.dll\midiOutGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
@@ -5126,7 +5206,7 @@ class Audio {
     /**
      * The midiOutGetErrorText function retrieves a textual description for an error identified by the specified error code.
      * @param {Integer} mmrError Error code.
-     * @param {Pointer<Char>} pszText Pointer to a buffer to be filled with the textual error description.
+     * @param {PWSTR} pszText Pointer to a buffer to be filled with the textual error description.
      * @param {Integer} cchText Length, in characters, of the buffer pointed to by <i>lpText</i>.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5162,7 +5242,7 @@ class Audio {
      * @since windows5.0
      */
     static midiOutGetErrorTextW(mmrError, pszText, cchText) {
-        pszText := pszText is String? StrPtr(pszText) : pszText
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("WINMM.dll\midiOutGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
@@ -5170,7 +5250,7 @@ class Audio {
 
     /**
      * The midiOutOpen function opens a MIDI output device for playback.
-     * @param {Pointer<Void>} phmo Pointer to an <b>HMIDIOUT</b> handle. This location is filled with a handle identifying the opened MIDI output device. The handle is used to identify the device in calls to other MIDI output functions.
+     * @param {Pointer<HMIDIOUT>} phmo Pointer to an <b>HMIDIOUT</b> handle. This location is filled with a handle identifying the opened MIDI output device. The handle is used to identify the device in calls to other MIDI output functions.
      * @param {Integer} uDeviceID Identifier of the MIDI output device that is to be opened.
      * @param {Pointer} dwCallback Pointer to a callback function, an event handle, a thread identifier, or a handle of a window or thread called during MIDI playback to process messages related to the progress of the playback. If no callback is desired, specify <b>NULL</b> for this parameter. For more information on the callback function, see <a href="https://docs.microsoft.com/previous-versions/dd798478(v=vs.85)">MidiOutProc</a>.
      * @param {Pointer} dwInstance User instance data passed to the callback. This parameter is not used with window callbacks or threads.
@@ -5277,7 +5357,7 @@ class Audio {
 
     /**
      * The midiOutClose function closes the specified MIDI output device.
-     * @param {Pointer<Void>} hmo Handle to the MIDI output device. If the function is successful, the handle is no longer valid after the call to this function.
+     * @param {HMIDIOUT} hmo Handle to the MIDI output device. If the function is successful, the handle is no longer valid after the call to this function.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -5323,13 +5403,15 @@ class Audio {
      * @since windows5.0
      */
     static midiOutClose(hmo) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutClose", "ptr", hmo, "uint")
         return result
     }
 
     /**
      * The midiOutPrepareHeader function prepares a MIDI system-exclusive or stream buffer for output.
-     * @param {Pointer<Void>} hmo Handle to the MIDI output device. To get the device handle, call <a href="https://docs.microsoft.com/previous-versions/dd798476(v=vs.85)">midiOutOpen</a>. This parameter can also be the handle of a MIDI stream cast to a <b>HMIDIOUT</b> type.
+     * @param {HMIDIOUT} hmo Handle to the MIDI output device. To get the device handle, call <a href="https://docs.microsoft.com/previous-versions/dd798476(v=vs.85)">midiOutOpen</a>. This parameter can also be the handle of a MIDI stream cast to a <b>HMIDIOUT</b> type.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer to be prepared.
      *           
      * 
@@ -5380,13 +5462,15 @@ class Audio {
      * @since windows5.0
      */
     static midiOutPrepareHeader(hmo, pmh, cbmh) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutPrepareHeader", "ptr", hmo, "ptr", pmh, "uint", cbmh, "uint")
         return result
     }
 
     /**
      * The midiOutUnprepareHeader function cleans up the preparation performed by the midiOutPrepareHeader function.
-     * @param {Pointer<Void>} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
+     * @param {HMIDIOUT} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure identifying the buffer to be cleaned up.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -5434,13 +5518,15 @@ class Audio {
      * @since windows5.0
      */
     static midiOutUnprepareHeader(hmo, pmh, cbmh) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutUnprepareHeader", "ptr", hmo, "ptr", pmh, "uint", cbmh, "uint")
         return result
     }
 
     /**
      * The midiOutShortMsg function sends a short MIDI message to the specified MIDI output device.
-     * @param {Pointer<Void>} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
+     * @param {HMIDIOUT} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
      * @param {Integer} dwMsg MIDI message. The message is packed into a <b>DWORD</b> value with the first byte of the message in the low-order byte. The message is packed into this parameter as follows.
      * 
      * <table>
@@ -5552,13 +5638,15 @@ class Audio {
      * @since windows5.0
      */
     static midiOutShortMsg(hmo, dwMsg) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutShortMsg", "ptr", hmo, "uint", dwMsg, "uint")
         return result
     }
 
     /**
      * The midiOutLongMsg function sends a system-exclusive MIDI message to the specified MIDI output device.
-     * @param {Pointer<Void>} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
+     * @param {HMIDIOUT} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the MIDI buffer.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -5617,13 +5705,15 @@ class Audio {
      * @since windows5.0
      */
     static midiOutLongMsg(hmo, pmh, cbmh) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutLongMsg", "ptr", hmo, "ptr", pmh, "uint", cbmh, "uint")
         return result
     }
 
     /**
      * The midiOutReset function turns off all notes on all MIDI channels for the specified MIDI output device.
-     * @param {Pointer<Void>} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
+     * @param {HMIDIOUT} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -5647,13 +5737,15 @@ class Audio {
      * @since windows5.0
      */
     static midiOutReset(hmo) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutReset", "ptr", hmo, "uint")
         return result
     }
 
     /**
      * The midiOutCachePatches function requests that an internal MIDI synthesizer device preload and cache a specified set of patches.
-     * @param {Pointer<Void>} hmo Handle to the opened MIDI output device. This device must be an internal MIDI synthesizer. This parameter can also be the handle of a MIDI stream, cast to <b>HMIDIOUT</b>.
+     * @param {HMIDIOUT} hmo Handle to the opened MIDI output device. This device must be an internal MIDI synthesizer. This parameter can also be the handle of a MIDI stream, cast to <b>HMIDIOUT</b>.
      * @param {Integer} uBank Bank of patches that should be used. This parameter should be set to zero to cache the default patch bank.
      * @param {Pointer<UInt16>} pwpa Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Multimedia/patcharray">PATCHARRAY</a> array indicating the patches to be cached or uncached.
      * @param {Integer} fuCache Options for the cache operation. It can be one of the following flags.
@@ -5749,13 +5841,15 @@ class Audio {
      * @since windows5.0
      */
     static midiOutCachePatches(hmo, uBank, pwpa, fuCache) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutCachePatches", "ptr", hmo, "uint", uBank, "ushort*", pwpa, "uint", fuCache, "uint")
         return result
     }
 
     /**
      * The midiOutCacheDrumPatches function requests that an internal MIDI synthesizer device preload and cache a specified set of key-based percussion patches.
-     * @param {Pointer<Void>} hmo Handle to the opened MIDI output device. This device should be an internal MIDI synthesizer. This parameter can also be the handle of a MIDI stream, cast to <b>HMIDIOUT</b>.
+     * @param {HMIDIOUT} hmo Handle to the opened MIDI output device. This device should be an internal MIDI synthesizer. This parameter can also be the handle of a MIDI stream, cast to <b>HMIDIOUT</b>.
      * @param {Integer} uPatch Drum patch number that should be used. This parameter should be set to zero to cache the default drum patch.
      * @param {Pointer<UInt16>} pwkya Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Multimedia/keyarray">KEYARRAY</a> array indicating the key numbers of the specified percussion patches to be cached or uncached.
      * @param {Integer} fuCache Options for the cache operation. It can be one of the following flags.
@@ -5851,13 +5945,15 @@ class Audio {
      * @since windows5.0
      */
     static midiOutCacheDrumPatches(hmo, uPatch, pwkya, fuCache) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutCacheDrumPatches", "ptr", hmo, "uint", uPatch, "ushort*", pwkya, "uint", fuCache, "uint")
         return result
     }
 
     /**
      * The midiOutGetID function retrieves the device identifier for the given MIDI output device.
-     * @param {Pointer<Void>} hmo Handle to the MIDI output device.
+     * @param {HMIDIOUT} hmo Handle to the MIDI output device.
      * @param {Pointer<UInt32>} puDeviceID Pointer to a variable to be filled with the device identifier.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5904,13 +6000,15 @@ class Audio {
      * @since windows5.0
      */
     static midiOutGetID(hmo, puDeviceID) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutGetID", "ptr", hmo, "uint*", puDeviceID, "uint")
         return result
     }
 
     /**
      * The midiOutMessage function sends a message to the MIDI device drivers. This function is used only for driver-specific messages that are not supported by the MIDI API.
-     * @param {Pointer<Void>} hmo Identifier of the MIDI device that receives the message. You must cast the device ID to the <b>HMIDIOUT</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
+     * @param {HMIDIOUT} hmo Identifier of the MIDI device that receives the message. You must cast the device ID to the <b>HMIDIOUT</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
      * @param {Integer} uMsg Message to send.
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
@@ -5919,6 +6017,8 @@ class Audio {
      * @since windows5.0
      */
     static midiOutMessage(hmo, uMsg, dw1, dw2) {
+        hmo := hmo is Win32Handle ? NumGet(hmo, "ptr") : hmo
+
         result := DllCall("WINMM.dll\midiOutMessage", "ptr", hmo, "uint", uMsg, "ptr", dw1, "ptr", dw2, "uint")
         return result
     }
@@ -6067,7 +6167,7 @@ class Audio {
     /**
      * The midiInGetErrorText function retrieves a textual description for an error identified by the specified error code.
      * @param {Integer} mmrError Error code.
-     * @param {Pointer<Byte>} pszText Pointer to the buffer to be filled with the textual error description.
+     * @param {PSTR} pszText Pointer to the buffer to be filled with the textual error description.
      * @param {Integer} cchText Length, in characters, of the buffer pointed to by <i>lpText</i>.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -6114,7 +6214,7 @@ class Audio {
      * @since windows5.0
      */
     static midiInGetErrorTextA(mmrError, pszText, cchText) {
-        pszText := pszText is String? StrPtr(pszText) : pszText
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("WINMM.dll\midiInGetErrorTextA", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
@@ -6123,7 +6223,7 @@ class Audio {
     /**
      * The midiInGetErrorText function retrieves a textual description for an error identified by the specified error code.
      * @param {Integer} mmrError Error code.
-     * @param {Pointer<Char>} pszText Pointer to the buffer to be filled with the textual error description.
+     * @param {PWSTR} pszText Pointer to the buffer to be filled with the textual error description.
      * @param {Integer} cchText Length, in characters, of the buffer pointed to by <i>lpText</i>.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -6170,7 +6270,7 @@ class Audio {
      * @since windows5.0
      */
     static midiInGetErrorTextW(mmrError, pszText, cchText) {
-        pszText := pszText is String? StrPtr(pszText) : pszText
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("WINMM.dll\midiInGetErrorTextW", "uint", mmrError, "ptr", pszText, "uint", cchText, "uint")
         return result
@@ -6178,7 +6278,7 @@ class Audio {
 
     /**
      * The midiInOpen function opens a specified MIDI input device.
-     * @param {Pointer<Void>} phmi Pointer to an <b>HMIDIIN</b> handle. This location is filled with a handle identifying the opened MIDI input device. The handle is used to identify the device in calls to other MIDI input functions.
+     * @param {Pointer<HMIDIIN>} phmi Pointer to an <b>HMIDIIN</b> handle. This location is filled with a handle identifying the opened MIDI input device. The handle is used to identify the device in calls to other MIDI input functions.
      * @param {Integer} uDeviceID Identifier of the MIDI input device to be opened.
      * @param {Pointer} dwCallback Pointer to a callback function, a thread identifier, or a handle of a window called with information about incoming MIDI messages. For more information on the callback function, see <a href="https://docs.microsoft.com/previous-versions/dd798460(v=vs.85)">MidiInProc</a>.
      * @param {Pointer} dwInstance User instance data passed to the callback function. This parameter is not used with window callback functions or threads.
@@ -6288,7 +6388,7 @@ class Audio {
 
     /**
      * The midiInClose function closes the specified MIDI input device.
-     * @param {Pointer<Void>} hmi Handle to the MIDI input device. If the function is successful, the handle is no longer valid after the call to this function.
+     * @param {HMIDIIN} hmi Handle to the MIDI input device. If the function is successful, the handle is no longer valid after the call to this function.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -6334,13 +6434,15 @@ class Audio {
      * @since windows5.0
      */
     static midiInClose(hmi) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+
         result := DllCall("WINMM.dll\midiInClose", "ptr", hmi, "uint")
         return result
     }
 
     /**
      * The midiInPrepareHeader function prepares a buffer for MIDI input.
-     * @param {Pointer<Void>} hmi Handle to the MIDI input device.
+     * @param {HMIDIIN} hmi Handle to the MIDI input device.
      *           To get the device handle, call <a href="https://docs.microsoft.com/previous-versions/dd798458(v=vs.85)">midiInOpen</a>.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer to be prepared.
      *            
@@ -6392,13 +6494,15 @@ class Audio {
      * @since windows5.0
      */
     static midiInPrepareHeader(hmi, pmh, cbmh) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+
         result := DllCall("WINMM.dll\midiInPrepareHeader", "ptr", hmi, "ptr", pmh, "uint", cbmh, "uint")
         return result
     }
 
     /**
      * The midiInUnprepareHeader function cleans up the preparation performed by the midiInPrepareHeader function.
-     * @param {Pointer<Void>} hmi Handle to the MIDI input device.
+     * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure identifying the buffer to be cleaned up.
      * @param {Integer} cbmh Size of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -6446,13 +6550,15 @@ class Audio {
      * @since windows5.0
      */
     static midiInUnprepareHeader(hmi, pmh, cbmh) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+
         result := DllCall("WINMM.dll\midiInUnprepareHeader", "ptr", hmi, "ptr", pmh, "uint", cbmh, "uint")
         return result
     }
 
     /**
      * The midiInAddBuffer function sends an input buffer to a specified opened MIDI input device. This function is used for system-exclusive messages.
-     * @param {Pointer<Void>} hmi Handle to the MIDI input device.
+     * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
@@ -6522,13 +6628,15 @@ class Audio {
      * @since windows5.0
      */
     static midiInAddBuffer(hmi, pmh, cbmh) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+
         result := DllCall("WINMM.dll\midiInAddBuffer", "ptr", hmi, "ptr", pmh, "uint", cbmh, "uint")
         return result
     }
 
     /**
      * The midiInStart function starts MIDI input on the specified MIDI input device.
-     * @param {Pointer<Void>} hmi Handle to the MIDI input device.
+     * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following
      * 
      * <table>
@@ -6552,13 +6660,15 @@ class Audio {
      * @since windows5.0
      */
     static midiInStart(hmi) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+
         result := DllCall("WINMM.dll\midiInStart", "ptr", hmi, "uint")
         return result
     }
 
     /**
      * The midiInStop function stops MIDI input on the specified MIDI input device.
-     * @param {Pointer<Void>} hmi Handle to the MIDI input device.
+     * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -6582,13 +6692,15 @@ class Audio {
      * @since windows5.0
      */
     static midiInStop(hmi) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+
         result := DllCall("WINMM.dll\midiInStop", "ptr", hmi, "uint")
         return result
     }
 
     /**
      * The midiInReset function stops input on a given MIDI input device.
-     * @param {Pointer<Void>} hmi Handle to the MIDI input device.
+     * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -6612,13 +6724,15 @@ class Audio {
      * @since windows5.0
      */
     static midiInReset(hmi) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+
         result := DllCall("WINMM.dll\midiInReset", "ptr", hmi, "uint")
         return result
     }
 
     /**
      * The midiInGetID function gets the device identifier for the given MIDI input device.
-     * @param {Pointer<Void>} hmi Handle to the MIDI input device.
+     * @param {HMIDIIN} hmi Handle to the MIDI input device.
      * @param {Pointer<UInt32>} puDeviceID Pointer to a variable to be filled with the device identifier.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -6665,13 +6779,15 @@ class Audio {
      * @since windows5.0
      */
     static midiInGetID(hmi, puDeviceID) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+
         result := DllCall("WINMM.dll\midiInGetID", "ptr", hmi, "uint*", puDeviceID, "uint")
         return result
     }
 
     /**
      * The midiInMessage function sends a message to the MIDI device driver.
-     * @param {Pointer<Void>} hmi Identifier of the MIDI device that receives the message. You must cast the device ID to the <b>HMIDIIN</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
+     * @param {HMIDIIN} hmi Identifier of the MIDI device that receives the message. You must cast the device ID to the <b>HMIDIIN</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
      * @param {Integer} uMsg Message to send.
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
@@ -6680,6 +6796,8 @@ class Audio {
      * @since windows5.0
      */
     static midiInMessage(hmi, uMsg, dw1, dw2) {
+        hmi := hmi is Win32Handle ? NumGet(hmi, "ptr") : hmi
+
         result := DllCall("WINMM.dll\midiInMessage", "ptr", hmi, "uint", uMsg, "ptr", dw1, "ptr", dw2, "uint")
         return result
     }
@@ -6989,7 +7107,7 @@ class Audio {
 
     /**
      * The mixerOpen function opens a specified mixer device and ensures that the device will not be removed until the application closes the handle.
-     * @param {Pointer<Void>} phmx Pointer to a variable that will receive a handle identifying the opened mixer device. Use this handle to identify the device when calling other audio mixer functions. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<HMIXER>} phmx Pointer to a variable that will receive a handle identifying the opened mixer device. Use this handle to identify the device when calling other audio mixer functions. This parameter cannot be <b>NULL</b>.
      * @param {Integer} uMxId Identifier of the mixer device to open. Use a valid device identifier or any <b>HMIXEROBJ</b> (see the <a href="https://docs.microsoft.com/previous-versions/dd757301(v=vs.85)">mixerGetID</a> function for a description of mixer object handles). A "mapper" for audio mixer devices does not currently exist, so a mixer device identifier of -1 is not valid.
      * @param {Pointer} dwCallback Handle to a window called when the state of an audio line and/or control associated with the device being opened is changed. Specify <b>NULL</b> for this parameter if no callback mechanism is to be used.
      * @param {Pointer} dwInstance Reserved. Must be zero.
@@ -7146,7 +7264,7 @@ class Audio {
 
     /**
      * The mixerClose function closes the specified mixer device.
-     * @param {Pointer<Void>} hmx Handle to the mixer device. This handle must have been returned successfully by the <a href="https://docs.microsoft.com/previous-versions/dd757308(v=vs.85)">mixerOpen</a> function. If <b>mixerClose</b> is successful, <i>hmx</i> is no longer valid.
+     * @param {HMIXER} hmx Handle to the mixer device. This handle must have been returned successfully by the <a href="https://docs.microsoft.com/previous-versions/dd757308(v=vs.85)">mixerOpen</a> function. If <b>mixerClose</b> is successful, <i>hmx</i> is no longer valid.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
      * <table>
@@ -7170,13 +7288,15 @@ class Audio {
      * @since windows5.0
      */
     static mixerClose(hmx) {
+        hmx := hmx is Win32Handle ? NumGet(hmx, "ptr") : hmx
+
         result := DllCall("WINMM.dll\mixerClose", "ptr", hmx, "uint")
         return result
     }
 
     /**
      * The mixerMessage function sends a custom mixer driver message directly to a mixer driver.
-     * @param {Pointer<Void>} hmx Identifier of the mixer that receives the message. You must cast the device ID to the <b>HMIXER</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
+     * @param {HMIXER} hmx Identifier of the mixer that receives the message. You must cast the device ID to the <b>HMIXER</b> handle type. If you supply a handle instead of a device ID, the function fails and returns the MMSYSERR_NOSUPPORT error code.
      * @param {Integer} uMsg Custom mixer driver message to send to the mixer driver. This message must be above or equal to the MXDM_USER constant.
      * @param {Pointer} dwParam1 Parameter associated with the message being sent.
      * @param {Pointer} dwParam2 Parameter associated with the message being sent.
@@ -7236,13 +7356,15 @@ class Audio {
      * @since windows5.0
      */
     static mixerMessage(hmx, uMsg, dwParam1, dwParam2) {
+        hmx := hmx is Win32Handle ? NumGet(hmx, "ptr") : hmx
+
         result := DllCall("WINMM.dll\mixerMessage", "ptr", hmx, "uint", uMsg, "ptr", dwParam1, "ptr", dwParam2, "uint")
         return result
     }
 
     /**
      * The mixerGetLineInfo function retrieves information about a specific line of a mixer device.
-     * @param {Pointer<Void>} hmxobj Handle to the mixer device object that controls the specific audio line.
+     * @param {HMIXEROBJ} hmxobj Handle to the mixer device object that controls the specific audio line.
      * @param {Pointer<MIXERLINEA>} pmxl Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixerlinea">MIXERLINE</a> structure. This structure is filled with information about the audio line for the mixer device. The <b>cbStruct</b> member must always be initialized to be the size, in bytes, of the <b>MIXERLINE</b> structure.
      * @param {Integer} fdwInfo Flags for retrieving information about an audio line. The following values are defined.
      * 
@@ -7403,13 +7525,15 @@ class Audio {
      * @since windows5.0
      */
     static mixerGetLineInfoA(hmxobj, pmxl, fdwInfo) {
+        hmxobj := hmxobj is Win32Handle ? NumGet(hmxobj, "ptr") : hmxobj
+
         result := DllCall("WINMM.dll\mixerGetLineInfoA", "ptr", hmxobj, "ptr", pmxl, "uint", fdwInfo, "uint")
         return result
     }
 
     /**
      * The mixerGetLineInfo function retrieves information about a specific line of a mixer device.
-     * @param {Pointer<Void>} hmxobj Handle to the mixer device object that controls the specific audio line.
+     * @param {HMIXEROBJ} hmxobj Handle to the mixer device object that controls the specific audio line.
      * @param {Pointer<MIXERLINEW>} pmxl Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixerlinea">MIXERLINE</a> structure. This structure is filled with information about the audio line for the mixer device. The <b>cbStruct</b> member must always be initialized to be the size, in bytes, of the <b>MIXERLINE</b> structure.
      * @param {Integer} fdwInfo Flags for retrieving information about an audio line. The following values are defined.
      * 
@@ -7570,13 +7694,15 @@ class Audio {
      * @since windows5.0
      */
     static mixerGetLineInfoW(hmxobj, pmxl, fdwInfo) {
+        hmxobj := hmxobj is Win32Handle ? NumGet(hmxobj, "ptr") : hmxobj
+
         result := DllCall("WINMM.dll\mixerGetLineInfoW", "ptr", hmxobj, "ptr", pmxl, "uint", fdwInfo, "uint")
         return result
     }
 
     /**
      * The mixerGetID function retrieves the device identifier for a mixer device associated with a specified device handle.
-     * @param {Pointer<Void>} hmxobj Handle to the audio mixer object to map to a mixer device identifier.
+     * @param {HMIXEROBJ} hmxobj Handle to the audio mixer object to map to a mixer device identifier.
      * @param {Pointer<UInt32>} puMxId Pointer to a variable that receives the mixer device identifier. If no mixer device is available for the <i>hmxobj</i> object, the value -1 is placed in this location and the MMSYSERR_NODRIVER error value is returned.
      * @param {Integer} fdwId Flags for mapping the mixer object <i>hmxobj</i>. The following values are defined.
      * 
@@ -7699,13 +7825,15 @@ class Audio {
      * @since windows5.0
      */
     static mixerGetID(hmxobj, puMxId, fdwId) {
+        hmxobj := hmxobj is Win32Handle ? NumGet(hmxobj, "ptr") : hmxobj
+
         result := DllCall("WINMM.dll\mixerGetID", "ptr", hmxobj, "uint*", puMxId, "uint", fdwId, "uint")
         return result
     }
 
     /**
      * The mixerGetLineControls function retrieves one or more controls associated with an audio line.
-     * @param {Pointer<Void>} hmxobj Handle to the mixer device object that is being queried.
+     * @param {HMIXEROBJ} hmxobj Handle to the mixer device object that is being queried.
      * @param {Pointer<MIXERLINECONTROLSA>} pmxlc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixerlinecontrolsa">MIXERLINECONTROLS</a> structure. This structure is used to reference one or more <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontrola">MIXERCONTROL</a> structures to be filled with information about the controls associated with an audio line. The <b>cbStruct</b> member of the <b>MIXERLINECONTROLS</b> structure must always be initialized to be the size, in bytes, of the <b>MIXERLINECONTROLS</b> structure.
      * @param {Integer} fdwControls Flags for retrieving information about one or more controls associated with an audio line. The following values are defined.
      * 
@@ -7864,13 +7992,15 @@ class Audio {
      * @since windows5.0
      */
     static mixerGetLineControlsA(hmxobj, pmxlc, fdwControls) {
+        hmxobj := hmxobj is Win32Handle ? NumGet(hmxobj, "ptr") : hmxobj
+
         result := DllCall("WINMM.dll\mixerGetLineControlsA", "ptr", hmxobj, "ptr", pmxlc, "uint", fdwControls, "uint")
         return result
     }
 
     /**
      * The mixerGetLineControls function retrieves one or more controls associated with an audio line.
-     * @param {Pointer<Void>} hmxobj Handle to the mixer device object that is being queried.
+     * @param {HMIXEROBJ} hmxobj Handle to the mixer device object that is being queried.
      * @param {Pointer<MIXERLINECONTROLSW>} pmxlc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixerlinecontrolsa">MIXERLINECONTROLS</a> structure. This structure is used to reference one or more <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontrola">MIXERCONTROL</a> structures to be filled with information about the controls associated with an audio line. The <b>cbStruct</b> member of the <b>MIXERLINECONTROLS</b> structure must always be initialized to be the size, in bytes, of the <b>MIXERLINECONTROLS</b> structure.
      * @param {Integer} fdwControls Flags for retrieving information about one or more controls associated with an audio line. The following values are defined.
      * 
@@ -8029,13 +8159,15 @@ class Audio {
      * @since windows5.0
      */
     static mixerGetLineControlsW(hmxobj, pmxlc, fdwControls) {
+        hmxobj := hmxobj is Win32Handle ? NumGet(hmxobj, "ptr") : hmxobj
+
         result := DllCall("WINMM.dll\mixerGetLineControlsW", "ptr", hmxobj, "ptr", pmxlc, "uint", fdwControls, "uint")
         return result
     }
 
     /**
      * The mixerGetControlDetails function retrieves details about a single control associated with an audio line.
-     * @param {Pointer<Void>} hmxobj Handle to the mixer device object being queried.
+     * @param {HMIXEROBJ} hmxobj Handle to the mixer device object being queried.
      * @param {Pointer<MIXERCONTROLDETAILS>} pmxcd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontroldetails_listtexta">MIXERCONTROLDETAILS</a> structure, which is filled with state information about the control.
      * @param {Integer} fdwDetails Flags for retrieving control details. The following values are defined.
      * 
@@ -8177,13 +8309,15 @@ class Audio {
      * @since windows5.0
      */
     static mixerGetControlDetailsA(hmxobj, pmxcd, fdwDetails) {
+        hmxobj := hmxobj is Win32Handle ? NumGet(hmxobj, "ptr") : hmxobj
+
         result := DllCall("WINMM.dll\mixerGetControlDetailsA", "ptr", hmxobj, "ptr", pmxcd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The mixerGetControlDetails function retrieves details about a single control associated with an audio line.
-     * @param {Pointer<Void>} hmxobj Handle to the mixer device object being queried.
+     * @param {HMIXEROBJ} hmxobj Handle to the mixer device object being queried.
      * @param {Pointer<MIXERCONTROLDETAILS>} pmxcd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontroldetails_listtexta">MIXERCONTROLDETAILS</a> structure, which is filled with state information about the control.
      * @param {Integer} fdwDetails Flags for retrieving control details. The following values are defined.
      * 
@@ -8325,13 +8459,15 @@ class Audio {
      * @since windows5.0
      */
     static mixerGetControlDetailsW(hmxobj, pmxcd, fdwDetails) {
+        hmxobj := hmxobj is Win32Handle ? NumGet(hmxobj, "ptr") : hmxobj
+
         result := DllCall("WINMM.dll\mixerGetControlDetailsW", "ptr", hmxobj, "ptr", pmxcd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The mixerSetControlDetails function sets properties of a single control associated with an audio line.
-     * @param {Pointer<Void>} hmxobj Handle to the mixer device object for which properties are being set.
+     * @param {HMIXEROBJ} hmxobj Handle to the mixer device object for which properties are being set.
      * @param {Pointer<MIXERCONTROLDETAILS>} pmxcd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercontroldetails_listtexta">MIXERCONTROLDETAILS</a> structure. This structure is used to reference control detail structures that contain the desired state for the control.
      * @param {Integer} fdwDetails Flags for setting properties for a control. The following values are defined.
      * 
@@ -8473,13 +8609,15 @@ class Audio {
      * @since windows5.0
      */
     static mixerSetControlDetails(hmxobj, pmxcd, fdwDetails) {
+        hmxobj := hmxobj is Win32Handle ? NumGet(hmxobj, "ptr") : hmxobj
+
         result := DllCall("WINMM.dll\mixerSetControlDetails", "ptr", hmxobj, "ptr", pmxcd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * Enables Windows Store apps to access preexisting Component Object Model (COM) interfaces in the WASAPI family.
-     * @param {Pointer<Char>} deviceInterfacePath A device interface ID for an audio device. This is normally retrieved from a <a href="https://docs.microsoft.com/uwp/api/windows.devices.enumeration.deviceinformation">DeviceInformation</a> object or one of the methods of the <a href="https://docs.microsoft.com/uwp/api/windows.media.devices.mediadevice">MediaDevice</a> class. 
+     * @param {PWSTR} deviceInterfacePath A device interface ID for an audio device. This is normally retrieved from a <a href="https://docs.microsoft.com/uwp/api/windows.devices.enumeration.deviceinformation">DeviceInformation</a> object or one of the methods of the <a href="https://docs.microsoft.com/uwp/api/windows.media.devices.mediadevice">MediaDevice</a> class. 
      * 
      * The GUIDs <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/devinterface-xxx-guids">DEVINTERFACE_AUDIO_CAPTURE</a>  and <b>DEVINTERFACE_AUDIO_RENDER</b>  represent the default audio capture and render device respectively. Call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-stringfromiid">StringFromIID</a> to convert either of these GUIDs to an <b>LPCWSTR</b> to use for this argument.
      * 
@@ -8524,7 +8662,7 @@ class Audio {
      * @since windows8.0
      */
     static ActivateAudioInterfaceAsync(deviceInterfacePath, riid, activationParams, completionHandler, activationOperation) {
-        deviceInterfacePath := deviceInterfacePath is String? StrPtr(deviceInterfacePath) : deviceInterfacePath
+        deviceInterfacePath := deviceInterfacePath is String ? StrPtr(deviceInterfacePath) : deviceInterfacePath
 
         result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, "ptr", riid, "ptr", activationParams, "ptr", completionHandler, "ptr", activationOperation, "int")
         if(result != 0)
@@ -8578,12 +8716,12 @@ class Audio {
     /**
      * 
      * @param {Integer} category 
-     * @param {Pointer<Char>} deviceId 
+     * @param {PWSTR} deviceId 
      * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
      * @returns {HRESULT} 
      */
     static CreateRenderAudioStateMonitorForCategoryAndDeviceId(category, deviceId, audioStateMonitor) {
-        deviceId := deviceId is String? StrPtr(deviceId) : deviceId
+        deviceId := deviceId is String ? StrPtr(deviceId) : deviceId
 
         result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr", audioStateMonitor, "int")
         if(result != 0)
@@ -8637,12 +8775,12 @@ class Audio {
     /**
      * 
      * @param {Integer} category 
-     * @param {Pointer<Char>} deviceId 
+     * @param {PWSTR} deviceId 
      * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
      * @returns {HRESULT} 
      */
     static CreateCaptureAudioStateMonitorForCategoryAndDeviceId(category, deviceId, audioStateMonitor) {
-        deviceId := deviceId is String? StrPtr(deviceId) : deviceId
+        deviceId := deviceId is String ? StrPtr(deviceId) : deviceId
 
         result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr", audioStateMonitor, "int")
         if(result != 0)
@@ -8664,7 +8802,7 @@ class Audio {
 
     /**
      * The acmMetrics function returns various metrics for the ACM or related ACM objects.
-     * @param {Pointer<Void>} hao Handle to the ACM object to query for the metric specified in <i>uMetric</i>. For some queries, this parameter can be <b>NULL</b>.
+     * @param {HACMOBJ} hao Handle to the ACM object to query for the metric specified in <i>uMetric</i>. For some queries, this parameter can be <b>NULL</b>.
      * @param {Integer} uMetric Metric index to be returned in <i>pMetric</i>.
      * 
      * <table>
@@ -8800,6 +8938,8 @@ class Audio {
      * @since windows5.0
      */
     static acmMetrics(hao, uMetric, pMetric) {
+        hao := hao is Win32Handle ? NumGet(hao, "ptr") : hao
+
         result := DllCall("MSACM32.dll\acmMetrics", "ptr", hao, "uint", uMetric, "ptr", pMetric, "uint")
         return result
     }
@@ -8866,8 +9006,8 @@ class Audio {
 
     /**
      * The acmDriverID function returns the handle of an ACM driver identifier associated with an open ACM driver instance or stream handle.
-     * @param {Pointer<Void>} hao Handle to the open driver instance or stream handle. This is the handle of an ACM object, such as <b>HACMDRIVER</b> or <b>HACMSTREAM</b>.
-     * @param {Pointer<Void>} phadid Pointer to a buffer that receives a handle identifying the installed driver that is associated with <i>hao</i>.
+     * @param {HACMOBJ} hao Handle to the open driver instance or stream handle. This is the handle of an ACM object, such as <b>HACMDRIVER</b> or <b>HACMSTREAM</b>.
+     * @param {Pointer<HACMDRIVERID>} phadid Pointer to a buffer that receives a handle identifying the installed driver that is associated with <i>hao</i>.
      * @param {Integer} fdwDriverID Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
      * 
@@ -8914,15 +9054,17 @@ class Audio {
      * @since windows5.0
      */
     static acmDriverID(hao, phadid, fdwDriverID) {
+        hao := hao is Win32Handle ? NumGet(hao, "ptr") : hao
+
         result := DllCall("MSACM32.dll\acmDriverID", "ptr", hao, "ptr", phadid, "uint", fdwDriverID, "uint")
         return result
     }
 
     /**
      * The acmDriverAdd function adds a driver to the list of available ACM drivers.
-     * @param {Pointer<Void>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
-     * @param {Pointer<Void>} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
-     * @param {Pointer} lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
+     * @param {Pointer<HACMDRIVERID>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
+     * @param {HINSTANCE} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
+     * @param {LPARAM} lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
      * @param {Integer} dwPriority Window message to send for notification broadcasts. This parameter is used only with the ACM_DRIVERADDF_NOTIFYHWND flag. All other flags require this member to be set to zero.
      * @param {Integer} fdwAdd Flags for adding ACM drivers. The following values are defined.
      * 
@@ -8999,15 +9141,17 @@ class Audio {
      * @since windows5.0
      */
     static acmDriverAddA(phadid, hinstModule, lParam, dwPriority, fdwAdd) {
+        hinstModule := hinstModule is Win32Handle ? NumGet(hinstModule, "ptr") : hinstModule
+
         result := DllCall("MSACM32.dll\acmDriverAddA", "ptr", phadid, "ptr", hinstModule, "ptr", lParam, "uint", dwPriority, "uint", fdwAdd, "uint")
         return result
     }
 
     /**
      * The acmDriverAdd function adds a driver to the list of available ACM drivers.
-     * @param {Pointer<Void>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
-     * @param {Pointer<Void>} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
-     * @param {Pointer} lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
+     * @param {Pointer<HACMDRIVERID>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
+     * @param {HINSTANCE} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
+     * @param {LPARAM} lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
      * @param {Integer} dwPriority Window message to send for notification broadcasts. This parameter is used only with the ACM_DRIVERADDF_NOTIFYHWND flag. All other flags require this member to be set to zero.
      * @param {Integer} fdwAdd Flags for adding ACM drivers. The following values are defined.
      * 
@@ -9084,13 +9228,15 @@ class Audio {
      * @since windows5.0
      */
     static acmDriverAddW(phadid, hinstModule, lParam, dwPriority, fdwAdd) {
+        hinstModule := hinstModule is Win32Handle ? NumGet(hinstModule, "ptr") : hinstModule
+
         result := DllCall("MSACM32.dll\acmDriverAddW", "ptr", phadid, "ptr", hinstModule, "ptr", lParam, "uint", dwPriority, "uint", fdwAdd, "uint")
         return result
     }
 
     /**
      * The acmDriverRemove function removes an ACM driver from the list of available ACM drivers. The driver will be removed for the calling application only. If the driver is globally installed, other applications will still be able to use it.
-     * @param {Pointer<Void>} hadid Handle to the driver identifier to be removed.
+     * @param {HACMDRIVERID} hadid Handle to the driver identifier to be removed.
      * @param {Integer} fdwRemove Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
      * 
@@ -9137,14 +9283,16 @@ class Audio {
      * @since windows5.0
      */
     static acmDriverRemove(hadid, fdwRemove) {
+        hadid := hadid is Win32Handle ? NumGet(hadid, "ptr") : hadid
+
         result := DllCall("MSACM32.dll\acmDriverRemove", "ptr", hadid, "uint", fdwRemove, "uint")
         return result
     }
 
     /**
      * The acmDriverOpen function opens the specified ACM driver and returns a driver instance handle that can be used to communicate with the driver.
-     * @param {Pointer<Void>} phad Pointer to a buffer that receives the new driver instance handle that can be used to communicate with the driver.
-     * @param {Pointer<Void>} hadid Handle to the driver identifier of an installed and enabled ACM driver.
+     * @param {Pointer<HACMDRIVER>} phad Pointer to a buffer that receives the new driver instance handle that can be used to communicate with the driver.
+     * @param {HACMDRIVERID} hadid Handle to the driver identifier of an installed and enabled ACM driver.
      * @param {Integer} fdwOpen Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
      * 
@@ -9213,13 +9361,15 @@ class Audio {
      * @since windows5.0
      */
     static acmDriverOpen(phad, hadid, fdwOpen) {
+        hadid := hadid is Win32Handle ? NumGet(hadid, "ptr") : hadid
+
         result := DllCall("MSACM32.dll\acmDriverOpen", "ptr", phad, "ptr", hadid, "uint", fdwOpen, "uint")
         return result
     }
 
     /**
      * The acmDriverClose function closes a previously opened ACM driver instance. If the function is successful, the handle is invalidated.
-     * @param {Pointer<Void>} had Handle to the open driver instance to be closed.
+     * @param {HACMDRIVER} had Handle to the open driver instance to be closed.
      * @param {Integer} fdwClose Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
      * 
@@ -9266,17 +9416,19 @@ class Audio {
      * @since windows5.0
      */
     static acmDriverClose(had, fdwClose) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmDriverClose", "ptr", had, "uint", fdwClose, "uint")
         return result
     }
 
     /**
      * The acmDriverMessage function sends a user-defined message to a given ACM driver instance.
-     * @param {Pointer<Void>} had Handle to the ACM driver instance to which the message will be sent.
+     * @param {HACMDRIVER} had Handle to the ACM driver instance to which the message will be sent.
      * @param {Integer} uMsg Message that the ACM driver must process. This message must be in the ACMDM_USER message range (above or equal to ACMDM_USER and less than ACMDM_RESERVED_LOW). The exceptions to this restriction are the ACMDM_DRIVER_ABOUT, <a href="https://docs.microsoft.com/windows/desktop/Multimedia/drv-queryconfigure">DRV_QUERYCONFIGURE</a>, and <a href="https://docs.microsoft.com/windows/desktop/Multimedia/drv-configure">DRV_CONFIGURE</a> messages.
-     * @param {Pointer} lParam1 Message parameter.
-     * @param {Pointer} lParam2 Message parameter.
-     * @returns {Pointer} The return value is specific to the user-defined ACM driver message specified by the uMsg parameter. However, possible error values include the following.
+     * @param {LPARAM} lParam1 Message parameter.
+     * @param {LPARAM} lParam2 Message parameter.
+     * @returns {LRESULT} The return value is specific to the user-defined ACM driver message specified by the uMsg parameter. However, possible error values include the following.
      * 
      * <table>
      * <tr>
@@ -9321,13 +9473,15 @@ class Audio {
      * @since windows5.0
      */
     static acmDriverMessage(had, uMsg, lParam1, lParam2) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmDriverMessage", "ptr", had, "uint", uMsg, "ptr", lParam1, "ptr", lParam2, "ptr")
         return result
     }
 
     /**
      * The acmDriverPriority function modifies the priority and state of an ACM driver.
-     * @param {Pointer<Void>} hadid Handle to the driver identifier of an installed ACM driver. If the ACM_DRIVERPRIORITYF_BEGIN and ACM_DRIVERPRIORITYF_END flags are specified, this parameter must be <b>NULL</b>.
+     * @param {HACMDRIVERID} hadid Handle to the driver identifier of an installed ACM driver. If the ACM_DRIVERPRIORITYF_BEGIN and ACM_DRIVERPRIORITYF_END flags are specified, this parameter must be <b>NULL</b>.
      * @param {Integer} dwPriority New priority for a global ACM driver identifier. A zero value specifies that the priority of the driver identifier should remain unchanged. A value of 1 specifies that the driver should be placed as the highest search priority driver. A value of –1 specifies that the driver should be placed as the lowest search priority driver. Priorities are used only for global drivers.
      * @param {Integer} fdwPriority Flags for setting priorities of ACM drivers. The following values are defined.
      * 
@@ -9422,13 +9576,15 @@ class Audio {
      * @since windows5.0
      */
     static acmDriverPriority(hadid, dwPriority, fdwPriority) {
+        hadid := hadid is Win32Handle ? NumGet(hadid, "ptr") : hadid
+
         result := DllCall("MSACM32.dll\acmDriverPriority", "ptr", hadid, "uint", dwPriority, "uint", fdwPriority, "uint")
         return result
     }
 
     /**
      * The acmDriverDetails function queries a specified ACM driver to determine its capabilities.
-     * @param {Pointer<Void>} hadid Handle to the driver identifier of an installed ACM driver. Disabled drivers can be queried for details.
+     * @param {HACMDRIVERID} hadid Handle to the driver identifier of an installed ACM driver. Disabled drivers can be queried for details.
      * @param {Pointer<ACMDRIVERDETAILSA>} padd Pointer to an [ACMDRIVERDETAILS](./nf-msacm-acmdriverdetails.md) structure that will receive the driver details. The <b>cbStruct</b> member must be initialized to the size, in bytes, of the structure.
      * @param {Integer} fdwDetails Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
@@ -9476,13 +9632,15 @@ class Audio {
      * @since windows5.0
      */
     static acmDriverDetailsA(hadid, padd, fdwDetails) {
+        hadid := hadid is Win32Handle ? NumGet(hadid, "ptr") : hadid
+
         result := DllCall("MSACM32.dll\acmDriverDetailsA", "ptr", hadid, "ptr", padd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The acmDriverDetails function queries a specified ACM driver to determine its capabilities.
-     * @param {Pointer<Void>} hadid Handle to the driver identifier of an installed ACM driver. Disabled drivers can be queried for details.
+     * @param {HACMDRIVERID} hadid Handle to the driver identifier of an installed ACM driver. Disabled drivers can be queried for details.
      * @param {Pointer<ACMDRIVERDETAILSW>} padd Pointer to an [ACMDRIVERDETAILS](./nf-msacm-acmdriverdetails.md) structure that will receive the driver details. The <b>cbStruct</b> member must be initialized to the size, in bytes, of the structure.
      * @param {Integer} fdwDetails Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
@@ -9530,13 +9688,15 @@ class Audio {
      * @since windows5.0
      */
     static acmDriverDetailsW(hadid, padd, fdwDetails) {
+        hadid := hadid is Win32Handle ? NumGet(hadid, "ptr") : hadid
+
         result := DllCall("MSACM32.dll\acmDriverDetailsW", "ptr", hadid, "ptr", padd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The acmFormatTagDetails function queries the ACM for details on a specific waveform-audio format tag.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid handle or driver identifier when using the ACM_FORMATTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid handle or driver identifier when using the ACM_FORMATTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
      * @param {Pointer<ACMFORMATTAGDETAILSA>} paftd Pointer to the [ACMFORMATTAGDETAILS](./nf-msacm-acmformattagdetails.md) structure that is to receive the format tag details.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
      * 
@@ -9616,13 +9776,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFormatTagDetailsA(had, paftd, fdwDetails) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFormatTagDetailsA", "ptr", had, "ptr", paftd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The acmFormatTagDetails function queries the ACM for details on a specific waveform-audio format tag.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid handle or driver identifier when using the ACM_FORMATTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid handle or driver identifier when using the ACM_FORMATTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
      * @param {Pointer<ACMFORMATTAGDETAILSW>} paftd Pointer to the [ACMFORMATTAGDETAILS](./nf-msacm-acmformattagdetails.md) structure that is to receive the format tag details.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
      * 
@@ -9702,13 +9864,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFormatTagDetailsW(had, paftd, fdwDetails) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFormatTagDetailsW", "ptr", had, "ptr", paftd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The acmFormatTagEnum function enumerates waveform-audio format tags available from an ACM driver. This function continues enumerating until there are no more suitable format tags or the callback function returns FALSE.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFORMATTAGDETAILSA>} paftd Pointer to the [ACMFORMATTAGDETAILS](./nf-msacm-acmformattagdetails.md) structure that is to receive the format tag details passed to the function specified in <i>fnCallback</i>. This structure must have the <b>cbStruct</b> member of the <b>ACMFORMATTAGDETAILS</b> structure initialized.
      * @param {Pointer<ACMFORMATTAGENUMCBA>} fnCallback Procedure instance address of the application-defined callback function.
      * @param {Pointer} dwInstance A 64-bit (DWORD_PTR) or 32-bit (DWORD) application-defined value that is passed to the callback function along with ACM format tag details.
@@ -9758,13 +9922,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFormatTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFormatTagEnumA", "ptr", had, "ptr", paftd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, "uint")
         return result
     }
 
     /**
      * The acmFormatTagEnum function enumerates waveform-audio format tags available from an ACM driver. This function continues enumerating until there are no more suitable format tags or the callback function returns FALSE.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFORMATTAGDETAILSW>} paftd Pointer to the [ACMFORMATTAGDETAILS](./nf-msacm-acmformattagdetails.md) structure that is to receive the format tag details passed to the function specified in <i>fnCallback</i>. This structure must have the <b>cbStruct</b> member of the <b>ACMFORMATTAGDETAILS</b> structure initialized.
      * @param {Pointer<ACMFORMATTAGENUMCBW>} fnCallback Procedure instance address of the application-defined callback function.
      * @param {Pointer} dwInstance A 64-bit (DWORD_PTR) or 32-bit (DWORD) application-defined value that is passed to the callback function along with ACM format tag details.
@@ -9814,13 +9980,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFormatTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFormatTagEnumW", "ptr", had, "ptr", paftd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, "uint")
         return result
     }
 
     /**
      * The acmFormatDetails function queries the ACM for format details for a specific waveform-audio format tag.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio format details for a format tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format details for a format tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFORMATDETAILSA>} pafd Pointer to an [ACMFORMATDETAILS](./nf-msacm-acmformatdetails.md) structure to contain the format details for the given format tag.
      * @param {Integer} fdwDetails Flags for getting the waveform-audio format tag details. The following values are defined.
      * 
@@ -9896,13 +10064,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFormatDetailsA(had, pafd, fdwDetails) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFormatDetailsA", "ptr", had, "ptr", pafd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The acmFormatDetails function queries the ACM for format details for a specific waveform-audio format tag.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio format details for a format tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format details for a format tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<tACMFORMATDETAILSW>} pafd Pointer to an [ACMFORMATDETAILS](./nf-msacm-acmformatdetails.md) structure to contain the format details for the given format tag.
      * @param {Integer} fdwDetails Flags for getting the waveform-audio format tag details. The following values are defined.
      * 
@@ -9978,13 +10148,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFormatDetailsW(had, pafd, fdwDetails) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFormatDetailsW", "ptr", had, "ptr", pafd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The acmFormatEnum function enumerates waveform-audio formats available for a given format tag from an ACM driver. This function continues enumerating until there are no more suitable formats for the format tag or the callback function returns FALSE.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio format details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFORMATDETAILSA>} pafd Pointer to an [ACMFORMATDETAILS](./nf-msacm-acmformatdetails.md) structure to contain the format details passed to the <b>fnCallback</b> function. This structure must have the <b>cbStruct</b>, <b>pwfx</b>, and <b>cbwfx</b> members of the <b>ACMFORMATDETAILS</b> structure initialized. The <b>dwFormatTag</b> member must also be initialized to either WAVE_FORMAT_UNKNOWN or a valid format tag.
      * 
      * The <b>fdwSupport</b> member of the structure must be initialized to zero.
@@ -10100,13 +10272,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFormatEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFormatEnumA", "ptr", had, "ptr", pafd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, "uint")
         return result
     }
 
     /**
      * The acmFormatEnum function enumerates waveform-audio formats available for a given format tag from an ACM driver. This function continues enumerating until there are no more suitable formats for the format tag or the callback function returns FALSE.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio format details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio format details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<tACMFORMATDETAILSW>} pafd Pointer to an [ACMFORMATDETAILS](./nf-msacm-acmformatdetails.md) structure to contain the format details passed to the <b>fnCallback</b> function. This structure must have the <b>cbStruct</b>, <b>pwfx</b>, and <b>cbwfx</b> members of the <b>ACMFORMATDETAILS</b> structure initialized. The <b>dwFormatTag</b> member must also be initialized to either WAVE_FORMAT_UNKNOWN or a valid format tag.
      * 
      * The <b>fdwSupport</b> member of the structure must be initialized to zero.
@@ -10222,13 +10396,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFormatEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFormatEnumW", "ptr", had, "ptr", pafd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, "uint")
         return result
     }
 
     /**
      * The acmFormatSuggest function queries the ACM or a specified ACM driver to suggest a destination format for the supplied source format.
-     * @param {Pointer<Void>} had Handle to an open instance of a driver to query for a suggested destination format. If this parameter is <b>NULL</b>, the ACM attempts to find the best driver to suggest a destination format.
+     * @param {HACMDRIVER} had Handle to an open instance of a driver to query for a suggested destination format. If this parameter is <b>NULL</b>, the ACM attempts to find the best driver to suggest a destination format.
      * @param {Pointer<WAVEFORMATEX>} pwfxSrc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that identifies the source format for which a destination format will be suggested by the ACM or specified driver.
      * @param {Pointer<WAVEFORMATEX>} pwfxDst Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that will receive the suggested destination format for the <i>pwfxSrc</i> format. Depending on the <i>fdwSuggest</i> parameter, some members of the structure pointed to by <i>pwfxDst</i> may require initialization.
      * @param {Integer} cbwfxDst Size, in bytes, available for the destination format. The <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmmetrics">acmMetrics</a> and <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmformattagdetails">acmFormatTagDetails</a> functions can be used to determine the maximum size required for any format available for the specified driver (or for all installed ACM drivers).
@@ -10303,6 +10479,8 @@ class Audio {
      * @since windows5.0
      */
     static acmFormatSuggest(had, pwfxSrc, pwfxDst, cbwfxDst, fdwSuggest) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFormatSuggest", "ptr", had, "ptr", pwfxSrc, "ptr", pwfxDst, "uint", cbwfxDst, "uint", fdwSuggest, "uint")
         return result
     }
@@ -10483,7 +10661,7 @@ class Audio {
 
     /**
      * The acmFilterTagDetails function queries the ACM for details about a specific waveform-audio filter tag.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid <b>HACMDRIVER</b> or <b>HACMDRIVERID</b> identifier when using the ACM_FILTERTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid <b>HACMDRIVER</b> or <b>HACMDRIVERID</b> identifier when using the ACM_FILTERTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
      * @param {Pointer<ACMFILTERTAGDETAILSA>} paftd Pointer to the [ACMFILTERTAGDETAILS](./nf-msacm-acmfiltertagdetails.md) structure that is to receive the filter tag details.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
      * 
@@ -10563,13 +10741,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFilterTagDetailsA(had, paftd, fdwDetails) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFilterTagDetailsA", "ptr", had, "ptr", paftd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The acmFilterTagDetails function queries the ACM for details about a specific waveform-audio filter tag.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid <b>HACMDRIVER</b> or <b>HACMDRIVERID</b> identifier when using the ACM_FILTERTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver. An application must specify a valid <b>HACMDRIVER</b> or <b>HACMDRIVERID</b> identifier when using the ACM_FILTERTAGDETAILSF_INDEX query type. Driver identifiers for disabled drivers are not allowed.
      * @param {Pointer<ACMFILTERTAGDETAILSW>} paftd Pointer to the [ACMFILTERTAGDETAILS](./nf-msacm-acmfiltertagdetails.md) structure that is to receive the filter tag details.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
      * 
@@ -10649,13 +10829,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFilterTagDetailsW(had, paftd, fdwDetails) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFilterTagDetailsW", "ptr", had, "ptr", paftd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The acmFilterTagEnum function enumerates waveform-audio filter tags available from an ACM driver. This function continues enumerating until there are no more suitable filter tags or the callback function returns FALSE.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERTAGDETAILSA>} paftd Pointer to the [ACMFILTERTAGDETAILS](./nf-msacm-acmfiltertagdetails.md) structure that contains the filter tag details when it is passed to the <b>fnCallback</b> function. When your application calls <b>acmFilterTagEnum</b>, the <b>cbStruct</b> member of this structure must be initialized.
      * @param {Pointer<ACMFILTERTAGENUMCBA>} fnCallback Procedure instance address of the application-defined callback function.
      * @param {Pointer} dwInstance A 64-bit (DWORD_PTR) or 32-bit (DWORD) application-defined value that is passed to the callback function along with ACM filter tag details.
@@ -10705,13 +10887,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFilterTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFilterTagEnumA", "ptr", had, "ptr", paftd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, "uint")
         return result
     }
 
     /**
      * The acmFilterTagEnum function enumerates waveform-audio filter tags available from an ACM driver. This function continues enumerating until there are no more suitable filter tags or the callback function returns FALSE.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter tag details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERTAGDETAILSW>} paftd Pointer to the [ACMFILTERTAGDETAILS](./nf-msacm-acmfiltertagdetails.md) structure that contains the filter tag details when it is passed to the <b>fnCallback</b> function. When your application calls <b>acmFilterTagEnum</b>, the <b>cbStruct</b> member of this structure must be initialized.
      * @param {Pointer<ACMFILTERTAGENUMCBW>} fnCallback Procedure instance address of the application-defined callback function.
      * @param {Pointer} dwInstance A 64-bit (DWORD_PTR) or 32-bit (DWORD) application-defined value that is passed to the callback function along with ACM filter tag details.
@@ -10761,13 +10945,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFilterTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFilterTagEnumW", "ptr", had, "ptr", paftd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, "uint")
         return result
     }
 
     /**
      * The acmFilterDetails function queries the ACM for details about a filter with a specific waveform-audio filter tag.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio filter details for a filter tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter details for a filter tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERDETAILSA>} pafd Pointer to the [ACMFILTERDETAILS](./nf-msacm-acmfilterdetails.md) structure that is to receive the filter details for the given filter tag.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
      * 
@@ -10843,13 +11029,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFilterDetailsA(had, pafd, fdwDetails) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFilterDetailsA", "ptr", had, "ptr", pafd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The acmFilterDetails function queries the ACM for details about a filter with a specific waveform-audio filter tag.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio filter details for a filter tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter details for a filter tag. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERDETAILSW>} pafd Pointer to the [ACMFILTERDETAILS](./nf-msacm-acmfilterdetails.md) structure that is to receive the filter details for the given filter tag.
      * @param {Integer} fdwDetails Flags for getting the details. The following values are defined.
      * 
@@ -10925,13 +11113,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFilterDetailsW(had, pafd, fdwDetails) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFilterDetailsW", "ptr", had, "ptr", pafd, "uint", fdwDetails, "uint")
         return result
     }
 
     /**
      * The acmFilterEnum function enumerates waveform-audio filters available for a given filter tag from an ACM driver. This function continues enumerating until there are no more suitable filters for the filter tag or the callback function returns FALSE.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio filter details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERDETAILSA>} pafd Pointer to the [ACMFILTERDETAILS](./nf-msacm-acmfilterdetails.md) structure that contains the filter details when it is passed to the function specified by <i>fnCallback</i>. When your application calls <b>acmFilterEnum</b>, the <b>cbStruct</b>, <b>pwfltr</b>, and <b>cbwfltr</b> members of this structure must be initialized. The <b>dwFilterTag</b> member must also be initialized to either WAVE_FILTER_UNKNOWN or a valid filter tag.
      * @param {Pointer<ACMFILTERENUMCBA>} fnCallback Procedure-instance address of the application-defined callback function.
      * @param {Pointer} dwInstance A 32-bit (DWORD), 64-bit (DWORD_PTR) application-defined value that is passed to the callback function along with ACM filter details.
@@ -11005,13 +11195,15 @@ class Audio {
      * @since windows5.0
      */
     static acmFilterEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFilterEnumA", "ptr", had, "ptr", pafd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, "uint")
         return result
     }
 
     /**
      * The acmFilterEnum function enumerates waveform-audio filters available for a given filter tag from an ACM driver. This function continues enumerating until there are no more suitable filters for the filter tag or the callback function returns FALSE.
-     * @param {Pointer<Void>} had Handle to the ACM driver to query for waveform-audio filter details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
+     * @param {HACMDRIVER} had Handle to the ACM driver to query for waveform-audio filter details. If this parameter is <b>NULL</b>, the ACM uses the details from the first suitable ACM driver.
      * @param {Pointer<ACMFILTERDETAILSW>} pafd Pointer to the [ACMFILTERDETAILS](./nf-msacm-acmfilterdetails.md) structure that contains the filter details when it is passed to the function specified by <i>fnCallback</i>. When your application calls <b>acmFilterEnum</b>, the <b>cbStruct</b>, <b>pwfltr</b>, and <b>cbwfltr</b> members of this structure must be initialized. The <b>dwFilterTag</b> member must also be initialized to either WAVE_FILTER_UNKNOWN or a valid filter tag.
      * @param {Pointer<ACMFILTERENUMCBW>} fnCallback Procedure-instance address of the application-defined callback function.
      * @param {Pointer} dwInstance A 32-bit (DWORD), 64-bit (DWORD_PTR) application-defined value that is passed to the callback function along with ACM filter details.
@@ -11085,6 +11277,8 @@ class Audio {
      * @since windows5.0
      */
     static acmFilterEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmFilterEnumW", "ptr", had, "ptr", pafd, "ptr", fnCallback, "ptr", dwInstance, "uint", fdwEnum, "uint")
         return result
     }
@@ -11265,8 +11459,8 @@ class Audio {
 
     /**
      * The acmStreamOpen function opens an ACM conversion stream. Conversion streams are used to convert data from one specified audio format to another.
-     * @param {Pointer<Void>} phas Pointer to a handle that will receive the new stream handle that can be used to perform conversions. This handle is used to identify the stream in calls to other ACM stream conversion functions. If the ACM_STREAMOPENF_QUERY flag is specified, this parameter should be <b>NULL</b>.
-     * @param {Pointer<Void>} had Handle to an ACM driver. If this handle is specified, it identifies a specific driver to be used for a conversion stream. If this parameter is <b>NULL</b>, all suitable installed ACM drivers are queried until a match is found.
+     * @param {Pointer<HACMSTREAM>} phas Pointer to a handle that will receive the new stream handle that can be used to perform conversions. This handle is used to identify the stream in calls to other ACM stream conversion functions. If the ACM_STREAMOPENF_QUERY flag is specified, this parameter should be <b>NULL</b>.
+     * @param {HACMDRIVER} had Handle to an ACM driver. If this handle is specified, it identifies a specific driver to be used for a conversion stream. If this parameter is <b>NULL</b>, all suitable installed ACM drivers are queried until a match is found.
      * @param {Pointer<WAVEFORMATEX>} pwfxSrc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that identifies the desired source format for the conversion.
      * @param {Pointer<WAVEFORMATEX>} pwfxDst Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that identifies the desired destination format for the conversion.
      * @param {Pointer<WAVEFILTER>} pwfltr Pointer to a [WAVEFILTER](../mmreg/ns-mmreg-wavefilter.md) structure that identifies the desired filtering operation to perform on the conversion stream. If no filtering operation is desired, this parameter can be <b>NULL</b>. If a filter is specified, the source (<i>pwfxSrc</i>) and destination (<i>pwfxDst</i>) formats must be the same.
@@ -11373,13 +11567,15 @@ class Audio {
      * @since windows5.0
      */
     static acmStreamOpen(phas, had, pwfxSrc, pwfxDst, pwfltr, dwCallback, dwInstance, fdwOpen) {
+        had := had is Win32Handle ? NumGet(had, "ptr") : had
+
         result := DllCall("MSACM32.dll\acmStreamOpen", "ptr", phas, "ptr", had, "ptr", pwfxSrc, "ptr", pwfxDst, "ptr", pwfltr, "ptr", dwCallback, "ptr", dwInstance, "uint", fdwOpen, "uint")
         return result
     }
 
     /**
      * The acmStreamClose function closes an ACM conversion stream. If the function is successful, the handle is invalidated.
-     * @param {Pointer<Void>} has Handle to the open conversion stream to be closed.
+     * @param {HACMSTREAM} has Handle to the open conversion stream to be closed.
      * @param {Integer} fdwClose Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
      * 
@@ -11426,13 +11622,15 @@ class Audio {
      * @since windows5.0
      */
     static acmStreamClose(has, fdwClose) {
+        has := has is Win32Handle ? NumGet(has, "ptr") : has
+
         result := DllCall("MSACM32.dll\acmStreamClose", "ptr", has, "uint", fdwClose, "uint")
         return result
     }
 
     /**
      * The acmStreamSize function returns a recommended size for a source or destination buffer on an ACM stream.
-     * @param {Pointer<Void>} has Handle to the conversion stream.
+     * @param {HACMSTREAM} has Handle to the conversion stream.
      * @param {Integer} cbInput Size, in bytes, of the source or destination buffer. The <i>fdwSize</i> flags specify what the input parameter defines. This parameter must be nonzero.
      * @param {Pointer<UInt32>} pdwOutputBytes Pointer to a variable that contains the size, in bytes, of the source or destination buffer. The <i>fdwSize</i> flags specify what the output parameter defines. If the <b>acmStreamSize</b> function succeeds, this location will always be filled with a nonzero value.
      * @param {Integer} fdwSize Flags for the stream size query. The following values are defined:
@@ -11509,13 +11707,15 @@ class Audio {
      * @since windows5.0
      */
     static acmStreamSize(has, cbInput, pdwOutputBytes, fdwSize) {
+        has := has is Win32Handle ? NumGet(has, "ptr") : has
+
         result := DllCall("MSACM32.dll\acmStreamSize", "ptr", has, "uint", cbInput, "uint*", pdwOutputBytes, "uint", fdwSize, "uint")
         return result
     }
 
     /**
      * The acmStreamReset function stops conversions for a given ACM stream. All pending buffers are marked as done and returned to the application.
-     * @param {Pointer<Void>} has Handle to the conversion stream.
+     * @param {HACMSTREAM} has Handle to the conversion stream.
      * @param {Integer} fdwReset Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
      * 
@@ -11551,28 +11751,32 @@ class Audio {
      * @since windows5.0
      */
     static acmStreamReset(has, fdwReset) {
+        has := has is Win32Handle ? NumGet(has, "ptr") : has
+
         result := DllCall("MSACM32.dll\acmStreamReset", "ptr", has, "uint", fdwReset, "uint")
         return result
     }
 
     /**
      * The acmStreamMessage function sends a driver-specific message to an ACM driver.
-     * @param {Pointer<Void>} has Handle to an open conversion stream.
+     * @param {HACMSTREAM} has Handle to an open conversion stream.
      * @param {Integer} uMsg Message to send.
-     * @param {Pointer} lParam1 Message parameter.
-     * @param {Pointer} lParam2 Message parameter.
+     * @param {LPARAM} lParam1 Message parameter.
+     * @param {LPARAM} lParam2 Message parameter.
      * @returns {Integer} Returns the value returned by the ACM device driver.
      * @see https://docs.microsoft.com/windows/win32/api//msacm/nf-msacm-acmstreammessage
      * @since windows5.0
      */
     static acmStreamMessage(has, uMsg, lParam1, lParam2) {
+        has := has is Win32Handle ? NumGet(has, "ptr") : has
+
         result := DllCall("MSACM32.dll\acmStreamMessage", "ptr", has, "uint", uMsg, "ptr", lParam1, "ptr", lParam2, "uint")
         return result
     }
 
     /**
      * The acmStreamConvert function requests the ACM to perform a conversion on the specified conversion stream. A conversion may be synchronous or asynchronous, depending on how the stream was opened.
-     * @param {Pointer<Void>} has Handle to the open conversion stream.
+     * @param {HACMSTREAM} has Handle to the open conversion stream.
      * @param {Pointer<ACMSTREAMHEADER>} pash Pointer to a stream header that describes source and destination buffers for a conversion. This header must have been prepared previously by using the <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmstreamprepareheader">acmStreamPrepareHeader</a> function.
      * @param {Integer} fdwConvert Flags for doing the conversion. The following values are defined.
      * 
@@ -11663,13 +11867,15 @@ class Audio {
      * @since windows5.0
      */
     static acmStreamConvert(has, pash, fdwConvert) {
+        has := has is Win32Handle ? NumGet(has, "ptr") : has
+
         result := DllCall("MSACM32.dll\acmStreamConvert", "ptr", has, "ptr", pash, "uint", fdwConvert, "uint")
         return result
     }
 
     /**
      * The acmStreamPrepareHeader function prepares an ACMSTREAMHEADER structure for an ACM stream conversion.
-     * @param {Pointer<Void>} has Handle to the conversion steam.
+     * @param {HACMSTREAM} has Handle to the conversion steam.
      * @param {Pointer<ACMSTREAMHEADER>} pash Pointer to an [ACMSTREAMHEADER](./ns-msacm-acmstreamheader.md) structure that identifies the source and destination buffers to be prepared.
      * @param {Integer} fdwPrepare Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
@@ -11728,13 +11934,15 @@ class Audio {
      * @since windows5.0
      */
     static acmStreamPrepareHeader(has, pash, fdwPrepare) {
+        has := has is Win32Handle ? NumGet(has, "ptr") : has
+
         result := DllCall("MSACM32.dll\acmStreamPrepareHeader", "ptr", has, "ptr", pash, "uint", fdwPrepare, "uint")
         return result
     }
 
     /**
      * The acmStreamUnprepareHeader function cleans up the preparation performed by the acmStreamPrepareHeader function for an ACM stream.
-     * @param {Pointer<Void>} has Handle to the conversion steam.
+     * @param {HACMSTREAM} has Handle to the conversion steam.
      * @param {Pointer<ACMSTREAMHEADER>} pash Pointer to an [ACMSTREAMHEADER](./ns-msacm-acmstreamheader.md) structure that identifies the source and destination buffers to be unprepared.
      * @param {Integer} fdwUnprepare Reserved; must be zero.
      * @returns {Integer} Returns zero if successful or an error otherwise. Possible error values include the following.
@@ -11804,6 +12012,8 @@ class Audio {
      * @since windows5.0
      */
     static acmStreamUnprepareHeader(has, pash, fdwUnprepare) {
+        has := has is Win32Handle ? NumGet(has, "ptr") : has
+
         result := DllCall("MSACM32.dll\acmStreamUnprepareHeader", "ptr", has, "ptr", pash, "uint", fdwUnprepare, "uint")
         return result
     }
