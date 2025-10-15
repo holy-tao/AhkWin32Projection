@@ -47,4 +47,10 @@ class Assert {
             throw TypeError(Format("{1}.{2} is a(n) {3}, expected a(n) {4}", Type(obj), propName, Type(val), propType.Prototype.__Class))
         }
     }
+
+    static IsType(obj, expected){
+        if(!obj is expected){
+            throw TypeError(Format("Expected a(n) {1} but got a(n) {2}", expected.Prototype.__Class, Type(obj)))
+        }
+    }
 }

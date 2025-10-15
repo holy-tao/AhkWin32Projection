@@ -43,6 +43,8 @@ class Win32Handle extends Win32Struct {
         }
     }
 
+    static invalidValues => []
+
     /**
      * Initializes a new `Win32Handle`. Pass either a pointer to the memory address at which
      * to intialize the handle struct, or an object with a `Value` property to initialize a
@@ -57,5 +59,15 @@ class Win32Handle extends Win32Struct {
     __New(ptrOrObj := 0, owned := true){
         super.__New(ptrOrObj)
         this.owned := owned
+    }
+
+    /**
+     * Creates and returns a script-owned handle with an invalid value
+     * @returns {Win32Handle} the new handle
+     */
+    static Invalid(){
+        value := this.invalidValues.Has(1) ? this.invalidValues[1] : 0
+        handle := this({Value: value}, true)
+        return handle
     }
 }

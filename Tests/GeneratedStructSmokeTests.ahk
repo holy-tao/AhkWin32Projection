@@ -212,7 +212,7 @@ class GeneratedStructSmokeTests {
             NumPut("ptr", 42, pshw, 56)             ;phpage union
 
             Yunit.Assert(pshw.nPages == 0xFFFFFFFF, Format("Expected {1} but got {2}", -1, pshw.nPages))
-            Yunit.Assert(pshw.pStartPage == 123456789, Format("Expected {1} but got {2}", 123456789, pshw.pStartPage))
+            Yunit.Assert(pshw.pStartPage.value == 123456789, Format("Expected {1} but got {2}", 123456789, pshw.pStartPage.value))
             Yunit.Assert(pshw.phpage == 42, Format("Expected {1} but got {2}", 42, pshw.nPages))
         }
     }
