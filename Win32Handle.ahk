@@ -14,14 +14,7 @@ class Win32Handle extends Win32Struct {
      *          destructor was defined in the metadata
      * @type {Boolean}
      */
-    owned {
-        get => this.__owned
-        set{
-            if(this.HasProp("__ptr"))
-                throw PropertyError("This property is read-only", , "owned")
-            this.__owned := value
-        }
-    }
+    owned := unset
 
     /**
      * Indicates whether or not the handle is valid. 
@@ -77,6 +70,24 @@ class Win32Handle extends Win32Struct {
      */
     Free(){
         ; Implemented by extending classes
+    }
+
+    /**
+     * Clones the handle into a script-controlled memory block. Cloning an owned handle transfers
+     * ownership to the returned clone. Cloning an unowned handle is an error
+     * @throws {Error} if the handle is not owned by the script
+     */
+    Clone(){
+        if(!this.owned){
+            throw Error("Cannot clone an unowned handle")
+        }
+
+        cln := super.Clone()
+
+        cln.owned := this.owned
+        this.owned := false
+
+        return cln
     }
 
     __Delete(){
