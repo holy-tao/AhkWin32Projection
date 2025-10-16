@@ -45,13 +45,22 @@ class Win32Handle extends Win32Struct {
      * 
      *      myHandle := HANDLE({Value: 0xFFFFFFFF})
      * 
-     * @param {Integer} ptrOrObj pointer or object with which to initialize the struct
-     * @param {Boolean} owned true if this handle is owned by the script and must be freed
-     *          by it, false otherwise 
+     * @param {Integer} ptrOrObj pointer or object with which to initialize the struct. If
+     *          `ownedOrParent` is the handle's parent struct (the struct in which it is
+     *          embedded), this is an offset into its memory block
+     * @param {Win32Struct | Boolean} ownedOrParent If an object, the handle's parent struct,
+     *          otherwise, indicates whether or not the handle is owned by the scrupt and must
+     *          be freed by it. If an object, ownership is inherited from the parent
      */
-    __New(ptrOrObj := 0, owned := true){
-        super.__New(ptrOrObj)
-        this.owned := owned
+    __New(ptrOrObj := 0, ownedOrParent := true){
+        if(IsObject(ownedOrParent)){
+            super.__New(ptrOrObj, ownedOrParent)
+            this.owned := this._parent._owned
+        }
+        else{
+            super.__New(ptrOrObj)
+            this.owned := ownedOrParent
+        }   
     }
 
     /**
