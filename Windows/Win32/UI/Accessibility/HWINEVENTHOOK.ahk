@@ -27,10 +27,7 @@ class HWINEVENTHOOK extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Accessibility.UnhookWinEvent(this.Value)
         this.Value := -1
     }

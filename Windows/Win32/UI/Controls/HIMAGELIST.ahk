@@ -27,10 +27,7 @@ class HIMAGELIST extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Controls.ImageList_Destroy(this.Value)
         this.Value := -1
     }

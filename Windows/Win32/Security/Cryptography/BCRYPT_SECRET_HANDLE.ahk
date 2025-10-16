@@ -27,10 +27,7 @@ class BCRYPT_SECRET_HANDLE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Cryptography.BCryptDestroySecret(this.Value)
         this.Value := 0
     }

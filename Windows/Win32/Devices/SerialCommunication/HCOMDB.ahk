@@ -27,10 +27,7 @@ class HCOMDB extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         SerialCommunication.ComDBClose(this.Value)
         this.Value := -1
     }

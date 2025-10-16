@@ -27,10 +27,7 @@ class HBLUETOOTH_DEVICE_FIND extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Bluetooth.BluetoothFindDeviceClose(this.Value)
         this.Value := -1
     }

@@ -27,10 +27,7 @@ class LSA_HANDLE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Identity.LsaClose(this.Value)
         this.Value := -1
     }

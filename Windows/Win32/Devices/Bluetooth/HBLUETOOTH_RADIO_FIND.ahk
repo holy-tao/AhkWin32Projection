@@ -27,10 +27,7 @@ class HBLUETOOTH_RADIO_FIND extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Bluetooth.BluetoothFindRadioClose(this.Value)
         this.Value := -1
     }

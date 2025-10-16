@@ -27,10 +27,7 @@ class HSWDEVICE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Pnp.SwDeviceClose(this.Value)
         this.Value := -1
     }

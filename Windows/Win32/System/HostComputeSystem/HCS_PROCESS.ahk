@@ -27,10 +27,7 @@ class HCS_PROCESS extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         HostComputeSystem.HcsCloseProcess(this.Value)
         this.Value := -1
     }

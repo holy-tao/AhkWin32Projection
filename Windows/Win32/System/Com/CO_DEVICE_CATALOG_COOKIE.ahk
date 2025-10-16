@@ -27,10 +27,7 @@ class CO_DEVICE_CATALOG_COOKIE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Com.CoRevokeDeviceCatalog(this.Value)
         this.Value := -1
     }

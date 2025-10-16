@@ -27,10 +27,7 @@ class ROPARAMIIDHANDLE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Metadata.RoFreeParameterizedTypeExtra(this.Value)
         this.Value := -1
     }

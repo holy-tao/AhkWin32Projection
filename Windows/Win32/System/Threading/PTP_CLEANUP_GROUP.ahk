@@ -27,10 +27,7 @@ class PTP_CLEANUP_GROUP extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Threading.CloseThreadpoolCleanupGroup(this.Value)
         this.Value := 0
     }

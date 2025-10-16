@@ -27,10 +27,7 @@ class WINUSB_INTERFACE_HANDLE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Usb.WinUsb_Free(this.Value)
         this.Value := 0
     }

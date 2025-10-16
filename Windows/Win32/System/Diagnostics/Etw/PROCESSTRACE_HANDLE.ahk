@@ -27,10 +27,7 @@ class PROCESSTRACE_HANDLE extends Win32Handle
         set => NumPut("uint", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Etw.CloseTrace(this.Value)
         this.Value := -1
     }

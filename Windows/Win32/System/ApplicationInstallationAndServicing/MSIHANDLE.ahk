@@ -27,10 +27,7 @@ class MSIHANDLE extends Win32Handle
         set => NumPut("uint", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         ApplicationInstallationAndServicing.MsiCloseHandle(this.Value)
         this.Value := -1
     }

@@ -27,10 +27,7 @@ class FEATURE_STATE_CHANGE_SUBSCRIPTION extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         WindowsProgramming.UnsubscribeFeatureStateChangeNotification(this.Value)
         this.Value := -1
     }

@@ -27,10 +27,7 @@ class HPOWERNOTIFY extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Power.UnregisterPowerSettingNotification(this.Value)
         this.Value := -1
     }

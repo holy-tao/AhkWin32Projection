@@ -27,10 +27,7 @@ class HREPORTSTORE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         ErrorReporting.WerStoreClose(this.Value)
         this.Value := -1
     }

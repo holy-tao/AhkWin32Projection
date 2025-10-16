@@ -27,10 +27,7 @@ class DECOMPRESSOR_HANDLE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Compression.CloseDecompressor(this.Value)
         this.Value := -1
     }

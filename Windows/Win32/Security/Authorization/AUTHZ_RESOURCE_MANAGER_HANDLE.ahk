@@ -27,10 +27,7 @@ class AUTHZ_RESOURCE_MANAGER_HANDLE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Authorization.AuthzFreeResourceManager(this.Value)
         this.Value := -1
     }

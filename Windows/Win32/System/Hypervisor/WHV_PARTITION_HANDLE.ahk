@@ -27,10 +27,7 @@ class WHV_PARTITION_HANDLE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Hypervisor.WHvDeletePartition(this.Value)
         this.Value := -1
     }

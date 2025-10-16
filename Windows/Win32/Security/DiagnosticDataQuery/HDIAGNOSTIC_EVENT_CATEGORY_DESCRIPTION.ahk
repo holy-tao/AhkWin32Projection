@@ -27,10 +27,7 @@ class HDIAGNOSTIC_EVENT_CATEGORY_DESCRIPTION extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         DiagnosticDataQuery.DdqFreeDiagnosticRecordProducerCategories(this.Value)
         this.Value := -1
     }

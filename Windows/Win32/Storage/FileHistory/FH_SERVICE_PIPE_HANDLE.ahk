@@ -27,10 +27,7 @@ class FH_SERVICE_PIPE_HANDLE extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         FileHistory.FhServiceClosePipe(this.Value)
         this.Value := -1
     }

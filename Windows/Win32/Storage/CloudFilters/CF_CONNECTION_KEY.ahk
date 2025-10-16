@@ -27,10 +27,7 @@ class CF_CONNECTION_KEY extends Win32Handle
         set => NumPut("int64", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         CloudFilters.CfDisconnectSyncRoot(this.Value)
         this.Value := -1
     }

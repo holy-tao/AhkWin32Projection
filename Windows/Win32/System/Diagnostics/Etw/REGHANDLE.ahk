@@ -27,10 +27,7 @@ class REGHANDLE extends Win32Handle
         set => NumPut("int64", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Etw.EventUnregister(this.Value)
         this.Value := 0
     }

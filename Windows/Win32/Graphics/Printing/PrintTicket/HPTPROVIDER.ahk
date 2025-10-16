@@ -27,10 +27,7 @@ class HPTPROVIDER extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         PrintTicket.PTCloseProvider(this.Value)
         this.Value := -1
     }

@@ -27,10 +27,7 @@ class LPPROC_THREAD_ATTRIBUTE_LIST extends Win32Handle
         set => NumPut("ptr", value, this, 0)
     }
 
-    __Delete(){
-        if(!this.owned)
-            return
-
+    Free(){
         Threading.DeleteProcThreadAttributeList(this.Value)
         this.Value := 0
     }
