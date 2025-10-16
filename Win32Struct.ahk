@@ -25,6 +25,15 @@ class Win32Struct extends Object{
     size => this.__buf.size
 
     /**
+     * @readonly Whether or not this struct is "owned" by the script. Ownership
+     *          is inherited by any handles in the struct, but has no effect on
+     *          the structure itself. Structs created by the user are owned, structs
+     *          created by the OS are not.
+     * @type {Boolean}
+     */
+    __owned => this.__buf is Buffer
+
+    /**
      * @readonly The size of the struct for packing purposes. This value may be larger than the
      * size of the struct, as the default packing size for almost every struct is 8.
      * @see {@link https://learn.microsoft.com/en-us/windows/win32/winprog/using-the-windows-headers#controlling-structure-packing "Controlling Structure Packing" in Using the Windows Headers - Win32 apps | Microsoft Learn}
