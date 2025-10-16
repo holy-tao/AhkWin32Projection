@@ -27,11 +27,11 @@ class Win32Handle extends Win32Struct {
      * Indicates whether or not the handle is valid. 
      * 
      * @remarks
-     * Note that not all handles have invalid values listed in the metadata - if none are listed, 
-     * this property is always `true`.
+     * Note that not all handles have invalid values listed in the metadata - even if none are
+     * listed, the value 0 is always considered invalid
      * @type {Boolean}
      */
-    IsValid {
+    valid {
         get {
             thisVal := NumGet(this, "ptr")
 
@@ -39,7 +39,7 @@ class Win32Handle extends Win32Struct {
                 if(thisVal == val)
                     return false
             }
-            return true
+            return thisVal != 0
         }
     }
 
@@ -69,5 +69,19 @@ class Win32Handle extends Win32Struct {
         value := this.invalidValues.Has(1) ? this.invalidValues[1] : 0
         handle := this({Value: value}, true)
         return handle
+    }
+
+    /**
+     * Closes the handle if a destructor is defined in the metadata. Not all handles have
+     * destructors defined (e.g. `HWND`); if no destructor is defined, this method does nothing
+     */
+    Free(){
+        ; Implemented by extending classes
+    }
+
+    __Delete(){
+        if(this.owned && this.valid){
+            this.Free()
+        }
     }
 }

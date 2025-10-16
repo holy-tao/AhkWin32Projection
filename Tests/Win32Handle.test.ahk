@@ -20,7 +20,7 @@ class Win32HandleTests {
         test := HGLOBAL.Invalid()
 
         Assert.IsType(test, HGLOBAL)
-        YUnit.Assert(test.IsValid == false, "Expected IsValid to be false but it was " . test.IsValid)
+        YUnit.Assert(test.valid == false, "Expected IsValid to be false but it was " . test.valid)
     }
 
     Invalid_WithNoInvalidValues_SetsHandleTo0(){
