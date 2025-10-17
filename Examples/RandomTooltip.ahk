@@ -18,7 +18,7 @@ hTip := CreateTipWindow(btn.Hwnd)
 toolInfo := CreateToolInfo(testGui.Hwnd, btn.Hwnd)
 
 OnMessage(WindowsAndMessaging.WM_NOTIFY, OnNotifyHandler)
-SendMessage(Controls.TTM_ADDTOOLW, 0, toolInfo, hTip)
+SendMessage(Controls.TTM_ADDTOOLW, 0, toolInfo, hTip.value)
 
 testGui.Show()
 
@@ -34,7 +34,7 @@ OnNotifyHandler(wParam, lParam, msg, hwnd){
 
     ;TTN_GETDISPINFOW from our tooltip?
     header := NMHDR(lParam)
-    if(header.hwndFrom != hTip || header.code != Controls.TTN_GETDISPINFOW)
+    if(header.hwndFrom.value != hTip.value || header.code != Controls.TTN_GETDISPINFOW)
         return 0
     
     ;After checking the notification code, we know it's safe to "cast" header
@@ -50,7 +50,7 @@ CreateToolInfo(hParent, hTip){
     ;Look ma, no NumPut!
     toolInfo := TTTOOLINFOW()
     toolInfo.uFlags := TOOLTIP_FLAGS.TTF_IDISHWND | TOOLTIP_FLAGS.TTF_SUBCLASS
-    toolInfo.hwnd := hParent
+    toolInfo.hwnd.value := hParent
     toolInfo.uId := hTip
     toolInfo.lpszText := LPSTR_TEXTCALLBACK
 
