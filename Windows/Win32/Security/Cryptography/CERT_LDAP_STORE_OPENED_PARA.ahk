@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used with the CertOpenStore function when the CERT_STORE_PROV_LDAP provider is specified by using the CERT_LDAP_STORE_OPENED_FLAG flag to specify both the existing LDAP session to use to perform the query as well as the LDAP query string.
@@ -27,11 +26,8 @@ class CERT_LDAP_STORE_OPENED_PARA extends Win32Struct
      * The address of a null-terminated Unicode string that contains the LDAP query string. For more information about LDAP query strings, see <a href="https://docs.microsoft.com/windows/desktop/ADSI/ldap-dialect">LDAP Dialect</a>.
      * @type {PWSTR}
      */
-    pwszLdapUrl{
-        get {
-            if(!this.HasProp("__pwszLdapUrl"))
-                this.__pwszLdapUrl := PWSTR(this.ptr + 8)
-            return this.__pwszLdapUrl
-        }
+    pwszLdapUrl {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

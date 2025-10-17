@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\LUID.ahk
 
 /**
@@ -55,24 +54,18 @@ class KSJACK_SINK_INFORMATION extends Win32Struct
      * Specifies whether the sink supports High-bandwidth Digital Content Protection (HDCP).
      * @type {BOOL}
      */
-    HDCPCapable{
-        get {
-            if(!this.HasProp("__HDCPCapable"))
-                this.__HDCPCapable := BOOL(this.ptr + 12)
-            return this.__HDCPCapable
-        }
+    HDCPCapable {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
      * Specifies whether the sink supports ACP Packet, ISRC1, or ISRC2.
      * @type {BOOL}
      */
-    AICapable{
-        get {
-            if(!this.HasProp("__AICapable"))
-                this.__AICapable := BOOL(this.ptr + 16)
-            return this.__AICapable
-        }
+    AICapable {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -100,7 +93,7 @@ class KSJACK_SINK_INFORMATION extends Win32Struct
     PortId{
         get {
             if(!this.HasProp("__PortId"))
-                this.__PortId := LUID(this.ptr + 88)
+                this.__PortId := LUID(88, this)
             return this.__PortId
         }
     }

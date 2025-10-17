@@ -19,7 +19,7 @@ class KSP_NODE_ESPID extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSP_NODE(this.ptr + 0)
+                this.__Property := KSP_NODE(0, this)
             return this.__Property
         }
     }

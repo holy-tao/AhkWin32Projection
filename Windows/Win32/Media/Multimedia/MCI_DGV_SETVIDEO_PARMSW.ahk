@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_SETVIDEO_PARMS structure contains parameters for the MCI_SETVIDEO command for digital-video devices.
@@ -67,24 +66,18 @@ class MCI_DGV_SETVIDEO_PARMSW extends Win32Struct
      * Pointer to a null-terminated string containing the name of the video-compression algorithm.
      * @type {PWSTR}
      */
-    lpstrAlgorithm{
-        get {
-            if(!this.HasProp("__lpstrAlgorithm"))
-                this.__lpstrAlgorithm := PWSTR(this.ptr + 24)
-            return this.__lpstrAlgorithm
-        }
+    lpstrAlgorithm {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated string containing a descriptor of the video-compression algorithm.
      * @type {PWSTR}
      */
-    lpstrQuality{
-        get {
-            if(!this.HasProp("__lpstrQuality"))
-                this.__lpstrQuality := PWSTR(this.ptr + 32)
-            return this.__lpstrQuality
-        }
+    lpstrQuality {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

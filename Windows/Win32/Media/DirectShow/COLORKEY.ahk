@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The COLORKEY structure communicates color key information between the renderer and another filter.
@@ -41,23 +40,17 @@ class COLORKEY extends Win32Struct
      * Lowest RGB color value.
      * @type {COLORREF}
      */
-    LowColorValue{
-        get {
-            if(!this.HasProp("__LowColorValue"))
-                this.__LowColorValue := COLORREF(this.ptr + 8)
-            return this.__LowColorValue
-        }
+    LowColorValue {
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * Highest RGB color value.
      * @type {COLORREF}
      */
-    HighColorValue{
-        get {
-            if(!this.HasProp("__HighColorValue"))
-                this.__HighColorValue := COLORREF(this.ptr + 12)
-            return this.__HighColorValue
-        }
+    HighColorValue {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

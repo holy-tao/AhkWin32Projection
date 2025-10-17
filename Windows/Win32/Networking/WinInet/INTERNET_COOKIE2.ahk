@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The INTERNET_COOKIE2 structure contains the constituent parts of a cookie. This structure is used with the InternetGetCookieEx2 and InternetSetCookieEx2 functions.
@@ -26,48 +24,36 @@ class INTERNET_COOKIE2 extends Win32Struct
      * Pointer to a string containing the cookie name. May be NULL if value is not NULL.
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 0)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a string containing the cookie value. May be NULL if name is not NULL.
      * @type {PWSTR}
      */
-    pwszValue{
-        get {
-            if(!this.HasProp("__pwszValue"))
-                this.__pwszValue := PWSTR(this.ptr + 8)
-            return this.__pwszValue
-        }
+    pwszValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a string containing the cookie domain. May be NULL.
      * @type {PWSTR}
      */
-    pwszDomain{
-        get {
-            if(!this.HasProp("__pwszDomain"))
-                this.__pwszDomain := PWSTR(this.ptr + 16)
-            return this.__pwszDomain
-        }
+    pwszDomain {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a string containing the cookie path. May be NULL.
      * @type {PWSTR}
      */
-    pwszPath{
-        get {
-            if(!this.HasProp("__pwszPath"))
-                this.__pwszPath := PWSTR(this.ptr + 24)
-            return this.__pwszPath
-        }
+    pwszPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -97,7 +83,7 @@ class INTERNET_COOKIE2 extends Win32Struct
     ftExpires{
         get {
             if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(this.ptr + 40)
+                this.__ftExpires := FILETIME(40, this)
             return this.__ftExpires
         }
     }
@@ -106,11 +92,8 @@ class INTERNET_COOKIE2 extends Win32Struct
      * Whether or not the expiry time is set.
      * @type {BOOL}
      */
-    fExpiresSet{
-        get {
-            if(!this.HasProp("__fExpiresSet"))
-                this.__fExpiresSet := BOOL(this.ptr + 48)
-            return this.__fExpiresSet
-        }
+    fExpiresSet {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

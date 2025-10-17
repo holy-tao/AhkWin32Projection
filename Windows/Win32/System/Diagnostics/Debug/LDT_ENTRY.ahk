@@ -190,7 +190,7 @@ class LDT_ENTRY extends Win32Struct
     Bytes{
         get {
             if(!this.HasProp("__Bytes"))
-                this.__Bytes := %this.__Class%._Bytes(this.ptr + 4)
+                this.__Bytes := %this.__Class%._Bytes(4, this)
             return this.__Bytes
         }
     }
@@ -201,7 +201,7 @@ class LDT_ENTRY extends Win32Struct
     Bits{
         get {
             if(!this.HasProp("__Bits"))
-                this.__Bits := %this.__Class%._Bits(this.ptr + 4)
+                this.__Bits := %this.__Class%._Bits(4, this)
             return this.__Bits
         }
     }

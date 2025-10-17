@@ -48,7 +48,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
         BoundingBox{
             get {
                 if(!this.HasProp("__BoundingBox"))
-                    this.__BoundingBox := RECT(this.ptr + 0)
+                    this.__BoundingBox := RECT(0, this)
                 return this.__BoundingBox
             }
         }
@@ -67,7 +67,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
         OpaqueEngineData{
             get {
                 if(!this.HasProp("__OpaqueEngineData"))
-                    this.__OpaqueEngineData := %this.__Class%._OpaqueEngineData(this.ptr + 24)
+                    this.__OpaqueEngineData := %this.__Class%._OpaqueEngineData(24, this)
                 return this.__OpaqueEngineData
             }
         }
@@ -84,7 +84,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
         EyeBoundingBox_1{
             get {
                 if(!this.HasProp("__EyeBoundingBox_1"))
-                    this.__EyeBoundingBox_1 := RECT(this.ptr + 0)
+                    this.__EyeBoundingBox_1 := RECT(0, this)
                 return this.__EyeBoundingBox_1
             }
         }
@@ -95,7 +95,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
         EyeBoundingBox_2{
             get {
                 if(!this.HasProp("__EyeBoundingBox_2"))
-                    this.__EyeBoundingBox_2 := RECT(this.ptr + 16)
+                    this.__EyeBoundingBox_2 := RECT(16, this)
                 return this.__EyeBoundingBox_2
             }
         }
@@ -106,7 +106,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
         PupilCenter_1{
             get {
                 if(!this.HasProp("__PupilCenter_1"))
-                    this.__PupilCenter_1 := POINT(this.ptr + 32)
+                    this.__PupilCenter_1 := POINT(32, this)
                 return this.__PupilCenter_1
             }
         }
@@ -117,7 +117,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
         PupilCenter_2{
             get {
                 if(!this.HasProp("__PupilCenter_2"))
-                    this.__PupilCenter_2 := POINT(this.ptr + 40)
+                    this.__PupilCenter_2 := POINT(40, this)
                 return this.__PupilCenter_2
             }
         }
@@ -138,7 +138,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
     FacialFeatures{
         get {
             if(!this.HasProp("__FacialFeatures"))
-                this.__FacialFeatures := %this.__Class%._FacialFeatures(this.ptr + 0)
+                this.__FacialFeatures := %this.__Class%._FacialFeatures(0, this)
             return this.__FacialFeatures
         }
     }
@@ -149,7 +149,7 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
     Iris{
         get {
             if(!this.HasProp("__Iris"))
-                this.__Iris := %this.__Class%._Iris(this.ptr + 0)
+                this.__Iris := %this.__Class%._Iris(0, this)
             return this.__Iris
         }
     }

@@ -55,7 +55,7 @@ class KSAUDIOMODULE_NOTIFICATION extends Win32Struct
     ProviderId{
         get {
             if(!this.HasProp("__ProviderId"))
-                this.__ProviderId := %this.__Class%._ProviderId(this.ptr + 0)
+                this.__ProviderId := %this.__Class%._ProviderId(0, this)
             return this.__ProviderId
         }
     }

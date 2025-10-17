@@ -4,7 +4,6 @@
 #Include Common\DXGI_MODE_DESC.ahk
 #Include Common\DXGI_SAMPLE_DESC.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a swap chain.
@@ -40,7 +39,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
     BufferDesc{
         get {
             if(!this.HasProp("__BufferDesc"))
-                this.__BufferDesc := DXGI_MODE_DESC(this.ptr + 0)
+                this.__BufferDesc := DXGI_MODE_DESC(0, this)
             return this.__BufferDesc
         }
     }
@@ -54,7 +53,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(this.ptr + 32)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(32, this)
             return this.__SampleDesc
         }
     }
@@ -91,7 +90,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
     OutputWindow{
         get {
             if(!this.HasProp("__OutputWindow"))
-                this.__OutputWindow := HWND(this.ptr + 48)
+                this.__OutputWindow := HWND(48, this)
             return this.__OutputWindow
         }
     }
@@ -106,12 +105,9 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * For more information about choosing windowed verses full screen, see <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createswapchain">IDXGIFactory::CreateSwapChain</a>.
      * @type {BOOL}
      */
-    Windowed{
-        get {
-            if(!this.HasProp("__Windowed"))
-                this.__Windowed := BOOL(this.ptr + 56)
-            return this.__Windowed
-        }
+    Windowed {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**

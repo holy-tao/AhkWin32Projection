@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used with the ADSVALUE structure to contain a distinguished name attribute value that also contains string data.
@@ -23,23 +22,17 @@ class ADS_DN_WITH_STRING extends Win32Struct
      * Pointer to a null-terminated Unicode string that contains the string value of the attribute.
      * @type {PWSTR}
      */
-    pszStringValue{
-        get {
-            if(!this.HasProp("__pszStringValue"))
-                this.__pszStringValue := PWSTR(this.ptr + 0)
-            return this.__pszStringValue
-        }
+    pszStringValue {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name.
      * @type {PWSTR}
      */
-    pszDNString{
-        get {
-            if(!this.HasProp("__pszDNString"))
-                this.__pszDNString := PWSTR(this.ptr + 8)
-            return this.__pszDNString
-        }
+    pszDNString {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

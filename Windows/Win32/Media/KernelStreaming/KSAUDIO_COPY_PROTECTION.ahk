@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -15,22 +14,16 @@ class KSAUDIO_COPY_PROTECTION extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fCopyrighted{
-        get {
-            if(!this.HasProp("__fCopyrighted"))
-                this.__fCopyrighted := BOOL(this.ptr + 0)
-            return this.__fCopyrighted
-        }
+    fCopyrighted {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * @type {BOOL}
      */
-    fOriginal{
-        get {
-            if(!this.HasProp("__fOriginal"))
-                this.__fOriginal := BOOL(this.ptr + 4)
-            return this.__fOriginal
-        }
+    fOriginal {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 }

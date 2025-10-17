@@ -44,7 +44,7 @@ class TC_SUPPORTED_INFO_BUFFER extends Win32Struct
     AddrListDesc{
         get {
             if(!this.HasProp("__AddrListDesc"))
-                this.__AddrListDesc := ADDRESS_LIST_DESCRIPTOR(this.ptr + 528)
+                this.__AddrListDesc := ADDRESS_LIST_DESCRIPTOR(528, this)
             return this.__AddrListDesc
         }
     }

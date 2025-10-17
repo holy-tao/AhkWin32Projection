@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DNS_NAPTR_DATA structure represents a Naming Authority Pointer (NAPTR) DNS Resource Record (RR) as specified in RFC 2915.
@@ -43,47 +42,35 @@ class DNS_NAPTR_DATAW extends Win32Struct
      * A pointer to a string  that represents a set of NAPTR RR flags which determine the interpretation and processing of NAPTR record fields as defined in section 2 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
      * @type {PWSTR}
      */
-    pFlags{
-        get {
-            if(!this.HasProp("__pFlags"))
-                this.__pFlags := PWSTR(this.ptr + 8)
-            return this.__pFlags
-        }
+    pFlags {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a string that represents the available services in this rewrite path as defined in section 2 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
      * @type {PWSTR}
      */
-    pService{
-        get {
-            if(!this.HasProp("__pService"))
-                this.__pService := PWSTR(this.ptr + 16)
-            return this.__pService
-        }
+    pService {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a string that represents a substitution expression as defined in sections 2 and 3 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
      * @type {PWSTR}
      */
-    pRegularExpression{
-        get {
-            if(!this.HasProp("__pRegularExpression"))
-                this.__pRegularExpression := PWSTR(this.ptr + 24)
-            return this.__pRegularExpression
-        }
+    pRegularExpression {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A pointer to a string that represents the next NAPTR query name as defined in section 2 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
      * @type {PWSTR}
      */
-    pReplacement{
-        get {
-            if(!this.HasProp("__pReplacement"))
-                this.__pReplacement := PWSTR(this.ptr + 32)
-            return this.__pReplacement
-        }
+    pReplacement {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

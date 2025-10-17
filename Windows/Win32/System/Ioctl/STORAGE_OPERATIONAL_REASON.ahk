@@ -112,7 +112,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
     ScsiSenseKey{
         get {
             if(!this.HasProp("__ScsiSenseKey"))
-                this.__ScsiSenseKey := %this.__Class%._ScsiSenseKey(this.ptr + 12)
+                this.__ScsiSenseKey := %this.__Class%._ScsiSenseKey(12, this)
             return this.__ScsiSenseKey
         }
     }
@@ -123,7 +123,7 @@ class STORAGE_OPERATIONAL_REASON extends Win32Struct
     NVDIMM_N{
         get {
             if(!this.HasProp("__NVDIMM_N"))
-                this.__NVDIMM_N := %this.__Class%._NVDIMM_N(this.ptr + 12)
+                this.__NVDIMM_N := %this.__Class%._NVDIMM_N(12, this)
             return this.__NVDIMM_N
         }
     }

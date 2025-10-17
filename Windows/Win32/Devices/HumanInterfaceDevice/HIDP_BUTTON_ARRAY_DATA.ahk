@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -23,11 +22,8 @@ class HIDP_BUTTON_ARRAY_DATA extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    On{
-        get {
-            if(!this.HasProp("__On"))
-                this.__On := BOOLEAN(this.ptr + 2)
-            return this.__On
-        }
+    On {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 }

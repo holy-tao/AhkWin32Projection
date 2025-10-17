@@ -100,7 +100,7 @@ class DIACTIONFORMATA extends Win32Struct
     hInstString{
         get {
             if(!this.HasProp("__hInstString"))
-                this.__hInstString := HINSTANCE(this.ptr + 48)
+                this.__hInstString := HINSTANCE(48, this)
             return this.__hInstString
         }
     }
@@ -111,7 +111,7 @@ class DIACTIONFORMATA extends Win32Struct
     ftTimeStamp{
         get {
             if(!this.HasProp("__ftTimeStamp"))
-                this.__ftTimeStamp := FILETIME(this.ptr + 56)
+                this.__ftTimeStamp := FILETIME(56, this)
             return this.__ftTimeStamp
         }
     }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about connection related notifications.
@@ -53,7 +52,7 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(this.ptr + 520)
+                this.__dot11Ssid := DOT11_SSID(520, this)
             return this.__dot11Ssid
         }
     }
@@ -71,12 +70,9 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
      * Indicates whether security is enabled for this connection.  If <b>TRUE</b>, security is enabled.
      * @type {BOOL}
      */
-    bSecurityEnabled{
-        get {
-            if(!this.HasProp("__bSecurityEnabled"))
-                this.__bSecurityEnabled := BOOL(this.ptr + 560)
-            return this.__bSecurityEnabled
-        }
+    bSecurityEnabled {
+        get => NumGet(this, 560, "int")
+        set => NumPut("int", value, this, 560)
     }
 
     /**

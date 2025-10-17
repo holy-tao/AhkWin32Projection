@@ -88,7 +88,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     SingleShotParam{
         get {
             if(!this.HasProp("__SingleShotParam"))
-                this.__SingleShotParam := GNSS_SINGLESHOT_PARAM(this.ptr + 64)
+                this.__SingleShotParam := GNSS_SINGLESHOT_PARAM(64, this)
             return this.__SingleShotParam
         }
     }
@@ -99,7 +99,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     DistanceParam{
         get {
             if(!this.HasProp("__DistanceParam"))
-                this.__DistanceParam := GNSS_DISTANCETRACKING_PARAM(this.ptr + 64)
+                this.__DistanceParam := GNSS_DISTANCETRACKING_PARAM(64, this)
             return this.__DistanceParam
         }
     }
@@ -110,7 +110,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     ContinuousParam{
         get {
             if(!this.HasProp("__ContinuousParam"))
-                this.__ContinuousParam := GNSS_CONTINUOUSTRACKING_PARAM(this.ptr + 64)
+                this.__ContinuousParam := GNSS_CONTINUOUSTRACKING_PARAM(64, this)
             return this.__ContinuousParam
         }
     }
@@ -121,7 +121,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     LkgFixParam{
         get {
             if(!this.HasProp("__LkgFixParam"))
-                this.__LkgFixParam := GNSS_LKGFIX_PARAM(this.ptr + 64)
+                this.__LkgFixParam := GNSS_LKGFIX_PARAM(64, this)
             return this.__LkgFixParam
         }
     }

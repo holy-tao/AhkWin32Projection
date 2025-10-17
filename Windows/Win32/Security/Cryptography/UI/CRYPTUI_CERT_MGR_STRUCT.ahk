@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a certificate manager dialog box.
@@ -32,7 +30,7 @@ class CRYPTUI_CERT_MGR_STRUCT extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
+                this.__hwndParent := HWND(8, this)
             return this.__hwndParent
         }
     }
@@ -50,23 +48,17 @@ class CRYPTUI_CERT_MGR_STRUCT extends Win32Struct
      * Title of the dialog box.
      * @type {PWSTR}
      */
-    pwszTitle{
-        get {
-            if(!this.HasProp("__pwszTitle"))
-                this.__pwszTitle := PWSTR(this.ptr + 24)
-            return this.__pwszTitle
-        }
+    pwszTitle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Enhanced key usage <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the certificates that will initially appear in the dialog box. The default value is <b>NULL</b>, which displays all certificates.
      * @type {PSTR}
      */
-    pszInitUsageOID{
-        get {
-            if(!this.HasProp("__pszInitUsageOID"))
-                this.__pszInitUsageOID := PSTR(this.ptr + 32)
-            return this.__pszInitUsageOID
-        }
+    pszInitUsageOID {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

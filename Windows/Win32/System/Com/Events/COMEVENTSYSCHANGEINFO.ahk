@@ -39,7 +39,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
     objectId{
         get {
             if(!this.HasProp("__objectId"))
-                this.__objectId := BSTR(this.ptr + 8)
+                this.__objectId := BSTR(8, this)
             return this.__objectId
         }
     }
@@ -51,7 +51,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
     partitionId{
         get {
             if(!this.HasProp("__partitionId"))
-                this.__partitionId := BSTR(this.ptr + 16)
+                this.__partitionId := BSTR(16, this)
             return this.__partitionId
         }
     }
@@ -63,7 +63,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
     applicationId{
         get {
             if(!this.HasProp("__applicationId"))
-                this.__applicationId := BSTR(this.ptr + 24)
+                this.__applicationId := BSTR(24, this)
             return this.__applicationId
         }
     }
@@ -80,12 +80,8 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 112
     }
 }

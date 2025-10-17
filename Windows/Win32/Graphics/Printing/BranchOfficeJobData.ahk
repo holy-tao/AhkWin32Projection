@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BranchOfficeJobDataPrinted.ahk
 #Include .\BranchOfficeJobDataRendered.ahk
 #Include .\BranchOfficeJobDataError.ahk
@@ -39,7 +38,7 @@ class BranchOfficeJobData extends Win32Struct
     LogJobPrinted{
         get {
             if(!this.HasProp("__LogJobPrinted"))
-                this.__LogJobPrinted := BranchOfficeJobDataPrinted(this.ptr + 8)
+                this.__LogJobPrinted := BranchOfficeJobDataPrinted(8, this)
             return this.__LogJobPrinted
         }
     }
@@ -50,7 +49,7 @@ class BranchOfficeJobData extends Win32Struct
     LogJobRendered{
         get {
             if(!this.HasProp("__LogJobRendered"))
-                this.__LogJobRendered := BranchOfficeJobDataRendered(this.ptr + 8)
+                this.__LogJobRendered := BranchOfficeJobDataRendered(8, this)
             return this.__LogJobRendered
         }
     }
@@ -61,7 +60,7 @@ class BranchOfficeJobData extends Win32Struct
     LogJobError{
         get {
             if(!this.HasProp("__LogJobError"))
-                this.__LogJobError := BranchOfficeJobDataError(this.ptr + 8)
+                this.__LogJobError := BranchOfficeJobDataError(8, this)
             return this.__LogJobError
         }
     }
@@ -72,7 +71,7 @@ class BranchOfficeJobData extends Win32Struct
     LogPipelineFailed{
         get {
             if(!this.HasProp("__LogPipelineFailed"))
-                this.__LogPipelineFailed := BranchOfficeJobDataPipelineFailed(this.ptr + 8)
+                this.__LogPipelineFailed := BranchOfficeJobDataPipelineFailed(8, this)
             return this.__LogPipelineFailed
         }
     }
@@ -83,7 +82,7 @@ class BranchOfficeJobData extends Win32Struct
     LogOfflineFileFull{
         get {
             if(!this.HasProp("__LogOfflineFileFull"))
-                this.__LogOfflineFileFull := BranchOfficeLogOfflineFileFull(this.ptr + 8)
+                this.__LogOfflineFileFull := BranchOfficeLogOfflineFileFull(8, this)
             return this.__LogOfflineFileFull
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -39,11 +38,8 @@ class DELTA_INPUT extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Editable{
-        get {
-            if(!this.HasProp("__Editable"))
-                this.__Editable := BOOL(this.ptr + 16)
-            return this.__Editable
-        }
+    Editable {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 }

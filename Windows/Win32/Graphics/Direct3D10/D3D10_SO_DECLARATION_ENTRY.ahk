@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Description of a vertex element in a vertex buffer in an output slot.
@@ -20,12 +19,9 @@ class D3D10_SO_DECLARATION_ENTRY extends Win32Struct
      * Type of output element.  Possible values: "POSITION", "NORMAL", or "TEXCOORD0".
      * @type {PSTR}
      */
-    SemanticName{
-        get {
-            if(!this.HasProp("__SemanticName"))
-                this.__SemanticName := PSTR(this.ptr + 0)
-            return this.__SemanticName
-        }
+    SemanticName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

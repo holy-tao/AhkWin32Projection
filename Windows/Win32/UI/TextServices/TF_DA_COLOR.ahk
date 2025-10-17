@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The TF_DA_COLOR structure contains color data used in the display attributes for a range of text.
@@ -34,11 +33,8 @@ class TF_DA_COLOR extends Win32Struct
     /**
      * @type {COLORREF}
      */
-    cr{
-        get {
-            if(!this.HasProp("__cr"))
-                this.__cr := COLORREF(this.ptr + 4)
-            return this.__cr
-        }
+    cr {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 }

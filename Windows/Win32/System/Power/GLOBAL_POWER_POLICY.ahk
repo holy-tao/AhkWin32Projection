@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\POWER_ACTION_POLICY.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\SYSTEM_POWER_LEVEL.ahk
 #Include .\GLOBAL_USER_POWER_POLICY.ahk
 #Include .\GLOBAL_MACHINE_POWER_POLICY.ahk
@@ -26,7 +25,7 @@ class GLOBAL_POWER_POLICY extends Win32Struct
     user{
         get {
             if(!this.HasProp("__user"))
-                this.__user := GLOBAL_USER_POWER_POLICY(this.ptr + 0)
+                this.__user := GLOBAL_USER_POWER_POLICY(0, this)
             return this.__user
         }
     }
@@ -39,7 +38,7 @@ class GLOBAL_POWER_POLICY extends Win32Struct
     mach{
         get {
             if(!this.HasProp("__mach"))
-                this.__mach := GLOBAL_MACHINE_POWER_POLICY(this.ptr + 144)
+                this.__mach := GLOBAL_MACHINE_POWER_POLICY(144, this)
             return this.__mach
         }
     }

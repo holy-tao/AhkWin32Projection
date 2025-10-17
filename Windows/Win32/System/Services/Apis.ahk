@@ -692,7 +692,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SetServiceBits", "ptr", hServiceStatus, "uint", dwServiceBits, "ptr", bSetBitsOn, "ptr", bUpdateImmediately, "ptr")
+        result := DllCall("ADVAPI32.dll\SetServiceBits", "ptr", hServiceStatus, "uint", dwServiceBits, "int", bSetBitsOn, "int", bUpdateImmediately, "int")
         if(A_LastError)
             throw OSError()
 
@@ -955,7 +955,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ChangeServiceConfigA", "ptr", hService, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr", lpDisplayName, "ptr")
+        result := DllCall("ADVAPI32.dll\ChangeServiceConfigA", "ptr", hService, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr", lpDisplayName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1218,7 +1218,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ChangeServiceConfigW", "ptr", hService, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr", lpDisplayName, "ptr")
+        result := DllCall("ADVAPI32.dll\ChangeServiceConfigW", "ptr", hService, "uint", dwServiceType, "uint", dwStartType, "uint", dwErrorControl, "ptr", lpBinaryPathName, "ptr", lpLoadOrderGroup, "uint*", lpdwTagId, "ptr", lpDependencies, "ptr", lpServiceStartName, "ptr", lpPassword, "ptr", lpDisplayName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1250,7 +1250,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ChangeServiceConfig2A", "ptr", hService, "uint", dwInfoLevel, "ptr", lpInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\ChangeServiceConfig2A", "ptr", hService, "uint", dwInfoLevel, "ptr", lpInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1282,7 +1282,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ChangeServiceConfig2W", "ptr", hService, "uint", dwInfoLevel, "ptr", lpInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\ChangeServiceConfig2W", "ptr", hService, "uint", dwInfoLevel, "ptr", lpInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1327,7 +1327,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CloseServiceHandle", "ptr", hSCObject, "ptr")
+        result := DllCall("ADVAPI32.dll\CloseServiceHandle", "ptr", hSCObject, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1640,7 +1640,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ControlService", "ptr", hService, "uint", dwControl, "ptr", lpServiceStatus, "ptr")
+        result := DllCall("ADVAPI32.dll\ControlService", "ptr", hService, "uint", dwControl, "ptr", lpServiceStatus, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2121,7 +2121,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\DeleteService", "ptr", hService, "ptr")
+        result := DllCall("ADVAPI32.dll\DeleteService", "ptr", hService, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2209,7 +2209,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumDependentServicesA", "ptr", hService, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "ptr")
+        result := DllCall("ADVAPI32.dll\EnumDependentServicesA", "ptr", hService, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2297,7 +2297,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumDependentServicesW", "ptr", hService, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "ptr")
+        result := DllCall("ADVAPI32.dll\EnumDependentServicesW", "ptr", hService, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2389,7 +2389,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumServicesStatusA", "ptr", hSCManager, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "ptr")
+        result := DllCall("ADVAPI32.dll\EnumServicesStatusA", "ptr", hSCManager, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2481,7 +2481,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumServicesStatusW", "ptr", hSCManager, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "ptr")
+        result := DllCall("ADVAPI32.dll\EnumServicesStatusW", "ptr", hSCManager, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2598,7 +2598,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumServicesStatusExA", "ptr", hSCManager, "int", InfoLevel, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "ptr", pszGroupName, "ptr")
+        result := DllCall("ADVAPI32.dll\EnumServicesStatusExA", "ptr", hSCManager, "int", InfoLevel, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "ptr", pszGroupName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2715,7 +2715,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\EnumServicesStatusExW", "ptr", hSCManager, "int", InfoLevel, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "ptr", pszGroupName, "ptr")
+        result := DllCall("ADVAPI32.dll\EnumServicesStatusExW", "ptr", hSCManager, "int", InfoLevel, "uint", dwServiceType, "uint", dwServiceState, "ptr", lpServices, "uint", cbBufSize, "uint*", pcbBytesNeeded, "uint*", lpServicesReturned, "uint*", lpResumeHandle, "ptr", pszGroupName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2747,7 +2747,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetServiceKeyNameA", "ptr", hSCManager, "ptr", lpDisplayName, "ptr", lpServiceName, "uint*", lpcchBuffer, "ptr")
+        result := DllCall("ADVAPI32.dll\GetServiceKeyNameA", "ptr", hSCManager, "ptr", lpDisplayName, "ptr", lpServiceName, "uint*", lpcchBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2779,7 +2779,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetServiceKeyNameW", "ptr", hSCManager, "ptr", lpDisplayName, "ptr", lpServiceName, "uint*", lpcchBuffer, "ptr")
+        result := DllCall("ADVAPI32.dll\GetServiceKeyNameW", "ptr", hSCManager, "ptr", lpDisplayName, "ptr", lpServiceName, "uint*", lpcchBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2821,7 +2821,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetServiceDisplayNameA", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint*", lpcchBuffer, "ptr")
+        result := DllCall("ADVAPI32.dll\GetServiceDisplayNameA", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint*", lpcchBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2864,7 +2864,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetServiceDisplayNameW", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint*", lpcchBuffer, "ptr")
+        result := DllCall("ADVAPI32.dll\GetServiceDisplayNameW", "ptr", hSCManager, "ptr", lpServiceName, "ptr", lpDisplayName, "uint*", lpcchBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2972,7 +2972,7 @@ class Services {
     static NotifyBootConfigStatus(BootAcceptable) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\NotifyBootConfigStatus", "ptr", BootAcceptable, "ptr")
+        result := DllCall("ADVAPI32.dll\NotifyBootConfigStatus", "int", BootAcceptable, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3348,7 +3348,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceConfigA", "ptr", hService, "ptr", lpServiceConfig, "uint", cbBufSize, "uint*", pcbBytesNeeded, "ptr")
+        result := DllCall("ADVAPI32.dll\QueryServiceConfigA", "ptr", hService, "ptr", lpServiceConfig, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3422,7 +3422,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceConfigW", "ptr", hService, "ptr", lpServiceConfig, "uint", cbBufSize, "uint*", pcbBytesNeeded, "ptr")
+        result := DllCall("ADVAPI32.dll\QueryServiceConfigW", "ptr", hService, "ptr", lpServiceConfig, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3495,7 +3495,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceConfig2A", "ptr", hService, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "ptr")
+        result := DllCall("ADVAPI32.dll\QueryServiceConfig2A", "ptr", hService, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3568,7 +3568,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceConfig2W", "ptr", hService, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "ptr")
+        result := DllCall("ADVAPI32.dll\QueryServiceConfig2W", "ptr", hService, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3638,7 +3638,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceLockStatusA", "ptr", hSCManager, "ptr", lpLockStatus, "uint", cbBufSize, "uint*", pcbBytesNeeded, "ptr")
+        result := DllCall("ADVAPI32.dll\QueryServiceLockStatusA", "ptr", hSCManager, "ptr", lpLockStatus, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3708,7 +3708,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceLockStatusW", "ptr", hSCManager, "ptr", lpLockStatus, "uint", cbBufSize, "uint*", pcbBytesNeeded, "ptr")
+        result := DllCall("ADVAPI32.dll\QueryServiceLockStatusW", "ptr", hSCManager, "ptr", lpLockStatus, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3793,7 +3793,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceObjectSecurity", "ptr", hService, "uint", dwSecurityInformation, "ptr", lpSecurityDescriptor, "uint", cbBufSize, "uint*", pcbBytesNeeded, "ptr")
+        result := DllCall("ADVAPI32.dll\QueryServiceObjectSecurity", "ptr", hService, "uint", dwSecurityInformation, "ptr", lpSecurityDescriptor, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3851,7 +3851,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceStatus", "ptr", hService, "ptr", lpServiceStatus, "ptr")
+        result := DllCall("ADVAPI32.dll\QueryServiceStatus", "ptr", hService, "ptr", lpServiceStatus, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3964,7 +3964,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceStatusEx", "ptr", hService, "int", InfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "ptr")
+        result := DllCall("ADVAPI32.dll\QueryServiceStatusEx", "ptr", hService, "int", InfoLevel, "ptr", lpBuffer, "uint", cbBufSize, "uint*", pcbBytesNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4281,7 +4281,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SetServiceObjectSecurity", "ptr", hService, "uint", dwSecurityInformation, "ptr", lpSecurityDescriptor, "ptr")
+        result := DllCall("ADVAPI32.dll\SetServiceObjectSecurity", "ptr", hService, "uint", dwSecurityInformation, "ptr", lpSecurityDescriptor, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4337,7 +4337,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SetServiceStatus", "ptr", hServiceStatus, "ptr", lpServiceStatus, "ptr")
+        result := DllCall("ADVAPI32.dll\SetServiceStatus", "ptr", hServiceStatus, "ptr", lpServiceStatus, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4405,7 +4405,7 @@ class Services {
     static StartServiceCtrlDispatcherA(lpServiceStartTable) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\StartServiceCtrlDispatcherA", "ptr", lpServiceStartTable, "ptr")
+        result := DllCall("ADVAPI32.dll\StartServiceCtrlDispatcherA", "ptr", lpServiceStartTable, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4473,7 +4473,7 @@ class Services {
     static StartServiceCtrlDispatcherW(lpServiceStartTable) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\StartServiceCtrlDispatcherW", "ptr", lpServiceStartTable, "ptr")
+        result := DllCall("ADVAPI32.dll\StartServiceCtrlDispatcherW", "ptr", lpServiceStartTable, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4645,7 +4645,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\StartServiceA", "ptr", hService, "uint", dwNumServiceArgs, "ptr", lpServiceArgVectors, "ptr")
+        result := DllCall("ADVAPI32.dll\StartServiceA", "ptr", hService, "uint", dwNumServiceArgs, "ptr", lpServiceArgVectors, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4817,7 +4817,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\StartServiceW", "ptr", hService, "uint", dwNumServiceArgs, "ptr", lpServiceArgVectors, "ptr")
+        result := DllCall("ADVAPI32.dll\StartServiceW", "ptr", hService, "uint", dwNumServiceArgs, "ptr", lpServiceArgVectors, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4858,7 +4858,7 @@ class Services {
     static UnlockServiceDatabase(ScLock) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\UnlockServiceDatabase", "ptr", ScLock, "ptr")
+        result := DllCall("ADVAPI32.dll\UnlockServiceDatabase", "ptr", ScLock, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5181,7 +5181,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ControlServiceExA", "ptr", hService, "uint", dwControl, "uint", dwInfoLevel, "ptr", pControlParams, "ptr")
+        result := DllCall("ADVAPI32.dll\ControlServiceExA", "ptr", hService, "uint", dwControl, "uint", dwInfoLevel, "ptr", pControlParams, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5452,7 +5452,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ControlServiceExW", "ptr", hService, "uint", dwControl, "uint", dwInfoLevel, "ptr", pControlParams, "ptr")
+        result := DllCall("ADVAPI32.dll\ControlServiceExW", "ptr", hService, "uint", dwControl, "uint", dwInfoLevel, "ptr", pControlParams, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5492,7 +5492,7 @@ class Services {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceDynamicInformation", "ptr", hServiceStatus, "uint", dwInfoLevel, "ptr", ppDynamicInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\QueryServiceDynamicInformation", "ptr", hServiceStatus, "uint", dwInfoLevel, "ptr", ppDynamicInfo, "int")
         if(A_LastError)
             throw OSError()
 

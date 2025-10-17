@@ -30,7 +30,7 @@ class WMT_PAYLOAD_FRAGMENT extends Win32Struct
     segmentData{
         get {
             if(!this.HasProp("__segmentData"))
-                this.__segmentData := WMT_BUFFER_SEGMENT(this.ptr + 8)
+                this.__segmentData := WMT_BUFFER_SEGMENT(8, this)
             return this.__segmentData
         }
     }

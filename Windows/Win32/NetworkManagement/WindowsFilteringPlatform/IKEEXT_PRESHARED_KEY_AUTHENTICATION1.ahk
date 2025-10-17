@@ -21,7 +21,7 @@ class IKEEXT_PRESHARED_KEY_AUTHENTICATION1 extends Win32Struct
     presharedKey{
         get {
             if(!this.HasProp("__presharedKey"))
-                this.__presharedKey := FWP_BYTE_BLOB(this.ptr + 0)
+                this.__presharedKey := FWP_BYTE_BLOB(0, this)
             return this.__presharedKey
         }
     }

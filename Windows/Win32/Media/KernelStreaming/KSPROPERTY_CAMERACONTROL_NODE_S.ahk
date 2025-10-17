@@ -19,7 +19,7 @@ class KSPROPERTY_CAMERACONTROL_NODE_S extends Win32Struct
     NodeProperty{
         get {
             if(!this.HasProp("__NodeProperty"))
-                this.__NodeProperty := KSP_NODE(this.ptr + 0)
+                this.__NodeProperty := KSP_NODE(0, this)
             return this.__NodeProperty
         }
     }

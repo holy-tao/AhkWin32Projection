@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include .\DDEML_MSG_HOOK_DATA.ahk
 
 /**
@@ -38,7 +36,7 @@ class MONMSGSTRUCT extends Win32Struct
     hwndTo{
         get {
             if(!this.HasProp("__hwndTo"))
-                this.__hwndTo := HWND(this.ptr + 8)
+                this.__hwndTo := HWND(8, this)
             return this.__hwndTo
         }
     }
@@ -63,7 +61,7 @@ class MONMSGSTRUCT extends Win32Struct
     hTask{
         get {
             if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(this.ptr + 24)
+                this.__hTask := HANDLE(24, this)
             return this.__hTask
         }
     }
@@ -85,12 +83,9 @@ class MONMSGSTRUCT extends Win32Struct
      * The <b>wParam</b> parameter of the DDE message.
      * @type {WPARAM}
      */
-    wParam{
-        get {
-            if(!this.HasProp("__wParam"))
-                this.__wParam := WPARAM(this.ptr + 40)
-            return this.__wParam
-        }
+    wParam {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -99,12 +94,9 @@ class MONMSGSTRUCT extends Win32Struct
      * The <b>lParam</b> parameter of the DDE message.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 48)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -116,7 +108,7 @@ class MONMSGSTRUCT extends Win32Struct
     dmhd{
         get {
             if(!this.HasProp("__dmhd"))
-                this.__dmhd := DDEML_MSG_HOOK_DATA(this.ptr + 56)
+                this.__dmhd := DDEML_MSG_HOOK_DATA(56, this)
             return this.__dmhd
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Retrieves data about any supported LDAP API extensions.
@@ -40,12 +39,9 @@ class LDAPAPIFeatureInfoW extends Win32Struct
      * A pointer to a null-terminated string that contains the name of the desired API extension.  This value is set before the call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_option">ldap_get_option</a> is performed, and should match one of the strings returned in the <b>ldapai_extensions</b> member of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapapiinfoa">LDAPAPIInfo</a> set  from a previous call to <b>ldap_get_option</b>.
      * @type {PWSTR}
      */
-    ldapaif_name{
-        get {
-            if(!this.HasProp("__ldapaif_name"))
-                this.__ldapaif_name := PWSTR(this.ptr + 8)
-            return this.__ldapaif_name
-        }
+    ldapaif_name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

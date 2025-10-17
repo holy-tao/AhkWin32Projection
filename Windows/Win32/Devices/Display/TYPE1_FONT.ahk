@@ -28,7 +28,7 @@ class TYPE1_FONT extends Win32Struct
     hPFM{
         get {
             if(!this.HasProp("__hPFM"))
-                this.__hPFM := HANDLE(this.ptr + 0)
+                this.__hPFM := HANDLE(0, this)
             return this.__hPFM
         }
     }
@@ -40,7 +40,7 @@ class TYPE1_FONT extends Win32Struct
     hPFB{
         get {
             if(!this.HasProp("__hPFB"))
-                this.__hPFB := HANDLE(this.ptr + 8)
+                this.__hPFB := HANDLE(8, this)
             return this.__hPFB
         }
     }

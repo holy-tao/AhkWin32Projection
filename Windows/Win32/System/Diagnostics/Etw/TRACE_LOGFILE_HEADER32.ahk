@@ -73,7 +73,7 @@ class TRACE_LOGFILE_HEADER32 extends Win32Struct
     VersionDetail{
         get {
             if(!this.HasProp("__VersionDetail"))
-                this.__VersionDetail := %this.__Class%._VersionDetail(this.ptr + 4)
+                this.__VersionDetail := %this.__Class%._VersionDetail(4, this)
             return this.__VersionDetail
         }
     }
@@ -196,7 +196,7 @@ class TRACE_LOGFILE_HEADER32 extends Win32Struct
     TimeZone{
         get {
             if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 64)
+                this.__TimeZone := TIME_ZONE_INFORMATION(64, this)
             return this.__TimeZone
         }
     }

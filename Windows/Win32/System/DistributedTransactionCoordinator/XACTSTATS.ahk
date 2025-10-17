@@ -74,7 +74,7 @@ class XACTSTATS extends Win32Struct
     timeTransactionsUp{
         get {
             if(!this.HasProp("__timeTransactionsUp"))
-                this.__timeTransactionsUp := FILETIME(this.ptr + 32)
+                this.__timeTransactionsUp := FILETIME(32, this)
             return this.__timeTransactionsUp
         }
     }

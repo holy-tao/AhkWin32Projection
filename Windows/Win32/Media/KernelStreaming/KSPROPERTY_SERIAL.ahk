@@ -18,7 +18,7 @@ class KSPROPERTY_SERIAL extends Win32Struct
     PropTypeSet{
         get {
             if(!this.HasProp("__PropTypeSet"))
-                this.__PropTypeSet := KSIDENTIFIER(this.ptr + 0)
+                this.__PropTypeSet := KSIDENTIFIER(0, this)
             return this.__PropTypeSet
         }
     }

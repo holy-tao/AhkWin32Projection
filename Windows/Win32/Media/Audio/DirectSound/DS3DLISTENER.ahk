@@ -26,7 +26,7 @@ class DS3DLISTENER extends Win32Struct
     vPosition{
         get {
             if(!this.HasProp("__vPosition"))
-                this.__vPosition := D3DVECTOR(this.ptr + 8)
+                this.__vPosition := D3DVECTOR(8, this)
             return this.__vPosition
         }
     }
@@ -37,7 +37,7 @@ class DS3DLISTENER extends Win32Struct
     vVelocity{
         get {
             if(!this.HasProp("__vVelocity"))
-                this.__vVelocity := D3DVECTOR(this.ptr + 24)
+                this.__vVelocity := D3DVECTOR(24, this)
             return this.__vVelocity
         }
     }
@@ -48,7 +48,7 @@ class DS3DLISTENER extends Win32Struct
     vOrientFront{
         get {
             if(!this.HasProp("__vOrientFront"))
-                this.__vOrientFront := D3DVECTOR(this.ptr + 40)
+                this.__vOrientFront := D3DVECTOR(40, this)
             return this.__vOrientFront
         }
     }
@@ -59,7 +59,7 @@ class DS3DLISTENER extends Win32Struct
     vOrientTop{
         get {
             if(!this.HasProp("__vOrientTop"))
-                this.__vOrientTop := D3DVECTOR(this.ptr + 56)
+                this.__vOrientTop := D3DVECTOR(56, this)
             return this.__vOrientTop
         }
     }

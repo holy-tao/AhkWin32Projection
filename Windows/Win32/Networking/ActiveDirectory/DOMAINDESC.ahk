@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory
@@ -16,56 +14,41 @@ class DOMAINDESC extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PWSTR(this.ptr + 0)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszPath{
-        get {
-            if(!this.HasProp("__pszPath"))
-                this.__pszPath := PWSTR(this.ptr + 8)
-            return this.__pszPath
-        }
+    pszPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszNCName{
-        get {
-            if(!this.HasProp("__pszNCName"))
-                this.__pszNCName := PWSTR(this.ptr + 16)
-            return this.__pszNCName
-        }
+    pszNCName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszTrustParent{
-        get {
-            if(!this.HasProp("__pszTrustParent"))
-                this.__pszTrustParent := PWSTR(this.ptr + 24)
-            return this.__pszTrustParent
-        }
+    pszTrustParent {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszObjectClass{
-        get {
-            if(!this.HasProp("__pszObjectClass"))
-                this.__pszObjectClass := PWSTR(this.ptr + 32)
-            return this.__pszObjectClass
-        }
+    pszObjectClass {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -79,12 +62,9 @@ class DOMAINDESC extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fDownLevel{
-        get {
-            if(!this.HasProp("__fDownLevel"))
-                this.__fDownLevel := BOOL(this.ptr + 44)
-            return this.__fDownLevel
-        }
+    fDownLevel {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**

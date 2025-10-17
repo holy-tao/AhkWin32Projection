@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
 #Include .\AM_MPEGSTREAMTYPE.ahk
 

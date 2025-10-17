@@ -26,7 +26,7 @@ class RSVP_FILTERSPEC_V4 extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := IN_ADDR_IPV4(this.ptr + 0)
+                this.__Address := IN_ADDR_IPV4(0, this)
             return this.__Address
         }
     }

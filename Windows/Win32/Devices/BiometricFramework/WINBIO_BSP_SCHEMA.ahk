@@ -56,7 +56,7 @@ class WINBIO_BSP_SCHEMA extends Win32Struct
     Version{
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := WINBIO_VERSION(this.ptr + 1040)
+                this.__Version := WINBIO_VERSION(1040, this)
             return this.__Version
         }
     }

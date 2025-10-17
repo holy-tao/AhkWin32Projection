@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -23,12 +22,9 @@ class DNS_SVCB_DATA extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszTargetName{
-        get {
-            if(!this.HasProp("__pszTargetName"))
-                this.__pszTargetName := PSTR(this.ptr + 8)
-            return this.__pszTargetName
-        }
+    pszTargetName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

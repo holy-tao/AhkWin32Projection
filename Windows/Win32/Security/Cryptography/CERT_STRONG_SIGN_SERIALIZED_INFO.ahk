@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the signature algorithm/hash algorithm and public key algorithm/bit length pairs that can be used for strong signing.
@@ -90,12 +89,9 @@ class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct
      * </ul>
      * @type {PWSTR}
      */
-    pwszCNGSignHashAlgids{
-        get {
-            if(!this.HasProp("__pwszCNGSignHashAlgids"))
-                this.__pwszCNGSignHashAlgids := PWSTR(this.ptr + 8)
-            return this.__pwszCNGSignHashAlgids
-        }
+    pwszCNGSignHashAlgids {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -110,11 +106,8 @@ class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct
      * </ul>
      * @type {PWSTR}
      */
-    pwszCNGPubKeyMinBitLengths{
-        get {
-            if(!this.HasProp("__pwszCNGPubKeyMinBitLengths"))
-                this.__pwszCNGPubKeyMinBitLengths := PWSTR(this.ptr + 16)
-            return this.__pwszCNGPubKeyMinBitLengths
-        }
+    pwszCNGPubKeyMinBitLengths {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

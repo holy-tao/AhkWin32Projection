@@ -26,7 +26,7 @@ class CLFS_PHYSICAL_LSN_INFORMATION extends Win32Struct
     VirtualLsn{
         get {
             if(!this.HasProp("__VirtualLsn"))
-                this.__VirtualLsn := CLS_LSN(this.ptr + 8)
+                this.__VirtualLsn := CLS_LSN(8, this)
             return this.__VirtualLsn
         }
     }
@@ -37,7 +37,7 @@ class CLFS_PHYSICAL_LSN_INFORMATION extends Win32Struct
     PhysicalLsn{
         get {
             if(!this.HasProp("__PhysicalLsn"))
-                this.__PhysicalLsn := CLS_LSN(this.ptr + 16)
+                this.__PhysicalLsn := CLS_LSN(16, this)
             return this.__PhysicalLsn
         }
     }

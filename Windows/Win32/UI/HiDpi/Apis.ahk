@@ -67,7 +67,7 @@ class HiDpi {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetDialogControlDpiChangeBehavior", "ptr", hWnd, "int", mask, "int", values, "ptr")
+        result := DllCall("USER32.dll\SetDialogControlDpiChangeBehavior", "ptr", hWnd, "int", mask, "int", values, "int")
         if(A_LastError)
             throw OSError()
 
@@ -109,7 +109,7 @@ class HiDpi {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetDialogDpiChangeBehavior", "ptr", hDlg, "int", mask, "int", values, "ptr")
+        result := DllCall("USER32.dll\SetDialogDpiChangeBehavior", "ptr", hDlg, "int", mask, "int", values, "int")
         if(A_LastError)
             throw OSError()
 
@@ -171,7 +171,7 @@ class HiDpi {
     static AdjustWindowRectExForDpi(lpRect, dwStyle, bMenu, dwExStyle, dpi) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\AdjustWindowRectExForDpi", "ptr", lpRect, "uint", dwStyle, "ptr", bMenu, "uint", dwExStyle, "uint", dpi, "ptr")
+        result := DllCall("USER32.dll\AdjustWindowRectExForDpi", "ptr", lpRect, "uint", dwStyle, "int", bMenu, "uint", dwExStyle, "uint", dpi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -189,7 +189,7 @@ class HiDpi {
     static LogicalToPhysicalPointForPerMonitorDPI(hWnd, lpPoint) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\LogicalToPhysicalPointForPerMonitorDPI", "ptr", hWnd, "ptr", lpPoint, "ptr")
+        result := DllCall("USER32.dll\LogicalToPhysicalPointForPerMonitorDPI", "ptr", hWnd, "ptr", lpPoint, "int")
         return result
     }
 
@@ -204,7 +204,7 @@ class HiDpi {
     static PhysicalToLogicalPointForPerMonitorDPI(hWnd, lpPoint) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\PhysicalToLogicalPointForPerMonitorDPI", "ptr", hWnd, "ptr", lpPoint, "ptr")
+        result := DllCall("USER32.dll\PhysicalToLogicalPointForPerMonitorDPI", "ptr", hWnd, "ptr", lpPoint, "int")
         return result
     }
 
@@ -224,7 +224,7 @@ class HiDpi {
     static SystemParametersInfoForDpi(uiAction, uiParam, pvParam, fWinIni, dpi) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SystemParametersInfoForDpi", "uint", uiAction, "uint", uiParam, "ptr", pvParam, "uint", fWinIni, "uint", dpi, "ptr")
+        result := DllCall("USER32.dll\SystemParametersInfoForDpi", "uint", uiAction, "uint", uiParam, "ptr", pvParam, "uint", fWinIni, "uint", dpi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -310,7 +310,7 @@ class HiDpi {
         dpiContextA := dpiContextA is Win32Handle ? NumGet(dpiContextA, "ptr") : dpiContextA
         dpiContextB := dpiContextB is Win32Handle ? NumGet(dpiContextB, "ptr") : dpiContextB
 
-        result := DllCall("USER32.dll\AreDpiAwarenessContextsEqual", "ptr", dpiContextA, "ptr", dpiContextB, "ptr")
+        result := DllCall("USER32.dll\AreDpiAwarenessContextsEqual", "ptr", dpiContextA, "ptr", dpiContextB, "int")
         return result
     }
 
@@ -324,7 +324,7 @@ class HiDpi {
     static IsValidDpiAwarenessContext(value) {
         value := value is Win32Handle ? NumGet(value, "ptr") : value
 
-        result := DllCall("USER32.dll\IsValidDpiAwarenessContext", "ptr", value, "ptr")
+        result := DllCall("USER32.dll\IsValidDpiAwarenessContext", "ptr", value, "int")
         return result
     }
 
@@ -379,7 +379,7 @@ class HiDpi {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnableNonClientDpiScaling", "ptr", hwnd, "ptr")
+        result := DllCall("USER32.dll\EnableNonClientDpiScaling", "ptr", hwnd, "int")
         if(A_LastError)
             throw OSError()
 
@@ -400,7 +400,7 @@ class HiDpi {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetProcessDpiAwarenessContext", "ptr", value, "ptr")
+        result := DllCall("USER32.dll\SetProcessDpiAwarenessContext", "ptr", value, "int")
         if(A_LastError)
             throw OSError()
 

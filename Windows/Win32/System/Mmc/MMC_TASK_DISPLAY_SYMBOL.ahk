@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MMC_TASK_DISPLAY_SYMBOL structure is introduced in MMC 1.1.
@@ -30,12 +29,9 @@ class MMC_TASK_DISPLAY_SYMBOL extends Win32Struct
      * This should never be set to a <b>NULL</b> string or an empty string.
      * @type {PWSTR}
      */
-    szFontFamilyName{
-        get {
-            if(!this.HasProp("__szFontFamilyName"))
-                this.__szFontFamilyName := PWSTR(this.ptr + 0)
-            return this.__szFontFamilyName
-        }
+    szFontFamilyName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -51,23 +47,17 @@ class MMC_TASK_DISPLAY_SYMBOL extends Win32Struct
      * For example, the following string specifies that the snap-in DLL (snapin.dll) has a path of "c:\windows\system32\snapin.dll" and that the resource path is img/myfont.eot: "res://c:\\windows\\system32\\snapin.dll/img/myfont.eot".
      * @type {PWSTR}
      */
-    szURLtoEOT{
-        get {
-            if(!this.HasProp("__szURLtoEOT"))
-                this.__szURLtoEOT := PWSTR(this.ptr + 8)
-            return this.__szURLtoEOT
-        }
+    szURLtoEOT {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a null-terminated string that contains the character or characters to display in the symbol.
      * @type {PWSTR}
      */
-    szSymbolString{
-        get {
-            if(!this.HasProp("__szSymbolString"))
-                this.__szSymbolString := PWSTR(this.ptr + 16)
-            return this.__szSymbolString
-        }
+    szSymbolString {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

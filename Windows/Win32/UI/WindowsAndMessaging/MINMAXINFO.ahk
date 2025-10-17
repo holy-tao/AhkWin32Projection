@@ -28,7 +28,7 @@ class MINMAXINFO extends Win32Struct
     ptReserved{
         get {
             if(!this.HasProp("__ptReserved"))
-                this.__ptReserved := POINT(this.ptr + 0)
+                this.__ptReserved := POINT(0, this)
             return this.__ptReserved
         }
     }
@@ -42,7 +42,7 @@ class MINMAXINFO extends Win32Struct
     ptMaxSize{
         get {
             if(!this.HasProp("__ptMaxSize"))
-                this.__ptMaxSize := POINT(this.ptr + 8)
+                this.__ptMaxSize := POINT(8, this)
             return this.__ptMaxSize
         }
     }
@@ -56,7 +56,7 @@ class MINMAXINFO extends Win32Struct
     ptMaxPosition{
         get {
             if(!this.HasProp("__ptMaxPosition"))
-                this.__ptMaxPosition := POINT(this.ptr + 16)
+                this.__ptMaxPosition := POINT(16, this)
             return this.__ptMaxPosition
         }
     }
@@ -70,7 +70,7 @@ class MINMAXINFO extends Win32Struct
     ptMinTrackSize{
         get {
             if(!this.HasProp("__ptMinTrackSize"))
-                this.__ptMinTrackSize := POINT(this.ptr + 24)
+                this.__ptMinTrackSize := POINT(24, this)
             return this.__ptMinTrackSize
         }
     }
@@ -84,7 +84,7 @@ class MINMAXINFO extends Win32Struct
     ptMaxTrackSize{
         get {
             if(!this.HasProp("__ptMaxTrackSize"))
-                this.__ptMaxTrackSize := POINT(this.ptr + 32)
+                this.__ptMaxTrackSize := POINT(32, this)
             return this.__ptMaxTrackSize
         }
     }

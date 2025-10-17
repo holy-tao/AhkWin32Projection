@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the shared resource including the name and type of the resource, and a comment associated with the resource.
@@ -18,12 +17,9 @@ class SHARE_INFO_501 extends Win32Struct
      * Pointer to a Unicode string specifying the name of a shared resource.
      * @type {PWSTR}
      */
-    shi501_netname{
-        get {
-            if(!this.HasProp("__shi501_netname"))
-                this.__shi501_netname := PWSTR(this.ptr + 0)
-            return this.__shi501_netname
-        }
+    shi501_netname {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -39,12 +35,9 @@ class SHARE_INFO_501 extends Win32Struct
      * Pointer to a Unicode string specifying an optional comment about the shared resource.
      * @type {PWSTR}
      */
-    shi501_remark{
-        get {
-            if(!this.HasProp("__shi501_remark"))
-                this.__shi501_remark := PWSTR(this.ptr + 16)
-            return this.__shi501_remark
-        }
+    shi501_remark {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

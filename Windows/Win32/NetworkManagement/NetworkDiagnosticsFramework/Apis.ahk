@@ -484,7 +484,7 @@ class NetworkDiagnosticsFramework {
         url := url is String ? StrPtr(url) : url
         moduleName := moduleName is String ? StrPtr(moduleName) : moduleName
 
-        result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "ptr", useWinHTTP, "ptr", moduleName, "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "int", useWinHTTP, "ptr", moduleName, "ptr", handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -854,7 +854,7 @@ class NetworkDiagnosticsFramework {
         peername := peername is String ? StrPtr(peername) : peername
         appId := appId is String ? StrPtr(appId) : appId
 
-        result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "ptr", diagnosePublish, "ptr", appId, "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "int", diagnosePublish, "ptr", appId, "ptr", handle, "int")
         if(result != 0)
             throw OSError(result)
 

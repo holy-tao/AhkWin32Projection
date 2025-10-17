@@ -42,7 +42,7 @@ class MFExtendedCameraIntrinsic_IntrinsicModel extends Win32Struct
     CameraModel{
         get {
             if(!this.HasProp("__CameraModel"))
-                this.__CameraModel := MFCameraIntrinsic_CameraModel(this.ptr + 16)
+                this.__CameraModel := MFCameraIntrinsic_CameraModel(16, this)
             return this.__CameraModel
         }
     }

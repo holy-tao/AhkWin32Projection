@@ -122,7 +122,7 @@ class DDRAWI_DDRAWSURFACE_MORE extends Win32Struct
     ddsCapsEx{
         get {
             if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(this.ptr + 96)
+                this.__ddsCapsEx := DDSCAPSEX(96, this)
             return this.__ddsCapsEx
         }
     }

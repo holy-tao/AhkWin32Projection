@@ -408,7 +408,7 @@ class NCB extends Win32Struct
     ncb_event{
         get {
             if(!this.HasProp("__ncb_event"))
-                this.__ncb_event := HANDLE(this.ptr + 88)
+                this.__ncb_event := HANDLE(88, this)
             return this.__ncb_event
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
@@ -38,12 +37,9 @@ class ICONINFOEXA extends Win32Struct
      * Specifies whether this structure defines an icon or a cursor. A value of <b>TRUE</b> specifies an icon; <b>FALSE</b> specifies a cursor.
      * @type {BOOL}
      */
-    fIcon{
-        get {
-            if(!this.HasProp("__fIcon"))
-                this.__fIcon := BOOL(this.ptr + 4)
-            return this.__fIcon
-        }
+    fIcon {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -77,7 +73,7 @@ class ICONINFOEXA extends Win32Struct
     hbmMask{
         get {
             if(!this.HasProp("__hbmMask"))
-                this.__hbmMask := HBITMAP(this.ptr + 16)
+                this.__hbmMask := HBITMAP(16, this)
             return this.__hbmMask
         }
     }
@@ -91,7 +87,7 @@ class ICONINFOEXA extends Win32Struct
     hbmColor{
         get {
             if(!this.HasProp("__hbmColor"))
-                this.__hbmColor := HBITMAP(this.ptr + 24)
+                this.__hbmColor := HBITMAP(24, this)
             return this.__hbmColor
         }
     }
@@ -129,12 +125,8 @@ class ICONINFOEXA extends Win32Struct
         set => StrPut(value, this.ptr + 294, 259, "UTF-8")
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 560
     }
 }

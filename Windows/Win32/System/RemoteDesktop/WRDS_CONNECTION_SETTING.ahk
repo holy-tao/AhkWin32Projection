@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\WTS_SOCKADDR.ahk
 #Include .\WTS_SYSTEMTIME.ahk
 #Include .\WTS_TIME_ZONE_INFORMATION.ahk
@@ -28,7 +27,7 @@ class WRDS_CONNECTION_SETTING extends Win32Struct
     WRdsConnectionSettings1{
         get {
             if(!this.HasProp("__WRdsConnectionSettings1"))
-                this.__WRdsConnectionSettings1 := WRDS_CONNECTION_SETTINGS_1(this.ptr + 0)
+                this.__WRdsConnectionSettings1 := WRDS_CONNECTION_SETTINGS_1(0, this)
             return this.__WRdsConnectionSettings1
         }
     }

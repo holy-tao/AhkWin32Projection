@@ -42,7 +42,7 @@ class WINBIO_DIAGNOSTICS extends Win32Struct
     VendorDiagnostics{
         get {
             if(!this.HasProp("__VendorDiagnostics"))
-                this.__VendorDiagnostics := WINBIO_DATA(this.ptr + 16)
+                this.__VendorDiagnostics := WINBIO_DATA(16, this)
             return this.__VendorDiagnostics
         }
     }

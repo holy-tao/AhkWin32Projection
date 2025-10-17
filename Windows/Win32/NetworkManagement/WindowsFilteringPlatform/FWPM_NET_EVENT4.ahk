@@ -3,7 +3,6 @@
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
 #Include .\FWP_BYTE_BLOB.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWPM_NET_EVENT_HEADER3.ahk
 
 /**
@@ -22,7 +21,7 @@ class FWPM_NET_EVENT4 extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := FWPM_NET_EVENT_HEADER3(this.ptr + 0)
+                this.__header := FWPM_NET_EVENT_HEADER3(0, this)
             return this.__header
         }
     }

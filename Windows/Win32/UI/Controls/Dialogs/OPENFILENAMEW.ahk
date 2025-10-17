@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information that the GetOpenFileName and GetSaveFileName functions use to initialize an Open or Save As dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure.
@@ -51,7 +49,7 @@ class OPENFILENAMEW extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
+                this.__hwndOwner := HWND(8, this)
             return this.__hwndOwner
         }
     }
@@ -65,7 +63,7 @@ class OPENFILENAMEW extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 16)
+                this.__hInstance := HINSTANCE(16, this)
             return this.__hInstance
         }
     }
@@ -84,12 +82,9 @@ class OPENFILENAMEW extends Win32Struct
      *  In the case of a shortcut, if no filter is set, <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getopenfilenamea">GetOpenFileName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getsavefilenamea">GetSaveFileName</a> retrieve the name of the .lnk file, not its target. This behavior is the same as setting the <b>OFN_NODEREFERENCELINKS</b> flag in the <b>Flags</b> member. To retrieve a shortcut's target without filtering, use the string <c>"All Files\0*.*\0\0"</c>.
      * @type {PWSTR}
      */
-    lpstrFilter{
-        get {
-            if(!this.HasProp("__lpstrFilter"))
-                this.__lpstrFilter := PWSTR(this.ptr + 24)
-            return this.__lpstrFilter
-        }
+    lpstrFilter {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -102,12 +97,9 @@ class OPENFILENAMEW extends Win32Struct
      * If this member is not <b>NULL</b>, the value of the <b>nMaxCustFilter</b> member must specify the size, in characters, of the <b>lpstrCustomFilter</b> buffer.
      * @type {PWSTR}
      */
-    lpstrCustomFilter{
-        get {
-            if(!this.HasProp("__lpstrCustomFilter"))
-                this.__lpstrCustomFilter := PWSTR(this.ptr + 32)
-            return this.__lpstrCustomFilter
-        }
+    lpstrCustomFilter {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -142,12 +134,9 @@ class OPENFILENAMEW extends Win32Struct
      * If the buffer is too small, the function returns <b>FALSE</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function returns <b>FNERR_BUFFERTOOSMALL</b>. In this case, the first two bytes of the <b>lpstrFile</b> buffer contain the required size, in bytes or characters.
      * @type {PWSTR}
      */
-    lpstrFile{
-        get {
-            if(!this.HasProp("__lpstrFile"))
-                this.__lpstrFile := PWSTR(this.ptr + 48)
-            return this.__lpstrFile
-        }
+    lpstrFile {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -167,12 +156,9 @@ class OPENFILENAMEW extends Win32Struct
      * The file name and extension (without path information) of the selected file. This member can be <b>NULL</b>.
      * @type {PWSTR}
      */
-    lpstrFileTitle{
-        get {
-            if(!this.HasProp("__lpstrFileTitle"))
-                this.__lpstrFileTitle := PWSTR(this.ptr + 64)
-            return this.__lpstrFileTitle
-        }
+    lpstrFileTitle {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -213,12 +199,9 @@ class OPENFILENAMEW extends Win32Struct
      * </ol>
      * @type {PWSTR}
      */
-    lpstrInitialDir{
-        get {
-            if(!this.HasProp("__lpstrInitialDir"))
-                this.__lpstrInitialDir := PWSTR(this.ptr + 80)
-            return this.__lpstrInitialDir
-        }
+    lpstrInitialDir {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -227,12 +210,9 @@ class OPENFILENAMEW extends Win32Struct
      * A string to be placed in the title bar of the dialog box. If this member is <b>NULL</b>, the system uses the default title (that is, <b>Save As</b> or <b>Open</b>).
      * @type {PWSTR}
      */
-    lpstrTitle{
-        get {
-            if(!this.HasProp("__lpstrTitle"))
-                this.__lpstrTitle := PWSTR(this.ptr + 88)
-            return this.__lpstrTitle
-        }
+    lpstrTitle {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -578,12 +558,9 @@ class OPENFILENAMEW extends Win32Struct
      * The default extension. <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getopenfilenamea">GetOpenFileName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getsavefilenamea">GetSaveFileName</a> append this extension to the file name if the user fails to type an extension. This string can be any length, but only the first three characters are appended. The string should not contain a period (.). If this member is <b>NULL</b> and the user fails to type an extension, no extension is appended.
      * @type {PWSTR}
      */
-    lpstrDefExt{
-        get {
-            if(!this.HasProp("__lpstrDefExt"))
-                this.__lpstrDefExt := PWSTR(this.ptr + 104)
-            return this.__lpstrDefExt
-        }
+    lpstrDefExt {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -592,12 +569,9 @@ class OPENFILENAMEW extends Win32Struct
      * Application-defined data that the system passes to the hook procedure identified by the <b>lpfnHook</b> member. When the system sends the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message to the hook procedure, the message's <i>lParam</i> parameter is a pointer to the <b>OPENFILENAME</b> structure specified when the dialog box was created. The hook procedure can use this pointer to get the <b>lCustData</b> value.
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 112)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -621,12 +595,9 @@ class OPENFILENAMEW extends Win32Struct
      * The name of the dialog template resource in the module identified by the <b>hInstance</b> member. For numbered dialog box resources, this can be a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored unless the <b>OFN_ENABLETEMPLATE</b> flag is set in the <b>Flags</b> member. If the <b>OFN_EXPLORER</b> flag is set, the system uses the specified template to create a dialog box that is a child of the default Explorer-style dialog box. If the <b>OFN_EXPLORER</b> flag is not set, the system uses the template to create an old-style dialog box that replaces the default dialog box.
      * @type {PWSTR}
      */
-    lpTemplateName{
-        get {
-            if(!this.HasProp("__lpTemplateName"))
-                this.__lpTemplateName := PWSTR(this.ptr + 128)
-            return this.__lpTemplateName
-        }
+    lpTemplateName {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**

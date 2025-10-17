@@ -3,7 +3,6 @@
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_SSID.ahk
 #Include .\DOT11_WFD_GROUP_ID.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -21,7 +20,7 @@ class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -83,7 +82,7 @@ class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS extends Win32Struct
     GroupID{
         get {
             if(!this.HasProp("__GroupID"))
-                this.__GroupID := DOT11_WFD_GROUP_ID(this.ptr + 32)
+                this.__GroupID := DOT11_WFD_GROUP_ID(32, this)
             return this.__GroupID
         }
     }
@@ -91,12 +90,9 @@ class DOT11_SEND_GO_NEGOTIATION_CONFIRMATION_PARAMETERS extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bUseGroupID{
-        get {
-            if(!this.HasProp("__bUseGroupID"))
-                this.__bUseGroupID := BOOLEAN(this.ptr + 80)
-            return this.__bUseGroupID
-        }
+    bUseGroupID {
+        get => NumGet(this, 80, "char")
+        set => NumPut("char", value, this, 80)
     }
 
     /**

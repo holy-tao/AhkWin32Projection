@@ -177,7 +177,7 @@ class FONTDIFF extends Win32Struct
     ptlCaret{
         get {
             if(!this.HasProp("__ptlCaret"))
-                this.__ptlCaret := POINTL(this.ptr + 16)
+                this.__ptlCaret := POINTL(16, this)
             return this.__ptlCaret
         }
     }

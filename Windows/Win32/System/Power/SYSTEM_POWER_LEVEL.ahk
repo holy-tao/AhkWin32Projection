@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\POWER_ACTION_POLICY.ahk
 
 /**
@@ -19,12 +18,9 @@ class SYSTEM_POWER_LEVEL extends Win32Struct
      * If this member is <b>TRUE</b>, the alarm should be activated when the battery discharges below the value set in <b>BatteryLevel</b>.
      * @type {BOOLEAN}
      */
-    Enable{
-        get {
-            if(!this.HasProp("__Enable"))
-                this.__Enable := BOOLEAN(this.ptr + 0)
-            return this.__Enable
-        }
+    Enable {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
@@ -56,7 +52,7 @@ class SYSTEM_POWER_LEVEL extends Win32Struct
     PowerPolicy{
         get {
             if(!this.HasProp("__PowerPolicy"))
-                this.__PowerPolicy := POWER_ACTION_POLICY(this.ptr + 8)
+                this.__PowerPolicy := POWER_ACTION_POLICY(8, this)
             return this.__PowerPolicy
         }
     }

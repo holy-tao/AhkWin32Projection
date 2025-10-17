@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -19,7 +18,7 @@ class WIN_TRUST_SUBJECT_FILE_AND_DISPLAY extends Win32Struct
     hFile{
         get {
             if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 0)
+                this.__hFile := HANDLE(0, this)
             return this.__hFile
         }
     }
@@ -27,22 +26,16 @@ class WIN_TRUST_SUBJECT_FILE_AND_DISPLAY extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpPath{
-        get {
-            if(!this.HasProp("__lpPath"))
-                this.__lpPath := PWSTR(this.ptr + 8)
-            return this.__lpPath
-        }
+    lpPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    lpDisplayName{
-        get {
-            if(!this.HasProp("__lpDisplayName"))
-                this.__lpDisplayName := PWSTR(this.ptr + 16)
-            return this.__lpDisplayName
-        }
+    lpDisplayName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

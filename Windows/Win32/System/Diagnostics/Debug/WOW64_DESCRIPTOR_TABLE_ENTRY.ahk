@@ -26,7 +26,7 @@ class WOW64_DESCRIPTOR_TABLE_ENTRY extends Win32Struct
     Descriptor{
         get {
             if(!this.HasProp("__Descriptor"))
-                this.__Descriptor := WOW64_LDT_ENTRY(this.ptr + 8)
+                this.__Descriptor := WOW64_LDT_ENTRY(8, this)
             return this.__Descriptor
         }
     }

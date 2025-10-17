@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Used by UpdateLayeredWindowIndirect to provide position, size, shape, content, and translucency information for a layered window.
@@ -39,7 +38,7 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
     hdcDst{
         get {
             if(!this.HasProp("__hdcDst"))
-                this.__hdcDst := HDC(this.ptr + 8)
+                this.__hdcDst := HDC(8, this)
             return this.__hdcDst
         }
     }
@@ -75,7 +74,7 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
     hdcSrc{
         get {
             if(!this.HasProp("__hdcSrc"))
-                this.__hdcSrc := HDC(this.ptr + 32)
+                this.__hdcSrc := HDC(32, this)
             return this.__hdcSrc
         }
     }
@@ -97,12 +96,9 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
      * The color key to be used when composing the layered window. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @type {COLORREF}
      */
-    crKey{
-        get {
-            if(!this.HasProp("__crKey"))
-                this.__crKey := COLORREF(this.ptr + 48)
-            return this.__crKey
-        }
+    crKey {
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -136,12 +132,8 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
         set => NumPut("ptr", value, this, 72)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 80
     }
 }

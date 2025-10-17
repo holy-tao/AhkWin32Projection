@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Initializes a remote resource manager for a client.
@@ -36,12 +35,9 @@ class AUTHZ_RPC_INIT_INFO_CLIENT extends Win32Struct
      * </ul>
      * @type {PWSTR}
      */
-    ObjectUuid{
-        get {
-            if(!this.HasProp("__ObjectUuid"))
-                this.__ObjectUuid := PWSTR(this.ptr + 8)
-            return this.__ObjectUuid
-        }
+    ObjectUuid {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -52,59 +48,44 @@ class AUTHZ_RPC_INIT_INFO_CLIENT extends Win32Struct
      * </ul>
      * @type {PWSTR}
      */
-    ProtSeq{
-        get {
-            if(!this.HasProp("__ProtSeq"))
-                this.__ProtSeq := PWSTR(this.ptr + 16)
-            return this.__ProtSeq
-        }
+    ProtSeq {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Null-terminated string representation of a network address. The network-address format is associated with the protocol sequence.
      * @type {PWSTR}
      */
-    NetworkAddr{
-        get {
-            if(!this.HasProp("__NetworkAddr"))
-                this.__NetworkAddr := PWSTR(this.ptr + 24)
-            return this.__NetworkAddr
-        }
+    NetworkAddr {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Null-terminated string representation of an endpoint. The endpoint format and content are associated with the protocol sequence. For example, the endpoint associated with the protocol sequence <a href="https://docs.microsoft.com/windows/desktop/Midl/ncacn-np">ncacn_np</a> is a pipe name in the format <b>\\</b><i>Pipe</i><b>\\</b><i>PipeName</i>.
      * @type {PWSTR}
      */
-    Endpoint{
-        get {
-            if(!this.HasProp("__Endpoint"))
-                this.__Endpoint := PWSTR(this.ptr + 32)
-            return this.__Endpoint
-        }
+    Endpoint {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Null-terminated string representation of network options. The option string is associated with the protocol sequence.
      * @type {PWSTR}
      */
-    Options{
-        get {
-            if(!this.HasProp("__Options"))
-                this.__Options := PWSTR(this.ptr + 40)
-            return this.__Options
-        }
+    Options {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Server Principal Name (SPN) of the server. If this member is missing, it is constructed from <b>NetworkAddr</b> assuming "host" service class.
      * @type {PWSTR}
      */
-    ServerSpn{
-        get {
-            if(!this.HasProp("__ServerSpn"))
-                this.__ServerSpn := PWSTR(this.ptr + 48)
-            return this.__ServerSpn
-        }
+    ServerSpn {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

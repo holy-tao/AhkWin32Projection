@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -24,44 +23,32 @@ class INTERNET_CACHE_CONTAINER_INFOW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpszName{
-        get {
-            if(!this.HasProp("__lpszName"))
-                this.__lpszName := PWSTR(this.ptr + 8)
-            return this.__lpszName
-        }
+    lpszName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    lpszCachePrefix{
-        get {
-            if(!this.HasProp("__lpszCachePrefix"))
-                this.__lpszCachePrefix := PWSTR(this.ptr + 16)
-            return this.__lpszCachePrefix
-        }
+    lpszCachePrefix {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    lpszVolumeLabel{
-        get {
-            if(!this.HasProp("__lpszVolumeLabel"))
-                this.__lpszVolumeLabel := PWSTR(this.ptr + 24)
-            return this.__lpszVolumeLabel
-        }
+    lpszVolumeLabel {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    lpszVolumeTitle{
-        get {
-            if(!this.HasProp("__lpszVolumeTitle"))
-                this.__lpszVolumeTitle := PWSTR(this.ptr + 32)
-            return this.__lpszVolumeTitle
-        }
+    lpszVolumeTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

@@ -19,7 +19,7 @@ class CLS_SCAN_CONTEXT extends Win32Struct
     cidNode{
         get {
             if(!this.HasProp("__cidNode"))
-                this.__cidNode := CLFS_NODE_ID(this.ptr + 0)
+                this.__cidNode := CLFS_NODE_ID(0, this)
             return this.__cidNode
         }
     }
@@ -30,7 +30,7 @@ class CLS_SCAN_CONTEXT extends Win32Struct
     hLog{
         get {
             if(!this.HasProp("__hLog"))
-                this.__hLog := HANDLE(this.ptr + 8)
+                this.__hLog := HANDLE(8, this)
             return this.__hLog
         }
     }

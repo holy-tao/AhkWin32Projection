@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSD_REFERENCE_PROPERTIES.ahk
 #Include .\WSD_REFERENCE_PARAMETERS.ahk
 
@@ -20,12 +19,9 @@ class WSD_ENDPOINT_REFERENCE extends Win32Struct
      * The endpoint address.
      * @type {PWSTR}
      */
-    Address{
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := PWSTR(this.ptr + 0)
-            return this.__Address
-        }
+    Address {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -35,7 +31,7 @@ class WSD_ENDPOINT_REFERENCE extends Win32Struct
     ReferenceProperties{
         get {
             if(!this.HasProp("__ReferenceProperties"))
-                this.__ReferenceProperties := WSD_REFERENCE_PROPERTIES(this.ptr + 8)
+                this.__ReferenceProperties := WSD_REFERENCE_PROPERTIES(8, this)
             return this.__ReferenceProperties
         }
     }
@@ -47,7 +43,7 @@ class WSD_ENDPOINT_REFERENCE extends Win32Struct
     ReferenceParameters{
         get {
             if(!this.HasProp("__ReferenceParameters"))
-                this.__ReferenceParameters := WSD_REFERENCE_PARAMETERS(this.ptr + 16)
+                this.__ReferenceParameters := WSD_REFERENCE_PARAMETERS(16, this)
             return this.__ReferenceParameters
         }
     }

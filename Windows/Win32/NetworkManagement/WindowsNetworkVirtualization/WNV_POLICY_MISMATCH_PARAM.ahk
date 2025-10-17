@@ -63,7 +63,7 @@ class WNV_POLICY_MISMATCH_PARAM extends Win32Struct
     CA{
         get {
             if(!this.HasProp("__CA"))
-                this.__CA := WNV_IP_ADDRESS(this.ptr + 8)
+                this.__CA := WNV_IP_ADDRESS(8, this)
             return this.__CA
         }
     }
@@ -77,7 +77,7 @@ class WNV_POLICY_MISMATCH_PARAM extends Win32Struct
     PA{
         get {
             if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(this.ptr + 24)
+                this.__PA := WNV_IP_ADDRESS(24, this)
             return this.__PA
         }
     }

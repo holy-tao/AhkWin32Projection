@@ -31,7 +31,7 @@ class SAFEARRAYUNION extends Win32Struct
         BstrStr{
             get {
                 if(!this.HasProp("__BstrStr"))
-                    this.__BstrStr := SAFEARR_BSTR(this.ptr + 0)
+                    this.__BstrStr := SAFEARR_BSTR(0, this)
                 return this.__BstrStr
             }
         }
@@ -42,7 +42,7 @@ class SAFEARRAYUNION extends Win32Struct
         UnknownStr{
             get {
                 if(!this.HasProp("__UnknownStr"))
-                    this.__UnknownStr := SAFEARR_UNKNOWN(this.ptr + 0)
+                    this.__UnknownStr := SAFEARR_UNKNOWN(0, this)
                 return this.__UnknownStr
             }
         }
@@ -53,7 +53,7 @@ class SAFEARRAYUNION extends Win32Struct
         DispatchStr{
             get {
                 if(!this.HasProp("__DispatchStr"))
-                    this.__DispatchStr := SAFEARR_DISPATCH(this.ptr + 0)
+                    this.__DispatchStr := SAFEARR_DISPATCH(0, this)
                 return this.__DispatchStr
             }
         }
@@ -64,7 +64,7 @@ class SAFEARRAYUNION extends Win32Struct
         VariantStr{
             get {
                 if(!this.HasProp("__VariantStr"))
-                    this.__VariantStr := SAFEARR_VARIANT(this.ptr + 0)
+                    this.__VariantStr := SAFEARR_VARIANT(0, this)
                 return this.__VariantStr
             }
         }
@@ -75,7 +75,7 @@ class SAFEARRAYUNION extends Win32Struct
         RecordStr{
             get {
                 if(!this.HasProp("__RecordStr"))
-                    this.__RecordStr := SAFEARR_BRECORD(this.ptr + 0)
+                    this.__RecordStr := SAFEARR_BRECORD(0, this)
                 return this.__RecordStr
             }
         }
@@ -86,7 +86,7 @@ class SAFEARRAYUNION extends Win32Struct
         HaveIidStr{
             get {
                 if(!this.HasProp("__HaveIidStr"))
-                    this.__HaveIidStr := SAFEARR_HAVEIID(this.ptr + 0)
+                    this.__HaveIidStr := SAFEARR_HAVEIID(0, this)
                 return this.__HaveIidStr
             }
         }
@@ -97,7 +97,7 @@ class SAFEARRAYUNION extends Win32Struct
         ByteStr{
             get {
                 if(!this.HasProp("__ByteStr"))
-                    this.__ByteStr := BYTE_SIZEDARR(this.ptr + 0)
+                    this.__ByteStr := BYTE_SIZEDARR(0, this)
                 return this.__ByteStr
             }
         }
@@ -108,7 +108,7 @@ class SAFEARRAYUNION extends Win32Struct
         WordStr{
             get {
                 if(!this.HasProp("__WordStr"))
-                    this.__WordStr := WORD_SIZEDARR(this.ptr + 0)
+                    this.__WordStr := WORD_SIZEDARR(0, this)
                 return this.__WordStr
             }
         }
@@ -119,7 +119,7 @@ class SAFEARRAYUNION extends Win32Struct
         LongStr{
             get {
                 if(!this.HasProp("__LongStr"))
-                    this.__LongStr := DWORD_SIZEDARR(this.ptr + 0)
+                    this.__LongStr := DWORD_SIZEDARR(0, this)
                 return this.__LongStr
             }
         }
@@ -130,7 +130,7 @@ class SAFEARRAYUNION extends Win32Struct
         HyperStr{
             get {
                 if(!this.HasProp("__HyperStr"))
-                    this.__HyperStr := HYPER_SIZEDARR(this.ptr + 0)
+                    this.__HyperStr := HYPER_SIZEDARR(0, this)
                 return this.__HyperStr
             }
         }
@@ -151,7 +151,7 @@ class SAFEARRAYUNION extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u(this.ptr + 8)
+                this.__u := %this.__Class%._u(8, this)
             return this.__u
         }
     }

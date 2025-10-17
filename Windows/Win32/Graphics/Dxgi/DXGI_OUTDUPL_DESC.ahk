@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include Common\DXGI_RATIONAL.ahk
 #Include Common\DXGI_MODE_DESC.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DXGI_OUTDUPL_DESC structure describes the dimension of the output and the surface that contains the desktop image. The format of the desktop image is always DXGI_FORMAT_B8G8R8A8_UNORM.
@@ -28,7 +27,7 @@ class DXGI_OUTDUPL_DESC extends Win32Struct
     ModeDesc{
         get {
             if(!this.HasProp("__ModeDesc"))
-                this.__ModeDesc := DXGI_MODE_DESC(this.ptr + 0)
+                this.__ModeDesc := DXGI_MODE_DESC(0, this)
             return this.__ModeDesc
         }
     }
@@ -46,11 +45,8 @@ class DXGI_OUTDUPL_DESC extends Win32Struct
      * Specifies whether the resource that contains the desktop image is already located in system memory. <b>TRUE</b> if the resource is in system memory; otherwise, <b>FALSE</b>. If this value is <b>TRUE</b> and  the application requires CPU access, it can use the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-mapdesktopsurface">IDXGIOutputDuplication::MapDesktopSurface</a> and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-unmapdesktopsurface">IDXGIOutputDuplication::UnMapDesktopSurface</a> methods to avoid copying the data into a staging buffer.
      * @type {BOOL}
      */
-    DesktopImageInSystemMemory{
-        get {
-            if(!this.HasProp("__DesktopImageInSystemMemory"))
-                this.__DesktopImageInSystemMemory := BOOL(this.ptr + 36)
-            return this.__DesktopImageInSystemMemory
-        }
+    DesktopImageInSystemMemory {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 }

@@ -153,7 +153,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION2 extends Win32Struct
     localCertLocationUrl{
         get {
             if(!this.HasProp("__localCertLocationUrl"))
-                this.__localCertLocationUrl := FWP_BYTE_BLOB(this.ptr + 56)
+                this.__localCertLocationUrl := FWP_BYTE_BLOB(56, this)
             return this.__localCertLocationUrl
         }
     }

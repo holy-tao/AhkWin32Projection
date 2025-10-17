@@ -22,7 +22,7 @@ class EMROFFSETCLIPRGN extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -34,7 +34,7 @@ class EMROFFSETCLIPRGN extends Win32Struct
     ptlOffset{
         get {
             if(!this.HasProp("__ptlOffset"))
-                this.__ptlOffset := POINTL(this.ptr + 8)
+                this.__ptlOffset := POINTL(8, this)
             return this.__ptlOffset
         }
     }

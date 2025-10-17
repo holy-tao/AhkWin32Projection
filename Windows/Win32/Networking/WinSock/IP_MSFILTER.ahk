@@ -49,7 +49,7 @@ class IP_MSFILTER extends Win32Struct
     imsf_multiaddr{
         get {
             if(!this.HasProp("__imsf_multiaddr"))
-                this.__imsf_multiaddr := IN_ADDR(this.ptr + 0)
+                this.__imsf_multiaddr := IN_ADDR(0, this)
             return this.__imsf_multiaddr
         }
     }
@@ -63,7 +63,7 @@ class IP_MSFILTER extends Win32Struct
     imsf_interface{
         get {
             if(!this.HasProp("__imsf_interface"))
-                this.__imsf_interface := IN_ADDR(this.ptr + 4)
+                this.__imsf_interface := IN_ADDR(4, this)
             return this.__imsf_interface
         }
     }

@@ -174,7 +174,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     Sym{
         get {
             if(!this.HasProp("__Sym"))
-                this.__Sym := %this.__Class%._Sym(this.ptr + 0)
+                this.__Sym := %this.__Class%._Sym(0, this)
             return this.__Sym
         }
     }
@@ -185,7 +185,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     File{
         get {
             if(!this.HasProp("__File"))
-                this.__File := %this.__Class%._File(this.ptr + 0)
+                this.__File := %this.__Class%._File(0, this)
             return this.__File
         }
     }
@@ -196,7 +196,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     Section{
         get {
             if(!this.HasProp("__Section"))
-                this.__Section := %this.__Class%._Section(this.ptr + 0)
+                this.__Section := %this.__Class%._Section(0, this)
             return this.__Section
         }
     }
@@ -207,7 +207,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     TokenDef{
         get {
             if(!this.HasProp("__TokenDef"))
-                this.__TokenDef := IMAGE_AUX_SYMBOL_TOKEN_DEF(this.ptr + 0)
+                this.__TokenDef := IMAGE_AUX_SYMBOL_TOKEN_DEF(0, this)
             return this.__TokenDef
         }
     }
@@ -229,7 +229,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     CRC{
         get {
             if(!this.HasProp("__CRC"))
-                this.__CRC := %this.__Class%._CRC(this.ptr + 0)
+                this.__CRC := %this.__Class%._CRC(0, this)
             return this.__CRC
         }
     }

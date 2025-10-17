@@ -148,7 +148,7 @@ class EnterpriseData {
     static SrpIsTokenService(TokenHandle, IsTokenService) {
         TokenHandle := TokenHandle is Win32Handle ? NumGet(TokenHandle, "ptr") : TokenHandle
 
-        result := DllCall("srpapi.dll\SrpIsTokenService", "ptr", TokenHandle, "char*", IsTokenService, "ptr")
+        result := DllCall("srpapi.dll\SrpIsTokenService", "ptr", TokenHandle, "char*", IsTokenService, "int")
         return result
     }
 
@@ -174,7 +174,7 @@ class EnterpriseData {
      * @returns {NTSTATUS} 
      */
     static SrpIsAllowed(FileInfo) {
-        result := DllCall("srpapi.dll\SrpIsAllowed", "ptr", FileInfo, "ptr")
+        result := DllCall("srpapi.dll\SrpIsAllowed", "ptr", FileInfo, "int")
         return result
     }
 

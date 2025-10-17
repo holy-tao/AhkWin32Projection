@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DD_CREATEPALETTEDATA structure contains information necessary to create a DirectDrawPalette object for this Microsoft DirectDraw object.
@@ -63,11 +62,8 @@ class DD_CREATEPALETTEDATA extends Win32Struct
      * Specifies a BOOL value that is set to <b>TRUE</b> to indicate that this process has exclusive mode and <b>FALSE</b> otherwise.
      * @type {BOOL}
      */
-    is_excl{
-        get {
-            if(!this.HasProp("__is_excl"))
-                this.__is_excl := BOOL(this.ptr + 40)
-            return this.__is_excl
-        }
+    is_excl {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
@@ -39,12 +38,9 @@ class DML_LOCAL_RESPONSE_NORMALIZATION_GRAD_OPERATOR_DESC extends Win32Struct
     /**
      * @type {BOOL}
      */
-    CrossChannel{
-        get {
-            if(!this.HasProp("__CrossChannel"))
-                this.__CrossChannel := BOOL(this.ptr + 24)
-            return this.__CrossChannel
-        }
+    CrossChannel {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**

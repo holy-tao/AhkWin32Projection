@@ -35,7 +35,7 @@ class DDOPTSURFACEDESC extends Win32Struct
     ddSCaps{
         get {
             if(!this.HasProp("__ddSCaps"))
-                this.__ddSCaps := DDSCAPS2(this.ptr + 8)
+                this.__ddSCaps := DDSCAPS2(8, this)
             return this.__ddSCaps
         }
     }
@@ -46,7 +46,7 @@ class DDOPTSURFACEDESC extends Win32Struct
     ddOSCaps{
         get {
             if(!this.HasProp("__ddOSCaps"))
-                this.__ddOSCaps := DDOSCAPS(this.ptr + 24)
+                this.__ddOSCaps := DDOSCAPS(24, this)
             return this.__ddOSCaps
         }
     }

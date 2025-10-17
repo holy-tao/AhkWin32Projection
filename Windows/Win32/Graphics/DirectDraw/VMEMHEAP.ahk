@@ -106,7 +106,7 @@ class VMEMHEAP extends Win32Struct
     Alignment{
         get {
             if(!this.HasProp("__Alignment"))
-                this.__Alignment := HEAPALIGNMENT(this.ptr + 56)
+                this.__Alignment := HEAPALIGNMENT(56, this)
             return this.__Alignment
         }
     }
@@ -118,7 +118,7 @@ class VMEMHEAP extends Win32Struct
     ddsCapsEx{
         get {
             if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(this.ptr + 184)
+                this.__ddsCapsEx := DDSCAPSEX(184, this)
             return this.__ddsCapsEx
         }
     }
@@ -130,7 +130,7 @@ class VMEMHEAP extends Win32Struct
     ddsCapsExAlt{
         get {
             if(!this.HasProp("__ddsCapsExAlt"))
-                this.__ddsCapsExAlt := DDSCAPSEX(this.ptr + 200)
+                this.__ddsCapsExAlt := DDSCAPSEX(200, this)
             return this.__ddsCapsExAlt
         }
     }
@@ -151,7 +151,7 @@ class VMEMHEAP extends Win32Struct
     hdevAGP{
         get {
             if(!this.HasProp("__hdevAGP"))
-                this.__hdevAGP := HANDLE(this.ptr + 224)
+                this.__hdevAGP := HANDLE(224, this)
             return this.__hdevAGP
         }
     }

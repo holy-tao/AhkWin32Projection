@@ -63,7 +63,7 @@ class NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1 extends Win32Struct
     IPv4{
         get {
             if(!this.HasProp("__IPv4"))
-                this.__IPv4 := %this.__Class%._IPv4(this.ptr + 0)
+                this.__IPv4 := %this.__Class%._IPv4(0, this)
             return this.__IPv4
         }
     }

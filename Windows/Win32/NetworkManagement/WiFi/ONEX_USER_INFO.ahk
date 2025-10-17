@@ -53,7 +53,7 @@ class ONEX_USER_INFO extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := ONEX_VARIABLE_BLOB(this.ptr + 8)
+                this.__UserName := ONEX_VARIABLE_BLOB(8, this)
             return this.__UserName
         }
     }
@@ -64,7 +64,7 @@ class ONEX_USER_INFO extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := ONEX_VARIABLE_BLOB(this.ptr + 16)
+                this.__DomainName := ONEX_VARIABLE_BLOB(16, this)
             return this.__DomainName
         }
     }

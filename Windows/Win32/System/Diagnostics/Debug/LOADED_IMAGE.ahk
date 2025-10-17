@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\Kernel\LIST_ENTRY.ahk
 
 /**
@@ -34,12 +32,9 @@ class LOADED_IMAGE extends Win32Struct
      * The file name of the mapped file.
      * @type {PSTR}
      */
-    ModuleName{
-        get {
-            if(!this.HasProp("__ModuleName"))
-                this.__ModuleName := PSTR(this.ptr + 0)
-            return this.__ModuleName
-        }
+    ModuleName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -49,7 +44,7 @@ class LOADED_IMAGE extends Win32Struct
     hFile{
         get {
             if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 8)
+                this.__hFile := HANDLE(8, this)
             return this.__hFile
         }
     }
@@ -115,24 +110,18 @@ class LOADED_IMAGE extends Win32Struct
      * If the image is a kernel mode executable image, this value is <b>TRUE</b>.
      * @type {BOOLEAN}
      */
-    fSystemImage{
-        get {
-            if(!this.HasProp("__fSystemImage"))
-                this.__fSystemImage := BOOLEAN(this.ptr + 60)
-            return this.__fSystemImage
-        }
+    fSystemImage {
+        get => NumGet(this, 60, "char")
+        set => NumPut("char", value, this, 60)
     }
 
     /**
      * If the image is a 16-bit executable image, this value is <b>TRUE</b>.
      * @type {BOOLEAN}
      */
-    fDOSImage{
-        get {
-            if(!this.HasProp("__fDOSImage"))
-                this.__fDOSImage := BOOLEAN(this.ptr + 61)
-            return this.__fDOSImage
-        }
+    fDOSImage {
+        get => NumGet(this, 61, "char")
+        set => NumPut("char", value, this, 61)
     }
 
     /**
@@ -141,12 +130,9 @@ class LOADED_IMAGE extends Win32Struct
      * <b>Prior to Windows Vista:  </b>This member is not included in the structure.
      * @type {BOOLEAN}
      */
-    fReadOnly{
-        get {
-            if(!this.HasProp("__fReadOnly"))
-                this.__fReadOnly := BOOLEAN(this.ptr + 62)
-            return this.__fReadOnly
-        }
+    fReadOnly {
+        get => NumGet(this, 62, "char")
+        set => NumPut("char", value, this, 62)
     }
 
     /**
@@ -167,7 +153,7 @@ class LOADED_IMAGE extends Win32Struct
     Links{
         get {
             if(!this.HasProp("__Links"))
-                this.__Links := LIST_ENTRY(this.ptr + 64)
+                this.__Links := LIST_ENTRY(64, this)
             return this.__Links
         }
     }

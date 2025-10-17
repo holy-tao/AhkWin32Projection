@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * An array of Unicode characters and a length.
@@ -37,11 +36,8 @@ class WS_STRING extends Win32Struct
      * The array of characters that make up the string.
      * @type {PWSTR}
      */
-    chars{
-        get {
-            if(!this.HasProp("__chars"))
-                this.__chars := PWSTR(this.ptr + 8)
-            return this.__chars
-        }
+    chars {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The LOGPEN structure defines the style, width, and color of a pen. The CreatePenIndirect function uses the LOGPEN structure.
@@ -36,7 +35,7 @@ class LOGPEN extends Win32Struct
     lopnWidth{
         get {
             if(!this.HasProp("__lopnWidth"))
-                this.__lopnWidth := POINT(this.ptr + 8)
+                this.__lopnWidth := POINT(8, this)
             return this.__lopnWidth
         }
     }
@@ -45,11 +44,8 @@ class LOGPEN extends Win32Struct
      * The pen color. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @type {COLORREF}
      */
-    lopnColor{
-        get {
-            if(!this.HasProp("__lopnColor"))
-                this.__lopnColor := COLORREF(this.ptr + 16)
-            return this.__lopnColor
-        }
+    lopnColor {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

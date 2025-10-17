@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\BINARY_CONTAINER.ahk
 #Include .\BIDI_DATA.ahk
 
@@ -26,12 +24,9 @@ class BIDI_REQUEST_DATA extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pSchema{
-        get {
-            if(!this.HasProp("__pSchema"))
-                this.__pSchema := PWSTR(this.ptr + 8)
-            return this.__pSchema
-        }
+    pSchema {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -40,7 +35,7 @@ class BIDI_REQUEST_DATA extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := BIDI_DATA(this.ptr + 16)
+                this.__data := BIDI_DATA(16, this)
             return this.__data
         }
     }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
 
 /**
@@ -36,7 +35,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL extends Win32Struct
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__Profile
         }
     }
@@ -44,12 +43,9 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsSupported{
-        get {
-            if(!this.HasProp("__IsSupported"))
-                this.__IsSupported := BOOL(this.ptr + 24)
-            return this.__IsSupported
-        }
+    IsSupported {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -58,7 +54,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL extends Win32Struct
     MinSupportedLevel{
         get {
             if(!this.HasProp("__MinSupportedLevel"))
-                this.__MinSupportedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(this.ptr + 32)
+                this.__MinSupportedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(32, this)
             return this.__MinSupportedLevel
         }
     }
@@ -69,7 +65,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL extends Win32Struct
     MaxSupportedLevel{
         get {
             if(!this.HasProp("__MaxSupportedLevel"))
-                this.__MaxSupportedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(this.ptr + 48)
+                this.__MaxSupportedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(48, this)
             return this.__MaxSupportedLevel
         }
     }

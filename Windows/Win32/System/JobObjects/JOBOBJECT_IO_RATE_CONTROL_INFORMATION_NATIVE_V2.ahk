@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.JobObjects
@@ -39,12 +38,9 @@ class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V2 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    VolumeName{
-        get {
-            if(!this.HasProp("__VolumeName"))
-                this.__VolumeName := PWSTR(this.ptr + 24)
-            return this.__VolumeName
-        }
+    VolumeName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

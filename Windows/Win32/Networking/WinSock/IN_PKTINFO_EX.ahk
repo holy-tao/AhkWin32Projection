@@ -20,7 +20,7 @@ class IN_PKTINFO_EX extends Win32Struct
     pkt_info{
         get {
             if(!this.HasProp("__pkt_info"))
-                this.__pkt_info := IN_PKTINFO(this.ptr + 0)
+                this.__pkt_info := IN_PKTINFO(0, this)
             return this.__pkt_info
         }
     }
@@ -31,7 +31,7 @@ class IN_PKTINFO_EX extends Win32Struct
     scope_id{
         get {
             if(!this.HasProp("__scope_id"))
-                this.__scope_id := SCOPE_ID(this.ptr + 8)
+                this.__scope_id := SCOPE_ID(8, this)
             return this.__scope_id
         }
     }

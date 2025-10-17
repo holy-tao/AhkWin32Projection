@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Provides information about an object's inherited access control entry (ACE).
@@ -33,11 +32,8 @@ class INHERITED_FROMA extends Win32Struct
      * Name of the ancestor from which the ACE was inherited. For an explicit ACE, set this to <b>NULL</b>.
      * @type {PSTR}
      */
-    AncestorName{
-        get {
-            if(!this.HasProp("__AncestorName"))
-                this.__AncestorName := PSTR(this.ptr + 8)
-            return this.__AncestorName
-        }
+    AncestorName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

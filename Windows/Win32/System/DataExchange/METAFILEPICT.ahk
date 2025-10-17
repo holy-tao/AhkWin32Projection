@@ -56,7 +56,7 @@ class METAFILEPICT extends Win32Struct
     hMF{
         get {
             if(!this.HasProp("__hMF"))
-                this.__hMF := HMETAFILE(this.ptr + 16)
+                this.__hMF := HMETAFILE(16, this)
             return this.__hMF
         }
     }

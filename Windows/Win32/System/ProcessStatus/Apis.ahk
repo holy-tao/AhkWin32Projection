@@ -30,7 +30,7 @@ class ProcessStatus {
     static EnumProcesses(lpidProcess, cb, lpcbNeeded) {
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumProcesses", "ptr", lpidProcess, "uint", cb, "uint*", lpcbNeeded, "ptr")
+        result := DllCall("PSAPI.dll\EnumProcesses", "ptr", lpidProcess, "uint", cb, "uint*", lpcbNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -56,7 +56,7 @@ class ProcessStatus {
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumProcessModules", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "ptr")
+        result := DllCall("PSAPI.dll\EnumProcessModules", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -82,7 +82,7 @@ class ProcessStatus {
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumProcessModulesEx", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "uint", dwFilterFlag, "ptr")
+        result := DllCall("PSAPI.dll\EnumProcessModulesEx", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "uint", dwFilterFlag, "int")
         if(A_LastError)
             throw OSError()
 
@@ -232,7 +232,7 @@ class ProcessStatus {
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleInformation", "ptr", hProcess, "ptr", hModule, "ptr", lpmodinfo, "uint", cb, "ptr")
+        result := DllCall("PSAPI.dll\GetModuleInformation", "ptr", hProcess, "ptr", hModule, "ptr", lpmodinfo, "uint", cb, "int")
         if(A_LastError)
             throw OSError()
 
@@ -254,7 +254,7 @@ class ProcessStatus {
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EmptyWorkingSet", "ptr", hProcess, "ptr")
+        result := DllCall("PSAPI.dll\EmptyWorkingSet", "ptr", hProcess, "int")
         if(A_LastError)
             throw OSError()
 
@@ -276,7 +276,7 @@ class ProcessStatus {
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\InitializeProcessForWsWatch", "ptr", hProcess, "ptr")
+        result := DllCall("PSAPI.dll\InitializeProcessForWsWatch", "ptr", hProcess, "int")
         if(A_LastError)
             throw OSError()
 
@@ -310,7 +310,7 @@ class ProcessStatus {
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetWsChanges", "ptr", hProcess, "ptr", lpWatchInfo, "uint", cb, "ptr")
+        result := DllCall("PSAPI.dll\GetWsChanges", "ptr", hProcess, "ptr", lpWatchInfo, "uint", cb, "int")
         if(A_LastError)
             throw OSError()
 
@@ -339,7 +339,7 @@ class ProcessStatus {
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetWsChangesEx", "ptr", hProcess, "ptr", lpWatchInfoEx, "uint*", cb, "ptr")
+        result := DllCall("PSAPI.dll\GetWsChangesEx", "ptr", hProcess, "ptr", lpWatchInfoEx, "uint*", cb, "int")
         if(A_LastError)
             throw OSError()
 
@@ -413,7 +413,7 @@ class ProcessStatus {
     static EnumDeviceDrivers(lpImageBase, cb, lpcbNeeded) {
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, "uint*", lpcbNeeded, "ptr")
+        result := DllCall("PSAPI.dll\EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, "uint*", lpcbNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -547,7 +547,7 @@ class ProcessStatus {
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\QueryWorkingSet", "ptr", hProcess, "ptr", pv, "uint", cb, "ptr")
+        result := DllCall("PSAPI.dll\QueryWorkingSet", "ptr", hProcess, "ptr", pv, "uint", cb, "int")
         if(A_LastError)
             throw OSError()
 
@@ -570,7 +570,7 @@ class ProcessStatus {
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\QueryWorkingSetEx", "ptr", hProcess, "ptr", pv, "uint", cb, "ptr")
+        result := DllCall("PSAPI.dll\QueryWorkingSetEx", "ptr", hProcess, "ptr", pv, "uint", cb, "int")
         if(A_LastError)
             throw OSError()
 
@@ -598,7 +598,7 @@ class ProcessStatus {
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetProcessMemoryInfo", "ptr", Process, "ptr", ppsmemCounters, "uint", cb, "ptr")
+        result := DllCall("PSAPI.dll\GetProcessMemoryInfo", "ptr", Process, "ptr", ppsmemCounters, "uint", cb, "int")
         if(A_LastError)
             throw OSError()
 
@@ -621,7 +621,7 @@ class ProcessStatus {
     static GetPerformanceInfo(pPerformanceInformation, cb) {
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetPerformanceInfo", "ptr", pPerformanceInformation, "uint", cb, "ptr")
+        result := DllCall("PSAPI.dll\GetPerformanceInfo", "ptr", pPerformanceInformation, "uint", cb, "int")
         if(A_LastError)
             throw OSError()
 
@@ -642,7 +642,7 @@ class ProcessStatus {
     static EnumPageFilesW(pCallBackRoutine, pContext) {
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumPageFilesW", "ptr", pCallBackRoutine, "ptr", pContext, "ptr")
+        result := DllCall("PSAPI.dll\EnumPageFilesW", "ptr", pCallBackRoutine, "ptr", pContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -663,7 +663,7 @@ class ProcessStatus {
     static EnumPageFilesA(pCallBackRoutine, pContext) {
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\EnumPageFilesA", "ptr", pCallBackRoutine, "ptr", pContext, "ptr")
+        result := DllCall("PSAPI.dll\EnumPageFilesA", "ptr", pCallBackRoutine, "ptr", pContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -732,7 +732,7 @@ class ProcessStatus {
      * @returns {BOOL} 
      */
     static K32EnumProcesses(lpidProcess, cb, lpcbNeeded) {
-        result := DllCall("KERNEL32.dll\K32EnumProcesses", "ptr", lpidProcess, "uint", cb, "uint*", lpcbNeeded, "ptr")
+        result := DllCall("KERNEL32.dll\K32EnumProcesses", "ptr", lpidProcess, "uint", cb, "uint*", lpcbNeeded, "int")
         return result
     }
 
@@ -747,7 +747,7 @@ class ProcessStatus {
     static K32EnumProcessModules(hProcess, lphModule, cb, lpcbNeeded) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32EnumProcessModules", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "ptr")
+        result := DllCall("KERNEL32.dll\K32EnumProcessModules", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "int")
         return result
     }
 
@@ -763,7 +763,7 @@ class ProcessStatus {
     static K32EnumProcessModulesEx(hProcess, lphModule, cb, lpcbNeeded, dwFilterFlag) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32EnumProcessModulesEx", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "uint", dwFilterFlag, "ptr")
+        result := DllCall("KERNEL32.dll\K32EnumProcessModulesEx", "ptr", hProcess, "ptr", lphModule, "uint", cb, "uint*", lpcbNeeded, "uint", dwFilterFlag, "int")
         return result
     }
 
@@ -847,7 +847,7 @@ class ProcessStatus {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
-        result := DllCall("KERNEL32.dll\K32GetModuleInformation", "ptr", hProcess, "ptr", hModule, "ptr", lpmodinfo, "uint", cb, "ptr")
+        result := DllCall("KERNEL32.dll\K32GetModuleInformation", "ptr", hProcess, "ptr", hModule, "ptr", lpmodinfo, "uint", cb, "int")
         return result
     }
 
@@ -859,7 +859,7 @@ class ProcessStatus {
     static K32EmptyWorkingSet(hProcess) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32EmptyWorkingSet", "ptr", hProcess, "ptr")
+        result := DllCall("KERNEL32.dll\K32EmptyWorkingSet", "ptr", hProcess, "int")
         return result
     }
 
@@ -871,7 +871,7 @@ class ProcessStatus {
     static K32InitializeProcessForWsWatch(hProcess) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32InitializeProcessForWsWatch", "ptr", hProcess, "ptr")
+        result := DllCall("KERNEL32.dll\K32InitializeProcessForWsWatch", "ptr", hProcess, "int")
         return result
     }
 
@@ -885,7 +885,7 @@ class ProcessStatus {
     static K32GetWsChanges(hProcess, lpWatchInfo, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32GetWsChanges", "ptr", hProcess, "ptr", lpWatchInfo, "uint", cb, "ptr")
+        result := DllCall("KERNEL32.dll\K32GetWsChanges", "ptr", hProcess, "ptr", lpWatchInfo, "uint", cb, "int")
         return result
     }
 
@@ -899,7 +899,7 @@ class ProcessStatus {
     static K32GetWsChangesEx(hProcess, lpWatchInfoEx, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32GetWsChangesEx", "ptr", hProcess, "ptr", lpWatchInfoEx, "uint*", cb, "ptr")
+        result := DllCall("KERNEL32.dll\K32GetWsChangesEx", "ptr", hProcess, "ptr", lpWatchInfoEx, "uint*", cb, "int")
         return result
     }
 
@@ -943,7 +943,7 @@ class ProcessStatus {
      * @returns {BOOL} 
      */
     static K32EnumDeviceDrivers(lpImageBase, cb, lpcbNeeded) {
-        result := DllCall("KERNEL32.dll\K32EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, "uint*", lpcbNeeded, "ptr")
+        result := DllCall("KERNEL32.dll\K32EnumDeviceDrivers", "ptr", lpImageBase, "uint", cb, "uint*", lpcbNeeded, "int")
         return result
     }
 
@@ -1013,7 +1013,7 @@ class ProcessStatus {
     static K32QueryWorkingSet(hProcess, pv, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32QueryWorkingSet", "ptr", hProcess, "ptr", pv, "uint", cb, "ptr")
+        result := DllCall("KERNEL32.dll\K32QueryWorkingSet", "ptr", hProcess, "ptr", pv, "uint", cb, "int")
         return result
     }
 
@@ -1027,7 +1027,7 @@ class ProcessStatus {
     static K32QueryWorkingSetEx(hProcess, pv, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\K32QueryWorkingSetEx", "ptr", hProcess, "ptr", pv, "uint", cb, "ptr")
+        result := DllCall("KERNEL32.dll\K32QueryWorkingSetEx", "ptr", hProcess, "ptr", pv, "uint", cb, "int")
         return result
     }
 
@@ -1041,7 +1041,7 @@ class ProcessStatus {
     static K32GetProcessMemoryInfo(Process, ppsmemCounters, cb) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        result := DllCall("KERNEL32.dll\K32GetProcessMemoryInfo", "ptr", Process, "ptr", ppsmemCounters, "uint", cb, "ptr")
+        result := DllCall("KERNEL32.dll\K32GetProcessMemoryInfo", "ptr", Process, "ptr", ppsmemCounters, "uint", cb, "int")
         return result
     }
 
@@ -1052,7 +1052,7 @@ class ProcessStatus {
      * @returns {BOOL} 
      */
     static K32GetPerformanceInfo(pPerformanceInformation, cb) {
-        result := DllCall("KERNEL32.dll\K32GetPerformanceInfo", "ptr", pPerformanceInformation, "uint", cb, "ptr")
+        result := DllCall("KERNEL32.dll\K32GetPerformanceInfo", "ptr", pPerformanceInformation, "uint", cb, "int")
         return result
     }
 
@@ -1063,7 +1063,7 @@ class ProcessStatus {
      * @returns {BOOL} 
      */
     static K32EnumPageFilesW(pCallBackRoutine, pContext) {
-        result := DllCall("KERNEL32.dll\K32EnumPageFilesW", "ptr", pCallBackRoutine, "ptr", pContext, "ptr")
+        result := DllCall("KERNEL32.dll\K32EnumPageFilesW", "ptr", pCallBackRoutine, "ptr", pContext, "int")
         return result
     }
 
@@ -1074,7 +1074,7 @@ class ProcessStatus {
      * @returns {BOOL} 
      */
     static K32EnumPageFilesA(pCallBackRoutine, pContext) {
-        result := DllCall("KERNEL32.dll\K32EnumPageFilesA", "ptr", pCallBackRoutine, "ptr", pContext, "ptr")
+        result := DllCall("KERNEL32.dll\K32EnumPageFilesA", "ptr", pCallBackRoutine, "ptr", pContext, "int")
         return result
     }
 

@@ -113,7 +113,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
     ExternalStack{
         get {
             if(!this.HasProp("__ExternalStack"))
-                this.__ExternalStack := %this.__Class%._ExternalStack(this.ptr + 56)
+                this.__ExternalStack := %this.__Class%._ExternalStack(56, this)
             return this.__ExternalStack
         }
     }
@@ -124,7 +124,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
     AtaPort{
         get {
             if(!this.HasProp("__AtaPort"))
-                this.__AtaPort := %this.__Class%._AtaPort(this.ptr + 56)
+                this.__AtaPort := %this.__Class%._AtaPort(56, this)
             return this.__AtaPort
         }
     }
@@ -135,7 +135,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
     StorPort{
         get {
             if(!this.HasProp("__StorPort"))
-                this.__StorPort := %this.__Class%._StorPort(this.ptr + 56)
+                this.__StorPort := %this.__Class%._StorPort(56, this)
             return this.__StorPort
         }
     }

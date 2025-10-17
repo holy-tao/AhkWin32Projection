@@ -34866,7 +34866,7 @@ class Foundation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CloseHandle", "ptr", hObject, "ptr")
+        result := DllCall("KERNEL32.dll\CloseHandle", "ptr", hObject, "int")
         if(A_LastError)
             throw OSError()
 
@@ -34916,7 +34916,7 @@ class Foundation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DuplicateHandle", "ptr", hSourceProcessHandle, "ptr", hSourceHandle, "ptr", hTargetProcessHandle, "ptr", lpTargetHandle, "uint", dwDesiredAccess, "ptr", bInheritHandle, "uint", dwOptions, "ptr")
+        result := DllCall("KERNEL32.dll\DuplicateHandle", "ptr", hSourceProcessHandle, "ptr", hSourceHandle, "ptr", hTargetProcessHandle, "ptr", lpTargetHandle, "uint", dwDesiredAccess, "int", bInheritHandle, "uint", dwOptions, "int")
         if(A_LastError)
             throw OSError()
 
@@ -34935,7 +34935,7 @@ class Foundation {
         hFirstObjectHandle := hFirstObjectHandle is Win32Handle ? NumGet(hFirstObjectHandle, "ptr") : hFirstObjectHandle
         hSecondObjectHandle := hSecondObjectHandle is Win32Handle ? NumGet(hSecondObjectHandle, "ptr") : hSecondObjectHandle
 
-        result := DllCall("api-ms-win-core-handle-l1-1-0.dll\CompareObjectHandles", "ptr", hFirstObjectHandle, "ptr", hSecondObjectHandle, "ptr")
+        result := DllCall("api-ms-win-core-handle-l1-1-0.dll\CompareObjectHandles", "ptr", hFirstObjectHandle, "ptr", hSecondObjectHandle, "int")
         return result
     }
 
@@ -34993,7 +34993,7 @@ class Foundation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetHandleInformation", "ptr", hObject, "uint*", lpdwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\GetHandleInformation", "ptr", hObject, "uint*", lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35022,7 +35022,7 @@ class Foundation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetHandleInformation", "ptr", hObject, "uint", dwMask, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\SetHandleInformation", "ptr", hObject, "uint", dwMask, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35046,7 +35046,7 @@ class Foundation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FreeLibrary", "ptr", hLibModule, "ptr")
+        result := DllCall("KERNEL32.dll\FreeLibrary", "ptr", hLibModule, "int")
         if(A_LastError)
             throw OSError()
 
@@ -35183,7 +35183,7 @@ class Foundation {
      * @since windows5.1.2600
      */
     static RtlNtStatusToDosError(Status) {
-        result := DllCall("ntdll.dll\RtlNtStatusToDosError", "ptr", Status, "uint")
+        result := DllCall("ntdll.dll\RtlNtStatusToDosError", "int", Status, "uint")
         return result
     }
 

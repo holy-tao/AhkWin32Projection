@@ -33,7 +33,7 @@ class D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT extends Win32Struct
     MotionVectorCoordinate{
         get {
             if(!this.HasProp("__MotionVectorCoordinate"))
-                this.__MotionVectorCoordinate := D3D12_RESOURCE_COORDINATE(this.ptr + 8)
+                this.__MotionVectorCoordinate := D3D12_RESOURCE_COORDINATE(8, this)
             return this.__MotionVectorCoordinate
         }
     }

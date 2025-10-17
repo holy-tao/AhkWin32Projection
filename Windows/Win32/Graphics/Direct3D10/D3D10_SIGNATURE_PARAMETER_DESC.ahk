@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a shader signature.
@@ -29,12 +28,9 @@ class D3D10_SIGNATURE_PARAMETER_DESC extends Win32Struct
      * A per-parameter string that identifies how the data will be used. See <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">Semantics (DirectX HLSL)</a>.
      * @type {PSTR}
      */
-    SemanticName{
-        get {
-            if(!this.HasProp("__SemanticName"))
-                this.__SemanticName := PSTR(this.ptr + 0)
-            return this.__SemanticName
-        }
+    SemanticName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

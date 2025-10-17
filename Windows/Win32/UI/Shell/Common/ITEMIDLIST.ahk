@@ -43,7 +43,7 @@ class ITEMIDLIST extends Win32Struct
     mkid{
         get {
             if(!this.HasProp("__mkid"))
-                this.__mkid := SHITEMID(this.ptr + 0)
+                this.__mkid := SHITEMID(0, this)
             return this.__mkid
         }
     }

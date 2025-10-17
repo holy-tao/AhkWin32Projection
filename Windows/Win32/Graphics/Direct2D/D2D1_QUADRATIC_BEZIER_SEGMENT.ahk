@@ -23,7 +23,7 @@ class D2D1_QUADRATIC_BEZIER_SEGMENT extends Win32Struct
     point1{
         get {
             if(!this.HasProp("__point1"))
-                this.__point1 := D2D_POINT_2F(this.ptr + 0)
+                this.__point1 := D2D_POINT_2F(0, this)
             return this.__point1
         }
     }
@@ -37,7 +37,7 @@ class D2D1_QUADRATIC_BEZIER_SEGMENT extends Win32Struct
     point2{
         get {
             if(!this.HasProp("__point2"))
-                this.__point2 := D2D_POINT_2F(this.ptr + 8)
+                this.__point2 := D2D_POINT_2F(8, this)
             return this.__point2
         }
     }

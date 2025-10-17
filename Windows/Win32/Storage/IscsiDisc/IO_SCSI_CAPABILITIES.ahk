@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
@@ -55,33 +54,24 @@ class IO_SCSI_CAPABILITIES extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    TaggedQueuing{
-        get {
-            if(!this.HasProp("__TaggedQueuing"))
-                this.__TaggedQueuing := BOOLEAN(this.ptr + 20)
-            return this.__TaggedQueuing
-        }
+    TaggedQueuing {
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    AdapterScansDown{
-        get {
-            if(!this.HasProp("__AdapterScansDown"))
-                this.__AdapterScansDown := BOOLEAN(this.ptr + 21)
-            return this.__AdapterScansDown
-        }
+    AdapterScansDown {
+        get => NumGet(this, 21, "char")
+        set => NumPut("char", value, this, 21)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    AdapterUsesPio{
-        get {
-            if(!this.HasProp("__AdapterUsesPio"))
-                this.__AdapterUsesPio := BOOLEAN(this.ptr + 22)
-            return this.__AdapterUsesPio
-        }
+    AdapterUsesPio {
+        get => NumGet(this, 22, "char")
+        set => NumPut("char", value, this, 22)
     }
 }

@@ -5,7 +5,6 @@
 #Include .\CONTEXT.ahk
 #Include .\MINIDUMP_THREAD_CALLBACK.ahk
 #Include .\MINIDUMP_THREAD_EX_CALLBACK.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
 #Include .\MINIDUMP_MODULE_CALLBACK.ahk
 #Include .\MINIDUMP_INCLUDE_THREAD_CALLBACK.ahk
@@ -53,7 +52,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     ProcessHandle{
         get {
             if(!this.HasProp("__ProcessHandle"))
-                this.__ProcessHandle := HANDLE(this.ptr + 8)
+                this.__ProcessHandle := HANDLE(8, this)
             return this.__ProcessHandle
         }
     }
@@ -82,7 +81,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     Thread{
         get {
             if(!this.HasProp("__Thread"))
-                this.__Thread := MINIDUMP_THREAD_CALLBACK(this.ptr + 24)
+                this.__Thread := MINIDUMP_THREAD_CALLBACK(24, this)
             return this.__Thread
         }
     }
@@ -93,7 +92,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     ThreadEx{
         get {
             if(!this.HasProp("__ThreadEx"))
-                this.__ThreadEx := MINIDUMP_THREAD_EX_CALLBACK(this.ptr + 24)
+                this.__ThreadEx := MINIDUMP_THREAD_EX_CALLBACK(24, this)
             return this.__ThreadEx
         }
     }
@@ -104,7 +103,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     Module{
         get {
             if(!this.HasProp("__Module"))
-                this.__Module := MINIDUMP_MODULE_CALLBACK(this.ptr + 24)
+                this.__Module := MINIDUMP_MODULE_CALLBACK(24, this)
             return this.__Module
         }
     }
@@ -115,7 +114,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     IncludeThread{
         get {
             if(!this.HasProp("__IncludeThread"))
-                this.__IncludeThread := MINIDUMP_INCLUDE_THREAD_CALLBACK(this.ptr + 24)
+                this.__IncludeThread := MINIDUMP_INCLUDE_THREAD_CALLBACK(24, this)
             return this.__IncludeThread
         }
     }
@@ -126,7 +125,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     IncludeModule{
         get {
             if(!this.HasProp("__IncludeModule"))
-                this.__IncludeModule := MINIDUMP_INCLUDE_MODULE_CALLBACK(this.ptr + 24)
+                this.__IncludeModule := MINIDUMP_INCLUDE_MODULE_CALLBACK(24, this)
             return this.__IncludeModule
         }
     }
@@ -137,7 +136,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     Io{
         get {
             if(!this.HasProp("__Io"))
-                this.__Io := MINIDUMP_IO_CALLBACK(this.ptr + 24)
+                this.__Io := MINIDUMP_IO_CALLBACK(24, this)
             return this.__Io
         }
     }
@@ -148,7 +147,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     ReadMemoryFailure{
         get {
             if(!this.HasProp("__ReadMemoryFailure"))
-                this.__ReadMemoryFailure := MINIDUMP_READ_MEMORY_FAILURE_CALLBACK(this.ptr + 24)
+                this.__ReadMemoryFailure := MINIDUMP_READ_MEMORY_FAILURE_CALLBACK(24, this)
             return this.__ReadMemoryFailure
         }
     }
@@ -167,7 +166,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     VmQuery{
         get {
             if(!this.HasProp("__VmQuery"))
-                this.__VmQuery := MINIDUMP_VM_QUERY_CALLBACK(this.ptr + 24)
+                this.__VmQuery := MINIDUMP_VM_QUERY_CALLBACK(24, this)
             return this.__VmQuery
         }
     }
@@ -178,7 +177,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     VmPreRead{
         get {
             if(!this.HasProp("__VmPreRead"))
-                this.__VmPreRead := MINIDUMP_VM_PRE_READ_CALLBACK(this.ptr + 24)
+                this.__VmPreRead := MINIDUMP_VM_PRE_READ_CALLBACK(24, this)
             return this.__VmPreRead
         }
     }
@@ -189,7 +188,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     VmPostRead{
         get {
             if(!this.HasProp("__VmPostRead"))
-                this.__VmPostRead := MINIDUMP_VM_POST_READ_CALLBACK(this.ptr + 24)
+                this.__VmPostRead := MINIDUMP_VM_POST_READ_CALLBACK(24, this)
             return this.__VmPostRead
         }
     }

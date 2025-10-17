@@ -96,7 +96,7 @@ class STORAGE_PROTOCOL_DATA_DESCRIPTOR extends Win32Struct
     ProtocolSpecificData{
         get {
             if(!this.HasProp("__ProtocolSpecificData"))
-                this.__ProtocolSpecificData := STORAGE_PROTOCOL_SPECIFIC_DATA(this.ptr + 8)
+                this.__ProtocolSpecificData := STORAGE_PROTOCOL_SPECIFIC_DATA(8, this)
             return this.__ProtocolSpecificData
         }
     }

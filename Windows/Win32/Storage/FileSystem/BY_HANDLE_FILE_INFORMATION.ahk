@@ -57,7 +57,7 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
     ftCreationTime{
         get {
             if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(this.ptr + 8)
+                this.__ftCreationTime := FILETIME(8, this)
             return this.__ftCreationTime
         }
     }
@@ -73,7 +73,7 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(this.ptr + 16)
+                this.__ftLastAccessTime := FILETIME(16, this)
             return this.__ftLastAccessTime
         }
     }
@@ -87,7 +87,7 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
     ftLastWriteTime{
         get {
             if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(this.ptr + 24)
+                this.__ftLastWriteTime := FILETIME(24, this)
             return this.__ftLastWriteTime
         }
     }

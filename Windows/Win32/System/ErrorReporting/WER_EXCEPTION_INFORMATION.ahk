@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains exception information for the WerReportAddDump function.
@@ -27,11 +26,8 @@ class WER_EXCEPTION_INFORMATION extends Win32Struct
      * A process (calling process) can provide error reporting functionality for another process (client process). If this member is <b>TRUE</b>, the exception pointer is located inside the  address space of the client process. If this member is <b>FALSE</b>, the exception pointer is located inside the address space of the calling process.
      * @type {BOOL}
      */
-    bClientPointers{
-        get {
-            if(!this.HasProp("__bClientPointers"))
-                this.__bClientPointers := BOOL(this.ptr + 8)
-            return this.__bClientPointers
-        }
+    bClientPointers {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 }

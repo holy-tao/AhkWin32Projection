@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
@@ -31,11 +30,8 @@ class TEMP_BP_NOTE extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bPM{
-        get {
-            if(!this.HasProp("__bPM"))
-                this.__bPM := BOOL(this.ptr + 8)
-            return this.__bPM
-        }
+    bPM {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 }

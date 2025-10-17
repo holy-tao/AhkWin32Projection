@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides specialized application information to Add/Remove Programs in Control Panel. This structure is not applicable to published applications.
@@ -40,7 +39,7 @@ class SLOWAPPINFO extends Win32Struct
     ftLastUsed{
         get {
             if(!this.HasProp("__ftLastUsed"))
-                this.__ftLastUsed := FILETIME(this.ptr + 8)
+                this.__ftLastUsed := FILETIME(8, this)
             return this.__ftLastUsed
         }
     }
@@ -62,11 +61,8 @@ class SLOWAPPINFO extends Win32Struct
      * A pointer to a string containing the path to the image that represents the application. The string buffer must be allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @type {PWSTR}
      */
-    pszImage{
-        get {
-            if(!this.HasProp("__pszImage"))
-                this.__pszImage := PWSTR(this.ptr + 24)
-            return this.__pszImage
-        }
+    pszImage {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

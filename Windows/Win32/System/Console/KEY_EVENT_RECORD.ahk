@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -16,12 +14,9 @@ class KEY_EVENT_RECORD extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bKeyDown{
-        get {
-            if(!this.HasProp("__bKeyDown"))
-                this.__bKeyDown := BOOL(this.ptr + 0)
-            return this.__bKeyDown
-        }
+    bKeyDown {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -59,12 +54,9 @@ class KEY_EVENT_RECORD extends Win32Struct
     /**
      * @type {CHAR}
      */
-    AsciiChar{
-        get {
-            if(!this.HasProp("__AsciiChar"))
-                this.__AsciiChar := CHAR(this.ptr + 12)
-            return this.__AsciiChar
-        }
+    AsciiChar {
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**

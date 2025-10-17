@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
-#Include ..\..\..\Foundation\WPARAM.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
 #Include .\CHARRANGE.ahk
 
 /**
@@ -28,7 +26,7 @@ class ENPROTECTED extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -50,12 +48,9 @@ class ENPROTECTED extends Win32Struct
      * The <b>wParam</b> parameter of the message.
      * @type {WPARAM}
      */
-    wParam{
-        get {
-            if(!this.HasProp("__wParam"))
-                this.__wParam := WPARAM(this.ptr + 32)
-            return this.__wParam
-        }
+    wParam {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -64,12 +59,9 @@ class ENPROTECTED extends Win32Struct
      * The <b>lParam</b> parameter of the message.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 40)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -81,7 +73,7 @@ class ENPROTECTED extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 48)
+                this.__chrg := CHARRANGE(48, this)
             return this.__chrg
         }
     }

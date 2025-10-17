@@ -21,7 +21,7 @@ class WMT_FILESINK_DATA_UNIT extends Win32Struct
     packetHeaderBuffer{
         get {
             if(!this.HasProp("__packetHeaderBuffer"))
-                this.__packetHeaderBuffer := WMT_BUFFER_SEGMENT(this.ptr + 0)
+                this.__packetHeaderBuffer := WMT_BUFFER_SEGMENT(0, this)
             return this.__packetHeaderBuffer
         }
     }

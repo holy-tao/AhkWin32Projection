@@ -78,7 +78,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     Input{
         get {
             if(!this.HasProp("__Input"))
-                this.__Input := PIPE_TERMINATION(this.ptr + 40)
+                this.__Input := PIPE_TERMINATION(40, this)
             return this.__Input
         }
     }
@@ -89,7 +89,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := PIPE_TERMINATION(this.ptr + 112)
+                this.__Output := PIPE_TERMINATION(112, this)
             return this.__Output
         }
     }
@@ -140,7 +140,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     Dimensions{
         get {
             if(!this.HasProp("__Dimensions"))
-                this.__Dimensions := PIPE_DIMENSIONS(this.ptr + 208)
+                this.__Dimensions := PIPE_DIMENSIONS(208, this)
             return this.__Dimensions
         }
     }
@@ -151,7 +151,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     PhysicalRange{
         get {
             if(!this.HasProp("__PhysicalRange"))
-                this.__PhysicalRange := KS_FRAMING_RANGE(this.ptr + 256)
+                this.__PhysicalRange := KS_FRAMING_RANGE(256, this)
             return this.__PhysicalRange
         }
     }

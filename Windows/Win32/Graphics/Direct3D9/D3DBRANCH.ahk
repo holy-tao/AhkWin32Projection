@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -31,12 +30,9 @@ class D3DBRANCH extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bNegate{
-        get {
-            if(!this.HasProp("__bNegate"))
-                this.__bNegate := BOOL(this.ptr + 8)
-            return this.__bNegate
-        }
+    bNegate {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**

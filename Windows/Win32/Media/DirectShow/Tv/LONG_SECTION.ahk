@@ -49,7 +49,7 @@ class LONG_SECTION extends Win32Struct
     S{
         get {
             if(!this.HasProp("__S"))
-                this.__S := MPEG_HEADER_BITS_MIDL(this.ptr + 2)
+                this.__S := MPEG_HEADER_BITS_MIDL(2, this)
             return this.__S
         }
     }

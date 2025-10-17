@@ -25,7 +25,7 @@ class MENUTEMPLATEEX extends Win32Struct
         mitHeader{
             get {
                 if(!this.HasProp("__mitHeader"))
-                    this.__mitHeader := MENUITEMTEMPLATEHEADER(this.ptr + 0)
+                    this.__mitHeader := MENUITEMTEMPLATEHEADER(0, this)
                 return this.__mitHeader
             }
         }
@@ -53,7 +53,7 @@ class MENUTEMPLATEEX extends Win32Struct
         mexHeader{
             get {
                 if(!this.HasProp("__mexHeader"))
-                    this.__mexHeader := MENUEX_TEMPLATE_HEADER(this.ptr + 0)
+                    this.__mexHeader := MENUEX_TEMPLATE_HEADER(0, this)
                 return this.__mexHeader
             }
         }
@@ -77,7 +77,7 @@ class MENUTEMPLATEEX extends Win32Struct
     Menu{
         get {
             if(!this.HasProp("__Menu"))
-                this.__Menu := %this.__Class%._Menu(this.ptr + 0)
+                this.__Menu := %this.__Class%._Menu(0, this)
             return this.__Menu
         }
     }
@@ -88,7 +88,7 @@ class MENUTEMPLATEEX extends Win32Struct
     MenuEx{
         get {
             if(!this.HasProp("__MenuEx"))
-                this.__MenuEx := %this.__Class%._MenuEx(this.ptr + 0)
+                this.__MenuEx := %this.__Class%._MenuEx(0, this)
             return this.__MenuEx
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Performs a batch normalization on the input.
@@ -102,12 +101,9 @@ class DML_BATCH_NORMALIZATION_OPERATOR_DESC extends Win32Struct
      * **TRUE** to specify that locations are spatial, otherwise **FALSE**. Setting this to **FALSE** will require the Width and Height dimensions of *MeanTensor* and *VarianceTensor* to not be broadcast. This parameter was deprecated in **DML_FEATURE_LEVEL_4_0**, and has no effect.
      * @type {BOOL}
      */
-    Spatial{
-        get {
-            if(!this.HasProp("__Spatial"))
-                this.__Spatial := BOOL(this.ptr + 48)
-            return this.__Spatial
-        }
+    Spatial {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**

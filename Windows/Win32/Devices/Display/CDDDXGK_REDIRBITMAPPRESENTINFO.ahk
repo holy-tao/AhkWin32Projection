@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -51,11 +50,8 @@ class CDDDXGK_REDIRBITMAPPRESENTINFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bDoNotSynchronizeWithDxContent{
-        get {
-            if(!this.HasProp("__bDoNotSynchronizeWithDxContent"))
-                this.__bDoNotSynchronizeWithDxContent := BOOLEAN(this.ptr + 544)
-            return this.__bDoNotSynchronizeWithDxContent
-        }
+    bDoNotSynchronizeWithDxContent {
+        get => NumGet(this, 544, "char")
+        set => NumPut("char", value, this, 544)
     }
 }

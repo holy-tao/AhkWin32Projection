@@ -202,7 +202,7 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
         hMem{
             get {
                 if(!this.HasProp("__hMem"))
-                    this.__hMem := HANDLE(this.ptr + 0)
+                    this.__hMem := HANDLE(0, this)
                 return this.__hMem
             }
         }
@@ -264,7 +264,7 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
     Block{
         get {
             if(!this.HasProp("__Block"))
-                this.__Block := %this.__Class%._Block(this.ptr + 16)
+                this.__Block := %this.__Class%._Block(16, this)
             return this.__Block
         }
     }
@@ -275,7 +275,7 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
     Region{
         get {
             if(!this.HasProp("__Region"))
-                this.__Region := %this.__Class%._Region(this.ptr + 16)
+                this.__Region := %this.__Class%._Region(16, this)
             return this.__Region
         }
     }

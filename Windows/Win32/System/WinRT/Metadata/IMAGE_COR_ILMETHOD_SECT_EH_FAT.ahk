@@ -19,7 +19,7 @@ class IMAGE_COR_ILMETHOD_SECT_EH_FAT extends Win32Struct
     SectFat{
         get {
             if(!this.HasProp("__SectFat"))
-                this.__SectFat := IMAGE_COR_ILMETHOD_SECT_FAT(this.ptr + 0)
+                this.__SectFat := IMAGE_COR_ILMETHOD_SECT_FAT(0, this)
             return this.__SectFat
         }
     }

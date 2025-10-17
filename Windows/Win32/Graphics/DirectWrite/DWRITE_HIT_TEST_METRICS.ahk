@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the region obtained by a hit test.
@@ -97,12 +96,9 @@ class DWRITE_HIT_TEST_METRICS extends Win32Struct
      * true if the hit region contains text; otherwise, false.
      * @type {BOOL}
      */
-    isText{
-        get {
-            if(!this.HasProp("__isText"))
-                this.__isText := BOOL(this.ptr + 28)
-            return this.__isText
-        }
+    isText {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -111,11 +107,8 @@ class DWRITE_HIT_TEST_METRICS extends Win32Struct
      * true if the text range is trimmed; otherwise, false.
      * @type {BOOL}
      */
-    isTrimmed{
-        get {
-            if(!this.HasProp("__isTrimmed"))
-                this.__isTrimmed := BOOL(this.ptr + 32)
-            return this.__isTrimmed
-        }
+    isTrimmed {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 }

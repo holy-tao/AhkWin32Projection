@@ -4,7 +4,6 @@
 #Include .\HICON.ahk
 #Include .\HCURSOR.ahk
 #Include ..\..\Graphics\Gdi\HBRUSH.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the window class attributes that are registered by the RegisterClass function.
@@ -78,7 +77,7 @@ class WNDCLASSA extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 24)
+                this.__hInstance := HINSTANCE(24, this)
             return this.__hInstance
         }
     }
@@ -92,7 +91,7 @@ class WNDCLASSA extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 32)
+                this.__hIcon := HICON(32, this)
             return this.__hIcon
         }
     }
@@ -106,7 +105,7 @@ class WNDCLASSA extends Win32Struct
     hCursor{
         get {
             if(!this.HasProp("__hCursor"))
-                this.__hCursor := HCURSOR(this.ptr + 40)
+                this.__hCursor := HCURSOR(40, this)
             return this.__hCursor
         }
     }
@@ -149,7 +148,7 @@ class WNDCLASSA extends Win32Struct
     hbrBackground{
         get {
             if(!this.HasProp("__hbrBackground"))
-                this.__hbrBackground := HBRUSH(this.ptr + 48)
+                this.__hbrBackground := HBRUSH(48, this)
             return this.__hbrBackground
         }
     }
@@ -160,12 +159,9 @@ class WNDCLASSA extends Win32Struct
      * The resource name of the class menu, as the name appears in the resource file. If you use an integer to identify the menu, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If this member is <b>NULL</b>, windows belonging to this class have no default menu.
      * @type {PSTR}
      */
-    lpszMenuName{
-        get {
-            if(!this.HasProp("__lpszMenuName"))
-                this.__lpszMenuName := PSTR(this.ptr + 56)
-            return this.__lpszMenuName
-        }
+    lpszMenuName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -180,11 +176,8 @@ class WNDCLASSA extends Win32Struct
      * The maximum length for <b>lpszClassName</b> is 256. If <b>lpszClassName</b> is greater than the maximum length, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function will fail.
      * @type {PSTR}
      */
-    lpszClassName{
-        get {
-            if(!this.HasProp("__lpszClassName"))
-                this.__lpszClassName := PSTR(this.ptr + 64)
-            return this.__lpszClassName
-        }
+    lpszClassName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

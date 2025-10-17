@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about digital signing.
@@ -35,12 +34,9 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszFileName{
-        get {
-            if(!this.HasProp("__pwszFileName"))
-                this.__pwszFileName := PWSTR(this.ptr + 8)
-            return this.__pwszFileName
-        }
+    pwszFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -88,12 +84,9 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_INFO extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the URL for the time stamp.
      * @type {PWSTR}
      */
-    pwszTimestampURL{
-        get {
-            if(!this.HasProp("__pwszTimestampURL"))
-                this.__pwszTimestampURL := PWSTR(this.ptr + 32)
-            return this.__pwszTimestampURL
-        }
+    pwszTimestampURL {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

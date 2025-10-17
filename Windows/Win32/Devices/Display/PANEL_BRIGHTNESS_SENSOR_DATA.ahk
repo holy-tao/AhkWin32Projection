@@ -79,7 +79,7 @@ class PANEL_BRIGHTNESS_SENSOR_DATA extends Win32Struct
     ChromaticityCoordinate{
         get {
             if(!this.HasProp("__ChromaticityCoordinate"))
-                this.__ChromaticityCoordinate := CHROMATICITY_COORDINATE(this.ptr + 8)
+                this.__ChromaticityCoordinate := CHROMATICITY_COORDINATE(8, this)
             return this.__ChromaticityCoordinate
         }
     }

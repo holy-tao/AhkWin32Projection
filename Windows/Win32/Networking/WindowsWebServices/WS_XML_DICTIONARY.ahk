@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a set of unique strings. This information is used by the binary encoding to write a more compact xml document.
@@ -89,11 +88,8 @@ class WS_XML_DICTIONARY extends Win32Struct
      * If this is <b>TRUE</b>, then the strings can be manipulated more efficiently.
      * @type {BOOL}
      */
-    isConst{
-        get {
-            if(!this.HasProp("__isConst"))
-                this.__isConst := BOOL(this.ptr + 20)
-            return this.__isConst
-        }
+    isConst {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

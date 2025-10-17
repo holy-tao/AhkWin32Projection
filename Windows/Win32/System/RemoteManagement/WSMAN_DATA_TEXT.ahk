@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Holds textual data for use with various Windows Remote Management functions.
@@ -27,11 +26,8 @@ class WSMAN_DATA_TEXT extends Win32Struct
      * Specifies the storage location for the textual data.
      * @type {PWSTR}
      */
-    buffer{
-        get {
-            if(!this.HasProp("__buffer"))
-                this.__buffer := PWSTR(this.ptr + 8)
-            return this.__buffer
-        }
+    buffer {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

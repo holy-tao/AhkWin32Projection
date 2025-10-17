@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the data associated with a single input field.
@@ -163,12 +162,9 @@ class EAP_CONFIG_INPUT_FIELD_DATA extends Win32Struct
      * </table>
      * @type {PWSTR}
      */
-    pwszLabel{
-        get {
-            if(!this.HasProp("__pwszLabel"))
-                this.__pwszLabel := PWSTR(this.ptr + 16)
-            return this.__pwszLabel
-        }
+    pwszLabel {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -194,12 +190,9 @@ class EAP_CONFIG_INPUT_FIELD_DATA extends Win32Struct
      * </table>
      * @type {PWSTR}
      */
-    pwszData{
-        get {
-            if(!this.HasProp("__pwszData"))
-                this.__pwszData := PWSTR(this.ptr + 24)
-            return this.__pwszData
-        }
+    pwszData {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

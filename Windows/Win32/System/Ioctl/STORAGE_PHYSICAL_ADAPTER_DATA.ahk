@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\STORAGE_SPEC_VERSION.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes a physical storage adapter.
@@ -49,7 +48,7 @@ class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
     SpecVersion{
         get {
             if(!this.HasProp("__SpecVersion"))
-                this.__SpecVersion := STORAGE_SPEC_VERSION(this.ptr + 16)
+                this.__SpecVersion := STORAGE_SPEC_VERSION(16, this)
             return this.__SpecVersion
         }
     }
@@ -106,12 +105,9 @@ class STORAGE_PHYSICAL_ADAPTER_DATA extends Win32Struct
      * Indicates whether an expander is connected.
      * @type {BOOLEAN}
      */
-    ExpanderConnected{
-        get {
-            if(!this.HasProp("__ExpanderConnected"))
-                this.__ExpanderConnected := BOOLEAN(this.ptr + 120)
-            return this.__ExpanderConnected
-        }
+    ExpanderConnected {
+        get => NumGet(this, 120, "char")
+        set => NumPut("char", value, this, 120)
     }
 
     /**

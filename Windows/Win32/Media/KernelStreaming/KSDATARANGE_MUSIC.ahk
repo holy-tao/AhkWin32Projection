@@ -18,7 +18,7 @@ class KSDATARANGE_MUSIC extends Win32Struct
     DataRange{
         get {
             if(!this.HasProp("__DataRange"))
-                this.__DataRange := KSDATAFORMAT(this.ptr + 0)
+                this.__DataRange := KSDATAFORMAT(0, this)
             return this.__DataRange
         }
     }

@@ -31,7 +31,7 @@ class RASIKEV2_PROJECTION_INFO extends Win32Struct
     ipv4Address{
         get {
             if(!this.HasProp("__ipv4Address"))
-                this.__ipv4Address := IN_ADDR(this.ptr + 4)
+                this.__ipv4Address := IN_ADDR(4, this)
             return this.__ipv4Address
         }
     }
@@ -43,7 +43,7 @@ class RASIKEV2_PROJECTION_INFO extends Win32Struct
     ipv4ServerAddress{
         get {
             if(!this.HasProp("__ipv4ServerAddress"))
-                this.__ipv4ServerAddress := IN_ADDR(this.ptr + 8)
+                this.__ipv4ServerAddress := IN_ADDR(8, this)
             return this.__ipv4ServerAddress
         }
     }
@@ -64,7 +64,7 @@ class RASIKEV2_PROJECTION_INFO extends Win32Struct
     ipv6Address{
         get {
             if(!this.HasProp("__ipv6Address"))
-                this.__ipv6Address := IN6_ADDR(this.ptr + 16)
+                this.__ipv6Address := IN6_ADDR(16, this)
             return this.__ipv6Address
         }
     }
@@ -76,7 +76,7 @@ class RASIKEV2_PROJECTION_INFO extends Win32Struct
     ipv6ServerAddress{
         get {
             if(!this.HasProp("__ipv6ServerAddress"))
-                this.__ipv6ServerAddress := IN6_ADDR(this.ptr + 32)
+                this.__ipv6ServerAddress := IN6_ADDR(32, this)
             return this.__ipv6ServerAddress
         }
     }

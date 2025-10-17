@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_PROPERTY_FLAGS.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS.ahk
 #Include .\HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS.ahk
 
@@ -30,7 +28,7 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(this.ptr + 0)
+                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
             return this.__Flags
         }
     }
@@ -117,24 +115,18 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
      * Be aware that this option is set for all  requests served by the associated request queue.
      * @type {BOOLEAN}
      */
-    ReceiveMutualAuth{
-        get {
-            if(!this.HasProp("__ReceiveMutualAuth"))
-                this.__ReceiveMutualAuth := BOOLEAN(this.ptr + 8)
-            return this.__ReceiveMutualAuth
-        }
+    ReceiveMutualAuth {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
      * A Boolean value that indicates, if <b>True</b>, that the finalized client context is serialized and passed to the application with the request. If <b>False</b>, the application does not receive the context. This handle can be used to query context attributes.
      * @type {BOOLEAN}
      */
-    ReceiveContextHandle{
-        get {
-            if(!this.HasProp("__ReceiveContextHandle"))
-                this.__ReceiveContextHandle := BOOLEAN(this.ptr + 9)
-            return this.__ReceiveContextHandle
-        }
+    ReceiveContextHandle {
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 
     /**
@@ -143,12 +135,9 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
      * By default,  HTTP caches the client context for Keep Alive (KA) connections for the NTLM scheme if the request did not originate from a proxy.
      * @type {BOOLEAN}
      */
-    DisableNTLMCredentialCaching{
-        get {
-            if(!this.HasProp("__DisableNTLMCredentialCaching"))
-                this.__DisableNTLMCredentialCaching := BOOLEAN(this.ptr + 10)
-            return this.__DisableNTLMCredentialCaching
-        }
+    DisableNTLMCredentialCaching {
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 
     /**
@@ -194,7 +183,7 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
     DigestParams{
         get {
             if(!this.HasProp("__DigestParams"))
-                this.__DigestParams := HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS(this.ptr + 16)
+                this.__DigestParams := HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS(16, this)
             return this.__DigestParams
         }
     }
@@ -206,7 +195,7 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
     BasicParams{
         get {
             if(!this.HasProp("__BasicParams"))
-                this.__BasicParams := HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS(this.ptr + 48)
+                this.__BasicParams := HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS(48, this)
             return this.__BasicParams
         }
     }

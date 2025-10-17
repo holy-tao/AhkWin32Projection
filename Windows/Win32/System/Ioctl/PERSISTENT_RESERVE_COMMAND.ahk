@@ -145,7 +145,7 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     PR_IN{
         get {
             if(!this.HasProp("__PR_IN"))
-                this.__PR_IN := %this.__Class%._PR_IN(this.ptr + 14)
+                this.__PR_IN := %this.__Class%._PR_IN(14, this)
             return this.__PR_IN
         }
     }
@@ -156,7 +156,7 @@ class PERSISTENT_RESERVE_COMMAND extends Win32Struct
     PR_OUT{
         get {
             if(!this.HasProp("__PR_OUT"))
-                this.__PR_OUT := %this.__Class%._PR_OUT(this.ptr + 14)
+                this.__PR_OUT := %this.__Class%._PR_OUT(14, this)
             return this.__PR_OUT
         }
     }

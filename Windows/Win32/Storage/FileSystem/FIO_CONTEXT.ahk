@@ -34,7 +34,7 @@ class FIO_CONTEXT extends Win32Struct
     m_hFile{
         get {
             if(!this.HasProp("__m_hFile"))
-                this.__m_hFile := HANDLE(this.ptr + 8)
+                this.__m_hFile := HANDLE(8, this)
             return this.__m_hFile
         }
     }

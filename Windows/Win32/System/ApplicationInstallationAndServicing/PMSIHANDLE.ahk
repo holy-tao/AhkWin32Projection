@@ -18,7 +18,7 @@ class PMSIHANDLE extends Win32Struct
     m_h{
         get {
             if(!this.HasProp("__m_h"))
-                this.__m_h := MSIHANDLE(this.ptr + 0)
+                this.__m_h := MSIHANDLE(0, this)
             return this.__m_h
         }
     }

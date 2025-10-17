@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_TRUST_REG_ENTRY.ahk
 
 /**
@@ -31,7 +30,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
     sInitProvider{
         get {
             if(!this.HasProp("__sInitProvider"))
-                this.__sInitProvider := CRYPT_TRUST_REG_ENTRY(this.ptr + 8)
+                this.__sInitProvider := CRYPT_TRUST_REG_ENTRY(8, this)
             return this.__sInitProvider
         }
     }
@@ -43,7 +42,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
     sObjectProvider{
         get {
             if(!this.HasProp("__sObjectProvider"))
-                this.__sObjectProvider := CRYPT_TRUST_REG_ENTRY(this.ptr + 32)
+                this.__sObjectProvider := CRYPT_TRUST_REG_ENTRY(32, this)
             return this.__sObjectProvider
         }
     }
@@ -55,7 +54,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
     sSignatureProvider{
         get {
             if(!this.HasProp("__sSignatureProvider"))
-                this.__sSignatureProvider := CRYPT_TRUST_REG_ENTRY(this.ptr + 56)
+                this.__sSignatureProvider := CRYPT_TRUST_REG_ENTRY(56, this)
             return this.__sSignatureProvider
         }
     }
@@ -67,7 +66,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
     sCertificateProvider{
         get {
             if(!this.HasProp("__sCertificateProvider"))
-                this.__sCertificateProvider := CRYPT_TRUST_REG_ENTRY(this.ptr + 80)
+                this.__sCertificateProvider := CRYPT_TRUST_REG_ENTRY(80, this)
             return this.__sCertificateProvider
         }
     }
@@ -79,7 +78,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
     sCertificatePolicyProvider{
         get {
             if(!this.HasProp("__sCertificatePolicyProvider"))
-                this.__sCertificatePolicyProvider := CRYPT_TRUST_REG_ENTRY(this.ptr + 104)
+                this.__sCertificatePolicyProvider := CRYPT_TRUST_REG_ENTRY(104, this)
             return this.__sCertificatePolicyProvider
         }
     }
@@ -91,7 +90,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
     sFinalPolicyProvider{
         get {
             if(!this.HasProp("__sFinalPolicyProvider"))
-                this.__sFinalPolicyProvider := CRYPT_TRUST_REG_ENTRY(this.ptr + 128)
+                this.__sFinalPolicyProvider := CRYPT_TRUST_REG_ENTRY(128, this)
             return this.__sFinalPolicyProvider
         }
     }
@@ -103,7 +102,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
     sTestPolicyProvider{
         get {
             if(!this.HasProp("__sTestPolicyProvider"))
-                this.__sTestPolicyProvider := CRYPT_TRUST_REG_ENTRY(this.ptr + 152)
+                this.__sTestPolicyProvider := CRYPT_TRUST_REG_ENTRY(152, this)
             return this.__sTestPolicyProvider
         }
     }
@@ -115,7 +114,7 @@ class CRYPT_REGISTER_ACTIONID extends Win32Struct
     sCleanupProvider{
         get {
             if(!this.HasProp("__sCleanupProvider"))
-                this.__sCleanupProvider := CRYPT_TRUST_REG_ENTRY(this.ptr + 176)
+                this.__sCleanupProvider := CRYPT_TRUST_REG_ENTRY(176, this)
             return this.__sCleanupProvider
         }
     }

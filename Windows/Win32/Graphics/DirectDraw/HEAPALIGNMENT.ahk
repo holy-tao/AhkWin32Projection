@@ -36,7 +36,7 @@ class HEAPALIGNMENT extends Win32Struct
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(this.ptr + 4)
+                this.__ddsCaps := DDSCAPS(4, this)
             return this.__ddsCaps
         }
     }
@@ -57,7 +57,7 @@ class HEAPALIGNMENT extends Win32Struct
     ExecuteBuffer{
         get {
             if(!this.HasProp("__ExecuteBuffer"))
-                this.__ExecuteBuffer := SURFACEALIGNMENT(this.ptr + 16)
+                this.__ExecuteBuffer := SURFACEALIGNMENT(16, this)
             return this.__ExecuteBuffer
         }
     }
@@ -69,7 +69,7 @@ class HEAPALIGNMENT extends Win32Struct
     Overlay{
         get {
             if(!this.HasProp("__Overlay"))
-                this.__Overlay := SURFACEALIGNMENT(this.ptr + 32)
+                this.__Overlay := SURFACEALIGNMENT(32, this)
             return this.__Overlay
         }
     }
@@ -81,7 +81,7 @@ class HEAPALIGNMENT extends Win32Struct
     Texture{
         get {
             if(!this.HasProp("__Texture"))
-                this.__Texture := SURFACEALIGNMENT(this.ptr + 48)
+                this.__Texture := SURFACEALIGNMENT(48, this)
             return this.__Texture
         }
     }
@@ -93,7 +93,7 @@ class HEAPALIGNMENT extends Win32Struct
     ZBuffer{
         get {
             if(!this.HasProp("__ZBuffer"))
-                this.__ZBuffer := SURFACEALIGNMENT(this.ptr + 64)
+                this.__ZBuffer := SURFACEALIGNMENT(64, this)
             return this.__ZBuffer
         }
     }
@@ -105,7 +105,7 @@ class HEAPALIGNMENT extends Win32Struct
     AlphaBuffer{
         get {
             if(!this.HasProp("__AlphaBuffer"))
-                this.__AlphaBuffer := SURFACEALIGNMENT(this.ptr + 80)
+                this.__AlphaBuffer := SURFACEALIGNMENT(80, this)
             return this.__AlphaBuffer
         }
     }
@@ -117,7 +117,7 @@ class HEAPALIGNMENT extends Win32Struct
     Offscreen{
         get {
             if(!this.HasProp("__Offscreen"))
-                this.__Offscreen := SURFACEALIGNMENT(this.ptr + 96)
+                this.__Offscreen := SURFACEALIGNMENT(96, this)
             return this.__Offscreen
         }
     }
@@ -129,7 +129,7 @@ class HEAPALIGNMENT extends Win32Struct
     FlipTarget{
         get {
             if(!this.HasProp("__FlipTarget"))
-                this.__FlipTarget := SURFACEALIGNMENT(this.ptr + 112)
+                this.__FlipTarget := SURFACEALIGNMENT(112, this)
             return this.__FlipTarget
         }
     }

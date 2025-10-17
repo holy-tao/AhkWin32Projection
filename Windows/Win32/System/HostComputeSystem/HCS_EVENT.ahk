@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HCS_OPERATION.ahk
 
 /**
@@ -24,12 +23,9 @@ class HCS_EVENT extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    EventData{
-        get {
-            if(!this.HasProp("__EventData"))
-                this.__EventData := PWSTR(this.ptr + 8)
-            return this.__EventData
-        }
+    EventData {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -38,7 +34,7 @@ class HCS_EVENT extends Win32Struct
     Operation{
         get {
             if(!this.HasProp("__Operation"))
-                this.__Operation := HCS_OPERATION(this.ptr + 16)
+                this.__Operation := HCS_OPERATION(16, this)
             return this.__Operation
         }
     }

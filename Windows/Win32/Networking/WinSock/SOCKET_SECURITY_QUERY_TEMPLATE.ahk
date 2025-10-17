@@ -41,7 +41,7 @@ class SOCKET_SECURITY_QUERY_TEMPLATE extends Win32Struct
     PeerAddress{
         get {
             if(!this.HasProp("__PeerAddress"))
-                this.__PeerAddress := SOCKADDR_STORAGE(this.ptr + 8)
+                this.__PeerAddress := SOCKADDR_STORAGE(8, this)
             return this.__PeerAddress
         }
     }

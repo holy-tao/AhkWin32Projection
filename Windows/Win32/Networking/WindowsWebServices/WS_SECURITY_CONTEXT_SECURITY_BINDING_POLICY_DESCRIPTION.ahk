@@ -23,7 +23,7 @@ class WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION extends Win32Struc
     securityContextMessageSecurityBinding{
         get {
             if(!this.HasProp("__securityContextMessageSecurityBinding"))
-                this.__securityContextMessageSecurityBinding := WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(this.ptr + 0)
+                this.__securityContextMessageSecurityBinding := WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(0, this)
             return this.__securityContextMessageSecurityBinding
         }
     }
@@ -35,7 +35,7 @@ class WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION extends Win32Struc
     securityProperties{
         get {
             if(!this.HasProp("__securityProperties"))
-                this.__securityProperties := WS_SECURITY_PROPERTIES(this.ptr + 24)
+                this.__securityProperties := WS_SECURITY_PROPERTIES(24, this)
             return this.__securityProperties
         }
     }

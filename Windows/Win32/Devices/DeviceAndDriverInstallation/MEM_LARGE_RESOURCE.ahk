@@ -19,7 +19,7 @@ class MEM_LARGE_RESOURCE extends Win32Struct
     MEM_LARGE_Header{
         get {
             if(!this.HasProp("__MEM_LARGE_Header"))
-                this.__MEM_LARGE_Header := MEM_LARGE_DES(this.ptr + 0)
+                this.__MEM_LARGE_Header := MEM_LARGE_DES(0, this)
             return this.__MEM_LARGE_Header
         }
     }

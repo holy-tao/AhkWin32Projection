@@ -30,7 +30,7 @@ class KSEVENTDATA extends Win32Struct
         Event{
             get {
                 if(!this.HasProp("__Event"))
-                    this.__Event := HANDLE(this.ptr + 0)
+                    this.__Event := HANDLE(0, this)
                 return this.__Event
             }
         }
@@ -58,7 +58,7 @@ class KSEVENTDATA extends Win32Struct
         Semaphore{
             get {
                 if(!this.HasProp("__Semaphore"))
-                    this.__Semaphore := HANDLE(this.ptr + 0)
+                    this.__Semaphore := HANDLE(0, this)
                 return this.__Semaphore
             }
         }
@@ -112,7 +112,7 @@ class KSEVENTDATA extends Win32Struct
     EventHandle{
         get {
             if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := %this.__Class%._EventHandle(this.ptr + 8)
+                this.__EventHandle := %this.__Class%._EventHandle(8, this)
             return this.__EventHandle
         }
     }
@@ -123,7 +123,7 @@ class KSEVENTDATA extends Win32Struct
     SemaphoreHandle{
         get {
             if(!this.HasProp("__SemaphoreHandle"))
-                this.__SemaphoreHandle := %this.__Class%._SemaphoreHandle(this.ptr + 8)
+                this.__SemaphoreHandle := %this.__Class%._SemaphoreHandle(8, this)
             return this.__SemaphoreHandle
         }
     }
@@ -134,7 +134,7 @@ class KSEVENTDATA extends Win32Struct
     Alignment{
         get {
             if(!this.HasProp("__Alignment"))
-                this.__Alignment := %this.__Class%._Alignment(this.ptr + 8)
+                this.__Alignment := %this.__Class%._Alignment(8, this)
             return this.__Alignment
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -15,22 +14,16 @@ class WIAS_ENDORSER_VALUE extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    wszTokenName{
-        get {
-            if(!this.HasProp("__wszTokenName"))
-                this.__wszTokenName := PWSTR(this.ptr + 0)
-            return this.__wszTokenName
-        }
+    wszTokenName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    wszValue{
-        get {
-            if(!this.HasProp("__wszValue"))
-                this.__wszValue := PWSTR(this.ptr + 8)
-            return this.__wszValue
-        }
+    wszValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

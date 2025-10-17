@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\HSZ.ahk
 #Include .\HCONV.ahk
@@ -41,12 +40,9 @@ class MONCONVSTRUCT extends Win32Struct
      * Indicates whether the conversation is currently established. A value of <b>TRUE</b> indicates the conversation is established; <b>FALSE</b> indicates it is not.
      * @type {BOOL}
      */
-    fConnect{
-        get {
-            if(!this.HasProp("__fConnect"))
-                this.__fConnect := BOOL(this.ptr + 4)
-            return this.__fConnect
-        }
+    fConnect {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -69,7 +65,7 @@ class MONCONVSTRUCT extends Win32Struct
     hTask{
         get {
             if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(this.ptr + 16)
+                this.__hTask := HANDLE(16, this)
             return this.__hTask
         }
     }
@@ -83,7 +79,7 @@ class MONCONVSTRUCT extends Win32Struct
     hszSvc{
         get {
             if(!this.HasProp("__hszSvc"))
-                this.__hszSvc := HSZ(this.ptr + 24)
+                this.__hszSvc := HSZ(24, this)
             return this.__hszSvc
         }
     }
@@ -97,7 +93,7 @@ class MONCONVSTRUCT extends Win32Struct
     hszTopic{
         get {
             if(!this.HasProp("__hszTopic"))
-                this.__hszTopic := HSZ(this.ptr + 32)
+                this.__hszTopic := HSZ(32, this)
             return this.__hszTopic
         }
     }
@@ -111,7 +107,7 @@ class MONCONVSTRUCT extends Win32Struct
     hConvClient{
         get {
             if(!this.HasProp("__hConvClient"))
-                this.__hConvClient := HCONV(this.ptr + 40)
+                this.__hConvClient := HCONV(40, this)
             return this.__hConvClient
         }
     }
@@ -125,7 +121,7 @@ class MONCONVSTRUCT extends Win32Struct
     hConvServer{
         get {
             if(!this.HasProp("__hConvServer"))
-                this.__hConvServer := HCONV(this.ptr + 48)
+                this.__hConvServer := HCONV(48, this)
             return this.__hConvServer
         }
     }

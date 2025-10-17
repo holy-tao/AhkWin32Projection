@@ -21,7 +21,7 @@ class CERT_SELECTUI_INPUT extends Win32Struct
     hStore{
         get {
             if(!this.HasProp("__hStore"))
-                this.__hStore := HCERTSTORE(this.ptr + 0)
+                this.__hStore := HCERTSTORE(0, this)
             return this.__hStore
         }
     }

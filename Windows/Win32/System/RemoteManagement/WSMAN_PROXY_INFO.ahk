@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_USERNAME_PASSWORD_CREDS.ahk
 #Include .\WSMAN_AUTHENTICATION_CREDENTIALS.ahk
 
@@ -32,7 +31,7 @@ class WSMAN_PROXY_INFO extends Win32Struct
     authenticationCredentials{
         get {
             if(!this.HasProp("__authenticationCredentials"))
-                this.__authenticationCredentials := WSMAN_AUTHENTICATION_CREDENTIALS(this.ptr + 8)
+                this.__authenticationCredentials := WSMAN_AUTHENTICATION_CREDENTIALS(8, this)
             return this.__authenticationCredentials
         }
     }

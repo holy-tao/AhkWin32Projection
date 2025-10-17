@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information that describes allowed traffic as enforced by the WFP classify engine.
@@ -86,11 +85,8 @@ class FWPM_NET_EVENT_CLASSIFY_ALLOW0 extends Win32Struct
      * If true, indicates that the packet originated from (or was heading to) the loopback adapter; otherwise, false.
      * @type {BOOL}
      */
-    isLoopback{
-        get {
-            if(!this.HasProp("__isLoopback"))
-                this.__isLoopback := BOOL(this.ptr + 28)
-            return this.__isLoopback
-        }
+    isLoopback {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 }

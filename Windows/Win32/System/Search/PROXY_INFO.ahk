@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Stores information about a proxy. Used by ISearchProtocol.
@@ -32,12 +30,9 @@ class PROXY_INFO extends Win32Struct
      * A pointer to a Unicode string buffer containing the user agent string.
      * @type {PWSTR}
      */
-    pcwszUserAgent{
-        get {
-            if(!this.HasProp("__pcwszUserAgent"))
-                this.__pcwszUserAgent := PWSTR(this.ptr + 8)
-            return this.__pcwszUserAgent
-        }
+    pcwszUserAgent {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -57,12 +52,9 @@ class PROXY_INFO extends Win32Struct
      * The bypass proxy for local addresses.
      * @type {BOOL}
      */
-    fLocalBypass{
-        get {
-            if(!this.HasProp("__fLocalBypass"))
-                this.__fLocalBypass := BOOL(this.ptr + 20)
-            return this.__fLocalBypass
-        }
+    fLocalBypass {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -82,12 +74,9 @@ class PROXY_INFO extends Win32Struct
      * A pointer to a Unicode string buffer that contains the name of the proxy server.
      * @type {PWSTR}
      */
-    pcwszProxyName{
-        get {
-            if(!this.HasProp("__pcwszProxyName"))
-                this.__pcwszProxyName := PWSTR(this.ptr + 32)
-            return this.__pcwszProxyName
-        }
+    pcwszProxyName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -96,11 +85,8 @@ class PROXY_INFO extends Win32Struct
      * The list of sites that will bypass the proxy.
      * @type {PWSTR}
      */
-    pcwszBypassList{
-        get {
-            if(!this.HasProp("__pcwszBypassList"))
-                this.__pcwszBypassList := PWSTR(this.ptr + 40)
-            return this.__pcwszBypassList
-        }
+    pcwszBypassList {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

@@ -41,7 +41,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(this.ptr + 12)
+                this.__ddsCaps := DDSCAPS(12, this)
             return this.__ddsCaps
         }
     }
@@ -61,7 +61,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
     ddckCKSrcOverlay{
         get {
             if(!this.HasProp("__ddckCKSrcOverlay"))
-                this.__ddckCKSrcOverlay := DDCOLORKEY(this.ptr + 24)
+                this.__ddckCKSrcOverlay := DDCOLORKEY(24, this)
             return this.__ddckCKSrcOverlay
         }
     }
@@ -72,7 +72,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
     ddckCKSrcBlt{
         get {
             if(!this.HasProp("__ddckCKSrcBlt"))
-                this.__ddckCKSrcBlt := DDCOLORKEY(this.ptr + 24)
+                this.__ddckCKSrcBlt := DDCOLORKEY(24, this)
             return this.__ddckCKSrcBlt
         }
     }
@@ -83,7 +83,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
     ddckCKDestOverlay{
         get {
             if(!this.HasProp("__ddckCKDestOverlay"))
-                this.__ddckCKDestOverlay := DDCOLORKEY(this.ptr + 32)
+                this.__ddckCKDestOverlay := DDCOLORKEY(32, this)
             return this.__ddckCKDestOverlay
         }
     }
@@ -94,7 +94,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
     ddckCKDestBlt{
         get {
             if(!this.HasProp("__ddckCKDestBlt"))
-                this.__ddckCKDestBlt := DDCOLORKEY(this.ptr + 32)
+                this.__ddckCKDestBlt := DDCOLORKEY(32, this)
             return this.__ddckCKDestBlt
         }
     }
@@ -133,7 +133,7 @@ class DD_SURFACE_LOCAL extends Win32Struct
     rcOverlaySrc{
         get {
             if(!this.HasProp("__rcOverlaySrc"))
-                this.__rcOverlaySrc := RECT(this.ptr + 64)
+                this.__rcOverlaySrc := RECT(64, this)
             return this.__rcOverlaySrc
         }
     }

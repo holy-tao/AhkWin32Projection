@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -45,12 +44,9 @@ class FAX_JOB_PARAMA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the fax number of the recipient of the fax transmission. This member is required.
      * @type {PSTR}
      */
-    RecipientNumber{
-        get {
-            if(!this.HasProp("__RecipientNumber"))
-                this.__RecipientNumber := PSTR(this.ptr + 8)
-            return this.__RecipientNumber
-        }
+    RecipientNumber {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -59,12 +55,9 @@ class FAX_JOB_PARAMA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
      * @type {PSTR}
      */
-    RecipientName{
-        get {
-            if(!this.HasProp("__RecipientName"))
-                this.__RecipientName := PSTR(this.ptr + 16)
-            return this.__RecipientName
-        }
+    RecipientName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -73,12 +66,9 @@ class FAX_JOB_PARAMA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the transmitting station identifier (TSID). This identifier is usually a telephone number. Only printable characters such as English letters, numeric symbols, and punctuation marks (ASCII range 0x20 to 0x7F) can be used in a TSID.
      * @type {PSTR}
      */
-    Tsid{
-        get {
-            if(!this.HasProp("__Tsid"))
-                this.__Tsid := PSTR(this.ptr + 24)
-            return this.__Tsid
-        }
+    Tsid {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -87,12 +77,9 @@ class FAX_JOB_PARAMA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the name of the sender who initiated the fax transmission.
      * @type {PSTR}
      */
-    SenderName{
-        get {
-            if(!this.HasProp("__SenderName"))
-                this.__SenderName := PSTR(this.ptr + 32)
-            return this.__SenderName
-        }
+    SenderName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -101,12 +88,9 @@ class FAX_JOB_PARAMA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the company name of the sender who initiated the fax transmission.
      * @type {PSTR}
      */
-    SenderCompany{
-        get {
-            if(!this.HasProp("__SenderCompany"))
-                this.__SenderCompany := PSTR(this.ptr + 40)
-            return this.__SenderCompany
-        }
+    SenderCompany {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -115,12 +99,9 @@ class FAX_JOB_PARAMA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the department name of the sender who initiated the fax transmission.
      * @type {PSTR}
      */
-    SenderDept{
-        get {
-            if(!this.HasProp("__SenderDept"))
-                this.__SenderDept := PSTR(this.ptr + 48)
-            return this.__SenderDept
-        }
+    SenderDept {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -129,12 +110,9 @@ class FAX_JOB_PARAMA extends Win32Struct
      * Pointer to a constant null-terminated character string that indicates an application- or server-specific billing code that applies to the fax transmission. The fax server uses the string to generate an entry in the fax event log. Billing codes are optional.
      * @type {PSTR}
      */
-    BillingCode{
-        get {
-            if(!this.HasProp("__BillingCode"))
-                this.__BillingCode := PSTR(this.ptr + 56)
-            return this.__BillingCode
-        }
+    BillingCode {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -157,7 +135,7 @@ class FAX_JOB_PARAMA extends Win32Struct
     ScheduleTime{
         get {
             if(!this.HasProp("__ScheduleTime"))
-                this.__ScheduleTime := SYSTEMTIME(this.ptr + 72)
+                this.__ScheduleTime := SYSTEMTIME(72, this)
             return this.__ScheduleTime
         }
     }
@@ -179,12 +157,9 @@ class FAX_JOB_PARAMA extends Win32Struct
      * Pointer to a constant null-terminated character string. If the <b>DeliveryReportType</b> member is equal to <b>DRT_EMAIL</b>, the string is the address to which the DR or NDR should be sent. If the <b>DeliveryReportType</b> member is equal to <b>DRT_NONE</b>, this member must be <b>NULL</b>.
      * @type {PSTR}
      */
-    DeliveryReportAddress{
-        get {
-            if(!this.HasProp("__DeliveryReportAddress"))
-                this.__DeliveryReportAddress := PSTR(this.ptr + 96)
-            return this.__DeliveryReportAddress
-        }
+    DeliveryReportAddress {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -193,12 +168,9 @@ class FAX_JOB_PARAMA extends Win32Struct
      * Pointer to a constant null-terminated character string to associate with the fax document. This is the user-friendly name that appears in the print spooler.
      * @type {PSTR}
      */
-    DocumentName{
-        get {
-            if(!this.HasProp("__DocumentName"))
-                this.__DocumentName := PSTR(this.ptr + 104)
-            return this.__DocumentName
-        }
+    DocumentName {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**

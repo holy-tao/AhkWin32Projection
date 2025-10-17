@@ -29,7 +29,7 @@ class WFD_GROUP_ID extends Win32Struct
     GroupSSID{
         get {
             if(!this.HasProp("__GroupSSID"))
-                this.__GroupSSID := DOT11_SSID(this.ptr + 8)
+                this.__GroupSSID := DOT11_SSID(8, this)
             return this.__GroupSSID
         }
     }

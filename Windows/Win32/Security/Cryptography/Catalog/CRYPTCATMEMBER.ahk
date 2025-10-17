@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\CRYPT_INTEGER_BLOB.ahk
 
@@ -29,24 +28,18 @@ class CRYPTCATMEMBER extends Win32Struct
      * A pointer to a null-terminated string that contains the reference tag value.
      * @type {PWSTR}
      */
-    pwszReferenceTag{
-        get {
-            if(!this.HasProp("__pwszReferenceTag"))
-                this.__pwszReferenceTag := PWSTR(this.ptr + 8)
-            return this.__pwszReferenceTag
-        }
+    pwszReferenceTag {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a null-terminated string that contains the file name.
      * @type {PWSTR}
      */
-    pwszFileName{
-        get {
-            if(!this.HasProp("__pwszFileName"))
-                this.__pwszFileName := PWSTR(this.ptr + 16)
-            return this.__pwszFileName
-        }
+    pwszFileName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -101,7 +94,7 @@ class CRYPTCATMEMBER extends Win32Struct
     hReserved{
         get {
             if(!this.HasProp("__hReserved"))
-                this.__hReserved := HANDLE(this.ptr + 56)
+                this.__hReserved := HANDLE(56, this)
             return this.__hReserved
         }
     }
@@ -113,7 +106,7 @@ class CRYPTCATMEMBER extends Win32Struct
     sEncodedIndirectData{
         get {
             if(!this.HasProp("__sEncodedIndirectData"))
-                this.__sEncodedIndirectData := CRYPT_INTEGER_BLOB(this.ptr + 64)
+                this.__sEncodedIndirectData := CRYPT_INTEGER_BLOB(64, this)
             return this.__sEncodedIndirectData
         }
     }
@@ -125,7 +118,7 @@ class CRYPTCATMEMBER extends Win32Struct
     sEncodedMemberInfo{
         get {
             if(!this.HasProp("__sEncodedMemberInfo"))
-                this.__sEncodedMemberInfo := CRYPT_INTEGER_BLOB(this.ptr + 80)
+                this.__sEncodedMemberInfo := CRYPT_INTEGER_BLOB(80, this)
             return this.__sEncodedMemberInfo
         }
     }

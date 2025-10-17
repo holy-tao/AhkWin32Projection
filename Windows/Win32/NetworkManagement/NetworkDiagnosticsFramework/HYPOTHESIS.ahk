@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
@@ -15,23 +14,17 @@ class HYPOTHESIS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszClassName{
-        get {
-            if(!this.HasProp("__pwszClassName"))
-                this.__pwszClassName := PWSTR(this.ptr + 0)
-            return this.__pwszClassName
-        }
+    pwszClassName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszDescription{
-        get {
-            if(!this.HasProp("__pwszDescription"))
-                this.__pwszDescription := PWSTR(this.ptr + 8)
-            return this.__pwszDescription
-        }
+    pwszDescription {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

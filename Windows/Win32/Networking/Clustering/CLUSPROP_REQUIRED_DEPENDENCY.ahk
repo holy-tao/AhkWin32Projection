@@ -44,7 +44,7 @@ class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := CLUSPROP_VALUE(this.ptr + 0)
+                this.__Value := CLUSPROP_VALUE(0, this)
             return this.__Value
         }
     }
@@ -56,7 +56,7 @@ class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct
     ResClass{
         get {
             if(!this.HasProp("__ResClass"))
-                this.__ResClass := CLUSPROP_RESOURCE_CLASS(this.ptr + 0)
+                this.__ResClass := CLUSPROP_RESOURCE_CLASS(0, this)
             return this.__ResClass
         }
     }
@@ -69,7 +69,7 @@ class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct
     ResTypeName{
         get {
             if(!this.HasProp("__ResTypeName"))
-                this.__ResTypeName := CLUSPROP_SZ(this.ptr + 0)
+                this.__ResTypeName := CLUSPROP_SZ(0, this)
             return this.__ResTypeName
         }
     }

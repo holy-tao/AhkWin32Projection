@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
 
 /**
@@ -40,12 +39,9 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsSupported{
-        get {
-            if(!this.HasProp("__IsSupported"))
-                this.__IsSupported := BOOL(this.ptr + 12)
-            return this.__IsSupported
-        }
+    IsSupported {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -54,7 +50,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION extends Win32Struct
     MinResolutionSupported{
         get {
             if(!this.HasProp("__MinResolutionSupported"))
-                this.__MinResolutionSupported := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 16)
+                this.__MinResolutionSupported := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(16, this)
             return this.__MinResolutionSupported
         }
     }
@@ -65,7 +61,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION extends Win32Struct
     MaxResolutionSupported{
         get {
             if(!this.HasProp("__MaxResolutionSupported"))
-                this.__MaxResolutionSupported := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 24)
+                this.__MaxResolutionSupported := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(24, this)
             return this.__MaxResolutionSupported
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\VDS_STORAGE_DEVICE_ID_DESCRIPTOR.ahk
 
 /**
@@ -64,12 +63,9 @@ class VDS_LUN_INFORMATION extends Win32Struct
      *       driver.
      * @type {BOOL}
      */
-    m_bCommandQueueing{
-        get {
-            if(!this.HasProp("__m_bCommandQueueing"))
-                this.__m_bCommandQueueing := BOOL(this.ptr + 8)
-            return this.__m_bCommandQueueing
-        }
+    m_bCommandQueueing {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -148,7 +144,7 @@ class VDS_LUN_INFORMATION extends Win32Struct
     m_deviceIdDescriptor{
         get {
             if(!this.HasProp("__m_deviceIdDescriptor"))
-                this.__m_deviceIdDescriptor := VDS_STORAGE_DEVICE_ID_DESCRIPTOR(this.ptr + 56)
+                this.__m_deviceIdDescriptor := VDS_STORAGE_DEVICE_ID_DESCRIPTOR(56, this)
             return this.__m_deviceIdDescriptor
         }
     }

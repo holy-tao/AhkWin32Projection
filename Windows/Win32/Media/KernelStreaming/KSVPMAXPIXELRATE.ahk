@@ -18,7 +18,7 @@ class KSVPMAXPIXELRATE extends Win32Struct
     Size{
         get {
             if(!this.HasProp("__Size"))
-                this.__Size := KS_AMVPSIZE(this.ptr + 0)
+                this.__Size := KS_AMVPSIZE(0, this)
             return this.__Size
         }
     }

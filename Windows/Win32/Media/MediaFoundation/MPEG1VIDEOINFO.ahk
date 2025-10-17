@@ -23,7 +23,7 @@ class MPEG1VIDEOINFO extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := VIDEOINFOHEADER(this.ptr + 0)
+                this.__hdr := VIDEOINFOHEADER(0, this)
             return this.__hdr
         }
     }

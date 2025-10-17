@@ -5395,7 +5395,7 @@ class Certificates {
      * @since windows6.1
      */
     static PstGetTrustAnchors(pTargetName, cCriteria, rgpCriteria, ppTrustedIssuers) {
-        result := DllCall("certpoleng.dll\PstGetTrustAnchors", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", ppTrustedIssuers, "ptr")
+        result := DllCall("certpoleng.dll\PstGetTrustAnchors", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", ppTrustedIssuers, "int")
         return result
     }
 
@@ -5409,7 +5409,7 @@ class Certificates {
      * @returns {NTSTATUS} 
      */
     static PstGetTrustAnchorsEx(pTargetName, cCriteria, rgpCriteria, pCertContext, ppTrustedIssuers) {
-        result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", pCertContext, "ptr", ppTrustedIssuers, "ptr")
+        result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", pCertContext, "ptr", ppTrustedIssuers, "int")
         return result
     }
 
@@ -5421,7 +5421,7 @@ class Certificates {
      * @returns {NTSTATUS} 
      */
     static PstGetCertificateChain(pCert, pTrustedIssuers, ppCertChainContext) {
-        result := DllCall("certpoleng.dll\PstGetCertificateChain", "ptr", pCert, "ptr", pTrustedIssuers, "ptr", ppCertChainContext, "ptr")
+        result := DllCall("certpoleng.dll\PstGetCertificateChain", "ptr", pCert, "ptr", pTrustedIssuers, "ptr", ppCertChainContext, "int")
         return result
     }
 
@@ -5440,7 +5440,7 @@ class Certificates {
      * @since windows6.1
      */
     static PstGetCertificates(pTargetName, cCriteria, rgpCriteria, bIsClient, pdwCertChainContextCount, ppCertChainContexts) {
-        result := DllCall("certpoleng.dll\PstGetCertificates", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", bIsClient, "uint*", pdwCertChainContextCount, "ptr", ppCertChainContexts, "ptr")
+        result := DllCall("certpoleng.dll\PstGetCertificates", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "int", bIsClient, "uint*", pdwCertChainContextCount, "ptr", ppCertChainContexts, "int")
         return result
     }
 
@@ -5454,7 +5454,7 @@ class Certificates {
      * @since windows6.1
      */
     static PstAcquirePrivateKey(pCert) {
-        result := DllCall("certpoleng.dll\PstAcquirePrivateKey", "ptr", pCert, "ptr")
+        result := DllCall("certpoleng.dll\PstAcquirePrivateKey", "ptr", pCert, "int")
         return result
     }
 
@@ -5473,7 +5473,7 @@ class Certificates {
      * @since windows6.1
      */
     static PstValidate(pTargetName, bIsClient, pRequestedIssuancePolicy, phAdditionalCertStore, pCert, pProvGUID) {
-        result := DllCall("certpoleng.dll\PstValidate", "ptr", pTargetName, "ptr", bIsClient, "ptr", pRequestedIssuancePolicy, "ptr", phAdditionalCertStore, "ptr", pCert, "ptr", pProvGUID, "ptr")
+        result := DllCall("certpoleng.dll\PstValidate", "ptr", pTargetName, "int", bIsClient, "ptr", pRequestedIssuancePolicy, "ptr", phAdditionalCertStore, "ptr", pCert, "ptr", pProvGUID, "int")
         return result
     }
 
@@ -5489,7 +5489,7 @@ class Certificates {
      * @since windows6.1
      */
     static PstMapCertificate(pCert, pTokenInformationType, ppTokenInformation) {
-        result := DllCall("certpoleng.dll\PstMapCertificate", "ptr", pCert, "int*", pTokenInformationType, "ptr", ppTokenInformation, "ptr")
+        result := DllCall("certpoleng.dll\PstMapCertificate", "ptr", pCert, "int*", pTokenInformationType, "ptr", ppTokenInformation, "int")
         return result
     }
 
@@ -5504,7 +5504,7 @@ class Certificates {
      * @since windows6.1
      */
     static PstGetUserNameForCertificate(pCertContext, UserName) {
-        result := DllCall("certpoleng.dll\PstGetUserNameForCertificate", "ptr", pCertContext, "ptr", UserName, "ptr")
+        result := DllCall("certpoleng.dll\PstGetUserNameForCertificate", "ptr", pCertContext, "ptr", UserName, "int")
         return result
     }
 

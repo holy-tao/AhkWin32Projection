@@ -31,7 +31,7 @@ class SHARE_INFO_1501 extends Win32Struct
     shi1501_security_descriptor{
         get {
             if(!this.HasProp("__shi1501_security_descriptor"))
-                this.__shi1501_security_descriptor := PSECURITY_DESCRIPTOR(this.ptr + 8)
+                this.__shi1501_security_descriptor := PSECURITY_DESCRIPTOR(8, this)
             return this.__shi1501_security_descriptor
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a comment associated with the shared resource.
@@ -18,11 +17,8 @@ class SHARE_INFO_1004 extends Win32Struct
      * Pointer to a Unicode string that contains an optional comment about the shared resource.
      * @type {PWSTR}
      */
-    shi1004_remark{
-        get {
-            if(!this.HasProp("__shi1004_remark"))
-                this.__shi1004_remark := PWSTR(this.ptr + 0)
-            return this.__shi1004_remark
-        }
+    shi1004_remark {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DSOP_UPLEVEL_FILTER_FLAGS.ahk
 #Include .\DSOP_FILTER_FLAGS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DSOP_SCOPE_INIT_INFO structure describes one or more scope types that have the same attributes.
@@ -52,7 +51,7 @@ class DSOP_SCOPE_INIT_INFO extends Win32Struct
     FilterFlags{
         get {
             if(!this.HasProp("__FilterFlags"))
-                this.__FilterFlags := DSOP_FILTER_FLAGS(this.ptr + 16)
+                this.__FilterFlags := DSOP_FILTER_FLAGS(16, this)
             return this.__FilterFlags
         }
     }
@@ -63,24 +62,18 @@ class DSOP_SCOPE_INIT_INFO extends Win32Struct
      * This member can be <b>NULL</b> even if the <b>DSOP_SCOPE_TYPE_UPLEVEL_JOINED_DOMAIN</b> flag is specified, in which case, the dialog box looks up the domain controller. This member enables you to name a specific domain controller in a multimaster domain. For example, an administrative application might make changes on a domain controller in a multimaster domain, and then open the object picker dialog box before the changes have been replicated on the other domain controllers.
      * @type {PWSTR}
      */
-    pwzDcName{
-        get {
-            if(!this.HasProp("__pwzDcName"))
-                this.__pwzDcName := PWSTR(this.ptr + 32)
-            return this.__pwzDcName
-        }
+    pwzDcName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Reserved; must be <b>NULL</b>.
      * @type {PWSTR}
      */
-    pwzADsPath{
-        get {
-            if(!this.HasProp("__pwzADsPath"))
-                this.__pwzADsPath := PWSTR(this.ptr + 40)
-            return this.__pwzADsPath
-        }
+    pwzADsPath {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -95,12 +88,8 @@ class DSOP_SCOPE_INIT_INFO extends Win32Struct
         set => NumPut("int", value, this, 48)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

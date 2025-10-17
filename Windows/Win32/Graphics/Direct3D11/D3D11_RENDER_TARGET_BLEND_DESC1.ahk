@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the blend state for a render target.
@@ -82,12 +81,9 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * > It's not valid for *LogicOpEnable* and *BlendEnable* to both be **TRUE**.
      * @type {BOOL}
      */
-    BlendEnable{
-        get {
-            if(!this.HasProp("__BlendEnable"))
-                this.__BlendEnable := BOOL(this.ptr + 0)
-            return this.__BlendEnable
-        }
+    BlendEnable {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -99,12 +95,9 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * > If you set *LogicOpEnable* to **TRUE**, then *BlendEnable* must be **FALSE**, and the system's [**D3D11_FEATURE_DATA_D3D11_OPTIONS::OutputMergerLogicOp**](../d3d11/ns-d3d11-d3d11_feature_data_d3d11_options.md) option must be **TRUE**.
      * @type {BOOL}
      */
-    LogicOpEnable{
-        get {
-            if(!this.HasProp("__LogicOpEnable"))
-                this.__LogicOpEnable := BOOL(this.ptr + 4)
-            return this.__LogicOpEnable
-        }
+    LogicOpEnable {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**

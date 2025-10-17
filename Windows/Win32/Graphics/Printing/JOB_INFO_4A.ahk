@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
@@ -26,100 +25,73 @@ class JOB_INFO_4A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PSTR(this.ptr + 8)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PSTR}
      */
-    pMachineName{
-        get {
-            if(!this.HasProp("__pMachineName"))
-                this.__pMachineName := PSTR(this.ptr + 16)
-            return this.__pMachineName
-        }
+    pMachineName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    pUserName{
-        get {
-            if(!this.HasProp("__pUserName"))
-                this.__pUserName := PSTR(this.ptr + 24)
-            return this.__pUserName
-        }
+    pUserName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    pDocument{
-        get {
-            if(!this.HasProp("__pDocument"))
-                this.__pDocument := PSTR(this.ptr + 32)
-            return this.__pDocument
-        }
+    pDocument {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PSTR}
      */
-    pNotifyName{
-        get {
-            if(!this.HasProp("__pNotifyName"))
-                this.__pNotifyName := PSTR(this.ptr + 40)
-            return this.__pNotifyName
-        }
+    pNotifyName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {PSTR}
      */
-    pDatatype{
-        get {
-            if(!this.HasProp("__pDatatype"))
-                this.__pDatatype := PSTR(this.ptr + 48)
-            return this.__pDatatype
-        }
+    pDatatype {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {PSTR}
      */
-    pPrintProcessor{
-        get {
-            if(!this.HasProp("__pPrintProcessor"))
-                this.__pPrintProcessor := PSTR(this.ptr + 56)
-            return this.__pPrintProcessor
-        }
+    pPrintProcessor {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {PSTR}
      */
-    pParameters{
-        get {
-            if(!this.HasProp("__pParameters"))
-                this.__pParameters := PSTR(this.ptr + 64)
-            return this.__pParameters
-        }
+    pParameters {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {PSTR}
      */
-    pDriverName{
-        get {
-            if(!this.HasProp("__pDriverName"))
-                this.__pDriverName := PSTR(this.ptr + 72)
-            return this.__pDriverName
-        }
+    pDriverName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -133,12 +105,9 @@ class JOB_INFO_4A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pStatus{
-        get {
-            if(!this.HasProp("__pStatus"))
-                this.__pStatus := PSTR(this.ptr + 88)
-            return this.__pStatus
-        }
+    pStatus {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -147,7 +116,7 @@ class JOB_INFO_4A extends Win32Struct
     pSecurityDescriptor{
         get {
             if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 96)
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(96, this)
             return this.__pSecurityDescriptor
         }
     }
@@ -214,7 +183,7 @@ class JOB_INFO_4A extends Win32Struct
     Submitted{
         get {
             if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(this.ptr + 136)
+                this.__Submitted := SYSTEMTIME(136, this)
             return this.__Submitted
         }
     }

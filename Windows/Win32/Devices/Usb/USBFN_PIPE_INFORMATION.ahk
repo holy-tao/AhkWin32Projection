@@ -18,7 +18,7 @@ class USBFN_PIPE_INFORMATION extends Win32Struct
     EpDesc{
         get {
             if(!this.HasProp("__EpDesc"))
-                this.__EpDesc := USB_ENDPOINT_DESCRIPTOR(this.ptr + 0)
+                this.__EpDesc := USB_ENDPOINT_DESCRIPTOR(0, this)
             return this.__EpDesc
         }
     }

@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -20,7 +19,7 @@ class NMSEARCHWEB extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -36,22 +35,16 @@ class NMSEARCHWEB extends Win32Struct
     /**
      * @type {BOOL}
      */
-    hasQueryText{
-        get {
-            if(!this.HasProp("__hasQueryText"))
-                this.__hasQueryText := BOOL(this.ptr + 28)
-            return this.__hasQueryText
-        }
+    hasQueryText {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
      * @type {BOOL}
      */
-    invokeSucceeded{
-        get {
-            if(!this.HasProp("__invokeSucceeded"))
-                this.__invokeSucceeded := BOOL(this.ptr + 32)
-            return this.__invokeSucceeded
-        }
+    invokeSucceeded {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 }

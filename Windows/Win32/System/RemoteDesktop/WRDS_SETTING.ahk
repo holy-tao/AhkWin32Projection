@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\WRDS_SETTINGS_1.ahk
 
 /**
@@ -22,7 +21,7 @@ class WRDS_SETTING extends Win32Struct
     WRdsSettings1{
         get {
             if(!this.HasProp("__WRdsSettings1"))
-                this.__WRdsSettings1 := WRDS_SETTINGS_1(this.ptr + 0)
+                this.__WRdsSettings1 := WRDS_SETTINGS_1(0, this)
             return this.__WRdsSettings1
         }
     }

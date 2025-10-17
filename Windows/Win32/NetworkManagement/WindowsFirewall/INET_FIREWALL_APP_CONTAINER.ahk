@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\INET_FIREWALL_AC_CAPABILITIES.ahk
 #Include .\INET_FIREWALL_AC_BINARIES.ahk
 
@@ -46,12 +45,9 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      *  Also referred to as the  Package Family Name, for the app container of a Windows Store app.
      * @type {PWSTR}
      */
-    appContainerName{
-        get {
-            if(!this.HasProp("__appContainerName"))
-                this.__appContainerName := PWSTR(this.ptr + 16)
-            return this.__appContainerName
-        }
+    appContainerName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -60,12 +56,9 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * Friendly name of the app container
      * @type {PWSTR}
      */
-    displayName{
-        get {
-            if(!this.HasProp("__displayName"))
-                this.__displayName := PWSTR(this.ptr + 24)
-            return this.__displayName
-        }
+    displayName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -74,12 +67,9 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * A description of the app container (its use, the objective of the application that uses it, etc.)
      * @type {PWSTR}
      */
-    description{
-        get {
-            if(!this.HasProp("__description"))
-                this.__description := PWSTR(this.ptr + 32)
-            return this.__description
-        }
+    description {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -91,7 +81,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
     capabilities{
         get {
             if(!this.HasProp("__capabilities"))
-                this.__capabilities := INET_FIREWALL_AC_CAPABILITIES(this.ptr + 40)
+                this.__capabilities := INET_FIREWALL_AC_CAPABILITIES(40, this)
             return this.__capabilities
         }
     }
@@ -105,7 +95,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
     binaries{
         get {
             if(!this.HasProp("__binaries"))
-                this.__binaries := INET_FIREWALL_AC_BINARIES(this.ptr + 56)
+                this.__binaries := INET_FIREWALL_AC_BINARIES(56, this)
             return this.__binaries
         }
     }
@@ -114,23 +104,17 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * 
      * @type {PWSTR}
      */
-    workingDirectory{
-        get {
-            if(!this.HasProp("__workingDirectory"))
-                this.__workingDirectory := PWSTR(this.ptr + 72)
-            return this.__workingDirectory
-        }
+    workingDirectory {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * 
      * @type {PWSTR}
      */
-    packageFullName{
-        get {
-            if(!this.HasProp("__packageFullName"))
-                this.__packageFullName := PWSTR(this.ptr + 80)
-            return this.__packageFullName
-        }
+    packageFullName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used by the ParseURL function to return the parsed URL.
@@ -37,12 +36,9 @@ class PARSEDURLW extends Win32Struct
      * [out] A pointer to the beginning of the protocol part of the URL.
      * @type {PWSTR}
      */
-    pszProtocol{
-        get {
-            if(!this.HasProp("__pszProtocol"))
-                this.__pszProtocol := PWSTR(this.ptr + 8)
-            return this.__pszProtocol
-        }
+    pszProtocol {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -62,12 +58,9 @@ class PARSEDURLW extends Win32Struct
      * [out] A pointer to the section of the URL that follows the protocol and colon (':'). For file URLs, the function also skips the leading "//" characters.
      * @type {PWSTR}
      */
-    pszSuffix{
-        get {
-            if(!this.HasProp("__pszSuffix"))
-                this.__pszSuffix := PWSTR(this.ptr + 24)
-            return this.__pszSuffix
-        }
+    pszSuffix {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -92,12 +85,8 @@ class PARSEDURLW extends Win32Struct
         set => NumPut("uint", value, this, 36)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

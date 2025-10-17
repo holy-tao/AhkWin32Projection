@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\HWND.ahk
 
@@ -46,12 +45,9 @@ class HH_WINTYPE extends Win32Struct
      * Specifies whether the strings used in this structure are UNICODE.
      * @type {BOOL}
      */
-    fUniCodeStrings{
-        get {
-            if(!this.HasProp("__fUniCodeStrings"))
-                this.__fUniCodeStrings := BOOL(this.ptr + 4)
-            return this.__fUniCodeStrings
-        }
+    fUniCodeStrings {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -118,7 +114,7 @@ class HH_WINTYPE extends Win32Struct
     rcWindowPos{
         get {
             if(!this.HasProp("__rcWindowPos"))
-                this.__rcWindowPos := RECT(this.ptr + 40)
+                this.__rcWindowPos := RECT(40, this)
             return this.__rcWindowPos
         }
     }
@@ -139,7 +135,7 @@ class HH_WINTYPE extends Win32Struct
     hwndHelp{
         get {
             if(!this.HasProp("__hwndHelp"))
-                this.__hwndHelp := HWND(this.ptr + 64)
+                this.__hwndHelp := HWND(64, this)
             return this.__hwndHelp
         }
     }
@@ -151,7 +147,7 @@ class HH_WINTYPE extends Win32Struct
     hwndCaller{
         get {
             if(!this.HasProp("__hwndCaller"))
-                this.__hwndCaller := HWND(this.ptr + 72)
+                this.__hwndCaller := HWND(72, this)
             return this.__hwndCaller
         }
     }
@@ -172,7 +168,7 @@ class HH_WINTYPE extends Win32Struct
     hwndToolBar{
         get {
             if(!this.HasProp("__hwndToolBar"))
-                this.__hwndToolBar := HWND(this.ptr + 88)
+                this.__hwndToolBar := HWND(88, this)
             return this.__hwndToolBar
         }
     }
@@ -184,7 +180,7 @@ class HH_WINTYPE extends Win32Struct
     hwndNavigation{
         get {
             if(!this.HasProp("__hwndNavigation"))
-                this.__hwndNavigation := HWND(this.ptr + 96)
+                this.__hwndNavigation := HWND(96, this)
             return this.__hwndNavigation
         }
     }
@@ -196,7 +192,7 @@ class HH_WINTYPE extends Win32Struct
     hwndHTML{
         get {
             if(!this.HasProp("__hwndHTML"))
-                this.__hwndHTML := HWND(this.ptr + 104)
+                this.__hwndHTML := HWND(104, this)
             return this.__hwndHTML
         }
     }
@@ -217,7 +213,7 @@ class HH_WINTYPE extends Win32Struct
     rcHTML{
         get {
             if(!this.HasProp("__rcHTML"))
-                this.__rcHTML := RECT(this.ptr + 120)
+                this.__rcHTML := RECT(120, this)
             return this.__rcHTML
         }
     }
@@ -274,12 +270,9 @@ class HH_WINTYPE extends Win32Struct
      * Specifies that the Help Viewer open with the Navigation pane closed.
      * @type {BOOL}
      */
-    fNotExpanded{
-        get {
-            if(!this.HasProp("__fNotExpanded"))
-                this.__fNotExpanded := BOOL(this.ptr + 172)
-            return this.__fNotExpanded
-        }
+    fNotExpanded {
+        get => NumGet(this, 172, "int")
+        set => NumPut("int", value, this, 172)
     }
 
     /**
@@ -373,7 +366,7 @@ class HH_WINTYPE extends Win32Struct
     rcMinSize{
         get {
             if(!this.HasProp("__rcMinSize"))
-                this.__rcMinSize := RECT(this.ptr + 248)
+                this.__rcMinSize := RECT(248, this)
             return this.__rcMinSize
         }
     }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a property defined on an element.
@@ -31,7 +30,7 @@ class PropertyChainValue extends Win32Struct
     Type{
         get {
             if(!this.HasProp("__Type"))
-                this.__Type := BSTR(this.ptr + 8)
+                this.__Type := BSTR(8, this)
             return this.__Type
         }
     }
@@ -43,7 +42,7 @@ class PropertyChainValue extends Win32Struct
     DeclaringType{
         get {
             if(!this.HasProp("__DeclaringType"))
-                this.__DeclaringType := BSTR(this.ptr + 16)
+                this.__DeclaringType := BSTR(16, this)
             return this.__DeclaringType
         }
     }
@@ -55,7 +54,7 @@ class PropertyChainValue extends Win32Struct
     ValueType{
         get {
             if(!this.HasProp("__ValueType"))
-                this.__ValueType := BSTR(this.ptr + 24)
+                this.__ValueType := BSTR(24, this)
             return this.__ValueType
         }
     }
@@ -67,7 +66,7 @@ class PropertyChainValue extends Win32Struct
     ItemType{
         get {
             if(!this.HasProp("__ItemType"))
-                this.__ItemType := BSTR(this.ptr + 32)
+                this.__ItemType := BSTR(32, this)
             return this.__ItemType
         }
     }
@@ -79,7 +78,7 @@ class PropertyChainValue extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := BSTR(this.ptr + 40)
+                this.__Value := BSTR(40, this)
             return this.__Value
         }
     }
@@ -88,12 +87,9 @@ class PropertyChainValue extends Win32Struct
      * Indicates whether the property is overridden by some property in the value chain.
      * @type {BOOL}
      */
-    Overridden{
-        get {
-            if(!this.HasProp("__Overridden"))
-                this.__Overridden := BOOL(this.ptr + 48)
-            return this.__Overridden
-        }
+    Overridden {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -112,7 +108,7 @@ class PropertyChainValue extends Win32Struct
     PropertyName{
         get {
             if(!this.HasProp("__PropertyName"))
-                this.__PropertyName := BSTR(this.ptr + 64)
+                this.__PropertyName := BSTR(64, this)
             return this.__PropertyName
         }
     }

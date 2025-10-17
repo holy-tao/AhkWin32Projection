@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides status information while a synchronization is in progress. This structure is used with the ISyncMgrSynchronizeCallback::Progress method and corresponds to a single synchronization item.
@@ -42,12 +41,9 @@ class SYNCMGRPROGRESSITEM extends Win32Struct
      * Status text.
      * @type {PWSTR}
      */
-    lpcStatusText{
-        get {
-            if(!this.HasProp("__lpcStatusText"))
-                this.__lpcStatusText := PWSTR(this.ptr + 8)
-            return this.__lpcStatusText
-        }
+    lpcStatusText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -83,12 +79,8 @@ class SYNCMGRPROGRESSITEM extends Win32Struct
         set => NumPut("int", value, this, 24)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 32
     }
 }

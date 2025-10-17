@@ -26,7 +26,7 @@ class DSBPOSITIONNOTIFY extends Win32Struct
     hEventNotify{
         get {
             if(!this.HasProp("__hEventNotify"))
-                this.__hEventNotify := HANDLE(this.ptr + 8)
+                this.__hEventNotify := HANDLE(8, this)
             return this.__hEventNotify
         }
     }

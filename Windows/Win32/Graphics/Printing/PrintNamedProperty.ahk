@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PrintPropertyValue.ahk
 
 /**
@@ -16,12 +15,9 @@ class PrintNamedProperty extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    propertyName{
-        get {
-            if(!this.HasProp("__propertyName"))
-                this.__propertyName := PWSTR(this.ptr + 0)
-            return this.__propertyName
-        }
+    propertyName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -30,7 +26,7 @@ class PrintNamedProperty extends Win32Struct
     propertyValue{
         get {
             if(!this.HasProp("__propertyValue"))
-                this.__propertyValue := PrintPropertyValue(this.ptr + 8)
+                this.__propertyValue := PrintPropertyValue(8, this)
             return this.__propertyValue
         }
     }

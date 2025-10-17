@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_HUB_CAP_FLAGS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\USB_ID_STRING.ahk
 #Include .\USB_HUB_DEVICE_UXD_SETTINGS.ahk
 
@@ -37,7 +36,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     HubFlags{
         get {
             if(!this.HasProp("__HubFlags"))
-                this.__HubFlags := USB_HUB_CAP_FLAGS(this.ptr + 8)
+                this.__HubFlags := USB_HUB_CAP_FLAGS(8, this)
             return this.__HubFlags
         }
     }
@@ -48,7 +47,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     HardwareIds{
         get {
             if(!this.HasProp("__HardwareIds"))
-                this.__HardwareIds := USB_ID_STRING(this.ptr + 16)
+                this.__HardwareIds := USB_ID_STRING(16, this)
             return this.__HardwareIds
         }
     }
@@ -59,7 +58,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     CompatibleIds{
         get {
             if(!this.HasProp("__CompatibleIds"))
-                this.__CompatibleIds := USB_ID_STRING(this.ptr + 32)
+                this.__CompatibleIds := USB_ID_STRING(32, this)
             return this.__CompatibleIds
         }
     }
@@ -70,7 +69,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     DeviceDescription{
         get {
             if(!this.HasProp("__DeviceDescription"))
-                this.__DeviceDescription := USB_ID_STRING(this.ptr + 48)
+                this.__DeviceDescription := USB_ID_STRING(48, this)
             return this.__DeviceDescription
         }
     }
@@ -92,7 +91,7 @@ class HUB_DEVICE_CONFIG_INFO extends Win32Struct
     UxdSettings{
         get {
             if(!this.HasProp("__UxdSettings"))
-                this.__UxdSettings := USB_HUB_DEVICE_UXD_SETTINGS(this.ptr + 144)
+                this.__UxdSettings := USB_HUB_DEVICE_UXD_SETTINGS(144, this)
             return this.__UxdSettings
         }
     }

@@ -34,7 +34,7 @@ class SE_SECURITY_DESCRIPTOR extends Win32Struct
     SecurityDescriptor{
         get {
             if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 8)
+                this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(8, this)
             return this.__SecurityDescriptor
         }
     }

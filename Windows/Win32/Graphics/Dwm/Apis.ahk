@@ -124,7 +124,7 @@ class Dwm {
     static DwmDefWindowProc(hWnd, msg, wParam, lParam, plResult) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("dwmapi.dll\DwmDefWindowProc", "ptr", hWnd, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr", plResult, "ptr")
+        result := DllCall("dwmapi.dll\DwmDefWindowProc", "ptr", hWnd, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr", plResult, "int")
         return result
     }
 
@@ -175,7 +175,7 @@ class Dwm {
      * @since windows6.0.6000
      */
     static DwmEnableMMCSS(fEnableMMCSS) {
-        result := DllCall("dwmapi.dll\DwmEnableMMCSS", "ptr", fEnableMMCSS, "int")
+        result := DllCall("dwmapi.dll\DwmEnableMMCSS", "int", fEnableMMCSS, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -293,7 +293,7 @@ class Dwm {
     static DwmModifyPreviousDxFrameDuration(hwnd, cRefreshes, fRelative) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "ptr", fRelative, "int")
+        result := DllCall("dwmapi.dll\DwmModifyPreviousDxFrameDuration", "ptr", hwnd, "int", cRefreshes, "int", fRelative, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -628,7 +628,7 @@ class Dwm {
      * @since windows8.0
      */
     static DwmTetherContact(dwPointerID, fEnable, ptTether) {
-        result := DllCall("dwmapi.dll\DwmTetherContact", "uint", dwPointerID, "ptr", fEnable, "ptr", ptTether, "int")
+        result := DllCall("dwmapi.dll\DwmTetherContact", "uint", dwPointerID, "int", fEnable, "ptr", ptTether, "int")
         if(result != 0)
             throw OSError(result)
 

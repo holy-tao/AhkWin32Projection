@@ -3032,7 +3032,7 @@ class RemoteManagement {
     static WSManSendShellInput(shell, command, flags, streamId, streamData, endOfStream, async, sendOperation) {
         streamId := streamId is String ? StrPtr(streamId) : streamId
 
-        DllCall("WsmSvc.dll\WSManSendShellInput", "ptr", shell, "ptr", command, "uint", flags, "ptr", streamId, "ptr", streamData, "ptr", endOfStream, "ptr", async, "ptr", sendOperation)
+        DllCall("WsmSvc.dll\WSManSendShellInput", "ptr", shell, "ptr", command, "uint", flags, "ptr", streamId, "ptr", streamData, "int", endOfStream, "ptr", async, "ptr", sendOperation)
     }
 
     /**
@@ -3350,7 +3350,7 @@ class RemoteManagement {
         extendedErrorInformation := extendedErrorInformation is String ? StrPtr(extendedErrorInformation) : extendedErrorInformation
         impersonationToken := impersonationToken is Win32Handle ? NumGet(impersonationToken, "ptr") : impersonationToken
 
-        result := DllCall("WsmSvc.dll\WSManPluginAuthzUserComplete", "ptr", senderDetails, "uint", flags, "ptr", userAuthorizationContext, "ptr", impersonationToken, "ptr", userIsAdministrator, "uint", errorCode, "ptr", extendedErrorInformation, "uint")
+        result := DllCall("WsmSvc.dll\WSManPluginAuthzUserComplete", "ptr", senderDetails, "uint", flags, "ptr", userAuthorizationContext, "ptr", impersonationToken, "int", userIsAdministrator, "uint", errorCode, "ptr", extendedErrorInformation, "uint")
         return result
     }
 

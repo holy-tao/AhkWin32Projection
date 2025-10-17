@@ -18,7 +18,7 @@ class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct
     position{
         get {
             if(!this.HasProp("__position"))
-                this.__position := D3DDP_PTRSTRIDE(this.ptr + 0)
+                this.__position := D3DDP_PTRSTRIDE(0, this)
             return this.__position
         }
     }
@@ -29,7 +29,7 @@ class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct
     normal{
         get {
             if(!this.HasProp("__normal"))
-                this.__normal := D3DDP_PTRSTRIDE(this.ptr + 16)
+                this.__normal := D3DDP_PTRSTRIDE(16, this)
             return this.__normal
         }
     }
@@ -40,7 +40,7 @@ class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct
     diffuse{
         get {
             if(!this.HasProp("__diffuse"))
-                this.__diffuse := D3DDP_PTRSTRIDE(this.ptr + 32)
+                this.__diffuse := D3DDP_PTRSTRIDE(32, this)
             return this.__diffuse
         }
     }
@@ -51,7 +51,7 @@ class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct
     specular{
         get {
             if(!this.HasProp("__specular"))
-                this.__specular := D3DDP_PTRSTRIDE(this.ptr + 48)
+                this.__specular := D3DDP_PTRSTRIDE(48, this)
             return this.__specular
         }
     }

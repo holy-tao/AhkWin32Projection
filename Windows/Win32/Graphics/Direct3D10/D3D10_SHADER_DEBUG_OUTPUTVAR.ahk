@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a shader output variable.
@@ -97,12 +96,9 @@ class D3D10_SHADER_DEBUG_OUTPUTVAR extends Win32Struct
      * Indicates whether the output variable can evaluate to not a number.
      * @type {BOOL}
      */
-    bNaNPossible{
-        get {
-            if(!this.HasProp("__bNaNPossible"))
-                this.__bNaNPossible := BOOL(this.ptr + 28)
-            return this.__bNaNPossible
-        }
+    bNaNPossible {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -111,11 +107,8 @@ class D3D10_SHADER_DEBUG_OUTPUTVAR extends Win32Struct
      * Indicates whether the output variable can evaluate to infinity.
      * @type {BOOL}
      */
-    bInfPossible{
-        get {
-            if(!this.HasProp("__bInfPossible"))
-                this.__bInfPossible := BOOL(this.ptr + 32)
-            return this.__bInfPossible
-        }
+    bInfPossible {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 }

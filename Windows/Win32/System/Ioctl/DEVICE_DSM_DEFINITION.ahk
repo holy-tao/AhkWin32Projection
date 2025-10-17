@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -23,12 +22,9 @@ class DEVICE_DSM_DEFINITION extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    SingleRange{
-        get {
-            if(!this.HasProp("__SingleRange"))
-                this.__SingleRange := BOOLEAN(this.ptr + 4)
-            return this.__SingleRange
-        }
+    SingleRange {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**
@@ -50,12 +46,9 @@ class DEVICE_DSM_DEFINITION extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    HasOutput{
-        get {
-            if(!this.HasProp("__HasOutput"))
-                this.__HasOutput := BOOLEAN(this.ptr + 16)
-            return this.__HasOutput
-        }
+    HasOutput {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**

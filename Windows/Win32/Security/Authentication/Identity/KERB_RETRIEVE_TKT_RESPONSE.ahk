@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include .\KERB_CRYPTO_KEY.ahk
 #Include .\KERB_EXTERNAL_TICKET.ahk
@@ -24,7 +23,7 @@ class KERB_RETRIEVE_TKT_RESPONSE extends Win32Struct
     Ticket{
         get {
             if(!this.HasProp("__Ticket"))
-                this.__Ticket := KERB_EXTERNAL_TICKET(this.ptr + 0)
+                this.__Ticket := KERB_EXTERNAL_TICKET(0, this)
             return this.__Ticket
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_ISSUER_SERIAL.ahk
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_BLOB.ahk
@@ -32,7 +31,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     IssuerSerial{
         get {
             if(!this.HasProp("__IssuerSerial"))
-                this.__IssuerSerial := CRYPT_XML_ISSUER_SERIAL(this.ptr + 8)
+                this.__IssuerSerial := CRYPT_XML_ISSUER_SERIAL(8, this)
             return this.__IssuerSerial
         }
     }
@@ -43,7 +42,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     SKI{
         get {
             if(!this.HasProp("__SKI"))
-                this.__SKI := CRYPT_XML_DATA_BLOB(this.ptr + 8)
+                this.__SKI := CRYPT_XML_DATA_BLOB(8, this)
             return this.__SKI
         }
     }
@@ -51,12 +50,9 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    wszSubjectName{
-        get {
-            if(!this.HasProp("__wszSubjectName"))
-                this.__wszSubjectName := PWSTR(this.ptr + 8)
-            return this.__wszSubjectName
-        }
+    wszSubjectName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -65,7 +61,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     Certificate{
         get {
             if(!this.HasProp("__Certificate"))
-                this.__Certificate := CRYPT_XML_DATA_BLOB(this.ptr + 8)
+                this.__Certificate := CRYPT_XML_DATA_BLOB(8, this)
             return this.__Certificate
         }
     }
@@ -76,7 +72,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     CRL{
         get {
             if(!this.HasProp("__CRL"))
-                this.__CRL := CRYPT_XML_DATA_BLOB(this.ptr + 8)
+                this.__CRL := CRYPT_XML_DATA_BLOB(8, this)
             return this.__CRL
         }
     }
@@ -87,7 +83,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     Custom{
         get {
             if(!this.HasProp("__Custom"))
-                this.__Custom := CRYPT_XML_BLOB(this.ptr + 8)
+                this.__Custom := CRYPT_XML_BLOB(8, this)
             return this.__Custom
         }
     }

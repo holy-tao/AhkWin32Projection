@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -15,12 +14,9 @@ class WEBAUTHN_EXTENSION extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszExtensionIdentifier{
-        get {
-            if(!this.HasProp("__pwszExtensionIdentifier"))
-                this.__pwszExtensionIdentifier := PWSTR(this.ptr + 0)
-            return this.__pwszExtensionIdentifier
-        }
+    pwszExtensionIdentifier {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

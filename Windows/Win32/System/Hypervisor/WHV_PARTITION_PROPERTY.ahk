@@ -9,7 +9,6 @@
 #Include .\WHV_CPUID_OUTPUT.ahk
 #Include .\WHV_X64_CPUID_RESULT2.ahk
 #Include .\WHV_MSR_ACTION_ENTRY.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\WHV_X64_MSR_EXIT_BITMAP.ahk
 #Include .\WHV_PROCESSOR_FEATURES1.ahk
 #Include .\WHV_PROCESSOR_FEATURES_BANKS.ahk
@@ -31,7 +30,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     ExtendedVmExits{
         get {
             if(!this.HasProp("__ExtendedVmExits"))
-                this.__ExtendedVmExits := WHV_EXTENDED_VM_EXITS(this.ptr + 0)
+                this.__ExtendedVmExits := WHV_EXTENDED_VM_EXITS(0, this)
             return this.__ExtendedVmExits
         }
     }
@@ -42,7 +41,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     ProcessorFeatures{
         get {
             if(!this.HasProp("__ProcessorFeatures"))
-                this.__ProcessorFeatures := WHV_PROCESSOR_FEATURES(this.ptr + 0)
+                this.__ProcessorFeatures := WHV_PROCESSOR_FEATURES(0, this)
             return this.__ProcessorFeatures
         }
     }
@@ -53,7 +52,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     SyntheticProcessorFeaturesBanks{
         get {
             if(!this.HasProp("__SyntheticProcessorFeaturesBanks"))
-                this.__SyntheticProcessorFeaturesBanks := WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(this.ptr + 0)
+                this.__SyntheticProcessorFeaturesBanks := WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(0, this)
             return this.__SyntheticProcessorFeaturesBanks
         }
     }
@@ -64,7 +63,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     ProcessorXsaveFeatures{
         get {
             if(!this.HasProp("__ProcessorXsaveFeatures"))
-                this.__ProcessorXsaveFeatures := WHV_PROCESSOR_XSAVE_FEATURES(this.ptr + 0)
+                this.__ProcessorXsaveFeatures := WHV_PROCESSOR_XSAVE_FEATURES(0, this)
             return this.__ProcessorXsaveFeatures
         }
     }
@@ -156,23 +155,17 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     /**
      * @type {BOOL}
      */
-    SeparateSecurityDomain{
-        get {
-            if(!this.HasProp("__SeparateSecurityDomain"))
-                this.__SeparateSecurityDomain := BOOL(this.ptr + 0)
-            return this.__SeparateSecurityDomain
-        }
+    SeparateSecurityDomain {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * @type {BOOL}
      */
-    NestedVirtualization{
-        get {
-            if(!this.HasProp("__NestedVirtualization"))
-                this.__NestedVirtualization := BOOL(this.ptr + 0)
-            return this.__NestedVirtualization
-        }
+    NestedVirtualization {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -181,7 +174,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     X64MsrExitBitmap{
         get {
             if(!this.HasProp("__X64MsrExitBitmap"))
-                this.__X64MsrExitBitmap := WHV_X64_MSR_EXIT_BITMAP(this.ptr + 0)
+                this.__X64MsrExitBitmap := WHV_X64_MSR_EXIT_BITMAP(0, this)
             return this.__X64MsrExitBitmap
         }
     }
@@ -205,12 +198,9 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     /**
      * @type {BOOL}
      */
-    ApicRemoteRead{
-        get {
-            if(!this.HasProp("__ApicRemoteRead"))
-                this.__ApicRemoteRead := BOOL(this.ptr + 0)
-            return this.__ApicRemoteRead
-        }
+    ApicRemoteRead {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -219,7 +209,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     ProcessorFeaturesBanks{
         get {
             if(!this.HasProp("__ProcessorFeaturesBanks"))
-                this.__ProcessorFeaturesBanks := WHV_PROCESSOR_FEATURES_BANKS(this.ptr + 0)
+                this.__ProcessorFeaturesBanks := WHV_PROCESSOR_FEATURES_BANKS(0, this)
             return this.__ProcessorFeaturesBanks
         }
     }
@@ -283,12 +273,9 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     /**
      * @type {BOOL}
      */
-    AllowDeviceAssignment{
-        get {
-            if(!this.HasProp("__AllowDeviceAssignment"))
-                this.__AllowDeviceAssignment := BOOL(this.ptr + 0)
-            return this.__AllowDeviceAssignment
-        }
+    AllowDeviceAssignment {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -297,7 +284,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     ProcessorPerfmonFeatures{
         get {
             if(!this.HasProp("__ProcessorPerfmonFeatures"))
-                this.__ProcessorPerfmonFeatures := WHV_PROCESSOR_PERFMON_FEATURES(this.ptr + 0)
+                this.__ProcessorPerfmonFeatures := WHV_PROCESSOR_PERFMON_FEATURES(0, this)
             return this.__ProcessorPerfmonFeatures
         }
     }
@@ -305,11 +292,8 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     /**
      * @type {BOOL}
      */
-    DisableSmt{
-        get {
-            if(!this.HasProp("__DisableSmt"))
-                this.__DisableSmt := BOOL(this.ptr + 0)
-            return this.__DisableSmt
-        }
+    DisableSmt {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

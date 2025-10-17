@@ -30,7 +30,7 @@ class CONTROLINFO extends Win32Struct
     hAccel{
         get {
             if(!this.HasProp("__hAccel"))
-                this.__hAccel := HACCEL(this.ptr + 8)
+                this.__hAccel := HACCEL(8, this)
             return this.__hAccel
         }
     }

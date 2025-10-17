@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
@@ -39,7 +38,7 @@ class CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO extends Win32Struct
     KeyEncryptionAlgorithm{
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
-                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 8)
+                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
             return this.__KeyEncryptionAlgorithm
         }
     }
@@ -63,7 +62,7 @@ class CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO extends Win32Struct
     hCryptProv{
         get {
             if(!this.HasProp("__hCryptProv"))
-                this.__hCryptProv := HCRYPTPROV_LEGACY(this.ptr + 40)
+                this.__hCryptProv := HCRYPTPROV_LEGACY(40, this)
             return this.__hCryptProv
         }
     }
@@ -75,7 +74,7 @@ class CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO extends Win32Struct
     RecipientPublicKey{
         get {
             if(!this.HasProp("__RecipientPublicKey"))
-                this.__RecipientPublicKey := CRYPT_BIT_BLOB(this.ptr + 48)
+                this.__RecipientPublicKey := CRYPT_BIT_BLOB(48, this)
             return this.__RecipientPublicKey
         }
     }
@@ -87,17 +86,13 @@ class CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO extends Win32Struct
     RecipientId{
         get {
             if(!this.HasProp("__RecipientId"))
-                this.__RecipientId := CERT_ID(this.ptr + 72)
+                this.__RecipientId := CERT_ID(72, this)
             return this.__RecipientId
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 112
     }
 }

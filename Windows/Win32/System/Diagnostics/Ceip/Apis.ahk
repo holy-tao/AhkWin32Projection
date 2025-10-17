@@ -17,7 +17,7 @@ class Ceip {
      * @since windows8.1
      */
     static CeipIsOptedIn() {
-        result := DllCall("KERNEL32.dll\CeipIsOptedIn", "ptr")
+        result := DllCall("KERNEL32.dll\CeipIsOptedIn", "int")
         return result
     }
 

@@ -50,7 +50,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     Ssid{
         get {
             if(!this.HasProp("__Ssid"))
-                this.__Ssid := NDIS_802_11_SSID(this.ptr + 16)
+                this.__Ssid := NDIS_802_11_SSID(16, this)
             return this.__Ssid
         }
     }
@@ -85,7 +85,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     Configuration{
         get {
             if(!this.HasProp("__Configuration"))
-                this.__Configuration := NDIS_802_11_CONFIGURATION(this.ptr + 64)
+                this.__Configuration := NDIS_802_11_CONFIGURATION(64, this)
             return this.__Configuration
         }
     }

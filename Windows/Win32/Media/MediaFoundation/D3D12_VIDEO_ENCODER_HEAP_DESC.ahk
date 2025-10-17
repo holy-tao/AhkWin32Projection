@@ -43,7 +43,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC extends Win32Struct
     EncodeProfile{
         get {
             if(!this.HasProp("__EncodeProfile"))
-                this.__EncodeProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 16)
+                this.__EncodeProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(16, this)
             return this.__EncodeProfile
         }
     }
@@ -54,7 +54,7 @@ class D3D12_VIDEO_ENCODER_HEAP_DESC extends Win32Struct
     EncodeLevel{
         get {
             if(!this.HasProp("__EncodeLevel"))
-                this.__EncodeLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(this.ptr + 32)
+                this.__EncodeLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(32, this)
             return this.__EncodeLevel
         }
     }

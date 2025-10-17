@@ -27,7 +27,7 @@ class JET_SETSYSPARAM_W extends Win32Struct
     lParam{
         get {
             if(!this.HasProp("__lParam"))
-                this.__lParam := JET_API_PTR(this.ptr + 8)
+                this.__lParam := JET_API_PTR(8, this)
             return this.__lParam
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWP_VALUE0.ahk
 
 /**
@@ -35,7 +34,7 @@ class FWP_RANGE0 extends Win32Struct
     valueLow{
         get {
             if(!this.HasProp("__valueLow"))
-                this.__valueLow := FWP_VALUE0(this.ptr + 0)
+                this.__valueLow := FWP_VALUE0(0, this)
             return this.__valueLow
         }
     }
@@ -49,7 +48,7 @@ class FWP_RANGE0 extends Win32Struct
     valueHigh{
         get {
             if(!this.HasProp("__valueHigh"))
-                this.__valueHigh := FWP_VALUE0(this.ptr + 16)
+                this.__valueHigh := FWP_VALUE0(16, this)
             return this.__valueHigh
         }
     }

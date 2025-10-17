@@ -15,7 +15,6 @@
 #Include .\GOPHER_VERSION_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_ABSTRACT_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_VIEW_ATTRIBUTE_TYPE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\GOPHER_VERONICA_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_ASK_ATTRIBUTE_TYPE.ahk
 #Include .\GOPHER_UNKNOWN_ATTRIBUTE_TYPE.ahk
@@ -68,7 +67,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Admin{
         get {
             if(!this.HasProp("__Admin"))
-                this.__Admin := GOPHER_ADMIN_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Admin := GOPHER_ADMIN_ATTRIBUTE_TYPE(8, this)
             return this.__Admin
         }
     }
@@ -79,7 +78,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     ModDate{
         get {
             if(!this.HasProp("__ModDate"))
-                this.__ModDate := GOPHER_MOD_DATE_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__ModDate := GOPHER_MOD_DATE_ATTRIBUTE_TYPE(8, this)
             return this.__ModDate
         }
     }
@@ -90,7 +89,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Ttl{
         get {
             if(!this.HasProp("__Ttl"))
-                this.__Ttl := GOPHER_TTL_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Ttl := GOPHER_TTL_ATTRIBUTE_TYPE(8, this)
             return this.__Ttl
         }
     }
@@ -101,7 +100,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Score{
         get {
             if(!this.HasProp("__Score"))
-                this.__Score := GOPHER_SCORE_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Score := GOPHER_SCORE_ATTRIBUTE_TYPE(8, this)
             return this.__Score
         }
     }
@@ -112,7 +111,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     ScoreRange{
         get {
             if(!this.HasProp("__ScoreRange"))
-                this.__ScoreRange := GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__ScoreRange := GOPHER_SCORE_RANGE_ATTRIBUTE_TYPE(8, this)
             return this.__ScoreRange
         }
     }
@@ -123,7 +122,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Site{
         get {
             if(!this.HasProp("__Site"))
-                this.__Site := GOPHER_SITE_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Site := GOPHER_SITE_ATTRIBUTE_TYPE(8, this)
             return this.__Site
         }
     }
@@ -134,7 +133,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Organization{
         get {
             if(!this.HasProp("__Organization"))
-                this.__Organization := GOPHER_ORGANIZATION_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Organization := GOPHER_ORGANIZATION_ATTRIBUTE_TYPE(8, this)
             return this.__Organization
         }
     }
@@ -145,7 +144,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Location{
         get {
             if(!this.HasProp("__Location"))
-                this.__Location := GOPHER_LOCATION_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Location := GOPHER_LOCATION_ATTRIBUTE_TYPE(8, this)
             return this.__Location
         }
     }
@@ -156,7 +155,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     GeographicalLocation{
         get {
             if(!this.HasProp("__GeographicalLocation"))
-                this.__GeographicalLocation := GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__GeographicalLocation := GOPHER_GEOGRAPHICAL_LOCATION_ATTRIBUTE_TYPE(8, this)
             return this.__GeographicalLocation
         }
     }
@@ -167,7 +166,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     TimeZone{
         get {
             if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := GOPHER_TIMEZONE_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__TimeZone := GOPHER_TIMEZONE_ATTRIBUTE_TYPE(8, this)
             return this.__TimeZone
         }
     }
@@ -178,7 +177,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Provider{
         get {
             if(!this.HasProp("__Provider"))
-                this.__Provider := GOPHER_PROVIDER_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Provider := GOPHER_PROVIDER_ATTRIBUTE_TYPE(8, this)
             return this.__Provider
         }
     }
@@ -189,7 +188,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Version{
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := GOPHER_VERSION_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Version := GOPHER_VERSION_ATTRIBUTE_TYPE(8, this)
             return this.__Version
         }
     }
@@ -200,7 +199,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Abstract{
         get {
             if(!this.HasProp("__Abstract"))
-                this.__Abstract := GOPHER_ABSTRACT_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Abstract := GOPHER_ABSTRACT_ATTRIBUTE_TYPE(8, this)
             return this.__Abstract
         }
     }
@@ -211,7 +210,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     View{
         get {
             if(!this.HasProp("__View"))
-                this.__View := GOPHER_VIEW_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__View := GOPHER_VIEW_ATTRIBUTE_TYPE(8, this)
             return this.__View
         }
     }
@@ -222,7 +221,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Veronica{
         get {
             if(!this.HasProp("__Veronica"))
-                this.__Veronica := GOPHER_VERONICA_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Veronica := GOPHER_VERONICA_ATTRIBUTE_TYPE(8, this)
             return this.__Veronica
         }
     }
@@ -233,7 +232,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Ask{
         get {
             if(!this.HasProp("__Ask"))
-                this.__Ask := GOPHER_ASK_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Ask := GOPHER_ASK_ATTRIBUTE_TYPE(8, this)
             return this.__Ask
         }
     }
@@ -244,7 +243,7 @@ class GOPHER_ATTRIBUTE_TYPE extends Win32Struct
     Unknown{
         get {
             if(!this.HasProp("__Unknown"))
-                this.__Unknown := GOPHER_UNKNOWN_ATTRIBUTE_TYPE(this.ptr + 8)
+                this.__Unknown := GOPHER_UNKNOWN_ATTRIBUTE_TYPE(8, this)
             return this.__Unknown
         }
     }

@@ -89,7 +89,7 @@ class PSS_PROCESS_INFORMATION extends Win32Struct
     CreateTime{
         get {
             if(!this.HasProp("__CreateTime"))
-                this.__CreateTime := FILETIME(this.ptr + 40)
+                this.__CreateTime := FILETIME(40, this)
             return this.__CreateTime
         }
     }
@@ -101,7 +101,7 @@ class PSS_PROCESS_INFORMATION extends Win32Struct
     ExitTime{
         get {
             if(!this.HasProp("__ExitTime"))
-                this.__ExitTime := FILETIME(this.ptr + 48)
+                this.__ExitTime := FILETIME(48, this)
             return this.__ExitTime
         }
     }
@@ -113,7 +113,7 @@ class PSS_PROCESS_INFORMATION extends Win32Struct
     KernelTime{
         get {
             if(!this.HasProp("__KernelTime"))
-                this.__KernelTime := FILETIME(this.ptr + 56)
+                this.__KernelTime := FILETIME(56, this)
             return this.__KernelTime
         }
     }
@@ -125,7 +125,7 @@ class PSS_PROCESS_INFORMATION extends Win32Struct
     UserTime{
         get {
             if(!this.HasProp("__UserTime"))
-                this.__UserTime := FILETIME(this.ptr + 64)
+                this.__UserTime := FILETIME(64, this)
             return this.__UserTime
         }
     }

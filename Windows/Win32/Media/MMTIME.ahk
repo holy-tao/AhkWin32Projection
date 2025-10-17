@@ -136,7 +136,7 @@ class MMTIME extends Win32Struct
     smpte{
         get {
             if(!this.HasProp("__smpte"))
-                this.__smpte := %this.__Class%._smpte(this.ptr + 8)
+                this.__smpte := %this.__Class%._smpte(8, this)
             return this.__smpte
         }
     }
@@ -147,7 +147,7 @@ class MMTIME extends Win32Struct
     midi{
         get {
             if(!this.HasProp("__midi"))
-                this.__midi := %this.__Class%._midi(this.ptr + 8)
+                this.__midi := %this.__Class%._midi(8, this)
             return this.__midi
         }
     }

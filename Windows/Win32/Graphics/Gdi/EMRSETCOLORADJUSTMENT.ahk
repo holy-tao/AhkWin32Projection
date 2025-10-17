@@ -22,7 +22,7 @@ class EMRSETCOLORADJUSTMENT extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -34,7 +34,7 @@ class EMRSETCOLORADJUSTMENT extends Win32Struct
     ColorAdjustment{
         get {
             if(!this.HasProp("__ColorAdjustment"))
-                this.__ColorAdjustment := COLORADJUSTMENT(this.ptr + 8)
+                this.__ColorAdjustment := COLORADJUSTMENT(8, this)
             return this.__ColorAdjustment
         }
     }

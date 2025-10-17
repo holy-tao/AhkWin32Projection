@@ -26,7 +26,7 @@ class SOCK_NOTIFY_REGISTRATION extends Win32Struct
     socket{
         get {
             if(!this.HasProp("__socket"))
-                this.__socket := SOCKET(this.ptr + 0)
+                this.__socket := SOCKET(0, this)
             return this.__socket
         }
     }

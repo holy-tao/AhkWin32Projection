@@ -18,7 +18,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     Version{
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := WINBIO_ADAPTER_INTERFACE_VERSION(this.ptr + 0)
+                this.__Version := WINBIO_ADAPTER_INTERFACE_VERSION(0, this)
             return this.__Version
         }
     }

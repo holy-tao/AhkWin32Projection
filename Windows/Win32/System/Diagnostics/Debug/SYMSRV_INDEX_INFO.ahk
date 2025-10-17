@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains symbol server index information.
@@ -37,12 +36,9 @@ class SYMSRV_INDEX_INFO extends Win32Struct
      * A value that indicates whether the image file is stripped.
      * @type {BOOL}
      */
-    stripped{
-        get {
-            if(!this.HasProp("__stripped"))
-                this.__stripped := BOOL(this.ptr + 268)
-            return this.__stripped
-        }
+    stripped {
+        get => NumGet(this, 268, "int")
+        set => NumPut("int", value, this, 268)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -16,11 +15,8 @@ class DATATYPES_INFO_1A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PSTR(this.ptr + 0)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

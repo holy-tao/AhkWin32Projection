@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies a section within a Digital Video Broadcast (DVB) Event Information Table (EIT) section header. Because the EIT can be quite large, these options allow applications to reduce load time by filtering specific segments from the EIT section header.
@@ -18,12 +17,9 @@ class DVB_EIT_FILTER_OPTIONS extends Win32Struct
      * If this flag is <b>TRUE</b>, the number of the segment that is queried from the header must match the value of the <b>bSegment</b> structure member. Otherwise, the segment field is ignored.
      * @type {BOOL}
      */
-    fSpecifySegment{
-        get {
-            if(!this.HasProp("__fSpecifySegment"))
-                this.__fSpecifySegment := BOOL(this.ptr + 0)
-            return this.__fSpecifySegment
-        }
+    fSpecifySegment {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

@@ -22,7 +22,7 @@ class CHANGER_SEND_VOLUME_TAG_INFORMATION extends Win32Struct
     StartingElement{
         get {
             if(!this.HasProp("__StartingElement"))
-                this.__StartingElement := CHANGER_ELEMENT(this.ptr + 0)
+                this.__StartingElement := CHANGER_ELEMENT(0, this)
             return this.__StartingElement
         }
     }

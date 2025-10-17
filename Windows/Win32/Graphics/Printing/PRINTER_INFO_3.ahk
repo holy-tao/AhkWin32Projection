@@ -18,7 +18,7 @@ class PRINTER_INFO_3 extends Win32Struct
     pSecurityDescriptor{
         get {
             if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 0)
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(0, this)
             return this.__pSecurityDescriptor
         }
     }

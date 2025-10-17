@@ -37,7 +37,7 @@ class NDR_USER_MARSHAL_INFO extends Win32Struct
     Level1{
         get {
             if(!this.HasProp("__Level1"))
-                this.__Level1 := NDR_USER_MARSHAL_INFO_LEVEL1(this.ptr + 8)
+                this.__Level1 := NDR_USER_MARSHAL_INFO_LEVEL1(8, this)
             return this.__Level1
         }
     }

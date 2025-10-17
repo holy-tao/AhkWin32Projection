@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CountedString.ahk
 
 /**
@@ -41,7 +40,7 @@ class IsolationInfoEx extends Win32Struct
     probEndTime{
         get {
             if(!this.HasProp("__probEndTime"))
-                this.__probEndTime := FILETIME(this.ptr + 8)
+                this.__probEndTime := FILETIME(8, this)
             return this.__probEndTime
         }
     }
@@ -53,7 +52,7 @@ class IsolationInfoEx extends Win32Struct
     failureUrl{
         get {
             if(!this.HasProp("__failureUrl"))
-                this.__failureUrl := CountedString(this.ptr + 16)
+                this.__failureUrl := CountedString(16, this)
             return this.__failureUrl
         }
     }

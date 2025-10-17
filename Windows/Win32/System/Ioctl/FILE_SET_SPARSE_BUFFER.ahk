@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Specifies the sparse state to be set.
@@ -28,11 +27,8 @@ class FILE_SET_SPARSE_BUFFER extends Win32Struct
      *         <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_set_sparse">FSCTL_SET_SPARSE</a> call to fail.
      * @type {BOOLEAN}
      */
-    SetSparse{
-        get {
-            if(!this.HasProp("__SetSparse"))
-                this.__SetSparse := BOOLEAN(this.ptr + 0)
-            return this.__SetSparse
-        }
+    SetSparse {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 }

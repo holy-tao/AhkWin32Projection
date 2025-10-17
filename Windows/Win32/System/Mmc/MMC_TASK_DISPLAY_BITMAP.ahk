@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MMC_TASK_DISPLAY_BITMAP structure is introduced in MMC 1.1.
@@ -35,12 +34,9 @@ class MMC_TASK_DISPLAY_BITMAP extends Win32Struct
      * If <i>szMouseOverBitmap</i> points to a <b>NULL</b> string, <i>szMouseOffBitmap</i> must be a valid string that contains the location of a valid image. If one of these strings is <b>NULL</b>, the other string is used for both. If both mouse image locations are <b>NULL</b>, the task is not displayed.
      * @type {PWSTR}
      */
-    szMouseOverBitmap{
-        get {
-            if(!this.HasProp("__szMouseOverBitmap"))
-                this.__szMouseOverBitmap := PWSTR(this.ptr + 0)
-            return this.__szMouseOverBitmap
-        }
+    szMouseOverBitmap {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -51,11 +47,8 @@ class MMC_TASK_DISPLAY_BITMAP extends Win32Struct
      * If <b>szMouseOffBitmap</b> points to a <b>NULL</b> string, <b>szMouseOverBitmap</b> must be a valid string that contains the location of a valid image. If one of these strings is <b>NULL</b>, the other string is used for both. If both mouse image locations are <b>NULL</b>, the task is not displayed.
      * @type {PWSTR}
      */
-    szMouseOffBitmap{
-        get {
-            if(!this.HasProp("__szMouseOffBitmap"))
-                this.__szMouseOffBitmap := PWSTR(this.ptr + 8)
-            return this.__szMouseOffBitmap
-        }
+    szMouseOffBitmap {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

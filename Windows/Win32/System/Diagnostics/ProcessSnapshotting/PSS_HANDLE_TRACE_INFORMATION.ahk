@@ -26,7 +26,7 @@ class PSS_HANDLE_TRACE_INFORMATION extends Win32Struct
     SectionHandle{
         get {
             if(!this.HasProp("__SectionHandle"))
-                this.__SectionHandle := HANDLE(this.ptr + 0)
+                this.__SectionHandle := HANDLE(0, this)
             return this.__SectionHandle
         }
     }

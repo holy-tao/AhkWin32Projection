@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_NODE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a start element in xml (e.g.
@@ -22,7 +21,7 @@ class WS_XML_ELEMENT_NODE extends Win32Struct
     node{
         get {
             if(!this.HasProp("__node"))
-                this.__node := WS_XML_NODE(this.ptr + 0)
+                this.__node := WS_XML_NODE(0, this)
             return this.__node
         }
     }
@@ -76,11 +75,8 @@ class WS_XML_ELEMENT_NODE extends Win32Struct
      * Whether the element is an empty element or not.  In the example, it would be <b>FALSE</b>.
      * @type {BOOL}
      */
-    isEmpty{
-        get {
-            if(!this.HasProp("__isEmpty"))
-                this.__isEmpty := BOOL(this.ptr + 48)
-            return this.__isEmpty
-        }
+    isEmpty {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

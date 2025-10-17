@@ -52,17 +52,13 @@ class CRYPT_KEY_VERIFY_MESSAGE_PARA extends Win32Struct
     hCryptProv{
         get {
             if(!this.HasProp("__hCryptProv"))
-                this.__hCryptProv := HCRYPTPROV_LEGACY(this.ptr + 8)
+                this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
             return this.__hCryptProv
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 16
     }
 }

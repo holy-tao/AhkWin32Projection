@@ -26,7 +26,7 @@ class IORING_INFO extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := IORING_CREATE_FLAGS(this.ptr + 8)
+                this.__Flags := IORING_CREATE_FLAGS(8, this)
             return this.__Flags
         }
     }

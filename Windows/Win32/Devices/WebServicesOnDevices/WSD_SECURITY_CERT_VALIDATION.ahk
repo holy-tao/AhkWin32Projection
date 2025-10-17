@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Security\Cryptography\HCERTSTORE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents the criteria for matching client certificates against those of an HTTPS server.
@@ -58,7 +57,7 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
     hCertMatchStore{
         get {
             if(!this.HasProp("__hCertMatchStore"))
-                this.__hCertMatchStore := HCERTSTORE(this.ptr + 16)
+                this.__hCertMatchStore := HCERTSTORE(16, this)
             return this.__hCertMatchStore
         }
     }
@@ -70,7 +69,7 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
     hCertIssuerStore{
         get {
             if(!this.HasProp("__hCertIssuerStore"))
-                this.__hCertIssuerStore := HCERTSTORE(this.ptr + 24)
+                this.__hCertIssuerStore := HCERTSTORE(24, this)
             return this.__hCertIssuerStore
         }
     }
@@ -161,12 +160,9 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
      * 
      * @type {PWSTR}
      */
-    pszCNGHashAlgId{
-        get {
-            if(!this.HasProp("__pszCNGHashAlgId"))
-                this.__pszCNGHashAlgId := PWSTR(this.ptr + 40)
-            return this.__pszCNGHashAlgId
-        }
+    pszCNGHashAlgId {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

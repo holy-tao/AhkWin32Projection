@@ -54,7 +54,7 @@ class ISCSI_TARGET_MAPPINGA extends Win32Struct
     SessionId{
         get {
             if(!this.HasProp("__SessionId"))
-                this.__SessionId := ISCSI_UNIQUE_SESSION_ID(this.ptr + 744)
+                this.__SessionId := ISCSI_UNIQUE_SESSION_ID(744, this)
             return this.__SessionId
         }
     }

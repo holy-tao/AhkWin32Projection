@@ -284,7 +284,7 @@ class DIMM_ADDRESS extends Win32Struct
     Ddr4{
         get {
             if(!this.HasProp("__Ddr4"))
-                this.__Ddr4 := %this.__Class%._Ddr4(this.ptr + 0)
+                this.__Ddr4 := %this.__Class%._Ddr4(0, this)
             return this.__Ddr4
         }
     }
@@ -295,7 +295,7 @@ class DIMM_ADDRESS extends Win32Struct
     Ddr5{
         get {
             if(!this.HasProp("__Ddr5"))
-                this.__Ddr5 := %this.__Class%._Ddr5(this.ptr + 0)
+                this.__Ddr5 := %this.__Class%._Ddr5(0, this)
             return this.__Ddr5
         }
     }

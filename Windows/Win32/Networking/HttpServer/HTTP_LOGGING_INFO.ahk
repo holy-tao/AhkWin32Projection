@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_PROPERTY_FLAGS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
@@ -135,7 +134,7 @@ class HTTP_LOGGING_INFO extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(this.ptr + 0)
+                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
             return this.__Flags
         }
     }
@@ -206,12 +205,9 @@ class HTTP_LOGGING_INFO extends Win32Struct
      * The optional software name string used in W3C type logging. This name is not used for other types of logging. If this parameter is <b>NULL</b>, the HTTP Server API logs a default string.
      * @type {PWSTR}
      */
-    SoftwareName{
-        get {
-            if(!this.HasProp("__SoftwareName"))
-                this.__SoftwareName := PWSTR(this.ptr + 8)
-            return this.__SoftwareName
-        }
+    SoftwareName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -240,12 +236,9 @@ class HTTP_LOGGING_INFO extends Win32Struct
      *   Applications can use a UNC path to a remote machine to enable UNC logging.
      * @type {PWSTR}
      */
-    DirectoryName{
-        get {
-            if(!this.HasProp("__DirectoryName"))
-                this.__DirectoryName := PWSTR(this.ptr + 24)
-            return this.__DirectoryName
-        }
+    DirectoryName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -428,7 +421,7 @@ class HTTP_LOGGING_INFO extends Win32Struct
     pSecurityDescriptor{
         get {
             if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 64)
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(64, this)
             return this.__pSecurityDescriptor
         }
     }

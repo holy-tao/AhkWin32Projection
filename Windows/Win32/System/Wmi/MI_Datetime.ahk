@@ -30,7 +30,7 @@ class MI_Datetime extends Win32Struct
     timestamp{
         get {
             if(!this.HasProp("__timestamp"))
-                this.__timestamp := MI_Timestamp(this.ptr + 8)
+                this.__timestamp := MI_Timestamp(8, this)
             return this.__timestamp
         }
     }
@@ -41,7 +41,7 @@ class MI_Datetime extends Win32Struct
     interval{
         get {
             if(!this.HasProp("__interval"))
-                this.__interval := MI_Interval(this.ptr + 8)
+                this.__interval := MI_Interval(8, this)
             return this.__interval
         }
     }

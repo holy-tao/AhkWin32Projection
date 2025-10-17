@@ -2797,7 +2797,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_Initialize", "ptr", DeviceHandle, "ptr", InterfaceHandle, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_Initialize", "ptr", DeviceHandle, "ptr", InterfaceHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2813,7 +2813,7 @@ class Usb {
     static WinUsb_Free(InterfaceHandle) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
 
-        result := DllCall("WINUSB.dll\WinUsb_Free", "ptr", InterfaceHandle, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_Free", "ptr", InterfaceHandle, "int")
         return result
     }
 
@@ -2893,7 +2893,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetAssociatedInterface", "ptr", InterfaceHandle, "char", AssociatedInterfaceIndex, "ptr", AssociatedInterfaceHandle, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_GetAssociatedInterface", "ptr", InterfaceHandle, "char", AssociatedInterfaceIndex, "ptr", AssociatedInterfaceHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2948,7 +2948,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetDescriptor", "ptr", InterfaceHandle, "char", DescriptorType, "char", Index, "ushort", LanguageID, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_GetDescriptor", "ptr", InterfaceHandle, "char", DescriptorType, "char", Index, "ushort", LanguageID, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3004,7 +3004,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_QueryInterfaceSettings", "ptr", InterfaceHandle, "char", AlternateInterfaceNumber, "ptr", UsbAltInterfaceDescriptor, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_QueryInterfaceSettings", "ptr", InterfaceHandle, "char", AlternateInterfaceNumber, "ptr", UsbAltInterfaceDescriptor, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3052,7 +3052,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_QueryDeviceInformation", "ptr", InterfaceHandle, "uint", InformationType, "uint*", BufferLength, "ptr", Buffer, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_QueryDeviceInformation", "ptr", InterfaceHandle, "uint", InformationType, "uint*", BufferLength, "ptr", Buffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3096,7 +3096,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_SetCurrentAlternateSetting", "ptr", InterfaceHandle, "char", SettingNumber, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_SetCurrentAlternateSetting", "ptr", InterfaceHandle, "char", SettingNumber, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3138,7 +3138,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetCurrentAlternateSetting", "ptr", InterfaceHandle, "char*", SettingNumber, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_GetCurrentAlternateSetting", "ptr", InterfaceHandle, "char*", SettingNumber, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3206,7 +3206,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_QueryPipe", "ptr", InterfaceHandle, "char", AlternateInterfaceNumber, "char", PipeIndex, "ptr", PipeInformation, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_QueryPipe", "ptr", InterfaceHandle, "char", AlternateInterfaceNumber, "char", PipeIndex, "ptr", PipeInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3274,7 +3274,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_QueryPipeEx", "ptr", InterfaceHandle, "char", AlternateSettingNumber, "char", PipeIndex, "ptr", PipeInformationEx, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_QueryPipeEx", "ptr", InterfaceHandle, "char", AlternateSettingNumber, "char", PipeIndex, "ptr", PipeInformationEx, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3343,7 +3343,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_SetPipePolicy", "ptr", InterfaceHandle, "char", PipeID, "uint", PolicyType, "uint", ValueLength, "ptr", Value, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_SetPipePolicy", "ptr", InterfaceHandle, "char", PipeID, "uint", PolicyType, "uint", ValueLength, "ptr", Value, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3390,7 +3390,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetPipePolicy", "ptr", InterfaceHandle, "char", PipeID, "uint", PolicyType, "uint*", ValueLength, "ptr", Value, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_GetPipePolicy", "ptr", InterfaceHandle, "char", PipeID, "uint", PolicyType, "uint*", ValueLength, "ptr", Value, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3471,7 +3471,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ReadPipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "ptr", Overlapped, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_ReadPipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3552,7 +3552,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_WritePipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "ptr", Overlapped, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_WritePipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3612,7 +3612,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ControlTransfer", "ptr", InterfaceHandle, "ptr", SetupPacket, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "ptr", Overlapped, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_ControlTransfer", "ptr", InterfaceHandle, "ptr", SetupPacket, "ptr", Buffer, "uint", BufferLength, "uint*", LengthTransferred, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3656,7 +3656,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ResetPipe", "ptr", InterfaceHandle, "char", PipeID, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_ResetPipe", "ptr", InterfaceHandle, "char", PipeID, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3700,7 +3700,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_AbortPipe", "ptr", InterfaceHandle, "char", PipeID, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_AbortPipe", "ptr", InterfaceHandle, "char", PipeID, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3742,7 +3742,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_FlushPipe", "ptr", InterfaceHandle, "char", PipeID, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_FlushPipe", "ptr", InterfaceHandle, "char", PipeID, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3851,7 +3851,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_SetPowerPolicy", "ptr", InterfaceHandle, "uint", PolicyType, "uint", ValueLength, "ptr", Value, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_SetPowerPolicy", "ptr", InterfaceHandle, "uint", PolicyType, "uint", ValueLength, "ptr", Value, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3936,7 +3936,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetPowerPolicy", "ptr", InterfaceHandle, "uint", PolicyType, "uint*", ValueLength, "ptr", Value, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_GetPowerPolicy", "ptr", InterfaceHandle, "uint", PolicyType, "uint*", ValueLength, "ptr", Value, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3957,7 +3957,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetOverlappedResult", "ptr", InterfaceHandle, "ptr", lpOverlapped, "uint*", lpNumberOfBytesTransferred, "ptr", bWait, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_GetOverlappedResult", "ptr", InterfaceHandle, "ptr", lpOverlapped, "uint*", lpNumberOfBytesTransferred, "int", bWait, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4017,7 +4017,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetCurrentFrameNumber", "ptr", InterfaceHandle, "uint*", CurrentFrameNumber, "int64*", TimeStamp, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_GetCurrentFrameNumber", "ptr", InterfaceHandle, "uint*", CurrentFrameNumber, "int64*", TimeStamp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4035,7 +4035,7 @@ class Usb {
     static WinUsb_GetAdjustedFrameNumber(CurrentFrameNumber, TimeStamp) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetAdjustedFrameNumber", "uint*", CurrentFrameNumber, "int64", TimeStamp, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_GetAdjustedFrameNumber", "uint*", CurrentFrameNumber, "int64", TimeStamp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4060,7 +4060,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_RegisterIsochBuffer", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "ptr", IsochBufferHandle, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_RegisterIsochBuffer", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer, "uint", BufferLength, "ptr", IsochBufferHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4077,7 +4077,7 @@ class Usb {
     static WinUsb_UnregisterIsochBuffer(IsochBufferHandle) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_UnregisterIsochBuffer", "ptr", IsochBufferHandle, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_UnregisterIsochBuffer", "ptr", IsochBufferHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4098,7 +4098,7 @@ class Usb {
     static WinUsb_WriteIsochPipe(BufferHandle, Offset, Length, FrameNumber, Overlapped) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipe", "ptr", BufferHandle, "uint", Offset, "uint", Length, "uint*", FrameNumber, "ptr", Overlapped, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipe", "ptr", BufferHandle, "uint", Offset, "uint", Length, "uint*", FrameNumber, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4121,7 +4121,7 @@ class Usb {
     static WinUsb_ReadIsochPipe(BufferHandle, Offset, Length, FrameNumber, NumberOfPackets, IsoPacketDescriptors, Overlapped) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipe", "ptr", BufferHandle, "uint", Offset, "uint", Length, "uint*", FrameNumber, "uint", NumberOfPackets, "ptr", IsoPacketDescriptors, "ptr", Overlapped, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipe", "ptr", BufferHandle, "uint", Offset, "uint", Length, "uint*", FrameNumber, "uint", NumberOfPackets, "ptr", IsoPacketDescriptors, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4144,7 +4144,7 @@ class Usb {
     static WinUsb_WriteIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, Overlapped) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipeAsap", "ptr", BufferHandle, "uint", Offset, "uint", Length, "ptr", ContinueStream, "ptr", Overlapped, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipeAsap", "ptr", BufferHandle, "uint", Offset, "uint", Length, "int", ContinueStream, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4169,7 +4169,7 @@ class Usb {
     static WinUsb_ReadIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, NumberOfPackets, IsoPacketDescriptors, Overlapped) {
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipeAsap", "ptr", BufferHandle, "uint", Offset, "uint", Length, "ptr", ContinueStream, "uint", NumberOfPackets, "ptr", IsoPacketDescriptors, "ptr", Overlapped, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipeAsap", "ptr", BufferHandle, "uint", Offset, "uint", Length, "int", ContinueStream, "uint", NumberOfPackets, "ptr", IsoPacketDescriptors, "ptr", Overlapped, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4213,7 +4213,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_StartTrackingForTimeSync", "ptr", InterfaceHandle, "ptr", StartTrackingInfo, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_StartTrackingForTimeSync", "ptr", InterfaceHandle, "ptr", StartTrackingInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4258,7 +4258,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetCurrentFrameNumberAndQpc", "ptr", InterfaceHandle, "ptr", FrameQpcInfo, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_GetCurrentFrameNumberAndQpc", "ptr", InterfaceHandle, "ptr", FrameQpcInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4301,7 +4301,7 @@ class Usb {
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_StopTrackingForTimeSync", "ptr", InterfaceHandle, "ptr", StopTrackingInfo, "ptr")
+        result := DllCall("WINUSB.dll\WinUsb_StopTrackingForTimeSync", "ptr", InterfaceHandle, "ptr", StopTrackingInfo, "int")
         if(A_LastError)
             throw OSError()
 

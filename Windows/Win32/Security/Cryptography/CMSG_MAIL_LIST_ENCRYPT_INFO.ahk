@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
@@ -56,7 +55,7 @@ class CMSG_MAIL_LIST_ENCRYPT_INFO extends Win32Struct
     KeyEncryptionAlgorithm{
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
-                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 8)
+                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
             return this.__KeyEncryptionAlgorithm
         }
     }
@@ -68,7 +67,7 @@ class CMSG_MAIL_LIST_ENCRYPT_INFO extends Win32Struct
     EncryptedKey{
         get {
             if(!this.HasProp("__EncryptedKey"))
-                this.__EncryptedKey := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__EncryptedKey := CRYPT_INTEGER_BLOB(32, this)
             return this.__EncryptedKey
         }
     }
@@ -111,12 +110,8 @@ class CMSG_MAIL_LIST_ENCRYPT_INFO extends Win32Struct
         set => NumPut("uint", value, this, 48)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

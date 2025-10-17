@@ -1,16 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
-#Include ..\..\Foundation\CHAR.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\Com\BLOB.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\Com\StructuredStorage\CAC.ahk
 #Include ..\Com\StructuredStorage\CAUB.ahk
 #Include ..\Com\StructuredStorage\CAI.ahk
@@ -60,7 +56,7 @@ class PROPERTYRESTRICTION extends Win32Struct
     prop{
         get {
             if(!this.HasProp("__prop"))
-                this.__prop := FULLPROPSPEC(this.ptr + 8)
+                this.__prop := FULLPROPSPEC(8, this)
             return this.__prop
         }
     }
@@ -71,7 +67,7 @@ class PROPERTYRESTRICTION extends Win32Struct
     prval{
         get {
             if(!this.HasProp("__prval"))
-                this.__prval := PROPVARIANT(this.ptr + 32)
+                this.__prval := PROPVARIANT(32, this)
             return this.__prval
         }
     }

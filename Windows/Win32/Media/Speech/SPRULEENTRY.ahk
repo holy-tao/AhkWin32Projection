@@ -19,7 +19,7 @@ class SPRULEENTRY extends Win32Struct
     hRule{
         get {
             if(!this.HasProp("__hRule"))
-                this.__hRule := SPRULEHANDLE(this.ptr + 0)
+                this.__hRule := SPRULEHANDLE(0, this)
             return this.__hRule
         }
     }
@@ -30,7 +30,7 @@ class SPRULEENTRY extends Win32Struct
     hInitialState{
         get {
             if(!this.HasProp("__hInitialState"))
-                this.__hInitialState := SPSTATEHANDLE(this.ptr + 8)
+                this.__hInitialState := SPSTATEHANDLE(8, this)
             return this.__hInitialState
         }
     }

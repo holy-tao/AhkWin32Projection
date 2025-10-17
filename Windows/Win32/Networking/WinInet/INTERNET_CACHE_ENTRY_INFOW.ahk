@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -44,24 +43,18 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
      * Pointer to a null-terminated string that contains the URL name. The string occupies the memory area at the end of this structure.
      * @type {PWSTR}
      */
-    lpszSourceUrlName{
-        get {
-            if(!this.HasProp("__lpszSourceUrlName"))
-                this.__lpszSourceUrlName := PWSTR(this.ptr + 8)
-            return this.__lpszSourceUrlName
-        }
+    lpszSourceUrlName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated string that contains the local file name. The string occupies the memory area at the end of this structure.
      * @type {PWSTR}
      */
-    lpszLocalFileName{
-        get {
-            if(!this.HasProp("__lpszLocalFileName"))
-                this.__lpszLocalFileName := PWSTR(this.ptr + 16)
-            return this.__lpszLocalFileName
-        }
+    lpszLocalFileName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -223,7 +216,7 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
     LastModifiedTime{
         get {
             if(!this.HasProp("__LastModifiedTime"))
-                this.__LastModifiedTime := FILETIME(this.ptr + 48)
+                this.__LastModifiedTime := FILETIME(48, this)
             return this.__LastModifiedTime
         }
     }
@@ -235,7 +228,7 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
     ExpireTime{
         get {
             if(!this.HasProp("__ExpireTime"))
-                this.__ExpireTime := FILETIME(this.ptr + 56)
+                this.__ExpireTime := FILETIME(56, this)
             return this.__ExpireTime
         }
     }
@@ -247,7 +240,7 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
     LastAccessTime{
         get {
             if(!this.HasProp("__LastAccessTime"))
-                this.__LastAccessTime := FILETIME(this.ptr + 64)
+                this.__LastAccessTime := FILETIME(64, this)
             return this.__LastAccessTime
         }
     }
@@ -259,7 +252,7 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
     LastSyncTime{
         get {
             if(!this.HasProp("__LastSyncTime"))
-                this.__LastSyncTime := FILETIME(this.ptr + 72)
+                this.__LastSyncTime := FILETIME(72, this)
             return this.__LastSyncTime
         }
     }
@@ -268,12 +261,9 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
      * Pointer to a buffer that contains the header information. The buffer occupies the memory at the end of this structure.
      * @type {PWSTR}
      */
-    lpHeaderInfo{
-        get {
-            if(!this.HasProp("__lpHeaderInfo"))
-                this.__lpHeaderInfo := PWSTR(this.ptr + 80)
-            return this.__lpHeaderInfo
-        }
+    lpHeaderInfo {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -290,12 +280,9 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
      * Pointer to a string that contains the file name extension used to retrieve the data as a file. The string occupies the memory area at the end of this structure.
      * @type {PWSTR}
      */
-    lpszFileExtension{
-        get {
-            if(!this.HasProp("__lpszFileExtension"))
-                this.__lpszFileExtension := PWSTR(this.ptr + 96)
-            return this.__lpszFileExtension
-        }
+    lpszFileExtension {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**

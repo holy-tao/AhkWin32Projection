@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -19,7 +18,7 @@ class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct
     dot11SSID{
         get {
             if(!this.HasProp("__dot11SSID"))
-                this.__dot11SSID := DOT11_SSID(this.ptr + 0)
+                this.__dot11SSID := DOT11_SSID(0, this)
             return this.__dot11SSID
         }
     }
@@ -43,12 +42,9 @@ class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bIsPassPhrase{
-        get {
-            if(!this.HasProp("__bIsPassPhrase"))
-                this.__bIsPassPhrase := BOOL(this.ptr + 44)
-            return this.__bIsPassPhrase
-        }
+    bIsPassPhrase {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**

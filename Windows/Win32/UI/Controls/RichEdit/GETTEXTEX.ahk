@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information used in getting text from a rich edit control. This structure used with the EM_GETTEXTEX message.
@@ -56,12 +55,9 @@ class GETTEXTEX extends Win32Struct
      * The character used if a wide character cannot be represented in the specified code page. It is used only if the code page is <b>not</b> 1200 (Unicode). If this member is <b>NULL</b>, a system default value is used.
      * @type {PSTR}
      */
-    lpDefaultChar{
-        get {
-            if(!this.HasProp("__lpDefaultChar"))
-                this.__lpDefaultChar := PSTR(this.ptr + 16)
-            return this.__lpDefaultChar
-        }
+    lpDefaultChar {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

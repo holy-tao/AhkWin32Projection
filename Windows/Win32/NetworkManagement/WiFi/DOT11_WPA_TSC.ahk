@@ -35,7 +35,7 @@ class DOT11_WPA_TSC extends Win32Struct
     hOffload{
         get {
             if(!this.HasProp("__hOffload"))
-                this.__hOffload := HANDLE(this.ptr + 8)
+                this.__hOffload := HANDLE(8, this)
             return this.__hOffload
         }
     }
@@ -46,7 +46,7 @@ class DOT11_WPA_TSC extends Win32Struct
     dot11IV48Counter{
         get {
             if(!this.HasProp("__dot11IV48Counter"))
-                this.__dot11IV48Counter := DOT11_IV48_COUNTER(this.ptr + 16)
+                this.__dot11IV48Counter := DOT11_IV48_COUNTER(16, this)
             return this.__dot11IV48Counter
         }
     }

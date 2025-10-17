@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\XPF_MCE_FLAGS.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include .\XPF_MC_BANK_FLAGS.ahk
 #Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
 
@@ -45,7 +44,7 @@ class WHEA_XPF_MCE_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := XPF_MCE_FLAGS(this.ptr + 8)
+                this.__Flags := XPF_MCE_FLAGS(8, this)
             return this.__Flags
         }
     }

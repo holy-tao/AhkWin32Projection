@@ -4262,7 +4262,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_resultW(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ushort*", Referrals, "ptr", ServerControls, "ptr", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ushort*", Referrals, "ptr", ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4286,7 +4286,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_resultA(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "char*", Referrals, "ptr", ServerControls, "ptr", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "char*", Referrals, "ptr", ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4309,7 +4309,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_extended_resultA(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr", ResultData, "ptr", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr", ResultData, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4332,7 +4332,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_extended_resultW(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr", ResultData, "ptr", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr", ResultData, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4446,7 +4446,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_result(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr", Referrals, "ptr", ServerControls, "ptr", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr", Referrals, "ptr", ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4505,7 +4505,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_err2stringW(err) {
-        result := DllCall("WLDAP32.dll\ldap_err2stringW", "uint", err, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_err2stringW", "uint", err, "CDecl char*")
         return result
     }
 
@@ -4519,7 +4519,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_err2stringA(err) {
-        result := DllCall("WLDAP32.dll\ldap_err2stringA", "uint", err, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_err2stringA", "uint", err, "CDecl char*")
         return result
     }
 
@@ -4533,7 +4533,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_err2string(err) {
-        result := DllCall("WLDAP32.dll\ldap_err2string", "uint", err, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_err2string", "uint", err, "CDecl char*")
         return result
     }
 
@@ -4609,7 +4609,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attributeW(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_first_attributeW", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_first_attributeW", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl char*")
         return result
     }
 
@@ -4627,7 +4627,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attributeA(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_first_attributeA", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_first_attributeA", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl char*")
         return result
     }
 
@@ -4645,7 +4645,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attribute(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_first_attribute", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_first_attribute", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl char*")
         return result
     }
 
@@ -4663,7 +4663,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_next_attributeW(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_next_attributeW", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_next_attributeW", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl char*")
         return result
     }
 
@@ -4681,7 +4681,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_next_attributeA(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_next_attributeA", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_next_attributeA", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl char*")
         return result
     }
 
@@ -4699,7 +4699,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_next_attribute(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_next_attribute", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_next_attribute", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl char*")
         return result
     }
 
@@ -4946,7 +4946,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_get_dnW(ld, entry) {
-        result := DllCall("WLDAP32.dll\ldap_get_dnW", "ptr", ld, "ptr", entry, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_get_dnW", "ptr", ld, "ptr", entry, "CDecl char*")
         return result
     }
 
@@ -4962,7 +4962,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_get_dnA(ld, entry) {
-        result := DllCall("WLDAP32.dll\ldap_get_dnA", "ptr", ld, "ptr", entry, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_get_dnA", "ptr", ld, "ptr", entry, "CDecl char*")
         return result
     }
 
@@ -4978,7 +4978,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_get_dn(ld, entry) {
-        result := DllCall("WLDAP32.dll\ldap_get_dn", "ptr", ld, "ptr", entry, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_get_dn", "ptr", ld, "ptr", entry, "CDecl char*")
         return result
     }
 
@@ -5039,7 +5039,7 @@ class Ldap {
     static ldap_dn2ufnW(dn) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_dn2ufnW", "ptr", dn, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_dn2ufnW", "ptr", dn, "CDecl char*")
         return result
     }
 
@@ -5055,7 +5055,7 @@ class Ldap {
     static ldap_dn2ufnA(dn) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_dn2ufnA", "ptr", dn, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_dn2ufnA", "ptr", dn, "CDecl char*")
         return result
     }
 
@@ -5071,7 +5071,7 @@ class Ldap {
     static ldap_dn2ufn(dn) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_dn2ufn", "ptr", dn, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_dn2ufn", "ptr", dn, "CDecl char*")
         return result
     }
 
@@ -5458,7 +5458,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_encode_sort_controlW(ExternalHandle, SortKeys, Control, Criticality) {
-        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlW", "ptr", ExternalHandle, "ptr", SortKeys, "ptr", Control, "ptr", Criticality, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlW", "ptr", ExternalHandle, "ptr", SortKeys, "ptr", Control, "char", Criticality, "CDecl uint")
         return result
     }
 
@@ -5474,7 +5474,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_encode_sort_controlA(ExternalHandle, SortKeys, Control, Criticality) {
-        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlA", "ptr", ExternalHandle, "ptr", SortKeys, "ptr", Control, "ptr", Criticality, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlA", "ptr", ExternalHandle, "ptr", SortKeys, "ptr", Control, "char", Criticality, "CDecl uint")
         return result
     }
 
@@ -5921,7 +5921,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_stop_tls_s(ExternalHandle) {
-        result := DllCall("WLDAP32.dll\ldap_stop_tls_s", "ptr", ExternalHandle, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_stop_tls_s", "ptr", ExternalHandle, "CDecl char")
         return result
     }
 

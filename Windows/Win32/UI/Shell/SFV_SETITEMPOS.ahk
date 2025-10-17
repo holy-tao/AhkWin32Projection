@@ -34,7 +34,7 @@ class SFV_SETITEMPOS extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 8)
+                this.__pt := POINT(8, this)
             return this.__pt
         }
     }

@@ -19,7 +19,7 @@ class CLUSTER_SHARED_VOLUME_RENAME_INPUT extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME(this.ptr + 0)
+                this.__Base := CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME(0, this)
             return this.__Base
         }
     }
@@ -30,7 +30,7 @@ class CLUSTER_SHARED_VOLUME_RENAME_INPUT extends Win32Struct
     Base2{
         get {
             if(!this.HasProp("__Base2"))
-                this.__Base2 := CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME(this.ptr + 536)
+                this.__Base2 := CLUSTER_SHARED_VOLUME_RENAME_INPUT_NAME(536, this)
             return this.__Base2
         }
     }

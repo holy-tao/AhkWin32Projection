@@ -30,7 +30,7 @@ class IPSEC_SA_BUNDLE1 extends Win32Struct
     lifetime{
         get {
             if(!this.HasProp("__lifetime"))
-                this.__lifetime := IPSEC_SA_LIFETIME0(this.ptr + 8)
+                this.__lifetime := IPSEC_SA_LIFETIME0(8, this)
             return this.__lifetime
         }
     }

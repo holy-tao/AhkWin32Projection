@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -15,11 +14,8 @@ class SERVICE_INFO_0 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    svci0_name{
-        get {
-            if(!this.HasProp("__svci0_name"))
-                this.__svci0_name := PWSTR(this.ptr + 0)
-            return this.__svci0_name
-        }
+    svci0_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

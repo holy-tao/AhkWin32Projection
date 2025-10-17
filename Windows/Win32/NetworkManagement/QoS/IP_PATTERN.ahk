@@ -113,7 +113,7 @@ class IP_PATTERN extends Win32Struct
     S_un_ports{
         get {
             if(!this.HasProp("__S_un_ports"))
-                this.__S_un_ports := %this.__Class%._S_un_ports(this.ptr + 16)
+                this.__S_un_ports := %this.__Class%._S_un_ports(16, this)
             return this.__S_un_ports
         }
     }
@@ -124,7 +124,7 @@ class IP_PATTERN extends Win32Struct
     S_un_icmp{
         get {
             if(!this.HasProp("__S_un_icmp"))
-                this.__S_un_icmp := %this.__Class%._S_un_icmp(this.ptr + 16)
+                this.__S_un_icmp := %this.__Class%._S_un_icmp(16, this)
             return this.__S_un_icmp
         }
     }

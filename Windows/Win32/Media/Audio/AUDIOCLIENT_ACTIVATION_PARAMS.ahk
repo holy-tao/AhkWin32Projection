@@ -32,7 +32,7 @@ class AUDIOCLIENT_ACTIVATION_PARAMS extends Win32Struct
     ProcessLoopbackParams{
         get {
             if(!this.HasProp("__ProcessLoopbackParams"))
-                this.__ProcessLoopbackParams := AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS(this.ptr + 8)
+                this.__ProcessLoopbackParams := AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS(8, this)
             return this.__ProcessLoopbackParams
         }
     }

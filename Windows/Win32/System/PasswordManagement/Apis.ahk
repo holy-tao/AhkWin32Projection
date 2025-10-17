@@ -132,7 +132,7 @@ class PasswordManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         UserName := UserName is String ? StrPtr(UserName) : UserName
 
-        result := DllCall("ADVAPI32.dll\MSChapSrvChangePassword", "ptr", ServerName, "ptr", UserName, "ptr", LmOldPresent, "ptr", LmOldOwfPassword, "ptr", LmNewOwfPassword, "ptr", NtOldOwfPassword, "ptr", NtNewOwfPassword, "uint")
+        result := DllCall("ADVAPI32.dll\MSChapSrvChangePassword", "ptr", ServerName, "ptr", UserName, "char", LmOldPresent, "ptr", LmOldOwfPassword, "ptr", LmNewOwfPassword, "ptr", NtOldOwfPassword, "ptr", NtNewOwfPassword, "uint")
         return result
     }
 
@@ -252,7 +252,7 @@ class PasswordManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         UserName := UserName is String ? StrPtr(UserName) : UserName
 
-        result := DllCall("ADVAPI32.dll\MSChapSrvChangePassword2", "ptr", ServerName, "ptr", UserName, "ptr", NewPasswordEncryptedWithOldNt, "ptr", OldNtOwfPasswordEncryptedWithNewNt, "ptr", LmPresent, "ptr", NewPasswordEncryptedWithOldLm, "ptr", OldLmOwfPasswordEncryptedWithNewLmOrNt, "uint")
+        result := DllCall("ADVAPI32.dll\MSChapSrvChangePassword2", "ptr", ServerName, "ptr", UserName, "ptr", NewPasswordEncryptedWithOldNt, "ptr", OldNtOwfPasswordEncryptedWithNewNt, "char", LmPresent, "ptr", NewPasswordEncryptedWithOldLm, "ptr", OldLmOwfPasswordEncryptedWithNewLmOrNt, "uint")
         return result
     }
 

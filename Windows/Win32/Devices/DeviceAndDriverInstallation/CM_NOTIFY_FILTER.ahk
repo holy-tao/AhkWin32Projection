@@ -79,7 +79,7 @@ class CM_NOTIFY_FILTER extends Win32Struct
         hTarget{
             get {
                 if(!this.HasProp("__hTarget"))
-                    this.__hTarget := HANDLE(this.ptr + 0)
+                    this.__hTarget := HANDLE(0, this)
                 return this.__hTarget
             }
         }
@@ -106,7 +106,7 @@ class CM_NOTIFY_FILTER extends Win32Struct
     DeviceInterface{
         get {
             if(!this.HasProp("__DeviceInterface"))
-                this.__DeviceInterface := %this.__Class%._DeviceInterface(this.ptr + 16)
+                this.__DeviceInterface := %this.__Class%._DeviceInterface(16, this)
             return this.__DeviceInterface
         }
     }
@@ -117,7 +117,7 @@ class CM_NOTIFY_FILTER extends Win32Struct
     DeviceHandle{
         get {
             if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := %this.__Class%._DeviceHandle(this.ptr + 16)
+                this.__DeviceHandle := %this.__Class%._DeviceHandle(16, this)
             return this.__DeviceHandle
         }
     }
@@ -128,17 +128,13 @@ class CM_NOTIFY_FILTER extends Win32Struct
     DeviceInstance{
         get {
             if(!this.HasProp("__DeviceInstance"))
-                this.__DeviceInstance := %this.__Class%._DeviceInstance(this.ptr + 16)
+                this.__DeviceInstance := %this.__Class%._DeviceInstance(16, this)
             return this.__DeviceInstance
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 416
     }
 }

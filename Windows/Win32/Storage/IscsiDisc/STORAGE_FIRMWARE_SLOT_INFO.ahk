@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
@@ -23,12 +22,9 @@ class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    ReadOnly{
-        get {
-            if(!this.HasProp("__ReadOnly"))
-                this.__ReadOnly := BOOLEAN(this.ptr + 1)
-            return this.__ReadOnly
-        }
+    ReadOnly {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**

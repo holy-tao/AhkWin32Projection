@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Do not use. Structure passed to Import that gives information about importing .wab files.
@@ -44,7 +43,7 @@ class WABIMPORTPARAM extends Win32Struct
     hWnd{
         get {
             if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 16)
+                this.__hWnd := HWND(16, this)
             return this.__hWnd
         }
     }
@@ -66,20 +65,13 @@ class WABIMPORTPARAM extends Win32Struct
      * Value of type <b>LPSTR</b> that specifies the filename to import, or <b>NULL</b> to cause a FileOpen dialog box to open.
      * @type {PSTR}
      */
-    lpszFileName{
-        get {
-            if(!this.HasProp("__lpszFileName"))
-                this.__lpszFileName := PSTR(this.ptr + 32)
-            return this.__lpszFileName
-        }
+    lpszFileName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

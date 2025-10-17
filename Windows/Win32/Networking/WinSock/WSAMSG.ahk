@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\WSABUF.ahk
 
 /**
@@ -85,7 +84,7 @@ class WSAMSG extends Win32Struct
     Control{
         get {
             if(!this.HasProp("__Control"))
-                this.__Control := WSABUF(this.ptr + 32)
+                this.__Control := WSABUF(32, this)
             return this.__Control
         }
     }

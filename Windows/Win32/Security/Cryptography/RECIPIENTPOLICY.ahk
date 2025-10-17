@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\ENDPOINTADDRESS.ahk
 #Include .\CLAIMLIST.ahk
@@ -21,7 +20,7 @@ class RECIPIENTPOLICY extends Win32Struct
     recipient{
         get {
             if(!this.HasProp("__recipient"))
-                this.__recipient := ENDPOINTADDRESS(this.ptr + 0)
+                this.__recipient := ENDPOINTADDRESS(0, this)
             return this.__recipient
         }
     }
@@ -32,7 +31,7 @@ class RECIPIENTPOLICY extends Win32Struct
     issuer{
         get {
             if(!this.HasProp("__issuer"))
-                this.__issuer := ENDPOINTADDRESS(this.ptr + 32)
+                this.__issuer := ENDPOINTADDRESS(32, this)
             return this.__issuer
         }
     }
@@ -40,12 +39,9 @@ class RECIPIENTPOLICY extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    tokenType{
-        get {
-            if(!this.HasProp("__tokenType"))
-                this.__tokenType := PWSTR(this.ptr + 64)
-            return this.__tokenType
-        }
+    tokenType {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -54,7 +50,7 @@ class RECIPIENTPOLICY extends Win32Struct
     requiredClaims{
         get {
             if(!this.HasProp("__requiredClaims"))
-                this.__requiredClaims := CLAIMLIST(this.ptr + 72)
+                this.__requiredClaims := CLAIMLIST(72, this)
             return this.__requiredClaims
         }
     }
@@ -65,7 +61,7 @@ class RECIPIENTPOLICY extends Win32Struct
     optionalClaims{
         get {
             if(!this.HasProp("__optionalClaims"))
-                this.__optionalClaims := CLAIMLIST(this.ptr + 88)
+                this.__optionalClaims := CLAIMLIST(88, this)
             return this.__optionalClaims
         }
     }
@@ -73,12 +69,9 @@ class RECIPIENTPOLICY extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    privacyUrl{
-        get {
-            if(!this.HasProp("__privacyUrl"))
-                this.__privacyUrl := PWSTR(this.ptr + 104)
-            return this.__privacyUrl
-        }
+    privacyUrl {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**

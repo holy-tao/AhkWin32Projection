@@ -1,11 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\BCRYPT_KEY_HANDLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information shared between the PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY, PFN_CMSG_EXPORT_KEY_TRANS, PFN_CMSG_EXPORT_KEY_AGREE, and PFN_CMSG_EXPORT_MAIL_LIST functions.
@@ -72,7 +70,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
     hCryptProv{
         get {
             if(!this.HasProp("__hCryptProv"))
-                this.__hCryptProv := HCRYPTPROV_LEGACY(this.ptr + 8)
+                this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
             return this.__hCryptProv
         }
     }
@@ -84,7 +82,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
     ContentEncryptionAlgorithm{
         get {
             if(!this.HasProp("__ContentEncryptionAlgorithm"))
-                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 16)
+                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
             return this.__ContentEncryptionAlgorithm
         }
     }
@@ -191,7 +189,7 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
     hCNGContentEncryptKey{
         get {
             if(!this.HasProp("__hCNGContentEncryptKey"))
-                this.__hCNGContentEncryptKey := BCRYPT_KEY_HANDLE(this.ptr + 88)
+                this.__hCNGContentEncryptKey := BCRYPT_KEY_HANDLE(88, this)
             return this.__hCNGContentEncryptKey
         }
     }
@@ -253,12 +251,9 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
      * If the <b>fCNG</b> member is <b>TRUE</b>, the  <b>CMSG_OID_CNG_GEN_CONTENT_ENCRYPT_KEY_FUNC</b> function is called to update the <b>hCNGContentEncryptKey</b> and <b>cbContentEncryptKey</b> members, and the <b>pbCNGContentEncryptKeyObject</b> and <b>pbContentEncryptKey</b> members must be allocated by the <b>pfnAlloc</b> member. Free and release the content encryption key by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgclose">CryptMsgClose</a> function.
      * @type {BOOL}
      */
-    fCNG{
-        get {
-            if(!this.HasProp("__fCNG"))
-                this.__fCNG := BOOL(this.ptr + 100)
-            return this.__fCNG
-        }
+    fCNG {
+        get => NumGet(this, 100, "int")
+        set => NumPut("int", value, this, 100)
     }
 
     /**
@@ -288,12 +283,8 @@ class CMSG_CONTENT_ENCRYPT_INFO extends Win32Struct
         set => NumPut("uint", value, this, 120)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 128
     }
 }

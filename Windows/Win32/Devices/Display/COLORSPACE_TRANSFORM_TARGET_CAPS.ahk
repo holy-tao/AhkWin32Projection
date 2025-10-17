@@ -28,7 +28,7 @@ class COLORSPACE_TRANSFORM_TARGET_CAPS extends Win32Struct
     LookupTable1DDegammaCap{
         get {
             if(!this.HasProp("__LookupTable1DDegammaCap"))
-                this.__LookupTable1DDegammaCap := COLORSPACE_TRANSFORM_1DLUT_CAP(this.ptr + 8)
+                this.__LookupTable1DDegammaCap := COLORSPACE_TRANSFORM_1DLUT_CAP(8, this)
             return this.__LookupTable1DDegammaCap
         }
     }
@@ -39,7 +39,7 @@ class COLORSPACE_TRANSFORM_TARGET_CAPS extends Win32Struct
     ColorMatrix3x3Cap{
         get {
             if(!this.HasProp("__ColorMatrix3x3Cap"))
-                this.__ColorMatrix3x3Cap := COLORSPACE_TRANSFORM_MATRIX_CAP(this.ptr + 32)
+                this.__ColorMatrix3x3Cap := COLORSPACE_TRANSFORM_MATRIX_CAP(32, this)
             return this.__ColorMatrix3x3Cap
         }
     }
@@ -50,7 +50,7 @@ class COLORSPACE_TRANSFORM_TARGET_CAPS extends Win32Struct
     LookupTable1DRegammaCap{
         get {
             if(!this.HasProp("__LookupTable1DRegammaCap"))
-                this.__LookupTable1DRegammaCap := COLORSPACE_TRANSFORM_1DLUT_CAP(this.ptr + 56)
+                this.__LookupTable1DRegammaCap := COLORSPACE_TRANSFORM_1DLUT_CAP(56, this)
             return this.__LookupTable1DRegammaCap
         }
     }

@@ -75,7 +75,7 @@ class ICDRAWSUGGEST extends Win32Struct
     hicDecompressor{
         get {
             if(!this.HasProp("__hicDecompressor"))
-                this.__hicDecompressor := HIC(this.ptr + 32)
+                this.__hicDecompressor := HIC(32, this)
             return this.__hicDecompressor
         }
     }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\USB_HUB_CAPABILITIES.ahk
 #Include .\USB_DEVICE_STATE.ahk
 #Include .\USB_HUB_PORT_INFORMATION.ahk
@@ -22,7 +21,7 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     HubDescriptor{
         get {
             if(!this.HasProp("__HubDescriptor"))
-                this.__HubDescriptor := USB_HUB_DESCRIPTOR(this.ptr + 0)
+                this.__HubDescriptor := USB_HUB_DESCRIPTOR(0, this)
             return this.__HubDescriptor
         }
     }
@@ -46,23 +45,17 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    HubIsSelfPowered{
-        get {
-            if(!this.HasProp("__HubIsSelfPowered"))
-                this.__HubIsSelfPowered := BOOLEAN(this.ptr + 78)
-            return this.__HubIsSelfPowered
-        }
+    HubIsSelfPowered {
+        get => NumGet(this, 78, "char")
+        set => NumPut("char", value, this, 78)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    HubIsRootHub{
-        get {
-            if(!this.HasProp("__HubIsRootHub"))
-                this.__HubIsRootHub := BOOLEAN(this.ptr + 79)
-            return this.__HubIsRootHub
-        }
+    HubIsRootHub {
+        get => NumGet(this, 79, "char")
+        set => NumPut("char", value, this, 79)
     }
 
     /**
@@ -71,7 +64,7 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     HubCapabilities{
         get {
             if(!this.HasProp("__HubCapabilities"))
-                this.__HubCapabilities := USB_HUB_CAPABILITIES(this.ptr + 80)
+                this.__HubCapabilities := USB_HUB_CAPABILITIES(80, this)
             return this.__HubCapabilities
         }
     }

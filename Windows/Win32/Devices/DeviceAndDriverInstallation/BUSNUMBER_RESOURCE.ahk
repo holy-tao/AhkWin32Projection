@@ -22,7 +22,7 @@ class BUSNUMBER_RESOURCE extends Win32Struct
     BusNumber_Header{
         get {
             if(!this.HasProp("__BusNumber_Header"))
-                this.__BusNumber_Header := BUSNUMBER_DES(this.ptr + 0)
+                this.__BusNumber_Header := BUSNUMBER_DES(0, this)
             return this.__BusNumber_Header
         }
     }

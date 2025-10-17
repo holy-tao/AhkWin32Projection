@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include Common\DXGI_SAMPLE_DESC.ahk
 
 /**
@@ -95,12 +94,9 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
      *       value set in the <b>SwapEffect</b> member).
      * @type {BOOL}
      */
-    Stereo{
-        get {
-            if(!this.HasProp("__Stereo"))
-                this.__Stereo := BOOL(this.ptr + 12)
-            return this.__Stereo
-        }
+    Stereo {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -112,7 +108,7 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(this.ptr + 16)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(16, this)
             return this.__SampleDesc
         }
     }

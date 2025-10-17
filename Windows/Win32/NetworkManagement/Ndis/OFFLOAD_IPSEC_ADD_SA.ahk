@@ -119,7 +119,7 @@ class OFFLOAD_IPSEC_ADD_SA extends Win32Struct
     OffloadHandle{
         get {
             if(!this.HasProp("__OffloadHandle"))
-                this.__OffloadHandle := HANDLE(this.ptr + 64)
+                this.__OffloadHandle := HANDLE(64, this)
             return this.__OffloadHandle
         }
     }

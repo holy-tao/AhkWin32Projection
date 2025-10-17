@@ -35,7 +35,7 @@ class DXVA_ProcAmpControlQueryRange extends Win32Struct
     VideoDesc{
         get {
             if(!this.HasProp("__VideoDesc"))
-                this.__VideoDesc := DXVA_VideoDesc(this.ptr + 8)
+                this.__VideoDesc := DXVA_VideoDesc(8, this)
             return this.__VideoDesc
         }
     }

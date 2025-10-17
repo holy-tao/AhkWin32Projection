@@ -21,7 +21,7 @@ class CERT_PAIR extends Win32Struct
     Forward{
         get {
             if(!this.HasProp("__Forward"))
-                this.__Forward := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__Forward := CRYPT_INTEGER_BLOB(0, this)
             return this.__Forward
         }
     }
@@ -33,7 +33,7 @@ class CERT_PAIR extends Win32Struct
     Reverse{
         get {
             if(!this.HasProp("__Reverse"))
-                this.__Reverse := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__Reverse := CRYPT_INTEGER_BLOB(16, this)
             return this.__Reverse
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about text that the word breaker will process.
@@ -49,12 +48,9 @@ class TEXT_SOURCE extends Win32Struct
      * Pointer to a buffer that contains text from the source document for the word breaker to parse.
      * @type {PWSTR}
      */
-    awcBuffer{
-        get {
-            if(!this.HasProp("__awcBuffer"))
-                this.__awcBuffer := PWSTR(this.ptr + 8)
-            return this.__awcBuffer
-        }
+    awcBuffer {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

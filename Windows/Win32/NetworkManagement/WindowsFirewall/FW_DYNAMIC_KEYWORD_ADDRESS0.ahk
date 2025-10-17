@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
@@ -23,12 +22,9 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    keyword{
-        get {
-            if(!this.HasProp("__keyword"))
-                this.__keyword := PWSTR(this.ptr + 8)
-            return this.__keyword
-        }
+    keyword {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -42,11 +38,8 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    addresses{
-        get {
-            if(!this.HasProp("__addresses"))
-                this.__addresses := PWSTR(this.ptr + 24)
-            return this.__addresses
-        }
+    addresses {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

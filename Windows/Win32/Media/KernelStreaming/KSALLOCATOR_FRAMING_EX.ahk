@@ -37,7 +37,7 @@ class KSALLOCATOR_FRAMING_EX extends Win32Struct
     OutputCompression{
         get {
             if(!this.HasProp("__OutputCompression"))
-                this.__OutputCompression := KS_COMPRESSION(this.ptr + 8)
+                this.__OutputCompression := KS_COMPRESSION(8, this)
             return this.__OutputCompression
         }
     }

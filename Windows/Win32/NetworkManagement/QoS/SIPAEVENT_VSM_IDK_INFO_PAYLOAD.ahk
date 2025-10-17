@@ -26,7 +26,7 @@ class SIPAEVENT_VSM_IDK_INFO_PAYLOAD extends Win32Struct
     RsaKeyInfo{
         get {
             if(!this.HasProp("__RsaKeyInfo"))
-                this.__RsaKeyInfo := SIPAEVENT_VSM_IDK_RSA_INFO(this.ptr + 8)
+                this.__RsaKeyInfo := SIPAEVENT_VSM_IDK_RSA_INFO(8, this)
             return this.__RsaKeyInfo
         }
     }

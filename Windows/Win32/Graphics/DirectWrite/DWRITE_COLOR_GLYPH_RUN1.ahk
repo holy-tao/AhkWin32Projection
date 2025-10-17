@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\DWRITE_GLYPH_RUN.ahk
 #Include .\DWRITE_COLOR_F.ahk
 #Include .\DWRITE_COLOR_GLYPH_RUN.ahk
@@ -23,7 +22,7 @@ class DWRITE_COLOR_GLYPH_RUN1 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := DWRITE_COLOR_GLYPH_RUN(this.ptr + 0)
+                this.__Base := DWRITE_COLOR_GLYPH_RUN(0, this)
             return this.__Base
         }
     }

@@ -74,7 +74,7 @@ class WINBIO_IDENTITY extends Win32Struct
     AccountSid{
         get {
             if(!this.HasProp("__AccountSid"))
-                this.__AccountSid := %this.__Class%._AccountSid(this.ptr + 8)
+                this.__AccountSid := %this.__Class%._AccountSid(8, this)
             return this.__AccountSid
         }
     }

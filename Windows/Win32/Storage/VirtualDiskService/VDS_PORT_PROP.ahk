@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of a port on a controller object.
@@ -34,12 +33,9 @@ class VDS_PORT_PROP extends Win32Struct
      * The name of the port; a zero-terminated, human-readable string.
      * @type {PWSTR}
      */
-    pwszFriendlyName{
-        get {
-            if(!this.HasProp("__pwszFriendlyName"))
-                this.__pwszFriendlyName := PWSTR(this.ptr + 8)
-            return this.__pwszFriendlyName
-        }
+    pwszFriendlyName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -49,12 +45,9 @@ class VDS_PORT_PROP extends Win32Struct
      * For Fibre Channel networks, this member should be the WWN for the port, formatted as a hexadecimal string (16 characters long), most significant byte first. For example, a WWN address of 01:23:45:67:89:AB:CD:EF should be represented as "0123456789ABCDEF".
      * @type {PWSTR}
      */
-    pwszIdentification{
-        get {
-            if(!this.HasProp("__pwszIdentification"))
-                this.__pwszIdentification := PWSTR(this.ptr + 16)
-            return this.__pwszIdentification
-        }
+    pwszIdentification {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

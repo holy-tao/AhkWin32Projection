@@ -50,7 +50,7 @@ class STI_DIAG extends Win32Struct
     sErrorInfo{
         get {
             if(!this.HasProp("__sErrorInfo"))
-                this.__sErrorInfo := _ERROR_INFOW(this.ptr + 16)
+                this.__sErrorInfo := _ERROR_INFOW(16, this)
             return this.__sErrorInfo
         }
     }

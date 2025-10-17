@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -15,12 +14,9 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    MismatchingOutputDimensionsSupported{
-        get {
-            if(!this.HasProp("__MismatchingOutputDimensionsSupported"))
-                this.__MismatchingOutputDimensionsSupported := BOOL(this.ptr + 0)
-            return this.__MismatchingOutputDimensionsSupported
-        }
+    MismatchingOutputDimensionsSupported {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -34,45 +30,33 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    PointSamplingAddressesNeverRoundUp{
-        get {
-            if(!this.HasProp("__PointSamplingAddressesNeverRoundUp"))
-                this.__PointSamplingAddressesNeverRoundUp := BOOL(this.ptr + 8)
-            return this.__PointSamplingAddressesNeverRoundUp
-        }
+    PointSamplingAddressesNeverRoundUp {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {BOOL}
      */
-    RasterizerDesc2Supported{
-        get {
-            if(!this.HasProp("__RasterizerDesc2Supported"))
-                this.__RasterizerDesc2Supported := BOOL(this.ptr + 12)
-            return this.__RasterizerDesc2Supported
-        }
+    RasterizerDesc2Supported {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
      * @type {BOOL}
      */
-    NarrowQuadrilateralLinesSupported{
-        get {
-            if(!this.HasProp("__NarrowQuadrilateralLinesSupported"))
-                this.__NarrowQuadrilateralLinesSupported := BOOL(this.ptr + 16)
-            return this.__NarrowQuadrilateralLinesSupported
-        }
+    NarrowQuadrilateralLinesSupported {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * @type {BOOL}
      */
-    AnisoFilterWithPointMipSupported{
-        get {
-            if(!this.HasProp("__AnisoFilterWithPointMipSupported"))
-                this.__AnisoFilterWithPointMipSupported := BOOL(this.ptr + 20)
-            return this.__AnisoFilterWithPointMipSupported
-        }
+    AnisoFilterWithPointMipSupported {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -102,11 +86,8 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    ComputeOnlyCustomHeapSupported{
-        get {
-            if(!this.HasProp("__ComputeOnlyCustomHeapSupported"))
-                this.__ComputeOnlyCustomHeapSupported := BOOL(this.ptr + 36)
-            return this.__ComputeOnlyCustomHeapSupported
-        }
+    ComputeOnlyCustomHeapSupported {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 }

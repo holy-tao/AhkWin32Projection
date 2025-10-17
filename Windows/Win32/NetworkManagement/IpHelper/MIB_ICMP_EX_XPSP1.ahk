@@ -18,7 +18,7 @@ class MIB_ICMP_EX_XPSP1 extends Win32Struct
     icmpInStats{
         get {
             if(!this.HasProp("__icmpInStats"))
-                this.__icmpInStats := MIBICMPSTATS_EX_XPSP1(this.ptr + 0)
+                this.__icmpInStats := MIBICMPSTATS_EX_XPSP1(0, this)
             return this.__icmpInStats
         }
     }
@@ -29,7 +29,7 @@ class MIB_ICMP_EX_XPSP1 extends Win32Struct
     icmpOutStats{
         get {
             if(!this.HasProp("__icmpOutStats"))
-                this.__icmpOutStats := MIBICMPSTATS_EX_XPSP1(this.ptr + 1032)
+                this.__icmpOutStats := MIBICMPSTATS_EX_XPSP1(1032, this)
             return this.__icmpOutStats
         }
     }

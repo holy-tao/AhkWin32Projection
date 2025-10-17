@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\CHARRANGE.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * A range of text from a rich edit control. This structure is filled in by the EM_GETTEXTRANGE message. The buffer pointed to by the lpstrText member must be large enough to receive all characters and the terminating null character.
@@ -30,7 +29,7 @@ class TEXTRANGEA extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 0)
+                this.__chrg := CHARRANGE(0, this)
             return this.__chrg
         }
     }
@@ -41,11 +40,8 @@ class TEXTRANGEA extends Win32Struct
      * The text.
      * @type {PSTR}
      */
-    lpstrText{
-        get {
-            if(!this.HasProp("__lpstrText"))
-                this.__lpstrText := PSTR(this.ptr + 8)
-            return this.__lpstrText
-        }
+    lpstrText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

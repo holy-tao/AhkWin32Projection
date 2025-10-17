@@ -172,7 +172,7 @@ class TASK_TRIGGER extends Win32Struct
     Type{
         get {
             if(!this.HasProp("__Type"))
-                this.__Type := TRIGGER_TYPE_UNION(this.ptr + 40)
+                this.__Type := TRIGGER_TYPE_UNION(40, this)
             return this.__Type
         }
     }

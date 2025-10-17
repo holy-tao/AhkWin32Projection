@@ -22,7 +22,7 @@ class DMA_RESOURCE extends Win32Struct
     DMA_Header{
         get {
             if(!this.HasProp("__DMA_Header"))
-                this.__DMA_Header := DMA_DES(this.ptr + 0)
+                this.__DMA_Header := DMA_DES(0, this)
             return this.__DMA_Header
         }
     }

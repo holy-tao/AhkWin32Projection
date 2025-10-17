@@ -38,7 +38,7 @@ class CERT_NAME_VALUE extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Value := CRYPT_INTEGER_BLOB(8, this)
             return this.__Value
         }
     }

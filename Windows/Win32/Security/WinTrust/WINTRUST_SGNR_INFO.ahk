@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used when calling WinVerifyTrust to verify a CMSG_SIGNER_INFO structure.
@@ -27,12 +26,9 @@ class WINTRUST_SGNR_INFO extends Win32Struct
      * String with the name representing the signer to be checked.
      * @type {PWSTR}
      */
-    pcwszDisplayName{
-        get {
-            if(!this.HasProp("__pcwszDisplayName"))
-                this.__pcwszDisplayName := PWSTR(this.ptr + 8)
-            return this.__pcwszDisplayName
-        }
+    pcwszDisplayName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the credentials used for authentication.
@@ -25,23 +24,17 @@ class WSMAN_USERNAME_PASSWORD_CREDS extends Win32Struct
      * Defines the user name for a local or domain account. It cannot be <b>NULL</b>.
      * @type {PWSTR}
      */
-    username{
-        get {
-            if(!this.HasProp("__username"))
-                this.__username := PWSTR(this.ptr + 0)
-            return this.__username
-        }
+    username {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Defines the password for a local or domain account. It cannot be <b>NULL</b>.
      * @type {PWSTR}
      */
-    password{
-        get {
-            if(!this.HasProp("__password"))
-                this.__password := PWSTR(this.ptr + 8)
-            return this.__password
-        }
+    password {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

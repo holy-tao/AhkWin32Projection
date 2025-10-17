@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -16,23 +15,17 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszSourceUrlName{
-        get {
-            if(!this.HasProp("__pwszSourceUrlName"))
-                this.__pwszSourceUrlName := PWSTR(this.ptr + 0)
-            return this.__pwszSourceUrlName
-        }
+    pwszSourceUrlName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszLocalFileName{
-        get {
-            if(!this.HasProp("__pwszLocalFileName"))
-                this.__pwszLocalFileName := PWSTR(this.ptr + 8)
-            return this.__pwszLocalFileName
-        }
+    pwszLocalFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -81,7 +74,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     ftLastModifiedTime{
         get {
             if(!this.HasProp("__ftLastModifiedTime"))
-                this.__ftLastModifiedTime := FILETIME(this.ptr + 40)
+                this.__ftLastModifiedTime := FILETIME(40, this)
             return this.__ftLastModifiedTime
         }
     }
@@ -92,7 +85,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     ftExpireTime{
         get {
             if(!this.HasProp("__ftExpireTime"))
-                this.__ftExpireTime := FILETIME(this.ptr + 48)
+                this.__ftExpireTime := FILETIME(48, this)
             return this.__ftExpireTime
         }
     }
@@ -103,7 +96,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(this.ptr + 56)
+                this.__ftLastAccessTime := FILETIME(56, this)
             return this.__ftLastAccessTime
         }
     }
@@ -114,7 +107,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     ftLastSyncTime{
         get {
             if(!this.HasProp("__ftLastSyncTime"))
-                this.__ftLastSyncTime := FILETIME(this.ptr + 64)
+                this.__ftLastSyncTime := FILETIME(64, this)
             return this.__ftLastSyncTime
         }
     }

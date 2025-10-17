@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -23,7 +22,7 @@ class NETLOGON_LOGON_IDENTITY_INFO extends Win32Struct
     LogonDomainName{
         get {
             if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__LogonDomainName := LSA_UNICODE_STRING(0, this)
             return this.__LogonDomainName
         }
     }
@@ -76,7 +75,7 @@ class NETLOGON_LOGON_IDENTITY_INFO extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(this.ptr + 32)
+                this.__UserName := LSA_UNICODE_STRING(32, this)
             return this.__UserName
         }
     }
@@ -88,7 +87,7 @@ class NETLOGON_LOGON_IDENTITY_INFO extends Win32Struct
     Workstation{
         get {
             if(!this.HasProp("__Workstation"))
-                this.__Workstation := LSA_UNICODE_STRING(this.ptr + 48)
+                this.__Workstation := LSA_UNICODE_STRING(48, this)
             return this.__Workstation
         }
     }

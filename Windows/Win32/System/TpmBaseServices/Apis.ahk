@@ -1212,7 +1212,7 @@ class TpmBaseServices {
      * @returns {BOOL} 
      */
     static Tbsi_Is_Tpm_Present() {
-        result := DllCall("tbs.dll\Tbsi_Is_Tpm_Present", "ptr")
+        result := DllCall("tbs.dll\Tbsi_Is_Tpm_Present", "int")
         return result
     }
 

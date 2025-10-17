@@ -1181,7 +1181,7 @@ class AddressBook {
      * @returns {String} Nothing - always returns an empty string
      */
     static EnableIdleRoutine(ftg, fEnable) {
-        DllCall("MAPI32.dll\EnableIdleRoutine", "ptr", ftg, "ptr", fEnable)
+        DllCall("MAPI32.dll\EnableIdleRoutine", "ptr", ftg, "int", fEnable)
     }
 
     /**
@@ -1256,7 +1256,7 @@ class AddressBook {
      * @returns {BOOL} 
      */
     static FEqualNames(lpName1, lpName2) {
-        result := DllCall("MAPI32.dll\FEqualNames", "ptr", lpName1, "ptr", lpName2, "ptr")
+        result := DllCall("MAPI32.dll\FEqualNames", "ptr", lpName1, "ptr", lpName2, "int")
         return result
     }
 
@@ -1268,7 +1268,7 @@ class AddressBook {
      * @returns {BOOL} 
      */
     static FPropContainsProp(lpSPropValueDst, lpSPropValueSrc, ulFuzzyLevel) {
-        result := DllCall("MAPI32.dll\FPropContainsProp", "ptr", lpSPropValueDst, "ptr", lpSPropValueSrc, "uint", ulFuzzyLevel, "ptr")
+        result := DllCall("MAPI32.dll\FPropContainsProp", "ptr", lpSPropValueDst, "ptr", lpSPropValueSrc, "uint", ulFuzzyLevel, "int")
         return result
     }
 
@@ -1280,7 +1280,7 @@ class AddressBook {
      * @returns {BOOL} 
      */
     static FPropCompareProp(lpSPropValue1, ulRelOp, lpSPropValue2) {
-        result := DllCall("MAPI32.dll\FPropCompareProp", "ptr", lpSPropValue1, "uint", ulRelOp, "ptr", lpSPropValue2, "ptr")
+        result := DllCall("MAPI32.dll\FPropCompareProp", "ptr", lpSPropValue1, "uint", ulRelOp, "ptr", lpSPropValue2, "int")
         return result
     }
 
@@ -1553,7 +1553,7 @@ class AddressBook {
      * @returns {BOOL} 
      */
     static FPropExists(lpMapiProp, ulPropTag) {
-        result := DllCall("MAPI32.dll\FPropExists", "ptr", lpMapiProp, "uint", ulPropTag, "ptr")
+        result := DllCall("MAPI32.dll\FPropExists", "ptr", lpMapiProp, "uint", ulPropTag, "int")
         return result
     }
 

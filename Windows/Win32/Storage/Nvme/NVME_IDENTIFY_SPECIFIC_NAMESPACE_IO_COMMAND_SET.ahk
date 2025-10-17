@@ -93,7 +93,7 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
     ZOC{
         get {
             if(!this.HasProp("__ZOC"))
-                this.__ZOC := %this.__Class%._ZOC(this.ptr + 0)
+                this.__ZOC := %this.__Class%._ZOC(0, this)
             return this.__ZOC
         }
     }
@@ -104,7 +104,7 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
     OZCS{
         get {
             if(!this.HasProp("__OZCS"))
-                this.__OZCS := %this.__Class%._OZCS(this.ptr + 2)
+                this.__OZCS := %this.__Class%._OZCS(2, this)
             return this.__OZCS
         }
     }

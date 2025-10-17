@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -63,12 +62,9 @@ class PROFILEINFOA extends Win32Struct
      * A pointer to the name of the user. This member is used as the base name of the directory in which to store a new profile.
      * @type {PSTR}
      */
-    lpUserName{
-        get {
-            if(!this.HasProp("__lpUserName"))
-                this.__lpUserName := PSTR(this.ptr + 8)
-            return this.__lpUserName
-        }
+    lpUserName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -77,12 +73,9 @@ class PROFILEINFOA extends Win32Struct
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb776897(v=vs.85)">roaming user profile</a> path. If the user does not have a roaming profile, this member can be <b>NULL</b>. To retrieve the user's roaming profile path, call the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> function, specifying information level 3 or 4. For more information, see Remarks.
      * @type {PSTR}
      */
-    lpProfilePath{
-        get {
-            if(!this.HasProp("__lpProfilePath"))
-                this.__lpProfilePath := PSTR(this.ptr + 16)
-            return this.__lpProfilePath
-        }
+    lpProfilePath {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -91,12 +84,9 @@ class PROFILEINFOA extends Win32Struct
      * A pointer to the default user profile path. This member can be <b>NULL</b>.
      * @type {PSTR}
      */
-    lpDefaultPath{
-        get {
-            if(!this.HasProp("__lpDefaultPath"))
-                this.__lpDefaultPath := PSTR(this.ptr + 24)
-            return this.__lpDefaultPath
-        }
+    lpDefaultPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -105,12 +95,9 @@ class PROFILEINFOA extends Win32Struct
      * A pointer to the name of the validating domain controller, in NetBIOS format.
      * @type {PSTR}
      */
-    lpServerName{
-        get {
-            if(!this.HasProp("__lpServerName"))
-                this.__lpServerName := PSTR(this.ptr + 32)
-            return this.__lpServerName
-        }
+    lpServerName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -119,12 +106,9 @@ class PROFILEINFOA extends Win32Struct
      * Not used, set to <b>NULL</b>.
      * @type {PSTR}
      */
-    lpPolicyPath{
-        get {
-            if(!this.HasProp("__lpPolicyPath"))
-                this.__lpPolicyPath := PSTR(this.ptr + 40)
-            return this.__lpPolicyPath
-        }
+    lpPolicyPath {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -136,7 +120,7 @@ class PROFILEINFOA extends Win32Struct
     hProfile{
         get {
             if(!this.HasProp("__hProfile"))
-                this.__hProfile := HANDLE(this.ptr + 48)
+                this.__hProfile := HANDLE(48, this)
             return this.__hProfile
         }
     }

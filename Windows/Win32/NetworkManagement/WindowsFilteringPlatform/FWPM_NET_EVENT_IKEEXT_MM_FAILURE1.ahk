@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information that describes an IKE/AuthIP Main Mode (MM) failure.
@@ -118,24 +117,18 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE1 extends Win32Struct
      * Name of the MM local security principal.
      * @type {PWSTR}
      */
-    localPrincipalNameForAuth{
-        get {
-            if(!this.HasProp("__localPrincipalNameForAuth"))
-                this.__localPrincipalNameForAuth := PWSTR(this.ptr + 64)
-            return this.__localPrincipalNameForAuth
-        }
+    localPrincipalNameForAuth {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * Name of the MM remote security principal.
      * @type {PWSTR}
      */
-    remotePrincipalNameForAuth{
-        get {
-            if(!this.HasProp("__remotePrincipalNameForAuth"))
-                this.__remotePrincipalNameForAuth := PWSTR(this.ptr + 72)
-            return this.__remotePrincipalNameForAuth
-        }
+    remotePrincipalNameForAuth {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

@@ -53,7 +53,7 @@ class DDHALINFO extends Win32Struct
     vmiData{
         get {
             if(!this.HasProp("__vmiData"))
-                this.__vmiData := VIDMEMINFO(this.ptr + 32)
+                this.__vmiData := VIDMEMINFO(32, this)
             return this.__vmiData
         }
     }
@@ -64,7 +64,7 @@ class DDHALINFO extends Win32Struct
     ddCaps{
         get {
             if(!this.HasProp("__ddCaps"))
-                this.__ddCaps := DDCORECAPS(this.ptr + 120)
+                this.__ddCaps := DDCORECAPS(120, this)
             return this.__ddCaps
         }
     }

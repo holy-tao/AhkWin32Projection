@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains status information about Certificate Management Messages over CMS.
@@ -111,12 +110,9 @@ class CMC_STATUS_INFO extends Win32Struct
      * Optional string text indicating message status.
      * @type {PWSTR}
      */
-    pwszStatusString{
-        get {
-            if(!this.HasProp("__pwszStatusString"))
-                this.__pwszStatusString := PWSTR(this.ptr + 16)
-            return this.__pwszStatusString
-        }
+    pwszStatusString {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

@@ -19,7 +19,7 @@ class SubsystemForLinux {
     static WslIsDistributionRegistered(distributionName) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslIsDistributionRegistered", "ptr", distributionName, "ptr")
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslIsDistributionRegistered", "ptr", distributionName, "int")
         return result
     }
 
@@ -124,7 +124,7 @@ class SubsystemForLinux {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
         command := command is String ? StrPtr(command) : command
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, "ptr", command, "ptr", useCurrentWorkingDirectory, "uint*", exitCode, "int")
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "uint*", exitCode, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -150,7 +150,7 @@ class SubsystemForLinux {
         stdOut := stdOut is Win32Handle ? NumGet(stdOut, "ptr") : stdOut
         stdErr := stdErr is Win32Handle ? NumGet(stdErr, "ptr") : stdErr
 
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunch", "ptr", distributionName, "ptr", command, "ptr", useCurrentWorkingDirectory, "ptr", stdIn, "ptr", stdOut, "ptr", stdErr, "ptr", process, "int")
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunch", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "ptr", stdIn, "ptr", stdOut, "ptr", stdErr, "ptr", process, "int")
         if(result != 0)
             throw OSError(result)
 

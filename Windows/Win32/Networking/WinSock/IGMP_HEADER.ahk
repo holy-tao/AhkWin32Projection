@@ -85,7 +85,7 @@ class IGMP_HEADER extends Win32Struct
     MulticastAddress{
         get {
             if(!this.HasProp("__MulticastAddress"))
-                this.__MulticastAddress := IN_ADDR(this.ptr + 4)
+                this.__MulticastAddress := IN_ADDR(4, this)
             return this.__MulticastAddress
         }
     }

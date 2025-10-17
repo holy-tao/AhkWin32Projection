@@ -203,7 +203,7 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
     GenericReserved{
         get {
             if(!this.HasProp("__GenericReserved"))
-                this.__GenericReserved := %this.__Class%._GenericReserved(this.ptr + 24)
+                this.__GenericReserved := %this.__Class%._GenericReserved(24, this)
             return this.__GenericReserved
         }
     }
@@ -254,7 +254,7 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
         Server{
             get {
                 if(!this.HasProp("__Server"))
-                    this.__Server := %this.__Class%._Server(this.ptr + 0)
+                    this.__Server := %this.__Class%._Server(0, this)
                 return this.__Server
             }
         }
@@ -265,7 +265,7 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
         Share{
             get {
                 if(!this.HasProp("__Share"))
-                    this.__Share := %this.__Class%._Share(this.ptr + 8)
+                    this.__Share := %this.__Class%._Share(8, this)
                 return this.__Share
             }
         }
@@ -278,7 +278,7 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
     Smb2{
         get {
             if(!this.HasProp("__Smb2"))
-                this.__Smb2 := %this.__Class%._Smb2(this.ptr + 56)
+                this.__Smb2 := %this.__Class%._Smb2(56, this)
             return this.__Smb2
         }
     }

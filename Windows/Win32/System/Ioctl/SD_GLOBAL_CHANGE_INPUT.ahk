@@ -36,7 +36,7 @@ class SD_GLOBAL_CHANGE_INPUT extends Win32Struct
     SdChange{
         get {
             if(!this.HasProp("__SdChange"))
-                this.__SdChange := SD_CHANGE_MACHINE_SID_INPUT(this.ptr + 8)
+                this.__SdChange := SD_CHANGE_MACHINE_SID_INPUT(8, this)
             return this.__SdChange
         }
     }
@@ -47,7 +47,7 @@ class SD_GLOBAL_CHANGE_INPUT extends Win32Struct
     SdQueryStats{
         get {
             if(!this.HasProp("__SdQueryStats"))
-                this.__SdQueryStats := SD_QUERY_STATS_INPUT(this.ptr + 8)
+                this.__SdQueryStats := SD_QUERY_STATS_INPUT(8, this)
             return this.__SdQueryStats
         }
     }
@@ -58,7 +58,7 @@ class SD_GLOBAL_CHANGE_INPUT extends Win32Struct
     SdEnumSds{
         get {
             if(!this.HasProp("__SdEnumSds"))
-                this.__SdEnumSds := SD_ENUM_SDS_INPUT(this.ptr + 8)
+                this.__SdEnumSds := SD_ENUM_SDS_INPUT(8, this)
             return this.__SdEnumSds
         }
     }

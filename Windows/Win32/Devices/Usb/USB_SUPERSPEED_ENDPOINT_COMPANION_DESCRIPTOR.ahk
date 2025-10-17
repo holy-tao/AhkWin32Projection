@@ -124,7 +124,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
     Bulk{
         get {
             if(!this.HasProp("__Bulk"))
-                this.__Bulk := %this.__Class%._Bulk(this.ptr + 3)
+                this.__Bulk := %this.__Class%._Bulk(3, this)
             return this.__Bulk
         }
     }
@@ -135,7 +135,7 @@ class USB_SUPERSPEED_ENDPOINT_COMPANION_DESCRIPTOR extends Win32Struct
     Isochronous{
         get {
             if(!this.HasProp("__Isochronous"))
-                this.__Isochronous := %this.__Class%._Isochronous(this.ptr + 3)
+                this.__Isochronous := %this.__Class%._Isochronous(3, this)
             return this.__Isochronous
         }
     }

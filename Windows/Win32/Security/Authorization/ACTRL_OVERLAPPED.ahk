@@ -42,7 +42,7 @@ class ACTRL_OVERLAPPED extends Win32Struct
     hEvent{
         get {
             if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(this.ptr + 16)
+                this.__hEvent := HANDLE(16, this)
             return this.__hEvent
         }
     }

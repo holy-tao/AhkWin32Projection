@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -63,11 +62,8 @@ class ATM_TD extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Tagging{
-        get {
-            if(!this.HasProp("__Tagging"))
-                this.__Tagging := BOOL(this.ptr + 24)
-            return this.__Tagging
-        }
+    Tagging {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

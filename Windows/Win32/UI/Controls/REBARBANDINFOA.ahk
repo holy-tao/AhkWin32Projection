@@ -1,10 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -352,12 +349,9 @@ class REBARBANDINFOA extends Win32Struct
      * Band foreground colors.
      * @type {COLORREF}
      */
-    clrFore{
-        get {
-            if(!this.HasProp("__clrFore"))
-                this.__clrFore := COLORREF(this.ptr + 12)
-            return this.__clrFore
-        }
+    clrFore {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -366,12 +360,9 @@ class REBARBANDINFOA extends Win32Struct
      * Band background colors. If <b>hbmBack</b> specifies a background bitmap, these members are ignored. By default, the band will use the background color of the rebar control set with the <a href="https://docs.microsoft.com/windows/desktop/Controls/rb-setbkcolor">RB_SETBKCOLOR</a> message. If a background color is specified here, then this background color will be used instead.
      * @type {COLORREF}
      */
-    clrBack{
-        get {
-            if(!this.HasProp("__clrBack"))
-                this.__clrBack := COLORREF(this.ptr + 16)
-            return this.__clrBack
-        }
+    clrBack {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -380,12 +371,9 @@ class REBARBANDINFOA extends Win32Struct
      * Pointer to a buffer that contains the display text for the band. If band information is being requested from the control and  RBBIM_TEXT is specified in <b>fMask</b>, this member must be initialized to the address of the buffer that will receive the text.
      * @type {PSTR}
      */
-    lpText{
-        get {
-            if(!this.HasProp("__lpText"))
-                this.__lpText := PSTR(this.ptr + 24)
-            return this.__lpText
-        }
+    lpText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -419,7 +407,7 @@ class REBARBANDINFOA extends Win32Struct
     hwndChild{
         get {
             if(!this.HasProp("__hwndChild"))
-                this.__hwndChild := HWND(this.ptr + 40)
+                this.__hwndChild := HWND(40, this)
             return this.__hwndChild
         }
     }
@@ -466,7 +454,7 @@ class REBARBANDINFOA extends Win32Struct
     hbmBack{
         get {
             if(!this.HasProp("__hbmBack"))
-                this.__hbmBack := HBITMAP(this.ptr + 64)
+                this.__hbmBack := HBITMAP(64, this)
             return this.__hbmBack
         }
     }
@@ -537,12 +525,9 @@ class REBARBANDINFOA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.71</a>. Application-defined value.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 96)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -567,7 +552,7 @@ class REBARBANDINFOA extends Win32Struct
     rcChevronLocation{
         get {
             if(!this.HasProp("__rcChevronLocation"))
-                this.__rcChevronLocation := RECT(this.ptr + 112)
+                this.__rcChevronLocation := RECT(112, this)
             return this.__rcChevronLocation
         }
     }
@@ -584,12 +569,8 @@ class REBARBANDINFOA extends Win32Struct
         set => NumPut("uint", value, this, 128)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 136
     }
 }

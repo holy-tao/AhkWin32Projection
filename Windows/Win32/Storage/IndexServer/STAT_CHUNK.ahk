@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPSPEC.ahk
 #Include .\FULLPROPSPEC.ahk
 
@@ -144,7 +143,7 @@ class STAT_CHUNK extends Win32Struct
     attribute{
         get {
             if(!this.HasProp("__attribute"))
-                this.__attribute := FULLPROPSPEC(this.ptr + 16)
+                this.__attribute := FULLPROPSPEC(16, this)
             return this.__attribute
         }
     }

@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MFP_EVENT_HEADER.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Event structure for the MFP_EVENT_TYPE_ACQUIRE_USER_CREDENTIAL event.
@@ -44,7 +42,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := MFP_EVENT_HEADER(this.ptr + 0)
+                this.__header := MFP_EVENT_HEADER(0, this)
             return this.__header
         }
     }
@@ -66,12 +64,9 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
      * If the value is <b>TRUE</b> when the callback returns, MFPlay continues the authentication attempt. Otherwise, authentication fails.
      * @type {BOOL}
      */
-    fProceedWithAuthentication{
-        get {
-            if(!this.HasProp("__fProceedWithAuthentication"))
-                this.__fProceedWithAuthentication := BOOL(this.ptr + 40)
-            return this.__fProceedWithAuthentication
-        }
+    fProceedWithAuthentication {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -87,48 +82,36 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
      * The original URL that requires authentication.
      * @type {PWSTR}
      */
-    pwszURL{
-        get {
-            if(!this.HasProp("__pwszURL"))
-                this.__pwszURL := PWSTR(this.ptr + 48)
-            return this.__pwszURL
-        }
+    pwszURL {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * The name of the site or proxy that requires authentication.
      * @type {PWSTR}
      */
-    pwszSite{
-        get {
-            if(!this.HasProp("__pwszSite"))
-                this.__pwszSite := PWSTR(this.ptr + 56)
-            return this.__pwszSite
-        }
+    pwszSite {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * The name of the realm for this authentication.
      * @type {PWSTR}
      */
-    pwszRealm{
-        get {
-            if(!this.HasProp("__pwszRealm"))
-                this.__pwszRealm := PWSTR(this.ptr + 64)
-            return this.__pwszRealm
-        }
+    pwszRealm {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * The name of the authentication package, such as "Digest" or "MBS_BASIC".
      * @type {PWSTR}
      */
-    pwszPackage{
-        get {
-            if(!this.HasProp("__pwszPackage"))
-                this.__pwszPackage := PWSTR(this.ptr + 72)
-            return this.__pwszPackage
-        }
+    pwszPackage {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

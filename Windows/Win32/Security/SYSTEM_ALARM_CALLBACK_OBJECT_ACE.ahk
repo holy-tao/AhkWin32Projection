@@ -29,7 +29,7 @@ class SYSTEM_ALARM_CALLBACK_OBJECT_ACE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := ACE_HEADER(this.ptr + 0)
+                this.__Header := ACE_HEADER(0, this)
             return this.__Header
         }
     }

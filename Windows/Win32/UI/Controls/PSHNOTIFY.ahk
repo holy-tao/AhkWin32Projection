@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information for the property sheet notification messages.
@@ -25,7 +24,7 @@ class PSHNOTIFY extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -36,11 +35,8 @@ class PSHNOTIFY extends Win32Struct
      * Additional information about this notification. To determine what, if any, information is contained in this member, see the description of the particular notification message.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 24)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

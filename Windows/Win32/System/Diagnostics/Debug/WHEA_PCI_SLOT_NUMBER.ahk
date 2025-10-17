@@ -59,7 +59,7 @@ class WHEA_PCI_SLOT_NUMBER extends Win32Struct
     bits{
         get {
             if(!this.HasProp("__bits"))
-                this.__bits := %this.__Class%._bits(this.ptr + 0)
+                this.__bits := %this.__Class%._bits(0, this)
             return this.__bits
         }
     }

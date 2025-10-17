@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PEER_DATA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_INVITATION structure contains a request to initiate or join a peer collaboration activity.
@@ -37,7 +36,7 @@ class PEER_INVITATION extends Win32Struct
     applicationData{
         get {
             if(!this.HasProp("__applicationData"))
-                this.__applicationData := PEER_DATA(this.ptr + 8)
+                this.__applicationData := PEER_DATA(8, this)
             return this.__applicationData
         }
     }
@@ -46,11 +45,8 @@ class PEER_INVITATION extends Win32Struct
      * Zero-terminated Unicode string that contains a specific request message to the invitation recipient. The message is limited to 255 unicode characters.
      * @type {PWSTR}
      */
-    pwzMessage{
-        get {
-            if(!this.HasProp("__pwzMessage"))
-                this.__pwzMessage := PWSTR(this.ptr + 24)
-            return this.__pwzMessage
-        }
+    pwzMessage {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

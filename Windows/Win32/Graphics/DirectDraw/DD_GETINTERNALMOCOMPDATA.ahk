@@ -57,7 +57,7 @@ class DD_GETINTERNALMOCOMPDATA extends Win32Struct
     ddPixelFormat{
         get {
             if(!this.HasProp("__ddPixelFormat"))
-                this.__ddPixelFormat := DDPIXELFORMAT(this.ptr + 24)
+                this.__ddPixelFormat := DDPIXELFORMAT(24, this)
             return this.__ddPixelFormat
         }
     }

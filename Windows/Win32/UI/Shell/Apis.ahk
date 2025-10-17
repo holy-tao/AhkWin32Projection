@@ -8048,7 +8048,7 @@ class Shell {
         hModule := LibraryLoader.LoadLibraryW("SHELL32.dll")
         procAddr := LibraryLoader.GetProcAddress(hModule, 660)
 
-        result := DllCall(procAddr, "ptr", fRestoreCache, "ptr")
+        result := DllCall(procAddr, "int", fRestoreCache, "int")
 
         Foundation.FreeLibrary(hModule)
 
@@ -8078,7 +8078,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\LoadUserProfileA", "ptr", hToken, "ptr", lpProfileInfo, "ptr")
+        result := DllCall("USERENV.dll\LoadUserProfileA", "ptr", hToken, "ptr", lpProfileInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8108,7 +8108,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\LoadUserProfileW", "ptr", hToken, "ptr", lpProfileInfo, "ptr")
+        result := DllCall("USERENV.dll\LoadUserProfileW", "ptr", hToken, "ptr", lpProfileInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8135,7 +8135,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\UnloadUserProfile", "ptr", hToken, "ptr", hProfile, "ptr")
+        result := DllCall("USERENV.dll\UnloadUserProfile", "ptr", hToken, "ptr", hProfile, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8165,7 +8165,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetProfilesDirectoryA", "ptr", lpProfileDir, "uint*", lpcchSize, "ptr")
+        result := DllCall("USERENV.dll\GetProfilesDirectoryA", "ptr", lpProfileDir, "uint*", lpcchSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8195,7 +8195,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetProfilesDirectoryW", "ptr", lpProfileDir, "uint*", lpcchSize, "ptr")
+        result := DllCall("USERENV.dll\GetProfilesDirectoryW", "ptr", lpProfileDir, "uint*", lpcchSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8214,7 +8214,7 @@ class Shell {
     static GetProfileType(dwFlags) {
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetProfileType", "uint*", dwFlags, "ptr")
+        result := DllCall("USERENV.dll\GetProfileType", "uint*", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8251,7 +8251,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\DeleteProfileA", "ptr", lpSidString, "ptr", lpProfilePath, "ptr", lpComputerName, "ptr")
+        result := DllCall("USERENV.dll\DeleteProfileA", "ptr", lpSidString, "ptr", lpProfilePath, "ptr", lpComputerName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8288,7 +8288,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\DeleteProfileW", "ptr", lpSidString, "ptr", lpProfilePath, "ptr", lpComputerName, "ptr")
+        result := DllCall("USERENV.dll\DeleteProfileW", "ptr", lpSidString, "ptr", lpProfilePath, "ptr", lpComputerName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8379,7 +8379,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryA", "ptr", lpProfileDir, "uint*", lpcchSize, "ptr")
+        result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryA", "ptr", lpProfileDir, "uint*", lpcchSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8409,7 +8409,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryW", "ptr", lpProfileDir, "uint*", lpcchSize, "ptr")
+        result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryW", "ptr", lpProfileDir, "uint*", lpcchSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8439,7 +8439,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryA", "ptr", lpProfileDir, "uint*", lpcchSize, "ptr")
+        result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryA", "ptr", lpProfileDir, "uint*", lpcchSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8469,7 +8469,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryW", "ptr", lpProfileDir, "uint*", lpcchSize, "ptr")
+        result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryW", "ptr", lpProfileDir, "uint*", lpcchSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8503,7 +8503,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetUserProfileDirectoryA", "ptr", hToken, "ptr", lpProfileDir, "uint*", lpcchSize, "ptr")
+        result := DllCall("USERENV.dll\GetUserProfileDirectoryA", "ptr", hToken, "ptr", lpProfileDir, "uint*", lpcchSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8537,7 +8537,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetUserProfileDirectoryW", "ptr", hToken, "ptr", lpProfileDir, "uint*", lpcchSize, "ptr")
+        result := DllCall("USERENV.dll\GetUserProfileDirectoryW", "ptr", hToken, "ptr", lpProfileDir, "uint*", lpcchSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8661,7 +8661,7 @@ class Shell {
     static SetWindowSubclass(hWnd, pfnSubclass, uIdSubclass, dwRefData) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("COMCTL32.dll\SetWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr", dwRefData, "ptr")
+        result := DllCall("COMCTL32.dll\SetWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr", dwRefData, "int")
         return result
     }
 
@@ -8715,7 +8715,7 @@ class Shell {
     static GetWindowSubclass(hWnd, pfnSubclass, uIdSubclass, pdwRefData) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("COMCTL32.dll\GetWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr*", pdwRefData, "ptr")
+        result := DllCall("COMCTL32.dll\GetWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr*", pdwRefData, "int")
         return result
     }
 
@@ -8739,7 +8739,7 @@ class Shell {
     static RemoveWindowSubclass(hWnd, pfnSubclass, uIdSubclass) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("COMCTL32.dll\RemoveWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr")
+        result := DllCall("COMCTL32.dll\RemoveWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "int")
         return result
     }
 
@@ -8787,7 +8787,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetWindowContextHelpId", "ptr", param0, "uint", param1, "ptr")
+        result := DllCall("USER32.dll\SetWindowContextHelpId", "ptr", param0, "uint", param1, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8827,7 +8827,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetMenuContextHelpId", "ptr", param0, "uint", param1, "ptr")
+        result := DllCall("USER32.dll\SetMenuContextHelpId", "ptr", param0, "uint", param1, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8880,7 +8880,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\WinHelpA", "ptr", hWndMain, "ptr", lpszHelp, "uint", uCommand, "ptr", dwData, "ptr")
+        result := DllCall("USER32.dll\WinHelpA", "ptr", hWndMain, "ptr", lpszHelp, "uint", uCommand, "ptr", dwData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8917,7 +8917,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\WinHelpW", "ptr", hWndMain, "ptr", lpszHelp, "uint", uCommand, "ptr", dwData, "ptr")
+        result := DllCall("USER32.dll\WinHelpW", "ptr", hWndMain, "ptr", lpszHelp, "uint", uCommand, "ptr", dwData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9938,7 +9938,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static ILRemoveLastID(pidl) {
-        result := DllCall("SHELL32.dll\ILRemoveLastID", "ptr", pidl, "ptr")
+        result := DllCall("SHELL32.dll\ILRemoveLastID", "ptr", pidl, "int")
         return result
     }
 
@@ -9957,7 +9957,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static ILIsEqual(pidl1, pidl2) {
-        result := DllCall("SHELL32.dll\ILIsEqual", "ptr", pidl1, "ptr", pidl2, "ptr")
+        result := DllCall("SHELL32.dll\ILIsEqual", "ptr", pidl1, "ptr", pidl2, "int")
         return result
     }
 
@@ -9979,7 +9979,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static ILIsParent(pidl1, pidl2, fImmediate) {
-        result := DllCall("SHELL32.dll\ILIsParent", "ptr", pidl1, "ptr", pidl2, "ptr", fImmediate, "ptr")
+        result := DllCall("SHELL32.dll\ILIsParent", "ptr", pidl1, "ptr", pidl2, "int", fImmediate, "int")
         return result
     }
 
@@ -10111,7 +10111,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static ILAppendID(pidl, pmkid, fAppend) {
-        result := DllCall("SHELL32.dll\ILAppendID", "ptr", pidl, "ptr", pmkid, "ptr", fAppend, "ptr")
+        result := DllCall("SHELL32.dll\ILAppendID", "ptr", pidl, "ptr", pmkid, "int", fAppend, "ptr")
         return result
     }
 
@@ -10142,7 +10142,7 @@ class Shell {
     static SHGetPathFromIDListEx(pidl, pszPath, cchPath, uOpts) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetPathFromIDListEx", "ptr", pidl, "ptr", pszPath, "uint", cchPath, "uint", uOpts, "ptr")
+        result := DllCall("SHELL32.dll\SHGetPathFromIDListEx", "ptr", pidl, "ptr", pszPath, "uint", cchPath, "uint", uOpts, "int")
         return result
     }
 
@@ -10163,7 +10163,7 @@ class Shell {
     static SHGetPathFromIDListA(pidl, pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetPathFromIDListA", "ptr", pidl, "ptr", pszPath, "ptr")
+        result := DllCall("SHELL32.dll\SHGetPathFromIDListA", "ptr", pidl, "ptr", pszPath, "int")
         return result
     }
 
@@ -10184,7 +10184,7 @@ class Shell {
     static SHGetPathFromIDListW(pidl, pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetPathFromIDListW", "ptr", pidl, "ptr", pszPath, "ptr")
+        result := DllCall("SHELL32.dll\SHGetPathFromIDListW", "ptr", pidl, "ptr", pszPath, "int")
         return result
     }
 
@@ -10569,7 +10569,7 @@ class Shell {
 
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\SHCloneSpecialIDList", "ptr", hwnd, "int", csidl, "ptr", fCreate, "ptr")
+        result := DllCall("SHELL32.dll\SHCloneSpecialIDList", "ptr", hwnd, "int", csidl, "int", fCreate, "ptr")
         return result
     }
 
@@ -10596,7 +10596,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathA", "ptr", hwnd, "ptr", pszPath, "int", csidl, "ptr", fCreate, "ptr")
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathA", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
         return result
     }
 
@@ -10623,7 +10623,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathW", "ptr", hwnd, "ptr", pszPath, "int", csidl, "ptr", fCreate, "ptr")
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathW", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
         return result
     }
 
@@ -11651,7 +11651,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHChangeNotifyDeregister(ulID) {
-        result := DllCall("SHELL32.dll\SHChangeNotifyDeregister", "uint", ulID, "ptr")
+        result := DllCall("SHELL32.dll\SHChangeNotifyDeregister", "uint", ulID, "int")
         return result
     }
 
@@ -11696,7 +11696,7 @@ class Shell {
     static SHChangeNotification_Unlock(hLock) {
         hLock := hLock is Win32Handle ? NumGet(hLock, "ptr") : hLock
 
-        result := DllCall("SHELL32.dll\SHChangeNotification_Unlock", "ptr", hLock, "ptr")
+        result := DllCall("SHELL32.dll\SHChangeNotification_Unlock", "ptr", hLock, "int")
         return result
     }
 
@@ -12077,7 +12077,7 @@ class Shell {
     static DAD_SetDragImage(him, pptOffset) {
         him := him is Win32Handle ? NumGet(him, "ptr") : him
 
-        result := DllCall("SHELL32.dll\DAD_SetDragImage", "ptr", him, "ptr", pptOffset, "ptr")
+        result := DllCall("SHELL32.dll\DAD_SetDragImage", "ptr", him, "ptr", pptOffset, "int")
         return result
     }
 
@@ -12098,7 +12098,7 @@ class Shell {
     static DAD_DragEnterEx(hwndTarget, ptStart) {
         hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
 
-        result := DllCall("SHELL32.dll\DAD_DragEnterEx", "ptr", hwndTarget, "ptr", ptStart, "ptr")
+        result := DllCall("SHELL32.dll\DAD_DragEnterEx", "ptr", hwndTarget, "ptr", ptStart, "int")
         return result
     }
 
@@ -12122,7 +12122,7 @@ class Shell {
     static DAD_DragEnterEx2(hwndTarget, ptStart, pdtObject) {
         hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
 
-        result := DllCall("SHELL32.dll\DAD_DragEnterEx2", "ptr", hwndTarget, "ptr", ptStart, "ptr", pdtObject, "ptr")
+        result := DllCall("SHELL32.dll\DAD_DragEnterEx2", "ptr", hwndTarget, "ptr", ptStart, "ptr", pdtObject, "int")
         return result
     }
 
@@ -12138,7 +12138,7 @@ class Shell {
      * @since windows5.0
      */
     static DAD_ShowDragImage(fShow) {
-        result := DllCall("SHELL32.dll\DAD_ShowDragImage", "ptr", fShow, "ptr")
+        result := DllCall("SHELL32.dll\DAD_ShowDragImage", "int", fShow, "int")
         return result
     }
 
@@ -12154,7 +12154,7 @@ class Shell {
      * @since windows5.0
      */
     static DAD_DragMove(pt) {
-        result := DllCall("SHELL32.dll\DAD_DragMove", "ptr", pt, "ptr")
+        result := DllCall("SHELL32.dll\DAD_DragMove", "ptr", pt, "int")
         return result
     }
 
@@ -12167,7 +12167,7 @@ class Shell {
      * @since windows5.0
      */
     static DAD_DragLeave() {
-        result := DllCall("SHELL32.dll\DAD_DragLeave", "ptr")
+        result := DllCall("SHELL32.dll\DAD_DragLeave", "int")
         return result
     }
 
@@ -12191,7 +12191,7 @@ class Shell {
     static DAD_AutoScroll(hwnd, pad, pptNow) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\DAD_AutoScroll", "ptr", hwnd, "ptr", pad, "ptr", pptNow, "ptr")
+        result := DllCall("SHELL32.dll\DAD_AutoScroll", "ptr", hwnd, "ptr", pad, "ptr", pptNow, "int")
         return result
     }
 
@@ -12210,7 +12210,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static ReadCabinetState(pcs, cLength) {
-        result := DllCall("SHELL32.dll\ReadCabinetState", "ptr", pcs, "int", cLength, "ptr")
+        result := DllCall("SHELL32.dll\ReadCabinetState", "ptr", pcs, "int", cLength, "int")
         return result
     }
 
@@ -12226,7 +12226,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static WriteCabinetState(pcs) {
-        result := DllCall("SHELL32.dll\WriteCabinetState", "ptr", pcs, "ptr")
+        result := DllCall("SHELL32.dll\WriteCabinetState", "ptr", pcs, "int")
         return result
     }
 
@@ -12259,7 +12259,7 @@ class Shell {
         pszLongPlate := pszLongPlate is String ? StrPtr(pszLongPlate) : pszLongPlate
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
 
-        result := DllCall("SHELL32.dll\PathMakeUniqueName", "ptr", pszUniqueName, "uint", cchMax, "ptr", pszTemplate, "ptr", pszLongPlate, "ptr", pszDir, "ptr")
+        result := DllCall("SHELL32.dll\PathMakeUniqueName", "ptr", pszUniqueName, "uint", cchMax, "ptr", pszTemplate, "ptr", pszLongPlate, "ptr", pszDir, "int")
         return result
     }
 
@@ -12277,7 +12277,7 @@ class Shell {
     static PathIsExe(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\PathIsExe", "ptr", pszPath, "ptr")
+        result := DllCall("SHELL32.dll\PathIsExe", "ptr", pszPath, "int")
         return result
     }
 
@@ -12441,7 +12441,7 @@ class Shell {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\GetFileNameFromBrowse", "ptr", hwnd, "ptr", pszFilePath, "uint", cchFilePath, "ptr", pszWorkingDir, "ptr", pszDefExt, "ptr", pszFilters, "ptr", pszTitle, "ptr")
+        result := DllCall("SHELL32.dll\GetFileNameFromBrowse", "ptr", hwnd, "ptr", pszFilePath, "uint", cchFilePath, "ptr", pszWorkingDir, "ptr", pszDefExt, "ptr", pszFilters, "ptr", pszTitle, "int")
         return result
     }
 
@@ -12644,7 +12644,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static RealDriveType(iDrive, fOKToHitNet) {
-        result := DllCall("SHELL32.dll\RealDriveType", "int", iDrive, "ptr", fOKToHitNet, "int")
+        result := DllCall("SHELL32.dll\RealDriveType", "int", iDrive, "int", fOKToHitNet, "int")
         return result
     }
 
@@ -12763,7 +12763,7 @@ class Shell {
         pszPropertyPage := pszPropertyPage is String ? StrPtr(pszPropertyPage) : pszPropertyPage
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\SHObjectProperties", "ptr", hwnd, "uint", shopObjectType, "ptr", pszObjectName, "ptr", pszPropertyPage, "ptr")
+        result := DllCall("SHELL32.dll\SHObjectProperties", "ptr", hwnd, "uint", shopObjectType, "ptr", pszObjectName, "ptr", pszPropertyPage, "int")
         return result
     }
 
@@ -12942,7 +12942,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHFindFiles(pidlFolder, pidlSaveFile) {
-        result := DllCall("SHELL32.dll\SHFindFiles", "ptr", pidlFolder, "ptr", pidlSaveFile, "ptr")
+        result := DllCall("SHELL32.dll\SHFindFiles", "ptr", pidlFolder, "ptr", pidlSaveFile, "int")
         return result
     }
 
@@ -12987,7 +12987,7 @@ class Shell {
         pszShort := pszShort is String ? StrPtr(pszShort) : pszShort
         pszFileSpec := pszFileSpec is String ? StrPtr(pszFileSpec) : pszFileSpec
 
-        result := DllCall("SHELL32.dll\PathYetAnotherMakeUniqueName", "ptr", pszUniqueName, "ptr", pszPath, "ptr", pszShort, "ptr", pszFileSpec, "ptr")
+        result := DllCall("SHELL32.dll\PathYetAnotherMakeUniqueName", "ptr", pszUniqueName, "ptr", pszPath, "ptr", pszShort, "ptr", pszFileSpec, "int")
         return result
     }
 
@@ -13005,7 +13005,7 @@ class Shell {
     static Win32DeleteFile(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\Win32DeleteFile", "ptr", pszPath, "ptr")
+        result := DllCall("SHELL32.dll\Win32DeleteFile", "ptr", pszPath, "int")
         return result
     }
 
@@ -13037,7 +13037,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SignalFileOpen(pidl) {
-        result := DllCall("SHELL32.dll\SignalFileOpen", "ptr", pidl, "ptr")
+        result := DllCall("SHELL32.dll\SignalFileOpen", "ptr", pidl, "int")
         return result
     }
 
@@ -13289,7 +13289,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static Shell_GetImageLists(phiml, phimlSmall) {
-        result := DllCall("SHELL32.dll\Shell_GetImageLists", "ptr", phiml, "ptr", phimlSmall, "ptr")
+        result := DllCall("SHELL32.dll\Shell_GetImageLists", "ptr", phiml, "ptr", phimlSmall, "int")
         return result
     }
 
@@ -13380,7 +13380,7 @@ class Shell {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := DllCall("SHELL32.dll\SHValidateUNC", "ptr", hwndOwner, "ptr", pszFile, "uint", fConnect, "ptr")
+        result := DllCall("SHELL32.dll\SHValidateUNC", "ptr", hwndOwner, "ptr", pszFile, "uint", fConnect, "int")
         return result
     }
 
@@ -13419,7 +13419,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static IsUserAnAdmin() {
-        result := DllCall("SHELL32.dll\IsUserAnAdmin", "ptr")
+        result := DllCall("SHELL32.dll\IsUserAnAdmin", "int")
         return result
     }
 
@@ -13667,7 +13667,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetSetSettings(lpss, dwMask, bSet) {
-        DllCall("SHELL32.dll\SHGetSetSettings", "ptr", lpss, "uint", dwMask, "ptr", bSet)
+        DllCall("SHELL32.dll\SHGetSetSettings", "ptr", lpss, "uint", dwMask, "int", bSet)
     }
 
     /**
@@ -14164,7 +14164,7 @@ class Shell {
     static PathIsSlowA(pszFile, dwAttr) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHELL32.dll\PathIsSlowA", "ptr", pszFile, "uint", dwAttr, "ptr")
+        result := DllCall("SHELL32.dll\PathIsSlowA", "ptr", pszFile, "uint", dwAttr, "int")
         return result
     }
 
@@ -14185,7 +14185,7 @@ class Shell {
     static PathIsSlowW(pszFile, dwAttr) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHELL32.dll\PathIsSlowW", "ptr", pszFile, "uint", dwAttr, "ptr")
+        result := DllCall("SHELL32.dll\PathIsSlowW", "ptr", pszFile, "uint", dwAttr, "int")
         return result
     }
 
@@ -14260,7 +14260,7 @@ class Shell {
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pStartPage := pStartPage is String ? StrPtr(pStartPage) : pStartPage
 
-        result := DllCall("SHELL32.dll\SHOpenPropSheetW", "ptr", pszCaption, "ptr", ahkeys, "uint", ckeys, "ptr", pclsidDefault, "ptr", pdtobj, "ptr", psb, "ptr", pStartPage, "ptr")
+        result := DllCall("SHELL32.dll\SHOpenPropSheetW", "ptr", pszCaption, "ptr", ahkeys, "uint", ckeys, "ptr", pclsidDefault, "ptr", pdtobj, "ptr", psb, "ptr", pStartPage, "int")
         return result
     }
 
@@ -14394,7 +14394,7 @@ class Shell {
     static ImportPrivacySettings(pszFilename, pfParsePrivacyPreferences, pfParsePerSiteRules) {
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-        result := DllCall("SHDOCVW.dll\ImportPrivacySettings", "ptr", pszFilename, "ptr", pfParsePrivacyPreferences, "ptr", pfParsePerSiteRules, "ptr")
+        result := DllCall("SHDOCVW.dll\ImportPrivacySettings", "ptr", pszFilename, "ptr", pfParsePrivacyPreferences, "ptr", pfParsePerSiteRules, "int")
         return result
     }
 
@@ -14689,7 +14689,7 @@ class Shell {
     static DragQueryPoint(hDrop, ppt) {
         hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
 
-        result := DllCall("SHELL32.dll\DragQueryPoint", "ptr", hDrop, "ptr", ppt, "ptr")
+        result := DllCall("SHELL32.dll\DragQueryPoint", "ptr", hDrop, "ptr", ppt, "int")
         return result
     }
 
@@ -14727,7 +14727,7 @@ class Shell {
     static DragAcceptFiles(hWnd, fAccept) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        DllCall("SHELL32.dll\DragAcceptFiles", "ptr", hWnd, "ptr", fAccept)
+        DllCall("SHELL32.dll\DragAcceptFiles", "ptr", hWnd, "int", fAccept)
     }
 
     /**
@@ -16189,7 +16189,7 @@ class Shell {
     static ShellExecuteExA(pExecInfo) {
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\ShellExecuteExA", "ptr", pExecInfo, "ptr")
+        result := DllCall("SHELL32.dll\ShellExecuteExA", "ptr", pExecInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16210,7 +16210,7 @@ class Shell {
     static ShellExecuteExW(pExecInfo) {
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\ShellExecuteExW", "ptr", pExecInfo, "ptr")
+        result := DllCall("SHELL32.dll\ShellExecuteExW", "ptr", pExecInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16231,7 +16231,7 @@ class Shell {
     static SHCreateProcessAsUserW(pscpi) {
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\SHCreateProcessAsUserW", "ptr", pscpi, "ptr")
+        result := DllCall("SHELL32.dll\SHCreateProcessAsUserW", "ptr", pscpi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16436,7 +16436,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static Shell_NotifyIconA(dwMessage, lpData) {
-        result := DllCall("SHELL32.dll\Shell_NotifyIconA", "uint", dwMessage, "ptr", lpData, "ptr")
+        result := DllCall("SHELL32.dll\Shell_NotifyIconA", "uint", dwMessage, "ptr", lpData, "int")
         return result
     }
 
@@ -16453,7 +16453,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static Shell_NotifyIconW(dwMessage, lpData) {
-        result := DllCall("SHELL32.dll\Shell_NotifyIconW", "uint", dwMessage, "ptr", lpData, "ptr")
+        result := DllCall("SHELL32.dll\Shell_NotifyIconW", "uint", dwMessage, "ptr", lpData, "int")
         return result
     }
 
@@ -16713,7 +16713,7 @@ class Shell {
     static SHGetDiskFreeSpaceExA(pszDirectoryName, pulFreeBytesAvailableToCaller, pulTotalNumberOfBytes, pulTotalNumberOfFreeBytes) {
         pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
 
-        result := DllCall("SHELL32.dll\SHGetDiskFreeSpaceExA", "ptr", pszDirectoryName, "uint*", pulFreeBytesAvailableToCaller, "uint*", pulTotalNumberOfBytes, "uint*", pulTotalNumberOfFreeBytes, "ptr")
+        result := DllCall("SHELL32.dll\SHGetDiskFreeSpaceExA", "ptr", pszDirectoryName, "uint*", pulFreeBytesAvailableToCaller, "uint*", pulTotalNumberOfBytes, "uint*", pulTotalNumberOfFreeBytes, "int")
         return result
     }
 
@@ -16740,7 +16740,7 @@ class Shell {
     static SHGetDiskFreeSpaceExW(pszDirectoryName, pulFreeBytesAvailableToCaller, pulTotalNumberOfBytes, pulTotalNumberOfFreeBytes) {
         pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
 
-        result := DllCall("SHELL32.dll\SHGetDiskFreeSpaceExW", "ptr", pszDirectoryName, "uint*", pulFreeBytesAvailableToCaller, "uint*", pulTotalNumberOfBytes, "uint*", pulTotalNumberOfFreeBytes, "ptr")
+        result := DllCall("SHELL32.dll\SHGetDiskFreeSpaceExW", "ptr", pszDirectoryName, "uint*", pulFreeBytesAvailableToCaller, "uint*", pulTotalNumberOfBytes, "uint*", pulTotalNumberOfFreeBytes, "int")
         return result
     }
 
@@ -16770,7 +16770,7 @@ class Shell {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHELL32.dll\SHGetNewLinkInfoA", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, "ptr", pfMustCopy, "uint", uFlags, "ptr")
+        result := DllCall("SHELL32.dll\SHGetNewLinkInfoA", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, "ptr", pfMustCopy, "uint", uFlags, "int")
         return result
     }
 
@@ -16800,7 +16800,7 @@ class Shell {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHELL32.dll\SHGetNewLinkInfoW", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, "ptr", pfMustCopy, "uint", uFlags, "ptr")
+        result := DllCall("SHELL32.dll\SHGetNewLinkInfoW", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, "ptr", pfMustCopy, "uint", uFlags, "int")
         return result
     }
 
@@ -16830,7 +16830,7 @@ class Shell {
         lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\SHInvokePrinterCommandA", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "ptr", fModal, "ptr")
+        result := DllCall("SHELL32.dll\SHInvokePrinterCommandA", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
         return result
     }
 
@@ -16860,7 +16860,7 @@ class Shell {
         lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\SHInvokePrinterCommandW", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "ptr", fModal, "ptr")
+        result := DllCall("SHELL32.dll\SHInvokePrinterCommandW", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
         return result
     }
 
@@ -17116,7 +17116,7 @@ class Shell {
     static IsLFNDriveA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\IsLFNDriveA", "ptr", pszPath, "ptr")
+        result := DllCall("SHELL32.dll\IsLFNDriveA", "ptr", pszPath, "int")
         return result
     }
 
@@ -17128,7 +17128,7 @@ class Shell {
     static IsLFNDriveW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\IsLFNDriveW", "ptr", pszPath, "ptr")
+        result := DllCall("SHELL32.dll\IsLFNDriveW", "ptr", pszPath, "int")
         return result
     }
 
@@ -17286,7 +17286,7 @@ class Shell {
     static SHTestTokenMembership(hToken, ulRID) {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        result := DllCall("SHELL32.dll\SHTestTokenMembership", "ptr", hToken, "uint", ulRID, "ptr")
+        result := DllCall("SHELL32.dll\SHTestTokenMembership", "ptr", hToken, "uint", ulRID, "int")
         return result
     }
 
@@ -17322,7 +17322,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static InitNetworkAddressControl() {
-        result := DllCall("SHELL32.dll\InitNetworkAddressControl", "ptr")
+        result := DllCall("SHELL32.dll\InitNetworkAddressControl", "int")
         return result
     }
 
@@ -17367,7 +17367,7 @@ class Shell {
     static StrChrA(pszStart, wMatch) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrA", "ptr", pszStart, "ushort", wMatch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrChrA", "ptr", pszStart, "ushort", wMatch, "char*")
         return result
     }
 
@@ -17388,7 +17388,7 @@ class Shell {
     static StrChrW(pszStart, wMatch) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrW", "ptr", pszStart, "char", wMatch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrChrW", "ptr", pszStart, "char", wMatch, "char*")
         return result
     }
 
@@ -17409,7 +17409,7 @@ class Shell {
     static StrChrIA(pszStart, wMatch) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrIA", "ptr", pszStart, "ushort", wMatch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrChrIA", "ptr", pszStart, "ushort", wMatch, "char*")
         return result
     }
 
@@ -17430,7 +17430,7 @@ class Shell {
     static StrChrIW(pszStart, wMatch) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrIW", "ptr", pszStart, "char", wMatch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrChrIW", "ptr", pszStart, "char", wMatch, "char*")
         return result
     }
 
@@ -17454,7 +17454,7 @@ class Shell {
     static StrChrNW(pszStart, wMatch, cchMax) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrNW", "ptr", pszStart, "char", wMatch, "uint", cchMax, "ptr")
+        result := DllCall("SHLWAPI.dll\StrChrNW", "ptr", pszStart, "char", wMatch, "uint", cchMax, "char*")
         return result
     }
 
@@ -17478,7 +17478,7 @@ class Shell {
     static StrChrNIW(pszStart, wMatch, cchMax) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrNIW", "ptr", pszStart, "char", wMatch, "uint", cchMax, "ptr")
+        result := DllCall("SHLWAPI.dll\StrChrNIW", "ptr", pszStart, "char", wMatch, "uint", cchMax, "char*")
         return result
     }
 
@@ -17684,7 +17684,7 @@ class Shell {
     static StrDupA(pszSrch) {
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrDupA", "ptr", pszSrch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrDupA", "ptr", pszSrch, "char*")
         return result
     }
 
@@ -17702,7 +17702,7 @@ class Shell {
     static StrDupW(pszSrch) {
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrDupW", "ptr", pszSrch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrDupW", "ptr", pszSrch, "char*")
         return result
     }
 
@@ -17756,7 +17756,7 @@ class Shell {
     static StrFormatByteSizeA(dw, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrFormatByteSizeA", "uint", dw, "ptr", pszBuf, "uint", cchBuf, "ptr")
+        result := DllCall("SHLWAPI.dll\StrFormatByteSizeA", "uint", dw, "ptr", pszBuf, "uint", cchBuf, "char*")
         return result
     }
 
@@ -17780,7 +17780,7 @@ class Shell {
     static StrFormatByteSize64A(qdw, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrFormatByteSize64A", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "ptr")
+        result := DllCall("SHLWAPI.dll\StrFormatByteSize64A", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
         return result
     }
 
@@ -17804,7 +17804,7 @@ class Shell {
     static StrFormatByteSizeW(qdw, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrFormatByteSizeW", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "ptr")
+        result := DllCall("SHLWAPI.dll\StrFormatByteSizeW", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
         return result
     }
 
@@ -17828,7 +17828,7 @@ class Shell {
     static StrFormatKBSizeW(qdw, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrFormatKBSizeW", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "ptr")
+        result := DllCall("SHLWAPI.dll\StrFormatKBSizeW", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
         return result
     }
 
@@ -17852,7 +17852,7 @@ class Shell {
     static StrFormatKBSizeA(qdw, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrFormatKBSizeA", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "ptr")
+        result := DllCall("SHLWAPI.dll\StrFormatKBSizeA", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
         return result
     }
 
@@ -18016,7 +18016,7 @@ class Shell {
         pszString1 := pszString1 is String ? StrPtr(pszString1) : pszString1
         pszString2 := pszString2 is String ? StrPtr(pszString2) : pszString2
 
-        result := DllCall("SHLWAPI.dll\StrIsIntlEqualA", "ptr", fCaseSens, "ptr", pszString1, "ptr", pszString2, "int", nChar, "ptr")
+        result := DllCall("SHLWAPI.dll\StrIsIntlEqualA", "int", fCaseSens, "ptr", pszString1, "ptr", pszString2, "int", nChar, "int")
         return result
     }
 
@@ -18044,7 +18044,7 @@ class Shell {
         pszString1 := pszString1 is String ? StrPtr(pszString1) : pszString1
         pszString2 := pszString2 is String ? StrPtr(pszString2) : pszString2
 
-        result := DllCall("SHLWAPI.dll\StrIsIntlEqualW", "ptr", fCaseSens, "ptr", pszString1, "ptr", pszString2, "int", nChar, "ptr")
+        result := DllCall("SHLWAPI.dll\StrIsIntlEqualW", "int", fCaseSens, "ptr", pszString1, "ptr", pszString2, "int", nChar, "int")
         return result
     }
 
@@ -18069,7 +18069,7 @@ class Shell {
         psz1 := psz1 is String ? StrPtr(psz1) : psz1
         psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrNCatA", "ptr", psz1, "ptr", psz2, "int", cchMax, "ptr")
+        result := DllCall("SHLWAPI.dll\StrNCatA", "ptr", psz1, "ptr", psz2, "int", cchMax, "char*")
         return result
     }
 
@@ -18094,7 +18094,7 @@ class Shell {
         psz1 := psz1 is String ? StrPtr(psz1) : psz1
         psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrNCatW", "ptr", psz1, "ptr", psz2, "int", cchMax, "ptr")
+        result := DllCall("SHLWAPI.dll\StrNCatW", "ptr", psz1, "ptr", psz2, "int", cchMax, "char*")
         return result
     }
 
@@ -18116,7 +18116,7 @@ class Shell {
         psz := psz is String ? StrPtr(psz) : psz
         pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
-        result := DllCall("SHLWAPI.dll\StrPBrkA", "ptr", psz, "ptr", pszSet, "ptr")
+        result := DllCall("SHLWAPI.dll\StrPBrkA", "ptr", psz, "ptr", pszSet, "char*")
         return result
     }
 
@@ -18138,7 +18138,7 @@ class Shell {
         psz := psz is String ? StrPtr(psz) : psz
         pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
-        result := DllCall("SHLWAPI.dll\StrPBrkW", "ptr", psz, "ptr", pszSet, "ptr")
+        result := DllCall("SHLWAPI.dll\StrPBrkW", "ptr", psz, "ptr", pszSet, "char*")
         return result
     }
 
@@ -18163,7 +18163,7 @@ class Shell {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
         pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-        result := DllCall("SHLWAPI.dll\StrRChrA", "ptr", pszStart, "ptr", pszEnd, "ushort", wMatch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrRChrA", "ptr", pszStart, "ptr", pszEnd, "ushort", wMatch, "char*")
         return result
     }
 
@@ -18188,7 +18188,7 @@ class Shell {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
         pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-        result := DllCall("SHLWAPI.dll\StrRChrW", "ptr", pszStart, "ptr", pszEnd, "char", wMatch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrRChrW", "ptr", pszStart, "ptr", pszEnd, "char", wMatch, "char*")
         return result
     }
 
@@ -18213,7 +18213,7 @@ class Shell {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
         pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-        result := DllCall("SHLWAPI.dll\StrRChrIA", "ptr", pszStart, "ptr", pszEnd, "ushort", wMatch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrRChrIA", "ptr", pszStart, "ptr", pszEnd, "ushort", wMatch, "char*")
         return result
     }
 
@@ -18238,7 +18238,7 @@ class Shell {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
         pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-        result := DllCall("SHLWAPI.dll\StrRChrIW", "ptr", pszStart, "ptr", pszEnd, "char", wMatch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrRChrIW", "ptr", pszStart, "ptr", pszEnd, "char", wMatch, "char*")
         return result
     }
 
@@ -18264,7 +18264,7 @@ class Shell {
         pszLast := pszLast is String ? StrPtr(pszLast) : pszLast
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrRStrIA", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrRStrIA", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, "char*")
         return result
     }
 
@@ -18290,7 +18290,7 @@ class Shell {
         pszLast := pszLast is String ? StrPtr(pszLast) : pszLast
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrRStrIW", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrRStrIW", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, "char*")
         return result
     }
 
@@ -18356,7 +18356,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrA", "ptr", pszFirst, "ptr", pszSrch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrStrA", "ptr", pszFirst, "ptr", pszSrch, "char*")
         return result
     }
 
@@ -18378,7 +18378,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrW", "ptr", pszFirst, "ptr", pszSrch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrStrW", "ptr", pszFirst, "ptr", pszSrch, "char*")
         return result
     }
 
@@ -18400,7 +18400,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrIA", "ptr", pszFirst, "ptr", pszSrch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrStrIA", "ptr", pszFirst, "ptr", pszSrch, "char*")
         return result
     }
 
@@ -18422,7 +18422,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrIW", "ptr", pszFirst, "ptr", pszSrch, "ptr")
+        result := DllCall("SHLWAPI.dll\StrStrIW", "ptr", pszFirst, "ptr", pszSrch, "char*")
         return result
     }
 
@@ -18447,7 +18447,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrNW", "ptr", pszFirst, "ptr", pszSrch, "uint", cchMax, "ptr")
+        result := DllCall("SHLWAPI.dll\StrStrNW", "ptr", pszFirst, "ptr", pszSrch, "uint", cchMax, "char*")
         return result
     }
 
@@ -18472,7 +18472,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrNIW", "ptr", pszFirst, "ptr", pszSrch, "uint", cchMax, "ptr")
+        result := DllCall("SHLWAPI.dll\StrStrNIW", "ptr", pszFirst, "ptr", pszSrch, "uint", cchMax, "char*")
         return result
     }
 
@@ -18546,7 +18546,7 @@ class Shell {
     static StrToIntExA(pszString, dwFlags, piRet) {
         pszString := pszString is String ? StrPtr(pszString) : pszString
 
-        result := DllCall("SHLWAPI.dll\StrToIntExA", "ptr", pszString, "int", dwFlags, "int*", piRet, "ptr")
+        result := DllCall("SHLWAPI.dll\StrToIntExA", "ptr", pszString, "int", dwFlags, "int*", piRet, "int")
         return result
     }
 
@@ -18574,7 +18574,7 @@ class Shell {
     static StrToIntExW(pszString, dwFlags, piRet) {
         pszString := pszString is String ? StrPtr(pszString) : pszString
 
-        result := DllCall("SHLWAPI.dll\StrToIntExW", "ptr", pszString, "int", dwFlags, "int*", piRet, "ptr")
+        result := DllCall("SHLWAPI.dll\StrToIntExW", "ptr", pszString, "int", dwFlags, "int*", piRet, "int")
         return result
     }
 
@@ -18602,7 +18602,7 @@ class Shell {
     static StrToInt64ExA(pszString, dwFlags, pllRet) {
         pszString := pszString is String ? StrPtr(pszString) : pszString
 
-        result := DllCall("SHLWAPI.dll\StrToInt64ExA", "ptr", pszString, "int", dwFlags, "int64*", pllRet, "ptr")
+        result := DllCall("SHLWAPI.dll\StrToInt64ExA", "ptr", pszString, "int", dwFlags, "int64*", pllRet, "int")
         return result
     }
 
@@ -18630,7 +18630,7 @@ class Shell {
     static StrToInt64ExW(pszString, dwFlags, pllRet) {
         pszString := pszString is String ? StrPtr(pszString) : pszString
 
-        result := DllCall("SHLWAPI.dll\StrToInt64ExW", "ptr", pszString, "int", dwFlags, "int64*", pllRet, "ptr")
+        result := DllCall("SHLWAPI.dll\StrToInt64ExW", "ptr", pszString, "int", dwFlags, "int64*", pllRet, "int")
         return result
     }
 
@@ -18652,7 +18652,7 @@ class Shell {
         psz := psz is String ? StrPtr(psz) : psz
         pszTrimChars := pszTrimChars is String ? StrPtr(pszTrimChars) : pszTrimChars
 
-        result := DllCall("SHLWAPI.dll\StrTrimA", "ptr", psz, "ptr", pszTrimChars, "ptr")
+        result := DllCall("SHLWAPI.dll\StrTrimA", "ptr", psz, "ptr", pszTrimChars, "int")
         return result
     }
 
@@ -18674,7 +18674,7 @@ class Shell {
         psz := psz is String ? StrPtr(psz) : psz
         pszTrimChars := pszTrimChars is String ? StrPtr(pszTrimChars) : pszTrimChars
 
-        result := DllCall("SHLWAPI.dll\StrTrimW", "ptr", psz, "ptr", pszTrimChars, "ptr")
+        result := DllCall("SHLWAPI.dll\StrTrimW", "ptr", psz, "ptr", pszTrimChars, "int")
         return result
     }
 
@@ -18696,7 +18696,7 @@ class Shell {
         psz1 := psz1 is String ? StrPtr(psz1) : psz1
         psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCatW", "ptr", psz1, "ptr", psz2, "ptr")
+        result := DllCall("SHLWAPI.dll\StrCatW", "ptr", psz1, "ptr", psz2, "char*")
         return result
     }
 
@@ -18762,7 +18762,7 @@ class Shell {
         psz1 := psz1 is String ? StrPtr(psz1) : psz1
         psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCpyW", "ptr", psz1, "ptr", psz2, "ptr")
+        result := DllCall("SHLWAPI.dll\StrCpyW", "ptr", psz1, "ptr", psz2, "char*")
         return result
     }
 
@@ -18787,7 +18787,7 @@ class Shell {
         pszDst := pszDst is String ? StrPtr(pszDst) : pszDst
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := DllCall("SHLWAPI.dll\StrCpyNW", "ptr", pszDst, "ptr", pszSrc, "int", cchMax, "ptr")
+        result := DllCall("SHLWAPI.dll\StrCpyNW", "ptr", pszDst, "ptr", pszSrc, "int", cchMax, "char*")
         return result
     }
 
@@ -18812,7 +18812,7 @@ class Shell {
         pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := DllCall("SHLWAPI.dll\StrCatBuffW", "ptr", pszDest, "ptr", pszSrc, "int", cchDestBuffSize, "ptr")
+        result := DllCall("SHLWAPI.dll\StrCatBuffW", "ptr", pszDest, "ptr", pszSrc, "int", cchDestBuffSize, "char*")
         return result
     }
 
@@ -18837,7 +18837,7 @@ class Shell {
         pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := DllCall("SHLWAPI.dll\StrCatBuffA", "ptr", pszDest, "ptr", pszSrc, "int", cchDestBuffSize, "ptr")
+        result := DllCall("SHLWAPI.dll\StrCatBuffA", "ptr", pszDest, "ptr", pszSrc, "int", cchDestBuffSize, "char*")
         return result
     }
 
@@ -18856,7 +18856,7 @@ class Shell {
      * @since windows5.0
      */
     static ChrCmpIA(w1, w2) {
-        result := DllCall("SHLWAPI.dll\ChrCmpIA", "ushort", w1, "ushort", w2, "ptr")
+        result := DllCall("SHLWAPI.dll\ChrCmpIA", "ushort", w1, "ushort", w2, "int")
         return result
     }
 
@@ -18875,7 +18875,7 @@ class Shell {
      * @since windows5.0
      */
     static ChrCmpIW(w1, w2) {
-        result := DllCall("SHLWAPI.dll\ChrCmpIW", "char", w1, "char", w2, "ptr")
+        result := DllCall("SHLWAPI.dll\ChrCmpIW", "char", w1, "char", w2, "int")
         return result
     }
 
@@ -19272,7 +19272,7 @@ class Shell {
      * @since windows5.0
      */
     static IsCharSpaceA(wch) {
-        result := DllCall("SHLWAPI.dll\IsCharSpaceA", "ptr", wch, "ptr")
+        result := DllCall("SHLWAPI.dll\IsCharSpaceA", "char", wch, "int")
         return result
     }
 
@@ -19288,7 +19288,7 @@ class Shell {
      * @since windows5.0
      */
     static IsCharSpaceW(wch) {
-        result := DllCall("SHLWAPI.dll\IsCharSpaceW", "char", wch, "ptr")
+        result := DllCall("SHLWAPI.dll\IsCharSpaceW", "char", wch, "int")
         return result
     }
 
@@ -19504,7 +19504,7 @@ class Shell {
         lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-        result := DllCall("SHLWAPI.dll\IntlStrEqWorkerA", "ptr", fCaseSens, "ptr", lpString1, "ptr", lpString2, "int", nChar, "ptr")
+        result := DllCall("SHLWAPI.dll\IntlStrEqWorkerA", "int", fCaseSens, "ptr", lpString1, "ptr", lpString2, "int", nChar, "int")
         return result
     }
 
@@ -19532,7 +19532,7 @@ class Shell {
         lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-        result := DllCall("SHLWAPI.dll\IntlStrEqWorkerW", "ptr", fCaseSens, "ptr", lpString1, "ptr", lpString2, "int", nChar, "ptr")
+        result := DllCall("SHLWAPI.dll\IntlStrEqWorkerW", "int", fCaseSens, "ptr", lpString1, "ptr", lpString2, "int", nChar, "int")
         return result
     }
 
@@ -19550,7 +19550,7 @@ class Shell {
     static PathAddBackslashA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathAddBackslashA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathAddBackslashA", "ptr", pszPath, "char*")
         return result
     }
 
@@ -19568,7 +19568,7 @@ class Shell {
     static PathAddBackslashW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathAddBackslashW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathAddBackslashW", "ptr", pszPath, "char*")
         return result
     }
 
@@ -19590,7 +19590,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
-        result := DllCall("SHLWAPI.dll\PathAddExtensionA", "ptr", pszPath, "ptr", pszExt, "ptr")
+        result := DllCall("SHLWAPI.dll\PathAddExtensionA", "ptr", pszPath, "ptr", pszExt, "int")
         return result
     }
 
@@ -19612,7 +19612,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
-        result := DllCall("SHLWAPI.dll\PathAddExtensionW", "ptr", pszPath, "ptr", pszExt, "ptr")
+        result := DllCall("SHLWAPI.dll\PathAddExtensionW", "ptr", pszPath, "ptr", pszExt, "int")
         return result
     }
 
@@ -19634,7 +19634,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
-        result := DllCall("SHLWAPI.dll\PathAppendA", "ptr", pszPath, "ptr", pszMore, "ptr")
+        result := DllCall("SHLWAPI.dll\PathAppendA", "ptr", pszPath, "ptr", pszMore, "int")
         return result
     }
 
@@ -19656,7 +19656,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
-        result := DllCall("SHLWAPI.dll\PathAppendW", "ptr", pszPath, "ptr", pszMore, "ptr")
+        result := DllCall("SHLWAPI.dll\PathAppendW", "ptr", pszPath, "ptr", pszMore, "int")
         return result
     }
 
@@ -19677,7 +19677,7 @@ class Shell {
     static PathBuildRootA(pszRoot, iDrive) {
         pszRoot := pszRoot is String ? StrPtr(pszRoot) : pszRoot
 
-        result := DllCall("SHLWAPI.dll\PathBuildRootA", "ptr", pszRoot, "int", iDrive, "ptr")
+        result := DllCall("SHLWAPI.dll\PathBuildRootA", "ptr", pszRoot, "int", iDrive, "char*")
         return result
     }
 
@@ -19698,7 +19698,7 @@ class Shell {
     static PathBuildRootW(pszRoot, iDrive) {
         pszRoot := pszRoot is String ? StrPtr(pszRoot) : pszRoot
 
-        result := DllCall("SHLWAPI.dll\PathBuildRootW", "ptr", pszRoot, "int", iDrive, "ptr")
+        result := DllCall("SHLWAPI.dll\PathBuildRootW", "ptr", pszRoot, "int", iDrive, "char*")
         return result
     }
 
@@ -19722,7 +19722,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\PathCanonicalizeA", "ptr", pszBuf, "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathCanonicalizeA", "ptr", pszBuf, "ptr", pszPath, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19749,7 +19749,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\PathCanonicalizeW", "ptr", pszBuf, "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathCanonicalizeW", "ptr", pszBuf, "ptr", pszPath, "int")
         if(A_LastError)
             throw OSError()
 
@@ -19778,7 +19778,7 @@ class Shell {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\PathCombineA", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, "ptr")
+        result := DllCall("SHLWAPI.dll\PathCombineA", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, "char*")
         return result
     }
 
@@ -19804,7 +19804,7 @@ class Shell {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\PathCombineW", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, "ptr")
+        result := DllCall("SHLWAPI.dll\PathCombineW", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, "char*")
         return result
     }
 
@@ -19829,7 +19829,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
 
-        result := DllCall("SHLWAPI.dll\PathCompactPathA", "ptr", hDC, "ptr", pszPath, "uint", dx, "ptr")
+        result := DllCall("SHLWAPI.dll\PathCompactPathA", "ptr", hDC, "ptr", pszPath, "uint", dx, "int")
         return result
     }
 
@@ -19854,7 +19854,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
 
-        result := DllCall("SHLWAPI.dll\PathCompactPathW", "ptr", hDC, "ptr", pszPath, "uint", dx, "ptr")
+        result := DllCall("SHLWAPI.dll\PathCompactPathW", "ptr", hDC, "ptr", pszPath, "uint", dx, "int")
         return result
     }
 
@@ -19880,7 +19880,7 @@ class Shell {
         pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := DllCall("SHLWAPI.dll\PathCompactPathExA", "ptr", pszOut, "ptr", pszSrc, "uint", cchMax, "uint", dwFlags, "ptr")
+        result := DllCall("SHLWAPI.dll\PathCompactPathExA", "ptr", pszOut, "ptr", pszSrc, "uint", cchMax, "uint", dwFlags, "int")
         return result
     }
 
@@ -19906,7 +19906,7 @@ class Shell {
         pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := DllCall("SHLWAPI.dll\PathCompactPathExW", "ptr", pszOut, "ptr", pszSrc, "uint", cchMax, "uint", dwFlags, "ptr")
+        result := DllCall("SHLWAPI.dll\PathCompactPathExW", "ptr", pszOut, "ptr", pszSrc, "uint", cchMax, "uint", dwFlags, "int")
         return result
     }
 
@@ -19978,7 +19978,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\PathFileExistsA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFileExistsA", "ptr", pszPath, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20001,7 +20001,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\PathFileExistsW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFileExistsW", "ptr", pszPath, "int")
         if(A_LastError)
             throw OSError()
 
@@ -20022,7 +20022,7 @@ class Shell {
     static PathFindExtensionA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindExtensionA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFindExtensionA", "ptr", pszPath, "char*")
         return result
     }
 
@@ -20040,7 +20040,7 @@ class Shell {
     static PathFindExtensionW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindExtensionW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFindExtensionW", "ptr", pszPath, "char*")
         return result
     }
 
@@ -20058,7 +20058,7 @@ class Shell {
     static PathFindFileNameA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindFileNameA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFindFileNameA", "ptr", pszPath, "char*")
         return result
     }
 
@@ -20076,7 +20076,7 @@ class Shell {
     static PathFindFileNameW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindFileNameW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFindFileNameW", "ptr", pszPath, "char*")
         return result
     }
 
@@ -20098,7 +20098,7 @@ class Shell {
     static PathFindNextComponentA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindNextComponentA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFindNextComponentA", "ptr", pszPath, "char*")
         return result
     }
 
@@ -20120,7 +20120,7 @@ class Shell {
     static PathFindNextComponentW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindNextComponentW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFindNextComponentW", "ptr", pszPath, "char*")
         return result
     }
 
@@ -20141,7 +20141,7 @@ class Shell {
     static PathFindOnPathA(pszPath, ppszOtherDirs) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindOnPathA", "ptr", pszPath, "char*", ppszOtherDirs, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFindOnPathA", "ptr", pszPath, "char*", ppszOtherDirs, "int")
         return result
     }
 
@@ -20162,7 +20162,7 @@ class Shell {
     static PathFindOnPathW(pszPath, ppszOtherDirs) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindOnPathW", "ptr", pszPath, "ushort*", ppszOtherDirs, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFindOnPathW", "ptr", pszPath, "ushort*", ppszOtherDirs, "int")
         return result
     }
 
@@ -20186,7 +20186,7 @@ class Shell {
     static PathFindSuffixArrayA(pszPath, apszSuffix, iArraySize) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindSuffixArrayA", "ptr", pszPath, "ptr", apszSuffix, "int", iArraySize, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFindSuffixArrayA", "ptr", pszPath, "ptr", apszSuffix, "int", iArraySize, "char*")
         return result
     }
 
@@ -20210,7 +20210,7 @@ class Shell {
     static PathFindSuffixArrayW(pszPath, apszSuffix, iArraySize) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindSuffixArrayW", "ptr", pszPath, "ptr", apszSuffix, "int", iArraySize, "ptr")
+        result := DllCall("SHLWAPI.dll\PathFindSuffixArrayW", "ptr", pszPath, "ptr", apszSuffix, "int", iArraySize, "char*")
         return result
     }
 
@@ -20234,7 +20234,7 @@ class Shell {
     static PathGetArgsA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathGetArgsA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathGetArgsA", "ptr", pszPath, "char*")
         return result
     }
 
@@ -20258,7 +20258,7 @@ class Shell {
     static PathGetArgsW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathGetArgsW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathGetArgsW", "ptr", pszPath, "char*")
         return result
     }
 
@@ -20276,7 +20276,7 @@ class Shell {
     static PathIsLFNFileSpecA(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHLWAPI.dll\PathIsLFNFileSpecA", "ptr", pszName, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsLFNFileSpecA", "ptr", pszName, "int")
         return result
     }
 
@@ -20294,7 +20294,7 @@ class Shell {
     static PathIsLFNFileSpecW(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHLWAPI.dll\PathIsLFNFileSpecW", "ptr", pszName, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsLFNFileSpecW", "ptr", pszName, "int")
         return result
     }
 
@@ -20504,7 +20504,7 @@ class Shell {
     static PathIsDirectoryA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsDirectoryA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsDirectoryA", "ptr", pszPath, "int")
         return result
     }
 
@@ -20522,7 +20522,7 @@ class Shell {
     static PathIsDirectoryW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsDirectoryW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsDirectoryW", "ptr", pszPath, "int")
         return result
     }
 
@@ -20540,7 +20540,7 @@ class Shell {
     static PathIsDirectoryEmptyA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsDirectoryEmptyA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsDirectoryEmptyA", "ptr", pszPath, "int")
         return result
     }
 
@@ -20558,7 +20558,7 @@ class Shell {
     static PathIsDirectoryEmptyW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsDirectoryEmptyW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsDirectoryEmptyW", "ptr", pszPath, "int")
         return result
     }
 
@@ -20576,7 +20576,7 @@ class Shell {
     static PathIsFileSpecA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsFileSpecA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsFileSpecA", "ptr", pszPath, "int")
         return result
     }
 
@@ -20594,7 +20594,7 @@ class Shell {
     static PathIsFileSpecW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsFileSpecW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsFileSpecW", "ptr", pszPath, "int")
         return result
     }
 
@@ -20616,7 +20616,7 @@ class Shell {
         pszPrefix := pszPrefix is String ? StrPtr(pszPrefix) : pszPrefix
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsPrefixA", "ptr", pszPrefix, "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsPrefixA", "ptr", pszPrefix, "ptr", pszPath, "int")
         return result
     }
 
@@ -20638,7 +20638,7 @@ class Shell {
         pszPrefix := pszPrefix is String ? StrPtr(pszPrefix) : pszPrefix
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsPrefixW", "ptr", pszPrefix, "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsPrefixW", "ptr", pszPrefix, "ptr", pszPath, "int")
         return result
     }
 
@@ -20656,7 +20656,7 @@ class Shell {
     static PathIsRelativeA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsRelativeA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsRelativeA", "ptr", pszPath, "int")
         return result
     }
 
@@ -20674,7 +20674,7 @@ class Shell {
     static PathIsRelativeW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsRelativeW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsRelativeW", "ptr", pszPath, "int")
         return result
     }
 
@@ -20692,7 +20692,7 @@ class Shell {
     static PathIsRootA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsRootA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsRootA", "ptr", pszPath, "int")
         return result
     }
 
@@ -20710,7 +20710,7 @@ class Shell {
     static PathIsRootW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsRootW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsRootW", "ptr", pszPath, "int")
         return result
     }
 
@@ -20732,7 +20732,7 @@ class Shell {
         pszPath1 := pszPath1 is String ? StrPtr(pszPath1) : pszPath1
         pszPath2 := pszPath2 is String ? StrPtr(pszPath2) : pszPath2
 
-        result := DllCall("SHLWAPI.dll\PathIsSameRootA", "ptr", pszPath1, "ptr", pszPath2, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsSameRootA", "ptr", pszPath1, "ptr", pszPath2, "int")
         return result
     }
 
@@ -20754,7 +20754,7 @@ class Shell {
         pszPath1 := pszPath1 is String ? StrPtr(pszPath1) : pszPath1
         pszPath2 := pszPath2 is String ? StrPtr(pszPath2) : pszPath2
 
-        result := DllCall("SHLWAPI.dll\PathIsSameRootW", "ptr", pszPath1, "ptr", pszPath2, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsSameRootW", "ptr", pszPath1, "ptr", pszPath2, "int")
         return result
     }
 
@@ -20772,7 +20772,7 @@ class Shell {
     static PathIsUNCA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsUNCA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsUNCA", "ptr", pszPath, "int")
         return result
     }
 
@@ -20790,7 +20790,7 @@ class Shell {
     static PathIsUNCW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsUNCW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsUNCW", "ptr", pszPath, "int")
         return result
     }
 
@@ -20808,7 +20808,7 @@ class Shell {
     static PathIsNetworkPathA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsNetworkPathA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsNetworkPathA", "ptr", pszPath, "int")
         return result
     }
 
@@ -20826,7 +20826,7 @@ class Shell {
     static PathIsNetworkPathW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsNetworkPathW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsNetworkPathW", "ptr", pszPath, "int")
         return result
     }
 
@@ -20844,7 +20844,7 @@ class Shell {
     static PathIsUNCServerA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsUNCServerA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsUNCServerA", "ptr", pszPath, "int")
         return result
     }
 
@@ -20862,7 +20862,7 @@ class Shell {
     static PathIsUNCServerW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsUNCServerW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsUNCServerW", "ptr", pszPath, "int")
         return result
     }
 
@@ -20880,7 +20880,7 @@ class Shell {
     static PathIsUNCServerShareA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsUNCServerShareA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsUNCServerShareA", "ptr", pszPath, "int")
         return result
     }
 
@@ -20898,7 +20898,7 @@ class Shell {
     static PathIsUNCServerShareW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsUNCServerShareW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsUNCServerShareW", "ptr", pszPath, "int")
         return result
     }
 
@@ -20920,7 +20920,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszContentType := pszContentType is String ? StrPtr(pszContentType) : pszContentType
 
-        result := DllCall("SHLWAPI.dll\PathIsContentTypeA", "ptr", pszPath, "ptr", pszContentType, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsContentTypeA", "ptr", pszPath, "ptr", pszContentType, "int")
         return result
     }
 
@@ -20942,7 +20942,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszContentType := pszContentType is String ? StrPtr(pszContentType) : pszContentType
 
-        result := DllCall("SHLWAPI.dll\PathIsContentTypeW", "ptr", pszPath, "ptr", pszContentType, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsContentTypeW", "ptr", pszPath, "ptr", pszContentType, "int")
         return result
     }
 
@@ -20960,7 +20960,7 @@ class Shell {
     static PathIsURLA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsURLA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsURLA", "ptr", pszPath, "int")
         return result
     }
 
@@ -20978,7 +20978,7 @@ class Shell {
     static PathIsURLW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsURLW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsURLW", "ptr", pszPath, "int")
         return result
     }
 
@@ -20996,7 +20996,7 @@ class Shell {
     static PathMakePrettyA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathMakePrettyA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathMakePrettyA", "ptr", pszPath, "int")
         return result
     }
 
@@ -21014,7 +21014,7 @@ class Shell {
     static PathMakePrettyW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathMakePrettyW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathMakePrettyW", "ptr", pszPath, "int")
         return result
     }
 
@@ -21036,7 +21036,7 @@ class Shell {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
         pszSpec := pszSpec is String ? StrPtr(pszSpec) : pszSpec
 
-        result := DllCall("SHLWAPI.dll\PathMatchSpecA", "ptr", pszFile, "ptr", pszSpec, "ptr")
+        result := DllCall("SHLWAPI.dll\PathMatchSpecA", "ptr", pszFile, "ptr", pszSpec, "int")
         return result
     }
 
@@ -21058,7 +21058,7 @@ class Shell {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
         pszSpec := pszSpec is String ? StrPtr(pszSpec) : pszSpec
 
-        result := DllCall("SHLWAPI.dll\PathMatchSpecW", "ptr", pszFile, "ptr", pszSpec, "ptr")
+        result := DllCall("SHLWAPI.dll\PathMatchSpecW", "ptr", pszFile, "ptr", pszSpec, "int")
         return result
     }
 
@@ -21226,7 +21226,7 @@ class Shell {
     static PathQuoteSpacesA(lpsz) {
         lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-        result := DllCall("SHLWAPI.dll\PathQuoteSpacesA", "ptr", lpsz, "ptr")
+        result := DllCall("SHLWAPI.dll\PathQuoteSpacesA", "ptr", lpsz, "int")
         return result
     }
 
@@ -21244,7 +21244,7 @@ class Shell {
     static PathQuoteSpacesW(lpsz) {
         lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-        result := DllCall("SHLWAPI.dll\PathQuoteSpacesW", "ptr", lpsz, "ptr")
+        result := DllCall("SHLWAPI.dll\PathQuoteSpacesW", "ptr", lpsz, "int")
         return result
     }
 
@@ -21276,7 +21276,7 @@ class Shell {
         pszFrom := pszFrom is String ? StrPtr(pszFrom) : pszFrom
         pszTo := pszTo is String ? StrPtr(pszTo) : pszTo
 
-        result := DllCall("SHLWAPI.dll\PathRelativePathToA", "ptr", pszPath, "ptr", pszFrom, "uint", dwAttrFrom, "ptr", pszTo, "uint", dwAttrTo, "ptr")
+        result := DllCall("SHLWAPI.dll\PathRelativePathToA", "ptr", pszPath, "ptr", pszFrom, "uint", dwAttrFrom, "ptr", pszTo, "uint", dwAttrTo, "int")
         return result
     }
 
@@ -21308,7 +21308,7 @@ class Shell {
         pszFrom := pszFrom is String ? StrPtr(pszFrom) : pszFrom
         pszTo := pszTo is String ? StrPtr(pszTo) : pszTo
 
-        result := DllCall("SHLWAPI.dll\PathRelativePathToW", "ptr", pszPath, "ptr", pszFrom, "uint", dwAttrFrom, "ptr", pszTo, "uint", dwAttrTo, "ptr")
+        result := DllCall("SHLWAPI.dll\PathRelativePathToW", "ptr", pszPath, "ptr", pszFrom, "uint", dwAttrFrom, "ptr", pszTo, "uint", dwAttrTo, "int")
         return result
     }
 
@@ -21368,7 +21368,7 @@ class Shell {
     static PathRemoveBackslashA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveBackslashA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathRemoveBackslashA", "ptr", pszPath, "char*")
         return result
     }
 
@@ -21386,7 +21386,7 @@ class Shell {
     static PathRemoveBackslashW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveBackslashW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathRemoveBackslashW", "ptr", pszPath, "char*")
         return result
     }
 
@@ -21486,7 +21486,7 @@ class Shell {
     static PathRemoveFileSpecA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveFileSpecA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathRemoveFileSpecA", "ptr", pszPath, "int")
         return result
     }
 
@@ -21504,7 +21504,7 @@ class Shell {
     static PathRemoveFileSpecW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveFileSpecW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathRemoveFileSpecW", "ptr", pszPath, "int")
         return result
     }
 
@@ -21526,7 +21526,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
-        result := DllCall("SHLWAPI.dll\PathRenameExtensionA", "ptr", pszPath, "ptr", pszExt, "ptr")
+        result := DllCall("SHLWAPI.dll\PathRenameExtensionA", "ptr", pszPath, "ptr", pszExt, "int")
         return result
     }
 
@@ -21548,7 +21548,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
-        result := DllCall("SHLWAPI.dll\PathRenameExtensionW", "ptr", pszPath, "ptr", pszExt, "ptr")
+        result := DllCall("SHLWAPI.dll\PathRenameExtensionW", "ptr", pszPath, "ptr", pszExt, "int")
         return result
     }
 
@@ -21573,7 +21573,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\PathSearchAndQualifyA", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "ptr")
+        result := DllCall("SHLWAPI.dll\PathSearchAndQualifyA", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
     }
 
@@ -21598,7 +21598,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\PathSearchAndQualifyW", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "ptr")
+        result := DllCall("SHLWAPI.dll\PathSearchAndQualifyW", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
     }
 
@@ -21670,7 +21670,7 @@ class Shell {
     static PathSkipRootA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathSkipRootA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathSkipRootA", "ptr", pszPath, "char*")
         return result
     }
 
@@ -21688,7 +21688,7 @@ class Shell {
     static PathSkipRootW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathSkipRootW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathSkipRootW", "ptr", pszPath, "char*")
         return result
     }
 
@@ -21748,7 +21748,7 @@ class Shell {
     static PathStripToRootA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathStripToRootA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathStripToRootA", "ptr", pszPath, "int")
         return result
     }
 
@@ -21766,7 +21766,7 @@ class Shell {
     static PathStripToRootW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathStripToRootW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathStripToRootW", "ptr", pszPath, "int")
         return result
     }
 
@@ -21782,7 +21782,7 @@ class Shell {
     static PathUnquoteSpacesA(lpsz) {
         lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-        result := DllCall("SHLWAPI.dll\PathUnquoteSpacesA", "ptr", lpsz, "ptr")
+        result := DllCall("SHLWAPI.dll\PathUnquoteSpacesA", "ptr", lpsz, "int")
         return result
     }
 
@@ -21798,7 +21798,7 @@ class Shell {
     static PathUnquoteSpacesW(lpsz) {
         lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-        result := DllCall("SHLWAPI.dll\PathUnquoteSpacesW", "ptr", lpsz, "ptr")
+        result := DllCall("SHLWAPI.dll\PathUnquoteSpacesW", "ptr", lpsz, "int")
         return result
     }
 
@@ -21816,7 +21816,7 @@ class Shell {
     static PathMakeSystemFolderA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathMakeSystemFolderA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathMakeSystemFolderA", "ptr", pszPath, "int")
         return result
     }
 
@@ -21834,7 +21834,7 @@ class Shell {
     static PathMakeSystemFolderW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathMakeSystemFolderW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathMakeSystemFolderW", "ptr", pszPath, "int")
         return result
     }
 
@@ -21852,7 +21852,7 @@ class Shell {
     static PathUnmakeSystemFolderA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathUnmakeSystemFolderA", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathUnmakeSystemFolderA", "ptr", pszPath, "int")
         return result
     }
 
@@ -21870,7 +21870,7 @@ class Shell {
     static PathUnmakeSystemFolderW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathUnmakeSystemFolderW", "ptr", pszPath, "ptr")
+        result := DllCall("SHLWAPI.dll\PathUnmakeSystemFolderW", "ptr", pszPath, "int")
         return result
     }
 
@@ -21891,7 +21891,7 @@ class Shell {
     static PathIsSystemFolderA(pszPath, dwAttrb) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsSystemFolderA", "ptr", pszPath, "uint", dwAttrb, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsSystemFolderA", "ptr", pszPath, "uint", dwAttrb, "int")
         return result
     }
 
@@ -21912,7 +21912,7 @@ class Shell {
     static PathIsSystemFolderW(pszPath, dwAttrb) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathIsSystemFolderW", "ptr", pszPath, "uint", dwAttrb, "ptr")
+        result := DllCall("SHLWAPI.dll\PathIsSystemFolderW", "ptr", pszPath, "uint", dwAttrb, "int")
         return result
     }
 
@@ -21979,7 +21979,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\PathUnExpandEnvStringsA", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "ptr")
+        result := DllCall("SHLWAPI.dll\PathUnExpandEnvStringsA", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
     }
 
@@ -22004,7 +22004,7 @@ class Shell {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\PathUnExpandEnvStringsW", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "ptr")
+        result := DllCall("SHLWAPI.dll\PathUnExpandEnvStringsW", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
     }
 
@@ -22029,7 +22029,7 @@ class Shell {
         psz1 := psz1 is String ? StrPtr(psz1) : psz1
         psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\UrlCompareA", "ptr", psz1, "ptr", psz2, "ptr", fIgnoreSlash, "int")
+        result := DllCall("SHLWAPI.dll\UrlCompareA", "ptr", psz1, "ptr", psz2, "int", fIgnoreSlash, "int")
         return result
     }
 
@@ -22054,7 +22054,7 @@ class Shell {
         psz1 := psz1 is String ? StrPtr(psz1) : psz1
         psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\UrlCompareW", "ptr", psz1, "ptr", psz2, "ptr", fIgnoreSlash, "int")
+        result := DllCall("SHLWAPI.dll\UrlCompareW", "ptr", psz1, "ptr", psz2, "int", fIgnoreSlash, "int")
         return result
     }
 
@@ -22262,7 +22262,7 @@ class Shell {
     static UrlIsOpaqueA(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := DllCall("SHLWAPI.dll\UrlIsOpaqueA", "ptr", pszURL, "ptr")
+        result := DllCall("SHLWAPI.dll\UrlIsOpaqueA", "ptr", pszURL, "int")
         return result
     }
 
@@ -22280,7 +22280,7 @@ class Shell {
     static UrlIsOpaqueW(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := DllCall("SHLWAPI.dll\UrlIsOpaqueW", "ptr", pszURL, "ptr")
+        result := DllCall("SHLWAPI.dll\UrlIsOpaqueW", "ptr", pszURL, "int")
         return result
     }
 
@@ -22298,7 +22298,7 @@ class Shell {
     static UrlIsNoHistoryA(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := DllCall("SHLWAPI.dll\UrlIsNoHistoryA", "ptr", pszURL, "ptr")
+        result := DllCall("SHLWAPI.dll\UrlIsNoHistoryA", "ptr", pszURL, "int")
         return result
     }
 
@@ -22316,7 +22316,7 @@ class Shell {
     static UrlIsNoHistoryW(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := DllCall("SHLWAPI.dll\UrlIsNoHistoryW", "ptr", pszURL, "ptr")
+        result := DllCall("SHLWAPI.dll\UrlIsNoHistoryW", "ptr", pszURL, "int")
         return result
     }
 
@@ -22339,7 +22339,7 @@ class Shell {
     static UrlIsA(pszUrl, UrlIs) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := DllCall("SHLWAPI.dll\UrlIsA", "ptr", pszUrl, "int", UrlIs, "ptr")
+        result := DllCall("SHLWAPI.dll\UrlIsA", "ptr", pszUrl, "int", UrlIs, "int")
         return result
     }
 
@@ -22362,7 +22362,7 @@ class Shell {
     static UrlIsW(pszUrl, UrlIs) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := DllCall("SHLWAPI.dll\UrlIsW", "ptr", pszUrl, "int", UrlIs, "ptr")
+        result := DllCall("SHLWAPI.dll\UrlIsW", "ptr", pszUrl, "int", UrlIs, "int")
         return result
     }
 
@@ -22380,7 +22380,7 @@ class Shell {
     static UrlGetLocationA(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := DllCall("SHLWAPI.dll\UrlGetLocationA", "ptr", pszURL, "ptr")
+        result := DllCall("SHLWAPI.dll\UrlGetLocationA", "ptr", pszURL, "char*")
         return result
     }
 
@@ -22398,7 +22398,7 @@ class Shell {
     static UrlGetLocationW(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := DllCall("SHLWAPI.dll\UrlGetLocationW", "ptr", pszURL, "ptr")
+        result := DllCall("SHLWAPI.dll\UrlGetLocationW", "ptr", pszURL, "char*")
         return result
     }
 
@@ -24047,7 +24047,7 @@ class Shell {
     static SHRegOpenUSKeyA(pszPath, samDesired, hRelativeUSKey, phNewUSKey, fIgnoreHKCU) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\SHRegOpenUSKeyA", "ptr", pszPath, "uint", samDesired, "ptr", hRelativeUSKey, "ptr*", phNewUSKey, "ptr", fIgnoreHKCU, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegOpenUSKeyA", "ptr", pszPath, "uint", samDesired, "ptr", hRelativeUSKey, "ptr*", phNewUSKey, "int", fIgnoreHKCU, "uint")
         return result
     }
 
@@ -24075,7 +24075,7 @@ class Shell {
     static SHRegOpenUSKeyW(pwzPath, samDesired, hRelativeUSKey, phNewUSKey, fIgnoreHKCU) {
         pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
 
-        result := DllCall("SHLWAPI.dll\SHRegOpenUSKeyW", "ptr", pwzPath, "uint", samDesired, "ptr", hRelativeUSKey, "ptr*", phNewUSKey, "ptr", fIgnoreHKCU, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegOpenUSKeyW", "ptr", pwzPath, "uint", samDesired, "ptr", hRelativeUSKey, "ptr*", phNewUSKey, "int", fIgnoreHKCU, "uint")
         return result
     }
 
@@ -24118,7 +24118,7 @@ class Shell {
     static SHRegQueryUSValueA(hUSKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHRegQueryUSValueA", "ptr", hUSKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "ptr", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegQueryUSValueA", "ptr", hUSKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "int", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
         return result
     }
 
@@ -24161,7 +24161,7 @@ class Shell {
     static SHRegQueryUSValueW(hUSKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHRegQueryUSValueW", "ptr", hUSKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "ptr", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegQueryUSValueW", "ptr", hUSKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "int", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
         return result
     }
 
@@ -24623,7 +24623,7 @@ class Shell {
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHRegGetUSValueA", "ptr", pszSubKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "ptr", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegGetUSValueA", "ptr", pszSubKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "int", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
         return result
     }
 
@@ -24663,7 +24663,7 @@ class Shell {
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHRegGetUSValueW", "ptr", pszSubKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "ptr", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegGetUSValueW", "ptr", pszSubKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "int", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
         return result
     }
 
@@ -24780,7 +24780,7 @@ class Shell {
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHRegGetBoolUSValueA", "ptr", pszSubKey, "ptr", pszValue, "ptr", fIgnoreHKCU, "ptr", fDefault, "ptr")
+        result := DllCall("SHLWAPI.dll\SHRegGetBoolUSValueA", "ptr", pszSubKey, "ptr", pszValue, "int", fIgnoreHKCU, "int", fDefault, "int")
         return result
     }
 
@@ -24808,7 +24808,7 @@ class Shell {
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHRegGetBoolUSValueW", "ptr", pszSubKey, "ptr", pszValue, "ptr", fIgnoreHKCU, "ptr", fDefault, "ptr")
+        result := DllCall("SHLWAPI.dll\SHRegGetBoolUSValueW", "ptr", pszSubKey, "ptr", pszValue, "int", fIgnoreHKCU, "int", fDefault, "int")
         return result
     }
 
@@ -25175,7 +25175,7 @@ class Shell {
     static AssocIsDangerous(pszAssoc) {
         pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
 
-        result := DllCall("SHLWAPI.dll\AssocIsDangerous", "ptr", pszAssoc, "ptr")
+        result := DllCall("SHLWAPI.dll\AssocIsDangerous", "ptr", pszAssoc, "int")
         return result
     }
 
@@ -25408,7 +25408,7 @@ class Shell {
     static SHCreateStreamOnFileEx(pszFile, grfMode, dwAttributes, fCreate, pstmTemplate, ppstm) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, "uint", grfMode, "uint", dwAttributes, "ptr", fCreate, "ptr", pstmTemplate, "ptr", ppstm, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, "uint", grfMode, "uint", dwAttributes, "int", fCreate, "ptr", pstmTemplate, "ptr", ppstm, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25757,7 +25757,7 @@ class Shell {
      * @since windows5.0
      */
     static ConnectToConnectionPoint(punk, riidEvent, fConnect, punkTarget, pdwCookie, ppcpOut) {
-        result := DllCall("SHLWAPI.dll\ConnectToConnectionPoint", "ptr", punk, "ptr", riidEvent, "ptr", fConnect, "ptr", punkTarget, "uint*", pdwCookie, "ptr", ppcpOut, "int")
+        result := DllCall("SHLWAPI.dll\ConnectToConnectionPoint", "ptr", punk, "ptr", riidEvent, "int", fConnect, "ptr", punkTarget, "uint*", pdwCookie, "ptr", ppcpOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26227,7 +26227,7 @@ class Shell {
     static SHStripMneumonicA(pszMenu) {
         pszMenu := pszMenu is String ? StrPtr(pszMenu) : pszMenu
 
-        result := DllCall("SHLWAPI.dll\SHStripMneumonicA", "ptr", pszMenu, "ptr")
+        result := DllCall("SHLWAPI.dll\SHStripMneumonicA", "ptr", pszMenu, "char")
         return result
     }
 
@@ -26259,7 +26259,7 @@ class Shell {
      * @since windows5.0
      */
     static IsOS(dwOS) {
-        result := DllCall("SHLWAPI.dll\IsOS", "uint", dwOS, "ptr")
+        result := DllCall("SHLWAPI.dll\IsOS", "uint", dwOS, "int")
         return result
     }
 
@@ -26352,7 +26352,7 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\SHFreeShared", "ptr", hData, "uint", dwProcessId, "ptr")
+        result := DllCall("SHLWAPI.dll\SHFreeShared", "ptr", hData, "uint", dwProcessId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -26392,7 +26392,7 @@ class Shell {
     static SHUnlockShared(pvData) {
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\SHUnlockShared", "ptr", pvData, "ptr")
+        result := DllCall("SHLWAPI.dll\SHUnlockShared", "ptr", pvData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -26504,7 +26504,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHIsLowMemoryMachine(dwType) {
-        result := DllCall("SHLWAPI.dll\SHIsLowMemoryMachine", "uint", dwType, "ptr")
+        result := DllCall("SHLWAPI.dll\SHIsLowMemoryMachine", "uint", dwType, "int")
         return result
     }
 
@@ -26650,7 +26650,7 @@ class Shell {
      * @since windows5.0
      */
     static SHSkipJunction(pbc, pclsid) {
-        result := DllCall("SHLWAPI.dll\SHSkipJunction", "ptr", pbc, "ptr", pclsid, "ptr")
+        result := DllCall("SHLWAPI.dll\SHSkipJunction", "ptr", pbc, "ptr", pclsid, "int")
         return result
     }
 
@@ -26697,7 +26697,7 @@ class Shell {
     static SHCreateThread(pfnThreadProc, pData, flags, pfnCallback) {
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\SHCreateThread", "ptr", pfnThreadProc, "ptr", pData, "uint", flags, "ptr", pfnCallback, "ptr")
+        result := DllCall("SHLWAPI.dll\SHCreateThread", "ptr", pfnThreadProc, "ptr", pData, "uint", flags, "ptr", pfnCallback, "int")
         if(A_LastError)
             throw OSError()
 
@@ -26730,7 +26730,7 @@ class Shell {
     static SHCreateThreadWithHandle(pfnThreadProc, pData, flags, pfnCallback, pHandle) {
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", "ptr", pfnThreadProc, "ptr", pData, "uint", flags, "ptr", pfnCallback, "ptr", pHandle, "ptr")
+        result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", "ptr", pfnThreadProc, "ptr", pData, "uint", flags, "ptr", pfnCallback, "ptr", pHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -26790,7 +26790,7 @@ class Shell {
      * @since windows5.0
      */
     static ColorRGBToHLS(clrRGB, pwHue, pwLuminance, pwSaturation) {
-        DllCall("SHLWAPI.dll\ColorRGBToHLS", "ptr", clrRGB, "ushort*", pwHue, "ushort*", pwLuminance, "ushort*", pwSaturation)
+        DllCall("SHLWAPI.dll\ColorRGBToHLS", "uint", clrRGB, "ushort*", pwHue, "ushort*", pwLuminance, "ushort*", pwSaturation)
     }
 
     /**
@@ -26811,7 +26811,7 @@ class Shell {
      * @since windows5.0
      */
     static ColorHLSToRGB(wHue, wLuminance, wSaturation) {
-        result := DllCall("SHLWAPI.dll\ColorHLSToRGB", "ushort", wHue, "ushort", wLuminance, "ushort", wSaturation, "ptr")
+        result := DllCall("SHLWAPI.dll\ColorHLSToRGB", "ushort", wHue, "ushort", wLuminance, "ushort", wSaturation, "uint")
         return result
     }
 
@@ -26833,7 +26833,7 @@ class Shell {
      * @since windows5.0
      */
     static ColorAdjustLuma(clrRGB, n, fScale) {
-        result := DllCall("SHLWAPI.dll\ColorAdjustLuma", "ptr", clrRGB, "int", n, "ptr", fScale, "ptr")
+        result := DllCall("SHLWAPI.dll\ColorAdjustLuma", "uint", clrRGB, "int", n, "int", fScale, "uint")
         return result
     }
 
@@ -26846,7 +26846,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static IsInternetESCEnabled() {
-        result := DllCall("SHLWAPI.dll\IsInternetESCEnabled", "ptr")
+        result := DllCall("SHLWAPI.dll\IsInternetESCEnabled", "int")
         return result
     }
 
@@ -27113,7 +27113,7 @@ class Shell {
     static HlinkParseDisplayName(pibc, pwzDisplayName, fNoForceAbs, pcchEaten, ppimk) {
         pwzDisplayName := pwzDisplayName is String ? StrPtr(pwzDisplayName) : pwzDisplayName
 
-        result := DllCall("hlink.dll\HlinkParseDisplayName", "ptr", pibc, "ptr", pwzDisplayName, "ptr", fNoForceAbs, "uint*", pcchEaten, "ptr", ppimk, "int")
+        result := DllCall("hlink.dll\HlinkParseDisplayName", "ptr", pibc, "ptr", pwzDisplayName, "int", fNoForceAbs, "uint*", pcchEaten, "ptr", ppimk, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27167,7 +27167,7 @@ class Shell {
      * @returns {HRESULT} 
      */
     static OleSaveToStreamEx(piunk, pistm, fClearDirty) {
-        result := DllCall("hlink.dll\OleSaveToStreamEx", "ptr", piunk, "ptr", pistm, "ptr", fClearDirty, "int")
+        result := DllCall("hlink.dll\OleSaveToStreamEx", "ptr", piunk, "ptr", pistm, "int", fClearDirty, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27387,7 +27387,7 @@ class Shell {
     static PathIsUNCEx(pszPath, ppszServer) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathIsUNCEx", "ptr", pszPath, "ptr", ppszServer, "ptr")
+        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathIsUNCEx", "ptr", pszPath, "ptr", ppszServer, "int")
         return result
     }
 
@@ -27401,7 +27401,7 @@ class Shell {
     static PathCchIsRoot(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchIsRoot", "ptr", pszPath, "ptr")
+        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchIsRoot", "ptr", pszPath, "int")
         return result
     }
 

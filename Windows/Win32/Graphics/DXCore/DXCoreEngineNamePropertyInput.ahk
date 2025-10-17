@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DXCoreAdapterEngineIndex.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
@@ -19,7 +18,7 @@ class DXCoreEngineNamePropertyInput extends Win32Struct
     adapterEngineIndex{
         get {
             if(!this.HasProp("__adapterEngineIndex"))
-                this.__adapterEngineIndex := DXCoreAdapterEngineIndex(this.ptr + 0)
+                this.__adapterEngineIndex := DXCoreAdapterEngineIndex(0, this)
             return this.__adapterEngineIndex
         }
     }
@@ -35,11 +34,8 @@ class DXCoreEngineNamePropertyInput extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    engineName{
-        get {
-            if(!this.HasProp("__engineName"))
-                this.__engineName := PWSTR(this.ptr + 16)
-            return this.__engineName
-        }
+    engineName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

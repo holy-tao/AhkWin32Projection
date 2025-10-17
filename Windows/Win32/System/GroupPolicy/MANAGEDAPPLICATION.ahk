@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The MANAGEDAPPLICATION structure contains information about an application. The function GetManagedApplications returns an array of MANAGEDAPPLICATION structures.
@@ -19,24 +17,18 @@ class MANAGEDAPPLICATION extends Win32Struct
      * The user-friendly name of the application.
      * @type {PWSTR}
      */
-    pszPackageName{
-        get {
-            if(!this.HasProp("__pszPackageName"))
-                this.__pszPackageName := PWSTR(this.ptr + 0)
-            return this.__pszPackageName
-        }
+    pszPackageName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The name of the application's publisher.
      * @type {PWSTR}
      */
-    pszPublisher{
-        get {
-            if(!this.HasProp("__pszPublisher"))
-                this.__pszPublisher := PWSTR(this.ptr + 8)
-            return this.__pszPublisher
-        }
+    pszPublisher {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -79,12 +71,9 @@ class MANAGEDAPPLICATION extends Win32Struct
      * The user-friendly name for the GPO from which this application is deployed.
      * @type {PWSTR}
      */
-    pszPolicyName{
-        get {
-            if(!this.HasProp("__pszPolicyName"))
-                this.__pszPolicyName := PWSTR(this.ptr + 40)
-            return this.__pszPolicyName
-        }
+    pszPolicyName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -109,60 +98,45 @@ class MANAGEDAPPLICATION extends Win32Struct
      * This member is unused.
      * @type {PWSTR}
      */
-    pszOwner{
-        get {
-            if(!this.HasProp("__pszOwner"))
-                this.__pszOwner := PWSTR(this.ptr + 64)
-            return this.__pszOwner
-        }
+    pszOwner {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * This member is unused.
      * @type {PWSTR}
      */
-    pszCompany{
-        get {
-            if(!this.HasProp("__pszCompany"))
-                this.__pszCompany := PWSTR(this.ptr + 72)
-            return this.__pszCompany
-        }
+    pszCompany {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * This member is unused.
      * @type {PWSTR}
      */
-    pszComments{
-        get {
-            if(!this.HasProp("__pszComments"))
-                this.__pszComments := PWSTR(this.ptr + 80)
-            return this.__pszComments
-        }
+    pszComments {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * This member is unused.
      * @type {PWSTR}
      */
-    pszContact{
-        get {
-            if(!this.HasProp("__pszContact"))
-                this.__pszContact := PWSTR(this.ptr + 88)
-            return this.__pszContact
-        }
+    pszContact {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * This member is unused.
      * @type {PWSTR}
      */
-    pszSupportUrl{
-        get {
-            if(!this.HasProp("__pszSupportUrl"))
-                this.__pszSupportUrl := PWSTR(this.ptr + 96)
-            return this.__pszSupportUrl
-        }
+    pszSupportUrl {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -178,11 +152,8 @@ class MANAGEDAPPLICATION extends Win32Struct
      * This parameter is <b>TRUE</b> if the application is currently installed and  is <b>FALSE</b> otherwise.
      * @type {BOOL}
      */
-    bInstalled{
-        get {
-            if(!this.HasProp("__bInstalled"))
-                this.__bInstalled := BOOL(this.ptr + 108)
-            return this.__bInstalled
-        }
+    bInstalled {
+        get => NumGet(this, 108, "int")
+        set => NumPut("int", value, this, 108)
     }
 }

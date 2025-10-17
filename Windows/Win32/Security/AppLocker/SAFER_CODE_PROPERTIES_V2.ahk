@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Security.AppLocker
@@ -34,12 +32,9 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    ImagePath{
-        get {
-            if(!this.HasProp("__ImagePath"))
-                this.__ImagePath := PWSTR(this.ptr + 8)
-            return this.__ImagePath
-        }
+    ImagePath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -48,7 +43,7 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
     hImageFileHandle{
         get {
             if(!this.HasProp("__hImageFileHandle"))
-                this.__hImageFileHandle := HANDLE(this.ptr + 16)
+                this.__hImageFileHandle := HANDLE(16, this)
             return this.__hImageFileHandle
         }
     }
@@ -110,7 +105,7 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
     hWndParent{
         get {
             if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(this.ptr + 120)
+                this.__hWndParent := HWND(120, this)
             return this.__hWndParent
         }
     }
@@ -126,34 +121,25 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    PackageMoniker{
-        get {
-            if(!this.HasProp("__PackageMoniker"))
-                this.__PackageMoniker := PWSTR(this.ptr + 136)
-            return this.__PackageMoniker
-        }
+    PackageMoniker {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
      * @type {PWSTR}
      */
-    PackagePublisher{
-        get {
-            if(!this.HasProp("__PackagePublisher"))
-                this.__PackagePublisher := PWSTR(this.ptr + 144)
-            return this.__PackagePublisher
-        }
+    PackagePublisher {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * @type {PWSTR}
      */
-    PackageName{
-        get {
-            if(!this.HasProp("__PackageName"))
-                this.__PackageName := PWSTR(this.ptr + 152)
-            return this.__PackageName
-        }
+    PackageName {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
@@ -167,20 +153,13 @@ class SAFER_CODE_PROPERTIES_V2 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    PackageIsFramework{
-        get {
-            if(!this.HasProp("__PackageIsFramework"))
-                this.__PackageIsFramework := BOOL(this.ptr + 168)
-            return this.__PackageIsFramework
-        }
+    PackageIsFramework {
+        get => NumGet(this, 168, "int")
+        set => NumPut("int", value, this, 168)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 176
     }
 }

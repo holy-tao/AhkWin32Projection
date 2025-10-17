@@ -102,7 +102,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DisableThreadLibraryCalls", "ptr", hLibModule, "ptr")
+        result := DllCall("KERNEL32.dll\DisableThreadLibraryCalls", "ptr", hLibModule, "int")
         if(A_LastError)
             throw OSError()
 
@@ -184,7 +184,7 @@ class LibraryLoader {
     static FreeResource(hResData) {
         hResData := hResData is Win32Handle ? NumGet(hResData, "ptr") : hResData
 
-        result := DllCall("KERNEL32.dll\FreeResource", "ptr", hResData, "ptr")
+        result := DllCall("KERNEL32.dll\FreeResource", "ptr", hResData, "int")
         return result
     }
 
@@ -348,7 +348,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetModuleHandleExA", "uint", dwFlags, "ptr", lpModuleName, "ptr", phModule, "ptr")
+        result := DllCall("KERNEL32.dll\GetModuleHandleExA", "uint", dwFlags, "ptr", lpModuleName, "ptr", phModule, "int")
         if(A_LastError)
             throw OSError()
 
@@ -381,7 +381,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetModuleHandleExW", "uint", dwFlags, "ptr", lpModuleName, "ptr", phModule, "ptr")
+        result := DllCall("KERNEL32.dll\GetModuleHandleExW", "uint", dwFlags, "ptr", lpModuleName, "ptr", phModule, "int")
         if(A_LastError)
             throw OSError()
 
@@ -642,7 +642,7 @@ class LibraryLoader {
     static RemoveDllDirectory(Cookie) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RemoveDllDirectory", "ptr", Cookie, "ptr")
+        result := DllCall("KERNEL32.dll\RemoveDllDirectory", "ptr", Cookie, "int")
         if(A_LastError)
             throw OSError()
 
@@ -662,7 +662,7 @@ class LibraryLoader {
     static SetDefaultDllDirectories(DirectoryFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetDefaultDllDirectories", "uint", DirectoryFlags, "ptr")
+        result := DllCall("KERNEL32.dll\SetDefaultDllDirectories", "uint", DirectoryFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -762,7 +762,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceLanguagesExA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceLanguagesExA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -862,7 +862,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceLanguagesExW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceLanguagesExW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -943,7 +943,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceNamesExA", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceNamesExA", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1024,7 +1024,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceNamesExW", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceNamesExW", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1101,7 +1101,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceTypesExA", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceTypesExA", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1178,7 +1178,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceTypesExW", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceTypesExW", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1315,7 +1315,7 @@ class LibraryLoader {
         lpType := lpType is String ? StrPtr(lpType) : lpType
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
-        result := DllCall("KERNEL32.dll\EnumResourceNamesW", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceNamesW", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "int")
         return result
     }
 
@@ -1347,7 +1347,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceNamesA", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceNamesA", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1406,7 +1406,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-libraryloader-l2-1-0.dll\QueryOptionalDelayLoadedAPI", "ptr", hParentModule, "ptr", lpDllName, "ptr", lpProcName, "uint", Reserved, "ptr")
+        result := DllCall("api-ms-win-core-libraryloader-l2-1-0.dll\QueryOptionalDelayLoadedAPI", "ptr", hParentModule, "ptr", lpDllName, "ptr", lpProcName, "uint", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1607,7 +1607,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceTypesA", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceTypesA", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1640,7 +1640,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceTypesW", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceTypesW", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1681,7 +1681,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceLanguagesA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceLanguagesA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1722,7 +1722,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceLanguagesW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumResourceLanguagesW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1748,7 +1748,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BeginUpdateResourceA", "ptr", pFileName, "ptr", bDeleteExistingResources, "ptr")
+        result := DllCall("KERNEL32.dll\BeginUpdateResourceA", "ptr", pFileName, "int", bDeleteExistingResources, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1774,7 +1774,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\BeginUpdateResourceW", "ptr", pFileName, "ptr", bDeleteExistingResources, "ptr")
+        result := DllCall("KERNEL32.dll\BeginUpdateResourceW", "ptr", pFileName, "int", bDeleteExistingResources, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -1820,7 +1820,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UpdateResourceA", "ptr", hUpdate, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr", lpData, "uint", cb, "ptr")
+        result := DllCall("KERNEL32.dll\UpdateResourceA", "ptr", hUpdate, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr", lpData, "uint", cb, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1866,7 +1866,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UpdateResourceW", "ptr", hUpdate, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr", lpData, "uint", cb, "ptr")
+        result := DllCall("KERNEL32.dll\UpdateResourceW", "ptr", hUpdate, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr", lpData, "uint", cb, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1892,7 +1892,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EndUpdateResourceA", "ptr", hUpdate, "ptr", fDiscard, "ptr")
+        result := DllCall("KERNEL32.dll\EndUpdateResourceA", "ptr", hUpdate, "int", fDiscard, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1918,7 +1918,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EndUpdateResourceW", "ptr", hUpdate, "ptr", fDiscard, "ptr")
+        result := DllCall("KERNEL32.dll\EndUpdateResourceW", "ptr", hUpdate, "int", fDiscard, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1940,7 +1940,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetDllDirectoryA", "ptr", lpPathName, "ptr")
+        result := DllCall("KERNEL32.dll\SetDllDirectoryA", "ptr", lpPathName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1962,7 +1962,7 @@ class LibraryLoader {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetDllDirectoryW", "ptr", lpPathName, "ptr")
+        result := DllCall("KERNEL32.dll\SetDllDirectoryW", "ptr", lpPathName, "int")
         if(A_LastError)
             throw OSError()
 

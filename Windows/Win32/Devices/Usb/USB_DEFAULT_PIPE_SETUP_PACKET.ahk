@@ -78,7 +78,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     bmRequestType{
         get {
             if(!this.HasProp("__bmRequestType"))
-                this.__bmRequestType := BM_REQUEST_TYPE(this.ptr + 0)
+                this.__bmRequestType := BM_REQUEST_TYPE(0, this)
             return this.__bmRequestType
         }
     }
@@ -97,7 +97,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     wValue{
         get {
             if(!this.HasProp("__wValue"))
-                this.__wValue := %this.__Class%._wValue(this.ptr + 4)
+                this.__wValue := %this.__Class%._wValue(4, this)
             return this.__wValue
         }
     }
@@ -108,7 +108,7 @@ class USB_DEFAULT_PIPE_SETUP_PACKET extends Win32Struct
     wIndex{
         get {
             if(!this.HasProp("__wIndex"))
-                this.__wIndex := %this.__Class%._wIndex(this.ptr + 8)
+                this.__wIndex := %this.__Class%._wIndex(8, this)
             return this.__wIndex
         }
     }

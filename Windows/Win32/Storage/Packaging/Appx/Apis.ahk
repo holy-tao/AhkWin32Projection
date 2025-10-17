@@ -2263,7 +2263,7 @@ class Appx {
     static GetProcessesUsingPackageDependency(packageDependencyId, user, scopeIsSystem, processIdsCount, processIds) {
         packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetProcessesUsingPackageDependency", "ptr", packageDependencyId, "ptr", user, "ptr", scopeIsSystem, "uint*", processIdsCount, "uint*", processIds, "int")
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetProcessesUsingPackageDependency", "ptr", packageDependencyId, "ptr", user, "int", scopeIsSystem, "uint*", processIdsCount, "uint*", processIds, "int")
         if(result != 0)
             throw OSError(result)
 

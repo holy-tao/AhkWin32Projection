@@ -35,7 +35,7 @@ class POINTER_TYPE_INFO extends Win32Struct
     touchInfo{
         get {
             if(!this.HasProp("__touchInfo"))
-                this.__touchInfo := POINTER_TOUCH_INFO(this.ptr + 8)
+                this.__touchInfo := POINTER_TOUCH_INFO(8, this)
             return this.__touchInfo
         }
     }
@@ -46,7 +46,7 @@ class POINTER_TYPE_INFO extends Win32Struct
     penInfo{
         get {
             if(!this.HasProp("__penInfo"))
-                this.__penInfo := POINTER_PEN_INFO(this.ptr + 8)
+                this.__penInfo := POINTER_PEN_INFO(8, this)
             return this.__penInfo
         }
     }

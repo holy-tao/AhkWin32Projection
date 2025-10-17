@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -63,11 +62,8 @@ class DISK_RECORD extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    ReadRequest{
-        get {
-            if(!this.HasProp("__ReadRequest"))
-                this.__ReadRequest := BOOLEAN(this.ptr + 37)
-            return this.__ReadRequest
-        }
+    ReadRequest {
+        get => NumGet(this, 37, "char")
+        set => NumPut("char", value, this, 37)
     }
 }

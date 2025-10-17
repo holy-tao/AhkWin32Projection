@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\SPGRAMMARHANDLE.ahk
 
 /**
@@ -32,23 +31,17 @@ class SPRECORESULTINFO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fHypothesis{
-        get {
-            if(!this.HasProp("__fHypothesis"))
-                this.__fHypothesis := BOOL(this.ptr + 8)
-            return this.__fHypothesis
-        }
+    fHypothesis {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {BOOL}
      */
-    fProprietaryAutoPause{
-        get {
-            if(!this.HasProp("__fProprietaryAutoPause"))
-                this.__fProprietaryAutoPause := BOOL(this.ptr + 12)
-            return this.__fProprietaryAutoPause
-        }
+    fProprietaryAutoPause {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -73,7 +66,7 @@ class SPRECORESULTINFO extends Win32Struct
     hGrammar{
         get {
             if(!this.HasProp("__hGrammar"))
-                this.__hGrammar := SPGRAMMARHANDLE(this.ptr + 32)
+                this.__hGrammar := SPGRAMMARHANDLE(32, this)
             return this.__hGrammar
         }
     }
@@ -118,12 +111,8 @@ class SPRECORESULTINFO extends Win32Struct
         set => NumPut("uint", value, this, 72)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 80
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.System.IO
@@ -15,12 +14,9 @@ class IO_STATUS_BLOCK extends Win32Struct
     /**
      * @type {NTSTATUS}
      */
-    Status{
-        get {
-            if(!this.HasProp("__Status"))
-                this.__Status := NTSTATUS(this.ptr + 0)
-            return this.__Status
-        }
+    Status {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

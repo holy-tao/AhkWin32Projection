@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The AT_INFO structure contains information about a job.
@@ -82,11 +81,8 @@ class AT_INFO extends Win32Struct
      * A pointer to a Unicode string that contains the name of the command, batch program, or binary file to execute.
      * @type {PWSTR}
      */
-    Command{
-        get {
-            if(!this.HasProp("__Command"))
-                this.__Command := PWSTR(this.ptr + 16)
-            return this.__Command
-        }
+    Command {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

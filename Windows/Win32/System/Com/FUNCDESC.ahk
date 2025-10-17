@@ -143,7 +143,7 @@ class FUNCDESC extends Win32Struct
     elemdescFunc{
         get {
             if(!this.HasProp("__elemdescFunc"))
-                this.__elemdescFunc := ELEMDESC(this.ptr + 48)
+                this.__elemdescFunc := ELEMDESC(48, this)
             return this.__elemdescFunc
         }
     }

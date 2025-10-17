@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
@@ -15,45 +14,33 @@ class ShellCommandInfo extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszOperation{
-        get {
-            if(!this.HasProp("__pwszOperation"))
-                this.__pwszOperation := PWSTR(this.ptr + 0)
-            return this.__pwszOperation
-        }
+    pwszOperation {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszFile{
-        get {
-            if(!this.HasProp("__pwszFile"))
-                this.__pwszFile := PWSTR(this.ptr + 8)
-            return this.__pwszFile
-        }
+    pwszFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszParameters{
-        get {
-            if(!this.HasProp("__pwszParameters"))
-                this.__pwszParameters := PWSTR(this.ptr + 16)
-            return this.__pwszParameters
-        }
+    pwszParameters {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszDirectory{
-        get {
-            if(!this.HasProp("__pwszDirectory"))
-                this.__pwszDirectory := PWSTR(this.ptr + 24)
-            return this.__pwszDirectory
-        }
+    pwszDirectory {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

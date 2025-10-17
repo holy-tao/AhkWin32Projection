@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\DXVAHD_COLOR_RGBA.ahk
 #Include .\DXVAHD_COLOR_YCbCrA.ahk
 #Include .\DXVAHD_COLOR.ahk
@@ -33,12 +32,9 @@ class DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA extends Win32Struct
      * If <b>TRUE</b>, the <b>BackgroundColor</b> member specifies a YCbCr color. Otherwise, it specifies an RGB color.  The default device state is <b>FALSE</b> (RGB color).
      * @type {BOOL}
      */
-    YCbCr{
-        get {
-            if(!this.HasProp("__YCbCr"))
-                this.__YCbCr := BOOL(this.ptr + 0)
-            return this.__YCbCr
-        }
+    YCbCr {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -48,7 +44,7 @@ class DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA extends Win32Struct
     BackgroundColor{
         get {
             if(!this.HasProp("__BackgroundColor"))
-                this.__BackgroundColor := DXVAHD_COLOR(this.ptr + 8)
+                this.__BackgroundColor := DXVAHD_COLOR(8, this)
             return this.__BackgroundColor
         }
     }

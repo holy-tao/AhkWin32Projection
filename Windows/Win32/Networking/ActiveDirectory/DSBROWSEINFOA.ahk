@@ -1,9 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The DSBROWSEINFO structure is used with the DsBrowseForContainer function to supply and return data about the Active Directory container browser dialog box.
@@ -39,7 +36,7 @@ class DSBROWSEINFOA extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
+                this.__hwndOwner := HWND(8, this)
             return this.__hwndOwner
         }
     }
@@ -48,48 +45,36 @@ class DSBROWSEINFOA extends Win32Struct
      * Pointer to a null-terminated string that contains the caption of the dialog box. If this member is <b>NULL</b>, a default caption is used.
      * @type {PSTR}
      */
-    pszCaption{
-        get {
-            if(!this.HasProp("__pszCaption"))
-                this.__pszCaption := PSTR(this.ptr + 16)
-            return this.__pszCaption
-        }
+    pszCaption {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a null-terminated string that contains additional text to be displayed in the dialog box above the tree control. If this member is <b>NULL</b>, no additional text is displayed.
      * @type {PSTR}
      */
-    pszTitle{
-        get {
-            if(!this.HasProp("__pszTitle"))
-                this.__pszTitle := PSTR(this.ptr + 24)
-            return this.__pszTitle
-        }
+    pszTitle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the ADsPath of the container placed at the root of the dialog box. The user cannot navigate above this level using the dialog box.
      * @type {PWSTR}
      */
-    pszRoot{
-        get {
-            if(!this.HasProp("__pszRoot"))
-                this.__pszRoot := PWSTR(this.ptr + 32)
-            return this.__pszRoot
-        }
+    pszRoot {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that receives the ADsPath of the container selected in the dialog. This string will always be null-terminated even if <b>cchPath</b> is not large enough to hold the entire path. If <b>dwFlags</b> contains the <b>DSBI_EXPANDONOPEN</b> flag, this member contains the ADsPath of the container that should be initially selected in the dialog box.
      * @type {PWSTR}
      */
-    pszPath{
-        get {
-            if(!this.HasProp("__pszPath"))
-                this.__pszPath := PWSTR(this.ptr + 40)
-            return this.__pszPath
-        }
+    pszPath {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -123,12 +108,9 @@ class DSBROWSEINFOA extends Win32Struct
      * Contains an application-defined 32-bit value passed as the <i>lpData</i> parameter in all calls to <b>pfnCallback</b>. This member is ignored if <b>pfnCallback</b> is <b>NULL</b>.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 64)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -144,36 +126,27 @@ class DSBROWSEINFOA extends Win32Struct
      * Pointer to a Unicode string that contains the user name used for the credentials. This member is ignored if <b>dwFlags</b> does not have the <b>DSBI_HASCREDENTIALS</b> flag set. If this member is <b>NULL</b>, the currently logged on  user name is used.
      * @type {PWSTR}
      */
-    pUserName{
-        get {
-            if(!this.HasProp("__pUserName"))
-                this.__pUserName := PWSTR(this.ptr + 80)
-            return this.__pUserName
-        }
+    pUserName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * Pointer to a Unicode string that contains the password used for the credentials. This member is ignored if <b>dwFlags</b> does not have the <b>DSBI_HASCREDENTIALS</b> flag set. If this member is <b>NULL</b>, the password of the currently logged on user is used.
      * @type {PWSTR}
      */
-    pPassword{
-        get {
-            if(!this.HasProp("__pPassword"))
-                this.__pPassword := PWSTR(this.ptr + 88)
-            return this.__pPassword
-        }
+    pPassword {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * Pointer to a Unicode string buffer that receives the class string of the selected. This member is ignored if <b>dwFlags</b> does not have the <b>DSBI_RETURNOBJECTCLASS</b> flag set.
      * @type {PWSTR}
      */
-    pszObjectClass{
-        get {
-            if(!this.HasProp("__pszObjectClass"))
-                this.__pszObjectClass := PWSTR(this.ptr + 96)
-            return this.__pszObjectClass
-        }
+    pszObjectClass {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**

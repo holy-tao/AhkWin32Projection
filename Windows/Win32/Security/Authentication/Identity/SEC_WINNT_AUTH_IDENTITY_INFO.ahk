@@ -22,7 +22,7 @@ class SEC_WINNT_AUTH_IDENTITY_INFO extends Win32Struct
     AuthIdExw{
         get {
             if(!this.HasProp("__AuthIdExw"))
-                this.__AuthIdExw := SEC_WINNT_AUTH_IDENTITY_EXW(this.ptr + 0)
+                this.__AuthIdExw := SEC_WINNT_AUTH_IDENTITY_EXW(0, this)
             return this.__AuthIdExw
         }
     }
@@ -33,7 +33,7 @@ class SEC_WINNT_AUTH_IDENTITY_INFO extends Win32Struct
     AuthIdExa{
         get {
             if(!this.HasProp("__AuthIdExa"))
-                this.__AuthIdExa := SEC_WINNT_AUTH_IDENTITY_EXA(this.ptr + 0)
+                this.__AuthIdExa := SEC_WINNT_AUTH_IDENTITY_EXA(0, this)
             return this.__AuthIdExa
         }
     }
@@ -44,7 +44,7 @@ class SEC_WINNT_AUTH_IDENTITY_INFO extends Win32Struct
     AuthId_a{
         get {
             if(!this.HasProp("__AuthId_a"))
-                this.__AuthId_a := SEC_WINNT_AUTH_IDENTITY_A(this.ptr + 0)
+                this.__AuthId_a := SEC_WINNT_AUTH_IDENTITY_A(0, this)
             return this.__AuthId_a
         }
     }
@@ -55,7 +55,7 @@ class SEC_WINNT_AUTH_IDENTITY_INFO extends Win32Struct
     AuthId_w{
         get {
             if(!this.HasProp("__AuthId_w"))
-                this.__AuthId_w := SEC_WINNT_AUTH_IDENTITY_W(this.ptr + 0)
+                this.__AuthId_w := SEC_WINNT_AUTH_IDENTITY_W(0, this)
             return this.__AuthId_w
         }
     }
@@ -66,7 +66,7 @@ class SEC_WINNT_AUTH_IDENTITY_INFO extends Win32Struct
     AuthIdEx2{
         get {
             if(!this.HasProp("__AuthIdEx2"))
-                this.__AuthIdEx2 := SEC_WINNT_AUTH_IDENTITY_EX2(this.ptr + 0)
+                this.__AuthIdEx2 := SEC_WINNT_AUTH_IDENTITY_EX2(0, this)
             return this.__AuthIdEx2
         }
     }

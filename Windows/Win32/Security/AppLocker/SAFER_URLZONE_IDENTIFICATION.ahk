@@ -22,7 +22,7 @@ class SAFER_URLZONE_IDENTIFICATION extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := SAFER_IDENTIFICATION_HEADER(this.ptr + 0)
+                this.__header := SAFER_IDENTIFICATION_HEADER(0, this)
             return this.__header
         }
     }

@@ -69,7 +69,7 @@ class RASCONNSTATUSW extends Win32Struct
     localEndPoint{
         get {
             if(!this.HasProp("__localEndPoint"))
-                this.__localEndPoint := RASTUNNELENDPOINT(this.ptr + 568)
+                this.__localEndPoint := RASTUNNELENDPOINT(568, this)
             return this.__localEndPoint
         }
     }
@@ -80,7 +80,7 @@ class RASCONNSTATUSW extends Win32Struct
     remoteEndPoint{
         get {
             if(!this.HasProp("__remoteEndPoint"))
-                this.__remoteEndPoint := RASTUNNELENDPOINT(this.ptr + 592)
+                this.__remoteEndPoint := RASTUNNELENDPOINT(592, this)
             return this.__remoteEndPoint
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains partition information specific to master boot record (MBR) disks.
@@ -29,12 +28,9 @@ class PARTITION_INFORMATION_MBR extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_set_partition_info_ex">IOCTL_DISK_SET_PARTITION_INFO_EX</a> control code, the value of this parameter is ignored.
      * @type {BOOLEAN}
      */
-    BootIndicator{
-        get {
-            if(!this.HasProp("__BootIndicator"))
-                this.__BootIndicator := BOOLEAN(this.ptr + 1)
-            return this.__BootIndicator
-        }
+    BootIndicator {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
@@ -42,12 +38,9 @@ class PARTITION_INFORMATION_MBR extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_set_partition_info_ex">IOCTL_DISK_SET_PARTITION_INFO_EX</a> control code, the value of this parameter is ignored.
      * @type {BOOLEAN}
      */
-    RecognizedPartition{
-        get {
-            if(!this.HasProp("__RecognizedPartition"))
-                this.__RecognizedPartition := BOOLEAN(this.ptr + 2)
-            return this.__RecognizedPartition
-        }
+    RecognizedPartition {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 
     /**

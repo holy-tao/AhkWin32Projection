@@ -75,7 +75,7 @@ class CPU_INFORMATION extends Win32Struct
     X86CpuInfo{
         get {
             if(!this.HasProp("__X86CpuInfo"))
-                this.__X86CpuInfo := %this.__Class%._X86CpuInfo(this.ptr + 0)
+                this.__X86CpuInfo := %this.__Class%._X86CpuInfo(0, this)
             return this.__X86CpuInfo
         }
     }
@@ -86,7 +86,7 @@ class CPU_INFORMATION extends Win32Struct
     OtherCpuInfo{
         get {
             if(!this.HasProp("__OtherCpuInfo"))
-                this.__OtherCpuInfo := %this.__Class%._OtherCpuInfo(this.ptr + 0)
+                this.__OtherCpuInfo := %this.__Class%._OtherCpuInfo(0, this)
             return this.__OtherCpuInfo
         }
     }

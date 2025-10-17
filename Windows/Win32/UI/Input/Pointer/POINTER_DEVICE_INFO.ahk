@@ -34,7 +34,7 @@ class POINTER_DEVICE_INFO extends Win32Struct
     device{
         get {
             if(!this.HasProp("__device"))
-                this.__device := HANDLE(this.ptr + 8)
+                this.__device := HANDLE(8, this)
             return this.__device
         }
     }
@@ -55,7 +55,7 @@ class POINTER_DEVICE_INFO extends Win32Struct
     monitor{
         get {
             if(!this.HasProp("__monitor"))
-                this.__monitor := HMONITOR(this.ptr + 24)
+                this.__monitor := HMONITOR(24, this)
             return this.__monitor
         }
     }

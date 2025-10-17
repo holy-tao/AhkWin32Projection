@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The Effect class serves as a base class for eleven classes that you can use to apply effects and adjustments to bitmaps. The following classes descend from Effect.
@@ -49,11 +48,8 @@ class Effect extends Win32Struct
     /**
      * @type {BOOL}
      */
-    useAuxData{
-        get {
-            if(!this.HasProp("__useAuxData"))
-                this.__useAuxData := BOOL(this.ptr + 32)
-            return this.__useAuxData
-        }
+    useAuxData {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 }

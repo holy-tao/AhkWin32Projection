@@ -22,7 +22,7 @@ class WS_RAW_SYMMETRIC_SECURITY_KEY_HANDLE extends Win32Struct
     keyHandle{
         get {
             if(!this.HasProp("__keyHandle"))
-                this.__keyHandle := WS_SECURITY_KEY_HANDLE(this.ptr + 0)
+                this.__keyHandle := WS_SECURITY_KEY_HANDLE(0, this)
             return this.__keyHandle
         }
     }
@@ -36,7 +36,7 @@ class WS_RAW_SYMMETRIC_SECURITY_KEY_HANDLE extends Win32Struct
     rawKeyBytes{
         get {
             if(!this.HasProp("__rawKeyBytes"))
-                this.__rawKeyBytes := WS_BYTES(this.ptr + 8)
+                this.__rawKeyBytes := WS_BYTES(8, this)
             return this.__rawKeyBytes
         }
     }

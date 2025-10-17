@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Is used with the BCryptEnumAlgorithms function to contain a cryptographic algorithm identifier.
@@ -18,12 +17,9 @@ class BCRYPT_ALGORITHM_IDENTIFIER extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the string identifier of the algorithm. The <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> topic contains the predefined algorithm identifiers.
      * @type {PWSTR}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PWSTR(this.ptr + 0)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

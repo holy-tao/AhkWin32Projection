@@ -18,7 +18,7 @@ class OFFLOAD_IPSEC_DELETE_UDPESP_SA extends Win32Struct
     OffloadHandle{
         get {
             if(!this.HasProp("__OffloadHandle"))
-                this.__OffloadHandle := HANDLE(this.ptr + 0)
+                this.__OffloadHandle := HANDLE(0, this)
             return this.__OffloadHandle
         }
     }
@@ -29,7 +29,7 @@ class OFFLOAD_IPSEC_DELETE_UDPESP_SA extends Win32Struct
     EncapTypeEntryOffldHandle{
         get {
             if(!this.HasProp("__EncapTypeEntryOffldHandle"))
-                this.__EncapTypeEntryOffldHandle := HANDLE(this.ptr + 8)
+                this.__EncapTypeEntryOffldHandle := HANDLE(8, this)
             return this.__EncapTypeEntryOffldHandle
         }
     }

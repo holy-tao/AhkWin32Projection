@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Stores window data.
@@ -53,12 +52,9 @@ class WINDOWDATA extends Win32Struct
      * A pointer to a buffer to hold the window URL.
      * @type {PWSTR}
      */
-    lpszUrl{
-        get {
-            if(!this.HasProp("__lpszUrl"))
-                this.__lpszUrl := PWSTR(this.ptr + 16)
-            return this.__lpszUrl
-        }
+    lpszUrl {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -67,12 +63,9 @@ class WINDOWDATA extends Win32Struct
      * A pointer to a buffer to hold the window URL Location (local anchor).
      * @type {PWSTR}
      */
-    lpszUrlLocation{
-        get {
-            if(!this.HasProp("__lpszUrlLocation"))
-                this.__lpszUrlLocation := PWSTR(this.ptr + 24)
-            return this.__lpszUrlLocation
-        }
+    lpszUrlLocation {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -81,11 +74,8 @@ class WINDOWDATA extends Win32Struct
      * A pointer to a buffer to hold the window title.
      * @type {PWSTR}
      */
-    lpszTitle{
-        get {
-            if(!this.HasProp("__lpszTitle"))
-                this.__lpszTitle := PWSTR(this.ptr + 32)
-            return this.__lpszTitle
-        }
+    lpszTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

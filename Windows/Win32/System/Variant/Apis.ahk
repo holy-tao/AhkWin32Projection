@@ -1332,7 +1332,7 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToBooleanWithDefault(varIn, fDefault) {
-        result := DllCall("PROPSYS.dll\VariantToBooleanWithDefault", "ptr", varIn, "ptr", fDefault, "ptr")
+        result := DllCall("PROPSYS.dll\VariantToBooleanWithDefault", "ptr", varIn, "int", fDefault, "int")
         return result
     }
 
@@ -1486,7 +1486,7 @@ class Variant {
     static VariantToStringWithDefault(varIn, pszDefault) {
         pszDefault := pszDefault is String ? StrPtr(pszDefault) : pszDefault
 
-        result := DllCall("PROPSYS.dll\VariantToStringWithDefault", "ptr", varIn, "ptr", pszDefault, "ptr")
+        result := DllCall("PROPSYS.dll\VariantToStringWithDefault", "ptr", varIn, "ptr", pszDefault, "char*")
         return result
     }
 

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The IPX_ADDRESS_DATA structure provides information about a specific adapter to which IPX is bound. Used in conjunction with getsockopt function calls that specify IPX_ADDRESS in the optname parameter.
@@ -57,24 +56,18 @@ class IPX_ADDRESS_DATA extends Win32Struct
      * Specifies whether the adapter is on a wide area network (WAN) link. When <b>TRUE</b>, the adapter is on a WAN link.
      * @type {BOOLEAN}
      */
-    wan{
-        get {
-            if(!this.HasProp("__wan"))
-                this.__wan := BOOLEAN(this.ptr + 14)
-            return this.__wan
-        }
+    wan {
+        get => NumGet(this, 14, "char")
+        set => NumPut("char", value, this, 14)
     }
 
     /**
      * Specifies whether the WAN link is up. <b>FALSE</b> indicates that the WAN link is up or the adapter is not on a WAN. Compare with the <b>wan</b> member to determine the meaning.
      * @type {BOOLEAN}
      */
-    status{
-        get {
-            if(!this.HasProp("__status"))
-                this.__status := BOOLEAN(this.ptr + 15)
-            return this.__status
-        }
+    status {
+        get => NumGet(this, 15, "char")
+        set => NumPut("char", value, this, 15)
     }
 
     /**

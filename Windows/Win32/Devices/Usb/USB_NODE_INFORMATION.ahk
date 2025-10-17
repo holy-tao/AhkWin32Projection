@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\USB_HUB_INFORMATION.ahk
 #Include .\USB_MI_PARENT_INFORMATION.ahk
 
@@ -29,7 +28,7 @@ class USB_NODE_INFORMATION extends Win32Struct
     HubInformation{
         get {
             if(!this.HasProp("__HubInformation"))
-                this.__HubInformation := USB_HUB_INFORMATION(this.ptr + 8)
+                this.__HubInformation := USB_HUB_INFORMATION(8, this)
             return this.__HubInformation
         }
     }
@@ -40,7 +39,7 @@ class USB_NODE_INFORMATION extends Win32Struct
     MiParentInformation{
         get {
             if(!this.HasProp("__MiParentInformation"))
-                this.__MiParentInformation := USB_MI_PARENT_INFORMATION(this.ptr + 8)
+                this.__MiParentInformation := USB_MI_PARENT_INFORMATION(8, this)
             return this.__MiParentInformation
         }
     }

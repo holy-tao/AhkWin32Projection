@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include Common\STRRET.ahk
 
 /**
@@ -55,7 +54,7 @@ class DETAILSINFO extends Win32Struct
     str{
         get {
             if(!this.HasProp("__str"))
-                this.__str := STRRET(this.ptr + 16)
+                this.__str := STRRET(16, this)
             return this.__str
         }
     }

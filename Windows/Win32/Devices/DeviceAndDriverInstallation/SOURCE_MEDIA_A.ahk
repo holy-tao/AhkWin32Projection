@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -16,56 +15,41 @@ class SOURCE_MEDIA_A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    Reserved{
-        get {
-            if(!this.HasProp("__Reserved"))
-                this.__Reserved := PSTR(this.ptr + 0)
-            return this.__Reserved
-        }
+    Reserved {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PSTR}
      */
-    Tagfile{
-        get {
-            if(!this.HasProp("__Tagfile"))
-                this.__Tagfile := PSTR(this.ptr + 8)
-            return this.__Tagfile
-        }
+    Tagfile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PSTR}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PSTR(this.ptr + 16)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    SourcePath{
-        get {
-            if(!this.HasProp("__SourcePath"))
-                this.__SourcePath := PSTR(this.ptr + 24)
-            return this.__SourcePath
-        }
+    SourcePath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    SourceFile{
-        get {
-            if(!this.HasProp("__SourceFile"))
-                this.__SourceFile := PSTR(this.ptr + 32)
-            return this.__SourceFile
-        }
+    SourceFile {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

@@ -23,7 +23,7 @@ class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_ENCRYPTION_GUID_OUTPUT extends Win
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }

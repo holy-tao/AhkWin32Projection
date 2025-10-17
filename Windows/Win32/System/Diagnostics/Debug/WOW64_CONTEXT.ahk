@@ -100,7 +100,7 @@ class WOW64_CONTEXT extends Win32Struct
     FloatSave{
         get {
             if(!this.HasProp("__FloatSave"))
-                this.__FloatSave := WOW64_FLOATING_SAVE_AREA(this.ptr + 32)
+                this.__FloatSave := WOW64_FLOATING_SAVE_AREA(32, this)
             return this.__FloatSave
         }
     }

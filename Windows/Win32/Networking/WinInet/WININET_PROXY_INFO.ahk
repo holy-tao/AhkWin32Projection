@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -16,23 +14,17 @@ class WININET_PROXY_INFO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fProxy{
-        get {
-            if(!this.HasProp("__fProxy"))
-                this.__fProxy := BOOL(this.ptr + 0)
-            return this.__fProxy
-        }
+    fProxy {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * @type {BOOL}
      */
-    fBypass{
-        get {
-            if(!this.HasProp("__fBypass"))
-                this.__fBypass := BOOL(this.ptr + 4)
-            return this.__fBypass
-        }
+    fBypass {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -46,12 +38,9 @@ class WININET_PROXY_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszProxy{
-        get {
-            if(!this.HasProp("__pwszProxy"))
-                this.__pwszProxy := PWSTR(this.ptr + 16)
-            return this.__pwszProxy
-        }
+    pwszProxy {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

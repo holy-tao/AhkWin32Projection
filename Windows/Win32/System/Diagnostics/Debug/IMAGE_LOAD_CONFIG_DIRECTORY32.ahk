@@ -278,7 +278,7 @@ class IMAGE_LOAD_CONFIG_DIRECTORY32 extends Win32Struct
     CodeIntegrity{
         get {
             if(!this.HasProp("__CodeIntegrity"))
-                this.__CodeIntegrity := IMAGE_LOAD_CONFIG_CODE_INTEGRITY(this.ptr + 96)
+                this.__CodeIntegrity := IMAGE_LOAD_CONFIG_CODE_INTEGRITY(96, this)
             return this.__CodeIntegrity
         }
     }

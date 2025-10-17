@@ -144,7 +144,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
     OverThrottledAc{
         get {
             if(!this.HasProp("__OverThrottledAc"))
-                this.__OverThrottledAc := POWER_ACTION_POLICY(this.ptr + 40)
+                this.__OverThrottledAc := POWER_ACTION_POLICY(40, this)
             return this.__OverThrottledAc
         }
     }
@@ -157,7 +157,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
     OverThrottledDc{
         get {
             if(!this.HasProp("__OverThrottledDc"))
-                this.__OverThrottledDc := POWER_ACTION_POLICY(this.ptr + 56)
+                this.__OverThrottledDc := POWER_ACTION_POLICY(56, this)
             return this.__OverThrottledDc
         }
     }

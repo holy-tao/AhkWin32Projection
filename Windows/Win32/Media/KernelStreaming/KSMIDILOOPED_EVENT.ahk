@@ -18,7 +18,7 @@ class KSMIDILOOPED_EVENT extends Win32Struct
     WriteEvent{
         get {
             if(!this.HasProp("__WriteEvent"))
-                this.__WriteEvent := HANDLE(this.ptr + 0)
+                this.__WriteEvent := HANDLE(0, this)
             return this.__WriteEvent
         }
     }

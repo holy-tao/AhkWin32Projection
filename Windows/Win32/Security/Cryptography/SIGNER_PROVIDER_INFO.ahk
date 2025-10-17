@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -23,12 +22,9 @@ class SIGNER_PROVIDER_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszProviderName{
-        get {
-            if(!this.HasProp("__pwszProviderName"))
-                this.__pwszProviderName := PWSTR(this.ptr + 8)
-            return this.__pwszProviderName
-        }
+    pwszProviderName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -58,31 +54,21 @@ class SIGNER_PROVIDER_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszPvkFileName{
-        get {
-            if(!this.HasProp("__pwszPvkFileName"))
-                this.__pwszPvkFileName := PWSTR(this.ptr + 32)
-            return this.__pwszPvkFileName
-        }
+    pwszPvkFileName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszKeyContainer{
-        get {
-            if(!this.HasProp("__pwszKeyContainer"))
-                this.__pwszKeyContainer := PWSTR(this.ptr + 32)
-            return this.__pwszKeyContainer
-        }
+    pwszKeyContainer {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

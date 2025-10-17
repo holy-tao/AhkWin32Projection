@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides model-specific information relating to the device.
@@ -61,12 +60,9 @@ class WSD_THIS_MODEL_METADATA extends Win32Struct
      * The URL to a Web site for the device manufacturer. The URL should have fewer than 2048 characters.
      * @type {PWSTR}
      */
-    ManufacturerUrl{
-        get {
-            if(!this.HasProp("__ManufacturerUrl"))
-                this.__ManufacturerUrl := PWSTR(this.ptr + 8)
-            return this.__ManufacturerUrl
-        }
+    ManufacturerUrl {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -82,36 +78,27 @@ class WSD_THIS_MODEL_METADATA extends Win32Struct
      * The model number. This should be set to fewer than 256 characters.
      * @type {PWSTR}
      */
-    ModelNumber{
-        get {
-            if(!this.HasProp("__ModelNumber"))
-                this.__ModelNumber := PWSTR(this.ptr + 24)
-            return this.__ModelNumber
-        }
+    ModelNumber {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * The URL to a Web site for this device model. The URL should have fewer than 2048 characters.
      * @type {PWSTR}
      */
-    ModelUrl{
-        get {
-            if(!this.HasProp("__ModelUrl"))
-                this.__ModelUrl := PWSTR(this.ptr + 32)
-            return this.__ModelUrl
-        }
+    ModelUrl {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * An HTML page for this device. This can be relative to a base URL set by XML Base. The URL should have fewer than 2048 characters.
      * @type {PWSTR}
      */
-    PresentationUrl{
-        get {
-            if(!this.HasProp("__PresentationUrl"))
-                this.__PresentationUrl := PWSTR(this.ptr + 40)
-            return this.__PresentationUrl
-        }
+    PresentationUrl {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

@@ -30,7 +30,7 @@ class MEMORY_DEFECT extends Win32Struct
     DimmInfo{
         get {
             if(!this.HasProp("__DimmInfo"))
-                this.__DimmInfo := DIMM_INFO(this.ptr + 8)
+                this.__DimmInfo := DIMM_INFO(8, this)
             return this.__DimmInfo
         }
     }

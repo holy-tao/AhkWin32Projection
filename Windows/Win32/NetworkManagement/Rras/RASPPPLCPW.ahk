@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -24,12 +23,9 @@ class RASPPPLCPW extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fBundled{
-        get {
-            if(!this.HasProp("__fBundled"))
-                this.__fBundled := BOOL(this.ptr + 4)
-            return this.__fBundled
-        }
+    fBundled {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -91,12 +87,9 @@ class RASPPPLCPW extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fMultilink{
-        get {
-            if(!this.HasProp("__fMultilink"))
-                this.__fMultilink := BOOL(this.ptr + 36)
-            return this.__fMultilink
-        }
+    fMultilink {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**

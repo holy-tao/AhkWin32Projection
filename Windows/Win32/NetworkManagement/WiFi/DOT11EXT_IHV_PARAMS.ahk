@@ -18,7 +18,7 @@ class DOT11EXT_IHV_PARAMS extends Win32Struct
     dot11ExtIhvProfileParams{
         get {
             if(!this.HasProp("__dot11ExtIhvProfileParams"))
-                this.__dot11ExtIhvProfileParams := DOT11EXT_IHV_PROFILE_PARAMS(this.ptr + 0)
+                this.__dot11ExtIhvProfileParams := DOT11EXT_IHV_PROFILE_PARAMS(0, this)
             return this.__dot11ExtIhvProfileParams
         }
     }

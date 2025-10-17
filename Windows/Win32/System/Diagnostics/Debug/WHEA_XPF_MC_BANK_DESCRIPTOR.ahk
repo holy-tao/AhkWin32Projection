@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include .\XPF_MC_BANK_FLAGS.ahk
 
 /**
@@ -24,12 +23,9 @@ class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    ClearOnInitialization{
-        get {
-            if(!this.HasProp("__ClearOnInitialization"))
-                this.__ClearOnInitialization := BOOLEAN(this.ptr + 1)
-            return this.__ClearOnInitialization
-        }
+    ClearOnInitialization {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
@@ -46,7 +42,7 @@ class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := XPF_MC_BANK_FLAGS(this.ptr + 4)
+                this.__Flags := XPF_MC_BANK_FLAGS(4, this)
             return this.__Flags
         }
     }

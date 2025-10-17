@@ -27,7 +27,7 @@ class KERB_SUBMIT_TKT_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 8)
+                this.__LogonId := LUID(8, this)
             return this.__LogonId
         }
     }
@@ -46,7 +46,7 @@ class KERB_SUBMIT_TKT_REQUEST extends Win32Struct
     Key{
         get {
             if(!this.HasProp("__Key"))
-                this.__Key := KERB_CRYPTO_KEY32(this.ptr + 24)
+                this.__Key := KERB_CRYPTO_KEY32(24, this)
             return this.__Key
         }
     }

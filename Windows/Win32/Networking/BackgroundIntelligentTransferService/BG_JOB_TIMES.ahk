@@ -22,7 +22,7 @@ class BG_JOB_TIMES extends Win32Struct
     CreationTime{
         get {
             if(!this.HasProp("__CreationTime"))
-                this.__CreationTime := FILETIME(this.ptr + 0)
+                this.__CreationTime := FILETIME(0, this)
             return this.__CreationTime
         }
     }
@@ -40,7 +40,7 @@ class BG_JOB_TIMES extends Win32Struct
     ModificationTime{
         get {
             if(!this.HasProp("__ModificationTime"))
-                this.__ModificationTime := FILETIME(this.ptr + 8)
+                this.__ModificationTime := FILETIME(8, this)
             return this.__ModificationTime
         }
     }
@@ -53,7 +53,7 @@ class BG_JOB_TIMES extends Win32Struct
     TransferCompletionTime{
         get {
             if(!this.HasProp("__TransferCompletionTime"))
-                this.__TransferCompletionTime := FILETIME(this.ptr + 16)
+                this.__TransferCompletionTime := FILETIME(16, this)
             return this.__TransferCompletionTime
         }
     }

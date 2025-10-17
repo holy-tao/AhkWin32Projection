@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DOT11_HRDSSS_PHY_ATTRIBUTES.ahk
 
 /**
@@ -19,7 +18,7 @@ class DOT11_ERP_PHY_ATTRIBUTES extends Win32Struct
     HRDSSSAttributes{
         get {
             if(!this.HasProp("__HRDSSSAttributes"))
-                this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(this.ptr + 0)
+                this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(0, this)
             return this.__HRDSSSAttributes
         }
     }
@@ -27,33 +26,24 @@ class DOT11_ERP_PHY_ATTRIBUTES extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bERPPBCCOptionImplemented{
-        get {
-            if(!this.HasProp("__bERPPBCCOptionImplemented"))
-                this.__bERPPBCCOptionImplemented := BOOLEAN(this.ptr + 8)
-            return this.__bERPPBCCOptionImplemented
-        }
+    bERPPBCCOptionImplemented {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bDSSSOFDMOptionImplemented{
-        get {
-            if(!this.HasProp("__bDSSSOFDMOptionImplemented"))
-                this.__bDSSSOFDMOptionImplemented := BOOLEAN(this.ptr + 9)
-            return this.__bDSSSOFDMOptionImplemented
-        }
+    bDSSSOFDMOptionImplemented {
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bShortSlotTimeOptionImplemented{
-        get {
-            if(!this.HasProp("__bShortSlotTimeOptionImplemented"))
-                this.__bShortSlotTimeOptionImplemented := BOOLEAN(this.ptr + 10)
-            return this.__bShortSlotTimeOptionImplemented
-        }
+    bShortSlotTimeOptionImplemented {
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 }

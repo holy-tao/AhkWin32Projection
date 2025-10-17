@@ -1,10 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include ..\..\..\System\PasswordManagement\CYPHER_BLOCK.ahk
 #Include .\USER_SESSION_KEY.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -38,7 +36,7 @@ class MSV1_0_VALIDATION_INFO extends Win32Struct
     LogonServer{
         get {
             if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__LogonServer := LSA_UNICODE_STRING(16, this)
             return this.__LogonServer
         }
     }
@@ -49,7 +47,7 @@ class MSV1_0_VALIDATION_INFO extends Win32Struct
     LogonDomainName{
         get {
             if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := LSA_UNICODE_STRING(this.ptr + 32)
+                this.__LogonDomainName := LSA_UNICODE_STRING(32, this)
             return this.__LogonDomainName
         }
     }
@@ -60,7 +58,7 @@ class MSV1_0_VALIDATION_INFO extends Win32Struct
     SessionKey{
         get {
             if(!this.HasProp("__SessionKey"))
-                this.__SessionKey := USER_SESSION_KEY(this.ptr + 48)
+                this.__SessionKey := USER_SESSION_KEY(48, this)
             return this.__SessionKey
         }
     }
@@ -68,12 +66,9 @@ class MSV1_0_VALIDATION_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    Authoritative{
-        get {
-            if(!this.HasProp("__Authoritative"))
-                this.__Authoritative := BOOLEAN(this.ptr + 64)
-            return this.__Authoritative
-        }
+    Authoritative {
+        get => NumGet(this, 64, "char")
+        set => NumPut("char", value, this, 64)
     }
 
     /**

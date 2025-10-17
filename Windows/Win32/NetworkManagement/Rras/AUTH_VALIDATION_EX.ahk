@@ -25,7 +25,7 @@ class AUTH_VALIDATION_EX extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := MPRAPI_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := MPRAPI_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -39,7 +39,7 @@ class AUTH_VALIDATION_EX extends Win32Struct
     hRasConnection{
         get {
             if(!this.HasProp("__hRasConnection"))
-                this.__hRasConnection := HANDLE(this.ptr + 8)
+                this.__hRasConnection := HANDLE(8, this)
             return this.__hRasConnection
         }
     }

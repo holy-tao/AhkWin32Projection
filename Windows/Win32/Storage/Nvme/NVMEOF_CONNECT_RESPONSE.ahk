@@ -84,7 +84,7 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
     Success{
         get {
             if(!this.HasProp("__Success"))
-                this.__Success := %this.__Class%._Success(this.ptr + 0)
+                this.__Success := %this.__Class%._Success(0, this)
             return this.__Success
         }
     }

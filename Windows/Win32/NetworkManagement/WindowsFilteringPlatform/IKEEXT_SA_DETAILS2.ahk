@@ -70,7 +70,7 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
     ikeTraffic{
         get {
             if(!this.HasProp("__ikeTraffic"))
-                this.__ikeTraffic := IKEEXT_TRAFFIC0(this.ptr + 24)
+                this.__ikeTraffic := IKEEXT_TRAFFIC0(24, this)
             return this.__ikeTraffic
         }
     }
@@ -84,7 +84,7 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
     ikeProposal{
         get {
             if(!this.HasProp("__ikeProposal"))
-                this.__ikeProposal := IKEEXT_PROPOSAL0(this.ptr + 72)
+                this.__ikeProposal := IKEEXT_PROPOSAL0(72, this)
             return this.__ikeProposal
         }
     }
@@ -98,7 +98,7 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
     cookiePair{
         get {
             if(!this.HasProp("__cookiePair"))
-                this.__cookiePair := IKEEXT_COOKIE_PAIR0(this.ptr + 104)
+                this.__cookiePair := IKEEXT_COOKIE_PAIR0(104, this)
             return this.__cookiePair
         }
     }
@@ -112,7 +112,7 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
     ikeCredentials{
         get {
             if(!this.HasProp("__ikeCredentials"))
-                this.__ikeCredentials := IKEEXT_CREDENTIALS2(this.ptr + 120)
+                this.__ikeCredentials := IKEEXT_CREDENTIALS2(120, this)
             return this.__ikeCredentials
         }
     }
@@ -149,7 +149,7 @@ class IKEEXT_SA_DETAILS2 extends Win32Struct
     correlationKey{
         get {
             if(!this.HasProp("__correlationKey"))
-                this.__correlationKey := FWP_BYTE_BLOB(this.ptr + 152)
+                this.__correlationKey := FWP_BYTE_BLOB(152, this)
             return this.__correlationKey
         }
     }

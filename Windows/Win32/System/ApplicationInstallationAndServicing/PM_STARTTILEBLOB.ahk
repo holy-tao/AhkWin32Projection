@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\PM_INVOCATIONINFO.ahk
 
 /**
@@ -36,7 +35,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     TileID{
         get {
             if(!this.HasProp("__TileID"))
-                this.__TileID := BSTR(this.ptr + 16)
+                this.__TileID := BSTR(16, this)
             return this.__TileID
         }
     }
@@ -71,12 +70,9 @@ class PM_STARTTILEBLOB extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsDefault{
-        get {
-            if(!this.HasProp("__IsDefault"))
-                this.__IsDefault := BOOL(this.ptr + 160)
-            return this.__IsDefault
-        }
+    IsDefault {
+        get => NumGet(this, 160, "int")
+        set => NumPut("int", value, this, 160)
     }
 
     /**
@@ -106,23 +102,17 @@ class PM_STARTTILEBLOB extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsRestoring{
-        get {
-            if(!this.HasProp("__IsRestoring"))
-                this.__IsRestoring := BOOL(this.ptr + 180)
-            return this.__IsRestoring
-        }
+    IsRestoring {
+        get => NumGet(this, 180, "int")
+        set => NumPut("int", value, this, 180)
     }
 
     /**
      * @type {BOOL}
      */
-    IsModern{
-        get {
-            if(!this.HasProp("__IsModern"))
-                this.__IsModern := BOOL(this.ptr + 184)
-            return this.__IsModern
-        }
+    IsModern {
+        get => NumGet(this, 184, "int")
+        set => NumPut("int", value, this, 184)
     }
 
     /**
@@ -131,17 +121,13 @@ class PM_STARTTILEBLOB extends Win32Struct
     InvocationInfo{
         get {
             if(!this.HasProp("__InvocationInfo"))
-                this.__InvocationInfo := PM_INVOCATIONINFO(this.ptr + 192)
+                this.__InvocationInfo := PM_INVOCATIONINFO(192, this)
             return this.__InvocationInfo
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 208
     }
 }

@@ -52,7 +52,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
     customDataClass{
         get {
             if(!this.HasProp("__customDataClass"))
-                this.__customDataClass := BSTR(this.ptr + 16)
+                this.__customDataClass := BSTR(16, this)
             return this.__customDataClass
         }
     }
@@ -294,7 +294,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
     customBandClass{
         get {
             if(!this.HasProp("__customBandClass"))
-                this.__customBandClass := BSTR(this.ptr + 32)
+                this.__customBandClass := BSTR(32, this)
             return this.__customBandClass
         }
     }
@@ -324,7 +324,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
     deviceID{
         get {
             if(!this.HasProp("__deviceID"))
-                this.__deviceID := BSTR(this.ptr + 48)
+                this.__deviceID := BSTR(48, this)
             return this.__deviceID
         }
     }
@@ -336,7 +336,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
     manufacturer{
         get {
             if(!this.HasProp("__manufacturer"))
-                this.__manufacturer := BSTR(this.ptr + 56)
+                this.__manufacturer := BSTR(56, this)
             return this.__manufacturer
         }
     }
@@ -348,7 +348,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
     model{
         get {
             if(!this.HasProp("__model"))
-                this.__model := BSTR(this.ptr + 64)
+                this.__model := BSTR(64, this)
             return this.__model
         }
     }
@@ -360,7 +360,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
     firmwareInfo{
         get {
             if(!this.HasProp("__firmwareInfo"))
-                this.__firmwareInfo := BSTR(this.ptr + 72)
+                this.__firmwareInfo := BSTR(72, this)
             return this.__firmwareInfo
         }
     }

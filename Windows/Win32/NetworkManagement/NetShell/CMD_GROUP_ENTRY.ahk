@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines a group of helper commands.
@@ -25,12 +24,9 @@ class CMD_GROUP_ENTRY extends Win32Struct
      * The token (name) for the command group
      * @type {PWSTR}
      */
-    pwszCmdGroupToken{
-        get {
-            if(!this.HasProp("__pwszCmdGroupToken"))
-                this.__pwszCmdGroupToken := PWSTR(this.ptr + 0)
-            return this.__pwszCmdGroupToken
-        }
+    pwszCmdGroupToken {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

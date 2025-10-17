@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Computes backpropagation gradients for average pooling (see [DML_AVERAGE_POOLING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_average_pooling_operator_desc)).
@@ -97,11 +96,8 @@ class DML_AVERAGE_POOLING_GRAD_OPERATOR_DESC extends Win32Struct
      * See *IncludePadding* in [DML_AVERAGE_POOLING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_average_pooling_operator_desc).
      * @type {BOOL}
      */
-    IncludePadding{
-        get {
-            if(!this.HasProp("__IncludePadding"))
-                this.__IncludePadding := BOOL(this.ptr + 56)
-            return this.__IncludePadding
-        }
+    IncludePadding {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

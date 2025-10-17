@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information that the FindText and ReplaceText functions use to initialize the Find and Replace dialog boxes.
@@ -43,7 +41,7 @@ class FINDREPLACEA extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
+                this.__hwndOwner := HWND(8, this)
             return this.__hwndOwner
         }
     }
@@ -57,7 +55,7 @@ class FINDREPLACEA extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 16)
+                this.__hInstance := HINSTANCE(16, this)
             return this.__hInstance
         }
     }
@@ -77,12 +75,9 @@ class FINDREPLACEA extends Win32Struct
      * The search string that the user typed in the <b>Find What</b> edit control. You must dynamically allocate the buffer or use a global or static array so it does not go out of scope before the dialog box closes. The buffer should be at least 80 characters long. If the buffer contains a string when you initialize the dialog box, the string is displayed in the <b>Find What</b> edit control. If a <a href="https://docs.microsoft.com/windows/desktop/dlgbox/findmsgstring">FINDMSGSTRING</a> message specifies the <b>FR_FINDNEXT</b> flag, <b>lpstrFindWhat</b> contains the string to search for. The <b>FR_DOWN</b>, <b>FR_WHOLEWORD</b>, and <b>FR_MATCHCASE</b> flags indicate the direction and type of search. If a <b>FINDMSGSTRING</b> message specifies the <b>FR_REPLACE</b> or <b>FR_REPLACE</b> flags, <b>lpstrFindWhat</b> contains the string to be replaced.
      * @type {PSTR}
      */
-    lpstrFindWhat{
-        get {
-            if(!this.HasProp("__lpstrFindWhat"))
-                this.__lpstrFindWhat := PSTR(this.ptr + 32)
-            return this.__lpstrFindWhat
-        }
+    lpstrFindWhat {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -95,12 +90,9 @@ class FINDREPLACEA extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-findtexta">FindText</a> function ignores this member.
      * @type {PSTR}
      */
-    lpstrReplaceWith{
-        get {
-            if(!this.HasProp("__lpstrReplaceWith"))
-                this.__lpstrReplaceWith := PSTR(this.ptr + 40)
-            return this.__lpstrReplaceWith
-        }
+    lpstrReplaceWith {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -131,12 +123,9 @@ class FINDREPLACEA extends Win32Struct
      * Application-defined data that the system passes to the hook procedure identified by the <b>lpfnHook</b> member. When the system sends the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message to the hook procedure, the message's <i>lParam</i> parameter is a pointer to the <b>FINDREPLACE</b> structure specified when the dialog was created. The hook procedure can use this pointer to get the <b>lCustData</b> value.
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 56)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -156,11 +145,8 @@ class FINDREPLACEA extends Win32Struct
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template is substituted for the standard dialog box template. For numbered dialog box resources, this can be a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored unless the <b>FR_ENABLETEMPLATE</b> flag is set in the <b>Flags</b> member.
      * @type {PSTR}
      */
-    lpTemplateName{
-        get {
-            if(!this.HasProp("__lpTemplateName"))
-                this.__lpTemplateName := PSTR(this.ptr + 72)
-            return this.__lpTemplateName
-        }
+    lpTemplateName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

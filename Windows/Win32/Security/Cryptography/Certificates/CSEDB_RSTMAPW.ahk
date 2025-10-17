@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -15,22 +14,16 @@ class CSEDB_RSTMAPW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszDatabaseName{
-        get {
-            if(!this.HasProp("__pwszDatabaseName"))
-                this.__pwszDatabaseName := PWSTR(this.ptr + 0)
-            return this.__pwszDatabaseName
-        }
+    pwszDatabaseName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszNewDatabaseName{
-        get {
-            if(!this.HasProp("__pwszNewDatabaseName"))
-                this.__pwszNewDatabaseName := PWSTR(this.ptr + 8)
-            return this.__pwszNewDatabaseName
-        }
+    pwszNewDatabaseName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

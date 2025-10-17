@@ -18,7 +18,7 @@ class PM_INVOCATIONINFO extends Win32Struct
     URIBaseOrAUMID{
         get {
             if(!this.HasProp("__URIBaseOrAUMID"))
-                this.__URIBaseOrAUMID := BSTR(this.ptr + 0)
+                this.__URIBaseOrAUMID := BSTR(0, this)
             return this.__URIBaseOrAUMID
         }
     }
@@ -29,7 +29,7 @@ class PM_INVOCATIONINFO extends Win32Struct
     URIFragmentOrArgs{
         get {
             if(!this.HasProp("__URIFragmentOrArgs"))
-                this.__URIFragmentOrArgs := BSTR(this.ptr + 8)
+                this.__URIFragmentOrArgs := BSTR(8, this)
             return this.__URIFragmentOrArgs
         }
     }

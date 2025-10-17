@@ -22,7 +22,7 @@ class D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS_INPUT extends
     Input{
         get {
             if(!this.HasProp("__Input"))
-                this.__Input := D3D11_AUTHENTICATED_QUERY_INPUT(this.ptr + 0)
+                this.__Input := D3D11_AUTHENTICATED_QUERY_INPUT(0, this)
             return this.__Input
         }
     }

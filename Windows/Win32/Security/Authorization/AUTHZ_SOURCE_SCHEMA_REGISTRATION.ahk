@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET.ahk
 
 /**
@@ -57,60 +56,45 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct
      * A pointer to a wide character string that represents the name of the event source.
      * @type {PWSTR}
      */
-    szEventSourceName{
-        get {
-            if(!this.HasProp("__szEventSourceName"))
-                this.__szEventSourceName := PWSTR(this.ptr + 8)
-            return this.__szEventSourceName
-        }
+    szEventSourceName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a wide character string that represents the name of the resource that contains the event messages.
      * @type {PWSTR}
      */
-    szEventMessageFile{
-        get {
-            if(!this.HasProp("__szEventMessageFile"))
-                this.__szEventMessageFile := PWSTR(this.ptr + 16)
-            return this.__szEventMessageFile
-        }
+    szEventMessageFile {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a wide character string that represents the name of the XML schema file for the event source.
      * @type {PWSTR}
      */
-    szEventSourceXmlSchemaFile{
-        get {
-            if(!this.HasProp("__szEventSourceXmlSchemaFile"))
-                this.__szEventSourceXmlSchemaFile := PWSTR(this.ptr + 24)
-            return this.__szEventSourceXmlSchemaFile
-        }
+    szEventSourceXmlSchemaFile {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A pointer to a wide character string that represents the name of the resource that contains the event parameter strings.
      * @type {PWSTR}
      */
-    szEventAccessStringsFile{
-        get {
-            if(!this.HasProp("__szEventAccessStringsFile"))
-                this.__szEventAccessStringsFile := PWSTR(this.ptr + 32)
-            return this.__szEventAccessStringsFile
-        }
+    szEventAccessStringsFile {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * This member is reserved and must be set to <b>NULL</b>.
      * @type {PWSTR}
      */
-    szExecutableImagePath{
-        get {
-            if(!this.HasProp("__szExecutableImagePath"))
-                this.__szExecutableImagePath := PWSTR(this.ptr + 40)
-            return this.__szExecutableImagePath
-        }
+    szExecutableImagePath {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

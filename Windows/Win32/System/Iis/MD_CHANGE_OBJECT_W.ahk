@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -15,12 +14,9 @@ class MD_CHANGE_OBJECT_W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszMDPath{
-        get {
-            if(!this.HasProp("__pszMDPath"))
-                this.__pszMDPath := PWSTR(this.ptr + 0)
-            return this.__pszMDPath
-        }
+    pszMDPath {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

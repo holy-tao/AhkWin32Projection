@@ -26,7 +26,7 @@ class NFC_SNEP_CLIENT_PUT_INFO extends Win32Struct
     sPutPayload{
         get {
             if(!this.HasProp("__sPutPayload"))
-                this.__sPutPayload := NFC_DATA_BUFFER(this.ptr + 8)
+                this.__sPutPayload := NFC_DATA_BUFFER(8, this)
             return this.__sPutPayload
         }
     }

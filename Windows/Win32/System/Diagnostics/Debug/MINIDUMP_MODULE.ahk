@@ -69,7 +69,7 @@ class MINIDUMP_MODULE extends Win32Struct
     VersionInfo{
         get {
             if(!this.HasProp("__VersionInfo"))
-                this.__VersionInfo := VS_FIXEDFILEINFO(this.ptr + 24)
+                this.__VersionInfo := VS_FIXEDFILEINFO(24, this)
             return this.__VersionInfo
         }
     }
@@ -81,7 +81,7 @@ class MINIDUMP_MODULE extends Win32Struct
     CvRecord{
         get {
             if(!this.HasProp("__CvRecord"))
-                this.__CvRecord := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 80)
+                this.__CvRecord := MINIDUMP_LOCATION_DESCRIPTOR(80, this)
             return this.__CvRecord
         }
     }
@@ -93,7 +93,7 @@ class MINIDUMP_MODULE extends Win32Struct
     MiscRecord{
         get {
             if(!this.HasProp("__MiscRecord"))
-                this.__MiscRecord := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 88)
+                this.__MiscRecord := MINIDUMP_LOCATION_DESCRIPTOR(88, this)
             return this.__MiscRecord
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the identification number of a connection, number of open files, connection time, number of users on the connection, and the type of connection.
@@ -65,12 +64,9 @@ class CONNECTION_INFO_1 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    coni1_username{
-        get {
-            if(!this.HasProp("__coni1_username"))
-                this.__coni1_username := PWSTR(this.ptr + 24)
-            return this.__coni1_username
-        }
+    coni1_username {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -81,11 +77,8 @@ class CONNECTION_INFO_1 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    coni1_netname{
-        get {
-            if(!this.HasProp("__coni1_netname"))
-                this.__coni1_netname := PWSTR(this.ptr + 32)
-            return this.__coni1_netname
-        }
+    coni1_netname {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

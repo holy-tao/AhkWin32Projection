@@ -21,7 +21,7 @@ class MBN_PROVIDER extends Win32Struct
     providerID{
         get {
             if(!this.HasProp("__providerID"))
-                this.__providerID := BSTR(this.ptr + 0)
+                this.__providerID := BSTR(0, this)
             return this.__providerID
         }
     }
@@ -42,7 +42,7 @@ class MBN_PROVIDER extends Win32Struct
     providerName{
         get {
             if(!this.HasProp("__providerName"))
-                this.__providerName := BSTR(this.ptr + 16)
+                this.__providerName := BSTR(16, this)
             return this.__providerName
         }
     }

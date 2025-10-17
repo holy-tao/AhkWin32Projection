@@ -8,7 +8,6 @@
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include .\IP_ADDRESS_PREFIX.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Stores information about an IP route entry.
@@ -54,7 +53,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 0)
+                this.__InterfaceLuid := NET_LUID_LH(0, this)
             return this.__InterfaceLuid
         }
     }
@@ -79,7 +78,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
     DestinationPrefix{
         get {
             if(!this.HasProp("__DestinationPrefix"))
-                this.__DestinationPrefix := IP_ADDRESS_PREFIX(this.ptr + 24)
+                this.__DestinationPrefix := IP_ADDRESS_PREFIX(24, this)
             return this.__DestinationPrefix
         }
     }
@@ -93,7 +92,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
     NextHop{
         get {
             if(!this.HasProp("__NextHop"))
-                this.__NextHop := SOCKADDR_INET(this.ptr + 96)
+                this.__NextHop := SOCKADDR_INET(96, this)
             return this.__NextHop
         }
     }
@@ -362,12 +361,9 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * A value that specifies if the route is a loopback route (the gateway is on the local host).
      * @type {BOOLEAN}
      */
-    Loopback{
-        get {
-            if(!this.HasProp("__Loopback"))
-                this.__Loopback := BOOLEAN(this.ptr + 180)
-            return this.__Loopback
-        }
+    Loopback {
+        get => NumGet(this, 180, "char")
+        set => NumPut("char", value, this, 180)
     }
 
     /**
@@ -376,12 +372,9 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * A value that specifies if the IP address is autoconfigured.
      * @type {BOOLEAN}
      */
-    AutoconfigureAddress{
-        get {
-            if(!this.HasProp("__AutoconfigureAddress"))
-                this.__AutoconfigureAddress := BOOLEAN(this.ptr + 181)
-            return this.__AutoconfigureAddress
-        }
+    AutoconfigureAddress {
+        get => NumGet(this, 181, "char")
+        set => NumPut("char", value, this, 181)
     }
 
     /**
@@ -390,12 +383,9 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * A value that specifies if the route is published.
      * @type {BOOLEAN}
      */
-    Publish{
-        get {
-            if(!this.HasProp("__Publish"))
-                this.__Publish := BOOLEAN(this.ptr + 182)
-            return this.__Publish
-        }
+    Publish {
+        get => NumGet(this, 182, "char")
+        set => NumPut("char", value, this, 182)
     }
 
     /**
@@ -404,12 +394,9 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * A value that specifies if the route is immortal.
      * @type {BOOLEAN}
      */
-    Immortal{
-        get {
-            if(!this.HasProp("__Immortal"))
-                this.__Immortal := BOOLEAN(this.ptr + 183)
-            return this.__Immortal
-        }
+    Immortal {
+        get => NumGet(this, 183, "char")
+        set => NumPut("char", value, this, 183)
     }
 
     /**

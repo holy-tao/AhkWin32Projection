@@ -3,7 +3,6 @@
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include .\HMENU.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Defines the initialization parameters passed to the window procedure of an application. These members are identical to the parameters of the CreateWindowEx function.
@@ -75,7 +74,7 @@ class CREATESTRUCTA extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 8)
+                this.__hInstance := HINSTANCE(8, this)
             return this.__hInstance
         }
     }
@@ -89,7 +88,7 @@ class CREATESTRUCTA extends Win32Struct
     hMenu{
         get {
             if(!this.HasProp("__hMenu"))
-                this.__hMenu := HMENU(this.ptr + 16)
+                this.__hMenu := HMENU(16, this)
             return this.__hMenu
         }
     }
@@ -103,7 +102,7 @@ class CREATESTRUCTA extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 24)
+                this.__hwndParent := HWND(24, this)
             return this.__hwndParent
         }
     }
@@ -169,12 +168,9 @@ class CREATESTRUCTA extends Win32Struct
      * The name of the new window.
      * @type {PSTR}
      */
-    lpszName{
-        get {
-            if(!this.HasProp("__lpszName"))
-                this.__lpszName := PSTR(this.ptr + 56)
-            return this.__lpszName
-        }
+    lpszName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -183,12 +179,9 @@ class CREATESTRUCTA extends Win32Struct
      * A pointer to a null-terminated string or an atom that specifies the class name of the new window.
      * @type {PSTR}
      */
-    lpszClass{
-        get {
-            if(!this.HasProp("__lpszClass"))
-                this.__lpszClass := PSTR(this.ptr + 64)
-            return this.__lpszClass
-        }
+    lpszClass {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

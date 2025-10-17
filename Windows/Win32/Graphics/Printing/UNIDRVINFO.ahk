@@ -98,7 +98,7 @@ class UNIDRVINFO extends Win32Struct
     SelectFont{
         get {
             if(!this.HasProp("__SelectFont"))
-                this.__SelectFont := INVOC(this.ptr + 24)
+                this.__SelectFont := INVOC(24, this)
             return this.__SelectFont
         }
     }
@@ -109,7 +109,7 @@ class UNIDRVINFO extends Win32Struct
     UnSelectFont{
         get {
             if(!this.HasProp("__UnSelectFont"))
-                this.__UnSelectFont := INVOC(this.ptr + 32)
+                this.__UnSelectFont := INVOC(32, this)
             return this.__UnSelectFont
         }
     }

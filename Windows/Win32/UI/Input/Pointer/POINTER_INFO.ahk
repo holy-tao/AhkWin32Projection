@@ -71,7 +71,7 @@ class POINTER_INFO extends Win32Struct
     sourceDevice{
         get {
             if(!this.HasProp("__sourceDevice"))
-                this.__sourceDevice := HANDLE(this.ptr + 16)
+                this.__sourceDevice := HANDLE(16, this)
             return this.__sourceDevice
         }
     }
@@ -85,7 +85,7 @@ class POINTER_INFO extends Win32Struct
     hwndTarget{
         get {
             if(!this.HasProp("__hwndTarget"))
-                this.__hwndTarget := HWND(this.ptr + 24)
+                this.__hwndTarget := HWND(24, this)
             return this.__hwndTarget
         }
     }
@@ -101,7 +101,7 @@ class POINTER_INFO extends Win32Struct
     ptPixelLocation{
         get {
             if(!this.HasProp("__ptPixelLocation"))
-                this.__ptPixelLocation := POINT(this.ptr + 32)
+                this.__ptPixelLocation := POINT(32, this)
             return this.__ptPixelLocation
         }
     }
@@ -117,7 +117,7 @@ class POINTER_INFO extends Win32Struct
     ptHimetricLocation{
         get {
             if(!this.HasProp("__ptHimetricLocation"))
-                this.__ptHimetricLocation := POINT(this.ptr + 40)
+                this.__ptHimetricLocation := POINT(40, this)
             return this.__ptHimetricLocation
         }
     }
@@ -131,7 +131,7 @@ class POINTER_INFO extends Win32Struct
     ptPixelLocationRaw{
         get {
             if(!this.HasProp("__ptPixelLocationRaw"))
-                this.__ptPixelLocationRaw := POINT(this.ptr + 48)
+                this.__ptPixelLocationRaw := POINT(48, this)
             return this.__ptPixelLocationRaw
         }
     }
@@ -145,7 +145,7 @@ class POINTER_INFO extends Win32Struct
     ptHimetricLocationRaw{
         get {
             if(!this.HasProp("__ptHimetricLocationRaw"))
-                this.__ptHimetricLocationRaw := POINT(this.ptr + 56)
+                this.__ptHimetricLocationRaw := POINT(56, this)
             return this.__ptHimetricLocationRaw
         }
     }

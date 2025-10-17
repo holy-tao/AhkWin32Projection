@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the security attributes for a wireless connection.
@@ -18,24 +17,18 @@ class WLAN_SECURITY_ATTRIBUTES extends Win32Struct
      * Indicates whether security is enabled for this connection.
      * @type {BOOL}
      */
-    bSecurityEnabled{
-        get {
-            if(!this.HasProp("__bSecurityEnabled"))
-                this.__bSecurityEnabled := BOOL(this.ptr + 0)
-            return this.__bSecurityEnabled
-        }
+    bSecurityEnabled {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * Indicates whether 802.1X is enabled for this connection.
      * @type {BOOL}
      */
-    bOneXEnabled{
-        get {
-            if(!this.HasProp("__bOneXEnabled"))
-                this.__bOneXEnabled := BOOL(this.ptr + 4)
-            return this.__bOneXEnabled
-        }
+    bOneXEnabled {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**

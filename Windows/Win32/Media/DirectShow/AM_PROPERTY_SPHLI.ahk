@@ -98,7 +98,7 @@ class AM_PROPERTY_SPHLI extends Win32Struct
     ColCon{
         get {
             if(!this.HasProp("__ColCon"))
-                this.__ColCon := AM_COLCON(this.ptr + 20)
+                this.__ColCon := AM_COLCON(20, this)
             return this.__ColCon
         }
     }

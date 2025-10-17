@@ -69,7 +69,7 @@ class EVENTMSG extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 16)
+                this.__hwnd := HWND(16, this)
             return this.__hwnd
         }
     }

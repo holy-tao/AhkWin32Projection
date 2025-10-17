@@ -30,7 +30,7 @@ class PNRPCLOUDINFO extends Win32Struct
     Cloud{
         get {
             if(!this.HasProp("__Cloud"))
-                this.__Cloud := PNRP_CLOUD_ID(this.ptr + 8)
+                this.__Cloud := PNRP_CLOUD_ID(8, this)
             return this.__Cloud
         }
     }

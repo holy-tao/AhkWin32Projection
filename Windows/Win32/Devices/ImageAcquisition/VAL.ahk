@@ -50,7 +50,7 @@ class VAL extends Win32Struct
     handle{
         get {
             if(!this.HasProp("__handle"))
-                this.__handle := HGLOBAL(this.ptr + 32)
+                this.__handle := HGLOBAL(32, this)
             return this.__handle
         }
     }

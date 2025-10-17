@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information that the IOCTL_CHANGER_MOVE_MEDIUM control code uses to move a piece of media to a destination.
@@ -23,7 +22,7 @@ class CHANGER_MOVE_MEDIUM extends Win32Struct
     Transport{
         get {
             if(!this.HasProp("__Transport"))
-                this.__Transport := CHANGER_ELEMENT(this.ptr + 0)
+                this.__Transport := CHANGER_ELEMENT(0, this)
             return this.__Transport
         }
     }
@@ -36,7 +35,7 @@ class CHANGER_MOVE_MEDIUM extends Win32Struct
     Source{
         get {
             if(!this.HasProp("__Source"))
-                this.__Source := CHANGER_ELEMENT(this.ptr + 8)
+                this.__Source := CHANGER_ELEMENT(8, this)
             return this.__Source
         }
     }
@@ -49,7 +48,7 @@ class CHANGER_MOVE_MEDIUM extends Win32Struct
     Destination{
         get {
             if(!this.HasProp("__Destination"))
-                this.__Destination := CHANGER_ELEMENT(this.ptr + 16)
+                this.__Destination := CHANGER_ELEMENT(16, this)
             return this.__Destination
         }
     }
@@ -59,11 +58,8 @@ class CHANGER_MOVE_MEDIUM extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_MEDIUM_FLIP.
      * @type {BOOLEAN}
      */
-    Flip{
-        get {
-            if(!this.HasProp("__Flip"))
-                this.__Flip := BOOLEAN(this.ptr + 24)
-            return this.__Flip
-        }
+    Flip {
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 }

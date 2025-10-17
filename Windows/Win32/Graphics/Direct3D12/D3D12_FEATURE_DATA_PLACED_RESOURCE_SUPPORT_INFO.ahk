@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_HEAP_PROPERTIES.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -35,7 +34,7 @@ class D3D12_FEATURE_DATA_PLACED_RESOURCE_SUPPORT_INFO extends Win32Struct
     DestHeapProperties{
         get {
             if(!this.HasProp("__DestHeapProperties"))
-                this.__DestHeapProperties := D3D12_HEAP_PROPERTIES(this.ptr + 8)
+                this.__DestHeapProperties := D3D12_HEAP_PROPERTIES(8, this)
             return this.__DestHeapProperties
         }
     }
@@ -43,11 +42,8 @@ class D3D12_FEATURE_DATA_PLACED_RESOURCE_SUPPORT_INFO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Supported{
-        get {
-            if(!this.HasProp("__Supported"))
-                this.__Supported := BOOL(this.ptr + 28)
-            return this.__Supported
-        }
+    Supported {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 }

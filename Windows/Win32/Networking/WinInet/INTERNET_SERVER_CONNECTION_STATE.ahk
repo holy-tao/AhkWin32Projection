@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -16,23 +14,17 @@ class INTERNET_SERVER_CONNECTION_STATE extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpcwszHostName{
-        get {
-            if(!this.HasProp("__lpcwszHostName"))
-                this.__lpcwszHostName := PWSTR(this.ptr + 0)
-            return this.__lpcwszHostName
-        }
+    lpcwszHostName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {BOOL}
      */
-    fProxy{
-        get {
-            if(!this.HasProp("__fProxy"))
-                this.__fProxy := BOOL(this.ptr + 8)
-            return this.__fProxy
-        }
+    fProxy {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**

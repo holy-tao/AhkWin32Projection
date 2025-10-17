@@ -35,7 +35,7 @@ class IP_ADDRESS_PREFIX extends Win32Struct
     Prefix{
         get {
             if(!this.HasProp("__Prefix"))
-                this.__Prefix := SOCKADDR_INET(this.ptr + 0)
+                this.__Prefix := SOCKADDR_INET(0, this)
             return this.__Prefix
         }
     }

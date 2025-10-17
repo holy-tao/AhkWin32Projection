@@ -30,7 +30,7 @@ class SimilarityDumpData extends Win32Struct
     m_Data{
         get {
             if(!this.HasProp("__m_Data"))
-                this.__m_Data := SimilarityData(this.ptr + 8)
+                this.__m_Data := SimilarityData(8, this)
             return this.__m_Data
         }
     }

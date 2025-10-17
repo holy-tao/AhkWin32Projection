@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VIRTUAL_STORAGE_TYPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains VHD or ISO storage dependency information for type 2.
@@ -40,7 +39,7 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
     VirtualStorageType{
         get {
             if(!this.HasProp("__VirtualStorageType"))
-                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 8)
+                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(8, this)
             return this.__VirtualStorageType
         }
     }
@@ -62,12 +61,9 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
      *       system.
      * @type {PWSTR}
      */
-    DependencyDeviceName{
-        get {
-            if(!this.HasProp("__DependencyDeviceName"))
-                this.__DependencyDeviceName := PWSTR(this.ptr + 32)
-            return this.__DependencyDeviceName
-        }
+    DependencyDeviceName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -75,12 +71,9 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
      *       <i>GUID</i> is the <b>GUID</b> that identifies the volume.
      * @type {PWSTR}
      */
-    HostVolumeName{
-        get {
-            if(!this.HasProp("__HostVolumeName"))
-                this.__HostVolumeName := PWSTR(this.ptr + 40)
-            return this.__HostVolumeName
-        }
+    HostVolumeName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -89,23 +82,17 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
      *       <b>GUID</b> that identifies the volume.
      * @type {PWSTR}
      */
-    DependentVolumeName{
-        get {
-            if(!this.HasProp("__DependentVolumeName"))
-                this.__DependentVolumeName := PWSTR(this.ptr + 48)
-            return this.__DependentVolumeName
-        }
+    DependentVolumeName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * The relative path to the dependent volume.
      * @type {PWSTR}
      */
-    DependentVolumeRelativePath{
-        get {
-            if(!this.HasProp("__DependentVolumeRelativePath"))
-                this.__DependentVolumeRelativePath := PWSTR(this.ptr + 56)
-            return this.__DependentVolumeRelativePath
-        }
+    DependentVolumeRelativePath {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

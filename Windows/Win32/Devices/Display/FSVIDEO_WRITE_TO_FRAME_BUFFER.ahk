@@ -27,7 +27,7 @@ class FSVIDEO_WRITE_TO_FRAME_BUFFER extends Win32Struct
     DestScreen{
         get {
             if(!this.HasProp("__DestScreen"))
-                this.__DestScreen := FSCNTL_SCREEN_INFO(this.ptr + 8)
+                this.__DestScreen := FSCNTL_SCREEN_INFO(8, this)
             return this.__DestScreen
         }
     }

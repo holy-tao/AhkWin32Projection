@@ -47,7 +47,7 @@ class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct
     ScsiAddress{
         get {
             if(!this.HasProp("__ScsiAddress"))
-                this.__ScsiAddress := SCSI_ADDRESS(this.ptr + 960)
+                this.__ScsiAddress := SCSI_ADDRESS(960, this)
             return this.__ScsiAddress
         }
     }
@@ -121,7 +121,7 @@ class ISCSI_DEVICE_ON_SESSIONW extends Win32Struct
     StorageDeviceNumber{
         get {
             if(!this.HasProp("__StorageDeviceNumber"))
-                this.__StorageDeviceNumber := STORAGE_DEVICE_NUMBER(this.ptr + 2016)
+                this.__StorageDeviceNumber := STORAGE_DEVICE_NUMBER(2016, this)
             return this.__StorageDeviceNumber
         }
     }

@@ -27,7 +27,7 @@ class HTTP_SERVICE_CONFIG_SSL_CCS_QUERY_EX extends Win32Struct
     KeyDesc{
         get {
             if(!this.HasProp("__KeyDesc"))
-                this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_CCS_KEY(this.ptr + 8)
+                this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_CCS_KEY(8, this)
             return this.__KeyDesc
         }
     }

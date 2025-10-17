@@ -50,7 +50,7 @@ class NDIS_802_11_CONFIGURATION extends Win32Struct
     FHConfig{
         get {
             if(!this.HasProp("__FHConfig"))
-                this.__FHConfig := NDIS_802_11_CONFIGURATION_FH(this.ptr + 16)
+                this.__FHConfig := NDIS_802_11_CONFIGURATION_FH(16, this)
             return this.__FHConfig
         }
     }

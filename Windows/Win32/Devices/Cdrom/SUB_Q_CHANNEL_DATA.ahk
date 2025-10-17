@@ -21,7 +21,7 @@ class SUB_Q_CHANNEL_DATA extends Win32Struct
     CurrentPosition{
         get {
             if(!this.HasProp("__CurrentPosition"))
-                this.__CurrentPosition := SUB_Q_CURRENT_POSITION(this.ptr + 0)
+                this.__CurrentPosition := SUB_Q_CURRENT_POSITION(0, this)
             return this.__CurrentPosition
         }
     }
@@ -32,7 +32,7 @@ class SUB_Q_CHANNEL_DATA extends Win32Struct
     MediaCatalog{
         get {
             if(!this.HasProp("__MediaCatalog"))
-                this.__MediaCatalog := SUB_Q_MEDIA_CATALOG_NUMBER(this.ptr + 0)
+                this.__MediaCatalog := SUB_Q_MEDIA_CATALOG_NUMBER(0, this)
             return this.__MediaCatalog
         }
     }
@@ -43,7 +43,7 @@ class SUB_Q_CHANNEL_DATA extends Win32Struct
     TrackIsrc{
         get {
             if(!this.HasProp("__TrackIsrc"))
-                this.__TrackIsrc := SUB_Q_TRACK_ISRC(this.ptr + 0)
+                this.__TrackIsrc := SUB_Q_TRACK_ISRC(0, this)
             return this.__TrackIsrc
         }
     }

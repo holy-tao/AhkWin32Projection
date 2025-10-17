@@ -1,10 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
-#Include ..\Ndis\NET_IF_COMPARTMENT_ID.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -51,12 +48,9 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     /**
      * @type {PSTR}
      */
-    AdapterName{
-        get {
-            if(!this.HasProp("__AdapterName"))
-                this.__AdapterName := PSTR(this.ptr + 16)
-            return this.__AdapterName
-        }
+    AdapterName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -94,34 +88,25 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    DnsSuffix{
-        get {
-            if(!this.HasProp("__DnsSuffix"))
-                this.__DnsSuffix := PWSTR(this.ptr + 56)
-            return this.__DnsSuffix
-        }
+    DnsSuffix {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {PWSTR}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PWSTR(this.ptr + 64)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {PWSTR}
      */
-    FriendlyName{
-        get {
-            if(!this.HasProp("__FriendlyName"))
-                this.__FriendlyName := PWSTR(this.ptr + 72)
-            return this.__FriendlyName
-        }
+    FriendlyName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -355,7 +340,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     Luid{
         get {
             if(!this.HasProp("__Luid"))
-                this.__Luid := NET_LUID_LH(this.ptr + 224)
+                this.__Luid := NET_LUID_LH(224, this)
             return this.__Luid
         }
     }
@@ -366,7 +351,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     Dhcpv4Server{
         get {
             if(!this.HasProp("__Dhcpv4Server"))
-                this.__Dhcpv4Server := SOCKET_ADDRESS(this.ptr + 240)
+                this.__Dhcpv4Server := SOCKET_ADDRESS(240, this)
             return this.__Dhcpv4Server
         }
     }
@@ -374,12 +359,9 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     /**
      * @type {NET_IF_COMPARTMENT_ID}
      */
-    CompartmentId{
-        get {
-            if(!this.HasProp("__CompartmentId"))
-                this.__CompartmentId := NET_IF_COMPARTMENT_ID(this.ptr + 256)
-            return this.__CompartmentId
-        }
+    CompartmentId {
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 
     /**
@@ -412,7 +394,7 @@ class IP_ADAPTER_ADDRESSES_LH extends Win32Struct
     Dhcpv6Server{
         get {
             if(!this.HasProp("__Dhcpv6Server"))
-                this.__Dhcpv6Server := SOCKET_ADDRESS(this.ptr + 280)
+                this.__Dhcpv6Server := SOCKET_ADDRESS(280, this)
             return this.__Dhcpv6Server
         }
     }

@@ -26,7 +26,7 @@ class DXVA_ProcAmpControlBlt extends Win32Struct
     DstRect{
         get {
             if(!this.HasProp("__DstRect"))
-                this.__DstRect := RECT(this.ptr + 8)
+                this.__DstRect := RECT(8, this)
             return this.__DstRect
         }
     }
@@ -37,7 +37,7 @@ class DXVA_ProcAmpControlBlt extends Win32Struct
     SrcRect{
         get {
             if(!this.HasProp("__SrcRect"))
-                this.__SrcRect := RECT(this.ptr + 24)
+                this.__SrcRect := RECT(24, this)
             return this.__SrcRect
         }
     }

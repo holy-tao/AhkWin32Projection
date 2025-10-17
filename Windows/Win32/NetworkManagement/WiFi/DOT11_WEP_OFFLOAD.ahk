@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DOT11_IV48_COUNTER.ahk
 
 /**
@@ -28,7 +27,7 @@ class DOT11_WEP_OFFLOAD extends Win32Struct
     hOffloadContext{
         get {
             if(!this.HasProp("__hOffloadContext"))
-                this.__hOffloadContext := HANDLE(this.ptr + 8)
+                this.__hOffloadContext := HANDLE(8, this)
             return this.__hOffloadContext
         }
     }
@@ -39,7 +38,7 @@ class DOT11_WEP_OFFLOAD extends Win32Struct
     hOffload{
         get {
             if(!this.HasProp("__hOffload"))
-                this.__hOffload := HANDLE(this.ptr + 16)
+                this.__hOffload := HANDLE(16, this)
             return this.__hOffload
         }
     }
@@ -63,23 +62,17 @@ class DOT11_WEP_OFFLOAD extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bRowIsOutbound{
-        get {
-            if(!this.HasProp("__bRowIsOutbound"))
-                this.__bRowIsOutbound := BOOLEAN(this.ptr + 32)
-            return this.__bRowIsOutbound
-        }
+    bRowIsOutbound {
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bUseDefault{
-        get {
-            if(!this.HasProp("__bUseDefault"))
-                this.__bUseDefault := BOOLEAN(this.ptr + 33)
-            return this.__bUseDefault
-        }
+    bUseDefault {
+        get => NumGet(this, 33, "char")
+        set => NumPut("char", value, this, 33)
     }
 
     /**

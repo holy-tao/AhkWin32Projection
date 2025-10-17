@@ -18,7 +18,7 @@ class VIDEO_VDM extends Win32Struct
     ProcessHandle{
         get {
             if(!this.HasProp("__ProcessHandle"))
-                this.__ProcessHandle := HANDLE(this.ptr + 0)
+                this.__ProcessHandle := HANDLE(0, this)
             return this.__ProcessHandle
         }
     }

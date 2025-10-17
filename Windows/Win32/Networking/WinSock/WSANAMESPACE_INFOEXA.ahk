@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\System\Com\BLOB.ahk
 
 /**
@@ -159,12 +157,9 @@ class WSANAMESPACE_INFOEXA extends Win32Struct
      * If <b>TRUE</b>, indicates that this namespace provider is active. If <b>FALSE</b>, the namespace provider is inactive and is not accessible for queries, even if the query specifically references this namespace provider.
      * @type {BOOL}
      */
-    fActive{
-        get {
-            if(!this.HasProp("__fActive"))
-                this.__fActive := BOOL(this.ptr + 12)
-            return this.__fActive
-        }
+    fActive {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -184,12 +179,9 @@ class WSANAMESPACE_INFOEXA extends Win32Struct
      * A display string that identifies the namespace provider.
      * @type {PSTR}
      */
-    lpszIdentifier{
-        get {
-            if(!this.HasProp("__lpszIdentifier"))
-                this.__lpszIdentifier := PSTR(this.ptr + 24)
-            return this.__lpszIdentifier
-        }
+    lpszIdentifier {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -201,7 +193,7 @@ class WSANAMESPACE_INFOEXA extends Win32Struct
     ProviderSpecific{
         get {
             if(!this.HasProp("__ProviderSpecific"))
-                this.__ProviderSpecific := BLOB(this.ptr + 32)
+                this.__ProviderSpecific := BLOB(32, this)
             return this.__ProviderSpecific
         }
     }

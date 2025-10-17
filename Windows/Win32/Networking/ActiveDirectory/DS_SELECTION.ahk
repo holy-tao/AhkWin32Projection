@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DS_SELECTION structure contains data about an object the user selected from an object picker dialog box. The DS_SELECTION_LIST structure contains an array of DS_SELECTION structures.
@@ -18,12 +17,9 @@ class DS_SELECTION extends Win32Struct
      * Pointer to a null-terminated Unicode string that contains the object's relative distinguished name (RDN).
      * @type {PWSTR}
      */
-    pwzName{
-        get {
-            if(!this.HasProp("__pwzName"))
-                this.__pwzName := PWSTR(this.ptr + 0)
-            return this.__pwzName
-        }
+    pwzName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -31,36 +27,27 @@ class DS_SELECTION extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/objsel/ns-objsel-dsop_scope_init_info">DSOP_SCOPE_INIT_INFO</a> structure for the scope from which this object was selected.
      * @type {PWSTR}
      */
-    pwzADsPath{
-        get {
-            if(!this.HasProp("__pwzADsPath"))
-                this.__pwzADsPath := PWSTR(this.ptr + 8)
-            return this.__pwzADsPath
-        }
+    pwzADsPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the value of the object's objectClass attribute.
      * @type {PWSTR}
      */
-    pwzClass{
-        get {
-            if(!this.HasProp("__pwzClass"))
-                this.__pwzClass := PWSTR(this.ptr + 16)
-            return this.__pwzClass
-        }
+    pwzClass {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the object's userPrincipalName attribute value. If the object does not have a userPrincipalName value, <b>pwzUPN</b> points to an empty string (L"").
      * @type {PWSTR}
      */
-    pwzUPN{
-        get {
-            if(!this.HasProp("__pwzUPN"))
-                this.__pwzUPN := PWSTR(this.ptr + 24)
-            return this.__pwzUPN
-        }
+    pwzUPN {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

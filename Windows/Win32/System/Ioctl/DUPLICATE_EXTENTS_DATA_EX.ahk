@@ -26,7 +26,7 @@ class DUPLICATE_EXTENTS_DATA_EX extends Win32Struct
     FileHandle{
         get {
             if(!this.HasProp("__FileHandle"))
-                this.__FileHandle := HANDLE(this.ptr + 8)
+                this.__FileHandle := HANDLE(8, this)
             return this.__FileHandle
         }
     }

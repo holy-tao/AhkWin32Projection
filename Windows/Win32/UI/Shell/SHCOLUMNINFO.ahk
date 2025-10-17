@@ -23,7 +23,7 @@ class SHCOLUMNINFO extends Win32Struct
     scid{
         get {
             if(!this.HasProp("__scid"))
-                this.__scid := PROPERTYKEY(this.ptr + 0)
+                this.__scid := PROPERTYKEY(0, this)
             return this.__scid
         }
     }

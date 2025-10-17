@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DOT11_PEER_STATISTICS.ahk
 
 /**
@@ -59,12 +58,9 @@ class DOT11_PEER_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bWpsEnabled{
-        get {
-            if(!this.HasProp("__bWpsEnabled"))
-                this.__bWpsEnabled := BOOLEAN(this.ptr + 20)
-            return this.__bWpsEnabled
-        }
+    bWpsEnabled {
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
@@ -124,7 +120,7 @@ class DOT11_PEER_INFO extends Win32Struct
     Statistics{
         get {
             if(!this.HasProp("__Statistics"))
-                this.__Statistics := DOT11_PEER_STATISTICS(this.ptr + 304)
+                this.__Statistics := DOT11_PEER_STATISTICS(304, this)
             return this.__Statistics
         }
     }

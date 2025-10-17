@@ -50,7 +50,7 @@ class IPV6_MREQ extends Win32Struct
     ipv6mr_multiaddr{
         get {
             if(!this.HasProp("__ipv6mr_multiaddr"))
-                this.__ipv6mr_multiaddr := IN6_ADDR(this.ptr + 0)
+                this.__ipv6mr_multiaddr := IN6_ADDR(0, this)
             return this.__ipv6mr_multiaddr
         }
     }

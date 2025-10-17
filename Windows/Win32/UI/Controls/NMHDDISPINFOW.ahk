@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information used in handling HDN_GETDISPINFO notification codes.
@@ -33,7 +31,7 @@ class NMHDDISPINFOW extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -64,12 +62,9 @@ class NMHDDISPINFOW extends Win32Struct
      * A pointer to a null-terminated string containing the text that will be displayed for the header item.
      * @type {PWSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PWSTR(this.ptr + 32)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -102,11 +97,8 @@ class NMHDDISPINFOW extends Win32Struct
      * An application-defined value to associate with the item.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 48)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

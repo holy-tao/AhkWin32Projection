@@ -21,7 +21,7 @@ class ASF_INDEX_DESCRIPTOR extends Win32Struct
     Identifier{
         get {
             if(!this.HasProp("__Identifier"))
-                this.__Identifier := ASF_INDEX_IDENTIFIER(this.ptr + 0)
+                this.__Identifier := ASF_INDEX_IDENTIFIER(0, this)
             return this.__Identifier
         }
     }

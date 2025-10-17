@@ -185,7 +185,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
     CpuSet{
         get {
             if(!this.HasProp("__CpuSet"))
-                this.__CpuSet := %this.__Class%._CpuSet(this.ptr + 8)
+                this.__CpuSet := %this.__Class%._CpuSet(8, this)
             return this.__CpuSet
         }
     }

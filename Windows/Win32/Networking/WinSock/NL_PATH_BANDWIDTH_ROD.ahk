@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -31,11 +30,8 @@ class NL_PATH_BANDWIDTH_ROD extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    BandwidthPeaked{
-        get {
-            if(!this.HasProp("__BandwidthPeaked"))
-                this.__BandwidthPeaked := BOOLEAN(this.ptr + 16)
-            return this.__BandwidthPeaked
-        }
+    BandwidthPeaked {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 }

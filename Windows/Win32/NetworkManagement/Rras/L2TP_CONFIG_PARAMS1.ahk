@@ -119,7 +119,7 @@ class L2TP_CONFIG_PARAMS1 extends Win32Struct
     TunnelConfigParams{
         get {
             if(!this.HasProp("__TunnelConfigParams"))
-                this.__TunnelConfigParams := L2TP_TUNNEL_CONFIG_PARAMS2(this.ptr + 16)
+                this.__TunnelConfigParams := L2TP_TUNNEL_CONFIG_PARAMS2(16, this)
             return this.__TunnelConfigParams
         }
     }

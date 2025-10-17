@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include .\WHEA_PCI_SLOT_NUMBER.ahk
 #Include .\AER_ENDPOINT_DESCRIPTOR_FLAGS.ahk
 
@@ -25,12 +24,9 @@ class WHEA_AER_ENDPOINT_DESCRIPTOR extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    Enabled{
-        get {
-            if(!this.HasProp("__Enabled"))
-                this.__Enabled := BOOLEAN(this.ptr + 2)
-            return this.__Enabled
-        }
+    Enabled {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 
     /**
@@ -55,7 +51,7 @@ class WHEA_AER_ENDPOINT_DESCRIPTOR extends Win32Struct
     Slot{
         get {
             if(!this.HasProp("__Slot"))
-                this.__Slot := WHEA_PCI_SLOT_NUMBER(this.ptr + 8)
+                this.__Slot := WHEA_PCI_SLOT_NUMBER(8, this)
             return this.__Slot
         }
     }
@@ -74,7 +70,7 @@ class WHEA_AER_ENDPOINT_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := AER_ENDPOINT_DESCRIPTOR_FLAGS(this.ptr + 16)
+                this.__Flags := AER_ENDPOINT_DESCRIPTOR_FLAGS(16, this)
             return this.__Flags
         }
     }

@@ -47,7 +47,7 @@ class FAX_CONTEXT_INFOA extends Win32Struct
     hDC{
         get {
             if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 8)
+                this.__hDC := HDC(8, this)
             return this.__hDC
         }
     }

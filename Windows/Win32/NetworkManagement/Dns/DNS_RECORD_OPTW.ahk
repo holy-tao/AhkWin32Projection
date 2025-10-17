@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DNS_RECORD_FLAGS.ahk
 #Include .\DNS_HEADER_EXT.ahk
 #Include .\DNS_OPT_DATA.ahk
@@ -26,12 +25,9 @@ class DNS_RECORD_OPTW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 8)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -64,7 +60,7 @@ class DNS_RECORD_OPTW extends Win32Struct
     S{
         get {
             if(!this.HasProp("__S"))
-                this.__S := DNS_RECORD_FLAGS(this.ptr + 20)
+                this.__S := DNS_RECORD_FLAGS(20, this)
             return this.__S
         }
     }
@@ -75,7 +71,7 @@ class DNS_RECORD_OPTW extends Win32Struct
     ExtHeader{
         get {
             if(!this.HasProp("__ExtHeader"))
-                this.__ExtHeader := DNS_HEADER_EXT(this.ptr + 24)
+                this.__ExtHeader := DNS_HEADER_EXT(24, this)
             return this.__ExtHeader
         }
     }
@@ -102,7 +98,7 @@ class DNS_RECORD_OPTW extends Win32Struct
     OPT{
         get {
             if(!this.HasProp("__OPT"))
-                this.__OPT := DNS_OPT_DATA(this.ptr + 36)
+                this.__OPT := DNS_OPT_DATA(36, this)
             return this.__OPT
         }
     }

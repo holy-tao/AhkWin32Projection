@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The LOCALGROUP_INFO_1002 structure contains a comment describing a local group.
@@ -18,11 +17,8 @@ class LOCALGROUP_INFO_1002 extends Win32Struct
      * Pointer to a Unicode string that specifies a remark associated with the local group. This member can be a null string. The comment can have as many as MAXCOMMENTSZ characters.
      * @type {PWSTR}
      */
-    lgrpi1002_comment{
-        get {
-            if(!this.HasProp("__lgrpi1002_comment"))
-                this.__lgrpi1002_comment := PWSTR(this.ptr + 0)
-            return this.__lgrpi1002_comment
-        }
+    lgrpi1002_comment {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

@@ -70,7 +70,7 @@ class GOPHER_FIND_DATAW extends Win32Struct
     LastModificationTime{
         get {
             if(!this.HasProp("__LastModificationTime"))
-                this.__LastModificationTime := FILETIME(this.ptr + 272)
+                this.__LastModificationTime := FILETIME(272, this)
             return this.__LastModificationTime
         }
     }

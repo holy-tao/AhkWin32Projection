@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Identifies a provider function by DLL name and function name.
@@ -27,23 +26,17 @@ class CRYPT_TRUST_REG_ENTRY extends Win32Struct
      * A pointer to a null-terminated string for the DLL name.
      * @type {PWSTR}
      */
-    pwszDLLName{
-        get {
-            if(!this.HasProp("__pwszDLLName"))
-                this.__pwszDLLName := PWSTR(this.ptr + 8)
-            return this.__pwszDLLName
-        }
+    pwszDLLName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a null-terminated string for the function name.
      * @type {PWSTR}
      */
-    pwszFunctionName{
-        get {
-            if(!this.HasProp("__pwszFunctionName"))
-                this.__pwszFunctionName := PWSTR(this.ptr + 16)
-            return this.__pwszFunctionName
-        }
+    pwszFunctionName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

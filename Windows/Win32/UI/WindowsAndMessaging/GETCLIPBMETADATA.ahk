@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
@@ -23,22 +22,16 @@ class GETCLIPBMETADATA extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsDelayRendered{
-        get {
-            if(!this.HasProp("__IsDelayRendered"))
-                this.__IsDelayRendered := BOOL(this.ptr + 4)
-            return this.__IsDelayRendered
-        }
+    IsDelayRendered {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
      * @type {BOOL}
      */
-    IsSynthetic{
-        get {
-            if(!this.HasProp("__IsSynthetic"))
-                this.__IsSynthetic := BOOL(this.ptr + 8)
-            return this.__IsSynthetic
-        }
+    IsSynthetic {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 }

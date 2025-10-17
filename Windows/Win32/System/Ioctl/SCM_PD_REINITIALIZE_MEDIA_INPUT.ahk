@@ -57,7 +57,7 @@ class SCM_PD_REINITIALIZE_MEDIA_INPUT extends Win32Struct
     Options{
         get {
             if(!this.HasProp("__Options"))
-                this.__Options := %this.__Class%._Options(this.ptr + 8)
+                this.__Options := %this.__Class%._Options(8, this)
             return this.__Options
         }
     }

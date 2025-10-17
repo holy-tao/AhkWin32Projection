@@ -93,7 +93,7 @@ class NVMEOF_PROPERTY_GET_COMMAND extends Win32Struct
     ATTRIB{
         get {
             if(!this.HasProp("__ATTRIB"))
-                this.__ATTRIB := %this.__Class%._ATTRIB(this.ptr + 40)
+                this.__ATTRIB := %this.__Class%._ATTRIB(40, this)
             return this.__ATTRIB
         }
     }

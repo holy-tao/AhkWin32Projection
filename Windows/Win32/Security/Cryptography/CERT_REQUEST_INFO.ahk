@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 #Include .\CERT_PUBLIC_KEY_INFO.ahk
@@ -51,7 +50,7 @@ class CERT_REQUEST_INFO extends Win32Struct
     Subject{
         get {
             if(!this.HasProp("__Subject"))
-                this.__Subject := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Subject := CRYPT_INTEGER_BLOB(8, this)
             return this.__Subject
         }
     }
@@ -63,7 +62,7 @@ class CERT_REQUEST_INFO extends Win32Struct
     SubjectPublicKeyInfo{
         get {
             if(!this.HasProp("__SubjectPublicKeyInfo"))
-                this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(this.ptr + 24)
+                this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(24, this)
             return this.__SubjectPublicKeyInfo
         }
     }

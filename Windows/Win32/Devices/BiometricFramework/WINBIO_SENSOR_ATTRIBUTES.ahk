@@ -35,7 +35,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     WinBioVersion{
         get {
             if(!this.HasProp("__WinBioVersion"))
-                this.__WinBioVersion := WINBIO_VERSION(this.ptr + 8)
+                this.__WinBioVersion := WINBIO_VERSION(8, this)
             return this.__WinBioVersion
         }
     }
@@ -103,7 +103,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     FirmwareVersion{
         get {
             if(!this.HasProp("__FirmwareVersion"))
-                this.__FirmwareVersion := WINBIO_VERSION(this.ptr + 1568)
+                this.__FirmwareVersion := WINBIO_VERSION(1568, this)
             return this.__FirmwareVersion
         }
     }

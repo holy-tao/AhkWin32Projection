@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -86,7 +85,7 @@ class LSA_FOREST_TRUST_COLLISION_RECORD extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__Name := LSA_UNICODE_STRING(16, this)
             return this.__Name
         }
     }

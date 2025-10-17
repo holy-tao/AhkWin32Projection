@@ -65,7 +65,7 @@ class WIA_DEV_CAP extends Win32Struct
     bstrName{
         get {
             if(!this.HasProp("__bstrName"))
-                this.__bstrName := BSTR(this.ptr + 16)
+                this.__bstrName := BSTR(16, this)
             return this.__bstrName
         }
     }
@@ -79,7 +79,7 @@ class WIA_DEV_CAP extends Win32Struct
     bstrDescription{
         get {
             if(!this.HasProp("__bstrDescription"))
-                this.__bstrDescription := BSTR(this.ptr + 24)
+                this.__bstrDescription := BSTR(24, this)
             return this.__bstrDescription
         }
     }
@@ -93,7 +93,7 @@ class WIA_DEV_CAP extends Win32Struct
     bstrIcon{
         get {
             if(!this.HasProp("__bstrIcon"))
-                this.__bstrIcon := BSTR(this.ptr + 32)
+                this.__bstrIcon := BSTR(32, this)
             return this.__bstrIcon
         }
     }
@@ -107,7 +107,7 @@ class WIA_DEV_CAP extends Win32Struct
     bstrCommandline{
         get {
             if(!this.HasProp("__bstrCommandline"))
-                this.__bstrCommandline := BSTR(this.ptr + 40)
+                this.__bstrCommandline := BSTR(40, this)
             return this.__bstrCommandline
         }
     }

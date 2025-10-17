@@ -19,7 +19,7 @@ class SE_SID extends Win32Struct
     Sid{
         get {
             if(!this.HasProp("__Sid"))
-                this.__Sid := SID(this.ptr + 0)
+                this.__Sid := SID(0, this)
             return this.__Sid
         }
     }

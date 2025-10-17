@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\DVD_MUA_MixingInfo.ahk
 #Include .\DVD_MUA_Coeff.ahk
 

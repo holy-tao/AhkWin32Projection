@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes Direct3D 12 feature options in the current graphics driver.
@@ -29,24 +28,18 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
      *               the runtime must set <b>DoublePrecisionFloatShaderOps</b> to <b>TRUE</b>.
      * @type {BOOL}
      */
-    DoublePrecisionFloatShaderOps{
-        get {
-            if(!this.HasProp("__DoublePrecisionFloatShaderOps"))
-                this.__DoublePrecisionFloatShaderOps := BOOL(this.ptr + 0)
-            return this.__DoublePrecisionFloatShaderOps
-        }
+    DoublePrecisionFloatShaderOps {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * Specifies whether logic operations are available in blend state. The runtime sets this member to <b>TRUE</b> if logic operations are available in blend state and <b>FALSE</b> otherwise. This member is <b>FALSE</b> for feature level 9.1, 9.2, and 9.3.  This member is optional for feature level 10, 10.1, and 11.  This member is <b>TRUE</b> for feature level 11.1 and 12.
      * @type {BOOL}
      */
-    OutputMergerLogicOp{
-        get {
-            if(!this.HasProp("__OutputMergerLogicOp"))
-                this.__OutputMergerLogicOp := BOOL(this.ptr + 4)
-            return this.__OutputMergerLogicOp
-        }
+    OutputMergerLogicOp {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -80,12 +73,9 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
      * Specifies whether pixel shader stencil ref is supported. If <b>TRUE</b>, it's supported; otherwise <b>FALSE</b>.
      * @type {BOOL}
      */
-    PSSpecifiedStencilRefSupported{
-        get {
-            if(!this.HasProp("__PSSpecifiedStencilRefSupported"))
-                this.__PSSpecifiedStencilRefSupported := BOOL(this.ptr + 20)
-            return this.__PSSpecifiedStencilRefSupported
-        }
+    PSSpecifiedStencilRefSupported {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -93,24 +83,18 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
      *             If <b>TRUE</b>, it's supported; otherwise <b>FALSE</b>.
      * @type {BOOL}
      */
-    TypedUAVLoadAdditionalFormats{
-        get {
-            if(!this.HasProp("__TypedUAVLoadAdditionalFormats"))
-                this.__TypedUAVLoadAdditionalFormats := BOOL(this.ptr + 24)
-            return this.__TypedUAVLoadAdditionalFormats
-        }
+    TypedUAVLoadAdditionalFormats {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * Specifies whether <a href="https://docs.microsoft.com/windows/desktop/direct3d12/directx-12-glossary">Rasterizer Order Views</a> (ROVs) are supported. If <b>TRUE</b>, they're supported; otherwise <b>FALSE</b>.
      * @type {BOOL}
      */
-    ROVsSupported{
-        get {
-            if(!this.HasProp("__ROVsSupported"))
-                this.__ROVsSupported := BOOL(this.ptr + 28)
-            return this.__ROVsSupported
-        }
+    ROVsSupported {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -138,12 +122,9 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
      *             For texture swizzle options and restrictions, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_layout">D3D12_TEXTURE_LAYOUT</a>.
      * @type {BOOL}
      */
-    StandardSwizzle64KBSupported{
-        get {
-            if(!this.HasProp("__StandardSwizzle64KBSupported"))
-                this.__StandardSwizzle64KBSupported := BOOL(this.ptr + 40)
-            return this.__StandardSwizzle64KBSupported
-        }
+    StandardSwizzle64KBSupported {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -162,12 +143,9 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
      *             "Cross-adapter" means between multiple adapters (even from different IHVs).
      * @type {BOOL}
      */
-    CrossAdapterRowMajorTextureSupported{
-        get {
-            if(!this.HasProp("__CrossAdapterRowMajorTextureSupported"))
-                this.__CrossAdapterRowMajorTextureSupported := BOOL(this.ptr + 48)
-            return this.__CrossAdapterRowMajorTextureSupported
-        }
+    CrossAdapterRowMajorTextureSupported {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -176,12 +154,9 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS extends Win32Struct
      *             In <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nf-d3d12shader-id3d12shaderreflection-getrequiresflags">ID3D12ShaderReflection::GetRequiresFlags</a>, see the #define D3D_SHADER_REQUIRES_VIEWPORT_AND_RT_ARRAY_INDEX_FROM_ANY_SHADER_FEEDING_RASTERIZER.
      * @type {BOOL}
      */
-    VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation{
-        get {
-            if(!this.HasProp("__VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation"))
-                this.__VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation := BOOL(this.ptr + 52)
-            return this.__VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation
-        }
+    VPAndRTArrayIndexFromAnyShaderFeedingRasterizerSupportedWithoutGSEmulation {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**

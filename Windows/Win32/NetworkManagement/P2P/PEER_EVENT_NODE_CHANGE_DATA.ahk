@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_EVENT_NODE_CHANGE_DATA structure contains a pointer to the data if a PEER_GRAPH_EVENT_NODE_CHANGE event is triggered.
@@ -83,11 +82,8 @@ class PEER_EVENT_NODE_CHANGE_DATA extends Win32Struct
      * Specifies the peer ID of the node that has  changed.
      * @type {PWSTR}
      */
-    pwzPeerId{
-        get {
-            if(!this.HasProp("__pwzPeerId"))
-                this.__pwzPeerId := PWSTR(this.ptr + 16)
-            return this.__pwzPeerId
-        }
+    pwzPeerId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

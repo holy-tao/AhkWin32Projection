@@ -142,7 +142,7 @@ class WindowsConnectionManager {
     static WcmSetProfileList(pProfileList, dwPosition, fIgnoreUnknownProfiles) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("wcmapi.dll\WcmSetProfileList", "ptr", pProfileList, "uint", dwPosition, "ptr", fIgnoreUnknownProfiles, "ptr", pReserved, "uint")
+        result := DllCall("wcmapi.dll\WcmSetProfileList", "ptr", pProfileList, "uint", dwPosition, "int", fIgnoreUnknownProfiles, "ptr", pReserved, "uint")
         return result
     }
 

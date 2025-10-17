@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -21,7 +19,7 @@ class SHFILEOPSTRUCTA extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
+                this.__hwnd := HWND(0, this)
             return this.__hwnd
         }
     }
@@ -61,12 +59,9 @@ class SHFILEOPSTRUCTA extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fAnyOperationsAborted{
-        get {
-            if(!this.HasProp("__fAnyOperationsAborted"))
-                this.__fAnyOperationsAborted := BOOL(this.ptr + 36)
-            return this.__fAnyOperationsAborted
-        }
+    fAnyOperationsAborted {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -80,11 +75,8 @@ class SHFILEOPSTRUCTA extends Win32Struct
     /**
      * @type {PSTR}
      */
-    lpszProgressTitle{
-        get {
-            if(!this.HasProp("__lpszProgressTitle"))
-                this.__lpszProgressTitle := PSTR(this.ptr + 48)
-            return this.__lpszProgressTitle
-        }
+    lpszProgressTitle {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

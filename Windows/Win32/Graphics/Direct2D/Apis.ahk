@@ -441,7 +441,7 @@ class Direct2D {
      * @since windows6.1
      */
     static D2D1IsMatrixInvertible(matrix) {
-        result := DllCall("d2d1.dll\D2D1IsMatrixInvertible", "ptr", matrix, "ptr")
+        result := DllCall("d2d1.dll\D2D1IsMatrixInvertible", "ptr", matrix, "int")
         return result
     }
 
@@ -457,7 +457,7 @@ class Direct2D {
      * @since windows6.1
      */
     static D2D1InvertMatrix(matrix) {
-        result := DllCall("d2d1.dll\D2D1InvertMatrix", "ptr", matrix, "ptr")
+        result := DllCall("d2d1.dll\D2D1InvertMatrix", "ptr", matrix, "int")
         return result
     }
 

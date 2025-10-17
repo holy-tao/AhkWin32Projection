@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BLUETOOTH_ADDRESS.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\BLUETOOTH_DEVICE_INFO.ahk
 
@@ -24,7 +23,7 @@ class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS extends Win32Struct
     deviceInfo{
         get {
             if(!this.HasProp("__deviceInfo"))
-                this.__deviceInfo := BLUETOOTH_DEVICE_INFO(this.ptr + 0)
+                this.__deviceInfo := BLUETOOTH_DEVICE_INFO(0, this)
             return this.__deviceInfo
         }
     }

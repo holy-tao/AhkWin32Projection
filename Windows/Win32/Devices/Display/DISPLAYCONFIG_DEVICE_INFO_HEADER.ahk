@@ -44,7 +44,7 @@ class DISPLAYCONFIG_DEVICE_INFO_HEADER extends Win32Struct
     adapterId{
         get {
             if(!this.HasProp("__adapterId"))
-                this.__adapterId := LUID(this.ptr + 8)
+                this.__adapterId := LUID(8, this)
             return this.__adapterId
         }
     }

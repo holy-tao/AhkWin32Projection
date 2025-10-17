@@ -50,7 +50,7 @@ class PUBKEYVER3 extends Win32Struct
     DSSSeed{
         get {
             if(!this.HasProp("__DSSSeed"))
-                this.__DSSSeed := DSSSEED(this.ptr + 16)
+                this.__DSSSeed := DSSSEED(16, this)
             return this.__DSSSeed
         }
     }

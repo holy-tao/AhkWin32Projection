@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SERVER_INFO_1540 structure specifies whether the server allows redirected server drives to be shared.
@@ -18,11 +17,8 @@ class SERVER_INFO_1540 extends Win32Struct
      * Specifies whether the server allows redirected server drives to be shared.
      * @type {BOOL}
      */
-    sv1540_enablesharednetdrives{
-        get {
-            if(!this.HasProp("__sv1540_enablesharednetdrives"))
-                this.__sv1540_enablesharednetdrives := BOOL(this.ptr + 0)
-            return this.__sv1540_enablesharednetdrives
-        }
+    sv1540_enablesharednetdrives {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

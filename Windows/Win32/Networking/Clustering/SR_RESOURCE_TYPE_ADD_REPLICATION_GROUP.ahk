@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -71,34 +70,25 @@ class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    EnableWriteConsistency{
-        get {
-            if(!this.HasProp("__EnableWriteConsistency"))
-                this.__EnableWriteConsistency := BOOLEAN(this.ptr + 1580)
-            return this.__EnableWriteConsistency
-        }
+    EnableWriteConsistency {
+        get => NumGet(this, 1580, "char")
+        set => NumPut("char", value, this, 1580)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    EnableEncryption{
-        get {
-            if(!this.HasProp("__EnableEncryption"))
-                this.__EnableEncryption := BOOLEAN(this.ptr + 1581)
-            return this.__EnableEncryption
-        }
+    EnableEncryption {
+        get => NumGet(this, 1581, "char")
+        set => NumPut("char", value, this, 1581)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    EnableCompression{
-        get {
-            if(!this.HasProp("__EnableCompression"))
-                this.__EnableCompression := BOOLEAN(this.ptr + 1582)
-            return this.__EnableCompression
-        }
+    EnableCompression {
+        get => NumGet(this, 1582, "char")
+        set => NumPut("char", value, this, 1582)
     }
 
     /**

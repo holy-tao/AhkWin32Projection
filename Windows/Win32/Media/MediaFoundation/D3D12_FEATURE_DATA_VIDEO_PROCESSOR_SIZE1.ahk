@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -47,12 +46,9 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE1 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Protected{
-        get {
-            if(!this.HasProp("__Protected"))
-                this.__Protected := BOOL(this.ptr + 32)
-            return this.__Protected
-        }
+    Protected {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**

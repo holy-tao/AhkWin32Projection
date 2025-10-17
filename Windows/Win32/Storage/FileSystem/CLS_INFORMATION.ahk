@@ -106,7 +106,7 @@ class CLS_INFORMATION extends Win32Struct
     MinArchiveTailLsn{
         get {
             if(!this.HasProp("__MinArchiveTailLsn"))
-                this.__MinArchiveTailLsn := CLS_LSN(this.ptr + 64)
+                this.__MinArchiveTailLsn := CLS_LSN(64, this)
             return this.__MinArchiveTailLsn
         }
     }
@@ -117,7 +117,7 @@ class CLS_INFORMATION extends Win32Struct
     BaseLsn{
         get {
             if(!this.HasProp("__BaseLsn"))
-                this.__BaseLsn := CLS_LSN(this.ptr + 72)
+                this.__BaseLsn := CLS_LSN(72, this)
             return this.__BaseLsn
         }
     }
@@ -128,7 +128,7 @@ class CLS_INFORMATION extends Win32Struct
     LastFlushedLsn{
         get {
             if(!this.HasProp("__LastFlushedLsn"))
-                this.__LastFlushedLsn := CLS_LSN(this.ptr + 80)
+                this.__LastFlushedLsn := CLS_LSN(80, this)
             return this.__LastFlushedLsn
         }
     }
@@ -139,7 +139,7 @@ class CLS_INFORMATION extends Win32Struct
     LastLsn{
         get {
             if(!this.HasProp("__LastLsn"))
-                this.__LastLsn := CLS_LSN(this.ptr + 88)
+                this.__LastLsn := CLS_LSN(88, this)
             return this.__LastLsn
         }
     }
@@ -150,7 +150,7 @@ class CLS_INFORMATION extends Win32Struct
     RestartLsn{
         get {
             if(!this.HasProp("__RestartLsn"))
-                this.__RestartLsn := CLS_LSN(this.ptr + 96)
+                this.__RestartLsn := CLS_LSN(96, this)
             return this.__RestartLsn
         }
     }

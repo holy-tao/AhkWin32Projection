@@ -18728,7 +18728,7 @@ class Search {
      * @returns {PSTR} 
      */
     static dbprtypeA(param0) {
-        result := DllCall("odbcbcp.dll\dbprtypeA", "int", param0, "ptr")
+        result := DllCall("odbcbcp.dll\dbprtypeA", "int", param0, "char*")
         return result
     }
 
@@ -18738,7 +18738,7 @@ class Search {
      * @returns {PWSTR} 
      */
     static dbprtypeW(param0) {
-        result := DllCall("odbcbcp.dll\dbprtypeW", "int", param0, "ptr")
+        result := DllCall("odbcbcp.dll\dbprtypeW", "int", param0, "char*")
         return result
     }
 
@@ -19040,7 +19040,7 @@ class Search {
      * @returns {BOOL} 
      */
     static ODBCSetTryWaitValue(dwValue) {
-        result := DllCall("ODBC32.dll\ODBCSetTryWaitValue", "uint", dwValue, "ptr")
+        result := DllCall("ODBC32.dll\ODBCSetTryWaitValue", "uint", dwValue, "int")
         return result
     }
 

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -39,34 +38,25 @@ class DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_A_DATA extends Win32Struct
     /**
      * @type {PSTR}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PSTR(this.ptr + 16)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    Module{
-        get {
-            if(!this.HasProp("__Module"))
-                this.__Module := PSTR(this.ptr + 24)
-            return this.__Module
-        }
+    Module {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    Interface{
-        get {
-            if(!this.HasProp("__Interface"))
-                this.__Interface := PSTR(this.ptr + 32)
-            return this.__Interface
-        }
+    Interface {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

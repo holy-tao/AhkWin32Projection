@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\CHARRANGE.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about text to search for in a rich edit control. This structure is used with the EM_FINDTEXTEX message.
@@ -30,7 +29,7 @@ class FINDTEXTEXA extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 0)
+                this.__chrg := CHARRANGE(0, this)
             return this.__chrg
         }
     }
@@ -41,12 +40,9 @@ class FINDTEXTEXA extends Win32Struct
      * The null-terminated string to find.
      * @type {PSTR}
      */
-    lpstrText{
-        get {
-            if(!this.HasProp("__lpstrText"))
-                this.__lpstrText := PSTR(this.ptr + 8)
-            return this.__lpstrText
-        }
+    lpstrText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -58,7 +54,7 @@ class FINDTEXTEXA extends Win32Struct
     chrgText{
         get {
             if(!this.HasProp("__chrgText"))
-                this.__chrgText := CHARRANGE(this.ptr + 16)
+                this.__chrgText := CHARRANGE(16, this)
             return this.__chrgText
         }
     }

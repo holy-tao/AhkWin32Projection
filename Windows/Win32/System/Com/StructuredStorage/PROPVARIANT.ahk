@@ -1,14 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\CHAR.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\CY.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\BSTRBLOB.ahk
 #Include ..\BLOB.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\CAC.ahk
 #Include .\CAUB.ahk
 #Include .\CAI.ahk
@@ -464,12 +460,9 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CHAR}
      */
-    cVal{
-        get {
-            if(!this.HasProp("__cVal"))
-                this.__cVal := CHAR(this.ptr + 8)
-            return this.__cVal
-        }
+    cVal {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -563,23 +556,17 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {VARIANT_BOOL}
      */
-    boolVal{
-        get {
-            if(!this.HasProp("__boolVal"))
-                this.__boolVal := VARIANT_BOOL(this.ptr + 8)
-            return this.__boolVal
-        }
+    boolVal {
+        get => NumGet(this, 8, "short")
+        set => NumPut("short", value, this, 8)
     }
 
     /**
      * @type {VARIANT_BOOL}
      */
-    __OBSOLETE__VARIANT_BOOL{
-        get {
-            if(!this.HasProp("____OBSOLETE__VARIANT_BOOL"))
-                this.____OBSOLETE__VARIANT_BOOL := VARIANT_BOOL(this.ptr + 8)
-            return this.____OBSOLETE__VARIANT_BOOL
-        }
+    __OBSOLETE__VARIANT_BOOL {
+        get => NumGet(this, 8, "short")
+        set => NumPut("short", value, this, 8)
     }
 
     /**
@@ -596,7 +583,7 @@ class PROPVARIANT extends Win32Struct
     cyVal{
         get {
             if(!this.HasProp("__cyVal"))
-                this.__cyVal := CY(this.ptr + 8)
+                this.__cyVal := CY(8, this)
             return this.__cyVal
         }
     }
@@ -615,7 +602,7 @@ class PROPVARIANT extends Win32Struct
     filetime{
         get {
             if(!this.HasProp("__filetime"))
-                this.__filetime := FILETIME(this.ptr + 8)
+                this.__filetime := FILETIME(8, this)
             return this.__filetime
         }
     }
@@ -642,7 +629,7 @@ class PROPVARIANT extends Win32Struct
     bstrVal{
         get {
             if(!this.HasProp("__bstrVal"))
-                this.__bstrVal := BSTR(this.ptr + 8)
+                this.__bstrVal := BSTR(8, this)
             return this.__bstrVal
         }
     }
@@ -653,7 +640,7 @@ class PROPVARIANT extends Win32Struct
     bstrblobVal{
         get {
             if(!this.HasProp("__bstrblobVal"))
-                this.__bstrblobVal := BSTRBLOB(this.ptr + 8)
+                this.__bstrblobVal := BSTRBLOB(8, this)
             return this.__bstrblobVal
         }
     }
@@ -664,7 +651,7 @@ class PROPVARIANT extends Win32Struct
     blob{
         get {
             if(!this.HasProp("__blob"))
-                this.__blob := BLOB(this.ptr + 8)
+                this.__blob := BLOB(8, this)
             return this.__blob
         }
     }
@@ -672,23 +659,17 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszVal{
-        get {
-            if(!this.HasProp("__pszVal"))
-                this.__pszVal := PSTR(this.ptr + 8)
-            return this.__pszVal
-        }
+    pszVal {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszVal{
-        get {
-            if(!this.HasProp("__pwszVal"))
-                this.__pwszVal := PWSTR(this.ptr + 8)
-            return this.__pwszVal
-        }
+    pwszVal {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -745,7 +726,7 @@ class PROPVARIANT extends Win32Struct
     cac{
         get {
             if(!this.HasProp("__cac"))
-                this.__cac := CAC(this.ptr + 8)
+                this.__cac := CAC(8, this)
             return this.__cac
         }
     }
@@ -756,7 +737,7 @@ class PROPVARIANT extends Win32Struct
     caub{
         get {
             if(!this.HasProp("__caub"))
-                this.__caub := CAUB(this.ptr + 8)
+                this.__caub := CAUB(8, this)
             return this.__caub
         }
     }
@@ -767,7 +748,7 @@ class PROPVARIANT extends Win32Struct
     cai{
         get {
             if(!this.HasProp("__cai"))
-                this.__cai := CAI(this.ptr + 8)
+                this.__cai := CAI(8, this)
             return this.__cai
         }
     }
@@ -778,7 +759,7 @@ class PROPVARIANT extends Win32Struct
     caui{
         get {
             if(!this.HasProp("__caui"))
-                this.__caui := CAUI(this.ptr + 8)
+                this.__caui := CAUI(8, this)
             return this.__caui
         }
     }
@@ -789,7 +770,7 @@ class PROPVARIANT extends Win32Struct
     cal{
         get {
             if(!this.HasProp("__cal"))
-                this.__cal := CAL(this.ptr + 8)
+                this.__cal := CAL(8, this)
             return this.__cal
         }
     }
@@ -800,7 +781,7 @@ class PROPVARIANT extends Win32Struct
     caul{
         get {
             if(!this.HasProp("__caul"))
-                this.__caul := CAUL(this.ptr + 8)
+                this.__caul := CAUL(8, this)
             return this.__caul
         }
     }
@@ -811,7 +792,7 @@ class PROPVARIANT extends Win32Struct
     cah{
         get {
             if(!this.HasProp("__cah"))
-                this.__cah := CAH(this.ptr + 8)
+                this.__cah := CAH(8, this)
             return this.__cah
         }
     }
@@ -822,7 +803,7 @@ class PROPVARIANT extends Win32Struct
     cauh{
         get {
             if(!this.HasProp("__cauh"))
-                this.__cauh := CAUH(this.ptr + 8)
+                this.__cauh := CAUH(8, this)
             return this.__cauh
         }
     }
@@ -833,7 +814,7 @@ class PROPVARIANT extends Win32Struct
     caflt{
         get {
             if(!this.HasProp("__caflt"))
-                this.__caflt := CAFLT(this.ptr + 8)
+                this.__caflt := CAFLT(8, this)
             return this.__caflt
         }
     }
@@ -844,7 +825,7 @@ class PROPVARIANT extends Win32Struct
     cadbl{
         get {
             if(!this.HasProp("__cadbl"))
-                this.__cadbl := CADBL(this.ptr + 8)
+                this.__cadbl := CADBL(8, this)
             return this.__cadbl
         }
     }
@@ -855,7 +836,7 @@ class PROPVARIANT extends Win32Struct
     cabool{
         get {
             if(!this.HasProp("__cabool"))
-                this.__cabool := CABOOL(this.ptr + 8)
+                this.__cabool := CABOOL(8, this)
             return this.__cabool
         }
     }
@@ -866,7 +847,7 @@ class PROPVARIANT extends Win32Struct
     cascode{
         get {
             if(!this.HasProp("__cascode"))
-                this.__cascode := CASCODE(this.ptr + 8)
+                this.__cascode := CASCODE(8, this)
             return this.__cascode
         }
     }
@@ -877,7 +858,7 @@ class PROPVARIANT extends Win32Struct
     cacy{
         get {
             if(!this.HasProp("__cacy"))
-                this.__cacy := CACY(this.ptr + 8)
+                this.__cacy := CACY(8, this)
             return this.__cacy
         }
     }
@@ -888,7 +869,7 @@ class PROPVARIANT extends Win32Struct
     cadate{
         get {
             if(!this.HasProp("__cadate"))
-                this.__cadate := CADATE(this.ptr + 8)
+                this.__cadate := CADATE(8, this)
             return this.__cadate
         }
     }
@@ -899,7 +880,7 @@ class PROPVARIANT extends Win32Struct
     cafiletime{
         get {
             if(!this.HasProp("__cafiletime"))
-                this.__cafiletime := CAFILETIME(this.ptr + 8)
+                this.__cafiletime := CAFILETIME(8, this)
             return this.__cafiletime
         }
     }
@@ -910,7 +891,7 @@ class PROPVARIANT extends Win32Struct
     cauuid{
         get {
             if(!this.HasProp("__cauuid"))
-                this.__cauuid := CACLSID(this.ptr + 8)
+                this.__cauuid := CACLSID(8, this)
             return this.__cauuid
         }
     }
@@ -921,7 +902,7 @@ class PROPVARIANT extends Win32Struct
     caclipdata{
         get {
             if(!this.HasProp("__caclipdata"))
-                this.__caclipdata := CACLIPDATA(this.ptr + 8)
+                this.__caclipdata := CACLIPDATA(8, this)
             return this.__caclipdata
         }
     }
@@ -932,7 +913,7 @@ class PROPVARIANT extends Win32Struct
     cabstr{
         get {
             if(!this.HasProp("__cabstr"))
-                this.__cabstr := CABSTR(this.ptr + 8)
+                this.__cabstr := CABSTR(8, this)
             return this.__cabstr
         }
     }
@@ -943,7 +924,7 @@ class PROPVARIANT extends Win32Struct
     cabstrblob{
         get {
             if(!this.HasProp("__cabstrblob"))
-                this.__cabstrblob := CABSTRBLOB(this.ptr + 8)
+                this.__cabstrblob := CABSTRBLOB(8, this)
             return this.__cabstrblob
         }
     }
@@ -954,7 +935,7 @@ class PROPVARIANT extends Win32Struct
     calpstr{
         get {
             if(!this.HasProp("__calpstr"))
-                this.__calpstr := CALPSTR(this.ptr + 8)
+                this.__calpstr := CALPSTR(8, this)
             return this.__calpstr
         }
     }
@@ -965,7 +946,7 @@ class PROPVARIANT extends Win32Struct
     calpwstr{
         get {
             if(!this.HasProp("__calpwstr"))
-                this.__calpwstr := CALPWSTR(this.ptr + 8)
+                this.__calpwstr := CALPWSTR(8, this)
             return this.__calpwstr
         }
     }
@@ -976,7 +957,7 @@ class PROPVARIANT extends Win32Struct
     capropvar{
         get {
             if(!this.HasProp("__capropvar"))
-                this.__capropvar := CAPROPVARIANT(this.ptr + 8)
+                this.__capropvar := CAPROPVARIANT(8, this)
             return this.__capropvar
         }
     }
@@ -984,12 +965,9 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pcVal{
-        get {
-            if(!this.HasProp("__pcVal"))
-                this.__pcVal := PSTR(this.ptr + 8)
-            return this.__pcVal
-        }
+    pcVal {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -1150,7 +1128,7 @@ class PROPVARIANT extends Win32Struct
     decVal{
         get {
             if(!this.HasProp("__decVal"))
-                this.__decVal := DECIMAL(this.ptr + 0)
+                this.__decVal := DECIMAL(0, this)
             return this.__decVal
         }
     }

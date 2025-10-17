@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\INET_FIREWALL_AC_CAPABILITIES.ahk
 #Include .\INET_FIREWALL_AC_BINARIES.ahk
 
@@ -66,12 +65,9 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
      * Friendly name of the app container.
      * @type {PWSTR}
      */
-    displayName{
-        get {
-            if(!this.HasProp("__displayName"))
-                this.__displayName := PWSTR(this.ptr + 24)
-            return this.__displayName
-        }
+    displayName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -80,7 +76,7 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
     capabilities{
         get {
             if(!this.HasProp("__capabilities"))
-                this.__capabilities := INET_FIREWALL_AC_CAPABILITIES(this.ptr + 32)
+                this.__capabilities := INET_FIREWALL_AC_CAPABILITIES(32, this)
             return this.__capabilities
         }
     }
@@ -91,7 +87,7 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
     binaries{
         get {
             if(!this.HasProp("__binaries"))
-                this.__binaries := INET_FIREWALL_AC_BINARIES(this.ptr + 32)
+                this.__binaries := INET_FIREWALL_AC_BINARIES(32, this)
             return this.__binaries
         }
     }

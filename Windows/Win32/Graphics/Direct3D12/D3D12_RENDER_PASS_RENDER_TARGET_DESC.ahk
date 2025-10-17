@@ -6,7 +6,6 @@
 #Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS.ahk
 #Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS_PRESERVE_LOCAL_PARAMETERS.ahk
 #Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS.ahk
 #Include .\D3D12_RENDER_PASS_ENDING_ACCESS_PRESERVE_LOCAL_PARAMETERS.ahk
 #Include .\D3D12_RENDER_PASS_ENDING_ACCESS.ahk
@@ -30,7 +29,7 @@ class D3D12_RENDER_PASS_RENDER_TARGET_DESC extends Win32Struct
     cpuDescriptor{
         get {
             if(!this.HasProp("__cpuDescriptor"))
-                this.__cpuDescriptor := D3D12_CPU_DESCRIPTOR_HANDLE(this.ptr + 0)
+                this.__cpuDescriptor := D3D12_CPU_DESCRIPTOR_HANDLE(0, this)
             return this.__cpuDescriptor
         }
     }
@@ -42,7 +41,7 @@ class D3D12_RENDER_PASS_RENDER_TARGET_DESC extends Win32Struct
     BeginningAccess{
         get {
             if(!this.HasProp("__BeginningAccess"))
-                this.__BeginningAccess := D3D12_RENDER_PASS_BEGINNING_ACCESS(this.ptr + 8)
+                this.__BeginningAccess := D3D12_RENDER_PASS_BEGINNING_ACCESS(8, this)
             return this.__BeginningAccess
         }
     }
@@ -54,7 +53,7 @@ class D3D12_RENDER_PASS_RENDER_TARGET_DESC extends Win32Struct
     EndingAccess{
         get {
             if(!this.HasProp("__EndingAccess"))
-                this.__EndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(this.ptr + 40)
+                this.__EndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(40, this)
             return this.__EndingAccess
         }
     }

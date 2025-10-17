@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\WPARAM.ahk
 
 /**
  * Contains debugging information passed to a WH_DEBUG hook procedure, DebugProc.
@@ -44,12 +42,9 @@ class DEBUGHOOKINFO extends Win32Struct
      * 					<i>lParam</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms644978(v=vs.85)">DebugProc</a> callback function.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 8)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -59,12 +54,9 @@ class DEBUGHOOKINFO extends Win32Struct
      * 					<i>wParam</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms644978(v=vs.85)">DebugProc</a> callback function.
      * @type {WPARAM}
      */
-    wParam{
-        get {
-            if(!this.HasProp("__wParam"))
-                this.__wParam := WPARAM(this.ptr + 16)
-            return this.__wParam
-        }
+    wParam {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

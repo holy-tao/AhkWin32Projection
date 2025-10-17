@@ -19,7 +19,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_INPUT extends
     Input{
         get {
             if(!this.HasProp("__Input"))
-                this.__Input := D3DAUTHENTICATEDCHANNEL_QUERY_INPUT(this.ptr + 0)
+                this.__Input := D3DAUTHENTICATEDCHANNEL_QUERY_INPUT(0, this)
             return this.__Input
         }
     }

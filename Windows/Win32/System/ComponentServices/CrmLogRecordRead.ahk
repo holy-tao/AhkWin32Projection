@@ -39,7 +39,7 @@ class CrmLogRecordRead extends Win32Struct
     blobUserData{
         get {
             if(!this.HasProp("__blobUserData"))
-                this.__blobUserData := BLOB(this.ptr + 8)
+                this.__blobUserData := BLOB(8, this)
             return this.__blobUserData
         }
     }

@@ -22,7 +22,7 @@ class EMRPIXELFORMAT extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -35,7 +35,7 @@ class EMRPIXELFORMAT extends Win32Struct
     pfd{
         get {
             if(!this.HasProp("__pfd"))
-                this.__pfd := PIXELFORMATDESCRIPTOR(this.ptr + 8)
+                this.__pfd := PIXELFORMATDESCRIPTOR(8, this)
             return this.__pfd
         }
     }

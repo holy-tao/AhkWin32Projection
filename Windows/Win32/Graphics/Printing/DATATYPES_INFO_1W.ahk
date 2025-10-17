@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -16,11 +15,8 @@ class DATATYPES_INFO_1W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 0)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

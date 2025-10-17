@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -23,11 +22,8 @@ class INPUT_BUTTON_ENABLE_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    Enabled{
-        get {
-            if(!this.HasProp("__Enabled"))
-                this.__Enabled := BOOLEAN(this.ptr + 4)
-            return this.__Enabled
-        }
+    Enabled {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 }

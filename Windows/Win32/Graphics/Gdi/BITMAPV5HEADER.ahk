@@ -223,7 +223,7 @@ class BITMAPV5HEADER extends Win32Struct
     bV5Endpoints{
         get {
             if(!this.HasProp("__bV5Endpoints"))
-                this.__bV5Endpoints := CIEXYZTRIPLE(this.ptr + 64)
+                this.__bV5Endpoints := CIEXYZTRIPLE(64, this)
             return this.__bV5Endpoints
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\userSTGMEDIUM.ahk
 
 /**
@@ -35,7 +34,7 @@ class userFLAG_STGMEDIUM extends Win32Struct
     Stgmed{
         get {
             if(!this.HasProp("__Stgmed"))
-                this.__Stgmed := userSTGMEDIUM(this.ptr + 8)
+                this.__Stgmed := userSTGMEDIUM(8, this)
             return this.__Stgmed
         }
     }

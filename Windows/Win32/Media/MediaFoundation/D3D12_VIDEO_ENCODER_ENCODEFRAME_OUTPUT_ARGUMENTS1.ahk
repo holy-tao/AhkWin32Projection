@@ -22,7 +22,7 @@ class D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1 extends Win32Struct
     Bitstream{
         get {
             if(!this.HasProp("__Bitstream"))
-                this.__Bitstream := D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1(this.ptr + 0)
+                this.__Bitstream := D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1(0, this)
             return this.__Bitstream
         }
     }
@@ -33,7 +33,7 @@ class D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1 extends Win32Struct
     ReconstructedPicture{
         get {
             if(!this.HasProp("__ReconstructedPicture"))
-                this.__ReconstructedPicture := D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE(this.ptr + 64)
+                this.__ReconstructedPicture := D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE(64, this)
             return this.__ReconstructedPicture
         }
     }
@@ -44,7 +44,7 @@ class D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1 extends Win32Struct
     EncoderOutputMetadata{
         get {
             if(!this.HasProp("__EncoderOutputMetadata"))
-                this.__EncoderOutputMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(this.ptr + 80)
+                this.__EncoderOutputMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(80, this)
             return this.__EncoderOutputMetadata
         }
     }
@@ -55,7 +55,7 @@ class D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS1 extends Win32Struct
     FrameAnalysisReconstructedPicture{
         get {
             if(!this.HasProp("__FrameAnalysisReconstructedPicture"))
-                this.__FrameAnalysisReconstructedPicture := D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE(this.ptr + 96)
+                this.__FrameAnalysisReconstructedPicture := D3D12_VIDEO_ENCODER_RECONSTRUCTED_PICTURE(96, this)
             return this.__FrameAnalysisReconstructedPicture
         }
     }

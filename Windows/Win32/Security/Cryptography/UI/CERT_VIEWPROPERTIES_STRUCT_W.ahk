@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -30,7 +28,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
+                this.__hwndParent := HWND(8, this)
             return this.__hwndParent
         }
     }
@@ -41,7 +39,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 16)
+                this.__hInstance := HINSTANCE(16, this)
             return this.__hInstance
         }
     }
@@ -57,12 +55,9 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    szTitle{
-        get {
-            if(!this.HasProp("__szTitle"))
-                this.__szTitle := PWSTR(this.ptr + 32)
-            return this.__szTitle
-        }
+    szTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -148,12 +143,9 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 112)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -167,12 +159,9 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    szHelpFileName{
-        get {
-            if(!this.HasProp("__szHelpFileName"))
-                this.__szHelpFileName := PWSTR(this.ptr + 128)
-            return this.__szHelpFileName
-        }
+    szHelpFileName {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**

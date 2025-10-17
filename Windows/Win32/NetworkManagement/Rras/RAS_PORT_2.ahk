@@ -18,7 +18,7 @@ class RAS_PORT_2 extends Win32Struct
     hPort{
         get {
             if(!this.HasProp("__hPort"))
-                this.__hPort := HANDLE(this.ptr + 0)
+                this.__hPort := HANDLE(0, this)
             return this.__hPort
         }
     }
@@ -29,7 +29,7 @@ class RAS_PORT_2 extends Win32Struct
     hConnection{
         get {
             if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(this.ptr + 8)
+                this.__hConnection := HANDLE(8, this)
             return this.__hConnection
         }
     }

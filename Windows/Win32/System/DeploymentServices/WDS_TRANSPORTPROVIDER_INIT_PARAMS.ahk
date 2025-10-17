@@ -41,7 +41,7 @@ class WDS_TRANSPORTPROVIDER_INIT_PARAMS extends Win32Struct
     hRegistryKey{
         get {
             if(!this.HasProp("__hRegistryKey"))
-                this.__hRegistryKey := HKEY(this.ptr + 8)
+                this.__hRegistryKey := HKEY(8, this)
             return this.__hRegistryKey
         }
     }
@@ -53,7 +53,7 @@ class WDS_TRANSPORTPROVIDER_INIT_PARAMS extends Win32Struct
     hProvider{
         get {
             if(!this.HasProp("__hProvider"))
-                this.__hProvider := HANDLE(this.ptr + 16)
+                this.__hProvider := HANDLE(16, this)
             return this.__hProvider
         }
     }

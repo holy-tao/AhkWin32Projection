@@ -62,7 +62,7 @@ class D3D12_CLEAR_VALUE extends Win32Struct
     DepthStencil{
         get {
             if(!this.HasProp("__DepthStencil"))
-                this.__DepthStencil := D3D12_DEPTH_STENCIL_VALUE(this.ptr + 8)
+                this.__DepthStencil := D3D12_DEPTH_STENCIL_VALUE(8, this)
             return this.__DepthStencil
         }
     }

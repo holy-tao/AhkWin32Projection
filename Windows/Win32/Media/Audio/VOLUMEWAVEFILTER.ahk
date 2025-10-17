@@ -18,7 +18,7 @@ class VOLUMEWAVEFILTER extends Win32Struct
     wfltr{
         get {
             if(!this.HasProp("__wfltr"))
-                this.__wfltr := WAVEFILTER(this.ptr + 0)
+                this.__wfltr := WAVEFILTER(0, this)
             return this.__wfltr
         }
     }

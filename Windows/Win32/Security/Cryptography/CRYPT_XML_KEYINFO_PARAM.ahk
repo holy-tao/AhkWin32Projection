@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -19,24 +18,18 @@ class CRYPT_XML_KEYINFO_PARAM extends Win32Struct
      * A pointer to a null-terminated wide character string that contains the <b>Id</b> attribute of the <b>KeyInfo</b> element.
      * @type {PWSTR}
      */
-    wszId{
-        get {
-            if(!this.HasProp("__wszId"))
-                this.__wszId := PWSTR(this.ptr + 0)
-            return this.__wszId
-        }
+    wszId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A pointer to a null-terminated wide character string that contains the value in the <b>KeyName</b> element.
      * @type {PWSTR}
      */
-    wszKeyName{
-        get {
-            if(!this.HasProp("__wszKeyName"))
-                this.__wszKeyName := PWSTR(this.ptr + 8)
-            return this.__wszKeyName
-        }
+    wszKeyName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -46,7 +39,7 @@ class CRYPT_XML_KEYINFO_PARAM extends Win32Struct
     SKI{
         get {
             if(!this.HasProp("__SKI"))
-                this.__SKI := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__SKI := CRYPT_INTEGER_BLOB(16, this)
             return this.__SKI
         }
     }
@@ -55,12 +48,9 @@ class CRYPT_XML_KEYINFO_PARAM extends Win32Struct
      * A pointer to a null-terminated wide character string that  contains the value of the <b>X509SubjectName</b> element.
      * @type {PWSTR}
      */
-    wszSubjectName{
-        get {
-            if(!this.HasProp("__wszSubjectName"))
-                this.__wszSubjectName := PWSTR(this.ptr + 32)
-            return this.__wszSubjectName
-        }
+    wszSubjectName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

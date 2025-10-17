@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information obtained during Point-to-Point (PPP) negotiation of Internet Protocol version 4 (IPv4) and IPv6 projection operations, and PPP Link Control Protocol (LCP)/multilink, and Compression Control Protocol (CCP) negotiation.
@@ -31,7 +30,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     ipv4Address{
         get {
             if(!this.HasProp("__ipv4Address"))
-                this.__ipv4Address := IN_ADDR(this.ptr + 4)
+                this.__ipv4Address := IN_ADDR(4, this)
             return this.__ipv4Address
         }
     }
@@ -43,7 +42,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     ipv4ServerAddress{
         get {
             if(!this.HasProp("__ipv4ServerAddress"))
-                this.__ipv4ServerAddress := IN_ADDR(this.ptr + 8)
+                this.__ipv4ServerAddress := IN_ADDR(8, this)
             return this.__ipv4ServerAddress
         }
     }
@@ -137,24 +136,18 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
      * A <b>BOOL</b> that is <b>TRUE</b> if the connection is composed of multiple links and <b>FALSE</b> otherwise.
      * @type {BOOL}
      */
-    fBundled{
-        get {
-            if(!this.HasProp("__fBundled"))
-                this.__fBundled := BOOL(this.ptr + 40)
-            return this.__fBundled
-        }
+    fBundled {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * A <b>BOOL</b> that is <b>TRUE</b> if the connection supports multiple links and <b>FALSE</b> otherwise.
      * @type {BOOL}
      */
-    fMultilink{
-        get {
-            if(!this.HasProp("__fMultilink"))
-                this.__fMultilink := BOOL(this.ptr + 44)
-            return this.__fMultilink
-        }
+    fMultilink {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**

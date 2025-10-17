@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
 
 /**
@@ -27,7 +26,7 @@ class SEC_OBJECT_ELEMENT extends Win32Struct
     ObjectID{
         get {
             if(!this.HasProp("__ObjectID"))
-                this.__ObjectID := DBID(this.ptr + 8)
+                this.__ObjectID := DBID(8, this)
             return this.__ObjectID
         }
     }

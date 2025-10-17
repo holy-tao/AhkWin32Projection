@@ -21,7 +21,7 @@ class MI_ReferenceAField extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := MI_ReferenceA(this.ptr + 0)
+                this.__value := MI_ReferenceA(0, this)
             return this.__value
         }
     }

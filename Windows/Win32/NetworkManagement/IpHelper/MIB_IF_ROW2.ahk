@@ -119,7 +119,7 @@ class MIB_IF_ROW2 extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 0)
+                this.__InterfaceLuid := NET_LUID_LH(0, this)
             return this.__InterfaceLuid
         }
     }
@@ -1103,7 +1103,7 @@ class MIB_IF_ROW2 extends Win32Struct
     InterfaceAndOperStatusFlags{
         get {
             if(!this.HasProp("__InterfaceAndOperStatusFlags"))
-                this.__InterfaceAndOperStatusFlags := %this.__Class%._InterfaceAndOperStatusFlags(this.ptr + 1156)
+                this.__InterfaceAndOperStatusFlags := %this.__Class%._InterfaceAndOperStatusFlags(1156, this)
             return this.__InterfaceAndOperStatusFlags
         }
     }

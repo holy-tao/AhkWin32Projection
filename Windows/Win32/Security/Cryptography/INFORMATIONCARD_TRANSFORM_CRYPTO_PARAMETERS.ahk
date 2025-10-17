@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -31,22 +30,16 @@ class INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS extends Win32Struct
     /**
      * @type {BOOL}
      */
-    canTransformMultipleBlocks{
-        get {
-            if(!this.HasProp("__canTransformMultipleBlocks"))
-                this.__canTransformMultipleBlocks := BOOL(this.ptr + 8)
-            return this.__canTransformMultipleBlocks
-        }
+    canTransformMultipleBlocks {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {BOOL}
      */
-    canReuseTransform{
-        get {
-            if(!this.HasProp("__canReuseTransform"))
-                this.__canReuseTransform := BOOL(this.ptr + 12)
-            return this.__canReuseTransform
-        }
+    canReuseTransform {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 }

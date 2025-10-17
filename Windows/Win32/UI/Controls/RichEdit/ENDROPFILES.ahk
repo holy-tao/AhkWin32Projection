@@ -3,7 +3,6 @@
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information associated with an EN_DROPFILES notification code. A rich edit control sends this notification code when it receives a WM_DROPFILES message.
@@ -26,7 +25,7 @@ class ENDROPFILES extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -40,7 +39,7 @@ class ENDROPFILES extends Win32Struct
     hDrop{
         get {
             if(!this.HasProp("__hDrop"))
-                this.__hDrop := HANDLE(this.ptr + 24)
+                this.__hDrop := HANDLE(24, this)
             return this.__hDrop
         }
     }
@@ -62,11 +61,8 @@ class ENDROPFILES extends Win32Struct
      * Indicates whether the specified character position is protected (<b>TRUE</b>) or not protected (<b>FALSE</b>).
      * @type {BOOL}
      */
-    fProtected{
-        get {
-            if(!this.HasProp("__fProtected"))
-                this.__fProtected := BOOL(this.ptr + 36)
-            return this.__fProtected
-        }
+    fProtected {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 }

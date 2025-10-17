@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -16,34 +15,25 @@ class CABINET_INFO_W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    CabinetPath{
-        get {
-            if(!this.HasProp("__CabinetPath"))
-                this.__CabinetPath := PWSTR(this.ptr + 0)
-            return this.__CabinetPath
-        }
+    CabinetPath {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    CabinetFile{
-        get {
-            if(!this.HasProp("__CabinetFile"))
-                this.__CabinetFile := PWSTR(this.ptr + 8)
-            return this.__CabinetFile
-        }
+    CabinetFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    DiskName{
-        get {
-            if(!this.HasProp("__DiskName"))
-                this.__DiskName := PWSTR(this.ptr + 16)
-            return this.__DiskName
-        }
+    DiskName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\PSID.ahk
 #Include .\SID_AND_ATTRIBUTES.ahk
 
 /**
@@ -23,7 +22,7 @@ class TOKEN_USER extends Win32Struct
     User{
         get {
             if(!this.HasProp("__User"))
-                this.__User := SID_AND_ATTRIBUTES(this.ptr + 0)
+                this.__User := SID_AND_ATTRIBUTES(0, this)
             return this.__User
         }
     }

@@ -59,7 +59,7 @@ class DRT_EVENT_DATA extends Win32Struct
         localKey{
             get {
                 if(!this.HasProp("__localKey"))
-                    this.__localKey := DRT_DATA(this.ptr + 8)
+                    this.__localKey := DRT_DATA(8, this)
                 return this.__localKey
             }
         }
@@ -70,7 +70,7 @@ class DRT_EVENT_DATA extends Win32Struct
         remoteKey{
             get {
                 if(!this.HasProp("__remoteKey"))
-                    this.__remoteKey := DRT_DATA(this.ptr + 24)
+                    this.__remoteKey := DRT_DATA(24, this)
                 return this.__remoteKey
             }
         }
@@ -95,7 +95,7 @@ class DRT_EVENT_DATA extends Win32Struct
         localKey{
             get {
                 if(!this.HasProp("__localKey"))
-                    this.__localKey := DRT_DATA(this.ptr + 8)
+                    this.__localKey := DRT_DATA(8, this)
                 return this.__localKey
             }
         }
@@ -142,7 +142,7 @@ class DRT_EVENT_DATA extends Win32Struct
         bootstrapAddresses{
             get {
                 if(!this.HasProp("__bootstrapAddresses"))
-                    this.__bootstrapAddresses := %this.__Class%._bootstrapAddresses(this.ptr + 8)
+                    this.__bootstrapAddresses := %this.__Class%._bootstrapAddresses(8, this)
                 return this.__bootstrapAddresses
             }
         }
@@ -155,7 +155,7 @@ class DRT_EVENT_DATA extends Win32Struct
     leafsetKeyChange{
         get {
             if(!this.HasProp("__leafsetKeyChange"))
-                this.__leafsetKeyChange := %this.__Class%._leafsetKeyChange(this.ptr + 16)
+                this.__leafsetKeyChange := %this.__Class%._leafsetKeyChange(16, this)
             return this.__leafsetKeyChange
         }
     }
@@ -166,7 +166,7 @@ class DRT_EVENT_DATA extends Win32Struct
     registrationStateChange{
         get {
             if(!this.HasProp("__registrationStateChange"))
-                this.__registrationStateChange := %this.__Class%._registrationStateChange(this.ptr + 16)
+                this.__registrationStateChange := %this.__Class%._registrationStateChange(16, this)
             return this.__registrationStateChange
         }
     }
@@ -177,7 +177,7 @@ class DRT_EVENT_DATA extends Win32Struct
     statusChange{
         get {
             if(!this.HasProp("__statusChange"))
-                this.__statusChange := %this.__Class%._statusChange(this.ptr + 16)
+                this.__statusChange := %this.__Class%._statusChange(16, this)
             return this.__statusChange
         }
     }

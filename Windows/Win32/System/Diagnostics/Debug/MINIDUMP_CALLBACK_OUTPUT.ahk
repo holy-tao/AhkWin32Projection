@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\MINIDUMP_MEMORY_INFO.ahk
 
@@ -59,23 +58,17 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     /**
      * @type {BOOL}
      */
-    CheckCancel{
-        get {
-            if(!this.HasProp("__CheckCancel"))
-                this.__CheckCancel := BOOL(this.ptr + 0)
-            return this.__CheckCancel
-        }
+    CheckCancel {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * @type {BOOL}
      */
-    Cancel{
-        get {
-            if(!this.HasProp("__Cancel"))
-                this.__Cancel := BOOL(this.ptr + 4)
-            return this.__Cancel
-        }
+    Cancel {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -84,7 +77,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     Handle{
         get {
             if(!this.HasProp("__Handle"))
-                this.__Handle := HANDLE(this.ptr + 0)
+                this.__Handle := HANDLE(0, this)
             return this.__Handle
         }
     }
@@ -95,7 +88,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     VmRegion{
         get {
             if(!this.HasProp("__VmRegion"))
-                this.__VmRegion := MINIDUMP_MEMORY_INFO(this.ptr + 0)
+                this.__VmRegion := MINIDUMP_MEMORY_INFO(0, this)
             return this.__VmRegion
         }
     }
@@ -103,12 +96,9 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Continue{
-        get {
-            if(!this.HasProp("__Continue"))
-                this.__Continue := BOOL(this.ptr + 48)
-            return this.__Continue
-        }
+    Continue {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -125,7 +115,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     VmQueryResult{
         get {
             if(!this.HasProp("__VmQueryResult"))
-                this.__VmQueryResult := MINIDUMP_MEMORY_INFO(this.ptr + 8)
+                this.__VmQueryResult := MINIDUMP_MEMORY_INFO(8, this)
             return this.__VmQueryResult
         }
     }

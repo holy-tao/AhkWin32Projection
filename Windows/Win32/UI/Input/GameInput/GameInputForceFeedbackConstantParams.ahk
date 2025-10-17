@@ -19,7 +19,7 @@ class GameInputForceFeedbackConstantParams extends Win32Struct
     envelope{
         get {
             if(!this.HasProp("__envelope"))
-                this.__envelope := GameInputForceFeedbackEnvelope(this.ptr + 0)
+                this.__envelope := GameInputForceFeedbackEnvelope(0, this)
             return this.__envelope
         }
     }
@@ -30,7 +30,7 @@ class GameInputForceFeedbackConstantParams extends Win32Struct
     magnitude{
         get {
             if(!this.HasProp("__magnitude"))
-                this.__magnitude := GameInputForceFeedbackMagnitude(this.ptr + 48)
+                this.__magnitude := GameInputForceFeedbackMagnitude(48, this)
             return this.__magnitude
         }
     }

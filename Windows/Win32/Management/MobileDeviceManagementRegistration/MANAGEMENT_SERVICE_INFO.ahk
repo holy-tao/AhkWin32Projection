@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the endpoints and information about the management service.
@@ -18,23 +17,17 @@ class MANAGEMENT_SERVICE_INFO extends Win32Struct
      * The URI of the Mobile Device Management service.
      * @type {PWSTR}
      */
-    pszMDMServiceUri{
-        get {
-            if(!this.HasProp("__pszMDMServiceUri"))
-                this.__pszMDMServiceUri := PWSTR(this.ptr + 0)
-            return this.__pszMDMServiceUri
-        }
+    pszMDMServiceUri {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The URI of the Authentication service.
      * @type {PWSTR}
      */
-    pszAuthenticationUri{
-        get {
-            if(!this.HasProp("__pszAuthenticationUri"))
-                this.__pszAuthenticationUri := PWSTR(this.ptr + 8)
-            return this.__pszAuthenticationUri
-        }
+    pszAuthenticationUri {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -23,12 +22,9 @@ class SPC_SP_AGENCY_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszPolicyDisplayText{
-        get {
-            if(!this.HasProp("__pwszPolicyDisplayText"))
-                this.__pwszPolicyDisplayText := PWSTR(this.ptr + 8)
-            return this.__pwszPolicyDisplayText
-        }
+    pwszPolicyDisplayText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

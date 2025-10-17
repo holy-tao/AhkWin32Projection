@@ -130,7 +130,7 @@ class DDRAWI_DIRECTDRAW_LCL extends Win32Struct
     hD3DInstance{
         get {
             if(!this.HasProp("__hD3DInstance"))
-                this.__hD3DInstance := HINSTANCE(this.ptr + 96)
+                this.__hD3DInstance := HINSTANCE(96, this)
             return this.__hD3DInstance
         }
     }

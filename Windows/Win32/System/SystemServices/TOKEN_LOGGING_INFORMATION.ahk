@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Security\TOKEN_ELEVATION.ahk
-#Include ..\..\Security\PSID.ahk
 #Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
 #Include ..\..\Foundation\LUID.ahk
 
@@ -29,7 +28,7 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     TokenElevation{
         get {
             if(!this.HasProp("__TokenElevation"))
-                this.__TokenElevation := TOKEN_ELEVATION(this.ptr + 4)
+                this.__TokenElevation := TOKEN_ELEVATION(4, this)
             return this.__TokenElevation
         }
     }
@@ -64,7 +63,7 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     User{
         get {
             if(!this.HasProp("__User"))
-                this.__User := SID_AND_ATTRIBUTES(this.ptr + 24)
+                this.__User := SID_AND_ATTRIBUTES(24, this)
             return this.__User
         }
     }
@@ -72,12 +71,9 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     /**
      * @type {PSID}
      */
-    TrustLevelSid{
-        get {
-            if(!this.HasProp("__TrustLevelSid"))
-                this.__TrustLevelSid := PSID(this.ptr + 40)
-            return this.__TrustLevelSid
-        }
+    TrustLevelSid {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -102,7 +98,7 @@ class TOKEN_LOGGING_INFORMATION extends Win32Struct
     AuthenticationId{
         get {
             if(!this.HasProp("__AuthenticationId"))
-                this.__AuthenticationId := LUID(this.ptr + 56)
+                this.__AuthenticationId := LUID(56, this)
             return this.__AuthenticationId
         }
     }

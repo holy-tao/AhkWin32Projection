@@ -25,7 +25,7 @@ class NMHDFILTERBTNCLICK extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -50,7 +50,7 @@ class NMHDFILTERBTNCLICK extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 32)
+                this.__rc := RECT(32, this)
             return this.__rc
         }
     }

@@ -21,7 +21,7 @@ class SCRIPT_GLYPHPROP extends Win32Struct
     sva{
         get {
             if(!this.HasProp("__sva"))
-                this.__sva := SCRIPT_VISATTR(this.ptr + 0)
+                this.__sva := SCRIPT_VISATTR(0, this)
             return this.__sva
         }
     }

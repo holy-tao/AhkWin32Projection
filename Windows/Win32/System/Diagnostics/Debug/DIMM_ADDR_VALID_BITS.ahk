@@ -19,7 +19,7 @@ class DIMM_ADDR_VALID_BITS extends Win32Struct
     VB_DDR4{
         get {
             if(!this.HasProp("__VB_DDR4"))
-                this.__VB_DDR4 := DIMM_ADDR_VALID_BITS_DDR4(this.ptr + 0)
+                this.__VB_DDR4 := DIMM_ADDR_VALID_BITS_DDR4(0, this)
             return this.__VB_DDR4
         }
     }
@@ -30,7 +30,7 @@ class DIMM_ADDR_VALID_BITS extends Win32Struct
     VB_DDR5{
         get {
             if(!this.HasProp("__VB_DDR5"))
-                this.__VB_DDR5 := DIMM_ADDR_VALID_BITS_DDR5(this.ptr + 0)
+                this.__VB_DDR5 := DIMM_ADDR_VALID_BITS_DDR5(0, this)
             return this.__VB_DDR5
         }
     }

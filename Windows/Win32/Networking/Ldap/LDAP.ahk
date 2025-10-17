@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Represents an LDAP session.
@@ -77,7 +76,7 @@ class LDAP extends Win32Struct
     ld_sb{
         get {
             if(!this.HasProp("__ld_sb"))
-                this.__ld_sb := %this.__Class%._ld_sb(this.ptr + 0)
+                this.__ld_sb := %this.__Class%._ld_sb(0, this)
             return this.__ld_sb
         }
     }
@@ -85,12 +84,9 @@ class LDAP extends Win32Struct
     /**
      * @type {PSTR}
      */
-    ld_host{
-        get {
-            if(!this.HasProp("__ld_host"))
-                this.__ld_host := PSTR(this.ptr + 88)
-            return this.__ld_host
-        }
+    ld_host {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -144,23 +140,17 @@ class LDAP extends Win32Struct
     /**
      * @type {PSTR}
      */
-    ld_matched{
-        get {
-            if(!this.HasProp("__ld_matched"))
-                this.__ld_matched := PSTR(this.ptr + 120)
-            return this.__ld_matched
-        }
+    ld_matched {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
      * @type {PSTR}
      */
-    ld_error{
-        get {
-            if(!this.HasProp("__ld_error"))
-                this.__ld_error := PSTR(this.ptr + 128)
-            return this.__ld_error
-        }
+    ld_error {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**

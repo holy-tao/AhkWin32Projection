@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
@@ -89,7 +88,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
         BoundingBox{
             get {
                 if(!this.HasProp("__BoundingBox"))
-                    this.__BoundingBox := RECT(this.ptr + 0)
+                    this.__BoundingBox := RECT(0, this)
                 return this.__BoundingBox
             }
         }
@@ -108,7 +107,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
         OpaqueEngineData{
             get {
                 if(!this.HasProp("__OpaqueEngineData"))
-                    this.__OpaqueEngineData := %this.__Class%._OpaqueEngineData(this.ptr + 24)
+                    this.__OpaqueEngineData := %this.__Class%._OpaqueEngineData(24, this)
                 return this.__OpaqueEngineData
             }
         }
@@ -209,7 +208,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
         EyeBoundingBox_1{
             get {
                 if(!this.HasProp("__EyeBoundingBox_1"))
-                    this.__EyeBoundingBox_1 := RECT(this.ptr + 0)
+                    this.__EyeBoundingBox_1 := RECT(0, this)
                 return this.__EyeBoundingBox_1
             }
         }
@@ -220,7 +219,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
         EyeBoundingBox_2{
             get {
                 if(!this.HasProp("__EyeBoundingBox_2"))
-                    this.__EyeBoundingBox_2 := RECT(this.ptr + 16)
+                    this.__EyeBoundingBox_2 := RECT(16, this)
                 return this.__EyeBoundingBox_2
             }
         }
@@ -231,7 +230,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
         PupilCenter_1{
             get {
                 if(!this.HasProp("__PupilCenter_1"))
-                    this.__PupilCenter_1 := POINT(this.ptr + 32)
+                    this.__PupilCenter_1 := POINT(32, this)
                 return this.__PupilCenter_1
             }
         }
@@ -242,7 +241,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
         PupilCenter_2{
             get {
                 if(!this.HasProp("__PupilCenter_2"))
-                    this.__PupilCenter_2 := POINT(this.ptr + 40)
+                    this.__PupilCenter_2 := POINT(40, this)
                 return this.__PupilCenter_2
             }
         }
@@ -277,7 +276,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
         Point3D{
             get {
                 if(!this.HasProp("__Point3D"))
-                    this.__Point3D := %this.__Class%._Point3D(this.ptr + 64)
+                    this.__Point3D := %this.__Class%._Point3D(64, this)
                 return this.__Point3D
             }
         }
@@ -285,12 +284,9 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
         /**
          * @type {BOOL}
          */
-        StopCaptureAndShowCriticalFeedback{
-            get {
-                if(!this.HasProp("__StopCaptureAndShowCriticalFeedback"))
-                    this.__StopCaptureAndShowCriticalFeedback := BOOL(this.ptr + 88)
-                return this.__StopCaptureAndShowCriticalFeedback
-            }
+        StopCaptureAndShowCriticalFeedback {
+            get => NumGet(this, 88, "int")
+            set => NumPut("int", value, this, 88)
         }
     
     }
@@ -323,7 +319,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
     FacialFeatures{
         get {
             if(!this.HasProp("__FacialFeatures"))
-                this.__FacialFeatures := %this.__Class%._FacialFeatures(this.ptr + 24)
+                this.__FacialFeatures := %this.__Class%._FacialFeatures(24, this)
             return this.__FacialFeatures
         }
     }
@@ -334,7 +330,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
     Fingerprint{
         get {
             if(!this.HasProp("__Fingerprint"))
-                this.__Fingerprint := %this.__Class%._Fingerprint(this.ptr + 24)
+                this.__Fingerprint := %this.__Class%._Fingerprint(24, this)
             return this.__Fingerprint
         }
     }
@@ -345,7 +341,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
     Iris{
         get {
             if(!this.HasProp("__Iris"))
-                this.__Iris := %this.__Class%._Iris(this.ptr + 24)
+                this.__Iris := %this.__Class%._Iris(24, this)
             return this.__Iris
         }
     }
@@ -356,7 +352,7 @@ class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct
     Voice{
         get {
             if(!this.HasProp("__Voice"))
-                this.__Voice := %this.__Class%._Voice(this.ptr + 24)
+                this.__Voice := %this.__Class%._Voice(24, this)
             return this.__Voice
         }
     }

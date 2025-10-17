@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -15,33 +14,24 @@ class WFDSVC_CONNECTION_CAPABILITY extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bNew{
-        get {
-            if(!this.HasProp("__bNew"))
-                this.__bNew := BOOLEAN(this.ptr + 0)
-            return this.__bNew
-        }
+    bNew {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bClient{
-        get {
-            if(!this.HasProp("__bClient"))
-                this.__bClient := BOOLEAN(this.ptr + 1)
-            return this.__bClient
-        }
+    bClient {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bGO{
-        get {
-            if(!this.HasProp("__bGO"))
-                this.__bGO := BOOLEAN(this.ptr + 2)
-            return this.__bGO
-        }
+    bGO {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 }

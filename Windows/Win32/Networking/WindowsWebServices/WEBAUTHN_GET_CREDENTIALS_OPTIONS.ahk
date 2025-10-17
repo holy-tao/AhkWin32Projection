@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -24,22 +22,16 @@ class WEBAUTHN_GET_CREDENTIALS_OPTIONS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszRpId{
-        get {
-            if(!this.HasProp("__pwszRpId"))
-                this.__pwszRpId := PWSTR(this.ptr + 8)
-            return this.__pwszRpId
-        }
+    pwszRpId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {BOOL}
      */
-    bBrowserInPrivateMode{
-        get {
-            if(!this.HasProp("__bBrowserInPrivateMode"))
-                this.__bBrowserInPrivateMode := BOOL(this.ptr + 16)
-            return this.__bBrowserInPrivateMode
-        }
+    bBrowserInPrivateMode {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 }

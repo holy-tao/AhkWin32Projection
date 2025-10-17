@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\BG_BASIC_CREDENTIALS.ahk
 #Include .\BG_AUTH_CREDENTIALS_UNION.ahk
 
@@ -44,7 +43,7 @@ class BG_AUTH_CREDENTIALS extends Win32Struct
     Credentials{
         get {
             if(!this.HasProp("__Credentials"))
-                this.__Credentials := BG_AUTH_CREDENTIALS_UNION(this.ptr + 8)
+                this.__Credentials := BG_AUTH_CREDENTIALS_UNION(8, this)
             return this.__Credentials
         }
     }

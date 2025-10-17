@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -23,12 +22,9 @@ class uCLSSPEC extends Win32Struct
             /**
              * @type {PWSTR}
              */
-            pPackageName{
-                get {
-                    if(!this.HasProp("__pPackageName"))
-                        this.__pPackageName := PWSTR(this.ptr + 0)
-                    return this.__pPackageName
-                }
+            pPackageName {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
             }
         
             /**
@@ -74,45 +70,33 @@ class uCLSSPEC extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        pFileExt{
-            get {
-                if(!this.HasProp("__pFileExt"))
-                    this.__pFileExt := PWSTR(this.ptr + 0)
-                return this.__pFileExt
-            }
+        pFileExt {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
         /**
          * @type {PWSTR}
          */
-        pMimeType{
-            get {
-                if(!this.HasProp("__pMimeType"))
-                    this.__pMimeType := PWSTR(this.ptr + 0)
-                return this.__pMimeType
-            }
+        pMimeType {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
         /**
          * @type {PWSTR}
          */
-        pProgId{
-            get {
-                if(!this.HasProp("__pProgId"))
-                    this.__pProgId := PWSTR(this.ptr + 0)
-                return this.__pProgId
-            }
+        pProgId {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
         /**
          * @type {PWSTR}
          */
-        pFileName{
-            get {
-                if(!this.HasProp("__pFileName"))
-                    this.__pFileName := PWSTR(this.ptr + 0)
-                return this.__pFileName
-            }
+        pFileName {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
         /**
@@ -121,7 +105,7 @@ class uCLSSPEC extends Win32Struct
         ByName{
             get {
                 if(!this.HasProp("__ByName"))
-                    this.__ByName := %this.__Class%._ByName(this.ptr + 0)
+                    this.__ByName := %this.__Class%._ByName(0, this)
                 return this.__ByName
             }
         }
@@ -132,7 +116,7 @@ class uCLSSPEC extends Win32Struct
         ByObjectId{
             get {
                 if(!this.HasProp("__ByObjectId"))
-                    this.__ByObjectId := %this.__Class%._ByObjectId(this.ptr + 0)
+                    this.__ByObjectId := %this.__Class%._ByObjectId(0, this)
                 return this.__ByObjectId
             }
         }
@@ -153,7 +137,7 @@ class uCLSSPEC extends Win32Struct
     tagged_union{
         get {
             if(!this.HasProp("__tagged_union"))
-                this.__tagged_union := %this.__Class%._tagged_union(this.ptr + 8)
+                this.__tagged_union := %this.__Class%._tagged_union(8, this)
             return this.__tagged_union
         }
     }

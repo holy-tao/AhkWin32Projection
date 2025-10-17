@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of a disk object. This structure is identical to the VDS_DISK_PROP structure, except that it also includes the location path and, if the disk is offline, the reason why it is offline.
@@ -243,12 +242,9 @@ class VDS_DISK_PROP2 extends Win32Struct
      * This member is optional and can be <b>NULL</b> if no value is available. If it is not <b>NULL</b>, its length must be greater than or equal to 22 WCHAR and less than or equal to 64 WCHAR, including the required <b>NULL</b> terminator. Applications that receive the <b>VDS_DISK_PROP2</b> structure by calling <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk3-getproperties2">IVdsDisk3::GetProperties2</a> must check whether this member is <b>NULL</b>.
      * @type {PWSTR}
      */
-    pwszDiskAddress{
-        get {
-            if(!this.HasProp("__pwszDiskAddress"))
-                this.__pwszDiskAddress := PWSTR(this.ptr + 72)
-            return this.__pwszDiskAddress
-        }
+    pwszDiskAddress {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -256,12 +252,9 @@ class VDS_DISK_PROP2 extends Win32Struct
      *       function. For example:
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 80)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -269,12 +262,9 @@ class VDS_DISK_PROP2 extends Win32Struct
      *       Plug and Play Manager, for example: "SEAGATE ST34573N SCSI Disk Device".
      * @type {PWSTR}
      */
-    pwszFriendlyName{
-        get {
-            if(!this.HasProp("__pwszFriendlyName"))
-                this.__pwszFriendlyName := PWSTR(this.ptr + 88)
-            return this.__pwszFriendlyName
-        }
+    pwszFriendlyName {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -282,12 +272,9 @@ class VDS_DISK_PROP2 extends Win32Struct
      *       is maintained in the Windows registry, for example: "Adaptec AHA-2940U2W - Ultra2 SCSI".
      * @type {PWSTR}
      */
-    pwszAdaptorName{
-        get {
-            if(!this.HasProp("__pwszAdaptorName"))
-                this.__pwszAdaptorName := PWSTR(this.ptr + 96)
-            return this.__pwszAdaptorName
-        }
+    pwszAdaptorName {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -296,12 +283,9 @@ class VDS_DISK_PROP2 extends Win32Struct
      *       [**SP_DEVICE_INTERFACE_DETAIL_DATA_W**](/windows/desktop/api/setupapi/ns-setupapi-sp_device_interface_detail_data_w).
      * @type {PWSTR}
      */
-    pwszDevicePath{
-        get {
-            if(!this.HasProp("__pwszDevicePath"))
-                this.__pwszDevicePath := PWSTR(this.ptr + 104)
-            return this.__pwszDevicePath
-        }
+    pwszDevicePath {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -311,11 +295,8 @@ class VDS_DISK_PROP2 extends Win32Struct
      * <div> </div>
      * @type {PWSTR}
      */
-    pwszLocationPath{
-        get {
-            if(!this.HasProp("__pwszLocationPath"))
-                this.__pwszLocationPath := PWSTR(this.ptr + 112)
-            return this.__pwszLocationPath
-        }
+    pwszLocationPath {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 }

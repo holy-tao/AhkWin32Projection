@@ -3,7 +3,6 @@
 #Include .\D3D_OMAC.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -21,7 +20,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYINFOBUSTYPE_OUTPUT extends Win32Struct
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }
@@ -37,22 +36,16 @@ class D3DAUTHENTICATEDCHANNEL_QUERYINFOBUSTYPE_OUTPUT extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bAccessibleInContiguousBlocks{
-        get {
-            if(!this.HasProp("__bAccessibleInContiguousBlocks"))
-                this.__bAccessibleInContiguousBlocks := BOOL(this.ptr + 44)
-            return this.__bAccessibleInContiguousBlocks
-        }
+    bAccessibleInContiguousBlocks {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
      * @type {BOOL}
      */
-    bAccessibleInNonContiguousBlocks{
-        get {
-            if(!this.HasProp("__bAccessibleInNonContiguousBlocks"))
-                this.__bAccessibleInNonContiguousBlocks := BOOL(this.ptr + 48)
-            return this.__bAccessibleInNonContiguousBlocks
-        }
+    bAccessibleInNonContiguousBlocks {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

@@ -273,7 +273,7 @@ class SCRIPT_ANALYSIS extends Win32Struct
     s{
         get {
             if(!this.HasProp("__s"))
-                this.__s := SCRIPT_STATE(this.ptr + 2)
+                this.__s := SCRIPT_STATE(2, this)
             return this.__s
         }
     }

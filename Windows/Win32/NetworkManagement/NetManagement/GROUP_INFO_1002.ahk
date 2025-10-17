@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The GROUP_INFO_1002 structure contains a comment to associate with a global group.
@@ -18,11 +17,8 @@ class GROUP_INFO_1002 extends Win32Struct
      * Pointer to a null-terminated Unicode character string that contains a remark to associate with the global group. This member can be a null string. The comment can contain MAXCOMMENTSZ characters.
      * @type {PWSTR}
      */
-    grpi1002_comment{
-        get {
-            if(!this.HasProp("__grpi1002_comment"))
-                this.__grpi1002_comment := PWSTR(this.ptr + 0)
-            return this.__grpi1002_comment
-        }
+    grpi1002_comment {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

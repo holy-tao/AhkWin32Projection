@@ -27,7 +27,7 @@ class D3DLIGHT7 extends Win32Struct
     dcvDiffuse{
         get {
             if(!this.HasProp("__dcvDiffuse"))
-                this.__dcvDiffuse := D3DCOLORVALUE(this.ptr + 8)
+                this.__dcvDiffuse := D3DCOLORVALUE(8, this)
             return this.__dcvDiffuse
         }
     }
@@ -38,7 +38,7 @@ class D3DLIGHT7 extends Win32Struct
     dcvSpecular{
         get {
             if(!this.HasProp("__dcvSpecular"))
-                this.__dcvSpecular := D3DCOLORVALUE(this.ptr + 24)
+                this.__dcvSpecular := D3DCOLORVALUE(24, this)
             return this.__dcvSpecular
         }
     }
@@ -49,7 +49,7 @@ class D3DLIGHT7 extends Win32Struct
     dcvAmbient{
         get {
             if(!this.HasProp("__dcvAmbient"))
-                this.__dcvAmbient := D3DCOLORVALUE(this.ptr + 40)
+                this.__dcvAmbient := D3DCOLORVALUE(40, this)
             return this.__dcvAmbient
         }
     }
@@ -60,7 +60,7 @@ class D3DLIGHT7 extends Win32Struct
     dvPosition{
         get {
             if(!this.HasProp("__dvPosition"))
-                this.__dvPosition := D3DVECTOR(this.ptr + 56)
+                this.__dvPosition := D3DVECTOR(56, this)
             return this.__dvPosition
         }
     }
@@ -71,7 +71,7 @@ class D3DLIGHT7 extends Win32Struct
     dvDirection{
         get {
             if(!this.HasProp("__dvDirection"))
-                this.__dvDirection := D3DVECTOR(this.ptr + 72)
+                this.__dvDirection := D3DVECTOR(72, this)
             return this.__dvDirection
         }
     }

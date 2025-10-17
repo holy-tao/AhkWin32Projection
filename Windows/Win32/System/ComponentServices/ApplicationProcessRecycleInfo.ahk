@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -19,24 +18,18 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * Indicates whether the process is one that can be recycled. For example, only COM+ server applications can be recycled, and applications running as Windows services cannot be recycled.
      * @type {BOOL}
      */
-    IsRecyclable{
-        get {
-            if(!this.HasProp("__IsRecyclable"))
-                this.__IsRecyclable := BOOL(this.ptr + 0)
-            return this.__IsRecyclable
-        }
+    IsRecyclable {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * Indicates whether the process is a COM+ server application instance that has been recycled.
      * @type {BOOL}
      */
-    IsRecycled{
-        get {
-            if(!this.HasProp("__IsRecycled"))
-                this.__IsRecycled := BOOL(this.ptr + 4)
-            return this.__IsRecycled
-        }
+    IsRecycled {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -46,7 +39,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
     TimeRecycled{
         get {
             if(!this.HasProp("__TimeRecycled"))
-                this.__TimeRecycled := FILETIME(this.ptr + 8)
+                this.__TimeRecycled := FILETIME(8, this)
             return this.__TimeRecycled
         }
     }
@@ -58,7 +51,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
     TimeToTerminate{
         get {
             if(!this.HasProp("__TimeToTerminate"))
-                this.__TimeToTerminate := FILETIME(this.ptr + 16)
+                this.__TimeToTerminate := FILETIME(16, this)
             return this.__TimeToTerminate
         }
     }
@@ -76,24 +69,18 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * Indicates whether a paused COM+ server application instance has met the conditions for automatic recycling. If so, the application instance will be recycled when it is resumed.
      * @type {BOOL}
      */
-    IsPendingRecycle{
-        get {
-            if(!this.HasProp("__IsPendingRecycle"))
-                this.__IsPendingRecycle := BOOL(this.ptr + 28)
-            return this.__IsPendingRecycle
-        }
+    IsPendingRecycle {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
      * Indicates whether the process is an instance of a COM+ server application that has been configured for automatic recycling based on lifetime.
      * @type {BOOL}
      */
-    HasAutomaticLifetimeRecycling{
-        get {
-            if(!this.HasProp("__HasAutomaticLifetimeRecycling"))
-                this.__HasAutomaticLifetimeRecycling := BOOL(this.ptr + 32)
-            return this.__HasAutomaticLifetimeRecycling
-        }
+    HasAutomaticLifetimeRecycling {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -103,7 +90,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
     TimeForAutomaticRecycling{
         get {
             if(!this.HasProp("__TimeForAutomaticRecycling"))
-                this.__TimeForAutomaticRecycling := FILETIME(this.ptr + 40)
+                this.__TimeForAutomaticRecycling := FILETIME(40, this)
             return this.__TimeForAutomaticRecycling
         }
     }

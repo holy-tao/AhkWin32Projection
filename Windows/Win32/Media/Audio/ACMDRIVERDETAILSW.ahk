@@ -99,7 +99,7 @@ class ACMDRIVERDETAILSW extends Win32Struct
     hicon{
         get {
             if(!this.HasProp("__hicon"))
-                this.__hicon := HICON(this.ptr + 40)
+                this.__hicon := HICON(40, this)
             return this.__hicon
         }
     }

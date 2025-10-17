@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 #Include ..\..\MediaFoundation\AM_MEDIA_TYPE.ahk
 
 /**
@@ -37,24 +36,18 @@ class DVR_STREAM_DESC extends Win32Struct
      * Indicates whether or not the stream is the default stream.
      * @type {BOOL}
      */
-    Default{
-        get {
-            if(!this.HasProp("__Default"))
-                this.__Default := BOOL(this.ptr + 8)
-            return this.__Default
-        }
+    Default {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * Indicates whether or not the stream has been created.
      * @type {BOOL}
      */
-    Creation{
-        get {
-            if(!this.HasProp("__Creation"))
-                this.__Creation := BOOL(this.ptr + 12)
-            return this.__Creation
-        }
+    Creation {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -91,7 +84,7 @@ class DVR_STREAM_DESC extends Win32Struct
     MediaType{
         get {
             if(!this.HasProp("__MediaType"))
-                this.__MediaType := AM_MEDIA_TYPE(this.ptr + 40)
+                this.__MediaType := AM_MEDIA_TYPE(40, this)
             return this.__MediaType
         }
     }

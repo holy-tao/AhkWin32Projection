@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS structure contains the information for Basic authentication on a URL Group.This structure is contained in the HTTP_SERVER_AUTHENTICATION_INFO structure.
@@ -29,11 +28,8 @@ class HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS extends Win32Struct
      * The realm allows the  server to be partitioned into a set of protection spaces, each with its own set of authentication schemes from the authentication database.
      * @type {PWSTR}
      */
-    Realm{
-        get {
-            if(!this.HasProp("__Realm"))
-                this.__Realm := PWSTR(this.ptr + 8)
-            return this.__Realm
-        }
+    Realm {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

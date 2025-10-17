@@ -50,7 +50,7 @@ class WINBIO_CAPTURE_DATA extends Win32Struct
     CaptureData{
         get {
             if(!this.HasProp("__CaptureData"))
-                this.__CaptureData := WINBIO_DATA(this.ptr + 16)
+                this.__CaptureData := WINBIO_DATA(16, this)
             return this.__CaptureData
         }
     }

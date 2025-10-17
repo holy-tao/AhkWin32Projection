@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes the software timestamping capabilities of a NIC's miniport driver.
@@ -28,12 +27,9 @@ class INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES extends Win32Struct
      * Not a hardware capability. **TRUE** indicates that the NIC's miniport driver can generate a software timestamp for all received packets. A value of **FALSE** indicates that the software is not capable of this.
      * @type {BOOLEAN}
      */
-    AllReceive{
-        get {
-            if(!this.HasProp("__AllReceive"))
-                this.__AllReceive := BOOLEAN(this.ptr + 0)
-            return this.__AllReceive
-        }
+    AllReceive {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
@@ -42,12 +38,9 @@ class INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES extends Win32Struct
      * Not a hardware capability. Analogous to *AllReceiveSw*, except it applies to the transmit direction. **TRUE** indicates that the NIC's miniport driver can generate a software timestamp for all transmitted packets. A value of **FALSE** indicates that the software is not capable of this.
      * @type {BOOLEAN}
      */
-    AllTransmit{
-        get {
-            if(!this.HasProp("__AllTransmit"))
-                this.__AllTransmit := BOOLEAN(this.ptr + 1)
-            return this.__AllTransmit
-        }
+    AllTransmit {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
@@ -57,11 +50,8 @@ class INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES extends Win32Struct
      * See [**TIMESTAMPING_CONFIG**](/windows/win32/api/mstcpip/ns-mstcpip-timestamping_config) (and **TIMESTAMPING_FLAG_TX**) to determine how to request a timestamp when sending UDP packets through [Windows Sockets](/windows/win32/winsock/windows-sockets-start-page-2).
      * @type {BOOLEAN}
      */
-    TaggedTransmit{
-        get {
-            if(!this.HasProp("__TaggedTransmit"))
-                this.__TaggedTransmit := BOOLEAN(this.ptr + 2)
-            return this.__TaggedTransmit
-        }
+    TaggedTransmit {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 }

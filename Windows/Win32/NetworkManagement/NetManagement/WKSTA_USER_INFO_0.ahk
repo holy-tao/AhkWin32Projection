@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WKSTA_USER_INFO_0 structure contains the name of the user on a specified workstation.
@@ -20,11 +19,8 @@ class WKSTA_USER_INFO_0 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    wkui0_username{
-        get {
-            if(!this.HasProp("__wkui0_username"))
-                this.__wkui0_username := PWSTR(this.ptr + 0)
-            return this.__wkui0_username
-        }
+    wkui0_username {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

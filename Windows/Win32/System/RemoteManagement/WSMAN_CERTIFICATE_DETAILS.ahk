@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Stores client information for an inbound request that was sent with a client certificate.
@@ -18,47 +17,35 @@ class WSMAN_CERTIFICATE_DETAILS extends Win32Struct
      * Specifies the subject that is identified by the certificate.
      * @type {PWSTR}
      */
-    subject{
-        get {
-            if(!this.HasProp("__subject"))
-                this.__subject := PWSTR(this.ptr + 0)
-            return this.__subject
-        }
+    subject {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Specifies the name of the issuer of the certificate.
      * @type {PWSTR}
      */
-    issuerName{
-        get {
-            if(!this.HasProp("__issuerName"))
-                this.__issuerName := PWSTR(this.ptr + 8)
-            return this.__issuerName
-        }
+    issuerName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Specifies the thumbprint of the issuer.
      * @type {PWSTR}
      */
-    issuerThumbprint{
-        get {
-            if(!this.HasProp("__issuerThumbprint"))
-                this.__issuerThumbprint := PWSTR(this.ptr + 16)
-            return this.__issuerThumbprint
-        }
+    issuerThumbprint {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Specifies the subject name of the issuer.
      * @type {PWSTR}
      */
-    subjectName{
-        get {
-            if(!this.HasProp("__subjectName"))
-                this.__subjectName := PWSTR(this.ptr + 24)
-            return this.__subjectName
-        }
+    subjectName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Used by Local Security Authority (LSA) functions to specify an ANSI string.
@@ -48,11 +47,8 @@ class LSA_STRING extends Win32Struct
      * <b>Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>When the <b>Length</b> structure member is zero and the <b>MaximumLength</b> structure member is 1, the <b>Buffer</b> structure member can be an empty string or contain solely a null character. This behavior changed beginning with Windows Server 2008 R2 and Windows 7 with SP1.
      * @type {PSTR}
      */
-    Buffer{
-        get {
-            if(!this.HasProp("__Buffer"))
-                this.__Buffer := PSTR(this.ptr + 8)
-            return this.__Buffer
-        }
+    Buffer {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

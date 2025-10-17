@@ -139,7 +139,7 @@ class MINIDUMP_MISC_INFO_3 extends Win32Struct
     TimeZone{
         get {
             if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 64)
+                this.__TimeZone := TIME_ZONE_INFORMATION(64, this)
             return this.__TimeZone
         }
     }

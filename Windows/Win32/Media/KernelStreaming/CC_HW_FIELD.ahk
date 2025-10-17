@@ -19,7 +19,7 @@ class CC_HW_FIELD extends Win32Struct
     ScanlinesRequested{
         get {
             if(!this.HasProp("__ScanlinesRequested"))
-                this.__ScanlinesRequested := VBICODECFILTERING_SCANLINES(this.ptr + 0)
+                this.__ScanlinesRequested := VBICODECFILTERING_SCANLINES(0, this)
             return this.__ScanlinesRequested
         }
     }

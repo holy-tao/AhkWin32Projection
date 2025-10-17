@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Represents the required privileges for a service.
@@ -39,11 +38,8 @@ class SERVICE_REQUIRED_PRIVILEGES_INFOA extends Win32Struct
      * A multi-string is a sequence of null-terminated strings, terminated by an empty string (\0). The following is an example: <c>String1\0String2\0String3\0LastString\0\0</c>.
      * @type {PSTR}
      */
-    pmszRequiredPrivileges{
-        get {
-            if(!this.HasProp("__pmszRequiredPrivileges"))
-                this.__pmszRequiredPrivileges := PSTR(this.ptr + 0)
-            return this.__pmszRequiredPrivileges
-        }
+    pmszRequiredPrivileges {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a window station or desktop handle.
@@ -18,24 +17,18 @@ class USEROBJECTFLAGS extends Win32Struct
      * If this member is TRUE, new processes inherit the handle. Otherwise, the handle is not inherited.
      * @type {BOOL}
      */
-    fInherit{
-        get {
-            if(!this.HasProp("__fInherit"))
-                this.__fInherit := BOOL(this.ptr + 0)
-            return this.__fInherit
-        }
+    fInherit {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * Reserved for future use. This member must be FALSE.
      * @type {BOOL}
      */
-    fReserved{
-        get {
-            if(!this.HasProp("__fReserved"))
-                this.__fReserved := BOOL(this.ptr + 4)
-            return this.__fReserved
-        }
+    fReserved {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\PSID.ahk
 #Include ..\..\SID_AND_ATTRIBUTES.ahk
 #Include ..\..\TOKEN_USER.ahk
 #Include ..\..\TOKEN_PRIMARY_GROUP.ahk
@@ -37,7 +36,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
     User{
         get {
             if(!this.HasProp("__User"))
-                this.__User := TOKEN_USER(this.ptr + 8)
+                this.__User := TOKEN_USER(8, this)
             return this.__User
         }
     }
@@ -70,7 +69,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
     PrimaryGroup{
         get {
             if(!this.HasProp("__PrimaryGroup"))
-                this.__PrimaryGroup := TOKEN_PRIMARY_GROUP(this.ptr + 32)
+                this.__PrimaryGroup := TOKEN_PRIMARY_GROUP(32, this)
             return this.__PrimaryGroup
         }
     }
@@ -103,7 +102,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
     Owner{
         get {
             if(!this.HasProp("__Owner"))
-                this.__Owner := TOKEN_OWNER(this.ptr + 48)
+                this.__Owner := TOKEN_OWNER(48, this)
             return this.__Owner
         }
     }
@@ -120,7 +119,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
     DefaultDacl{
         get {
             if(!this.HasProp("__DefaultDacl"))
-                this.__DefaultDacl := TOKEN_DEFAULT_DACL(this.ptr + 56)
+                this.__DefaultDacl := TOKEN_DEFAULT_DACL(56, this)
             return this.__DefaultDacl
         }
     }
@@ -132,7 +131,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
     UserClaims{
         get {
             if(!this.HasProp("__UserClaims"))
-                this.__UserClaims := TOKEN_USER_CLAIMS(this.ptr + 64)
+                this.__UserClaims := TOKEN_USER_CLAIMS(64, this)
             return this.__UserClaims
         }
     }
@@ -144,7 +143,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
     DeviceClaims{
         get {
             if(!this.HasProp("__DeviceClaims"))
-                this.__DeviceClaims := TOKEN_DEVICE_CLAIMS(this.ptr + 72)
+                this.__DeviceClaims := TOKEN_DEVICE_CLAIMS(72, this)
             return this.__DeviceClaims
         }
     }

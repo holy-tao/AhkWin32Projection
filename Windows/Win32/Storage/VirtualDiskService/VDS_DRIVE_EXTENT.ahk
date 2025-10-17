@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the properties of a drive extent.
@@ -56,11 +55,8 @@ class VDS_DRIVE_EXTENT extends Win32Struct
      * If <b>TRUE</b>, the extent is allocated to a LUN plex. If <b>FALSE</b>, the extent is unallocated.
      * @type {BOOL}
      */
-    bUsed{
-        get {
-            if(!this.HasProp("__bUsed"))
-                this.__bUsed := BOOL(this.ptr + 24)
-            return this.__bUsed
-        }
+    bUsed {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

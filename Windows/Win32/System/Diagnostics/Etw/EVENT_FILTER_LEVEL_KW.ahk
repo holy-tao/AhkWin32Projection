@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Defines event IDs used in an EVENT_FILTER_DESCRIPTOR structure for a stack walk level-keyword filter.
@@ -52,11 +51,8 @@ class EVENT_FILTER_LEVEL_KW extends Win32Struct
      * If set to **true**, the filtered events will have stacks collected.
      * @type {BOOLEAN}
      */
-    FilterIn{
-        get {
-            if(!this.HasProp("__FilterIn"))
-                this.__FilterIn := BOOLEAN(this.ptr + 17)
-            return this.__FilterIn
-        }
+    FilterIn {
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 }

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -23,12 +21,9 @@ class CWPSTRUCT extends Win32Struct
      * 					<b>message</b> value.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 0)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -38,12 +33,9 @@ class CWPSTRUCT extends Win32Struct
      * 					<b>message</b> value.
      * @type {WPARAM}
      */
-    wParam{
-        get {
-            if(!this.HasProp("__wParam"))
-                this.__wParam := WPARAM(this.ptr + 8)
-            return this.__wParam
-        }
+    wParam {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -66,7 +58,7 @@ class CWPSTRUCT extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 24)
+                this.__hwnd := HWND(24, this)
             return this.__hwnd
         }
     }

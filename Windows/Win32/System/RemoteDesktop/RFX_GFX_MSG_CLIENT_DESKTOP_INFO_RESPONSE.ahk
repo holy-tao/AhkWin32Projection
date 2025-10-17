@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RFX_GFX_MSG_HEADER.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\RFX_GFX_MONITOR_INFO.ahk
 
 /**
@@ -20,7 +19,7 @@ class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE extends Win32Struct
     channelHdr{
         get {
             if(!this.HasProp("__channelHdr"))
-                this.__channelHdr := RFX_GFX_MSG_HEADER(this.ptr + 0)
+                this.__channelHdr := RFX_GFX_MSG_HEADER(0, this)
             return this.__channelHdr
         }
     }

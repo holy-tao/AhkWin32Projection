@@ -1062,7 +1062,7 @@ class ErrorReporting {
     static WerAddExcludedApplication(pwzExeName, bAllUsers) {
         pwzExeName := pwzExeName is String ? StrPtr(pwzExeName) : pwzExeName
 
-        result := DllCall("wer.dll\WerAddExcludedApplication", "ptr", pwzExeName, "ptr", bAllUsers, "int")
+        result := DllCall("wer.dll\WerAddExcludedApplication", "ptr", pwzExeName, "int", bAllUsers, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1100,7 +1100,7 @@ class ErrorReporting {
     static WerRemoveExcludedApplication(pwzExeName, bAllUsers) {
         pwzExeName := pwzExeName is String ? StrPtr(pwzExeName) : pwzExeName
 
-        result := DllCall("wer.dll\WerRemoveExcludedApplication", "ptr", pwzExeName, "ptr", bAllUsers, "int")
+        result := DllCall("wer.dll\WerRemoveExcludedApplication", "ptr", pwzExeName, "int", bAllUsers, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1630,7 +1630,7 @@ class ErrorReporting {
 
         A_LastError := 0
 
-        result := DllCall("faultrep.dll\AddERExcludedApplicationA", "ptr", szApplication, "ptr")
+        result := DllCall("faultrep.dll\AddERExcludedApplicationA", "ptr", szApplication, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1651,7 +1651,7 @@ class ErrorReporting {
 
         A_LastError := 0
 
-        result := DllCall("faultrep.dll\AddERExcludedApplicationW", "ptr", wszApplication, "ptr")
+        result := DllCall("faultrep.dll\AddERExcludedApplicationW", "ptr", wszApplication, "int")
         if(A_LastError)
             throw OSError()
 

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage adapter descriptor data for a device.
@@ -121,12 +120,9 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      *       is <b>FALSE</b>, the storage adapter does not use PIO.
      * @type {BOOLEAN}
      */
-    AdapterUsesPio{
-        get {
-            if(!this.HasProp("__AdapterUsesPio"))
-                this.__AdapterUsesPio := BOOLEAN(this.ptr + 20)
-            return this.__AdapterUsesPio
-        }
+    AdapterUsesPio {
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
@@ -136,12 +132,9 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      *       is reserved for legacy miniport drivers.
      * @type {BOOLEAN}
      */
-    AdapterScansDown{
-        get {
-            if(!this.HasProp("__AdapterScansDown"))
-                this.__AdapterScansDown := BOOLEAN(this.ptr + 21)
-            return this.__AdapterScansDown
-        }
+    AdapterScansDown {
+        get => NumGet(this, 21, "char")
+        set => NumPut("char", value, this, 21)
     }
 
     /**
@@ -151,12 +144,9 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      *       internal queues.
      * @type {BOOLEAN}
      */
-    CommandQueueing{
-        get {
-            if(!this.HasProp("__CommandQueueing"))
-                this.__CommandQueueing := BOOLEAN(this.ptr + 22)
-            return this.__CommandQueueing
-        }
+    CommandQueueing {
+        get => NumGet(this, 22, "char")
+        set => NumPut("char", value, this, 22)
     }
 
     /**
@@ -165,12 +155,9 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      *       support synchronous transfers as a way of speeding up I/O.
      * @type {BOOLEAN}
      */
-    AcceleratedTransfer{
-        get {
-            if(!this.HasProp("__AcceleratedTransfer"))
-                this.__AcceleratedTransfer := BOOLEAN(this.ptr + 23)
-            return this.__AcceleratedTransfer
-        }
+    AcceleratedTransfer {
+        get => NumGet(this, 23, "char")
+        set => NumPut("char", value, this, 23)
     }
 
     /**

@@ -45,7 +45,7 @@ class TRACE_EVENT_INFO extends Win32Struct
     EventDescriptor{
         get {
             if(!this.HasProp("__EventDescriptor"))
-                this.__EventDescriptor := EVENT_DESCRIPTOR(this.ptr + 16)
+                this.__EventDescriptor := EVENT_DESCRIPTOR(16, this)
             return this.__EventDescriptor
         }
     }

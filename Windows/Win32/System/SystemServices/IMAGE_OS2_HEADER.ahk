@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -23,23 +22,17 @@ class IMAGE_OS2_HEADER extends Win32Struct
     /**
      * @type {CHAR}
      */
-    ne_ver{
-        get {
-            if(!this.HasProp("__ne_ver"))
-                this.__ne_ver := CHAR(this.ptr + 2)
-            return this.__ne_ver
-        }
+    ne_ver {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 
     /**
      * @type {CHAR}
      */
-    ne_rev{
-        get {
-            if(!this.HasProp("__ne_rev"))
-                this.__ne_rev := CHAR(this.ptr + 3)
-            return this.__ne_rev
-        }
+    ne_rev {
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
     }
 
     /**

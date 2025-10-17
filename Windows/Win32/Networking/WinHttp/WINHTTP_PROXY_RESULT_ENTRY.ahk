@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WINHTTP_PROXY_RESULT_ENTRY structure contains a result entry from a call to WinHttpGetProxyResult.
@@ -24,24 +22,18 @@ class WINHTTP_PROXY_RESULT_ENTRY extends Win32Struct
      * A <b>BOOL</b> that whether a result is from a proxy. It is set to <b>TRUE</b>   if the result contains a proxy or <b>FALSE</b> if the result does not contain a proxy.
      * @type {BOOL}
      */
-    fProxy{
-        get {
-            if(!this.HasProp("__fProxy"))
-                this.__fProxy := BOOL(this.ptr + 0)
-            return this.__fProxy
-        }
+    fProxy {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * A BOOL that indicates if the result is bypassing a proxy (on an intranet). It is set to  <b>TRUE</b> if the result is bypassing a proxy or <b>FALSE</b> if all traffic is direct. This parameter applies only if <i>fProxy</i> is <b>FALSE</b>.
      * @type {BOOL}
      */
-    fBypass{
-        get {
-            if(!this.HasProp("__fBypass"))
-                this.__fBypass := BOOL(this.ptr + 4)
-            return this.__fBypass
-        }
+    fBypass {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -57,12 +49,9 @@ class WINHTTP_PROXY_RESULT_ENTRY extends Win32Struct
      * A string that contains the hostname of the proxy.
      * @type {PWSTR}
      */
-    pwszProxy{
-        get {
-            if(!this.HasProp("__pwszProxy"))
-                this.__pwszProxy := PWSTR(this.ptr + 16)
-            return this.__pwszProxy
-        }
+    pwszProxy {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CREDENTIAL_ATTRIBUTE structure contains an application-defined attribute of the credential. An attribute is a keyword-value pair. It is up to the application to define the meaning of the attribute.
@@ -30,12 +29,9 @@ class CREDENTIAL_ATTRIBUTEW extends Win32Struct
      * This member cannot be longer than CRED_MAX_STRING_LENGTH (256) characters.
      * @type {PWSTR}
      */
-    Keyword{
-        get {
-            if(!this.HasProp("__Keyword"))
-                this.__Keyword := PWSTR(this.ptr + 0)
-            return this.__Keyword
-        }
+    Keyword {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

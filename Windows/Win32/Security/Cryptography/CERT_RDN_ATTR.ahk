@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -486,12 +485,9 @@ class CERT_RDN_ATTR extends Win32Struct
      * </table>
      * @type {PSTR}
      */
-    pszObjId{
-        get {
-            if(!this.HasProp("__pszObjId"))
-                this.__pszObjId := PSTR(this.ptr + 0)
-            return this.__pszObjId
-        }
+    pszObjId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -517,7 +513,7 @@ class CERT_RDN_ATTR extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__Value := CRYPT_INTEGER_BLOB(16, this)
             return this.__Value
         }
     }

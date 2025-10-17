@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_URL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -28,7 +27,7 @@ class WS_SOAPUDP_URL extends Win32Struct
     url{
         get {
             if(!this.HasProp("__url"))
-                this.__url := WS_URL(this.ptr + 0)
+                this.__url := WS_URL(0, this)
             return this.__url
         }
     }
@@ -40,7 +39,7 @@ class WS_SOAPUDP_URL extends Win32Struct
     host{
         get {
             if(!this.HasProp("__host"))
-                this.__host := WS_STRING(this.ptr + 8)
+                this.__host := WS_STRING(8, this)
             return this.__host
         }
     }
@@ -61,7 +60,7 @@ class WS_SOAPUDP_URL extends Win32Struct
     portAsString{
         get {
             if(!this.HasProp("__portAsString"))
-                this.__portAsString := WS_STRING(this.ptr + 32)
+                this.__portAsString := WS_STRING(32, this)
             return this.__portAsString
         }
     }
@@ -73,7 +72,7 @@ class WS_SOAPUDP_URL extends Win32Struct
     path{
         get {
             if(!this.HasProp("__path"))
-                this.__path := WS_STRING(this.ptr + 48)
+                this.__path := WS_STRING(48, this)
             return this.__path
         }
     }
@@ -85,7 +84,7 @@ class WS_SOAPUDP_URL extends Win32Struct
     query{
         get {
             if(!this.HasProp("__query"))
-                this.__query := WS_STRING(this.ptr + 64)
+                this.__query := WS_STRING(64, this)
             return this.__query
         }
     }
@@ -97,7 +96,7 @@ class WS_SOAPUDP_URL extends Win32Struct
     fragment{
         get {
             if(!this.HasProp("__fragment"))
-                this.__fragment := WS_STRING(this.ptr + 80)
+                this.__fragment := WS_STRING(80, this)
             return this.__fragment
         }
     }

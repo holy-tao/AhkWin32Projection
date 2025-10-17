@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -35,7 +34,7 @@ class OEMUIPSPARAM extends Win32Struct
     hPrinter{
         get {
             if(!this.HasProp("__hPrinter"))
-                this.__hPrinter := HANDLE(this.ptr + 16)
+                this.__hPrinter := HANDLE(16, this)
             return this.__hPrinter
         }
     }
@@ -43,12 +42,9 @@ class OEMUIPSPARAM extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 24)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -57,7 +53,7 @@ class OEMUIPSPARAM extends Win32Struct
     hModule{
         get {
             if(!this.HasProp("__hModule"))
-                this.__hModule := HANDLE(this.ptr + 32)
+                this.__hModule := HANDLE(32, this)
             return this.__hModule
         }
     }
@@ -68,7 +64,7 @@ class OEMUIPSPARAM extends Win32Struct
     hOEMHeap{
         get {
             if(!this.HasProp("__hOEMHeap"))
-                this.__hOEMHeap := HANDLE(this.ptr + 40)
+                this.__hOEMHeap := HANDLE(40, this)
             return this.__hOEMHeap
         }
     }
@@ -113,12 +109,8 @@ class OEMUIPSPARAM extends Win32Struct
         set => NumPut("ptr", value, this, 80)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 88
     }
 }

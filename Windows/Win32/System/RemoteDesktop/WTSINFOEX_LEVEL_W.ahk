@@ -22,7 +22,7 @@ class WTSINFOEX_LEVEL_W extends Win32Struct
     WTSInfoExLevel1{
         get {
             if(!this.HasProp("__WTSInfoExLevel1"))
-                this.__WTSInfoExLevel1 := WTSINFOEX_LEVEL1_W(this.ptr + 0)
+                this.__WTSInfoExLevel1 := WTSINFOEX_LEVEL1_W(0, this)
             return this.__WTSInfoExLevel1
         }
     }

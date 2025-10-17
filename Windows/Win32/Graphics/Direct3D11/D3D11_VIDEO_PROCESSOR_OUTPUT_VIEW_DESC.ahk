@@ -30,7 +30,7 @@ class D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC extends Win32Struct
     Texture2D{
         get {
             if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D11_TEX2D_VPOV(this.ptr + 8)
+                this.__Texture2D := D3D11_TEX2D_VPOV(8, this)
             return this.__Texture2D
         }
     }
@@ -41,7 +41,7 @@ class D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC extends Win32Struct
     Texture2DArray{
         get {
             if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D11_TEX2D_ARRAY_VPOV(this.ptr + 8)
+                this.__Texture2DArray := D3D11_TEX2D_ARRAY_VPOV(8, this)
             return this.__Texture2DArray
         }
     }

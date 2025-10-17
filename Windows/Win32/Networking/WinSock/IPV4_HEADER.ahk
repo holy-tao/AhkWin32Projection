@@ -190,7 +190,7 @@ class IPV4_HEADER extends Win32Struct
     SourceAddress{
         get {
             if(!this.HasProp("__SourceAddress"))
-                this.__SourceAddress := IN_ADDR(this.ptr + 12)
+                this.__SourceAddress := IN_ADDR(12, this)
             return this.__SourceAddress
         }
     }
@@ -201,7 +201,7 @@ class IPV4_HEADER extends Win32Struct
     DestinationAddress{
         get {
             if(!this.HasProp("__DestinationAddress"))
-                this.__DestinationAddress := IN_ADDR(this.ptr + 16)
+                this.__DestinationAddress := IN_ADDR(16, this)
             return this.__DestinationAddress
         }
     }

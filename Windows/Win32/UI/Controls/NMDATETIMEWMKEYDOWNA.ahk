@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -32,7 +31,7 @@ class NMDATETIMEWMKEYDOWNA extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -54,12 +53,9 @@ class NMDATETIMEWMKEYDOWNA extends Win32Struct
      * A zero-terminated substring, taken from the format string, that defines the callback field. The substring is one or more "X" characters, followed by a <b>NULL</b>.
      * @type {PSTR}
      */
-    pszFormat{
-        get {
-            if(!this.HasProp("__pszFormat"))
-                this.__pszFormat := PSTR(this.ptr + 32)
-            return this.__pszFormat
-        }
+    pszFormat {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -71,7 +67,7 @@ class NMDATETIMEWMKEYDOWNA extends Win32Struct
     st{
         get {
             if(!this.HasProp("__st"))
-                this.__st := SYSTEMTIME(this.ptr + 40)
+                this.__st := SYSTEMTIME(40, this)
             return this.__st
         }
     }

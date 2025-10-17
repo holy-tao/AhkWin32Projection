@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the results of a call to DsMapSchemaGuids.
@@ -42,11 +41,8 @@ class DS_SCHEMA_GUID_MAPA extends Win32Struct
      * Pointer to a null-terminated string value that specifies the display name associated with the GUID. This value may be <b>NULL</b> if <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsmapschemaguidsa">DsMapSchemaGuids</a> was unable to map the GUID to a display name.
      * @type {PSTR}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PSTR(this.ptr + 16)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

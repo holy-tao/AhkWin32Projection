@@ -468,7 +468,7 @@ class UI {
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", "uint", dwContextType, "ptr", pvContext, "ptr", hwnd, "ptr", pwszTitle, "uint", dwFlags, "ptr", pvReserved, "ptr")
+        result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", "uint", dwContextType, "ptr", pvContext, "ptr", hwnd, "ptr", pwszTitle, "uint", dwFlags, "ptr", pvReserved, "int")
         return result
     }
 
@@ -593,7 +593,7 @@ class UI {
      * @since windows5.1.2600
      */
     static CryptUIDlgCertMgr(pCryptUICertMgr) {
-        result := DllCall("CRYPTUI.dll\CryptUIDlgCertMgr", "ptr", pCryptUICertMgr, "ptr")
+        result := DllCall("CRYPTUI.dll\CryptUIDlgCertMgr", "ptr", pCryptUICertMgr, "int")
         return result
     }
 
@@ -632,7 +632,7 @@ class UI {
         pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pDigitalSignInfo, "ptr", ppSignContext, "ptr")
+        result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pDigitalSignInfo, "ptr", ppSignContext, "int")
         return result
     }
 
@@ -646,7 +646,7 @@ class UI {
      * @since windows5.1.2600
      */
     static CryptUIWizFreeDigitalSignContext(pSignContext) {
-        result := DllCall("CRYPTUI.dll\CryptUIWizFreeDigitalSignContext", "ptr", pSignContext, "ptr")
+        result := DllCall("CRYPTUI.dll\CryptUIWizFreeDigitalSignContext", "ptr", pSignContext, "int")
         return result
     }
 
@@ -664,7 +664,7 @@ class UI {
     static CryptUIDlgViewCertificateW(pCertViewInfo, pfPropertiesChanged) {
         A_LastError := 0
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateW", "ptr", pCertViewInfo, "ptr", pfPropertiesChanged, "ptr")
+        result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateW", "ptr", pCertViewInfo, "ptr", pfPropertiesChanged, "int")
         if(A_LastError)
             throw OSError()
 
@@ -685,7 +685,7 @@ class UI {
     static CryptUIDlgViewCertificateA(pCertViewInfo, pfPropertiesChanged) {
         A_LastError := 0
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateA", "ptr", pCertViewInfo, "ptr", pfPropertiesChanged, "ptr")
+        result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateA", "ptr", pCertViewInfo, "ptr", pfPropertiesChanged, "int")
         if(A_LastError)
             throw OSError()
 
@@ -714,7 +714,7 @@ class UI {
 
         A_LastError := 0
 
-        result := DllCall("CRYPTUI.dll\CryptUIWizExport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pExportInfo, "ptr", pvoid, "ptr")
+        result := DllCall("CRYPTUI.dll\CryptUIWizExport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pExportInfo, "ptr", pvoid, "int")
         if(A_LastError)
             throw OSError()
 
@@ -742,7 +742,7 @@ class UI {
 
         A_LastError := 0
 
-        result := DllCall("CRYPTUI.dll\CryptUIWizImport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pImportSrc, "ptr", hDestCertStore, "ptr")
+        result := DllCall("CRYPTUI.dll\CryptUIWizImport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pImportSrc, "ptr", hDestCertStore, "int")
         if(A_LastError)
             throw OSError()
 

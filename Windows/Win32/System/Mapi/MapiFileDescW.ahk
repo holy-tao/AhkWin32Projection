@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * A MapiFileDescW structure contains information about a file containing a message attachment stored as a temporary file. That file can contain a static OLE object, an embedded OLE object, an embedded message, and other types of files.
@@ -113,12 +112,9 @@ class MapiFileDescW extends Win32Struct
      * Pointer to the fully qualified path of the attached file. This path should include the disk drive letter and directory name.
      * @type {PWSTR}
      */
-    lpszPathName{
-        get {
-            if(!this.HasProp("__lpszPathName"))
-                this.__lpszPathName := PWSTR(this.ptr + 16)
-            return this.__lpszPathName
-        }
+    lpszPathName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -129,12 +125,9 @@ class MapiFileDescW extends Win32Struct
      * If the <b>lpszFileName</b> member is empty or <b>NULL</b>, the filename from <b>lpszPathName</b> is used.
      * @type {PWSTR}
      */
-    lpszFileName{
-        get {
-            if(!this.HasProp("__lpszFileName"))
-                this.__lpszFileName := PWSTR(this.ptr + 24)
-            return this.__lpszFileName
-        }
+    lpszFileName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

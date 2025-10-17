@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes Direct3D 11.3 feature options in the current graphics driver.
@@ -18,11 +17,8 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS3 extends Win32Struct
      * Whether to use the VP and RT array index from any shader feeding the rasterizer.
      * @type {BOOL}
      */
-    VPAndRTArrayIndexFromAnyShaderFeedingRasterizer{
-        get {
-            if(!this.HasProp("__VPAndRTArrayIndexFromAnyShaderFeedingRasterizer"))
-                this.__VPAndRTArrayIndexFromAnyShaderFeedingRasterizer := BOOL(this.ptr + 0)
-            return this.__VPAndRTArrayIndexFromAnyShaderFeedingRasterizer
-        }
+    VPAndRTArrayIndexFromAnyShaderFeedingRasterizer {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

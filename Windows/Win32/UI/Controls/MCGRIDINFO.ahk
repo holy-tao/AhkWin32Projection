@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about part of a calendar control.
@@ -85,12 +83,9 @@ class MCGRIDINFO extends Win32Struct
      * If <b>dwPart</b> is MCGIP_CALENDARCELL, indicates if the cell described by <b>iRow</b> and <b>iCol</b> is currently selected.
      * @type {BOOL}
      */
-    bSelected{
-        get {
-            if(!this.HasProp("__bSelected"))
-                this.__bSelected := BOOL(this.ptr + 24)
-            return this.__bSelected
-        }
+    bSelected {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -102,7 +97,7 @@ class MCGRIDINFO extends Win32Struct
     stStart{
         get {
             if(!this.HasProp("__stStart"))
-                this.__stStart := SYSTEMTIME(this.ptr + 32)
+                this.__stStart := SYSTEMTIME(32, this)
             return this.__stStart
         }
     }
@@ -116,7 +111,7 @@ class MCGRIDINFO extends Win32Struct
     stEnd{
         get {
             if(!this.HasProp("__stEnd"))
-                this.__stEnd := SYSTEMTIME(this.ptr + 48)
+                this.__stEnd := SYSTEMTIME(48, this)
             return this.__stEnd
         }
     }
@@ -130,7 +125,7 @@ class MCGRIDINFO extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 64)
+                this.__rc := RECT(64, this)
             return this.__rc
         }
     }
@@ -148,12 +143,9 @@ class MCGRIDINFO extends Win32Struct
      * </ul>
      * @type {PWSTR}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PWSTR(this.ptr + 80)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -167,12 +159,8 @@ class MCGRIDINFO extends Win32Struct
         set => NumPut("ptr", value, this, 88)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 96
     }
 }

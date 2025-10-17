@@ -49,7 +49,7 @@ class GUITHREADINFO extends Win32Struct
     hwndActive{
         get {
             if(!this.HasProp("__hwndActive"))
-                this.__hwndActive := HWND(this.ptr + 8)
+                this.__hwndActive := HWND(8, this)
             return this.__hwndActive
         }
     }
@@ -63,7 +63,7 @@ class GUITHREADINFO extends Win32Struct
     hwndFocus{
         get {
             if(!this.HasProp("__hwndFocus"))
-                this.__hwndFocus := HWND(this.ptr + 16)
+                this.__hwndFocus := HWND(16, this)
             return this.__hwndFocus
         }
     }
@@ -77,7 +77,7 @@ class GUITHREADINFO extends Win32Struct
     hwndCapture{
         get {
             if(!this.HasProp("__hwndCapture"))
-                this.__hwndCapture := HWND(this.ptr + 24)
+                this.__hwndCapture := HWND(24, this)
             return this.__hwndCapture
         }
     }
@@ -91,7 +91,7 @@ class GUITHREADINFO extends Win32Struct
     hwndMenuOwner{
         get {
             if(!this.HasProp("__hwndMenuOwner"))
-                this.__hwndMenuOwner := HWND(this.ptr + 32)
+                this.__hwndMenuOwner := HWND(32, this)
             return this.__hwndMenuOwner
         }
     }
@@ -105,7 +105,7 @@ class GUITHREADINFO extends Win32Struct
     hwndMoveSize{
         get {
             if(!this.HasProp("__hwndMoveSize"))
-                this.__hwndMoveSize := HWND(this.ptr + 40)
+                this.__hwndMoveSize := HWND(40, this)
             return this.__hwndMoveSize
         }
     }
@@ -119,7 +119,7 @@ class GUITHREADINFO extends Win32Struct
     hwndCaret{
         get {
             if(!this.HasProp("__hwndCaret"))
-                this.__hwndCaret := HWND(this.ptr + 48)
+                this.__hwndCaret := HWND(48, this)
             return this.__hwndCaret
         }
     }
@@ -133,17 +133,13 @@ class GUITHREADINFO extends Win32Struct
     rcCaret{
         get {
             if(!this.HasProp("__rcCaret"))
-                this.__rcCaret := RECT(this.ptr + 56)
+                this.__rcCaret := RECT(56, this)
             return this.__rcCaret
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

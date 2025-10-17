@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -47,11 +46,8 @@ class SSL_CREDENTIAL_CERTIFICATE extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszPassword{
-        get {
-            if(!this.HasProp("__pszPassword"))
-                this.__pszPassword := PSTR(this.ptr + 32)
-            return this.__pszPassword
-        }
+    pszPassword {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

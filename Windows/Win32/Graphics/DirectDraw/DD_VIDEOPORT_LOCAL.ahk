@@ -37,7 +37,7 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct
     ddvpDesc{
         get {
             if(!this.HasProp("__ddvpDesc"))
-                this.__ddvpDesc := DDVIDEOPORTDESC(this.ptr + 8)
+                this.__ddvpDesc := DDVIDEOPORTDESC(8, this)
             return this.__ddvpDesc
         }
     }
@@ -49,7 +49,7 @@ class DD_VIDEOPORT_LOCAL extends Win32Struct
     ddvpInfo{
         get {
             if(!this.HasProp("__ddvpInfo"))
-                this.__ddvpInfo := DDVIDEOPORTINFO(this.ptr + 88)
+                this.__ddvpInfo := DDVIDEOPORTINFO(88, this)
             return this.__ddvpInfo
         }
     }

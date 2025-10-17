@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -15,12 +14,9 @@ class SERVICE_INFO_2 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    svci2_name{
-        get {
-            if(!this.HasProp("__svci2_name"))
-                this.__svci2_name := PWSTR(this.ptr + 0)
-            return this.__svci2_name
-        }
+    svci2_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -50,12 +46,9 @@ class SERVICE_INFO_2 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    svci2_text{
-        get {
-            if(!this.HasProp("__svci2_text"))
-                this.__svci2_text := PWSTR(this.ptr + 24)
-            return this.__svci2_text
-        }
+    svci2_text {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -69,11 +62,8 @@ class SERVICE_INFO_2 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    svci2_display_name{
-        get {
-            if(!this.HasProp("__svci2_display_name"))
-                this.__svci2_display_name := PWSTR(this.ptr + 40)
-            return this.__svci2_display_name
-        }
+    svci2_display_name {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

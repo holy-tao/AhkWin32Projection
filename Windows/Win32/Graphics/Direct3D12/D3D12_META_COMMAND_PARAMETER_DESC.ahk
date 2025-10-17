@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a parameter to a meta command.
@@ -20,12 +19,9 @@ class D3D12_META_COMMAND_PARAMETER_DESC extends Win32Struct
      * The parameter name.
      * @type {PWSTR}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PWSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

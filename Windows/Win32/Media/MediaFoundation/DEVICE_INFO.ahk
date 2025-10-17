@@ -21,7 +21,7 @@ class DEVICE_INFO extends Win32Struct
     pFriendlyDeviceName{
         get {
             if(!this.HasProp("__pFriendlyDeviceName"))
-                this.__pFriendlyDeviceName := BSTR(this.ptr + 0)
+                this.__pFriendlyDeviceName := BSTR(0, this)
             return this.__pFriendlyDeviceName
         }
     }
@@ -33,7 +33,7 @@ class DEVICE_INFO extends Win32Struct
     pUniqueDeviceName{
         get {
             if(!this.HasProp("__pUniqueDeviceName"))
-                this.__pUniqueDeviceName := BSTR(this.ptr + 8)
+                this.__pUniqueDeviceName := BSTR(8, this)
             return this.__pUniqueDeviceName
         }
     }
@@ -45,7 +45,7 @@ class DEVICE_INFO extends Win32Struct
     pManufacturerName{
         get {
             if(!this.HasProp("__pManufacturerName"))
-                this.__pManufacturerName := BSTR(this.ptr + 16)
+                this.__pManufacturerName := BSTR(16, this)
             return this.__pManufacturerName
         }
     }
@@ -57,7 +57,7 @@ class DEVICE_INFO extends Win32Struct
     pModelName{
         get {
             if(!this.HasProp("__pModelName"))
-                this.__pModelName := BSTR(this.ptr + 24)
+                this.__pModelName := BSTR(24, this)
             return this.__pModelName
         }
     }
@@ -69,7 +69,7 @@ class DEVICE_INFO extends Win32Struct
     pIconURL{
         get {
             if(!this.HasProp("__pIconURL"))
-                this.__pIconURL := BSTR(this.ptr + 32)
+                this.__pIconURL := BSTR(32, this)
             return this.__pIconURL
         }
     }

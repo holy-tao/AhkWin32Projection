@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CAPTUREPARMS structure contains parameters that control the streaming video capture process. This structure is used to get and set parameters that affect the capture rate, the number of buffers to use while capturing, and how capture is terminated.
@@ -34,12 +33,9 @@ class CAPTUREPARMS extends Win32Struct
      * User-initiated capture flag. If this member is <b>TRUE</b>, AVICap displays a dialog box prompting the user to initiate capture. The default value is <b>FALSE</b>.
      * @type {BOOL}
      */
-    fMakeUserHitOKToCapture{
-        get {
-            if(!this.HasProp("__fMakeUserHitOKToCapture"))
-                this.__fMakeUserHitOKToCapture := BOOL(this.ptr + 4)
-            return this.__fMakeUserHitOKToCapture
-        }
+    fMakeUserHitOKToCapture {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -57,12 +53,9 @@ class CAPTUREPARMS extends Win32Struct
      * Applications that set this flag must handle potential reentry issues because the controls in the application are not disabled while capture is in progress.
      * @type {BOOL}
      */
-    fYield{
-        get {
-            if(!this.HasProp("__fYield"))
-                this.__fYield := BOOL(this.ptr + 12)
-            return this.__fYield
-        }
+    fYield {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -89,12 +82,9 @@ class CAPTUREPARMS extends Win32Struct
      * Not used in Win32 applications.
      * @type {BOOL}
      */
-    fUsingDOSMemory{
-        get {
-            if(!this.HasProp("__fUsingDOSMemory"))
-                this.__fUsingDOSMemory := BOOL(this.ptr + 24)
-            return this.__fUsingDOSMemory
-        }
+    fUsingDOSMemory {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -110,12 +100,9 @@ class CAPTUREPARMS extends Win32Struct
      * Capture audio flag. If this member is <b>TRUE</b>, audio is captured during streaming capture. This is the default value if audio hardware is installed.
      * @type {BOOL}
      */
-    fCaptureAudio{
-        get {
-            if(!this.HasProp("__fCaptureAudio"))
-                this.__fCaptureAudio := BOOL(this.ptr + 32)
-            return this.__fCaptureAudio
-        }
+    fCaptureAudio {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -142,36 +129,27 @@ class CAPTUREPARMS extends Win32Struct
      * Abort flag for left mouse button. If this member is <b>TRUE</b>, streaming capture stops if the left mouse button is pressed. The default value is <b>TRUE</b>.
      * @type {BOOL}
      */
-    fAbortLeftMouse{
-        get {
-            if(!this.HasProp("__fAbortLeftMouse"))
-                this.__fAbortLeftMouse := BOOL(this.ptr + 44)
-            return this.__fAbortLeftMouse
-        }
+    fAbortLeftMouse {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
      * Abort flag for right mouse button. If this member is <b>TRUE</b>, streaming capture stops if the right mouse button is pressed. The default value is <b>TRUE</b>.
      * @type {BOOL}
      */
-    fAbortRightMouse{
-        get {
-            if(!this.HasProp("__fAbortRightMouse"))
-                this.__fAbortRightMouse := BOOL(this.ptr + 48)
-            return this.__fAbortRightMouse
-        }
+    fAbortRightMouse {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * Time limit enabled flag. If this member is <b>TRUE</b>, streaming capture stops after the number of seconds in <b>wTimeLimit</b> has elapsed. The default value is <b>FALSE</b>.
      * @type {BOOL}
      */
-    fLimitEnabled{
-        get {
-            if(!this.HasProp("__fLimitEnabled"))
-                this.__fLimitEnabled := BOOL(this.ptr + 52)
-            return this.__fLimitEnabled
-        }
+    fLimitEnabled {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -187,24 +165,18 @@ class CAPTUREPARMS extends Win32Struct
      * MCI device capture flag. If this member is <b>TRUE</b>, AVICap controls an MCI-compatible video source during streaming capture. MCI-compatible video sources include VCRs and laserdiscs.
      * @type {BOOL}
      */
-    fMCIControl{
-        get {
-            if(!this.HasProp("__fMCIControl"))
-                this.__fMCIControl := BOOL(this.ptr + 60)
-            return this.__fMCIControl
-        }
+    fMCIControl {
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 
     /**
      * MCI device step capture flag. If this member is <b>TRUE</b>, step capture using an MCI device as a video source is enabled. If it is <b>FALSE</b>, real-time capture using an MCI device is enabled. (If <b>fMCIControl</b> is <b>FALSE</b>, this member is ignored.)
      * @type {BOOL}
      */
-    fStepMCIDevice{
-        get {
-            if(!this.HasProp("__fStepMCIDevice"))
-                this.__fStepMCIDevice := BOOL(this.ptr + 64)
-            return this.__fStepMCIDevice
-        }
+    fStepMCIDevice {
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
@@ -231,12 +203,9 @@ class CAPTUREPARMS extends Win32Struct
      * Enable this option if the hardware does not support hardware-based decimation and you are capturing in the RGB format.
      * @type {BOOL}
      */
-    fStepCaptureAt2x{
-        get {
-            if(!this.HasProp("__fStepCaptureAt2x"))
-                this.__fStepCaptureAt2x := BOOL(this.ptr + 76)
-            return this.__fStepCaptureAt2x
-        }
+    fStepCaptureAt2x {
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
@@ -261,12 +230,9 @@ class CAPTUREPARMS extends Win32Struct
      * Not used in Win32 applications.
      * @type {BOOL}
      */
-    fDisableWriteCache{
-        get {
-            if(!this.HasProp("__fDisableWriteCache"))
-                this.__fDisableWriteCache := BOOL(this.ptr + 88)
-            return this.__fDisableWriteCache
-        }
+    fDisableWriteCache {
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**

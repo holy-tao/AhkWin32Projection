@@ -3,7 +3,6 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include .\TBBUTTON.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -34,7 +33,7 @@ class NMTOOLBARW extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -60,7 +59,7 @@ class NMTOOLBARW extends Win32Struct
     tbButton{
         get {
             if(!this.HasProp("__tbButton"))
-                this.__tbButton := TBBUTTON(this.ptr + 32)
+                this.__tbButton := TBBUTTON(32, this)
             return this.__tbButton
         }
     }
@@ -82,12 +81,9 @@ class NMTOOLBARW extends Win32Struct
      * Address of a character buffer that contains the button text.
      * @type {PWSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PWSTR(this.ptr + 72)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -100,7 +96,7 @@ class NMTOOLBARW extends Win32Struct
     rcButton{
         get {
             if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(this.ptr + 80)
+                this.__rcButton := RECT(80, this)
             return this.__rcButton
         }
     }

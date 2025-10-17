@@ -58,7 +58,7 @@ class NVME_REGISTERED_CONTROLLER_DATA extends Win32Struct
     RCSTS{
         get {
             if(!this.HasProp("__RCSTS"))
-                this.__RCSTS := %this.__Class%._RCSTS(this.ptr + 2)
+                this.__RCSTS := %this.__Class%._RCSTS(2, this)
             return this.__RCSTS
         }
     }

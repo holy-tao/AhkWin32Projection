@@ -28,7 +28,7 @@ class DXVA_DeinterlaceBltEx extends Win32Struct
     BackgroundColor{
         get {
             if(!this.HasProp("__BackgroundColor"))
-                this.__BackgroundColor := DXVA_AYUVsample2(this.ptr + 4)
+                this.__BackgroundColor := DXVA_AYUVsample2(4, this)
             return this.__BackgroundColor
         }
     }
@@ -39,7 +39,7 @@ class DXVA_DeinterlaceBltEx extends Win32Struct
     rcTarget{
         get {
             if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(this.ptr + 8)
+                this.__rcTarget := RECT(8, this)
             return this.__rcTarget
         }
     }

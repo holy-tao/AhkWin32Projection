@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -29,7 +27,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__DomainName := LSA_UNICODE_STRING(8, this)
             return this.__DomainName
         }
     }
@@ -40,7 +38,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     ProxyServerName{
         get {
             if(!this.HasProp("__ProxyServerName"))
-                this.__ProxyServerName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__ProxyServerName := LSA_UNICODE_STRING(24, this)
             return this.__ProxyServerName
         }
     }
@@ -51,7 +49,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     ProxyServerVdir{
         get {
             if(!this.HasProp("__ProxyServerVdir"))
-                this.__ProxyServerVdir := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__ProxyServerVdir := LSA_UNICODE_STRING(40, this)
             return this.__ProxyServerVdir
         }
     }
@@ -70,7 +68,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 64)
+                this.__LogonId := LUID(64, this)
             return this.__LogonId
         }
     }
@@ -81,7 +79,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     CredUserName{
         get {
             if(!this.HasProp("__CredUserName"))
-                this.__CredUserName := LSA_UNICODE_STRING(this.ptr + 72)
+                this.__CredUserName := LSA_UNICODE_STRING(72, this)
             return this.__CredUserName
         }
     }
@@ -92,7 +90,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     CredDomainName{
         get {
             if(!this.HasProp("__CredDomainName"))
-                this.__CredDomainName := LSA_UNICODE_STRING(this.ptr + 88)
+                this.__CredDomainName := LSA_UNICODE_STRING(88, this)
             return this.__CredDomainName
         }
     }
@@ -100,11 +98,8 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    GlobalCache{
-        get {
-            if(!this.HasProp("__GlobalCache"))
-                this.__GlobalCache := BOOLEAN(this.ptr + 104)
-            return this.__GlobalCache
-        }
+    GlobalCache {
+        get => NumGet(this, 104, "char")
+        set => NumPut("char", value, this, 104)
     }
 }

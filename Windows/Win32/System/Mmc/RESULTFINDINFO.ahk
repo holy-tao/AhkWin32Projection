@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used by the IResultOwnerData::FindItem method to support keyboard navigation in virtual lists in the result pane.
@@ -18,12 +17,9 @@ class RESULTFINDINFO extends Win32Struct
      * Null-terminated string to match.
      * @type {PWSTR}
      */
-    psz{
-        get {
-            if(!this.HasProp("__psz"))
-                this.__psz := PWSTR(this.ptr + 0)
-            return this.__psz
-        }
+    psz {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

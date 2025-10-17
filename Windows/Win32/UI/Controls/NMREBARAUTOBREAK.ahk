@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information used with the RBN_AUTOBREAK notification code.
@@ -27,7 +25,7 @@ class NMREBARAUTOBREAK extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -60,12 +58,9 @@ class NMREBARAUTOBREAK extends Win32Struct
      * Application-defined value from the <b>lParam</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-rebarbandinfoa">REBARBANDINFO</a> structure that defines the rebar band.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 32)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -96,11 +91,8 @@ class NMREBARAUTOBREAK extends Win32Struct
      * <b>BOOL</b> that indicates whether a break should occur.
      * @type {BOOL}
      */
-    fAutoBreak{
-        get {
-            if(!this.HasProp("__fAutoBreak"))
-                this.__fAutoBreak := BOOL(this.ptr + 48)
-            return this.__fAutoBreak
-        }
+    fAutoBreak {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

@@ -19,7 +19,7 @@ class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -38,7 +38,7 @@ class DOT11_ANQP_QUERY_COMPLETE_PARAMETERS extends Win32Struct
     hContext{
         get {
             if(!this.HasProp("__hContext"))
-                this.__hContext := HANDLE(this.ptr + 8)
+                this.__hContext := HANDLE(8, this)
             return this.__hContext
         }
     }

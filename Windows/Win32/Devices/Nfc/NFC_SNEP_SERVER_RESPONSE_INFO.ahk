@@ -42,7 +42,7 @@ class NFC_SNEP_SERVER_RESPONSE_INFO extends Win32Struct
     sResponsePayload{
         get {
             if(!this.HasProp("__sResponsePayload"))
-                this.__sResponsePayload := NFC_DATA_BUFFER(this.ptr + 20)
+                this.__sResponsePayload := NFC_DATA_BUFFER(20, this)
             return this.__sResponsePayload
         }
     }

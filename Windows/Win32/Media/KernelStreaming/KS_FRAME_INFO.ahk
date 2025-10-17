@@ -51,7 +51,7 @@ class KS_FRAME_INFO extends Win32Struct
     hDirectDraw{
         get {
             if(!this.HasProp("__hDirectDraw"))
-                this.__hDirectDraw := HANDLE(this.ptr + 24)
+                this.__hDirectDraw := HANDLE(24, this)
             return this.__hDirectDraw
         }
     }
@@ -62,7 +62,7 @@ class KS_FRAME_INFO extends Win32Struct
     hSurfaceHandle{
         get {
             if(!this.HasProp("__hSurfaceHandle"))
-                this.__hSurfaceHandle := HANDLE(this.ptr + 32)
+                this.__hSurfaceHandle := HANDLE(32, this)
             return this.__hSurfaceHandle
         }
     }
@@ -73,7 +73,7 @@ class KS_FRAME_INFO extends Win32Struct
     DirectDrawRect{
         get {
             if(!this.HasProp("__DirectDrawRect"))
-                this.__DirectDrawRect := RECT(this.ptr + 40)
+                this.__DirectDrawRect := RECT(40, this)
             return this.__DirectDrawRect
         }
     }

@@ -26,7 +26,7 @@ class PHYSICAL_MONITOR extends Win32Struct
     hPhysicalMonitor{
         get {
             if(!this.HasProp("__hPhysicalMonitor"))
-                this.__hPhysicalMonitor := HANDLE(this.ptr + 0)
+                this.__hPhysicalMonitor := HANDLE(0, this)
             return this.__hPhysicalMonitor
         }
     }

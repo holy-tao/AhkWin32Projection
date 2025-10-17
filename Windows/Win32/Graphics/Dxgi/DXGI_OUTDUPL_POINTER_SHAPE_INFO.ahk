@@ -64,7 +64,7 @@ class DXGI_OUTDUPL_POINTER_SHAPE_INFO extends Win32Struct
     HotSpot{
         get {
             if(!this.HasProp("__HotSpot"))
-                this.__HotSpot := POINT(this.ptr + 16)
+                this.__HotSpot := POINT(16, this)
             return this.__HotSpot
         }
     }

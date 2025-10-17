@@ -21,7 +21,7 @@ class DXVA2_FilterValues extends Win32Struct
     Level{
         get {
             if(!this.HasProp("__Level"))
-                this.__Level := DXVA2_Fixed32(this.ptr + 0)
+                this.__Level := DXVA2_Fixed32(0, this)
             return this.__Level
         }
     }
@@ -33,7 +33,7 @@ class DXVA2_FilterValues extends Win32Struct
     Threshold{
         get {
             if(!this.HasProp("__Threshold"))
-                this.__Threshold := DXVA2_Fixed32(this.ptr + 4)
+                this.__Threshold := DXVA2_Fixed32(4, this)
             return this.__Threshold
         }
     }
@@ -45,7 +45,7 @@ class DXVA2_FilterValues extends Win32Struct
     Radius{
         get {
             if(!this.HasProp("__Radius"))
-                this.__Radius := DXVA2_Fixed32(this.ptr + 8)
+                this.__Radius := DXVA2_Fixed32(8, this)
             return this.__Radius
         }
     }

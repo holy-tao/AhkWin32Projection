@@ -33,7 +33,7 @@ class VIDEOINFO extends Win32Struct
     rcSource{
         get {
             if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(this.ptr + 0)
+                this.__rcSource := RECT(0, this)
             return this.__rcSource
         }
     }
@@ -45,7 +45,7 @@ class VIDEOINFO extends Win32Struct
     rcTarget{
         get {
             if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(this.ptr + 16)
+                this.__rcTarget := RECT(16, this)
             return this.__rcTarget
         }
     }
@@ -84,7 +84,7 @@ class VIDEOINFO extends Win32Struct
     bmiHeader{
         get {
             if(!this.HasProp("__bmiHeader"))
-                this.__bmiHeader := BITMAPINFOHEADER(this.ptr + 48)
+                this.__bmiHeader := BITMAPINFOHEADER(48, this)
             return this.__bmiHeader
         }
     }
@@ -117,7 +117,7 @@ class VIDEOINFO extends Win32Struct
     TrueColorInfo{
         get {
             if(!this.HasProp("__TrueColorInfo"))
-                this.__TrueColorInfo := TRUECOLORINFO(this.ptr + 88)
+                this.__TrueColorInfo := TRUECOLORINFO(88, this)
             return this.__TrueColorInfo
         }
     }

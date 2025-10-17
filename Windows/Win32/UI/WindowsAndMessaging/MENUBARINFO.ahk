@@ -36,7 +36,7 @@ class MENUBARINFO extends Win32Struct
     rcBar{
         get {
             if(!this.HasProp("__rcBar"))
-                this.__rcBar := RECT(this.ptr + 8)
+                this.__rcBar := RECT(8, this)
             return this.__rcBar
         }
     }
@@ -50,7 +50,7 @@ class MENUBARINFO extends Win32Struct
     hMenu{
         get {
             if(!this.HasProp("__hMenu"))
-                this.__hMenu := HMENU(this.ptr + 24)
+                this.__hMenu := HMENU(24, this)
             return this.__hMenu
         }
     }
@@ -64,7 +64,7 @@ class MENUBARINFO extends Win32Struct
     hwndMenu{
         get {
             if(!this.HasProp("__hwndMenu"))
-                this.__hwndMenu := HWND(this.ptr + 32)
+                this.__hwndMenu := HWND(32, this)
             return this.__hwndMenu
         }
     }
@@ -111,12 +111,8 @@ class MENUBARINFO extends Win32Struct
         set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

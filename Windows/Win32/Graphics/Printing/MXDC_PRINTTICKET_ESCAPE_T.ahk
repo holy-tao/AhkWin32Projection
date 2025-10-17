@@ -19,7 +19,7 @@ class MXDC_PRINTTICKET_ESCAPE_T extends Win32Struct
     mxdcEscape{
         get {
             if(!this.HasProp("__mxdcEscape"))
-                this.__mxdcEscape := MXDC_ESCAPE_HEADER_T(this.ptr + 0)
+                this.__mxdcEscape := MXDC_ESCAPE_HEADER_T(0, this)
             return this.__mxdcEscape
         }
     }
@@ -30,7 +30,7 @@ class MXDC_PRINTTICKET_ESCAPE_T extends Win32Struct
     printTicketData{
         get {
             if(!this.HasProp("__printTicketData"))
-                this.__printTicketData := MXDC_PRINTTICKET_DATA_T(this.ptr + 16)
+                this.__printTicketData := MXDC_PRINTTICKET_DATA_T(16, this)
             return this.__printTicketData
         }
     }

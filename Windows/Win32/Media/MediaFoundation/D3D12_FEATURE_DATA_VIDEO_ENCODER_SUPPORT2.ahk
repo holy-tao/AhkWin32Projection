@@ -8,7 +8,6 @@
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIDEO_ENCODER_QPMAP_CONFIGURATION.ahk
 #Include .\D3D12_VIDEO_ENCODER_DIRTY_REGIONS_CONFIGURATION.ahk
 #Include .\D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION.ahk
@@ -54,7 +53,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 extends Win32Struct
     CodecConfiguration{
         get {
             if(!this.HasProp("__CodecConfiguration"))
-                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(this.ptr + 16)
+                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(16, this)
             return this.__CodecConfiguration
         }
     }
@@ -65,7 +64,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 extends Win32Struct
     CodecGopSequence{
         get {
             if(!this.HasProp("__CodecGopSequence"))
-                this.__CodecGopSequence := D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(this.ptr + 32)
+                this.__CodecGopSequence := D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(32, this)
             return this.__CodecGopSequence
         }
     }
@@ -76,7 +75,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 extends Win32Struct
     RateControl{
         get {
             if(!this.HasProp("__RateControl"))
-                this.__RateControl := D3D12_VIDEO_ENCODER_RATE_CONTROL(this.ptr + 48)
+                this.__RateControl := D3D12_VIDEO_ENCODER_RATE_CONTROL(48, this)
             return this.__RateControl
         }
     }
@@ -143,7 +142,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 extends Win32Struct
     SuggestedProfile{
         get {
             if(!this.HasProp("__SuggestedProfile"))
-                this.__SuggestedProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 120)
+                this.__SuggestedProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(120, this)
             return this.__SuggestedProfile
         }
     }
@@ -154,7 +153,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 extends Win32Struct
     SuggestedLevel{
         get {
             if(!this.HasProp("__SuggestedLevel"))
-                this.__SuggestedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(this.ptr + 136)
+                this.__SuggestedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(136, this)
             return this.__SuggestedLevel
         }
     }
@@ -173,7 +172,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 extends Win32Struct
     SubregionFrameEncodingData{
         get {
             if(!this.HasProp("__SubregionFrameEncodingData"))
-                this.__SubregionFrameEncodingData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(this.ptr + 160)
+                this.__SubregionFrameEncodingData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(160, this)
             return this.__SubregionFrameEncodingData
         }
     }
@@ -192,7 +191,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 extends Win32Struct
     QPMap{
         get {
             if(!this.HasProp("__QPMap"))
-                this.__QPMap := D3D12_VIDEO_ENCODER_QPMAP_CONFIGURATION(this.ptr + 184)
+                this.__QPMap := D3D12_VIDEO_ENCODER_QPMAP_CONFIGURATION(184, this)
             return this.__QPMap
         }
     }
@@ -203,7 +202,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 extends Win32Struct
     DirtyRegions{
         get {
             if(!this.HasProp("__DirtyRegions"))
-                this.__DirtyRegions := D3D12_VIDEO_ENCODER_DIRTY_REGIONS_CONFIGURATION(this.ptr + 192)
+                this.__DirtyRegions := D3D12_VIDEO_ENCODER_DIRTY_REGIONS_CONFIGURATION(192, this)
             return this.__DirtyRegions
         }
     }
@@ -214,7 +213,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 extends Win32Struct
     MotionSearch{
         get {
             if(!this.HasProp("__MotionSearch"))
-                this.__MotionSearch := D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION(this.ptr + 208)
+                this.__MotionSearch := D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION(208, this)
             return this.__MotionSearch
         }
     }
@@ -225,7 +224,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT2 extends Win32Struct
     FrameAnalysis{
         get {
             if(!this.HasProp("__FrameAnalysis"))
-                this.__FrameAnalysis := D3D12_VIDEO_ENCODER_FRAME_ANALYSIS_CONFIGURATION(this.ptr + 224)
+                this.__FrameAnalysis := D3D12_VIDEO_ENCODER_FRAME_ANALYSIS_CONFIGURATION(224, this)
             return this.__FrameAnalysis
         }
     }

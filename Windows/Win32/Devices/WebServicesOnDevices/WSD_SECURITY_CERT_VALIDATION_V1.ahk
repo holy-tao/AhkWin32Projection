@@ -34,7 +34,7 @@ class WSD_SECURITY_CERT_VALIDATION_V1 extends Win32Struct
     hCertMatchStore{
         get {
             if(!this.HasProp("__hCertMatchStore"))
-                this.__hCertMatchStore := HCERTSTORE(this.ptr + 16)
+                this.__hCertMatchStore := HCERTSTORE(16, this)
             return this.__hCertMatchStore
         }
     }
@@ -45,7 +45,7 @@ class WSD_SECURITY_CERT_VALIDATION_V1 extends Win32Struct
     hCertIssuerStore{
         get {
             if(!this.HasProp("__hCertIssuerStore"))
-                this.__hCertIssuerStore := HCERTSTORE(this.ptr + 24)
+                this.__hCertIssuerStore := HCERTSTORE(24, this)
             return this.__hCertIssuerStore
         }
     }

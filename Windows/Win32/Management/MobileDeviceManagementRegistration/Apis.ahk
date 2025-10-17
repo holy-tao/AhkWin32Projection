@@ -433,7 +433,7 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static SetManagedExternally(IsManagedExternally) {
-        result := DllCall("MDMRegistration.dll\SetManagedExternally", "ptr", IsManagedExternally, "int")
+        result := DllCall("MDMRegistration.dll\SetManagedExternally", "int", IsManagedExternally, "int")
         if(result != 0)
             throw OSError(result)
 

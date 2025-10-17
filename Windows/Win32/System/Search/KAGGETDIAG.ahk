@@ -1,10 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\CHAR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Variant\VARIANT.ahk
 
@@ -32,7 +29,7 @@ class KAGGETDIAG extends Win32Struct
     vDiagInfo{
         get {
             if(!this.HasProp("__vDiagInfo"))
-                this.__vDiagInfo := VARIANT(this.ptr + 8)
+                this.__vDiagInfo := VARIANT(8, this)
             return this.__vDiagInfo
         }
     }

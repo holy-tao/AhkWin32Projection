@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -38,7 +37,7 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     dot11SSID{
         get {
             if(!this.HasProp("__dot11SSID"))
-                this.__dot11SSID := DOT11_SSID(this.ptr + 16)
+                this.__dot11SSID := DOT11_SSID(16, this)
             return this.__dot11SSID
         }
     }
@@ -54,23 +53,17 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bRestrictedScan{
-        get {
-            if(!this.HasProp("__bRestrictedScan"))
-                this.__bRestrictedScan := BOOLEAN(this.ptr + 56)
-            return this.__bRestrictedScan
-        }
+    bRestrictedScan {
+        get => NumGet(this, 56, "char")
+        set => NumPut("char", value, this, 56)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bUseRequestIE{
-        get {
-            if(!this.HasProp("__bUseRequestIE"))
-                this.__bUseRequestIE := BOOLEAN(this.ptr + 57)
-            return this.__bUseRequestIE
-        }
+    bUseRequestIE {
+        get => NumGet(this, 57, "char")
+        set => NumPut("char", value, this, 57)
     }
 
     /**

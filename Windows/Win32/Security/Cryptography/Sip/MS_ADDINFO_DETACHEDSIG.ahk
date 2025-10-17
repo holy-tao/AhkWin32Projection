@@ -26,7 +26,7 @@ class MS_ADDINFO_DETACHEDSIG extends Win32Struct
     hSignatureFile{
         get {
             if(!this.HasProp("__hSignatureFile"))
-                this.__hSignatureFile := HANDLE(this.ptr + 8)
+                this.__hSignatureFile := HANDLE(8, this)
             return this.__hSignatureFile
         }
     }

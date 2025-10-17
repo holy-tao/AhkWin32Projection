@@ -26,7 +26,7 @@ class HTHREAD_NETWORK_CONTEXT extends Win32Struct
     ThreadContext{
         get {
             if(!this.HasProp("__ThreadContext"))
-                this.__ThreadContext := HANDLE(this.ptr + 8)
+                this.__ThreadContext := HANDLE(8, this)
             return this.__ThreadContext
         }
     }

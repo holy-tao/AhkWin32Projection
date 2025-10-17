@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the automagic hints for a LUN or LUN plex.
@@ -226,12 +225,9 @@ class VDS_HINTS extends Win32Struct
      *       flag in the <b>ullHintMask</b> member to indicate interest in this member.
      * @type {BOOL}
      */
-    bFastCrashRecoveryRequired{
-        get {
-            if(!this.HasProp("__bFastCrashRecoveryRequired"))
-                this.__bFastCrashRecoveryRequired := BOOL(this.ptr + 40)
-            return this.__bFastCrashRecoveryRequired
-        }
+    bFastCrashRecoveryRequired {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -240,12 +236,9 @@ class VDS_HINTS extends Win32Struct
      *       the <b>ullHintMask</b> member to indicate interest in this member.
      * @type {BOOL}
      */
-    bMostlyReads{
-        get {
-            if(!this.HasProp("__bMostlyReads"))
-                this.__bMostlyReads := BOOL(this.ptr + 44)
-            return this.__bMostlyReads
-        }
+    bMostlyReads {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -256,12 +249,9 @@ class VDS_HINTS extends Win32Struct
      *       the <b>ullHintMask</b> member to indicate interest in this member.
      * @type {BOOL}
      */
-    bOptimizeForSequentialReads{
-        get {
-            if(!this.HasProp("__bOptimizeForSequentialReads"))
-                this.__bOptimizeForSequentialReads := BOOL(this.ptr + 48)
-            return this.__bOptimizeForSequentialReads
-        }
+    bOptimizeForSequentialReads {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -272,12 +262,9 @@ class VDS_HINTS extends Win32Struct
      *       the <b>ullHintMask</b> member to indicate interest in this member.
      * @type {BOOL}
      */
-    bOptimizeForSequentialWrites{
-        get {
-            if(!this.HasProp("__bOptimizeForSequentialWrites"))
-                this.__bOptimizeForSequentialWrites := BOOL(this.ptr + 52)
-            return this.__bOptimizeForSequentialWrites
-        }
+    bOptimizeForSequentialWrites {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -287,12 +274,9 @@ class VDS_HINTS extends Win32Struct
      *       the <b>ullHintMask</b> member to indicate interest in this member.
      * @type {BOOL}
      */
-    bRemapEnabled{
-        get {
-            if(!this.HasProp("__bRemapEnabled"))
-                this.__bRemapEnabled := BOOL(this.ptr + 56)
-            return this.__bRemapEnabled
-        }
+    bRemapEnabled {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -301,12 +285,9 @@ class VDS_HINTS extends Win32Struct
      *       the <b>ullHintMask</b> member to indicate interest in this member.
      * @type {BOOL}
      */
-    bReadBackVerifyEnabled{
-        get {
-            if(!this.HasProp("__bReadBackVerifyEnabled"))
-                this.__bReadBackVerifyEnabled := BOOL(this.ptr + 60)
-            return this.__bReadBackVerifyEnabled
-        }
+    bReadBackVerifyEnabled {
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 
     /**
@@ -315,12 +296,9 @@ class VDS_HINTS extends Win32Struct
      *       the <b>ullHintMask</b> member to indicate interest in this member.
      * @type {BOOL}
      */
-    bWriteThroughCachingEnabled{
-        get {
-            if(!this.HasProp("__bWriteThroughCachingEnabled"))
-                this.__bWriteThroughCachingEnabled := BOOL(this.ptr + 64)
-            return this.__bWriteThroughCachingEnabled
-        }
+    bWriteThroughCachingEnabled {
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
@@ -329,12 +307,9 @@ class VDS_HINTS extends Win32Struct
      *       the <b>ullHintMask</b> member to indicate interest in this member.
      * @type {BOOL}
      */
-    bHardwareChecksumEnabled{
-        get {
-            if(!this.HasProp("__bHardwareChecksumEnabled"))
-                this.__bHardwareChecksumEnabled := BOOL(this.ptr + 68)
-            return this.__bHardwareChecksumEnabled
-        }
+    bHardwareChecksumEnabled {
+        get => NumGet(this, 68, "int")
+        set => NumPut("int", value, this, 68)
     }
 
     /**
@@ -345,12 +320,9 @@ class VDS_HINTS extends Win32Struct
      *       interest in this member.
      * @type {BOOL}
      */
-    bIsYankable{
-        get {
-            if(!this.HasProp("__bIsYankable"))
-                this.__bIsYankable := BOOL(this.ptr + 72)
-            return this.__bIsYankable
-        }
+    bIsYankable {
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_GROUP_PROPERTIES structure contains data about the membership policy of a peer group.
@@ -36,72 +35,54 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
      * Specifies the name of the   Peer Name Resolution Protocol (PNRP) cloud that  a peer group participates in. The default value is "global", if this member is <b>NULL</b>.
      * @type {PWSTR}
      */
-    pwzCloud{
-        get {
-            if(!this.HasProp("__pwzCloud"))
-                this.__pwzCloud := PWSTR(this.ptr + 8)
-            return this.__pwzCloud
-        }
+    pwzCloud {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Specifies the classifier used to  identify the authority of a peer group peer name for registration or resolution within a PNRP cloud. The maximum size of this field is 149 Unicode characters. This member can be <b>NULL</b>.
      * @type {PWSTR}
      */
-    pwzClassifier{
-        get {
-            if(!this.HasProp("__pwzClassifier"))
-                this.__pwzClassifier := PWSTR(this.ptr + 16)
-            return this.__pwzClassifier
-        }
+    pwzClassifier {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Specifies the name of a peer group that is registered with the PNRP service. The maximum size of this field is 137 Unicode characters.
      * @type {PWSTR}
      */
-    pwzGroupPeerName{
-        get {
-            if(!this.HasProp("__pwzGroupPeerName"))
-                this.__pwzGroupPeerName := PWSTR(this.ptr + 24)
-            return this.__pwzGroupPeerName
-        }
+    pwzGroupPeerName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Specifies the  peer name associated with the Peer group creator. The maximum size of this field is 137 Unicode characters. If this structure member is <b>NULL</b>, the implementation uses the identity obtained from <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peeridentitygetdefault">PeerIdentityGetDefault</a>.
      * @type {PWSTR}
      */
-    pwzCreatorPeerName{
-        get {
-            if(!this.HasProp("__pwzCreatorPeerName"))
-                this.__pwzCreatorPeerName := PWSTR(this.ptr + 32)
-            return this.__pwzCreatorPeerName
-        }
+    pwzCreatorPeerName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Specifies the friendly (display) name of a peer group. The maximum size of this field is 255 characters.
      * @type {PWSTR}
      */
-    pwzFriendlyName{
-        get {
-            if(!this.HasProp("__pwzFriendlyName"))
-                this.__pwzFriendlyName := PWSTR(this.ptr + 40)
-            return this.__pwzFriendlyName
-        }
+    pwzFriendlyName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Contains a comment used to describe a peer group. The maximum size of this field is 255 characters.
      * @type {PWSTR}
      */
-    pwzComment{
-        get {
-            if(!this.HasProp("__pwzComment"))
-                this.__pwzComment := PWSTR(this.ptr + 48)
-            return this.__pwzComment
-        }
+    pwzComment {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -137,12 +118,9 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
      * <b>Windows Vista or later.</b> Pointer to a Unicode string that contains the password used to authenticate peers attempting to join the peer group.
      * @type {PWSTR}
      */
-    pwzGroupPassword{
-        get {
-            if(!this.HasProp("__pwzGroupPassword"))
-                this.__pwzGroupPassword := PWSTR(this.ptr + 72)
-            return this.__pwzGroupPassword
-        }
+    pwzGroupPassword {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

@@ -386,7 +386,7 @@ class DEVINFO extends Win32Struct
     lfDefaultFont{
         get {
             if(!this.HasProp("__lfDefaultFont"))
-                this.__lfDefaultFont := LOGFONTW(this.ptr + 8)
+                this.__lfDefaultFont := LOGFONTW(8, this)
             return this.__lfDefaultFont
         }
     }
@@ -398,7 +398,7 @@ class DEVINFO extends Win32Struct
     lfAnsiVarFont{
         get {
             if(!this.HasProp("__lfAnsiVarFont"))
-                this.__lfAnsiVarFont := LOGFONTW(this.ptr + 104)
+                this.__lfAnsiVarFont := LOGFONTW(104, this)
             return this.__lfAnsiVarFont
         }
     }
@@ -410,7 +410,7 @@ class DEVINFO extends Win32Struct
     lfAnsiFixFont{
         get {
             if(!this.HasProp("__lfAnsiFixFont"))
-                this.__lfAnsiFixFont := LOGFONTW(this.ptr + 200)
+                this.__lfAnsiFixFont := LOGFONTW(200, this)
             return this.__lfAnsiFixFont
         }
     }
@@ -458,7 +458,7 @@ class DEVINFO extends Win32Struct
     hpalDefault{
         get {
             if(!this.HasProp("__hpalDefault"))
-                this.__hpalDefault := HPALETTE(this.ptr + 304)
+                this.__hpalDefault := HPALETTE(304, this)
             return this.__hpalDefault
         }
     }

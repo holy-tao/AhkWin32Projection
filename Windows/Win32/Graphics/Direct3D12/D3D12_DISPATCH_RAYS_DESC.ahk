@@ -26,7 +26,7 @@ class D3D12_DISPATCH_RAYS_DESC extends Win32Struct
     RayGenerationShaderRecord{
         get {
             if(!this.HasProp("__RayGenerationShaderRecord"))
-                this.__RayGenerationShaderRecord := D3D12_GPU_VIRTUAL_ADDRESS_RANGE(this.ptr + 0)
+                this.__RayGenerationShaderRecord := D3D12_GPU_VIRTUAL_ADDRESS_RANGE(0, this)
             return this.__RayGenerationShaderRecord
         }
     }
@@ -44,7 +44,7 @@ class D3D12_DISPATCH_RAYS_DESC extends Win32Struct
     MissShaderTable{
         get {
             if(!this.HasProp("__MissShaderTable"))
-                this.__MissShaderTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(this.ptr + 16)
+                this.__MissShaderTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(16, this)
             return this.__MissShaderTable
         }
     }
@@ -62,7 +62,7 @@ class D3D12_DISPATCH_RAYS_DESC extends Win32Struct
     HitGroupTable{
         get {
             if(!this.HasProp("__HitGroupTable"))
-                this.__HitGroupTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(this.ptr + 40)
+                this.__HitGroupTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(40, this)
             return this.__HitGroupTable
         }
     }
@@ -80,7 +80,7 @@ class D3D12_DISPATCH_RAYS_DESC extends Win32Struct
     CallableShaderTable{
         get {
             if(!this.HasProp("__CallableShaderTable"))
-                this.__CallableShaderTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(this.ptr + 64)
+                this.__CallableShaderTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(64, this)
             return this.__CallableShaderTable
         }
     }

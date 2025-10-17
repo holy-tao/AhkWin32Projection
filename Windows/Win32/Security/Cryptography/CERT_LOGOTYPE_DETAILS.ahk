@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains additional information about a logotype.
@@ -18,12 +17,9 @@ class CERT_LOGOTYPE_DETAILS extends Win32Struct
      * The address of a null-terminated Unicode string that contains the Multipurpose Internet Mail Extensions (MIME) type of the logotype.
      * @type {PWSTR}
      */
-    pwszMimeType{
-        get {
-            if(!this.HasProp("__pwszMimeType"))
-                this.__pwszMimeType := PWSTR(this.ptr + 0)
-            return this.__pwszMimeType
-        }
+    pwszMimeType {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

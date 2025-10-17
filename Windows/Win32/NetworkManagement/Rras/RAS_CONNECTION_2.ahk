@@ -28,7 +28,7 @@ class RAS_CONNECTION_2 extends Win32Struct
     hConnection{
         get {
             if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(this.ptr + 0)
+                this.__hConnection := HANDLE(0, this)
             return this.__hConnection
         }
     }
@@ -68,7 +68,7 @@ class RAS_CONNECTION_2 extends Win32Struct
     PppInfo2{
         get {
             if(!this.HasProp("__PppInfo2"))
-                this.__PppInfo2 := PPP_INFO_2(this.ptr + 536)
+                this.__PppInfo2 := PPP_INFO_2(536, this)
             return this.__PppInfo2
         }
     }

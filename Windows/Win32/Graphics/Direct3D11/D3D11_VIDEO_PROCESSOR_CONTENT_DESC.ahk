@@ -30,7 +30,7 @@ class D3D11_VIDEO_PROCESSOR_CONTENT_DESC extends Win32Struct
     InputFrameRate{
         get {
             if(!this.HasProp("__InputFrameRate"))
-                this.__InputFrameRate := DXGI_RATIONAL(this.ptr + 8)
+                this.__InputFrameRate := DXGI_RATIONAL(8, this)
             return this.__InputFrameRate
         }
     }
@@ -60,7 +60,7 @@ class D3D11_VIDEO_PROCESSOR_CONTENT_DESC extends Win32Struct
     OutputFrameRate{
         get {
             if(!this.HasProp("__OutputFrameRate"))
-                this.__OutputFrameRate := DXGI_RATIONAL(this.ptr + 24)
+                this.__OutputFrameRate := DXGI_RATIONAL(24, this)
             return this.__OutputFrameRate
         }
     }

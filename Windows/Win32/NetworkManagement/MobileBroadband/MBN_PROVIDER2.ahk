@@ -22,7 +22,7 @@ class MBN_PROVIDER2 extends Win32Struct
     provider{
         get {
             if(!this.HasProp("__provider"))
-                this.__provider := MBN_PROVIDER(this.ptr + 0)
+                this.__provider := MBN_PROVIDER(0, this)
             return this.__provider
         }
     }

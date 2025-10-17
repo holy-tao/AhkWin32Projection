@@ -38,7 +38,7 @@ class D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC extends Win32Struct
     Texture2D{
         get {
             if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D11_TEX2D_VDOV(this.ptr + 12)
+                this.__Texture2D := D3D11_TEX2D_VDOV(12, this)
             return this.__Texture2D
         }
     }

@@ -24,7 +24,7 @@ class NMTOOLTIPSCREATED extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -38,7 +38,7 @@ class NMTOOLTIPSCREATED extends Win32Struct
     hwndToolTips{
         get {
             if(!this.HasProp("__hwndToolTips"))
-                this.__hwndToolTips := HWND(this.ptr + 24)
+                this.__hwndToolTips := HWND(24, this)
             return this.__hwndToolTips
         }
     }

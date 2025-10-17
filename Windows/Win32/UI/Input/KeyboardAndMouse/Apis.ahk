@@ -691,7 +691,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static _TrackMouseEvent(lpEventTrack) {
-        result := DllCall("COMCTL32.dll\_TrackMouseEvent", "ptr", lpEventTrack, "ptr")
+        result := DllCall("COMCTL32.dll\_TrackMouseEvent", "ptr", lpEventTrack, "int")
         return result
     }
 
@@ -899,7 +899,7 @@ class KeyboardAndMouse {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnloadKeyboardLayout", "ptr", hkl, "ptr")
+        result := DllCall("USER32.dll\UnloadKeyboardLayout", "ptr", hkl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -924,7 +924,7 @@ class KeyboardAndMouse {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetKeyboardLayoutNameA", "ptr", pwszKLID, "ptr")
+        result := DllCall("USER32.dll\GetKeyboardLayoutNameA", "ptr", pwszKLID, "int")
         if(A_LastError)
             throw OSError()
 
@@ -949,7 +949,7 @@ class KeyboardAndMouse {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetKeyboardLayoutNameW", "ptr", pwszKLID, "ptr")
+        result := DllCall("USER32.dll\GetKeyboardLayoutNameW", "ptr", pwszKLID, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1056,7 +1056,7 @@ class KeyboardAndMouse {
     static TrackMouseEvent(lpEventTrack) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\TrackMouseEvent", "ptr", lpEventTrack, "ptr")
+        result := DllCall("USER32.dll\TrackMouseEvent", "ptr", lpEventTrack, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1090,7 +1090,7 @@ class KeyboardAndMouse {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterHotKey", "ptr", hWnd, "int", id, "uint", fsModifiers, "uint", vk, "ptr")
+        result := DllCall("USER32.dll\RegisterHotKey", "ptr", hWnd, "int", id, "uint", fsModifiers, "uint", vk, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1118,7 +1118,7 @@ class KeyboardAndMouse {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterHotKey", "ptr", hWnd, "int", id, "ptr")
+        result := DllCall("USER32.dll\UnregisterHotKey", "ptr", hWnd, "int", id, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1139,7 +1139,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static SwapMouseButton(fSwap) {
-        result := DllCall("USER32.dll\SwapMouseButton", "ptr", fSwap, "ptr")
+        result := DllCall("USER32.dll\SwapMouseButton", "int", fSwap, "int")
         return result
     }
 
@@ -1170,7 +1170,7 @@ class KeyboardAndMouse {
     static SetDoubleClickTime(param0) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetDoubleClickTime", "uint", param0, "ptr")
+        result := DllCall("USER32.dll\SetDoubleClickTime", "uint", param0, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1306,7 +1306,7 @@ class KeyboardAndMouse {
     static GetKeyboardState(lpKeyState) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetKeyboardState", "char*", lpKeyState, "ptr")
+        result := DllCall("USER32.dll\GetKeyboardState", "char*", lpKeyState, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1329,7 +1329,7 @@ class KeyboardAndMouse {
     static SetKeyboardState(lpKeyState) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetKeyboardState", "char*", lpKeyState, "ptr")
+        result := DllCall("USER32.dll\SetKeyboardState", "char*", lpKeyState, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1918,7 +1918,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static VkKeyScanA(ch) {
-        result := DllCall("USER32.dll\VkKeyScanA", "ptr", ch, "short")
+        result := DllCall("USER32.dll\VkKeyScanA", "char", ch, "short")
         return result
     }
 
@@ -2109,7 +2109,7 @@ class KeyboardAndMouse {
     static VkKeyScanExA(ch, dwhkl) {
         dwhkl := dwhkl is Win32Handle ? NumGet(dwhkl, "ptr") : dwhkl
 
-        result := DllCall("USER32.dll\VkKeyScanExA", "ptr", ch, "ptr", dwhkl, "short")
+        result := DllCall("USER32.dll\VkKeyScanExA", "char", ch, "ptr", dwhkl, "short")
         return result
     }
 
@@ -2371,7 +2371,7 @@ class KeyboardAndMouse {
      * @since windows5.0
      */
     static GetLastInputInfo(plii) {
-        result := DllCall("USER32.dll\GetLastInputInfo", "ptr", plii, "ptr")
+        result := DllCall("USER32.dll\GetLastInputInfo", "ptr", plii, "int")
         return result
     }
 
@@ -2545,7 +2545,7 @@ class KeyboardAndMouse {
     static ReleaseCapture() {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ReleaseCapture", "ptr")
+        result := DllCall("USER32.dll\ReleaseCapture", "int")
         if(A_LastError)
             throw OSError()
 
@@ -2571,7 +2571,7 @@ class KeyboardAndMouse {
     static EnableWindow(hWnd, bEnable) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\EnableWindow", "ptr", hWnd, "ptr", bEnable, "ptr")
+        result := DllCall("USER32.dll\EnableWindow", "ptr", hWnd, "int", bEnable, "int")
         return result
     }
 
@@ -2591,7 +2591,7 @@ class KeyboardAndMouse {
     static IsWindowEnabled(hWnd) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\IsWindowEnabled", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\IsWindowEnabled", "ptr", hWnd, "int")
         return result
     }
 
@@ -2614,7 +2614,7 @@ class KeyboardAndMouse {
     static DragDetect(hwnd, pt) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("USER32.dll\DragDetect", "ptr", hwnd, "ptr", pt, "ptr")
+        result := DllCall("USER32.dll\DragDetect", "ptr", hwnd, "ptr", pt, "int")
         return result
     }
 
@@ -2659,7 +2659,7 @@ class KeyboardAndMouse {
     static BlockInput(fBlockIt) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BlockInput", "ptr", fBlockIt, "ptr")
+        result := DllCall("USER32.dll\BlockInput", "int", fBlockIt, "int")
         if(A_LastError)
             throw OSError()
 

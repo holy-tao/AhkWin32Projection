@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 #Include .\LSA_STRING.ahk
 
 /**
@@ -34,7 +32,7 @@ class MSV1_0_SUBAUTH_LOGON extends Win32Struct
     LogonDomainName{
         get {
             if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__LogonDomainName := LSA_UNICODE_STRING(8, this)
             return this.__LogonDomainName
         }
     }
@@ -46,7 +44,7 @@ class MSV1_0_SUBAUTH_LOGON extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__UserName := LSA_UNICODE_STRING(24, this)
             return this.__UserName
         }
     }
@@ -58,7 +56,7 @@ class MSV1_0_SUBAUTH_LOGON extends Win32Struct
     Workstation{
         get {
             if(!this.HasProp("__Workstation"))
-                this.__Workstation := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__Workstation := LSA_UNICODE_STRING(40, this)
             return this.__Workstation
         }
     }
@@ -84,7 +82,7 @@ class MSV1_0_SUBAUTH_LOGON extends Win32Struct
     AuthenticationInfo1{
         get {
             if(!this.HasProp("__AuthenticationInfo1"))
-                this.__AuthenticationInfo1 := LSA_STRING(this.ptr + 64)
+                this.__AuthenticationInfo1 := LSA_STRING(64, this)
             return this.__AuthenticationInfo1
         }
     }
@@ -96,7 +94,7 @@ class MSV1_0_SUBAUTH_LOGON extends Win32Struct
     AuthenticationInfo2{
         get {
             if(!this.HasProp("__AuthenticationInfo2"))
-                this.__AuthenticationInfo2 := LSA_STRING(this.ptr + 80)
+                this.__AuthenticationInfo2 := LSA_STRING(80, this)
             return this.__AuthenticationInfo2
         }
     }

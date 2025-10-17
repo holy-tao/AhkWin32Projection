@@ -26,7 +26,7 @@ class JET_OBJECTLIST extends Win32Struct
     tableid{
         get {
             if(!this.HasProp("__tableid"))
-                this.__tableid := JET_TABLEID(this.ptr + 8)
+                this.__tableid := JET_TABLEID(8, this)
             return this.__tableid
         }
     }

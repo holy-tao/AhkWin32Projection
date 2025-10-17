@@ -3000,7 +3000,7 @@ class WindowsProgramming {
     static IsApiSetImplemented(Contract) {
         Contract := Contract is String ? StrPtr(Contract) : Contract
 
-        result := DllCall("api-ms-win-core-apiquery-l2-1-0.dll\IsApiSetImplemented", "ptr", Contract, "ptr")
+        result := DllCall("api-ms-win-core-apiquery-l2-1-0.dll\IsApiSetImplemented", "ptr", Contract, "int")
         return result
     }
 
@@ -3021,7 +3021,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryThreadCycleTime", "ptr", ThreadHandle, "uint*", CycleTime, "ptr")
+        result := DllCall("KERNEL32.dll\QueryThreadCycleTime", "ptr", ThreadHandle, "uint*", CycleTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3045,7 +3045,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryProcessCycleTime", "ptr", ProcessHandle, "uint*", CycleTime, "ptr")
+        result := DllCall("KERNEL32.dll\QueryProcessCycleTime", "ptr", ProcessHandle, "uint*", CycleTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3068,7 +3068,7 @@ class WindowsProgramming {
     static QueryIdleProcessorCycleTime(BufferLength, ProcessorIdleCycleTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTime", "uint*", BufferLength, "ptr", ProcessorIdleCycleTime, "ptr")
+        result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTime", "uint*", BufferLength, "ptr", ProcessorIdleCycleTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3089,7 +3089,7 @@ class WindowsProgramming {
      * @since windows6.1
      */
     static QueryIdleProcessorCycleTimeEx(Group, BufferLength, ProcessorIdleCycleTime) {
-        result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTimeEx", "ushort", Group, "uint*", BufferLength, "ptr", ProcessorIdleCycleTime, "ptr")
+        result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTimeEx", "ushort", Group, "uint*", BufferLength, "ptr", ProcessorIdleCycleTime, "int")
         return result
     }
 
@@ -3180,7 +3180,7 @@ class WindowsProgramming {
      * @since windows6.1
      */
     static QueryUnbiasedInterruptTime(UnbiasedTime) {
-        result := DllCall("KERNEL32.dll\QueryUnbiasedInterruptTime", "uint*", UnbiasedTime, "ptr")
+        result := DllCall("KERNEL32.dll\QueryUnbiasedInterruptTime", "uint*", UnbiasedTime, "int")
         return result
     }
 
@@ -3376,7 +3376,7 @@ class WindowsProgramming {
     static GlobalUnWire(hMem) {
         hMem := hMem is Win32Handle ? NumGet(hMem, "ptr") : hMem
 
-        result := DllCall("KERNEL32.dll\GlobalUnWire", "ptr", hMem, "ptr")
+        result := DllCall("KERNEL32.dll\GlobalUnWire", "ptr", hMem, "int")
         return result
     }
 
@@ -3411,7 +3411,7 @@ class WindowsProgramming {
     static SetEnvironmentStringsA(NewEnvironment) {
         NewEnvironment := NewEnvironment is String ? StrPtr(NewEnvironment) : NewEnvironment
 
-        result := DllCall("KERNEL32.dll\SetEnvironmentStringsA", "ptr", NewEnvironment, "ptr")
+        result := DllCall("KERNEL32.dll\SetEnvironmentStringsA", "ptr", NewEnvironment, "int")
         return result
     }
 
@@ -3434,7 +3434,7 @@ class WindowsProgramming {
     static RequestDeviceWakeup(hDevice) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("KERNEL32.dll\RequestDeviceWakeup", "ptr", hDevice, "ptr")
+        result := DllCall("KERNEL32.dll\RequestDeviceWakeup", "ptr", hDevice, "int")
         return result
     }
 
@@ -3446,7 +3446,7 @@ class WindowsProgramming {
     static CancelDeviceWakeupRequest(hDevice) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("KERNEL32.dll\CancelDeviceWakeupRequest", "ptr", hDevice, "ptr")
+        result := DllCall("KERNEL32.dll\CancelDeviceWakeupRequest", "ptr", hDevice, "int")
         return result
     }
 
@@ -3459,7 +3459,7 @@ class WindowsProgramming {
     static SetMessageWaitingIndicator(hMsgIndicator, ulMsgCount) {
         hMsgIndicator := hMsgIndicator is Win32Handle ? NumGet(hMsgIndicator, "ptr") : hMsgIndicator
 
-        result := DllCall("KERNEL32.dll\SetMessageWaitingIndicator", "ptr", hMsgIndicator, "uint", ulMsgCount, "ptr")
+        result := DllCall("KERNEL32.dll\SetMessageWaitingIndicator", "ptr", hMsgIndicator, "uint", ulMsgCount, "int")
         return result
     }
 
@@ -3492,7 +3492,7 @@ class WindowsProgramming {
     static GetSystemRegistryQuota(pdwQuotaAllowed, pdwQuotaUsed) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemRegistryQuota", "uint*", pdwQuotaAllowed, "uint*", pdwQuotaUsed, "ptr")
+        result := DllCall("KERNEL32.dll\GetSystemRegistryQuota", "uint*", pdwQuotaAllowed, "uint*", pdwQuotaUsed, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3557,7 +3557,7 @@ class WindowsProgramming {
     static FileTimeToDosDateTime(lpFileTime, lpFatDate, lpFatTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FileTimeToDosDateTime", "ptr", lpFileTime, "ushort*", lpFatDate, "ushort*", lpFatTime, "ptr")
+        result := DllCall("KERNEL32.dll\FileTimeToDosDateTime", "ptr", lpFileTime, "ushort*", lpFatDate, "ushort*", lpFatTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3622,7 +3622,7 @@ class WindowsProgramming {
     static DosDateTimeToFileTime(wFatDate, wFatTime, lpFileTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DosDateTimeToFileTime", "ushort", wFatDate, "ushort", wFatTime, "ptr", lpFileTime, "ptr")
+        result := DllCall("KERNEL32.dll\DosDateTimeToFileTime", "ushort", wFatDate, "ushort", wFatTime, "ptr", lpFileTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3756,7 +3756,7 @@ class WindowsProgramming {
     static OpenMutexA(dwDesiredAccess, bInheritHandle, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("KERNEL32.dll\OpenMutexA", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenMutexA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         return HANDLE({Value: result}, True)
     }
 
@@ -3770,7 +3770,7 @@ class WindowsProgramming {
     static OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("KERNEL32.dll\OpenSemaphoreA", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenSemaphoreA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         return HANDLE({Value: result}, True)
     }
 
@@ -3899,7 +3899,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "ptr")
+        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3925,7 +3925,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "ptr")
+        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4044,7 +4044,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, "ptr")
+        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4163,7 +4163,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, "ptr")
+        result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, "ptr", pValue, "uint", nSize, "uint", dwAttributes, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4183,7 +4183,7 @@ class WindowsProgramming {
     static IsNativeVhdBoot(NativeVhdBoot) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsNativeVhdBoot", "ptr", NativeVhdBoot, "ptr")
+        result := DllCall("KERNEL32.dll\IsNativeVhdBoot", "ptr", NativeVhdBoot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4307,7 +4307,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr")
+        result := DllCall("KERNEL32.dll\WriteProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4333,7 +4333,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr")
+        result := DllCall("KERNEL32.dll\WriteProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4405,7 +4405,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteProfileSectionA", "ptr", lpAppName, "ptr", lpString, "ptr")
+        result := DllCall("KERNEL32.dll\WriteProfileSectionA", "ptr", lpAppName, "ptr", lpString, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4431,7 +4431,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteProfileSectionW", "ptr", lpAppName, "ptr", lpString, "ptr")
+        result := DllCall("KERNEL32.dll\WriteProfileSectionW", "ptr", lpAppName, "ptr", lpString, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4583,7 +4583,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WritePrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, "ptr")
+        result := DllCall("KERNEL32.dll\WritePrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4613,7 +4613,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WritePrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, "ptr")
+        result := DllCall("KERNEL32.dll\WritePrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4685,7 +4685,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WritePrivateProfileSectionA", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, "ptr")
+        result := DllCall("KERNEL32.dll\WritePrivateProfileSectionA", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4713,7 +4713,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WritePrivateProfileSectionW", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, "ptr")
+        result := DllCall("KERNEL32.dll\WritePrivateProfileSectionW", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4772,7 +4772,7 @@ class WindowsProgramming {
         lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("KERNEL32.dll\GetPrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "ptr")
+        result := DllCall("KERNEL32.dll\GetPrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
         return result
     }
 
@@ -4794,7 +4794,7 @@ class WindowsProgramming {
         lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("KERNEL32.dll\GetPrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "ptr")
+        result := DllCall("KERNEL32.dll\GetPrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
         return result
     }
 
@@ -4821,7 +4821,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WritePrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "ptr")
+        result := DllCall("KERNEL32.dll\WritePrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4851,7 +4851,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WritePrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "ptr")
+        result := DllCall("KERNEL32.dll\WritePrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, "ptr", lpStruct, "uint", uSizeStruct, "ptr", szFile, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4865,7 +4865,7 @@ class WindowsProgramming {
      * @returns {BOOL} 
      */
     static IsBadHugeReadPtr(lp, ucb) {
-        result := DllCall("KERNEL32.dll\IsBadHugeReadPtr", "ptr", lp, "ptr", ucb, "ptr")
+        result := DllCall("KERNEL32.dll\IsBadHugeReadPtr", "ptr", lp, "ptr", ucb, "int")
         return result
     }
 
@@ -4876,7 +4876,7 @@ class WindowsProgramming {
      * @returns {BOOL} 
      */
     static IsBadHugeWritePtr(lp, ucb) {
-        result := DllCall("KERNEL32.dll\IsBadHugeWritePtr", "ptr", lp, "ptr", ucb, "ptr")
+        result := DllCall("KERNEL32.dll\IsBadHugeWritePtr", "ptr", lp, "ptr", ucb, "int")
         return result
     }
 
@@ -4901,7 +4901,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetComputerNameA", "ptr", lpBuffer, "uint*", nSize, "ptr")
+        result := DllCall("KERNEL32.dll\GetComputerNameA", "ptr", lpBuffer, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4929,7 +4929,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetComputerNameW", "ptr", lpBuffer, "uint*", nSize, "ptr")
+        result := DllCall("KERNEL32.dll\GetComputerNameW", "ptr", lpBuffer, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4977,7 +4977,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameA", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "ptr")
+        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameA", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5025,7 +5025,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameW", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "ptr")
+        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameW", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5053,7 +5053,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetUserNameA", "ptr", lpBuffer, "uint*", pcbBuffer, "ptr")
+        result := DllCall("ADVAPI32.dll\GetUserNameA", "ptr", lpBuffer, "uint*", pcbBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5081,7 +5081,7 @@ class WindowsProgramming {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetUserNameW", "ptr", lpBuffer, "uint*", pcbBuffer, "ptr")
+        result := DllCall("ADVAPI32.dll\GetUserNameW", "ptr", lpBuffer, "uint*", pcbBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5096,7 +5096,7 @@ class WindowsProgramming {
     static IsTokenUntrusted(TokenHandle) {
         TokenHandle := TokenHandle is Win32Handle ? NumGet(TokenHandle, "ptr") : TokenHandle
 
-        result := DllCall("ADVAPI32.dll\IsTokenUntrusted", "ptr", TokenHandle, "ptr")
+        result := DllCall("ADVAPI32.dll\IsTokenUntrusted", "ptr", TokenHandle, "int")
         return result
     }
 
@@ -5114,7 +5114,7 @@ class WindowsProgramming {
     static GetCurrentHwProfileA(lpHwProfileInfo) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetCurrentHwProfileA", "ptr", lpHwProfileInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\GetCurrentHwProfileA", "ptr", lpHwProfileInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5135,7 +5135,7 @@ class WindowsProgramming {
     static GetCurrentHwProfileW(lpHwProfileInfo) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetCurrentHwProfileW", "ptr", lpHwProfileInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\GetCurrentHwProfileW", "ptr", lpHwProfileInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5153,7 +5153,7 @@ class WindowsProgramming {
         TargetPartition := TargetPartition is String ? StrPtr(TargetPartition) : TargetPartition
         SparePartition := SparePartition is String ? StrPtr(SparePartition) : SparePartition
 
-        result := DllCall("KERNEL32.dll\ReplacePartitionUnit", "ptr", TargetPartition, "ptr", SparePartition, "uint", Flags, "ptr")
+        result := DllCall("KERNEL32.dll\ReplacePartitionUnit", "ptr", TargetPartition, "ptr", SparePartition, "uint", Flags, "int")
         return result
     }
 
@@ -5172,7 +5172,7 @@ class WindowsProgramming {
      * @returns {BOOL} 
      */
     static EnableProcessOptionalXStateFeatures(Features) {
-        result := DllCall("KERNEL32.dll\EnableProcessOptionalXStateFeatures", "uint", Features, "ptr")
+        result := DllCall("KERNEL32.dll\EnableProcessOptionalXStateFeatures", "uint", Features, "int")
         return result
     }
 
@@ -5201,7 +5201,7 @@ class WindowsProgramming {
      * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtlisnamelegaldos8dot3
      */
     static RtlIsNameLegalDOS8Dot3(Name, OemName, NameContainsSpaces) {
-        result := DllCall("ntdll.dll\RtlIsNameLegalDOS8Dot3", "ptr", Name, "ptr", OemName, "ptr", NameContainsSpaces, "ptr")
+        result := DllCall("ntdll.dll\RtlIsNameLegalDOS8Dot3", "ptr", Name, "ptr", OemName, "ptr", NameContainsSpaces, "char")
         return result
     }
 
@@ -5213,7 +5213,7 @@ class WindowsProgramming {
      * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtllocaltimetosystemtime
      */
     static RtlLocalTimeToSystemTime(LocalTime, SystemTime) {
-        result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", "int64*", LocalTime, "int64*", SystemTime, "ptr")
+        result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", "int64*", LocalTime, "int64*", SystemTime, "int")
         return result
     }
 
@@ -5225,7 +5225,7 @@ class WindowsProgramming {
      * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtltimetosecondssince1970
      */
     static RtlTimeToSecondsSince1970(Time, ElapsedSeconds) {
-        result := DllCall("ntdll.dll\RtlTimeToSecondsSince1970", "int64*", Time, "uint*", ElapsedSeconds, "ptr")
+        result := DllCall("ntdll.dll\RtlTimeToSecondsSince1970", "int64*", Time, "uint*", ElapsedSeconds, "char")
         return result
     }
 
@@ -5309,7 +5309,7 @@ class WindowsProgramming {
      * @returns {NTSTATUS} 
      */
     static RtlInitStringEx(DestinationString, SourceString) {
-        result := DllCall("ntdll.dll\RtlInitStringEx", "ptr", DestinationString, "char*", SourceString, "ptr")
+        result := DllCall("ntdll.dll\RtlInitStringEx", "ptr", DestinationString, "char*", SourceString, "int")
         return result
     }
 
@@ -5330,7 +5330,7 @@ class WindowsProgramming {
      * @returns {NTSTATUS} 
      */
     static RtlInitAnsiStringEx(DestinationString, SourceString) {
-        result := DllCall("ntdll.dll\RtlInitAnsiStringEx", "ptr", DestinationString, "char*", SourceString, "ptr")
+        result := DllCall("ntdll.dll\RtlInitAnsiStringEx", "ptr", DestinationString, "char*", SourceString, "int")
         return result
     }
 
@@ -5377,7 +5377,7 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static RtlAnsiStringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
-        result := DllCall("ntdll.dll\RtlAnsiStringToUnicodeString", "ptr", DestinationString, "ptr", SourceString, "ptr", AllocateDestinationString, "ptr")
+        result := DllCall("ntdll.dll\RtlAnsiStringToUnicodeString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
         return result
     }
 
@@ -5409,7 +5409,7 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static RtlUnicodeStringToAnsiString(DestinationString, SourceString, AllocateDestinationString) {
-        result := DllCall("ntdll.dll\RtlUnicodeStringToAnsiString", "ptr", DestinationString, "ptr", SourceString, "ptr", AllocateDestinationString, "ptr")
+        result := DllCall("ntdll.dll\RtlUnicodeStringToAnsiString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
         return result
     }
 
@@ -5443,7 +5443,7 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static RtlUnicodeStringToOemString(DestinationString, SourceString, AllocateDestinationString) {
-        result := DllCall("ntdll.dll\RtlUnicodeStringToOemString", "ptr", DestinationString, "ptr", SourceString, "ptr", AllocateDestinationString, "ptr")
+        result := DllCall("ntdll.dll\RtlUnicodeStringToOemString", "ptr", DestinationString, "ptr", SourceString, "char", AllocateDestinationString, "int")
         return result
     }
 
@@ -5474,7 +5474,7 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static RtlUnicodeToMultiByteSize(BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
-        result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", "uint*", BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "ptr")
+        result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", "uint*", BytesInMultiByteString, "ptr", UnicodeString, "uint", BytesInUnicodeString, "int")
         return result
     }
 
@@ -5490,7 +5490,7 @@ class WindowsProgramming {
      * @since windows5.0
      */
     static RtlCharToInteger(String, Base, Value) {
-        result := DllCall("ntdll.dll\RtlCharToInteger", "char*", String, "uint", Base, "uint*", Value, "ptr")
+        result := DllCall("ntdll.dll\RtlCharToInteger", "char*", String, "uint", Base, "uint*", Value, "int")
         return result
     }
 
@@ -5730,7 +5730,7 @@ class WindowsProgramming {
     static WinWatchDidStatusChange(hWW) {
         hWW := hWW is Win32Handle ? NumGet(hWW, "ptr") : hWW
 
-        result := DllCall("DCIMAN32.dll\WinWatchDidStatusChange", "ptr", hWW, "ptr")
+        result := DllCall("DCIMAN32.dll\WinWatchDidStatusChange", "ptr", hWW, "int")
         return result
     }
 
@@ -5772,7 +5772,7 @@ class WindowsProgramming {
     static WinWatchNotify(hWW, NotifyCallback, NotifyParam) {
         hWW := hWW is Win32Handle ? NumGet(hWW, "ptr") : hWW
 
-        result := DllCall("DCIMAN32.dll\WinWatchNotify", "ptr", hWW, "ptr", NotifyCallback, "ptr", NotifyParam, "ptr")
+        result := DllCall("DCIMAN32.dll\WinWatchNotify", "ptr", hWW, "ptr", NotifyCallback, "ptr", NotifyParam, "int")
         return result
     }
 
@@ -5923,7 +5923,7 @@ class WindowsProgramming {
      * @returns {BOOL} 
      */
     static NeedReboot(dwRebootCheck) {
-        result := DllCall("ADVPACK.dll\NeedReboot", "uint", dwRebootCheck, "ptr")
+        result := DllCall("ADVPACK.dll\NeedReboot", "uint", dwRebootCheck, "int")
         return result
     }
 
@@ -6470,7 +6470,7 @@ class WindowsProgramming {
     static GetVersionFromFileA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
 
-        result := DllCall("ADVPACK.dll\GetVersionFromFileA", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "ptr", bVersion, "int")
+        result := DllCall("ADVPACK.dll\GetVersionFromFileA", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6488,7 +6488,7 @@ class WindowsProgramming {
     static GetVersionFromFileW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
 
-        result := DllCall("ADVPACK.dll\GetVersionFromFileW", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "ptr", bVersion, "int")
+        result := DllCall("ADVPACK.dll\GetVersionFromFileW", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6506,7 +6506,7 @@ class WindowsProgramming {
     static GetVersionFromFileExA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
 
-        result := DllCall("ADVPACK.dll\GetVersionFromFileExA", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "ptr", bVersion, "int")
+        result := DllCall("ADVPACK.dll\GetVersionFromFileExA", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6524,7 +6524,7 @@ class WindowsProgramming {
     static GetVersionFromFileExW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
         lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
 
-        result := DllCall("ADVPACK.dll\GetVersionFromFileExW", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "ptr", bVersion, "int")
+        result := DllCall("ADVPACK.dll\GetVersionFromFileExW", "ptr", lpszFilename, "uint*", pdwMSVer, "uint*", pdwLSVer, "int", bVersion, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6538,7 +6538,7 @@ class WindowsProgramming {
      * @returns {BOOL} 
      */
     static IsNTAdmin(dwReserved, lpdwReserved) {
-        result := DllCall("ADVPACK.dll\IsNTAdmin", "uint", dwReserved, "uint*", lpdwReserved, "ptr")
+        result := DllCall("ADVPACK.dll\IsNTAdmin", "uint", dwReserved, "uint*", lpdwReserved, "int")
         return result
     }
 
@@ -7139,7 +7139,7 @@ class WindowsProgramming {
     static IMPGetIMEA(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("USER32.dll\IMPGetIMEA", "ptr", param0, "ptr", param1, "ptr")
+        result := DllCall("USER32.dll\IMPGetIMEA", "ptr", param0, "ptr", param1, "int")
         return result
     }
 
@@ -7152,7 +7152,7 @@ class WindowsProgramming {
     static IMPGetIMEW(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("USER32.dll\IMPGetIMEW", "ptr", param0, "ptr", param1, "ptr")
+        result := DllCall("USER32.dll\IMPGetIMEW", "ptr", param0, "ptr", param1, "int")
         return result
     }
 
@@ -7162,7 +7162,7 @@ class WindowsProgramming {
      * @returns {BOOL} 
      */
     static IMPQueryIMEA(param0) {
-        result := DllCall("USER32.dll\IMPQueryIMEA", "ptr", param0, "ptr")
+        result := DllCall("USER32.dll\IMPQueryIMEA", "ptr", param0, "int")
         return result
     }
 
@@ -7172,7 +7172,7 @@ class WindowsProgramming {
      * @returns {BOOL} 
      */
     static IMPQueryIMEW(param0) {
-        result := DllCall("USER32.dll\IMPQueryIMEW", "ptr", param0, "ptr")
+        result := DllCall("USER32.dll\IMPQueryIMEW", "ptr", param0, "int")
         return result
     }
 
@@ -7185,7 +7185,7 @@ class WindowsProgramming {
     static IMPSetIMEA(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("USER32.dll\IMPSetIMEA", "ptr", param0, "ptr", param1, "ptr")
+        result := DllCall("USER32.dll\IMPSetIMEA", "ptr", param0, "ptr", param1, "int")
         return result
     }
 
@@ -7198,7 +7198,7 @@ class WindowsProgramming {
     static IMPSetIMEW(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("USER32.dll\IMPSetIMEW", "ptr", param0, "ptr", param1, "ptr")
+        result := DllCall("USER32.dll\IMPSetIMEW", "ptr", param0, "ptr", param1, "int")
         return result
     }
 
@@ -7225,7 +7225,7 @@ class WindowsProgramming {
     static WINNLSEnableIME(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("USER32.dll\WINNLSEnableIME", "ptr", param0, "ptr", param1, "ptr")
+        result := DllCall("USER32.dll\WINNLSEnableIME", "ptr", param0, "int", param1, "int")
         return result
     }
 
@@ -7237,7 +7237,7 @@ class WindowsProgramming {
     static WINNLSGetEnableStatus(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("USER32.dll\WINNLSGetEnableStatus", "ptr", param0, "ptr")
+        result := DllCall("USER32.dll\WINNLSGetEnableStatus", "ptr", param0, "int")
         return result
     }
 
@@ -7250,7 +7250,7 @@ class WindowsProgramming {
      * @see https://docs.microsoft.com/windows/win32/api//appcompatapi/nf-appcompatapi-apphelpcheckshellobject
      */
     static ApphelpCheckShellObject(ObjectCLSID, bShimIfNecessary, pullFlags) {
-        result := DllCall("APPHELP.dll\ApphelpCheckShellObject", "ptr", ObjectCLSID, "ptr", bShimIfNecessary, "uint*", pullFlags, "ptr")
+        result := DllCall("APPHELP.dll\ApphelpCheckShellObject", "ptr", ObjectCLSID, "int", bShimIfNecessary, "uint*", pullFlags, "int")
         return result
     }
 

@@ -4,7 +4,6 @@
 #Include ..\..\Foundation\RECTL.ahk
 #Include ..\..\Foundation\POINTL.ahk
 #Include .\XFORM.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The EMRPLGBLT structure contains members for the PlgBlt enhanced metafile record. Note that graphics device interface (GDI) converts the device-dependent bitmap into a device-independent bitmap (DIB) before storing it in the metafile record.
@@ -25,7 +24,7 @@ class EMRPLGBLT extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -37,7 +36,7 @@ class EMRPLGBLT extends Win32Struct
     rclBounds{
         get {
             if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(this.ptr + 8)
+                this.__rclBounds := RECTL(8, this)
             return this.__rclBounds
         }
     }
@@ -97,7 +96,7 @@ class EMRPLGBLT extends Win32Struct
     xformSrc{
         get {
             if(!this.HasProp("__xformSrc"))
-                this.__xformSrc := XFORM(this.ptr + 64)
+                this.__xformSrc := XFORM(64, this)
             return this.__xformSrc
         }
     }
@@ -106,12 +105,9 @@ class EMRPLGBLT extends Win32Struct
      * Background color (the RGB value) of the source device context. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @type {COLORREF}
      */
-    crBkColorSrc{
-        get {
-            if(!this.HasProp("__crBkColorSrc"))
-                this.__crBkColorSrc := COLORREF(this.ptr + 88)
-            return this.__crBkColorSrc
-        }
+    crBkColorSrc {
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**

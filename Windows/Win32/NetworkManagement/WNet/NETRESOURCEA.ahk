@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The following structure contains information about a network resource. It is used by several of the network provider functions, including NPOpenEnum and NPAddConnection.
@@ -170,12 +169,9 @@ class NETRESOURCEA extends Win32Struct
      * If <b>dwScope</b> is not set to RESOURCE_CONNECTED, this field is undefined.
      * @type {PSTR}
      */
-    lpLocalName{
-        get {
-            if(!this.HasProp("__lpLocalName"))
-                this.__lpLocalName := PSTR(this.ptr + 16)
-            return this.__lpLocalName
-        }
+    lpLocalName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -183,35 +179,26 @@ class NETRESOURCEA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npaddconnection">NPAddConnection</a> to make a network connection if <b>dwUsage</b> is set to RESOURCEUSAGE_CONNECTABLE. If the enumerated item is a current connection, this field will refer to the remote network name that <b>lpLocalName</b> is connected to.
      * @type {PSTR}
      */
-    lpRemoteName{
-        get {
-            if(!this.HasProp("__lpRemoteName"))
-                this.__lpRemoteName := PSTR(this.ptr + 24)
-            return this.__lpRemoteName
-        }
+    lpRemoteName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * May be any provider-supplied comment associated with the enumerated item.
      * @type {PSTR}
      */
-    lpComment{
-        get {
-            if(!this.HasProp("__lpComment"))
-                this.__lpComment := PSTR(this.ptr + 32)
-            return this.__lpComment
-        }
+    lpComment {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Specifies the name of the provider that owns this enumerated item.
      * @type {PSTR}
      */
-    lpProvider{
-        get {
-            if(!this.HasProp("__lpProvider"))
-                this.__lpProvider := PSTR(this.ptr + 40)
-            return this.__lpProvider
-        }
+    lpProvider {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

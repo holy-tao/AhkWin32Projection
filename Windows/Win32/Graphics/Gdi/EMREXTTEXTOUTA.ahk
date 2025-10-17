@@ -24,7 +24,7 @@ class EMREXTTEXTOUTA extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -36,7 +36,7 @@ class EMREXTTEXTOUTA extends Win32Struct
     rclBounds{
         get {
             if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(this.ptr + 8)
+                this.__rclBounds := RECTL(8, this)
             return this.__rclBounds
         }
     }
@@ -75,7 +75,7 @@ class EMREXTTEXTOUTA extends Win32Struct
     emrtext{
         get {
             if(!this.HasProp("__emrtext"))
-                this.__emrtext := EMRTEXT(this.ptr + 40)
+                this.__emrtext := EMRTEXT(40, this)
             return this.__emrtext
         }
     }

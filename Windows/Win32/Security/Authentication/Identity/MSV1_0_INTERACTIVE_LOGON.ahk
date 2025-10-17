@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -33,7 +32,7 @@ class MSV1_0_INTERACTIVE_LOGON extends Win32Struct
     LogonDomainName{
         get {
             if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__LogonDomainName := LSA_UNICODE_STRING(8, this)
             return this.__LogonDomainName
         }
     }
@@ -47,7 +46,7 @@ class MSV1_0_INTERACTIVE_LOGON extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__UserName := LSA_UNICODE_STRING(24, this)
             return this.__UserName
         }
     }
@@ -61,7 +60,7 @@ class MSV1_0_INTERACTIVE_LOGON extends Win32Struct
     Password{
         get {
             if(!this.HasProp("__Password"))
-                this.__Password := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__Password := LSA_UNICODE_STRING(40, this)
             return this.__Password
         }
     }

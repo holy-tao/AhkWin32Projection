@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DS_REPSYNCALL_SYNC structure identifies a single replication operation performed between a source, and destination, server by the DsReplicaSyncAll function.
@@ -24,36 +23,27 @@ class DS_REPSYNCALL_SYNCW extends Win32Struct
      * Pointer to a null-terminated string that specifies the DNS GUID of the source server.
      * @type {PWSTR}
      */
-    pszSrcId{
-        get {
-            if(!this.HasProp("__pszSrcId"))
-                this.__pszSrcId := PWSTR(this.ptr + 0)
-            return this.__pszSrcId
-        }
+    pszSrcId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated string that specifies the DNS GUID of the destination server.
      * @type {PWSTR}
      */
-    pszDstId{
-        get {
-            if(!this.HasProp("__pszDstId"))
-                this.__pszDstId := PWSTR(this.ptr + 8)
-            return this.__pszDstId
-        }
+    pszDstId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * 
      * @type {PWSTR}
      */
-    pszNC{
-        get {
-            if(!this.HasProp("__pszNC"))
-                this.__pszNC := PWSTR(this.ptr + 16)
-            return this.__pszNC
-        }
+    pszNC {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

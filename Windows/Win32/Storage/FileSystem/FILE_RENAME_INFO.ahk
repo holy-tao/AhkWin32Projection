@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -18,12 +17,9 @@ class FILE_RENAME_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    ReplaceIfExists{
-        get {
-            if(!this.HasProp("__ReplaceIfExists"))
-                this.__ReplaceIfExists := BOOLEAN(this.ptr + 0)
-            return this.__ReplaceIfExists
-        }
+    ReplaceIfExists {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
@@ -41,7 +37,7 @@ class FILE_RENAME_INFO extends Win32Struct
     RootDirectory{
         get {
             if(!this.HasProp("__RootDirectory"))
-                this.__RootDirectory := HANDLE(this.ptr + 8)
+                this.__RootDirectory := HANDLE(8, this)
             return this.__RootDirectory
         }
     }

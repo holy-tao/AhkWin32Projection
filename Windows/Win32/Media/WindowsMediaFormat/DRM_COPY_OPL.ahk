@@ -30,7 +30,7 @@ class DRM_COPY_OPL extends Win32Struct
     oplIdIncludes{
         get {
             if(!this.HasProp("__oplIdIncludes"))
-                this.__oplIdIncludes := DRM_OPL_OUTPUT_IDS(this.ptr + 8)
+                this.__oplIdIncludes := DRM_OPL_OUTPUT_IDS(8, this)
             return this.__oplIdIncludes
         }
     }
@@ -42,7 +42,7 @@ class DRM_COPY_OPL extends Win32Struct
     oplIdExcludes{
         get {
             if(!this.HasProp("__oplIdExcludes"))
-                this.__oplIdExcludes := DRM_OPL_OUTPUT_IDS(this.ptr + 24)
+                this.__oplIdExcludes := DRM_OPL_OUTPUT_IDS(24, this)
             return this.__oplIdExcludes
         }
     }

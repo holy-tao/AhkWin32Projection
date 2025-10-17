@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -143,23 +142,17 @@ class MINIDRV_TRANSFER_CONTEXT extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bTransferDataCB{
-        get {
-            if(!this.HasProp("__bTransferDataCB"))
-                this.__bTransferDataCB := BOOL(this.ptr + 88)
-            return this.__bTransferDataCB
-        }
+    bTransferDataCB {
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
      * @type {BOOL}
      */
-    bClassDrvAllocBuf{
-        get {
-            if(!this.HasProp("__bClassDrvAllocBuf"))
-                this.__bClassDrvAllocBuf := BOOL(this.ptr + 92)
-            return this.__bClassDrvAllocBuf
-        }
+    bClassDrvAllocBuf {
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**

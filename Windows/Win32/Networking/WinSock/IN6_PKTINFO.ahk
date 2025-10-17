@@ -32,7 +32,7 @@ class IN6_PKTINFO extends Win32Struct
     ipi6_addr{
         get {
             if(!this.HasProp("__ipi6_addr"))
-                this.__ipi6_addr := IN6_ADDR(this.ptr + 0)
+                this.__ipi6_addr := IN6_ADDR(0, this)
             return this.__ipi6_addr
         }
     }

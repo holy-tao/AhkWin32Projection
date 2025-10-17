@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SERVER_TRANSPORT_INFO_1 structure contains information about the specified transport protocol, including name and address. This information level is valid only for the NetServerTransportAddEx function.
@@ -41,12 +40,9 @@ class SERVER_TRANSPORT_INFO_1 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    svti1_transportname{
-        get {
-            if(!this.HasProp("__svti1_transportname"))
-                this.__svti1_transportname := PWSTR(this.ptr + 8)
-            return this.__svti1_transportname
-        }
+    svti1_transportname {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -84,12 +80,9 @@ class SERVER_TRANSPORT_INFO_1 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    svti1_networkaddress{
-        get {
-            if(!this.HasProp("__svti1_networkaddress"))
-                this.__svti1_networkaddress := PWSTR(this.ptr + 32)
-            return this.__svti1_networkaddress
-        }
+    svti1_networkaddress {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -101,11 +94,8 @@ class SERVER_TRANSPORT_INFO_1 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    svti1_domain{
-        get {
-            if(!this.HasProp("__svti1_domain"))
-                this.__svti1_domain := PWSTR(this.ptr + 40)
-            return this.__svti1_domain
-        }
+    svti1_domain {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
@@ -24,7 +23,7 @@ class OCSP_SIGNATURE_INFO extends Win32Struct
     SignatureAlgorithm{
         get {
             if(!this.HasProp("__SignatureAlgorithm"))
-                this.__SignatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 0)
+                this.__SignatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
             return this.__SignatureAlgorithm
         }
     }
@@ -36,7 +35,7 @@ class OCSP_SIGNATURE_INFO extends Win32Struct
     Signature{
         get {
             if(!this.HasProp("__Signature"))
-                this.__Signature := CRYPT_BIT_BLOB(this.ptr + 24)
+                this.__Signature := CRYPT_BIT_BLOB(24, this)
             return this.__Signature
         }
     }

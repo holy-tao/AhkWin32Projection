@@ -26,7 +26,7 @@ class SECPKG_SURROGATE_LOGON extends Win32Struct
     SurrogateLogonID{
         get {
             if(!this.HasProp("__SurrogateLogonID"))
-                this.__SurrogateLogonID := LUID(this.ptr + 8)
+                this.__SurrogateLogonID := LUID(8, this)
             return this.__SurrogateLogonID
         }
     }

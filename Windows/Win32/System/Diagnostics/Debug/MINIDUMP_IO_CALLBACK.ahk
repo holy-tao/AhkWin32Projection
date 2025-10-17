@@ -21,7 +21,7 @@ class MINIDUMP_IO_CALLBACK extends Win32Struct
     Handle{
         get {
             if(!this.HasProp("__Handle"))
-                this.__Handle := HANDLE(this.ptr + 0)
+                this.__Handle := HANDLE(0, this)
             return this.__Handle
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
@@ -47,12 +46,9 @@ class PROPBAG2 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pstrName{
-        get {
-            if(!this.HasProp("__pstrName"))
-                this.__pstrName := PWSTR(this.ptr + 16)
-            return this.__pstrName
-        }
+    pstrName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

@@ -1335,7 +1335,7 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WintrustSetRegPolicyFlags(dwPolicyFlags) {
-        result := DllCall("WINTRUST.dll\WintrustSetRegPolicyFlags", "uint", dwPolicyFlags, "ptr")
+        result := DllCall("WINTRUST.dll\WintrustSetRegPolicyFlags", "uint", dwPolicyFlags, "int")
         return result
     }
 
@@ -1392,7 +1392,7 @@ class WinTrust {
     static WintrustAddActionID(pgActionID, fdwFlags, psProvInfo) {
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\WintrustAddActionID", "ptr", pgActionID, "uint", fdwFlags, "ptr", psProvInfo, "ptr")
+        result := DllCall("WINTRUST.dll\WintrustAddActionID", "ptr", pgActionID, "uint", fdwFlags, "ptr", psProvInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1448,7 +1448,7 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WintrustRemoveActionID(pgActionID) {
-        result := DllCall("WINTRUST.dll\WintrustRemoveActionID", "ptr", pgActionID, "ptr")
+        result := DllCall("WINTRUST.dll\WintrustRemoveActionID", "ptr", pgActionID, "int")
         return result
     }
 
@@ -1502,7 +1502,7 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WintrustLoadFunctionPointers(pgActionID, pPfns) {
-        result := DllCall("WINTRUST.dll\WintrustLoadFunctionPointers", "ptr", pgActionID, "ptr", pPfns, "ptr")
+        result := DllCall("WINTRUST.dll\WintrustLoadFunctionPointers", "ptr", pgActionID, "ptr", pPfns, "int")
         return result
     }
 
@@ -1519,7 +1519,7 @@ class WinTrust {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\WintrustAddDefaultForUsage", "ptr", pszUsageOID, "ptr", psDefUsage, "ptr")
+        result := DllCall("WINTRUST.dll\WintrustAddDefaultForUsage", "ptr", pszUsageOID, "ptr", psDefUsage, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1540,7 +1540,7 @@ class WinTrust {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\WintrustGetDefaultForUsage", "uint", dwAction, "ptr", pszUsageOID, "ptr", psUsage, "ptr")
+        result := DllCall("WINTRUST.dll\WintrustGetDefaultForUsage", "uint", dwAction, "ptr", pszUsageOID, "ptr", psUsage, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1560,7 +1560,7 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WTHelperGetProvSignerFromChain(pProvData, idxSigner, fCounterSigner, idxCounterSigner) {
-        result := DllCall("WINTRUST.dll\WTHelperGetProvSignerFromChain", "ptr", pProvData, "uint", idxSigner, "ptr", fCounterSigner, "uint", idxCounterSigner, "ptr")
+        result := DllCall("WINTRUST.dll\WTHelperGetProvSignerFromChain", "ptr", pProvData, "uint", idxSigner, "int", fCounterSigner, "uint", idxCounterSigner, "ptr")
         return result
     }
 
@@ -1621,7 +1621,7 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WTHelperCertIsSelfSigned(dwEncoding, pCert) {
-        result := DllCall("WINTRUST.dll\WTHelperCertIsSelfSigned", "uint", dwEncoding, "ptr", pCert, "ptr")
+        result := DllCall("WINTRUST.dll\WTHelperCertIsSelfSigned", "uint", dwEncoding, "ptr", pCert, "int")
         return result
     }
 
@@ -1672,7 +1672,7 @@ class WinTrust {
     static OpenPersonalTrustDBDialogEx(hwndParent, dwFlags, pvReserved) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", "ptr", hwndParent, "uint", dwFlags, "ptr", pvReserved, "ptr")
+        result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", "ptr", hwndParent, "uint", dwFlags, "ptr", pvReserved, "int")
         return result
     }
 
@@ -1686,7 +1686,7 @@ class WinTrust {
     static OpenPersonalTrustDBDialog(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialog", "ptr", hwndParent, "ptr")
+        result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialog", "ptr", hwndParent, "int")
         return result
     }
 
@@ -1703,7 +1703,7 @@ class WinTrust {
      * @since windows6.0.6000
      */
     static WintrustSetDefaultIncludePEPageHashes(fIncludePEPageHashes) {
-        DllCall("WINTRUST.dll\WintrustSetDefaultIncludePEPageHashes", "ptr", fIncludePEPageHashes)
+        DllCall("WINTRUST.dll\WintrustSetDefaultIncludePEPageHashes", "int", fIncludePEPageHashes)
     }
 
 ;@endregion Methods

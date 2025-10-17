@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
@@ -31,33 +30,24 @@ class HH_ENUM_IT extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszCatName{
-        get {
-            if(!this.HasProp("__pszCatName"))
-                this.__pszCatName := PSTR(this.ptr + 8)
-            return this.__pszCatName
-        }
+    pszCatName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PSTR}
      */
-    pszITName{
-        get {
-            if(!this.HasProp("__pszITName"))
-                this.__pszITName := PSTR(this.ptr + 16)
-            return this.__pszITName
-        }
+    pszITName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    pszITDescription{
-        get {
-            if(!this.HasProp("__pszITDescription"))
-                this.__pszITDescription := PSTR(this.ptr + 24)
-            return this.__pszITDescription
-        }
+    pszITDescription {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

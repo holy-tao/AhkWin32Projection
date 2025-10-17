@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -16,45 +15,33 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pcwszName{
-        get {
-            if(!this.HasProp("__pcwszName"))
-                this.__pcwszName := PWSTR(this.ptr + 0)
-            return this.__pcwszName
-        }
+    pcwszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pcwszValue{
-        get {
-            if(!this.HasProp("__pcwszValue"))
-                this.__pcwszValue := PWSTR(this.ptr + 8)
-            return this.__pcwszValue
-        }
+    pcwszValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pcwszDomain{
-        get {
-            if(!this.HasProp("__pcwszDomain"))
-                this.__pcwszDomain := PWSTR(this.ptr + 16)
-            return this.__pcwszDomain
-        }
+    pcwszDomain {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pcwszPath{
-        get {
-            if(!this.HasProp("__pcwszPath"))
-                this.__pcwszPath := PWSTR(this.ptr + 24)
-            return this.__pcwszPath
-        }
+    pcwszPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -63,7 +50,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     ftExpires{
         get {
             if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(this.ptr + 32)
+                this.__ftExpires := FILETIME(32, this)
             return this.__ftExpires
         }
     }

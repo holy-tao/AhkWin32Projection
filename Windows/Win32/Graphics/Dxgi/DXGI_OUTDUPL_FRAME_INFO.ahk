@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include .\DXGI_OUTDUPL_POINTER_POSITION.ahk
 
@@ -63,24 +62,18 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
      * Specifies whether the operating system accumulated updates by coalescing dirty regions. Therefore,  the dirty regions might contain unmodified pixels. <b>TRUE</b> if dirty regions were accumulated; otherwise, <b>FALSE</b>.
      * @type {BOOL}
      */
-    RectsCoalesced{
-        get {
-            if(!this.HasProp("__RectsCoalesced"))
-                this.__RectsCoalesced := BOOL(this.ptr + 20)
-            return this.__RectsCoalesced
-        }
+    RectsCoalesced {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
      * Specifies whether the desktop image might contain protected content that was already blacked out in the desktop image.  <b>TRUE</b> if protected content was already blacked; otherwise, <b>FALSE</b>. The application can use this information to notify the remote user that some of the desktop content might be protected and therefore not visible.
      * @type {BOOL}
      */
-    ProtectedContentMaskedOut{
-        get {
-            if(!this.HasProp("__ProtectedContentMaskedOut"))
-                this.__ProtectedContentMaskedOut := BOOL(this.ptr + 24)
-            return this.__ProtectedContentMaskedOut
-        }
+    ProtectedContentMaskedOut {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -90,7 +83,7 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
     PointerPosition{
         get {
             if(!this.HasProp("__PointerPosition"))
-                this.__PointerPosition := DXGI_OUTDUPL_POINTER_POSITION(this.ptr + 32)
+                this.__PointerPosition := DXGI_OUTDUPL_POINTER_POSITION(32, this)
             return this.__PointerPosition
         }
     }

@@ -30,7 +30,7 @@ class DNS_MESSAGE_BUFFER extends Win32Struct
     MessageHead{
         get {
             if(!this.HasProp("__MessageHead"))
-                this.__MessageHead := DNS_HEADER(this.ptr + 0)
+                this.__MessageHead := DNS_HEADER(0, this)
             return this.__MessageHead
         }
     }

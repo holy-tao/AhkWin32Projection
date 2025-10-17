@@ -7,7 +7,6 @@
 #Include .\PPTP_CONFIG_PARAMS.ahk
 #Include .\L2TP_TUNNEL_CONFIG_PARAMS2.ahk
 #Include .\L2TP_CONFIG_PARAMS1.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\SSTP_CERT_INFO.ahk
 #Include .\SSTP_CONFIG_PARAMS.ahk
 #Include .\MPRAPI_TUNNEL_CONFIG_PARAMS0.ahk
@@ -34,7 +33,7 @@ class MPR_SERVER_SET_CONFIG_EX0 extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := MPRAPI_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := MPRAPI_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -102,7 +101,7 @@ class MPR_SERVER_SET_CONFIG_EX0 extends Win32Struct
     ConfigParams{
         get {
             if(!this.HasProp("__ConfigParams"))
-                this.__ConfigParams := MPRAPI_TUNNEL_CONFIG_PARAMS0(this.ptr + 8)
+                this.__ConfigParams := MPRAPI_TUNNEL_CONFIG_PARAMS0(8, this)
             return this.__ConfigParams
         }
     }

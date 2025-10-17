@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -34,7 +33,7 @@ class WS_CUSTOM_HTTP_PROXY extends Win32Struct
     servers{
         get {
             if(!this.HasProp("__servers"))
-                this.__servers := WS_STRING(this.ptr + 0)
+                this.__servers := WS_STRING(0, this)
             return this.__servers
         }
     }
@@ -48,7 +47,7 @@ class WS_CUSTOM_HTTP_PROXY extends Win32Struct
     bypass{
         get {
             if(!this.HasProp("__bypass"))
-                this.__bypass := WS_STRING(this.ptr + 16)
+                this.__bypass := WS_STRING(16, this)
             return this.__bypass
         }
     }

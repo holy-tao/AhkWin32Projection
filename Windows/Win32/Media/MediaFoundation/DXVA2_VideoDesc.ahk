@@ -48,7 +48,7 @@ class DXVA2_VideoDesc extends Win32Struct
     SampleFormat{
         get {
             if(!this.HasProp("__SampleFormat"))
-                this.__SampleFormat := DXVA2_ExtendedFormat(this.ptr + 8)
+                this.__SampleFormat := DXVA2_ExtendedFormat(8, this)
             return this.__SampleFormat
         }
     }
@@ -69,7 +69,7 @@ class DXVA2_VideoDesc extends Win32Struct
     InputSampleFreq{
         get {
             if(!this.HasProp("__InputSampleFreq"))
-                this.__InputSampleFreq := DXVA2_Frequency(this.ptr + 16)
+                this.__InputSampleFreq := DXVA2_Frequency(16, this)
             return this.__InputSampleFreq
         }
     }
@@ -81,7 +81,7 @@ class DXVA2_VideoDesc extends Win32Struct
     OutputFrameFreq{
         get {
             if(!this.HasProp("__OutputFrameFreq"))
-                this.__OutputFrameFreq := DXVA2_Frequency(this.ptr + 24)
+                this.__OutputFrameFreq := DXVA2_Frequency(24, this)
             return this.__OutputFrameFreq
         }
     }

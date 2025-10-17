@@ -66,7 +66,7 @@ class WNODE_HEADER extends Win32Struct
     KernelHandle{
         get {
             if(!this.HasProp("__KernelHandle"))
-                this.__KernelHandle := HANDLE(this.ptr + 16)
+                this.__KernelHandle := HANDLE(16, this)
             return this.__KernelHandle
         }
     }

@@ -21,7 +21,7 @@ class PCCARD_RESOURCE extends Win32Struct
     PcCard_Header{
         get {
             if(!this.HasProp("__PcCard_Header"))
-                this.__PcCard_Header := PCCARD_DES(this.ptr + 0)
+                this.__PcCard_Header := PCCARD_DES(0, this)
             return this.__PcCard_Header
         }
     }

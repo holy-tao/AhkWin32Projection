@@ -22,7 +22,7 @@ class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
     delta{
         get {
             if(!this.HasProp("__delta"))
-                this.__delta := MANIPULATION_TRANSFORM(this.ptr + 0)
+                this.__delta := MANIPULATION_TRANSFORM(0, this)
             return this.__delta
         }
     }
@@ -34,7 +34,7 @@ class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
     cumulative{
         get {
             if(!this.HasProp("__cumulative"))
-                this.__cumulative := MANIPULATION_TRANSFORM(this.ptr + 24)
+                this.__cumulative := MANIPULATION_TRANSFORM(24, this)
             return this.__cumulative
         }
     }
@@ -46,7 +46,7 @@ class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
     velocity{
         get {
             if(!this.HasProp("__velocity"))
-                this.__velocity := MANIPULATION_VELOCITY(this.ptr + 48)
+                this.__velocity := MANIPULATION_VELOCITY(48, this)
             return this.__velocity
         }
     }

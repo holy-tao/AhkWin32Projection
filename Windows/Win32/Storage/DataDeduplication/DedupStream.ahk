@@ -18,7 +18,7 @@ class DedupStream extends Win32Struct
     Path{
         get {
             if(!this.HasProp("__Path"))
-                this.__Path := BSTR(this.ptr + 0)
+                this.__Path := BSTR(0, this)
             return this.__Path
         }
     }

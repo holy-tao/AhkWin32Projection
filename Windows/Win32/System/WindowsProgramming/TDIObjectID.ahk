@@ -21,7 +21,7 @@ class TDIObjectID extends Win32Struct
     toi_entity{
         get {
             if(!this.HasProp("__toi_entity"))
-                this.__toi_entity := TDIEntityID(this.ptr + 0)
+                this.__toi_entity := TDIEntityID(0, this)
             return this.__toi_entity
         }
     }

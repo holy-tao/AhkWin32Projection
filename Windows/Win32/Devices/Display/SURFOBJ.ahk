@@ -35,7 +35,7 @@ class SURFOBJ extends Win32Struct
     dhsurf{
         get {
             if(!this.HasProp("__dhsurf"))
-                this.__dhsurf := DHSURF(this.ptr + 0)
+                this.__dhsurf := DHSURF(0, this)
             return this.__dhsurf
         }
     }
@@ -47,7 +47,7 @@ class SURFOBJ extends Win32Struct
     hsurf{
         get {
             if(!this.HasProp("__hsurf"))
-                this.__hsurf := HSURF(this.ptr + 8)
+                this.__hsurf := HSURF(8, this)
             return this.__hsurf
         }
     }
@@ -59,7 +59,7 @@ class SURFOBJ extends Win32Struct
     dhpdev{
         get {
             if(!this.HasProp("__dhpdev"))
-                this.__dhpdev := DHPDEV(this.ptr + 16)
+                this.__dhpdev := DHPDEV(16, this)
             return this.__dhpdev
         }
     }
@@ -71,7 +71,7 @@ class SURFOBJ extends Win32Struct
     hdev{
         get {
             if(!this.HasProp("__hdev"))
-                this.__hdev := HDEV(this.ptr + 24)
+                this.__hdev := HDEV(24, this)
             return this.__hdev
         }
     }
@@ -83,7 +83,7 @@ class SURFOBJ extends Win32Struct
     sizlBitmap{
         get {
             if(!this.HasProp("__sizlBitmap"))
-                this.__sizlBitmap := SIZE(this.ptr + 32)
+                this.__sizlBitmap := SIZE(32, this)
             return this.__sizlBitmap
         }
     }

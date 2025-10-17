@@ -37,7 +37,7 @@ class TRACE_GUID_REGISTRATION extends Win32Struct
     RegHandle{
         get {
             if(!this.HasProp("__RegHandle"))
-                this.__RegHandle := HANDLE(this.ptr + 8)
+                this.__RegHandle := HANDLE(8, this)
             return this.__RegHandle
         }
     }

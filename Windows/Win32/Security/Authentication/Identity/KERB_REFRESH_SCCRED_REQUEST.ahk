@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include ..\..\..\Foundation\LUID.ahk
 
@@ -28,7 +27,7 @@ class KERB_REFRESH_SCCRED_REQUEST extends Win32Struct
     CredentialBlob{
         get {
             if(!this.HasProp("__CredentialBlob"))
-                this.__CredentialBlob := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__CredentialBlob := LSA_UNICODE_STRING(8, this)
             return this.__CredentialBlob
         }
     }
@@ -39,7 +38,7 @@ class KERB_REFRESH_SCCRED_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 24)
+                this.__LogonId := LUID(24, this)
             return this.__LogonId
         }
     }

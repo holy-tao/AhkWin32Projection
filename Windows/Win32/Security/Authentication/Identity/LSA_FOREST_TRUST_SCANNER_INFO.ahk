@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\PSID.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -17,12 +15,9 @@ class LSA_FOREST_TRUST_SCANNER_INFO extends Win32Struct
     /**
      * @type {PSID}
      */
-    DomainSid{
-        get {
-            if(!this.HasProp("__DomainSid"))
-                this.__DomainSid := PSID(this.ptr + 0)
-            return this.__DomainSid
-        }
+    DomainSid {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -31,7 +26,7 @@ class LSA_FOREST_TRUST_SCANNER_INFO extends Win32Struct
     DnsName{
         get {
             if(!this.HasProp("__DnsName"))
-                this.__DnsName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__DnsName := LSA_UNICODE_STRING(8, this)
             return this.__DnsName
         }
     }
@@ -42,7 +37,7 @@ class LSA_FOREST_TRUST_SCANNER_INFO extends Win32Struct
     NetbiosName{
         get {
             if(!this.HasProp("__NetbiosName"))
-                this.__NetbiosName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__NetbiosName := LSA_UNICODE_STRING(24, this)
             return this.__NetbiosName
         }
     }

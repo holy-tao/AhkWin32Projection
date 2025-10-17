@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\PRJ_FILE_BASIC_INFO.ahk
 #Include .\PRJ_PLACEHOLDER_VERSION_INFO.ahk
 
@@ -89,7 +88,7 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     FileBasicInfo{
         get {
             if(!this.HasProp("__FileBasicInfo"))
-                this.__FileBasicInfo := PRJ_FILE_BASIC_INFO(this.ptr + 0)
+                this.__FileBasicInfo := PRJ_FILE_BASIC_INFO(0, this)
             return this.__FileBasicInfo
         }
     }
@@ -101,7 +100,7 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     EaInformation{
         get {
             if(!this.HasProp("__EaInformation"))
-                this.__EaInformation := %this.__Class%._EaInformation(this.ptr + 56)
+                this.__EaInformation := %this.__Class%._EaInformation(56, this)
             return this.__EaInformation
         }
     }
@@ -113,7 +112,7 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     SecurityInformation{
         get {
             if(!this.HasProp("__SecurityInformation"))
-                this.__SecurityInformation := %this.__Class%._SecurityInformation(this.ptr + 64)
+                this.__SecurityInformation := %this.__Class%._SecurityInformation(64, this)
             return this.__SecurityInformation
         }
     }
@@ -125,7 +124,7 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     StreamsInformation{
         get {
             if(!this.HasProp("__StreamsInformation"))
-                this.__StreamsInformation := %this.__Class%._StreamsInformation(this.ptr + 72)
+                this.__StreamsInformation := %this.__Class%._StreamsInformation(72, this)
             return this.__StreamsInformation
         }
     }
@@ -136,7 +135,7 @@ class PRJ_PLACEHOLDER_INFO extends Win32Struct
     VersionInfo{
         get {
             if(!this.HasProp("__VersionInfo"))
-                this.__VersionInfo := PRJ_PLACEHOLDER_VERSION_INFO(this.ptr + 80)
+                this.__VersionInfo := PRJ_PLACEHOLDER_VERSION_INFO(80, this)
             return this.__VersionInfo
         }
     }

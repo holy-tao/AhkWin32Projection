@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CMSG_SIGNED_ENCODE_INFO.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CMSG_ENVELOPED_ENCODE_INFO.ahk
@@ -31,7 +30,7 @@ class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO extends Win32Struct
     SignedInfo{
         get {
             if(!this.HasProp("__SignedInfo"))
-                this.__SignedInfo := CMSG_SIGNED_ENCODE_INFO(this.ptr + 8)
+                this.__SignedInfo := CMSG_SIGNED_ENCODE_INFO(8, this)
             return this.__SignedInfo
         }
     }
@@ -42,17 +41,13 @@ class CMSG_SIGNED_AND_ENVELOPED_ENCODE_INFO extends Win32Struct
     EnvelopedInfo{
         get {
             if(!this.HasProp("__EnvelopedInfo"))
-                this.__EnvelopedInfo := CMSG_ENVELOPED_ENCODE_INFO(this.ptr + 56)
+                this.__EnvelopedInfo := CMSG_ENVELOPED_ENCODE_INFO(56, this)
             return this.__EnvelopedInfo
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 120
     }
 }

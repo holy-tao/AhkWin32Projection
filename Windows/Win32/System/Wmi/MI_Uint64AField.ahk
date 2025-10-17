@@ -21,7 +21,7 @@ class MI_Uint64AField extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := MI_Uint64A(this.ptr + 0)
+                this.__value := MI_Uint64A(0, this)
             return this.__value
         }
     }

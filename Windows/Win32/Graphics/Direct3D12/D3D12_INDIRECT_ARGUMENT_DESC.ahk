@@ -141,7 +141,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     VertexBuffer{
         get {
             if(!this.HasProp("__VertexBuffer"))
-                this.__VertexBuffer := %this.__Class%._VertexBuffer(this.ptr + 8)
+                this.__VertexBuffer := %this.__Class%._VertexBuffer(8, this)
             return this.__VertexBuffer
         }
     }
@@ -152,7 +152,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     Constant{
         get {
             if(!this.HasProp("__Constant"))
-                this.__Constant := %this.__Class%._Constant(this.ptr + 8)
+                this.__Constant := %this.__Class%._Constant(8, this)
             return this.__Constant
         }
     }
@@ -163,7 +163,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     ConstantBufferView{
         get {
             if(!this.HasProp("__ConstantBufferView"))
-                this.__ConstantBufferView := %this.__Class%._ConstantBufferView(this.ptr + 8)
+                this.__ConstantBufferView := %this.__Class%._ConstantBufferView(8, this)
             return this.__ConstantBufferView
         }
     }
@@ -174,7 +174,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     ShaderResourceView{
         get {
             if(!this.HasProp("__ShaderResourceView"))
-                this.__ShaderResourceView := %this.__Class%._ShaderResourceView(this.ptr + 8)
+                this.__ShaderResourceView := %this.__Class%._ShaderResourceView(8, this)
             return this.__ShaderResourceView
         }
     }
@@ -185,7 +185,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     UnorderedAccessView{
         get {
             if(!this.HasProp("__UnorderedAccessView"))
-                this.__UnorderedAccessView := %this.__Class%._UnorderedAccessView(this.ptr + 8)
+                this.__UnorderedAccessView := %this.__Class%._UnorderedAccessView(8, this)
             return this.__UnorderedAccessView
         }
     }
@@ -196,7 +196,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     IncrementingConstant{
         get {
             if(!this.HasProp("__IncrementingConstant"))
-                this.__IncrementingConstant := %this.__Class%._IncrementingConstant(this.ptr + 8)
+                this.__IncrementingConstant := %this.__Class%._IncrementingConstant(8, this)
             return this.__IncrementingConstant
         }
     }

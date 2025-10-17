@@ -4596,7 +4596,7 @@ class WiFi {
 
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
-        result := DllCall("wlanapi.dll\WlanGetNetworkBssList", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", pDot11Ssid, "int", dot11BssType, "ptr", bSecurityEnabled, "ptr", pReserved, "ptr", ppWlanBssList, "uint")
+        result := DllCall("wlanapi.dll\WlanGetNetworkBssList", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", pDot11Ssid, "int", dot11BssType, "int", bSecurityEnabled, "ptr", pReserved, "ptr", ppWlanBssList, "uint")
         return result
     }
 
@@ -4974,7 +4974,7 @@ class WiFi {
 
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
-        result := DllCall("wlanapi.dll\WlanRegisterNotification", "ptr", hClientHandle, "uint", dwNotifSource, "ptr", bIgnoreDuplicate, "ptr", funcCallback, "ptr", pCallbackContext, "ptr", pReserved, "uint*", pdwPrevNotifSource, "uint")
+        result := DllCall("wlanapi.dll\WlanRegisterNotification", "ptr", hClientHandle, "uint", dwNotifSource, "int", bIgnoreDuplicate, "ptr", funcCallback, "ptr", pCallbackContext, "ptr", pReserved, "uint*", pdwPrevNotifSource, "uint")
         return result
     }
 
@@ -5609,7 +5609,7 @@ class WiFi {
         strAllUserProfileSecurity := strAllUserProfileSecurity is String ? StrPtr(strAllUserProfileSecurity) : strAllUserProfileSecurity
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
-        result := DllCall("wlanapi.dll\WlanSetProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "uint", dwFlags, "ptr", strProfileXml, "ptr", strAllUserProfileSecurity, "ptr", bOverwrite, "ptr", pReserved, "uint*", pdwReasonCode, "uint")
+        result := DllCall("wlanapi.dll\WlanSetProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "uint", dwFlags, "ptr", strProfileXml, "ptr", strAllUserProfileSecurity, "int", bOverwrite, "ptr", pReserved, "uint*", pdwReasonCode, "uint")
         return result
     }
 
@@ -6609,7 +6609,7 @@ class WiFi {
         strAllUserProfileSecurity := strAllUserProfileSecurity is String ? StrPtr(strAllUserProfileSecurity) : strAllUserProfileSecurity
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
-        result := DllCall("wlanapi.dll\WlanSaveTemporaryProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", strAllUserProfileSecurity, "uint", dwFlags, "ptr", bOverWrite, "ptr", pReserved, "uint")
+        result := DllCall("wlanapi.dll\WlanSaveTemporaryProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", strAllUserProfileSecurity, "uint", dwFlags, "int", bOverWrite, "ptr", pReserved, "uint")
         return result
     }
 
@@ -8127,7 +8127,7 @@ class WiFi {
 
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
-        result := DllCall("wlanapi.dll\WlanHostedNetworkSetSecondaryKey", "ptr", hClientHandle, "uint", dwKeyLength, "ptr", pucKeyData, "ptr", bIsPassPhrase, "ptr", bPersistent, "int*", pFailReason, "ptr", pvReserved, "uint")
+        result := DllCall("wlanapi.dll\WlanHostedNetworkSetSecondaryKey", "ptr", hClientHandle, "uint", dwKeyLength, "ptr", pucKeyData, "int", bIsPassPhrase, "int", bPersistent, "int*", pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 
@@ -8326,7 +8326,7 @@ class WiFi {
 
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
-        result := DllCall("wlanapi.dll\WlanRegisterVirtualStationNotification", "ptr", hClientHandle, "ptr", bRegister, "ptr", pReserved, "uint")
+        result := DllCall("wlanapi.dll\WlanRegisterVirtualStationNotification", "ptr", hClientHandle, "int", bRegister, "ptr", pReserved, "uint")
         return result
     }
 

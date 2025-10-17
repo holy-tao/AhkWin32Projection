@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the level of support for HLSL 6.0 wave operations.
@@ -30,12 +29,9 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS1 extends Win32Struct
      * True if the driver supports HLSL 6.0 wave operations.
      * @type {BOOL}
      */
-    WaveOps{
-        get {
-            if(!this.HasProp("__WaveOps"))
-                this.__WaveOps := BOOL(this.ptr + 0)
-            return this.__WaveOps
-        }
+    WaveOps {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -69,23 +65,17 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS1 extends Win32Struct
      * Indicates transitions are possible  in and out of the CBV, and indirect argument states, on compute command lists. If <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport">CheckFeatureSupport</a> succeeds this value will always be true.
      * @type {BOOL}
      */
-    ExpandedComputeResourceStates{
-        get {
-            if(!this.HasProp("__ExpandedComputeResourceStates"))
-                this.__ExpandedComputeResourceStates := BOOL(this.ptr + 16)
-            return this.__ExpandedComputeResourceStates
-        }
+    ExpandedComputeResourceStates {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * Indicates that 64bit integer operations are supported.
      * @type {BOOL}
      */
-    Int64ShaderOps{
-        get {
-            if(!this.HasProp("__Int64ShaderOps"))
-                this.__Int64ShaderOps := BOOL(this.ptr + 20)
-            return this.__Int64ShaderOps
-        }
+    Int64ShaderOps {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

@@ -18,7 +18,7 @@ class KSTOPOLOGY_ENDPOINTIDPAIR extends Win32Struct
     RenderEndpoint{
         get {
             if(!this.HasProp("__RenderEndpoint"))
-                this.__RenderEndpoint := KSTOPOLOGY_ENDPOINTID(this.ptr + 0)
+                this.__RenderEndpoint := KSTOPOLOGY_ENDPOINTID(0, this)
             return this.__RenderEndpoint
         }
     }
@@ -29,7 +29,7 @@ class KSTOPOLOGY_ENDPOINTIDPAIR extends Win32Struct
     CaptureEndpoint{
         get {
             if(!this.HasProp("__CaptureEndpoint"))
-                this.__CaptureEndpoint := KSTOPOLOGY_ENDPOINTID(this.ptr + 528)
+                this.__CaptureEndpoint := KSTOPOLOGY_ENDPOINTID(528, this)
             return this.__CaptureEndpoint
         }
     }

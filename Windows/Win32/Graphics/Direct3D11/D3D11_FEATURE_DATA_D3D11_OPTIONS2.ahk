@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes Direct3D 11.3 feature options in the current graphics driver.
@@ -33,12 +32,9 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
      * @type {BOOL}
      */
-    PSSpecifiedStencilRefSupported{
-        get {
-            if(!this.HasProp("__PSSpecifiedStencilRefSupported"))
-                this.__PSSpecifiedStencilRefSupported := BOOL(this.ptr + 0)
-            return this.__PSSpecifiedStencilRefSupported
-        }
+    PSSpecifiedStencilRefSupported {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -46,12 +42,9 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
      * @type {BOOL}
      */
-    TypedUAVLoadAdditionalFormats{
-        get {
-            if(!this.HasProp("__TypedUAVLoadAdditionalFormats"))
-                this.__TypedUAVLoadAdditionalFormats := BOOL(this.ptr + 4)
-            return this.__TypedUAVLoadAdditionalFormats
-        }
+    TypedUAVLoadAdditionalFormats {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -59,12 +52,9 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
      * @type {BOOL}
      */
-    ROVsSupported{
-        get {
-            if(!this.HasProp("__ROVsSupported"))
-                this.__ROVsSupported := BOOL(this.ptr + 8)
-            return this.__ROVsSupported
-        }
+    ROVsSupported {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -92,12 +82,9 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
      * @type {BOOL}
      */
-    MapOnDefaultTextures{
-        get {
-            if(!this.HasProp("__MapOnDefaultTextures"))
-                this.__MapOnDefaultTextures := BOOL(this.ptr + 20)
-            return this.__MapOnDefaultTextures
-        }
+    MapOnDefaultTextures {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -105,12 +92,9 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
      * @type {BOOL}
      */
-    StandardSwizzle{
-        get {
-            if(!this.HasProp("__StandardSwizzle"))
-                this.__StandardSwizzle := BOOL(this.ptr + 24)
-            return this.__StandardSwizzle
-        }
+    StandardSwizzle {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -118,11 +102,8 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
      * @type {BOOL}
      */
-    UnifiedMemoryArchitecture{
-        get {
-            if(!this.HasProp("__UnifiedMemoryArchitecture"))
-                this.__UnifiedMemoryArchitecture := BOOL(this.ptr + 28)
-            return this.__UnifiedMemoryArchitecture
-        }
+    UnifiedMemoryArchitecture {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 }

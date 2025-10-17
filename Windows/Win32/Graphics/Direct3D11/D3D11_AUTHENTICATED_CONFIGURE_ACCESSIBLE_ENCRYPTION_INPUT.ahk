@@ -23,7 +23,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_ACCESSIBLE_ENCRYPTION_INPUT extends Win32Str
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := D3D11_AUTHENTICATED_CONFIGURE_INPUT(this.ptr + 0)
+                this.__Parameters := D3D11_AUTHENTICATED_CONFIGURE_INPUT(0, this)
             return this.__Parameters
         }
     }

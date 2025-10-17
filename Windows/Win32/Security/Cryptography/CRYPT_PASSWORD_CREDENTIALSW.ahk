@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the user name and password credentials to be used in the CRYPT_CREDENTIALS structure as optional input to a remote object retrieval function such as CryptRetrieveObjectByUrl or CryptGetTimeValidObject.
@@ -33,32 +32,22 @@ class CRYPT_PASSWORD_CREDENTIALSW extends Win32Struct
      * A pointer to a null-terminated string that contains the user name credential for the remote session authentication.
      * @type {PWSTR}
      */
-    pszUsername{
-        get {
-            if(!this.HasProp("__pszUsername"))
-                this.__pszUsername := PWSTR(this.ptr + 8)
-            return this.__pszUsername
-        }
+    pszUsername {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a null-terminated string that contains the password credential for the remote session authentication.
      * @type {PWSTR}
      */
-    pszPassword{
-        get {
-            if(!this.HasProp("__pszPassword"))
-                this.__pszPassword := PWSTR(this.ptr + 16)
-            return this.__pszPassword
-        }
+    pszPassword {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 24
     }
 }

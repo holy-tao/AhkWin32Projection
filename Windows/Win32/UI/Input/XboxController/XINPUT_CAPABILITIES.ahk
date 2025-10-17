@@ -99,7 +99,7 @@ class XINPUT_CAPABILITIES extends Win32Struct
     Gamepad{
         get {
             if(!this.HasProp("__Gamepad"))
-                this.__Gamepad := XINPUT_GAMEPAD(this.ptr + 8)
+                this.__Gamepad := XINPUT_GAMEPAD(8, this)
             return this.__Gamepad
         }
     }
@@ -111,7 +111,7 @@ class XINPUT_CAPABILITIES extends Win32Struct
     Vibration{
         get {
             if(!this.HasProp("__Vibration"))
-                this.__Vibration := XINPUT_VIBRATION(this.ptr + 20)
+                this.__Vibration := XINPUT_VIBRATION(20, this)
             return this.__Vibration
         }
     }

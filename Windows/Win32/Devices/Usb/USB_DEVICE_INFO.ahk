@@ -21,7 +21,7 @@ class USB_DEVICE_INFO extends Win32Struct
     DeviceState{
         get {
             if(!this.HasProp("__DeviceState"))
-                this.__DeviceState := USB_DEVICE_STATE(this.ptr + 0)
+                this.__DeviceState := USB_DEVICE_STATE(0, this)
             return this.__DeviceState
         }
     }
@@ -40,7 +40,7 @@ class USB_DEVICE_INFO extends Win32Struct
     DeviceDescriptor{
         get {
             if(!this.HasProp("__DeviceDescriptor"))
-                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(this.ptr + 8)
+                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(8, this)
             return this.__DeviceDescriptor
         }
     }

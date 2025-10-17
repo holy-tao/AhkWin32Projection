@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\EapUsernamePasswordCredential.ahk
 #Include .\EapCertificateCredential.ahk
 #Include .\EapSimCredential.ahk
@@ -44,7 +43,7 @@ class EapCredential extends Win32Struct
     credData{
         get {
             if(!this.HasProp("__credData"))
-                this.__credData := EapCredentialTypeData(this.ptr + 8)
+                this.__credData := EapCredentialTypeData(8, this)
             return this.__credData
         }
     }

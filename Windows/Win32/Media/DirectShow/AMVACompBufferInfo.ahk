@@ -58,7 +58,7 @@ class AMVACompBufferInfo extends Win32Struct
     ddCompCaps{
         get {
             if(!this.HasProp("__ddCompCaps"))
-                this.__ddCompCaps := DDSCAPS2(this.ptr + 16)
+                this.__ddCompCaps := DDSCAPS2(16, this)
             return this.__ddCompCaps
         }
     }
@@ -70,7 +70,7 @@ class AMVACompBufferInfo extends Win32Struct
     ddPixelFormat{
         get {
             if(!this.HasProp("__ddPixelFormat"))
-                this.__ddPixelFormat := DDPIXELFORMAT(this.ptr + 32)
+                this.__ddPixelFormat := DDPIXELFORMAT(32, this)
             return this.__ddPixelFormat
         }
     }

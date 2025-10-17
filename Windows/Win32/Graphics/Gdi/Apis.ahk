@@ -4299,7 +4299,7 @@ class Gdi {
     static AnimatePalette(hPal, iStartIndex, cEntries, ppe) {
         hPal := hPal is Win32Handle ? NumGet(hPal, "ptr") : hPal
 
-        result := DllCall("GDI32.dll\AnimatePalette", "ptr", hPal, "uint", iStartIndex, "uint", cEntries, "ptr", ppe, "ptr")
+        result := DllCall("GDI32.dll\AnimatePalette", "ptr", hPal, "uint", iStartIndex, "uint", cEntries, "ptr", ppe, "int")
         return result
     }
 
@@ -4323,7 +4323,7 @@ class Gdi {
     static Arc(hdc, x1, y1, x2, y2, x3, y3, x4, y4) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\Arc", "ptr", hdc, "int", x1, "int", y1, "int", x2, "int", y2, "int", x3, "int", y3, "int", x4, "int", y4, "ptr")
+        result := DllCall("GDI32.dll\Arc", "ptr", hdc, "int", x1, "int", y1, "int", x2, "int", y2, "int", x3, "int", y3, "int", x4, "int", y4, "int")
         return result
     }
 
@@ -4529,7 +4529,7 @@ class Gdi {
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\BitBlt", "ptr", hdc, "int", x, "int", y, "int", cx, "int", cy, "ptr", hdcSrc, "int", x1, "int", y1, "uint", rop, "ptr")
+        result := DllCall("GDI32.dll\BitBlt", "ptr", hdc, "int", x, "int", y, "int", cx, "int", cy, "ptr", hdcSrc, "int", x1, "int", y1, "uint", rop, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4548,7 +4548,7 @@ class Gdi {
     static CancelDC(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\CancelDC", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\CancelDC", "ptr", hdc, "int")
         return result
     }
 
@@ -4572,7 +4572,7 @@ class Gdi {
     static Chord(hdc, x1, y1, x2, y2, x3, y3, x4, y4) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\Chord", "ptr", hdc, "int", x1, "int", y1, "int", x2, "int", y2, "int", x3, "int", y3, "int", x4, "int", y4, "ptr")
+        result := DllCall("GDI32.dll\Chord", "ptr", hdc, "int", x1, "int", y1, "int", x2, "int", y2, "int", x3, "int", y3, "int", x4, "int", y4, "int")
         return result
     }
 
@@ -5636,7 +5636,7 @@ class Gdi {
      * @since windows5.0
      */
     static CreateHatchBrush(iHatch, color) {
-        result := DllCall("GDI32.dll\CreateHatchBrush", "int", iHatch, "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\CreateHatchBrush", "int", iHatch, "uint", color, "ptr")
         return HBRUSH({Value: result}, True)
     }
 
@@ -5742,7 +5742,7 @@ class Gdi {
      * @since windows5.0
      */
     static CreatePen(iStyle, cWidth, color) {
-        result := DllCall("GDI32.dll\CreatePen", "int", iStyle, "int", cWidth, "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\CreatePen", "int", iStyle, "int", cWidth, "uint", color, "ptr")
         return HPEN({Value: result}, True)
     }
 
@@ -5864,7 +5864,7 @@ class Gdi {
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\CreateScalableFontResourceA", "uint", fdwHidden, "ptr", lpszFont, "ptr", lpszFile, "ptr", lpszPath, "ptr")
+        result := DllCall("GDI32.dll\CreateScalableFontResourceA", "uint", fdwHidden, "ptr", lpszFont, "ptr", lpszFile, "ptr", lpszPath, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5892,7 +5892,7 @@ class Gdi {
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\CreateScalableFontResourceW", "uint", fdwHidden, "ptr", lpszFont, "ptr", lpszFile, "ptr", lpszPath, "ptr")
+        result := DllCall("GDI32.dll\CreateScalableFontResourceW", "uint", fdwHidden, "ptr", lpszFont, "ptr", lpszFile, "ptr", lpszPath, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5909,7 +5909,7 @@ class Gdi {
      * @since windows5.0
      */
     static CreateSolidBrush(color) {
-        result := DllCall("GDI32.dll\CreateSolidBrush", "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\CreateSolidBrush", "uint", color, "ptr")
         return HBRUSH({Value: result}, True)
     }
 
@@ -5925,7 +5925,7 @@ class Gdi {
     static DeleteDC(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\DeleteDC", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\DeleteDC", "ptr", hdc, "int")
         return result
     }
 
@@ -5941,7 +5941,7 @@ class Gdi {
     static DeleteMetaFile(hmf) {
         hmf := hmf is Win32Handle ? NumGet(hmf, "ptr") : hmf
 
-        result := DllCall("GDI32.dll\DeleteMetaFile", "ptr", hmf, "ptr")
+        result := DllCall("GDI32.dll\DeleteMetaFile", "ptr", hmf, "int")
         return result
     }
 
@@ -5957,7 +5957,7 @@ class Gdi {
     static DeleteObject(ho) {
         ho := ho is Win32Handle ? NumGet(ho, "ptr") : ho
 
-        result := DllCall("GDI32.dll\DeleteObject", "ptr", ho, "ptr")
+        result := DllCall("GDI32.dll\DeleteObject", "ptr", ho, "int")
         return result
     }
 
@@ -5998,7 +5998,7 @@ class Gdi {
     static Ellipse(hdc, left, top, right, bottom) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\Ellipse", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "ptr")
+        result := DllCall("GDI32.dll\Ellipse", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int")
         return result
     }
 
@@ -6181,7 +6181,7 @@ class Gdi {
         hrgn1 := hrgn1 is Win32Handle ? NumGet(hrgn1, "ptr") : hrgn1
         hrgn2 := hrgn2 is Win32Handle ? NumGet(hrgn2, "ptr") : hrgn2
 
-        result := DllCall("GDI32.dll\EqualRgn", "ptr", hrgn1, "ptr", hrgn2, "ptr")
+        result := DllCall("GDI32.dll\EqualRgn", "ptr", hrgn1, "ptr", hrgn2, "int")
         return result
     }
 
@@ -6286,7 +6286,7 @@ class Gdi {
     static ExtFloodFill(hdc, x, y, color, type) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\ExtFloodFill", "ptr", hdc, "int", x, "int", y, "ptr", color, "uint", type, "ptr")
+        result := DllCall("GDI32.dll\ExtFloodFill", "ptr", hdc, "int", x, "int", y, "uint", color, "uint", type, "int")
         return result
     }
 
@@ -6306,7 +6306,7 @@ class Gdi {
         hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
         hbr := hbr is Win32Handle ? NumGet(hbr, "ptr") : hbr
 
-        result := DllCall("GDI32.dll\FillRgn", "ptr", hdc, "ptr", hrgn, "ptr", hbr, "ptr")
+        result := DllCall("GDI32.dll\FillRgn", "ptr", hdc, "ptr", hrgn, "ptr", hbr, "int")
         return result
     }
 
@@ -6325,7 +6325,7 @@ class Gdi {
     static FloodFill(hdc, x, y, color) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\FloodFill", "ptr", hdc, "int", x, "int", y, "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\FloodFill", "ptr", hdc, "int", x, "int", y, "uint", color, "int")
         return result
     }
 
@@ -6347,7 +6347,7 @@ class Gdi {
         hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
         hbr := hbr is Win32Handle ? NumGet(hbr, "ptr") : hbr
 
-        result := DllCall("GDI32.dll\FrameRgn", "ptr", hdc, "ptr", hrgn, "ptr", hbr, "int", w, "int", h, "ptr")
+        result := DllCall("GDI32.dll\FrameRgn", "ptr", hdc, "ptr", hrgn, "ptr", hbr, "int", w, "int", h, "int")
         return result
     }
 
@@ -6380,7 +6380,7 @@ class Gdi {
     static GetAspectRatioFilterEx(hdc, lpsize) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetAspectRatioFilterEx", "ptr", hdc, "ptr", lpsize, "ptr")
+        result := DllCall("GDI32.dll\GetAspectRatioFilterEx", "ptr", hdc, "ptr", lpsize, "int")
         return result
     }
 
@@ -6396,7 +6396,7 @@ class Gdi {
     static GetBkColor(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetBkColor", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\GetBkColor", "ptr", hdc, "uint")
         return result
     }
 
@@ -6412,7 +6412,7 @@ class Gdi {
     static GetDCBrushColor(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetDCBrushColor", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\GetDCBrushColor", "ptr", hdc, "uint")
         return result
     }
 
@@ -6428,7 +6428,7 @@ class Gdi {
     static GetDCPenColor(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetDCPenColor", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\GetDCPenColor", "ptr", hdc, "uint")
         return result
     }
 
@@ -6479,7 +6479,7 @@ class Gdi {
     static GetBitmapDimensionEx(hbit, lpsize) {
         hbit := hbit is Win32Handle ? NumGet(hbit, "ptr") : hbit
 
-        result := DllCall("GDI32.dll\GetBitmapDimensionEx", "ptr", hbit, "ptr", lpsize, "ptr")
+        result := DllCall("GDI32.dll\GetBitmapDimensionEx", "ptr", hbit, "ptr", lpsize, "int")
         return result
     }
 
@@ -6556,7 +6556,7 @@ class Gdi {
     static GetBrushOrgEx(hdc, lppt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetBrushOrgEx", "ptr", hdc, "ptr", lppt, "ptr")
+        result := DllCall("GDI32.dll\GetBrushOrgEx", "ptr", hdc, "ptr", lppt, "int")
         return result
     }
 
@@ -6575,7 +6575,7 @@ class Gdi {
     static GetCharWidthA(hdc, iFirst, iLast, lpBuffer) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharWidthA", "ptr", hdc, "uint", iFirst, "uint", iLast, "int*", lpBuffer, "ptr")
+        result := DllCall("GDI32.dll\GetCharWidthA", "ptr", hdc, "uint", iFirst, "uint", iLast, "int*", lpBuffer, "int")
         return result
     }
 
@@ -6594,7 +6594,7 @@ class Gdi {
     static GetCharWidthW(hdc, iFirst, iLast, lpBuffer) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharWidthW", "ptr", hdc, "uint", iFirst, "uint", iLast, "int*", lpBuffer, "ptr")
+        result := DllCall("GDI32.dll\GetCharWidthW", "ptr", hdc, "uint", iFirst, "uint", iLast, "int*", lpBuffer, "int")
         return result
     }
 
@@ -6613,7 +6613,7 @@ class Gdi {
     static GetCharWidth32A(hdc, iFirst, iLast, lpBuffer) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharWidth32A", "ptr", hdc, "uint", iFirst, "uint", iLast, "int*", lpBuffer, "ptr")
+        result := DllCall("GDI32.dll\GetCharWidth32A", "ptr", hdc, "uint", iFirst, "uint", iLast, "int*", lpBuffer, "int")
         return result
     }
 
@@ -6632,7 +6632,7 @@ class Gdi {
     static GetCharWidth32W(hdc, iFirst, iLast, lpBuffer) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharWidth32W", "ptr", hdc, "uint", iFirst, "uint", iLast, "int*", lpBuffer, "ptr")
+        result := DllCall("GDI32.dll\GetCharWidth32W", "ptr", hdc, "uint", iFirst, "uint", iLast, "int*", lpBuffer, "int")
         return result
     }
 
@@ -6651,7 +6651,7 @@ class Gdi {
     static GetCharWidthFloatA(hdc, iFirst, iLast, lpBuffer) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharWidthFloatA", "ptr", hdc, "uint", iFirst, "uint", iLast, "float*", lpBuffer, "ptr")
+        result := DllCall("GDI32.dll\GetCharWidthFloatA", "ptr", hdc, "uint", iFirst, "uint", iLast, "float*", lpBuffer, "int")
         return result
     }
 
@@ -6670,7 +6670,7 @@ class Gdi {
     static GetCharWidthFloatW(hdc, iFirst, iLast, lpBuffer) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharWidthFloatW", "ptr", hdc, "uint", iFirst, "uint", iLast, "float*", lpBuffer, "ptr")
+        result := DllCall("GDI32.dll\GetCharWidthFloatW", "ptr", hdc, "uint", iFirst, "uint", iLast, "float*", lpBuffer, "int")
         return result
     }
 
@@ -6689,7 +6689,7 @@ class Gdi {
     static GetCharABCWidthsA(hdc, wFirst, wLast, lpABC) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharABCWidthsA", "ptr", hdc, "uint", wFirst, "uint", wLast, "ptr", lpABC, "ptr")
+        result := DllCall("GDI32.dll\GetCharABCWidthsA", "ptr", hdc, "uint", wFirst, "uint", wLast, "ptr", lpABC, "int")
         return result
     }
 
@@ -6708,7 +6708,7 @@ class Gdi {
     static GetCharABCWidthsW(hdc, wFirst, wLast, lpABC) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharABCWidthsW", "ptr", hdc, "uint", wFirst, "uint", wLast, "ptr", lpABC, "ptr")
+        result := DllCall("GDI32.dll\GetCharABCWidthsW", "ptr", hdc, "uint", wFirst, "uint", wLast, "ptr", lpABC, "int")
         return result
     }
 
@@ -6727,7 +6727,7 @@ class Gdi {
     static GetCharABCWidthsFloatA(hdc, iFirst, iLast, lpABC) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharABCWidthsFloatA", "ptr", hdc, "uint", iFirst, "uint", iLast, "ptr", lpABC, "ptr")
+        result := DllCall("GDI32.dll\GetCharABCWidthsFloatA", "ptr", hdc, "uint", iFirst, "uint", iLast, "ptr", lpABC, "int")
         return result
     }
 
@@ -6746,7 +6746,7 @@ class Gdi {
     static GetCharABCWidthsFloatW(hdc, iFirst, iLast, lpABC) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharABCWidthsFloatW", "ptr", hdc, "uint", iFirst, "uint", iLast, "ptr", lpABC, "ptr")
+        result := DllCall("GDI32.dll\GetCharABCWidthsFloatW", "ptr", hdc, "uint", iFirst, "uint", iLast, "ptr", lpABC, "int")
         return result
     }
 
@@ -6883,7 +6883,7 @@ class Gdi {
     static GetCurrentPositionEx(hdc, lppt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCurrentPositionEx", "ptr", hdc, "ptr", lppt, "ptr")
+        result := DllCall("GDI32.dll\GetCurrentPositionEx", "ptr", hdc, "ptr", lppt, "int")
         return result
     }
 
@@ -7122,7 +7122,7 @@ class Gdi {
     static GetNearestColor(hdc, color) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetNearestColor", "ptr", hdc, "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\GetNearestColor", "ptr", hdc, "uint", color, "uint")
         return result
     }
 
@@ -7139,7 +7139,7 @@ class Gdi {
     static GetNearestPaletteIndex(h, color) {
         h := h is Win32Handle ? NumGet(h, "ptr") : h
 
-        result := DllCall("GDI32.dll\GetNearestPaletteIndex", "ptr", h, "ptr", color, "uint")
+        result := DllCall("GDI32.dll\GetNearestPaletteIndex", "ptr", h, "uint", color, "uint")
         return result
     }
 
@@ -7290,7 +7290,7 @@ class Gdi {
     static GetPixel(hdc, x, y) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetPixel", "ptr", hdc, "int", x, "int", y, "ptr")
+        result := DllCall("GDI32.dll\GetPixel", "ptr", hdc, "int", x, "int", y, "uint")
         return result
     }
 
@@ -7337,7 +7337,7 @@ class Gdi {
      * @since windows5.0
      */
     static GetRasterizerCaps(lpraststat, cjBytes) {
-        result := DllCall("GDI32.dll\GetRasterizerCaps", "ptr", lpraststat, "uint", cjBytes, "ptr")
+        result := DllCall("GDI32.dll\GetRasterizerCaps", "ptr", lpraststat, "uint", cjBytes, "int")
         return result
     }
 
@@ -7641,7 +7641,7 @@ class Gdi {
     static GetTextColor(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextColor", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\GetTextColor", "ptr", hdc, "uint")
         return result
     }
 
@@ -7661,7 +7661,7 @@ class Gdi {
         lpString := lpString is String ? StrPtr(lpString) : lpString
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextExtentPointA", "ptr", hdc, "ptr", lpString, "int", c, "ptr", lpsz, "ptr")
+        result := DllCall("GDI32.dll\GetTextExtentPointA", "ptr", hdc, "ptr", lpString, "int", c, "ptr", lpsz, "int")
         return result
     }
 
@@ -7681,7 +7681,7 @@ class Gdi {
         lpString := lpString is String ? StrPtr(lpString) : lpString
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextExtentPointW", "ptr", hdc, "ptr", lpString, "int", c, "ptr", lpsz, "ptr")
+        result := DllCall("GDI32.dll\GetTextExtentPointW", "ptr", hdc, "ptr", lpString, "int", c, "ptr", lpsz, "int")
         return result
     }
 
@@ -7701,7 +7701,7 @@ class Gdi {
         lpString := lpString is String ? StrPtr(lpString) : lpString
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextExtentPoint32A", "ptr", hdc, "ptr", lpString, "int", c, "ptr", psizl, "ptr")
+        result := DllCall("GDI32.dll\GetTextExtentPoint32A", "ptr", hdc, "ptr", lpString, "int", c, "ptr", psizl, "int")
         return result
     }
 
@@ -7721,7 +7721,7 @@ class Gdi {
         lpString := lpString is String ? StrPtr(lpString) : lpString
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextExtentPoint32W", "ptr", hdc, "ptr", lpString, "int", c, "ptr", psizl, "ptr")
+        result := DllCall("GDI32.dll\GetTextExtentPoint32W", "ptr", hdc, "ptr", lpString, "int", c, "ptr", psizl, "int")
         return result
     }
 
@@ -7746,7 +7746,7 @@ class Gdi {
         lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextExtentExPointA", "ptr", hdc, "ptr", lpszString, "int", cchString, "int", nMaxExtent, "int*", lpnFit, "int*", lpnDx, "ptr", lpSize, "ptr")
+        result := DllCall("GDI32.dll\GetTextExtentExPointA", "ptr", hdc, "ptr", lpszString, "int", cchString, "int", nMaxExtent, "int*", lpnFit, "int*", lpnDx, "ptr", lpSize, "int")
         return result
     }
 
@@ -7771,7 +7771,7 @@ class Gdi {
         lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextExtentExPointW", "ptr", hdc, "ptr", lpszString, "int", cchString, "int", nMaxExtent, "int*", lpnFit, "int*", lpnDx, "ptr", lpSize, "ptr")
+        result := DllCall("GDI32.dll\GetTextExtentExPointW", "ptr", hdc, "ptr", lpszString, "int", cchString, "int", nMaxExtent, "int*", lpnFit, "int*", lpnDx, "ptr", lpSize, "int")
         return result
     }
 
@@ -7983,7 +7983,7 @@ class Gdi {
     static GetTextExtentPointI(hdc, pgiIn, cgi, psize) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextExtentPointI", "ptr", hdc, "ushort*", pgiIn, "int", cgi, "ptr", psize, "ptr")
+        result := DllCall("GDI32.dll\GetTextExtentPointI", "ptr", hdc, "ushort*", pgiIn, "int", cgi, "ptr", psize, "int")
         return result
     }
 
@@ -8005,7 +8005,7 @@ class Gdi {
     static GetTextExtentExPointI(hdc, lpwszString, cwchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextExtentExPointI", "ptr", hdc, "ushort*", lpwszString, "int", cwchString, "int", nMaxExtent, "int*", lpnFit, "int*", lpnDx, "ptr", lpSize, "ptr")
+        result := DllCall("GDI32.dll\GetTextExtentExPointI", "ptr", hdc, "ushort*", lpwszString, "int", cwchString, "int", nMaxExtent, "int*", lpnFit, "int*", lpnDx, "ptr", lpSize, "int")
         return result
     }
 
@@ -8025,7 +8025,7 @@ class Gdi {
     static GetCharWidthI(hdc, giFirst, cgi, pgi, piWidths) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharWidthI", "ptr", hdc, "uint", giFirst, "uint", cgi, "ushort*", pgi, "int*", piWidths, "ptr")
+        result := DllCall("GDI32.dll\GetCharWidthI", "ptr", hdc, "uint", giFirst, "uint", cgi, "ushort*", pgi, "int*", piWidths, "int")
         return result
     }
 
@@ -8045,7 +8045,7 @@ class Gdi {
     static GetCharABCWidthsI(hdc, giFirst, cgi, pgi, pabc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetCharABCWidthsI", "ptr", hdc, "uint", giFirst, "uint", cgi, "ushort*", pgi, "ptr", pabc, "ptr")
+        result := DllCall("GDI32.dll\GetCharABCWidthsI", "ptr", hdc, "uint", giFirst, "uint", cgi, "ushort*", pgi, "ptr", pabc, "int")
         return result
     }
 
@@ -8302,7 +8302,7 @@ class Gdi {
 
         name := name is String ? StrPtr(name) : name
 
-        result := DllCall("GDI32.dll\RemoveFontResourceExA", "ptr", name, "uint", fl, "ptr", pdv, "ptr")
+        result := DllCall("GDI32.dll\RemoveFontResourceExA", "ptr", name, "uint", fl, "ptr", pdv, "int")
         return result
     }
 
@@ -8321,7 +8321,7 @@ class Gdi {
 
         name := name is String ? StrPtr(name) : name
 
-        result := DllCall("GDI32.dll\RemoveFontResourceExW", "ptr", name, "uint", fl, "ptr", pdv, "ptr")
+        result := DllCall("GDI32.dll\RemoveFontResourceExW", "ptr", name, "uint", fl, "ptr", pdv, "int")
         return result
     }
 
@@ -8353,7 +8353,7 @@ class Gdi {
     static RemoveFontMemResourceEx(h) {
         h := h is Win32Handle ? NumGet(h, "ptr") : h
 
-        result := DllCall("GDI32.dll\RemoveFontMemResourceEx", "ptr", h, "ptr")
+        result := DllCall("GDI32.dll\RemoveFontMemResourceEx", "ptr", h, "int")
         return result
     }
 
@@ -8398,7 +8398,7 @@ class Gdi {
     static GetViewportExtEx(hdc, lpsize) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetViewportExtEx", "ptr", hdc, "ptr", lpsize, "ptr")
+        result := DllCall("GDI32.dll\GetViewportExtEx", "ptr", hdc, "ptr", lpsize, "int")
         return result
     }
 
@@ -8415,7 +8415,7 @@ class Gdi {
     static GetViewportOrgEx(hdc, lppoint) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetViewportOrgEx", "ptr", hdc, "ptr", lppoint, "ptr")
+        result := DllCall("GDI32.dll\GetViewportOrgEx", "ptr", hdc, "ptr", lppoint, "int")
         return result
     }
 
@@ -8432,7 +8432,7 @@ class Gdi {
     static GetWindowExtEx(hdc, lpsize) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetWindowExtEx", "ptr", hdc, "ptr", lpsize, "ptr")
+        result := DllCall("GDI32.dll\GetWindowExtEx", "ptr", hdc, "ptr", lpsize, "int")
         return result
     }
 
@@ -8449,7 +8449,7 @@ class Gdi {
     static GetWindowOrgEx(hdc, lppoint) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetWindowOrgEx", "ptr", hdc, "ptr", lppoint, "ptr")
+        result := DllCall("GDI32.dll\GetWindowOrgEx", "ptr", hdc, "ptr", lppoint, "int")
         return result
     }
 
@@ -8536,7 +8536,7 @@ class Gdi {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
 
-        result := DllCall("GDI32.dll\InvertRgn", "ptr", hdc, "ptr", hrgn, "ptr")
+        result := DllCall("GDI32.dll\InvertRgn", "ptr", hdc, "ptr", hrgn, "int")
         return result
     }
 
@@ -8555,7 +8555,7 @@ class Gdi {
      * @since windows5.0
      */
     static LineDDA(xStart, yStart, xEnd, yEnd, lpProc, data) {
-        result := DllCall("GDI32.dll\LineDDA", "int", xStart, "int", yStart, "int", xEnd, "int", yEnd, "ptr", lpProc, "ptr", data, "ptr")
+        result := DllCall("GDI32.dll\LineDDA", "int", xStart, "int", yStart, "int", xEnd, "int", yEnd, "ptr", lpProc, "ptr", data, "int")
         return result
     }
 
@@ -8573,7 +8573,7 @@ class Gdi {
     static LineTo(hdc, x, y) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\LineTo", "ptr", hdc, "int", x, "int", y, "ptr")
+        result := DllCall("GDI32.dll\LineTo", "ptr", hdc, "int", x, "int", y, "int")
         return result
     }
 
@@ -8606,7 +8606,7 @@ class Gdi {
         hdcSrc := hdcSrc is Win32Handle ? NumGet(hdcSrc, "ptr") : hdcSrc
         hbmMask := hbmMask is Win32Handle ? NumGet(hbmMask, "ptr") : hbmMask
 
-        result := DllCall("GDI32.dll\MaskBlt", "ptr", hdcDest, "int", xDest, "int", yDest, "int", width, "int", height, "ptr", hdcSrc, "int", xSrc, "int", ySrc, "ptr", hbmMask, "int", xMask, "int", yMask, "uint", rop, "ptr")
+        result := DllCall("GDI32.dll\MaskBlt", "ptr", hdcDest, "int", xDest, "int", yDest, "int", width, "int", height, "ptr", hdcSrc, "int", xSrc, "int", ySrc, "ptr", hbmMask, "int", xMask, "int", yMask, "uint", rop, "int")
         return result
     }
 
@@ -8633,7 +8633,7 @@ class Gdi {
         hdcSrc := hdcSrc is Win32Handle ? NumGet(hdcSrc, "ptr") : hdcSrc
         hbmMask := hbmMask is Win32Handle ? NumGet(hbmMask, "ptr") : hbmMask
 
-        result := DllCall("GDI32.dll\PlgBlt", "ptr", hdcDest, "ptr", lpPoint, "ptr", hdcSrc, "int", xSrc, "int", ySrc, "int", width, "int", height, "ptr", hbmMask, "int", xMask, "int", yMask, "ptr")
+        result := DllCall("GDI32.dll\PlgBlt", "ptr", hdcDest, "ptr", lpPoint, "ptr", hdcSrc, "int", xSrc, "int", ySrc, "int", width, "int", height, "ptr", hbmMask, "int", xMask, "int", yMask, "int")
         return result
     }
 
@@ -8760,7 +8760,7 @@ class Gdi {
     static PatBlt(hdc, x, y, w, h, rop) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PatBlt", "ptr", hdc, "int", x, "int", y, "int", w, "int", h, "uint", rop, "ptr")
+        result := DllCall("GDI32.dll\PatBlt", "ptr", hdc, "int", x, "int", y, "int", w, "int", h, "uint", rop, "int")
         return result
     }
 
@@ -8784,7 +8784,7 @@ class Gdi {
     static Pie(hdc, left, top, right, bottom, xr1, yr1, xr2, yr2) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\Pie", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int", xr1, "int", yr1, "int", xr2, "int", yr2, "ptr")
+        result := DllCall("GDI32.dll\Pie", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int", xr1, "int", yr1, "int", xr2, "int", yr2, "int")
         return result
     }
 
@@ -8802,7 +8802,7 @@ class Gdi {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hmf := hmf is Win32Handle ? NumGet(hmf, "ptr") : hmf
 
-        result := DllCall("GDI32.dll\PlayMetaFile", "ptr", hdc, "ptr", hmf, "ptr")
+        result := DllCall("GDI32.dll\PlayMetaFile", "ptr", hdc, "ptr", hmf, "int")
         return result
     }
 
@@ -8820,7 +8820,7 @@ class Gdi {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
 
-        result := DllCall("GDI32.dll\PaintRgn", "ptr", hdc, "ptr", hrgn, "ptr")
+        result := DllCall("GDI32.dll\PaintRgn", "ptr", hdc, "ptr", hrgn, "int")
         return result
     }
 
@@ -8839,7 +8839,7 @@ class Gdi {
     static PolyPolygon(hdc, apt, asz, csz) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PolyPolygon", "ptr", hdc, "ptr", apt, "int*", asz, "int", csz, "ptr")
+        result := DllCall("GDI32.dll\PolyPolygon", "ptr", hdc, "ptr", apt, "int*", asz, "int", csz, "int")
         return result
     }
 
@@ -8857,7 +8857,7 @@ class Gdi {
     static PtInRegion(hrgn, x, y) {
         hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
 
-        result := DllCall("GDI32.dll\PtInRegion", "ptr", hrgn, "int", x, "int", y, "ptr")
+        result := DllCall("GDI32.dll\PtInRegion", "ptr", hrgn, "int", x, "int", y, "int")
         return result
     }
 
@@ -8877,7 +8877,7 @@ class Gdi {
     static PtVisible(hdc, x, y) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PtVisible", "ptr", hdc, "int", x, "int", y, "ptr")
+        result := DllCall("GDI32.dll\PtVisible", "ptr", hdc, "int", x, "int", y, "int")
         return result
     }
 
@@ -8894,7 +8894,7 @@ class Gdi {
     static RectInRegion(hrgn, lprect) {
         hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
 
-        result := DllCall("GDI32.dll\RectInRegion", "ptr", hrgn, "ptr", lprect, "ptr")
+        result := DllCall("GDI32.dll\RectInRegion", "ptr", hrgn, "ptr", lprect, "int")
         return result
     }
 
@@ -8917,7 +8917,7 @@ class Gdi {
     static RectVisible(hdc, lprect) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\RectVisible", "ptr", hdc, "ptr", lprect, "ptr")
+        result := DllCall("GDI32.dll\RectVisible", "ptr", hdc, "ptr", lprect, "int")
         return result
     }
 
@@ -8937,7 +8937,7 @@ class Gdi {
     static Rectangle(hdc, left, top, right, bottom) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\Rectangle", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "ptr")
+        result := DllCall("GDI32.dll\Rectangle", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int")
         return result
     }
 
@@ -8954,7 +8954,7 @@ class Gdi {
     static RestoreDC(hdc, nSavedDC) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\RestoreDC", "ptr", hdc, "int", nSavedDC, "ptr")
+        result := DllCall("GDI32.dll\RestoreDC", "ptr", hdc, "int", nSavedDC, "int")
         return result
     }
 
@@ -9020,7 +9020,7 @@ class Gdi {
     static RemoveFontResourceA(lpFileName) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("GDI32.dll\RemoveFontResourceA", "ptr", lpFileName, "ptr")
+        result := DllCall("GDI32.dll\RemoveFontResourceA", "ptr", lpFileName, "int")
         return result
     }
 
@@ -9036,7 +9036,7 @@ class Gdi {
     static RemoveFontResourceW(lpFileName) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("GDI32.dll\RemoveFontResourceW", "ptr", lpFileName, "ptr")
+        result := DllCall("GDI32.dll\RemoveFontResourceW", "ptr", lpFileName, "int")
         return result
     }
 
@@ -9058,7 +9058,7 @@ class Gdi {
     static RoundRect(hdc, left, top, right, bottom, width, height) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\RoundRect", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int", width, "int", height, "ptr")
+        result := DllCall("GDI32.dll\RoundRect", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int", width, "int", height, "int")
         return result
     }
 
@@ -9077,7 +9077,7 @@ class Gdi {
     static ResizePalette(hpal, n) {
         hpal := hpal is Win32Handle ? NumGet(hpal, "ptr") : hpal
 
-        result := DllCall("GDI32.dll\ResizePalette", "ptr", hpal, "uint", n, "ptr")
+        result := DllCall("GDI32.dll\ResizePalette", "ptr", hpal, "uint", n, "int")
         return result
     }
 
@@ -9421,7 +9421,7 @@ class Gdi {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hPal := hPal is Win32Handle ? NumGet(hPal, "ptr") : hPal
 
-        result := DllCall("GDI32.dll\SelectPalette", "ptr", hdc, "ptr", hPal, "ptr", bForceBkgd, "ptr")
+        result := DllCall("GDI32.dll\SelectPalette", "ptr", hdc, "ptr", hPal, "int", bForceBkgd, "ptr")
         return HPALETTE({Value: result}, True)
     }
 
@@ -9438,7 +9438,7 @@ class Gdi {
     static SetBkColor(hdc, color) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetBkColor", "ptr", hdc, "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\SetBkColor", "ptr", hdc, "uint", color, "uint")
         return result
     }
 
@@ -9455,7 +9455,7 @@ class Gdi {
     static SetDCBrushColor(hdc, color) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetDCBrushColor", "ptr", hdc, "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\SetDCBrushColor", "ptr", hdc, "uint", color, "uint")
         return result
     }
 
@@ -9470,7 +9470,7 @@ class Gdi {
     static SetDCPenColor(hdc, color) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetDCPenColor", "ptr", hdc, "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\SetDCPenColor", "ptr", hdc, "uint", color, "uint")
         return result
     }
 
@@ -9781,7 +9781,7 @@ class Gdi {
     static SetPixel(hdc, x, y, color) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetPixel", "ptr", hdc, "int", x, "int", y, "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\SetPixel", "ptr", hdc, "int", x, "int", y, "uint", color, "uint")
         return result
     }
 
@@ -9800,7 +9800,7 @@ class Gdi {
     static SetPixelV(hdc, x, y, color) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetPixelV", "ptr", hdc, "int", x, "int", y, "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\SetPixelV", "ptr", hdc, "int", x, "int", y, "uint", color, "int")
         return result
     }
 
@@ -9844,7 +9844,7 @@ class Gdi {
         hdcDest := hdcDest is Win32Handle ? NumGet(hdcDest, "ptr") : hdcDest
         hdcSrc := hdcSrc is Win32Handle ? NumGet(hdcSrc, "ptr") : hdcSrc
 
-        result := DllCall("GDI32.dll\StretchBlt", "ptr", hdcDest, "int", xDest, "int", yDest, "int", wDest, "int", hDest, "ptr", hdcSrc, "int", xSrc, "int", ySrc, "int", wSrc, "int", hSrc, "uint", rop, "ptr")
+        result := DllCall("GDI32.dll\StretchBlt", "ptr", hdcDest, "int", xDest, "int", yDest, "int", wDest, "int", hDest, "ptr", hdcSrc, "int", xSrc, "int", ySrc, "int", wSrc, "int", hSrc, "uint", rop, "int")
         return result
     }
 
@@ -9864,7 +9864,7 @@ class Gdi {
     static SetRectRgn(hrgn, left, top, right, bottom) {
         hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
 
-        result := DllCall("GDI32.dll\SetRectRgn", "ptr", hrgn, "int", left, "int", top, "int", right, "int", bottom, "ptr")
+        result := DllCall("GDI32.dll\SetRectRgn", "ptr", hrgn, "int", left, "int", top, "int", right, "int", bottom, "int")
         return result
     }
 
@@ -9999,7 +9999,7 @@ class Gdi {
     static SetTextColor(hdc, color) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetTextColor", "ptr", hdc, "ptr", color, "ptr")
+        result := DllCall("GDI32.dll\SetTextColor", "ptr", hdc, "uint", color, "uint")
         return result
     }
 
@@ -10164,7 +10164,7 @@ class Gdi {
     static SetTextJustification(hdc, extra, count) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetTextJustification", "ptr", hdc, "int", extra, "int", count, "ptr")
+        result := DllCall("GDI32.dll\SetTextJustification", "ptr", hdc, "int", extra, "int", count, "int")
         return result
     }
 
@@ -10180,7 +10180,7 @@ class Gdi {
     static UpdateColors(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\UpdateColors", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\UpdateColors", "ptr", hdc, "int")
         return result
     }
 
@@ -10207,7 +10207,7 @@ class Gdi {
         hdcDest := hdcDest is Win32Handle ? NumGet(hdcDest, "ptr") : hdcDest
         hdcSrc := hdcSrc is Win32Handle ? NumGet(hdcSrc, "ptr") : hdcSrc
 
-        result := DllCall("MSIMG32.dll\AlphaBlend", "ptr", hdcDest, "int", xoriginDest, "int", yoriginDest, "int", wDest, "int", hDest, "ptr", hdcSrc, "int", xoriginSrc, "int", yoriginSrc, "int", wSrc, "int", hSrc, "ptr", ftn, "ptr")
+        result := DllCall("MSIMG32.dll\AlphaBlend", "ptr", hdcDest, "int", xoriginDest, "int", yoriginDest, "int", wDest, "int", hDest, "ptr", hdcSrc, "int", xoriginSrc, "int", yoriginSrc, "int", wSrc, "int", hSrc, "ptr", ftn, "int")
         return result
     }
 
@@ -10234,7 +10234,7 @@ class Gdi {
         hdcDest := hdcDest is Win32Handle ? NumGet(hdcDest, "ptr") : hdcDest
         hdcSrc := hdcSrc is Win32Handle ? NumGet(hdcSrc, "ptr") : hdcSrc
 
-        result := DllCall("MSIMG32.dll\TransparentBlt", "ptr", hdcDest, "int", xoriginDest, "int", yoriginDest, "int", wDest, "int", hDest, "ptr", hdcSrc, "int", xoriginSrc, "int", yoriginSrc, "int", wSrc, "int", hSrc, "uint", crTransparent, "ptr")
+        result := DllCall("MSIMG32.dll\TransparentBlt", "ptr", hdcDest, "int", xoriginDest, "int", yoriginDest, "int", wDest, "int", hDest, "ptr", hdcSrc, "int", xoriginSrc, "int", yoriginSrc, "int", wSrc, "int", hSrc, "uint", crTransparent, "int")
         return result
     }
 
@@ -10255,7 +10255,7 @@ class Gdi {
     static GradientFill(hdc, pVertex, nVertex, pMesh, nMesh, ulMode) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("MSIMG32.dll\GradientFill", "ptr", hdc, "ptr", pVertex, "uint", nVertex, "ptr", pMesh, "uint", nMesh, "uint", ulMode, "ptr")
+        result := DllCall("MSIMG32.dll\GradientFill", "ptr", hdc, "ptr", pVertex, "uint", nVertex, "ptr", pMesh, "uint", nMesh, "uint", ulMode, "int")
         return result
     }
 
@@ -10302,7 +10302,7 @@ class Gdi {
         hdcDest := hdcDest is Win32Handle ? NumGet(hdcDest, "ptr") : hdcDest
         hdcSrc := hdcSrc is Win32Handle ? NumGet(hdcSrc, "ptr") : hdcSrc
 
-        result := DllCall("GDI32.dll\GdiAlphaBlend", "ptr", hdcDest, "int", xoriginDest, "int", yoriginDest, "int", wDest, "int", hDest, "ptr", hdcSrc, "int", xoriginSrc, "int", yoriginSrc, "int", wSrc, "int", hSrc, "ptr", ftn, "ptr")
+        result := DllCall("GDI32.dll\GdiAlphaBlend", "ptr", hdcDest, "int", xoriginDest, "int", yoriginDest, "int", wDest, "int", hDest, "ptr", hdcSrc, "int", xoriginSrc, "int", yoriginSrc, "int", wSrc, "int", hSrc, "ptr", ftn, "int")
         return result
     }
 
@@ -10329,7 +10329,7 @@ class Gdi {
         hdcDest := hdcDest is Win32Handle ? NumGet(hdcDest, "ptr") : hdcDest
         hdcSrc := hdcSrc is Win32Handle ? NumGet(hdcSrc, "ptr") : hdcSrc
 
-        result := DllCall("GDI32.dll\GdiTransparentBlt", "ptr", hdcDest, "int", xoriginDest, "int", yoriginDest, "int", wDest, "int", hDest, "ptr", hdcSrc, "int", xoriginSrc, "int", yoriginSrc, "int", wSrc, "int", hSrc, "uint", crTransparent, "ptr")
+        result := DllCall("GDI32.dll\GdiTransparentBlt", "ptr", hdcDest, "int", xoriginDest, "int", yoriginDest, "int", wDest, "int", hDest, "ptr", hdcSrc, "int", xoriginSrc, "int", yoriginSrc, "int", wSrc, "int", hSrc, "uint", crTransparent, "int")
         return result
     }
 
@@ -10350,7 +10350,7 @@ class Gdi {
     static GdiGradientFill(hdc, pVertex, nVertex, pMesh, nCount, ulMode) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GdiGradientFill", "ptr", hdc, "ptr", pVertex, "uint", nVertex, "ptr", pMesh, "uint", nCount, "uint", ulMode, "ptr")
+        result := DllCall("GDI32.dll\GdiGradientFill", "ptr", hdc, "ptr", pVertex, "uint", nVertex, "ptr", pMesh, "uint", nCount, "uint", ulMode, "int")
         return result
     }
 
@@ -10369,7 +10369,7 @@ class Gdi {
     static PlayMetaFileRecord(hdc, lpHandleTable, lpMR, noObjs) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PlayMetaFileRecord", "ptr", hdc, "ptr", lpHandleTable, "ptr", lpMR, "uint", noObjs, "ptr")
+        result := DllCall("GDI32.dll\PlayMetaFileRecord", "ptr", hdc, "ptr", lpHandleTable, "ptr", lpMR, "uint", noObjs, "int")
         return result
     }
 
@@ -10389,7 +10389,7 @@ class Gdi {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hmf := hmf is Win32Handle ? NumGet(hmf, "ptr") : hmf
 
-        result := DllCall("GDI32.dll\EnumMetaFile", "ptr", hdc, "ptr", hmf, "ptr", proc, "ptr", param3, "ptr")
+        result := DllCall("GDI32.dll\EnumMetaFile", "ptr", hdc, "ptr", hmf, "ptr", proc, "ptr", param3, "int")
         return result
     }
 
@@ -10499,7 +10499,7 @@ class Gdi {
     static DeleteEnhMetaFile(hmf) {
         hmf := hmf is Win32Handle ? NumGet(hmf, "ptr") : hmf
 
-        result := DllCall("GDI32.dll\DeleteEnhMetaFile", "ptr", hmf, "ptr")
+        result := DllCall("GDI32.dll\DeleteEnhMetaFile", "ptr", hmf, "int")
         return result
     }
 
@@ -10520,7 +10520,7 @@ class Gdi {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hmf := hmf is Win32Handle ? NumGet(hmf, "ptr") : hmf
 
-        result := DllCall("GDI32.dll\EnumEnhMetaFile", "ptr", hdc, "ptr", hmf, "ptr", proc, "ptr", param3, "ptr", lpRect, "ptr")
+        result := DllCall("GDI32.dll\EnumEnhMetaFile", "ptr", hdc, "ptr", hmf, "ptr", proc, "ptr", param3, "ptr", lpRect, "int")
         return result
     }
 
@@ -10690,7 +10690,7 @@ class Gdi {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hmf := hmf is Win32Handle ? NumGet(hmf, "ptr") : hmf
 
-        result := DllCall("GDI32.dll\PlayEnhMetaFile", "ptr", hdc, "ptr", hmf, "ptr", lprect, "ptr")
+        result := DllCall("GDI32.dll\PlayEnhMetaFile", "ptr", hdc, "ptr", hmf, "ptr", lprect, "int")
         return result
     }
 
@@ -10709,7 +10709,7 @@ class Gdi {
     static PlayEnhMetaFileRecord(hdc, pht, pmr, cht) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PlayEnhMetaFileRecord", "ptr", hdc, "ptr", pht, "ptr", pmr, "uint", cht, "ptr")
+        result := DllCall("GDI32.dll\PlayEnhMetaFileRecord", "ptr", hdc, "ptr", pht, "ptr", pmr, "uint", cht, "int")
         return result
     }
 
@@ -10742,7 +10742,7 @@ class Gdi {
     static GdiComment(hdc, nSize, lpData) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GdiComment", "ptr", hdc, "uint", nSize, "ptr", lpData, "ptr")
+        result := DllCall("GDI32.dll\GdiComment", "ptr", hdc, "uint", nSize, "ptr", lpData, "int")
         return result
     }
 
@@ -10759,7 +10759,7 @@ class Gdi {
     static GetTextMetricsA(hdc, lptm) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextMetricsA", "ptr", hdc, "ptr", lptm, "ptr")
+        result := DllCall("GDI32.dll\GetTextMetricsA", "ptr", hdc, "ptr", lptm, "int")
         return result
     }
 
@@ -10776,7 +10776,7 @@ class Gdi {
     static GetTextMetricsW(hdc, lptm) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetTextMetricsW", "ptr", hdc, "ptr", lptm, "ptr")
+        result := DllCall("GDI32.dll\GetTextMetricsW", "ptr", hdc, "ptr", lptm, "int")
         return result
     }
 
@@ -10797,7 +10797,7 @@ class Gdi {
     static AngleArc(hdc, x, y, r, StartAngle, SweepAngle) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\AngleArc", "ptr", hdc, "int", x, "int", y, "uint", r, "float", StartAngle, "float", SweepAngle, "ptr")
+        result := DllCall("GDI32.dll\AngleArc", "ptr", hdc, "int", x, "int", y, "uint", r, "float", StartAngle, "float", SweepAngle, "int")
         return result
     }
 
@@ -10816,7 +10816,7 @@ class Gdi {
     static PolyPolyline(hdc, apt, asz, csz) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PolyPolyline", "ptr", hdc, "ptr", apt, "uint*", asz, "uint", csz, "ptr")
+        result := DllCall("GDI32.dll\PolyPolyline", "ptr", hdc, "ptr", apt, "uint*", asz, "uint", csz, "int")
         return result
     }
 
@@ -10833,7 +10833,7 @@ class Gdi {
     static GetWorldTransform(hdc, lpxf) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetWorldTransform", "ptr", hdc, "ptr", lpxf, "ptr")
+        result := DllCall("GDI32.dll\GetWorldTransform", "ptr", hdc, "ptr", lpxf, "int")
         return result
     }
 
@@ -10850,7 +10850,7 @@ class Gdi {
     static SetWorldTransform(hdc, lpxf) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetWorldTransform", "ptr", hdc, "ptr", lpxf, "ptr")
+        result := DllCall("GDI32.dll\SetWorldTransform", "ptr", hdc, "ptr", lpxf, "int")
         return result
     }
 
@@ -10868,7 +10868,7 @@ class Gdi {
     static ModifyWorldTransform(hdc, lpxf, mode) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\ModifyWorldTransform", "ptr", hdc, "ptr", lpxf, "uint", mode, "ptr")
+        result := DllCall("GDI32.dll\ModifyWorldTransform", "ptr", hdc, "ptr", lpxf, "uint", mode, "int")
         return result
     }
 
@@ -10884,7 +10884,7 @@ class Gdi {
      * @since windows5.0
      */
     static CombineTransform(lpxfOut, lpxf1, lpxf2) {
-        result := DllCall("GDI32.dll\CombineTransform", "ptr", lpxfOut, "ptr", lpxf1, "ptr", lpxf2, "ptr")
+        result := DllCall("GDI32.dll\CombineTransform", "ptr", lpxfOut, "ptr", lpxf1, "ptr", lpxf2, "int")
         return result
     }
 
@@ -11019,7 +11019,7 @@ class Gdi {
     static SetColorAdjustment(hdc, lpca) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetColorAdjustment", "ptr", hdc, "ptr", lpca, "ptr")
+        result := DllCall("GDI32.dll\SetColorAdjustment", "ptr", hdc, "ptr", lpca, "int")
         return result
     }
 
@@ -11036,7 +11036,7 @@ class Gdi {
     static GetColorAdjustment(hdc, lpca) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetColorAdjustment", "ptr", hdc, "ptr", lpca, "ptr")
+        result := DllCall("GDI32.dll\GetColorAdjustment", "ptr", hdc, "ptr", lpca, "int")
         return result
     }
 
@@ -11068,7 +11068,7 @@ class Gdi {
     static AbortPath(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\AbortPath", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\AbortPath", "ptr", hdc, "int")
         return result
     }
 
@@ -11092,7 +11092,7 @@ class Gdi {
     static ArcTo(hdc, left, top, right, bottom, xr1, yr1, xr2, yr2) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\ArcTo", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int", xr1, "int", yr1, "int", xr2, "int", yr2, "ptr")
+        result := DllCall("GDI32.dll\ArcTo", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int", xr1, "int", yr1, "int", xr2, "int", yr2, "int")
         return result
     }
 
@@ -11108,7 +11108,7 @@ class Gdi {
     static BeginPath(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\BeginPath", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\BeginPath", "ptr", hdc, "int")
         return result
     }
 
@@ -11124,7 +11124,7 @@ class Gdi {
     static CloseFigure(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\CloseFigure", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\CloseFigure", "ptr", hdc, "int")
         return result
     }
 
@@ -11140,7 +11140,7 @@ class Gdi {
     static EndPath(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\EndPath", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\EndPath", "ptr", hdc, "int")
         return result
     }
 
@@ -11156,7 +11156,7 @@ class Gdi {
     static FillPath(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\FillPath", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\FillPath", "ptr", hdc, "int")
         return result
     }
 
@@ -11172,7 +11172,7 @@ class Gdi {
     static FlattenPath(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\FlattenPath", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\FlattenPath", "ptr", hdc, "int")
         return result
     }
 
@@ -11224,7 +11224,7 @@ class Gdi {
     static PolyDraw(hdc, apt, aj, cpt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PolyDraw", "ptr", hdc, "ptr", apt, "char*", aj, "int", cpt, "ptr")
+        result := DllCall("GDI32.dll\PolyDraw", "ptr", hdc, "ptr", apt, "char*", aj, "int", cpt, "int")
         return result
     }
 
@@ -11241,7 +11241,7 @@ class Gdi {
     static SelectClipPath(hdc, mode) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SelectClipPath", "ptr", hdc, "int", mode, "ptr")
+        result := DllCall("GDI32.dll\SelectClipPath", "ptr", hdc, "int", mode, "int")
         return result
     }
 
@@ -11276,7 +11276,7 @@ class Gdi {
     static SetMiterLimit(hdc, limit, old) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetMiterLimit", "ptr", hdc, "float", limit, "float*", old, "ptr")
+        result := DllCall("GDI32.dll\SetMiterLimit", "ptr", hdc, "float", limit, "float*", old, "int")
         return result
     }
 
@@ -11292,7 +11292,7 @@ class Gdi {
     static StrokeAndFillPath(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\StrokeAndFillPath", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\StrokeAndFillPath", "ptr", hdc, "int")
         return result
     }
 
@@ -11308,7 +11308,7 @@ class Gdi {
     static StrokePath(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\StrokePath", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\StrokePath", "ptr", hdc, "int")
         return result
     }
 
@@ -11324,7 +11324,7 @@ class Gdi {
     static WidenPath(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\WidenPath", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\WidenPath", "ptr", hdc, "int")
         return result
     }
 
@@ -11363,7 +11363,7 @@ class Gdi {
     static GetMiterLimit(hdc, plimit) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetMiterLimit", "ptr", hdc, "float*", plimit, "ptr")
+        result := DllCall("GDI32.dll\GetMiterLimit", "ptr", hdc, "float*", plimit, "int")
         return result
     }
 
@@ -11526,7 +11526,7 @@ class Gdi {
     static MoveToEx(hdc, x, y, lppt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\MoveToEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "ptr")
+        result := DllCall("GDI32.dll\MoveToEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -11547,7 +11547,7 @@ class Gdi {
         lpString := lpString is String ? StrPtr(lpString) : lpString
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\TextOutA", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", c, "ptr")
+        result := DllCall("GDI32.dll\TextOutA", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", c, "int")
         return result
     }
 
@@ -11568,7 +11568,7 @@ class Gdi {
         lpString := lpString is String ? StrPtr(lpString) : lpString
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\TextOutW", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", c, "ptr")
+        result := DllCall("GDI32.dll\TextOutW", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", c, "int")
         return result
     }
 
@@ -11594,7 +11594,7 @@ class Gdi {
         lpString := lpString is String ? StrPtr(lpString) : lpString
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\ExtTextOutA", "ptr", hdc, "int", x, "int", y, "uint", options, "ptr", lprect, "ptr", lpString, "uint", c, "int*", lpDx, "ptr")
+        result := DllCall("GDI32.dll\ExtTextOutA", "ptr", hdc, "int", x, "int", y, "uint", options, "ptr", lprect, "ptr", lpString, "uint", c, "int*", lpDx, "int")
         return result
     }
 
@@ -11620,7 +11620,7 @@ class Gdi {
         lpString := lpString is String ? StrPtr(lpString) : lpString
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\ExtTextOutW", "ptr", hdc, "int", x, "int", y, "uint", options, "ptr", lprect, "ptr", lpString, "uint", c, "int*", lpDx, "ptr")
+        result := DllCall("GDI32.dll\ExtTextOutW", "ptr", hdc, "int", x, "int", y, "uint", options, "ptr", lprect, "ptr", lpString, "uint", c, "int*", lpDx, "int")
         return result
     }
 
@@ -11638,7 +11638,7 @@ class Gdi {
     static PolyTextOutA(hdc, ppt, nstrings) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PolyTextOutA", "ptr", hdc, "ptr", ppt, "int", nstrings, "ptr")
+        result := DllCall("GDI32.dll\PolyTextOutA", "ptr", hdc, "ptr", ppt, "int", nstrings, "int")
         return result
     }
 
@@ -11656,7 +11656,7 @@ class Gdi {
     static PolyTextOutW(hdc, ppt, nstrings) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PolyTextOutW", "ptr", hdc, "ptr", ppt, "int", nstrings, "ptr")
+        result := DllCall("GDI32.dll\PolyTextOutW", "ptr", hdc, "ptr", ppt, "int", nstrings, "int")
         return result
     }
 
@@ -11690,7 +11690,7 @@ class Gdi {
     static DPtoLP(hdc, lppt, c) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\DPtoLP", "ptr", hdc, "ptr", lppt, "int", c, "ptr")
+        result := DllCall("GDI32.dll\DPtoLP", "ptr", hdc, "ptr", lppt, "int", c, "int")
         return result
     }
 
@@ -11708,7 +11708,7 @@ class Gdi {
     static LPtoDP(hdc, lppt, c) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\LPtoDP", "ptr", hdc, "ptr", lppt, "int", c, "ptr")
+        result := DllCall("GDI32.dll\LPtoDP", "ptr", hdc, "ptr", lppt, "int", c, "int")
         return result
     }
 
@@ -11726,7 +11726,7 @@ class Gdi {
     static Polygon(hdc, apt, cpt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\Polygon", "ptr", hdc, "ptr", apt, "int", cpt, "ptr")
+        result := DllCall("GDI32.dll\Polygon", "ptr", hdc, "ptr", apt, "int", cpt, "int")
         return result
     }
 
@@ -11744,7 +11744,7 @@ class Gdi {
     static Polyline(hdc, apt, cpt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\Polyline", "ptr", hdc, "ptr", apt, "int", cpt, "ptr")
+        result := DllCall("GDI32.dll\Polyline", "ptr", hdc, "ptr", apt, "int", cpt, "int")
         return result
     }
 
@@ -11762,7 +11762,7 @@ class Gdi {
     static PolyBezier(hdc, apt, cpt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PolyBezier", "ptr", hdc, "ptr", apt, "uint", cpt, "ptr")
+        result := DllCall("GDI32.dll\PolyBezier", "ptr", hdc, "ptr", apt, "uint", cpt, "int")
         return result
     }
 
@@ -11780,7 +11780,7 @@ class Gdi {
     static PolyBezierTo(hdc, apt, cpt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PolyBezierTo", "ptr", hdc, "ptr", apt, "uint", cpt, "ptr")
+        result := DllCall("GDI32.dll\PolyBezierTo", "ptr", hdc, "ptr", apt, "uint", cpt, "int")
         return result
     }
 
@@ -11798,7 +11798,7 @@ class Gdi {
     static PolylineTo(hdc, apt, cpt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\PolylineTo", "ptr", hdc, "ptr", apt, "uint", cpt, "ptr")
+        result := DllCall("GDI32.dll\PolylineTo", "ptr", hdc, "ptr", apt, "uint", cpt, "int")
         return result
     }
 
@@ -11817,7 +11817,7 @@ class Gdi {
     static SetViewportExtEx(hdc, x, y, lpsz) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetViewportExtEx", "ptr", hdc, "int", x, "int", y, "ptr", lpsz, "ptr")
+        result := DllCall("GDI32.dll\SetViewportExtEx", "ptr", hdc, "int", x, "int", y, "ptr", lpsz, "int")
         return result
     }
 
@@ -11836,7 +11836,7 @@ class Gdi {
     static SetViewportOrgEx(hdc, x, y, lppt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetViewportOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "ptr")
+        result := DllCall("GDI32.dll\SetViewportOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -11855,7 +11855,7 @@ class Gdi {
     static SetWindowExtEx(hdc, x, y, lpsz) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetWindowExtEx", "ptr", hdc, "int", x, "int", y, "ptr", lpsz, "ptr")
+        result := DllCall("GDI32.dll\SetWindowExtEx", "ptr", hdc, "int", x, "int", y, "ptr", lpsz, "int")
         return result
     }
 
@@ -11874,7 +11874,7 @@ class Gdi {
     static SetWindowOrgEx(hdc, x, y, lppt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetWindowOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "ptr")
+        result := DllCall("GDI32.dll\SetWindowOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -11893,7 +11893,7 @@ class Gdi {
     static OffsetViewportOrgEx(hdc, x, y, lppt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\OffsetViewportOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "ptr")
+        result := DllCall("GDI32.dll\OffsetViewportOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -11912,7 +11912,7 @@ class Gdi {
     static OffsetWindowOrgEx(hdc, x, y, lppt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\OffsetWindowOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "ptr")
+        result := DllCall("GDI32.dll\OffsetWindowOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -11933,7 +11933,7 @@ class Gdi {
     static ScaleViewportExtEx(hdc, xn, dx, yn, yd, lpsz) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\ScaleViewportExtEx", "ptr", hdc, "int", xn, "int", dx, "int", yn, "int", yd, "ptr", lpsz, "ptr")
+        result := DllCall("GDI32.dll\ScaleViewportExtEx", "ptr", hdc, "int", xn, "int", dx, "int", yn, "int", yd, "ptr", lpsz, "int")
         return result
     }
 
@@ -11954,7 +11954,7 @@ class Gdi {
     static ScaleWindowExtEx(hdc, xn, xd, yn, yd, lpsz) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\ScaleWindowExtEx", "ptr", hdc, "int", xn, "int", xd, "int", yn, "int", yd, "ptr", lpsz, "ptr")
+        result := DllCall("GDI32.dll\ScaleWindowExtEx", "ptr", hdc, "int", xn, "int", xd, "int", yn, "int", yd, "ptr", lpsz, "int")
         return result
     }
 
@@ -11973,7 +11973,7 @@ class Gdi {
     static SetBitmapDimensionEx(hbm, w, h, lpsz) {
         hbm := hbm is Win32Handle ? NumGet(hbm, "ptr") : hbm
 
-        result := DllCall("GDI32.dll\SetBitmapDimensionEx", "ptr", hbm, "int", w, "int", h, "ptr", lpsz, "ptr")
+        result := DllCall("GDI32.dll\SetBitmapDimensionEx", "ptr", hbm, "int", w, "int", h, "ptr", lpsz, "int")
         return result
     }
 
@@ -11994,7 +11994,7 @@ class Gdi {
     static SetBrushOrgEx(hdc, x, y, lppt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\SetBrushOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "ptr")
+        result := DllCall("GDI32.dll\SetBrushOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -12085,7 +12085,7 @@ class Gdi {
     static GetDCOrgEx(hdc, lppt) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\GetDCOrgEx", "ptr", hdc, "ptr", lppt, "ptr")
+        result := DllCall("GDI32.dll\GetDCOrgEx", "ptr", hdc, "ptr", lppt, "int")
         return result
     }
 
@@ -12100,7 +12100,7 @@ class Gdi {
     static FixBrushOrgEx(hdc, x, y, ptl) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("GDI32.dll\FixBrushOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", ptl, "ptr")
+        result := DllCall("GDI32.dll\FixBrushOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", ptl, "int")
         return result
     }
 
@@ -12116,7 +12116,7 @@ class Gdi {
     static UnrealizeObject(h) {
         h := h is Win32Handle ? NumGet(h, "ptr") : h
 
-        result := DllCall("GDI32.dll\UnrealizeObject", "ptr", h, "ptr")
+        result := DllCall("GDI32.dll\UnrealizeObject", "ptr", h, "int")
         return result
     }
 
@@ -12129,7 +12129,7 @@ class Gdi {
      * @since windows5.0
      */
     static GdiFlush() {
-        result := DllCall("GDI32.dll\GdiFlush", "ptr")
+        result := DllCall("GDI32.dll\GdiFlush", "int")
         return result
     }
 
@@ -12692,7 +12692,7 @@ class Gdi {
     static TTEnableEmbeddingForFacename(lpszFacename, bEnable) {
         lpszFacename := lpszFacename is String ? StrPtr(lpszFacename) : lpszFacename
 
-        result := DllCall("t2embed.dll\TTEnableEmbeddingForFacename", "ptr", lpszFacename, "ptr", bEnable, "int")
+        result := DllCall("t2embed.dll\TTEnableEmbeddingForFacename", "ptr", lpszFacename, "int", bEnable, "int")
         return result
     }
 
@@ -12888,7 +12888,7 @@ class Gdi {
     static DrawEdge(hdc, qrc, edge, grfFlags) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("USER32.dll\DrawEdge", "ptr", hdc, "ptr", qrc, "uint", edge, "uint", grfFlags, "ptr")
+        result := DllCall("USER32.dll\DrawEdge", "ptr", hdc, "ptr", qrc, "uint", edge, "uint", grfFlags, "int")
         return result
     }
 
@@ -12907,7 +12907,7 @@ class Gdi {
     static DrawFrameControl(hdc, lprc, uType, uState) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("USER32.dll\DrawFrameControl", "ptr", hdc, "ptr", lprc, "uint", uType, "uint", uState, "ptr")
+        result := DllCall("USER32.dll\DrawFrameControl", "ptr", hdc, "ptr", lprc, "uint", uType, "uint", uState, "int")
         return result
     }
 
@@ -12927,7 +12927,7 @@ class Gdi {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("USER32.dll\DrawCaption", "ptr", hwnd, "ptr", hdc, "ptr", lprect, "uint", flags, "ptr")
+        result := DllCall("USER32.dll\DrawCaption", "ptr", hwnd, "ptr", hdc, "ptr", lprect, "uint", flags, "int")
         return result
     }
 
@@ -12946,7 +12946,7 @@ class Gdi {
     static DrawAnimatedRects(hwnd, idAni, lprcFrom, lprcTo) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("USER32.dll\DrawAnimatedRects", "ptr", hwnd, "int", idAni, "ptr", lprcFrom, "ptr", lprcTo, "ptr")
+        result := DllCall("USER32.dll\DrawAnimatedRects", "ptr", hwnd, "int", idAni, "ptr", lprcFrom, "ptr", lprcTo, "int")
         return result
     }
 
@@ -13065,7 +13065,7 @@ class Gdi {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
         hBrush := hBrush is Win32Handle ? NumGet(hBrush, "ptr") : hBrush
 
-        result := DllCall("USER32.dll\GrayStringA", "ptr", hDC, "ptr", hBrush, "ptr", lpOutputFunc, "ptr", lpData, "int", nCount, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr")
+        result := DllCall("USER32.dll\GrayStringA", "ptr", hDC, "ptr", hBrush, "ptr", lpOutputFunc, "ptr", lpData, "int", nCount, "int", X, "int", Y, "int", nWidth, "int", nHeight, "int")
         return result
     }
 
@@ -13090,7 +13090,7 @@ class Gdi {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
         hBrush := hBrush is Win32Handle ? NumGet(hBrush, "ptr") : hBrush
 
-        result := DllCall("USER32.dll\GrayStringW", "ptr", hDC, "ptr", hBrush, "ptr", lpOutputFunc, "ptr", lpData, "int", nCount, "int", X, "int", Y, "int", nWidth, "int", nHeight, "ptr")
+        result := DllCall("USER32.dll\GrayStringW", "ptr", hDC, "ptr", hBrush, "ptr", lpOutputFunc, "ptr", lpData, "int", nCount, "int", X, "int", Y, "int", nWidth, "int", nHeight, "int")
         return result
     }
 
@@ -13256,7 +13256,7 @@ class Gdi {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hbrFore := hbrFore is Win32Handle ? NumGet(hbrFore, "ptr") : hbrFore
 
-        result := DllCall("USER32.dll\DrawStateA", "ptr", hdc, "ptr", hbrFore, "ptr", qfnCallBack, "ptr", lData, "ptr", wData, "int", x, "int", y, "int", cx, "int", cy, "uint", uFlags, "ptr")
+        result := DllCall("USER32.dll\DrawStateA", "ptr", hdc, "ptr", hbrFore, "ptr", qfnCallBack, "ptr", lData, "ptr", wData, "int", x, "int", y, "int", cx, "int", cy, "uint", uFlags, "int")
         return result
     }
 
@@ -13422,7 +13422,7 @@ class Gdi {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hbrFore := hbrFore is Win32Handle ? NumGet(hbrFore, "ptr") : hbrFore
 
-        result := DllCall("USER32.dll\DrawStateW", "ptr", hdc, "ptr", hbrFore, "ptr", qfnCallBack, "ptr", lData, "ptr", wData, "int", x, "int", y, "int", cx, "int", cy, "uint", uFlags, "ptr")
+        result := DllCall("USER32.dll\DrawStateW", "ptr", hdc, "ptr", hbrFore, "ptr", qfnCallBack, "ptr", lData, "ptr", wData, "int", x, "int", y, "int", cx, "int", cy, "uint", uFlags, "int")
         return result
     }
 
@@ -13528,7 +13528,7 @@ class Gdi {
     static UpdateWindow(hWnd) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\UpdateWindow", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\UpdateWindow", "ptr", hWnd, "int")
         return result
     }
 
@@ -13544,7 +13544,7 @@ class Gdi {
     static PaintDesktop(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("USER32.dll\PaintDesktop", "ptr", hdc, "ptr")
+        result := DllCall("USER32.dll\PaintDesktop", "ptr", hdc, "int")
         return result
     }
 
@@ -13661,7 +13661,7 @@ class Gdi {
     static EndPaint(hWnd, lpPaint) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\EndPaint", "ptr", hWnd, "ptr", lpPaint, "ptr")
+        result := DllCall("USER32.dll\EndPaint", "ptr", hWnd, "ptr", lpPaint, "int")
         return result
     }
 
@@ -13681,7 +13681,7 @@ class Gdi {
     static GetUpdateRect(hWnd, lpRect, bErase) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\GetUpdateRect", "ptr", hWnd, "ptr", lpRect, "ptr", bErase, "ptr")
+        result := DllCall("USER32.dll\GetUpdateRect", "ptr", hWnd, "ptr", lpRect, "int", bErase, "int")
         return result
     }
 
@@ -13721,7 +13721,7 @@ class Gdi {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
 
-        result := DllCall("USER32.dll\GetUpdateRgn", "ptr", hWnd, "ptr", hRgn, "ptr", bErase, "int")
+        result := DllCall("USER32.dll\GetUpdateRgn", "ptr", hWnd, "ptr", hRgn, "int", bErase, "int")
         return result
     }
 
@@ -13744,7 +13744,7 @@ class Gdi {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
 
-        result := DllCall("USER32.dll\SetWindowRgn", "ptr", hWnd, "ptr", hRgn, "ptr", bRedraw, "int")
+        result := DllCall("USER32.dll\SetWindowRgn", "ptr", hWnd, "ptr", hRgn, "int", bRedraw, "int")
         return result
     }
 
@@ -13906,7 +13906,7 @@ class Gdi {
     static InvalidateRect(hWnd, lpRect, bErase) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\InvalidateRect", "ptr", hWnd, "ptr", lpRect, "ptr", bErase, "ptr")
+        result := DllCall("USER32.dll\InvalidateRect", "ptr", hWnd, "ptr", lpRect, "int", bErase, "int")
         return result
     }
 
@@ -13923,7 +13923,7 @@ class Gdi {
     static ValidateRect(hWnd, lpRect) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\ValidateRect", "ptr", hWnd, "ptr", lpRect, "ptr")
+        result := DllCall("USER32.dll\ValidateRect", "ptr", hWnd, "ptr", lpRect, "int")
         return result
     }
 
@@ -13940,7 +13940,7 @@ class Gdi {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
 
-        result := DllCall("USER32.dll\InvalidateRgn", "ptr", hWnd, "ptr", hRgn, "ptr", bErase, "ptr")
+        result := DllCall("USER32.dll\InvalidateRgn", "ptr", hWnd, "ptr", hRgn, "int", bErase, "int")
         return result
     }
 
@@ -13958,7 +13958,7 @@ class Gdi {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
 
-        result := DllCall("USER32.dll\ValidateRgn", "ptr", hWnd, "ptr", hRgn, "ptr")
+        result := DllCall("USER32.dll\ValidateRgn", "ptr", hWnd, "ptr", hRgn, "int")
         return result
     }
 
@@ -14137,7 +14137,7 @@ class Gdi {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hrgnUpdate := hrgnUpdate is Win32Handle ? NumGet(hrgnUpdate, "ptr") : hrgnUpdate
 
-        result := DllCall("USER32.dll\RedrawWindow", "ptr", hWnd, "ptr", lprcUpdate, "ptr", hrgnUpdate, "uint", flags, "ptr")
+        result := DllCall("USER32.dll\RedrawWindow", "ptr", hWnd, "ptr", lprcUpdate, "ptr", hrgnUpdate, "uint", flags, "int")
         return result
     }
 
@@ -14153,7 +14153,7 @@ class Gdi {
     static LockWindowUpdate(hWndLock) {
         hWndLock := hWndLock is Win32Handle ? NumGet(hWndLock, "ptr") : hWndLock
 
-        result := DllCall("USER32.dll\LockWindowUpdate", "ptr", hWndLock, "ptr")
+        result := DllCall("USER32.dll\LockWindowUpdate", "ptr", hWndLock, "int")
         return result
     }
 
@@ -14170,7 +14170,7 @@ class Gdi {
     static ClientToScreen(hWnd, lpPoint) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\ClientToScreen", "ptr", hWnd, "ptr", lpPoint, "ptr")
+        result := DllCall("USER32.dll\ClientToScreen", "ptr", hWnd, "ptr", lpPoint, "int")
         return result
     }
 
@@ -14187,7 +14187,7 @@ class Gdi {
     static ScreenToClient(hWnd, lpPoint) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("USER32.dll\ScreenToClient", "ptr", hWnd, "ptr", lpPoint, "ptr")
+        result := DllCall("USER32.dll\ScreenToClient", "ptr", hWnd, "ptr", lpPoint, "int")
         return result
     }
 
@@ -14270,7 +14270,7 @@ class Gdi {
     static SetSysColors(cElements, lpaElements, lpaRgbValues) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetSysColors", "int", cElements, "int*", lpaElements, "ptr", lpaRgbValues, "ptr")
+        result := DllCall("USER32.dll\SetSysColors", "int", cElements, "int*", lpaElements, "ptr", lpaRgbValues, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14290,7 +14290,7 @@ class Gdi {
     static DrawFocusRect(hDC, lprc) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
 
-        result := DllCall("USER32.dll\DrawFocusRect", "ptr", hDC, "ptr", lprc, "ptr")
+        result := DllCall("USER32.dll\DrawFocusRect", "ptr", hDC, "ptr", lprc, "int")
         return result
     }
 
@@ -14345,7 +14345,7 @@ class Gdi {
     static InvertRect(hDC, lprc) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
 
-        result := DllCall("USER32.dll\InvertRect", "ptr", hDC, "ptr", lprc, "ptr")
+        result := DllCall("USER32.dll\InvertRect", "ptr", hDC, "ptr", lprc, "int")
         return result
     }
 
@@ -14363,7 +14363,7 @@ class Gdi {
      * @since windows5.0
      */
     static SetRect(lprc, xLeft, yTop, xRight, yBottom) {
-        result := DllCall("USER32.dll\SetRect", "ptr", lprc, "int", xLeft, "int", yTop, "int", xRight, "int", yBottom, "ptr")
+        result := DllCall("USER32.dll\SetRect", "ptr", lprc, "int", xLeft, "int", yTop, "int", xRight, "int", yBottom, "int")
         return result
     }
 
@@ -14377,7 +14377,7 @@ class Gdi {
      * @since windows5.0
      */
     static SetRectEmpty(lprc) {
-        result := DllCall("USER32.dll\SetRectEmpty", "ptr", lprc, "ptr")
+        result := DllCall("USER32.dll\SetRectEmpty", "ptr", lprc, "int")
         return result
     }
 
@@ -14392,7 +14392,7 @@ class Gdi {
      * @since windows5.0
      */
     static CopyRect(lprcDst, lprcSrc) {
-        result := DllCall("USER32.dll\CopyRect", "ptr", lprcDst, "ptr", lprcSrc, "ptr")
+        result := DllCall("USER32.dll\CopyRect", "ptr", lprcDst, "ptr", lprcSrc, "int")
         return result
     }
 
@@ -14408,7 +14408,7 @@ class Gdi {
      * @since windows5.0
      */
     static InflateRect(lprc, dx, dy) {
-        result := DllCall("USER32.dll\InflateRect", "ptr", lprc, "int", dx, "int", dy, "ptr")
+        result := DllCall("USER32.dll\InflateRect", "ptr", lprc, "int", dx, "int", dy, "int")
         return result
     }
 
@@ -14424,7 +14424,7 @@ class Gdi {
      * @since windows5.0
      */
     static IntersectRect(lprcDst, lprcSrc1, lprcSrc2) {
-        result := DllCall("USER32.dll\IntersectRect", "ptr", lprcDst, "ptr", lprcSrc1, "ptr", lprcSrc2, "ptr")
+        result := DllCall("USER32.dll\IntersectRect", "ptr", lprcDst, "ptr", lprcSrc1, "ptr", lprcSrc2, "int")
         return result
     }
 
@@ -14440,7 +14440,7 @@ class Gdi {
      * @since windows5.0
      */
     static UnionRect(lprcDst, lprcSrc1, lprcSrc2) {
-        result := DllCall("USER32.dll\UnionRect", "ptr", lprcDst, "ptr", lprcSrc1, "ptr", lprcSrc2, "ptr")
+        result := DllCall("USER32.dll\UnionRect", "ptr", lprcDst, "ptr", lprcSrc1, "ptr", lprcSrc2, "int")
         return result
     }
 
@@ -14456,7 +14456,7 @@ class Gdi {
      * @since windows5.0
      */
     static SubtractRect(lprcDst, lprcSrc1, lprcSrc2) {
-        result := DllCall("USER32.dll\SubtractRect", "ptr", lprcDst, "ptr", lprcSrc1, "ptr", lprcSrc2, "ptr")
+        result := DllCall("USER32.dll\SubtractRect", "ptr", lprcDst, "ptr", lprcSrc1, "ptr", lprcSrc2, "int")
         return result
     }
 
@@ -14472,7 +14472,7 @@ class Gdi {
      * @since windows5.0
      */
     static OffsetRect(lprc, dx, dy) {
-        result := DllCall("USER32.dll\OffsetRect", "ptr", lprc, "int", dx, "int", dy, "ptr")
+        result := DllCall("USER32.dll\OffsetRect", "ptr", lprc, "int", dx, "int", dy, "int")
         return result
     }
 
@@ -14486,7 +14486,7 @@ class Gdi {
      * @since windows5.0
      */
     static IsRectEmpty(lprc) {
-        result := DllCall("USER32.dll\IsRectEmpty", "ptr", lprc, "ptr")
+        result := DllCall("USER32.dll\IsRectEmpty", "ptr", lprc, "int")
         return result
     }
 
@@ -14501,7 +14501,7 @@ class Gdi {
      * @since windows5.0
      */
     static EqualRect(lprc1, lprc2) {
-        result := DllCall("USER32.dll\EqualRect", "ptr", lprc1, "ptr", lprc2, "ptr")
+        result := DllCall("USER32.dll\EqualRect", "ptr", lprc1, "ptr", lprc2, "int")
         return result
     }
 
@@ -14516,7 +14516,7 @@ class Gdi {
      * @since windows5.0
      */
     static PtInRect(lprc, pt) {
-        result := DllCall("USER32.dll\PtInRect", "ptr", lprc, "ptr", pt, "ptr")
+        result := DllCall("USER32.dll\PtInRect", "ptr", lprc, "ptr", pt, "int")
         return result
     }
 
@@ -15164,7 +15164,7 @@ class Gdi {
     static EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode) {
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-        result := DllCall("USER32.dll\EnumDisplaySettingsA", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "ptr")
+        result := DllCall("USER32.dll\EnumDisplaySettingsA", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "int")
         return result
     }
 
@@ -15194,7 +15194,7 @@ class Gdi {
     static EnumDisplaySettingsW(lpszDeviceName, iModeNum, lpDevMode) {
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-        result := DllCall("USER32.dll\EnumDisplaySettingsW", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "ptr")
+        result := DllCall("USER32.dll\EnumDisplaySettingsW", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "int")
         return result
     }
 
@@ -15254,7 +15254,7 @@ class Gdi {
     static EnumDisplaySettingsExA(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-        result := DllCall("USER32.dll\EnumDisplaySettingsExA", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "uint", dwFlags, "ptr")
+        result := DllCall("USER32.dll\EnumDisplaySettingsExA", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "uint", dwFlags, "int")
         return result
     }
 
@@ -15314,7 +15314,7 @@ class Gdi {
     static EnumDisplaySettingsExW(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-        result := DllCall("USER32.dll\EnumDisplaySettingsExW", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "uint", dwFlags, "ptr")
+        result := DllCall("USER32.dll\EnumDisplaySettingsExW", "ptr", lpszDeviceName, "uint", iModeNum, "ptr", lpDevMode, "uint", dwFlags, "int")
         return result
     }
 
@@ -15339,7 +15339,7 @@ class Gdi {
     static EnumDisplayDevicesA(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
         lpDevice := lpDevice is String ? StrPtr(lpDevice) : lpDevice
 
-        result := DllCall("USER32.dll\EnumDisplayDevicesA", "ptr", lpDevice, "uint", iDevNum, "ptr", lpDisplayDevice, "uint", dwFlags, "ptr")
+        result := DllCall("USER32.dll\EnumDisplayDevicesA", "ptr", lpDevice, "uint", iDevNum, "ptr", lpDisplayDevice, "uint", dwFlags, "int")
         return result
     }
 
@@ -15364,7 +15364,7 @@ class Gdi {
     static EnumDisplayDevicesW(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
         lpDevice := lpDevice is String ? StrPtr(lpDevice) : lpDevice
 
-        result := DllCall("USER32.dll\EnumDisplayDevicesW", "ptr", lpDevice, "uint", iDevNum, "ptr", lpDisplayDevice, "uint", dwFlags, "ptr")
+        result := DllCall("USER32.dll\EnumDisplayDevicesW", "ptr", lpDevice, "uint", iDevNum, "ptr", lpDisplayDevice, "uint", dwFlags, "int")
         return result
     }
 
@@ -15432,7 +15432,7 @@ class Gdi {
     static GetMonitorInfoA(hMonitor, lpmi) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
-        result := DllCall("USER32.dll\GetMonitorInfoA", "ptr", hMonitor, "ptr", lpmi, "ptr")
+        result := DllCall("USER32.dll\GetMonitorInfoA", "ptr", hMonitor, "ptr", lpmi, "int")
         return result
     }
 
@@ -15453,7 +15453,7 @@ class Gdi {
     static GetMonitorInfoW(hMonitor, lpmi) {
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
-        result := DllCall("USER32.dll\GetMonitorInfoW", "ptr", hMonitor, "ptr", lpmi, "ptr")
+        result := DllCall("USER32.dll\GetMonitorInfoW", "ptr", hMonitor, "ptr", lpmi, "int")
         return result
     }
 
@@ -15478,7 +15478,7 @@ class Gdi {
     static EnumDisplayMonitors(hdc, lprcClip, lpfnEnum, dwData) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("USER32.dll\EnumDisplayMonitors", "ptr", hdc, "ptr", lprcClip, "ptr", lpfnEnum, "ptr", dwData, "ptr")
+        result := DllCall("USER32.dll\EnumDisplayMonitors", "ptr", hdc, "ptr", lprcClip, "ptr", lpfnEnum, "ptr", dwData, "int")
         return result
     }
 

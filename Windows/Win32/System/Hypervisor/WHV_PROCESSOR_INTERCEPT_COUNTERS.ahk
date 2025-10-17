@@ -18,7 +18,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     PageInvalidations{
         get {
             if(!this.HasProp("__PageInvalidations"))
-                this.__PageInvalidations := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 0)
+                this.__PageInvalidations := WHV_PROCESSOR_INTERCEPT_COUNTER(0, this)
             return this.__PageInvalidations
         }
     }
@@ -29,7 +29,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     ControlRegisterAccesses{
         get {
             if(!this.HasProp("__ControlRegisterAccesses"))
-                this.__ControlRegisterAccesses := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 16)
+                this.__ControlRegisterAccesses := WHV_PROCESSOR_INTERCEPT_COUNTER(16, this)
             return this.__ControlRegisterAccesses
         }
     }
@@ -40,7 +40,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     IoInstructions{
         get {
             if(!this.HasProp("__IoInstructions"))
-                this.__IoInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 32)
+                this.__IoInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(32, this)
             return this.__IoInstructions
         }
     }
@@ -51,7 +51,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     HaltInstructions{
         get {
             if(!this.HasProp("__HaltInstructions"))
-                this.__HaltInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 48)
+                this.__HaltInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(48, this)
             return this.__HaltInstructions
         }
     }
@@ -62,7 +62,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     CpuidInstructions{
         get {
             if(!this.HasProp("__CpuidInstructions"))
-                this.__CpuidInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 64)
+                this.__CpuidInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(64, this)
             return this.__CpuidInstructions
         }
     }
@@ -73,7 +73,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     MsrAccesses{
         get {
             if(!this.HasProp("__MsrAccesses"))
-                this.__MsrAccesses := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 80)
+                this.__MsrAccesses := WHV_PROCESSOR_INTERCEPT_COUNTER(80, this)
             return this.__MsrAccesses
         }
     }
@@ -84,7 +84,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     OtherIntercepts{
         get {
             if(!this.HasProp("__OtherIntercepts"))
-                this.__OtherIntercepts := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 96)
+                this.__OtherIntercepts := WHV_PROCESSOR_INTERCEPT_COUNTER(96, this)
             return this.__OtherIntercepts
         }
     }
@@ -95,7 +95,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     PendingInterrupts{
         get {
             if(!this.HasProp("__PendingInterrupts"))
-                this.__PendingInterrupts := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 112)
+                this.__PendingInterrupts := WHV_PROCESSOR_INTERCEPT_COUNTER(112, this)
             return this.__PendingInterrupts
         }
     }
@@ -106,7 +106,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     EmulatedInstructions{
         get {
             if(!this.HasProp("__EmulatedInstructions"))
-                this.__EmulatedInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 128)
+                this.__EmulatedInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(128, this)
             return this.__EmulatedInstructions
         }
     }
@@ -117,7 +117,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     DebugRegisterAccesses{
         get {
             if(!this.HasProp("__DebugRegisterAccesses"))
-                this.__DebugRegisterAccesses := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 144)
+                this.__DebugRegisterAccesses := WHV_PROCESSOR_INTERCEPT_COUNTER(144, this)
             return this.__DebugRegisterAccesses
         }
     }
@@ -128,7 +128,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     PageFaultIntercepts{
         get {
             if(!this.HasProp("__PageFaultIntercepts"))
-                this.__PageFaultIntercepts := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 160)
+                this.__PageFaultIntercepts := WHV_PROCESSOR_INTERCEPT_COUNTER(160, this)
             return this.__PageFaultIntercepts
         }
     }
@@ -139,7 +139,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     NestedPageFaultIntercepts{
         get {
             if(!this.HasProp("__NestedPageFaultIntercepts"))
-                this.__NestedPageFaultIntercepts := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 176)
+                this.__NestedPageFaultIntercepts := WHV_PROCESSOR_INTERCEPT_COUNTER(176, this)
             return this.__NestedPageFaultIntercepts
         }
     }
@@ -150,7 +150,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     Hypercalls{
         get {
             if(!this.HasProp("__Hypercalls"))
-                this.__Hypercalls := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 192)
+                this.__Hypercalls := WHV_PROCESSOR_INTERCEPT_COUNTER(192, this)
             return this.__Hypercalls
         }
     }
@@ -161,7 +161,7 @@ class WHV_PROCESSOR_INTERCEPT_COUNTERS extends Win32Struct
     RdpmcInstructions{
         get {
             if(!this.HasProp("__RdpmcInstructions"))
-                this.__RdpmcInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(this.ptr + 208)
+                this.__RdpmcInstructions := WHV_PROCESSOR_INTERCEPT_COUNTER(208, this)
             return this.__RdpmcInstructions
         }
     }

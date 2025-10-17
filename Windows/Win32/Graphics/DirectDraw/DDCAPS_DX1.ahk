@@ -229,7 +229,7 @@ class DDCAPS_DX1 extends Win32Struct
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(this.ptr + 132)
+                this.__ddsCaps := DDSCAPS(132, this)
             return this.__ddsCaps
         }
     }

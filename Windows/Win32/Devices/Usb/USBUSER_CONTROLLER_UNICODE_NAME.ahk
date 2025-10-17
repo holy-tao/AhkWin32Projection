@@ -27,7 +27,7 @@ class USBUSER_CONTROLLER_UNICODE_NAME extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(this.ptr + 0)
+                this.__Header := USBUSER_REQUEST_HEADER(0, this)
             return this.__Header
         }
     }
@@ -39,7 +39,7 @@ class USBUSER_CONTROLLER_UNICODE_NAME extends Win32Struct
     UnicodeName{
         get {
             if(!this.HasProp("__UnicodeName"))
-                this.__UnicodeName := USB_UNICODE_NAME(this.ptr + 16)
+                this.__UnicodeName := USB_UNICODE_NAME(16, this)
             return this.__UnicodeName
         }
     }

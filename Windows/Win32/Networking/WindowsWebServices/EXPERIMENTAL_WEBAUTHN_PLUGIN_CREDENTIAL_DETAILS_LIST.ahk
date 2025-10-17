@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -15,12 +14,9 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS_LIST extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszPluginClsId{
-        get {
-            if(!this.HasProp("__pwszPluginClsId"))
-                this.__pwszPluginClsId := PWSTR(this.ptr + 0)
-            return this.__pwszPluginClsId
-        }
+    pwszPluginClsId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

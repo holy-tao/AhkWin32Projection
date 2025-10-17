@@ -18,7 +18,7 @@ class DCICREATEINPUT extends Win32Struct
     cmd{
         get {
             if(!this.HasProp("__cmd"))
-                this.__cmd := DCICMD(this.ptr + 0)
+                this.__cmd := DCICMD(0, this)
             return this.__cmd
         }
     }

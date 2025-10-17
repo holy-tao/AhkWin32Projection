@@ -61,7 +61,7 @@ class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
     Resolution{
         get {
             if(!this.HasProp("__Resolution"))
-                this.__Resolution := %this.__Class%._Resolution(this.ptr + 0)
+                this.__Resolution := %this.__Class%._Resolution(0, this)
             return this.__Resolution
         }
     }
@@ -72,7 +72,7 @@ class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
     MaxFrameRate{
         get {
             if(!this.HasProp("__MaxFrameRate"))
-                this.__MaxFrameRate := %this.__Class%._MaxFrameRate(this.ptr + 8)
+                this.__MaxFrameRate := %this.__Class%._MaxFrameRate(8, this)
             return this.__MaxFrameRate
         }
     }

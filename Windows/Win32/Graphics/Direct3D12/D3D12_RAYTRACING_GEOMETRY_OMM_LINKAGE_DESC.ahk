@@ -18,7 +18,7 @@ class D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC extends Win32Struct
     OpacityMicromapIndexBuffer{
         get {
             if(!this.HasProp("__OpacityMicromapIndexBuffer"))
-                this.__OpacityMicromapIndexBuffer := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(this.ptr + 0)
+                this.__OpacityMicromapIndexBuffer := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(0, this)
             return this.__OpacityMicromapIndexBuffer
         }
     }

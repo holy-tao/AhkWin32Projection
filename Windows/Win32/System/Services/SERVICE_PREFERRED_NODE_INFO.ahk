@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Represents the preferred node on which to run a service.
@@ -27,11 +26,8 @@ class SERVICE_PREFERRED_NODE_INFO extends Win32Struct
      * If this member is TRUE, the preferred node setting is deleted.
      * @type {BOOLEAN}
      */
-    fDelete{
-        get {
-            if(!this.HasProp("__fDelete"))
-                this.__fDelete := BOOLEAN(this.ptr + 2)
-            return this.__fDelete
-        }
+    fDelete {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 }

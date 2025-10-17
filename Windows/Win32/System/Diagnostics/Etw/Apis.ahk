@@ -6311,7 +6311,7 @@ class Etw {
     static EventEnabled(RegHandle, EventDescriptor) {
         RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
 
-        result := DllCall("ADVAPI32.dll\EventEnabled", "ptr", RegHandle, "ptr", EventDescriptor, "ptr")
+        result := DllCall("ADVAPI32.dll\EventEnabled", "ptr", RegHandle, "ptr", EventDescriptor, "char")
         return result
     }
 
@@ -6367,7 +6367,7 @@ class Etw {
     static EventProviderEnabled(RegHandle, Level, Keyword) {
         RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
 
-        result := DllCall("ADVAPI32.dll\EventProviderEnabled", "ptr", RegHandle, "char", Level, "uint", Keyword, "ptr")
+        result := DllCall("ADVAPI32.dll\EventProviderEnabled", "ptr", RegHandle, "char", Level, "uint", Keyword, "char")
         return result
     }
 
@@ -6800,7 +6800,7 @@ class Etw {
      * @since windows6.0.6000
      */
     static EventAccessControl(Guid, Operation, Sid, Rights, AllowOrDeny) {
-        result := DllCall("ADVAPI32.dll\EventAccessControl", "ptr", Guid, "uint", Operation, "ptr", Sid, "uint", Rights, "ptr", AllowOrDeny, "uint")
+        result := DllCall("ADVAPI32.dll\EventAccessControl", "ptr", Guid, "uint", Operation, "ptr", Sid, "uint", Rights, "char", AllowOrDeny, "uint")
         return result
     }
 
@@ -6938,7 +6938,7 @@ class Etw {
      * @since windows8.1
      */
     static TdhCreatePayloadFilter(ProviderGuid, EventDescriptor, EventMatchANY, PayloadPredicateCount, PayloadPredicates, PayloadFilter) {
-        result := DllCall("tdh.dll\TdhCreatePayloadFilter", "ptr", ProviderGuid, "ptr", EventDescriptor, "ptr", EventMatchANY, "uint", PayloadPredicateCount, "ptr", PayloadPredicates, "ptr", PayloadFilter, "uint")
+        result := DllCall("tdh.dll\TdhCreatePayloadFilter", "ptr", ProviderGuid, "ptr", EventDescriptor, "char", EventMatchANY, "uint", PayloadPredicateCount, "ptr", PayloadPredicates, "ptr", PayloadFilter, "uint")
         return result
     }
 

@@ -26,7 +26,7 @@ class XML_ERROR extends Win32Struct
     _pchBuf{
         get {
             if(!this.HasProp("___pchBuf"))
-                this.___pchBuf := BSTR(this.ptr + 8)
+                this.___pchBuf := BSTR(8, this)
             return this.___pchBuf
         }
     }
@@ -53,7 +53,7 @@ class XML_ERROR extends Win32Struct
     _pszFound{
         get {
             if(!this.HasProp("___pszFound"))
-                this.___pszFound := BSTR(this.ptr + 24)
+                this.___pszFound := BSTR(24, this)
             return this.___pszFound
         }
     }
@@ -64,7 +64,7 @@ class XML_ERROR extends Win32Struct
     _pszExpected{
         get {
             if(!this.HasProp("___pszExpected"))
-                this.___pszExpected := BSTR(this.ptr + 32)
+                this.___pszExpected := BSTR(32, this)
             return this.___pszExpected
         }
     }

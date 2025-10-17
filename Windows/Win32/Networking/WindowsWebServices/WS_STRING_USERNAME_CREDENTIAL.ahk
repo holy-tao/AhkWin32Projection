@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_USERNAME_CREDENTIAL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -23,7 +22,7 @@ class WS_STRING_USERNAME_CREDENTIAL extends Win32Struct
     credential{
         get {
             if(!this.HasProp("__credential"))
-                this.__credential := WS_USERNAME_CREDENTIAL(this.ptr + 0)
+                this.__credential := WS_USERNAME_CREDENTIAL(0, this)
             return this.__credential
         }
     }
@@ -35,7 +34,7 @@ class WS_STRING_USERNAME_CREDENTIAL extends Win32Struct
     username{
         get {
             if(!this.HasProp("__username"))
-                this.__username := WS_STRING(this.ptr + 8)
+                this.__username := WS_STRING(8, this)
             return this.__username
         }
     }
@@ -47,7 +46,7 @@ class WS_STRING_USERNAME_CREDENTIAL extends Win32Struct
     password{
         get {
             if(!this.HasProp("__password"))
-                this.__password := WS_STRING(this.ptr + 24)
+                this.__password := WS_STRING(24, this)
             return this.__password
         }
     }

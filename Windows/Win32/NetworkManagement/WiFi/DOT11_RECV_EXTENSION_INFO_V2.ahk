@@ -102,7 +102,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     hWEPOffloadContext{
         get {
             if(!this.HasProp("__hWEPOffloadContext"))
-                this.__hWEPOffloadContext := HANDLE(this.ptr + 48)
+                this.__hWEPOffloadContext := HANDLE(48, this)
             return this.__hWEPOffloadContext
         }
     }
@@ -113,7 +113,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     hAuthOffloadContext{
         get {
             if(!this.HasProp("__hAuthOffloadContext"))
-                this.__hAuthOffloadContext := HANDLE(this.ptr + 56)
+                this.__hAuthOffloadContext := HANDLE(56, this)
             return this.__hAuthOffloadContext
         }
     }
@@ -140,7 +140,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     dot11LowestIV48Counter{
         get {
             if(!this.HasProp("__dot11LowestIV48Counter"))
-                this.__dot11LowestIV48Counter := DOT11_IV48_COUNTER(this.ptr + 72)
+                this.__dot11LowestIV48Counter := DOT11_IV48_COUNTER(72, this)
             return this.__dot11LowestIV48Counter
         }
     }
@@ -159,7 +159,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     dot11HighestIV48Counter{
         get {
             if(!this.HasProp("__dot11HighestIV48Counter"))
-                this.__dot11HighestIV48Counter := DOT11_IV48_COUNTER(this.ptr + 88)
+                this.__dot11HighestIV48Counter := DOT11_IV48_COUNTER(88, this)
             return this.__dot11HighestIV48Counter
         }
     }

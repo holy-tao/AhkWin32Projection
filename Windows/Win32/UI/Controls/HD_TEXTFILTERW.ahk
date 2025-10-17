@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about header control text filters.
@@ -26,12 +25,9 @@ class HD_TEXTFILTERW extends Win32Struct
      * A pointer to the buffer containing the filter.
      * @type {PWSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PWSTR(this.ptr + 0)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

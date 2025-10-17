@@ -22,7 +22,7 @@ class LATTICE_METRICS extends Win32Struct
     lsBaseline{
         get {
             if(!this.HasProp("__lsBaseline"))
-                this.__lsBaseline := LINE_SEGMENT(this.ptr + 0)
+                this.__lsBaseline := LINE_SEGMENT(0, this)
             return this.__lsBaseline
         }
     }

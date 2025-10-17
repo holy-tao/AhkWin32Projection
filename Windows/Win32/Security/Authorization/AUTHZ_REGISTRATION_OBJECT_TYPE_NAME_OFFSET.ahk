@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies the offset of a registration object type name.
@@ -18,12 +17,9 @@ class AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET extends Win32Struct
      * A pointer to a wide character string that represents the name of the object type.
      * @type {PWSTR}
      */
-    szObjectTypeName{
-        get {
-            if(!this.HasProp("__szObjectTypeName"))
-                this.__szObjectTypeName := PWSTR(this.ptr + 0)
-            return this.__szObjectTypeName
-        }
+    szObjectTypeName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

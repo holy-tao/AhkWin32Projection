@@ -26,7 +26,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE extends Win32Struct
     VideoDecoderHeapDesc{
         get {
             if(!this.HasProp("__VideoDecoderHeapDesc"))
-                this.__VideoDecoderHeapDesc := D3D12_VIDEO_DECODER_HEAP_DESC(this.ptr + 0)
+                this.__VideoDecoderHeapDesc := D3D12_VIDEO_DECODER_HEAP_DESC(0, this)
             return this.__VideoDecoderHeapDesc
         }
     }

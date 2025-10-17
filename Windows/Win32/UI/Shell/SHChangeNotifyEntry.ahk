@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains and receives information for change notifications. This structure is used with the SHChangeNotifyRegister function and the SFVM_QUERYFSNOTIFY notification.
@@ -31,11 +30,8 @@ class SHChangeNotifyEntry extends Win32Struct
      * A flag indicating whether to post notifications for children of this PIDL. For example, if the PIDL points to a folder, then file notifications would come from the folder's children if this flag was <b>TRUE</b>.
      * @type {BOOL}
      */
-    fRecursive{
-        get {
-            if(!this.HasProp("__fRecursive"))
-                this.__fRecursive := BOOL(this.ptr + 8)
-            return this.__fRecursive
-        }
+    fRecursive {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 }

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\MESSAGEBOX_PARAMS.ahk
 
 /**
@@ -28,7 +26,7 @@ class SHOWUIPARAMS extends Win32Struct
     MessageBoxParams{
         get {
             if(!this.HasProp("__MessageBoxParams"))
-                this.__MessageBoxParams := MESSAGEBOX_PARAMS(this.ptr + 8)
+                this.__MessageBoxParams := MESSAGEBOX_PARAMS(8, this)
             return this.__MessageBoxParams
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Represents a registry string replacement.
@@ -25,23 +24,17 @@ class STRENTRYA extends Win32Struct
      * The name of the string to substitute.
      * @type {PSTR}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PSTR(this.ptr + 0)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The replacement string.
      * @type {PSTR}
      */
-    pszValue{
-        get {
-            if(!this.HasProp("__pszValue"))
-                this.__pszValue := PSTR(this.ptr + 8)
-            return this.__pszValue
-        }
+    pszValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

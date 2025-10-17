@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * A BlurParams structure contains members that specify the nature of a Gaussian blur.
@@ -35,11 +34,8 @@ class BlurParams extends Win32Struct
      * Boolean value that specifies whether the bitmap expands by an amount equal to the blur radius. If <b>TRUE</b>, the bitmap expands by an amount equal to the radius so that it can have soft edges. If <b>FALSE</b>, the bitmap remains the same size and the soft edges are clipped.
      * @type {BOOL}
      */
-    expandEdge{
-        get {
-            if(!this.HasProp("__expandEdge"))
-                this.__expandEdge := BOOL(this.ptr + 4)
-            return this.__expandEdge
-        }
+    expandEdge {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 }

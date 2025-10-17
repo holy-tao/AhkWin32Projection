@@ -19,7 +19,7 @@ class JET_COMMIT_ID extends Win32Struct
     signLog{
         get {
             if(!this.HasProp("__signLog"))
-                this.__signLog := JET_SIGNATURE(this.ptr + 0)
+                this.__signLog := JET_SIGNATURE(0, this)
             return this.__signLog
         }
     }

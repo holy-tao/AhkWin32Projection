@@ -32,7 +32,7 @@ class WSAPOLLFD extends Win32Struct
     fd{
         get {
             if(!this.HasProp("__fd"))
-                this.__fd := SOCKET(this.ptr + 0)
+                this.__fd := SOCKET(0, this)
             return this.__fd
         }
     }

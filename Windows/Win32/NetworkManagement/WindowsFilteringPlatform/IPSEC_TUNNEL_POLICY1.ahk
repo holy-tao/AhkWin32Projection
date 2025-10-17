@@ -53,7 +53,7 @@ class IPSEC_TUNNEL_POLICY1 extends Win32Struct
     tunnelEndpoints{
         get {
             if(!this.HasProp("__tunnelEndpoints"))
-                this.__tunnelEndpoints := IPSEC_TUNNEL_ENDPOINTS1(this.ptr + 16)
+                this.__tunnelEndpoints := IPSEC_TUNNEL_ENDPOINTS1(16, this)
             return this.__tunnelEndpoints
         }
     }
@@ -65,7 +65,7 @@ class IPSEC_TUNNEL_POLICY1 extends Win32Struct
     saIdleTimeout{
         get {
             if(!this.HasProp("__saIdleTimeout"))
-                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(this.ptr + 64)
+                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(64, this)
             return this.__saIdleTimeout
         }
     }

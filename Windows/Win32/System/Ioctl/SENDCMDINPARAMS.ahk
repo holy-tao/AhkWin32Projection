@@ -26,7 +26,7 @@ class SENDCMDINPARAMS extends Win32Struct
     irDriveRegs{
         get {
             if(!this.HasProp("__irDriveRegs"))
-                this.__irDriveRegs := IDEREGS(this.ptr + 8)
+                this.__irDriveRegs := IDEREGS(8, this)
             return this.__irDriveRegs
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -15,12 +14,9 @@ class APP_CACHE_DOWNLOAD_ENTRY extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszUrl{
-        get {
-            if(!this.HasProp("__pwszUrl"))
-                this.__pwszUrl := PWSTR(this.ptr + 0)
-            return this.__pwszUrl
-        }
+    pwszUrl {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

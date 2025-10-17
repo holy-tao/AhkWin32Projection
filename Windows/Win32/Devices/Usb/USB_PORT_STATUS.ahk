@@ -27,7 +27,7 @@ class USB_PORT_STATUS extends Win32Struct
     Usb20PortStatus{
         get {
             if(!this.HasProp("__Usb20PortStatus"))
-                this.__Usb20PortStatus := USB_20_PORT_STATUS(this.ptr + 0)
+                this.__Usb20PortStatus := USB_20_PORT_STATUS(0, this)
             return this.__Usb20PortStatus
         }
     }
@@ -38,7 +38,7 @@ class USB_PORT_STATUS extends Win32Struct
     Usb30PortStatus{
         get {
             if(!this.HasProp("__Usb30PortStatus"))
-                this.__Usb30PortStatus := USB_30_PORT_STATUS(this.ptr + 0)
+                this.__Usb30PortStatus := USB_30_PORT_STATUS(0, this)
             return this.__Usb30PortStatus
         }
     }

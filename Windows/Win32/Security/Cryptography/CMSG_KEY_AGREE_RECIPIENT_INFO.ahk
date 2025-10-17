@@ -3,7 +3,6 @@
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
 #Include .\CERT_ID.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 #Include .\CERT_PUBLIC_KEY_INFO.ahk
@@ -44,7 +43,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
     OriginatorCertId{
         get {
             if(!this.HasProp("__OriginatorCertId"))
-                this.__OriginatorCertId := CERT_ID(this.ptr + 8)
+                this.__OriginatorCertId := CERT_ID(8, this)
             return this.__OriginatorCertId
         }
     }
@@ -55,7 +54,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
     OriginatorPublicKeyInfo{
         get {
             if(!this.HasProp("__OriginatorPublicKeyInfo"))
-                this.__OriginatorPublicKeyInfo := CERT_PUBLIC_KEY_INFO(this.ptr + 8)
+                this.__OriginatorPublicKeyInfo := CERT_PUBLIC_KEY_INFO(8, this)
             return this.__OriginatorPublicKeyInfo
         }
     }
@@ -67,7 +66,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
     UserKeyingMaterial{
         get {
             if(!this.HasProp("__UserKeyingMaterial"))
-                this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(this.ptr + 56)
+                this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(56, this)
             return this.__UserKeyingMaterial
         }
     }
@@ -80,7 +79,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
     KeyEncryptionAlgorithm{
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
-                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 72)
+                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(72, this)
             return this.__KeyEncryptionAlgorithm
         }
     }

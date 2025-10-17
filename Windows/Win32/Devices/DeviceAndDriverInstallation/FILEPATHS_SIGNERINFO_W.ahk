@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -16,23 +15,17 @@ class FILEPATHS_SIGNERINFO_W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    Target{
-        get {
-            if(!this.HasProp("__Target"))
-                this.__Target := PWSTR(this.ptr + 0)
-            return this.__Target
-        }
+    Target {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    Source{
-        get {
-            if(!this.HasProp("__Source"))
-                this.__Source := PWSTR(this.ptr + 8)
-            return this.__Source
-        }
+    Source {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -54,33 +47,24 @@ class FILEPATHS_SIGNERINFO_W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    DigitalSigner{
-        get {
-            if(!this.HasProp("__DigitalSigner"))
-                this.__DigitalSigner := PWSTR(this.ptr + 24)
-            return this.__DigitalSigner
-        }
+    DigitalSigner {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    Version{
-        get {
-            if(!this.HasProp("__Version"))
-                this.__Version := PWSTR(this.ptr + 32)
-            return this.__Version
-        }
+    Version {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    CatalogFile{
-        get {
-            if(!this.HasProp("__CatalogFile"))
-                this.__CatalogFile := PWSTR(this.ptr + 40)
-            return this.__CatalogFile
-        }
+    CatalogFile {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains read/write configuration information for extended TCP statistics on output queuing for a TCP connection.
@@ -33,11 +32,8 @@ class TCP_ESTATS_SEND_BUFF_RW_v0 extends Win32Struct
      * The default state for this member when not set is disabled.
      * @type {BOOLEAN}
      */
-    EnableCollection{
-        get {
-            if(!this.HasProp("__EnableCollection"))
-                this.__EnableCollection := BOOLEAN(this.ptr + 0)
-            return this.__EnableCollection
-        }
+    EnableCollection {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 }

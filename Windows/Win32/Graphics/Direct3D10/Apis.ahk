@@ -1690,7 +1690,7 @@ class Direct3D10 {
     static D3D10DisassembleShader(pShader, BytecodeLength, EnableColorCode, pComments, ppDisassembly) {
         pComments := pComments is String ? StrPtr(pComments) : pComments
 
-        result := DllCall("d3d10.dll\D3D10DisassembleShader", "ptr", pShader, "ptr", BytecodeLength, "ptr", EnableColorCode, "ptr", pComments, "ptr", ppDisassembly, "int")
+        result := DllCall("d3d10.dll\D3D10DisassembleShader", "ptr", pShader, "ptr", BytecodeLength, "int", EnableColorCode, "ptr", pComments, "ptr", ppDisassembly, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1708,7 +1708,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getpixelshaderprofile
      */
     static D3D10GetPixelShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetPixelShaderProfile", "ptr", pDevice, "ptr")
+        result := DllCall("d3d10.dll\D3D10GetPixelShaderProfile", "ptr", pDevice, "char*")
         return result
     }
 
@@ -1723,7 +1723,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getvertexshaderprofile
      */
     static D3D10GetVertexShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetVertexShaderProfile", "ptr", pDevice, "ptr")
+        result := DllCall("d3d10.dll\D3D10GetVertexShaderProfile", "ptr", pDevice, "char*")
         return result
     }
 
@@ -1738,7 +1738,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getgeometryshaderprofile
      */
     static D3D10GetGeometryShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetGeometryShaderProfile", "ptr", pDevice, "ptr")
+        result := DllCall("d3d10.dll\D3D10GetGeometryShaderProfile", "ptr", pDevice, "char*")
         return result
     }
 
@@ -2081,7 +2081,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-d3d10stateblockmaskgetsetting
      */
     static D3D10StateBlockMaskGetSetting(pMask, StateType, Entry) {
-        result := DllCall("d3d10.dll\D3D10StateBlockMaskGetSetting", "ptr", pMask, "int", StateType, "uint", Entry, "ptr")
+        result := DllCall("d3d10.dll\D3D10StateBlockMaskGetSetting", "ptr", pMask, "int", StateType, "uint", Entry, "int")
         return result
     }
 
@@ -2233,7 +2233,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-d3d10disassembleeffect
      */
     static D3D10DisassembleEffect(pEffect, EnableColorCode, ppDisassembly) {
-        result := DllCall("d3d10.dll\D3D10DisassembleEffect", "ptr", pEffect, "ptr", EnableColorCode, "ptr", ppDisassembly, "int")
+        result := DllCall("d3d10.dll\D3D10DisassembleEffect", "ptr", pEffect, "int", EnableColorCode, "ptr", ppDisassembly, "int")
         if(result != 0)
             throw OSError(result)
 

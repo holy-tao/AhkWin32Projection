@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about how a device is joined to Microsoft Azure Active Directory.
@@ -36,108 +35,81 @@ class DSREG_JOIN_INFO extends Win32Struct
      * The identifier of the device.
      * @type {PWSTR}
      */
-    pszDeviceId{
-        get {
-            if(!this.HasProp("__pszDeviceId"))
-                this.__pszDeviceId := PWSTR(this.ptr + 16)
-            return this.__pszDeviceId
-        }
+    pszDeviceId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A string that represents Azure Active Directory (Azure AD).
      * @type {PWSTR}
      */
-    pszIdpDomain{
-        get {
-            if(!this.HasProp("__pszIdpDomain"))
-                this.__pszIdpDomain := PWSTR(this.ptr + 24)
-            return this.__pszIdpDomain
-        }
+    pszIdpDomain {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * The identifier of the joined Azure AD tenant.
      * @type {PWSTR}
      */
-    pszTenantId{
-        get {
-            if(!this.HasProp("__pszTenantId"))
-                this.__pszTenantId := PWSTR(this.ptr + 32)
-            return this.__pszTenantId
-        }
+    pszTenantId {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * The email address for the joined account.
      * @type {PWSTR}
      */
-    pszJoinUserEmail{
-        get {
-            if(!this.HasProp("__pszJoinUserEmail"))
-                this.__pszJoinUserEmail := PWSTR(this.ptr + 40)
-            return this.__pszJoinUserEmail
-        }
+    pszJoinUserEmail {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * The display name for the joined account.
      * @type {PWSTR}
      */
-    pszTenantDisplayName{
-        get {
-            if(!this.HasProp("__pszTenantDisplayName"))
-                this.__pszTenantDisplayName := PWSTR(this.ptr + 48)
-            return this.__pszTenantDisplayName
-        }
+    pszTenantDisplayName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * The URL to use to enroll in the Mobile Device Management (MDM) service.
      * @type {PWSTR}
      */
-    pszMdmEnrollmentUrl{
-        get {
-            if(!this.HasProp("__pszMdmEnrollmentUrl"))
-                this.__pszMdmEnrollmentUrl := PWSTR(this.ptr + 56)
-            return this.__pszMdmEnrollmentUrl
-        }
+    pszMdmEnrollmentUrl {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * The URL that provides information about the terms of use for the MDM service.
      * @type {PWSTR}
      */
-    pszMdmTermsOfUseUrl{
-        get {
-            if(!this.HasProp("__pszMdmTermsOfUseUrl"))
-                this.__pszMdmTermsOfUseUrl := PWSTR(this.ptr + 64)
-            return this.__pszMdmTermsOfUseUrl
-        }
+    pszMdmTermsOfUseUrl {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * The URL that provides information about compliance for the MDM service.
      * @type {PWSTR}
      */
-    pszMdmComplianceUrl{
-        get {
-            if(!this.HasProp("__pszMdmComplianceUrl"))
-                this.__pszMdmComplianceUrl := PWSTR(this.ptr + 72)
-            return this.__pszMdmComplianceUrl
-        }
+    pszMdmComplianceUrl {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * The URL for synchronizing user settings.
      * @type {PWSTR}
      */
-    pszUserSettingSyncUrl{
-        get {
-            if(!this.HasProp("__pszUserSettingSyncUrl"))
-                this.__pszUserSettingSyncUrl := PWSTR(this.ptr + 80)
-            return this.__pszUserSettingSyncUrl
-        }
+    pszUserSettingSyncUrl {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**

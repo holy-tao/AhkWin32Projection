@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Used when invoking the Microsoft IME's Dictionary Tool or Word Register Dialog Window from the app.
@@ -31,7 +30,7 @@ class IMEDLG extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 8)
+                this.__hwnd := HWND(8, this)
             return this.__hwnd
         }
     }
@@ -40,12 +39,9 @@ class IMEDLG extends Win32Struct
      * <b>NULL</b>, or  the string to be registered. It shows in the Word Register Dialog's "Display" field.
      * @type {PWSTR}
      */
-    lpwstrWord{
-        get {
-            if(!this.HasProp("__lpwstrWord"))
-                this.__lpwstrWord := PWSTR(this.ptr + 16)
-            return this.__lpwstrWord
-        }
+    lpwstrWord {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

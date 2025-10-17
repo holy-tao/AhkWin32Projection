@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWP_BYTE_ARRAY6.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\FWP_BYTE_BLOB.ahk
 
 /**
@@ -23,7 +22,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0 extends Win32Struct
     localMacAddr{
         get {
             if(!this.HasProp("__localMacAddr"))
-                this.__localMacAddr := FWP_BYTE_ARRAY6(this.ptr + 0)
+                this.__localMacAddr := FWP_BYTE_ARRAY6(0, this)
             return this.__localMacAddr
         }
     }
@@ -35,7 +34,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0 extends Win32Struct
     remoteMacAddr{
         get {
             if(!this.HasProp("__remoteMacAddr"))
-                this.__remoteMacAddr := FWP_BYTE_ARRAY6(this.ptr + 6)
+                this.__remoteMacAddr := FWP_BYTE_ARRAY6(6, this)
             return this.__remoteMacAddr
         }
     }
@@ -206,12 +205,9 @@ class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0 extends Win32Struct
      * Indicates whether the packet originated from (or was heading to) the loopback adapter.
      * @type {BOOL}
      */
-    isLoopback{
-        get {
-            if(!this.HasProp("__isLoopback"))
-                this.__isLoopback := BOOL(this.ptr + 76)
-            return this.__isLoopback
-        }
+    isLoopback {
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
@@ -221,7 +217,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP_MAC0 extends Win32Struct
     vSwitchId{
         get {
             if(!this.HasProp("__vSwitchId"))
-                this.__vSwitchId := FWP_BYTE_BLOB(this.ptr + 80)
+                this.__vSwitchId := FWP_BYTE_BLOB(80, this)
             return this.__vSwitchId
         }
     }

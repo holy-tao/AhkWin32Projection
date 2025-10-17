@@ -18,7 +18,7 @@ class WINBIO_ACCOUNT_POLICY extends Win32Struct
     Identity{
         get {
             if(!this.HasProp("__Identity"))
-                this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                this.__Identity := WINBIO_IDENTITY(0, this)
             return this.__Identity
         }
     }

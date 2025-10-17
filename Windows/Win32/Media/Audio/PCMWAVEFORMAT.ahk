@@ -21,7 +21,7 @@ class PCMWAVEFORMAT extends Win32Struct
     wf{
         get {
             if(!this.HasProp("__wf"))
-                this.__wf := WAVEFORMAT(this.ptr + 0)
+                this.__wf := WAVEFORMAT(0, this)
             return this.__wf
         }
     }

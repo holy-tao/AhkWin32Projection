@@ -19,7 +19,7 @@ class DROPSTRUCT extends Win32Struct
     hwndSource{
         get {
             if(!this.HasProp("__hwndSource"))
-                this.__hwndSource := HWND(this.ptr + 0)
+                this.__hwndSource := HWND(0, this)
             return this.__hwndSource
         }
     }
@@ -30,7 +30,7 @@ class DROPSTRUCT extends Win32Struct
     hwndSink{
         get {
             if(!this.HasProp("__hwndSink"))
-                this.__hwndSink := HWND(this.ptr + 8)
+                this.__hwndSink := HWND(8, this)
             return this.__hwndSink
         }
     }
@@ -57,7 +57,7 @@ class DROPSTRUCT extends Win32Struct
     ptDrop{
         get {
             if(!this.HasProp("__ptDrop"))
-                this.__ptDrop := POINT(this.ptr + 32)
+                this.__ptDrop := POINT(32, this)
             return this.__ptDrop
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_USERNAME_PASSWORD_CREDS.ahk
 
 /**
@@ -30,7 +29,7 @@ class WSMAN_AUTHENTICATION_CREDENTIALS extends Win32Struct
     userAccount{
         get {
             if(!this.HasProp("__userAccount"))
-                this.__userAccount := WSMAN_USERNAME_PASSWORD_CREDS(this.ptr + 8)
+                this.__userAccount := WSMAN_USERNAME_PASSWORD_CREDS(8, this)
             return this.__userAccount
         }
     }
@@ -38,11 +37,8 @@ class WSMAN_AUTHENTICATION_CREDENTIALS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    certificateThumbprint{
-        get {
-            if(!this.HasProp("__certificateThumbprint"))
-                this.__certificateThumbprint := PWSTR(this.ptr + 8)
-            return this.__certificateThumbprint
-        }
+    certificateThumbprint {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

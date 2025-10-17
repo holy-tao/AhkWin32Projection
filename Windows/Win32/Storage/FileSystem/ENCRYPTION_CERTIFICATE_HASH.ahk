@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a certificate hash and display information for the certificate.
@@ -46,11 +45,8 @@ class ENCRYPTION_CERTIFICATE_HASH extends Win32Struct
      * User-displayable information for the certificate.  This is usually the user's common name and universal principal name (UPN).
      * @type {PWSTR}
      */
-    lpDisplayInformation{
-        get {
-            if(!this.HasProp("__lpDisplayInformation"))
-                this.__lpDisplayInformation := PWSTR(this.ptr + 24)
-            return this.__lpDisplayInformation
-        }
+    lpDisplayInformation {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

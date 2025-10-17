@@ -26,7 +26,7 @@ class EMFINFO extends Win32Struct
     hdc{
         get {
             if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 8)
+                this.__hdc := HDC(8, this)
             return this.__hdc
         }
     }

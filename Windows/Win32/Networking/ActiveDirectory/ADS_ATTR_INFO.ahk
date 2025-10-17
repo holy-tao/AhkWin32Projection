@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used to contain one or more attribute values for use with the IDirectoryObject::CreateDSObject, IDirectoryObject::GetObjectAttributes, or IDirectoryObject::SetObjectAttributes method.
@@ -27,12 +26,9 @@ class ADS_ATTR_INFO extends Win32Struct
      * The null-terminated Unicode string that contains the attribute name.
      * @type {PWSTR}
      */
-    pszAttrName{
-        get {
-            if(!this.HasProp("__pszAttrName"))
-                this.__pszAttrName := PWSTR(this.ptr + 0)
-            return this.__pszAttrName
-        }
+    pszAttrName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The DNS_SOA_DATA structure represents a DNS start of authority (SOA) record as specified in section 3.3.13 of RFC 1035.
@@ -33,24 +32,18 @@ class DNS_SOA_DATAA extends Win32Struct
      * A pointer to a string that represents the name of the authoritative DNS server for the zone to which the record belongs.
      * @type {PSTR}
      */
-    pNamePrimaryServer{
-        get {
-            if(!this.HasProp("__pNamePrimaryServer"))
-                this.__pNamePrimaryServer := PSTR(this.ptr + 0)
-            return this.__pNamePrimaryServer
-        }
+    pNamePrimaryServer {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A pointer to a string that represents the name of the responsible party for the zone to which the record belongs.
      * @type {PSTR}
      */
-    pNameAdministrator{
-        get {
-            if(!this.HasProp("__pNameAdministrator"))
-                this.__pNameAdministrator := PSTR(this.ptr + 8)
-            return this.__pNameAdministrator
-        }
+    pNameAdministrator {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

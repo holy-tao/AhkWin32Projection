@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\PSID.ahk
 
 /**
  * @namespace Windows.Win32.Security
@@ -47,12 +46,9 @@ class SE_ACCESS_REQUEST extends Win32Struct
     /**
      * @type {PSID}
      */
-    PrincipalSelfSid{
-        get {
-            if(!this.HasProp("__PrincipalSelfSid"))
-                this.__PrincipalSelfSid := PSID(this.ptr + 24)
-            return this.__PrincipalSelfSid
-        }
+    PrincipalSelfSid {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

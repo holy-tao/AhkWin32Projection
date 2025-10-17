@@ -50,7 +50,7 @@ class DML_ELEMENT_WISE_CLIP_GRAD1_OPERATOR_DESC extends Win32Struct
     Min{
         get {
             if(!this.HasProp("__Min"))
-                this.__Min := DML_SCALAR_UNION(this.ptr + 32)
+                this.__Min := DML_SCALAR_UNION(32, this)
             return this.__Min
         }
     }
@@ -61,7 +61,7 @@ class DML_ELEMENT_WISE_CLIP_GRAD1_OPERATOR_DESC extends Win32Struct
     Max{
         get {
             if(!this.HasProp("__Max"))
-                this.__Max := DML_SCALAR_UNION(this.ptr + 88)
+                this.__Max := DML_SCALAR_UNION(88, this)
             return this.__Max
         }
     }

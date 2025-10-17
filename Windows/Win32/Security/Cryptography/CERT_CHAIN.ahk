@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_KEY_PROV_INFO.ahk
 
 /**
@@ -35,7 +34,7 @@ class CERT_CHAIN extends Win32Struct
     keyLocatorInfo{
         get {
             if(!this.HasProp("__keyLocatorInfo"))
-                this.__keyLocatorInfo := CRYPT_KEY_PROV_INFO(this.ptr + 16)
+                this.__keyLocatorInfo := CRYPT_KEY_PROV_INFO(16, this)
             return this.__keyLocatorInfo
         }
     }

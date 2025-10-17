@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used to create certificate requests on behalf of a user.
@@ -18,23 +17,17 @@ class CRYPT_ENROLLMENT_NAME_VALUE_PAIR extends Win32Struct
      * Name of a certificate requester.
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 0)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Name of the user for whom the certificate is being requested.
      * @type {PWSTR}
      */
-    pwszValue{
-        get {
-            if(!this.HasProp("__pwszValue"))
-                this.__pwszValue := PWSTR(this.ptr + 8)
-            return this.__pwszValue
-        }
+    pwszValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

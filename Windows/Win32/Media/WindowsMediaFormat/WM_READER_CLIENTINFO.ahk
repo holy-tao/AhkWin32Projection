@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WM_READER_CLIENTINFO structure describes the client reader (player) accessing the media stream.
@@ -34,36 +33,27 @@ class WM_READER_CLIENTINFO extends Win32Struct
      * Two-letter or three-letter language code.
      * @type {PWSTR}
      */
-    wszLang{
-        get {
-            if(!this.HasProp("__wszLang"))
-                this.__wszLang := PWSTR(this.ptr + 8)
-            return this.__wszLang
-        }
+    wszLang {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The browser's user-agent string.
      * @type {PWSTR}
      */
-    wszBrowserUserAgent{
-        get {
-            if(!this.HasProp("__wszBrowserUserAgent"))
-                this.__wszBrowserUserAgent := PWSTR(this.ptr + 16)
-            return this.__wszBrowserUserAgent
-        }
+    wszBrowserUserAgent {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Web page that contains the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">plug-in</a>.
      * @type {PWSTR}
      */
-    wszBrowserWebPage{
-        get {
-            if(!this.HasProp("__wszBrowserWebPage"))
-                this.__wszBrowserWebPage := PWSTR(this.ptr + 24)
-            return this.__wszBrowserWebPage
-        }
+    wszBrowserWebPage {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -88,12 +78,9 @@ class WM_READER_CLIENTINFO extends Win32Struct
      * Host application's .exe file; for example, Iexplore.exe.
      * @type {PWSTR}
      */
-    wszHostExe{
-        get {
-            if(!this.HasProp("__wszHostExe"))
-                this.__wszHostExe := PWSTR(this.ptr + 48)
-            return this.__wszHostExe
-        }
+    wszHostExe {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -109,20 +96,13 @@ class WM_READER_CLIENTINFO extends Win32Struct
      * String identifying the player application. For example, "WMPlayer/9.0.0.0" identifies version 9 of the Windows Media Player.
      * @type {PWSTR}
      */
-    wszPlayerUserAgent{
-        get {
-            if(!this.HasProp("__wszPlayerUserAgent"))
-                this.__wszPlayerUserAgent := PWSTR(this.ptr + 64)
-            return this.__wszPlayerUserAgent
-        }
+    wszPlayerUserAgent {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

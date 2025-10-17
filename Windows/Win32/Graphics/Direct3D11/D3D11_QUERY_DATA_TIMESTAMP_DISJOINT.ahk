@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Query information about the reliability of a timestamp query.
@@ -36,11 +35,8 @@ class D3D11_QUERY_DATA_TIMESTAMP_DISJOINT extends Win32Struct
      * If this is <b>TRUE</b>, something occurred in between the query's <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-begin">ID3D11DeviceContext::Begin</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-end">ID3D11DeviceContext::End</a> calls that caused the timestamp counter to become discontinuous or disjoint, such as unplugging the AC cord on a laptop, overheating, or throttling up/down due to laptop savings events. The timestamp returned by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-getdata">ID3D11DeviceContext::GetData</a> for a timestamp query is only reliable if <b>Disjoint</b> is <b>FALSE</b>.
      * @type {BOOL}
      */
-    Disjoint{
-        get {
-            if(!this.HasProp("__Disjoint"))
-                this.__Disjoint := BOOL(this.ptr + 8)
-            return this.__Disjoint
-        }
+    Disjoint {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 }

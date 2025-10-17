@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ShellCommandInfo.ahk
 #Include .\UiInfo.ahk
 
@@ -29,24 +28,18 @@ class RepairInfo extends Win32Struct
      * A pointer to a null-terminated  string that contains the helper class name in a user-friendly way.
      * @type {PWSTR}
      */
-    pwszClassName{
-        get {
-            if(!this.HasProp("__pwszClassName"))
-                this.__pwszClassName := PWSTR(this.ptr + 8)
-            return this.__pwszClassName
-        }
+    pwszClassName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a null-terminated string that describes the repair in a user friendly way.
      * @type {PWSTR}
      */
-    pwszDescription{
-        get {
-            if(!this.HasProp("__pwszDescription"))
-                this.__pwszDescription := PWSTR(this.ptr + 16)
-            return this.__pwszDescription
-        }
+    pwszDescription {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -220,7 +213,7 @@ class RepairInfo extends Win32Struct
     UiInfo{
         get {
             if(!this.HasProp("__UiInfo"))
-                this.__UiInfo := UiInfo(this.ptr + 48)
+                this.__UiInfo := UiInfo(48, this)
             return this.__UiInfo
         }
     }

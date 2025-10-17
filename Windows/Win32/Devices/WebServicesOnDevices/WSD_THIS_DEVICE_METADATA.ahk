@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies metadata that is unique to a specific device.
@@ -45,24 +44,18 @@ class WSD_THIS_DEVICE_METADATA extends Win32Struct
      * The firmware version of the device. It should be set to fewer than 256 characters.
      * @type {PWSTR}
      */
-    FirmwareVersion{
-        get {
-            if(!this.HasProp("__FirmwareVersion"))
-                this.__FirmwareVersion := PWSTR(this.ptr + 8)
-            return this.__FirmwareVersion
-        }
+    FirmwareVersion {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The serial number of the device. It should be set to fewer than 256 characters.
      * @type {PWSTR}
      */
-    SerialNumber{
-        get {
-            if(!this.HasProp("__SerialNumber"))
-                this.__SerialNumber := PWSTR(this.ptr + 16)
-            return this.__SerialNumber
-        }
+    SerialNumber {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

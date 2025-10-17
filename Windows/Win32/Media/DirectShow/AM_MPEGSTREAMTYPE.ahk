@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
 
 /**
@@ -40,7 +39,7 @@ class AM_MPEGSTREAMTYPE extends Win32Struct
     mt{
         get {
             if(!this.HasProp("__mt"))
-                this.__mt := AM_MEDIA_TYPE(this.ptr + 8)
+                this.__mt := AM_MEDIA_TYPE(8, this)
             return this.__mt
         }
     }

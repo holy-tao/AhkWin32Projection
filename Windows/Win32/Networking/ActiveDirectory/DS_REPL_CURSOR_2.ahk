@@ -39,7 +39,7 @@ class DS_REPL_CURSOR_2 extends Win32Struct
     ftimeLastSyncSuccess{
         get {
             if(!this.HasProp("__ftimeLastSyncSuccess"))
-                this.__ftimeLastSyncSuccess := FILETIME(this.ptr + 16)
+                this.__ftimeLastSyncSuccess := FILETIME(16, this)
             return this.__ftimeLastSyncSuccess
         }
     }

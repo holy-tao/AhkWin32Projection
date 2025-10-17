@@ -45,7 +45,7 @@ class TTPOLYGONHEADER extends Win32Struct
     pfxStart{
         get {
             if(!this.HasProp("__pfxStart"))
-                this.__pfxStart := POINTFX(this.ptr + 8)
+                this.__pfxStart := POINTFX(8, this)
             return this.__pfxStart
         }
     }

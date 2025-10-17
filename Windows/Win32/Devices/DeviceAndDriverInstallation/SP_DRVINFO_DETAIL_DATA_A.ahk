@@ -27,7 +27,7 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
     InfDate{
         get {
             if(!this.HasProp("__InfDate"))
-                this.__InfDate := FILETIME(this.ptr + 8)
+                this.__InfDate := FILETIME(8, this)
             return this.__InfDate
         }
     }
@@ -88,12 +88,8 @@ class SP_DRVINFO_DETAIL_DATA_A extends Win32Struct
         set => StrPut(value, this.ptr + 804, 0, "UTF-8")
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 808
     }
 }

@@ -26,7 +26,7 @@ class HEAACWAVEFORMAT extends Win32Struct
     wfInfo{
         get {
             if(!this.HasProp("__wfInfo"))
-                this.__wfInfo := HEAACWAVEINFO(this.ptr + 0)
+                this.__wfInfo := HEAACWAVEINFO(0, this)
             return this.__wfInfo
         }
     }

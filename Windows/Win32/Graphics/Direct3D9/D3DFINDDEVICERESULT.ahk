@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3DTRANSFORMCAPS.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3DLIGHTINGCAPS.ahk
 #Include .\D3DPRIMCAPS.ahk
 #Include .\D3DDEVICEDESC.ahk
@@ -38,7 +37,7 @@ class D3DFINDDEVICERESULT extends Win32Struct
     ddHwDesc{
         get {
             if(!this.HasProp("__ddHwDesc"))
-                this.__ddHwDesc := D3DDEVICEDESC(this.ptr + 16)
+                this.__ddHwDesc := D3DDEVICEDESC(16, this)
             return this.__ddHwDesc
         }
     }
@@ -49,7 +48,7 @@ class D3DFINDDEVICERESULT extends Win32Struct
     ddSwDesc{
         get {
             if(!this.HasProp("__ddSwDesc"))
-                this.__ddSwDesc := D3DDEVICEDESC(this.ptr + 272)
+                this.__ddSwDesc := D3DDEVICEDESC(272, this)
             return this.__ddSwDesc
         }
     }

@@ -19,7 +19,7 @@ class KSPROPERTY_VBICODECFILTERING_SCANLINES_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -30,7 +30,7 @@ class KSPROPERTY_VBICODECFILTERING_SCANLINES_S extends Win32Struct
     Scanlines{
         get {
             if(!this.HasProp("__Scanlines"))
-                this.__Scanlines := VBICODECFILTERING_SCANLINES(this.ptr + 16)
+                this.__Scanlines := VBICODECFILTERING_SCANLINES(16, this)
             return this.__Scanlines
         }
     }

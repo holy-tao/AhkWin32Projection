@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains virtual hard disk (VHD) information to use when you call the SetVirtualDiskInformation function to set VHD properties.
@@ -42,12 +40,9 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        ParentFilePath{
-            get {
-                if(!this.HasProp("__ParentFilePath"))
-                    this.__ParentFilePath := PWSTR(this.ptr + 8)
-                return this.__ParentFilePath
-            }
+        ParentFilePath {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
         }
     
     }
@@ -67,12 +62,9 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        ParentFilePath{
-            get {
-                if(!this.HasProp("__ParentFilePath"))
-                    this.__ParentFilePath := PWSTR(this.ptr + 8)
-                return this.__ParentFilePath
-            }
+        ParentFilePath {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
         }
     
     }
@@ -80,12 +72,9 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    ParentFilePath{
-        get {
-            if(!this.HasProp("__ParentFilePath"))
-                this.__ParentFilePath := PWSTR(this.ptr + 8)
-            return this.__ParentFilePath
-        }
+    ParentFilePath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -102,7 +91,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     ParentPathWithDepthInfo{
         get {
             if(!this.HasProp("__ParentPathWithDepthInfo"))
-                this.__ParentPathWithDepthInfo := %this.__Class%._ParentPathWithDepthInfo(this.ptr + 8)
+                this.__ParentPathWithDepthInfo := %this.__Class%._ParentPathWithDepthInfo(8, this)
             return this.__ParentPathWithDepthInfo
         }
     }
@@ -126,12 +115,9 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    ChangeTrackingEnabled{
-        get {
-            if(!this.HasProp("__ChangeTrackingEnabled"))
-                this.__ChangeTrackingEnabled := BOOL(this.ptr + 8)
-            return this.__ChangeTrackingEnabled
-        }
+    ChangeTrackingEnabled {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -140,7 +126,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     ParentLocator{
         get {
             if(!this.HasProp("__ParentLocator"))
-                this.__ParentLocator := %this.__Class%._ParentLocator(this.ptr + 8)
+                this.__ParentLocator := %this.__Class%._ParentLocator(8, this)
             return this.__ParentLocator
         }
     }

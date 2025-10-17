@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\alljoyn_interfacedescription.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -16,12 +14,9 @@ class alljoyn_interfacedescription_member extends Win32Struct
     /**
      * @type {alljoyn_interfacedescription}
      */
-    iface{
-        get {
-            if(!this.HasProp("__iface"))
-                this.__iface := alljoyn_interfacedescription(this.ptr + 0)
-            return this.__iface
-        }
+    iface {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -35,45 +30,33 @@ class alljoyn_interfacedescription_member extends Win32Struct
     /**
      * @type {PSTR}
      */
-    name{
-        get {
-            if(!this.HasProp("__name"))
-                this.__name := PSTR(this.ptr + 16)
-            return this.__name
-        }
+    name {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    signature{
-        get {
-            if(!this.HasProp("__signature"))
-                this.__signature := PSTR(this.ptr + 24)
-            return this.__signature
-        }
+    signature {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    returnSignature{
-        get {
-            if(!this.HasProp("__returnSignature"))
-                this.__returnSignature := PSTR(this.ptr + 32)
-            return this.__returnSignature
-        }
+    returnSignature {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PSTR}
      */
-    argNames{
-        get {
-            if(!this.HasProp("__argNames"))
-                this.__argNames := PSTR(this.ptr + 40)
-            return this.__argNames
-        }
+    argNames {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

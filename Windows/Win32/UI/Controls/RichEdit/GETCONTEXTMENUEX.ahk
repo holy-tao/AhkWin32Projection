@@ -24,7 +24,7 @@ class GETCONTEXTMENUEX extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 0)
+                this.__chrg := CHARRANGE(0, this)
             return this.__chrg
         }
     }
@@ -99,7 +99,7 @@ class GETCONTEXTMENUEX extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 16)
+                this.__pt := POINT(16, this)
             return this.__pt
         }
     }

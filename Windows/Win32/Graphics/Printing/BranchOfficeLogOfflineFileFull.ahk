@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -15,11 +14,8 @@ class BranchOfficeLogOfflineFileFull extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pMachineName{
-        get {
-            if(!this.HasProp("__pMachineName"))
-                this.__pMachineName := PWSTR(this.ptr + 0)
-            return this.__pMachineName
-        }
+    pMachineName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\PSID.ahk
 
 /**
  * Contains SIDs that are retrieved based on account names.
@@ -28,12 +27,9 @@ class LSA_TRANSLATED_SID2 extends Win32Struct
      * The complete SID of the account.
      * @type {PSID}
      */
-    Sid{
-        get {
-            if(!this.HasProp("__Sid"))
-                this.__Sid := PSID(this.ptr + 8)
-            return this.__Sid
-        }
+    Sid {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

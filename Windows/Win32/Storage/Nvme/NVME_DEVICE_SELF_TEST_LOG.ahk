@@ -84,7 +84,7 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
     CurrentOperation{
         get {
             if(!this.HasProp("__CurrentOperation"))
-                this.__CurrentOperation := %this.__Class%._CurrentOperation(this.ptr + 0)
+                this.__CurrentOperation := %this.__Class%._CurrentOperation(0, this)
             return this.__CurrentOperation
         }
     }
@@ -95,7 +95,7 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
     CurrentCompletion{
         get {
             if(!this.HasProp("__CurrentCompletion"))
-                this.__CurrentCompletion := %this.__Class%._CurrentCompletion(this.ptr + 1)
+                this.__CurrentCompletion := %this.__Class%._CurrentCompletion(1, this)
             return this.__CurrentCompletion
         }
     }

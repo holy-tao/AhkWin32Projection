@@ -62,7 +62,7 @@ class TXF_LOG_RECORD_WRITE extends Win32Struct
     TxfFileId{
         get {
             if(!this.HasProp("__TxfFileId"))
-                this.__TxfFileId := TXF_ID(this.ptr + 16)
+                this.__TxfFileId := TXF_ID(16, this)
             return this.__TxfFileId
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_RESERVE_PARMS structure contains information for the MCI_RESERVE command for digital-video devices.
@@ -40,12 +39,9 @@ class MCI_DGV_RESERVE_PARMSW extends Win32Struct
      * Pointer to a null-terminated string containing the location of a temporary file. The buffer contains only the drive and directory path of the file used to hold recorded data; the filename is specified by the device driver.
      * @type {PWSTR}
      */
-    lpstrPath{
-        get {
-            if(!this.HasProp("__lpstrPath"))
-                this.__lpstrPath := PWSTR(this.ptr + 8)
-            return this.__lpstrPath
-        }
+    lpstrPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

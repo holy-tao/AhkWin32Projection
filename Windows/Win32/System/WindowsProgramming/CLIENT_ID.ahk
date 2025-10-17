@@ -18,7 +18,7 @@ class CLIENT_ID extends Win32Struct
     UniqueProcess{
         get {
             if(!this.HasProp("__UniqueProcess"))
-                this.__UniqueProcess := HANDLE(this.ptr + 0)
+                this.__UniqueProcess := HANDLE(0, this)
             return this.__UniqueProcess
         }
     }
@@ -29,7 +29,7 @@ class CLIENT_ID extends Win32Struct
     UniqueThread{
         get {
             if(!this.HasProp("__UniqueThread"))
-                this.__UniqueThread := HANDLE(this.ptr + 8)
+                this.__UniqueThread := HANDLE(8, this)
             return this.__UniqueThread
         }
     }

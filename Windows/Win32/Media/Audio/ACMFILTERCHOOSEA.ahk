@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -38,7 +36,7 @@ class ACMFILTERCHOOSEA extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
+                this.__hwndOwner := HWND(8, this)
             return this.__hwndOwner
         }
     }
@@ -62,12 +60,9 @@ class ACMFILTERCHOOSEA extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszTitle{
-        get {
-            if(!this.HasProp("__pszTitle"))
-                this.__pszTitle := PSTR(this.ptr + 32)
-            return this.__pszTitle
-        }
+    pszTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -89,12 +84,9 @@ class ACMFILTERCHOOSEA extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PSTR(this.ptr + 216)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 216, "ptr")
+        set => NumPut("ptr", value, this, 216)
     }
 
     /**
@@ -127,7 +119,7 @@ class ACMFILTERCHOOSEA extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 240)
+                this.__hInstance := HINSTANCE(240, this)
             return this.__hInstance
         }
     }
@@ -135,23 +127,17 @@ class ACMFILTERCHOOSEA extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszTemplateName{
-        get {
-            if(!this.HasProp("__pszTemplateName"))
-                this.__pszTemplateName := PSTR(this.ptr + 248)
-            return this.__pszTemplateName
-        }
+    pszTemplateName {
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 
     /**
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 256)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 256, "ptr")
+        set => NumPut("ptr", value, this, 256)
     }
 
     /**

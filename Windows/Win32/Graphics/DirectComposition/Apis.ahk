@@ -138,7 +138,7 @@ class DirectComposition {
     static DCompositionAttachMouseWheelToHwnd(visual, hwnd, enable) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dcomp.dll\DCompositionAttachMouseWheelToHwnd", "ptr", visual, "ptr", hwnd, "ptr", enable, "int")
+        result := DllCall("dcomp.dll\DCompositionAttachMouseWheelToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -164,7 +164,7 @@ class DirectComposition {
     static DCompositionAttachMouseDragToHwnd(visual, hwnd, enable) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dcomp.dll\DCompositionAttachMouseDragToHwnd", "ptr", visual, "ptr", hwnd, "ptr", enable, "int")
+        result := DllCall("dcomp.dll\DCompositionAttachMouseDragToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -223,7 +223,7 @@ class DirectComposition {
      * @returns {HRESULT} 
      */
     static DCompositionBoostCompositorClock(enable) {
-        result := DllCall("dcomp.dll\DCompositionBoostCompositorClock", "ptr", enable, "int")
+        result := DllCall("dcomp.dll\DCompositionBoostCompositorClock", "int", enable, "int")
         if(result != 0)
             throw OSError(result)
 

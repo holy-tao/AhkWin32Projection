@@ -34,7 +34,7 @@ class SystemHealthAgentState extends Win32Struct
     shaResultCodes{
         get {
             if(!this.HasProp("__shaResultCodes"))
-                this.__shaResultCodes := ResultCodes(this.ptr + 8)
+                this.__shaResultCodes := ResultCodes(8, this)
             return this.__shaResultCodes
         }
     }
@@ -58,7 +58,7 @@ class SystemHealthAgentState extends Win32Struct
     fixupInfo{
         get {
             if(!this.HasProp("__fixupInfo"))
-                this.__fixupInfo := FixupInfo(this.ptr + 32)
+                this.__fixupInfo := FixupInfo(32, this)
             return this.__fixupInfo
         }
     }

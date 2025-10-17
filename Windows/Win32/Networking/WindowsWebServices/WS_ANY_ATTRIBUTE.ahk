@@ -25,7 +25,7 @@ class WS_ANY_ATTRIBUTE extends Win32Struct
     localName{
         get {
             if(!this.HasProp("__localName"))
-                this.__localName := WS_XML_STRING(this.ptr + 0)
+                this.__localName := WS_XML_STRING(0, this)
             return this.__localName
         }
     }
@@ -37,7 +37,7 @@ class WS_ANY_ATTRIBUTE extends Win32Struct
     ns{
         get {
             if(!this.HasProp("__ns"))
-                this.__ns := WS_XML_STRING(this.ptr + 32)
+                this.__ns := WS_XML_STRING(32, this)
             return this.__ns
         }
     }

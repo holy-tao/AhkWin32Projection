@@ -1724,7 +1724,7 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtladdfunctiontable
      */
     static RtlAddFunctionTable(FunctionTable, EntryCount, BaseAddress) {
-        result := DllCall("KERNEL32.dll\RtlAddFunctionTable", "ptr", FunctionTable, "uint", EntryCount, "ptr", BaseAddress, "ptr")
+        result := DllCall("KERNEL32.dll\RtlAddFunctionTable", "ptr", FunctionTable, "uint", EntryCount, "ptr", BaseAddress, "char")
         return result
     }
 
@@ -1740,7 +1740,7 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//winnt/nf-winnt-rtldeletefunctiontable
      */
     static RtlDeleteFunctionTable(FunctionTable) {
-        result := DllCall("KERNEL32.dll\RtlDeleteFunctionTable", "ptr", FunctionTable, "ptr")
+        result := DllCall("KERNEL32.dll\RtlDeleteFunctionTable", "ptr", FunctionTable, "char")
         return result
     }
 
@@ -1768,7 +1768,7 @@ class Debug {
     static RtlInstallFunctionTableCallback(TableIdentifier, BaseAddress, Length, Callback, Context, OutOfProcessCallbackDll) {
         OutOfProcessCallbackDll := OutOfProcessCallbackDll is String ? StrPtr(OutOfProcessCallbackDll) : OutOfProcessCallbackDll
 
-        result := DllCall("KERNEL32.dll\RtlInstallFunctionTableCallback", "uint", TableIdentifier, "uint", BaseAddress, "uint", Length, "ptr", Callback, "ptr", Context, "ptr", OutOfProcessCallbackDll, "ptr")
+        result := DllCall("KERNEL32.dll\RtlInstallFunctionTableCallback", "uint", TableIdentifier, "uint", BaseAddress, "uint", Length, "ptr", Callback, "ptr", Context, "ptr", OutOfProcessCallbackDll, "char")
         return result
     }
 
@@ -1862,7 +1862,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReadProcessMemory", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", nSize, "ptr*", lpNumberOfBytesRead, "ptr")
+        result := DllCall("KERNEL32.dll\ReadProcessMemory", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", nSize, "ptr*", lpNumberOfBytesRead, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1888,7 +1888,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WriteProcessMemory", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", nSize, "ptr*", lpNumberOfBytesWritten, "ptr")
+        result := DllCall("KERNEL32.dll\WriteProcessMemory", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", nSize, "ptr*", lpNumberOfBytesWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1913,7 +1913,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadContext", "ptr", hThread, "ptr", lpContext, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadContext", "ptr", hThread, "ptr", lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1944,7 +1944,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadContext", "ptr", hThread, "ptr", lpContext, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadContext", "ptr", hThread, "ptr", lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1968,7 +1968,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FlushInstructionCache", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", dwSize, "ptr")
+        result := DllCall("KERNEL32.dll\FlushInstructionCache", "ptr", hProcess, "ptr", lpBaseAddress, "ptr", dwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1994,7 +1994,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Wow64GetThreadContext", "ptr", hThread, "ptr", lpContext, "ptr")
+        result := DllCall("KERNEL32.dll\Wow64GetThreadContext", "ptr", hThread, "ptr", lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2018,7 +2018,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Wow64SetThreadContext", "ptr", hThread, "ptr", lpContext, "ptr")
+        result := DllCall("KERNEL32.dll\Wow64SetThreadContext", "ptr", hThread, "ptr", lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2118,7 +2118,7 @@ class Debug {
     static GetImageConfigInformation(LoadedImage, ImageConfigInformation) {
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\GetImageConfigInformation", "ptr", LoadedImage, "ptr", ImageConfigInformation, "ptr")
+        result := DllCall("imagehlp.dll\GetImageConfigInformation", "ptr", LoadedImage, "ptr", ImageConfigInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2142,7 +2142,7 @@ class Debug {
     static SetImageConfigInformation(LoadedImage, ImageConfigInformation) {
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\SetImageConfigInformation", "ptr", LoadedImage, "ptr", ImageConfigInformation, "ptr")
+        result := DllCall("imagehlp.dll\SetImageConfigInformation", "ptr", LoadedImage, "ptr", ImageConfigInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2317,7 +2317,7 @@ class Debug {
      * @since windows5.1.2600
      */
     static IsDebuggerPresent() {
-        result := DllCall("KERNEL32.dll\IsDebuggerPresent", "ptr")
+        result := DllCall("KERNEL32.dll\IsDebuggerPresent", "int")
         return result
     }
 
@@ -2463,7 +2463,7 @@ class Debug {
     static ContinueDebugEvent(dwProcessId, dwThreadId, dwContinueStatus) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ContinueDebugEvent", "uint", dwProcessId, "uint", dwThreadId, "ptr", dwContinueStatus, "ptr")
+        result := DllCall("KERNEL32.dll\ContinueDebugEvent", "uint", dwProcessId, "uint", dwThreadId, "int", dwContinueStatus, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2485,7 +2485,7 @@ class Debug {
     static WaitForDebugEvent(lpDebugEvent, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitForDebugEvent", "ptr", lpDebugEvent, "uint", dwMilliseconds, "ptr")
+        result := DllCall("KERNEL32.dll\WaitForDebugEvent", "ptr", lpDebugEvent, "uint", dwMilliseconds, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2507,7 +2507,7 @@ class Debug {
     static DebugActiveProcess(dwProcessId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DebugActiveProcess", "uint", dwProcessId, "ptr")
+        result := DllCall("KERNEL32.dll\DebugActiveProcess", "uint", dwProcessId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2527,7 +2527,7 @@ class Debug {
     static DebugActiveProcessStop(dwProcessId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DebugActiveProcessStop", "uint", dwProcessId, "ptr")
+        result := DllCall("KERNEL32.dll\DebugActiveProcessStop", "uint", dwProcessId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2549,7 +2549,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CheckRemoteDebuggerPresent", "ptr", hProcess, "ptr", pbDebuggerPresent, "ptr")
+        result := DllCall("KERNEL32.dll\CheckRemoteDebuggerPresent", "ptr", hProcess, "ptr", pbDebuggerPresent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2571,7 +2571,7 @@ class Debug {
     static WaitForDebugEventEx(lpDebugEvent, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitForDebugEventEx", "ptr", lpDebugEvent, "uint", dwMilliseconds, "ptr")
+        result := DllCall("KERNEL32.dll\WaitForDebugEventEx", "ptr", lpDebugEvent, "uint", dwMilliseconds, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2666,7 +2666,7 @@ class Debug {
     static Beep(dwFreq, dwDuration) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Beep", "uint", dwFreq, "uint", dwDuration, "ptr")
+        result := DllCall("KERNEL32.dll\Beep", "uint", dwFreq, "uint", dwDuration, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3068,7 +3068,7 @@ class Debug {
     static SetThreadErrorMode(dwNewMode, lpOldMode) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadErrorMode", "uint", dwNewMode, "uint*", lpOldMode, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadErrorMode", "uint", dwNewMode, "uint*", lpOldMode, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3230,7 +3230,7 @@ class Debug {
     static GetThreadWaitChain(WctHandle, Context, Flags, ThreadId, NodeCount, NodeInfoArray, IsCycle) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetThreadWaitChain", "ptr", WctHandle, "ptr", Context, "uint", Flags, "uint", ThreadId, "uint*", NodeCount, "ptr", NodeInfoArray, "ptr", IsCycle, "ptr")
+        result := DllCall("ADVAPI32.dll\GetThreadWaitChain", "ptr", WctHandle, "ptr", Context, "uint", Flags, "uint", ThreadId, "uint*", NodeCount, "ptr", NodeInfoArray, "ptr", IsCycle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3297,7 +3297,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\MiniDumpWriteDump", "ptr", hProcess, "uint", ProcessId, "ptr", hFile, "int", DumpType, "ptr", ExceptionParam, "ptr", UserStreamParam, "ptr", CallbackParam, "ptr")
+        result := DllCall("dbghelp.dll\MiniDumpWriteDump", "ptr", hProcess, "uint", ProcessId, "ptr", hFile, "int", DumpType, "ptr", ExceptionParam, "ptr", UserStreamParam, "ptr", CallbackParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3321,7 +3321,7 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//minidumpapiset/nf-minidumpapiset-minidumpreaddumpstream
      */
     static MiniDumpReadDumpStream(BaseOfDump, StreamNumber, Dir, StreamPointer, StreamSize) {
-        result := DllCall("dbghelp.dll\MiniDumpReadDumpStream", "ptr", BaseOfDump, "uint", StreamNumber, "ptr", Dir, "ptr", StreamPointer, "uint*", StreamSize, "ptr")
+        result := DllCall("dbghelp.dll\MiniDumpReadDumpStream", "ptr", BaseOfDump, "uint", StreamNumber, "ptr", Dir, "ptr", StreamPointer, "uint*", StreamSize, "int")
         return result
     }
 
@@ -3344,7 +3344,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\BindImage", "ptr", ImageName, "ptr", DllPath, "ptr", SymbolPath, "ptr")
+        result := DllCall("imagehlp.dll\BindImage", "ptr", ImageName, "ptr", DllPath, "ptr", SymbolPath, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3373,7 +3373,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\BindImageEx", "uint", Flags, "ptr", ImageName, "ptr", DllPath, "ptr", SymbolPath, "ptr", StatusRoutine, "ptr")
+        result := DllCall("imagehlp.dll\BindImageEx", "uint", Flags, "ptr", ImageName, "ptr", DllPath, "ptr", SymbolPath, "ptr", StatusRoutine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3408,7 +3408,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ReBaseImage", "ptr", CurrentImageName, "ptr", SymbolPath, "ptr", fReBase, "ptr", fRebaseSysfileOk, "ptr", fGoingDown, "uint", CheckImageSize, "uint*", OldImageSize, "ptr*", OldImageBase, "uint*", NewImageSize, "ptr*", NewImageBase, "uint", TimeStamp, "ptr")
+        result := DllCall("imagehlp.dll\ReBaseImage", "ptr", CurrentImageName, "ptr", SymbolPath, "int", fReBase, "int", fRebaseSysfileOk, "int", fGoingDown, "uint", CheckImageSize, "uint*", OldImageSize, "ptr*", OldImageBase, "uint*", NewImageSize, "ptr*", NewImageBase, "uint", TimeStamp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3443,7 +3443,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ReBaseImage64", "ptr", CurrentImageName, "ptr", SymbolPath, "ptr", fReBase, "ptr", fRebaseSysfileOk, "ptr", fGoingDown, "uint", CheckImageSize, "uint*", OldImageSize, "uint*", OldImageBase, "uint*", NewImageSize, "uint*", NewImageBase, "uint", TimeStamp, "ptr")
+        result := DllCall("imagehlp.dll\ReBaseImage64", "ptr", CurrentImageName, "ptr", SymbolPath, "int", fReBase, "int", fRebaseSysfileOk, "int", fGoingDown, "uint", CheckImageSize, "uint*", OldImageSize, "uint*", OldImageBase, "uint*", NewImageSize, "uint*", NewImageBase, "uint", TimeStamp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3638,7 +3638,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageGetDigestStream", "ptr", FileHandle, "uint", DigestLevel, "ptr", DigestFunction, "ptr", DigestHandle, "ptr")
+        result := DllCall("imagehlp.dll\ImageGetDigestStream", "ptr", FileHandle, "uint", DigestLevel, "ptr", DigestFunction, "ptr", DigestHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3662,7 +3662,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageAddCertificate", "ptr", FileHandle, "ptr", Certificate, "uint*", Index, "ptr")
+        result := DllCall("imagehlp.dll\ImageAddCertificate", "ptr", FileHandle, "ptr", Certificate, "uint*", Index, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3685,7 +3685,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageRemoveCertificate", "ptr", FileHandle, "uint", Index, "ptr")
+        result := DllCall("imagehlp.dll\ImageRemoveCertificate", "ptr", FileHandle, "uint", Index, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3711,7 +3711,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageEnumerateCertificates", "ptr", FileHandle, "ushort", TypeFilter, "uint*", CertificateCount, "uint*", Indices, "uint", IndexCount, "ptr")
+        result := DllCall("imagehlp.dll\ImageEnumerateCertificates", "ptr", FileHandle, "ushort", TypeFilter, "uint*", CertificateCount, "uint*", Indices, "uint", IndexCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3736,7 +3736,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageGetCertificateData", "ptr", FileHandle, "uint", CertificateIndex, "ptr", Certificate, "uint*", RequiredLength, "ptr")
+        result := DllCall("imagehlp.dll\ImageGetCertificateData", "ptr", FileHandle, "uint", CertificateIndex, "ptr", Certificate, "uint*", RequiredLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3760,7 +3760,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageGetCertificateHeader", "ptr", FileHandle, "uint", CertificateIndex, "ptr", Certificateheader, "ptr")
+        result := DllCall("imagehlp.dll\ImageGetCertificateHeader", "ptr", FileHandle, "uint", CertificateIndex, "ptr", Certificateheader, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3815,7 +3815,7 @@ class Debug {
     static ImageUnload(LoadedImage) {
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\ImageUnload", "ptr", LoadedImage, "ptr")
+        result := DllCall("imagehlp.dll\ImageUnload", "ptr", LoadedImage, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3844,7 +3844,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\MapAndLoad", "ptr", ImageName, "ptr", DllPath, "ptr", LoadedImage, "ptr", DotDll, "ptr", ReadOnly, "ptr")
+        result := DllCall("imagehlp.dll\MapAndLoad", "ptr", ImageName, "ptr", DllPath, "ptr", LoadedImage, "int", DotDll, "int", ReadOnly, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3866,7 +3866,7 @@ class Debug {
     static UnMapAndLoad(LoadedImage) {
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\UnMapAndLoad", "ptr", LoadedImage, "ptr")
+        result := DllCall("imagehlp.dll\UnMapAndLoad", "ptr", LoadedImage, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3890,7 +3890,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\TouchFileTimes", "ptr", FileHandle, "ptr", pSystemTime, "ptr")
+        result := DllCall("imagehlp.dll\TouchFileTimes", "ptr", FileHandle, "ptr", pSystemTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3918,7 +3918,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("imagehlp.dll\UpdateDebugInfoFile", "ptr", ImageFileName, "ptr", SymbolPath, "ptr", DebugFilePath, "ptr", NtHeaders, "ptr")
+        result := DllCall("imagehlp.dll\UpdateDebugInfoFile", "ptr", ImageFileName, "ptr", SymbolPath, "ptr", DebugFilePath, "ptr", NtHeaders, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3944,7 +3944,7 @@ class Debug {
         SymbolPath := SymbolPath is String ? StrPtr(SymbolPath) : SymbolPath
         DebugFilePath := DebugFilePath is String ? StrPtr(DebugFilePath) : DebugFilePath
 
-        result := DllCall("imagehlp.dll\UpdateDebugInfoFileEx", "ptr", ImageFileName, "ptr", SymbolPath, "ptr", DebugFilePath, "ptr", NtHeaders, "uint", OldCheckSum, "ptr")
+        result := DllCall("imagehlp.dll\UpdateDebugInfoFileEx", "ptr", ImageFileName, "ptr", SymbolPath, "ptr", DebugFilePath, "ptr", NtHeaders, "uint", OldCheckSum, "int")
         return result
     }
 
@@ -4135,7 +4135,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFindFileInPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FoundFile, "ptr", callback, "ptr", context, "ptr")
+        result := DllCall("dbghelp.dll\SymFindFileInPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FoundFile, "ptr", callback, "ptr", context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4167,7 +4167,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFindFileInPathW", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FoundFile, "ptr", callback, "ptr", context, "ptr")
+        result := DllCall("dbghelp.dll\SymFindFileInPathW", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FoundFile, "ptr", callback, "ptr", context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4356,7 +4356,7 @@ class Debug {
     static ImageDirectoryEntryToDataEx(Base, MappedAsImage, DirectoryEntry, Size, FoundHeader) {
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\ImageDirectoryEntryToDataEx", "ptr", Base, "ptr", MappedAsImage, "ushort", DirectoryEntry, "uint*", Size, "ptr", FoundHeader, "ptr")
+        result := DllCall("dbghelp.dll\ImageDirectoryEntryToDataEx", "ptr", Base, "char", MappedAsImage, "ushort", DirectoryEntry, "uint*", Size, "ptr", FoundHeader, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4379,7 +4379,7 @@ class Debug {
     static ImageDirectoryEntryToData(Base, MappedAsImage, DirectoryEntry, Size) {
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\ImageDirectoryEntryToData", "ptr", Base, "ptr", MappedAsImage, "ushort", DirectoryEntry, "uint*", Size, "ptr")
+        result := DllCall("dbghelp.dll\ImageDirectoryEntryToData", "ptr", Base, "char", MappedAsImage, "ushort", DirectoryEntry, "uint*", Size, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4404,7 +4404,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SearchTreeForFile", "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr")
+        result := DllCall("dbghelp.dll\SearchTreeForFile", "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4429,7 +4429,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SearchTreeForFileW", "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr")
+        result := DllCall("dbghelp.dll\SearchTreeForFileW", "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4462,7 +4462,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumDirTree", "ptr", hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr", cb, "ptr", data, "ptr")
+        result := DllCall("dbghelp.dll\EnumDirTree", "ptr", hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr", cb, "ptr", data, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4495,7 +4495,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumDirTreeW", "ptr", hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr", cb, "ptr", data, "ptr")
+        result := DllCall("dbghelp.dll\EnumDirTreeW", "ptr", hProcess, "ptr", RootPath, "ptr", InputPathName, "ptr", OutputPathBuffer, "ptr", cb, "ptr", data, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4517,7 +4517,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\MakeSureDirectoryPathExists", "ptr", DirPath, "ptr")
+        result := DllCall("dbghelp.dll\MakeSureDirectoryPathExists", "ptr", DirPath, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5085,7 +5085,7 @@ class Debug {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
-        result := DllCall("dbghelp.dll\StackWalk64", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "ptr")
+        result := DllCall("dbghelp.dll\StackWalk64", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "int")
         return result
     }
 
@@ -5196,7 +5196,7 @@ class Debug {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
-        result := DllCall("dbghelp.dll\StackWalkEx", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\StackWalkEx", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "uint", Flags, "int")
         return result
     }
 
@@ -5219,7 +5219,7 @@ class Debug {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
-        result := DllCall("dbghelp.dll\StackWalk2", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "ptr", GetTargetAttributeValue, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\StackWalk2", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "ptr", GetTargetAttributeValue, "uint", Flags, "int")
         return result
     }
 
@@ -5328,7 +5328,7 @@ class Debug {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
-        result := DllCall("dbghelp.dll\StackWalk", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "ptr")
+        result := DllCall("dbghelp.dll\StackWalk", "uint", MachineType, "ptr", hProcess, "ptr", hThread, "ptr", StackFrame, "ptr", ContextRecord, "ptr", ReadMemoryRoutine, "ptr", FunctionTableAccessRoutine, "ptr", GetModuleBaseRoutine, "ptr", TranslateAddress, "int")
         return result
     }
 
@@ -5392,7 +5392,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetParentWindow", "ptr", hwnd, "ptr")
+        result := DllCall("dbghelp.dll\SymSetParentWindow", "ptr", hwnd, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5405,7 +5405,7 @@ class Debug {
      * @returns {BOOL} 
      */
     static SymGetParentWindow(pHwnd) {
-        result := DllCall("dbghelp.dll\SymGetParentWindow", "ptr", pHwnd, "ptr")
+        result := DllCall("dbghelp.dll\SymGetParentWindow", "ptr", pHwnd, "int")
         return result
     }
 
@@ -5425,7 +5425,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetHomeDirectory", "ptr", hProcess, "ptr", dir, "ptr")
+        result := DllCall("dbghelp.dll\SymSetHomeDirectory", "ptr", hProcess, "ptr", dir, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -5448,7 +5448,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetHomeDirectoryW", "ptr", hProcess, "ptr", dir, "ptr")
+        result := DllCall("dbghelp.dll\SymSetHomeDirectoryW", "ptr", hProcess, "ptr", dir, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -5471,7 +5471,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetHomeDirectory", "uint", type, "ptr", dir, "ptr", size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetHomeDirectory", "uint", type, "ptr", dir, "ptr", size, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -5494,7 +5494,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetHomeDirectoryW", "uint", type, "ptr", dir, "ptr", size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetHomeDirectoryW", "uint", type, "ptr", dir, "ptr", size, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -5521,7 +5521,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetOmaps", "ptr", hProcess, "uint", BaseOfDll, "ptr", OmapTo, "uint*", cOmapTo, "ptr", OmapFrom, "uint*", cOmapFrom, "ptr")
+        result := DllCall("dbghelp.dll\SymGetOmaps", "ptr", hProcess, "uint", BaseOfDll, "ptr", OmapTo, "uint*", cOmapTo, "ptr", OmapFrom, "uint*", cOmapFrom, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5890,7 +5890,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymCleanup", "ptr", hProcess, "ptr")
+        result := DllCall("dbghelp.dll\SymCleanup", "ptr", hProcess, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5922,7 +5922,7 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetextendedoption
      */
     static SymGetExtendedOption(option) {
-        result := DllCall("dbghelp.dll\SymGetExtendedOption", "int", option, "ptr")
+        result := DllCall("dbghelp.dll\SymGetExtendedOption", "int", option, "int")
         return result
     }
 
@@ -5952,7 +5952,7 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetextendedoption
      */
     static SymSetExtendedOption(option, value) {
-        result := DllCall("dbghelp.dll\SymSetExtendedOption", "int", option, "ptr", value, "ptr")
+        result := DllCall("dbghelp.dll\SymSetExtendedOption", "int", option, "int", value, "int")
         return result
     }
 
@@ -5974,7 +5974,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchString", "ptr", string, "ptr", expression, "ptr", fCase, "ptr")
+        result := DllCall("dbghelp.dll\SymMatchString", "ptr", string, "ptr", expression, "int", fCase, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5995,7 +5995,7 @@ class Debug {
         string := string is String ? StrPtr(string) : string
         expression := expression is String ? StrPtr(expression) : expression
 
-        result := DllCall("dbghelp.dll\SymMatchStringA", "ptr", string, "ptr", expression, "ptr", fCase, "ptr")
+        result := DllCall("dbghelp.dll\SymMatchStringA", "ptr", string, "ptr", expression, "int", fCase, "int")
         return result
     }
 
@@ -6017,7 +6017,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchStringW", "ptr", string, "ptr", expression, "ptr", fCase, "ptr")
+        result := DllCall("dbghelp.dll\SymMatchStringW", "ptr", string, "ptr", expression, "int", fCase, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6049,7 +6049,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSourceFiles", "ptr", hProcess, "uint", ModBase, "ptr", Mask, "ptr", cbSrcFiles, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSourceFiles", "ptr", hProcess, "uint", ModBase, "ptr", Mask, "ptr", cbSrcFiles, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6081,7 +6081,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSourceFilesW", "ptr", hProcess, "uint", ModBase, "ptr", Mask, "ptr", cbSrcFiles, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSourceFilesW", "ptr", hProcess, "uint", ModBase, "ptr", Mask, "ptr", cbSrcFiles, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6106,7 +6106,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateModules64", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumerateModules64", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6131,7 +6131,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateModulesW64", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumerateModulesW64", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6156,7 +6156,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateModules", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumerateModules", "ptr", hProcess, "ptr", EnumModulesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6180,7 +6180,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumerateLoadedModulesEx", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\EnumerateLoadedModulesEx", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6204,7 +6204,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumerateLoadedModulesExW", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\EnumerateLoadedModulesExW", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6228,7 +6228,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumerateLoadedModules64", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\EnumerateLoadedModules64", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6252,7 +6252,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumerateLoadedModulesW64", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\EnumerateLoadedModulesW64", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6276,7 +6276,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\EnumerateLoadedModules", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\EnumerateLoadedModules", "ptr", hProcess, "ptr", EnumLoadedModulesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6357,7 +6357,7 @@ class Debug {
     static SymGetUnwindInfo(hProcess, Address, Buffer, Size) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetUnwindInfo", "ptr", hProcess, "uint", Address, "ptr", Buffer, "uint*", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetUnwindInfo", "ptr", hProcess, "uint", Address, "ptr", Buffer, "uint*", Size, "int")
         return result
     }
 
@@ -6381,7 +6381,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetModuleInfo64", "ptr", hProcess, "uint", qwAddr, "ptr", ModuleInfo, "ptr")
+        result := DllCall("dbghelp.dll\SymGetModuleInfo64", "ptr", hProcess, "uint", qwAddr, "ptr", ModuleInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6408,7 +6408,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetModuleInfoW64", "ptr", hProcess, "uint", qwAddr, "ptr", ModuleInfo, "ptr")
+        result := DllCall("dbghelp.dll\SymGetModuleInfoW64", "ptr", hProcess, "uint", qwAddr, "ptr", ModuleInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6435,7 +6435,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetModuleInfo", "ptr", hProcess, "uint", dwAddr, "ptr", ModuleInfo, "ptr")
+        result := DllCall("dbghelp.dll\SymGetModuleInfo", "ptr", hProcess, "uint", dwAddr, "ptr", ModuleInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6462,7 +6462,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetModuleInfoW", "ptr", hProcess, "uint", dwAddr, "ptr", ModuleInfo, "ptr")
+        result := DllCall("dbghelp.dll\SymGetModuleInfoW", "ptr", hProcess, "uint", dwAddr, "ptr", ModuleInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6540,7 +6540,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumLines", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "ptr", EnumLinesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumLines", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "ptr", EnumLinesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6570,7 +6570,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumLinesW", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "ptr", EnumLinesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumLinesW", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "ptr", EnumLinesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6598,7 +6598,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromAddr64", "ptr", hProcess, "uint", qwAddr, "uint*", pdwDisplacement, "ptr", Line64, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineFromAddr64", "ptr", hProcess, "uint", qwAddr, "uint*", pdwDisplacement, "ptr", Line64, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6626,7 +6626,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromAddrW64", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineFromAddrW64", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6656,7 +6656,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromInlineContext", "ptr", hProcess, "uint", qwAddr, "uint", InlineContext, "uint", qwModuleBaseAddress, "uint*", pdwDisplacement, "ptr", Line64, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineFromInlineContext", "ptr", hProcess, "uint", qwAddr, "uint", InlineContext, "uint", qwModuleBaseAddress, "uint*", pdwDisplacement, "ptr", Line64, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6686,7 +6686,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromInlineContextW", "ptr", hProcess, "uint", dwAddr, "uint", InlineContext, "uint", qwModuleBaseAddress, "uint*", pdwDisplacement, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineFromInlineContextW", "ptr", hProcess, "uint", dwAddr, "uint", InlineContext, "uint", qwModuleBaseAddress, "uint*", pdwDisplacement, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6719,7 +6719,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSourceLines", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "uint", Line, "uint", Flags, "ptr", EnumLinesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSourceLines", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "uint", Line, "uint", Flags, "ptr", EnumLinesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6752,7 +6752,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSourceLinesW", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "uint", Line, "uint", Flags, "ptr", EnumLinesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSourceLinesW", "ptr", hProcess, "uint", Base, "ptr", Obj, "ptr", File, "uint", Line, "uint", Flags, "ptr", EnumLinesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6897,7 +6897,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymQueryInlineTrace", "ptr", hProcess, "uint", StartAddress, "uint", StartContext, "uint", StartRetAddress, "uint", CurAddress, "uint*", CurContext, "uint*", CurFrameIndex, "ptr")
+        result := DllCall("dbghelp.dll\SymQueryInlineTrace", "ptr", hProcess, "uint", StartAddress, "uint", StartContext, "uint", StartRetAddress, "uint", CurAddress, "uint*", CurContext, "uint*", CurFrameIndex, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6925,7 +6925,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromAddr", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineFromAddr", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6955,7 +6955,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromName64", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineFromName64", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6985,7 +6985,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromNameW64", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineFromNameW64", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7015,7 +7015,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineFromName", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineFromName", "ptr", hProcess, "ptr", ModuleName, "ptr", FileName, "uint", dwLineNumber, "int*", plDisplacement, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7039,7 +7039,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineNext64", "ptr", hProcess, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineNext64", "ptr", hProcess, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7063,7 +7063,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineNextW64", "ptr", hProcess, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineNextW64", "ptr", hProcess, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7087,7 +7087,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLineNext", "ptr", hProcess, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLineNext", "ptr", hProcess, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7111,7 +7111,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLinePrev64", "ptr", hProcess, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLinePrev64", "ptr", hProcess, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7135,7 +7135,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLinePrevW64", "ptr", hProcess, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLinePrevW64", "ptr", hProcess, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7159,7 +7159,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetLinePrev", "ptr", hProcess, "ptr", Line, "ptr")
+        result := DllCall("dbghelp.dll\SymGetLinePrev", "ptr", hProcess, "ptr", Line, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7213,7 +7213,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchFileName", "ptr", FileName, "ptr", Match, "ptr", FileNameStop, "ptr", MatchStop, "ptr")
+        result := DllCall("dbghelp.dll\SymMatchFileName", "ptr", FileName, "ptr", Match, "ptr", FileNameStop, "ptr", MatchStop, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7238,7 +7238,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymMatchFileNameW", "ptr", FileName, "ptr", Match, "ptr", FileNameStop, "ptr", MatchStop, "ptr")
+        result := DllCall("dbghelp.dll\SymMatchFileNameW", "ptr", FileName, "ptr", Match, "ptr", FileNameStop, "ptr", MatchStop, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7270,7 +7270,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFile", "ptr", hProcess, "uint", Base, "ptr", Params, "ptr", FileSpec, "ptr", FilePath, "uint", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFile", "ptr", hProcess, "uint", Base, "ptr", Params, "ptr", FileSpec, "ptr", FilePath, "uint", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7302,7 +7302,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileW", "ptr", hProcess, "uint", Base, "ptr", Params, "ptr", FileSpec, "ptr", FilePath, "uint", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileW", "ptr", hProcess, "uint", Base, "ptr", Params, "ptr", FileSpec, "ptr", FilePath, "uint", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7331,7 +7331,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileToken", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Token, "uint*", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileToken", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Token, "uint*", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7355,7 +7355,7 @@ class Debug {
         TokenParameters := TokenParameters is String ? StrPtr(TokenParameters) : TokenParameters
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenName", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr", Token, "uint*", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenName", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr", Token, "uint*", Size, "int")
         return result
     }
 
@@ -7382,7 +7382,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileChecksumW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "uint*", pCheckSumType, "char*", pChecksum, "uint", checksumSize, "uint*", pActualBytesWritten, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileChecksumW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "uint*", pCheckSumType, "char*", pChecksum, "uint", checksumSize, "uint*", pActualBytesWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7412,7 +7412,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileChecksum", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "uint*", pCheckSumType, "char*", pChecksum, "uint", checksumSize, "uint*", pActualBytesWritten, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileChecksum", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "uint*", pCheckSumType, "char*", pChecksum, "uint", checksumSize, "uint*", pActualBytesWritten, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7441,7 +7441,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Token, "uint*", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Token, "uint*", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7465,7 +7465,7 @@ class Debug {
         TokenParameters := TokenParameters is String ? StrPtr(TokenParameters) : TokenParameters
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenNameW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr", Token, "uint*", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenNameW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr", Token, "uint*", Size, "int")
         return result
     }
 
@@ -7492,7 +7492,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileFromToken", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", FilePath, "uint", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileFromToken", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", FilePath, "uint", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7515,7 +7515,7 @@ class Debug {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenByTokenName", "ptr", hProcess, "ptr", Token, "ptr", TokenName, "ptr", Params, "ptr", FilePath, "uint", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenByTokenName", "ptr", hProcess, "ptr", Token, "ptr", TokenName, "ptr", Params, "ptr", FilePath, "uint", Size, "int")
         return result
     }
 
@@ -7542,7 +7542,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenW", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", FilePath, "uint", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenW", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", FilePath, "uint", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7565,7 +7565,7 @@ class Debug {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenByTokenNameW", "ptr", hProcess, "ptr", Token, "ptr", TokenName, "ptr", Params, "ptr", FilePath, "uint", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenByTokenNameW", "ptr", hProcess, "ptr", Token, "ptr", TokenName, "ptr", Params, "ptr", FilePath, "uint", Size, "int")
         return result
     }
 
@@ -7593,7 +7593,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceVarFromToken", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", VarName, "ptr", Value, "uint", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceVarFromToken", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", VarName, "ptr", Value, "uint", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7624,7 +7624,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSourceVarFromTokenW", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", VarName, "ptr", Value, "uint", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSourceVarFromTokenW", "ptr", hProcess, "ptr", Token, "ptr", Params, "ptr", VarName, "ptr", Value, "uint", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7649,7 +7649,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSourceFileTokens", "ptr", hProcess, "uint", Base, "ptr", Callback, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSourceFileTokens", "ptr", hProcess, "uint", Base, "ptr", Callback, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7689,7 +7689,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymInitialize", "ptr", hProcess, "ptr", UserSearchPath, "ptr", fInvadeProcess, "ptr")
+        result := DllCall("dbghelp.dll\SymInitialize", "ptr", hProcess, "ptr", UserSearchPath, "int", fInvadeProcess, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7729,7 +7729,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymInitializeW", "ptr", hProcess, "ptr", UserSearchPath, "ptr", fInvadeProcess, "ptr")
+        result := DllCall("dbghelp.dll\SymInitializeW", "ptr", hProcess, "ptr", UserSearchPath, "int", fInvadeProcess, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7754,7 +7754,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSearchPath", "ptr", hProcess, "ptr", SearchPathA, "uint", SearchPathLength, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSearchPath", "ptr", hProcess, "ptr", SearchPathA, "uint", SearchPathLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7779,7 +7779,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSearchPathW", "ptr", hProcess, "ptr", SearchPathA, "uint", SearchPathLength, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSearchPathW", "ptr", hProcess, "ptr", SearchPathA, "uint", SearchPathLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7803,7 +7803,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetSearchPath", "ptr", hProcess, "ptr", SearchPathA, "ptr")
+        result := DllCall("dbghelp.dll\SymSetSearchPath", "ptr", hProcess, "ptr", SearchPathA, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7827,7 +7827,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetSearchPathW", "ptr", hProcess, "ptr", SearchPathA, "ptr")
+        result := DllCall("dbghelp.dll\SymSetSearchPathW", "ptr", hProcess, "ptr", SearchPathA, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7928,7 +7928,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymUnloadModule64", "ptr", hProcess, "uint", BaseOfDll, "ptr")
+        result := DllCall("dbghelp.dll\SymUnloadModule64", "ptr", hProcess, "uint", BaseOfDll, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7951,7 +7951,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymUnloadModule", "ptr", hProcess, "uint", BaseOfDll, "ptr")
+        result := DllCall("dbghelp.dll\SymUnloadModule", "ptr", hProcess, "uint", BaseOfDll, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7975,7 +7975,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymUnDName64", "ptr", sym, "ptr", UnDecName, "uint", UnDecNameLength, "ptr")
+        result := DllCall("dbghelp.dll\SymUnDName64", "ptr", sym, "ptr", UnDecName, "uint", UnDecNameLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7999,7 +7999,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymUnDName", "ptr", sym, "ptr", UnDecName, "uint", UnDecNameLength, "ptr")
+        result := DllCall("dbghelp.dll\SymUnDName", "ptr", sym, "ptr", UnDecName, "uint", UnDecNameLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8023,7 +8023,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRegisterCallback64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymRegisterCallback64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8047,7 +8047,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRegisterCallbackW64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymRegisterCallbackW64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8071,7 +8071,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRegisterFunctionEntryCallback64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymRegisterFunctionEntryCallback64", "ptr", hProcess, "ptr", CallbackFunction, "uint", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8095,7 +8095,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRegisterCallback", "ptr", hProcess, "ptr", CallbackFunction, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymRegisterCallback", "ptr", hProcess, "ptr", CallbackFunction, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8119,7 +8119,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRegisterFunctionEntryCallback", "ptr", hProcess, "ptr", CallbackFunction, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymRegisterFunctionEntryCallback", "ptr", hProcess, "ptr", CallbackFunction, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8144,7 +8144,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetContext", "ptr", hProcess, "ptr", StackFrame, "ptr", Context, "ptr")
+        result := DllCall("dbghelp.dll\SymSetContext", "ptr", hProcess, "ptr", StackFrame, "ptr", Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8168,7 +8168,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetScopeFromAddr", "ptr", hProcess, "uint", Address, "ptr")
+        result := DllCall("dbghelp.dll\SymSetScopeFromAddr", "ptr", hProcess, "uint", Address, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8192,7 +8192,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetScopeFromInlineContext", "ptr", hProcess, "uint", Address, "uint", InlineContext, "ptr")
+        result := DllCall("dbghelp.dll\SymSetScopeFromInlineContext", "ptr", hProcess, "uint", Address, "uint", InlineContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8216,7 +8216,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSetScopeFromIndex", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr")
+        result := DllCall("dbghelp.dll\SymSetScopeFromIndex", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8237,7 +8237,7 @@ class Debug {
     static SymEnumProcesses(EnumProcessesCallback, UserContext) {
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumProcesses", "ptr", EnumProcessesCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumProcesses", "ptr", EnumProcessesCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8264,7 +8264,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromAddr", "ptr", hProcess, "uint", Address, "uint*", Displacement, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymFromAddr", "ptr", hProcess, "uint", Address, "uint*", Displacement, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8291,7 +8291,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromAddrW", "ptr", hProcess, "uint", Address, "uint*", Displacement, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymFromAddrW", "ptr", hProcess, "uint", Address, "uint*", Displacement, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8322,7 +8322,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromInlineContext", "ptr", hProcess, "uint", Address, "uint", InlineContext, "uint*", Displacement, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymFromInlineContext", "ptr", hProcess, "uint", Address, "uint", InlineContext, "uint*", Displacement, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8353,7 +8353,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromInlineContextW", "ptr", hProcess, "uint", Address, "uint", InlineContext, "uint*", Displacement, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymFromInlineContextW", "ptr", hProcess, "uint", Address, "uint", InlineContext, "uint*", Displacement, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8379,7 +8379,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromToken", "ptr", hProcess, "uint", Base, "uint", Token, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymFromToken", "ptr", hProcess, "uint", Base, "uint", Token, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8405,7 +8405,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromTokenW", "ptr", hProcess, "uint", Base, "uint", Token, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymFromTokenW", "ptr", hProcess, "uint", Base, "uint", Token, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8430,7 +8430,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymNext", "ptr", hProcess, "ptr", si, "ptr")
+        result := DllCall("dbghelp.dll\SymNext", "ptr", hProcess, "ptr", si, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8455,7 +8455,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymNextW", "ptr", hProcess, "ptr", siw, "ptr")
+        result := DllCall("dbghelp.dll\SymNextW", "ptr", hProcess, "ptr", siw, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8480,7 +8480,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymPrev", "ptr", hProcess, "ptr", si, "ptr")
+        result := DllCall("dbghelp.dll\SymPrev", "ptr", hProcess, "ptr", si, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8505,7 +8505,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymPrevW", "ptr", hProcess, "ptr", siw, "ptr")
+        result := DllCall("dbghelp.dll\SymPrevW", "ptr", hProcess, "ptr", siw, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8531,7 +8531,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromName", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymFromName", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8557,7 +8557,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromNameW", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymFromNameW", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8661,7 +8661,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbols", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSymbols", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8797,7 +8797,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbolsEx", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSymbolsEx", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8901,7 +8901,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbolsW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSymbolsW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9037,7 +9037,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbolsExW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSymbolsExW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9063,7 +9063,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbolsForAddr", "ptr", hProcess, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSymbolsForAddr", "ptr", hProcess, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9089,7 +9089,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumSymbolsForAddrW", "ptr", hProcess, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSymbolsForAddrW", "ptr", hProcess, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9176,7 +9176,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSearch", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "uint", SymTag, "ptr", Mask, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "ptr")
+        result := DllCall("dbghelp.dll\SymSearch", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "uint", SymTag, "ptr", Mask, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9263,7 +9263,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSearchW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "uint", SymTag, "ptr", Mask, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "ptr")
+        result := DllCall("dbghelp.dll\SymSearchW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "uint", SymTag, "ptr", Mask, "uint", Address, "ptr", EnumSymbolsCallback, "ptr", UserContext, "uint", Options, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9290,7 +9290,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetScope", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetScope", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9317,7 +9317,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetScopeW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetScopeW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9344,7 +9344,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromIndex", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymFromIndex", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9371,7 +9371,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymFromIndexW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymFromIndexW", "ptr", hProcess, "uint", BaseOfDll, "uint", Index, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9398,7 +9398,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetTypeInfo", "ptr", hProcess, "uint", ModBase, "uint", TypeId, "int", GetType, "ptr", pInfo, "ptr")
+        result := DllCall("dbghelp.dll\SymGetTypeInfo", "ptr", hProcess, "uint", ModBase, "uint", TypeId, "int", GetType, "ptr", pInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9422,7 +9422,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetTypeInfoEx", "ptr", hProcess, "uint", ModBase, "ptr", Params, "ptr")
+        result := DllCall("dbghelp.dll\SymGetTypeInfoEx", "ptr", hProcess, "uint", ModBase, "ptr", Params, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9448,7 +9448,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumTypes", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumTypes", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9474,7 +9474,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumTypesW", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumTypesW", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9502,7 +9502,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumTypesByName", "ptr", hProcess, "uint", BaseOfDll, "ptr", mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumTypesByName", "ptr", hProcess, "uint", BaseOfDll, "ptr", mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9530,7 +9530,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumTypesByNameW", "ptr", hProcess, "uint", BaseOfDll, "ptr", mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumTypesByNameW", "ptr", hProcess, "uint", BaseOfDll, "ptr", mask, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9557,7 +9557,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetTypeFromName", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetTypeFromName", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9584,7 +9584,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetTypeFromNameW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetTypeFromNameW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9612,7 +9612,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymAddSymbol", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Size, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymAddSymbol", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Size, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9640,7 +9640,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymAddSymbolW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Size, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymAddSymbolW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Size, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9667,7 +9667,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymDeleteSymbol", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymDeleteSymbol", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9694,7 +9694,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymDeleteSymbolW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymDeleteSymbolW", "ptr", hProcess, "uint", BaseOfDll, "ptr", Name, "uint", Address, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9717,7 +9717,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymRefreshModuleList", "ptr", hProcess, "ptr")
+        result := DllCall("dbghelp.dll\SymRefreshModuleList", "ptr", hProcess, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9744,7 +9744,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymAddSourceStream", "ptr", hProcess, "uint", Base, "ptr", StreamFile, "ptr", Buffer, "ptr", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymAddSourceStream", "ptr", hProcess, "uint", Base, "ptr", StreamFile, "ptr", Buffer, "ptr", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9768,7 +9768,7 @@ class Debug {
         StreamFile := StreamFile is String ? StrPtr(StreamFile) : StreamFile
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymAddSourceStreamA", "ptr", hProcess, "uint", Base, "ptr", StreamFile, "ptr", Buffer, "ptr", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymAddSourceStreamA", "ptr", hProcess, "uint", Base, "ptr", StreamFile, "ptr", Buffer, "ptr", Size, "int")
         return result
     }
 
@@ -9792,7 +9792,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymAddSourceStreamW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Buffer, "ptr", Size, "ptr")
+        result := DllCall("dbghelp.dll\SymAddSourceStreamW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", Buffer, "ptr", Size, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9813,7 +9813,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvIsStoreW", "ptr", hProcess, "ptr", path, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvIsStoreW", "ptr", hProcess, "ptr", path, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9834,7 +9834,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvIsStore", "ptr", hProcess, "ptr", path, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvIsStore", "ptr", hProcess, "ptr", path, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9866,7 +9866,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvDeltaName", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvDeltaName", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -9898,7 +9898,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvDeltaNameW", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvDeltaNameW", "ptr", hProcess, "ptr", SymPath, "ptr", Type, "ptr", File1, "ptr", File2, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -9928,7 +9928,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetSupplement", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvGetSupplement", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -9958,7 +9958,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvGetSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -9983,7 +9983,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexes", "ptr", File, "ptr", Id, "uint*", Val1, "uint*", Val2, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexes", "ptr", File, "ptr", Id, "uint*", Val1, "uint*", Val2, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10008,7 +10008,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexesW", "ptr", File, "ptr", Id, "uint*", Val1, "uint*", Val2, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexesW", "ptr", File, "ptr", Id, "uint*", Val1, "uint*", Val2, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10041,7 +10041,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexStringW", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "ptr", Index, "ptr", Size, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexStringW", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "ptr", Index, "ptr", Size, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10074,7 +10074,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexString", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "ptr", Index, "ptr", Size, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexString", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "ptr", Index, "ptr", Size, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10098,7 +10098,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexInfo", "ptr", File, "ptr", Info, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexInfo", "ptr", File, "ptr", Info, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10122,7 +10122,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvGetFileIndexInfoW", "ptr", File, "ptr", Info, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvGetFileIndexInfoW", "ptr", File, "ptr", Info, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10152,7 +10152,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreSupplement", "ptr", hProcess, "ptr", SrvPath, "ptr", Node, "ptr", File, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvStoreSupplement", "ptr", hProcess, "ptr", SrvPath, "ptr", Node, "ptr", File, "uint", Flags, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -10182,7 +10182,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvStoreSupplementW", "ptr", hProcess, "ptr", SymPath, "ptr", Node, "ptr", File, "uint", Flags, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -10210,7 +10210,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreFile", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvStoreFile", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -10238,7 +10238,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymSrvStoreFileW", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "ptr")
+        result := DllCall("dbghelp.dll\SymSrvStoreFileW", "ptr", hProcess, "ptr", SrvPath, "ptr", File, "uint", Flags, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -10272,7 +10272,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymbolFile", "ptr", hProcess, "ptr", SymPath, "ptr", ImageFile, "uint", Type, "ptr", SymbolFile, "ptr", cSymbolFile, "ptr", DbgFile, "ptr", cDbgFile, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSymbolFile", "ptr", hProcess, "ptr", SymPath, "ptr", ImageFile, "uint", Type, "ptr", SymbolFile, "ptr", cSymbolFile, "ptr", DbgFile, "ptr", cDbgFile, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10306,7 +10306,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymbolFileW", "ptr", hProcess, "ptr", SymPath, "ptr", ImageFile, "uint", Type, "ptr", SymbolFile, "ptr", cSymbolFile, "ptr", DbgFile, "ptr", cDbgFile, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSymbolFileW", "ptr", hProcess, "ptr", SymPath, "ptr", ImageFile, "uint", Type, "ptr", SymbolFile, "ptr", cSymbolFile, "ptr", DbgFile, "ptr", cDbgFile, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10323,7 +10323,7 @@ class Debug {
     static DbgHelpCreateUserDump(FileName, Callback, UserData) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("dbghelp.dll\DbgHelpCreateUserDump", "ptr", FileName, "ptr", Callback, "ptr", UserData, "ptr")
+        result := DllCall("dbghelp.dll\DbgHelpCreateUserDump", "ptr", FileName, "ptr", Callback, "ptr", UserData, "int")
         return result
     }
 
@@ -10337,7 +10337,7 @@ class Debug {
     static DbgHelpCreateUserDumpW(FileName, Callback, UserData) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("dbghelp.dll\DbgHelpCreateUserDumpW", "ptr", FileName, "ptr", Callback, "ptr", UserData, "ptr")
+        result := DllCall("dbghelp.dll\DbgHelpCreateUserDumpW", "ptr", FileName, "ptr", Callback, "ptr", UserData, "int")
         return result
     }
 
@@ -10360,7 +10360,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymFromAddr64", "ptr", hProcess, "uint", qwAddr, "uint*", pdwDisplacement, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSymFromAddr64", "ptr", hProcess, "uint", qwAddr, "uint*", pdwDisplacement, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10386,7 +10386,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymFromAddr", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSymFromAddr", "ptr", hProcess, "uint", dwAddr, "uint*", pdwDisplacement, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10412,7 +10412,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymFromName64", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSymFromName64", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10438,7 +10438,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymFromName", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSymFromName", "ptr", hProcess, "ptr", Name, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10464,7 +10464,7 @@ class Debug {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
         hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
-        result := DllCall("dbghelp.dll\FindFileInPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FilePath, "ptr")
+        result := DllCall("dbghelp.dll\FindFileInPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FilePath, "int")
         return result
     }
 
@@ -10486,7 +10486,7 @@ class Debug {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
         hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
-        result := DllCall("dbghelp.dll\FindFileInSearchPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "uint", one, "uint", two, "uint", three, "ptr", FilePath, "ptr")
+        result := DllCall("dbghelp.dll\FindFileInSearchPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "uint", one, "uint", two, "uint", three, "ptr", FilePath, "int")
         return result
     }
 
@@ -10502,7 +10502,7 @@ class Debug {
     static SymEnumSym(hProcess, BaseOfDll, EnumSymbolsCallback, UserContext) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\SymEnumSym", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumSym", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         return result
     }
 
@@ -10526,7 +10526,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateSymbols64", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumerateSymbols64", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10553,7 +10553,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateSymbolsW64", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumerateSymbolsW64", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10580,7 +10580,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateSymbols", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumerateSymbols", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10607,7 +10607,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymEnumerateSymbolsW", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "ptr")
+        result := DllCall("dbghelp.dll\SymEnumerateSymbolsW", "ptr", hProcess, "uint", BaseOfDll, "ptr", EnumSymbolsCallback, "ptr", UserContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10703,7 +10703,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymNext64", "ptr", hProcess, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSymNext64", "ptr", hProcess, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10727,7 +10727,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymNext", "ptr", hProcess, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSymNext", "ptr", hProcess, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10751,7 +10751,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymPrev64", "ptr", hProcess, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSymPrev64", "ptr", hProcess, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10775,7 +10775,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("dbghelp.dll\SymGetSymPrev", "ptr", hProcess, "ptr", Symbol, "ptr")
+        result := DllCall("dbghelp.dll\SymGetSymPrev", "ptr", hProcess, "ptr", Symbol, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10822,7 +10822,7 @@ class Debug {
         pLoadModule := pLoadModule is String ? StrPtr(pLoadModule) : pLoadModule
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("dbghelp.dll\ReportSymbolLoadSummary", "ptr", hProcess, "ptr", pLoadModule, "ptr", pSymbolData, "ptr")
+        result := DllCall("dbghelp.dll\ReportSymbolLoadSummary", "ptr", hProcess, "ptr", pLoadModule, "ptr", pSymbolData, "int")
         return result
     }
 
@@ -10869,7 +10869,7 @@ class Debug {
     static RangeMapAddPeImageSections(RmapHandle, ImageName, MappedImage, MappingBytes, ImageBase, UserTag, MappingFlags) {
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        result := DllCall("dbghelp.dll\RangeMapAddPeImageSections", "ptr", RmapHandle, "ptr", ImageName, "ptr", MappedImage, "uint", MappingBytes, "uint", ImageBase, "uint", UserTag, "uint", MappingFlags, "ptr")
+        result := DllCall("dbghelp.dll\RangeMapAddPeImageSections", "ptr", RmapHandle, "ptr", ImageName, "ptr", MappedImage, "uint", MappingBytes, "uint", ImageBase, "uint", UserTag, "uint", MappingFlags, "int")
         return result
     }
 
@@ -10880,7 +10880,7 @@ class Debug {
      * @returns {BOOL} 
      */
     static RangeMapRemove(RmapHandle, UserTag) {
-        result := DllCall("dbghelp.dll\RangeMapRemove", "ptr", RmapHandle, "uint", UserTag, "ptr")
+        result := DllCall("dbghelp.dll\RangeMapRemove", "ptr", RmapHandle, "uint", UserTag, "int")
         return result
     }
 
@@ -10895,7 +10895,7 @@ class Debug {
      * @returns {BOOL} 
      */
     static RangeMapRead(RmapHandle, Offset, Buffer, RequestBytes, Flags, DoneBytes) {
-        result := DllCall("dbghelp.dll\RangeMapRead", "ptr", RmapHandle, "uint", Offset, "ptr", Buffer, "uint", RequestBytes, "uint", Flags, "uint*", DoneBytes, "ptr")
+        result := DllCall("dbghelp.dll\RangeMapRead", "ptr", RmapHandle, "uint", Offset, "ptr", Buffer, "uint", RequestBytes, "uint", Flags, "uint*", DoneBytes, "int")
         return result
     }
 
@@ -10910,7 +10910,7 @@ class Debug {
      * @returns {BOOL} 
      */
     static RangeMapWrite(RmapHandle, Offset, Buffer, RequestBytes, Flags, DoneBytes) {
-        result := DllCall("dbghelp.dll\RangeMapWrite", "ptr", RmapHandle, "uint", Offset, "ptr", Buffer, "uint", RequestBytes, "uint", Flags, "uint*", DoneBytes, "ptr")
+        result := DllCall("dbghelp.dll\RangeMapWrite", "ptr", RmapHandle, "uint", Offset, "ptr", Buffer, "uint", RequestBytes, "uint", Flags, "uint*", DoneBytes, "int")
         return result
     }
 
@@ -10928,7 +10928,7 @@ class Debug {
     static MessageBeep(uType) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\MessageBeep", "uint", uType, "ptr")
+        result := DllCall("USER32.dll\MessageBeep", "uint", uType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10965,7 +10965,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadSelectorEntry", "ptr", hThread, "uint", dwSelector, "ptr", lpSelectorEntry, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadSelectorEntry", "ptr", hThread, "uint", dwSelector, "ptr", lpSelectorEntry, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10993,7 +10993,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Wow64GetThreadSelectorEntry", "ptr", hThread, "uint", dwSelector, "ptr", lpSelectorEntry, "ptr")
+        result := DllCall("KERNEL32.dll\Wow64GetThreadSelectorEntry", "ptr", hThread, "uint", dwSelector, "ptr", lpSelectorEntry, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11013,7 +11013,7 @@ class Debug {
     static DebugSetProcessKillOnExit(KillOnExit) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DebugSetProcessKillOnExit", "ptr", KillOnExit, "ptr")
+        result := DllCall("KERNEL32.dll\DebugSetProcessKillOnExit", "int", KillOnExit, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11035,7 +11035,7 @@ class Debug {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DebugBreakProcess", "ptr", Process, "ptr")
+        result := DllCall("KERNEL32.dll\DebugBreakProcess", "ptr", Process, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11297,7 +11297,7 @@ class Debug {
     static CopyContext(Destination, ContextFlags, Source) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CopyContext", "ptr", Destination, "uint", ContextFlags, "ptr", Source, "ptr")
+        result := DllCall("KERNEL32.dll\CopyContext", "ptr", Destination, "uint", ContextFlags, "ptr", Source, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11343,7 +11343,7 @@ class Debug {
     static InitializeContext(Buffer, ContextFlags, Context, ContextLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeContext", "ptr", Buffer, "uint", ContextFlags, "ptr", Context, "uint*", ContextLength, "ptr")
+        result := DllCall("KERNEL32.dll\InitializeContext", "ptr", Buffer, "uint", ContextFlags, "ptr", Context, "uint*", ContextLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11390,7 +11390,7 @@ class Debug {
     static InitializeContext2(Buffer, ContextFlags, Context, ContextLength, XStateCompactionMask) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeContext2", "ptr", Buffer, "uint", ContextFlags, "ptr", Context, "uint*", ContextLength, "uint", XStateCompactionMask, "ptr")
+        result := DllCall("KERNEL32.dll\InitializeContext2", "ptr", Buffer, "uint", ContextFlags, "ptr", Context, "uint*", ContextLength, "uint", XStateCompactionMask, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11421,7 +11421,7 @@ class Debug {
      * @since windows6.1
      */
     static GetXStateFeaturesMask(Context, FeatureMask) {
-        result := DllCall("KERNEL32.dll\GetXStateFeaturesMask", "ptr", Context, "uint*", FeatureMask, "ptr")
+        result := DllCall("KERNEL32.dll\GetXStateFeaturesMask", "ptr", Context, "uint*", FeatureMask, "int")
         return result
     }
 
@@ -11465,7 +11465,7 @@ class Debug {
      * @since windows6.1
      */
     static SetXStateFeaturesMask(Context, FeatureMask) {
-        result := DllCall("KERNEL32.dll\SetXStateFeaturesMask", "ptr", Context, "uint", FeatureMask, "ptr")
+        result := DllCall("KERNEL32.dll\SetXStateFeaturesMask", "ptr", Context, "uint", FeatureMask, "int")
         return result
     }
 

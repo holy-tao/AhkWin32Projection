@@ -60,7 +60,7 @@ class CTL_USAGE_MATCH extends Win32Struct
     Usage{
         get {
             if(!this.HasProp("__Usage"))
-                this.__Usage := CTL_USAGE(this.ptr + 8)
+                this.__Usage := CTL_USAGE(8, this)
             return this.__Usage
         }
     }

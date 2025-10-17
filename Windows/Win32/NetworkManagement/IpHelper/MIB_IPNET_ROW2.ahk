@@ -42,7 +42,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR_INET(this.ptr + 0)
+                this.__Address := SOCKADDR_INET(0, this)
             return this.__Address
         }
     }
@@ -67,7 +67,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 72)
+                this.__InterfaceLuid := NET_LUID_LH(72, this)
             return this.__InterfaceLuid
         }
     }

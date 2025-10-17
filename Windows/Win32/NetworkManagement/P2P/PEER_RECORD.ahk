@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\PEER_DATA.ahk
 
@@ -84,24 +83,18 @@ class PEER_RECORD extends Win32Struct
      * Pointer to the unique ID of a record creator.   This member is set to <b>NULL</b> for calls to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphaddrecord">PeerGraphAddRecord</a> and <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphupdaterecord">PeerGraphUpdateRecord</a>. An application cannot set this member.
      * @type {PWSTR}
      */
-    pwzCreatorId{
-        get {
-            if(!this.HasProp("__pwzCreatorId"))
-                this.__pwzCreatorId := PWSTR(this.ptr + 32)
-            return this.__pwzCreatorId
-        }
+    pwzCreatorId {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Specifies the unique ID of  the last person who changes a record. An application cannot set this member.
      * @type {PWSTR}
      */
-    pwzModifiedById{
-        get {
-            if(!this.HasProp("__pwzModifiedById"))
-                this.__pwzModifiedById := PWSTR(this.ptr + 40)
-            return this.__pwzModifiedById
-        }
+    pwzModifiedById {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -118,12 +111,9 @@ class PEER_RECORD extends Win32Struct
      * </ul>
      * @type {PWSTR}
      */
-    pwzAttributes{
-        get {
-            if(!this.HasProp("__pwzAttributes"))
-                this.__pwzAttributes := PWSTR(this.ptr + 48)
-            return this.__pwzAttributes
-        }
+    pwzAttributes {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -133,7 +123,7 @@ class PEER_RECORD extends Win32Struct
     ftCreation{
         get {
             if(!this.HasProp("__ftCreation"))
-                this.__ftCreation := FILETIME(this.ptr + 56)
+                this.__ftCreation := FILETIME(56, this)
             return this.__ftCreation
         }
     }
@@ -148,7 +138,7 @@ class PEER_RECORD extends Win32Struct
     ftExpiration{
         get {
             if(!this.HasProp("__ftExpiration"))
-                this.__ftExpiration := FILETIME(this.ptr + 64)
+                this.__ftExpiration := FILETIME(64, this)
             return this.__ftExpiration
         }
     }
@@ -160,7 +150,7 @@ class PEER_RECORD extends Win32Struct
     ftLastModified{
         get {
             if(!this.HasProp("__ftLastModified"))
-                this.__ftLastModified := FILETIME(this.ptr + 72)
+                this.__ftLastModified := FILETIME(72, this)
             return this.__ftLastModified
         }
     }
@@ -173,7 +163,7 @@ class PEER_RECORD extends Win32Struct
     securityData{
         get {
             if(!this.HasProp("__securityData"))
-                this.__securityData := PEER_DATA(this.ptr + 80)
+                this.__securityData := PEER_DATA(80, this)
             return this.__securityData
         }
     }
@@ -186,7 +176,7 @@ class PEER_RECORD extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(this.ptr + 96)
+                this.__data := PEER_DATA(96, this)
             return this.__data
         }
     }

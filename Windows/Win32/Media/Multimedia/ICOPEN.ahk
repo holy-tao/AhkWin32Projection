@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LRESULT.ahk
 
 /**
  * The ICOPEN structure contains information about the data stream being compressed or decompressed, the version number of the driver, and how the driver is used.
@@ -115,12 +114,9 @@ class ICOPEN extends Win32Struct
      * 
      * @type {LRESULT}
      */
-    dwError{
-        get {
-            if(!this.HasProp("__dwError"))
-                this.__dwError := LRESULT(this.ptr + 24)
-            return this.__dwError
-        }
+    dwError {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

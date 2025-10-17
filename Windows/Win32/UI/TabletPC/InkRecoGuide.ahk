@@ -18,7 +18,7 @@ class InkRecoGuide extends Win32Struct
     rectWritingBox{
         get {
             if(!this.HasProp("__rectWritingBox"))
-                this.__rectWritingBox := RECT(this.ptr + 0)
+                this.__rectWritingBox := RECT(0, this)
             return this.__rectWritingBox
         }
     }
@@ -29,7 +29,7 @@ class InkRecoGuide extends Win32Struct
     rectDrawnBox{
         get {
             if(!this.HasProp("__rectDrawnBox"))
-                this.__rectDrawnBox := RECT(this.ptr + 16)
+                this.__rectDrawnBox := RECT(16, this)
             return this.__rectDrawnBox
         }
     }

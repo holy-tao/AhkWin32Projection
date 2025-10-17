@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines a record in the SSL configuration store.
@@ -58,12 +57,9 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct
      * A pointer to a wide-character string that contains the name of the store from which the server certificate is to be read. If set to <b>NULL</b>, "MY" is assumed as the default name. The specified certificate store name must be present in the Local System store location.
      * @type {PWSTR}
      */
-    pSslCertStoreName{
-        get {
-            if(!this.HasProp("__pSslCertStoreName"))
-                this.__pSslCertStoreName := PWSTR(this.ptr + 24)
-            return this.__pSslCertStoreName
-        }
+    pSslCertStoreName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -97,24 +93,18 @@ class HTTP_SERVICE_CONFIG_SSL_PARAM extends Win32Struct
      * A pointer to an SSL control identifier, which enables an application to restrict the group of certificate issuers to be trusted. This group must be a subset of the certificate issuers trusted by the machine on which the application is running.
      * @type {PWSTR}
      */
-    pDefaultSslCtlIdentifier{
-        get {
-            if(!this.HasProp("__pDefaultSslCtlIdentifier"))
-                this.__pDefaultSslCtlIdentifier := PWSTR(this.ptr + 48)
-            return this.__pDefaultSslCtlIdentifier
-        }
+    pDefaultSslCtlIdentifier {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * The name of the store where the control identifier pointed to by <b>pDefaultSslCtlIdentifier</b> is stored.
      * @type {PWSTR}
      */
-    pDefaultSslCtlStoreName{
-        get {
-            if(!this.HasProp("__pDefaultSslCtlStoreName"))
-                this.__pDefaultSslCtlStoreName := PWSTR(this.ptr + 56)
-            return this.__pDefaultSslCtlStoreName
-        }
+    pDefaultSslCtlStoreName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

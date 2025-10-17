@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -23,12 +22,9 @@ class WLAN_CONNECTION_PARAMETERS_V2 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    strProfile{
-        get {
-            if(!this.HasProp("__strProfile"))
-                this.__strProfile := PWSTR(this.ptr + 8)
-            return this.__strProfile
-        }
+    strProfile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

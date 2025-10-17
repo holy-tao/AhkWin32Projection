@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -23,12 +22,9 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszAlg{
-        get {
-            if(!this.HasProp("__pwszAlg"))
-                this.__pwszAlg := PWSTR(this.ptr + 8)
-            return this.__pwszAlg
-        }
+    pwszAlg {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -74,12 +70,9 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszVer{
-        get {
-            if(!this.HasProp("__pwszVer"))
-                this.__pwszVer := PWSTR(this.ptr + 48)
-            return this.__pwszVer
-        }
+    pwszVer {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

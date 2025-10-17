@@ -31,7 +31,7 @@ class WS_UNION_FIELD_DESCRIPTION extends Win32Struct
     field{
         get {
             if(!this.HasProp("__field"))
-                this.__field := WS_FIELD_DESCRIPTION(this.ptr + 8)
+                this.__field := WS_FIELD_DESCRIPTION(8, this)
             return this.__field
         }
     }

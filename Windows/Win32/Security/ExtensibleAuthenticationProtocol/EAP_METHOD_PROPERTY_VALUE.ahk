@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\EAP_METHOD_PROPERTY_VALUE_BOOL.ahk
 #Include .\EAP_METHOD_PROPERTY_VALUE_DWORD.ahk
 #Include .\EAP_METHOD_PROPERTY_VALUE_STRING.ahk
@@ -26,7 +25,7 @@ class EAP_METHOD_PROPERTY_VALUE extends Win32Struct
     empvBool{
         get {
             if(!this.HasProp("__empvBool"))
-                this.__empvBool := EAP_METHOD_PROPERTY_VALUE_BOOL(this.ptr + 0)
+                this.__empvBool := EAP_METHOD_PROPERTY_VALUE_BOOL(0, this)
             return this.__empvBool
         }
     }
@@ -40,7 +39,7 @@ class EAP_METHOD_PROPERTY_VALUE extends Win32Struct
     empvDword{
         get {
             if(!this.HasProp("__empvDword"))
-                this.__empvDword := EAP_METHOD_PROPERTY_VALUE_DWORD(this.ptr + 0)
+                this.__empvDword := EAP_METHOD_PROPERTY_VALUE_DWORD(0, this)
             return this.__empvDword
         }
     }
@@ -54,7 +53,7 @@ class EAP_METHOD_PROPERTY_VALUE extends Win32Struct
     empvString{
         get {
             if(!this.HasProp("__empvString"))
-                this.__empvString := EAP_METHOD_PROPERTY_VALUE_STRING(this.ptr + 0)
+                this.__empvString := EAP_METHOD_PROPERTY_VALUE_STRING(0, this)
             return this.__empvString
         }
     }

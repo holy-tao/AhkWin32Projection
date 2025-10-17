@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -56,12 +55,9 @@ class ADDRINFOEX5 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    ai_canonname{
-        get {
-            if(!this.HasProp("__ai_canonname"))
-                this.__ai_canonname := PWSTR(this.ptr + 24)
-            return this.__ai_canonname
-        }
+    ai_canonname {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -115,12 +111,9 @@ class ADDRINFOEX5 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    ai_fqdn{
-        get {
-            if(!this.HasProp("__ai_fqdn"))
-                this.__ai_fqdn := PWSTR(this.ptr + 80)
-            return this.__ai_fqdn
-        }
+    ai_fqdn {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -137,7 +130,7 @@ class ADDRINFOEX5 extends Win32Struct
     ai_resolutionhandle{
         get {
             if(!this.HasProp("__ai_resolutionhandle"))
-                this.__ai_resolutionhandle := HANDLE(this.ptr + 96)
+                this.__ai_resolutionhandle := HANDLE(96, this)
             return this.__ai_resolutionhandle
         }
     }

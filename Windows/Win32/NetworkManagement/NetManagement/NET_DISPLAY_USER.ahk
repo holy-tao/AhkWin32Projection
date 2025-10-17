@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The NET_DISPLAY_USER structure contains information that an account manager can access to determine information about user accounts.
@@ -20,12 +19,9 @@ class NET_DISPLAY_USER extends Win32Struct
      * A pointer to a Unicode string that specifies the name of the user account.
      * @type {PWSTR}
      */
-    usri1_name{
-        get {
-            if(!this.HasProp("__usri1_name"))
-                this.__usri1_name := PWSTR(this.ptr + 0)
-            return this.__usri1_name
-        }
+    usri1_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -34,12 +30,9 @@ class NET_DISPLAY_USER extends Win32Struct
      * A pointer to a Unicode string that contains a comment associated with the user. This string can be a null string, or it can have any number of characters before the terminating null character (MAXCOMMENTSZ).
      * @type {PWSTR}
      */
-    usri1_comment{
-        get {
-            if(!this.HasProp("__usri1_comment"))
-                this.__usri1_comment := PWSTR(this.ptr + 8)
-            return this.__usri1_comment
-        }
+    usri1_comment {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -57,12 +50,9 @@ class NET_DISPLAY_USER extends Win32Struct
      * A pointer to a Unicode string that contains the full name of the user. This string can be a null string, or it can have any number of characters before the terminating null character.
      * @type {PWSTR}
      */
-    usri1_full_name{
-        get {
-            if(!this.HasProp("__usri1_full_name"))
-                this.__usri1_full_name := PWSTR(this.ptr + 24)
-            return this.__usri1_full_name
-        }
+    usri1_full_name {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

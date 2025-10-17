@@ -24,7 +24,7 @@ class D2D1_LAYER_PARAMETERS1 extends Win32Struct
     contentBounds{
         get {
             if(!this.HasProp("__contentBounds"))
-                this.__contentBounds := D2D_RECT_F(this.ptr + 0)
+                this.__contentBounds := D2D_RECT_F(0, this)
             return this.__contentBounds
         }
     }
@@ -60,7 +60,7 @@ class D2D1_LAYER_PARAMETERS1 extends Win32Struct
     maskTransform{
         get {
             if(!this.HasProp("__maskTransform"))
-                this.__maskTransform := D2D_MATRIX_3X2_F(this.ptr + 32)
+                this.__maskTransform := D2D_MATRIX_3X2_F(32, this)
             return this.__maskTransform
         }
     }

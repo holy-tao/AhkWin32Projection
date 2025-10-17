@@ -67,7 +67,7 @@ class D3DEXECUTEDATA extends Win32Struct
     dsStatus{
         get {
             if(!this.HasProp("__dsStatus"))
-                this.__dsStatus := D3DSTATUS(this.ptr + 24)
+                this.__dsStatus := D3DSTATUS(24, this)
             return this.__dsStatus
         }
     }

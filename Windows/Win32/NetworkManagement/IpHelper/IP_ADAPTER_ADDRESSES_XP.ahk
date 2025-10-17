@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -48,12 +46,9 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
     /**
      * @type {PSTR}
      */
-    AdapterName{
-        get {
-            if(!this.HasProp("__AdapterName"))
-                this.__AdapterName := PSTR(this.ptr + 16)
-            return this.__AdapterName
-        }
+    AdapterName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -91,34 +86,25 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    DnsSuffix{
-        get {
-            if(!this.HasProp("__DnsSuffix"))
-                this.__DnsSuffix := PWSTR(this.ptr + 56)
-            return this.__DnsSuffix
-        }
+    DnsSuffix {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {PWSTR}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PWSTR(this.ptr + 64)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {PWSTR}
      */
-    FriendlyName{
-        get {
-            if(!this.HasProp("__FriendlyName"))
-                this.__FriendlyName := PWSTR(this.ptr + 72)
-            return this.__FriendlyName
-        }
+    FriendlyName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

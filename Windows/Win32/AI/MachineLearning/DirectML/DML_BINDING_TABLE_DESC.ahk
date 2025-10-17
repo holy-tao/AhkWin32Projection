@@ -38,7 +38,7 @@ class DML_BINDING_TABLE_DESC extends Win32Struct
     CPUDescriptorHandle{
         get {
             if(!this.HasProp("__CPUDescriptorHandle"))
-                this.__CPUDescriptorHandle := D3D12_CPU_DESCRIPTOR_HANDLE(this.ptr + 8)
+                this.__CPUDescriptorHandle := D3D12_CPU_DESCRIPTOR_HANDLE(8, this)
             return this.__CPUDescriptorHandle
         }
     }
@@ -52,7 +52,7 @@ class DML_BINDING_TABLE_DESC extends Win32Struct
     GPUDescriptorHandle{
         get {
             if(!this.HasProp("__GPUDescriptorHandle"))
-                this.__GPUDescriptorHandle := D3D12_GPU_DESCRIPTOR_HANDLE(this.ptr + 16)
+                this.__GPUDescriptorHandle := D3D12_GPU_DESCRIPTOR_HANDLE(16, this)
             return this.__GPUDescriptorHandle
         }
     }

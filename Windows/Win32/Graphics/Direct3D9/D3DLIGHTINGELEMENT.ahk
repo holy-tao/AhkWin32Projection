@@ -18,7 +18,7 @@ class D3DLIGHTINGELEMENT extends Win32Struct
     dvPosition{
         get {
             if(!this.HasProp("__dvPosition"))
-                this.__dvPosition := D3DVECTOR(this.ptr + 0)
+                this.__dvPosition := D3DVECTOR(0, this)
             return this.__dvPosition
         }
     }
@@ -29,7 +29,7 @@ class D3DLIGHTINGELEMENT extends Win32Struct
     dvNormal{
         get {
             if(!this.HasProp("__dvNormal"))
-                this.__dvNormal := D3DVECTOR(this.ptr + 16)
+                this.__dvNormal := D3DVECTOR(16, this)
             return this.__dvNormal
         }
     }

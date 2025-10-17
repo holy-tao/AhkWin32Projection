@@ -50,7 +50,7 @@ class FH_OVERLAPPED extends Win32Struct
     hEvent{
         get {
             if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(this.ptr + 24)
+                this.__hEvent := HANDLE(24, this)
             return this.__hEvent
         }
     }

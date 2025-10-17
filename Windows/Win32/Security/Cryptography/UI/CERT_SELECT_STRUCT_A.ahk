@@ -2,8 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains criteria upon which to select certificates that are presented in a certificate selection dialog box. This structure is used in the CertSelectCertificate function.
@@ -40,7 +38,7 @@ class CERT_SELECT_STRUCT_A extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
+                this.__hwndParent := HWND(8, this)
             return this.__hwndParent
         }
     }
@@ -52,7 +50,7 @@ class CERT_SELECT_STRUCT_A extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 16)
+                this.__hInstance := HINSTANCE(16, this)
             return this.__hInstance
         }
     }
@@ -75,12 +73,9 @@ class CERT_SELECT_STRUCT_A extends Win32Struct
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
      * @type {PSTR}
      */
-    pTemplateName{
-        get {
-            if(!this.HasProp("__pTemplateName"))
-                this.__pTemplateName := PSTR(this.ptr + 24)
-            return this.__pTemplateName
-        }
+    pTemplateName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -96,12 +91,9 @@ class CERT_SELECT_STRUCT_A extends Win32Struct
      * A pointer to a string that contains the text for the title of the dialog box.
      * @type {PSTR}
      */
-    szTitle{
-        get {
-            if(!this.HasProp("__szTitle"))
-                this.__szTitle := PSTR(this.ptr + 40)
-            return this.__szTitle
-        }
+    szTitle {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -128,12 +120,9 @@ class CERT_SELECT_STRUCT_A extends Win32Struct
      *       OID is provided, only certificates that include this EKU will be displayed.
      * @type {PSTR}
      */
-    szPurposeOid{
-        get {
-            if(!this.HasProp("__szPurposeOid"))
-                this.__szPurposeOid := PSTR(this.ptr + 64)
-            return this.__szPurposeOid
-        }
+    szPurposeOid {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -179,12 +168,9 @@ class CERT_SELECT_STRUCT_A extends Win32Struct
      *       <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nf-cryptdlg-certselectcertificatea">CertSelectCertificate</a> function.
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 88)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -213,12 +199,9 @@ class CERT_SELECT_STRUCT_A extends Win32Struct
      * A pointer to a null-terminated string that contains the full path to the Help file.
      * @type {PSTR}
      */
-    szHelpFileName{
-        get {
-            if(!this.HasProp("__szHelpFileName"))
-                this.__szHelpFileName := PSTR(this.ptr + 112)
-            return this.__szHelpFileName
-        }
+    szHelpFileName {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**

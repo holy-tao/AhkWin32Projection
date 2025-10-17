@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the background image of a list-view control. This structure is used for both setting and retrieving background image information.
@@ -135,7 +134,7 @@ class LVBKIMAGEW extends Win32Struct
     hbm{
         get {
             if(!this.HasProp("__hbm"))
-                this.__hbm := HBITMAP(this.ptr + 8)
+                this.__hbm := HBITMAP(8, this)
             return this.__hbm
         }
     }
@@ -148,12 +147,9 @@ class LVBKIMAGEW extends Win32Struct
      * 					<b>ulFlags</b>. This member must be initialized to point to the buffer that contains or receives the text before sending the message.
      * @type {PWSTR}
      */
-    pszImage{
-        get {
-            if(!this.HasProp("__pszImage"))
-                this.__pszImage := PWSTR(this.ptr + 16)
-            return this.__pszImage
-        }
+    pszImage {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SP_CLASSINSTALL_HEADER.ahk
 #Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -21,7 +20,7 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     ClassInstallHeader{
         get {
             if(!this.HasProp("__ClassInstallHeader"))
-                this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(this.ptr + 0)
+                this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)
             return this.__ClassInstallHeader
         }
     }
@@ -72,12 +71,9 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    PrivateData{
-        get {
-            if(!this.HasProp("__PrivateData"))
-                this.__PrivateData := LPARAM(this.ptr + 192)
-            return this.__PrivateData
-        }
+    PrivateData {
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
@@ -86,7 +82,7 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     hwndWizardDlg{
         get {
             if(!this.HasProp("__hwndWizardDlg"))
-                this.__hwndWizardDlg := HWND(this.ptr + 200)
+                this.__hwndWizardDlg := HWND(200, this)
             return this.__hwndWizardDlg
         }
     }

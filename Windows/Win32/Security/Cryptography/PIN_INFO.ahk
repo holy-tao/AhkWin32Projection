@@ -69,7 +69,7 @@ class PIN_INFO extends Win32Struct
     PinCachePolicy{
         get {
             if(!this.HasProp("__PinCachePolicy"))
-                this.__PinCachePolicy := PIN_CACHE_POLICY(this.ptr + 24)
+                this.__PinCachePolicy := PIN_CACHE_POLICY(24, this)
             return this.__PinCachePolicy
         }
     }

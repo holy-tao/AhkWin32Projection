@@ -26,7 +26,7 @@ class UNI_CODEPAGEINFO extends Win32Struct
     SelectSymbolSet{
         get {
             if(!this.HasProp("__SelectSymbolSet"))
-                this.__SelectSymbolSet := INVOC(this.ptr + 8)
+                this.__SelectSymbolSet := INVOC(8, this)
             return this.__SelectSymbolSet
         }
     }
@@ -37,7 +37,7 @@ class UNI_CODEPAGEINFO extends Win32Struct
     UnSelectSymbolSet{
         get {
             if(!this.HasProp("__UnSelectSymbolSet"))
-                this.__UnSelectSymbolSet := INVOC(this.ptr + 16)
+                this.__UnSelectSymbolSet := INVOC(16, this)
             return this.__UnSelectSymbolSet
         }
     }

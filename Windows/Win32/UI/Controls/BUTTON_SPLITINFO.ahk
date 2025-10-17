@@ -87,7 +87,7 @@ class BUTTON_SPLITINFO extends Win32Struct
     himlGlyph{
         get {
             if(!this.HasProp("__himlGlyph"))
-                this.__himlGlyph := HIMAGELIST(this.ptr + 8)
+                this.__himlGlyph := HIMAGELIST(8, this)
             return this.__himlGlyph
         }
     }
@@ -159,7 +159,7 @@ class BUTTON_SPLITINFO extends Win32Struct
     size{
         get {
             if(!this.HasProp("__size"))
-                this.__size := SIZE(this.ptr + 24)
+                this.__size := SIZE(24, this)
             return this.__size
         }
     }

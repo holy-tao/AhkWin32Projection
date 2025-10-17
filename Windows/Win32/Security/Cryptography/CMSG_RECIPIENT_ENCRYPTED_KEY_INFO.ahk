@@ -24,7 +24,7 @@ class CMSG_RECIPIENT_ENCRYPTED_KEY_INFO extends Win32Struct
     RecipientId{
         get {
             if(!this.HasProp("__RecipientId"))
-                this.__RecipientId := CERT_ID(this.ptr + 0)
+                this.__RecipientId := CERT_ID(0, this)
             return this.__RecipientId
         }
     }
@@ -36,7 +36,7 @@ class CMSG_RECIPIENT_ENCRYPTED_KEY_INFO extends Win32Struct
     EncryptedKey{
         get {
             if(!this.HasProp("__EncryptedKey"))
-                this.__EncryptedKey := CRYPT_INTEGER_BLOB(this.ptr + 40)
+                this.__EncryptedKey := CRYPT_INTEGER_BLOB(40, this)
             return this.__EncryptedKey
         }
     }
@@ -48,7 +48,7 @@ class CMSG_RECIPIENT_ENCRYPTED_KEY_INFO extends Win32Struct
     Date{
         get {
             if(!this.HasProp("__Date"))
-                this.__Date := FILETIME(this.ptr + 56)
+                this.__Date := FILETIME(56, this)
             return this.__Date
         }
     }

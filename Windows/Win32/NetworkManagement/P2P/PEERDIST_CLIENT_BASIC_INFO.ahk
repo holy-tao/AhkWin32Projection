@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The PEERDIST_CLIENT_BASIC_INFO structure indicates whether or not there are many clients simultaneously downloading the same content.
@@ -25,11 +24,8 @@ class PEERDIST_CLIENT_BASIC_INFO extends Win32Struct
      * Indicates that a "flash crowd" situation has been detected, where many clients in the branch office are simultaneously downloading the same content.
      * @type {BOOL}
      */
-    fFlashCrowd{
-        get {
-            if(!this.HasProp("__fFlashCrowd"))
-                this.__fFlashCrowd := BOOL(this.ptr + 0)
-            return this.__fFlashCrowd
-        }
+    fFlashCrowd {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

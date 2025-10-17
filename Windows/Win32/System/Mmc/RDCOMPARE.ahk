@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The RDCOMPARE structure is introduced in MMC 1.2.
@@ -53,12 +52,9 @@ class RDCOMPARE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdata-sort">IResultData::Sort</a>. MMC does not interpret this parameter.
      * @type {LPARAM}
      */
-    lUserParam{
-        get {
-            if(!this.HasProp("__lUserParam"))
-                this.__lUserParam := LPARAM(this.ptr + 16)
-            return this.__lUserParam
-        }
+    lUserParam {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -81,12 +77,8 @@ class RDCOMPARE extends Win32Struct
         set => NumPut("ptr", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

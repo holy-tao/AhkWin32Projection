@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -39,7 +38,7 @@ class WS_ENDPOINT_ADDRESS extends Win32Struct
     url{
         get {
             if(!this.HasProp("__url"))
-                this.__url := WS_STRING(this.ptr + 0)
+                this.__url := WS_STRING(0, this)
             return this.__url
         }
     }

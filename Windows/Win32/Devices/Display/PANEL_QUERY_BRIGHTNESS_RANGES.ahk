@@ -28,7 +28,7 @@ class PANEL_QUERY_BRIGHTNESS_RANGES extends Win32Struct
     BrightnessLevel{
         get {
             if(!this.HasProp("__BrightnessLevel"))
-                this.__BrightnessLevel := BRIGHTNESS_LEVEL(this.ptr + 8)
+                this.__BrightnessLevel := BRIGHTNESS_LEVEL(8, this)
             return this.__BrightnessLevel
         }
     }
@@ -39,7 +39,7 @@ class PANEL_QUERY_BRIGHTNESS_RANGES extends Win32Struct
     NitRanges{
         get {
             if(!this.HasProp("__NitRanges"))
-                this.__NitRanges := BRIGHTNESS_NIT_RANGES(this.ptr + 8)
+                this.__NitRanges := BRIGHTNESS_NIT_RANGES(8, this)
             return this.__NitRanges
         }
     }

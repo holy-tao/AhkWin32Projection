@@ -195,7 +195,7 @@ class JOBOBJECT_ASSOCIATE_COMPLETION_PORT extends Win32Struct
     CompletionPort{
         get {
             if(!this.HasProp("__CompletionPort"))
-                this.__CompletionPort := HANDLE(this.ptr + 8)
+                this.__CompletionPort := HANDLE(8, this)
             return this.__CompletionPort
         }
     }

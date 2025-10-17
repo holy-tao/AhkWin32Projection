@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of the service object.
@@ -23,12 +22,9 @@ class VDS_SERVICE_PROP extends Win32Struct
      * The version of VDS; a zero-terminated, human-readable string.
      * @type {PWSTR}
      */
-    pwszVersion{
-        get {
-            if(!this.HasProp("__pwszVersion"))
-                this.__pwszVersion := PWSTR(this.ptr + 0)
-            return this.__pwszVersion
-        }
+    pwszVersion {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

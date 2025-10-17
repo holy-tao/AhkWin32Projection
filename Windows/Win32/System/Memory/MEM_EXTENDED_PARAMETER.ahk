@@ -71,7 +71,7 @@ class MEM_EXTENDED_PARAMETER extends Win32Struct
     Handle{
         get {
             if(!this.HasProp("__Handle"))
-                this.__Handle := HANDLE(this.ptr + 8)
+                this.__Handle := HANDLE(8, this)
             return this.__Handle
         }
     }

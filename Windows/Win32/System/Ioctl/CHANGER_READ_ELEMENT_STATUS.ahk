@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
 #Include .\CHANGER_ELEMENT_LIST.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information that the IOCTL_CHANGER_GET_ELEMENT_STATUS control code needs to determine the elements whose status is to be retrieved.
@@ -23,7 +22,7 @@ class CHANGER_READ_ELEMENT_STATUS extends Win32Struct
     ElementList{
         get {
             if(!this.HasProp("__ElementList"))
-                this.__ElementList := CHANGER_ELEMENT_LIST(this.ptr + 0)
+                this.__ElementList := CHANGER_ELEMENT_LIST(0, this)
             return this.__ElementList
         }
     }
@@ -33,11 +32,8 @@ class CHANGER_READ_ELEMENT_STATUS extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_BAR_CODE_SCANNER_INSTALLED or CHANGER_VOLUME_IDENTIFICATION.
      * @type {BOOLEAN}
      */
-    VolumeTagInfo{
-        get {
-            if(!this.HasProp("__VolumeTagInfo"))
-                this.__VolumeTagInfo := BOOLEAN(this.ptr + 16)
-            return this.__VolumeTagInfo
-        }
+    VolumeTagInfo {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 }

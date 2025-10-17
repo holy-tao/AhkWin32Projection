@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WEBAUTHN_CREDENTIAL.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
 #Include .\WEBAUTHN_ASSERTION.ahk
@@ -21,7 +20,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE extends Win32Struct
     WebAuthNAssertion{
         get {
             if(!this.HasProp("__WebAuthNAssertion"))
-                this.__WebAuthNAssertion := WEBAUTHN_ASSERTION(this.ptr + 0)
+                this.__WebAuthNAssertion := WEBAUTHN_ASSERTION(0, this)
             return this.__WebAuthNAssertion
         }
     }

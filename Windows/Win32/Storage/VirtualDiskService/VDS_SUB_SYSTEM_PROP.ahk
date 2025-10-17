@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of a subsystem object.
@@ -34,24 +33,18 @@ class VDS_SUB_SYSTEM_PROP extends Win32Struct
      *       string.
      * @type {PWSTR}
      */
-    pwszFriendlyName{
-        get {
-            if(!this.HasProp("__pwszFriendlyName"))
-                this.__pwszFriendlyName := PWSTR(this.ptr + 8)
-            return this.__pwszFriendlyName
-        }
+    pwszFriendlyName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The subsystem identifier; a zero-terminated, human-readable string.
      * @type {PWSTR}
      */
-    pwszIdentification{
-        get {
-            if(!this.HasProp("__pwszIdentification"))
-                this.__pwszIdentification := PWSTR(this.ptr + 16)
-            return this.__pwszIdentification
-        }
+    pwszIdentification {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

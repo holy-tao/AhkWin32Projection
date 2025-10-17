@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains policy-related settings for a remote session.
@@ -281,12 +280,9 @@ class WRDS_SETTINGS_1 extends Win32Struct
      * Specifies whether or not the keep alive setting is enabled.
      * @type {BOOLEAN}
      */
-    WRdsKeepAliveStartValue{
-        get {
-            if(!this.HasProp("__WRdsKeepAliveStartValue"))
-                this.__WRdsKeepAliveStartValue := BOOLEAN(this.ptr + 116)
-            return this.__WRdsKeepAliveStartValue
-        }
+    WRdsKeepAliveStartValue {
+        get => NumGet(this, 116, "char")
+        set => NumPut("char", value, this, 116)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWP_BYTE_ARRAY16.ahk
 
 /**
@@ -26,12 +25,9 @@ class IKEEXT_IPV6_CGA_AUTHENTICATION0 extends Win32Struct
      * Same semantics as the <b>pwszContainerName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_key_prov_info">CRYPT_KEY_PROV_INFO</a> structure.
      * @type {PWSTR}
      */
-    keyContainerName{
-        get {
-            if(!this.HasProp("__keyContainerName"))
-                this.__keyContainerName := PWSTR(this.ptr + 0)
-            return this.__keyContainerName
-        }
+    keyContainerName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -40,12 +36,9 @@ class IKEEXT_IPV6_CGA_AUTHENTICATION0 extends Win32Struct
      * Same semantics as the <b>pwszProvName</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_key_prov_info">CRYPT_KEY_PROV_INFO</a> structure.
      * @type {PWSTR}
      */
-    cspName{
-        get {
-            if(!this.HasProp("__cspName"))
-                this.__cspName := PWSTR(this.ptr + 8)
-            return this.__cspName
-        }
+    cspName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -68,7 +61,7 @@ class IKEEXT_IPV6_CGA_AUTHENTICATION0 extends Win32Struct
     cgaModifier{
         get {
             if(!this.HasProp("__cgaModifier"))
-                this.__cgaModifier := FWP_BYTE_ARRAY16(this.ptr + 24)
+                this.__cgaModifier := FWP_BYTE_ARRAY16(24, this)
             return this.__cgaModifier
         }
     }

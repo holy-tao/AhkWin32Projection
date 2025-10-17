@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -31,7 +30,7 @@ class KERB_BINDING_CACHE_ENTRY_DATA extends Win32Struct
     RealmName{
         get {
             if(!this.HasProp("__RealmName"))
-                this.__RealmName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__RealmName := LSA_UNICODE_STRING(8, this)
             return this.__RealmName
         }
     }
@@ -43,7 +42,7 @@ class KERB_BINDING_CACHE_ENTRY_DATA extends Win32Struct
     KdcAddress{
         get {
             if(!this.HasProp("__KdcAddress"))
-                this.__KdcAddress := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__KdcAddress := LSA_UNICODE_STRING(24, this)
             return this.__KdcAddress
         }
     }
@@ -109,7 +108,7 @@ class KERB_BINDING_CACHE_ENTRY_DATA extends Win32Struct
     KdcName{
         get {
             if(!this.HasProp("__KdcName"))
-                this.__KdcName := LSA_UNICODE_STRING(this.ptr + 56)
+                this.__KdcName := LSA_UNICODE_STRING(56, this)
             return this.__KdcName
         }
     }

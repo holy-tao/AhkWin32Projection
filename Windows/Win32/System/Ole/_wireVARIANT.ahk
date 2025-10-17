@@ -1,10 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\CY.ahk
-#Include ..\..\Foundation\CHAR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Ole
@@ -115,12 +112,9 @@ class _wireVARIANT extends Win32Struct
     /**
      * @type {VARIANT_BOOL}
      */
-    boolVal{
-        get {
-            if(!this.HasProp("__boolVal"))
-                this.__boolVal := VARIANT_BOOL(this.ptr + 16)
-            return this.__boolVal
-        }
+    boolVal {
+        get => NumGet(this, 16, "short")
+        set => NumPut("short", value, this, 16)
     }
 
     /**
@@ -137,7 +131,7 @@ class _wireVARIANT extends Win32Struct
     cyVal{
         get {
             if(!this.HasProp("__cyVal"))
-                this.__cyVal := CY(this.ptr + 16)
+                this.__cyVal := CY(16, this)
             return this.__cyVal
         }
     }
@@ -313,12 +307,9 @@ class _wireVARIANT extends Win32Struct
     /**
      * @type {CHAR}
      */
-    cVal{
-        get {
-            if(!this.HasProp("__cVal"))
-                this.__cVal := CHAR(this.ptr + 16)
-            return this.__cVal
-        }
+    cVal {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
@@ -367,7 +358,7 @@ class _wireVARIANT extends Win32Struct
     decVal{
         get {
             if(!this.HasProp("__decVal"))
-                this.__decVal := DECIMAL(this.ptr + 16)
+                this.__decVal := DECIMAL(16, this)
             return this.__decVal
         }
     }
@@ -383,12 +374,9 @@ class _wireVARIANT extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pcVal{
-        get {
-            if(!this.HasProp("__pcVal"))
-                this.__pcVal := PSTR(this.ptr + 16)
-            return this.__pcVal
-        }
+    pcVal {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

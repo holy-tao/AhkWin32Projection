@@ -107,7 +107,7 @@ class MetafileHeader extends Win32Struct
     WmfHeader{
         get {
             if(!this.HasProp("__WmfHeader"))
-                this.__WmfHeader := METAHEADER(this.ptr + 40)
+                this.__WmfHeader := METAHEADER(40, this)
             return this.__WmfHeader
         }
     }
@@ -118,7 +118,7 @@ class MetafileHeader extends Win32Struct
     EmfHeader{
         get {
             if(!this.HasProp("__EmfHeader"))
-                this.__EmfHeader := ENHMETAHEADER3(this.ptr + 40)
+                this.__EmfHeader := ENHMETAHEADER3(40, this)
             return this.__EmfHeader
         }
     }

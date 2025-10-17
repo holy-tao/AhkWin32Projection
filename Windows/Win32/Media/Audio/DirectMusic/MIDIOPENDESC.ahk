@@ -22,7 +22,7 @@ class MIDIOPENDESC extends Win32Struct
     hMidi{
         get {
             if(!this.HasProp("__hMidi"))
-                this.__hMidi := HMIDI(this.ptr + 0)
+                this.__hMidi := HMIDI(0, this)
             return this.__hMidi
         }
     }

@@ -32,7 +32,7 @@ class JOBOBJECT_EXTENDED_LIMIT_INFORMATION extends Win32Struct
     BasicLimitInformation{
         get {
             if(!this.HasProp("__BasicLimitInformation"))
-                this.__BasicLimitInformation := JOBOBJECT_BASIC_LIMIT_INFORMATION(this.ptr + 0)
+                this.__BasicLimitInformation := JOBOBJECT_BASIC_LIMIT_INFORMATION(0, this)
             return this.__BasicLimitInformation
         }
     }
@@ -44,7 +44,7 @@ class JOBOBJECT_EXTENDED_LIMIT_INFORMATION extends Win32Struct
     IoInfo{
         get {
             if(!this.HasProp("__IoInfo"))
-                this.__IoInfo := IO_COUNTERS(this.ptr + 64)
+                this.__IoInfo := IO_COUNTERS(64, this)
             return this.__IoInfo
         }
     }

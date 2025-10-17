@@ -613,7 +613,7 @@ class WinRT {
     static WindowsGetStringRawBuffer(string, length) {
         string := string is Win32Handle ? NumGet(string, "ptr") : string
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringRawBuffer", "ptr", string, "uint*", length, "ptr")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringRawBuffer", "ptr", string, "uint*", length, "char*")
         return result
     }
 
@@ -631,7 +631,7 @@ class WinRT {
     static WindowsIsStringEmpty(string) {
         string := string is Win32Handle ? NumGet(string, "ptr") : string
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsIsStringEmpty", "ptr", string, "ptr")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsIsStringEmpty", "ptr", string, "int")
         return result
     }
 
@@ -2151,7 +2151,7 @@ class WinRT {
     static RoOriginateErrorW(error, cchMax, message) {
         message := message is String ? StrPtr(message) : message
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateErrorW", "int", error, "uint", cchMax, "ptr", message, "ptr")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateErrorW", "int", error, "uint", cchMax, "ptr", message, "int")
         return result
     }
 
@@ -2207,7 +2207,7 @@ class WinRT {
     static RoOriginateError(error, message) {
         message := message is Win32Handle ? NumGet(message, "ptr") : message
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateError", "int", error, "ptr", message, "ptr")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateError", "int", error, "ptr", message, "int")
         return result
     }
 
@@ -2267,7 +2267,7 @@ class WinRT {
     static RoTransformErrorW(oldError, newError, cchMax, message) {
         message := message is String ? StrPtr(message) : message
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformErrorW", "int", oldError, "int", newError, "uint", cchMax, "ptr", message, "ptr")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformErrorW", "int", oldError, "int", newError, "uint", cchMax, "ptr", message, "int")
         return result
     }
 
@@ -2324,7 +2324,7 @@ class WinRT {
     static RoTransformError(oldError, newError, message) {
         message := message is Win32Handle ? NumGet(message, "ptr") : message
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformError", "int", oldError, "int", newError, "ptr", message, "ptr")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformError", "int", oldError, "int", newError, "ptr", message, "int")
         return result
     }
 
@@ -2412,7 +2412,7 @@ class WinRT {
     static RoOriginateLanguageException(error, message, languageException) {
         message := message is Win32Handle ? NumGet(message, "ptr") : message
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoOriginateLanguageException", "int", error, "ptr", message, "ptr", languageException, "ptr")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoOriginateLanguageException", "int", error, "ptr", message, "ptr", languageException, "int")
         return result
     }
 
@@ -2548,7 +2548,7 @@ class WinRT {
      * @since windows8.0
      */
     static IsErrorPropagationEnabled() {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\IsErrorPropagationEnabled", "ptr")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\IsErrorPropagationEnabled", "int")
         return result
     }
 

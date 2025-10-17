@@ -22,7 +22,7 @@ class NDIS_OFFLOAD extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -33,7 +33,7 @@ class NDIS_OFFLOAD extends Win32Struct
     Checksum{
         get {
             if(!this.HasProp("__Checksum"))
-                this.__Checksum := NDIS_TCP_IP_CHECKSUM_OFFLOAD(this.ptr + 8)
+                this.__Checksum := NDIS_TCP_IP_CHECKSUM_OFFLOAD(8, this)
             return this.__Checksum
         }
     }
@@ -44,7 +44,7 @@ class NDIS_OFFLOAD extends Win32Struct
     LsoV1{
         get {
             if(!this.HasProp("__LsoV1"))
-                this.__LsoV1 := NDIS_TCP_LARGE_SEND_OFFLOAD_V1(this.ptr + 40)
+                this.__LsoV1 := NDIS_TCP_LARGE_SEND_OFFLOAD_V1(40, this)
             return this.__LsoV1
         }
     }
@@ -55,7 +55,7 @@ class NDIS_OFFLOAD extends Win32Struct
     IPsecV1{
         get {
             if(!this.HasProp("__IPsecV1"))
-                this.__IPsecV1 := NDIS_IPSEC_OFFLOAD_V1(this.ptr + 56)
+                this.__IPsecV1 := NDIS_IPSEC_OFFLOAD_V1(56, this)
             return this.__IPsecV1
         }
     }
@@ -66,7 +66,7 @@ class NDIS_OFFLOAD extends Win32Struct
     LsoV2{
         get {
             if(!this.HasProp("__LsoV2"))
-                this.__LsoV2 := NDIS_TCP_LARGE_SEND_OFFLOAD_V2(this.ptr + 88)
+                this.__LsoV2 := NDIS_TCP_LARGE_SEND_OFFLOAD_V2(88, this)
             return this.__LsoV2
         }
     }

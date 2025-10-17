@@ -210,7 +210,7 @@ class RPC_ASYNC_STATE extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := RPC_ASYNC_NOTIFICATION_INFO(this.ptr + 48)
+                this.__u := RPC_ASYNC_NOTIFICATION_INFO(48, this)
             return this.__u
         }
     }

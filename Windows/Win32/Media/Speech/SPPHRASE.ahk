@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SPPHRASERULE.ahk
 #Include .\SPPHRASE_50.ahk
 
@@ -20,7 +19,7 @@ class SPPHRASE extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := SPPHRASE_50(this.ptr + 0)
+                this.__Base := SPPHRASE_50(0, this)
             return this.__Base
         }
     }
@@ -28,12 +27,9 @@ class SPPHRASE extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pSML{
-        get {
-            if(!this.HasProp("__pSML"))
-                this.__pSML := PWSTR(this.ptr + 152)
-            return this.__pSML
-        }
+    pSML {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**

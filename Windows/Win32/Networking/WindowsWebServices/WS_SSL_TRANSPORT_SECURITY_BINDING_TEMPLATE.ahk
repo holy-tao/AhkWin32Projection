@@ -21,7 +21,7 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE extends Win32Struct
     securityBindingProperties{
         get {
             if(!this.HasProp("__securityBindingProperties"))
-                this.__securityBindingProperties := WS_SECURITY_BINDING_PROPERTIES(this.ptr + 0)
+                this.__securityBindingProperties := WS_SECURITY_BINDING_PROPERTIES(0, this)
             return this.__securityBindingProperties
         }
     }

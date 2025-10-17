@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -19,7 +18,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     createDate{
         get {
             if(!this.HasProp("__createDate"))
-                this.__createDate := FILETIME(this.ptr + 0)
+                this.__createDate := FILETIME(0, this)
             return this.__createDate
         }
     }
@@ -30,7 +29,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     expiryDate{
         get {
             if(!this.HasProp("__expiryDate"))
-                this.__expiryDate := FILETIME(this.ptr + 8)
+                this.__expiryDate := FILETIME(8, this)
             return this.__expiryDate
         }
     }
@@ -38,33 +37,24 @@ class GENERIC_XML_TOKEN extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    xmlToken{
-        get {
-            if(!this.HasProp("__xmlToken"))
-                this.__xmlToken := PWSTR(this.ptr + 16)
-            return this.__xmlToken
-        }
+    xmlToken {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    internalTokenReference{
-        get {
-            if(!this.HasProp("__internalTokenReference"))
-                this.__internalTokenReference := PWSTR(this.ptr + 24)
-            return this.__internalTokenReference
-        }
+    internalTokenReference {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    externalTokenReference{
-        get {
-            if(!this.HasProp("__externalTokenReference"))
-                this.__externalTokenReference := PWSTR(this.ptr + 32)
-            return this.__externalTokenReference
-        }
+    externalTokenReference {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

@@ -26,7 +26,7 @@ class PM_EXTENSIONCONSUMER extends Win32Struct
     ExtensionID{
         get {
             if(!this.HasProp("__ExtensionID"))
-                this.__ExtensionID := BSTR(this.ptr + 8)
+                this.__ExtensionID := BSTR(8, this)
             return this.__ExtensionID
         }
     }

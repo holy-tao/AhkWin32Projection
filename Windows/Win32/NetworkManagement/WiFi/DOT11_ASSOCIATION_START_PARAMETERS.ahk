@@ -19,7 +19,7 @@ class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -41,7 +41,7 @@ class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct
     SSID{
         get {
             if(!this.HasProp("__SSID"))
-                this.__SSID := DOT11_SSID(this.ptr + 16)
+                this.__SSID := DOT11_SSID(16, this)
             return this.__SSID
         }
     }

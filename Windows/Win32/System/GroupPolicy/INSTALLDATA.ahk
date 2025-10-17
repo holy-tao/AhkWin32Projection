@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\INSTALLSPEC.ahk
 
 /**
@@ -31,7 +30,7 @@ class INSTALLDATA extends Win32Struct
     Spec{
         get {
             if(!this.HasProp("__Spec"))
-                this.__Spec := INSTALLSPEC(this.ptr + 8)
+                this.__Spec := INSTALLSPEC(8, this)
             return this.__Spec
         }
     }

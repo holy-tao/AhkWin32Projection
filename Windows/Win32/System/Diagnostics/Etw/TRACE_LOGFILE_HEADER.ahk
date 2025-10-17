@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
 
@@ -84,7 +83,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
     VersionDetail{
         get {
             if(!this.HasProp("__VersionDetail"))
-                this.__VersionDetail := %this.__Class%._VersionDetail(this.ptr + 4)
+                this.__VersionDetail := %this.__Class%._VersionDetail(4, this)
             return this.__VersionDetail
         }
     }
@@ -199,12 +198,9 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
      * The name of the event tracing session is the first null-terminated string following this structure in memory.
      * @type {PWSTR}
      */
-    LoggerName{
-        get {
-            if(!this.HasProp("__LoggerName"))
-                this.__LoggerName := PWSTR(this.ptr + 56)
-            return this.__LoggerName
-        }
+    LoggerName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -213,12 +209,9 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
      * The name of the event tracing log file is the second null-terminated string following this structure in memory. The first string is the name of the session.
      * @type {PWSTR}
      */
-    LogFileName{
-        get {
-            if(!this.HasProp("__LogFileName"))
-                this.__LogFileName := PWSTR(this.ptr + 64)
-            return this.__LogFileName
-        }
+    LogFileName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -229,7 +222,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
     TimeZone{
         get {
             if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 72)
+                this.__TimeZone := TIME_ZONE_INFORMATION(72, this)
             return this.__TimeZone
         }
     }

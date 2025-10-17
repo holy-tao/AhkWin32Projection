@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWP_CONDITION_VALUE0.ahk
 #Include .\FWP_BYTE_BLOB.ahk
 
@@ -36,7 +35,7 @@ class IKEEXT_SA_ENUM_TEMPLATE0 extends Win32Struct
     localSubNet{
         get {
             if(!this.HasProp("__localSubNet"))
-                this.__localSubNet := FWP_CONDITION_VALUE0(this.ptr + 0)
+                this.__localSubNet := FWP_CONDITION_VALUE0(0, this)
             return this.__localSubNet
         }
     }
@@ -56,7 +55,7 @@ class IKEEXT_SA_ENUM_TEMPLATE0 extends Win32Struct
     remoteSubNet{
         get {
             if(!this.HasProp("__remoteSubNet"))
-                this.__remoteSubNet := FWP_CONDITION_VALUE0(this.ptr + 16)
+                this.__remoteSubNet := FWP_CONDITION_VALUE0(16, this)
             return this.__remoteSubNet
         }
     }
@@ -70,7 +69,7 @@ class IKEEXT_SA_ENUM_TEMPLATE0 extends Win32Struct
     localMainModeCertHash{
         get {
             if(!this.HasProp("__localMainModeCertHash"))
-                this.__localMainModeCertHash := FWP_BYTE_BLOB(this.ptr + 32)
+                this.__localMainModeCertHash := FWP_BYTE_BLOB(32, this)
             return this.__localMainModeCertHash
         }
     }

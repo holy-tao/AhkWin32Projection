@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Facilitates and manages the visibility, authentication, and selection of Bluetooth devices and services.
@@ -55,12 +53,9 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
      * Sets the information text when not <b>NULL</b>.
      * @type {PWSTR}
      */
-    pszInfo{
-        get {
-            if(!this.HasProp("__pszInfo"))
-                this.__pszInfo := PWSTR(this.ptr + 16)
-            return this.__pszInfo
-        }
+    pszInfo {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -70,7 +65,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 24)
+                this.__hwndParent := HWND(24, this)
             return this.__hwndParent
         }
     }
@@ -79,72 +74,54 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
      * If <b>TRUE</b>, forces authentication before returning.
      * @type {BOOL}
      */
-    fForceAuthentication{
-        get {
-            if(!this.HasProp("__fForceAuthentication"))
-                this.__fForceAuthentication := BOOL(this.ptr + 32)
-            return this.__fForceAuthentication
-        }
+    fForceAuthentication {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * If <b>TRUE</b>, authenticated devices are shown in the picker.
      * @type {BOOL}
      */
-    fShowAuthenticated{
-        get {
-            if(!this.HasProp("__fShowAuthenticated"))
-                this.__fShowAuthenticated := BOOL(this.ptr + 36)
-            return this.__fShowAuthenticated
-        }
+    fShowAuthenticated {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
      * If <b>TRUE</b>, remembered devices are shown in the picker.
      * @type {BOOL}
      */
-    fShowRemembered{
-        get {
-            if(!this.HasProp("__fShowRemembered"))
-                this.__fShowRemembered := BOOL(this.ptr + 40)
-            return this.__fShowRemembered
-        }
+    fShowRemembered {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * If <b>TRUE</b>, unknown devices that are not authenticated or remembered are shown in the picker.
      * @type {BOOL}
      */
-    fShowUnknown{
-        get {
-            if(!this.HasProp("__fShowUnknown"))
-                this.__fShowUnknown := BOOL(this.ptr + 44)
-            return this.__fShowUnknown
-        }
+    fShowUnknown {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
      * If <b>TRUE</b>, starts the Add New Device wizard.
      * @type {BOOL}
      */
-    fAddNewDeviceWizard{
-        get {
-            if(!this.HasProp("__fAddNewDeviceWizard"))
-                this.__fAddNewDeviceWizard := BOOL(this.ptr + 48)
-            return this.__fAddNewDeviceWizard
-        }
+    fAddNewDeviceWizard {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * If <b>TRUE</b>, skips the Services page in the Add New Device wizard.
      * @type {BOOL}
      */
-    fSkipServicesPage{
-        get {
-            if(!this.HasProp("__fSkipServicesPage"))
-                this.__fSkipServicesPage := BOOL(this.ptr + 52)
-            return this.__fSkipServicesPage
-        }
+    fSkipServicesPage {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**

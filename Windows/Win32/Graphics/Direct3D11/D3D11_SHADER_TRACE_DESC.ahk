@@ -63,7 +63,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     VertexShaderTraceDesc{
         get {
             if(!this.HasProp("__VertexShaderTraceDesc"))
-                this.__VertexShaderTraceDesc := D3D11_VERTEX_SHADER_TRACE_DESC(this.ptr + 8)
+                this.__VertexShaderTraceDesc := D3D11_VERTEX_SHADER_TRACE_DESC(8, this)
             return this.__VertexShaderTraceDesc
         }
     }
@@ -74,7 +74,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     HullShaderTraceDesc{
         get {
             if(!this.HasProp("__HullShaderTraceDesc"))
-                this.__HullShaderTraceDesc := D3D11_HULL_SHADER_TRACE_DESC(this.ptr + 8)
+                this.__HullShaderTraceDesc := D3D11_HULL_SHADER_TRACE_DESC(8, this)
             return this.__HullShaderTraceDesc
         }
     }
@@ -85,7 +85,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     DomainShaderTraceDesc{
         get {
             if(!this.HasProp("__DomainShaderTraceDesc"))
-                this.__DomainShaderTraceDesc := D3D11_DOMAIN_SHADER_TRACE_DESC(this.ptr + 8)
+                this.__DomainShaderTraceDesc := D3D11_DOMAIN_SHADER_TRACE_DESC(8, this)
             return this.__DomainShaderTraceDesc
         }
     }
@@ -96,7 +96,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     GeometryShaderTraceDesc{
         get {
             if(!this.HasProp("__GeometryShaderTraceDesc"))
-                this.__GeometryShaderTraceDesc := D3D11_GEOMETRY_SHADER_TRACE_DESC(this.ptr + 8)
+                this.__GeometryShaderTraceDesc := D3D11_GEOMETRY_SHADER_TRACE_DESC(8, this)
             return this.__GeometryShaderTraceDesc
         }
     }
@@ -107,7 +107,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     PixelShaderTraceDesc{
         get {
             if(!this.HasProp("__PixelShaderTraceDesc"))
-                this.__PixelShaderTraceDesc := D3D11_PIXEL_SHADER_TRACE_DESC(this.ptr + 8)
+                this.__PixelShaderTraceDesc := D3D11_PIXEL_SHADER_TRACE_DESC(8, this)
             return this.__PixelShaderTraceDesc
         }
     }
@@ -118,7 +118,7 @@ class D3D11_SHADER_TRACE_DESC extends Win32Struct
     ComputeShaderTraceDesc{
         get {
             if(!this.HasProp("__ComputeShaderTraceDesc"))
-                this.__ComputeShaderTraceDesc := D3D11_COMPUTE_SHADER_TRACE_DESC(this.ptr + 8)
+                this.__ComputeShaderTraceDesc := D3D11_COMPUTE_SHADER_TRACE_DESC(8, this)
             return this.__ComputeShaderTraceDesc
         }
     }

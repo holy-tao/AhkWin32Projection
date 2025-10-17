@@ -2,7 +2,6 @@
 #Include ..\..\..\Win32Struct.ahk
 #Include ..\Foundation\LUID.ahk
 #Include .\TOKEN_MANDATORY_POLICY.ahk
-#Include .\PSID.ahk
 
 /**
  * Specifies all the information in a token that is necessary to perform an access check.
@@ -50,7 +49,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
     AuthenticationId{
         get {
             if(!this.HasProp("__AuthenticationId"))
-                this.__AuthenticationId := LUID(this.ptr + 24)
+                this.__AuthenticationId := LUID(24, this)
             return this.__AuthenticationId
         }
     }
@@ -80,7 +79,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
     MandatoryPolicy{
         get {
             if(!this.HasProp("__MandatoryPolicy"))
-                this.__MandatoryPolicy := TOKEN_MANDATORY_POLICY(this.ptr + 40)
+                this.__MandatoryPolicy := TOKEN_MANDATORY_POLICY(40, this)
             return this.__MandatoryPolicy
         }
     }
@@ -111,12 +110,9 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This member is not available.
      * @type {PSID}
      */
-    PackageSid{
-        get {
-            if(!this.HasProp("__PackageSid"))
-                this.__PackageSid := PSID(this.ptr + 56)
-            return this.__PackageSid
-        }
+    PackageSid {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -134,12 +130,9 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
      * The protected process trust level of the token.
      * @type {PSID}
      */
-    TrustLevelSid{
-        get {
-            if(!this.HasProp("__TrustLevelSid"))
-                this.__TrustLevelSid := PSID(this.ptr + 72)
-            return this.__TrustLevelSid
-        }
+    TrustLevelSid {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

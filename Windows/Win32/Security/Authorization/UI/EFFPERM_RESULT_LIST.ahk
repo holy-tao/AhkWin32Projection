@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Lists the effective permissions.
@@ -18,12 +17,9 @@ class EFFPERM_RESULT_LIST extends Win32Struct
      * Indicates if the effective permissions results have been evaluated.
      * @type {BOOLEAN}
      */
-    fEvaluated{
-        get {
-            if(!this.HasProp("__fEvaluated"))
-                this.__fEvaluated := BOOLEAN(this.ptr + 0)
-            return this.__fEvaluated
-        }
+    fEvaluated {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery
@@ -23,12 +22,9 @@ class DEV_OBJECT extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszObjectId{
-        get {
-            if(!this.HasProp("__pszObjectId"))
-                this.__pszObjectId := PWSTR(this.ptr + 8)
-            return this.__pszObjectId
-        }
+    pszObjectId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

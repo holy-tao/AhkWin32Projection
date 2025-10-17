@@ -34,7 +34,7 @@ class D3DSTATUS extends Win32Struct
     drExtent{
         get {
             if(!this.HasProp("__drExtent"))
-                this.__drExtent := D3DRECT(this.ptr + 8)
+                this.__drExtent := D3DRECT(8, this)
             return this.__drExtent
         }
     }

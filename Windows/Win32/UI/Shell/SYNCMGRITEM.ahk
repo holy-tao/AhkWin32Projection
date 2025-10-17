@@ -66,7 +66,7 @@ class SYNCMGRITEM extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 24)
+                this.__hIcon := HICON(24, this)
             return this.__hIcon
         }
     }
@@ -91,17 +91,13 @@ class SYNCMGRITEM extends Win32Struct
     ftLastUpdate{
         get {
             if(!this.HasProp("__ftLastUpdate"))
-                this.__ftLastUpdate := FILETIME(this.ptr + 288)
+                this.__ftLastUpdate := FILETIME(288, this)
             return this.__ftLastUpdate
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 296
     }
 }

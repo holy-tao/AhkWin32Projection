@@ -46,7 +46,7 @@ class OCSP_BASIC_RESPONSE_INFO extends Win32Struct
     ByNameResponderId{
         get {
             if(!this.HasProp("__ByNameResponderId"))
-                this.__ByNameResponderId := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__ByNameResponderId := CRYPT_INTEGER_BLOB(8, this)
             return this.__ByNameResponderId
         }
     }
@@ -57,7 +57,7 @@ class OCSP_BASIC_RESPONSE_INFO extends Win32Struct
     ByKeyResponderId{
         get {
             if(!this.HasProp("__ByKeyResponderId"))
-                this.__ByKeyResponderId := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__ByKeyResponderId := CRYPT_INTEGER_BLOB(8, this)
             return this.__ByKeyResponderId
         }
     }
@@ -69,7 +69,7 @@ class OCSP_BASIC_RESPONSE_INFO extends Win32Struct
     ProducedAt{
         get {
             if(!this.HasProp("__ProducedAt"))
-                this.__ProducedAt := FILETIME(this.ptr + 24)
+                this.__ProducedAt := FILETIME(24, this)
             return this.__ProducedAt
         }
     }

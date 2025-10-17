@@ -108,7 +108,7 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
     PasswordLastSet{
         get {
             if(!this.HasProp("__PasswordLastSet"))
-                this.__PasswordLastSet := FILETIME(this.ptr + 8)
+                this.__PasswordLastSet := FILETIME(8, this)
             return this.__PasswordLastSet
         }
     }
@@ -122,7 +122,7 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
     BadPasswordTime{
         get {
             if(!this.HasProp("__BadPasswordTime"))
-                this.__BadPasswordTime := FILETIME(this.ptr + 16)
+                this.__BadPasswordTime := FILETIME(16, this)
             return this.__BadPasswordTime
         }
     }
@@ -136,7 +136,7 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
     LockoutTime{
         get {
             if(!this.HasProp("__LockoutTime"))
-                this.__LockoutTime := FILETIME(this.ptr + 24)
+                this.__LockoutTime := FILETIME(24, this)
             return this.__LockoutTime
         }
     }

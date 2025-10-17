@@ -14127,7 +14127,7 @@ class NetManagement {
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := DllCall("NETAPI32.dll\NetAddServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", Password, "uint", Flags, "ptr")
+        result := DllCall("NETAPI32.dll\NetAddServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", Password, "uint", Flags, "int")
         return result
     }
 
@@ -14164,7 +14164,7 @@ class NetManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-        result := DllCall("NETAPI32.dll\NetRemoveServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", Flags, "ptr")
+        result := DllCall("NETAPI32.dll\NetRemoveServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", Flags, "int")
         return result
     }
 
@@ -14185,7 +14185,7 @@ class NetManagement {
     static NetEnumerateServiceAccounts(ServerName, Flags, AccountsCount, Accounts) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, "uint", Flags, "uint*", AccountsCount, "ushort*", Accounts, "ptr")
+        result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, "uint", Flags, "uint*", AccountsCount, "ushort*", Accounts, "int")
         return result
     }
 
@@ -14204,7 +14204,7 @@ class NetManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-        result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", IsService, "ptr")
+        result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", IsService, "int")
         return result
     }
 
@@ -14220,7 +14220,7 @@ class NetManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-        result := DllCall("NETAPI32.dll\NetIsServiceAccount2", "ptr", ServerName, "ptr", AccountName, "ptr", IsService, "int*", AccountType, "ptr")
+        result := DllCall("NETAPI32.dll\NetIsServiceAccount2", "ptr", ServerName, "ptr", AccountName, "ptr", IsService, "int*", AccountType, "int")
         return result
     }
 
@@ -14260,7 +14260,7 @@ class NetManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-        result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, "char*", Buffer, "ptr")
+        result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, "char*", Buffer, "int")
         return result
     }
 
@@ -19369,7 +19369,7 @@ class NetManagement {
     static TraceDumpExA(dwTraceID, dwFlags, lpbBytes, dwByteCount, dwGroupSize, bAddressPrefix, lpszPrefix) {
         lpszPrefix := lpszPrefix is String ? StrPtr(lpszPrefix) : lpszPrefix
 
-        result := DllCall("rtutils.dll\TraceDumpExA", "uint", dwTraceID, "uint", dwFlags, "char*", lpbBytes, "uint", dwByteCount, "uint", dwGroupSize, "ptr", bAddressPrefix, "ptr", lpszPrefix, "uint")
+        result := DllCall("rtutils.dll\TraceDumpExA", "uint", dwTraceID, "uint", dwFlags, "char*", lpbBytes, "uint", dwByteCount, "uint", dwGroupSize, "int", bAddressPrefix, "ptr", lpszPrefix, "uint")
         return result
     }
 
@@ -19488,7 +19488,7 @@ class NetManagement {
     static TraceDumpExW(dwTraceID, dwFlags, lpbBytes, dwByteCount, dwGroupSize, bAddressPrefix, lpszPrefix) {
         lpszPrefix := lpszPrefix is String ? StrPtr(lpszPrefix) : lpszPrefix
 
-        result := DllCall("rtutils.dll\TraceDumpExW", "uint", dwTraceID, "uint", dwFlags, "char*", lpbBytes, "uint", dwByteCount, "uint", dwGroupSize, "ptr", bAddressPrefix, "ptr", lpszPrefix, "uint")
+        result := DllCall("rtutils.dll\TraceDumpExW", "uint", dwTraceID, "uint", dwFlags, "char*", lpbBytes, "uint", dwByteCount, "uint", dwGroupSize, "int", bAddressPrefix, "ptr", lpszPrefix, "uint")
         return result
     }
 

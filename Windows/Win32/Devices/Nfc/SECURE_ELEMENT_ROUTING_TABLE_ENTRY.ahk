@@ -28,7 +28,7 @@ class SECURE_ELEMENT_ROUTING_TABLE_ENTRY extends Win32Struct
     TechRoutingInfo{
         get {
             if(!this.HasProp("__TechRoutingInfo"))
-                this.__TechRoutingInfo := SECURE_ELEMENT_TECH_ROUTING_INFO(this.ptr + 8)
+                this.__TechRoutingInfo := SECURE_ELEMENT_TECH_ROUTING_INFO(8, this)
             return this.__TechRoutingInfo
         }
     }
@@ -39,7 +39,7 @@ class SECURE_ELEMENT_ROUTING_TABLE_ENTRY extends Win32Struct
     ProtoRoutingInfo{
         get {
             if(!this.HasProp("__ProtoRoutingInfo"))
-                this.__ProtoRoutingInfo := SECURE_ELEMENT_PROTO_ROUTING_INFO(this.ptr + 8)
+                this.__ProtoRoutingInfo := SECURE_ELEMENT_PROTO_ROUTING_INFO(8, this)
             return this.__ProtoRoutingInfo
         }
     }
@@ -50,7 +50,7 @@ class SECURE_ELEMENT_ROUTING_TABLE_ENTRY extends Win32Struct
     AidRoutingInfo{
         get {
             if(!this.HasProp("__AidRoutingInfo"))
-                this.__AidRoutingInfo := SECURE_ELEMENT_AID_ROUTING_INFO(this.ptr + 8)
+                this.__AidRoutingInfo := SECURE_ELEMENT_AID_ROUTING_INFO(8, this)
             return this.__AidRoutingInfo
         }
     }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Properties\DEVPROPCOMPKEY.ahk
 #Include ..\Properties\DEVPROPERTY.ahk
 
@@ -29,7 +28,7 @@ class DEVPROP_FILTER_EXPRESSION extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := DEVPROPERTY(this.ptr + 8)
+                this.__Property := DEVPROPERTY(8, this)
             return this.__Property
         }
     }

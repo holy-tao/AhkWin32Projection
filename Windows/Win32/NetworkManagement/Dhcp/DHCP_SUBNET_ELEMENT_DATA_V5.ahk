@@ -75,7 +75,7 @@ class DHCP_SUBNET_ELEMENT_DATA_V5 extends Win32Struct
     Element{
         get {
             if(!this.HasProp("__Element"))
-                this.__Element := %this.__Class%._DHCP_SUBNET_ELEMENT_UNION_V5(this.ptr + 8)
+                this.__Element := %this.__Class%._DHCP_SUBNET_ELEMENT_UNION_V5(8, this)
             return this.__Element
         }
     }

@@ -37,7 +37,7 @@ class BSMINFO extends Win32Struct
     hdesk{
         get {
             if(!this.HasProp("__hdesk"))
-                this.__hdesk := HDESK(this.ptr + 8)
+                this.__hdesk := HDESK(8, this)
             return this.__hdesk
         }
     }
@@ -51,7 +51,7 @@ class BSMINFO extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 16)
+                this.__hwnd := HWND(16, this)
             return this.__hwnd
         }
     }
@@ -65,17 +65,13 @@ class BSMINFO extends Win32Struct
     luid{
         get {
             if(!this.HasProp("__luid"))
-                this.__luid := LUID(this.ptr + 24)
+                this.__luid := LUID(24, this)
             return this.__luid
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 32
     }
 }

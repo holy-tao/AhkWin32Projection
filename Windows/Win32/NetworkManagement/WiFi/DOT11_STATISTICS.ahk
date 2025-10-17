@@ -20,7 +20,7 @@ class DOT11_STATISTICS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -55,7 +55,7 @@ class DOT11_STATISTICS extends Win32Struct
     MacUcastCounters{
         get {
             if(!this.HasProp("__MacUcastCounters"))
-                this.__MacUcastCounters := DOT11_MAC_FRAME_STATISTICS(this.ptr + 32)
+                this.__MacUcastCounters := DOT11_MAC_FRAME_STATISTICS(32, this)
             return this.__MacUcastCounters
         }
     }
@@ -66,7 +66,7 @@ class DOT11_STATISTICS extends Win32Struct
     MacMcastCounters{
         get {
             if(!this.HasProp("__MacMcastCounters"))
-                this.__MacMcastCounters := DOT11_MAC_FRAME_STATISTICS(this.ptr + 144)
+                this.__MacMcastCounters := DOT11_MAC_FRAME_STATISTICS(144, this)
             return this.__MacMcastCounters
         }
     }

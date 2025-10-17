@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VIRTUAL_STORAGE_TYPE.ahk
 #Include .\STORAGE_DEPENDENCY_INFO_TYPE_1.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\STORAGE_DEPENDENCY_INFO_TYPE_2.ahk
 
 /**

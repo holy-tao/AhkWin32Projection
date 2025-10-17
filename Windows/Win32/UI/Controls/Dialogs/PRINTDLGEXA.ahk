@@ -4,7 +4,6 @@
 #Include ..\..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information that the PrintDlgEx function uses to initialize the Print property sheet. After the user closes the property sheet, the system uses this structure to return information about the user's selections.
@@ -57,7 +56,7 @@ class PRINTDLGEXA extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
+                this.__hwndOwner := HWND(8, this)
             return this.__hwndOwner
         }
     }
@@ -75,7 +74,7 @@ class PRINTDLGEXA extends Win32Struct
     hDevMode{
         get {
             if(!this.HasProp("__hDevMode"))
-                this.__hDevMode := HGLOBAL(this.ptr + 16)
+                this.__hDevMode := HGLOBAL(16, this)
             return this.__hDevMode
         }
     }
@@ -93,7 +92,7 @@ class PRINTDLGEXA extends Win32Struct
     hDevNames{
         get {
             if(!this.HasProp("__hDevNames"))
-                this.__hDevNames := HGLOBAL(this.ptr + 24)
+                this.__hDevNames := HGLOBAL(24, this)
             return this.__hDevNames
         }
     }
@@ -107,7 +106,7 @@ class PRINTDLGEXA extends Win32Struct
     hDC{
         get {
             if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 32)
+                this.__hDC := HDC(32, this)
             return this.__hDC
         }
     }
@@ -216,7 +215,7 @@ class PRINTDLGEXA extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 88)
+                this.__hInstance := HINSTANCE(88, this)
             return this.__hInstance
         }
     }
@@ -227,12 +226,9 @@ class PRINTDLGEXA extends Win32Struct
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template replaces the default dialog box template in the lower portion of the <b>General</b> page. The default template contains controls similar to those of the <b>Print</b> dialog box. This member is ignored unless the PD_ENABLEPRINTTEMPLATE flag is set in the <b>Flags</b> member.
      * @type {PSTR}
      */
-    lpPrintTemplateName{
-        get {
-            if(!this.HasProp("__lpPrintTemplateName"))
-                this.__lpPrintTemplateName := PSTR(this.ptr + 96)
-            return this.__lpPrintTemplateName
-        }
+    lpPrintTemplateName {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**

@@ -40,7 +40,7 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct
     Wnode{
         get {
             if(!this.HasProp("__Wnode"))
-                this.__Wnode := WNODE_HEADER(this.ptr + 0)
+                this.__Wnode := WNODE_HEADER(0, this)
             return this.__Wnode
         }
     }
@@ -203,7 +203,7 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct
     LoggerThreadId{
         get {
             if(!this.HasProp("__LoggerThreadId"))
-                this.__LoggerThreadId := HANDLE(this.ptr + 96)
+                this.__LoggerThreadId := HANDLE(96, this)
             return this.__LoggerThreadId
         }
     }

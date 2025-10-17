@@ -21,7 +21,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     ID{
         get {
             if(!this.HasProp("__ID"))
-                this.__ID := SPTRANSITIONID(this.ptr + 0)
+                this.__ID := SPTRANSITIONID(0, this)
             return this.__ID
         }
     }
@@ -32,7 +32,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     hNextState{
         get {
             if(!this.HasProp("__hNextState"))
-                this.__hNextState := SPSTATEHANDLE(this.ptr + 8)
+                this.__hNextState := SPSTATEHANDLE(8, this)
             return this.__hNextState
         }
     }
@@ -75,7 +75,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     hRuleInitialState{
         get {
             if(!this.HasProp("__hRuleInitialState"))
-                this.__hRuleInitialState := SPSTATEHANDLE(this.ptr + 32)
+                this.__hRuleInitialState := SPSTATEHANDLE(32, this)
             return this.__hRuleInitialState
         }
     }
@@ -86,7 +86,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     hRule{
         get {
             if(!this.HasProp("__hRule"))
-                this.__hRule := SPRULEHANDLE(this.ptr + 40)
+                this.__hRule := SPRULEHANDLE(40, this)
             return this.__hRule
         }
     }
@@ -105,7 +105,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     hWord{
         get {
             if(!this.HasProp("__hWord"))
-                this.__hWord := SPWORDHANDLE(this.ptr + 32)
+                this.__hWord := SPWORDHANDLE(32, this)
             return this.__hWord
         }
     }

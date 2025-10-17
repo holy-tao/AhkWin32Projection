@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SERVICE_TYPE_VALUE_ABSW.ahk
 
 /**
@@ -39,12 +38,9 @@ class SERVICE_TYPE_INFO_ABSW extends Win32Struct
      * <b>GetNameByType</b> functions.
      * @type {PWSTR}
      */
-    lpTypeName{
-        get {
-            if(!this.HasProp("__lpTypeName"))
-                this.__lpTypeName := PWSTR(this.ptr + 0)
-            return this.__lpTypeName
-        }
+    lpTypeName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

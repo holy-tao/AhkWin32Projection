@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_REFERENCES.ahk
 #Include .\CRYPT_XML_BLOB.ahk
 
@@ -38,36 +37,27 @@ class CRYPT_XML_OBJECT extends Win32Struct
      * Optional. A pointer to a null-terminated wide character string that contains the value of the unique identifier attribute of the <b>Object</b> element.
      * @type {PWSTR}
      */
-    wszId{
-        get {
-            if(!this.HasProp("__wszId"))
-                this.__wszId := PWSTR(this.ptr + 16)
-            return this.__wszId
-        }
+    wszId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the MIME-type attribute of the <b>Object</b> element.
      * @type {PWSTR}
      */
-    wszMimeType{
-        get {
-            if(!this.HasProp("__wszMimeType"))
-                this.__wszMimeType := PWSTR(this.ptr + 24)
-            return this.__wszMimeType
-        }
+    wszMimeType {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Optional. A pointer to a null-terminated wide character string that contains the value of the encoding method attribute of the <b>Object</b> element.
      * @type {PWSTR}
      */
-    wszEncoding{
-        get {
-            if(!this.HasProp("__wszEncoding"))
-                this.__wszEncoding := PWSTR(this.ptr + 32)
-            return this.__wszEncoding
-        }
+    wszEncoding {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -77,7 +67,7 @@ class CRYPT_XML_OBJECT extends Win32Struct
     Manifest{
         get {
             if(!this.HasProp("__Manifest"))
-                this.__Manifest := CRYPT_XML_REFERENCES(this.ptr + 40)
+                this.__Manifest := CRYPT_XML_REFERENCES(40, this)
             return this.__Manifest
         }
     }
@@ -95,17 +85,13 @@ class CRYPT_XML_OBJECT extends Win32Struct
     Encoded{
         get {
             if(!this.HasProp("__Encoded"))
-                this.__Encoded := CRYPT_XML_BLOB(this.ptr + 56)
+                this.__Encoded := CRYPT_XML_BLOB(56, this)
             return this.__Encoded
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

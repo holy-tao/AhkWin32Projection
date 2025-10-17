@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HYPOTHESIS.ahk
 
 /**
@@ -24,7 +23,7 @@ class HypothesisResult extends Win32Struct
     hypothesis{
         get {
             if(!this.HasProp("__hypothesis"))
-                this.__hypothesis := HYPOTHESIS(this.ptr + 0)
+                this.__hypothesis := HYPOTHESIS(0, this)
             return this.__hypothesis
         }
     }

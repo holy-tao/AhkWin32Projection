@@ -3385,7 +3385,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaGetErrorDescription(pDescription) {
-        result := DllCall("UIAutomationCore.dll\UiaGetErrorDescription", "ptr", pDescription, "ptr")
+        result := DllCall("UIAutomationCore.dll\UiaGetErrorDescription", "ptr", pDescription, "int")
         return result
     }
 
@@ -3472,7 +3472,7 @@ class Accessibility {
     static UiaNodeRelease(hnode) {
         hnode := hnode is Win32Handle ? NumGet(hnode, "ptr") : hnode
 
-        result := DllCall("UIAutomationCore.dll\UiaNodeRelease", "ptr", hnode, "ptr")
+        result := DllCall("UIAutomationCore.dll\UiaNodeRelease", "ptr", hnode, "int")
         return result
     }
 
@@ -3897,7 +3897,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static UiaClientsAreListening() {
-        result := DllCall("UIAutomationCore.dll\UiaClientsAreListening", "ptr")
+        result := DllCall("UIAutomationCore.dll\UiaClientsAreListening", "int")
         return result
     }
 
@@ -5072,7 +5072,7 @@ class Accessibility {
     static TextRange_FindAttribute(hobj, attributeId, val, backward, pRetVal) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_FindAttribute", "ptr", hobj, "int", attributeId, "ptr", val, "ptr", backward, "ptr", pRetVal, "int")
+        result := DllCall("UIAutomationCore.dll\TextRange_FindAttribute", "ptr", hobj, "int", attributeId, "ptr", val, "int", backward, "ptr", pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5109,7 +5109,7 @@ class Accessibility {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
         text := text is Win32Handle ? NumGet(text, "ptr") : text
 
-        result := DllCall("UIAutomationCore.dll\TextRange_FindText", "ptr", hobj, "ptr", text, "ptr", backward, "ptr", ignoreCase, "ptr", pRetVal, "int")
+        result := DllCall("UIAutomationCore.dll\TextRange_FindText", "ptr", hobj, "ptr", text, "int", backward, "int", ignoreCase, "ptr", pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5379,7 +5379,7 @@ class Accessibility {
     static TextRange_ScrollIntoView(hobj, alignToTop) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\TextRange_ScrollIntoView", "ptr", hobj, "ptr", alignToTop, "int")
+        result := DllCall("UIAutomationCore.dll\TextRange_ScrollIntoView", "ptr", hobj, "int", alignToTop, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5620,7 +5620,7 @@ class Accessibility {
     static UiaPatternRelease(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\UiaPatternRelease", "ptr", hobj, "ptr")
+        result := DllCall("UIAutomationCore.dll\UiaPatternRelease", "ptr", hobj, "int")
         return result
     }
 
@@ -5638,7 +5638,7 @@ class Accessibility {
     static UiaTextRangeRelease(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\UiaTextRangeRelease", "ptr", hobj, "ptr")
+        result := DllCall("UIAutomationCore.dll\UiaTextRangeRelease", "ptr", hobj, "int")
         return result
     }
 
@@ -5826,7 +5826,7 @@ class Accessibility {
     static UiaHasServerSideProvider(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UIAutomationCore.dll\UiaHasServerSideProvider", "ptr", hwnd, "ptr")
+        result := DllCall("UIAutomationCore.dll\UiaHasServerSideProvider", "ptr", hwnd, "int")
         return result
     }
 
@@ -5847,7 +5847,7 @@ class Accessibility {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterPointerInputTarget", "ptr", hwnd, "int", pointerType, "ptr")
+        result := DllCall("USER32.dll\RegisterPointerInputTarget", "ptr", hwnd, "int", pointerType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5869,7 +5869,7 @@ class Accessibility {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterPointerInputTarget", "ptr", hwnd, "int", pointerType, "ptr")
+        result := DllCall("USER32.dll\UnregisterPointerInputTarget", "ptr", hwnd, "int", pointerType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5888,7 +5888,7 @@ class Accessibility {
     static RegisterPointerInputTargetEx(hwnd, pointerType, fObserve) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("USER32.dll\RegisterPointerInputTargetEx", "ptr", hwnd, "int", pointerType, "ptr", fObserve, "ptr")
+        result := DllCall("USER32.dll\RegisterPointerInputTargetEx", "ptr", hwnd, "int", pointerType, "int", fObserve, "int")
         return result
     }
 
@@ -5903,7 +5903,7 @@ class Accessibility {
     static UnregisterPointerInputTargetEx(hwnd, pointerType) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("USER32.dll\UnregisterPointerInputTargetEx", "ptr", hwnd, "int", pointerType, "ptr")
+        result := DllCall("USER32.dll\UnregisterPointerInputTargetEx", "ptr", hwnd, "int", pointerType, "int")
         return result
     }
 
@@ -6064,7 +6064,7 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static IsWinEventHookInstalled(event) {
-        result := DllCall("USER32.dll\IsWinEventHookInstalled", "uint", event, "ptr")
+        result := DllCall("USER32.dll\IsWinEventHookInstalled", "uint", event, "int")
         return result
     }
 
@@ -6090,7 +6090,7 @@ class Accessibility {
     static UnhookWinEvent(hWinEventHook) {
         hWinEventHook := hWinEventHook is Win32Handle ? NumGet(hWinEventHook, "ptr") : hWinEventHook
 
-        result := DllCall("USER32.dll\UnhookWinEvent", "ptr", hWinEventHook, "ptr")
+        result := DllCall("USER32.dll\UnhookWinEvent", "ptr", hWinEventHook, "int")
         return result
     }
 

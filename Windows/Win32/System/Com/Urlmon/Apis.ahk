@@ -2598,7 +2598,7 @@ class Urlmon {
      * @returns {HRESULT} 
      */
     static CoInternetSetFeatureEnabled(FeatureEntry, dwFlags, fEnable) {
-        result := DllCall("urlmon.dll\CoInternetSetFeatureEnabled", "int", FeatureEntry, "uint", dwFlags, "ptr", fEnable, "int")
+        result := DllCall("urlmon.dll\CoInternetSetFeatureEnabled", "int", FeatureEntry, "uint", dwFlags, "int", fEnable, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2714,7 +2714,7 @@ class Urlmon {
      * @returns {PWSTR} 
      */
     static IEGetUserPrivateNamespaceName() {
-        result := DllCall("urlmon.dll\IEGetUserPrivateNamespaceName", "ptr")
+        result := DllCall("urlmon.dll\IEGetUserPrivateNamespaceName", "char*")
         return result
     }
 
@@ -2790,7 +2790,7 @@ class Urlmon {
     static IsLoggingEnabledA(pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := DllCall("urlmon.dll\IsLoggingEnabledA", "ptr", pszUrl, "ptr")
+        result := DllCall("urlmon.dll\IsLoggingEnabledA", "ptr", pszUrl, "int")
         return result
     }
 
@@ -2802,7 +2802,7 @@ class Urlmon {
     static IsLoggingEnabledW(pwszUrl) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := DllCall("urlmon.dll\IsLoggingEnabledW", "ptr", pwszUrl, "ptr")
+        result := DllCall("urlmon.dll\IsLoggingEnabledW", "ptr", pwszUrl, "int")
         return result
     }
 
@@ -2812,7 +2812,7 @@ class Urlmon {
      * @returns {BOOL} 
      */
     static WriteHitLogging(lpLogginginfo) {
-        result := DllCall("urlmon.dll\WriteHitLogging", "ptr", lpLogginginfo, "ptr")
+        result := DllCall("urlmon.dll\WriteHitLogging", "ptr", lpLogginginfo, "int")
         return result
     }
 

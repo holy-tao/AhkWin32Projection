@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -15,12 +14,9 @@ class CERT_FILTER_EXTENSION_MATCH extends Win32Struct
     /**
      * @type {PSTR}
      */
-    szExtensionOID{
-        get {
-            if(!this.HasProp("__szExtensionOID"))
-                this.__szExtensionOID := PSTR(this.ptr + 0)
-            return this.__szExtensionOID
-        }
+    szExtensionOID {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

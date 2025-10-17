@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -151,12 +150,9 @@ class WKSTA_INFO_302 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    wki302_wrk_heuristics{
-        get {
-            if(!this.HasProp("__wki302_wrk_heuristics"))
-                this.__wki302_wrk_heuristics := PWSTR(this.ptr + 72)
-            return this.__wki302_wrk_heuristics
-        }
+    wki302_wrk_heuristics {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

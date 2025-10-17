@@ -63,7 +63,7 @@ class D3D10_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture1D{
         get {
             if(!this.HasProp("__Texture1D"))
-                this.__Texture1D := D3D10_TEX1D_DSV(this.ptr + 8)
+                this.__Texture1D := D3D10_TEX1D_DSV(8, this)
             return this.__Texture1D
         }
     }
@@ -74,7 +74,7 @@ class D3D10_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture1DArray{
         get {
             if(!this.HasProp("__Texture1DArray"))
-                this.__Texture1DArray := D3D10_TEX1D_ARRAY_DSV(this.ptr + 8)
+                this.__Texture1DArray := D3D10_TEX1D_ARRAY_DSV(8, this)
             return this.__Texture1DArray
         }
     }
@@ -85,7 +85,7 @@ class D3D10_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2D{
         get {
             if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D10_TEX2D_DSV(this.ptr + 8)
+                this.__Texture2D := D3D10_TEX2D_DSV(8, this)
             return this.__Texture2D
         }
     }
@@ -96,7 +96,7 @@ class D3D10_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DArray{
         get {
             if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D10_TEX2D_ARRAY_DSV(this.ptr + 8)
+                this.__Texture2DArray := D3D10_TEX2D_ARRAY_DSV(8, this)
             return this.__Texture2DArray
         }
     }
@@ -107,7 +107,7 @@ class D3D10_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DMS{
         get {
             if(!this.HasProp("__Texture2DMS"))
-                this.__Texture2DMS := D3D10_TEX2DMS_DSV(this.ptr + 8)
+                this.__Texture2DMS := D3D10_TEX2DMS_DSV(8, this)
             return this.__Texture2DMS
         }
     }
@@ -118,7 +118,7 @@ class D3D10_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DMSArray{
         get {
             if(!this.HasProp("__Texture2DMSArray"))
-                this.__Texture2DMSArray := D3D10_TEX2DMS_ARRAY_DSV(this.ptr + 8)
+                this.__Texture2DMSArray := D3D10_TEX2DMS_ARRAY_DSV(8, this)
             return this.__Texture2DMSArray
         }
     }

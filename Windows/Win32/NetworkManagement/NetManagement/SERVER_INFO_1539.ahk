@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SERVER_INFO_1539 structure specifies whether the server processes raw Server Message Blocks (SMBs).
@@ -18,11 +17,8 @@ class SERVER_INFO_1539 extends Win32Struct
      * Specifies whether the server processes raw SMBs. If enabled, this member allows more data to be transferred per transaction and improves performance. However, it is possible that processing raw SMBs can impede performance on certain networks. The server maintains the value of this member.
      * @type {BOOL}
      */
-    sv1539_enableraw{
-        get {
-            if(!this.HasProp("__sv1539_enableraw"))
-                this.__sv1539_enableraw := BOOL(this.ptr + 0)
-            return this.__sv1539_enableraw
-        }
+    sv1539_enableraw {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

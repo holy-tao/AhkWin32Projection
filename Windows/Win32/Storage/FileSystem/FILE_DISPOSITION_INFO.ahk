@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Indicates whether a file should be deleted. Used for any handles.
@@ -20,11 +19,8 @@ class FILE_DISPOSITION_INFO extends Win32Struct
      *       <b>FILE_FLAG_DELETE_ON_CLOSE</b>.
      * @type {BOOLEAN}
      */
-    DeleteFile{
-        get {
-            if(!this.HasProp("__DeleteFile"))
-                this.__DeleteFile := BOOLEAN(this.ptr + 0)
-            return this.__DeleteFile
-        }
+    DeleteFile {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 }

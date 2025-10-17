@@ -28,7 +28,7 @@ class RASCONNW extends Win32Struct
     hrasconn{
         get {
             if(!this.HasProp("__hrasconn"))
-                this.__hrasconn := HRASCONN(this.ptr + 8)
+                this.__hrasconn := HRASCONN(8, this)
             return this.__hrasconn
         }
     }
@@ -95,7 +95,7 @@ class RASCONNW extends Win32Struct
     luid{
         get {
             if(!this.HasProp("__luid"))
-                this.__luid := LUID(this.ptr + 1368)
+                this.__luid := LUID(1368, this)
             return this.__luid
         }
     }

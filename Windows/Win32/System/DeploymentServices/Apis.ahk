@@ -1912,7 +1912,7 @@ class DeploymentServices {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
         pszModulePath := pszModulePath is String ? StrPtr(pszModulePath) : pszModulePath
 
-        result := DllCall("WDSPXE.dll\PxeProviderRegister", "ptr", pszProviderName, "ptr", pszModulePath, "uint", Index, "ptr", bIsCritical, "ptr", phProviderKey, "uint")
+        result := DllCall("WDSPXE.dll\PxeProviderRegister", "ptr", pszProviderName, "ptr", pszModulePath, "uint", Index, "int", bIsCritical, "ptr", phProviderKey, "uint")
         return result
     }
 
@@ -2542,7 +2542,7 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpIsValid(pPacket, uPacketLen, bRequestPacket, pbPxeOptionPresent) {
-        result := DllCall("WDSPXE.dll\PxeDhcpIsValid", "ptr", pPacket, "uint", uPacketLen, "ptr", bRequestPacket, "ptr", pbPxeOptionPresent, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpIsValid", "ptr", pPacket, "uint", uPacketLen, "int", bRequestPacket, "ptr", pbPxeOptionPresent, "uint")
         return result
     }
 
@@ -2588,7 +2588,7 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6IsValid(pPacket, uPacketLen, bRequestPacket, pbPxeOptionPresent) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6IsValid", "ptr", pPacket, "uint", uPacketLen, "ptr", bRequestPacket, "ptr", pbPxeOptionPresent, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6IsValid", "ptr", pPacket, "uint", uPacketLen, "int", bRequestPacket, "ptr", pbPxeOptionPresent, "uint")
         return result
     }
 

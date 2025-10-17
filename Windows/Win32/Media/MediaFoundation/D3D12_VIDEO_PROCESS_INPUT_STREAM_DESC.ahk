@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
 #Include .\D3D12_VIDEO_SIZE_RANGE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIDEO_PROCESS_LUMA_KEY.ahk
 
 /**
@@ -45,7 +44,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
     SourceAspectRatio{
         get {
             if(!this.HasProp("__SourceAspectRatio"))
-                this.__SourceAspectRatio := DXGI_RATIONAL(this.ptr + 8)
+                this.__SourceAspectRatio := DXGI_RATIONAL(8, this)
             return this.__SourceAspectRatio
         }
     }
@@ -57,7 +56,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
     DestinationAspectRatio{
         get {
             if(!this.HasProp("__DestinationAspectRatio"))
-                this.__DestinationAspectRatio := DXGI_RATIONAL(this.ptr + 16)
+                this.__DestinationAspectRatio := DXGI_RATIONAL(16, this)
             return this.__DestinationAspectRatio
         }
     }
@@ -69,7 +68,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
     FrameRate{
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(this.ptr + 24)
+                this.__FrameRate := DXGI_RATIONAL(24, this)
             return this.__FrameRate
         }
     }
@@ -81,7 +80,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
     SourceSizeRange{
         get {
             if(!this.HasProp("__SourceSizeRange"))
-                this.__SourceSizeRange := D3D12_VIDEO_SIZE_RANGE(this.ptr + 32)
+                this.__SourceSizeRange := D3D12_VIDEO_SIZE_RANGE(32, this)
             return this.__SourceSizeRange
         }
     }
@@ -93,7 +92,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
     DestinationSizeRange{
         get {
             if(!this.HasProp("__DestinationSizeRange"))
-                this.__DestinationSizeRange := D3D12_VIDEO_SIZE_RANGE(this.ptr + 48)
+                this.__DestinationSizeRange := D3D12_VIDEO_SIZE_RANGE(48, this)
             return this.__DestinationSizeRange
         }
     }
@@ -102,12 +101,9 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
      * A boolean value specifying whether the video processor should support all [D3D12_VIDEO_PROCESS_ORIENTATION](ne-d3d12video-d3d12_video_process_orientation.md) for [ProcessFrames](nf-d3d12video-id3d12videoprocesscommandlist-processframes.md).
      * @type {BOOL}
      */
-    EnableOrientation{
-        get {
-            if(!this.HasProp("__EnableOrientation"))
-                this.__EnableOrientation := BOOL(this.ptr + 64)
-            return this.__EnableOrientation
-        }
+    EnableOrientation {
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
@@ -150,12 +146,9 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
      * A boolean value specifying whether alpha blending is enabled. Alpha blending settings are provided to [ProcessFrames](nf-d3d12video-id3d12videoprocesscommandlist-processframes.md) with *AlphaBlending* the field of the [D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS](ns-d3d12video-d3d12_video_process_input_stream_arguments.md) structure.
      * @type {BOOL}
      */
-    EnableAlphaBlending{
-        get {
-            if(!this.HasProp("__EnableAlphaBlending"))
-                this.__EnableAlphaBlending := BOOL(this.ptr + 84)
-            return this.__EnableAlphaBlending
-        }
+    EnableAlphaBlending {
+        get => NumGet(this, 84, "int")
+        set => NumPut("int", value, this, 84)
     }
 
     /**
@@ -165,7 +158,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
     LumaKey{
         get {
             if(!this.HasProp("__LumaKey"))
-                this.__LumaKey := D3D12_VIDEO_PROCESS_LUMA_KEY(this.ptr + 88)
+                this.__LumaKey := D3D12_VIDEO_PROCESS_LUMA_KEY(88, this)
             return this.__LumaKey
         }
     }
@@ -192,11 +185,8 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
      * A boolean value specifying wither automatic processing features are enabled for the video processor.
      * @type {BOOL}
      */
-    EnableAutoProcessing{
-        get {
-            if(!this.HasProp("__EnableAutoProcessing"))
-                this.__EnableAutoProcessing := BOOL(this.ptr + 108)
-            return this.__EnableAutoProcessing
-        }
+    EnableAutoProcessing {
+        get => NumGet(this, 108, "int")
+        set => NumPut("int", value, this, 108)
     }
 }

@@ -32,7 +32,7 @@ class D3D12_RENDER_PASS_BEGINNING_ACCESS extends Win32Struct
     Clear{
         get {
             if(!this.HasProp("__Clear"))
-                this.__Clear := D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS(this.ptr + 8)
+                this.__Clear := D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS(8, this)
             return this.__Clear
         }
     }
@@ -43,7 +43,7 @@ class D3D12_RENDER_PASS_BEGINNING_ACCESS extends Win32Struct
     PreserveLocal{
         get {
             if(!this.HasProp("__PreserveLocal"))
-                this.__PreserveLocal := D3D12_RENDER_PASS_BEGINNING_ACCESS_PRESERVE_LOCAL_PARAMETERS(this.ptr + 8)
+                this.__PreserveLocal := D3D12_RENDER_PASS_BEGINNING_ACCESS_PRESERVE_LOCAL_PARAMETERS(8, this)
             return this.__PreserveLocal
         }
     }

@@ -1027,7 +1027,7 @@ class Power {
      * @since windows5.1.2600
      */
     static CallNtPowerInformation(InformationLevel, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
-        result := DllCall("POWRPROF.dll\CallNtPowerInformation", "int", InformationLevel, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, "ptr")
+        result := DllCall("POWRPROF.dll\CallNtPowerInformation", "int", InformationLevel, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, "int")
         return result
     }
 
@@ -1045,7 +1045,7 @@ class Power {
     static GetPwrCapabilities(lpspc) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\GetPwrCapabilities", "ptr", lpspc, "ptr")
+        result := DllCall("POWRPROF.dll\GetPwrCapabilities", "ptr", lpspc, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1314,7 +1314,7 @@ class Power {
     static GetPwrDiskSpindownRange(puiMax, puiMin) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\GetPwrDiskSpindownRange", "uint*", puiMax, "uint*", puiMin, "ptr")
+        result := DllCall("POWRPROF.dll\GetPwrDiskSpindownRange", "uint*", puiMax, "uint*", puiMin, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1335,7 +1335,7 @@ class Power {
     static EnumPwrSchemes(lpfn, lParam) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\EnumPwrSchemes", "ptr", lpfn, "ptr", lParam, "ptr")
+        result := DllCall("POWRPROF.dll\EnumPwrSchemes", "ptr", lpfn, "ptr", lParam, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1356,7 +1356,7 @@ class Power {
     static ReadGlobalPwrPolicy(pGlobalPowerPolicy) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\ReadGlobalPwrPolicy", "ptr", pGlobalPowerPolicy, "ptr")
+        result := DllCall("POWRPROF.dll\ReadGlobalPwrPolicy", "ptr", pGlobalPowerPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1378,7 +1378,7 @@ class Power {
     static ReadPwrScheme(uiID, pPowerPolicy) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\ReadPwrScheme", "uint", uiID, "ptr", pPowerPolicy, "ptr")
+        result := DllCall("POWRPROF.dll\ReadPwrScheme", "uint", uiID, "ptr", pPowerPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1405,7 +1405,7 @@ class Power {
 
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\WritePwrScheme", "uint*", puiID, "ptr", lpszSchemeName, "ptr", lpszDescription, "ptr", lpScheme, "ptr")
+        result := DllCall("POWRPROF.dll\WritePwrScheme", "uint*", puiID, "ptr", lpszSchemeName, "ptr", lpszDescription, "ptr", lpScheme, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1426,7 +1426,7 @@ class Power {
     static WriteGlobalPwrPolicy(pGlobalPowerPolicy) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\WriteGlobalPwrPolicy", "ptr", pGlobalPowerPolicy, "ptr")
+        result := DllCall("POWRPROF.dll\WriteGlobalPwrPolicy", "ptr", pGlobalPowerPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1446,7 +1446,7 @@ class Power {
     static DeletePwrScheme(uiID) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\DeletePwrScheme", "uint", uiID, "ptr")
+        result := DllCall("POWRPROF.dll\DeletePwrScheme", "uint", uiID, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1466,7 +1466,7 @@ class Power {
     static GetActivePwrScheme(puiID) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\GetActivePwrScheme", "uint*", puiID, "ptr")
+        result := DllCall("POWRPROF.dll\GetActivePwrScheme", "uint*", puiID, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1490,7 +1490,7 @@ class Power {
     static SetActivePwrScheme(uiID, pGlobalPowerPolicy, pPowerPolicy) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\SetActivePwrScheme", "uint", uiID, "ptr", pGlobalPowerPolicy, "ptr", pPowerPolicy, "ptr")
+        result := DllCall("POWRPROF.dll\SetActivePwrScheme", "uint", uiID, "ptr", pGlobalPowerPolicy, "ptr", pPowerPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1504,7 +1504,7 @@ class Power {
      * @since windows5.1.2600
      */
     static IsPwrSuspendAllowed() {
-        result := DllCall("POWRPROF.dll\IsPwrSuspendAllowed", "ptr")
+        result := DllCall("POWRPROF.dll\IsPwrSuspendAllowed", "char")
         return result
     }
 
@@ -1515,7 +1515,7 @@ class Power {
      * @since windows5.1.2600
      */
     static IsPwrHibernateAllowed() {
-        result := DllCall("POWRPROF.dll\IsPwrHibernateAllowed", "ptr")
+        result := DllCall("POWRPROF.dll\IsPwrHibernateAllowed", "char")
         return result
     }
 
@@ -1526,7 +1526,7 @@ class Power {
      * @since windows5.1.2600
      */
     static IsPwrShutdownAllowed() {
-        result := DllCall("POWRPROF.dll\IsPwrShutdownAllowed", "ptr")
+        result := DllCall("POWRPROF.dll\IsPwrShutdownAllowed", "char")
         return result
     }
 
@@ -1536,7 +1536,7 @@ class Power {
      * @returns {BOOLEAN} 
      */
     static IsAdminOverrideActive(papp) {
-        result := DllCall("POWRPROF.dll\IsAdminOverrideActive", "ptr", papp, "ptr")
+        result := DllCall("POWRPROF.dll\IsAdminOverrideActive", "ptr", papp, "char")
         return result
     }
 
@@ -1557,7 +1557,7 @@ class Power {
     static SetSuspendState(bHibernate, bForce, bWakeupEventsDisabled) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\SetSuspendState", "ptr", bHibernate, "ptr", bForce, "ptr", bWakeupEventsDisabled, "ptr")
+        result := DllCall("POWRPROF.dll\SetSuspendState", "char", bHibernate, "char", bForce, "char", bWakeupEventsDisabled, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1580,7 +1580,7 @@ class Power {
     static GetCurrentPowerPolicies(pGlobalPowerPolicy, pPowerPolicy) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\GetCurrentPowerPolicies", "ptr", pGlobalPowerPolicy, "ptr", pPowerPolicy, "ptr")
+        result := DllCall("POWRPROF.dll\GetCurrentPowerPolicies", "ptr", pGlobalPowerPolicy, "ptr", pPowerPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1617,7 +1617,7 @@ class Power {
     static CanUserWritePwrScheme() {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\CanUserWritePwrScheme", "ptr")
+        result := DllCall("POWRPROF.dll\CanUserWritePwrScheme", "char")
         if(A_LastError)
             throw OSError()
 
@@ -1639,7 +1639,7 @@ class Power {
     static ReadProcessorPwrScheme(uiID, pMachineProcessorPowerPolicy) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\ReadProcessorPwrScheme", "uint", uiID, "ptr", pMachineProcessorPowerPolicy, "ptr")
+        result := DllCall("POWRPROF.dll\ReadProcessorPwrScheme", "uint", uiID, "ptr", pMachineProcessorPowerPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1661,7 +1661,7 @@ class Power {
     static WriteProcessorPwrScheme(uiID, pMachineProcessorPowerPolicy) {
         A_LastError := 0
 
-        result := DllCall("POWRPROF.dll\WriteProcessorPwrScheme", "uint", uiID, "ptr", pMachineProcessorPowerPolicy, "ptr")
+        result := DllCall("POWRPROF.dll\WriteProcessorPwrScheme", "uint", uiID, "ptr", pMachineProcessorPowerPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -1675,7 +1675,7 @@ class Power {
      * @returns {BOOLEAN} 
      */
     static ValidatePowerPolicies(pGlobalPowerPolicy, pPowerPolicy) {
-        result := DllCall("POWRPROF.dll\ValidatePowerPolicies", "ptr", pGlobalPowerPolicy, "ptr", pPowerPolicy, "ptr")
+        result := DllCall("POWRPROF.dll\ValidatePowerPolicies", "ptr", pGlobalPowerPolicy, "ptr", pPowerPolicy, "char")
         return result
     }
 
@@ -1690,7 +1690,7 @@ class Power {
      * @since windows6.1
      */
     static PowerIsSettingRangeDefined(SubKeyGuid, SettingGuid) {
-        result := DllCall("POWRPROF.dll\PowerIsSettingRangeDefined", "ptr", SubKeyGuid, "ptr", SettingGuid, "ptr")
+        result := DllCall("POWRPROF.dll\PowerIsSettingRangeDefined", "ptr", SubKeyGuid, "ptr", SettingGuid, "char")
         return result
     }
 
@@ -3130,7 +3130,7 @@ class Power {
      * @returns {Integer} 
      */
     static PowerOpenUserPowerKey(phUserPowerKey, Access, OpenExisting) {
-        result := DllCall("POWRPROF.dll\PowerOpenUserPowerKey", "ptr", phUserPowerKey, "uint", Access, "ptr", OpenExisting, "uint")
+        result := DllCall("POWRPROF.dll\PowerOpenUserPowerKey", "ptr", phUserPowerKey, "uint", Access, "int", OpenExisting, "uint")
         return result
     }
 
@@ -3142,7 +3142,7 @@ class Power {
      * @returns {Integer} 
      */
     static PowerOpenSystemPowerKey(phSystemPowerKey, Access, OpenExisting) {
-        result := DllCall("POWRPROF.dll\PowerOpenSystemPowerKey", "ptr", phSystemPowerKey, "uint", Access, "ptr", OpenExisting, "uint")
+        result := DllCall("POWRPROF.dll\PowerOpenSystemPowerKey", "ptr", phSystemPowerKey, "uint", Access, "int", OpenExisting, "uint")
         return result
     }
 
@@ -3506,7 +3506,7 @@ class Power {
      * @since windows6.0.6000
      */
     static DevicePowerEnumDevices(QueryIndex, QueryInterpretationFlags, QueryFlags, pReturnBuffer, pBufferSize) {
-        result := DllCall("POWRPROF.dll\DevicePowerEnumDevices", "uint", QueryIndex, "uint", QueryInterpretationFlags, "uint", QueryFlags, "ptr", pReturnBuffer, "uint*", pBufferSize, "ptr")
+        result := DllCall("POWRPROF.dll\DevicePowerEnumDevices", "uint", QueryIndex, "uint", QueryInterpretationFlags, "uint", QueryFlags, "ptr", pReturnBuffer, "uint*", pBufferSize, "char")
         return result
     }
 
@@ -3573,7 +3573,7 @@ class Power {
      * @since windows6.0.6000
      */
     static DevicePowerOpen(DebugMask) {
-        result := DllCall("POWRPROF.dll\DevicePowerOpen", "uint", DebugMask, "ptr")
+        result := DllCall("POWRPROF.dll\DevicePowerOpen", "uint", DebugMask, "char")
         return result
     }
 
@@ -3587,7 +3587,7 @@ class Power {
      * @since windows6.0.6000
      */
     static DevicePowerClose() {
-        result := DllCall("POWRPROF.dll\DevicePowerClose", "ptr")
+        result := DllCall("POWRPROF.dll\DevicePowerClose", "char")
         return result
     }
 
@@ -3679,7 +3679,7 @@ class Power {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterPowerSettingNotification", "ptr", Handle, "ptr")
+        result := DllCall("USER32.dll\UnregisterPowerSettingNotification", "ptr", Handle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3728,7 +3728,7 @@ class Power {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterSuspendResumeNotification", "ptr", Handle, "ptr")
+        result := DllCall("USER32.dll\UnregisterSuspendResumeNotification", "ptr", Handle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3773,7 +3773,7 @@ class Power {
      * @since windows5.1.2600
      */
     static RequestWakeupLatency(latency) {
-        result := DllCall("KERNEL32.dll\RequestWakeupLatency", "int", latency, "ptr")
+        result := DllCall("KERNEL32.dll\RequestWakeupLatency", "int", latency, "int")
         return result
     }
 
@@ -3784,7 +3784,7 @@ class Power {
      * @since windows5.1.2600
      */
     static IsSystemResumeAutomatic() {
-        result := DllCall("KERNEL32.dll\IsSystemResumeAutomatic", "ptr")
+        result := DllCall("KERNEL32.dll\IsSystemResumeAutomatic", "int")
         return result
     }
 
@@ -3837,7 +3837,7 @@ class Power {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PowerSetRequest", "ptr", PowerRequest, "int", RequestType, "ptr")
+        result := DllCall("KERNEL32.dll\PowerSetRequest", "ptr", PowerRequest, "int", RequestType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3860,7 +3860,7 @@ class Power {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PowerClearRequest", "ptr", PowerRequest, "int", RequestType, "ptr")
+        result := DllCall("KERNEL32.dll\PowerClearRequest", "ptr", PowerRequest, "int", RequestType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3881,7 +3881,7 @@ class Power {
     static GetDevicePowerState(hDevice, pfOn) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("KERNEL32.dll\GetDevicePowerState", "ptr", hDevice, "ptr", pfOn, "ptr")
+        result := DllCall("KERNEL32.dll\GetDevicePowerState", "ptr", hDevice, "ptr", pfOn, "int")
         return result
     }
 
@@ -3900,7 +3900,7 @@ class Power {
     static SetSystemPowerState(fSuspend, fForce) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetSystemPowerState", "ptr", fSuspend, "ptr", fForce, "ptr")
+        result := DllCall("KERNEL32.dll\SetSystemPowerState", "int", fSuspend, "int", fForce, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3921,7 +3921,7 @@ class Power {
     static GetSystemPowerStatus(lpSystemPowerStatus) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemPowerStatus", "ptr", lpSystemPowerStatus, "ptr")
+        result := DllCall("KERNEL32.dll\GetSystemPowerStatus", "ptr", lpSystemPowerStatus, "int")
         if(A_LastError)
             throw OSError()
 

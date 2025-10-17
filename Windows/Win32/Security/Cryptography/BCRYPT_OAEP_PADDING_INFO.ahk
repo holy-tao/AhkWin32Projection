@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used to provide options for the Optimal Asymmetric Encryption Padding (OAEP) scheme.
@@ -18,12 +17,9 @@ class BCRYPT_OAEP_PADDING_INFO extends Win32Struct
      * A pointer to a null-terminated Unicode string that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic algorithm</a> to use to create the padding. This algorithm must be a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hashing algorithm</a>.
      * @type {PWSTR}
      */
-    pszAlgId{
-        get {
-            if(!this.HasProp("__pszAlgId"))
-                this.__pszAlgId := PWSTR(this.ptr + 0)
-            return this.__pszAlgId
-        }
+    pszAlgId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

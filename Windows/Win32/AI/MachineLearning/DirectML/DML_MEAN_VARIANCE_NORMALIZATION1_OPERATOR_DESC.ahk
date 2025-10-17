@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Performs a mean variance normalization function on the input tensor. This operator will calculate the mean and variance of the input tensor to perform normalization.
@@ -102,12 +101,9 @@ class DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC extends Win32Struct
      * **TRUE** if the Normalization layer includes Variance in the normalization calculation. Otherwise, **FALSE**. If **FALSE**, then normalization equation is `Output = FusedActivation(Scale * (Input - Mean) + Bias)`.
      * @type {BOOL}
      */
-    NormalizeVariance{
-        get {
-            if(!this.HasProp("__NormalizeVariance"))
-                this.__NormalizeVariance := BOOL(this.ptr + 48)
-            return this.__NormalizeVariance
-        }
+    NormalizeVariance {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**

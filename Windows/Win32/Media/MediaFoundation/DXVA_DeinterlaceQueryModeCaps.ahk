@@ -35,7 +35,7 @@ class DXVA_DeinterlaceQueryModeCaps extends Win32Struct
     VideoDesc{
         get {
             if(!this.HasProp("__VideoDesc"))
-                this.__VideoDesc := DXVA_VideoDesc(this.ptr + 16)
+                this.__VideoDesc := DXVA_VideoDesc(16, this)
             return this.__VideoDesc
         }
     }

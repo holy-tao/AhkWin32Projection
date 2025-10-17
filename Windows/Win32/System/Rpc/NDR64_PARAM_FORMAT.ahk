@@ -26,7 +26,7 @@ class NDR64_PARAM_FORMAT extends Win32Struct
     Attributes{
         get {
             if(!this.HasProp("__Attributes"))
-                this.__Attributes := NDR64_PARAM_FLAGS(this.ptr + 8)
+                this.__Attributes := NDR64_PARAM_FLAGS(8, this)
             return this.__Attributes
         }
     }

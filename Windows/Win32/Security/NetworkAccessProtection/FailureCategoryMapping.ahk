@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains optional compliance state information that is returned by the System Health Validator (SHV).
@@ -31,9 +30,9 @@
  */
 class FailureCategoryMapping extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An array of        <b>BOOLs</b> that contain the compliance state of each <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ne-naptypes-failurecategory">FailureCategory</a>.  <b>TRUE</b> indicates the category is compliant and <b>FALSE</b> indicates non-compliance. 

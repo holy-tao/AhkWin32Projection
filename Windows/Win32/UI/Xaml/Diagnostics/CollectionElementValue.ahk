@@ -30,7 +30,7 @@ class CollectionElementValue extends Win32Struct
     ValueType{
         get {
             if(!this.HasProp("__ValueType"))
-                this.__ValueType := BSTR(this.ptr + 8)
+                this.__ValueType := BSTR(8, this)
             return this.__ValueType
         }
     }
@@ -42,7 +42,7 @@ class CollectionElementValue extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := BSTR(this.ptr + 16)
+                this.__Value := BSTR(16, this)
             return this.__Value
         }
     }

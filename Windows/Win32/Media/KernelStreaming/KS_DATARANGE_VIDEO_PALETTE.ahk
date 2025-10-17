@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSDATAFORMAT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include .\KS_VIDEO_STREAM_CONFIG_CAPS.ahk
 #Include ..\..\Foundation\RECT.ahk
@@ -26,7 +25,7 @@ class KS_DATARANGE_VIDEO_PALETTE extends Win32Struct
     DataRange{
         get {
             if(!this.HasProp("__DataRange"))
-                this.__DataRange := KSDATAFORMAT(this.ptr + 0)
+                this.__DataRange := KSDATAFORMAT(0, this)
             return this.__DataRange
         }
     }
@@ -34,23 +33,17 @@ class KS_DATARANGE_VIDEO_PALETTE extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bFixedSizeSamples{
-        get {
-            if(!this.HasProp("__bFixedSizeSamples"))
-                this.__bFixedSizeSamples := BOOL(this.ptr + 48)
-            return this.__bFixedSizeSamples
-        }
+    bFixedSizeSamples {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * @type {BOOL}
      */
-    bTemporalCompression{
-        get {
-            if(!this.HasProp("__bTemporalCompression"))
-                this.__bTemporalCompression := BOOL(this.ptr + 52)
-            return this.__bTemporalCompression
-        }
+    bTemporalCompression {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -75,7 +68,7 @@ class KS_DATARANGE_VIDEO_PALETTE extends Win32Struct
     ConfigCaps{
         get {
             if(!this.HasProp("__ConfigCaps"))
-                this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(this.ptr + 64)
+                this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(64, this)
             return this.__ConfigCaps
         }
     }
@@ -86,7 +79,7 @@ class KS_DATARANGE_VIDEO_PALETTE extends Win32Struct
     VideoInfo{
         get {
             if(!this.HasProp("__VideoInfo"))
-                this.__VideoInfo := KS_VIDEOINFO(this.ptr + 184)
+                this.__VideoInfo := KS_VIDEOINFO(184, this)
             return this.__VideoInfo
         }
     }

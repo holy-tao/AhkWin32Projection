@@ -775,7 +775,7 @@ class Xps {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hdcBlt := hdcBlt is Win32Handle ? NumGet(hdcBlt, "ptr") : hdcBlt
 
-        result := DllCall("USER32.dll\PrintWindow", "ptr", hwnd, "ptr", hdcBlt, "uint", nFlags, "ptr")
+        result := DllCall("USER32.dll\PrintWindow", "ptr", hwnd, "ptr", hdcBlt, "uint", nFlags, "int")
         return result
     }
 

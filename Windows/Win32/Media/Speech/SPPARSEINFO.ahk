@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SPRULEHANDLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -27,7 +26,7 @@ class SPPARSEINFO extends Win32Struct
     hRule{
         get {
             if(!this.HasProp("__hRule"))
-                this.__hRule := SPRULEHANDLE(this.ptr + 8)
+                this.__hRule := SPRULEHANDLE(8, this)
             return this.__hRule
         }
     }
@@ -91,20 +90,13 @@ class SPPARSEINFO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fHypothesis{
-        get {
-            if(!this.HasProp("__fHypothesis"))
-                this.__fHypothesis := BOOL(this.ptr + 64)
-            return this.__fHypothesis
-        }
+    fHypothesis {
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

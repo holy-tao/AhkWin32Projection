@@ -4,9 +4,7 @@
 #Include .\NMHDR.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include .\NMCUSTOMDRAW.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW (list view) notification code sent by a list-view control.
@@ -35,7 +33,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
     nmcd{
         get {
             if(!this.HasProp("__nmcd"))
-                this.__nmcd := NMCUSTOMDRAW(this.ptr + 0)
+                this.__nmcd := NMCUSTOMDRAW(0, this)
             return this.__nmcd
         }
     }
@@ -46,12 +44,9 @@ class NMLVCUSTOMDRAW extends Win32Struct
      * <b>COLORREF</b> value representing the color that will be used to display text foreground in the list-view control.
      * @type {COLORREF}
      */
-    clrText{
-        get {
-            if(!this.HasProp("__clrText"))
-                this.__clrText := COLORREF(this.ptr + 80)
-            return this.__clrText
-        }
+    clrText {
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -60,12 +55,9 @@ class NMLVCUSTOMDRAW extends Win32Struct
      * <b>COLORREF</b> value representing the color that will be used to display text background in the list-view control. In <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0., </a> this member is ignored if the background image is set with the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-setbkimage">LVM_SETBKIMAGE</a> message.
      * @type {COLORREF}
      */
-    clrTextBk{
-        get {
-            if(!this.HasProp("__clrTextBk"))
-                this.__clrTextBk := COLORREF(this.ptr + 84)
-            return this.__clrTextBk
-        }
+    clrTextBk {
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -100,12 +92,9 @@ class NMLVCUSTOMDRAW extends Win32Struct
      * 					<b>COLORREF</b> value representing the color that will be used to display the face of an item.
      * @type {COLORREF}
      */
-    clrFace{
-        get {
-            if(!this.HasProp("__clrFace"))
-                this.__clrFace := COLORREF(this.ptr + 96)
-            return this.__clrFace
-        }
+    clrFace {
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -171,7 +160,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
     rcText{
         get {
             if(!this.HasProp("__rcText"))
-                this.__rcText := RECT(this.ptr + 120)
+                this.__rcText := RECT(120, this)
             return this.__rcText
         }
     }

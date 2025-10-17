@@ -93,7 +93,7 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct
     ATTRIB{
         get {
             if(!this.HasProp("__ATTRIB"))
-                this.__ATTRIB := %this.__Class%._ATTRIB(this.ptr + 40)
+                this.__ATTRIB := %this.__Class%._ATTRIB(40, this)
             return this.__ATTRIB
         }
     }
@@ -145,7 +145,7 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct
     FourBytes{
         get {
             if(!this.HasProp("__FourBytes"))
-                this.__FourBytes := %this.__Class%._FourBytes(this.ptr + 48)
+                this.__FourBytes := %this.__Class%._FourBytes(48, this)
             return this.__FourBytes
         }
     }

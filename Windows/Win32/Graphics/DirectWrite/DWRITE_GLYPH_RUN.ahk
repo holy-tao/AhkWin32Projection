@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the information needed by renderers to draw glyph runs.
@@ -86,12 +85,9 @@ class DWRITE_GLYPH_RUN extends Win32Struct
      * If true, specifies that glyphs are rotated 90 degrees to the left and vertical metrics are used. Vertical writing is achieved by specifying <b>isSideways</b> = true and rotating the entire run 90 degrees to the right via a rotate transform.
      * @type {BOOL}
      */
-    isSideways{
-        get {
-            if(!this.HasProp("__isSideways"))
-                this.__isSideways := BOOL(this.ptr + 40)
-            return this.__isSideways
-        }
+    isSideways {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**

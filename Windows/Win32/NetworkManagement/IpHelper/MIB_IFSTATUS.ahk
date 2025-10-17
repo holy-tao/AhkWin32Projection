@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Stores status information for a particular interface.
@@ -51,23 +50,17 @@ class MIB_IFSTATUS extends Win32Struct
      * Specifies whether multicast heartbeat detection is enabled. A value of <b>TRUE</b> indicates that heartbeat detection is enabled. A value of <b>FALSE</b> indicates that heartbeat detection is disabled.
      * @type {BOOL}
      */
-    bMHbeatActive{
-        get {
-            if(!this.HasProp("__bMHbeatActive"))
-                this.__bMHbeatActive := BOOL(this.ptr + 12)
-            return this.__bMHbeatActive
-        }
+    bMHbeatActive {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
      * Specifies whether the multicast heartbeat dead interval has been exceeded. A value of <b>FALSE</b> indicates that the interval has been exceeded. A value of <b>TRUE</b> indicates that the interval has not been exceeded.
      * @type {BOOL}
      */
-    bMHbeatAlive{
-        get {
-            if(!this.HasProp("__bMHbeatAlive"))
-                this.__bMHbeatAlive := BOOL(this.ptr + 16)
-            return this.__bMHbeatAlive
-        }
+    bMHbeatAlive {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 }

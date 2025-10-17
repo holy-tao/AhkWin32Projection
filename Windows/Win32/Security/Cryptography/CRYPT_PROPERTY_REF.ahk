@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a CNG context property.
@@ -18,12 +17,9 @@ class CRYPT_PROPERTY_REF extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the name of the property.
      * @type {PWSTR}
      */
-    pszProperty{
-        get {
-            if(!this.HasProp("__pszProperty"))
-                this.__pszProperty := PWSTR(this.ptr + 0)
-            return this.__pszProperty
-        }
+    pszProperty {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

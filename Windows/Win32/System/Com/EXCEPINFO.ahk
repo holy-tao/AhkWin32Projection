@@ -45,7 +45,7 @@ class EXCEPINFO extends Win32Struct
     bstrSource{
         get {
             if(!this.HasProp("__bstrSource"))
-                this.__bstrSource := BSTR(this.ptr + 8)
+                this.__bstrSource := BSTR(8, this)
             return this.__bstrSource
         }
     }
@@ -57,7 +57,7 @@ class EXCEPINFO extends Win32Struct
     bstrDescription{
         get {
             if(!this.HasProp("__bstrDescription"))
-                this.__bstrDescription := BSTR(this.ptr + 16)
+                this.__bstrDescription := BSTR(16, this)
             return this.__bstrDescription
         }
     }
@@ -69,7 +69,7 @@ class EXCEPINFO extends Win32Struct
     bstrHelpFile{
         get {
             if(!this.HasProp("__bstrHelpFile"))
-                this.__bstrHelpFile := BSTR(this.ptr + 24)
+                this.__bstrHelpFile := BSTR(24, this)
             return this.__bstrHelpFile
         }
     }

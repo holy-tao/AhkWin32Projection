@@ -21,7 +21,7 @@ class CRYPT_XML_KEY_RSA_KEY_VALUE extends Win32Struct
     Modulus{
         get {
             if(!this.HasProp("__Modulus"))
-                this.__Modulus := CRYPT_XML_DATA_BLOB(this.ptr + 0)
+                this.__Modulus := CRYPT_XML_DATA_BLOB(0, this)
             return this.__Modulus
         }
     }
@@ -33,7 +33,7 @@ class CRYPT_XML_KEY_RSA_KEY_VALUE extends Win32Struct
     Exponent{
         get {
             if(!this.HasProp("__Exponent"))
-                this.__Exponent := CRYPT_XML_DATA_BLOB(this.ptr + 16)
+                this.__Exponent := CRYPT_XML_DATA_BLOB(16, this)
             return this.__Exponent
         }
     }

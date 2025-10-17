@@ -2,9 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\..\Foundation\COLORREF.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
@@ -45,7 +42,7 @@ class CHOOSEFONTW extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
+                this.__hwndOwner := HWND(8, this)
             return this.__hwndOwner
         }
     }
@@ -61,7 +58,7 @@ class CHOOSEFONTW extends Win32Struct
     hDC{
         get {
             if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 16)
+                this.__hDC := HDC(16, this)
             return this.__hDC
         }
     }
@@ -103,12 +100,9 @@ class CHOOSEFONTW extends Win32Struct
      * If the <b>CF_EFFECTS</b> flag is set, <b>rgbColors</b> specifies the initial text color. When <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646914(v=vs.85)">ChooseFont</a> returns successfully, this member contains the RGB value of the text color that the user selected. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @type {COLORREF}
      */
-    rgbColors{
-        get {
-            if(!this.HasProp("__rgbColors"))
-                this.__rgbColors := COLORREF(this.ptr + 40)
-            return this.__rgbColors
-        }
+    rgbColors {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -117,12 +111,9 @@ class CHOOSEFONTW extends Win32Struct
      * Application-defined data that the system passes to the hook procedure identified by the <b>lpfnHook</b> member. When the system sends the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message to the hook procedure, the message's <i>lParam</i> parameter is a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646914(v=vs.85)">CHOOSEFONT</a> structure specified when the dialog was created. The hook procedure can use this pointer to get the <b>lCustData</b> value.
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 48)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -142,12 +133,9 @@ class CHOOSEFONTW extends Win32Struct
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template is substituted for the standard dialog box template. For numbered dialog box resources, <b>lpTemplateName</b> can be a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored unless the <b>CF_ENABLETEMPLATE</b> flag is set in the <b>Flags</b> member.
      * @type {PWSTR}
      */
-    lpTemplateName{
-        get {
-            if(!this.HasProp("__lpTemplateName"))
-                this.__lpTemplateName := PWSTR(this.ptr + 64)
-            return this.__lpTemplateName
-        }
+    lpTemplateName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -159,7 +147,7 @@ class CHOOSEFONTW extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 72)
+                this.__hInstance := HINSTANCE(72, this)
             return this.__hInstance
         }
     }
@@ -170,12 +158,9 @@ class CHOOSEFONTW extends Win32Struct
      * The style data. If the <b>CF_USESTYLE</b> flag is specified, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646914(v=vs.85)">ChooseFont</a> uses the data in this buffer to initialize the <b>Font Style</b> combo box. When the user closes the dialog box, <b>ChooseFont</b> copies the string in the <b>Font Style</b> combo box into this buffer.
      * @type {PWSTR}
      */
-    lpszStyle{
-        get {
-            if(!this.HasProp("__lpszStyle"))
-                this.__lpszStyle := PWSTR(this.ptr + 80)
-            return this.__lpszStyle
-        }
+    lpszStyle {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**

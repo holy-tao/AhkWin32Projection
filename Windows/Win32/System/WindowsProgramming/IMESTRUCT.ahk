@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Used by SendIMEMessageEx to specify the subfunction to be executed in the Input Method Editor (IME) message and its parameters. This structure is also used to receive return values from those subfunctions.
@@ -28,12 +26,9 @@ class IMESTRUCT extends Win32Struct
      * Usage depends on the subfunction specified in <b>fnc</b>.
      * @type {WPARAM}
      */
-    wParam{
-        get {
-            if(!this.HasProp("__wParam"))
-                this.__wParam := WPARAM(this.ptr + 8)
-            return this.__wParam
-        }
+    wParam {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -67,35 +62,26 @@ class IMESTRUCT extends Win32Struct
      * Usage depends on the subfunction specified in <b>fnc</b>.
      * @type {LPARAM}
      */
-    lParam1{
-        get {
-            if(!this.HasProp("__lParam1"))
-                this.__lParam1 := LPARAM(this.ptr + 32)
-            return this.__lParam1
-        }
+    lParam1 {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
      * @type {LPARAM}
      */
-    lParam2{
-        get {
-            if(!this.HasProp("__lParam2"))
-                this.__lParam2 := LPARAM(this.ptr + 40)
-            return this.__lParam2
-        }
+    lParam2 {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
      * @type {LPARAM}
      */
-    lParam3{
-        get {
-            if(!this.HasProp("__lParam3"))
-                this.__lParam3 := LPARAM(this.ptr + 48)
-            return this.__lParam3
-        }
+    lParam3 {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

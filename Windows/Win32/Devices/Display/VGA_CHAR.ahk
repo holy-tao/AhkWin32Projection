@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -15,22 +14,16 @@ class VGA_CHAR extends Win32Struct
     /**
      * @type {CHAR}
      */
-    Char{
-        get {
-            if(!this.HasProp("__Char"))
-                this.__Char := CHAR(this.ptr + 0)
-            return this.__Char
-        }
+    Char {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
      * @type {CHAR}
      */
-    Attributes{
-        get {
-            if(!this.HasProp("__Attributes"))
-                this.__Attributes := CHAR(this.ptr + 1)
-            return this.__Attributes
-        }
+    Attributes {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 }

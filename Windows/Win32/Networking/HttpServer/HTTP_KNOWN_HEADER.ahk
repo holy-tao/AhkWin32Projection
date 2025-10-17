@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains the header values for a known header from an HTTP request or HTTP response.
@@ -37,11 +36,8 @@ class HTTP_KNOWN_HEADER extends Win32Struct
      * <a href="https://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a>.
      * @type {PSTR}
      */
-    pRawValue{
-        get {
-            if(!this.HasProp("__pRawValue"))
-                this.__pRawValue := PSTR(this.ptr + 8)
-            return this.__pRawValue
-        }
+    pRawValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

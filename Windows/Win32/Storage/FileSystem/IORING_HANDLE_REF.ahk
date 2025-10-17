@@ -22,7 +22,7 @@ class IORING_HANDLE_REF extends Win32Struct
         Handle{
             get {
                 if(!this.HasProp("__Handle"))
-                    this.__Handle := HANDLE(this.ptr + 0)
+                    this.__Handle := HANDLE(0, this)
                 return this.__Handle
             }
         }
@@ -51,7 +51,7 @@ class IORING_HANDLE_REF extends Win32Struct
     Handle{
         get {
             if(!this.HasProp("__Handle"))
-                this.__Handle := %this.__Class%.HandleUnion(this.ptr + 8)
+                this.__Handle := %this.__Class%.HandleUnion(8, this)
             return this.__Handle
         }
     }

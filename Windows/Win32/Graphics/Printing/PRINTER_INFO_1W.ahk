@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -24,33 +23,24 @@ class PRINTER_INFO_1W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pDescription{
-        get {
-            if(!this.HasProp("__pDescription"))
-                this.__pDescription := PWSTR(this.ptr + 8)
-            return this.__pDescription
-        }
+    pDescription {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 16)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pComment{
-        get {
-            if(!this.HasProp("__pComment"))
-                this.__pComment := PWSTR(this.ptr + 24)
-            return this.__pComment
-        }
+    pComment {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

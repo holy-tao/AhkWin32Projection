@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used with the ADsPropGetInitInfo function to obtain object data that a display specifier applies to.
@@ -59,12 +58,9 @@ class ADSPROPINITPARAMS extends Win32Struct
      * Pointer to a null-terminated Unicode string that contains the common name of the directory object.
      * @type {PWSTR}
      */
-    pwzCN{
-        get {
-            if(!this.HasProp("__pwzCN"))
-                this.__pwzCN := PWSTR(this.ptr + 24)
-            return this.__pwzCN
-        }
+    pwzCN {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

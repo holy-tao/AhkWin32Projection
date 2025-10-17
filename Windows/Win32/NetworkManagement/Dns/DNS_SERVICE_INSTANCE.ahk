@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a DNS service running on the network.
@@ -30,24 +29,18 @@ class DNS_SERVICE_INSTANCE extends Win32Struct
      * A string that represents the service name. This is a fully qualified domain name that begins with a service name, and ends with ".local". It takes the generalized form "\<ServiceName\>.\_\<ServiceType\>.\_\<TransportProtocol\>.local". For example, "MyMusicServer._http._tcp.local".
      * @type {PWSTR}
      */
-    pszInstanceName{
-        get {
-            if(!this.HasProp("__pszInstanceName"))
-                this.__pszInstanceName := PWSTR(this.ptr + 0)
-            return this.__pszInstanceName
-        }
+    pszInstanceName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A string that represents the name of the host of the service.
      * @type {PWSTR}
      */
-    pszHostName{
-        get {
-            if(!this.HasProp("__pszHostName"))
-                this.__pszHostName := PWSTR(this.ptr + 8)
-            return this.__pszHostName
-        }
+    pszHostName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

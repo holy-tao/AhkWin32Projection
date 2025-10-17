@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Describes parameters for use in the reverb APO.
@@ -408,11 +407,8 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * <div> </div>
      * @type {BOOL}
      */
-    DisableLateField{
-        get {
-            if(!this.HasProp("__DisableLateField"))
-                this.__DisableLateField := BOOL(this.ptr + 56)
-            return this.__DisableLateField
-        }
+    DisableLateField {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

@@ -102,7 +102,7 @@ class WTS_SOCKADDR extends Win32Struct
     ipv4{
         get {
             if(!this.HasProp("__ipv4"))
-                this.__ipv4 := %this.__Class%._ipv4(this.ptr + 8)
+                this.__ipv4 := %this.__Class%._ipv4(8, this)
             return this.__ipv4
         }
     }
@@ -113,7 +113,7 @@ class WTS_SOCKADDR extends Win32Struct
     ipv6{
         get {
             if(!this.HasProp("__ipv6"))
-                this.__ipv6 := %this.__Class%._ipv6(this.ptr + 8)
+                this.__ipv6 := %this.__Class%._ipv6(8, this)
             return this.__ipv6
         }
     }

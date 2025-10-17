@@ -67,7 +67,7 @@ class HistogramHeader extends Win32Struct
     Grid{
         get {
             if(!this.HasProp("__Grid"))
-                this.__Grid := HistogramGrid(this.ptr + 16)
+                this.__Grid := HistogramGrid(16, this)
             return this.__Grid
         }
     }

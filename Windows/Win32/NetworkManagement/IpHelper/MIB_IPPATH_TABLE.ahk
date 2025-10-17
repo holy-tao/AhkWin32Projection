@@ -7,7 +7,6 @@
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\MIB_IPPATH_ROW.ahk
 
 /**

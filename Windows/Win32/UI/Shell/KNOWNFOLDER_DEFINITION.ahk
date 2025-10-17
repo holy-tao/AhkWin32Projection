@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the specifics of a known folder.
@@ -36,12 +35,9 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      * A pointer to the non-localized, canonical name for the known folder, stored as a null-terminated Unicode string. If this folder is a common or per-user folder, this value is also used as the value name of the "User Shell Folders" registry settings. This name is meant to be a unique, human-readable name. Third parties are recommended to follow the format <c>Company.Application.Name</c>. The name given here should not be confused with the display name.
      * @type {PWSTR}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PWSTR(this.ptr + 8)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -50,12 +46,9 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      * A pointer to a short description of the known folder, stored as a null-terminated Unicode string. This description should include the folder's purpose and usage.
      * @type {PWSTR}
      */
-    pszDescription{
-        get {
-            if(!this.HasProp("__pszDescription"))
-                this.__pszDescription := PWSTR(this.ptr + 16)
-            return this.__pszDescription
-        }
+    pszDescription {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -79,12 +72,9 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      * Optional. A pointer to a path relative to the parent folder specified in <b>fidParent</b>. This is a null-terminated Unicode string, refers to the physical file system path, and is not localized. Applies to common and per-user folders only. See <b>Remarks</b> for more details.
      * @type {PWSTR}
      */
-    pszRelativePath{
-        get {
-            if(!this.HasProp("__pszRelativePath"))
-                this.__pszRelativePath := PWSTR(this.ptr + 32)
-            return this.__pszRelativePath
-        }
+    pszRelativePath {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -93,12 +83,9 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      * A pointer to the Shell namespace folder path of the folder, stored as a null-terminated Unicode string. Applies to virtual folders only. For example, <c>Control Panel</code> has a parsing name of <code>::%CLSID_MyComputer%\::%CLSID_ControlPanel%</c>.
      * @type {PWSTR}
      */
-    pszParsingName{
-        get {
-            if(!this.HasProp("__pszParsingName"))
-                this.__pszParsingName := PWSTR(this.ptr + 40)
-            return this.__pszParsingName
-        }
+    pszParsingName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -115,12 +102,9 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      * This information is not required for virtual folders.
      * @type {PWSTR}
      */
-    pszTooltip{
-        get {
-            if(!this.HasProp("__pszTooltip"))
-                this.__pszTooltip := PWSTR(this.ptr + 48)
-            return this.__pszTooltip
-        }
+    pszTooltip {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -137,12 +121,9 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      * This information is not required for virtual folders.
      * @type {PWSTR}
      */
-    pszLocalizedName{
-        get {
-            if(!this.HasProp("__pszLocalizedName"))
-                this.__pszLocalizedName := PWSTR(this.ptr + 56)
-            return this.__pszLocalizedName
-        }
+    pszLocalizedName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -159,12 +140,9 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      * This information is not required for virtual folders.
      * @type {PWSTR}
      */
-    pszIcon{
-        get {
-            if(!this.HasProp("__pszIcon"))
-                this.__pszIcon := PWSTR(this.ptr + 64)
-            return this.__pszIcon
-        }
+    pszIcon {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -173,12 +151,9 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      * Optional. A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-definition-language">Security Descriptor Definition Language</a> format string. This is a null-terminated Unicode string that describes the default security descriptor that the folder receives when it is created. If this parameter is <b>NULL</b>, the new folder inherits the security descriptor of its parent. This is particularly useful for common folders that are accessed by all users.
      * @type {PWSTR}
      */
-    pszSecurity{
-        get {
-            if(!this.HasProp("__pszSecurity"))
-                this.__pszSecurity := PWSTR(this.ptr + 72)
-            return this.__pszSecurity
-        }
+    pszSecurity {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

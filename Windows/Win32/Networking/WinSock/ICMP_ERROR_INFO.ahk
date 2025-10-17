@@ -31,7 +31,7 @@ class ICMP_ERROR_INFO extends Win32Struct
     srcaddress{
         get {
             if(!this.HasProp("__srcaddress"))
-                this.__srcaddress := SOCKADDR_INET(this.ptr + 0)
+                this.__srcaddress := SOCKADDR_INET(0, this)
             return this.__srcaddress
         }
     }

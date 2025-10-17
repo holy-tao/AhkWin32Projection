@@ -1468,7 +1468,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzAccessCheck", "uint", Flags, "ptr", hAuthzClientContext, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pSecurityDescriptor, "ptr", OptionalSecurityDescriptorArray, "uint", OptionalSecurityDescriptorCount, "ptr", pReply, "ptr", phAccessCheckResults, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzAccessCheck", "uint", Flags, "ptr", hAuthzClientContext, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pSecurityDescriptor, "ptr", OptionalSecurityDescriptorArray, "uint", OptionalSecurityDescriptorCount, "ptr", pReply, "ptr", phAccessCheckResults, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1546,7 +1546,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzCachedAccessCheck", "uint", Flags, "ptr", hAccessCheckResults, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pReply, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzCachedAccessCheck", "uint", Flags, "ptr", hAccessCheckResults, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pReply, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1579,7 +1579,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzOpenObjectAudit", "uint", Flags, "ptr", hAuthzClientContext, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pSecurityDescriptor, "ptr", OptionalSecurityDescriptorArray, "uint", OptionalSecurityDescriptorCount, "ptr", pReply, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzOpenObjectAudit", "uint", Flags, "ptr", hAuthzClientContext, "ptr", pRequest, "ptr", hAuditEvent, "ptr", pSecurityDescriptor, "ptr", OptionalSecurityDescriptorArray, "uint", OptionalSecurityDescriptorCount, "ptr", pReply, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1601,7 +1601,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzFreeHandle", "ptr", hAccessCheckResults, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzFreeHandle", "ptr", hAccessCheckResults, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1684,7 +1684,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeResourceManager", "uint", Flags, "ptr", pfnDynamicAccessCheck, "ptr", pfnComputeDynamicGroups, "ptr", pfnFreeDynamicGroups, "ptr", szResourceManagerName, "ptr", phAuthzResourceManager, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzInitializeResourceManager", "uint", Flags, "ptr", pfnDynamicAccessCheck, "ptr", pfnComputeDynamicGroups, "ptr", pfnFreeDynamicGroups, "ptr", szResourceManagerName, "ptr", phAuthzResourceManager, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1705,7 +1705,7 @@ class Authorization {
     static AuthzInitializeResourceManagerEx(Flags, pAuthzInitInfo, phAuthzResourceManager) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeResourceManagerEx", "uint", Flags, "ptr", pAuthzInitInfo, "ptr", phAuthzResourceManager, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzInitializeResourceManagerEx", "uint", Flags, "ptr", pAuthzInitInfo, "ptr", phAuthzResourceManager, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1725,7 +1725,7 @@ class Authorization {
     static AuthzInitializeRemoteResourceManager(pRpcInitInfo, phAuthzResourceManager) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeRemoteResourceManager", "ptr", pRpcInitInfo, "ptr", phAuthzResourceManager, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzInitializeRemoteResourceManager", "ptr", pRpcInitInfo, "ptr", phAuthzResourceManager, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1747,7 +1747,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzFreeResourceManager", "ptr", hAuthzResourceManager, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzFreeResourceManager", "ptr", hAuthzResourceManager, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1777,7 +1777,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromToken", "uint", Flags, "ptr", TokenHandle, "ptr", hAuthzResourceManager, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phAuthzClientContext, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromToken", "uint", Flags, "ptr", TokenHandle, "ptr", hAuthzResourceManager, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phAuthzClientContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1868,7 +1868,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromSid", "uint", Flags, "ptr", UserSid, "ptr", hAuthzResourceManager, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phAuthzClientContext, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromSid", "uint", Flags, "ptr", UserSid, "ptr", hAuthzResourceManager, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phAuthzClientContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1895,7 +1895,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromAuthzContext", "uint", Flags, "ptr", hAuthzClientContext, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phNewAuthzClientContext, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzInitializeContextFromAuthzContext", "uint", Flags, "ptr", hAuthzClientContext, "int64*", pExpirationTime, "ptr", Identifier, "ptr", DynamicGroupArgs, "ptr", phNewAuthzClientContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1920,7 +1920,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeCompoundContext", "ptr", UserContext, "ptr", DeviceContext, "ptr", phCompoundContext, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzInitializeCompoundContext", "ptr", UserContext, "ptr", DeviceContext, "ptr", phCompoundContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1948,7 +1948,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzAddSidsToContext", "ptr", hAuthzClientContext, "ptr", Sids, "uint", SidCount, "ptr", RestrictedSids, "uint", RestrictedSidCount, "ptr", phNewAuthzClientContext, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzAddSidsToContext", "ptr", hAuthzClientContext, "ptr", Sids, "uint", SidCount, "ptr", RestrictedSids, "uint", RestrictedSidCount, "ptr", phNewAuthzClientContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1974,7 +1974,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzModifySecurityAttributes", "ptr", hAuthzClientContext, "int*", pOperations, "ptr", pAttributes, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzModifySecurityAttributes", "ptr", hAuthzClientContext, "int*", pOperations, "ptr", pAttributes, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1999,7 +1999,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzModifyClaims", "ptr", hAuthzClientContext, "int", ClaimClass, "int*", pClaimOperations, "ptr", pClaims, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzModifyClaims", "ptr", hAuthzClientContext, "int", ClaimClass, "int*", pClaimOperations, "ptr", pClaims, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2024,7 +2024,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzModifySids", "ptr", hAuthzClientContext, "int", SidClass, "int*", pSidOperations, "ptr", pSids, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzModifySids", "ptr", hAuthzClientContext, "int", SidClass, "int*", pSidOperations, "ptr", pSids, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2049,7 +2049,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzSetAppContainerInformation", "ptr", hAuthzClientContext, "ptr", pAppContainerSid, "uint", CapabilityCount, "ptr", pCapabilitySids, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzSetAppContainerInformation", "ptr", hAuthzClientContext, "ptr", pAppContainerSid, "uint", CapabilityCount, "ptr", pCapabilitySids, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2075,7 +2075,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzGetInformationFromContext", "ptr", hAuthzClientContext, "int", InfoClass, "uint", BufferSize, "uint*", pSizeRequired, "ptr", Buffer, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzGetInformationFromContext", "ptr", hAuthzClientContext, "int", InfoClass, "uint", BufferSize, "uint*", pSizeRequired, "ptr", Buffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2097,7 +2097,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzFreeContext", "ptr", hAuthzClientContext, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzFreeContext", "ptr", hAuthzClientContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2129,7 +2129,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl ptr")
+        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl int")
         if(A_LastError)
             throw OSError()
 
@@ -2200,7 +2200,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent2", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", szAdditionalInfo2, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl ptr")
+        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent2", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", szAdditionalInfo2, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl int")
         if(A_LastError)
             throw OSError()
 
@@ -2222,7 +2222,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzFreeAuditEvent", "ptr", hAuditEvent, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzFreeAuditEvent", "ptr", hAuditEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2242,7 +2242,7 @@ class Authorization {
     static AuthzEvaluateSacl(AuthzClientContext, pRequest, Sacl, GrantedAccess, AccessGranted, pbGenerateAudit) {
         AuthzClientContext := AuthzClientContext is Win32Handle ? NumGet(AuthzClientContext, "ptr") : AuthzClientContext
 
-        result := DllCall("AUTHZ.dll\AuthzEvaluateSacl", "ptr", AuthzClientContext, "ptr", pRequest, "ptr", Sacl, "uint", GrantedAccess, "ptr", AccessGranted, "ptr", pbGenerateAudit, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzEvaluateSacl", "ptr", AuthzClientContext, "ptr", pRequest, "ptr", Sacl, "uint", GrantedAccess, "int", AccessGranted, "ptr", pbGenerateAudit, "int")
         return result
     }
 
@@ -2278,7 +2278,7 @@ class Authorization {
     static AuthzInstallSecurityEventSource(dwFlags, pRegistration) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInstallSecurityEventSource", "uint", dwFlags, "ptr", pRegistration, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzInstallSecurityEventSource", "uint", dwFlags, "ptr", pRegistration, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2302,7 +2302,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzUninstallSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzUninstallSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2324,7 +2324,7 @@ class Authorization {
     static AuthzEnumerateSecurityEventSources(dwFlags, Buffer, pdwCount, pdwLength) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzEnumerateSecurityEventSources", "uint", dwFlags, "ptr", Buffer, "uint*", pdwCount, "uint*", pdwLength, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzEnumerateSecurityEventSources", "uint", dwFlags, "ptr", Buffer, "uint*", pdwCount, "uint*", pdwLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2347,7 +2347,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzRegisterSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "ptr", phEventProvider, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzRegisterSecurityEventSource", "uint", dwFlags, "ptr", szEventSourceName, "ptr", phEventProvider, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2367,7 +2367,7 @@ class Authorization {
     static AuthzUnregisterSecurityEventSource(dwFlags, phEventProvider) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzUnregisterSecurityEventSource", "uint", dwFlags, "ptr", phEventProvider, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzUnregisterSecurityEventSource", "uint", dwFlags, "ptr", phEventProvider, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2421,7 +2421,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzReportSecurityEvent", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "uint", dwCount, "CDecl ptr")
+        result := DllCall("AUTHZ.dll\AuthzReportSecurityEvent", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "uint", dwCount, "CDecl int")
         if(A_LastError)
             throw OSError()
 
@@ -2446,7 +2446,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzReportSecurityEventFromParams", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "ptr", pParams, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzReportSecurityEventFromParams", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "ptr", pParams, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2468,7 +2468,7 @@ class Authorization {
     static AuthzRegisterCapChangeNotification(phCapChangeSubscription, pfnCapChangeCallback, pCallbackContext) {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzRegisterCapChangeNotification", "ptr", phCapChangeSubscription, "ptr", pfnCapChangeCallback, "ptr", pCallbackContext, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzRegisterCapChangeNotification", "ptr", phCapChangeSubscription, "ptr", pfnCapChangeCallback, "ptr", pCallbackContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2490,7 +2490,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzUnregisterCapChangeNotification", "ptr", hCapChangeSubscription, "ptr")
+        result := DllCall("AUTHZ.dll\AuthzUnregisterCapChangeNotification", "ptr", hCapChangeSubscription, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2509,7 +2509,7 @@ class Authorization {
     static AuthzFreeCentralAccessPolicyCache() {
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzFreeCentralAccessPolicyCache", "ptr")
+        result := DllCall("AUTHZ.dll\AuthzFreeCentralAccessPolicyCache", "int")
         if(A_LastError)
             throw OSError()
 
@@ -2868,7 +2868,7 @@ class Authorization {
     static GetInheritanceSourceA(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
+        result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
 
@@ -2893,7 +2893,7 @@ class Authorization {
     static GetInheritanceSourceW(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
+        result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
 
@@ -2941,7 +2941,7 @@ class Authorization {
     static TreeResetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "ptr", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
+        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "int", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
         return result
     }
 
@@ -2973,7 +2973,7 @@ class Authorization {
     static TreeResetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, pOwner, pGroup, pDacl, pSacl, KeepExplicit, fnProgress, ProgressInvokeSetting, Args) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "ptr", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
+        result := DllCall("ADVAPI32.dll\TreeResetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", pOwner, "ptr", pGroup, "ptr", pDacl, "ptr", pSacl, "int", KeepExplicit, "ptr", fnProgress, "int", ProgressInvokeSetting, "ptr", Args, "uint")
         return result
     }
 
@@ -3878,7 +3878,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetTrusteeNameA(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetTrusteeNameA", "ptr", pTrustee, "ptr")
+        result := DllCall("ADVAPI32.dll\GetTrusteeNameA", "ptr", pTrustee, "char*")
         return result
     }
 
@@ -3893,7 +3893,7 @@ class Authorization {
      * @since windows5.1.2600
      */
     static GetTrusteeNameW(pTrustee) {
-        result := DllCall("ADVAPI32.dll\GetTrusteeNameW", "ptr", pTrustee, "ptr")
+        result := DllCall("ADVAPI32.dll\GetTrusteeNameW", "ptr", pTrustee, "char*")
         return result
     }
 
@@ -4046,7 +4046,7 @@ class Authorization {
     static ConvertSidToStringSidA(Sid, StringSid) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidA", "ptr", Sid, "ptr", StringSid, "ptr")
+        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidA", "ptr", Sid, "ptr", StringSid, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4108,7 +4108,7 @@ class Authorization {
     static ConvertSidToStringSidW(Sid, StringSid) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidW", "ptr", Sid, "ptr", StringSid, "ptr")
+        result := DllCall("ADVAPI32.dll\ConvertSidToStringSidW", "ptr", Sid, "ptr", StringSid, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4166,7 +4166,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidA", "ptr", StringSid, "ptr", Sid, "ptr")
+        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidA", "ptr", StringSid, "ptr", Sid, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4224,7 +4224,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidW", "ptr", StringSid, "ptr", Sid, "ptr")
+        result := DllCall("ADVAPI32.dll\ConvertStringSidToSidW", "ptr", StringSid, "ptr", Sid, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4292,7 +4292,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorA", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, "uint*", SecurityDescriptorSize, "ptr")
+        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorA", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, "uint*", SecurityDescriptorSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4360,7 +4360,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorW", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, "uint*", SecurityDescriptorSize, "ptr")
+        result := DllCall("ADVAPI32.dll\ConvertStringSecurityDescriptorToSecurityDescriptorW", "ptr", StringSecurityDescriptor, "uint", StringSDRevision, "ptr", SecurityDescriptor, "uint*", SecurityDescriptorSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4443,7 +4443,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorA", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, "uint*", StringSecurityDescriptorLen, "ptr")
+        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorA", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, "uint*", StringSecurityDescriptorLen, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4526,7 +4526,7 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorW", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, "uint*", StringSecurityDescriptorLen, "ptr")
+        result := DllCall("ADVAPI32.dll\ConvertSecurityDescriptorToStringSecurityDescriptorW", "ptr", SecurityDescriptor, "uint", RequestedStringSDRevision, "uint", SecurityInformation, "ptr", StringSecurityDescriptor, "uint*", StringSecurityDescriptorLen, "int")
         if(A_LastError)
             throw OSError()
 

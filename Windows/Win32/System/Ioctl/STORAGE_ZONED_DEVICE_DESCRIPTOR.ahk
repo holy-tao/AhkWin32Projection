@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\STORAGE_ZONE_GROUP.ahk
 
 /**
@@ -60,12 +59,9 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
         /**
          * @type {BOOLEAN}
          */
-        UnrestrictedRead{
-            get {
-                if(!this.HasProp("__UnrestrictedRead"))
-                    this.__UnrestrictedRead := BOOLEAN(this.ptr + 4)
-                return this.__UnrestrictedRead
-            }
+        UnrestrictedRead {
+            get => NumGet(this, 4, "char")
+            set => NumPut("char", value, this, 4)
         }
     
         /**
@@ -109,7 +105,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
     SequentialRequiredZone{
         get {
             if(!this.HasProp("__SequentialRequiredZone"))
-                this.__SequentialRequiredZone := %this.__Class%._SequentialRequiredZone(this.ptr + 16)
+                this.__SequentialRequiredZone := %this.__Class%._SequentialRequiredZone(16, this)
             return this.__SequentialRequiredZone
         }
     }
@@ -120,7 +116,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
     SequentialPreferredZone{
         get {
             if(!this.HasProp("__SequentialPreferredZone"))
-                this.__SequentialPreferredZone := %this.__Class%._SequentialPreferredZone(this.ptr + 16)
+                this.__SequentialPreferredZone := %this.__Class%._SequentialPreferredZone(16, this)
             return this.__SequentialPreferredZone
         }
     }

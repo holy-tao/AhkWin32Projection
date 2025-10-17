@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a connection within a graph of DirectML operators defined by [DML_GRAPH_DESC](/windows/desktop/api/directml/ns-directml-dml_graph_desc) and passed to [IDMLDevice1::CompileGraph](/windows/desktop/api/directml/nf-directml-idmldevice1-compilegraph). This structure is used to define a connection from a graph input to an input of an internal node.
@@ -53,11 +52,8 @@ class DML_INPUT_GRAPH_EDGE_DESC extends Win32Struct
      * An optional name for the graph connection. If provided, this might be used within certain error messages emitted by the DirectML debug layer.
      * @type {PSTR}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PSTR(this.ptr + 16)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

@@ -428,7 +428,7 @@ class PRINTIFI32 extends Win32Struct
     ptlBaseline{
         get {
             if(!this.HasProp("__ptlBaseline"))
-                this.__ptlBaseline := POINTL(this.ptr + 120)
+                this.__ptlBaseline := POINTL(120, this)
             return this.__ptlBaseline
         }
     }
@@ -439,7 +439,7 @@ class PRINTIFI32 extends Win32Struct
     ptlAspect{
         get {
             if(!this.HasProp("__ptlAspect"))
-                this.__ptlAspect := POINTL(this.ptr + 128)
+                this.__ptlAspect := POINTL(128, this)
             return this.__ptlAspect
         }
     }
@@ -450,7 +450,7 @@ class PRINTIFI32 extends Win32Struct
     ptlCaret{
         get {
             if(!this.HasProp("__ptlCaret"))
-                this.__ptlCaret := POINTL(this.ptr + 136)
+                this.__ptlCaret := POINTL(136, this)
             return this.__ptlCaret
         }
     }
@@ -461,7 +461,7 @@ class PRINTIFI32 extends Win32Struct
     rclFontBox{
         get {
             if(!this.HasProp("__rclFontBox"))
-                this.__rclFontBox := RECTL(this.ptr + 144)
+                this.__rclFontBox := RECTL(144, this)
             return this.__rclFontBox
         }
     }
@@ -499,7 +499,7 @@ class PRINTIFI32 extends Win32Struct
     panose{
         get {
             if(!this.HasProp("__panose"))
-                this.__panose := PANOSE(this.ptr + 176)
+                this.__panose := PANOSE(176, this)
             return this.__panose
         }
     }

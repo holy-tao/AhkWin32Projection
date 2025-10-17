@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\LVGROUP.ahk
 
 /**
@@ -46,7 +45,7 @@ class LVINSERTGROUPSORTED extends Win32Struct
     lvGroup{
         get {
             if(!this.HasProp("__lvGroup"))
-                this.__lvGroup := LVGROUP(this.ptr + 16)
+                this.__lvGroup := LVGROUP(16, this)
             return this.__lvGroup
         }
     }

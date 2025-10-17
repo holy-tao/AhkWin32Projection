@@ -93,7 +93,7 @@ class CLFS_MGMT_NOTIFICATION extends Win32Struct
     Lsn{
         get {
             if(!this.HasProp("__Lsn"))
-                this.__Lsn := CLS_LSN(this.ptr + 8)
+                this.__Lsn := CLS_LSN(8, this)
             return this.__Lsn
         }
     }

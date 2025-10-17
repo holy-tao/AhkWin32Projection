@@ -57,7 +57,7 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     bindingConstraint{
         get {
             if(!this.HasProp("__bindingConstraint"))
-                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(this.ptr + 0)
+                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(0, this)
             return this.__bindingConstraint
         }
     }
@@ -127,7 +127,7 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     out{
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(this.ptr + 64)
+                this.__out := %this.__Class%._out(64, this)
             return this.__out
         }
     }

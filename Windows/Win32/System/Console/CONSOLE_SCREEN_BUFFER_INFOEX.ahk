@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\COORD.ahk
 #Include .\SMALL_RECT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -11,7 +9,7 @@
  */
 class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
 {
-    static sizeof => 168
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -29,7 +27,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     dwSize{
         get {
             if(!this.HasProp("__dwSize"))
-                this.__dwSize := COORD(this.ptr + 4)
+                this.__dwSize := COORD(4, this)
             return this.__dwSize
         }
     }
@@ -40,7 +38,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     dwCursorPosition{
         get {
             if(!this.HasProp("__dwCursorPosition"))
-                this.__dwCursorPosition := COORD(this.ptr + 8)
+                this.__dwCursorPosition := COORD(8, this)
             return this.__dwCursorPosition
         }
     }
@@ -59,7 +57,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     srWindow{
         get {
             if(!this.HasProp("__srWindow"))
-                this.__srWindow := SMALL_RECT(this.ptr + 16)
+                this.__srWindow := SMALL_RECT(16, this)
             return this.__srWindow
         }
     }
@@ -70,7 +68,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     dwMaximumWindowSize{
         get {
             if(!this.HasProp("__dwMaximumWindowSize"))
-                this.__dwMaximumWindowSize := COORD(this.ptr + 24)
+                this.__dwMaximumWindowSize := COORD(24, this)
             return this.__dwMaximumWindowSize
         }
     }
@@ -86,12 +84,9 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bFullscreenSupported{
-        get {
-            if(!this.HasProp("__bFullscreenSupported"))
-                this.__bFullscreenSupported := BOOL(this.ptr + 32)
-            return this.__bFullscreenSupported
-        }
+    bFullscreenSupported {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -100,17 +95,13 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     ColorTable{
         get {
             if(!this.HasProp("__ColorTableProxyArray"))
-                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 40, 16, COLORREF, "")
+                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 36, 16, COLORREF, "")
             return this.__ColorTableProxyArray
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
-        this.cbSize := 168
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
+        this.cbSize := 104
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information updated by a certificate revocation list (CRL) revocation type handler.
@@ -54,20 +53,13 @@ class CERT_REVOCATION_CRL_INFO extends Win32Struct
      * <b>TRUE</b> if <b>pCrlEntry</b> points to an entry in the delta CRL. <b>FALSE</b> if <b>pCrlEntry</b> points to an entry in the base CRL.
      * @type {BOOL}
      */
-    fDeltaCrlEntry{
-        get {
-            if(!this.HasProp("__fDeltaCrlEntry"))
-                this.__fDeltaCrlEntry := BOOL(this.ptr + 32)
-            return this.__fDeltaCrlEntry
-        }
+    fDeltaCrlEntry {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

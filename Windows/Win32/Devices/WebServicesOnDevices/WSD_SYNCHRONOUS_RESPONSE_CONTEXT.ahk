@@ -30,7 +30,7 @@ class WSD_SYNCHRONOUS_RESPONSE_CONTEXT extends Win32Struct
     eventHandle{
         get {
             if(!this.HasProp("__eventHandle"))
-                this.__eventHandle := HANDLE(this.ptr + 8)
+                this.__eventHandle := HANDLE(8, this)
             return this.__eventHandle
         }
     }

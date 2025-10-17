@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_SIZE_RANGE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the allocation size of a video motion estimator heap.
@@ -61,7 +60,7 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE extends Win32Struct
     SizeRange{
         get {
             if(!this.HasProp("__SizeRange"))
-                this.__SizeRange := D3D12_VIDEO_SIZE_RANGE(this.ptr + 16)
+                this.__SizeRange := D3D12_VIDEO_SIZE_RANGE(16, this)
             return this.__SizeRange
         }
     }
@@ -70,12 +69,9 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR_SIZE extends Win32Struct
      * TRUE if the motion estimator operates on protected resource input and produces protected output; otherwise, FALSE.
      * @type {BOOL}
      */
-    Protected{
-        get {
-            if(!this.HasProp("__Protected"))
-                this.__Protected := BOOL(this.ptr + 32)
-            return this.__Protected
-        }
+    Protected {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**

@@ -26,7 +26,7 @@ class AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION extends Win32Struct
     propertyKey{
         get {
             if(!this.HasProp("__propertyKey"))
-                this.__propertyKey := PROPERTYKEY(this.ptr + 8)
+                this.__propertyKey := PROPERTYKEY(8, this)
             return this.__propertyKey
         }
     }

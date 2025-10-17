@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DRMID.ahk
 
 /**
@@ -70,24 +69,18 @@ class DRMBOUNDLICENSEPARAMS extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains a comma-delimited list of the rights requested. This member cannot be <b>NULL</b>, and the string must contain valid rights such as EDIT and OWNER.
      * @type {PWSTR}
      */
-    wszRightsRequested{
-        get {
-            if(!this.HasProp("__wszRightsRequested"))
-                this.__wszRightsRequested := PWSTR(this.ptr + 16)
-            return this.__wszRightsRequested
-        }
+    wszRightsRequested {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the rights group to use in the license; for more information, see Remarks. This member can be set to <b>NULL</b> if it is not used.
      * @type {PWSTR}
      */
-    wszRightsGroup{
-        get {
-            if(!this.HasProp("__wszRightsGroup"))
-                this.__wszRightsGroup := PWSTR(this.ptr + 24)
-            return this.__wszRightsGroup
-        }
+    wszRightsGroup {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -97,7 +90,7 @@ class DRMBOUNDLICENSEPARAMS extends Win32Struct
     idResource{
         get {
             if(!this.HasProp("__idResource"))
-                this.__idResource := DRMID(this.ptr + 32)
+                this.__idResource := DRMID(32, this)
             return this.__idResource
         }
     }
@@ -124,12 +117,9 @@ class DRMBOUNDLICENSEPARAMS extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the certificate for the enabling principal (the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/r-gly">rights account certificate</a>). This member can be set to <b>NULL</b> if it is not used.
      * @type {PWSTR}
      */
-    wszDefaultEnablingPrincipalCredentials{
-        get {
-            if(!this.HasProp("__wszDefaultEnablingPrincipalCredentials"))
-                this.__wszDefaultEnablingPrincipalCredentials := PWSTR(this.ptr + 72)
-            return this.__wszDefaultEnablingPrincipalCredentials
-        }
+    wszDefaultEnablingPrincipalCredentials {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

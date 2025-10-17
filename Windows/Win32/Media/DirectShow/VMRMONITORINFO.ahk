@@ -23,7 +23,7 @@ class VMRMONITORINFO extends Win32Struct
     guid{
         get {
             if(!this.HasProp("__guid"))
-                this.__guid := VMRGUID(this.ptr + 0)
+                this.__guid := VMRGUID(0, this)
             return this.__guid
         }
     }
@@ -35,7 +35,7 @@ class VMRMONITORINFO extends Win32Struct
     rcMonitor{
         get {
             if(!this.HasProp("__rcMonitor"))
-                this.__rcMonitor := RECT(this.ptr + 16)
+                this.__rcMonitor := RECT(16, this)
             return this.__rcMonitor
         }
     }
@@ -47,7 +47,7 @@ class VMRMONITORINFO extends Win32Struct
     hMon{
         get {
             if(!this.HasProp("__hMon"))
-                this.__hMon := HMONITOR(this.ptr + 32)
+                this.__hMon := HMONITOR(32, this)
             return this.__hMon
         }
     }

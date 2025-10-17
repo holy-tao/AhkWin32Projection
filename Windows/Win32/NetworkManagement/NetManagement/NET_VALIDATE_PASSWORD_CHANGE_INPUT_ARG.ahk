@@ -2,9 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\NET_VALIDATE_PERSISTED_FIELDS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\NET_VALIDATE_PASSWORD_HASH.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * A client application passes the NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG structure to the NetValidatePasswordPolicy function when the application requests a password change validation.
@@ -25,7 +23,7 @@ class NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG extends Win32Struct
     InputPersistedFields{
         get {
             if(!this.HasProp("__InputPersistedFields"))
-                this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(this.ptr + 0)
+                this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(0, this)
             return this.__InputPersistedFields
         }
     }
@@ -34,24 +32,18 @@ class NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG extends Win32Struct
      * Pointer to a Unicode string specifying the new password, in plaintext format.
      * @type {PWSTR}
      */
-    ClearPassword{
-        get {
-            if(!this.HasProp("__ClearPassword"))
-                this.__ClearPassword := PWSTR(this.ptr + 48)
-            return this.__ClearPassword
-        }
+    ClearPassword {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Pointer to a Unicode string specifying the name of the user account.
      * @type {PWSTR}
      */
-    UserAccountName{
-        get {
-            if(!this.HasProp("__UserAccountName"))
-                this.__UserAccountName := PWSTR(this.ptr + 56)
-            return this.__UserAccountName
-        }
+    UserAccountName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -61,7 +53,7 @@ class NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG extends Win32Struct
     HashedPassword{
         get {
             if(!this.HasProp("__HashedPassword"))
-                this.__HashedPassword := NET_VALIDATE_PASSWORD_HASH(this.ptr + 64)
+                this.__HashedPassword := NET_VALIDATE_PASSWORD_HASH(64, this)
             return this.__HashedPassword
         }
     }
@@ -70,11 +62,8 @@ class NET_VALIDATE_PASSWORD_CHANGE_INPUT_ARG extends Win32Struct
      * BOOLEAN value that indicates the result of the application's attempt to validate the old password supplied by the user. If this parameter is <b>FALSE</b>, the password was not validated.
      * @type {BOOLEAN}
      */
-    PasswordMatch{
-        get {
-            if(!this.HasProp("__PasswordMatch"))
-                this.__PasswordMatch := BOOLEAN(this.ptr + 80)
-            return this.__PasswordMatch
-        }
+    PasswordMatch {
+        get => NumGet(this, 80, "char")
+        set => NumPut("char", value, this, 80)
     }
 }

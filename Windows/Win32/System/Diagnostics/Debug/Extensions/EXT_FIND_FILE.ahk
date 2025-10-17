@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Foundation\HANDLE.ahk
 
 /**
@@ -16,12 +15,9 @@ class EXT_FIND_FILE extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    FileName{
-        get {
-            if(!this.HasProp("__FileName"))
-                this.__FileName := PWSTR(this.ptr + 0)
-            return this.__FileName
-        }
+    FileName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -94,7 +90,7 @@ class EXT_FIND_FILE extends Win32Struct
     FileHandle{
         get {
             if(!this.HasProp("__FileHandle"))
-                this.__FileHandle := HANDLE(this.ptr + 56)
+                this.__FileHandle := HANDLE(56, this)
             return this.__FileHandle
         }
     }
@@ -102,12 +98,9 @@ class EXT_FIND_FILE extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    FoundFileName{
-        get {
-            if(!this.HasProp("__FoundFileName"))
-                this.__FoundFileName := PWSTR(this.ptr + 64)
-            return this.__FoundFileName
-        }
+    FoundFileName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

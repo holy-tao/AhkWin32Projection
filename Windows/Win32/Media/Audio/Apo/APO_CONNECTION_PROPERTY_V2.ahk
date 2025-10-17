@@ -27,7 +27,7 @@ class APO_CONNECTION_PROPERTY_V2 extends Win32Struct
     property{
         get {
             if(!this.HasProp("__property"))
-                this.__property := APO_CONNECTION_PROPERTY(this.ptr + 0)
+                this.__property := APO_CONNECTION_PROPERTY(0, this)
             return this.__property
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a key and value pair within a selector set and is used to identify a particular resource.
@@ -18,23 +17,17 @@ class WSMAN_KEY extends Win32Struct
      * Specifies the key name.
      * @type {PWSTR}
      */
-    key{
-        get {
-            if(!this.HasProp("__key"))
-                this.__key := PWSTR(this.ptr + 0)
-            return this.__key
-        }
+    key {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Defines the value associated with <i>key</i>.
      * @type {PWSTR}
      */
-    value{
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := PWSTR(this.ptr + 8)
-            return this.__value
-        }
+    value {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

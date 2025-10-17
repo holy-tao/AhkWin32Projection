@@ -32,7 +32,7 @@ class PDH_RAW_COUNTER extends Win32Struct
     TimeStamp{
         get {
             if(!this.HasProp("__TimeStamp"))
-                this.__TimeStamp := FILETIME(this.ptr + 8)
+                this.__TimeStamp := FILETIME(8, this)
             return this.__TimeStamp
         }
     }

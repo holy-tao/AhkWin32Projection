@@ -86,7 +86,7 @@ class PM_ENUM_FILTER extends Win32Struct
     AppTaskType{
         get {
             if(!this.HasProp("__AppTaskType"))
-                this.__AppTaskType := PM_APPTASKTYPE(this.ptr + 8)
+                this.__AppTaskType := PM_APPTASKTYPE(8, this)
             return this.__AppTaskType
         }
     }
@@ -97,7 +97,7 @@ class PM_ENUM_FILTER extends Win32Struct
     Consumer{
         get {
             if(!this.HasProp("__Consumer"))
-                this.__Consumer := PM_EXTENSIONCONSUMER(this.ptr + 8)
+                this.__Consumer := PM_EXTENSIONCONSUMER(8, this)
             return this.__Consumer
         }
     }
@@ -108,7 +108,7 @@ class PM_ENUM_FILTER extends Win32Struct
     BSATask{
         get {
             if(!this.HasProp("__BSATask"))
-                this.__BSATask := PM_BSATASKID(this.ptr + 8)
+                this.__BSATask := PM_BSATASKID(8, this)
             return this.__BSATask
         }
     }
@@ -127,7 +127,7 @@ class PM_ENUM_FILTER extends Win32Struct
     BWTask{
         get {
             if(!this.HasProp("__BWTask"))
-                this.__BWTask := PM_BWTASKID(this.ptr + 8)
+                this.__BWTask := PM_BWTASKID(8, this)
             return this.__BWTask
         }
     }
@@ -138,7 +138,7 @@ class PM_ENUM_FILTER extends Win32Struct
     ProtocolName{
         get {
             if(!this.HasProp("__ProtocolName"))
-                this.__ProtocolName := BSTR(this.ptr + 8)
+                this.__ProtocolName := BSTR(8, this)
             return this.__ProtocolName
         }
     }
@@ -149,7 +149,7 @@ class PM_ENUM_FILTER extends Win32Struct
     FileType{
         get {
             if(!this.HasProp("__FileType"))
-                this.__FileType := BSTR(this.ptr + 8)
+                this.__FileType := BSTR(8, this)
             return this.__FileType
         }
     }
@@ -160,7 +160,7 @@ class PM_ENUM_FILTER extends Win32Struct
     ContentType{
         get {
             if(!this.HasProp("__ContentType"))
-                this.__ContentType := BSTR(this.ptr + 8)
+                this.__ContentType := BSTR(8, this)
             return this.__ContentType
         }
     }
@@ -179,7 +179,7 @@ class PM_ENUM_FILTER extends Win32Struct
     ShareTargetFileType{
         get {
             if(!this.HasProp("__ShareTargetFileType"))
-                this.__ShareTargetFileType := BSTR(this.ptr + 8)
+                this.__ShareTargetFileType := BSTR(8, this)
             return this.__ShareTargetFileType
         }
     }

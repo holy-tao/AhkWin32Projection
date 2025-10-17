@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -41,24 +39,18 @@ class WSMAN_PLUGIN_REQUEST extends Win32Struct
      * Any call into the plug-in will have the locale on the thread set to the  locale that is specified in this member.  If the plug-in has other threads working on the request, the plug-in will need to set the locale accordingly on each thread that it uses.
      * @type {PWSTR}
      */
-    locale{
-        get {
-            if(!this.HasProp("__locale"))
-                this.__locale := PWSTR(this.ptr + 8)
-            return this.__locale
-        }
+    locale {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/WinRM/windows-remote-management-glossary">resource URI</a> for this operation.
      * @type {PWSTR}
      */
-    resourceUri{
-        get {
-            if(!this.HasProp("__resourceUri"))
-                this.__resourceUri := PWSTR(this.ptr + 16)
-            return this.__resourceUri
-        }
+    resourceUri {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -74,12 +66,9 @@ class WSMAN_PLUGIN_REQUEST extends Win32Struct
      * If the operation is canceled, the <b>shutdownNotification</b> member is set to <b>TRUE</b>.
      * @type {BOOL}
      */
-    shutdownNotification{
-        get {
-            if(!this.HasProp("__shutdownNotification"))
-                this.__shutdownNotification := BOOL(this.ptr + 32)
-            return this.__shutdownNotification
-        }
+    shutdownNotification {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -89,7 +78,7 @@ class WSMAN_PLUGIN_REQUEST extends Win32Struct
     shutdownNotificationHandle{
         get {
             if(!this.HasProp("__shutdownNotificationHandle"))
-                this.__shutdownNotificationHandle := HANDLE(this.ptr + 40)
+                this.__shutdownNotificationHandle := HANDLE(40, this)
             return this.__shutdownNotificationHandle
         }
     }
@@ -98,11 +87,8 @@ class WSMAN_PLUGIN_REQUEST extends Win32Struct
      * 
      * @type {PWSTR}
      */
-    dataLocale{
-        get {
-            if(!this.HasProp("__dataLocale"))
-                this.__dataLocale := PWSTR(this.ptr + 48)
-            return this.__dataLocale
-        }
+    dataLocale {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

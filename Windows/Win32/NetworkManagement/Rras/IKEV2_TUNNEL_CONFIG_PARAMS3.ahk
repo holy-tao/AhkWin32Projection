@@ -74,7 +74,7 @@ class IKEV2_TUNNEL_CONFIG_PARAMS3 extends Win32Struct
     machineCertificateName{
         get {
             if(!this.HasProp("__machineCertificateName"))
-                this.__machineCertificateName := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__machineCertificateName := CRYPT_INTEGER_BLOB(32, this)
             return this.__machineCertificateName
         }
     }
@@ -117,7 +117,7 @@ class IKEV2_TUNNEL_CONFIG_PARAMS3 extends Win32Struct
     machineCertificateHash{
         get {
             if(!this.HasProp("__machineCertificateHash"))
-                this.__machineCertificateHash := CRYPT_INTEGER_BLOB(this.ptr + 80)
+                this.__machineCertificateHash := CRYPT_INTEGER_BLOB(80, this)
             return this.__machineCertificateHash
         }
     }

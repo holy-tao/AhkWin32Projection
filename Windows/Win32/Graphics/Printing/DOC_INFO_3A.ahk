@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -16,34 +15,25 @@ class DOC_INFO_3A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pDocName{
-        get {
-            if(!this.HasProp("__pDocName"))
-                this.__pDocName := PSTR(this.ptr + 0)
-            return this.__pDocName
-        }
+    pDocName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PSTR}
      */
-    pOutputFile{
-        get {
-            if(!this.HasProp("__pOutputFile"))
-                this.__pOutputFile := PSTR(this.ptr + 8)
-            return this.__pOutputFile
-        }
+    pOutputFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PSTR}
      */
-    pDatatype{
-        get {
-            if(!this.HasProp("__pDatatype"))
-                this.__pDatatype := PSTR(this.ptr + 16)
-            return this.__pDatatype
-        }
+    pDatatype {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

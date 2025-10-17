@@ -44,7 +44,7 @@ class COLOR extends Win32Struct
     gray{
         get {
             if(!this.HasProp("__gray"))
-                this.__gray := GRAYCOLOR(this.ptr + 0)
+                this.__gray := GRAYCOLOR(0, this)
             return this.__gray
         }
     }
@@ -56,7 +56,7 @@ class COLOR extends Win32Struct
     rgb{
         get {
             if(!this.HasProp("__rgb"))
-                this.__rgb := RGBCOLOR(this.ptr + 0)
+                this.__rgb := RGBCOLOR(0, this)
             return this.__rgb
         }
     }
@@ -68,7 +68,7 @@ class COLOR extends Win32Struct
     cmyk{
         get {
             if(!this.HasProp("__cmyk"))
-                this.__cmyk := CMYKCOLOR(this.ptr + 0)
+                this.__cmyk := CMYKCOLOR(0, this)
             return this.__cmyk
         }
     }
@@ -80,7 +80,7 @@ class COLOR extends Win32Struct
     XYZ{
         get {
             if(!this.HasProp("__XYZ"))
-                this.__XYZ := XYZCOLOR(this.ptr + 0)
+                this.__XYZ := XYZCOLOR(0, this)
             return this.__XYZ
         }
     }
@@ -92,7 +92,7 @@ class COLOR extends Win32Struct
     Yxy{
         get {
             if(!this.HasProp("__Yxy"))
-                this.__Yxy := YxyCOLOR(this.ptr + 0)
+                this.__Yxy := YxyCOLOR(0, this)
             return this.__Yxy
         }
     }
@@ -104,7 +104,7 @@ class COLOR extends Win32Struct
     Lab{
         get {
             if(!this.HasProp("__Lab"))
-                this.__Lab := LabCOLOR(this.ptr + 0)
+                this.__Lab := LabCOLOR(0, this)
             return this.__Lab
         }
     }
@@ -116,7 +116,7 @@ class COLOR extends Win32Struct
     gen3ch{
         get {
             if(!this.HasProp("__gen3ch"))
-                this.__gen3ch := GENERIC3CHANNEL(this.ptr + 0)
+                this.__gen3ch := GENERIC3CHANNEL(0, this)
             return this.__gen3ch
         }
     }
@@ -128,7 +128,7 @@ class COLOR extends Win32Struct
     named{
         get {
             if(!this.HasProp("__named"))
-                this.__named := NAMEDCOLOR(this.ptr + 0)
+                this.__named := NAMEDCOLOR(0, this)
             return this.__named
         }
     }
@@ -140,7 +140,7 @@ class COLOR extends Win32Struct
     hifi{
         get {
             if(!this.HasProp("__hifi"))
-                this.__hifi := HiFiCOLOR(this.ptr + 0)
+                this.__hifi := HiFiCOLOR(0, this)
             return this.__hifi
         }
     }

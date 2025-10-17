@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -31,12 +30,9 @@ class IMAGE_DEBUG_MISC extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    Unicode{
-        get {
-            if(!this.HasProp("__Unicode"))
-                this.__Unicode := BOOLEAN(this.ptr + 8)
-            return this.__Unicode
-        }
+    Unicode {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**

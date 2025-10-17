@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -19,7 +18,7 @@ class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S extends Win32Struct
     FocusRect{
         get {
             if(!this.HasProp("__FocusRect"))
-                this.__FocusRect := RECT(this.ptr + 0)
+                this.__FocusRect := RECT(0, this)
             return this.__FocusRect
         }
     }
@@ -27,34 +26,25 @@ class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S extends Win32Struct
     /**
      * @type {BOOL}
      */
-    AutoFocusLock{
-        get {
-            if(!this.HasProp("__AutoFocusLock"))
-                this.__AutoFocusLock := BOOL(this.ptr + 16)
-            return this.__AutoFocusLock
-        }
+    AutoFocusLock {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * @type {BOOL}
      */
-    AutoExposureLock{
-        get {
-            if(!this.HasProp("__AutoExposureLock"))
-                this.__AutoExposureLock := BOOL(this.ptr + 20)
-            return this.__AutoExposureLock
-        }
+    AutoExposureLock {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
      * @type {BOOL}
      */
-    AutoWhitebalanceLock{
-        get {
-            if(!this.HasProp("__AutoWhitebalanceLock"))
-                this.__AutoWhitebalanceLock := BOOL(this.ptr + 24)
-            return this.__AutoWhitebalanceLock
-        }
+    AutoWhitebalanceLock {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**

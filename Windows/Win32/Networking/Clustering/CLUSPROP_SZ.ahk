@@ -19,7 +19,7 @@ class CLUSPROP_SZ extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := CLUSPROP_VALUE(this.ptr + 0)
+                this.__Base := CLUSPROP_VALUE(0, this)
             return this.__Base
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -15,11 +14,8 @@ class ACCESS_INFO_0 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    acc0_resource_name{
-        get {
-            if(!this.HasProp("__acc0_resource_name"))
-                this.__acc0_resource_name := PWSTR(this.ptr + 0)
-            return this.__acc0_resource_name
-        }
+    acc0_resource_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

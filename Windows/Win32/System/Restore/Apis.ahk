@@ -128,7 +128,7 @@ class Restore {
      * @since windows5.1.2600
      */
     static SRSetRestorePointA(pRestorePtSpec, pSMgrStatus) {
-        result := DllCall("sfc.dll\SRSetRestorePointA", "ptr", pRestorePtSpec, "ptr", pSMgrStatus, "ptr")
+        result := DllCall("sfc.dll\SRSetRestorePointA", "ptr", pRestorePtSpec, "ptr", pSMgrStatus, "int")
         return result
     }
 
@@ -145,7 +145,7 @@ class Restore {
      * @since windows5.1.2600
      */
     static SRSetRestorePointW(pRestorePtSpec, pSMgrStatus) {
-        result := DllCall("sfc.dll\SRSetRestorePointW", "ptr", pRestorePtSpec, "ptr", pSMgrStatus, "ptr")
+        result := DllCall("sfc.dll\SRSetRestorePointW", "ptr", pRestorePtSpec, "ptr", pSMgrStatus, "int")
         return result
     }
 

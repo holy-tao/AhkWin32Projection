@@ -82,7 +82,7 @@ class JET_OPENTEMPORARYTABLE extends Win32Struct
     tableid{
         get {
             if(!this.HasProp("__tableid"))
-                this.__tableid := JET_TABLEID(this.ptr + 56)
+                this.__tableid := JET_TABLEID(56, this)
             return this.__tableid
         }
     }

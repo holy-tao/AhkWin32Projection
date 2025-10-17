@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
@@ -79,44 +78,32 @@ class CDROM_SET_STREAMING extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    RestoreDefaults{
-        get {
-            if(!this.HasProp("__RestoreDefaults"))
-                this.__RestoreDefaults := BOOLEAN(this.ptr + 32)
-            return this.__RestoreDefaults
-        }
+    RestoreDefaults {
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    SetExact{
-        get {
-            if(!this.HasProp("__SetExact"))
-                this.__SetExact := BOOLEAN(this.ptr + 33)
-            return this.__SetExact
-        }
+    SetExact {
+        get => NumGet(this, 33, "char")
+        set => NumPut("char", value, this, 33)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    RandomAccess{
-        get {
-            if(!this.HasProp("__RandomAccess"))
-                this.__RandomAccess := BOOLEAN(this.ptr + 34)
-            return this.__RandomAccess
-        }
+    RandomAccess {
+        get => NumGet(this, 34, "char")
+        set => NumPut("char", value, this, 34)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    Persistent{
-        get {
-            if(!this.HasProp("__Persistent"))
-                this.__Persistent := BOOLEAN(this.ptr + 35)
-            return this.__Persistent
-        }
+    Persistent {
+        get => NumGet(this, 35, "char")
+        set => NumPut("char", value, this, 35)
     }
 }

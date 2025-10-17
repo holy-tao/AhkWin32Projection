@@ -1042,7 +1042,7 @@ class IscsiDisc {
     static ReportIScsiTargetsW(ForceUpdate, BufferSize, Buffer) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", "ptr", ForceUpdate, "uint*", BufferSize, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", "char", ForceUpdate, "uint*", BufferSize, "ptr", Buffer, "uint")
         return result
     }
 
@@ -1057,7 +1057,7 @@ class IscsiDisc {
     static ReportIScsiTargetsA(ForceUpdate, BufferSize, Buffer) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", "ptr", ForceUpdate, "uint*", BufferSize, "ptr", Buffer, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", "char", ForceUpdate, "uint*", BufferSize, "ptr", Buffer, "uint")
         return result
     }
 
@@ -1077,7 +1077,7 @@ class IscsiDisc {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
         TargetAlias := TargetAlias is String ? StrPtr(TargetAlias) : TargetAlias
 
-        result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetW", "ptr", TargetName, "ptr", TargetAlias, "uint", TargetFlags, "ptr", Persist, "ptr", Mappings, "ptr", LoginOptions, "ptr", PortalGroup, "uint")
+        result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetW", "ptr", TargetName, "ptr", TargetAlias, "uint", TargetFlags, "char", Persist, "ptr", Mappings, "ptr", LoginOptions, "ptr", PortalGroup, "uint")
         return result
     }
 
@@ -1097,7 +1097,7 @@ class IscsiDisc {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
         TargetAlias := TargetAlias is String ? StrPtr(TargetAlias) : TargetAlias
 
-        result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetA", "ptr", TargetName, "ptr", TargetAlias, "uint", TargetFlags, "ptr", Persist, "ptr", Mappings, "ptr", LoginOptions, "ptr", PortalGroup, "uint")
+        result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetA", "ptr", TargetName, "ptr", TargetAlias, "uint", TargetFlags, "char", Persist, "ptr", Mappings, "ptr", LoginOptions, "ptr", PortalGroup, "uint")
         return result
     }
 
@@ -1294,7 +1294,7 @@ class IscsiDisc {
         InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
         Key := Key is String ? StrPtr(Key) : Key
 
-        result := DllCall("ISCSIDSC.dll\LoginIScsiTargetW", "ptr", TargetName, "ptr", IsInformationalSession, "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", TargetPortal, "uint", SecurityFlags, "ptr", Mappings, "ptr", LoginOptions, "uint", KeySize, "ptr", Key, "ptr", IsPersistent, "ptr", UniqueSessionId, "ptr", UniqueConnectionId, "uint")
+        result := DllCall("ISCSIDSC.dll\LoginIScsiTargetW", "ptr", TargetName, "char", IsInformationalSession, "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", TargetPortal, "uint", SecurityFlags, "ptr", Mappings, "ptr", LoginOptions, "uint", KeySize, "ptr", Key, "char", IsPersistent, "ptr", UniqueSessionId, "ptr", UniqueConnectionId, "uint")
         return result
     }
 
@@ -1321,7 +1321,7 @@ class IscsiDisc {
         InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
         Key := Key is String ? StrPtr(Key) : Key
 
-        result := DllCall("ISCSIDSC.dll\LoginIScsiTargetA", "ptr", TargetName, "ptr", IsInformationalSession, "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", TargetPortal, "uint", SecurityFlags, "ptr", Mappings, "ptr", LoginOptions, "uint", KeySize, "ptr", Key, "ptr", IsPersistent, "ptr", UniqueSessionId, "ptr", UniqueConnectionId, "uint")
+        result := DllCall("ISCSIDSC.dll\LoginIScsiTargetA", "ptr", TargetName, "char", IsInformationalSession, "ptr", InitiatorInstance, "uint", InitiatorPortNumber, "ptr", TargetPortal, "uint", SecurityFlags, "ptr", Mappings, "ptr", LoginOptions, "uint", KeySize, "ptr", Key, "char", IsPersistent, "ptr", UniqueSessionId, "ptr", UniqueConnectionId, "uint")
         return result
     }
 
@@ -1545,7 +1545,7 @@ class IscsiDisc {
         DestinationAddress := DestinationAddress is String ? StrPtr(DestinationAddress) : DestinationAddress
         OuterModeAddress := OuterModeAddress is String ? StrPtr(OuterModeAddress) : OuterModeAddress
 
-        result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressW", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, "ptr", Persist, "uint")
+        result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressW", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, "char", Persist, "uint")
         return result
     }
 
@@ -1564,7 +1564,7 @@ class IscsiDisc {
         DestinationAddress := DestinationAddress is String ? StrPtr(DestinationAddress) : DestinationAddress
         OuterModeAddress := OuterModeAddress is String ? StrPtr(OuterModeAddress) : OuterModeAddress
 
-        result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressA", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, "ptr", Persist, "uint")
+        result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressA", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, "char", Persist, "uint")
         return result
     }
 
@@ -1580,7 +1580,7 @@ class IscsiDisc {
     static SetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
         InitiatorName := InitiatorName is String ? StrPtr(InitiatorName) : InitiatorName
 
-        result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoW", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", AuthInfo, "ptr", Persist, "uint")
+        result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoW", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", AuthInfo, "char", Persist, "uint")
         return result
     }
 
@@ -1596,7 +1596,7 @@ class IscsiDisc {
     static SetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
         InitiatorName := InitiatorName is String ? StrPtr(InitiatorName) : InitiatorName
 
-        result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoA", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", AuthInfo, "ptr", Persist, "uint")
+        result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoA", "ptr", InitiatorName, "uint", InitiatorPortNumber, "ptr", AuthInfo, "char", Persist, "uint")
         return result
     }
 
@@ -1641,7 +1641,7 @@ class IscsiDisc {
      * @since windows6.0.6000
      */
     static SetIScsiGroupPresharedKey(KeyLength, Key, Persist) {
-        result := DllCall("ISCSIDSC.dll\SetIScsiGroupPresharedKey", "uint", KeyLength, "char*", Key, "ptr", Persist, "uint")
+        result := DllCall("ISCSIDSC.dll\SetIScsiGroupPresharedKey", "uint", KeyLength, "char*", Key, "char", Persist, "uint")
         return result
     }
 

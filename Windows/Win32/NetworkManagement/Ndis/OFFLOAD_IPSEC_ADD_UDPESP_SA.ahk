@@ -120,7 +120,7 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     OffloadHandle{
         get {
             if(!this.HasProp("__OffloadHandle"))
-                this.__OffloadHandle := HANDLE(this.ptr + 64)
+                this.__OffloadHandle := HANDLE(64, this)
             return this.__OffloadHandle
         }
     }
@@ -131,7 +131,7 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     EncapTypeEntry{
         get {
             if(!this.HasProp("__EncapTypeEntry"))
-                this.__EncapTypeEntry := OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY(this.ptr + 72)
+                this.__EncapTypeEntry := OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY(72, this)
             return this.__EncapTypeEntry
         }
     }
@@ -142,7 +142,7 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     EncapTypeEntryOffldHandle{
         get {
             if(!this.HasProp("__EncapTypeEntryOffldHandle"))
-                this.__EncapTypeEntryOffldHandle := HANDLE(this.ptr + 80)
+                this.__EncapTypeEntryOffldHandle := HANDLE(80, this)
             return this.__EncapTypeEntryOffldHandle
         }
     }

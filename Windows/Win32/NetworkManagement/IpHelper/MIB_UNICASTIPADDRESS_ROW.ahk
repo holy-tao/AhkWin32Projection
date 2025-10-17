@@ -7,7 +7,6 @@
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Stores information about a unicast IP address.
@@ -46,7 +45,7 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR_INET(this.ptr + 0)
+                this.__Address := SOCKADDR_INET(0, this)
             return this.__Address
         }
     }
@@ -60,7 +59,7 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 64)
+                this.__InterfaceLuid := NET_LUID_LH(64, this)
             return this.__InterfaceLuid
         }
     }
@@ -294,12 +293,9 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * This member specifies if the address can be used as an IP source address.
      * @type {BOOLEAN}
      */
-    SkipAsSource{
-        get {
-            if(!this.HasProp("__SkipAsSource"))
-                this.__SkipAsSource := BOOLEAN(this.ptr + 101)
-            return this.__SkipAsSource
-        }
+    SkipAsSource {
+        get => NumGet(this, 101, "char")
+        set => NumPut("char", value, this, 101)
     }
 
     /**
@@ -385,7 +381,7 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
     ScopeId{
         get {
             if(!this.HasProp("__ScopeId"))
-                this.__ScopeId := SCOPE_ID(this.ptr + 108)
+                this.__ScopeId := SCOPE_ID(108, this)
             return this.__ScopeId
         }
     }

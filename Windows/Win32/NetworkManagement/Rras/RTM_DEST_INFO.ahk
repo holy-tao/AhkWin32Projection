@@ -31,7 +31,7 @@ class RTM_DEST_INFO extends Win32Struct
     DestAddress{
         get {
             if(!this.HasProp("__DestAddress"))
-                this.__DestAddress := RTM_NET_ADDRESS(this.ptr + 8)
+                this.__DestAddress := RTM_NET_ADDRESS(8, this)
             return this.__DestAddress
         }
     }
@@ -43,7 +43,7 @@ class RTM_DEST_INFO extends Win32Struct
     LastChanged{
         get {
             if(!this.HasProp("__LastChanged"))
-                this.__LastChanged := FILETIME(this.ptr + 32)
+                this.__LastChanged := FILETIME(32, this)
             return this.__LastChanged
         }
     }

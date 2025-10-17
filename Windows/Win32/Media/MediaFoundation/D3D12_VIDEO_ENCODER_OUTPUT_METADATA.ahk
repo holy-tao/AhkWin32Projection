@@ -26,7 +26,7 @@ class D3D12_VIDEO_ENCODER_OUTPUT_METADATA extends Win32Struct
     EncodeStats{
         get {
             if(!this.HasProp("__EncodeStats"))
-                this.__EncodeStats := D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS(this.ptr + 8)
+                this.__EncodeStats := D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS(8, this)
             return this.__EncodeStats
         }
     }

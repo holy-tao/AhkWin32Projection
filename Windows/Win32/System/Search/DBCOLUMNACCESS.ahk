@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
 
 /**
@@ -27,7 +26,7 @@ class DBCOLUMNACCESS extends Win32Struct
     columnid{
         get {
             if(!this.HasProp("__columnid"))
-                this.__columnid := DBID(this.ptr + 8)
+                this.__columnid := DBID(8, this)
             return this.__columnid
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes Direct3D 9 feature options in the current graphics driver.
@@ -23,36 +22,27 @@ class D3D11_FEATURE_DATA_D3D9_OPTIONS1 extends Win32Struct
      * Specifies whether the driver supports the nonpowers-of-2-unconditionally feature. For more info about this feature, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a>. The runtime sets this member to <b>TRUE</b> for hardware at Direct3D 10 and higher feature levels.  For hardware at Direct3D 9.3 and lower feature levels, the runtime sets this member to <b>FALSE</b> if the hardware and driver support the powers-of-2 (2D textures must have widths and heights specified as powers of two) feature or the nonpowers-of-2-conditionally feature.
      * @type {BOOL}
      */
-    FullNonPow2TextureSupported{
-        get {
-            if(!this.HasProp("__FullNonPow2TextureSupported"))
-                this.__FullNonPow2TextureSupported := BOOL(this.ptr + 0)
-            return this.__FullNonPow2TextureSupported
-        }
+    FullNonPow2TextureSupported {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * Specifies whether the driver supports the shadowing feature with the comparison-filtering mode set to less than or equal to. The runtime sets this member to <b>TRUE</b> for hardware at Direct3D 10 and higher <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a>.  For hardware at Direct3D 9.3 and lower feature levels, the runtime sets this member to <b>TRUE</b> only if the hardware and driver support the shadowing feature; otherwise <b>FALSE</b>.
      * @type {BOOL}
      */
-    DepthAsTextureWithLessEqualComparisonFilterSupported{
-        get {
-            if(!this.HasProp("__DepthAsTextureWithLessEqualComparisonFilterSupported"))
-                this.__DepthAsTextureWithLessEqualComparisonFilterSupported := BOOL(this.ptr + 4)
-            return this.__DepthAsTextureWithLessEqualComparisonFilterSupported
-        }
+    DepthAsTextureWithLessEqualComparisonFilterSupported {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
      * Specifies whether the hardware and driver support simple instancing. The runtime sets this member to <b>TRUE</b> if  the hardware and driver support simple instancing.
      * @type {BOOL}
      */
-    SimpleInstancingSupported{
-        get {
-            if(!this.HasProp("__SimpleInstancingSupported"))
-                this.__SimpleInstancingSupported := BOOL(this.ptr + 8)
-            return this.__SimpleInstancingSupported
-        }
+    SimpleInstancingSupported {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -63,11 +53,8 @@ class D3D11_FEATURE_DATA_D3D9_OPTIONS1 extends Win32Struct
      * You only need to query this feature from  hardware at Direct3D 9.3 and lower <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> because hardware at Direct3D 10.0 and higher feature levels allow <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/texturecube">TextureCube</a> depth surfaces.
      * @type {BOOL}
      */
-    TextureCubeFaceRenderTargetWithNonCubeDepthStencilSupported{
-        get {
-            if(!this.HasProp("__TextureCubeFaceRenderTargetWithNonCubeDepthStencilSupported"))
-                this.__TextureCubeFaceRenderTargetWithNonCubeDepthStencilSupported := BOOL(this.ptr + 12)
-            return this.__TextureCubeFaceRenderTargetWithNonCubeDepthStencilSupported
-        }
+    TextureCubeFaceRenderTargetWithNonCubeDepthStencilSupported {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 }

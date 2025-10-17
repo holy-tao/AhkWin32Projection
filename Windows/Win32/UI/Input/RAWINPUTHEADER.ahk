@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\WPARAM.ahk
 
 /**
  * Contains the header information that is part of the raw input data.
@@ -49,7 +48,7 @@ class RAWINPUTHEADER extends Win32Struct
     hDevice{
         get {
             if(!this.HasProp("__hDevice"))
-                this.__hDevice := HANDLE(this.ptr + 8)
+                this.__hDevice := HANDLE(8, this)
             return this.__hDevice
         }
     }
@@ -60,11 +59,8 @@ class RAWINPUTHEADER extends Win32Struct
      * The value passed in the <i>wParam</i> parameter of the [WM_INPUT](/windows/win32/inputdev/wm-input) message.
      * @type {WPARAM}
      */
-    wParam{
-        get {
-            if(!this.HasProp("__wParam"))
-                this.__wParam := WPARAM(this.ptr + 16)
-            return this.__wParam
-        }
+    wParam {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

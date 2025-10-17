@@ -45,7 +45,7 @@ class GROUP_REQ extends Win32Struct
     gr_group{
         get {
             if(!this.HasProp("__gr_group"))
-                this.__gr_group := SOCKADDR_STORAGE(this.ptr + 8)
+                this.__gr_group := SOCKADDR_STORAGE(8, this)
             return this.__gr_group
         }
     }

@@ -27,7 +27,7 @@ class ExtendedProperty extends Win32Struct
     PropertyName{
         get {
             if(!this.HasProp("__PropertyName"))
-                this.__PropertyName := BSTR(this.ptr + 0)
+                this.__PropertyName := BSTR(0, this)
             return this.__PropertyName
         }
     }
@@ -41,7 +41,7 @@ class ExtendedProperty extends Win32Struct
     PropertyValue{
         get {
             if(!this.HasProp("__PropertyValue"))
-                this.__PropertyValue := BSTR(this.ptr + 8)
+                this.__PropertyValue := BSTR(8, this)
             return this.__PropertyValue
         }
     }

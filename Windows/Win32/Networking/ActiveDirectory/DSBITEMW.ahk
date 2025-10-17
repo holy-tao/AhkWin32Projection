@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains data about an item in the Active Directory container browser dialog box.
@@ -33,24 +32,18 @@ class DSBITEMW extends Win32Struct
      * Pointer to a  null-terminated Unicode string that contains the ADsPath of the item.
      * @type {PWSTR}
      */
-    pszADsPath{
-        get {
-            if(!this.HasProp("__pszADsPath"))
-                this.__pszADsPath := PWSTR(this.ptr + 8)
-            return this.__pszADsPath
-        }
+    pszADsPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains the object class name of the item.
      * @type {PWSTR}
      */
-    pszClass{
-        get {
-            if(!this.HasProp("__pszClass"))
-                this.__pszClass := PWSTR(this.ptr + 16)
-            return this.__pszClass
-        }
+    pszClass {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

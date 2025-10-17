@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\REMSECURITY_ATTRIBUTES.ahk
 
 /**
@@ -25,12 +23,9 @@ class RemBINDINFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    szExtraInfo{
-        get {
-            if(!this.HasProp("__szExtraInfo"))
-                this.__szExtraInfo := PWSTR(this.ptr + 8)
-            return this.__szExtraInfo
-        }
+    szExtraInfo {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -52,12 +47,9 @@ class RemBINDINFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    szCustomVerb{
-        get {
-            if(!this.HasProp("__szCustomVerb"))
-                this.__szCustomVerb := PWSTR(this.ptr + 24)
-            return this.__szCustomVerb
-        }
+    szCustomVerb {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -98,7 +90,7 @@ class RemBINDINFO extends Win32Struct
     securityAttributes{
         get {
             if(!this.HasProp("__securityAttributes"))
-                this.__securityAttributes := REMSECURITY_ATTRIBUTES(this.ptr + 48)
+                this.__securityAttributes := REMSECURITY_ATTRIBUTES(48, this)
             return this.__securityAttributes
         }
     }
@@ -127,12 +119,8 @@ class RemBINDINFO extends Win32Struct
         set => NumPut("uint", value, this, 80)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 88
     }
 }

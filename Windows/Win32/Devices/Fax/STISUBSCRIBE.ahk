@@ -43,7 +43,7 @@ class STISUBSCRIBE extends Win32Struct
     hWndNotify{
         get {
             if(!this.HasProp("__hWndNotify"))
-                this.__hWndNotify := HWND(this.ptr + 16)
+                this.__hWndNotify := HWND(16, this)
             return this.__hWndNotify
         }
     }
@@ -54,7 +54,7 @@ class STISUBSCRIBE extends Win32Struct
     hEvent{
         get {
             if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(this.ptr + 24)
+                this.__hEvent := HANDLE(24, this)
             return this.__hEvent
         }
     }

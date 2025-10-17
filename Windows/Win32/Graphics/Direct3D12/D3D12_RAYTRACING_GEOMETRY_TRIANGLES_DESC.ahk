@@ -99,7 +99,7 @@ class D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC extends Win32Struct
     VertexBuffer{
         get {
             if(!this.HasProp("__VertexBuffer"))
-                this.__VertexBuffer := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(this.ptr + 32)
+                this.__VertexBuffer := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(32, this)
             return this.__VertexBuffer
         }
     }

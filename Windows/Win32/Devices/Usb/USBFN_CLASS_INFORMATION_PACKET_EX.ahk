@@ -3,7 +3,6 @@
 #Include .\USB_ENDPOINT_DESCRIPTOR.ahk
 #Include .\USBFN_PIPE_INFORMATION.ahk
 #Include .\USBFN_CLASS_INTERFACE_EX.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -21,7 +20,7 @@ class USBFN_CLASS_INFORMATION_PACKET_EX extends Win32Struct
     FullSpeedClassInterfaceEx{
         get {
             if(!this.HasProp("__FullSpeedClassInterfaceEx"))
-                this.__FullSpeedClassInterfaceEx := USBFN_CLASS_INTERFACE_EX(this.ptr + 0)
+                this.__FullSpeedClassInterfaceEx := USBFN_CLASS_INTERFACE_EX(0, this)
             return this.__FullSpeedClassInterfaceEx
         }
     }
@@ -32,7 +31,7 @@ class USBFN_CLASS_INFORMATION_PACKET_EX extends Win32Struct
     HighSpeedClassInterfaceEx{
         get {
             if(!this.HasProp("__HighSpeedClassInterfaceEx"))
-                this.__HighSpeedClassInterfaceEx := USBFN_CLASS_INTERFACE_EX(this.ptr + 136)
+                this.__HighSpeedClassInterfaceEx := USBFN_CLASS_INTERFACE_EX(136, this)
             return this.__HighSpeedClassInterfaceEx
         }
     }
@@ -43,7 +42,7 @@ class USBFN_CLASS_INFORMATION_PACKET_EX extends Win32Struct
     SuperSpeedClassInterfaceEx{
         get {
             if(!this.HasProp("__SuperSpeedClassInterfaceEx"))
-                this.__SuperSpeedClassInterfaceEx := USBFN_CLASS_INTERFACE_EX(this.ptr + 272)
+                this.__SuperSpeedClassInterfaceEx := USBFN_CLASS_INTERFACE_EX(272, this)
             return this.__SuperSpeedClassInterfaceEx
         }
     }
@@ -67,11 +66,8 @@ class USBFN_CLASS_INFORMATION_PACKET_EX extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    HasInterfaceGuid{
-        get {
-            if(!this.HasProp("__HasInterfaceGuid"))
-                this.__HasInterfaceGuid := BOOLEAN(this.ptr + 566)
-            return this.__HasInterfaceGuid
-        }
+    HasInterfaceGuid {
+        get => NumGet(this, 566, "char")
+        set => NumPut("char", value, this, 566)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
 
 /**
@@ -40,12 +39,9 @@ class PROFILER_HEAP_OBJECT_RELATIONSHIP extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    stringValue{
-        get {
-            if(!this.HasProp("__stringValue"))
-                this.__stringValue := PWSTR(this.ptr + 8)
-            return this.__stringValue
-        }
+    stringValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -54,7 +50,7 @@ class PROFILER_HEAP_OBJECT_RELATIONSHIP extends Win32Struct
     bstrValue{
         get {
             if(!this.HasProp("__bstrValue"))
-                this.__bstrValue := BSTR(this.ptr + 8)
+                this.__bstrValue := BSTR(8, this)
             return this.__bstrValue
         }
     }

@@ -35,7 +35,7 @@ class DOT11_DEFAULT_WEP_UPLOAD extends Win32Struct
     hOffload{
         get {
             if(!this.HasProp("__hOffload"))
-                this.__hOffload := HANDLE(this.ptr + 8)
+                this.__hOffload := HANDLE(8, this)
             return this.__hOffload
         }
     }

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The SCOPEDATAITEM structure specifies items to be inserted into the scope pane.
@@ -44,12 +42,9 @@ class SCOPEDATAITEM extends Win32Struct
      * <b>MMC_TEXTCALLBACK</b> is introduced in MMC version 1.2.
      * @type {PWSTR}
      */
-    displayname{
-        get {
-            if(!this.HasProp("__displayname"))
-                this.__displayname := PWSTR(this.ptr + 8)
-            return this.__displayname
-        }
+    displayname {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -116,12 +111,9 @@ class SCOPEDATAITEM extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponentdata-querydataobject">IComponentData::QueryDataObject</a>.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 32)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the data used to configure the DHCP server.
@@ -68,36 +66,27 @@ class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct
      * Unicode string that specifies the  file name of the client lease JET database.
      * @type {PWSTR}
      */
-    DatabaseName{
-        get {
-            if(!this.HasProp("__DatabaseName"))
-                this.__DatabaseName := PWSTR(this.ptr + 8)
-            return this.__DatabaseName
-        }
+    DatabaseName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Unicode string that specifies the absolute path to <b>DatabaseName</b>.
      * @type {PWSTR}
      */
-    DatabasePath{
-        get {
-            if(!this.HasProp("__DatabasePath"))
-                this.__DatabasePath := PWSTR(this.ptr + 16)
-            return this.__DatabasePath
-        }
+    DatabasePath {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Unicode string that specifies the absolute path and file name of the backup client lease JET database.
      * @type {PWSTR}
      */
-    BackupPath{
-        get {
-            if(!this.HasProp("__BackupPath"))
-                this.__BackupPath := PWSTR(this.ptr + 24)
-            return this.__BackupPath
-        }
+    BackupPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -203,23 +192,17 @@ class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct
      * Unicode string that contains the boot table string for the DHCP server. ?? More information needed. ??
      * @type {PWSTR}
      */
-    wszBootTableString{
-        get {
-            if(!this.HasProp("__wszBootTableString"))
-                this.__wszBootTableString := PWSTR(this.ptr + 64)
-            return this.__wszBootTableString
-        }
+    wszBootTableString {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * Specifies whether or not to enable audit logging on the DHCP server. A value of <b>TRUE</b> indicates that an audit log is generated; <b>FALSE</b> indicates that audit logging is not performed.
      * @type {BOOL}
      */
-    fAuditLog{
-        get {
-            if(!this.HasProp("__fAuditLog"))
-                this.__fAuditLog := BOOL(this.ptr + 72)
-            return this.__fAuditLog
-        }
+    fAuditLog {
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 }

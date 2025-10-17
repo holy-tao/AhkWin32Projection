@@ -21,7 +21,7 @@ class CS_RESOURCE extends Win32Struct
     CS_Header{
         get {
             if(!this.HasProp("__CS_Header"))
-                this.__CS_Header := CS_DES(this.ptr + 0)
+                this.__CS_Header := CS_DES(0, this)
             return this.__CS_Header
         }
     }

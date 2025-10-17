@@ -18,7 +18,7 @@ class USB_STOP_TRACKING_FOR_TIME_SYNC_INFORMATION extends Win32Struct
     TimeTrackingHandle{
         get {
             if(!this.HasProp("__TimeTrackingHandle"))
-                this.__TimeTrackingHandle := HANDLE(this.ptr + 0)
+                this.__TimeTrackingHandle := HANDLE(0, this)
             return this.__TimeTrackingHandle
         }
     }

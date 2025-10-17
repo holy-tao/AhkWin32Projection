@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -23,11 +22,8 @@ class DOT11_SUPPORTED_ANTENNA extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bSupportedAntenna{
-        get {
-            if(!this.HasProp("__bSupportedAntenna"))
-                this.__bSupportedAntenna := BOOLEAN(this.ptr + 4)
-            return this.__bSupportedAntenna
-        }
+    bSupportedAntenna {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 }

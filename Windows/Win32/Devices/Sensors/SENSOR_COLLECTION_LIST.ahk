@@ -1,15 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include ..\..\Foundation\CHAR.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\..\System\Com\BLOB.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\CAC.ahk
 #Include ..\..\System\Com\StructuredStorage\CAUB.ahk
 #Include ..\..\System\Com\StructuredStorage\CAI.ahk

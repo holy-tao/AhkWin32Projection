@@ -982,7 +982,7 @@ class Performance {
     static QueryPerformanceCounter(lpPerformanceCount) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryPerformanceCounter", "int64*", lpPerformanceCount, "ptr")
+        result := DllCall("KERNEL32.dll\QueryPerformanceCounter", "int64*", lpPerformanceCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1001,7 +1001,7 @@ class Performance {
     static QueryPerformanceFrequency(lpFrequency) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryPerformanceFrequency", "int64*", lpFrequency, "ptr")
+        result := DllCall("KERNEL32.dll\QueryPerformanceFrequency", "int64*", lpFrequency, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1057,7 +1057,7 @@ class Performance {
     static LoadPerfCounterTextStringsA(lpCommandLine, bQuietModeArg) {
         lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
 
-        result := DllCall("loadperf.dll\LoadPerfCounterTextStringsA", "ptr", lpCommandLine, "ptr", bQuietModeArg, "uint")
+        result := DllCall("loadperf.dll\LoadPerfCounterTextStringsA", "ptr", lpCommandLine, "int", bQuietModeArg, "uint")
         return result
     }
 
@@ -1078,7 +1078,7 @@ class Performance {
     static LoadPerfCounterTextStringsW(lpCommandLine, bQuietModeArg) {
         lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
 
-        result := DllCall("loadperf.dll\LoadPerfCounterTextStringsW", "ptr", lpCommandLine, "ptr", bQuietModeArg, "uint")
+        result := DllCall("loadperf.dll\LoadPerfCounterTextStringsW", "ptr", lpCommandLine, "int", bQuietModeArg, "uint")
         return result
     }
 
@@ -1097,7 +1097,7 @@ class Performance {
     static UnloadPerfCounterTextStringsW(lpCommandLine, bQuietModeArg) {
         lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
 
-        result := DllCall("loadperf.dll\UnloadPerfCounterTextStringsW", "ptr", lpCommandLine, "ptr", bQuietModeArg, "uint")
+        result := DllCall("loadperf.dll\UnloadPerfCounterTextStringsW", "ptr", lpCommandLine, "int", bQuietModeArg, "uint")
         return result
     }
 
@@ -1116,7 +1116,7 @@ class Performance {
     static UnloadPerfCounterTextStringsA(lpCommandLine, bQuietModeArg) {
         lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
 
-        result := DllCall("loadperf.dll\UnloadPerfCounterTextStringsA", "ptr", lpCommandLine, "ptr", bQuietModeArg, "uint")
+        result := DllCall("loadperf.dll\UnloadPerfCounterTextStringsA", "ptr", lpCommandLine, "int", bQuietModeArg, "uint")
         return result
     }
 
@@ -3539,7 +3539,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetCounterInfoW(hCounter, bRetrieveExplainText, pdwBufferSize, lpBuffer) {
-        result := DllCall("pdh.dll\PdhGetCounterInfoW", "ptr", hCounter, "ptr", bRetrieveExplainText, "uint*", pdwBufferSize, "ptr", lpBuffer, "uint")
+        result := DllCall("pdh.dll\PdhGetCounterInfoW", "ptr", hCounter, "char", bRetrieveExplainText, "uint*", pdwBufferSize, "ptr", lpBuffer, "uint")
         return result
     }
 
@@ -3601,7 +3601,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetCounterInfoA(hCounter, bRetrieveExplainText, pdwBufferSize, lpBuffer) {
-        result := DllCall("pdh.dll\PdhGetCounterInfoA", "ptr", hCounter, "ptr", bRetrieveExplainText, "uint*", pdwBufferSize, "ptr", lpBuffer, "uint")
+        result := DllCall("pdh.dll\PdhGetCounterInfoA", "ptr", hCounter, "char", bRetrieveExplainText, "uint*", pdwBufferSize, "ptr", lpBuffer, "uint")
         return result
     }
 
@@ -3934,7 +3934,7 @@ class Performance {
         szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
         mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
 
-        result := DllCall("pdh.dll\PdhEnumObjectsW", "ptr", szDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "ptr", bRefresh, "uint")
+        result := DllCall("pdh.dll\PdhEnumObjectsW", "ptr", szDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "int", bRefresh, "uint")
         return result
     }
 
@@ -4021,7 +4021,7 @@ class Performance {
         szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
         mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
 
-        result := DllCall("pdh.dll\PdhEnumObjectsA", "ptr", szDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "ptr", bRefresh, "uint")
+        result := DllCall("pdh.dll\PdhEnumObjectsA", "ptr", szDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "int", bRefresh, "uint")
         return result
     }
 
@@ -6278,7 +6278,7 @@ class Performance {
     static PdhIsRealTimeQuery(hQuery) {
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
 
-        result := DllCall("pdh.dll\PdhIsRealTimeQuery", "ptr", hQuery, "ptr")
+        result := DllCall("pdh.dll\PdhIsRealTimeQuery", "ptr", hQuery, "int")
         return result
     }
 
@@ -6938,7 +6938,7 @@ class Performance {
         mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
         hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
-        result := DllCall("pdh.dll\PdhEnumObjectsHW", "ptr", hDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "ptr", bRefresh, "uint")
+        result := DllCall("pdh.dll\PdhEnumObjectsHW", "ptr", hDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "int", bRefresh, "uint")
         return result
     }
 
@@ -7023,7 +7023,7 @@ class Performance {
         mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
         hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
-        result := DllCall("pdh.dll\PdhEnumObjectsHA", "ptr", hDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "ptr", bRefresh, "uint")
+        result := DllCall("pdh.dll\PdhEnumObjectsHA", "ptr", hDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "int", bRefresh, "uint")
         return result
     }
 

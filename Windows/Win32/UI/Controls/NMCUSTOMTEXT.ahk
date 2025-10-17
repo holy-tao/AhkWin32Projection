@@ -3,8 +3,6 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information used with custom text notification.
@@ -27,7 +25,7 @@ class NMCUSTOMTEXT extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -41,7 +39,7 @@ class NMCUSTOMTEXT extends Win32Struct
     hDC{
         get {
             if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 24)
+                this.__hDC := HDC(24, this)
             return this.__hDC
         }
     }
@@ -52,12 +50,9 @@ class NMCUSTOMTEXT extends Win32Struct
      * The string to draw.
      * @type {PWSTR}
      */
-    lpString{
-        get {
-            if(!this.HasProp("__lpString"))
-                this.__lpString := PWSTR(this.ptr + 32)
-            return this.__lpString
-        }
+    lpString {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -99,11 +94,8 @@ class NMCUSTOMTEXT extends Win32Struct
      * Whether the text is a link.
      * @type {BOOL}
      */
-    fLink{
-        get {
-            if(!this.HasProp("__fLink"))
-                this.__fLink := BOOL(this.ptr + 60)
-            return this.__fLink
-        }
+    fLink {
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines a data value that can be one of a number of different data types.
@@ -168,12 +167,9 @@ class FWP_VALUE0 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    unicodeString{
-        get {
-            if(!this.HasProp("__unicodeString"))
-                this.__unicodeString := PWSTR(this.ptr + 8)
-            return this.__unicodeString
-        }
+    unicodeString {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

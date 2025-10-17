@@ -146,7 +146,7 @@ class DDRAWI_DDRAWSURFACE_GBL extends Win32Struct
     ddpfSurface{
         get {
             if(!this.HasProp("__ddpfSurface"))
-                this.__ddpfSurface := DDPIXELFORMAT(this.ptr + 72)
+                this.__ddpfSurface := DDPIXELFORMAT(72, this)
             return this.__ddpfSurface
         }
     }

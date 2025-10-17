@@ -119,7 +119,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(this.ptr + 3)
+                this.__Flags := %this.__Class%._Flags(3, this)
             return this.__Flags
         }
     }
@@ -173,7 +173,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
     nd_opt_pi_prefix{
         get {
             if(!this.HasProp("__nd_opt_pi_prefix"))
-                this.__nd_opt_pi_prefix := IN6_ADDR(this.ptr + 16)
+                this.__nd_opt_pi_prefix := IN6_ADDR(16, this)
             return this.__nd_opt_pi_prefix
         }
     }

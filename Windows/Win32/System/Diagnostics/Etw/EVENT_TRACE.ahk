@@ -29,7 +29,7 @@ class EVENT_TRACE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := EVENT_TRACE_HEADER(this.ptr + 0)
+                this.__Header := EVENT_TRACE_HEADER(0, this)
             return this.__Header
         }
     }
@@ -96,7 +96,7 @@ class EVENT_TRACE extends Win32Struct
     BufferContext{
         get {
             if(!this.HasProp("__BufferContext"))
-                this.__BufferContext := ETW_BUFFER_CONTEXT(this.ptr + 68)
+                this.__BufferContext := ETW_BUFFER_CONTEXT(68, this)
             return this.__BufferContext
         }
     }

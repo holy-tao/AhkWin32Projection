@@ -34,7 +34,7 @@ class DXGI_MODE_DESC extends Win32Struct
     RefreshRate{
         get {
             if(!this.HasProp("__RefreshRate"))
-                this.__RefreshRate := DXGI_RATIONAL(this.ptr + 8)
+                this.__RefreshRate := DXGI_RATIONAL(8, this)
             return this.__RefreshRate
         }
     }

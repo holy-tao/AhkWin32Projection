@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\AMVPDIMINFO.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AMVPDATAINFO structure specifies the data-specific characteristics of the VP input stream.
@@ -41,7 +40,7 @@ class AMVPDATAINFO extends Win32Struct
     amvpDimInfo{
         get {
             if(!this.HasProp("__amvpDimInfo"))
-                this.__amvpDimInfo := AMVPDIMINFO(this.ptr + 8)
+                this.__amvpDimInfo := AMVPDIMINFO(8, this)
             return this.__amvpDimInfo
         }
     }
@@ -68,36 +67,27 @@ class AMVPDATAINFO extends Win32Struct
      * Video port should enable double clocking.
      * @type {BOOL}
      */
-    bEnableDoubleClock{
-        get {
-            if(!this.HasProp("__bEnableDoubleClock"))
-                this.__bEnableDoubleClock := BOOL(this.ptr + 48)
-            return this.__bEnableDoubleClock
-        }
+    bEnableDoubleClock {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * Video port should use an external VACT signal.
      * @type {BOOL}
      */
-    bEnableVACT{
-        get {
-            if(!this.HasProp("__bEnableVACT"))
-                this.__bEnableVACT := BOOL(this.ptr + 52)
-            return this.__bEnableVACT
-        }
+    bEnableVACT {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
      * Indicates that the signal is interlaced.
      * @type {BOOL}
      */
-    bDataIsInterlaced{
-        get {
-            if(!this.HasProp("__bDataIsInterlaced"))
-                this.__bDataIsInterlaced := BOOL(this.ptr + 56)
-            return this.__bDataIsInterlaced
-        }
+    bDataIsInterlaced {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -113,12 +103,9 @@ class AMVPDATAINFO extends Win32Struct
      * Video port should invert the field polarity.
      * @type {BOOL}
      */
-    bFieldPolarityInverted{
-        get {
-            if(!this.HasProp("__bFieldPolarityInverted"))
-                this.__bFieldPolarityInverted := BOOL(this.ptr + 64)
-            return this.__bFieldPolarityInverted
-        }
+    bFieldPolarityInverted {
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**

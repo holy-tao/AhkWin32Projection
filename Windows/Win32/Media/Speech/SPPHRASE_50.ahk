@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SPPHRASERULE.ahk
 
 /**
@@ -91,7 +90,7 @@ class SPPHRASE_50 extends Win32Struct
     Rule{
         get {
             if(!this.HasProp("__Rule"))
-                this.__Rule := SPPHRASERULE(this.ptr + 48)
+                this.__Rule := SPPHRASERULE(48, this)
             return this.__Rule
         }
     }
@@ -152,12 +151,8 @@ class SPPHRASE_50 extends Win32Struct
         set => NumPut("ptr", value, this, 144)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 152
     }
 }

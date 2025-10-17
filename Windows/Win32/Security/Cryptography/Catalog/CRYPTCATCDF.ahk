@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information used to create a signed catalog file (.cat) from a catalog definition file (CDF).
@@ -37,7 +35,7 @@ class CRYPTCATCDF extends Win32Struct
     hFile{
         get {
             if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 8)
+                this.__hFile := HANDLE(8, this)
             return this.__hFile
         }
     }
@@ -64,24 +62,18 @@ class CRYPTCATCDF extends Win32Struct
      * An integer that indicates whether the parser finished reading the file. <b>TRUE</b> indicates that the last read operation returned zero bytes.
      * @type {BOOL}
      */
-    fEOF{
-        get {
-            if(!this.HasProp("__fEOF"))
-                this.__fEOF := BOOL(this.ptr + 24)
-            return this.__fEOF
-        }
+    fEOF {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * A pointer to a null-terminated string that contains the name of a directory where the catalog file (.cat) will be written.
      * @type {PWSTR}
      */
-    pwszResultDir{
-        get {
-            if(!this.HasProp("__pwszResultDir"))
-                this.__pwszResultDir := PWSTR(this.ptr + 32)
-            return this.__pwszResultDir
-        }
+    pwszResultDir {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -91,7 +83,7 @@ class CRYPTCATCDF extends Win32Struct
     hCATStore{
         get {
             if(!this.HasProp("__hCATStore"))
-                this.__hCATStore := HANDLE(this.ptr + 40)
+                this.__hCATStore := HANDLE(40, this)
             return this.__hCATStore
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\HTTP_SERVICE_CONFIG_URLACL_KEY.ahk
 
 /**
@@ -37,7 +36,7 @@ class HTTP_SERVICE_CONFIG_URLACL_QUERY extends Win32Struct
     KeyDesc{
         get {
             if(!this.HasProp("__KeyDesc"))
-                this.__KeyDesc := HTTP_SERVICE_CONFIG_URLACL_KEY(this.ptr + 8)
+                this.__KeyDesc := HTTP_SERVICE_CONFIG_URLACL_KEY(8, this)
             return this.__KeyDesc
         }
     }

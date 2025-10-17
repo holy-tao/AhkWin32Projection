@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -55,11 +54,8 @@ class DDHAL_SETPALETTEDATA extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Attach{
-        get {
-            if(!this.HasProp("__Attach"))
-                this.__Attach := BOOL(this.ptr + 40)
-            return this.__Attach
-        }
+    Attach {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

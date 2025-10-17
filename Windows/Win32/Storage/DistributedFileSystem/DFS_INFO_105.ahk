@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a DFS root or link, including comment, state, time-out, and DFS behaviors specified by property flags.
@@ -19,12 +18,9 @@ class DFS_INFO_105 extends Win32Struct
      *       link.
      * @type {PWSTR}
      */
-    Comment{
-        get {
-            if(!this.HasProp("__Comment"))
-                this.__Comment := PWSTR(this.ptr + 0)
-            return this.__Comment
-        }
+    Comment {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

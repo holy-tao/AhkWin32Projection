@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DNS_CONNECTION_PROXY_INFO.ahk
 
 /**
@@ -27,7 +26,7 @@ class DNS_CONNECTION_PROXY_ELEMENT extends Win32Struct
     Info{
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := DNS_CONNECTION_PROXY_INFO(this.ptr + 8)
+                this.__Info := DNS_CONNECTION_PROXY_INFO(8, this)
             return this.__Info
         }
     }

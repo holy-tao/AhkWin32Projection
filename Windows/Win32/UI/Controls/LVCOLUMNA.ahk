@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a column in report view. This structure is used both for creating and manipulating columns. This structure supersedes the LV_COLUMN structure.
@@ -62,12 +61,9 @@ class LVCOLUMNA extends Win32Struct
      * If column information is being set, this member is the address of a null-terminated string that contains the column header text. If the structure is receiving information about a column, this member specifies the address of the buffer that receives the column header text.
      * @type {PSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PSTR(this.ptr + 16)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

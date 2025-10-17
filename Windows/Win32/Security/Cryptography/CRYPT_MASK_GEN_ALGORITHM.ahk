@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
@@ -38,12 +37,9 @@ class CRYPT_MASK_GEN_ALGORITHM extends Win32Struct
      * </table>
      * @type {PSTR}
      */
-    pszObjId{
-        get {
-            if(!this.HasProp("__pszObjId"))
-                this.__pszObjId := PSTR(this.ptr + 0)
-            return this.__pszObjId
-        }
+    pszObjId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -53,7 +49,7 @@ class CRYPT_MASK_GEN_ALGORITHM extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 8)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
             return this.__HashAlgorithm
         }
     }

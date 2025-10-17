@@ -417,7 +417,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DdeSetQualityOfService", "ptr", hwndClient, "ptr", pqosNew, "ptr", pqosPrev, "ptr")
+        result := DllCall("USER32.dll\DdeSetQualityOfService", "ptr", hwndClient, "ptr", pqosNew, "ptr", pqosPrev, "int")
         if(A_LastError)
             throw OSError()
 
@@ -447,7 +447,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ImpersonateDdeClientWindow", "ptr", hWndClient, "ptr", hWndServer, "ptr")
+        result := DllCall("USER32.dll\ImpersonateDdeClientWindow", "ptr", hWndClient, "ptr", hWndServer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -503,7 +503,7 @@ class DataExchange {
      * @since windows5.0
      */
     static UnpackDDElParam(msg, lParam, puiLo, puiHi) {
-        result := DllCall("USER32.dll\UnpackDDElParam", "uint", msg, "ptr", lParam, "ptr*", puiLo, "ptr*", puiHi, "ptr")
+        result := DllCall("USER32.dll\UnpackDDElParam", "uint", msg, "ptr", lParam, "ptr*", puiLo, "ptr*", puiHi, "int")
         return result
     }
 
@@ -525,7 +525,7 @@ class DataExchange {
      * @since windows5.0
      */
     static FreeDDElParam(msg, lParam) {
-        result := DllCall("USER32.dll\FreeDDElParam", "uint", msg, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\FreeDDElParam", "uint", msg, "ptr", lParam, "int")
         return result
     }
 
@@ -638,7 +638,7 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeUninitialize(idInst) {
-        result := DllCall("USER32.dll\DdeUninitialize", "uint", idInst, "ptr")
+        result := DllCall("USER32.dll\DdeUninitialize", "uint", idInst, "int")
         return result
     }
 
@@ -720,7 +720,7 @@ class DataExchange {
     static DdeDisconnectList(hConvList) {
         hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
 
-        result := DllCall("USER32.dll\DdeDisconnectList", "ptr", hConvList, "ptr")
+        result := DllCall("USER32.dll\DdeDisconnectList", "ptr", hConvList, "int")
         return result
     }
 
@@ -776,7 +776,7 @@ class DataExchange {
     static DdeDisconnect(hConv) {
         hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
 
-        result := DllCall("USER32.dll\DdeDisconnect", "ptr", hConv, "ptr")
+        result := DllCall("USER32.dll\DdeDisconnect", "ptr", hConv, "int")
         return result
     }
 
@@ -858,7 +858,7 @@ class DataExchange {
     static DdeSetUserHandle(hConv, id, hUser) {
         hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
 
-        result := DllCall("USER32.dll\DdeSetUserHandle", "ptr", hConv, "uint", id, "ptr", hUser, "ptr")
+        result := DllCall("USER32.dll\DdeSetUserHandle", "ptr", hConv, "uint", id, "ptr", hUser, "int")
         return result
     }
 
@@ -887,7 +887,7 @@ class DataExchange {
     static DdeAbandonTransaction(idInst, hConv, idTransaction) {
         hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
 
-        result := DllCall("USER32.dll\DdeAbandonTransaction", "uint", idInst, "ptr", hConv, "uint", idTransaction, "ptr")
+        result := DllCall("USER32.dll\DdeAbandonTransaction", "uint", idInst, "ptr", hConv, "uint", idTransaction, "int")
         return result
     }
 
@@ -916,7 +916,7 @@ class DataExchange {
         hszTopic := hszTopic is Win32Handle ? NumGet(hszTopic, "ptr") : hszTopic
         hszItem := hszItem is Win32Handle ? NumGet(hszItem, "ptr") : hszItem
 
-        result := DllCall("USER32.dll\DdePostAdvise", "uint", idInst, "ptr", hszTopic, "ptr", hszItem, "ptr")
+        result := DllCall("USER32.dll\DdePostAdvise", "uint", idInst, "ptr", hszTopic, "ptr", hszItem, "int")
         return result
     }
 
@@ -945,7 +945,7 @@ class DataExchange {
     static DdeEnableCallback(idInst, hConv, wCmd) {
         hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
 
-        result := DllCall("USER32.dll\DdeEnableCallback", "uint", idInst, "ptr", hConv, "uint", wCmd, "ptr")
+        result := DllCall("USER32.dll\DdeEnableCallback", "uint", idInst, "ptr", hConv, "uint", wCmd, "int")
         return result
     }
 
@@ -967,7 +967,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DdeImpersonateClient", "ptr", hConv, "ptr")
+        result := DllCall("USER32.dll\DdeImpersonateClient", "ptr", hConv, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1219,7 +1219,7 @@ class DataExchange {
     static DdeUnaccessData(hData) {
         hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
 
-        result := DllCall("USER32.dll\DdeUnaccessData", "ptr", hData, "ptr")
+        result := DllCall("USER32.dll\DdeUnaccessData", "ptr", hData, "int")
         return result
     }
 
@@ -1241,7 +1241,7 @@ class DataExchange {
     static DdeFreeDataHandle(hData) {
         hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
 
-        result := DllCall("USER32.dll\DdeFreeDataHandle", "ptr", hData, "ptr")
+        result := DllCall("USER32.dll\DdeFreeDataHandle", "ptr", hData, "int")
         return result
     }
 
@@ -1647,7 +1647,7 @@ class DataExchange {
     static DdeFreeStringHandle(idInst, hsz) {
         hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
 
-        result := DllCall("USER32.dll\DdeFreeStringHandle", "uint", idInst, "ptr", hsz, "ptr")
+        result := DllCall("USER32.dll\DdeFreeStringHandle", "uint", idInst, "ptr", hsz, "int")
         return result
     }
 
@@ -1670,7 +1670,7 @@ class DataExchange {
     static DdeKeepStringHandle(idInst, hsz) {
         hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
 
-        result := DllCall("USER32.dll\DdeKeepStringHandle", "uint", idInst, "ptr", hsz, "ptr")
+        result := DllCall("USER32.dll\DdeKeepStringHandle", "uint", idInst, "ptr", hsz, "int")
         return result
     }
 
@@ -1773,7 +1773,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\OpenClipboard", "ptr", hWndNewOwner, "ptr")
+        result := DllCall("USER32.dll\OpenClipboard", "ptr", hWndNewOwner, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1793,7 +1793,7 @@ class DataExchange {
     static CloseClipboard() {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CloseClipboard", "ptr")
+        result := DllCall("USER32.dll\CloseClipboard", "int")
         if(A_LastError)
             throw OSError()
 
@@ -1895,7 +1895,7 @@ class DataExchange {
         hWndRemove := hWndRemove is Win32Handle ? NumGet(hWndRemove, "ptr") : hWndRemove
         hWndNewNext := hWndNewNext is Win32Handle ? NumGet(hWndNewNext, "ptr") : hWndNewNext
 
-        result := DllCall("USER32.dll\ChangeClipboardChain", "ptr", hWndRemove, "ptr", hWndNewNext, "ptr")
+        result := DllCall("USER32.dll\ChangeClipboardChain", "ptr", hWndRemove, "ptr", hWndNewNext, "int")
         return result
     }
 
@@ -2133,7 +2133,7 @@ class DataExchange {
     static EmptyClipboard() {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EmptyClipboard", "ptr")
+        result := DllCall("USER32.dll\EmptyClipboard", "int")
         if(A_LastError)
             throw OSError()
 
@@ -2156,7 +2156,7 @@ class DataExchange {
     static IsClipboardFormatAvailable(format) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\IsClipboardFormatAvailable", "uint", format, "ptr")
+        result := DllCall("USER32.dll\IsClipboardFormatAvailable", "uint", format, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2222,7 +2222,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\AddClipboardFormatListener", "ptr", hwnd, "ptr")
+        result := DllCall("USER32.dll\AddClipboardFormatListener", "ptr", hwnd, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2245,7 +2245,7 @@ class DataExchange {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RemoveClipboardFormatListener", "ptr", hwnd, "ptr")
+        result := DllCall("USER32.dll\RemoveClipboardFormatListener", "ptr", hwnd, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2272,7 +2272,7 @@ class DataExchange {
     static GetUpdatedClipboardFormats(lpuiFormats, cFormats, pcFormatsOut) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetUpdatedClipboardFormats", "uint*", lpuiFormats, "uint", cFormats, "uint*", pcFormatsOut, "ptr")
+        result := DllCall("USER32.dll\GetUpdatedClipboardFormats", "uint*", lpuiFormats, "uint", cFormats, "uint*", pcFormatsOut, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2319,7 +2319,7 @@ class DataExchange {
      * @since windows5.0
      */
     static InitAtomTable(nSize) {
-        result := DllCall("KERNEL32.dll\InitAtomTable", "uint", nSize, "ptr")
+        result := DllCall("KERNEL32.dll\InitAtomTable", "uint", nSize, "int")
         return result
     }
 

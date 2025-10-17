@@ -18,7 +18,7 @@ class KSATTRIBUTE_AUDIOLOOPBACK_TAPPOINT extends Win32Struct
     AttributeHeader{
         get {
             if(!this.HasProp("__AttributeHeader"))
-                this.__AttributeHeader := KSATTRIBUTE(this.ptr + 0)
+                this.__AttributeHeader := KSATTRIBUTE(0, this)
             return this.__AttributeHeader
         }
     }

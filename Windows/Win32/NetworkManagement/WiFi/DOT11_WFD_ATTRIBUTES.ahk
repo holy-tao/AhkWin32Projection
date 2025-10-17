@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -19,7 +18,7 @@ class DOT11_WFD_ATTRIBUTES extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -51,34 +50,25 @@ class DOT11_WFD_ATTRIBUTES extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bServiceDiscoverySupported{
-        get {
-            if(!this.HasProp("__bServiceDiscoverySupported"))
-                this.__bServiceDiscoverySupported := BOOLEAN(this.ptr + 16)
-            return this.__bServiceDiscoverySupported
-        }
+    bServiceDiscoverySupported {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bClientDiscoverabilitySupported{
-        get {
-            if(!this.HasProp("__bClientDiscoverabilitySupported"))
-                this.__bClientDiscoverabilitySupported := BOOLEAN(this.ptr + 17)
-            return this.__bClientDiscoverabilitySupported
-        }
+    bClientDiscoverabilitySupported {
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bInfrastructureManagementSupported{
-        get {
-            if(!this.HasProp("__bInfrastructureManagementSupported"))
-                this.__bInfrastructureManagementSupported := BOOLEAN(this.ptr + 18)
-            return this.__bInfrastructureManagementSupported
-        }
+    bInfrastructureManagementSupported {
+        get => NumGet(this, 18, "char")
+        set => NumPut("char", value, this, 18)
     }
 
     /**

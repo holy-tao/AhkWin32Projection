@@ -22,7 +22,7 @@ class CHANGER_ELEMENT_LIST extends Win32Struct
     Element{
         get {
             if(!this.HasProp("__Element"))
-                this.__Element := CHANGER_ELEMENT(this.ptr + 0)
+                this.__Element := CHANGER_ELEMENT(0, this)
             return this.__Element
         }
     }

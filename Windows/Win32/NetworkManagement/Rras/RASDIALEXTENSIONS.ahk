@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\RASEAPINFO.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\RASDEVSPECIFICINFO.ahk
 
 /**
@@ -37,7 +36,7 @@ class RASDIALEXTENSIONS extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
+                this.__hwndParent := HWND(8, this)
             return this.__hwndParent
         }
     }
@@ -64,7 +63,7 @@ class RASDIALEXTENSIONS extends Win32Struct
     RasEapInfo{
         get {
             if(!this.HasProp("__RasEapInfo"))
-                this.__RasEapInfo := RASEAPINFO(this.ptr + 32)
+                this.__RasEapInfo := RASEAPINFO(32, this)
             return this.__RasEapInfo
         }
     }
@@ -72,12 +71,9 @@ class RASDIALEXTENSIONS extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fSkipPppAuth{
-        get {
-            if(!this.HasProp("__fSkipPppAuth"))
-                this.__fSkipPppAuth := BOOL(this.ptr + 48)
-            return this.__fSkipPppAuth
-        }
+    fSkipPppAuth {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -86,7 +82,7 @@ class RASDIALEXTENSIONS extends Win32Struct
     RasDevSpecificInfo{
         get {
             if(!this.HasProp("__RasDevSpecificInfo"))
-                this.__RasDevSpecificInfo := RASDEVSPECIFICINFO(this.ptr + 56)
+                this.__RasDevSpecificInfo := RASDEVSPECIFICINFO(56, this)
             return this.__RasDevSpecificInfo
         }
     }

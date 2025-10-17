@@ -1,9 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include .\DB_NUMERIC.ahk
 #Include .\DBTIMESTAMP.ahk
 #Include .\DBOBJECT.ahk
@@ -65,12 +62,9 @@ class SSVARIANT extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        pwchNCharVal{
-            get {
-                if(!this.HasProp("__pwchNCharVal"))
-                    this.__pwchNCharVal := PWSTR(this.ptr + 8)
-                return this.__pwchNCharVal
-            }
+        pwchNCharVal {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
         }
     
         /**
@@ -95,12 +89,9 @@ class SSVARIANT extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        pwchReserved{
-            get {
-                if(!this.HasProp("__pwchReserved"))
-                    this.__pwchReserved := PWSTR(this.ptr + 32)
-                return this.__pwchReserved
-            }
+        pwchReserved {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
         }
     
     }
@@ -128,12 +119,9 @@ class SSVARIANT extends Win32Struct
         /**
          * @type {PSTR}
          */
-        pchCharVal{
-            get {
-                if(!this.HasProp("__pchCharVal"))
-                    this.__pchCharVal := PSTR(this.ptr + 8)
-                return this.__pchCharVal
-            }
+        pchCharVal {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
         }
     
         /**
@@ -158,12 +146,9 @@ class SSVARIANT extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        pwchReserved{
-            get {
-                if(!this.HasProp("__pwchReserved"))
-                    this.__pwchReserved := PWSTR(this.ptr + 32)
-                return this.__pwchReserved
-            }
+        pwchReserved {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
         }
     
     }
@@ -249,7 +234,7 @@ class SSVARIANT extends Win32Struct
         dbobj{
             get {
                 if(!this.HasProp("__dbobj"))
-                    this.__dbobj := DBOBJECT(this.ptr + 0)
+                    this.__dbobj := DBOBJECT(0, this)
                 return this.__dbobj
             }
         }
@@ -318,7 +303,7 @@ class SSVARIANT extends Win32Struct
     cyMoneyVal{
         get {
             if(!this.HasProp("__cyMoneyVal"))
-                this.__cyMoneyVal := CY(this.ptr + 16)
+                this.__cyMoneyVal := CY(16, this)
             return this.__cyMoneyVal
         }
     }
@@ -329,7 +314,7 @@ class SSVARIANT extends Win32Struct
     NCharVal{
         get {
             if(!this.HasProp("__NCharVal"))
-                this.__NCharVal := %this.__Class%._NCharVal(this.ptr + 16)
+                this.__NCharVal := %this.__Class%._NCharVal(16, this)
             return this.__NCharVal
         }
     }
@@ -340,7 +325,7 @@ class SSVARIANT extends Win32Struct
     CharVal{
         get {
             if(!this.HasProp("__CharVal"))
-                this.__CharVal := %this.__Class%._CharVal(this.ptr + 16)
+                this.__CharVal := %this.__Class%._CharVal(16, this)
             return this.__CharVal
         }
     }
@@ -348,12 +333,9 @@ class SSVARIANT extends Win32Struct
     /**
      * @type {VARIANT_BOOL}
      */
-    fBitVal{
-        get {
-            if(!this.HasProp("__fBitVal"))
-                this.__fBitVal := VARIANT_BOOL(this.ptr + 16)
-            return this.__fBitVal
-        }
+    fBitVal {
+        get => NumGet(this, 16, "short")
+        set => NumPut("short", value, this, 16)
     }
 
     /**
@@ -373,7 +355,7 @@ class SSVARIANT extends Win32Struct
     numNumericVal{
         get {
             if(!this.HasProp("__numNumericVal"))
-                this.__numNumericVal := DB_NUMERIC(this.ptr + 16)
+                this.__numNumericVal := DB_NUMERIC(16, this)
             return this.__numNumericVal
         }
     }
@@ -384,7 +366,7 @@ class SSVARIANT extends Win32Struct
     BinaryVal{
         get {
             if(!this.HasProp("__BinaryVal"))
-                this.__BinaryVal := %this.__Class%._BinaryVal(this.ptr + 16)
+                this.__BinaryVal := %this.__Class%._BinaryVal(16, this)
             return this.__BinaryVal
         }
     }
@@ -395,7 +377,7 @@ class SSVARIANT extends Win32Struct
     tsDateTimeVal{
         get {
             if(!this.HasProp("__tsDateTimeVal"))
-                this.__tsDateTimeVal := DBTIMESTAMP(this.ptr + 16)
+                this.__tsDateTimeVal := DBTIMESTAMP(16, this)
             return this.__tsDateTimeVal
         }
     }
@@ -406,7 +388,7 @@ class SSVARIANT extends Win32Struct
     UnknownType{
         get {
             if(!this.HasProp("__UnknownType"))
-                this.__UnknownType := %this.__Class%._UnknownType(this.ptr + 16)
+                this.__UnknownType := %this.__Class%._UnknownType(16, this)
             return this.__UnknownType
         }
     }
@@ -417,7 +399,7 @@ class SSVARIANT extends Win32Struct
     BLOBType{
         get {
             if(!this.HasProp("__BLOBType"))
-                this.__BLOBType := %this.__Class%._BLOBType(this.ptr + 16)
+                this.__BLOBType := %this.__Class%._BLOBType(16, this)
             return this.__BLOBType
         }
     }

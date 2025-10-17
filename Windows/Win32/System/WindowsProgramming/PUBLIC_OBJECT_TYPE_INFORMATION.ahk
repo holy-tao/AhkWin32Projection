@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\UNICODE_STRING.ahk
 
 /**
@@ -19,7 +18,7 @@ class PUBLIC_OBJECT_TYPE_INFORMATION extends Win32Struct
     TypeName{
         get {
             if(!this.HasProp("__TypeName"))
-                this.__TypeName := UNICODE_STRING(this.ptr + 0)
+                this.__TypeName := UNICODE_STRING(0, this)
             return this.__TypeName
         }
     }

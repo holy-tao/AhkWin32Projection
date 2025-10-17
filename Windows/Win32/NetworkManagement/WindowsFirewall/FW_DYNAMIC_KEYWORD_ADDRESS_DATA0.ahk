@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FW_DYNAMIC_KEYWORD_ADDRESS0.ahk
 
 /**
@@ -19,7 +18,7 @@ class FW_DYNAMIC_KEYWORD_ADDRESS_DATA0 extends Win32Struct
     dynamicKeywordAddress{
         get {
             if(!this.HasProp("__dynamicKeywordAddress"))
-                this.__dynamicKeywordAddress := FW_DYNAMIC_KEYWORD_ADDRESS0(this.ptr + 0)
+                this.__dynamicKeywordAddress := FW_DYNAMIC_KEYWORD_ADDRESS0(0, this)
             return this.__dynamicKeywordAddress
         }
     }

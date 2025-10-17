@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\ONEX_VARIABLE_BLOB.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
@@ -31,12 +30,9 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * Indicates if a status update is pending for 802.X authentication.
      * @type {BOOL}
      */
-    fUpdatePending{
-        get {
-            if(!this.HasProp("__fUpdatePending"))
-                this.__fUpdatePending := BOOL(this.ptr + 0)
-            return this.__fUpdatePending
-        }
+    fUpdatePending {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -46,7 +42,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     oneXConnProfile{
         get {
             if(!this.HasProp("__oneXConnProfile"))
-                this.__oneXConnProfile := ONEX_VARIABLE_BLOB(this.ptr + 8)
+                this.__oneXConnProfile := ONEX_VARIABLE_BLOB(8, this)
             return this.__oneXConnProfile
         }
     }
@@ -160,7 +156,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     hUserToken{
         get {
             if(!this.HasProp("__hUserToken"))
-                this.__hUserToken := HANDLE(this.ptr + 32)
+                this.__hUserToken := HANDLE(32, this)
             return this.__hUserToken
         }
     }
@@ -174,7 +170,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     OneXUserProfile{
         get {
             if(!this.HasProp("__OneXUserProfile"))
-                this.__OneXUserProfile := ONEX_VARIABLE_BLOB(this.ptr + 40)
+                this.__OneXUserProfile := ONEX_VARIABLE_BLOB(40, this)
             return this.__OneXUserProfile
         }
     }
@@ -186,7 +182,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     Identity{
         get {
             if(!this.HasProp("__Identity"))
-                this.__Identity := ONEX_VARIABLE_BLOB(this.ptr + 48)
+                this.__Identity := ONEX_VARIABLE_BLOB(48, this)
             return this.__Identity
         }
     }
@@ -198,7 +194,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := ONEX_VARIABLE_BLOB(this.ptr + 56)
+                this.__UserName := ONEX_VARIABLE_BLOB(56, this)
             return this.__UserName
         }
     }
@@ -210,7 +206,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     Domain{
         get {
             if(!this.HasProp("__Domain"))
-                this.__Domain := ONEX_VARIABLE_BLOB(this.ptr + 64)
+                this.__Domain := ONEX_VARIABLE_BLOB(64, this)
             return this.__Domain
         }
     }

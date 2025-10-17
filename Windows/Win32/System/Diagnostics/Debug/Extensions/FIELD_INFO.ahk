@@ -119,7 +119,7 @@ class FIELD_INFO extends Win32Struct
     BitField{
         get {
             if(!this.HasProp("__BitField"))
-                this.__BitField := %this.__Class%._BitField(this.ptr + 52)
+                this.__BitField := %this.__Class%._BitField(52, this)
             return this.__BitField
         }
     }

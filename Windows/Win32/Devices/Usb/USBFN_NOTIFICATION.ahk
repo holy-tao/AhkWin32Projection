@@ -36,7 +36,7 @@ class USBFN_NOTIFICATION extends Win32Struct
     SetupPacket{
         get {
             if(!this.HasProp("__SetupPacket"))
-                this.__SetupPacket := USB_DEFAULT_PIPE_SETUP_PACKET(this.ptr + 8)
+                this.__SetupPacket := USB_DEFAULT_PIPE_SETUP_PACKET(8, this)
             return this.__SetupPacket
         }
     }
@@ -63,7 +63,7 @@ class USBFN_NOTIFICATION extends Win32Struct
     AlternateInterface{
         get {
             if(!this.HasProp("__AlternateInterface"))
-                this.__AlternateInterface := ALTERNATE_INTERFACE(this.ptr + 8)
+                this.__AlternateInterface := ALTERNATE_INTERFACE(8, this)
             return this.__AlternateInterface
         }
     }

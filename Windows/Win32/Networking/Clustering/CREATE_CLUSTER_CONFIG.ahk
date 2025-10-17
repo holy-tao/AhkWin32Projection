@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Defines the initial cluster configuration.
@@ -28,12 +26,9 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
      * Name of the cluster.
      * @type {PWSTR}
      */
-    lpszClusterName{
-        get {
-            if(!this.HasProp("__lpszClusterName"))
-                this.__lpszClusterName := PWSTR(this.ptr + 8)
-            return this.__lpszClusterName
-        }
+    lpszClusterName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -93,12 +88,9 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
      *        must not be <b>NULL</b>.
      * @type {BOOLEAN}
      */
-    fEmptyCluster{
-        get {
-            if(!this.HasProp("__fEmptyCluster"))
-                this.__fEmptyCluster := BOOLEAN(this.ptr + 48)
-            return this.__fEmptyCluster
-        }
+    fEmptyCluster {
+        get => NumGet(this, 48, "char")
+        set => NumPut("char", value, this, 48)
     }
 
     /**
@@ -124,33 +116,24 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszUserName{
-        get {
-            if(!this.HasProp("__pszUserName"))
-                this.__pszUserName := PWSTR(this.ptr + 64)
-            return this.__pszUserName
-        }
+    pszUserName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszPassword{
-        get {
-            if(!this.HasProp("__pszPassword"))
-                this.__pszPassword := PWSTR(this.ptr + 72)
-            return this.__pszPassword
-        }
+    pszPassword {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszDomain{
-        get {
-            if(!this.HasProp("__pszDomain"))
-                this.__pszDomain := PWSTR(this.ptr + 80)
-            return this.__pszDomain
-        }
+    pszDomain {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

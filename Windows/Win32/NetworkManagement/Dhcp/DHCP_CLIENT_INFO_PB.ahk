@@ -1,10 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_BINARY_DATA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DATE_TIME.ahk
 #Include .\DHCP_HOST_INFO.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DHCP_CLIENT_INFO_PB structure defines information about a DHCPv4 client, including filter status information and any policies that resulted in the IPv4 address assignment.
@@ -43,7 +41,7 @@ class DHCP_CLIENT_INFO_PB extends Win32Struct
     ClientHardwareAddress{
         get {
             if(!this.HasProp("__ClientHardwareAddress"))
-                this.__ClientHardwareAddress := DHCP_BINARY_DATA(this.ptr + 8)
+                this.__ClientHardwareAddress := DHCP_BINARY_DATA(8, this)
             return this.__ClientHardwareAddress
         }
     }
@@ -52,24 +50,18 @@ class DHCP_CLIENT_INFO_PB extends Win32Struct
      * Pointer to a null-terminated Unicode string that represents the DHCPv4 client machine name.
      * @type {PWSTR}
      */
-    ClientName{
-        get {
-            if(!this.HasProp("__ClientName"))
-                this.__ClientName := PWSTR(this.ptr + 24)
-            return this.__ClientName
-        }
+    ClientName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description of the DHCPv4 client.
      * @type {PWSTR}
      */
-    ClientComment{
-        get {
-            if(!this.HasProp("__ClientComment"))
-                this.__ClientComment := PWSTR(this.ptr + 32)
-            return this.__ClientComment
-        }
+    ClientComment {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -79,7 +71,7 @@ class DHCP_CLIENT_INFO_PB extends Win32Struct
     ClientLeaseExpires{
         get {
             if(!this.HasProp("__ClientLeaseExpires"))
-                this.__ClientLeaseExpires := DATE_TIME(this.ptr + 40)
+                this.__ClientLeaseExpires := DATE_TIME(40, this)
             return this.__ClientLeaseExpires
         }
     }
@@ -91,7 +83,7 @@ class DHCP_CLIENT_INFO_PB extends Win32Struct
     OwnerHost{
         get {
             if(!this.HasProp("__OwnerHost"))
-                this.__OwnerHost := DHCP_HOST_INFO(this.ptr + 48)
+                this.__OwnerHost := DHCP_HOST_INFO(48, this)
             return this.__OwnerHost
         }
     }
@@ -254,7 +246,7 @@ class DHCP_CLIENT_INFO_PB extends Win32Struct
     ProbationEnds{
         get {
             if(!this.HasProp("__ProbationEnds"))
-                this.__ProbationEnds := DATE_TIME(this.ptr + 80)
+                this.__ProbationEnds := DATE_TIME(80, this)
             return this.__ProbationEnds
         }
     }
@@ -263,12 +255,9 @@ class DHCP_CLIENT_INFO_PB extends Win32Struct
      * <b>TRUE</b>, if the DHCPv4 client is quarantine-enabled; Otherwise, it is <b>FALSE</b>.
      * @type {BOOL}
      */
-    QuarantineCapable{
-        get {
-            if(!this.HasProp("__QuarantineCapable"))
-                this.__QuarantineCapable := BOOL(this.ptr + 88)
-            return this.__QuarantineCapable
-        }
+    QuarantineCapable {
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
@@ -346,11 +335,8 @@ class DHCP_CLIENT_INFO_PB extends Win32Struct
      * Pointer to a null-terminated Unicode string that represents the DHCP server policy name that resulted in the IPv4 address assignment to the DHCPv4 client in the lease.
      * @type {PWSTR}
      */
-    PolicyName{
-        get {
-            if(!this.HasProp("__PolicyName"))
-                this.__PolicyName := PWSTR(this.ptr + 96)
-            return this.__PolicyName
-        }
+    PolicyName {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

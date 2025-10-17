@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -23,23 +22,17 @@ class s_RIFFWAVE_inst extends Win32Struct
     /**
      * @type {CHAR}
      */
-    chFineTune{
-        get {
-            if(!this.HasProp("__chFineTune"))
-                this.__chFineTune := CHAR(this.ptr + 1)
-            return this.__chFineTune
-        }
+    chFineTune {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
      * @type {CHAR}
      */
-    chGain{
-        get {
-            if(!this.HasProp("__chGain"))
-                this.__chGain := CHAR(this.ptr + 2)
-            return this.__chGain
-        }
+    chGain {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 
     /**

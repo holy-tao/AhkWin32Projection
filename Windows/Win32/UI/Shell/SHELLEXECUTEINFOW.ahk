@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\System\Registry\HKEY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
@@ -39,7 +38,7 @@ class SHELLEXECUTEINFOW extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 8)
+                this.__hwnd := HWND(8, this)
             return this.__hwnd
         }
     }
@@ -47,45 +46,33 @@ class SHELLEXECUTEINFOW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpVerb{
-        get {
-            if(!this.HasProp("__lpVerb"))
-                this.__lpVerb := PWSTR(this.ptr + 16)
-            return this.__lpVerb
-        }
+    lpVerb {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    lpFile{
-        get {
-            if(!this.HasProp("__lpFile"))
-                this.__lpFile := PWSTR(this.ptr + 24)
-            return this.__lpFile
-        }
+    lpFile {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    lpParameters{
-        get {
-            if(!this.HasProp("__lpParameters"))
-                this.__lpParameters := PWSTR(this.ptr + 32)
-            return this.__lpParameters
-        }
+    lpParameters {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    lpDirectory{
-        get {
-            if(!this.HasProp("__lpDirectory"))
-                this.__lpDirectory := PWSTR(this.ptr + 40)
-            return this.__lpDirectory
-        }
+    lpDirectory {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -102,7 +89,7 @@ class SHELLEXECUTEINFOW extends Win32Struct
     hInstApp{
         get {
             if(!this.HasProp("__hInstApp"))
-                this.__hInstApp := HINSTANCE(this.ptr + 56)
+                this.__hInstApp := HINSTANCE(56, this)
             return this.__hInstApp
         }
     }
@@ -118,12 +105,9 @@ class SHELLEXECUTEINFOW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpClass{
-        get {
-            if(!this.HasProp("__lpClass"))
-                this.__lpClass := PWSTR(this.ptr + 72)
-            return this.__lpClass
-        }
+    lpClass {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -132,7 +116,7 @@ class SHELLEXECUTEINFOW extends Win32Struct
     hkeyClass{
         get {
             if(!this.HasProp("__hkeyClass"))
-                this.__hkeyClass := HKEY(this.ptr + 80)
+                this.__hkeyClass := HKEY(80, this)
             return this.__hkeyClass
         }
     }
@@ -151,7 +135,7 @@ class SHELLEXECUTEINFOW extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HANDLE(this.ptr + 96)
+                this.__hIcon := HANDLE(96, this)
             return this.__hIcon
         }
     }
@@ -162,7 +146,7 @@ class SHELLEXECUTEINFOW extends Win32Struct
     hMonitor{
         get {
             if(!this.HasProp("__hMonitor"))
-                this.__hMonitor := HANDLE(this.ptr + 96)
+                this.__hMonitor := HANDLE(96, this)
             return this.__hMonitor
         }
     }
@@ -173,17 +157,13 @@ class SHELLEXECUTEINFOW extends Win32Struct
     hProcess{
         get {
             if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(this.ptr + 104)
+                this.__hProcess := HANDLE(104, this)
             return this.__hProcess
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 112
     }
 }

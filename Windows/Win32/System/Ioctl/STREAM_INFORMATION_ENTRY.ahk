@@ -157,7 +157,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
         DesiredStorageClass{
             get {
                 if(!this.HasProp("__DesiredStorageClass"))
-                    this.__DesiredStorageClass := %this.__Class%._DesiredStorageClass(this.ptr + 0)
+                    this.__DesiredStorageClass := %this.__Class%._DesiredStorageClass(0, this)
                 return this.__DesiredStorageClass
             }
         }
@@ -168,7 +168,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
         DataStream{
             get {
                 if(!this.HasProp("__DataStream"))
-                    this.__DataStream := %this.__Class%._DataStream(this.ptr + 0)
+                    this.__DataStream := %this.__Class%._DataStream(0, this)
                 return this.__DataStream
             }
         }
@@ -179,7 +179,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
         Reparse{
             get {
                 if(!this.HasProp("__Reparse"))
-                    this.__Reparse := %this.__Class%._Reparse(this.ptr + 0)
+                    this.__Reparse := %this.__Class%._Reparse(0, this)
                 return this.__Reparse
             }
         }
@@ -190,7 +190,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
         Ea{
             get {
                 if(!this.HasProp("__Ea"))
-                    this.__Ea := %this.__Class%._Ea(this.ptr + 0)
+                    this.__Ea := %this.__Class%._Ea(0, this)
                 return this.__Ea
             }
         }
@@ -219,7 +219,7 @@ class STREAM_INFORMATION_ENTRY extends Win32Struct
     StreamInformation{
         get {
             if(!this.HasProp("__StreamInformation"))
-                this.__StreamInformation := %this.__Class%._StreamInformation(this.ptr + 8)
+                this.__StreamInformation := %this.__Class%._StreamInformation(8, this)
             return this.__StreamInformation
         }
     }

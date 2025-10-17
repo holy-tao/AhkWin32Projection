@@ -26,7 +26,7 @@ class HTTP_SERVICE_CONFIG_SSL_CCS_KEY extends Win32Struct
     LocalAddress{
         get {
             if(!this.HasProp("__LocalAddress"))
-                this.__LocalAddress := SOCKADDR_STORAGE(this.ptr + 0)
+                this.__LocalAddress := SOCKADDR_STORAGE(0, this)
             return this.__LocalAddress
         }
     }

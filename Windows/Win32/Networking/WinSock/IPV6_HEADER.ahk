@@ -86,7 +86,7 @@ class IPV6_HEADER extends Win32Struct
     SourceAddress{
         get {
             if(!this.HasProp("__SourceAddress"))
-                this.__SourceAddress := IN6_ADDR(this.ptr + 8)
+                this.__SourceAddress := IN6_ADDR(8, this)
             return this.__SourceAddress
         }
     }
@@ -97,7 +97,7 @@ class IPV6_HEADER extends Win32Struct
     DestinationAddress{
         get {
             if(!this.HasProp("__DestinationAddress"))
-                this.__DestinationAddress := IN6_ADDR(this.ptr + 24)
+                this.__DestinationAddress := IN6_ADDR(24, this)
             return this.__DestinationAddress
         }
     }

@@ -34,7 +34,7 @@ class DBPARAMS extends Win32Struct
     hAccessor{
         get {
             if(!this.HasProp("__hAccessor"))
-                this.__hAccessor := HACCESSOR(this.ptr + 16)
+                this.__hAccessor := HACCESSOR(16, this)
             return this.__hAccessor
         }
     }

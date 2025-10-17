@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * Supports the CRYPTUI_VIEWCERTIFICATE_STRUCT structure.
@@ -18,12 +17,9 @@ class CRYPTUI_INITDIALOG_STRUCT extends Win32Struct
      * The <b>lParam</b> in the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> structure.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 0)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

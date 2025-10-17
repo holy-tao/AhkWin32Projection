@@ -37,7 +37,7 @@ class LSA_OBJECT_ATTRIBUTES extends Win32Struct
     RootDirectory{
         get {
             if(!this.HasProp("__RootDirectory"))
-                this.__RootDirectory := HANDLE(this.ptr + 8)
+                this.__RootDirectory := HANDLE(8, this)
             return this.__RootDirectory
         }
     }

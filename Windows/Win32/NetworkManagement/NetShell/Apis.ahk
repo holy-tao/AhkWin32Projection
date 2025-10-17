@@ -202,7 +202,7 @@ class NetShell {
         pwszUserToken := pwszUserToken is String ? StrPtr(pwszUserToken) : pwszUserToken
         pwszCmdToken := pwszCmdToken is String ? StrPtr(pwszCmdToken) : pwszCmdToken
 
-        result := DllCall("NETSH.dll\MatchToken", "ptr", pwszUserToken, "ptr", pwszCmdToken, "ptr")
+        result := DllCall("NETSH.dll\MatchToken", "ptr", pwszUserToken, "ptr", pwszCmdToken, "int")
         return result
     }
 

@@ -24,7 +24,7 @@ class CLUSPROP_PARTITION_INFO_EX2 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := CLUSPROP_PARTITION_INFO_EX(this.ptr + 0)
+                this.__Base := CLUSPROP_PARTITION_INFO_EX(0, this)
             return this.__Base
         }
     }
@@ -35,7 +35,7 @@ class CLUSPROP_PARTITION_INFO_EX2 extends Win32Struct
     Base2{
         get {
             if(!this.HasProp("__Base2"))
-                this.__Base2 := CLUS_PARTITION_INFO_EX2(this.ptr + 1168)
+                this.__Base2 := CLUS_PARTITION_INFO_EX2(1168, this)
             return this.__Base2
         }
     }

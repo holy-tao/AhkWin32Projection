@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -21,24 +19,18 @@ class CERT_EXTENSION extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptography-structures">X.509 Certificate Extension Structures</a>.
      * @type {PSTR}
      */
-    pszObjId{
-        get {
-            if(!this.HasProp("__pszObjId"))
-                this.__pszObjId := PSTR(this.ptr + 0)
-            return this.__pszObjId
-        }
+    pszObjId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * If <b>TRUE</b>, any limitations specified by the extension in the <b>Value</b> member of this structure are imperative. If <b>FALSE</b>, limitations set by this extension can be ignored.
      * @type {BOOL}
      */
-    fCritical{
-        get {
-            if(!this.HasProp("__fCritical"))
-                this.__fCritical := BOOL(this.ptr + 8)
-            return this.__fCritical
-        }
+    fCritical {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -49,7 +41,7 @@ class CERT_EXTENSION extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__Value := CRYPT_INTEGER_BLOB(16, this)
             return this.__Value
         }
     }

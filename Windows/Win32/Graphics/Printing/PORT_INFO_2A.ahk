@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -16,34 +15,25 @@ class PORT_INFO_2A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pPortName{
-        get {
-            if(!this.HasProp("__pPortName"))
-                this.__pPortName := PSTR(this.ptr + 0)
-            return this.__pPortName
-        }
+    pPortName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PSTR}
      */
-    pMonitorName{
-        get {
-            if(!this.HasProp("__pMonitorName"))
-                this.__pMonitorName := PSTR(this.ptr + 8)
-            return this.__pMonitorName
-        }
+    pMonitorName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PSTR}
      */
-    pDescription{
-        get {
-            if(!this.HasProp("__pDescription"))
-                this.__pDescription := PSTR(this.ptr + 16)
-            return this.__pDescription
-        }
+    pDescription {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

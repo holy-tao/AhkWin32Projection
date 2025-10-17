@@ -26,7 +26,7 @@ class CKCL_LISTHEAD extends Win32Struct
     Heap{
         get {
             if(!this.HasProp("__Heap"))
-                this.__Heap := HANDLE(this.ptr + 8)
+                this.__Heap := HANDLE(8, this)
             return this.__Heap
         }
     }

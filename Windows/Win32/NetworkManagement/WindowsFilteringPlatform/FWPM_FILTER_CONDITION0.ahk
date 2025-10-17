@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWP_CONDITION_VALUE0.ahk
 
 /**
@@ -53,7 +52,7 @@ class FWPM_FILTER_CONDITION0 extends Win32Struct
     conditionValue{
         get {
             if(!this.HasProp("__conditionValue"))
-                this.__conditionValue := FWP_CONDITION_VALUE0(this.ptr + 16)
+                this.__conditionValue := FWP_CONDITION_VALUE0(16, this)
             return this.__conditionValue
         }
     }

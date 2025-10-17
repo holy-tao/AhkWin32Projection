@@ -39,7 +39,7 @@ class DVEXTENTINFO extends Win32Struct
     sizelProposed{
         get {
             if(!this.HasProp("__sizelProposed"))
-                this.__sizelProposed := SIZE(this.ptr + 8)
+                this.__sizelProposed := SIZE(8, this)
             return this.__sizelProposed
         }
     }

@@ -26,7 +26,7 @@ class D3D12_INFO_QUEUE_FILTER extends Win32Struct
     AllowList{
         get {
             if(!this.HasProp("__AllowList"))
-                this.__AllowList := D3D12_INFO_QUEUE_FILTER_DESC(this.ptr + 0)
+                this.__AllowList := D3D12_INFO_QUEUE_FILTER_DESC(0, this)
             return this.__AllowList
         }
     }
@@ -38,7 +38,7 @@ class D3D12_INFO_QUEUE_FILTER extends Win32Struct
     DenyList{
         get {
             if(!this.HasProp("__DenyList"))
-                this.__DenyList := D3D12_INFO_QUEUE_FILTER_DESC(this.ptr + 48)
+                this.__DenyList := D3D12_INFO_QUEUE_FILTER_DESC(48, this)
             return this.__DenyList
         }
     }

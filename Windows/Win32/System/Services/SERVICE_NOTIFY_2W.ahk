@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SERVICE_STATUS_PROCESS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Services
@@ -52,7 +51,7 @@ class SERVICE_NOTIFY_2W extends Win32Struct
     ServiceStatus{
         get {
             if(!this.HasProp("__ServiceStatus"))
-                this.__ServiceStatus := SERVICE_STATUS_PROCESS(this.ptr + 32)
+                this.__ServiceStatus := SERVICE_STATUS_PROCESS(32, this)
             return this.__ServiceStatus
         }
     }
@@ -68,11 +67,8 @@ class SERVICE_NOTIFY_2W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszServiceNames{
-        get {
-            if(!this.HasProp("__pszServiceNames"))
-                this.__pszServiceNames := PWSTR(this.ptr + 72)
-            return this.__pszServiceNames
-        }
+    pszServiceNames {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

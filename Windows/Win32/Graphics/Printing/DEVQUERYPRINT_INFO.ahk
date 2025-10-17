@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -35,7 +34,7 @@ class DEVQUERYPRINT_INFO extends Win32Struct
     hPrinter{
         get {
             if(!this.HasProp("__hPrinter"))
-                this.__hPrinter := HANDLE(this.ptr + 8)
+                this.__hPrinter := HANDLE(8, this)
             return this.__hPrinter
         }
     }
@@ -51,12 +50,9 @@ class DEVQUERYPRINT_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszErrorStr{
-        get {
-            if(!this.HasProp("__pszErrorStr"))
-                this.__pszErrorStr := PWSTR(this.ptr + 24)
-            return this.__pszErrorStr
-        }
+    pszErrorStr {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -75,12 +71,8 @@ class DEVQUERYPRINT_INFO extends Win32Struct
         set => NumPut("uint", value, this, 36)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

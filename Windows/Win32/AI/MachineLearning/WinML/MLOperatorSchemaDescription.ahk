@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
@@ -15,12 +14,9 @@ class MLOperatorSchemaDescription extends Win32Struct
     /**
      * @type {PSTR}
      */
-    name{
-        get {
-            if(!this.HasProp("__name"))
-                this.__name := PSTR(this.ptr + 0)
-            return this.__name
-        }
+    name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

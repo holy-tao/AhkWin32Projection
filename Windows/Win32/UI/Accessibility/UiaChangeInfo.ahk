@@ -1,10 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\CHAR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 
@@ -126,7 +123,7 @@ class UiaChangeInfo extends Win32Struct
     payload{
         get {
             if(!this.HasProp("__payload"))
-                this.__payload := VARIANT(this.ptr + 8)
+                this.__payload := VARIANT(8, this)
             return this.__payload
         }
     }
@@ -138,7 +135,7 @@ class UiaChangeInfo extends Win32Struct
     extraInfo{
         get {
             if(!this.HasProp("__extraInfo"))
-                this.__extraInfo := VARIANT(this.ptr + 32)
+                this.__extraInfo := VARIANT(32, this)
             return this.__extraInfo
         }
     }

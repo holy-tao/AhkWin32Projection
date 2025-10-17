@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the authentication status of the request with a handle to the client token that the receiving process can use to impersonate the authenticated client.
@@ -101,7 +99,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
     AccessToken{
         get {
             if(!this.HasProp("__AccessToken"))
-                this.__AccessToken := HANDLE(this.ptr + 16)
+                this.__AccessToken := HANDLE(16, this)
             return this.__AccessToken
         }
     }
@@ -159,12 +157,9 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
      * The Base64 encoded mutual authentication data used in  the WWW-Authenticate header.
      * @type {PSTR}
      */
-    pMutualAuthData{
-        get {
-            if(!this.HasProp("__pMutualAuthData"))
-                this.__pMutualAuthData := PSTR(this.ptr + 56)
-            return this.__pMutualAuthData
-        }
+    pMutualAuthData {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -180,11 +175,8 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
      * 
      * @type {PWSTR}
      */
-    pPackageName{
-        get {
-            if(!this.HasProp("__pPackageName"))
-                this.__pPackageName := PWSTR(this.ptr + 72)
-            return this.__pPackageName
-        }
+    pPackageName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

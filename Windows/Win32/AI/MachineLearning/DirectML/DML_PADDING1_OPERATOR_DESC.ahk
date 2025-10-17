@@ -50,7 +50,7 @@ class DML_PADDING1_OPERATOR_DESC extends Win32Struct
     PaddingValue{
         get {
             if(!this.HasProp("__PaddingValue"))
-                this.__PaddingValue := DML_SCALAR_UNION(this.ptr + 24)
+                this.__PaddingValue := DML_SCALAR_UNION(24, this)
             return this.__PaddingValue
         }
     }

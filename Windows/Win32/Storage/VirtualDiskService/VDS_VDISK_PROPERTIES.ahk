@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Vhd\VIRTUAL_STORAGE_TYPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the properties of a virtual disk.
@@ -41,7 +39,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
     VirtualDeviceType{
         get {
             if(!this.HasProp("__VirtualDeviceType"))
-                this.__VirtualDeviceType := VIRTUAL_STORAGE_TYPE(this.ptr + 16)
+                this.__VirtualDeviceType := VIRTUAL_STORAGE_TYPE(16, this)
             return this.__VirtualDeviceType
         }
     }
@@ -68,24 +66,18 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
      * A <b>NULL</b>-terminated wide-character string containing the name and directory path of the backing file for the virtual disk.
      * @type {PWSTR}
      */
-    pPath{
-        get {
-            if(!this.HasProp("__pPath"))
-                this.__pPath := PWSTR(this.ptr + 48)
-            return this.__pPath
-        }
+    pPath {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * A <b>NULL</b>-terminated wide-character string containing the name and device path of the disk device object for the volume where the virtual disk resides.
      * @type {PWSTR}
      */
-    pDeviceName{
-        get {
-            if(!this.HasProp("__pDeviceName"))
-                this.__pDeviceName := PWSTR(this.ptr + 56)
-            return this.__pDeviceName
-        }
+    pDeviceName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -101,23 +93,17 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
      * <b>TRUE</b> if the virtual disk is a child virtual disk, or <b>FALSE</b> otherwise.
      * @type {BOOL}
      */
-    bIsChild{
-        get {
-            if(!this.HasProp("__bIsChild"))
-                this.__bIsChild := BOOL(this.ptr + 68)
-            return this.__bIsChild
-        }
+    bIsChild {
+        get => NumGet(this, 68, "int")
+        set => NumPut("int", value, this, 68)
     }
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains an optional path to a parent virtual disk object.
      * @type {PWSTR}
      */
-    pParentPath{
-        get {
-            if(!this.HasProp("__pParentPath"))
-                this.__pParentPath := PWSTR(this.ptr + 72)
-            return this.__pParentPath
-        }
+    pParentPath {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

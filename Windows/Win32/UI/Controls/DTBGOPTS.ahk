@@ -132,7 +132,7 @@ class DTBGOPTS extends Win32Struct
     rcClip{
         get {
             if(!this.HasProp("__rcClip"))
-                this.__rcClip := RECT(this.ptr + 8)
+                this.__rcClip := RECT(8, this)
             return this.__rcClip
         }
     }

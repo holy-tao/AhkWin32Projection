@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_MASK_GEN_ALGORITHM.ahk
@@ -29,7 +28,7 @@ class CRYPT_RSAES_OAEP_PARAMETERS extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 0)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
             return this.__HashAlgorithm
         }
     }
@@ -41,7 +40,7 @@ class CRYPT_RSAES_OAEP_PARAMETERS extends Win32Struct
     MaskGenAlgorithm{
         get {
             if(!this.HasProp("__MaskGenAlgorithm"))
-                this.__MaskGenAlgorithm := CRYPT_MASK_GEN_ALGORITHM(this.ptr + 24)
+                this.__MaskGenAlgorithm := CRYPT_MASK_GEN_ALGORITHM(24, this)
             return this.__MaskGenAlgorithm
         }
     }
@@ -53,7 +52,7 @@ class CRYPT_RSAES_OAEP_PARAMETERS extends Win32Struct
     PSourceAlgorithm{
         get {
             if(!this.HasProp("__PSourceAlgorithm"))
-                this.__PSourceAlgorithm := CRYPT_PSOURCE_ALGORITHM(this.ptr + 56)
+                this.__PSourceAlgorithm := CRYPT_PSOURCE_ALGORITHM(56, this)
             return this.__PSourceAlgorithm
         }
     }

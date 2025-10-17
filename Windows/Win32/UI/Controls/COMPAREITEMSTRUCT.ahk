@@ -45,7 +45,7 @@ class COMPAREITEMSTRUCT extends Win32Struct
     hwndItem{
         get {
             if(!this.HasProp("__hwndItem"))
-                this.__hwndItem := HWND(this.ptr + 8)
+                this.__hwndItem := HWND(8, this)
             return this.__hwndItem
         }
     }

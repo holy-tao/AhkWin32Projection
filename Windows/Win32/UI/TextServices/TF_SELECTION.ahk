@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\TF_SELECTIONSTYLE.ahk
 
 /**
@@ -31,7 +30,7 @@ class TF_SELECTION extends Win32Struct
     style{
         get {
             if(!this.HasProp("__style"))
-                this.__style := TF_SELECTIONSTYLE(this.ptr + 8)
+                this.__style := TF_SELECTIONSTYLE(8, this)
             return this.__style
         }
     }

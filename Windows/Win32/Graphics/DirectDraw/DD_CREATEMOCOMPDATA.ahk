@@ -66,7 +66,7 @@ class DD_CREATEMOCOMPDATA extends Win32Struct
     ddUncompPixelFormat{
         get {
             if(!this.HasProp("__ddUncompPixelFormat"))
-                this.__ddUncompPixelFormat := DDPIXELFORMAT(this.ptr + 32)
+                this.__ddUncompPixelFormat := DDPIXELFORMAT(32, this)
             return this.__ddUncompPixelFormat
         }
     }

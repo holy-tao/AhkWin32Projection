@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The GROUP_INFO_1 structure contains a global group name and a comment to associate with the group.
@@ -29,23 +28,17 @@ class GROUP_INFO_1 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupsetinfo">NetGroupSetInfo</a> function this member is ignored.
      * @type {PWSTR}
      */
-    grpi1_name{
-        get {
-            if(!this.HasProp("__grpi1_name"))
-                this.__grpi1_name := PWSTR(this.ptr + 0)
-            return this.__grpi1_name
-        }
+    grpi1_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated Unicode character string that specifies a remark associated with the global group. This member can be a null string. The comment can contain MAXCOMMENTSZ characters.
      * @type {PWSTR}
      */
-    grpi1_comment{
-        get {
-            if(!this.HasProp("__grpi1_comment"))
-                this.__grpi1_comment := PWSTR(this.ptr + 8)
-            return this.__grpi1_comment
-        }
+    grpi1_comment {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

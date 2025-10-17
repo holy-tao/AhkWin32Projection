@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about an ELS service.
@@ -32,12 +31,9 @@ class MAPPING_SERVICE_INFO extends Win32Struct
      * Pointer to copyright information about the service.
      * @type {PWSTR}
      */
-    pszCopyright{
-        get {
-            if(!this.HasProp("__pszCopyright"))
-                this.__pszCopyright := PWSTR(this.ptr + 8)
-            return this.__pszCopyright
-        }
+    pszCopyright {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -200,24 +196,18 @@ class MAPPING_SERVICE_INFO extends Win32Struct
      * Pointer to the service category for the service, for example, "Language Detection".
      * @type {PWSTR}
      */
-    pszCategory{
-        get {
-            if(!this.HasProp("__pszCategory"))
-                this.__pszCategory := PWSTR(this.ptr + 128)
-            return this.__pszCategory
-        }
+    pszCategory {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
      * Pointer to the service description. This text can be localized.
      * @type {PWSTR}
      */
-    pszDescription{
-        get {
-            if(!this.HasProp("__pszDescription"))
-                this.__pszDescription := PWSTR(this.ptr + 136)
-            return this.__pszDescription
-        }
+    pszDescription {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**

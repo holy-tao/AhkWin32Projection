@@ -39,7 +39,7 @@ class D2D1_RENDERING_CONTROLS extends Win32Struct
     tileSize{
         get {
             if(!this.HasProp("__tileSize"))
-                this.__tileSize := D2D_SIZE_U(this.ptr + 8)
+                this.__tileSize := D2D_SIZE_U(8, this)
             return this.__tileSize
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The FAX_PORT_INFO structure describes one fax port. The data includes, among other items, a device identifier, the port's name and current status, and station identifiers.
@@ -103,12 +102,9 @@ class FAX_PORT_INFOW extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the name of the fax device of interest.
      * @type {PWSTR}
      */
-    DeviceName{
-        get {
-            if(!this.HasProp("__DeviceName"))
-                this.__DeviceName := PWSTR(this.ptr + 24)
-            return this.__DeviceName
-        }
+    DeviceName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -117,12 +113,9 @@ class FAX_PORT_INFOW extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the TSID. This identifier is usually a telephone number. Only printable characters such as English letters, numeric symbols, and punctuation marks (ASCII range 0x20 to 0x7F) can be used in a TSID.
      * @type {PWSTR}
      */
-    Tsid{
-        get {
-            if(!this.HasProp("__Tsid"))
-                this.__Tsid := PWSTR(this.ptr + 32)
-            return this.__Tsid
-        }
+    Tsid {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -131,11 +124,8 @@ class FAX_PORT_INFOW extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the called station identifier (CSID). This identifier is usually a telephone number. Only printable characters such as English letters, numeric symbols, and punctuation marks (ASCII range 0x20 to 0x7F) can be used in a CSID.
      * @type {PWSTR}
      */
-    Csid{
-        get {
-            if(!this.HasProp("__Csid"))
-                this.__Csid := PWSTR(this.ptr + 40)
-            return this.__Csid
-        }
+    Csid {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

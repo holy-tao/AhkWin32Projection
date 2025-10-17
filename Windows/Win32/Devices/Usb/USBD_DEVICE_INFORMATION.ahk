@@ -34,7 +34,7 @@ class USBD_DEVICE_INFORMATION extends Win32Struct
     DeviceDescriptor{
         get {
             if(!this.HasProp("__DeviceDescriptor"))
-                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(this.ptr + 16)
+                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(16, this)
             return this.__DeviceDescriptor
         }
     }

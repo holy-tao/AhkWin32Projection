@@ -28,7 +28,7 @@ class NEWTEXTMETRICEXW extends Win32Struct
     ntmTm{
         get {
             if(!this.HasProp("__ntmTm"))
-                this.__ntmTm := NEWTEXTMETRICW(this.ptr + 0)
+                this.__ntmTm := NEWTEXTMETRICW(0, this)
             return this.__ntmTm
         }
     }
@@ -40,7 +40,7 @@ class NEWTEXTMETRICEXW extends Win32Struct
     ntmFontSig{
         get {
             if(!this.HasProp("__ntmFontSig"))
-                this.__ntmFontSig := FONTSIGNATURE(this.ptr + 80)
+                this.__ntmFontSig := FONTSIGNATURE(80, this)
             return this.__ntmFontSig
         }
     }

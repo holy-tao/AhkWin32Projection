@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a shader-variable type.
@@ -86,11 +85,8 @@ class D3D12_SHADER_TYPE_DESC extends Win32Struct
      * Name of the shader-variable type. This member can be <b>NULL</b> if it isn't used. This member supports dynamic shader linkage interface types, which have names. For more info about dynamic shader linkage, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/overviews-direct3d-11-hlsl-dynamic-linking">Dynamic Linking</a>.
      * @type {PSTR}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PSTR(this.ptr + 32)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

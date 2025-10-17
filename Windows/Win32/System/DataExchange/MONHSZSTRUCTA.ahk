@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\HSZ.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
@@ -90,12 +89,9 @@ class MONHSZSTRUCTA extends Win32Struct
      * </table>
      * @type {BOOL}
      */
-    fsAction{
-        get {
-            if(!this.HasProp("__fsAction"))
-                this.__fsAction := BOOL(this.ptr + 4)
-            return this.__fsAction
-        }
+    fsAction {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -118,7 +114,7 @@ class MONHSZSTRUCTA extends Win32Struct
     hsz{
         get {
             if(!this.HasProp("__hsz"))
-                this.__hsz := HSZ(this.ptr + 16)
+                this.__hsz := HSZ(16, this)
             return this.__hsz
         }
     }
@@ -132,7 +128,7 @@ class MONHSZSTRUCTA extends Win32Struct
     hTask{
         get {
             if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(this.ptr + 24)
+                this.__hTask := HANDLE(24, this)
             return this.__hTask
         }
     }

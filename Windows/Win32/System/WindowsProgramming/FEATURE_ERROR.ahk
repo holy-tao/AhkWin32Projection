@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * This structure is intended for infrastructure use only.
@@ -36,36 +35,27 @@ class FEATURE_ERROR extends Win32Struct
      * Infrastructure use only.
      * @type {PSTR}
      */
-    file{
-        get {
-            if(!this.HasProp("__file"))
-                this.__file := PSTR(this.ptr + 8)
-            return this.__file
-        }
+    file {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Infrastructure use only.
      * @type {PSTR}
      */
-    process{
-        get {
-            if(!this.HasProp("__process"))
-                this.__process := PSTR(this.ptr + 16)
-            return this.__process
-        }
+    process {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Infrastructure use only.
      * @type {PSTR}
      */
-    module{
-        get {
-            if(!this.HasProp("__module"))
-                this.__module := PSTR(this.ptr + 24)
-            return this.__module
-        }
+    module {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -81,24 +71,18 @@ class FEATURE_ERROR extends Win32Struct
      * Infrastructure use only.
      * @type {PSTR}
      */
-    callerModule{
-        get {
-            if(!this.HasProp("__callerModule"))
-                this.__callerModule := PSTR(this.ptr + 40)
-            return this.__callerModule
-        }
+    callerModule {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Infrastructure use only.
      * @type {PSTR}
      */
-    message{
-        get {
-            if(!this.HasProp("__message"))
-                this.__message := PSTR(this.ptr + 48)
-            return this.__message
-        }
+    message {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -114,24 +98,18 @@ class FEATURE_ERROR extends Win32Struct
      * Infrastructure use only.
      * @type {PSTR}
      */
-    originFile{
-        get {
-            if(!this.HasProp("__originFile"))
-                this.__originFile := PSTR(this.ptr + 64)
-            return this.__originFile
-        }
+    originFile {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * Infrastructure use only.
      * @type {PSTR}
      */
-    originModule{
-        get {
-            if(!this.HasProp("__originModule"))
-                this.__originModule := PSTR(this.ptr + 72)
-            return this.__originModule
-        }
+    originModule {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -147,23 +125,17 @@ class FEATURE_ERROR extends Win32Struct
      * Infrastructure use only.
      * @type {PSTR}
      */
-    originCallerModule{
-        get {
-            if(!this.HasProp("__originCallerModule"))
-                this.__originCallerModule := PSTR(this.ptr + 88)
-            return this.__originCallerModule
-        }
+    originCallerModule {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * Infrastructure use only.
      * @type {PSTR}
      */
-    originName{
-        get {
-            if(!this.HasProp("__originName"))
-                this.__originName := PSTR(this.ptr + 96)
-            return this.__originName
-        }
+    originName {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

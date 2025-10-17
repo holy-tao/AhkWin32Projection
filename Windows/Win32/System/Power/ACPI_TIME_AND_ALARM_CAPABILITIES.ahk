@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
@@ -15,78 +14,57 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    AcWakeSupported{
-        get {
-            if(!this.HasProp("__AcWakeSupported"))
-                this.__AcWakeSupported := BOOLEAN(this.ptr + 0)
-            return this.__AcWakeSupported
-        }
+    AcWakeSupported {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    DcWakeSupported{
-        get {
-            if(!this.HasProp("__DcWakeSupported"))
-                this.__DcWakeSupported := BOOLEAN(this.ptr + 1)
-            return this.__DcWakeSupported
-        }
+    DcWakeSupported {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    S4AcWakeSupported{
-        get {
-            if(!this.HasProp("__S4AcWakeSupported"))
-                this.__S4AcWakeSupported := BOOLEAN(this.ptr + 2)
-            return this.__S4AcWakeSupported
-        }
+    S4AcWakeSupported {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    S4DcWakeSupported{
-        get {
-            if(!this.HasProp("__S4DcWakeSupported"))
-                this.__S4DcWakeSupported := BOOLEAN(this.ptr + 3)
-            return this.__S4DcWakeSupported
-        }
+    S4DcWakeSupported {
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    S5AcWakeSupported{
-        get {
-            if(!this.HasProp("__S5AcWakeSupported"))
-                this.__S5AcWakeSupported := BOOLEAN(this.ptr + 4)
-            return this.__S5AcWakeSupported
-        }
+    S5AcWakeSupported {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    S5DcWakeSupported{
-        get {
-            if(!this.HasProp("__S5DcWakeSupported"))
-                this.__S5DcWakeSupported := BOOLEAN(this.ptr + 5)
-            return this.__S5DcWakeSupported
-        }
+    S5DcWakeSupported {
+        get => NumGet(this, 5, "char")
+        set => NumPut("char", value, this, 5)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    S4S5WakeStatusSupported{
-        get {
-            if(!this.HasProp("__S4S5WakeStatusSupported"))
-                this.__S4S5WakeStatusSupported := BOOLEAN(this.ptr + 6)
-            return this.__S4S5WakeStatusSupported
-        }
+    S4S5WakeStatusSupported {
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
     }
 
     /**
@@ -100,12 +78,9 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    RealTimeFeaturesSupported{
-        get {
-            if(!this.HasProp("__RealTimeFeaturesSupported"))
-                this.__RealTimeFeaturesSupported := BOOLEAN(this.ptr + 12)
-            return this.__RealTimeFeaturesSupported
-        }
+    RealTimeFeaturesSupported {
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
@@ -31,34 +30,25 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pcwszAutoconfigUrl{
-        get {
-            if(!this.HasProp("__pcwszAutoconfigUrl"))
-                this.__pcwszAutoconfigUrl := PWSTR(this.ptr + 16)
-            return this.__pcwszAutoconfigUrl
-        }
+    pcwszAutoconfigUrl {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pcwszProxy{
-        get {
-            if(!this.HasProp("__pcwszProxy"))
-                this.__pcwszProxy := PWSTR(this.ptr + 24)
-            return this.__pcwszProxy
-        }
+    pcwszProxy {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    pcwszSecureProxy{
-        get {
-            if(!this.HasProp("__pcwszSecureProxy"))
-                this.__pcwszSecureProxy := PWSTR(this.ptr + 32)
-            return this.__pcwszSecureProxy
-        }
+    pcwszSecureProxy {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -88,11 +78,8 @@ class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pcwszConnectionName{
-        get {
-            if(!this.HasProp("__pcwszConnectionName"))
-                this.__pcwszConnectionName := PWSTR(this.ptr + 64)
-            return this.__pcwszConnectionName
-        }
+    pcwszConnectionName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
@@ -23,7 +22,7 @@ class SECPKG_CLIENT_INFO extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 0)
+                this.__LogonId := LUID(0, this)
             return this.__LogonId
         }
     }
@@ -50,36 +49,27 @@ class SECPKG_CLIENT_INFO extends Win32Struct
      * <b>TRUE</b> if the client has the SeTcbPrivilege privilege; otherwise <b>FALSE</b>.
      * @type {BOOLEAN}
      */
-    HasTcbPrivilege{
-        get {
-            if(!this.HasProp("__HasTcbPrivilege"))
-                this.__HasTcbPrivilege := BOOLEAN(this.ptr + 16)
-            return this.__HasTcbPrivilege
-        }
+    HasTcbPrivilege {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * <b>TRUE</b> if the client is impersonating another <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security principal</a>.
      * @type {BOOLEAN}
      */
-    Impersonating{
-        get {
-            if(!this.HasProp("__Impersonating"))
-                this.__Impersonating := BOOLEAN(this.ptr + 17)
-            return this.__Impersonating
-        }
+    Impersonating {
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 
     /**
      * The client is restricted in its ability to access securable objects or perform privileged operations.
      * @type {BOOLEAN}
      */
-    Restricted{
-        get {
-            if(!this.HasProp("__Restricted"))
-                this.__Restricted := BOOLEAN(this.ptr + 18)
-            return this.__Restricted
-        }
+    Restricted {
+        get => NumGet(this, 18, "char")
+        set => NumPut("char", value, this, 18)
     }
 
     /**
@@ -107,7 +97,7 @@ class SECPKG_CLIENT_INFO extends Win32Struct
     ClientToken{
         get {
             if(!this.HasProp("__ClientToken"))
-                this.__ClientToken := HANDLE(this.ptr + 24)
+                this.__ClientToken := HANDLE(24, this)
             return this.__ClientToken
         }
     }

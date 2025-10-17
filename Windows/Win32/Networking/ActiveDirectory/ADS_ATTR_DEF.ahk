@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The ADS_ATTR_DEF structure is used only as a part of IDirectorySchemaMgmt, which is an obsolete interface.
@@ -24,12 +22,9 @@ class ADS_ATTR_DEF extends Win32Struct
      * The null-terminated Unicode string that contains the name of the attribute.
      * @type {PWSTR}
      */
-    pszAttrName{
-        get {
-            if(!this.HasProp("__pszAttrName"))
-                this.__pszAttrName := PWSTR(this.ptr + 0)
-            return this.__pszAttrName
-        }
+    pszAttrName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -63,11 +58,8 @@ class ADS_ATTR_DEF extends Win32Struct
      * Whether or not this attribute takes more than one value.
      * @type {BOOL}
      */
-    fMultiValued{
-        get {
-            if(!this.HasProp("__fMultiValued"))
-                this.__fMultiValued := BOOL(this.ptr + 20)
-            return this.__fMultiValued
-        }
+    fMultiValued {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

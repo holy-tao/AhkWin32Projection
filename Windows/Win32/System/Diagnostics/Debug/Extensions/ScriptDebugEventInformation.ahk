@@ -26,7 +26,7 @@ class ScriptDebugEventInformation extends Win32Struct
     EventPosition{
         get {
             if(!this.HasProp("__EventPosition"))
-                this.__EventPosition := ScriptDebugPosition(this.ptr + 8)
+                this.__EventPosition := ScriptDebugPosition(8, this)
             return this.__EventPosition
         }
     }
@@ -37,7 +37,7 @@ class ScriptDebugEventInformation extends Win32Struct
     EventSpanEnd{
         get {
             if(!this.HasProp("__EventSpanEnd"))
-                this.__EventSpanEnd := ScriptDebugPosition(this.ptr + 16)
+                this.__EventSpanEnd := ScriptDebugPosition(16, this)
             return this.__EventSpanEnd
         }
     }
@@ -76,7 +76,7 @@ class ScriptDebugEventInformation extends Win32Struct
     ExceptionInformation{
         get {
             if(!this.HasProp("__ExceptionInformation"))
-                this.__ExceptionInformation := %this.__Class%._ExceptionInformation(this.ptr + 24)
+                this.__ExceptionInformation := %this.__Class%._ExceptionInformation(24, this)
             return this.__ExceptionInformation
         }
     }
@@ -87,7 +87,7 @@ class ScriptDebugEventInformation extends Win32Struct
     BreakpointInformation{
         get {
             if(!this.HasProp("__BreakpointInformation"))
-                this.__BreakpointInformation := %this.__Class%._BreakpointInformation(this.ptr + 24)
+                this.__BreakpointInformation := %this.__Class%._BreakpointInformation(24, this)
             return this.__BreakpointInformation
         }
     }

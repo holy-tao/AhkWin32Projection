@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -22,12 +21,9 @@ class SSTP_CERT_INFO extends Win32Struct
      * <div> </div>
      * @type {BOOL}
      */
-    isDefault{
-        get {
-            if(!this.HasProp("__isDefault"))
-                this.__isDefault := BOOL(this.ptr + 0)
-            return this.__isDefault
-        }
+    isDefault {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -39,7 +35,7 @@ class SSTP_CERT_INFO extends Win32Struct
     certBlob{
         get {
             if(!this.HasProp("__certBlob"))
-                this.__certBlob := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__certBlob := CRYPT_INTEGER_BLOB(8, this)
             return this.__certBlob
         }
     }

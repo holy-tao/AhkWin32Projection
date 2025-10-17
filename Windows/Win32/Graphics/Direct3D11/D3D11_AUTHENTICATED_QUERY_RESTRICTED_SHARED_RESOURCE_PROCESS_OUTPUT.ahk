@@ -28,7 +28,7 @@ class D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS_OUTPUT extend
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }
@@ -58,7 +58,7 @@ class D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS_OUTPUT extend
     ProcessHandle{
         get {
             if(!this.HasProp("__ProcessHandle"))
-                this.__ProcessHandle := HANDLE(this.ptr + 48)
+                this.__ProcessHandle := HANDLE(48, this)
             return this.__ProcessHandle
         }
     }

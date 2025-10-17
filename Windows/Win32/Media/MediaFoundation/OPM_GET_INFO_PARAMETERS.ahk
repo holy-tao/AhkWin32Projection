@@ -34,7 +34,7 @@ class OPM_GET_INFO_PARAMETERS extends Win32Struct
     omac{
         get {
             if(!this.HasProp("__omac"))
-                this.__omac := OPM_OMAC(this.ptr + 0)
+                this.__omac := OPM_OMAC(0, this)
             return this.__omac
         }
     }
@@ -46,7 +46,7 @@ class OPM_GET_INFO_PARAMETERS extends Win32Struct
     rnRandomNumber{
         get {
             if(!this.HasProp("__rnRandomNumber"))
-                this.__rnRandomNumber := OPM_RANDOM_NUMBER(this.ptr + 16)
+                this.__rnRandomNumber := OPM_RANDOM_NUMBER(16, this)
             return this.__rnRandomNumber
         }
     }

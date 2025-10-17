@@ -3,7 +3,6 @@
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\WCM_USAGE_DATA.ahk
 #Include .\WCM_TIME_INTERVAL.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\WCM_BILLING_CYCLE_INFO.ahk
 
 /**
@@ -27,7 +26,7 @@ class WCM_DATAPLAN_STATUS extends Win32Struct
     UsageData{
         get {
             if(!this.HasProp("__UsageData"))
-                this.__UsageData := WCM_USAGE_DATA(this.ptr + 0)
+                this.__UsageData := WCM_USAGE_DATA(0, this)
             return this.__UsageData
         }
     }
@@ -74,7 +73,7 @@ class WCM_DATAPLAN_STATUS extends Win32Struct
     BillingCycle{
         get {
             if(!this.HasProp("__BillingCycle"))
-                this.__BillingCycle := WCM_BILLING_CYCLE_INFO(this.ptr + 32)
+                this.__BillingCycle := WCM_BILLING_CYCLE_INFO(32, this)
             return this.__BillingCycle
         }
     }

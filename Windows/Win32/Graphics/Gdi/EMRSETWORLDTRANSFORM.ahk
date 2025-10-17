@@ -22,7 +22,7 @@ class EMRSETWORLDTRANSFORM extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -34,7 +34,7 @@ class EMRSETWORLDTRANSFORM extends Win32Struct
     xform{
         get {
             if(!this.HasProp("__xform"))
-                this.__xform := XFORM(this.ptr + 8)
+                this.__xform := XFORM(8, this)
             return this.__xform
         }
     }

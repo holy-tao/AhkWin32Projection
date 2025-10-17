@@ -30,7 +30,7 @@ class CLIENTCREATESTRUCT extends Win32Struct
     hWindowMenu{
         get {
             if(!this.HasProp("__hWindowMenu"))
-                this.__hWindowMenu := HANDLE(this.ptr + 0)
+                this.__hWindowMenu := HANDLE(0, this)
             return this.__hWindowMenu
         }
     }

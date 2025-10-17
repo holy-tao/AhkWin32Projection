@@ -93,7 +93,7 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
     CacheFlags{
         get {
             if(!this.HasProp("__CacheFlags"))
-                this.__CacheFlags := %this.__Class%._CacheFlags(this.ptr + 8)
+                this.__CacheFlags := %this.__Class%._CacheFlags(8, this)
             return this.__CacheFlags
         }
     }

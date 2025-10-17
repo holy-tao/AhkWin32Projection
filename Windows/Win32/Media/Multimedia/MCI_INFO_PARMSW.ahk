@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -24,12 +23,9 @@ class MCI_INFO_PARMSW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpstrReturn{
-        get {
-            if(!this.HasProp("__lpstrReturn"))
-                this.__lpstrReturn := PWSTR(this.ptr + 8)
-            return this.__lpstrReturn
-        }
+    lpstrReturn {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

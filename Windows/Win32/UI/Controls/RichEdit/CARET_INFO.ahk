@@ -18,7 +18,7 @@ class CARET_INFO extends Win32Struct
     hbitmap{
         get {
             if(!this.HasProp("__hbitmap"))
-                this.__hbitmap := HBITMAP(this.ptr + 0)
+                this.__hbitmap := HBITMAP(0, this)
             return this.__hbitmap
         }
     }

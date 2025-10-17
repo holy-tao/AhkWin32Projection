@@ -230,7 +230,7 @@ class DDCAPS_DX6 extends Win32Struct
     ddsOldCaps{
         get {
             if(!this.HasProp("__ddsOldCaps"))
-                this.__ddsOldCaps := DDSCAPS(this.ptr + 132)
+                this.__ddsOldCaps := DDSCAPS(132, this)
             return this.__ddsOldCaps
         }
     }
@@ -485,7 +485,7 @@ class DDCAPS_DX6 extends Win32Struct
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS2(this.ptr + 368)
+                this.__ddsCaps := DDSCAPS2(368, this)
             return this.__ddsCaps
         }
     }

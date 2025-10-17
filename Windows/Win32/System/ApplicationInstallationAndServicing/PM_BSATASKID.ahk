@@ -26,7 +26,7 @@ class PM_BSATASKID extends Win32Struct
     TaskID{
         get {
             if(!this.HasProp("__TaskID"))
-                this.__TaskID := BSTR(this.ptr + 8)
+                this.__TaskID := BSTR(8, this)
             return this.__TaskID
         }
     }

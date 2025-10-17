@@ -35,7 +35,7 @@ class SQL_INTERVAL_STRUCT extends Win32Struct
     year_month{
         get {
             if(!this.HasProp("__year_month"))
-                this.__year_month := SQL_YEAR_MONTH_STRUCT(this.ptr + 8)
+                this.__year_month := SQL_YEAR_MONTH_STRUCT(8, this)
             return this.__year_month
         }
     }
@@ -46,7 +46,7 @@ class SQL_INTERVAL_STRUCT extends Win32Struct
     day_second{
         get {
             if(!this.HasProp("__day_second"))
-                this.__day_second := SQL_DAY_SECOND_STRUCT(this.ptr + 8)
+                this.__day_second := SQL_DAY_SECOND_STRUCT(8, this)
             return this.__day_second
         }
     }

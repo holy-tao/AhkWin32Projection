@@ -26,7 +26,7 @@ class NDR64_REPEAT_FORMAT extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := NDR64_POINTER_REPEAT_FLAGS(this.ptr + 1)
+                this.__Flags := NDR64_POINTER_REPEAT_FLAGS(1, this)
             return this.__Flags
         }
     }

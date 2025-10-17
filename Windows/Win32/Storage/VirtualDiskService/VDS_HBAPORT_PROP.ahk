@@ -31,7 +31,7 @@ class VDS_HBAPORT_PROP extends Win32Struct
     wwnNode{
         get {
             if(!this.HasProp("__wwnNode"))
-                this.__wwnNode := VDS_WWN(this.ptr + 8)
+                this.__wwnNode := VDS_WWN(8, this)
             return this.__wwnNode
         }
     }
@@ -43,7 +43,7 @@ class VDS_HBAPORT_PROP extends Win32Struct
     wwnPort{
         get {
             if(!this.HasProp("__wwnPort"))
-                this.__wwnPort := VDS_WWN(this.ptr + 16)
+                this.__wwnPort := VDS_WWN(16, this)
             return this.__wwnPort
         }
     }

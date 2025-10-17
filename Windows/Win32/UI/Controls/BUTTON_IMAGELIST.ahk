@@ -24,7 +24,7 @@ class BUTTON_IMAGELIST extends Win32Struct
     himl{
         get {
             if(!this.HasProp("__himl"))
-                this.__himl := HIMAGELIST(this.ptr + 0)
+                this.__himl := HIMAGELIST(0, this)
             return this.__himl
         }
     }
@@ -38,7 +38,7 @@ class BUTTON_IMAGELIST extends Win32Struct
     margin{
         get {
             if(!this.HasProp("__margin"))
-                this.__margin := RECT(this.ptr + 8)
+                this.__margin := RECT(8, this)
             return this.__margin
         }
     }

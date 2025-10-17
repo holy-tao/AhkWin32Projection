@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies output stream arguments for the output passed to ID3D12VideoProcessCommandList::ProcessFrames.
@@ -80,7 +79,7 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC extends Win32Struct
     FrameRate{
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(this.ptr + 32)
+                this.__FrameRate := DXGI_RATIONAL(32, this)
             return this.__FrameRate
         }
     }
@@ -89,11 +88,8 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC extends Win32Struct
      * If TRUE, stereo output is enabled. Otherwise, the video processor produces mono video frames.
      * @type {BOOL}
      */
-    EnableStereo{
-        get {
-            if(!this.HasProp("__EnableStereo"))
-                this.__EnableStereo := BOOL(this.ptr + 40)
-            return this.__EnableStereo
-        }
+    EnableStereo {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

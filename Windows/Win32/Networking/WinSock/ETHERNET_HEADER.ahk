@@ -20,7 +20,7 @@ class ETHERNET_HEADER extends Win32Struct
     Destination{
         get {
             if(!this.HasProp("__Destination"))
-                this.__Destination := DL_EUI48(this.ptr + 0)
+                this.__Destination := DL_EUI48(0, this)
             return this.__Destination
         }
     }
@@ -31,7 +31,7 @@ class ETHERNET_HEADER extends Win32Struct
     Source{
         get {
             if(!this.HasProp("__Source"))
-                this.__Source := DL_EUI48(this.ptr + 24)
+                this.__Source := DL_EUI48(24, this)
             return this.__Source
         }
     }

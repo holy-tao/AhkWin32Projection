@@ -49,7 +49,7 @@ class Magnification {
      * @since windows6.0.6000
      */
     static MagInitialize() {
-        result := DllCall("MAGNIFICATION.dll\MagInitialize", "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagInitialize", "int")
         return result
     }
 
@@ -62,7 +62,7 @@ class Magnification {
      * @since windows6.0.6000
      */
     static MagUninitialize() {
-        result := DllCall("MAGNIFICATION.dll\MagUninitialize", "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagUninitialize", "int")
         return result
     }
 
@@ -83,7 +83,7 @@ class Magnification {
     static MagSetWindowSource(hwnd, rect) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("MAGNIFICATION.dll\MagSetWindowSource", "ptr", hwnd, "ptr", rect, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagSetWindowSource", "ptr", hwnd, "ptr", rect, "int")
         return result
     }
 
@@ -104,7 +104,7 @@ class Magnification {
     static MagGetWindowSource(hwnd, pRect) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("MAGNIFICATION.dll\MagGetWindowSource", "ptr", hwnd, "ptr", pRect, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagGetWindowSource", "ptr", hwnd, "ptr", pRect, "int")
         return result
     }
 
@@ -125,7 +125,7 @@ class Magnification {
     static MagSetWindowTransform(hwnd, pTransform) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("MAGNIFICATION.dll\MagSetWindowTransform", "ptr", hwnd, "ptr", pTransform, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagSetWindowTransform", "ptr", hwnd, "ptr", pTransform, "int")
         return result
     }
 
@@ -146,7 +146,7 @@ class Magnification {
     static MagGetWindowTransform(hwnd, pTransform) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("MAGNIFICATION.dll\MagGetWindowTransform", "ptr", hwnd, "ptr", pTransform, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagGetWindowTransform", "ptr", hwnd, "ptr", pTransform, "int")
         return result
     }
 
@@ -171,7 +171,7 @@ class Magnification {
     static MagSetWindowFilterList(hwnd, dwFilterMode, count, pHWND) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("MAGNIFICATION.dll\MagSetWindowFilterList", "ptr", hwnd, "uint", dwFilterMode, "int", count, "ptr", pHWND, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagSetWindowFilterList", "ptr", hwnd, "uint", dwFilterMode, "int", count, "ptr", pHWND, "int")
         return result
     }
 
@@ -219,7 +219,7 @@ class Magnification {
     static MagSetImageScalingCallback(hwnd, callback) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("MAGNIFICATION.dll\MagSetImageScalingCallback", "ptr", hwnd, "ptr", callback, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagSetImageScalingCallback", "ptr", hwnd, "ptr", callback, "int")
         return result
     }
 
@@ -258,7 +258,7 @@ class Magnification {
     static MagSetColorEffect(hwnd, pEffect) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("MAGNIFICATION.dll\MagSetColorEffect", "ptr", hwnd, "ptr", pEffect, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagSetColorEffect", "ptr", hwnd, "ptr", pEffect, "int")
         return result
     }
 
@@ -279,7 +279,7 @@ class Magnification {
     static MagGetColorEffect(hwnd, pEffect) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("MAGNIFICATION.dll\MagGetColorEffect", "ptr", hwnd, "ptr", pEffect, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagGetColorEffect", "ptr", hwnd, "ptr", pEffect, "int")
         return result
     }
 
@@ -301,7 +301,7 @@ class Magnification {
      * @since windows8.0
      */
     static MagSetFullscreenTransform(magLevel, xOffset, yOffset) {
-        result := DllCall("MAGNIFICATION.dll\MagSetFullscreenTransform", "float", magLevel, "int", xOffset, "int", yOffset, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagSetFullscreenTransform", "float", magLevel, "int", xOffset, "int", yOffset, "int")
         return result
     }
 
@@ -323,7 +323,7 @@ class Magnification {
      * @since windows8.0
      */
     static MagGetFullscreenTransform(pMagLevel, pxOffset, pyOffset) {
-        result := DllCall("MAGNIFICATION.dll\MagGetFullscreenTransform", "float*", pMagLevel, "int*", pxOffset, "int*", pyOffset, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagGetFullscreenTransform", "float*", pMagLevel, "int*", pxOffset, "int*", pyOffset, "int")
         return result
     }
 
@@ -339,7 +339,7 @@ class Magnification {
      * @since windows8.0
      */
     static MagSetFullscreenColorEffect(pEffect) {
-        result := DllCall("MAGNIFICATION.dll\MagSetFullscreenColorEffect", "ptr", pEffect, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagSetFullscreenColorEffect", "ptr", pEffect, "int")
         return result
     }
 
@@ -355,7 +355,7 @@ class Magnification {
      * @since windows8.0
      */
     static MagGetFullscreenColorEffect(pEffect) {
-        result := DllCall("MAGNIFICATION.dll\MagGetFullscreenColorEffect", "ptr", pEffect, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagGetFullscreenColorEffect", "ptr", pEffect, "int")
         return result
     }
 
@@ -379,7 +379,7 @@ class Magnification {
     static MagSetInputTransform(fEnabled, pRectSource, pRectDest) {
         A_LastError := 0
 
-        result := DllCall("MAGNIFICATION.dll\MagSetInputTransform", "ptr", fEnabled, "ptr", pRectSource, "ptr", pRectDest, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagSetInputTransform", "int", fEnabled, "ptr", pRectSource, "ptr", pRectDest, "int")
         if(A_LastError)
             throw OSError()
 
@@ -404,7 +404,7 @@ class Magnification {
      * @since windows8.0
      */
     static MagGetInputTransform(pfEnabled, pRectSource, pRectDest) {
-        result := DllCall("MAGNIFICATION.dll\MagGetInputTransform", "ptr", pfEnabled, "ptr", pRectSource, "ptr", pRectDest, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagGetInputTransform", "ptr", pfEnabled, "ptr", pRectSource, "ptr", pRectDest, "int")
         return result
     }
 
@@ -420,7 +420,7 @@ class Magnification {
      * @since windows8.0
      */
     static MagShowSystemCursor(fShowCursor) {
-        result := DllCall("MAGNIFICATION.dll\MagShowSystemCursor", "ptr", fShowCursor, "ptr")
+        result := DllCall("MAGNIFICATION.dll\MagShowSystemCursor", "int", fShowCursor, "int")
         return result
     }
 

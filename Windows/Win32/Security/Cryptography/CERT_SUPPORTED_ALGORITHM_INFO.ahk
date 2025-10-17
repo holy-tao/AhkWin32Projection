@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
@@ -22,7 +21,7 @@ class CERT_SUPPORTED_ALGORITHM_INFO extends Win32Struct
     Algorithm{
         get {
             if(!this.HasProp("__Algorithm"))
-                this.__Algorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 0)
+                this.__Algorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
             return this.__Algorithm
         }
     }
@@ -33,7 +32,7 @@ class CERT_SUPPORTED_ALGORITHM_INFO extends Win32Struct
     IntendedKeyUsage{
         get {
             if(!this.HasProp("__IntendedKeyUsage"))
-                this.__IntendedKeyUsage := CRYPT_BIT_BLOB(this.ptr + 24)
+                this.__IntendedKeyUsage := CRYPT_BIT_BLOB(24, this)
             return this.__IntendedKeyUsage
         }
     }
@@ -44,7 +43,7 @@ class CERT_SUPPORTED_ALGORITHM_INFO extends Win32Struct
     IntendedCertPolicies{
         get {
             if(!this.HasProp("__IntendedCertPolicies"))
-                this.__IntendedCertPolicies := CERT_POLICIES_INFO(this.ptr + 48)
+                this.__IntendedCertPolicies := CERT_POLICIES_INFO(48, this)
             return this.__IntendedCertPolicies
         }
     }

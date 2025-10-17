@@ -83,7 +83,7 @@ class STORAGE_REINITIALIZE_MEDIA extends Win32Struct
     SanitizeOption{
         get {
             if(!this.HasProp("__SanitizeOption"))
-                this.__SanitizeOption := %this.__Class%._SanitizeOption(this.ptr + 12)
+                this.__SanitizeOption := %this.__Class%._SanitizeOption(12, this)
             return this.__SanitizeOption
         }
     }

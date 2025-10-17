@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include ..\..\..\Foundation\LUID.ahk
 #Include .\KERB_ADD_CREDENTIALS_REQUEST.ahk
@@ -29,7 +28,7 @@ class KERB_ADD_CREDENTIALS_REQUEST_EX extends Win32Struct
     Credentials{
         get {
             if(!this.HasProp("__Credentials"))
-                this.__Credentials := KERB_ADD_CREDENTIALS_REQUEST(this.ptr + 0)
+                this.__Credentials := KERB_ADD_CREDENTIALS_REQUEST(0, this)
             return this.__Credentials
         }
     }

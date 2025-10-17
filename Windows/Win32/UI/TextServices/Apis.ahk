@@ -2224,7 +2224,7 @@ class TextServices {
     static DoMsCtfMonitor(dwFlags, hEventForServiceStop) {
         hEventForServiceStop := hEventForServiceStop is Win32Handle ? NumGet(hEventForServiceStop, "ptr") : hEventForServiceStop
 
-        result := DllCall("MsCtfMonitor.dll\DoMsCtfMonitor", "uint", dwFlags, "ptr", hEventForServiceStop, "ptr")
+        result := DllCall("MsCtfMonitor.dll\DoMsCtfMonitor", "uint", dwFlags, "ptr", hEventForServiceStop, "int")
         return result
     }
 

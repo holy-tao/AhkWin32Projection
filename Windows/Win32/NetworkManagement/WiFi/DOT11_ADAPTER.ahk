@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DOT11_CURRENT_OPERATION_MODE.ahk
 
 /**
@@ -24,12 +23,9 @@ class DOT11_ADAPTER extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszDescription{
-        get {
-            if(!this.HasProp("__pszDescription"))
-                this.__pszDescription := PWSTR(this.ptr + 8)
-            return this.__pszDescription
-        }
+    pszDescription {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -38,7 +34,7 @@ class DOT11_ADAPTER extends Win32Struct
     Dot11CurrentOpMode{
         get {
             if(!this.HasProp("__Dot11CurrentOpMode"))
-                this.__Dot11CurrentOpMode := DOT11_CURRENT_OPERATION_MODE(this.ptr + 16)
+                this.__Dot11CurrentOpMode := DOT11_CURRENT_OPERATION_MODE(16, this)
             return this.__Dot11CurrentOpMode
         }
     }

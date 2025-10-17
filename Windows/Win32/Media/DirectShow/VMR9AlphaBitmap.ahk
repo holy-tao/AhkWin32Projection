@@ -3,7 +3,6 @@
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\VMR9NormalizedRect.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The VMR9AlphaBitmap structure is used with the IVMRMixerBitmap9 interface when an application provides a static bitmap for alpha blending with the video frame.
@@ -45,7 +44,7 @@ class VMR9AlphaBitmap extends Win32Struct
     hdc{
         get {
             if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 8)
+                this.__hdc := HDC(8, this)
             return this.__hdc
         }
     }
@@ -70,7 +69,7 @@ class VMR9AlphaBitmap extends Win32Struct
     rSrc{
         get {
             if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECT(this.ptr + 24)
+                this.__rSrc := RECT(24, this)
             return this.__rSrc
         }
     }
@@ -82,7 +81,7 @@ class VMR9AlphaBitmap extends Win32Struct
     rDest{
         get {
             if(!this.HasProp("__rDest"))
-                this.__rDest := VMR9NormalizedRect(this.ptr + 40)
+                this.__rDest := VMR9NormalizedRect(40, this)
             return this.__rDest
         }
     }
@@ -100,12 +99,9 @@ class VMR9AlphaBitmap extends Win32Struct
      * Specifies the source color key. This value is used if the <b>dwFlags</b> member contains the <b>VMR9AlphaBitmap_SrcColorKey</b>. A color key cannot be used with a Direct3D surface that contains per-pixel alpha.
      * @type {COLORREF}
      */
-    clrSrcKey{
-        get {
-            if(!this.HasProp("__clrSrcKey"))
-                this.__clrSrcKey := COLORREF(this.ptr + 60)
-            return this.__clrSrcKey
-        }
+    clrSrcKey {
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**

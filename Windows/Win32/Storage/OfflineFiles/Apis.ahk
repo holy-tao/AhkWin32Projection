@@ -509,7 +509,7 @@ class OfflineFiles {
      * @since windows6.0.6000
      */
     static OfflineFilesEnable(bEnable, pbRebootRequired) {
-        result := DllCall("CSCAPI.dll\OfflineFilesEnable", "ptr", bEnable, "ptr", pbRebootRequired, "uint")
+        result := DllCall("CSCAPI.dll\OfflineFilesEnable", "int", bEnable, "ptr", pbRebootRequired, "uint")
         return result
     }
 

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CERT_BASIC_CONSTRAINTS2_INFO structure contains information indicating whether the certified subject can act as a CA or an end entity. If the subject can act as a CA, a certification path length constraint can also be specified.
@@ -18,24 +17,18 @@ class CERT_BASIC_CONSTRAINTS2_INFO extends Win32Struct
      * Boolean indicating whether the certificate subject can act as a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) or not.
      * @type {BOOL}
      */
-    fCA{
-        get {
-            if(!this.HasProp("__fCA"))
-                this.__fCA := BOOL(this.ptr + 0)
-            return this.__fCA
-        }
+    fCA {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * Boolean indicating whether the <b>dwPathLenConstraint</b> field limits the maximum length of the certification path. Used only if <b>fCA</b> is <b>TRUE</b>.
      * @type {BOOL}
      */
-    fPathLenConstraint{
-        get {
-            if(!this.HasProp("__fPathLenConstraint"))
-                this.__fPathLenConstraint := BOOL(this.ptr + 4)
-            return this.__fPathLenConstraint
-        }
+    fPathLenConstraint {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**

@@ -3,7 +3,6 @@
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
 #Include .\CERT_ID.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_ATTRIBUTES.ahk
 
@@ -35,7 +34,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     SignerId{
         get {
             if(!this.HasProp("__SignerId"))
-                this.__SignerId := CERT_ID(this.ptr + 8)
+                this.__SignerId := CERT_ID(8, this)
             return this.__SignerId
         }
     }
@@ -47,7 +46,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 48)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(48, this)
             return this.__HashAlgorithm
         }
     }
@@ -59,7 +58,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     HashEncryptionAlgorithm{
         get {
             if(!this.HasProp("__HashEncryptionAlgorithm"))
-                this.__HashEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 72)
+                this.__HashEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(72, this)
             return this.__HashEncryptionAlgorithm
         }
     }
@@ -72,7 +71,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     EncryptedHash{
         get {
             if(!this.HasProp("__EncryptedHash"))
-                this.__EncryptedHash := CRYPT_INTEGER_BLOB(this.ptr + 96)
+                this.__EncryptedHash := CRYPT_INTEGER_BLOB(96, this)
             return this.__EncryptedHash
         }
     }
@@ -84,7 +83,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     AuthAttrs{
         get {
             if(!this.HasProp("__AuthAttrs"))
-                this.__AuthAttrs := CRYPT_ATTRIBUTES(this.ptr + 112)
+                this.__AuthAttrs := CRYPT_ATTRIBUTES(112, this)
             return this.__AuthAttrs
         }
     }
@@ -96,7 +95,7 @@ class CMSG_CMS_SIGNER_INFO extends Win32Struct
     UnauthAttrs{
         get {
             if(!this.HasProp("__UnauthAttrs"))
-                this.__UnauthAttrs := CRYPT_ATTRIBUTES(this.ptr + 128)
+                this.__UnauthAttrs := CRYPT_ATTRIBUTES(128, this)
             return this.__UnauthAttrs
         }
     }

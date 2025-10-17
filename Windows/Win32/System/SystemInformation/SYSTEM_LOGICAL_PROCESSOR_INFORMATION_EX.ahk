@@ -105,7 +105,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX extends Win32Struct
     Processor{
         get {
             if(!this.HasProp("__Processor"))
-                this.__Processor := PROCESSOR_RELATIONSHIP(this.ptr + 8)
+                this.__Processor := PROCESSOR_RELATIONSHIP(8, this)
             return this.__Processor
         }
     }
@@ -116,7 +116,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX extends Win32Struct
     NumaNode{
         get {
             if(!this.HasProp("__NumaNode"))
-                this.__NumaNode := NUMA_NODE_RELATIONSHIP(this.ptr + 8)
+                this.__NumaNode := NUMA_NODE_RELATIONSHIP(8, this)
             return this.__NumaNode
         }
     }
@@ -127,7 +127,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX extends Win32Struct
     Cache{
         get {
             if(!this.HasProp("__Cache"))
-                this.__Cache := CACHE_RELATIONSHIP(this.ptr + 8)
+                this.__Cache := CACHE_RELATIONSHIP(8, this)
             return this.__Cache
         }
     }
@@ -138,7 +138,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX extends Win32Struct
     Group{
         get {
             if(!this.HasProp("__Group"))
-                this.__Group := GROUP_RELATIONSHIP(this.ptr + 8)
+                this.__Group := GROUP_RELATIONSHIP(8, this)
             return this.__Group
         }
     }

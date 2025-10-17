@@ -431,7 +431,7 @@ class Pnp {
         pszReferenceString := pszReferenceString is String ? StrPtr(pszReferenceString) : pszReferenceString
         hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
 
-        result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", "ptr", hSwDevice, "ptr", pInterfaceClassGuid, "ptr", pszReferenceString, "uint", cPropertyCount, "ptr", pProperties, "ptr", fEnabled, "ptr", ppszDeviceInterfaceId, "int")
+        result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", "ptr", hSwDevice, "ptr", pInterfaceClassGuid, "ptr", pszReferenceString, "uint", cPropertyCount, "ptr", pProperties, "int", fEnabled, "ptr", ppszDeviceInterfaceId, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -462,7 +462,7 @@ class Pnp {
         pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
         hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
 
-        result := DllCall("CFGMGR32.dll\SwDeviceInterfaceSetState", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "ptr", fEnabled, "int")
+        result := DllCall("CFGMGR32.dll\SwDeviceInterfaceSetState", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "int", fEnabled, "int")
         if(result != 0)
             throw OSError(result)
 

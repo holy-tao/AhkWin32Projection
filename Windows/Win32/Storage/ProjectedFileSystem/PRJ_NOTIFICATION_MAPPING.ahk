@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes a notification mapping, which is a pairing between a directory (referred to as a &quot;notification root&quot;) and a set of notifications, expressed as a bit mask.
@@ -44,11 +43,8 @@ class PRJ_NOTIFICATION_MAPPING extends Win32Struct
      * The directory that the notification mapping is paired to.
      * @type {PWSTR}
      */
-    NotificationRoot{
-        get {
-            if(!this.HasProp("__NotificationRoot"))
-                this.__NotificationRoot := PWSTR(this.ptr + 8)
-            return this.__NotificationRoot
-        }
+    NotificationRoot {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

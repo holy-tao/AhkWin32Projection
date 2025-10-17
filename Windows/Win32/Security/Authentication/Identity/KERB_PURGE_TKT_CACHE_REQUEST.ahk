@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -39,7 +38,7 @@ class KERB_PURGE_TKT_CACHE_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 8)
+                this.__LogonId := LUID(8, this)
             return this.__LogonId
         }
     }
@@ -51,7 +50,7 @@ class KERB_PURGE_TKT_CACHE_REQUEST extends Win32Struct
     ServerName{
         get {
             if(!this.HasProp("__ServerName"))
-                this.__ServerName := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__ServerName := LSA_UNICODE_STRING(16, this)
             return this.__ServerName
         }
     }
@@ -63,7 +62,7 @@ class KERB_PURGE_TKT_CACHE_REQUEST extends Win32Struct
     RealmName{
         get {
             if(!this.HasProp("__RealmName"))
-                this.__RealmName := LSA_UNICODE_STRING(this.ptr + 32)
+                this.__RealmName := LSA_UNICODE_STRING(32, this)
             return this.__RealmName
         }
     }

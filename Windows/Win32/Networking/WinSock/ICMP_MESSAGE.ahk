@@ -18,7 +18,7 @@ class ICMP_MESSAGE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := ICMP_HEADER(this.ptr + 0)
+                this.__Header := ICMP_HEADER(0, this)
             return this.__Header
         }
     }

@@ -30,7 +30,7 @@ class IPSEC_PROPOSAL0 extends Win32Struct
     lifetime{
         get {
             if(!this.HasProp("__lifetime"))
-                this.__lifetime := IPSEC_SA_LIFETIME0(this.ptr + 0)
+                this.__lifetime := IPSEC_SA_LIFETIME0(0, this)
             return this.__lifetime
         }
     }

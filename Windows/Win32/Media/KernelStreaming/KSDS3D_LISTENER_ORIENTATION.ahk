@@ -18,7 +18,7 @@ class KSDS3D_LISTENER_ORIENTATION extends Win32Struct
     Front{
         get {
             if(!this.HasProp("__Front"))
-                this.__Front := DS3DVECTOR(this.ptr + 0)
+                this.__Front := DS3DVECTOR(0, this)
             return this.__Front
         }
     }
@@ -29,7 +29,7 @@ class KSDS3D_LISTENER_ORIENTATION extends Win32Struct
     Top{
         get {
             if(!this.HasProp("__Top"))
-                this.__Top := DS3DVECTOR(this.ptr + 16)
+                this.__Top := DS3DVECTOR(16, this)
             return this.__Top
         }
     }

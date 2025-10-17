@@ -47,7 +47,7 @@ class SOCKADDR_IN extends Win32Struct
     sin_addr{
         get {
             if(!this.HasProp("__sin_addr"))
-                this.__sin_addr := IN_ADDR(this.ptr + 4)
+                this.__sin_addr := IN_ADDR(4, this)
             return this.__sin_addr
         }
     }

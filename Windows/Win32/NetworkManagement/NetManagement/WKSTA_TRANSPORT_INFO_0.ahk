@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The WKSTA_TRANSPORT_INFO_0 structure contains information about the workstation transport protocol, such as Wide Area Network (WAN) or NetBIOS.
@@ -37,12 +35,9 @@ class WKSTA_TRANSPORT_INFO_0 extends Win32Struct
      * Specifies the device name of the transport protocol.
      * @type {PWSTR}
      */
-    wkti0_transport_name{
-        get {
-            if(!this.HasProp("__wkti0_transport_name"))
-                this.__wkti0_transport_name := PWSTR(this.ptr + 8)
-            return this.__wkti0_transport_name
-        }
+    wkti0_transport_name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -51,12 +46,9 @@ class WKSTA_TRANSPORT_INFO_0 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    wkti0_transport_address{
-        get {
-            if(!this.HasProp("__wkti0_transport_address"))
-                this.__wkti0_transport_address := PWSTR(this.ptr + 16)
-            return this.__wkti0_transport_address
-        }
+    wkti0_transport_address {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -71,11 +63,8 @@ class WKSTA_TRANSPORT_INFO_0 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/network-protocol-support-in-windows">Network Protocol Support in Windows</a>.
      * @type {BOOL}
      */
-    wkti0_wan_ish{
-        get {
-            if(!this.HasProp("__wkti0_wan_ish"))
-                this.__wkti0_wan_ish := BOOL(this.ptr + 24)
-            return this.__wkti0_wan_ish
-        }
+    wkti0_wan_ish {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

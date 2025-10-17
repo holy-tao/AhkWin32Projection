@@ -6511,7 +6511,7 @@ class WinSock {
      * @since windows6.0.6000
      */
     static WSCEnableNSProvider32(lpProviderId, fEnable) {
-        result := DllCall("WS2_32.dll\WSCEnableNSProvider32", "ptr", lpProviderId, "ptr", fEnable, "int")
+        result := DllCall("WS2_32.dll\WSCEnableNSProvider32", "ptr", lpProviderId, "int", fEnable, "int")
         return result
     }
 
@@ -8017,7 +8017,7 @@ class WinSock {
     static inet_ntoa(in_R) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\inet_ntoa", "ptr", in_R, "ptr")
+        result := DllCall("WS2_32.dll\inet_ntoa", "ptr", in_R, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -11162,7 +11162,7 @@ class WinSock {
     static WSAIsBlocking() {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAIsBlocking", "ptr")
+        result := DllCall("WS2_32.dll\WSAIsBlocking", "int")
         if(A_LastError)
             throw OSError()
 
@@ -12676,7 +12676,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSACloseEvent", "ptr", hEvent, "ptr")
+        result := DllCall("WS2_32.dll\WSACloseEvent", "ptr", hEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13073,7 +13073,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAConnectByNameW", "ptr", s, "ptr", nodename, "ptr", servicename, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "ptr")
+        result := DllCall("WS2_32.dll\WSAConnectByNameW", "ptr", s, "ptr", nodename, "ptr", servicename, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13175,7 +13175,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAConnectByNameA", "ptr", s, "ptr", nodename, "ptr", servicename, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "ptr")
+        result := DllCall("WS2_32.dll\WSAConnectByNameA", "ptr", s, "ptr", nodename, "ptr", servicename, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -13299,7 +13299,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAConnectByList", "ptr", s, "ptr", SocketAddress, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "ptr")
+        result := DllCall("WS2_32.dll\WSAConnectByList", "ptr", s, "ptr", SocketAddress, "uint*", LocalAddressLength, "ptr", LocalAddress, "uint*", RemoteAddressLength, "ptr", RemoteAddress, "ptr", timeout, "ptr", Reserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14297,7 +14297,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetOverlappedResult", "ptr", s, "ptr", lpOverlapped, "uint*", lpcbTransfer, "ptr", fWait, "uint*", lpdwFlags, "ptr")
+        result := DllCall("WS2_32.dll\WSAGetOverlappedResult", "ptr", s, "ptr", lpOverlapped, "uint*", lpcbTransfer, "int", fWait, "uint*", lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -14374,7 +14374,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAGetQOSByName", "ptr", s, "ptr", lpQOSName, "ptr", lpQOS, "ptr")
+        result := DllCall("WS2_32.dll\WSAGetQOSByName", "ptr", s, "ptr", lpQOSName, "ptr", lpQOS, "int")
         if(A_LastError)
             throw OSError()
 
@@ -15713,7 +15713,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAResetEvent", "ptr", hEvent, "ptr")
+        result := DllCall("WS2_32.dll\WSAResetEvent", "ptr", hEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -16709,7 +16709,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSASetEvent", "ptr", hEvent, "ptr")
+        result := DllCall("WS2_32.dll\WSASetEvent", "ptr", hEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -18202,7 +18202,7 @@ class WinSock {
     static WSAWaitForMultipleEvents(cEvents, lphEvents, fWaitAll, dwTimeout, fAlertable) {
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\WSAWaitForMultipleEvents", "uint", cEvents, "ptr", lphEvents, "ptr", fWaitAll, "uint", dwTimeout, "ptr", fAlertable, "uint")
+        result := DllCall("WS2_32.dll\WSAWaitForMultipleEvents", "uint", cEvents, "ptr", lphEvents, "int", fWaitAll, "uint", dwTimeout, "int", fAlertable, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -21513,7 +21513,7 @@ class WinSock {
     static RtlIpv4AddressToStringA(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv4AddressToStringA", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlIpv4AddressToStringA", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -21577,7 +21577,7 @@ class WinSock {
     static RtlIpv4AddressToStringW(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv4AddressToStringW", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlIpv4AddressToStringW", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -21682,7 +21682,7 @@ class WinSock {
     static RtlIpv4StringToAddressA(S, Strict, Terminator, Addr) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv4StringToAddressA", "ptr", S, "ptr", Strict, "ptr", Terminator, "ptr", Addr, "int")
+        result := DllCall("ntdll.dll\RtlIpv4StringToAddressA", "ptr", S, "char", Strict, "ptr", Terminator, "ptr", Addr, "int")
         return result
     }
 
@@ -21717,7 +21717,7 @@ class WinSock {
     static RtlIpv4StringToAddressExA(AddressString, Strict, Address, Port) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExA", "ptr", AddressString, "ptr", Strict, "ptr", Address, "ushort*", Port, "int")
+        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExA", "ptr", AddressString, "char", Strict, "ptr", Address, "ushort*", Port, "int")
         return result
     }
 
@@ -21771,7 +21771,7 @@ class WinSock {
     static RtlIpv4StringToAddressW(S, Strict, Terminator, Addr) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv4StringToAddressW", "ptr", S, "ptr", Strict, "ptr", Terminator, "ptr", Addr, "int")
+        result := DllCall("ntdll.dll\RtlIpv4StringToAddressW", "ptr", S, "char", Strict, "ptr", Terminator, "ptr", Addr, "int")
         return result
     }
 
@@ -21823,7 +21823,7 @@ class WinSock {
     static RtlIpv4StringToAddressExW(AddressString, Strict, Address, Port) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExW", "ptr", AddressString, "ptr", Strict, "ptr", Address, "ushort*", Port, "int")
+        result := DllCall("ntdll.dll\RtlIpv4StringToAddressExW", "ptr", AddressString, "char", Strict, "ptr", Address, "ushort*", Port, "int")
         return result
     }
 
@@ -21839,7 +21839,7 @@ class WinSock {
     static RtlIpv6AddressToStringA(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv6AddressToStringA", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlIpv6AddressToStringA", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -21903,7 +21903,7 @@ class WinSock {
     static RtlIpv6AddressToStringW(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlIpv6AddressToStringW", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlIpv6AddressToStringW", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -22172,7 +22172,7 @@ class WinSock {
     static RtlEthernetAddressToStringA(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlEthernetAddressToStringA", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlEthernetAddressToStringA", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -22189,7 +22189,7 @@ class WinSock {
     static RtlEthernetAddressToStringW(Addr, S) {
         S := S is String ? StrPtr(S) : S
 
-        result := DllCall("ntdll.dll\RtlEthernetAddressToStringW", "ptr", Addr, "ptr", S, "ptr")
+        result := DllCall("ntdll.dll\RtlEthernetAddressToStringW", "ptr", Addr, "ptr", S, "char*")
         return result
     }
 
@@ -22789,7 +22789,7 @@ class WinSock {
         hSocket := hSocket is Win32Handle ? NumGet(hSocket, "ptr") : hSocket
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
-        result := DllCall("MSWSOCK.dll\TransmitFile", "ptr", hSocket, "ptr", hFile, "uint", nNumberOfBytesToWrite, "uint", nNumberOfBytesPerSend, "ptr", lpOverlapped, "ptr", lpTransmitBuffers, "uint", dwReserved, "ptr")
+        result := DllCall("MSWSOCK.dll\TransmitFile", "ptr", hSocket, "ptr", hFile, "uint", nNumberOfBytesToWrite, "uint", nNumberOfBytesPerSend, "ptr", lpOverlapped, "ptr", lpTransmitBuffers, "uint", dwReserved, "int")
         return result
     }
 
@@ -22820,7 +22820,7 @@ class WinSock {
         sListenSocket := sListenSocket is Win32Handle ? NumGet(sListenSocket, "ptr") : sListenSocket
         sAcceptSocket := sAcceptSocket is Win32Handle ? NumGet(sAcceptSocket, "ptr") : sAcceptSocket
 
-        result := DllCall("MSWSOCK.dll\AcceptEx", "ptr", sListenSocket, "ptr", sAcceptSocket, "ptr", lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "uint*", lpdwBytesReceived, "ptr", lpOverlapped, "ptr")
+        result := DllCall("MSWSOCK.dll\AcceptEx", "ptr", sListenSocket, "ptr", sAcceptSocket, "ptr", lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "uint*", lpdwBytesReceived, "ptr", lpOverlapped, "int")
         return result
     }
 
@@ -23852,7 +23852,7 @@ class WinSock {
      * @since windows5.0
      */
     static WSCEnableNSProvider(lpProviderId, fEnable) {
-        result := DllCall("WS2_32.dll\WSCEnableNSProvider", "ptr", lpProviderId, "ptr", fEnable, "int")
+        result := DllCall("WS2_32.dll\WSCEnableNSProvider", "ptr", lpProviderId, "int", fEnable, "int")
         return result
     }
 
@@ -27441,7 +27441,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\getnameinfo", "ptr", pSockaddr, "ptr", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags, "int")
+        result := DllCall("WS2_32.dll\getnameinfo", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -27536,7 +27536,7 @@ class WinSock {
         pNodeBuffer := pNodeBuffer is String ? StrPtr(pNodeBuffer) : pNodeBuffer
         pServiceBuffer := pServiceBuffer is String ? StrPtr(pServiceBuffer) : pServiceBuffer
 
-        result := DllCall("WS2_32.dll\GetNameInfoW", "ptr", pSockaddr, "ptr", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags, "int")
+        result := DllCall("WS2_32.dll\GetNameInfoW", "ptr", pSockaddr, "int", SockaddrLength, "ptr", pNodeBuffer, "uint", NodeBufferSize, "ptr", pServiceBuffer, "uint", ServiceBufferSize, "int", Flags, "int")
         return result
     }
 
@@ -27666,7 +27666,7 @@ class WinSock {
 
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\inet_ntop", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "ptr")
+        result := DllCall("WS2_32.dll\inet_ntop", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "char*")
         if(A_LastError)
             throw OSError()
 
@@ -27762,7 +27762,7 @@ class WinSock {
     static InetNtopW(Family, pAddr, pStringBuf, StringBufSize) {
         pStringBuf := pStringBuf is String ? StrPtr(pStringBuf) : pStringBuf
 
-        result := DllCall("WS2_32.dll\InetNtopW", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "ptr")
+        result := DllCall("WS2_32.dll\InetNtopW", "int", Family, "ptr", pAddr, "ptr", pStringBuf, "ptr", StringBufSize, "char*")
         return result
     }
 
@@ -28273,7 +28273,7 @@ class WinSock {
      * @since windows8.0
      */
     static SetSocketMediaStreamingMode(value) {
-        result := DllCall("Windows.Networking.dll\SetSocketMediaStreamingMode", "ptr", value, "int")
+        result := DllCall("Windows.Networking.dll\SetSocketMediaStreamingMode", "int", value, "int")
         if(result != 0)
             throw OSError(result)
 

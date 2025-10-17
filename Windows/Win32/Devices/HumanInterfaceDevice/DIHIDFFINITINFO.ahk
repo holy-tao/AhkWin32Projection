@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DIHIDFFINITINFO structure is used by DirectInput to provide information to a HID force-feedback driver about the device it is being asked to control.
@@ -27,12 +26,9 @@ class DIHIDFFINITINFO extends Win32Struct
      * Points to a null-terminated Unicode string that identifies the device interface for the device. The driver can pass the device interface to the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function to obtain access to the device.
      * @type {PWSTR}
      */
-    pwszDeviceInterface{
-        get {
-            if(!this.HasProp("__pwszDeviceInterface"))
-                this.__pwszDeviceInterface := PWSTR(this.ptr + 8)
-            return this.__pwszDeviceInterface
-        }
+    pwszDeviceInterface {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

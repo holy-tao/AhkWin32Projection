@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -31,11 +30,8 @@ class KERB_NET_ADDRESS extends Win32Struct
     /**
      * @type {PSTR}
      */
-    Address{
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := PSTR(this.ptr + 8)
-            return this.__Address
-        }
+    Address {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

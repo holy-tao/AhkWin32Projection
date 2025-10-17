@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\WS_DURATION.ahk
 
 /**
@@ -22,7 +21,7 @@ class WS_DURATION_DESCRIPTION extends Win32Struct
     minValue{
         get {
             if(!this.HasProp("__minValue"))
-                this.__minValue := WS_DURATION(this.ptr + 0)
+                this.__minValue := WS_DURATION(0, this)
             return this.__minValue
         }
     }
@@ -34,7 +33,7 @@ class WS_DURATION_DESCRIPTION extends Win32Struct
     maxValue{
         get {
             if(!this.HasProp("__maxValue"))
-                this.__maxValue := WS_DURATION(this.ptr + 40)
+                this.__maxValue := WS_DURATION(40, this)
             return this.__maxValue
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains callback specific parameters such as file offset, length, flags, etc.
@@ -63,7 +62,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
         FetchData{
             get {
                 if(!this.HasProp("__FetchData"))
-                    this.__FetchData := %this.__Class%._FetchData(this.ptr + 8)
+                    this.__FetchData := %this.__Class%._FetchData(8, this)
                 return this.__FetchData
             }
         }
@@ -177,12 +176,9 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        Pattern{
-            get {
-                if(!this.HasProp("__Pattern"))
-                    this.__Pattern := PWSTR(this.ptr + 8)
-                return this.__Pattern
-            }
+        Pattern {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
         }
     
     }
@@ -302,12 +298,9 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        TargetPath{
-            get {
-                if(!this.HasProp("__TargetPath"))
-                    this.__TargetPath := PWSTR(this.ptr + 8)
-                return this.__TargetPath
-            }
+        TargetPath {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
         }
     
     }
@@ -327,12 +320,9 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        SourcePath{
-            get {
-                if(!this.HasProp("__SourcePath"))
-                    this.__SourcePath := PWSTR(this.ptr + 8)
-                return this.__SourcePath
-            }
+        SourcePath {
+            get => NumGet(this, 8, "ptr")
+            set => NumPut("ptr", value, this, 8)
         }
     
     }
@@ -343,7 +333,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     Cancel{
         get {
             if(!this.HasProp("__Cancel"))
-                this.__Cancel := %this.__Class%._Cancel(this.ptr + 8)
+                this.__Cancel := %this.__Class%._Cancel(8, this)
             return this.__Cancel
         }
     }
@@ -354,7 +344,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     FetchData{
         get {
             if(!this.HasProp("__FetchData"))
-                this.__FetchData := %this.__Class%._FetchData(this.ptr + 8)
+                this.__FetchData := %this.__Class%._FetchData(8, this)
             return this.__FetchData
         }
     }
@@ -365,7 +355,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     ValidateData{
         get {
             if(!this.HasProp("__ValidateData"))
-                this.__ValidateData := %this.__Class%._ValidateData(this.ptr + 8)
+                this.__ValidateData := %this.__Class%._ValidateData(8, this)
             return this.__ValidateData
         }
     }
@@ -376,7 +366,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     FetchPlaceholders{
         get {
             if(!this.HasProp("__FetchPlaceholders"))
-                this.__FetchPlaceholders := %this.__Class%._FetchPlaceholders(this.ptr + 8)
+                this.__FetchPlaceholders := %this.__Class%._FetchPlaceholders(8, this)
             return this.__FetchPlaceholders
         }
     }
@@ -387,7 +377,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     OpenCompletion{
         get {
             if(!this.HasProp("__OpenCompletion"))
-                this.__OpenCompletion := %this.__Class%._OpenCompletion(this.ptr + 8)
+                this.__OpenCompletion := %this.__Class%._OpenCompletion(8, this)
             return this.__OpenCompletion
         }
     }
@@ -398,7 +388,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     CloseCompletion{
         get {
             if(!this.HasProp("__CloseCompletion"))
-                this.__CloseCompletion := %this.__Class%._CloseCompletion(this.ptr + 8)
+                this.__CloseCompletion := %this.__Class%._CloseCompletion(8, this)
             return this.__CloseCompletion
         }
     }
@@ -409,7 +399,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     Dehydrate{
         get {
             if(!this.HasProp("__Dehydrate"))
-                this.__Dehydrate := %this.__Class%._Dehydrate(this.ptr + 8)
+                this.__Dehydrate := %this.__Class%._Dehydrate(8, this)
             return this.__Dehydrate
         }
     }
@@ -420,7 +410,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     DehydrateCompletion{
         get {
             if(!this.HasProp("__DehydrateCompletion"))
-                this.__DehydrateCompletion := %this.__Class%._DehydrateCompletion(this.ptr + 8)
+                this.__DehydrateCompletion := %this.__Class%._DehydrateCompletion(8, this)
             return this.__DehydrateCompletion
         }
     }
@@ -431,7 +421,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     Delete{
         get {
             if(!this.HasProp("__Delete"))
-                this.__Delete := %this.__Class%._Delete(this.ptr + 8)
+                this.__Delete := %this.__Class%._Delete(8, this)
             return this.__Delete
         }
     }
@@ -442,7 +432,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     DeleteCompletion{
         get {
             if(!this.HasProp("__DeleteCompletion"))
-                this.__DeleteCompletion := %this.__Class%._DeleteCompletion(this.ptr + 8)
+                this.__DeleteCompletion := %this.__Class%._DeleteCompletion(8, this)
             return this.__DeleteCompletion
         }
     }
@@ -453,7 +443,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     Rename{
         get {
             if(!this.HasProp("__Rename"))
-                this.__Rename := %this.__Class%._Rename(this.ptr + 8)
+                this.__Rename := %this.__Class%._Rename(8, this)
             return this.__Rename
         }
     }
@@ -464,7 +454,7 @@ class CF_CALLBACK_PARAMETERS extends Win32Struct
     RenameCompletion{
         get {
             if(!this.HasProp("__RenameCompletion"))
-                this.__RenameCompletion := %this.__Class%._RenameCompletion(this.ptr + 8)
+                this.__RenameCompletion := %this.__Class%._RenameCompletion(8, this)
             return this.__RenameCompletion
         }
     }

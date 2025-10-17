@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -59,12 +58,9 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszValue{
-        get {
-            if(!this.HasProp("__pszValue"))
-                this.__pszValue := PSTR(this.ptr + 8)
-            return this.__pszValue
-        }
+    pszValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -73,7 +69,7 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct
     ftValue{
         get {
             if(!this.HasProp("__ftValue"))
-                this.__ftValue := FILETIME(this.ptr + 8)
+                this.__ftValue := FILETIME(8, this)
             return this.__ftValue
         }
     }

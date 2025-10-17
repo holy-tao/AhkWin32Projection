@@ -179,7 +179,7 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct
     Invalid{
         get {
             if(!this.HasProp("__Invalid"))
-                this.__Invalid := %this.__Class%._Invalid(this.ptr + 0)
+                this.__Invalid := %this.__Class%._Invalid(0, this)
             return this.__Invalid
         }
     }

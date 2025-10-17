@@ -28,7 +28,7 @@ class TBREPLACEBITMAP extends Win32Struct
     hInstOld{
         get {
             if(!this.HasProp("__hInstOld"))
-                this.__hInstOld := HINSTANCE(this.ptr + 0)
+                this.__hInstOld := HINSTANCE(0, this)
             return this.__hInstOld
         }
     }
@@ -54,7 +54,7 @@ class TBREPLACEBITMAP extends Win32Struct
     hInstNew{
         get {
             if(!this.HasProp("__hInstNew"))
-                this.__hInstNew := HINSTANCE(this.ptr + 16)
+                this.__hInstNew := HINSTANCE(16, this)
             return this.__hInstNew
         }
     }

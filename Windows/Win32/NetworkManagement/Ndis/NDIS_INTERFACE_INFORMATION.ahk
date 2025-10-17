@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
-#Include .\NET_IF_COMPARTMENT_ID.ahk
 
 /**
  * The NDIS_INTERFACE_INFORMATION structure provides information about a network interface for the OID_GEN_INTERFACE_INFO OID.
@@ -86,12 +84,9 @@ class NDIS_INTERFACE_INFORMATION extends Win32Struct
      *      returns.
      * @type {BOOLEAN}
      */
-    ifPromiscuousMode{
-        get {
-            if(!this.HasProp("__ifPromiscuousMode"))
-                this.__ifPromiscuousMode := BOOLEAN(this.ptr + 20)
-            return this.__ifPromiscuousMode
-        }
+    ifPromiscuousMode {
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
@@ -99,12 +94,9 @@ class NDIS_INTERFACE_INFORMATION extends Win32Struct
      *      not.
      * @type {BOOLEAN}
      */
-    ifDeviceWakeUpEnable{
-        get {
-            if(!this.HasProp("__ifDeviceWakeUpEnable"))
-                this.__ifDeviceWakeUpEnable := BOOLEAN(this.ptr + 21)
-            return this.__ifDeviceWakeUpEnable
-        }
+    ifDeviceWakeUpEnable {
+        get => NumGet(this, 21, "char")
+        set => NumPut("char", value, this, 21)
     }
 
     /**
@@ -380,12 +372,9 @@ class NDIS_INTERFACE_INFORMATION extends Win32Struct
      *      for the compartment ID, NDIS will return the right compartment ID for this interface.
      * @type {NET_IF_COMPARTMENT_ID}
      */
-    CompartmentId{
-        get {
-            if(!this.HasProp("__CompartmentId"))
-                this.__CompartmentId := NET_IF_COMPARTMENT_ID(this.ptr + 208)
-            return this.__CompartmentId
-        }
+    CompartmentId {
+        get => NumGet(this, 208, "uint")
+        set => NumPut("uint", value, this, 208)
     }
 
     /**

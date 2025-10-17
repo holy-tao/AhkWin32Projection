@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * This resource contains details of the search criteria when fetching a diagnostic data record.
@@ -45,12 +43,9 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
      * The sub-string to search for within diagnostic data records. This text is case insensitive.
      * @type {PWSTR}
      */
-    textToMatch{
-        get {
-            if(!this.HasProp("__textToMatch"))
-                this.__textToMatch := PWSTR(this.ptr + 16)
-            return this.__textToMatch
-        }
+    textToMatch {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -98,11 +93,8 @@ class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
      * `TRUE` to filter search results to only core data. `FALSE` to return both core and non-core data.
      * @type {BOOL}
      */
-    coreDataOnly{
-        get {
-            if(!this.HasProp("__coreDataOnly"))
-                this.__coreDataOnly := BOOL(this.ptr + 52)
-            return this.__coreDataOnly
-        }
+    coreDataOnly {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\HSZ.ahk
 #Include .\HCONV.ahk
 
@@ -56,7 +55,7 @@ class MONLINKSTRUCT extends Win32Struct
     hTask{
         get {
             if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(this.ptr + 8)
+                this.__hTask := HANDLE(8, this)
             return this.__hTask
         }
     }
@@ -67,12 +66,9 @@ class MONLINKSTRUCT extends Win32Struct
      * Indicates whether an advise loop was successfully established. A value of <b>TRUE</b> indicates an advise loop was established; <b>FALSE</b> indicates it was not.
      * @type {BOOL}
      */
-    fEstablished{
-        get {
-            if(!this.HasProp("__fEstablished"))
-                this.__fEstablished := BOOL(this.ptr + 16)
-            return this.__fEstablished
-        }
+    fEstablished {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -81,12 +77,9 @@ class MONLINKSTRUCT extends Win32Struct
      * Indicates whether the XTYPF_NODATA flag is set for the advise loop. A value of <b>TRUE</b> indicates the flag is set; <b>FALSE</b> indicates it is not.
      * @type {BOOL}
      */
-    fNoData{
-        get {
-            if(!this.HasProp("__fNoData"))
-                this.__fNoData := BOOL(this.ptr + 20)
-            return this.__fNoData
-        }
+    fNoData {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -98,7 +91,7 @@ class MONLINKSTRUCT extends Win32Struct
     hszSvc{
         get {
             if(!this.HasProp("__hszSvc"))
-                this.__hszSvc := HSZ(this.ptr + 24)
+                this.__hszSvc := HSZ(24, this)
             return this.__hszSvc
         }
     }
@@ -112,7 +105,7 @@ class MONLINKSTRUCT extends Win32Struct
     hszTopic{
         get {
             if(!this.HasProp("__hszTopic"))
-                this.__hszTopic := HSZ(this.ptr + 32)
+                this.__hszTopic := HSZ(32, this)
             return this.__hszTopic
         }
     }
@@ -126,7 +119,7 @@ class MONLINKSTRUCT extends Win32Struct
     hszItem{
         get {
             if(!this.HasProp("__hszItem"))
-                this.__hszItem := HSZ(this.ptr + 40)
+                this.__hszItem := HSZ(40, this)
             return this.__hszItem
         }
     }
@@ -148,12 +141,9 @@ class MONLINKSTRUCT extends Win32Struct
      * Indicates whether the link notification came from the server. A value of <b>TRUE</b> indicates the notification came from the server; <b>FALSE</b> indicates otherwise.
      * @type {BOOL}
      */
-    fServer{
-        get {
-            if(!this.HasProp("__fServer"))
-                this.__fServer := BOOL(this.ptr + 52)
-            return this.__fServer
-        }
+    fServer {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -165,7 +155,7 @@ class MONLINKSTRUCT extends Win32Struct
     hConvServer{
         get {
             if(!this.HasProp("__hConvServer"))
-                this.__hConvServer := HCONV(this.ptr + 56)
+                this.__hConvServer := HCONV(56, this)
             return this.__hConvServer
         }
     }
@@ -179,7 +169,7 @@ class MONLINKSTRUCT extends Win32Struct
     hConvClient{
         get {
             if(!this.HasProp("__hConvClient"))
-                this.__hConvClient := HCONV(this.ptr + 64)
+                this.__hConvClient := HCONV(64, this)
             return this.__hConvClient
         }
     }

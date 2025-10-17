@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the information for digest authentication on a URL Group.
@@ -29,12 +28,9 @@ class HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS extends Win32Struct
      * If <b>NULL</b>, the client assumes the protection space consists of all the URIs under the responding server.
      * @type {PWSTR}
      */
-    DomainName{
-        get {
-            if(!this.HasProp("__DomainName"))
-                this.__DomainName := PWSTR(this.ptr + 8)
-            return this.__DomainName
-        }
+    DomainName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -52,11 +48,8 @@ class HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS extends Win32Struct
      * The realm allows the  server to be partitioned into a set of protection spaces, each with its own set of authentication schemes from the authentication database.
      * @type {PWSTR}
      */
-    Realm{
-        get {
-            if(!this.HasProp("__Realm"))
-                this.__Realm := PWSTR(this.ptr + 24)
-            return this.__Realm
-        }
+    Realm {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

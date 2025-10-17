@@ -18,7 +18,7 @@ class KSCAMERA_METADATA_CAPTURESTATS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := KSCAMERA_METADATA_ITEMHEADER(this.ptr + 0)
+                this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)
             return this.__Header
         }
     }

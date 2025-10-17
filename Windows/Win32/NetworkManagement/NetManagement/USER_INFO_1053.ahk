@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_1053 structure contains user information for network accounts. This information level is valid only when you call the NetUserSetInfo function.
@@ -19,11 +18,8 @@ class USER_INFO_1053 extends Win32Struct
      * <b>NetUserSetInfo</b> function.
      * @type {PWSTR}
      */
-    usri1053_home_dir_drive{
-        get {
-            if(!this.HasProp("__usri1053_home_dir_drive"))
-                this.__usri1053_home_dir_drive := PWSTR(this.ptr + 0)
-            return this.__usri1053_home_dir_drive
-        }
+    usri1053_home_dir_drive {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

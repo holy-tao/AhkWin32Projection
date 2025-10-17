@@ -19,7 +19,7 @@ class DOT11_CONNECTION_START_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -49,7 +49,7 @@ class DOT11_CONNECTION_START_PARAMETERS extends Win32Struct
     AdhocSSID{
         get {
             if(!this.HasProp("__AdhocSSID"))
-                this.__AdhocSSID := DOT11_SSID(this.ptr + 16)
+                this.__AdhocSSID := DOT11_SSID(16, this)
             return this.__AdhocSSID
         }
     }

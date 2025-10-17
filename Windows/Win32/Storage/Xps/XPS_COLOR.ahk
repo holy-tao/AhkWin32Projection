@@ -129,7 +129,7 @@ class XPS_COLOR extends Win32Struct
         sRGB{
             get {
                 if(!this.HasProp("__sRGB"))
-                    this.__sRGB := %this.__Class%._sRGB(this.ptr + 0)
+                    this.__sRGB := %this.__Class%._sRGB(0, this)
                 return this.__sRGB
             }
         }
@@ -140,7 +140,7 @@ class XPS_COLOR extends Win32Struct
         scRGB{
             get {
                 if(!this.HasProp("__scRGB"))
-                    this.__scRGB := %this.__Class%._scRGB(this.ptr + 0)
+                    this.__scRGB := %this.__Class%._scRGB(0, this)
                 return this.__scRGB
             }
         }
@@ -151,7 +151,7 @@ class XPS_COLOR extends Win32Struct
         context{
             get {
                 if(!this.HasProp("__context"))
-                    this.__context := %this.__Class%._context(this.ptr + 0)
+                    this.__context := %this.__Class%._context(0, this)
                 return this.__context
             }
         }
@@ -174,7 +174,7 @@ class XPS_COLOR extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := %this.__Class%.XPS_COLOR_VALUE(this.ptr + 8)
+                this.__value := %this.__Class%.XPS_COLOR_VALUE(8, this)
             return this.__value
         }
     }

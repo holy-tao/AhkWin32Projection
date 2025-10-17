@@ -40,7 +40,7 @@ class SOCKADDR_INET extends Win32Struct
     Ipv4{
         get {
             if(!this.HasProp("__Ipv4"))
-                this.__Ipv4 := SOCKADDR_IN(this.ptr + 0)
+                this.__Ipv4 := SOCKADDR_IN(0, this)
             return this.__Ipv4
         }
     }
@@ -56,7 +56,7 @@ class SOCKADDR_INET extends Win32Struct
     Ipv6{
         get {
             if(!this.HasProp("__Ipv6"))
-                this.__Ipv6 := SOCKADDR_IN6(this.ptr + 0)
+                this.__Ipv6 := SOCKADDR_IN6(0, this)
             return this.__Ipv6
         }
     }

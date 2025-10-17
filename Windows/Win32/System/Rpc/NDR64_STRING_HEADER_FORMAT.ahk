@@ -26,7 +26,7 @@ class NDR64_STRING_HEADER_FORMAT extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := NDR64_STRING_FLAGS(this.ptr + 1)
+                this.__Flags := NDR64_STRING_FLAGS(1, this)
             return this.__Flags
         }
     }

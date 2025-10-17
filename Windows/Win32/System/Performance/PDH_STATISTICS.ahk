@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PDH_FMT_COUNTERVALUE.ahk
 
 /**
@@ -42,7 +40,7 @@ class PDH_STATISTICS extends Win32Struct
     min{
         get {
             if(!this.HasProp("__min"))
-                this.__min := PDH_FMT_COUNTERVALUE(this.ptr + 8)
+                this.__min := PDH_FMT_COUNTERVALUE(8, this)
             return this.__min
         }
     }
@@ -54,7 +52,7 @@ class PDH_STATISTICS extends Win32Struct
     max{
         get {
             if(!this.HasProp("__max"))
-                this.__max := PDH_FMT_COUNTERVALUE(this.ptr + 24)
+                this.__max := PDH_FMT_COUNTERVALUE(24, this)
             return this.__max
         }
     }
@@ -66,7 +64,7 @@ class PDH_STATISTICS extends Win32Struct
     mean{
         get {
             if(!this.HasProp("__mean"))
-                this.__mean := PDH_FMT_COUNTERVALUE(this.ptr + 40)
+                this.__mean := PDH_FMT_COUNTERVALUE(40, this)
             return this.__mean
         }
     }

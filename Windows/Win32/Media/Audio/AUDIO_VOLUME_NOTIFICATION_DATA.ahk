@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The AUDIO_VOLUME_NOTIFICATION_DATA structure describes a change in the volume level or muting state of an audio endpoint device.
@@ -63,12 +62,9 @@ class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct
      * Specifies whether the audio stream is currently muted. If <b>bMuted</b> is <b>TRUE</b>, the stream is muted. If <b>FALSE</b>, the stream is not muted.
      * @type {BOOL}
      */
-    bMuted{
-        get {
-            if(!this.HasProp("__bMuted"))
-                this.__bMuted := BOOL(this.ptr + 8)
-            return this.__bMuted
-        }
+    bMuted {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**

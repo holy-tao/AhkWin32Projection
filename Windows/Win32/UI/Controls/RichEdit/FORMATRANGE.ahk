@@ -33,7 +33,7 @@ class FORMATRANGE extends Win32Struct
     hdc{
         get {
             if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 0)
+                this.__hdc := HDC(0, this)
             return this.__hdc
         }
     }
@@ -47,7 +47,7 @@ class FORMATRANGE extends Win32Struct
     hdcTarget{
         get {
             if(!this.HasProp("__hdcTarget"))
-                this.__hdcTarget := HDC(this.ptr + 8)
+                this.__hdcTarget := HDC(8, this)
             return this.__hdcTarget
         }
     }
@@ -61,7 +61,7 @@ class FORMATRANGE extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 16)
+                this.__rc := RECT(16, this)
             return this.__rc
         }
     }
@@ -75,7 +75,7 @@ class FORMATRANGE extends Win32Struct
     rcPage{
         get {
             if(!this.HasProp("__rcPage"))
-                this.__rcPage := RECT(this.ptr + 32)
+                this.__rcPage := RECT(32, this)
             return this.__rcPage
         }
     }
@@ -89,7 +89,7 @@ class FORMATRANGE extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 48)
+                this.__chrg := CHARRANGE(48, this)
             return this.__chrg
         }
     }

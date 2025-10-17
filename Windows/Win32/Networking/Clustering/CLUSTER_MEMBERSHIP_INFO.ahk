@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents membership information for a cluster.
@@ -18,12 +17,9 @@ class CLUSTER_MEMBERSHIP_INFO extends Win32Struct
      * <b>TRUE</b> if the cluster has a majority quorum; otherwise <b>FALSE</b>.
      * @type {BOOL}
      */
-    HasQuorum{
-        get {
-            if(!this.HasProp("__HasQuorum"))
-                this.__HasQuorum := BOOL(this.ptr + 0)
-            return this.__HasQuorum
-        }
+    HasQuorum {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

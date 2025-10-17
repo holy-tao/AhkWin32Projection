@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\STARTUPINFOW.ahk
 #Include .\LPPROC_THREAD_ATTRIBUTE_LIST.ahk
@@ -37,7 +36,7 @@ class STARTUPINFOEXW extends Win32Struct
     StartupInfo{
         get {
             if(!this.HasProp("__StartupInfo"))
-                this.__StartupInfo := STARTUPINFOW(this.ptr + 0)
+                this.__StartupInfo := STARTUPINFOW(0, this)
             return this.__StartupInfo
         }
     }
@@ -49,7 +48,7 @@ class STARTUPINFOEXW extends Win32Struct
     lpAttributeList{
         get {
             if(!this.HasProp("__lpAttributeList"))
-                this.__lpAttributeList := LPPROC_THREAD_ATTRIBUTE_LIST(this.ptr + 104)
+                this.__lpAttributeList := LPPROC_THREAD_ATTRIBUTE_LIST(104, this)
             return this.__lpAttributeList
         }
     }

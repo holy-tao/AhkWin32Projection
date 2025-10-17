@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -71,12 +70,9 @@ class DBCONSTRAINTDESC extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszConstraintText{
-        get {
-            if(!this.HasProp("__pwszConstraintText"))
-                this.__pwszConstraintText := PWSTR(this.ptr + 56)
-            return this.__pwszConstraintText
-        }
+    pwszConstraintText {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

@@ -33,7 +33,7 @@ class MIBICMPINFO extends Win32Struct
     icmpInStats{
         get {
             if(!this.HasProp("__icmpInStats"))
-                this.__icmpInStats := MIBICMPSTATS(this.ptr + 0)
+                this.__icmpInStats := MIBICMPSTATS(0, this)
             return this.__icmpInStats
         }
     }
@@ -46,7 +46,7 @@ class MIBICMPINFO extends Win32Struct
     icmpOutStats{
         get {
             if(!this.HasProp("__icmpOutStats"))
-                this.__icmpOutStats := MIBICMPSTATS(this.ptr + 56)
+                this.__icmpOutStats := MIBICMPSTATS(56, this)
             return this.__icmpOutStats
         }
     }

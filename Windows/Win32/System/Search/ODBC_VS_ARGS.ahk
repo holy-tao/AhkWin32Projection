@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -32,45 +30,33 @@ class ODBC_VS_ARGS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    wszArg{
-        get {
-            if(!this.HasProp("__wszArg"))
-                this.__wszArg := PWSTR(this.ptr + 16)
-            return this.__wszArg
-        }
+    wszArg {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    szArg{
-        get {
-            if(!this.HasProp("__szArg"))
-                this.__szArg := PSTR(this.ptr + 16)
-            return this.__szArg
-        }
+    szArg {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    wszCorrelation{
-        get {
-            if(!this.HasProp("__wszCorrelation"))
-                this.__wszCorrelation := PWSTR(this.ptr + 24)
-            return this.__wszCorrelation
-        }
+    wszCorrelation {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    szCorrelation{
-        get {
-            if(!this.HasProp("__szCorrelation"))
-                this.__szCorrelation := PSTR(this.ptr + 24)
-            return this.__szCorrelation
-        }
+    szCorrelation {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

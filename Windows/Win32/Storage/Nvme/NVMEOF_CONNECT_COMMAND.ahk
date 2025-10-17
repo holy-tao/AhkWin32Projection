@@ -61,7 +61,7 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
     SGL1{
         get {
             if(!this.HasProp("__SGL1"))
-                this.__SGL1 := NVME_SGL_DESC(this.ptr + 24)
+                this.__SGL1 := NVME_SGL_DESC(24, this)
             return this.__SGL1
         }
     }

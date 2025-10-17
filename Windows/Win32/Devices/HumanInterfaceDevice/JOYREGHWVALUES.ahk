@@ -22,7 +22,7 @@ class JOYREGHWVALUES extends Win32Struct
     jrvHardware{
         get {
             if(!this.HasProp("__jrvHardware"))
-                this.__jrvHardware := JOYRANGE(this.ptr + 0)
+                this.__jrvHardware := JOYRANGE(0, this)
             return this.__jrvHardware
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The NETCON_PROPERTIES structure stores values that describe the properties of a network connection.
@@ -27,24 +26,18 @@ class NETCON_PROPERTIES extends Win32Struct
      * Name of the connection itself.
      * @type {PWSTR}
      */
-    pszwName{
-        get {
-            if(!this.HasProp("__pszwName"))
-                this.__pszwName := PWSTR(this.ptr + 8)
-            return this.__pszwName
-        }
+    pszwName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Name of the device associated with the connection.
      * @type {PWSTR}
      */
-    pszwDeviceName{
-        get {
-            if(!this.HasProp("__pszwDeviceName"))
-                this.__pszwDeviceName := PWSTR(this.ptr + 16)
-            return this.__pszwDeviceName
-        }
+    pszwDeviceName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

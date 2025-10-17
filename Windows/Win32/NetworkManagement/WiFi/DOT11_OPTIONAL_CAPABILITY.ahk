@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -23,33 +22,24 @@ class DOT11_OPTIONAL_CAPABILITY extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bDot11PCF{
-        get {
-            if(!this.HasProp("__bDot11PCF"))
-                this.__bDot11PCF := BOOLEAN(this.ptr + 4)
-            return this.__bDot11PCF
-        }
+    bDot11PCF {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bDot11PCFMPDUTransferToPC{
-        get {
-            if(!this.HasProp("__bDot11PCFMPDUTransferToPC"))
-                this.__bDot11PCFMPDUTransferToPC := BOOLEAN(this.ptr + 5)
-            return this.__bDot11PCFMPDUTransferToPC
-        }
+    bDot11PCFMPDUTransferToPC {
+        get => NumGet(this, 5, "char")
+        set => NumPut("char", value, this, 5)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bStrictlyOrderedServiceClass{
-        get {
-            if(!this.HasProp("__bStrictlyOrderedServiceClass"))
-                this.__bStrictlyOrderedServiceClass := BOOLEAN(this.ptr + 6)
-            return this.__bStrictlyOrderedServiceClass
-        }
+    bStrictlyOrderedServiceClass {
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
     }
 }

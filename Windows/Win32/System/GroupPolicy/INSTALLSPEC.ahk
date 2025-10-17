@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The INSTALLSPEC structure specifies a group policy application by its user-friendly name and group policy GUID or by its file name extension. The Spec member of the INSTALLDATA structure provides this information to the InstallApplication function.
@@ -21,12 +20,9 @@ class INSTALLSPEC extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        Name{
-            get {
-                if(!this.HasProp("__Name"))
-                    this.__Name := PWSTR(this.ptr + 0)
-                return this.__Name
-            }
+        Name {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
         /**
@@ -68,7 +64,7 @@ class INSTALLSPEC extends Win32Struct
     AppName{
         get {
             if(!this.HasProp("__AppName"))
-                this.__AppName := %this.__Class%._AppName(this.ptr + 0)
+                this.__AppName := %this.__Class%._AppName(0, this)
             return this.__AppName
         }
     }
@@ -80,24 +76,18 @@ class INSTALLSPEC extends Win32Struct
      * <div> </div>
      * @type {PWSTR}
      */
-    FileExt{
-        get {
-            if(!this.HasProp("__FileExt"))
-                this.__FileExt := PWSTR(this.ptr + 0)
-            return this.__FileExt
-        }
+    FileExt {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * This parameter is reserved and should not be used.
      * @type {PWSTR}
      */
-    ProgId{
-        get {
-            if(!this.HasProp("__ProgId"))
-                this.__ProgId := PWSTR(this.ptr + 0)
-            return this.__ProgId
-        }
+    ProgId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -107,7 +97,7 @@ class INSTALLSPEC extends Win32Struct
     COMClass{
         get {
             if(!this.HasProp("__COMClass"))
-                this.__COMClass := %this.__Class%._COMClass(this.ptr + 0)
+                this.__COMClass := %this.__Class%._COMClass(0, this)
             return this.__COMClass
         }
     }

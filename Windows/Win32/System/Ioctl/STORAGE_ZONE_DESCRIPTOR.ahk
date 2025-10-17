@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -39,12 +38,9 @@ class STORAGE_ZONE_DESCRIPTOR extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    ResetWritePointerRecommend{
-        get {
-            if(!this.HasProp("__ResetWritePointerRecommend"))
-                this.__ResetWritePointerRecommend := BOOLEAN(this.ptr + 12)
-            return this.__ResetWritePointerRecommend
-        }
+    ResetWritePointerRecommend {
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**

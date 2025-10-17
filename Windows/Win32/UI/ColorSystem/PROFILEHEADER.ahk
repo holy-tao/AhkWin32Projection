@@ -226,7 +226,7 @@ class PROFILEHEADER extends Win32Struct
     phIlluminant{
         get {
             if(!this.HasProp("__phIlluminant"))
-                this.__phIlluminant := CIEXYZ(this.ptr + 72)
+                this.__phIlluminant := CIEXYZ(72, this)
             return this.__phIlluminant
         }
     }

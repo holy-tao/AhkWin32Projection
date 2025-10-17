@@ -22,7 +22,7 @@ class WS_NCRYPT_ASYMMETRIC_SECURITY_KEY_HANDLE extends Win32Struct
     keyHandle{
         get {
             if(!this.HasProp("__keyHandle"))
-                this.__keyHandle := WS_SECURITY_KEY_HANDLE(this.ptr + 0)
+                this.__keyHandle := WS_SECURITY_KEY_HANDLE(0, this)
             return this.__keyHandle
         }
     }
@@ -34,7 +34,7 @@ class WS_NCRYPT_ASYMMETRIC_SECURITY_KEY_HANDLE extends Win32Struct
     asymmetricKey{
         get {
             if(!this.HasProp("__asymmetricKey"))
-                this.__asymmetricKey := NCRYPT_KEY_HANDLE(this.ptr + 8)
+                this.__asymmetricKey := NCRYPT_KEY_HANDLE(8, this)
             return this.__asymmetricKey
         }
     }

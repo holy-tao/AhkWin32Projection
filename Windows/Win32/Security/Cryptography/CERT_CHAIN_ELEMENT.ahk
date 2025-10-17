@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_TRUST_STATUS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The CERT_CHAIN_ELEMENT structure is a single element in a simple certificate chain.
@@ -40,7 +39,7 @@ class CERT_CHAIN_ELEMENT extends Win32Struct
     TrustStatus{
         get {
             if(!this.HasProp("__TrustStatus"))
-                this.__TrustStatus := CERT_TRUST_STATUS(this.ptr + 16)
+                this.__TrustStatus := CERT_TRUST_STATUS(16, this)
             return this.__TrustStatus
         }
     }
@@ -76,20 +75,13 @@ class CERT_CHAIN_ELEMENT extends Win32Struct
      * A pointer to a <b>null</b>-terminated wide character string that contains extended error information. If <b>NULL</b>, there is no extended error information.
      * @type {PWSTR}
      */
-    pwszExtendedErrorInfo{
-        get {
-            if(!this.HasProp("__pwszExtendedErrorInfo"))
-                this.__pwszExtendedErrorInfo := PWSTR(this.ptr + 48)
-            return this.__pwszExtendedErrorInfo
-        }
+    pwszExtendedErrorInfo {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

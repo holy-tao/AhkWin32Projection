@@ -44,7 +44,7 @@ class WTS_USER_DATA extends Win32Struct
     UserTimeZone{
         get {
             if(!this.HasProp("__UserTimeZone"))
-                this.__UserTimeZone := WTS_TIME_ZONE_INFORMATION(this.ptr + 1032)
+                this.__UserTimeZone := WTS_TIME_ZONE_INFORMATION(1032, this)
             return this.__UserTimeZone
         }
     }

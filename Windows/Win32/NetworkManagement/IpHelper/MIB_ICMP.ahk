@@ -28,7 +28,7 @@ class MIB_ICMP extends Win32Struct
     stats{
         get {
             if(!this.HasProp("__stats"))
-                this.__stats := MIBICMPINFO(this.ptr + 0)
+                this.__stats := MIBICMPINFO(0, this)
             return this.__stats
         }
     }

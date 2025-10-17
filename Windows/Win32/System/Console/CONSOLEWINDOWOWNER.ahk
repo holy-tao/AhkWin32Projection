@@ -18,7 +18,7 @@ class CONSOLEWINDOWOWNER extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
+                this.__hwnd := HWND(0, this)
             return this.__hwnd
         }
     }

@@ -32,7 +32,7 @@ class HEAPENTRY32 extends Win32Struct
     hHandle{
         get {
             if(!this.HasProp("__hHandle"))
-                this.__hHandle := HANDLE(this.ptr + 8)
+                this.__hHandle := HANDLE(8, this)
             return this.__hHandle
         }
     }

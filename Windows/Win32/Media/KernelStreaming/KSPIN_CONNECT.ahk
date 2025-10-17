@@ -20,7 +20,7 @@ class KSPIN_CONNECT extends Win32Struct
     Interface{
         get {
             if(!this.HasProp("__Interface"))
-                this.__Interface := KSIDENTIFIER(this.ptr + 0)
+                this.__Interface := KSIDENTIFIER(0, this)
             return this.__Interface
         }
     }
@@ -31,7 +31,7 @@ class KSPIN_CONNECT extends Win32Struct
     Medium{
         get {
             if(!this.HasProp("__Medium"))
-                this.__Medium := KSIDENTIFIER(this.ptr + 16)
+                this.__Medium := KSIDENTIFIER(16, this)
             return this.__Medium
         }
     }
@@ -50,7 +50,7 @@ class KSPIN_CONNECT extends Win32Struct
     PinToHandle{
         get {
             if(!this.HasProp("__PinToHandle"))
-                this.__PinToHandle := HANDLE(this.ptr + 40)
+                this.__PinToHandle := HANDLE(40, this)
             return this.__PinToHandle
         }
     }
@@ -61,7 +61,7 @@ class KSPIN_CONNECT extends Win32Struct
     Priority{
         get {
             if(!this.HasProp("__Priority"))
-                this.__Priority := KSPRIORITY(this.ptr + 48)
+                this.__Priority := KSPRIORITY(48, this)
             return this.__Priority
         }
     }

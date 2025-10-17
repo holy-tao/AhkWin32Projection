@@ -46,7 +46,7 @@ class PICTDESC extends Win32Struct
         hbitmap{
             get {
                 if(!this.HasProp("__hbitmap"))
-                    this.__hbitmap := HBITMAP(this.ptr + 0)
+                    this.__hbitmap := HBITMAP(0, this)
                 return this.__hbitmap
             }
         }
@@ -57,7 +57,7 @@ class PICTDESC extends Win32Struct
         hpal{
             get {
                 if(!this.HasProp("__hpal"))
-                    this.__hpal := HPALETTE(this.ptr + 8)
+                    this.__hpal := HPALETTE(8, this)
                 return this.__hpal
             }
         }
@@ -74,7 +74,7 @@ class PICTDESC extends Win32Struct
         hmeta{
             get {
                 if(!this.HasProp("__hmeta"))
-                    this.__hmeta := HMETAFILE(this.ptr + 0)
+                    this.__hmeta := HMETAFILE(0, this)
                 return this.__hmeta
             }
         }
@@ -107,7 +107,7 @@ class PICTDESC extends Win32Struct
         hicon{
             get {
                 if(!this.HasProp("__hicon"))
-                    this.__hicon := HICON(this.ptr + 0)
+                    this.__hicon := HICON(0, this)
                 return this.__hicon
             }
         }
@@ -124,7 +124,7 @@ class PICTDESC extends Win32Struct
         hemf{
             get {
                 if(!this.HasProp("__hemf"))
-                    this.__hemf := HENHMETAFILE(this.ptr + 0)
+                    this.__hemf := HENHMETAFILE(0, this)
                 return this.__hemf
             }
         }
@@ -137,7 +137,7 @@ class PICTDESC extends Win32Struct
     bmp{
         get {
             if(!this.HasProp("__bmp"))
-                this.__bmp := %this.__Class%._bmp(this.ptr + 8)
+                this.__bmp := %this.__Class%._bmp(8, this)
             return this.__bmp
         }
     }
@@ -148,7 +148,7 @@ class PICTDESC extends Win32Struct
     wmf{
         get {
             if(!this.HasProp("__wmf"))
-                this.__wmf := %this.__Class%._wmf(this.ptr + 8)
+                this.__wmf := %this.__Class%._wmf(8, this)
             return this.__wmf
         }
     }
@@ -159,7 +159,7 @@ class PICTDESC extends Win32Struct
     icon{
         get {
             if(!this.HasProp("__icon"))
-                this.__icon := %this.__Class%._icon(this.ptr + 8)
+                this.__icon := %this.__Class%._icon(8, this)
             return this.__icon
         }
     }
@@ -170,7 +170,7 @@ class PICTDESC extends Win32Struct
     emf{
         get {
             if(!this.HasProp("__emf"))
-                this.__emf := %this.__Class%._emf(this.ptr + 8)
+                this.__emf := %this.__Class%._emf(8, this)
             return this.__emf
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WM_CLIENT_PROPERTIES_EX structure holds extended client information.
@@ -27,44 +26,31 @@ class WM_CLIENT_PROPERTIES_EX extends Win32Struct
      * String containing the client's IP address in dot notation (for example, "192.168.10.2").
      * @type {PWSTR}
      */
-    pwszIPAddress{
-        get {
-            if(!this.HasProp("__pwszIPAddress"))
-                this.__pwszIPAddress := PWSTR(this.ptr + 8)
-            return this.__pwszIPAddress
-        }
+    pwszIPAddress {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * String containing the client's port number.
      * @type {PWSTR}
      */
-    pwszPort{
-        get {
-            if(!this.HasProp("__pwszPort"))
-                this.__pwszPort := PWSTR(this.ptr + 16)
-            return this.__pwszPort
-        }
+    pwszPort {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * String containing the client's name on the domain name server (DNS), if known.
      * @type {PWSTR}
      */
-    pwszDNSName{
-        get {
-            if(!this.HasProp("__pwszDNSName"))
-                this.__pwszDNSName := PWSTR(this.ptr + 24)
-            return this.__pwszDNSName
-        }
+    pwszDNSName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 32
     }
 }

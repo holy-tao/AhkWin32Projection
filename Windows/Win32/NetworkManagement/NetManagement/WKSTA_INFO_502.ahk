@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The WKSTA_INFO_502 structure is obsolete. The structure contains information about a workstation environment.
@@ -240,12 +239,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_log_election_packets{
-        get {
-            if(!this.HasProp("__wki502_log_election_packets"))
-                this.__wki502_log_election_packets := BOOL(this.ptr + 80)
-            return this.__wki502_log_election_packets
-        }
+    wki502_log_election_packets {
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
@@ -254,12 +250,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_use_opportunistic_locking{
-        get {
-            if(!this.HasProp("__wki502_use_opportunistic_locking"))
-                this.__wki502_use_opportunistic_locking := BOOL(this.ptr + 84)
-            return this.__wki502_use_opportunistic_locking
-        }
+    wki502_use_opportunistic_locking {
+        get => NumGet(this, 84, "int")
+        set => NumPut("int", value, this, 84)
     }
 
     /**
@@ -268,12 +261,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_use_unlock_behind{
-        get {
-            if(!this.HasProp("__wki502_use_unlock_behind"))
-                this.__wki502_use_unlock_behind := BOOL(this.ptr + 88)
-            return this.__wki502_use_unlock_behind
-        }
+    wki502_use_unlock_behind {
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
@@ -282,12 +272,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_use_close_behind{
-        get {
-            if(!this.HasProp("__wki502_use_close_behind"))
-                this.__wki502_use_close_behind := BOOL(this.ptr + 92)
-            return this.__wki502_use_close_behind
-        }
+    wki502_use_close_behind {
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**
@@ -296,12 +283,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_buf_named_pipes{
-        get {
-            if(!this.HasProp("__wki502_buf_named_pipes"))
-                this.__wki502_buf_named_pipes := BOOL(this.ptr + 96)
-            return this.__wki502_buf_named_pipes
-        }
+    wki502_buf_named_pipes {
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 
     /**
@@ -310,12 +294,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_use_lock_read_unlock{
-        get {
-            if(!this.HasProp("__wki502_use_lock_read_unlock"))
-                this.__wki502_use_lock_read_unlock := BOOL(this.ptr + 100)
-            return this.__wki502_use_lock_read_unlock
-        }
+    wki502_use_lock_read_unlock {
+        get => NumGet(this, 100, "int")
+        set => NumPut("int", value, this, 100)
     }
 
     /**
@@ -324,12 +305,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_utilize_nt_caching{
-        get {
-            if(!this.HasProp("__wki502_utilize_nt_caching"))
-                this.__wki502_utilize_nt_caching := BOOL(this.ptr + 104)
-            return this.__wki502_utilize_nt_caching
-        }
+    wki502_utilize_nt_caching {
+        get => NumGet(this, 104, "int")
+        set => NumPut("int", value, this, 104)
     }
 
     /**
@@ -338,12 +316,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_use_raw_read{
-        get {
-            if(!this.HasProp("__wki502_use_raw_read"))
-                this.__wki502_use_raw_read := BOOL(this.ptr + 108)
-            return this.__wki502_use_raw_read
-        }
+    wki502_use_raw_read {
+        get => NumGet(this, 108, "int")
+        set => NumPut("int", value, this, 108)
     }
 
     /**
@@ -352,12 +327,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_use_raw_write{
-        get {
-            if(!this.HasProp("__wki502_use_raw_write"))
-                this.__wki502_use_raw_write := BOOL(this.ptr + 112)
-            return this.__wki502_use_raw_write
-        }
+    wki502_use_raw_write {
+        get => NumGet(this, 112, "int")
+        set => NumPut("int", value, this, 112)
     }
 
     /**
@@ -366,12 +338,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_use_write_raw_data{
-        get {
-            if(!this.HasProp("__wki502_use_write_raw_data"))
-                this.__wki502_use_write_raw_data := BOOL(this.ptr + 116)
-            return this.__wki502_use_write_raw_data
-        }
+    wki502_use_write_raw_data {
+        get => NumGet(this, 116, "int")
+        set => NumPut("int", value, this, 116)
     }
 
     /**
@@ -380,12 +349,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_use_encryption{
-        get {
-            if(!this.HasProp("__wki502_use_encryption"))
-                this.__wki502_use_encryption := BOOL(this.ptr + 120)
-            return this.__wki502_use_encryption
-        }
+    wki502_use_encryption {
+        get => NumGet(this, 120, "int")
+        set => NumPut("int", value, this, 120)
     }
 
     /**
@@ -394,12 +360,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_buf_files_deny_write{
-        get {
-            if(!this.HasProp("__wki502_buf_files_deny_write"))
-                this.__wki502_buf_files_deny_write := BOOL(this.ptr + 124)
-            return this.__wki502_buf_files_deny_write
-        }
+    wki502_buf_files_deny_write {
+        get => NumGet(this, 124, "int")
+        set => NumPut("int", value, this, 124)
     }
 
     /**
@@ -408,12 +371,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_buf_read_only_files{
-        get {
-            if(!this.HasProp("__wki502_buf_read_only_files"))
-                this.__wki502_buf_read_only_files := BOOL(this.ptr + 128)
-            return this.__wki502_buf_read_only_files
-        }
+    wki502_buf_read_only_files {
+        get => NumGet(this, 128, "int")
+        set => NumPut("int", value, this, 128)
     }
 
     /**
@@ -422,12 +382,9 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_force_core_create_mode{
-        get {
-            if(!this.HasProp("__wki502_force_core_create_mode"))
-                this.__wki502_force_core_create_mode := BOOL(this.ptr + 132)
-            return this.__wki502_force_core_create_mode
-        }
+    wki502_force_core_create_mode {
+        get => NumGet(this, 132, "int")
+        set => NumPut("int", value, this, 132)
     }
 
     /**
@@ -436,11 +393,8 @@ class WKSTA_INFO_502 extends Win32Struct
      * Reserved.
      * @type {BOOL}
      */
-    wki502_use_512_byte_max_transfer{
-        get {
-            if(!this.HasProp("__wki502_use_512_byte_max_transfer"))
-                this.__wki502_use_512_byte_max_transfer := BOOL(this.ptr + 136)
-            return this.__wki502_use_512_byte_max_transfer
-        }
+    wki502_use_512_byte_max_transfer {
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 }

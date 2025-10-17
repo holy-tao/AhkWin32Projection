@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -37,36 +36,27 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
      * The full path and file name of the catalog file that contains the member to be verified.
      * @type {PWSTR}
      */
-    pcwszCatalogFilePath{
-        get {
-            if(!this.HasProp("__pcwszCatalogFilePath"))
-                this.__pcwszCatalogFilePath := PWSTR(this.ptr + 8)
-            return this.__pcwszCatalogFilePath
-        }
+    pcwszCatalogFilePath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Tag of a member file to be verified.
      * @type {PWSTR}
      */
-    pcwszMemberTag{
-        get {
-            if(!this.HasProp("__pcwszMemberTag"))
-                this.__pcwszMemberTag := PWSTR(this.ptr + 16)
-            return this.__pcwszMemberTag
-        }
+    pcwszMemberTag {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * The full path and file name of the catalog member file to be verified.
      * @type {PWSTR}
      */
-    pcwszMemberFilePath{
-        get {
-            if(!this.HasProp("__pcwszMemberFilePath"))
-                this.__pcwszMemberFilePath := PWSTR(this.ptr + 24)
-            return this.__pcwszMemberFilePath
-        }
+    pcwszMemberFilePath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -76,7 +66,7 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
     hMemberFile{
         get {
             if(!this.HasProp("__hMemberFile"))
-                this.__hMemberFile := HANDLE(this.ptr + 32)
+                this.__hMemberFile := HANDLE(32, this)
             return this.__hMemberFile
         }
     }

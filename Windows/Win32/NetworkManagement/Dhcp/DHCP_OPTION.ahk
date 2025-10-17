@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DHCP_OPTION_DATA.ahk
 
 /**
@@ -28,24 +27,18 @@ class DHCP_OPTION extends Win32Struct
      * Unicode string that contains the name of this option.
      * @type {PWSTR}
      */
-    OptionName{
-        get {
-            if(!this.HasProp("__OptionName"))
-                this.__OptionName := PWSTR(this.ptr + 8)
-            return this.__OptionName
-        }
+    OptionName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Unicode string that contains a comment about this option.
      * @type {PWSTR}
      */
-    OptionComment{
-        get {
-            if(!this.HasProp("__OptionComment"))
-                this.__OptionComment := PWSTR(this.ptr + 16)
-            return this.__OptionComment
-        }
+    OptionComment {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -55,7 +48,7 @@ class DHCP_OPTION extends Win32Struct
     DefaultValue{
         get {
             if(!this.HasProp("__DefaultValue"))
-                this.__DefaultValue := DHCP_OPTION_DATA(this.ptr + 24)
+                this.__DefaultValue := DHCP_OPTION_DATA(24, this)
             return this.__DefaultValue
         }
     }

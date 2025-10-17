@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The ADS_CLASS_DEF structure is used only as a part of IDirectorySchemaMgmt, which is an obsolete interface. The information that follows is provided for legacy purposes only. The ADS_CLASS_DEF structure holds the definitions of an object class.
@@ -19,12 +17,9 @@ class ADS_CLASS_DEF extends Win32Struct
      * The null-terminated Unicode string that specifies the class name.
      * @type {PWSTR}
      */
-    pszClassName{
-        get {
-            if(!this.HasProp("__pszClassName"))
-                this.__pszClassName := PWSTR(this.ptr + 0)
-            return this.__pszClassName
-        }
+    pszClassName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -103,11 +98,8 @@ class ADS_CLASS_DEF extends Win32Struct
      * Flags that indicate the object of the class is a container when it is <b>TRUE</b> and not a container when <b>FALSE</b>.
      * @type {BOOL}
      */
-    fIsContainer{
-        get {
-            if(!this.HasProp("__fIsContainer"))
-                this.__fIsContainer := BOOL(this.ptr + 72)
-            return this.__fIsContainer
-        }
+    fIsContainer {
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 }

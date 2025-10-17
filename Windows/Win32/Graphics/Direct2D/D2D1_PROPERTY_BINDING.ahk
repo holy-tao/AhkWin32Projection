@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines a property binding to a pair of functions which get and set the corresponding property.
@@ -27,12 +26,9 @@ class D2D1_PROPERTY_BINDING extends Win32Struct
      * The name of the property.
      * @type {PWSTR}
      */
-    propertyName{
-        get {
-            if(!this.HasProp("__propertyName"))
-                this.__propertyName := PWSTR(this.ptr + 0)
-            return this.__propertyName
-        }
+    propertyName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

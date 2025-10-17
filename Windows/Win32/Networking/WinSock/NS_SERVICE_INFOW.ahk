@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\System\Com\BLOB.ahk
 #Include .\SERVICE_INFOW.ahk
 
@@ -175,7 +174,7 @@ class NS_SERVICE_INFOW extends Win32Struct
     ServiceInfo{
         get {
             if(!this.HasProp("__ServiceInfo"))
-                this.__ServiceInfo := SERVICE_INFOW(this.ptr + 8)
+                this.__ServiceInfo := SERVICE_INFOW(8, this)
             return this.__ServiceInfo
         }
     }

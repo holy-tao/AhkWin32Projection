@@ -19,7 +19,7 @@ class DCIENUMINPUT extends Win32Struct
     cmd{
         get {
             if(!this.HasProp("__cmd"))
-                this.__cmd := DCICMD(this.ptr + 0)
+                this.__cmd := DCICMD(0, this)
             return this.__cmd
         }
     }
@@ -30,7 +30,7 @@ class DCIENUMINPUT extends Win32Struct
     rSrc{
         get {
             if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECT(this.ptr + 24)
+                this.__rSrc := RECT(24, this)
             return this.__rSrc
         }
     }
@@ -41,7 +41,7 @@ class DCIENUMINPUT extends Win32Struct
     rDst{
         get {
             if(!this.HasProp("__rDst"))
-                this.__rDst := RECT(this.ptr + 40)
+                this.__rDst := RECT(40, this)
             return this.__rDst
         }
     }

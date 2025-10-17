@@ -4,7 +4,6 @@
 #Include .\HCONV.ahk
 #Include .\HSZ.ahk
 #Include .\HDDEDATA.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include .\CONVCONTEXT.ahk
 
@@ -51,7 +50,7 @@ class MONCBSTRUCT extends Win32Struct
     hTask{
         get {
             if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(this.ptr + 8)
+                this.__hTask := HANDLE(8, this)
             return this.__hTask
         }
     }
@@ -98,7 +97,7 @@ class MONCBSTRUCT extends Win32Struct
     hConv{
         get {
             if(!this.HasProp("__hConv"))
-                this.__hConv := HCONV(this.ptr + 32)
+                this.__hConv := HCONV(32, this)
             return this.__hConv
         }
     }
@@ -112,7 +111,7 @@ class MONCBSTRUCT extends Win32Struct
     hsz1{
         get {
             if(!this.HasProp("__hsz1"))
-                this.__hsz1 := HSZ(this.ptr + 40)
+                this.__hsz1 := HSZ(40, this)
             return this.__hsz1
         }
     }
@@ -126,7 +125,7 @@ class MONCBSTRUCT extends Win32Struct
     hsz2{
         get {
             if(!this.HasProp("__hsz2"))
-                this.__hsz2 := HSZ(this.ptr + 48)
+                this.__hsz2 := HSZ(48, this)
             return this.__hsz2
         }
     }
@@ -140,7 +139,7 @@ class MONCBSTRUCT extends Win32Struct
     hData{
         get {
             if(!this.HasProp("__hData"))
-                this.__hData := HDDEDATA(this.ptr + 56)
+                this.__hData := HDDEDATA(56, this)
             return this.__hData
         }
     }
@@ -176,7 +175,7 @@ class MONCBSTRUCT extends Win32Struct
     cc{
         get {
             if(!this.HasProp("__cc"))
-                this.__cc := CONVCONTEXT(this.ptr + 80)
+                this.__cc := CONVCONTEXT(80, this)
             return this.__cc
         }
     }

@@ -34,7 +34,7 @@ class EXT_TYPED_DATA extends Win32Struct
     InData{
         get {
             if(!this.HasProp("__InData"))
-                this.__InData := DEBUG_TYPED_DATA(this.ptr + 8)
+                this.__InData := DEBUG_TYPED_DATA(8, this)
             return this.__InData
         }
     }
@@ -45,7 +45,7 @@ class EXT_TYPED_DATA extends Win32Struct
     OutData{
         get {
             if(!this.HasProp("__OutData"))
-                this.__OutData := DEBUG_TYPED_DATA(this.ptr + 136)
+                this.__OutData := DEBUG_TYPED_DATA(136, this)
             return this.__OutData
         }
     }

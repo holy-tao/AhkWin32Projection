@@ -27,7 +27,7 @@ class USB_PORT_CHANGE extends Win32Struct
     Usb20PortChange{
         get {
             if(!this.HasProp("__Usb20PortChange"))
-                this.__Usb20PortChange := USB_20_PORT_CHANGE(this.ptr + 0)
+                this.__Usb20PortChange := USB_20_PORT_CHANGE(0, this)
             return this.__Usb20PortChange
         }
     }
@@ -38,7 +38,7 @@ class USB_PORT_CHANGE extends Win32Struct
     Usb30PortChange{
         get {
             if(!this.HasProp("__Usb30PortChange"))
-                this.__Usb30PortChange := USB_30_PORT_CHANGE(this.ptr + 0)
+                this.__Usb30PortChange := USB_30_PORT_CHANGE(0, this)
             return this.__Usb30PortChange
         }
     }

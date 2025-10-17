@@ -42,7 +42,7 @@ class DMUS_WAVE extends Win32Struct
     WaveformatEx{
         get {
             if(!this.HasProp("__WaveformatEx"))
-                this.__WaveformatEx := WAVEFORMATEX(this.ptr + 16)
+                this.__WaveformatEx := WAVEFORMATEX(16, this)
             return this.__WaveformatEx
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The FAX_PRINT_INFO structure contains the information necessary for the fax server to print a fax transmission. The structure includes sender and recipient data, an optional billing code, and delivery report information.
@@ -44,12 +43,9 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Pointer to a constant null-terminated character string that is the user-friendly name that appears in the print spooler.
      * @type {PSTR}
      */
-    DocName{
-        get {
-            if(!this.HasProp("__DocName"))
-                this.__DocName := PSTR(this.ptr + 8)
-            return this.__DocName
-        }
+    DocName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -58,12 +54,9 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
      * @type {PSTR}
      */
-    RecipientName{
-        get {
-            if(!this.HasProp("__RecipientName"))
-                this.__RecipientName := PSTR(this.ptr + 16)
-            return this.__RecipientName
-        }
+    RecipientName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -72,12 +65,9 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the fax number of the recipient of the fax transmission. This member is required.
      * @type {PSTR}
      */
-    RecipientNumber{
-        get {
-            if(!this.HasProp("__RecipientNumber"))
-                this.__RecipientNumber := PSTR(this.ptr + 24)
-            return this.__RecipientNumber
-        }
+    RecipientNumber {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -86,12 +76,9 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the name of the sender who initiated the fax transmission.
      * @type {PSTR}
      */
-    SenderName{
-        get {
-            if(!this.HasProp("__SenderName"))
-                this.__SenderName := PSTR(this.ptr + 32)
-            return this.__SenderName
-        }
+    SenderName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -100,12 +87,9 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the company name of the sender who initiated the fax transmission.
      * @type {PSTR}
      */
-    SenderCompany{
-        get {
-            if(!this.HasProp("__SenderCompany"))
-                this.__SenderCompany := PSTR(this.ptr + 40)
-            return this.__SenderCompany
-        }
+    SenderCompany {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -114,12 +98,9 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the department name of the sender who initiated the fax transmission.
      * @type {PSTR}
      */
-    SenderDept{
-        get {
-            if(!this.HasProp("__SenderDept"))
-                this.__SenderDept := PSTR(this.ptr + 48)
-            return this.__SenderDept
-        }
+    SenderDept {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -128,12 +109,9 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Pointer to a constant null-terminated character string that indicates an application- or server-specific billing code that applies to the fax transmission. The fax server uses the string to generate an entry in the fax event log. Billing codes are optional.
      * @type {PSTR}
      */
-    SenderBillingCode{
-        get {
-            if(!this.HasProp("__SenderBillingCode"))
-                this.__SenderBillingCode := PSTR(this.ptr + 56)
-            return this.__SenderBillingCode
-        }
+    SenderBillingCode {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -142,12 +120,9 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Reserved. Must be set to <b>NULL</b>.
      * @type {PSTR}
      */
-    Reserved{
-        get {
-            if(!this.HasProp("__Reserved"))
-                this.__Reserved := PSTR(this.ptr + 64)
-            return this.__Reserved
-        }
+    Reserved {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -156,12 +131,9 @@ class FAX_PRINT_INFOA extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the email address to which the fax server should send the delivery report (DR) or nondelivery report (NDR).
      * @type {PSTR}
      */
-    DrEmailAddress{
-        get {
-            if(!this.HasProp("__DrEmailAddress"))
-                this.__DrEmailAddress := PSTR(this.ptr + 72)
-            return this.__DrEmailAddress
-        }
+    DrEmailAddress {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -170,11 +142,8 @@ class FAX_PRINT_INFOA extends Win32Struct
      * This member is reserved for future use by Microsoft. It must be set to <b>NULL</b>.
      * @type {PSTR}
      */
-    OutputFileName{
-        get {
-            if(!this.HasProp("__OutputFileName"))
-                this.__OutputFileName := PSTR(this.ptr + 80)
-            return this.__OutputFileName
-        }
+    OutputFileName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

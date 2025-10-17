@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -15,12 +14,9 @@ class BucketParameters extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fInited{
-        get {
-            if(!this.HasProp("__fInited"))
-                this.__fInited := BOOL(this.ptr + 0)
-            return this.__fInited
-        }
+    fInited {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

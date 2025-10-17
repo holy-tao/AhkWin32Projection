@@ -34,7 +34,7 @@ class PSPINFO extends Win32Struct
     hComPropSheet{
         get {
             if(!this.HasProp("__hComPropSheet"))
-                this.__hComPropSheet := HANDLE(this.ptr + 8)
+                this.__hComPropSheet := HANDLE(8, this)
             return this.__hComPropSheet
         }
     }
@@ -45,7 +45,7 @@ class PSPINFO extends Win32Struct
     hCPSUIPage{
         get {
             if(!this.HasProp("__hCPSUIPage"))
-                this.__hCPSUIPage := HANDLE(this.ptr + 16)
+                this.__hCPSUIPage := HANDLE(16, this)
             return this.__hCPSUIPage
         }
     }
@@ -58,12 +58,8 @@ class PSPINFO extends Win32Struct
         set => NumPut("ptr", value, this, 24)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 32
     }
 }

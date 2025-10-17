@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\NTSCSI_UNICODE_STRING.ahk
 
 /**
@@ -43,7 +42,7 @@ class DUMP_DRIVER_EX extends Win32Struct
     DriverFullPath{
         get {
             if(!this.HasProp("__DriverFullPath"))
-                this.__DriverFullPath := NTSCSI_UNICODE_STRING(this.ptr + 72)
+                this.__DriverFullPath := NTSCSI_UNICODE_STRING(72, this)
             return this.__DriverFullPath
         }
     }

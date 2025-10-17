@@ -24,7 +24,7 @@ class MDINEXTMENU extends Win32Struct
     hmenuIn{
         get {
             if(!this.HasProp("__hmenuIn"))
-                this.__hmenuIn := HMENU(this.ptr + 0)
+                this.__hmenuIn := HMENU(0, this)
             return this.__hmenuIn
         }
     }
@@ -38,7 +38,7 @@ class MDINEXTMENU extends Win32Struct
     hmenuNext{
         get {
             if(!this.HasProp("__hmenuNext"))
-                this.__hmenuNext := HMENU(this.ptr + 8)
+                this.__hmenuNext := HMENU(8, this)
             return this.__hmenuNext
         }
     }
@@ -52,7 +52,7 @@ class MDINEXTMENU extends Win32Struct
     hwndNext{
         get {
             if(!this.HasProp("__hwndNext"))
-                this.__hwndNext := HWND(this.ptr + 16)
+                this.__hwndNext := HWND(16, this)
             return this.__hwndNext
         }
     }

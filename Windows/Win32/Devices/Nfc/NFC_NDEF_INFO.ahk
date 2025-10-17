@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
@@ -15,23 +14,17 @@ class NFC_NDEF_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    fIsNdefFormatted{
-        get {
-            if(!this.HasProp("__fIsNdefFormatted"))
-                this.__fIsNdefFormatted := BOOLEAN(this.ptr + 0)
-            return this.__fIsNdefFormatted
-        }
+    fIsNdefFormatted {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    fIsReadOnly{
-        get {
-            if(!this.HasProp("__fIsReadOnly"))
-                this.__fIsReadOnly := BOOLEAN(this.ptr + 1)
-            return this.__fIsReadOnly
-        }
+    fIsReadOnly {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**

@@ -23,7 +23,7 @@ class HSZPAIR extends Win32Struct
     hszSvc{
         get {
             if(!this.HasProp("__hszSvc"))
-                this.__hszSvc := HSZ(this.ptr + 0)
+                this.__hszSvc := HSZ(0, this)
             return this.__hszSvc
         }
     }
@@ -37,7 +37,7 @@ class HSZPAIR extends Win32Struct
     hszTopic{
         get {
             if(!this.HasProp("__hszTopic"))
-                this.__hszTopic := HSZ(this.ptr + 8)
+                this.__hszTopic := HSZ(8, this)
             return this.__hszTopic
         }
     }

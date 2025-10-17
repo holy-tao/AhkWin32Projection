@@ -42,7 +42,7 @@ class CRITICAL_SECTION extends Win32Struct
     OwningThread{
         get {
             if(!this.HasProp("__OwningThread"))
-                this.__OwningThread := HANDLE(this.ptr + 16)
+                this.__OwningThread := HANDLE(16, this)
             return this.__OwningThread
         }
     }
@@ -53,7 +53,7 @@ class CRITICAL_SECTION extends Win32Struct
     LockSemaphore{
         get {
             if(!this.HasProp("__LockSemaphore"))
-                this.__LockSemaphore := HANDLE(this.ptr + 24)
+                this.__LockSemaphore := HANDLE(24, this)
             return this.__LockSemaphore
         }
     }

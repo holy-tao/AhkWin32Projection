@@ -2080,7 +2080,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipAddPathPath(path, addingPath, connect) {
-        result := DllCall("gdiplus.dll\GdipAddPathPath", "ptr", path, "ptr", addingPath, "ptr", connect, "int")
+        result := DllCall("gdiplus.dll\GdipAddPathPath", "ptr", path, "ptr", addingPath, "int", connect, "int")
         return result
     }
 
@@ -3662,7 +3662,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateLineBrushFromRectWithAngle(rect, color1, color2, angle, isAngleScalable, wrapMode, lineGradient) {
-        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRectWithAngle", "ptr", rect, "uint", color1, "uint", color2, "float", angle, "ptr", isAngleScalable, "int", wrapMode, "ptr", lineGradient, "int")
+        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRectWithAngle", "ptr", rect, "uint", color1, "uint", color2, "float", angle, "int", isAngleScalable, "int", wrapMode, "ptr", lineGradient, "int")
         return result
     }
 
@@ -3678,7 +3678,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateLineBrushFromRectWithAngleI(rect, color1, color2, angle, isAngleScalable, wrapMode, lineGradient) {
-        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRectWithAngleI", "ptr", rect, "uint", color1, "uint", color2, "float", angle, "ptr", isAngleScalable, "int", wrapMode, "ptr", lineGradient, "int")
+        result := DllCall("gdiplus.dll\GdipCreateLineBrushFromRectWithAngleI", "ptr", rect, "uint", color1, "uint", color2, "float", angle, "int", isAngleScalable, "int", wrapMode, "ptr", lineGradient, "int")
         return result
     }
 
@@ -3734,7 +3734,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetLineGammaCorrection(brush, useGammaCorrection) {
-        result := DllCall("gdiplus.dll\GdipSetLineGammaCorrection", "ptr", brush, "ptr", useGammaCorrection, "int")
+        result := DllCall("gdiplus.dll\GdipSetLineGammaCorrection", "ptr", brush, "int", useGammaCorrection, "int")
         return result
     }
 
@@ -4151,7 +4151,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetPathGradientGammaCorrection(brush, useGammaCorrection) {
-        result := DllCall("gdiplus.dll\GdipSetPathGradientGammaCorrection", "ptr", brush, "ptr", useGammaCorrection, "int")
+        result := DllCall("gdiplus.dll\GdipSetPathGradientGammaCorrection", "ptr", brush, "int", useGammaCorrection, "int")
         return result
     }
 
@@ -5090,7 +5090,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateAdjustableArrowCap(height, width, isFilled, cap) {
-        result := DllCall("gdiplus.dll\GdipCreateAdjustableArrowCap", "float", height, "float", width, "ptr", isFilled, "ptr", cap, "int")
+        result := DllCall("gdiplus.dll\GdipCreateAdjustableArrowCap", "float", height, "float", width, "int", isFilled, "ptr", cap, "int")
         return result
     }
 
@@ -5167,7 +5167,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetAdjustableArrowCapFillState(cap, fillState) {
-        result := DllCall("gdiplus.dll\GdipSetAdjustableArrowCapFillState", "ptr", cap, "ptr", fillState, "int")
+        result := DllCall("gdiplus.dll\GdipSetAdjustableArrowCapFillState", "ptr", cap, "int", fillState, "int")
         return result
     }
 
@@ -5990,7 +5990,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipInitializePalette(palette, palettetype, optimalColors, useTransparentColor, bitmap) {
-        result := DllCall("gdiplus.dll\GdipInitializePalette", "ptr", palette, "int", palettetype, "int", optimalColors, "ptr", useTransparentColor, "ptr", bitmap, "int")
+        result := DllCall("gdiplus.dll\GdipInitializePalette", "ptr", palette, "int", palettetype, "int", optimalColors, "int", useTransparentColor, "ptr", bitmap, "int")
         return result
     }
 
@@ -6005,7 +6005,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipBitmapApplyEffect(bitmap, effect, roi, useAuxData, auxData, auxDataSize) {
-        result := DllCall("gdiplus.dll\GdipBitmapApplyEffect", "ptr", bitmap, "ptr", effect, "ptr", roi, "ptr", useAuxData, "ptr", auxData, "int*", auxDataSize, "int")
+        result := DllCall("gdiplus.dll\GdipBitmapApplyEffect", "ptr", bitmap, "ptr", effect, "ptr", roi, "int", useAuxData, "ptr", auxData, "int*", auxDataSize, "int")
         return result
     }
 
@@ -6023,7 +6023,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipBitmapCreateApplyEffect(inputBitmaps, numInputs, effect, roi, outputRect, outputBitmap, useAuxData, auxData, auxDataSize) {
-        result := DllCall("gdiplus.dll\GdipBitmapCreateApplyEffect", "ptr", inputBitmaps, "int", numInputs, "ptr", effect, "ptr", roi, "ptr", outputRect, "ptr", outputBitmap, "ptr", useAuxData, "ptr", auxData, "int*", auxDataSize, "int")
+        result := DllCall("gdiplus.dll\GdipBitmapCreateApplyEffect", "ptr", inputBitmaps, "int", numInputs, "ptr", effect, "ptr", roi, "ptr", outputRect, "ptr", outputBitmap, "int", useAuxData, "ptr", auxData, "int*", auxDataSize, "int")
         return result
     }
 
@@ -6130,7 +6130,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetImageAttributesColorMatrix(imageattr, type, enableFlag, colorMatrix, grayMatrix, flags) {
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesColorMatrix", "ptr", imageattr, "int", type, "ptr", enableFlag, "ptr", colorMatrix, "ptr", grayMatrix, "int", flags, "int")
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesColorMatrix", "ptr", imageattr, "int", type, "int", enableFlag, "ptr", colorMatrix, "ptr", grayMatrix, "int", flags, "int")
         return result
     }
 
@@ -6143,7 +6143,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetImageAttributesThreshold(imageattr, type, enableFlag, threshold) {
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesThreshold", "ptr", imageattr, "int", type, "ptr", enableFlag, "float", threshold, "int")
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesThreshold", "ptr", imageattr, "int", type, "int", enableFlag, "float", threshold, "int")
         return result
     }
 
@@ -6156,7 +6156,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetImageAttributesGamma(imageattr, type, enableFlag, gamma) {
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesGamma", "ptr", imageattr, "int", type, "ptr", enableFlag, "float", gamma, "int")
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesGamma", "ptr", imageattr, "int", type, "int", enableFlag, "float", gamma, "int")
         return result
     }
 
@@ -6168,7 +6168,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetImageAttributesNoOp(imageattr, type, enableFlag) {
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesNoOp", "ptr", imageattr, "int", type, "ptr", enableFlag, "int")
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesNoOp", "ptr", imageattr, "int", type, "int", enableFlag, "int")
         return result
     }
 
@@ -6182,7 +6182,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetImageAttributesColorKeys(imageattr, type, enableFlag, colorLow, colorHigh) {
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesColorKeys", "ptr", imageattr, "int", type, "ptr", enableFlag, "uint", colorLow, "uint", colorHigh, "int")
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesColorKeys", "ptr", imageattr, "int", type, "int", enableFlag, "uint", colorLow, "uint", colorHigh, "int")
         return result
     }
 
@@ -6195,7 +6195,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetImageAttributesOutputChannel(imageattr, type, enableFlag, channelFlags) {
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesOutputChannel", "ptr", imageattr, "int", type, "ptr", enableFlag, "int", channelFlags, "int")
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesOutputChannel", "ptr", imageattr, "int", type, "int", enableFlag, "int", channelFlags, "int")
         return result
     }
 
@@ -6210,7 +6210,7 @@ class GdiPlus {
     static GdipSetImageAttributesOutputChannelColorProfile(imageattr, type, enableFlag, colorProfileFilename) {
         colorProfileFilename := colorProfileFilename is String ? StrPtr(colorProfileFilename) : colorProfileFilename
 
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesOutputChannelColorProfile", "ptr", imageattr, "int", type, "ptr", enableFlag, "ptr", colorProfileFilename, "int")
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesOutputChannelColorProfile", "ptr", imageattr, "int", type, "int", enableFlag, "ptr", colorProfileFilename, "int")
         return result
     }
 
@@ -6224,7 +6224,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetImageAttributesRemapTable(imageattr, type, enableFlag, mapSize, map) {
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesRemapTable", "ptr", imageattr, "int", type, "ptr", enableFlag, "uint", mapSize, "ptr", map, "int")
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesRemapTable", "ptr", imageattr, "int", type, "int", enableFlag, "uint", mapSize, "ptr", map, "int")
         return result
     }
 
@@ -6237,7 +6237,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetImageAttributesWrapMode(imageAttr, wrap, argb, clamp) {
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesWrapMode", "ptr", imageAttr, "int", wrap, "uint", argb, "ptr", clamp, "int")
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesWrapMode", "ptr", imageAttr, "int", wrap, "uint", argb, "int", clamp, "int")
         return result
     }
 
@@ -8302,7 +8302,7 @@ class GdiPlus {
     static GdipCreateMetafileFromWmf(hWmf, deleteWmf, wmfPlaceableFileHeader, metafile) {
         hWmf := hWmf is Win32Handle ? NumGet(hWmf, "ptr") : hWmf
 
-        result := DllCall("gdiplus.dll\GdipCreateMetafileFromWmf", "ptr", hWmf, "ptr", deleteWmf, "ptr", wmfPlaceableFileHeader, "ptr", metafile, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMetafileFromWmf", "ptr", hWmf, "int", deleteWmf, "ptr", wmfPlaceableFileHeader, "ptr", metafile, "int")
         return result
     }
 
@@ -8316,7 +8316,7 @@ class GdiPlus {
     static GdipCreateMetafileFromEmf(hEmf, deleteEmf, metafile) {
         hEmf := hEmf is Win32Handle ? NumGet(hEmf, "ptr") : hEmf
 
-        result := DllCall("gdiplus.dll\GdipCreateMetafileFromEmf", "ptr", hEmf, "ptr", deleteEmf, "ptr", metafile, "int")
+        result := DllCall("gdiplus.dll\GdipCreateMetafileFromEmf", "ptr", hEmf, "int", deleteEmf, "ptr", metafile, "int")
         return result
     }
 
@@ -9334,7 +9334,7 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipSetImageAttributesCachedBackground(imageattr, enableFlag) {
-        result := DllCall("gdiplus.dll\GdipSetImageAttributesCachedBackground", "ptr", imageattr, "ptr", enableFlag, "int")
+        result := DllCall("gdiplus.dll\GdipSetImageAttributesCachedBackground", "ptr", imageattr, "int", enableFlag, "int")
         return result
     }
 

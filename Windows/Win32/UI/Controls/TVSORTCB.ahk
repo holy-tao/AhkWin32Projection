@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTREEITEM.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information used to sort child items in a tree-view control. This structure is used with the TVM_SORTCHILDRENCB message. This structure is identical to the TV_SORTCB structure, but it has been renamed to follow current naming conventions.
@@ -33,12 +31,9 @@ class TVSORTCB extends Win32Struct
      * Handle to the parent item.
      * @type {HTREEITEM}
      */
-    hParent{
-        get {
-            if(!this.HasProp("__hParent"))
-                this.__hParent := HTREEITEM(this.ptr + 0)
-            return this.__hParent
-        }
+    hParent {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -60,11 +55,8 @@ class TVSORTCB extends Win32Struct
      * 					<b>lpfnCompare</b>.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 16)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

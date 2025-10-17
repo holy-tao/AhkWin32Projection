@@ -29,7 +29,7 @@ class NMCUSTOMSPLITRECTINFO extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -43,7 +43,7 @@ class NMCUSTOMSPLITRECTINFO extends Win32Struct
     rcClient{
         get {
             if(!this.HasProp("__rcClient"))
-                this.__rcClient := RECT(this.ptr + 24)
+                this.__rcClient := RECT(24, this)
             return this.__rcClient
         }
     }
@@ -57,7 +57,7 @@ class NMCUSTOMSPLITRECTINFO extends Win32Struct
     rcButton{
         get {
             if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(this.ptr + 40)
+                this.__rcButton := RECT(40, this)
             return this.__rcButton
         }
     }
@@ -71,7 +71,7 @@ class NMCUSTOMSPLITRECTINFO extends Win32Struct
     rcSplit{
         get {
             if(!this.HasProp("__rcSplit"))
-                this.__rcSplit := RECT(this.ptr + 56)
+                this.__rcSplit := RECT(56, this)
             return this.__rcSplit
         }
     }

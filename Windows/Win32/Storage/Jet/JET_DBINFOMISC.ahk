@@ -38,7 +38,7 @@ class JET_DBINFOMISC extends Win32Struct
     signDb{
         get {
             if(!this.HasProp("__signDb"))
-                this.__signDb := JET_SIGNATURE(this.ptr + 8)
+                this.__signDb := JET_SIGNATURE(8, this)
             return this.__signDb
         }
     }
@@ -57,7 +57,7 @@ class JET_DBINFOMISC extends Win32Struct
     lgposConsistent{
         get {
             if(!this.HasProp("__lgposConsistent"))
-                this.__lgposConsistent := JET_LGPOS(this.ptr + 48)
+                this.__lgposConsistent := JET_LGPOS(48, this)
             return this.__lgposConsistent
         }
     }
@@ -68,7 +68,7 @@ class JET_DBINFOMISC extends Win32Struct
     logtimeConsistent{
         get {
             if(!this.HasProp("__logtimeConsistent"))
-                this.__logtimeConsistent := JET_LOGTIME(this.ptr + 56)
+                this.__logtimeConsistent := JET_LOGTIME(56, this)
             return this.__logtimeConsistent
         }
     }
@@ -79,7 +79,7 @@ class JET_DBINFOMISC extends Win32Struct
     logtimeAttach{
         get {
             if(!this.HasProp("__logtimeAttach"))
-                this.__logtimeAttach := JET_LOGTIME(this.ptr + 64)
+                this.__logtimeAttach := JET_LOGTIME(64, this)
             return this.__logtimeAttach
         }
     }
@@ -90,7 +90,7 @@ class JET_DBINFOMISC extends Win32Struct
     lgposAttach{
         get {
             if(!this.HasProp("__lgposAttach"))
-                this.__lgposAttach := JET_LGPOS(this.ptr + 72)
+                this.__lgposAttach := JET_LGPOS(72, this)
             return this.__lgposAttach
         }
     }
@@ -101,7 +101,7 @@ class JET_DBINFOMISC extends Win32Struct
     logtimeDetach{
         get {
             if(!this.HasProp("__logtimeDetach"))
-                this.__logtimeDetach := JET_LOGTIME(this.ptr + 80)
+                this.__logtimeDetach := JET_LOGTIME(80, this)
             return this.__logtimeDetach
         }
     }
@@ -112,7 +112,7 @@ class JET_DBINFOMISC extends Win32Struct
     lgposDetach{
         get {
             if(!this.HasProp("__lgposDetach"))
-                this.__lgposDetach := JET_LGPOS(this.ptr + 88)
+                this.__lgposDetach := JET_LGPOS(88, this)
             return this.__lgposDetach
         }
     }
@@ -123,7 +123,7 @@ class JET_DBINFOMISC extends Win32Struct
     signLog{
         get {
             if(!this.HasProp("__signLog"))
-                this.__signLog := JET_SIGNATURE(this.ptr + 96)
+                this.__signLog := JET_SIGNATURE(96, this)
             return this.__signLog
         }
     }
@@ -134,7 +134,7 @@ class JET_DBINFOMISC extends Win32Struct
     bkinfoFullPrev{
         get {
             if(!this.HasProp("__bkinfoFullPrev"))
-                this.__bkinfoFullPrev := JET_BKINFO(this.ptr + 128)
+                this.__bkinfoFullPrev := JET_BKINFO(128, this)
             return this.__bkinfoFullPrev
         }
     }
@@ -145,7 +145,7 @@ class JET_DBINFOMISC extends Win32Struct
     bkinfoIncPrev{
         get {
             if(!this.HasProp("__bkinfoIncPrev"))
-                this.__bkinfoIncPrev := JET_BKINFO(this.ptr + 152)
+                this.__bkinfoIncPrev := JET_BKINFO(152, this)
             return this.__bkinfoIncPrev
         }
     }
@@ -156,7 +156,7 @@ class JET_DBINFOMISC extends Win32Struct
     bkinfoFullCur{
         get {
             if(!this.HasProp("__bkinfoFullCur"))
-                this.__bkinfoFullCur := JET_BKINFO(this.ptr + 176)
+                this.__bkinfoFullCur := JET_BKINFO(176, this)
             return this.__bkinfoFullCur
         }
     }

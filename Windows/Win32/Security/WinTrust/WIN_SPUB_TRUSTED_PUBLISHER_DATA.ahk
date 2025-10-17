@@ -18,7 +18,7 @@ class WIN_SPUB_TRUSTED_PUBLISHER_DATA extends Win32Struct
     hClientToken{
         get {
             if(!this.HasProp("__hClientToken"))
-                this.__hClientToken := HANDLE(this.ptr + 0)
+                this.__hClientToken := HANDLE(0, this)
             return this.__hClientToken
         }
     }

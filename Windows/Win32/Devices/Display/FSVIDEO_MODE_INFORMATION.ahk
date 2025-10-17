@@ -19,7 +19,7 @@ class FSVIDEO_MODE_INFORMATION extends Win32Struct
     VideoMode{
         get {
             if(!this.HasProp("__VideoMode"))
-                this.__VideoMode := VIDEO_MODE_INFORMATION(this.ptr + 0)
+                this.__VideoMode := VIDEO_MODE_INFORMATION(0, this)
             return this.__VideoMode
         }
     }
@@ -30,7 +30,7 @@ class FSVIDEO_MODE_INFORMATION extends Win32Struct
     VideoMemory{
         get {
             if(!this.HasProp("__VideoMemory"))
-                this.__VideoMemory := VIDEO_MEMORY_INFORMATION(this.ptr + 80)
+                this.__VideoMemory := VIDEO_MEMORY_INFORMATION(80, this)
             return this.__VideoMemory
         }
     }

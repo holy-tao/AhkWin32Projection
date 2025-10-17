@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ACTIVATION_CONTEXT_DETAILED_INFORMATION structure is used by the QueryActCtxW function.
@@ -183,35 +182,26 @@ class ACTIVATION_CONTEXT_DETAILED_INFORMATION extends Win32Struct
      * Path of the application manifest.
      * @type {PWSTR}
      */
-    lpRootManifestPath{
-        get {
-            if(!this.HasProp("__lpRootManifestPath"))
-                this.__lpRootManifestPath := PWSTR(this.ptr + 40)
-            return this.__lpRootManifestPath
-        }
+    lpRootManifestPath {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Path of the configuration file.
      * @type {PWSTR}
      */
-    lpRootConfigurationPath{
-        get {
-            if(!this.HasProp("__lpRootConfigurationPath"))
-                this.__lpRootConfigurationPath := PWSTR(this.ptr + 48)
-            return this.__lpRootConfigurationPath
-        }
+    lpRootConfigurationPath {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Path of the application directory.
      * @type {PWSTR}
      */
-    lpAppDirPath{
-        get {
-            if(!this.HasProp("__lpAppDirPath"))
-                this.__lpAppDirPath := PWSTR(this.ptr + 56)
-            return this.__lpAppDirPath
-        }
+    lpAppDirPath {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

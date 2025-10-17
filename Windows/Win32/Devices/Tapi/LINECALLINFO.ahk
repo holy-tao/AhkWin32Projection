@@ -193,7 +193,7 @@ class LINECALLINFO extends Win32Struct
     DialParams{
         get {
             if(!this.HasProp("__DialParams"))
-                this.__DialParams := LINEDIALPARAMS(this.ptr + 64)
+                this.__DialParams := LINEDIALPARAMS(64, this)
             return this.__DialParams
         }
     }

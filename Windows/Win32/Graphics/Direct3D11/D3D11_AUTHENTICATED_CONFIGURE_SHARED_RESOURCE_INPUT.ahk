@@ -3,7 +3,6 @@
 #Include .\D3D11_OMAC.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains input data for a D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE command.
@@ -24,7 +23,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE_INPUT extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := D3D11_AUTHENTICATED_CONFIGURE_INPUT(this.ptr + 0)
+                this.__Parameters := D3D11_AUTHENTICATED_CONFIGURE_INPUT(0, this)
             return this.__Parameters
         }
     }
@@ -47,7 +46,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE_INPUT extends Win32Struct
     ProcessHandle{
         get {
             if(!this.HasProp("__ProcessHandle"))
-                this.__ProcessHandle := HANDLE(this.ptr + 48)
+                this.__ProcessHandle := HANDLE(48, this)
             return this.__ProcessHandle
         }
     }
@@ -56,11 +55,8 @@ class D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE_INPUT extends Win32Struct
      * If <b>TRUE</b>, the specified process has access to restricted shared resources.
      * @type {BOOL}
      */
-    AllowAccess{
-        get {
-            if(!this.HasProp("__AllowAccess"))
-                this.__AllowAccess := BOOL(this.ptr + 56)
-            return this.__AllowAccess
-        }
+    AllowAccess {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

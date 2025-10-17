@@ -34,7 +34,7 @@ class KSRATE extends Win32Struct
     Interface{
         get {
             if(!this.HasProp("__Interface"))
-                this.__Interface := KSIDENTIFIER(this.ptr + 16)
+                this.__Interface := KSIDENTIFIER(16, this)
             return this.__Interface
         }
     }

@@ -47,7 +47,7 @@ class COMBOBOXINFO extends Win32Struct
     rcItem{
         get {
             if(!this.HasProp("__rcItem"))
-                this.__rcItem := RECT(this.ptr + 8)
+                this.__rcItem := RECT(8, this)
             return this.__rcItem
         }
     }
@@ -61,7 +61,7 @@ class COMBOBOXINFO extends Win32Struct
     rcButton{
         get {
             if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(this.ptr + 24)
+                this.__rcButton := RECT(24, this)
             return this.__rcButton
         }
     }
@@ -84,7 +84,7 @@ class COMBOBOXINFO extends Win32Struct
     hwndCombo{
         get {
             if(!this.HasProp("__hwndCombo"))
-                this.__hwndCombo := HWND(this.ptr + 48)
+                this.__hwndCombo := HWND(48, this)
             return this.__hwndCombo
         }
     }
@@ -98,7 +98,7 @@ class COMBOBOXINFO extends Win32Struct
     hwndItem{
         get {
             if(!this.HasProp("__hwndItem"))
-                this.__hwndItem := HWND(this.ptr + 56)
+                this.__hwndItem := HWND(56, this)
             return this.__hwndItem
         }
     }
@@ -112,17 +112,13 @@ class COMBOBOXINFO extends Win32Struct
     hwndList{
         get {
             if(!this.HasProp("__hwndList"))
-                this.__hwndList := HWND(this.ptr + 64)
+                this.__hwndList := HWND(64, this)
             return this.__hwndList
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

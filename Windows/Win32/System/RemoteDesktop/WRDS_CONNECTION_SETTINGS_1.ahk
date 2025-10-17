@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\WTS_SOCKADDR.ahk
 #Include .\WTS_SYSTEMTIME.ahk
 #Include .\WTS_TIME_ZONE_INFORMATION.ahk
@@ -24,276 +23,207 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
      * Specifies whether the initial program to start in the Remote Desktop Services shell is inherited. This value overwrites the  <b>fInheritInitialProgram</b> listener registry value.
      * @type {BOOLEAN}
      */
-    fInheritInitialProgram{
-        get {
-            if(!this.HasProp("__fInheritInitialProgram"))
-                this.__fInheritInitialProgram := BOOLEAN(this.ptr + 0)
-            return this.__fInheritInitialProgram
-        }
+    fInheritInitialProgram {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
      * Specifies whether to inherit the monitor color depth. This value overwrites the  <b>fInheritColorDepth</b> listener registry value.
      * @type {BOOLEAN}
      */
-    fInheritColorDepth{
-        get {
-            if(!this.HasProp("__fInheritColorDepth"))
-                this.__fInheritColorDepth := BOOLEAN(this.ptr + 1)
-            return this.__fInheritColorDepth
-        }
+    fInheritColorDepth {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
      * Specifies whether the title bar is hidden.
      * @type {BOOLEAN}
      */
-    fHideTitleBar{
-        get {
-            if(!this.HasProp("__fHideTitleBar"))
-                this.__fHideTitleBar := BOOLEAN(this.ptr + 2)
-            return this.__fHideTitleBar
-        }
+    fHideTitleBar {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 
     /**
      * Specifies whether the logon process is automatic. This value overwrites the  <b>fInheritAutoLogon</b> listener registry value.
      * @type {BOOLEAN}
      */
-    fInheritAutoLogon{
-        get {
-            if(!this.HasProp("__fInheritAutoLogon"))
-                this.__fInheritAutoLogon := BOOLEAN(this.ptr + 3)
-            return this.__fInheritAutoLogon
-        }
+    fInheritAutoLogon {
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
     }
 
     /**
      * Specifies whether the initial program is displayed maximized. This value is used if <b>fInheritInitialProgram</b> is set to <b>TRUE</b>.
      * @type {BOOLEAN}
      */
-    fMaximizeShell{
-        get {
-            if(!this.HasProp("__fMaximizeShell"))
-                this.__fMaximizeShell := BOOLEAN(this.ptr + 4)
-            return this.__fMaximizeShell
-        }
+    fMaximizeShell {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**
      * Specifies whether PNP redirection is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
      * @type {BOOLEAN}
      */
-    fDisablePNP{
-        get {
-            if(!this.HasProp("__fDisablePNP"))
-                this.__fDisablePNP := BOOLEAN(this.ptr + 5)
-            return this.__fDisablePNP
-        }
+    fDisablePNP {
+        get => NumGet(this, 5, "char")
+        set => NumPut("char", value, this, 5)
     }
 
     /**
      * Specifies that a smart card was used during the logon process. The smart card PIN is the password.  This value is used if <b>fInheritAutoLogon</b> is set to <b>TRUE</b>.
      * @type {BOOLEAN}
      */
-    fPasswordIsScPin{
-        get {
-            if(!this.HasProp("__fPasswordIsScPin"))
-                this.__fPasswordIsScPin := BOOLEAN(this.ptr + 6)
-            return this.__fPasswordIsScPin
-        }
+    fPasswordIsScPin {
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
     }
 
     /**
      * Specifies whether to prompt the user for a password. If this value is <b>TRUE</b>, the user will be prompted even if the <b>fInheritAutoLogon</b> registry value is <b>TRUE</b> and the "Always ask for a password" policy is not set.
      * @type {BOOLEAN}
      */
-    fPromptForPassword{
-        get {
-            if(!this.HasProp("__fPromptForPassword"))
-                this.__fPromptForPassword := BOOLEAN(this.ptr + 7)
-            return this.__fPromptForPassword
-        }
+    fPromptForPassword {
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
     }
 
     /**
      * Specifies whether printer mapping is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
      * @type {BOOLEAN}
      */
-    fDisableCpm{
-        get {
-            if(!this.HasProp("__fDisableCpm"))
-                this.__fDisableCpm := BOOLEAN(this.ptr + 8)
-            return this.__fDisableCpm
-        }
+    fDisableCpm {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
      * Specifies whether drive mapping is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
      * @type {BOOLEAN}
      */
-    fDisableCdm{
-        get {
-            if(!this.HasProp("__fDisableCdm"))
-                this.__fDisableCdm := BOOLEAN(this.ptr + 9)
-            return this.__fDisableCdm
-        }
+    fDisableCdm {
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 
     /**
      * Specifies whether COM port  mapping is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
      * @type {BOOLEAN}
      */
-    fDisableCcm{
-        get {
-            if(!this.HasProp("__fDisableCcm"))
-                this.__fDisableCcm := BOOLEAN(this.ptr + 10)
-            return this.__fDisableCcm
-        }
+    fDisableCcm {
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 
     /**
      * Specifies whether LPT printer redirection is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
      * @type {BOOLEAN}
      */
-    fDisableLPT{
-        get {
-            if(!this.HasProp("__fDisableLPT"))
-                this.__fDisableLPT := BOOLEAN(this.ptr + 11)
-            return this.__fDisableLPT
-        }
+    fDisableLPT {
+        get => NumGet(this, 11, "char")
+        set => NumPut("char", value, this, 11)
     }
 
     /**
      * Specifies whether clipboard redirection is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
      * @type {BOOLEAN}
      */
-    fDisableClip{
-        get {
-            if(!this.HasProp("__fDisableClip"))
-                this.__fDisableClip := BOOLEAN(this.ptr + 12)
-            return this.__fDisableClip
-        }
+    fDisableClip {
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**
      * Specifies the action the server takes when the connection or idle timers expire, or when a connection is lost due to a connection error.
      * @type {BOOLEAN}
      */
-    fResetBroken{
-        get {
-            if(!this.HasProp("__fResetBroken"))
-                this.__fResetBroken := BOOLEAN(this.ptr + 13)
-            return this.__fResetBroken
-        }
+    fResetBroken {
+        get => NumGet(this, 13, "char")
+        set => NumPut("char", value, this, 13)
     }
 
     /**
      * Specifies whether to disable encryption for communication between the client and server.
      * @type {BOOLEAN}
      */
-    fDisableEncryption{
-        get {
-            if(!this.HasProp("__fDisableEncryption"))
-                this.__fDisableEncryption := BOOLEAN(this.ptr + 14)
-            return this.__fDisableEncryption
-        }
+    fDisableEncryption {
+        get => NumGet(this, 14, "char")
+        set => NumPut("char", value, this, 14)
     }
 
     /**
      * Specifies whether to disable automatic reconnect of the client.
      * @type {BOOLEAN}
      */
-    fDisableAutoReconnect{
-        get {
-            if(!this.HasProp("__fDisableAutoReconnect"))
-                this.__fDisableAutoReconnect := BOOLEAN(this.ptr + 15)
-            return this.__fDisableAutoReconnect
-        }
+    fDisableAutoReconnect {
+        get => NumGet(this, 15, "char")
+        set => NumPut("char", value, this, 15)
     }
 
     /**
      * Specifies whether the Ctrl+Alt+Delete keyboard shortcut is disabled.
      * @type {BOOLEAN}
      */
-    fDisableCtrlAltDel{
-        get {
-            if(!this.HasProp("__fDisableCtrlAltDel"))
-                this.__fDisableCtrlAltDel := BOOLEAN(this.ptr + 16)
-            return this.__fDisableCtrlAltDel
-        }
+    fDisableCtrlAltDel {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * Specifies whether the client can double-click.
      * @type {BOOLEAN}
      */
-    fDoubleClickDetect{
-        get {
-            if(!this.HasProp("__fDoubleClickDetect"))
-                this.__fDoubleClickDetect := BOOLEAN(this.ptr + 17)
-            return this.__fDoubleClickDetect
-        }
+    fDoubleClickDetect {
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 
     /**
      * Specifies whether the Windows key is enabled.
      * @type {BOOLEAN}
      */
-    fEnableWindowsKey{
-        get {
-            if(!this.HasProp("__fEnableWindowsKey"))
-                this.__fEnableWindowsKey := BOOLEAN(this.ptr + 18)
-            return this.__fEnableWindowsKey
-        }
+    fEnableWindowsKey {
+        get => NumGet(this, 18, "char")
+        set => NumPut("char", value, this, 18)
     }
 
     /**
      * Specifies whether the client is using saved credentials during the logon process.
      * @type {BOOLEAN}
      */
-    fUsingSavedCreds{
-        get {
-            if(!this.HasProp("__fUsingSavedCreds"))
-                this.__fUsingSavedCreds := BOOLEAN(this.ptr + 19)
-            return this.__fUsingSavedCreds
-        }
+    fUsingSavedCreds {
+        get => NumGet(this, 19, "char")
+        set => NumPut("char", value, this, 19)
     }
 
     /**
      * Specifies whether mouse input is enabled.
      * @type {BOOLEAN}
      */
-    fMouse{
-        get {
-            if(!this.HasProp("__fMouse"))
-                this.__fMouse := BOOLEAN(this.ptr + 20)
-            return this.__fMouse
-        }
+    fMouse {
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
      * Specifies whether to turn on audio playback. A value of <b>TRUE</b> specifies no audio.
      * @type {BOOLEAN}
      */
-    fNoAudioPlayback{
-        get {
-            if(!this.HasProp("__fNoAudioPlayback"))
-                this.__fNoAudioPlayback := BOOLEAN(this.ptr + 21)
-            return this.__fNoAudioPlayback
-        }
+    fNoAudioPlayback {
+        get => NumGet(this, 21, "char")
+        set => NumPut("char", value, this, 21)
     }
 
     /**
      * Specifies whether to leave audio playback on the remote computer.
      * @type {BOOLEAN}
      */
-    fRemoteConsoleAudio{
-        get {
-            if(!this.HasProp("__fRemoteConsoleAudio"))
-                this.__fRemoteConsoleAudio := BOOLEAN(this.ptr + 22)
-            return this.__fRemoteConsoleAudio
-        }
+    fRemoteConsoleAudio {
+        get => NumGet(this, 22, "char")
+        set => NumPut("char", value, this, 22)
     }
 
     /**
@@ -629,7 +559,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     ClientSockAddress{
         get {
             if(!this.HasProp("__ClientSockAddress"))
-                this.__ClientSockAddress := WTS_SOCKADDR(this.ptr + 3504)
+                this.__ClientSockAddress := WTS_SOCKADDR(3504, this)
             return this.__ClientSockAddress
         }
     }
@@ -641,7 +571,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     ClientTimeZone{
         get {
             if(!this.HasProp("__ClientTimeZone"))
-                this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(this.ptr + 3544)
+                this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(3544, this)
             return this.__ClientTimeZone
         }
     }
@@ -653,7 +583,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     WRdsListenerSettings{
         get {
             if(!this.HasProp("__WRdsListenerSettings"))
-                this.__WRdsListenerSettings := WRDS_LISTENER_SETTINGS(this.ptr + 3728)
+                this.__WRdsListenerSettings := WRDS_LISTENER_SETTINGS(3728, this)
             return this.__WRdsListenerSettings
         }
     }

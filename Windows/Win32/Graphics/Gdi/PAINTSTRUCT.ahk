@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HDC.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -23,7 +22,7 @@ class PAINTSTRUCT extends Win32Struct
     hdc{
         get {
             if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 0)
+                this.__hdc := HDC(0, this)
             return this.__hdc
         }
     }
@@ -32,12 +31,9 @@ class PAINTSTRUCT extends Win32Struct
      * Indicates whether the background must be erased. This value is nonzero if the application should erase the background. The application is responsible for erasing the background if a window class is created without a background brush. For more information, see the description of the <b>hbrBackground</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassa">WNDCLASS</a> structure.
      * @type {BOOL}
      */
-    fErase{
-        get {
-            if(!this.HasProp("__fErase"))
-                this.__fErase := BOOL(this.ptr + 8)
-            return this.__fErase
-        }
+    fErase {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -47,7 +43,7 @@ class PAINTSTRUCT extends Win32Struct
     rcPaint{
         get {
             if(!this.HasProp("__rcPaint"))
-                this.__rcPaint := RECT(this.ptr + 16)
+                this.__rcPaint := RECT(16, this)
             return this.__rcPaint
         }
     }
@@ -56,24 +52,18 @@ class PAINTSTRUCT extends Win32Struct
      * Reserved; used internally by the system.
      * @type {BOOL}
      */
-    fRestore{
-        get {
-            if(!this.HasProp("__fRestore"))
-                this.__fRestore := BOOL(this.ptr + 32)
-            return this.__fRestore
-        }
+    fRestore {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * Reserved; used internally by the system.
      * @type {BOOL}
      */
-    fIncUpdate{
-        get {
-            if(!this.HasProp("__fIncUpdate"))
-                this.__fIncUpdate := BOOL(this.ptr + 36)
-            return this.__fIncUpdate
-        }
+    fIncUpdate {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**

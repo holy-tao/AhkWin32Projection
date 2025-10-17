@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FLOWSPEC.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\WSABUF.ahk
 
 /**
@@ -30,7 +29,7 @@ class QOS extends Win32Struct
     SendingFlowspec{
         get {
             if(!this.HasProp("__SendingFlowspec"))
-                this.__SendingFlowspec := FLOWSPEC(this.ptr + 0)
+                this.__SendingFlowspec := FLOWSPEC(0, this)
             return this.__SendingFlowspec
         }
     }
@@ -43,7 +42,7 @@ class QOS extends Win32Struct
     ReceivingFlowspec{
         get {
             if(!this.HasProp("__ReceivingFlowspec"))
-                this.__ReceivingFlowspec := FLOWSPEC(this.ptr + 32)
+                this.__ReceivingFlowspec := FLOWSPEC(32, this)
             return this.__ReceivingFlowspec
         }
     }
@@ -56,7 +55,7 @@ class QOS extends Win32Struct
     ProviderSpecific{
         get {
             if(!this.HasProp("__ProviderSpecific"))
-                this.__ProviderSpecific := WSABUF(this.ptr + 64)
+                this.__ProviderSpecific := WSABUF(64, this)
             return this.__ProviderSpecific
         }
     }

@@ -19,7 +19,7 @@ class DOT11_WFD_GROUP_START_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -30,7 +30,7 @@ class DOT11_WFD_GROUP_START_PARAMETERS extends Win32Struct
     AdvertisedOperatingChannel{
         get {
             if(!this.HasProp("__AdvertisedOperatingChannel"))
-                this.__AdvertisedOperatingChannel := DOT11_WFD_CHANNEL(this.ptr + 5)
+                this.__AdvertisedOperatingChannel := DOT11_WFD_CHANNEL(5, this)
             return this.__AdvertisedOperatingChannel
         }
     }

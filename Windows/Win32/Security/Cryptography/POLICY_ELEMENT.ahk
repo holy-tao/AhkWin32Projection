@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The POLICY_ELEMENT structure contains an RSVP policy element.
@@ -18,45 +16,33 @@ class POLICY_ELEMENT extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    targetEndpointAddress{
-        get {
-            if(!this.HasProp("__targetEndpointAddress"))
-                this.__targetEndpointAddress := PWSTR(this.ptr + 0)
-            return this.__targetEndpointAddress
-        }
+    targetEndpointAddress {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    issuerEndpointAddress{
-        get {
-            if(!this.HasProp("__issuerEndpointAddress"))
-                this.__issuerEndpointAddress := PWSTR(this.ptr + 8)
-            return this.__issuerEndpointAddress
-        }
+    issuerEndpointAddress {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    issuedTokenParameters{
-        get {
-            if(!this.HasProp("__issuedTokenParameters"))
-                this.__issuedTokenParameters := PWSTR(this.ptr + 16)
-            return this.__issuedTokenParameters
-        }
+    issuedTokenParameters {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    privacyNoticeLink{
-        get {
-            if(!this.HasProp("__privacyNoticeLink"))
-                this.__privacyNoticeLink := PWSTR(this.ptr + 24)
-            return this.__privacyNoticeLink
-        }
+    privacyNoticeLink {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -70,11 +56,8 @@ class POLICY_ELEMENT extends Win32Struct
     /**
      * @type {BOOL}
      */
-    useManagedPresentation{
-        get {
-            if(!this.HasProp("__useManagedPresentation"))
-                this.__useManagedPresentation := BOOL(this.ptr + 36)
-            return this.__useManagedPresentation
-        }
+    useManagedPresentation {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 }

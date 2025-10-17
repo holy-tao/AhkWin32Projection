@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_WFD_CHANNEL.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -20,7 +19,7 @@ class DOT11_WFD_GROUP_JOIN_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -31,7 +30,7 @@ class DOT11_WFD_GROUP_JOIN_PARAMETERS extends Win32Struct
     GOOperatingChannel{
         get {
             if(!this.HasProp("__GOOperatingChannel"))
-                this.__GOOperatingChannel := DOT11_WFD_CHANNEL(this.ptr + 5)
+                this.__GOOperatingChannel := DOT11_WFD_CHANNEL(5, this)
             return this.__GOOperatingChannel
         }
     }
@@ -47,22 +46,16 @@ class DOT11_WFD_GROUP_JOIN_PARAMETERS extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bInGroupFormation{
-        get {
-            if(!this.HasProp("__bInGroupFormation"))
-                this.__bInGroupFormation := BOOLEAN(this.ptr + 16)
-            return this.__bInGroupFormation
-        }
+    bInGroupFormation {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bWaitForWPSReady{
-        get {
-            if(!this.HasProp("__bWaitForWPSReady"))
-                this.__bWaitForWPSReady := BOOLEAN(this.ptr + 17)
-            return this.__bWaitForWPSReady
-        }
+    bWaitForWPSReady {
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 }

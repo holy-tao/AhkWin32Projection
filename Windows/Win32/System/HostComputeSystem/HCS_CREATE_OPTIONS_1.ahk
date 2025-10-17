@@ -26,7 +26,7 @@ class HCS_CREATE_OPTIONS_1 extends Win32Struct
     UserToken{
         get {
             if(!this.HasProp("__UserToken"))
-                this.__UserToken := HANDLE(this.ptr + 8)
+                this.__UserToken := HANDLE(8, this)
             return this.__UserToken
         }
     }

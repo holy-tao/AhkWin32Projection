@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
@@ -39,12 +38,9 @@ class EXTLOGPEN32 extends Win32Struct
     /**
      * @type {COLORREF}
      */
-    elpColor{
-        get {
-            if(!this.HasProp("__elpColor"))
-                this.__elpColor := COLORREF(this.ptr + 12)
-            return this.__elpColor
-        }
+    elpColor {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**

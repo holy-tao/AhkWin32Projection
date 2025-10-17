@@ -77,7 +77,7 @@ class D3D11_TEXTURE2D_DESC1 extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(this.ptr + 24)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(24, this)
             return this.__SampleDesc
         }
     }

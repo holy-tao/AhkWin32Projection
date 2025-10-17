@@ -34,7 +34,7 @@ class MCI_BREAK_PARMS extends Win32Struct
     hwndBreak{
         get {
             if(!this.HasProp("__hwndBreak"))
-                this.__hwndBreak := HWND(this.ptr + 16)
+                this.__hwndBreak := HWND(16, this)
             return this.__hwndBreak
         }
     }

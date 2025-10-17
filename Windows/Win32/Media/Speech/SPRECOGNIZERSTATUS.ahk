@@ -18,7 +18,7 @@ class SPRECOGNIZERSTATUS extends Win32Struct
     AudioStatus{
         get {
             if(!this.HasProp("__AudioStatus"))
-                this.__AudioStatus := SPAUDIOSTATUS(this.ptr + 0)
+                this.__AudioStatus := SPAUDIOSTATUS(0, this)
             return this.__AudioStatus
         }
     }

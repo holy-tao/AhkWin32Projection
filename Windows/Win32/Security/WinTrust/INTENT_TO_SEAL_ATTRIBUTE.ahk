@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -23,11 +22,8 @@ class INTENT_TO_SEAL_ATTRIBUTE extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    seal{
-        get {
-            if(!this.HasProp("__seal"))
-                this.__seal := BOOLEAN(this.ptr + 4)
-            return this.__seal
-        }
+    seal {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 }

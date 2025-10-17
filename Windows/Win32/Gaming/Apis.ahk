@@ -244,7 +244,7 @@ class Gaming {
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-processpendinggameui
      */
     static ProcessPendingGameUI(waitForCompletion) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ProcessPendingGameUI", "ptr", waitForCompletion, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ProcessPendingGameUI", "int", waitForCompletion, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -259,7 +259,7 @@ class Gaming {
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-trycancelpendinggameui
      */
     static TryCancelPendingGameUI() {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\TryCancelPendingGameUI", "ptr")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\TryCancelPendingGameUI", "int")
         return result
     }
 

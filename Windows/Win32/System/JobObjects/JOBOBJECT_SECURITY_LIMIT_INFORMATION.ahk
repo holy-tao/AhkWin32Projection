@@ -43,7 +43,7 @@ class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct
     JobToken{
         get {
             if(!this.HasProp("__JobToken"))
-                this.__JobToken := HANDLE(this.ptr + 8)
+                this.__JobToken := HANDLE(8, this)
             return this.__JobToken
         }
     }

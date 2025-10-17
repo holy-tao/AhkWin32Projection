@@ -4666,7 +4666,7 @@ class Iis {
      * @returns {BOOL} 
      */
     static GetExtensionVersion(pVer) {
-        result := DllCall("RpcProxy.dll\GetExtensionVersion", "ptr", pVer, "ptr")
+        result := DllCall("RpcProxy.dll\GetExtensionVersion", "ptr", pVer, "int")
         return result
     }
 
@@ -4698,7 +4698,7 @@ class Iis {
      * @returns {BOOL} 
      */
     static GetFilterVersion(pVer) {
-        result := DllCall("RpcProxy.dll\GetFilterVersion", "ptr", pVer, "ptr")
+        result := DllCall("RpcProxy.dll\GetFilterVersion", "ptr", pVer, "int")
         return result
     }
 

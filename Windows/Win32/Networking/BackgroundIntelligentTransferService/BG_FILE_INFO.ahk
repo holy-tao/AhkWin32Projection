@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides the local and remote names of the file to transfer.
@@ -49,12 +48,9 @@ class BG_FILE_INFO extends Win32Struct
      * You can use SMB to express the remote name of the file to download or upload; there is no SMB support for  upload-reply jobs. You can specify the remote name as a UNC path, full path with a network drive, or use the "file://" prefix. <b>BITS 1.5 and earlier:  </b>The SMB protocol for <b>RemoteName</b> is not supported.
      * @type {PWSTR}
      */
-    RemoteName{
-        get {
-            if(!this.HasProp("__RemoteName"))
-                this.__RemoteName := PWSTR(this.ptr + 0)
-            return this.__RemoteName
-        }
+    RemoteName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -63,11 +59,8 @@ class BG_FILE_INFO extends Win32Struct
      * The user must have permission to write to the local directory for downloads and the reply portion of an upload-reply job. BITS does not support NTFS streams. Instead of using network drives, which are session specific, use UNC paths (for example, \\server\share\path\file). Do not include the \\? prefix in the path.
      * @type {PWSTR}
      */
-    LocalName{
-        get {
-            if(!this.HasProp("__LocalName"))
-                this.__LocalName := PWSTR(this.ptr + 8)
-            return this.__LocalName
-        }
+    LocalName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

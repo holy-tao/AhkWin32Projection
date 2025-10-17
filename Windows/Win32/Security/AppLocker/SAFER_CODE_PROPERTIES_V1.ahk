@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
 
@@ -109,12 +108,9 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
      * A string that specifies the fully qualified path and file name to be used for discrimination checks based on the path. The image path is also used to open and read the file to identify any other discrimination criteria not supplied in this structure. This member can be <b>NULL</b>; however, if the <b>dwCheckFlags</b> member includes <b>SAFER_CRITERIA_AUTHENTICODE</b>, either this member or the <b>hImageFileHandle</b> member must be set.
      * @type {PWSTR}
      */
-    ImagePath{
-        get {
-            if(!this.HasProp("__ImagePath"))
-                this.__ImagePath := PWSTR(this.ptr + 8)
-            return this.__ImagePath
-        }
+    ImagePath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -124,7 +120,7 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
     hImageFileHandle{
         get {
             if(!this.HasProp("__hImageFileHandle"))
-                this.__hImageFileHandle := HANDLE(this.ptr + 16)
+                this.__hImageFileHandle := HANDLE(16, this)
             return this.__hImageFileHandle
         }
     }
@@ -216,7 +212,7 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
     hWndParent{
         get {
             if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(this.ptr + 120)
+                this.__hWndParent := HWND(120, this)
             return this.__hWndParent
         }
     }
@@ -282,12 +278,8 @@ class SAFER_CODE_PROPERTIES_V1 extends Win32Struct
         set => NumPut("uint", value, this, 128)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 136
     }
 }

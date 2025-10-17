@@ -2,9 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\SBinary.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SShortArray.ahk
 #Include .\SLongArray.ahk
 #Include .\SRealArray.ahk
@@ -53,7 +51,7 @@ class TABLE_NOTIFICATION extends Win32Struct
     propIndex{
         get {
             if(!this.HasProp("__propIndex"))
-                this.__propIndex := SPropValue(this.ptr + 8)
+                this.__propIndex := SPropValue(8, this)
             return this.__propIndex
         }
     }
@@ -64,7 +62,7 @@ class TABLE_NOTIFICATION extends Win32Struct
     propPrior{
         get {
             if(!this.HasProp("__propPrior"))
-                this.__propPrior := SPropValue(this.ptr + 328)
+                this.__propPrior := SPropValue(328, this)
             return this.__propPrior
         }
     }
@@ -75,7 +73,7 @@ class TABLE_NOTIFICATION extends Win32Struct
     row{
         get {
             if(!this.HasProp("__row"))
-                this.__row := SRow(this.ptr + 648)
+                this.__row := SRow(648, this)
             return this.__row
         }
     }

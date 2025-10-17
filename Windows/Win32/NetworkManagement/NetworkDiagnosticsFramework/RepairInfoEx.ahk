@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ShellCommandInfo.ahk
 #Include .\UiInfo.ahk
 #Include .\RepairInfo.ahk
@@ -26,7 +25,7 @@ class RepairInfoEx extends Win32Struct
     repair{
         get {
             if(!this.HasProp("__repair"))
-                this.__repair := RepairInfo(this.ptr + 0)
+                this.__repair := RepairInfo(0, this)
             return this.__repair
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Holds the MEMORY_BASIC_INFORMATION returned by PssWalkSnapshot for a virtual address (VA) region.
@@ -131,11 +130,8 @@ class PSS_VA_SPACE_ENTRY extends Win32Struct
      * If section information was captured, this is the file path backing the section (if any). The path may be in NT namespace. The string may not be terminated by a <b>NULL</b> character. The pointer is valid for the lifetime of the walk marker passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a>.
      * @type {PWSTR}
      */
-    MappedFileName{
-        get {
-            if(!this.HasProp("__MappedFileName"))
-                this.__MappedFileName := PWSTR(this.ptr + 72)
-            return this.__MappedFileName
-        }
+    MappedFileName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

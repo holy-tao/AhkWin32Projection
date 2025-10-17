@@ -42,7 +42,7 @@ class STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY extends Win32Struct
     VirtualStorageType{
         get {
             if(!this.HasProp("__VirtualStorageType"))
-                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 16)
+                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(16, this)
             return this.__VirtualStorageType
         }
     }

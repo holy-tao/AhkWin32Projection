@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes Direct3D 11.2 feature options in the current graphics driver.
@@ -43,12 +42,9 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS1 extends Win32Struct
      * Specifies whether the hardware and driver support the filtering options (<a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_filter">D3D11_FILTER</a>) of comparing the result to the minimum or maximum value during texture sampling. The runtime sets this member to <b>TRUE</b> if the hardware and driver support these filtering options.
      * @type {BOOL}
      */
-    MinMaxFiltering{
-        get {
-            if(!this.HasProp("__MinMaxFiltering"))
-                this.__MinMaxFiltering := BOOL(this.ptr + 4)
-            return this.__MinMaxFiltering
-        }
+    MinMaxFiltering {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -57,12 +53,9 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS1 extends Win32Struct
      * Specifies whether the hardware and driver also support the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11devicecontext1-clearview">ID3D11DeviceContext1::ClearView</a> method on depth formats. For info about valid depth formats, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_depth_stencil_view_desc">D3D11_DEPTH_STENCIL_VIEW_DESC</a>.
      * @type {BOOL}
      */
-    ClearViewAlsoSupportsDepthOnlyFormats{
-        get {
-            if(!this.HasProp("__ClearViewAlsoSupportsDepthOnlyFormats"))
-                this.__ClearViewAlsoSupportsDepthOnlyFormats := BOOL(this.ptr + 8)
-            return this.__ClearViewAlsoSupportsDepthOnlyFormats
-        }
+    ClearViewAlsoSupportsDepthOnlyFormats {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -71,11 +64,8 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS1 extends Win32Struct
      * Specifies support for creating <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11buffer">ID3D11Buffer</a> resources that can be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-map">ID3D11DeviceContext::Map</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-unmap">ID3D11DeviceContext::Unmap</a> methods. This means that the <b>CPUAccessFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_buffer_desc">D3D11_BUFFER_DESC</a> structure may be set with the desired <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_cpu_access_flag">D3D11_CPU_ACCESS_FLAG</a> elements when the <b>Usage</b> member of <b>D3D11_BUFFER_DESC</b> is set to <b>D3D11_USAGE_DEFAULT</b>. The runtime sets this member to <b>TRUE</b> if the hardware is capable of at least <b>D3D_FEATURE_LEVEL_11_0</b> and the graphics device driver supports mappable default buffers.
      * @type {BOOL}
      */
-    MapOnDefaultBuffers{
-        get {
-            if(!this.HasProp("__MapOnDefaultBuffers"))
-                this.__MapOnDefaultBuffers := BOOL(this.ptr + 12)
-            return this.__MapOnDefaultBuffers
-        }
+    MapOnDefaultBuffers {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 }

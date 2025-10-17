@@ -27,7 +27,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
     Pool{
         get {
             if(!this.HasProp("__Pool"))
-                this.__Pool := PTP_POOL(this.ptr + 8)
+                this.__Pool := PTP_POOL(8, this)
             return this.__Pool
         }
     }
@@ -38,7 +38,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
     CleanupGroup{
         get {
             if(!this.HasProp("__CleanupGroup"))
-                this.__CleanupGroup := PTP_CLEANUP_GROUP(this.ptr + 16)
+                this.__CleanupGroup := PTP_CLEANUP_GROUP(16, this)
             return this.__CleanupGroup
         }
     }
@@ -131,7 +131,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
     s{
         get {
             if(!this.HasProp("__s"))
-                this.__s := %this.__Class%._s(this.ptr + 56)
+                this.__s := %this.__Class%._s(56, this)
             return this.__s
         }
     }

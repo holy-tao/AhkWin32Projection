@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains parameters for the SHBrowseForFolder function and receives information about the folder selected by the user.
@@ -31,7 +29,7 @@ class BROWSEINFOW extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 0)
+                this.__hwndOwner := HWND(0, this)
             return this.__hwndOwner
         }
     }
@@ -53,12 +51,9 @@ class BROWSEINFOW extends Win32Struct
      * Pointer to a buffer to receive the display name of the folder selected by the user. The size of this buffer is assumed to be MAX_PATH characters.
      * @type {PWSTR}
      */
-    pszDisplayName{
-        get {
-            if(!this.HasProp("__pszDisplayName"))
-                this.__pszDisplayName := PWSTR(this.ptr + 16)
-            return this.__pszDisplayName
-        }
+    pszDisplayName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -67,12 +62,9 @@ class BROWSEINFOW extends Win32Struct
      * Pointer to a null-terminated string that is displayed above the tree view control in the dialog box. This string can be used to specify instructions to the user.
      * @type {PWSTR}
      */
-    lpszTitle{
-        get {
-            if(!this.HasProp("__lpszTitle"))
-                this.__lpszTitle := PWSTR(this.ptr + 24)
-            return this.__lpszTitle
-        }
+    lpszTitle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -101,12 +93,9 @@ class BROWSEINFOW extends Win32Struct
      * An application-defined value that the dialog box passes to the callback function, if one is specified in <b>lpfn</b>.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 48)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

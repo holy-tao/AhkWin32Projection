@@ -18,7 +18,7 @@ class KSQUALITY_MANAGER extends Win32Struct
     QualityManager{
         get {
             if(!this.HasProp("__QualityManager"))
-                this.__QualityManager := HANDLE(this.ptr + 0)
+                this.__QualityManager := HANDLE(0, this)
             return this.__QualityManager
         }
     }

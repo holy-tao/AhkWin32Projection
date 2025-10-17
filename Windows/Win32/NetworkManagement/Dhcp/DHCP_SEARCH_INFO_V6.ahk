@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_IPV6_ADDRESS.ahk
 #Include .\DHCP_BINARY_DATA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the term or value on which the DHCPv6 server database will be searched.
@@ -26,7 +25,7 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
         ClientIpAddress{
             get {
                 if(!this.HasProp("__ClientIpAddress"))
-                    this.__ClientIpAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                    this.__ClientIpAddress := DHCP_IPV6_ADDRESS(0, this)
                 return this.__ClientIpAddress
             }
         }
@@ -37,7 +36,7 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
         ClientDUID{
             get {
                 if(!this.HasProp("__ClientDUID"))
-                    this.__ClientDUID := DHCP_BINARY_DATA(this.ptr + 0)
+                    this.__ClientDUID := DHCP_BINARY_DATA(0, this)
                 return this.__ClientDUID
             }
         }
@@ -45,12 +44,9 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        ClientName{
-            get {
-                if(!this.HasProp("__ClientName"))
-                    this.__ClientName := PWSTR(this.ptr + 0)
-                return this.__ClientName
-            }
+        ClientName {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
     }
@@ -71,7 +67,7 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
     SearchInfo{
         get {
             if(!this.HasProp("__SearchInfo"))
-                this.__SearchInfo := %this.__Class%._DHCP_CLIENT_SEARCH_UNION_V6(this.ptr + 8)
+                this.__SearchInfo := %this.__Class%._DHCP_CLIENT_SEARCH_UNION_V6(8, this)
             return this.__SearchInfo
         }
     }

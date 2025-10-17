@@ -33,7 +33,7 @@ class CREATE_DISK extends Win32Struct
     Mbr{
         get {
             if(!this.HasProp("__Mbr"))
-                this.__Mbr := CREATE_DISK_MBR(this.ptr + 8)
+                this.__Mbr := CREATE_DISK_MBR(8, this)
             return this.__Mbr
         }
     }
@@ -44,7 +44,7 @@ class CREATE_DISK extends Win32Struct
     Gpt{
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := CREATE_DISK_GPT(this.ptr + 8)
+                this.__Gpt := CREATE_DISK_GPT(8, this)
             return this.__Gpt
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_PRESENCE_INFO structure contains specific peer presence information.
@@ -33,11 +32,8 @@ class PEER_PRESENCE_INFO extends Win32Struct
      * Zero-terminated Unicode string that contains a user- or application-defined message that expands upon the current status value. This string is limited to 255 characters.
      * @type {PWSTR}
      */
-    pwzDescriptiveText{
-        get {
-            if(!this.HasProp("__pwzDescriptiveText"))
-                this.__pwzDescriptiveText := PWSTR(this.ptr + 8)
-            return this.__pwzDescriptiveText
-        }
+    pwzDescriptiveText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

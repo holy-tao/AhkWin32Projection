@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -19,7 +18,7 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -27,56 +26,41 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bPersistentGroupEnabled{
-        get {
-            if(!this.HasProp("__bPersistentGroupEnabled"))
-                this.__bPersistentGroupEnabled := BOOLEAN(this.ptr + 4)
-            return this.__bPersistentGroupEnabled
-        }
+    bPersistentGroupEnabled {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bIntraBSSDistributionSupported{
-        get {
-            if(!this.HasProp("__bIntraBSSDistributionSupported"))
-                this.__bIntraBSSDistributionSupported := BOOLEAN(this.ptr + 5)
-            return this.__bIntraBSSDistributionSupported
-        }
+    bIntraBSSDistributionSupported {
+        get => NumGet(this, 5, "char")
+        set => NumPut("char", value, this, 5)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bCrossConnectionSupported{
-        get {
-            if(!this.HasProp("__bCrossConnectionSupported"))
-                this.__bCrossConnectionSupported := BOOLEAN(this.ptr + 6)
-            return this.__bCrossConnectionSupported
-        }
+    bCrossConnectionSupported {
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bPersistentReconnectSupported{
-        get {
-            if(!this.HasProp("__bPersistentReconnectSupported"))
-                this.__bPersistentReconnectSupported := BOOLEAN(this.ptr + 7)
-            return this.__bPersistentReconnectSupported
-        }
+    bPersistentReconnectSupported {
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bGroupFormationEnabled{
-        get {
-            if(!this.HasProp("__bGroupFormationEnabled"))
-                this.__bGroupFormationEnabled := BOOLEAN(this.ptr + 8)
-            return this.__bGroupFormationEnabled
-        }
+    bGroupFormationEnabled {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -90,11 +74,8 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bEapolKeyIpAddressAllocationSupported{
-        get {
-            if(!this.HasProp("__bEapolKeyIpAddressAllocationSupported"))
-                this.__bEapolKeyIpAddressAllocationSupported := BOOLEAN(this.ptr + 16)
-            return this.__bEapolKeyIpAddressAllocationSupported
-        }
+    bEapolKeyIpAddressAllocationSupported {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 }

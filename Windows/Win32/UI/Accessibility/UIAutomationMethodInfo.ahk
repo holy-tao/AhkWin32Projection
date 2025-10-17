@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a method that is supported by a custom control pattern.
@@ -21,12 +19,9 @@ class UIAutomationMethodInfo extends Win32Struct
      * The name of the method (a non-localizable string).
      * @type {PWSTR}
      */
-    pProgrammaticName{
-        get {
-            if(!this.HasProp("__pProgrammaticName"))
-                this.__pProgrammaticName := PWSTR(this.ptr + 0)
-            return this.__pProgrammaticName
-        }
+    pProgrammaticName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -35,12 +30,9 @@ class UIAutomationMethodInfo extends Win32Struct
      * <b>TRUE</b> if UI Automation should set the focus on the object before calling the method; otherwise <b>FALSE</b>.
      * @type {BOOL}
      */
-    doSetFocus{
-        get {
-            if(!this.HasProp("__doSetFocus"))
-                this.__doSetFocus := BOOL(this.ptr + 8)
-            return this.__doSetFocus
-        }
+    doSetFocus {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**

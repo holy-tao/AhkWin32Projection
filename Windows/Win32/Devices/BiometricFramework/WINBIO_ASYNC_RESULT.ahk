@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\WINBIO_IDENTITY.ahk
 #Include .\WINBIO_EVENT.ahk
 #Include .\WINBIO_PROTECTION_POLICY.ahk
@@ -221,12 +220,9 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         /**
          * @type {BOOLEAN}
          */
-        Match{
-            get {
-                if(!this.HasProp("__Match"))
-                    this.__Match := BOOLEAN(this.ptr + 0)
-                return this.__Match
-            }
+        Match {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
         }
     
         /**
@@ -249,7 +245,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Identity{
             get {
                 if(!this.HasProp("__Identity"))
-                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                    this.__Identity := WINBIO_IDENTITY(0, this)
                 return this.__Identity
             }
         }
@@ -310,7 +306,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Identity{
             get {
                 if(!this.HasProp("__Identity"))
-                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                    this.__Identity := WINBIO_IDENTITY(0, this)
                 return this.__Identity
             }
         }
@@ -318,12 +314,9 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         /**
          * @type {BOOLEAN}
          */
-        IsNewTemplate{
-            get {
-                if(!this.HasProp("__IsNewTemplate"))
-                    this.__IsNewTemplate := BOOLEAN(this.ptr + 80)
-                return this.__IsNewTemplate
-            }
+        IsNewTemplate {
+            get => NumGet(this, 80, "char")
+            set => NumPut("char", value, this, 80)
         }
     
     }
@@ -338,7 +331,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Identity{
             get {
                 if(!this.HasProp("__Identity"))
-                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                    this.__Identity := WINBIO_IDENTITY(0, this)
                 return this.__Identity
             }
         }
@@ -401,7 +394,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Identity{
             get {
                 if(!this.HasProp("__Identity"))
-                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                    this.__Identity := WINBIO_IDENTITY(0, this)
                 return this.__Identity
             }
         }
@@ -442,7 +435,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Identity{
             get {
                 if(!this.HasProp("__Identity"))
-                    this.__Identity := WINBIO_IDENTITY(this.ptr + 8)
+                    this.__Identity := WINBIO_IDENTITY(8, this)
                 return this.__Identity
             }
         }
@@ -499,7 +492,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Identity{
             get {
                 if(!this.HasProp("__Identity"))
-                    this.__Identity := WINBIO_IDENTITY(this.ptr + 8)
+                    this.__Identity := WINBIO_IDENTITY(8, this)
                 return this.__Identity
             }
         }
@@ -540,7 +533,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Event{
             get {
                 if(!this.HasProp("__Event"))
-                    this.__Event := WINBIO_EVENT(this.ptr + 0)
+                    this.__Event := WINBIO_EVENT(0, this)
                 return this.__Event
             }
         }
@@ -690,12 +683,9 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         /**
          * @type {BOOLEAN}
          */
-        Match{
-            get {
-                if(!this.HasProp("__Match"))
-                    this.__Match := BOOLEAN(this.ptr + 0)
-                return this.__Match
-            }
+        Match {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
         }
     
         /**
@@ -726,7 +716,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Identity{
             get {
                 if(!this.HasProp("__Identity"))
-                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                    this.__Identity := WINBIO_IDENTITY(0, this)
                 return this.__Identity
             }
         }
@@ -811,7 +801,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Identity{
             get {
                 if(!this.HasProp("__Identity"))
-                    this.__Identity := WINBIO_IDENTITY(this.ptr + 0)
+                    this.__Identity := WINBIO_IDENTITY(0, this)
                 return this.__Identity
             }
         }
@@ -822,7 +812,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         Policy{
             get {
                 if(!this.HasProp("__Policy"))
-                    this.__Policy := WINBIO_PROTECTION_POLICY(this.ptr + 80)
+                    this.__Policy := WINBIO_PROTECTION_POLICY(80, this)
                 return this.__Policy
             }
         }
@@ -839,7 +829,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         ExtendedStatus{
             get {
                 if(!this.HasProp("__ExtendedStatus"))
-                    this.__ExtendedStatus := WINBIO_EXTENDED_UNIT_STATUS(this.ptr + 0)
+                    this.__ExtendedStatus := WINBIO_EXTENDED_UNIT_STATUS(0, this)
                 return this.__ExtendedStatus
             }
         }
@@ -852,7 +842,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     Verify{
         get {
             if(!this.HasProp("__Verify"))
-                this.__Verify := %this.__Class%._Verify(this.ptr + 40)
+                this.__Verify := %this.__Class%._Verify(40, this)
             return this.__Verify
         }
     }
@@ -863,7 +853,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     Identify{
         get {
             if(!this.HasProp("__Identify"))
-                this.__Identify := %this.__Class%._Identify(this.ptr + 40)
+                this.__Identify := %this.__Class%._Identify(40, this)
             return this.__Identify
         }
     }
@@ -874,7 +864,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     EnrollBegin{
         get {
             if(!this.HasProp("__EnrollBegin"))
-                this.__EnrollBegin := %this.__Class%._EnrollBegin(this.ptr + 40)
+                this.__EnrollBegin := %this.__Class%._EnrollBegin(40, this)
             return this.__EnrollBegin
         }
     }
@@ -885,7 +875,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     EnrollCapture{
         get {
             if(!this.HasProp("__EnrollCapture"))
-                this.__EnrollCapture := %this.__Class%._EnrollCapture(this.ptr + 40)
+                this.__EnrollCapture := %this.__Class%._EnrollCapture(40, this)
             return this.__EnrollCapture
         }
     }
@@ -896,7 +886,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     EnrollCommit{
         get {
             if(!this.HasProp("__EnrollCommit"))
-                this.__EnrollCommit := %this.__Class%._EnrollCommit(this.ptr + 40)
+                this.__EnrollCommit := %this.__Class%._EnrollCommit(40, this)
             return this.__EnrollCommit
         }
     }
@@ -907,7 +897,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     EnumEnrollments{
         get {
             if(!this.HasProp("__EnumEnrollments"))
-                this.__EnumEnrollments := %this.__Class%._EnumEnrollments(this.ptr + 40)
+                this.__EnumEnrollments := %this.__Class%._EnumEnrollments(40, this)
             return this.__EnumEnrollments
         }
     }
@@ -918,7 +908,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     CaptureSample{
         get {
             if(!this.HasProp("__CaptureSample"))
-                this.__CaptureSample := %this.__Class%._CaptureSample(this.ptr + 40)
+                this.__CaptureSample := %this.__Class%._CaptureSample(40, this)
             return this.__CaptureSample
         }
     }
@@ -929,7 +919,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     DeleteTemplate{
         get {
             if(!this.HasProp("__DeleteTemplate"))
-                this.__DeleteTemplate := %this.__Class%._DeleteTemplate(this.ptr + 40)
+                this.__DeleteTemplate := %this.__Class%._DeleteTemplate(40, this)
             return this.__DeleteTemplate
         }
     }
@@ -940,7 +930,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     GetProperty{
         get {
             if(!this.HasProp("__GetProperty"))
-                this.__GetProperty := %this.__Class%._GetProperty(this.ptr + 40)
+                this.__GetProperty := %this.__Class%._GetProperty(40, this)
             return this.__GetProperty
         }
     }
@@ -951,7 +941,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     SetProperty{
         get {
             if(!this.HasProp("__SetProperty"))
-                this.__SetProperty := %this.__Class%._SetProperty(this.ptr + 40)
+                this.__SetProperty := %this.__Class%._SetProperty(40, this)
             return this.__SetProperty
         }
     }
@@ -962,7 +952,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     GetEvent{
         get {
             if(!this.HasProp("__GetEvent"))
-                this.__GetEvent := %this.__Class%._GetEvent(this.ptr + 40)
+                this.__GetEvent := %this.__Class%._GetEvent(40, this)
             return this.__GetEvent
         }
     }
@@ -973,7 +963,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     ControlUnit{
         get {
             if(!this.HasProp("__ControlUnit"))
-                this.__ControlUnit := %this.__Class%._ControlUnit(this.ptr + 40)
+                this.__ControlUnit := %this.__Class%._ControlUnit(40, this)
             return this.__ControlUnit
         }
     }
@@ -984,7 +974,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     EnumServiceProviders{
         get {
             if(!this.HasProp("__EnumServiceProviders"))
-                this.__EnumServiceProviders := %this.__Class%._EnumServiceProviders(this.ptr + 40)
+                this.__EnumServiceProviders := %this.__Class%._EnumServiceProviders(40, this)
             return this.__EnumServiceProviders
         }
     }
@@ -995,7 +985,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     EnumBiometricUnits{
         get {
             if(!this.HasProp("__EnumBiometricUnits"))
-                this.__EnumBiometricUnits := %this.__Class%._EnumBiometricUnits(this.ptr + 40)
+                this.__EnumBiometricUnits := %this.__Class%._EnumBiometricUnits(40, this)
             return this.__EnumBiometricUnits
         }
     }
@@ -1006,7 +996,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     EnumDatabases{
         get {
             if(!this.HasProp("__EnumDatabases"))
-                this.__EnumDatabases := %this.__Class%._EnumDatabases(this.ptr + 40)
+                this.__EnumDatabases := %this.__Class%._EnumDatabases(40, this)
             return this.__EnumDatabases
         }
     }
@@ -1017,7 +1007,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     VerifyAndReleaseTicket{
         get {
             if(!this.HasProp("__VerifyAndReleaseTicket"))
-                this.__VerifyAndReleaseTicket := %this.__Class%._VerifyAndReleaseTicket(this.ptr + 40)
+                this.__VerifyAndReleaseTicket := %this.__Class%._VerifyAndReleaseTicket(40, this)
             return this.__VerifyAndReleaseTicket
         }
     }
@@ -1028,7 +1018,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     IdentifyAndReleaseTicket{
         get {
             if(!this.HasProp("__IdentifyAndReleaseTicket"))
-                this.__IdentifyAndReleaseTicket := %this.__Class%._IdentifyAndReleaseTicket(this.ptr + 40)
+                this.__IdentifyAndReleaseTicket := %this.__Class%._IdentifyAndReleaseTicket(40, this)
             return this.__IdentifyAndReleaseTicket
         }
     }
@@ -1039,7 +1029,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     EnrollSelect{
         get {
             if(!this.HasProp("__EnrollSelect"))
-                this.__EnrollSelect := %this.__Class%._EnrollSelect(this.ptr + 40)
+                this.__EnrollSelect := %this.__Class%._EnrollSelect(40, this)
             return this.__EnrollSelect
         }
     }
@@ -1050,7 +1040,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     MonitorPresence{
         get {
             if(!this.HasProp("__MonitorPresence"))
-                this.__MonitorPresence := %this.__Class%._MonitorPresence(this.ptr + 40)
+                this.__MonitorPresence := %this.__Class%._MonitorPresence(40, this)
             return this.__MonitorPresence
         }
     }
@@ -1061,7 +1051,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     GetProtectionPolicy{
         get {
             if(!this.HasProp("__GetProtectionPolicy"))
-                this.__GetProtectionPolicy := %this.__Class%._GetProtectionPolicy(this.ptr + 40)
+                this.__GetProtectionPolicy := %this.__Class%._GetProtectionPolicy(40, this)
             return this.__GetProtectionPolicy
         }
     }
@@ -1072,7 +1062,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
     NotifyUnitStatusChange{
         get {
             if(!this.HasProp("__NotifyUnitStatusChange"))
-                this.__NotifyUnitStatusChange := %this.__Class%._NotifyUnitStatusChange(this.ptr + 40)
+                this.__NotifyUnitStatusChange := %this.__Class%._NotifyUnitStatusChange(40, this)
             return this.__NotifyUnitStatusChange
         }
     }

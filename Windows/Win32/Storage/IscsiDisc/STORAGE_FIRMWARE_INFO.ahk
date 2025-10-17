@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\STORAGE_FIRMWARE_SLOT_INFO.ahk
 
 /**
@@ -32,12 +31,9 @@ class STORAGE_FIRMWARE_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    UpgradeSupport{
-        get {
-            if(!this.HasProp("__UpgradeSupport"))
-                this.__UpgradeSupport := BOOLEAN(this.ptr + 8)
-            return this.__UpgradeSupport
-        }
+    UpgradeSupport {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**

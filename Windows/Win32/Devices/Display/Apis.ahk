@@ -3718,7 +3718,7 @@ class Display {
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, "uint*", pdwNumberOfPhysicalMonitors, "ptr")
+        result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, "uint*", pdwNumberOfPhysicalMonitors, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3755,7 +3755,7 @@ class Display {
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\GetPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "ptr")
+        result := DllCall("dxva2.dll\GetPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3791,7 +3791,7 @@ class Display {
 
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\DestroyPhysicalMonitor", "ptr", hMonitor, "ptr")
+        result := DllCall("dxva2.dll\DestroyPhysicalMonitor", "ptr", hMonitor, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3809,7 +3809,7 @@ class Display {
     static DestroyPhysicalMonitors(dwPhysicalMonitorArraySize, pPhysicalMonitorArray) {
         A_LastError := 0
 
-        result := DllCall("dxva2.dll\DestroyPhysicalMonitors", "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "ptr")
+        result := DllCall("dxva2.dll\DestroyPhysicalMonitors", "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4460,7 +4460,7 @@ class Display {
      * @since windows5.0
      */
     static CLIPOBJ_cEnumStart(pco, bAll, iType, iDirection, cLimit) {
-        result := DllCall("GDI32.dll\CLIPOBJ_cEnumStart", "ptr", pco, "ptr", bAll, "uint", iType, "uint", iDirection, "uint", cLimit, "uint")
+        result := DllCall("GDI32.dll\CLIPOBJ_cEnumStart", "ptr", pco, "int", bAll, "uint", iType, "uint", iDirection, "uint", cLimit, "uint")
         return result
     }
 
@@ -4474,7 +4474,7 @@ class Display {
      * @since windows5.0
      */
     static CLIPOBJ_bEnum(pco, cj, pul) {
-        result := DllCall("GDI32.dll\CLIPOBJ_bEnum", "ptr", pco, "uint", cj, "uint*", pul, "ptr")
+        result := DllCall("GDI32.dll\CLIPOBJ_bEnum", "ptr", pco, "uint", cj, "uint*", pul, "int")
         return result
     }
 
@@ -4637,7 +4637,7 @@ class Display {
      * @since windows5.0
      */
     static PATHOBJ_bEnum(ppo, ppd) {
-        result := DllCall("GDI32.dll\PATHOBJ_bEnum", "ptr", ppo, "ptr", ppd, "ptr")
+        result := DllCall("GDI32.dll\PATHOBJ_bEnum", "ptr", ppo, "ptr", ppd, "int")
         return result
     }
 
@@ -4669,7 +4669,7 @@ class Display {
      * @since windows5.0
      */
     static PATHOBJ_bEnumClipLines(ppo, cb, pcl) {
-        result := DllCall("GDI32.dll\PATHOBJ_bEnumClipLines", "ptr", ppo, "uint", cb, "ptr", pcl, "ptr")
+        result := DllCall("GDI32.dll\PATHOBJ_bEnumClipLines", "ptr", ppo, "uint", cb, "ptr", pcl, "int")
         return result
     }
 
@@ -4706,7 +4706,7 @@ class Display {
      * @since windows5.0
      */
     static STROBJ_bEnum(pstro, pc, ppgpos) {
-        result := DllCall("GDI32.dll\STROBJ_bEnum", "ptr", pstro, "uint*", pc, "ptr", ppgpos, "ptr")
+        result := DllCall("GDI32.dll\STROBJ_bEnum", "ptr", pstro, "uint*", pc, "ptr", ppgpos, "int")
         return result
     }
 
@@ -4720,7 +4720,7 @@ class Display {
      * @since windows5.0
      */
     static STROBJ_bEnumPositionsOnly(pstro, pc, ppgpos) {
-        result := DllCall("GDI32.dll\STROBJ_bEnumPositionsOnly", "ptr", pstro, "uint*", pc, "ptr", ppgpos, "ptr")
+        result := DllCall("GDI32.dll\STROBJ_bEnumPositionsOnly", "ptr", pstro, "uint*", pc, "ptr", ppgpos, "int")
         return result
     }
 
@@ -4747,7 +4747,7 @@ class Display {
      * @since windows5.0
      */
     static STROBJ_bGetAdvanceWidths(pso, iFirst, c, pptqD) {
-        result := DllCall("GDI32.dll\STROBJ_bGetAdvanceWidths", "ptr", pso, "uint", iFirst, "uint", c, "ptr", pptqD, "ptr")
+        result := DllCall("GDI32.dll\STROBJ_bGetAdvanceWidths", "ptr", pso, "uint", iFirst, "uint", c, "ptr", pptqD, "int")
         return result
     }
 
@@ -4874,7 +4874,7 @@ class Display {
      * @since windows5.0
      */
     static XFORMOBJ_bApplyXform(pxo, iMode, cPoints, pvIn, pvOut) {
-        result := DllCall("GDI32.dll\XFORMOBJ_bApplyXform", "ptr", pxo, "uint", iMode, "uint", cPoints, "ptr", pvIn, "ptr", pvOut, "ptr")
+        result := DllCall("GDI32.dll\XFORMOBJ_bApplyXform", "ptr", pxo, "uint", iMode, "uint", cPoints, "ptr", pvIn, "ptr", pvOut, "int")
         return result
     }
 
@@ -4992,7 +4992,7 @@ class Display {
     static EngDeleteSurface(hsurf) {
         hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
 
-        result := DllCall("GDI32.dll\EngDeleteSurface", "ptr", hsurf, "ptr")
+        result := DllCall("GDI32.dll\EngDeleteSurface", "ptr", hsurf, "int")
         return result
     }
 
@@ -5031,7 +5031,7 @@ class Display {
      * @since windows5.0
      */
     static EngEraseSurface(pso, prcl, iColor) {
-        result := DllCall("GDI32.dll\EngEraseSurface", "ptr", pso, "ptr", prcl, "uint", iColor, "ptr")
+        result := DllCall("GDI32.dll\EngEraseSurface", "ptr", pso, "ptr", prcl, "uint", iColor, "int")
         return result
     }
 
@@ -5048,7 +5048,7 @@ class Display {
         hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
         hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
 
-        result := DllCall("GDI32.dll\EngAssociateSurface", "ptr", hsurf, "ptr", hdev, "uint", flHooks, "ptr")
+        result := DllCall("GDI32.dll\EngAssociateSurface", "ptr", hsurf, "ptr", hdev, "uint", flHooks, "int")
         return result
     }
 
@@ -5062,7 +5062,7 @@ class Display {
     static EngMarkBandingSurface(hsurf) {
         hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
 
-        result := DllCall("GDI32.dll\EngMarkBandingSurface", "ptr", hsurf, "ptr")
+        result := DllCall("GDI32.dll\EngMarkBandingSurface", "ptr", hsurf, "int")
         return result
     }
 
@@ -5074,7 +5074,7 @@ class Display {
      * @since windows5.0
      */
     static EngCheckAbort(pso) {
-        result := DllCall("GDI32.dll\EngCheckAbort", "ptr", pso, "ptr")
+        result := DllCall("GDI32.dll\EngCheckAbort", "ptr", pso, "int")
         return result
     }
 
@@ -5116,7 +5116,7 @@ class Display {
     static EngDeletePalette(hpal) {
         hpal := hpal is Win32Handle ? NumGet(hpal, "ptr") : hpal
 
-        result := DllCall("GDI32.dll\EngDeletePalette", "ptr", hpal, "ptr")
+        result := DllCall("GDI32.dll\EngDeletePalette", "ptr", hpal, "int")
         return result
     }
 
@@ -5168,7 +5168,7 @@ class Display {
      * @since windows5.0
      */
     static EngBitBlt(psoTrg, psoSrc, psoMask, pco, pxlo, prclTrg, pptlSrc, pptlMask, pbo, pptlBrush, rop4) {
-        result := DllCall("GDI32.dll\EngBitBlt", "ptr", psoTrg, "ptr", psoSrc, "ptr", psoMask, "ptr", pco, "ptr", pxlo, "ptr", prclTrg, "ptr", pptlSrc, "ptr", pptlMask, "ptr", pbo, "ptr", pptlBrush, "uint", rop4, "ptr")
+        result := DllCall("GDI32.dll\EngBitBlt", "ptr", psoTrg, "ptr", psoSrc, "ptr", psoMask, "ptr", pco, "ptr", pxlo, "ptr", prclTrg, "ptr", pptlSrc, "ptr", pptlMask, "ptr", pbo, "ptr", pptlBrush, "uint", rop4, "int")
         return result
     }
 
@@ -5188,7 +5188,7 @@ class Display {
      * @since windows5.0
      */
     static EngLineTo(pso, pco, pbo, x1, y1, x2, y2, prclBounds, mix) {
-        result := DllCall("GDI32.dll\EngLineTo", "ptr", pso, "ptr", pco, "ptr", pbo, "int", x1, "int", y1, "int", x2, "int", y2, "ptr", prclBounds, "uint", mix, "ptr")
+        result := DllCall("GDI32.dll\EngLineTo", "ptr", pso, "ptr", pco, "ptr", pbo, "int", x1, "int", y1, "int", x2, "int", y2, "ptr", prclBounds, "uint", mix, "int")
         return result
     }
 
@@ -5271,7 +5271,7 @@ class Display {
      * @since windows5.0
      */
     static EngStretchBlt(psoDest, psoSrc, psoMask, pco, pxlo, pca, pptlHTOrg, prclDest, prclSrc, pptlMask, iMode) {
-        result := DllCall("GDI32.dll\EngStretchBlt", "ptr", psoDest, "ptr", psoSrc, "ptr", psoMask, "ptr", pco, "ptr", pxlo, "ptr", pca, "ptr", pptlHTOrg, "ptr", prclDest, "ptr", prclSrc, "ptr", pptlMask, "uint", iMode, "ptr")
+        result := DllCall("GDI32.dll\EngStretchBlt", "ptr", psoDest, "ptr", psoSrc, "ptr", psoMask, "ptr", pco, "ptr", pxlo, "ptr", pca, "ptr", pptlHTOrg, "ptr", prclDest, "ptr", prclSrc, "ptr", pptlMask, "uint", iMode, "int")
         return result
     }
 
@@ -5311,7 +5311,7 @@ class Display {
      * @since windows5.0
      */
     static EngStretchBltROP(psoDest, psoSrc, psoMask, pco, pxlo, pca, pptlHTOrg, prclDest, prclSrc, pptlMask, iMode, pbo, rop4) {
-        result := DllCall("GDI32.dll\EngStretchBltROP", "ptr", psoDest, "ptr", psoSrc, "ptr", psoMask, "ptr", pco, "ptr", pxlo, "ptr", pca, "ptr", pptlHTOrg, "ptr", prclDest, "ptr", prclSrc, "ptr", pptlMask, "uint", iMode, "ptr", pbo, "uint", rop4, "ptr")
+        result := DllCall("GDI32.dll\EngStretchBltROP", "ptr", psoDest, "ptr", psoSrc, "ptr", psoMask, "ptr", pco, "ptr", pxlo, "ptr", pca, "ptr", pptlHTOrg, "ptr", prclDest, "ptr", prclSrc, "ptr", pptlMask, "uint", iMode, "ptr", pbo, "uint", rop4, "int")
         return result
     }
 
@@ -5355,7 +5355,7 @@ class Display {
      * @since windows5.0
      */
     static EngAlphaBlend(psoDest, psoSrc, pco, pxlo, prclDest, prclSrc, pBlendObj) {
-        result := DllCall("GDI32.dll\EngAlphaBlend", "ptr", psoDest, "ptr", psoSrc, "ptr", pco, "ptr", pxlo, "ptr", prclDest, "ptr", prclSrc, "ptr", pBlendObj, "ptr")
+        result := DllCall("GDI32.dll\EngAlphaBlend", "ptr", psoDest, "ptr", psoSrc, "ptr", pco, "ptr", pxlo, "ptr", prclDest, "ptr", prclSrc, "ptr", pBlendObj, "int")
         return result
     }
 
@@ -5380,7 +5380,7 @@ class Display {
      * @since windows5.0
      */
     static EngGradientFill(psoDest, pco, pxlo, pVertex, nVertex, pMesh, nMesh, prclExtents, pptlDitherOrg, ulMode) {
-        result := DllCall("GDI32.dll\EngGradientFill", "ptr", psoDest, "ptr", pco, "ptr", pxlo, "ptr", pVertex, "uint", nVertex, "ptr", pMesh, "uint", nMesh, "ptr", prclExtents, "ptr", pptlDitherOrg, "uint", ulMode, "ptr")
+        result := DllCall("GDI32.dll\EngGradientFill", "ptr", psoDest, "ptr", pco, "ptr", pxlo, "ptr", pVertex, "uint", nVertex, "ptr", pMesh, "uint", nMesh, "ptr", prclExtents, "ptr", pptlDitherOrg, "uint", ulMode, "int")
         return result
     }
 
@@ -5405,7 +5405,7 @@ class Display {
      * @since windows5.0
      */
     static EngTransparentBlt(psoDst, psoSrc, pco, pxlo, prclDst, prclSrc, TransColor, bCalledFromBitBlt) {
-        result := DllCall("GDI32.dll\EngTransparentBlt", "ptr", psoDst, "ptr", psoSrc, "ptr", pco, "ptr", pxlo, "ptr", prclDst, "ptr", prclSrc, "uint", TransColor, "uint", bCalledFromBitBlt, "ptr")
+        result := DllCall("GDI32.dll\EngTransparentBlt", "ptr", psoDst, "ptr", psoSrc, "ptr", pco, "ptr", pxlo, "ptr", prclDst, "ptr", prclSrc, "uint", TransColor, "uint", bCalledFromBitBlt, "int")
         return result
     }
 
@@ -5426,7 +5426,7 @@ class Display {
      * @since windows5.0
      */
     static EngTextOut(pso, pstro, pfo, pco, prclExtra, prclOpaque, pboFore, pboOpaque, pptlOrg, mix) {
-        result := DllCall("GDI32.dll\EngTextOut", "ptr", pso, "ptr", pstro, "ptr", pfo, "ptr", pco, "ptr", prclExtra, "ptr", prclOpaque, "ptr", pboFore, "ptr", pboOpaque, "ptr", pptlOrg, "uint", mix, "ptr")
+        result := DllCall("GDI32.dll\EngTextOut", "ptr", pso, "ptr", pstro, "ptr", pfo, "ptr", pco, "ptr", prclExtra, "ptr", prclOpaque, "ptr", pboFore, "ptr", pboOpaque, "ptr", pptlOrg, "uint", mix, "int")
         return result
     }
 
@@ -5447,7 +5447,7 @@ class Display {
      * @since windows5.0
      */
     static EngStrokePath(pso, ppo, pco, pxo, pbo, pptlBrushOrg, plineattrs, mix) {
-        result := DllCall("GDI32.dll\EngStrokePath", "ptr", pso, "ptr", ppo, "ptr", pco, "ptr", pxo, "ptr", pbo, "ptr", pptlBrushOrg, "ptr", plineattrs, "uint", mix, "ptr")
+        result := DllCall("GDI32.dll\EngStrokePath", "ptr", pso, "ptr", ppo, "ptr", pco, "ptr", pxo, "ptr", pbo, "ptr", pptlBrushOrg, "ptr", plineattrs, "uint", mix, "int")
         return result
     }
 
@@ -5465,7 +5465,7 @@ class Display {
      * @since windows5.0
      */
     static EngFillPath(pso, ppo, pco, pbo, pptlBrushOrg, mix, flOptions) {
-        result := DllCall("GDI32.dll\EngFillPath", "ptr", pso, "ptr", ppo, "ptr", pco, "ptr", pbo, "ptr", pptlBrushOrg, "uint", mix, "uint", flOptions, "ptr")
+        result := DllCall("GDI32.dll\EngFillPath", "ptr", pso, "ptr", ppo, "ptr", pco, "ptr", pbo, "ptr", pptlBrushOrg, "uint", mix, "uint", flOptions, "int")
         return result
     }
 
@@ -5488,7 +5488,7 @@ class Display {
      * @since windows5.0
      */
     static EngStrokeAndFillPath(pso, ppo, pco, pxo, pboStroke, plineattrs, pboFill, pptlBrushOrg, mixFill, flOptions) {
-        result := DllCall("GDI32.dll\EngStrokeAndFillPath", "ptr", pso, "ptr", ppo, "ptr", pco, "ptr", pxo, "ptr", pboStroke, "ptr", plineattrs, "ptr", pboFill, "ptr", pptlBrushOrg, "uint", mixFill, "uint", flOptions, "ptr")
+        result := DllCall("GDI32.dll\EngStrokeAndFillPath", "ptr", pso, "ptr", ppo, "ptr", pco, "ptr", pxo, "ptr", pboStroke, "ptr", plineattrs, "ptr", pboFill, "ptr", pptlBrushOrg, "uint", mixFill, "uint", flOptions, "int")
         return result
     }
 
@@ -5504,7 +5504,7 @@ class Display {
      * @since windows5.0
      */
     static EngPaint(pso, pco, pbo, pptlBrushOrg, mix) {
-        result := DllCall("GDI32.dll\EngPaint", "ptr", pso, "ptr", pco, "ptr", pbo, "ptr", pptlBrushOrg, "uint", mix, "ptr")
+        result := DllCall("GDI32.dll\EngPaint", "ptr", pso, "ptr", pco, "ptr", pbo, "ptr", pptlBrushOrg, "uint", mix, "int")
         return result
     }
 
@@ -5521,7 +5521,7 @@ class Display {
      * @since windows5.0
      */
     static EngCopyBits(psoDest, psoSrc, pco, pxlo, prclDest, pptlSrc) {
-        result := DllCall("GDI32.dll\EngCopyBits", "ptr", psoDest, "ptr", psoSrc, "ptr", pco, "ptr", pxlo, "ptr", prclDest, "ptr", pptlSrc, "ptr")
+        result := DllCall("GDI32.dll\EngCopyBits", "ptr", psoDest, "ptr", psoSrc, "ptr", pco, "ptr", pxlo, "ptr", prclDest, "ptr", pptlSrc, "int")
         return result
     }
 
@@ -5555,7 +5555,7 @@ class Display {
      * @since windows5.0
      */
     static EngPlgBlt(psoTrg, psoSrc, psoMsk, pco, pxlo, pca, pptlBrushOrg, pptfx, prcl, pptl, iMode) {
-        result := DllCall("GDI32.dll\EngPlgBlt", "ptr", psoTrg, "ptr", psoSrc, "ptr", psoMsk, "ptr", pco, "ptr", pxlo, "ptr", pca, "ptr", pptlBrushOrg, "ptr", pptfx, "ptr", prcl, "ptr", pptl, "uint", iMode, "ptr")
+        result := DllCall("GDI32.dll\EngPlgBlt", "ptr", psoTrg, "ptr", psoSrc, "ptr", psoMsk, "ptr", pco, "ptr", pxlo, "ptr", pca, "ptr", pptlBrushOrg, "ptr", pptfx, "ptr", prcl, "ptr", pptl, "uint", iMode, "int")
         return result
     }
 
@@ -5599,7 +5599,7 @@ class Display {
      * @since windows5.0
      */
     static HT_Get8BPPMaskPalette(pPaletteEntry, Use8BPPMaskPal, CMYMask, RedGamma, GreenGamma, BlueGamma) {
-        result := DllCall("GDI32.dll\HT_Get8BPPMaskPalette", "ptr", pPaletteEntry, "ptr", Use8BPPMaskPal, "char", CMYMask, "ushort", RedGamma, "ushort", GreenGamma, "ushort", BlueGamma, "int")
+        result := DllCall("GDI32.dll\HT_Get8BPPMaskPalette", "ptr", pPaletteEntry, "int", Use8BPPMaskPal, "char", CMYMask, "ushort", RedGamma, "ushort", GreenGamma, "ushort", BlueGamma, "int")
         return result
     }
 
@@ -5613,7 +5613,7 @@ class Display {
     static EngGetPrinterDataFileName(hdev) {
         hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
 
-        result := DllCall("GDI32.dll\EngGetPrinterDataFileName", "ptr", hdev, "ptr")
+        result := DllCall("GDI32.dll\EngGetPrinterDataFileName", "ptr", hdev, "char*")
         return result
     }
 
@@ -5627,7 +5627,7 @@ class Display {
     static EngGetDriverName(hdev) {
         hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
 
-        result := DllCall("GDI32.dll\EngGetDriverName", "ptr", hdev, "ptr")
+        result := DllCall("GDI32.dll\EngGetDriverName", "ptr", hdev, "char*")
         return result
     }
 
@@ -5833,7 +5833,7 @@ class Display {
     static EngQueryEMFInfo(hdev, pEMFInfo) {
         hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
 
-        result := DllCall("GDI32.dll\EngQueryEMFInfo", "ptr", hdev, "ptr", pEMFInfo, "ptr")
+        result := DllCall("GDI32.dll\EngQueryEMFInfo", "ptr", hdev, "ptr", pEMFInfo, "int")
         return result
     }
 
@@ -6275,7 +6275,7 @@ class Display {
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getautorotationstate
      */
     static GetAutoRotationState(pState) {
-        result := DllCall("USER32.dll\GetAutoRotationState", "int*", pState, "ptr")
+        result := DllCall("USER32.dll\GetAutoRotationState", "int*", pState, "int")
         return result
     }
 
@@ -6286,7 +6286,7 @@ class Display {
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdisplayautorotationpreferences
      */
     static GetDisplayAutoRotationPreferences(pOrientation) {
-        result := DllCall("USER32.dll\GetDisplayAutoRotationPreferences", "int*", pOrientation, "ptr")
+        result := DllCall("USER32.dll\GetDisplayAutoRotationPreferences", "int*", pOrientation, "int")
         return result
     }
 
@@ -6299,7 +6299,7 @@ class Display {
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setdisplayautorotationpreferences
      */
     static SetDisplayAutoRotationPreferences(orientation) {
-        result := DllCall("USER32.dll\SetDisplayAutoRotationPreferences", "int", orientation, "ptr")
+        result := DllCall("USER32.dll\SetDisplayAutoRotationPreferences", "int", orientation, "int")
         return result
     }
 

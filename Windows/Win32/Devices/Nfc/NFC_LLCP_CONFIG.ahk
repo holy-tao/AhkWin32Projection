@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
@@ -47,11 +46,8 @@ class NFC_LLCP_CONFIG extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    fAutoActivate{
-        get {
-            if(!this.HasProp("__fAutoActivate"))
-                this.__fAutoActivate := BOOLEAN(this.ptr + 6)
-            return this.__fAutoActivate
-        }
+    fAutoActivate {
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
     }
 }

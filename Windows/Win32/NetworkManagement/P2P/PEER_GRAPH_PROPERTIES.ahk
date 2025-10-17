@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_GRAPH_PROPERTIES structure contains data about the policy of a peer graph, ID, scope, and other information.
@@ -99,48 +98,36 @@ class PEER_GRAPH_PROPERTIES extends Win32Struct
      * Specifies the unique identifier for a peer graph.  This ID must be unique for the computer/user pair. This member is required  and has no default value. If the string value is greater than 256 characters (including the null terminator), an error is returned.
      * @type {PWSTR}
      */
-    pwzGraphId{
-        get {
-            if(!this.HasProp("__pwzGraphId"))
-                this.__pwzGraphId := PWSTR(this.ptr + 16)
-            return this.__pwzGraphId
-        }
+    pwzGraphId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Specifies the unique identifier for the creator of a peer graph. This member is required  and has no default value. If the string value is greater than 256 characters (including the null terminator), an error is returned.
      * @type {PWSTR}
      */
-    pwzCreatorId{
-        get {
-            if(!this.HasProp("__pwzCreatorId"))
-                this.__pwzCreatorId := PWSTR(this.ptr + 24)
-            return this.__pwzCreatorId
-        }
+    pwzCreatorId {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Specifies the friendly name of a peer graph. This member is optional and can be <b>NULL</b>. The default value is <b>NULL</b>. The maximum length of this string is 256 characters, including the null terminator.
      * @type {PWSTR}
      */
-    pwzFriendlyName{
-        get {
-            if(!this.HasProp("__pwzFriendlyName"))
-                this.__pwzFriendlyName := PWSTR(this.ptr + 32)
-            return this.__pwzFriendlyName
-        }
+    pwzFriendlyName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Specifies the comment used to describe a peer  graph. This member is optional and can be <b>NULL</b>. The default value is <b>NULL</b>. The maximum length of this string is 512 characters, including the null terminator.
      * @type {PWSTR}
      */
-    pwzComment{
-        get {
-            if(!this.HasProp("__pwzComment"))
-                this.__pwzComment := PWSTR(this.ptr + 40)
-            return this.__pwzComment
-        }
+    pwzComment {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

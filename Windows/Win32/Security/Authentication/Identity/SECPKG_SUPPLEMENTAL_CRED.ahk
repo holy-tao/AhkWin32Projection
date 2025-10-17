@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -22,7 +21,7 @@ class SECPKG_SUPPLEMENTAL_CRED extends Win32Struct
     PackageName{
         get {
             if(!this.HasProp("__PackageName"))
-                this.__PackageName := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__PackageName := LSA_UNICODE_STRING(0, this)
             return this.__PackageName
         }
     }

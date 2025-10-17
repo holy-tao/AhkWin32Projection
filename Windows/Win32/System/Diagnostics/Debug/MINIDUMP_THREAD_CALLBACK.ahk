@@ -32,7 +32,7 @@ class MINIDUMP_THREAD_CALLBACK extends Win32Struct
     ThreadHandle{
         get {
             if(!this.HasProp("__ThreadHandle"))
-                this.__ThreadHandle := HANDLE(this.ptr + 8)
+                this.__ThreadHandle := HANDLE(8, this)
             return this.__ThreadHandle
         }
     }
@@ -45,7 +45,7 @@ class MINIDUMP_THREAD_CALLBACK extends Win32Struct
     Context{
         get {
             if(!this.HasProp("__Context"))
-                this.__Context := CONTEXT(this.ptr + 16)
+                this.__Context := CONTEXT(16, this)
             return this.__Context
         }
     }

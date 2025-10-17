@@ -28,7 +28,7 @@ class MFCameraIntrinsic_PinholeCameraModel extends Win32Struct
     FocalLength{
         get {
             if(!this.HasProp("__FocalLength"))
-                this.__FocalLength := MF_FLOAT2(this.ptr + 0)
+                this.__FocalLength := MF_FLOAT2(0, this)
             return this.__FocalLength
         }
     }
@@ -40,7 +40,7 @@ class MFCameraIntrinsic_PinholeCameraModel extends Win32Struct
     PrincipalPoint{
         get {
             if(!this.HasProp("__PrincipalPoint"))
-                this.__PrincipalPoint := MF_FLOAT2(this.ptr + 8)
+                this.__PrincipalPoint := MF_FLOAT2(8, this)
             return this.__PrincipalPoint
         }
     }

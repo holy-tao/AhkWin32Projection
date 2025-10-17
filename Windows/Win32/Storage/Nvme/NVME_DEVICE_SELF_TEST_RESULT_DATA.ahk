@@ -143,7 +143,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     Status{
         get {
             if(!this.HasProp("__Status"))
-                this.__Status := %this.__Class%._Status(this.ptr + 0)
+                this.__Status := %this.__Class%._Status(0, this)
             return this.__Status
         }
     }
@@ -162,7 +162,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     ValidDiagnostics{
         get {
             if(!this.HasProp("__ValidDiagnostics"))
-                this.__ValidDiagnostics := %this.__Class%._ValidDiagnostics(this.ptr + 2)
+                this.__ValidDiagnostics := %this.__Class%._ValidDiagnostics(2, this)
             return this.__ValidDiagnostics
         }
     }
@@ -205,7 +205,7 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
     StatusCodeType{
         get {
             if(!this.HasProp("__StatusCodeType"))
-                this.__StatusCodeType := %this.__Class%._StatusCodeType(this.ptr + 32)
+                this.__StatusCodeType := %this.__Class%._StatusCodeType(32, this)
             return this.__StatusCodeType
         }
     }

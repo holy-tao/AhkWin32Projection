@@ -78,7 +78,7 @@ class THUMBBUTTON extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 16)
+                this.__hIcon := HICON(16, this)
             return this.__hIcon
         }
     }

@@ -20,7 +20,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYUNCOMPRESSEDENCRYPTIONLEVEL_OUTPUT extends Wi
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }

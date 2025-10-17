@@ -47,7 +47,7 @@ class MF_MDL_SHARED_PAYLOAD_KEY extends Win32Struct
     combined{
         get {
             if(!this.HasProp("__combined"))
-                this.__combined := %this.__Class%._combined(this.ptr + 0)
+                this.__combined := %this.__Class%._combined(0, this)
             return this.__combined
         }
     }

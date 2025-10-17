@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
 #Include .\WLAN_ASSOCIATION_ATTRIBUTES.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\WLAN_SECURITY_ATTRIBUTES.ahk
 
 /**
@@ -55,7 +54,7 @@ class WLAN_CONNECTION_ATTRIBUTES extends Win32Struct
     wlanAssociationAttributes{
         get {
             if(!this.HasProp("__wlanAssociationAttributes"))
-                this.__wlanAssociationAttributes := WLAN_ASSOCIATION_ATTRIBUTES(this.ptr + 520)
+                this.__wlanAssociationAttributes := WLAN_ASSOCIATION_ATTRIBUTES(520, this)
             return this.__wlanAssociationAttributes
         }
     }
@@ -67,7 +66,7 @@ class WLAN_CONNECTION_ATTRIBUTES extends Win32Struct
     wlanSecurityAttributes{
         get {
             if(!this.HasProp("__wlanSecurityAttributes"))
-                this.__wlanSecurityAttributes := WLAN_SECURITY_ATTRIBUTES(this.ptr + 592)
+                this.__wlanSecurityAttributes := WLAN_SECURITY_ATTRIBUTES(592, this)
             return this.__wlanSecurityAttributes
         }
     }

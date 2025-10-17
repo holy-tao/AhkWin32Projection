@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -47,22 +46,16 @@ class ADDRINFO_DNS_SERVER extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    ai_template{
-        get {
-            if(!this.HasProp("__ai_template"))
-                this.__ai_template := PWSTR(this.ptr + 32)
-            return this.__ai_template
-        }
+    ai_template {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    ai_hostname{
-        get {
-            if(!this.HasProp("__ai_hostname"))
-                this.__ai_hostname := PWSTR(this.ptr + 32)
-            return this.__ai_hostname
-        }
+    ai_hostname {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

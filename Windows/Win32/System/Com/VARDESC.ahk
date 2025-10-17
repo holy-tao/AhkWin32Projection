@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\TYPEDESC.ahk
 #Include .\IDLDESC.ahk
 #Include ..\Ole\PARAMDESC.ahk
@@ -31,12 +30,9 @@ class VARDESC extends Win32Struct
      * Reserved.
      * @type {PWSTR}
      */
-    lpstrSchema{
-        get {
-            if(!this.HasProp("__lpstrSchema"))
-                this.__lpstrSchema := PWSTR(this.ptr + 8)
-            return this.__lpstrSchema
-        }
+    lpstrSchema {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -62,7 +58,7 @@ class VARDESC extends Win32Struct
     elemdescVar{
         get {
             if(!this.HasProp("__elemdescVar"))
-                this.__elemdescVar := ELEMDESC(this.ptr + 24)
+                this.__elemdescVar := ELEMDESC(24, this)
             return this.__elemdescVar
         }
     }

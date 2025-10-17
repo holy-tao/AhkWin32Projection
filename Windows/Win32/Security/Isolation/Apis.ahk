@@ -34,7 +34,7 @@ class Isolation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", "ptr", Token, "ptr", AppContainerSid, "uint", ObjectPathLength, "ptr", ObjectPath, "uint*", ReturnLength, "ptr")
+        result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", "ptr", Token, "ptr", AppContainerSid, "uint", ObjectPathLength, "ptr", ObjectPath, "uint*", ReturnLength, "int")
         if(A_LastError)
             throw OSError()
 

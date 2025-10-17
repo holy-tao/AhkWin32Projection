@@ -21,7 +21,7 @@ class D2D1_SIMPLE_COLOR_PROFILE extends Win32Struct
     redPrimary{
         get {
             if(!this.HasProp("__redPrimary"))
-                this.__redPrimary := D2D_POINT_2F(this.ptr + 0)
+                this.__redPrimary := D2D_POINT_2F(0, this)
             return this.__redPrimary
         }
     }
@@ -33,7 +33,7 @@ class D2D1_SIMPLE_COLOR_PROFILE extends Win32Struct
     greenPrimary{
         get {
             if(!this.HasProp("__greenPrimary"))
-                this.__greenPrimary := D2D_POINT_2F(this.ptr + 8)
+                this.__greenPrimary := D2D_POINT_2F(8, this)
             return this.__greenPrimary
         }
     }
@@ -45,7 +45,7 @@ class D2D1_SIMPLE_COLOR_PROFILE extends Win32Struct
     bluePrimary{
         get {
             if(!this.HasProp("__bluePrimary"))
-                this.__bluePrimary := D2D_POINT_2F(this.ptr + 16)
+                this.__bluePrimary := D2D_POINT_2F(16, this)
             return this.__bluePrimary
         }
     }
@@ -57,7 +57,7 @@ class D2D1_SIMPLE_COLOR_PROFILE extends Win32Struct
     whitePointXZ{
         get {
             if(!this.HasProp("__whitePointXZ"))
-                this.__whitePointXZ := D2D_POINT_2F(this.ptr + 24)
+                this.__whitePointXZ := D2D_POINT_2F(24, this)
             return this.__whitePointXZ
         }
     }

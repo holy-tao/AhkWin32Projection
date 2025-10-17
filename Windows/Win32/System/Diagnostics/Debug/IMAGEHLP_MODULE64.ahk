@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains module information.
@@ -170,60 +169,45 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * A value that indicates whether the loaded PDB is unmatched.
      * @type {BOOL}
      */
-    PdbUnmatched{
-        get {
-            if(!this.HasProp("__PdbUnmatched"))
-                this.__PdbUnmatched := BOOL(this.ptr + 3220)
-            return this.__PdbUnmatched
-        }
+    PdbUnmatched {
+        get => NumGet(this, 3220, "int")
+        set => NumPut("int", value, this, 3220)
     }
 
     /**
      * A value that indicates whether the loaded DBG is unmatched.
      * @type {BOOL}
      */
-    DbgUnmatched{
-        get {
-            if(!this.HasProp("__DbgUnmatched"))
-                this.__DbgUnmatched := BOOL(this.ptr + 3224)
-            return this.__DbgUnmatched
-        }
+    DbgUnmatched {
+        get => NumGet(this, 3224, "int")
+        set => NumPut("int", value, this, 3224)
     }
 
     /**
      * A value that indicates whether line number information is available.
      * @type {BOOL}
      */
-    LineNumbers{
-        get {
-            if(!this.HasProp("__LineNumbers"))
-                this.__LineNumbers := BOOL(this.ptr + 3228)
-            return this.__LineNumbers
-        }
+    LineNumbers {
+        get => NumGet(this, 3228, "int")
+        set => NumPut("int", value, this, 3228)
     }
 
     /**
      * A value that indicates whether symbol information is available.
      * @type {BOOL}
      */
-    GlobalSymbols{
-        get {
-            if(!this.HasProp("__GlobalSymbols"))
-                this.__GlobalSymbols := BOOL(this.ptr + 3232)
-            return this.__GlobalSymbols
-        }
+    GlobalSymbols {
+        get => NumGet(this, 3232, "int")
+        set => NumPut("int", value, this, 3232)
     }
 
     /**
      * A value that indicates whether type information is available.
      * @type {BOOL}
      */
-    TypeInfo{
-        get {
-            if(!this.HasProp("__TypeInfo"))
-                this.__TypeInfo := BOOL(this.ptr + 3236)
-            return this.__TypeInfo
-        }
+    TypeInfo {
+        get => NumGet(this, 3236, "int")
+        set => NumPut("int", value, this, 3236)
     }
 
     /**
@@ -232,12 +216,9 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * <b>DbgHelp 6.1 and earlier:  </b>This member is not supported.
      * @type {BOOL}
      */
-    SourceIndexed{
-        get {
-            if(!this.HasProp("__SourceIndexed"))
-                this.__SourceIndexed := BOOL(this.ptr + 3240)
-            return this.__SourceIndexed
-        }
+    SourceIndexed {
+        get => NumGet(this, 3240, "int")
+        set => NumPut("int", value, this, 3240)
     }
 
     /**
@@ -246,12 +227,9 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * <b>DbgHelp 6.1 and earlier:  </b>This member is not supported.
      * @type {BOOL}
      */
-    Publics{
-        get {
-            if(!this.HasProp("__Publics"))
-                this.__Publics := BOOL(this.ptr + 3244)
-            return this.__Publics
-        }
+    Publics {
+        get => NumGet(this, 3244, "int")
+        set => NumPut("int", value, this, 3244)
     }
 
     /**

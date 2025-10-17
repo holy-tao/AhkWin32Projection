@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\MFVideoNormalizedRect.ahk
 
@@ -31,12 +30,9 @@ class MFVideoAlphaBitmapParams extends Win32Struct
      * You cannot specify a color key if you are alpha-blending a Direct3D surface with per-pixel alpha (D3DFMT_A8R8G8B8).
      * @type {COLORREF}
      */
-    clrSrcKey{
-        get {
-            if(!this.HasProp("__clrSrcKey"))
-                this.__clrSrcKey := COLORREF(this.ptr + 4)
-            return this.__clrSrcKey
-        }
+    clrSrcKey {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -54,7 +50,7 @@ class MFVideoAlphaBitmapParams extends Win32Struct
     rcSrc{
         get {
             if(!this.HasProp("__rcSrc"))
-                this.__rcSrc := RECT(this.ptr + 8)
+                this.__rcSrc := RECT(8, this)
             return this.__rcSrc
         }
     }
@@ -68,7 +64,7 @@ class MFVideoAlphaBitmapParams extends Win32Struct
     nrcDest{
         get {
             if(!this.HasProp("__nrcDest"))
-                this.__nrcDest := MFVideoNormalizedRect(this.ptr + 24)
+                this.__nrcDest := MFVideoNormalizedRect(24, this)
             return this.__nrcDest
         }
     }

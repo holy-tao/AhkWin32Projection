@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies the parameters used when using the WlanConnect function.
@@ -33,12 +32,9 @@ class WLAN_CONNECTION_PARAMETERS extends Win32Struct
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The profile must meet the compatibility criteria described in <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wireless-profile-compatibility">Wireless Profile Compatibility</a>.
      * @type {PWSTR}
      */
-    strProfile{
-        get {
-            if(!this.HasProp("__strProfile"))
-                this.__strProfile := PWSTR(this.ptr + 8)
-            return this.__strProfile
-        }
+    strProfile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

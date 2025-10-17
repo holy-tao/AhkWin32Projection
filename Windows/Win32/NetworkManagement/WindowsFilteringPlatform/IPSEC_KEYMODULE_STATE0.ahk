@@ -35,7 +35,7 @@ class IPSEC_KEYMODULE_STATE0 extends Win32Struct
     stateBlob{
         get {
             if(!this.HasProp("__stateBlob"))
-                this.__stateBlob := FWP_BYTE_BLOB(this.ptr + 8)
+                this.__stateBlob := FWP_BYTE_BLOB(8, this)
             return this.__stateBlob
         }
     }

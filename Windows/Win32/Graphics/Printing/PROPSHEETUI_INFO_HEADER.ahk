@@ -44,7 +44,7 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     hWndParent{
         get {
             if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(this.ptr + 16)
+                this.__hWndParent := HWND(16, this)
             return this.__hWndParent
         }
     }
@@ -55,7 +55,7 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     hInst{
         get {
             if(!this.HasProp("__hInst"))
-                this.__hInst := HINSTANCE(this.ptr + 24)
+                this.__hInst := HINSTANCE(24, this)
             return this.__hInst
         }
     }
@@ -66,7 +66,7 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 32)
+                this.__hIcon := HICON(32, this)
             return this.__hIcon
         }
     }
@@ -79,12 +79,8 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
         set => NumPut("ptr", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

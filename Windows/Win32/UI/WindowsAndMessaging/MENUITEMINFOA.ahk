@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HMENU.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a menu item.
@@ -194,7 +193,7 @@ class MENUITEMINFOA extends Win32Struct
     hSubMenu{
         get {
             if(!this.HasProp("__hSubMenu"))
-                this.__hSubMenu := HMENU(this.ptr + 24)
+                this.__hSubMenu := HMENU(24, this)
             return this.__hSubMenu
         }
     }
@@ -210,7 +209,7 @@ class MENUITEMINFOA extends Win32Struct
     hbmpChecked{
         get {
             if(!this.HasProp("__hbmpChecked"))
-                this.__hbmpChecked := HBITMAP(this.ptr + 32)
+                this.__hbmpChecked := HBITMAP(32, this)
             return this.__hbmpChecked
         }
     }
@@ -226,7 +225,7 @@ class MENUITEMINFOA extends Win32Struct
     hbmpUnchecked{
         get {
             if(!this.HasProp("__hbmpUnchecked"))
-                this.__hbmpUnchecked := HBITMAP(this.ptr + 40)
+                this.__hbmpUnchecked := HBITMAP(40, this)
             return this.__hbmpUnchecked
         }
     }
@@ -265,12 +264,9 @@ class MENUITEMINFOA extends Win32Struct
      * 						<b>fMask</b> member
      * @type {PSTR}
      */
-    dwTypeData{
-        get {
-            if(!this.HasProp("__dwTypeData"))
-                this.__dwTypeData := PSTR(this.ptr + 56)
-            return this.__dwTypeData
-        }
+    dwTypeData {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -436,17 +432,13 @@ class MENUITEMINFOA extends Win32Struct
     hbmpItem{
         get {
             if(!this.HasProp("__hbmpItem"))
-                this.__hbmpItem := HBITMAP(this.ptr + 72)
+                this.__hbmpItem := HBITMAP(72, this)
             return this.__hbmpItem
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 80
     }
 }

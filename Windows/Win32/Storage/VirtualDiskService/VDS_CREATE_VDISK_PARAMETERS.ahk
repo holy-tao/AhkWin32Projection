@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the parameters to be used when a virtual disk is created.
@@ -54,23 +53,17 @@ class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct
      * A <b>NULL</b>-terminated wide-character string that contains an optional path to a parent virtual disk object. This member associates the new virtual disk with an existing virtual disk.
      * @type {PWSTR}
      */
-    pParentPath{
-        get {
-            if(!this.HasProp("__pParentPath"))
-                this.__pParentPath := PWSTR(this.ptr + 24)
-            return this.__pParentPath
-        }
+    pParentPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains an optional path to a source of data to be copied to the new virtual disk.
      * @type {PWSTR}
      */
-    pSourcePath{
-        get {
-            if(!this.HasProp("__pSourcePath"))
-                this.__pSourcePath := PWSTR(this.ptr + 32)
-            return this.__pSourcePath
-        }
+    pSourcePath {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

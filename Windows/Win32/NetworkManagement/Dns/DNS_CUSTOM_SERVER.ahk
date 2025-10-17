@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -31,23 +30,17 @@ class DNS_CUSTOM_SERVER extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszTemplate{
-        get {
-            if(!this.HasProp("__pwszTemplate"))
-                this.__pwszTemplate := PWSTR(this.ptr + 16)
-            return this.__pwszTemplate
-        }
+    pwszTemplate {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszHostname{
-        get {
-            if(!this.HasProp("__pwszHostname"))
-                this.__pwszHostname := PWSTR(this.ptr + 16)
-            return this.__pwszHostname
-        }
+    pwszHostname {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

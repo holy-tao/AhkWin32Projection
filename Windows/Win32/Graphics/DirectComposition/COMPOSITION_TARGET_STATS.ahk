@@ -42,7 +42,7 @@ class COMPOSITION_TARGET_STATS extends Win32Struct
     presentedStats{
         get {
             if(!this.HasProp("__presentedStats"))
-                this.__presentedStats := COMPOSITION_STATS(this.ptr + 24)
+                this.__presentedStats := COMPOSITION_STATS(24, this)
             return this.__presentedStats
         }
     }
@@ -53,7 +53,7 @@ class COMPOSITION_TARGET_STATS extends Win32Struct
     completedStats{
         get {
             if(!this.HasProp("__completedStats"))
-                this.__completedStats := COMPOSITION_STATS(this.ptr + 48)
+                this.__completedStats := COMPOSITION_STATS(48, this)
             return this.__completedStats
         }
     }

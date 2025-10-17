@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ONEX_STATUS.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\ONEX_VARIABLE_BLOB.ahk
 
 /**
@@ -30,7 +29,7 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
     oneXStatus{
         get {
             if(!this.HasProp("__oneXStatus"))
-                this.__oneXStatus := ONEX_STATUS(this.ptr + 0)
+                this.__oneXStatus := ONEX_STATUS(0, this)
             return this.__oneXStatus
         }
     }
@@ -53,12 +52,9 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
      * Indicates if a response was received from the 802.1X authentication server.
      * @type {BOOL}
      */
-    fBackendEngaged{
-        get {
-            if(!this.HasProp("__fBackendEngaged"))
-                this.__fBackendEngaged := BOOL(this.ptr + 16)
-            return this.__fBackendEngaged
-        }
+    fBackendEngaged {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -97,7 +93,7 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
     authParams{
         get {
             if(!this.HasProp("__authParams"))
-                this.__authParams := ONEX_VARIABLE_BLOB(this.ptr + 24)
+                this.__authParams := ONEX_VARIABLE_BLOB(24, this)
             return this.__authParams
         }
     }
@@ -109,7 +105,7 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
     eapError{
         get {
             if(!this.HasProp("__eapError"))
-                this.__eapError := ONEX_VARIABLE_BLOB(this.ptr + 32)
+                this.__eapError := ONEX_VARIABLE_BLOB(32, this)
             return this.__eapError
         }
     }

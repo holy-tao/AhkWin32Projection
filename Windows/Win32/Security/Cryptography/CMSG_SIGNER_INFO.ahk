@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_ATTRIBUTES.ahk
 
@@ -33,7 +32,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
     Issuer{
         get {
             if(!this.HasProp("__Issuer"))
-                this.__Issuer := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Issuer := CRYPT_INTEGER_BLOB(8, this)
             return this.__Issuer
         }
     }
@@ -46,7 +45,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumber"))
-                this.__SerialNumber := CRYPT_INTEGER_BLOB(this.ptr + 24)
+                this.__SerialNumber := CRYPT_INTEGER_BLOB(24, this)
             return this.__SerialNumber
         }
     }
@@ -58,7 +57,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 40)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(40, this)
             return this.__HashAlgorithm
         }
     }
@@ -70,7 +69,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
     HashEncryptionAlgorithm{
         get {
             if(!this.HasProp("__HashEncryptionAlgorithm"))
-                this.__HashEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 64)
+                this.__HashEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(64, this)
             return this.__HashEncryptionAlgorithm
         }
     }
@@ -83,7 +82,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
     EncryptedHash{
         get {
             if(!this.HasProp("__EncryptedHash"))
-                this.__EncryptedHash := CRYPT_INTEGER_BLOB(this.ptr + 88)
+                this.__EncryptedHash := CRYPT_INTEGER_BLOB(88, this)
             return this.__EncryptedHash
         }
     }
@@ -95,7 +94,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
     AuthAttrs{
         get {
             if(!this.HasProp("__AuthAttrs"))
-                this.__AuthAttrs := CRYPT_ATTRIBUTES(this.ptr + 104)
+                this.__AuthAttrs := CRYPT_ATTRIBUTES(104, this)
             return this.__AuthAttrs
         }
     }
@@ -107,7 +106,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
     UnauthAttrs{
         get {
             if(!this.HasProp("__UnauthAttrs"))
-                this.__UnauthAttrs := CRYPT_ATTRIBUTES(this.ptr + 120)
+                this.__UnauthAttrs := CRYPT_ATTRIBUTES(120, this)
             return this.__UnauthAttrs
         }
     }

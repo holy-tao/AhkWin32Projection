@@ -1,11 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
 #Include .\STGMEDIUM.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Security\SECURITY_ATTRIBUTES.ahk
 
 /**
@@ -29,12 +27,9 @@ class BINDINFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    szExtraInfo{
-        get {
-            if(!this.HasProp("__szExtraInfo"))
-                this.__szExtraInfo := PWSTR(this.ptr + 8)
-            return this.__szExtraInfo
-        }
+    szExtraInfo {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -43,7 +38,7 @@ class BINDINFO extends Win32Struct
     stgmedData{
         get {
             if(!this.HasProp("__stgmedData"))
-                this.__stgmedData := STGMEDIUM(this.ptr + 16)
+                this.__stgmedData := STGMEDIUM(16, this)
             return this.__stgmedData
         }
     }
@@ -67,12 +62,9 @@ class BINDINFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    szCustomVerb{
-        get {
-            if(!this.HasProp("__szCustomVerb"))
-                this.__szCustomVerb := PWSTR(this.ptr + 48)
-            return this.__szCustomVerb
-        }
+    szCustomVerb {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -113,7 +105,7 @@ class BINDINFO extends Win32Struct
     securityAttributes{
         get {
             if(!this.HasProp("__securityAttributes"))
-                this.__securityAttributes := SECURITY_ATTRIBUTES(this.ptr + 72)
+                this.__securityAttributes := SECURITY_ATTRIBUTES(72, this)
             return this.__securityAttributes
         }
     }
@@ -142,12 +134,8 @@ class BINDINFO extends Win32Struct
         set => NumPut("uint", value, this, 112)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 120
     }
 }

@@ -18,7 +18,7 @@ class SecPkgContext_UiInfo extends Win32Struct
     hParentWindow{
         get {
             if(!this.HasProp("__hParentWindow"))
-                this.__hParentWindow := HWND(this.ptr + 0)
+                this.__hParentWindow := HWND(0, this)
             return this.__hParentWindow
         }
     }

@@ -21,7 +21,7 @@ class AAAccountingData extends Win32Struct
     userName{
         get {
             if(!this.HasProp("__userName"))
-                this.__userName := BSTR(this.ptr + 0)
+                this.__userName := BSTR(0, this)
             return this.__userName
         }
     }
@@ -33,7 +33,7 @@ class AAAccountingData extends Win32Struct
     clientName{
         get {
             if(!this.HasProp("__clientName"))
-                this.__clientName := BSTR(this.ptr + 8)
+                this.__clientName := BSTR(8, this)
             return this.__clientName
         }
     }
@@ -54,7 +54,7 @@ class AAAccountingData extends Win32Struct
     resourceName{
         get {
             if(!this.HasProp("__resourceName"))
-                this.__resourceName := BSTR(this.ptr + 24)
+                this.__resourceName := BSTR(24, this)
             return this.__resourceName
         }
     }
@@ -75,7 +75,7 @@ class AAAccountingData extends Win32Struct
     protocolName{
         get {
             if(!this.HasProp("__protocolName"))
-                this.__protocolName := BSTR(this.ptr + 40)
+                this.__protocolName := BSTR(40, this)
             return this.__protocolName
         }
     }
@@ -105,7 +105,7 @@ class AAAccountingData extends Win32Struct
     reasonForDisconnect{
         get {
             if(!this.HasProp("__reasonForDisconnect"))
-                this.__reasonForDisconnect := BSTR(this.ptr + 56)
+                this.__reasonForDisconnect := BSTR(56, this)
             return this.__reasonForDisconnect
         }
     }

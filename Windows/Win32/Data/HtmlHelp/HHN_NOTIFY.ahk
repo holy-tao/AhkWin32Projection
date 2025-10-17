@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\Controls\NMHDR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Use this structure to return the file name of the topic that has been navigated to, or to return the window type name of the help window that has been created.
@@ -23,7 +22,7 @@ class HHN_NOTIFY extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -32,11 +31,8 @@ class HHN_NOTIFY extends Win32Struct
      * A multi-byte, zero-terminated string that specifies the topic navigated to, or the name of the help window being created.
      * @type {PSTR}
      */
-    pszUrl{
-        get {
-            if(!this.HasProp("__pszUrl"))
-                this.__pszUrl := PSTR(this.ptr + 24)
-            return this.__pszUrl
-        }
+    pszUrl {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

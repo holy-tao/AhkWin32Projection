@@ -34,7 +34,7 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG1 extends Win32Struct
     certificateName{
         get {
             if(!this.HasProp("__certificateName"))
-                this.__certificateName := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__certificateName := CRYPT_INTEGER_BLOB(8, this)
             return this.__certificateName
         }
     }
@@ -53,7 +53,7 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG1 extends Win32Struct
     certificateHash{
         get {
             if(!this.HasProp("__certificateHash"))
-                this.__certificateHash := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__certificateHash := CRYPT_INTEGER_BLOB(32, this)
             return this.__certificateHash
         }
     }

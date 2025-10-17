@@ -3,7 +3,6 @@
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\NORMALIZEDRECT.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The VMRALPHABITMAP structure is used in the VMR-7 filter's IVMRMixerBitmap methods when the application is providing a static alpha-blended bitmap to be displayed on the composited video frame.
@@ -100,7 +99,7 @@ class VMRALPHABITMAP extends Win32Struct
     hdc{
         get {
             if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 8)
+                this.__hdc := HDC(8, this)
             return this.__hdc
         }
     }
@@ -122,7 +121,7 @@ class VMRALPHABITMAP extends Win32Struct
     rSrc{
         get {
             if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECT(this.ptr + 24)
+                this.__rSrc := RECT(24, this)
             return this.__rSrc
         }
     }
@@ -134,7 +133,7 @@ class VMRALPHABITMAP extends Win32Struct
     rDest{
         get {
             if(!this.HasProp("__rDest"))
-                this.__rDest := NORMALIZEDRECT(this.ptr + 40)
+                this.__rDest := NORMALIZEDRECT(40, this)
             return this.__rDest
         }
     }
@@ -152,11 +151,8 @@ class VMRALPHABITMAP extends Win32Struct
      * Specifies the source color key.
      * @type {COLORREF}
      */
-    clrSrcKey{
-        get {
-            if(!this.HasProp("__clrSrcKey"))
-                this.__clrSrcKey := COLORREF(this.ptr + 60)
-            return this.__clrSrcKey
-        }
+    clrSrcKey {
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 }

@@ -33,7 +33,7 @@ class CERT_SELECT_CHAIN_PARA extends Win32Struct
     hChainEngine{
         get {
             if(!this.HasProp("__hChainEngine"))
-                this.__hChainEngine := HCERTCHAINENGINE(this.ptr + 0)
+                this.__hChainEngine := HCERTCHAINENGINE(0, this)
             return this.__hChainEngine
         }
     }
@@ -57,7 +57,7 @@ class CERT_SELECT_CHAIN_PARA extends Win32Struct
     hAdditionalStore{
         get {
             if(!this.HasProp("__hAdditionalStore"))
-                this.__hAdditionalStore := HCERTSTORE(this.ptr + 16)
+                this.__hAdditionalStore := HCERTSTORE(16, this)
             return this.__hAdditionalStore
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the size of a tiled region.
@@ -43,12 +42,9 @@ class D3D12_TILE_REGION_SIZE extends Win32Struct
      * When the region includes mipmaps that are packed with nonstandard tiling, <b>UseBox</b> must be <b>FALSE</b> because tile dimensions are not standard and the app only knows a count of how many tiles are consumed by the packed area, which is per array slice.  The corresponding (separate) starting location parameter uses x to offset into the flat range of tiles in this case, and y and z coordinates must each be 0.
      * @type {BOOL}
      */
-    UseBox{
-        get {
-            if(!this.HasProp("__UseBox"))
-                this.__UseBox := BOOL(this.ptr + 4)
-            return this.__UseBox
-        }
+    UseBox {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**

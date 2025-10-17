@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\CHAR.ahk
 #Include .\DCB.ahk
 
 /**
@@ -57,7 +56,7 @@ class COMMCONFIG extends Win32Struct
     dcb{
         get {
             if(!this.HasProp("__dcb"))
-                this.__dcb := DCB(this.ptr + 8)
+                this.__dcb := DCB(8, this)
             return this.__dcb
         }
     }

@@ -149,7 +149,7 @@ class LINEAGENTSESSIONINFO extends Win32Struct
     cyACDCallRate{
         get {
             if(!this.HasProp("__cyACDCallRate"))
-                this.__cyACDCallRate := CY(this.ptr + 64)
+                this.__cyACDCallRate := CY(64, this)
             return this.__cyACDCallRate
         }
     }

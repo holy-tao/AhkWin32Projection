@@ -265,7 +265,7 @@ class DDBLTFX extends Win32Struct
     ddckDestColorkey{
         get {
             if(!this.HasProp("__ddckDestColorkey"))
-                this.__ddckDestColorkey := DDCOLORKEY(this.ptr + 112)
+                this.__ddckDestColorkey := DDCOLORKEY(112, this)
             return this.__ddckDestColorkey
         }
     }
@@ -277,7 +277,7 @@ class DDBLTFX extends Win32Struct
     ddckSrcColorkey{
         get {
             if(!this.HasProp("__ddckSrcColorkey"))
-                this.__ddckSrcColorkey := DDCOLORKEY(this.ptr + 120)
+                this.__ddckSrcColorkey := DDCOLORKEY(120, this)
             return this.__ddckSrcColorkey
         }
     }

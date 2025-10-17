@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Used to initialize the access control editor.
@@ -33,7 +32,7 @@ class SI_OBJECT_INFO extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 8)
+                this.__hInstance := HINSTANCE(8, this)
             return this.__hInstance
         }
     }
@@ -42,36 +41,27 @@ class SI_OBJECT_INFO extends Win32Struct
      * A pointer to a <b>null</b>-terminated, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> string that names the computer on which to look up account names and SIDs. This value can be <b>NULL</b> to specify the local computer. The access control editor does not free this pointer.
      * @type {PWSTR}
      */
-    pszServerName{
-        get {
-            if(!this.HasProp("__pszServerName"))
-                this.__pszServerName := PWSTR(this.ptr + 16)
-            return this.__pszServerName
-        }
+    pszServerName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a <b>null</b>-terminated, Unicode string that names the object being edited. This name appears in the title of the advanced security property sheet and any error message boxes displayed by the access control editor. The access control editor does not free this pointer.
      * @type {PWSTR}
      */
-    pszObjectName{
-        get {
-            if(!this.HasProp("__pszObjectName"))
-                this.__pszObjectName := PWSTR(this.ptr + 24)
-            return this.__pszObjectName
-        }
+    pszObjectName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A pointer to a <b>null</b>-terminated, Unicode string used as the title of the basic security property page. This member is ignored unless the SI_PAGE_TITLE flag is set in <b>dwFlags</b>. If the page title is not provided, a default title is used. The access control editor does not free this pointer.
      * @type {PWSTR}
      */
-    pszPageTitle{
-        get {
-            if(!this.HasProp("__pszPageTitle"))
-                this.__pszPageTitle := PWSTR(this.ptr + 32)
-            return this.__pszPageTitle
-        }
+    pszPageTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

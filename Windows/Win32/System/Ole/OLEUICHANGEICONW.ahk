@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRSRC.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
@@ -59,7 +57,7 @@ class OLEUICHANGEICONW extends Win32Struct
     hWndOwner{
         get {
             if(!this.HasProp("__hWndOwner"))
-                this.__hWndOwner := HWND(this.ptr + 8)
+                this.__hWndOwner := HWND(8, this)
             return this.__hWndOwner
         }
     }
@@ -68,12 +66,9 @@ class OLEUICHANGEICONW extends Win32Struct
      * Pointer to a string to be used as the title of the dialog box. If **NULL**, then the library uses **Change Icon**.
      * @type {PWSTR}
      */
-    lpszCaption{
-        get {
-            if(!this.HasProp("__lpszCaption"))
-                this.__lpszCaption := PWSTR(this.ptr + 16)
-            return this.__lpszCaption
-        }
+    lpszCaption {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -89,12 +84,9 @@ class OLEUICHANGEICONW extends Win32Struct
      * Application-defined data that the library passes to the hook function pointed to by the **lpfnHook** member. The library passes a pointer to the **OLEUICHANGEICON** structure in the lParam parameter of the WM\_INITDIALOG message; this pointer can be used to retrieve the **lCustData** member.
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 32)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -104,7 +96,7 @@ class OLEUICHANGEICONW extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 40)
+                this.__hInstance := HINSTANCE(40, this)
             return this.__hInstance
         }
     }
@@ -113,12 +105,9 @@ class OLEUICHANGEICONW extends Win32Struct
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's **Change Icon** dialog box template.
      * @type {PWSTR}
      */
-    lpszTemplate{
-        get {
-            if(!this.HasProp("__lpszTemplate"))
-                this.__lpszTemplate := PWSTR(this.ptr + 48)
-            return this.__lpszTemplate
-        }
+    lpszTemplate {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -128,7 +117,7 @@ class OLEUICHANGEICONW extends Win32Struct
     hResource{
         get {
             if(!this.HasProp("__hResource"))
-                this.__hResource := HRSRC(this.ptr + 56)
+                this.__hResource := HRSRC(56, this)
             return this.__hResource
         }
     }
@@ -140,7 +129,7 @@ class OLEUICHANGEICONW extends Win32Struct
     hMetaPict{
         get {
             if(!this.HasProp("__hMetaPict"))
-                this.__hMetaPict := HGLOBAL(this.ptr + 64)
+                this.__hMetaPict := HGLOBAL(64, this)
             return this.__hMetaPict
         }
     }

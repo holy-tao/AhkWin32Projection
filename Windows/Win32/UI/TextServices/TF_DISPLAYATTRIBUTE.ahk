@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 #Include .\TF_DA_COLOR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The TF_DISPLAYATTRIBUTE structure contains display attribute data for rendering text.
@@ -23,7 +21,7 @@ class TF_DISPLAYATTRIBUTE extends Win32Struct
     crText{
         get {
             if(!this.HasProp("__crText"))
-                this.__crText := TF_DA_COLOR(this.ptr + 0)
+                this.__crText := TF_DA_COLOR(0, this)
             return this.__crText
         }
     }
@@ -35,7 +33,7 @@ class TF_DISPLAYATTRIBUTE extends Win32Struct
     crBk{
         get {
             if(!this.HasProp("__crBk"))
-                this.__crBk := TF_DA_COLOR(this.ptr + 8)
+                this.__crBk := TF_DA_COLOR(8, this)
             return this.__crBk
         }
     }
@@ -53,12 +51,9 @@ class TF_DISPLAYATTRIBUTE extends Win32Struct
      * A BOOL value that specifies if the underline should be bold or normal weight. If this value is nonzero, the underline should be bold. If this value is zero, the underline should be normal.
      * @type {BOOL}
      */
-    fBoldLine{
-        get {
-            if(!this.HasProp("__fBoldLine"))
-                this.__fBoldLine := BOOL(this.ptr + 20)
-            return this.__fBoldLine
-        }
+    fBoldLine {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -68,7 +63,7 @@ class TF_DISPLAYATTRIBUTE extends Win32Struct
     crLine{
         get {
             if(!this.HasProp("__crLine"))
-                this.__crLine := TF_DA_COLOR(this.ptr + 24)
+                this.__crLine := TF_DA_COLOR(24, this)
             return this.__crLine
         }
     }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\XPF_MCE_FLAGS.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include .\XPF_MC_BANK_FLAGS.ahk
 #Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
 #Include .\WHEA_XPF_MCE_DESCRIPTOR.ahk
@@ -120,7 +119,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     XpfMceDescriptor{
         get {
             if(!this.HasProp("__XpfMceDescriptor"))
-                this.__XpfMceDescriptor := WHEA_XPF_MCE_DESCRIPTOR(this.ptr + 40)
+                this.__XpfMceDescriptor := WHEA_XPF_MCE_DESCRIPTOR(40, this)
             return this.__XpfMceDescriptor
         }
     }
@@ -131,7 +130,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     XpfCmcDescriptor{
         get {
             if(!this.HasProp("__XpfCmcDescriptor"))
-                this.__XpfCmcDescriptor := WHEA_XPF_CMC_DESCRIPTOR(this.ptr + 40)
+                this.__XpfCmcDescriptor := WHEA_XPF_CMC_DESCRIPTOR(40, this)
             return this.__XpfCmcDescriptor
         }
     }
@@ -142,7 +141,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     XpfNmiDescriptor{
         get {
             if(!this.HasProp("__XpfNmiDescriptor"))
-                this.__XpfNmiDescriptor := WHEA_XPF_NMI_DESCRIPTOR(this.ptr + 40)
+                this.__XpfNmiDescriptor := WHEA_XPF_NMI_DESCRIPTOR(40, this)
             return this.__XpfNmiDescriptor
         }
     }
@@ -153,7 +152,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     IpfMcaDescriptor{
         get {
             if(!this.HasProp("__IpfMcaDescriptor"))
-                this.__IpfMcaDescriptor := WHEA_IPF_MCA_DESCRIPTOR(this.ptr + 40)
+                this.__IpfMcaDescriptor := WHEA_IPF_MCA_DESCRIPTOR(40, this)
             return this.__IpfMcaDescriptor
         }
     }
@@ -164,7 +163,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     IpfCmcDescriptor{
         get {
             if(!this.HasProp("__IpfCmcDescriptor"))
-                this.__IpfCmcDescriptor := WHEA_IPF_CMC_DESCRIPTOR(this.ptr + 40)
+                this.__IpfCmcDescriptor := WHEA_IPF_CMC_DESCRIPTOR(40, this)
             return this.__IpfCmcDescriptor
         }
     }
@@ -175,7 +174,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     IpfCpeDescriptor{
         get {
             if(!this.HasProp("__IpfCpeDescriptor"))
-                this.__IpfCpeDescriptor := WHEA_IPF_CPE_DESCRIPTOR(this.ptr + 40)
+                this.__IpfCpeDescriptor := WHEA_IPF_CPE_DESCRIPTOR(40, this)
             return this.__IpfCpeDescriptor
         }
     }
@@ -186,7 +185,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     AerRootportDescriptor{
         get {
             if(!this.HasProp("__AerRootportDescriptor"))
-                this.__AerRootportDescriptor := WHEA_AER_ROOTPORT_DESCRIPTOR(this.ptr + 40)
+                this.__AerRootportDescriptor := WHEA_AER_ROOTPORT_DESCRIPTOR(40, this)
             return this.__AerRootportDescriptor
         }
     }
@@ -197,7 +196,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     AerEndpointDescriptor{
         get {
             if(!this.HasProp("__AerEndpointDescriptor"))
-                this.__AerEndpointDescriptor := WHEA_AER_ENDPOINT_DESCRIPTOR(this.ptr + 40)
+                this.__AerEndpointDescriptor := WHEA_AER_ENDPOINT_DESCRIPTOR(40, this)
             return this.__AerEndpointDescriptor
         }
     }
@@ -208,7 +207,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     AerBridgeDescriptor{
         get {
             if(!this.HasProp("__AerBridgeDescriptor"))
-                this.__AerBridgeDescriptor := WHEA_AER_BRIDGE_DESCRIPTOR(this.ptr + 40)
+                this.__AerBridgeDescriptor := WHEA_AER_BRIDGE_DESCRIPTOR(40, this)
             return this.__AerBridgeDescriptor
         }
     }
@@ -219,7 +218,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     GenErrDescriptor{
         get {
             if(!this.HasProp("__GenErrDescriptor"))
-                this.__GenErrDescriptor := WHEA_GENERIC_ERROR_DESCRIPTOR(this.ptr + 40)
+                this.__GenErrDescriptor := WHEA_GENERIC_ERROR_DESCRIPTOR(40, this)
             return this.__GenErrDescriptor
         }
     }
@@ -230,7 +229,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     GenErrDescriptorV2{
         get {
             if(!this.HasProp("__GenErrDescriptorV2"))
-                this.__GenErrDescriptorV2 := WHEA_GENERIC_ERROR_DESCRIPTOR_V2(this.ptr + 40)
+                this.__GenErrDescriptorV2 := WHEA_GENERIC_ERROR_DESCRIPTOR_V2(40, this)
             return this.__GenErrDescriptorV2
         }
     }
@@ -241,7 +240,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     DeviceDriverDescriptor{
         get {
             if(!this.HasProp("__DeviceDriverDescriptor"))
-                this.__DeviceDriverDescriptor := WHEA_DEVICE_DRIVER_DESCRIPTOR(this.ptr + 40)
+                this.__DeviceDriverDescriptor := WHEA_DEVICE_DRIVER_DESCRIPTOR(40, this)
             return this.__DeviceDriverDescriptor
         }
     }

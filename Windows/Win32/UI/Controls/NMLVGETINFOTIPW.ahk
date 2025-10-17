@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains and receives list-view item information needed to display a tooltip for an item. This structure is used with the LVN_GETINFOTIP notification code.
@@ -38,7 +36,7 @@ class NMLVGETINFOTIPW extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -62,12 +60,9 @@ class NMLVGETINFOTIPW extends Win32Struct
      * 					<b>cchTextMax</b> structure.
      * @type {PWSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PWSTR(this.ptr + 32)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -110,11 +105,8 @@ class NMLVGETINFOTIPW extends Win32Struct
      * Application-defined value associated with the item. This member is not currently used and will always be zero.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 56)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

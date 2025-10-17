@@ -95,7 +95,7 @@ class SCH_CREDENTIALS extends Win32Struct
     hRootStore{
         get {
             if(!this.HasProp("__hRootStore"))
-                this.__hRootStore := HCERTSTORE(this.ptr + 24)
+                this.__hRootStore := HCERTSTORE(24, this)
             return this.__hRootStore
         }
     }

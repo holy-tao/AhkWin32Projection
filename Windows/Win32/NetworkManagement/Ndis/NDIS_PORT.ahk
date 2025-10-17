@@ -51,7 +51,7 @@ class NDIS_PORT extends Win32Struct
     PortCharacteristics{
         get {
             if(!this.HasProp("__PortCharacteristics"))
-                this.__PortCharacteristics := NDIS_PORT_CHARACTERISTICS(this.ptr + 32)
+                this.__PortCharacteristics := NDIS_PORT_CHARACTERISTICS(32, this)
             return this.__PortCharacteristics
         }
     }

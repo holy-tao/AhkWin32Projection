@@ -23,7 +23,7 @@ class SpatialAudioHrtfDirectivityUnion extends Win32Struct
     Cone{
         get {
             if(!this.HasProp("__Cone"))
-                this.__Cone := SpatialAudioHrtfDirectivityCone(this.ptr + 0)
+                this.__Cone := SpatialAudioHrtfDirectivityCone(0, this)
             return this.__Cone
         }
     }
@@ -35,7 +35,7 @@ class SpatialAudioHrtfDirectivityUnion extends Win32Struct
     Cardiod{
         get {
             if(!this.HasProp("__Cardiod"))
-                this.__Cardiod := SpatialAudioHrtfDirectivityCardioid(this.ptr + 0)
+                this.__Cardiod := SpatialAudioHrtfDirectivityCardioid(0, this)
             return this.__Cardiod
         }
     }
@@ -47,7 +47,7 @@ class SpatialAudioHrtfDirectivityUnion extends Win32Struct
     Omni{
         get {
             if(!this.HasProp("__Omni"))
-                this.__Omni := SpatialAudioHrtfDirectivity(this.ptr + 0)
+                this.__Omni := SpatialAudioHrtfDirectivity(0, this)
             return this.__Omni
         }
     }

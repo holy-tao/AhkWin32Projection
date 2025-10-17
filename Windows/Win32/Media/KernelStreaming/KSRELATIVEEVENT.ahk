@@ -36,7 +36,7 @@ class KSRELATIVEEVENT extends Win32Struct
     ObjectHandle{
         get {
             if(!this.HasProp("__ObjectHandle"))
-                this.__ObjectHandle := HANDLE(this.ptr + 8)
+                this.__ObjectHandle := HANDLE(8, this)
             return this.__ObjectHandle
         }
     }
@@ -63,7 +63,7 @@ class KSRELATIVEEVENT extends Win32Struct
     Event{
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := KSIDENTIFIER(this.ptr + 24)
+                this.__Event := KSIDENTIFIER(24, this)
             return this.__Event
         }
     }
@@ -74,7 +74,7 @@ class KSRELATIVEEVENT extends Win32Struct
     EventData{
         get {
             if(!this.HasProp("__EventData"))
-                this.__EventData := KSEVENTDATA(this.ptr + 40)
+                this.__EventData := KSEVENTDATA(40, this)
             return this.__EventData
         }
     }

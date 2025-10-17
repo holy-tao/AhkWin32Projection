@@ -18,7 +18,7 @@ class ICMPV4_ROUTER_ADVERT_ENTRY extends Win32Struct
     RouterAdvertAddr{
         get {
             if(!this.HasProp("__RouterAdvertAddr"))
-                this.__RouterAdvertAddr := IN_ADDR(this.ptr + 0)
+                this.__RouterAdvertAddr := IN_ADDR(0, this)
             return this.__RouterAdvertAddr
         }
     }

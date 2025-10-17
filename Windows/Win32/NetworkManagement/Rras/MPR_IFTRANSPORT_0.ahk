@@ -30,7 +30,7 @@ class MPR_IFTRANSPORT_0 extends Win32Struct
     hIfTransport{
         get {
             if(!this.HasProp("__hIfTransport"))
-                this.__hIfTransport := HANDLE(this.ptr + 8)
+                this.__hIfTransport := HANDLE(8, this)
             return this.__hIfTransport
         }
     }

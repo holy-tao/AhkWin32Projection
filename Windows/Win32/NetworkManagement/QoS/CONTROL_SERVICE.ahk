@@ -153,7 +153,7 @@ class CONTROL_SERVICE extends Win32Struct
     Overrides{
         get {
             if(!this.HasProp("__Overrides"))
-                this.__Overrides := AD_GENERAL_PARAMS(this.ptr + 8)
+                this.__Overrides := AD_GENERAL_PARAMS(8, this)
             return this.__Overrides
         }
     }
@@ -164,7 +164,7 @@ class CONTROL_SERVICE extends Win32Struct
     Guaranteed{
         get {
             if(!this.HasProp("__Guaranteed"))
-                this.__Guaranteed := AD_GUARANTEED(this.ptr + 32)
+                this.__Guaranteed := AD_GUARANTEED(32, this)
             return this.__Guaranteed
         }
     }

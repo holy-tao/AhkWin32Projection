@@ -21,7 +21,7 @@ class CERT_X942_DH_PARAMETERS extends Win32Struct
     p{
         get {
             if(!this.HasProp("__p"))
-                this.__p := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__p := CRYPT_INTEGER_BLOB(0, this)
             return this.__p
         }
     }
@@ -33,7 +33,7 @@ class CERT_X942_DH_PARAMETERS extends Win32Struct
     g{
         get {
             if(!this.HasProp("__g"))
-                this.__g := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__g := CRYPT_INTEGER_BLOB(16, this)
             return this.__g
         }
     }
@@ -50,7 +50,7 @@ class CERT_X942_DH_PARAMETERS extends Win32Struct
     q{
         get {
             if(!this.HasProp("__q"))
-                this.__q := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__q := CRYPT_INTEGER_BLOB(32, this)
             return this.__q
         }
     }
@@ -62,7 +62,7 @@ class CERT_X942_DH_PARAMETERS extends Win32Struct
     j{
         get {
             if(!this.HasProp("__j"))
-                this.__j := CRYPT_INTEGER_BLOB(this.ptr + 48)
+                this.__j := CRYPT_INTEGER_BLOB(48, this)
             return this.__j
         }
     }

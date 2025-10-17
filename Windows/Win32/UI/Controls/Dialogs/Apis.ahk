@@ -523,7 +523,7 @@ class Dialogs {
      * @since windows5.0
      */
     static GetOpenFileNameA(param0) {
-        result := DllCall("COMDLG32.dll\GetOpenFileNameA", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\GetOpenFileNameA", "ptr", param0, "int")
         return result
     }
 
@@ -539,7 +539,7 @@ class Dialogs {
      * @since windows5.0
      */
     static GetOpenFileNameW(param0) {
-        result := DllCall("COMDLG32.dll\GetOpenFileNameW", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\GetOpenFileNameW", "ptr", param0, "int")
         return result
     }
 
@@ -558,7 +558,7 @@ class Dialogs {
      * @since windows5.0
      */
     static GetSaveFileNameA(param0) {
-        result := DllCall("COMDLG32.dll\GetSaveFileNameA", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\GetSaveFileNameA", "ptr", param0, "int")
         return result
     }
 
@@ -577,7 +577,7 @@ class Dialogs {
      * @since windows5.0
      */
     static GetSaveFileNameW(param0) {
-        result := DllCall("COMDLG32.dll\GetSaveFileNameW", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\GetSaveFileNameW", "ptr", param0, "int")
         return result
     }
 
@@ -643,7 +643,7 @@ class Dialogs {
      * @returns {BOOL} 
      */
     static ChooseColorA(param0) {
-        result := DllCall("COMDLG32.dll\ChooseColorA", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\ChooseColorA", "ptr", param0, "int")
         return result
     }
 
@@ -653,7 +653,7 @@ class Dialogs {
      * @returns {BOOL} 
      */
     static ChooseColorW(param0) {
-        result := DllCall("COMDLG32.dll\ChooseColorW", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\ChooseColorW", "ptr", param0, "int")
         return result
     }
 
@@ -727,7 +727,7 @@ class Dialogs {
      * @returns {BOOL} 
      */
     static ChooseFontA(param0) {
-        result := DllCall("COMDLG32.dll\ChooseFontA", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\ChooseFontA", "ptr", param0, "int")
         return result
     }
 
@@ -737,7 +737,7 @@ class Dialogs {
      * @returns {BOOL} 
      */
     static ChooseFontW(param0) {
-        result := DllCall("COMDLG32.dll\ChooseFontW", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\ChooseFontW", "ptr", param0, "int")
         return result
     }
 
@@ -747,7 +747,7 @@ class Dialogs {
      * @returns {BOOL} 
      */
     static PrintDlgA(pPD) {
-        result := DllCall("COMDLG32.dll\PrintDlgA", "ptr", pPD, "ptr")
+        result := DllCall("COMDLG32.dll\PrintDlgA", "ptr", pPD, "int")
         return result
     }
 
@@ -757,7 +757,7 @@ class Dialogs {
      * @returns {BOOL} 
      */
     static PrintDlgW(pPD) {
-        result := DllCall("COMDLG32.dll\PrintDlgW", "ptr", pPD, "ptr")
+        result := DllCall("COMDLG32.dll\PrintDlgW", "ptr", pPD, "int")
         return result
     }
 
@@ -1235,7 +1235,7 @@ class Dialogs {
      * @returns {BOOL} 
      */
     static PageSetupDlgA(param0) {
-        result := DllCall("COMDLG32.dll\PageSetupDlgA", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\PageSetupDlgA", "ptr", param0, "int")
         return result
     }
 
@@ -1245,7 +1245,7 @@ class Dialogs {
      * @returns {BOOL} 
      */
     static PageSetupDlgW(param0) {
-        result := DllCall("COMDLG32.dll\PageSetupDlgW", "ptr", param0, "ptr")
+        result := DllCall("COMDLG32.dll\PageSetupDlgW", "ptr", param0, "int")
         return result
     }
 

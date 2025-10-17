@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information that is used to initialize the Link tab of the Object Properties dialog box.
@@ -63,12 +62,9 @@ class OLEUILINKPROPSW extends Win32Struct
      * Custom data to pass to hook (not used in this dialog box).
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 24)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

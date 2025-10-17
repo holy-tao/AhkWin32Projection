@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MMC_LISTPAD_INFO structure is introduced in MMC 1.1.
@@ -29,12 +28,9 @@ class MMC_LISTPAD_INFO extends Win32Struct
      * <b>MMC_LISTPAD_INFO</b> is the label for the list control and appears only on MMC list view taskpads.
      * @type {PWSTR}
      */
-    szTitle{
-        get {
-            if(!this.HasProp("__szTitle"))
-                this.__szTitle := PWSTR(this.ptr + 0)
-            return this.__szTitle
-        }
+    szTitle {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -49,12 +45,9 @@ class MMC_LISTPAD_INFO extends Win32Struct
      * To hide this button to appear on the taskpad, set <b>szButtonText</b> to <b>NULL</b>.
      * @type {PWSTR}
      */
-    szButtonText{
-        get {
-            if(!this.HasProp("__szButtonText"))
-                this.__szButtonText := PWSTR(this.ptr + 8)
-            return this.__szButtonText
-        }
+    szButtonText {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

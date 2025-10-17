@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -29,24 +27,18 @@ class CRYPT_OID_INFO extends Win32Struct
      * The OID associated with this OID information.
      * @type {PSTR}
      */
-    pszOID{
-        get {
-            if(!this.HasProp("__pszOID"))
-                this.__pszOID := PSTR(this.ptr + 8)
-            return this.__pszOID
-        }
+    pszOID {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The display name associated with an OID.
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 16)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -270,17 +262,13 @@ class CRYPT_OID_INFO extends Win32Struct
     ExtraInfo{
         get {
             if(!this.HasProp("__ExtraInfo"))
-                this.__ExtraInfo := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__ExtraInfo := CRYPT_INTEGER_BLOB(32, this)
             return this.__ExtraInfo
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

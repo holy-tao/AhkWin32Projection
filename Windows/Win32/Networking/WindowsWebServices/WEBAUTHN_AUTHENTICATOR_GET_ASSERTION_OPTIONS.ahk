@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_CREDENTIALS.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -37,7 +35,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     CredentialList{
         get {
             if(!this.HasProp("__CredentialList"))
-                this.__CredentialList := WEBAUTHN_CREDENTIALS(this.ptr + 8)
+                this.__CredentialList := WEBAUTHN_CREDENTIALS(8, this)
             return this.__CredentialList
         }
     }
@@ -48,7 +46,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     Extensions{
         get {
             if(!this.HasProp("__Extensions"))
-                this.__Extensions := WEBAUTHN_EXTENSIONS(this.ptr + 24)
+                this.__Extensions := WEBAUTHN_EXTENSIONS(24, this)
             return this.__Extensions
         }
     }
@@ -80,12 +78,9 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszU2fAppId{
-        get {
-            if(!this.HasProp("__pwszU2fAppId"))
-                this.__pwszU2fAppId := PWSTR(this.ptr + 56)
-            return this.__pwszU2fAppId
-        }
+    pwszU2fAppId {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -147,12 +142,9 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bBrowserInPrivateMode{
-        get {
-            if(!this.HasProp("__bBrowserInPrivateMode"))
-                this.__bBrowserInPrivateMode := BOOL(this.ptr + 112)
-            return this.__bBrowserInPrivateMode
-        }
+    bBrowserInPrivateMode {
+        get => NumGet(this, 112, "int")
+        set => NumPut("int", value, this, 112)
     }
 
     /**
@@ -166,12 +158,9 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bAutoFill{
-        get {
-            if(!this.HasProp("__bAutoFill"))
-                this.__bAutoFill := BOOL(this.ptr + 128)
-            return this.__bAutoFill
-        }
+    bAutoFill {
+        get => NumGet(this, 128, "int")
+        set => NumPut("int", value, this, 128)
     }
 
     /**

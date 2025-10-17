@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains both the data and header information.
@@ -51,12 +50,9 @@ class INTERNET_BUFFERSW extends Win32Struct
      * Pointer to a string value that contains the headers. This member can be <b>NULL</b>.
      * @type {PWSTR}
      */
-    lpcszHeader{
-        get {
-            if(!this.HasProp("__lpcszHeader"))
-                this.__lpcszHeader := PWSTR(this.ptr + 16)
-            return this.__lpcszHeader
-        }
+    lpcszHeader {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

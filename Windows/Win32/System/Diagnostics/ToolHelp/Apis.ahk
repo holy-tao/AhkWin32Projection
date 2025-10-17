@@ -67,7 +67,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Heap32ListFirst", "ptr", hSnapshot, "ptr", lphl, "ptr")
+        result := DllCall("KERNEL32.dll\Heap32ListFirst", "ptr", hSnapshot, "ptr", lphl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -90,7 +90,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Heap32ListNext", "ptr", hSnapshot, "ptr", lphl, "ptr")
+        result := DllCall("KERNEL32.dll\Heap32ListNext", "ptr", hSnapshot, "ptr", lphl, "int")
         if(A_LastError)
             throw OSError()
 
@@ -111,7 +111,7 @@ class ToolHelp {
     static Heap32First(lphe, th32ProcessID, th32HeapID) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Heap32First", "ptr", lphe, "uint", th32ProcessID, "ptr", th32HeapID, "ptr")
+        result := DllCall("KERNEL32.dll\Heap32First", "ptr", lphe, "uint", th32ProcessID, "ptr", th32HeapID, "int")
         if(A_LastError)
             throw OSError()
 
@@ -131,7 +131,7 @@ class ToolHelp {
     static Heap32Next(lphe) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Heap32Next", "ptr", lphe, "ptr")
+        result := DllCall("KERNEL32.dll\Heap32Next", "ptr", lphe, "int")
         if(A_LastError)
             throw OSError()
 
@@ -150,7 +150,7 @@ class ToolHelp {
      * @since windows5.1.2600
      */
     static Toolhelp32ReadProcessMemory(th32ProcessID, lpBaseAddress, lpBuffer, cbRead, lpNumberOfBytesRead) {
-        result := DllCall("KERNEL32.dll\Toolhelp32ReadProcessMemory", "uint", th32ProcessID, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", cbRead, "ptr*", lpNumberOfBytesRead, "ptr")
+        result := DllCall("KERNEL32.dll\Toolhelp32ReadProcessMemory", "uint", th32ProcessID, "ptr", lpBaseAddress, "ptr", lpBuffer, "ptr", cbRead, "ptr*", lpNumberOfBytesRead, "int")
         return result
     }
 
@@ -170,7 +170,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Process32FirstW", "ptr", hSnapshot, "ptr", lppe, "ptr")
+        result := DllCall("KERNEL32.dll\Process32FirstW", "ptr", hSnapshot, "ptr", lppe, "int")
         if(A_LastError)
             throw OSError()
 
@@ -193,7 +193,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Process32NextW", "ptr", hSnapshot, "ptr", lppe, "ptr")
+        result := DllCall("KERNEL32.dll\Process32NextW", "ptr", hSnapshot, "ptr", lppe, "int")
         if(A_LastError)
             throw OSError()
 
@@ -216,7 +216,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Process32First", "ptr", hSnapshot, "ptr", lppe, "ptr")
+        result := DllCall("KERNEL32.dll\Process32First", "ptr", hSnapshot, "ptr", lppe, "int")
         if(A_LastError)
             throw OSError()
 
@@ -239,7 +239,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Process32Next", "ptr", hSnapshot, "ptr", lppe, "ptr")
+        result := DllCall("KERNEL32.dll\Process32Next", "ptr", hSnapshot, "ptr", lppe, "int")
         if(A_LastError)
             throw OSError()
 
@@ -262,7 +262,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Thread32First", "ptr", hSnapshot, "ptr", lpte, "ptr")
+        result := DllCall("KERNEL32.dll\Thread32First", "ptr", hSnapshot, "ptr", lpte, "int")
         if(A_LastError)
             throw OSError()
 
@@ -285,7 +285,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Thread32Next", "ptr", hSnapshot, "ptr", lpte, "ptr")
+        result := DllCall("KERNEL32.dll\Thread32Next", "ptr", hSnapshot, "ptr", lpte, "int")
         if(A_LastError)
             throw OSError()
 
@@ -308,7 +308,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Module32FirstW", "ptr", hSnapshot, "ptr", lpme, "ptr")
+        result := DllCall("KERNEL32.dll\Module32FirstW", "ptr", hSnapshot, "ptr", lpme, "int")
         if(A_LastError)
             throw OSError()
 
@@ -331,7 +331,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Module32NextW", "ptr", hSnapshot, "ptr", lpme, "ptr")
+        result := DllCall("KERNEL32.dll\Module32NextW", "ptr", hSnapshot, "ptr", lpme, "int")
         if(A_LastError)
             throw OSError()
 
@@ -354,7 +354,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Module32First", "ptr", hSnapshot, "ptr", lpme, "ptr")
+        result := DllCall("KERNEL32.dll\Module32First", "ptr", hSnapshot, "ptr", lpme, "int")
         if(A_LastError)
             throw OSError()
 
@@ -377,7 +377,7 @@ class ToolHelp {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\Module32Next", "ptr", hSnapshot, "ptr", lpme, "ptr")
+        result := DllCall("KERNEL32.dll\Module32Next", "ptr", hSnapshot, "ptr", lpme, "int")
         if(A_LastError)
             throw OSError()
 

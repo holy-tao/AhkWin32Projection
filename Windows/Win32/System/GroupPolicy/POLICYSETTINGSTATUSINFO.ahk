@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -19,36 +18,27 @@ class POLICYSETTINGSTATUSINFO extends Win32Struct
      * This member is optional. If it is <b>NULL</b>, the system generates a value.
      * @type {PWSTR}
      */
-    szKey{
-        get {
-            if(!this.HasProp("__szKey"))
-                this.__szKey := PWSTR(this.ptr + 0)
-            return this.__szKey
-        }
+    szKey {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a string specifying the name of the source (application, service, driver, subsystem) that generated the log entry.
      * @type {PWSTR}
      */
-    szEventSource{
-        get {
-            if(!this.HasProp("__szEventSource"))
-                this.__szEventSource := PWSTR(this.ptr + 8)
-            return this.__szEventSource
-        }
+    szEventSource {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a string specifying the name of the event log.
      * @type {PWSTR}
      */
-    szEventLogName{
-        get {
-            if(!this.HasProp("__szEventLogName"))
-                this.__szEventLogName := PWSTR(this.ptr + 16)
-            return this.__szEventLogName
-        }
+    szEventLogName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -87,7 +77,7 @@ class POLICYSETTINGSTATUSINFO extends Win32Struct
     timeLogged{
         get {
             if(!this.HasProp("__timeLogged"))
-                this.__timeLogged := SYSTEMTIME(this.ptr + 40)
+                this.__timeLogged := SYSTEMTIME(40, this)
             return this.__timeLogged
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the data needed to request a token. It is used as the input parameter of the CLUSCTL_RESOURCE_NETNAME_GET_VIRTUAL_SERVER_TOKEN control code.
@@ -40,11 +39,8 @@ class CLUS_NETNAME_VS_TOKEN_INFO extends Win32Struct
      *       cannot be inherited.
      * @type {BOOL}
      */
-    InheritHandle{
-        get {
-            if(!this.HasProp("__InheritHandle"))
-                this.__InheritHandle := BOOL(this.ptr + 8)
-            return this.__InheritHandle
-        }
+    InheritHandle {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 }

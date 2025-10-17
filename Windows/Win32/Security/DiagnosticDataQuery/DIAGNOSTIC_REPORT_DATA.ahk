@@ -3,7 +3,6 @@
 #Include .\DIAGNOSTIC_REPORT_PARAMETER.ahk
 #Include .\DIAGNOSTIC_REPORT_SIGNATURE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * This resource contains information about a diagnostic report.
@@ -31,7 +30,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     signature{
         get {
             if(!this.HasProp("__signature"))
-                this.__signature := DIAGNOSTIC_REPORT_SIGNATURE(this.ptr + 0)
+                this.__signature := DIAGNOSTIC_REPORT_SIGNATURE(0, this)
             return this.__signature
         }
     }
@@ -64,7 +63,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     creationTime{
         get {
             if(!this.HasProp("__creationTime"))
-                this.__creationTime := FILETIME(this.ptr + 232)
+                this.__creationTime := FILETIME(232, this)
             return this.__creationTime
         }
     }
@@ -84,12 +83,9 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
      * The ID for the cab.
      * @type {PWSTR}
      */
-    cabId{
-        get {
-            if(!this.HasProp("__cabId"))
-                this.__cabId := PWSTR(this.ptr + 248)
-            return this.__cabId
-        }
+    cabId {
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 
     /**
@@ -137,12 +133,9 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
      * The display name of the application event.
      * @type {PWSTR}
      */
-    friendlyEventName{
-        get {
-            if(!this.HasProp("__friendlyEventName"))
-                this.__friendlyEventName := PWSTR(this.ptr + 288)
-            return this.__friendlyEventName
-        }
+    friendlyEventName {
+        get => NumGet(this, 288, "ptr")
+        set => NumPut("ptr", value, this, 288)
     }
 
     /**
@@ -150,12 +143,9 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
      * The name of the application.
      * @type {PWSTR}
      */
-    applicationName{
-        get {
-            if(!this.HasProp("__applicationName"))
-                this.__applicationName := PWSTR(this.ptr + 296)
-            return this.__applicationName
-        }
+    applicationName {
+        get => NumGet(this, 296, "ptr")
+        set => NumPut("ptr", value, this, 296)
     }
 
     /**
@@ -163,12 +153,9 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
      * The file path of the application.
      * @type {PWSTR}
      */
-    applicationPath{
-        get {
-            if(!this.HasProp("__applicationPath"))
-                this.__applicationPath := PWSTR(this.ptr + 304)
-            return this.__applicationPath
-        }
+    applicationPath {
+        get => NumGet(this, 304, "ptr")
+        set => NumPut("ptr", value, this, 304)
     }
 
     /**
@@ -176,12 +163,9 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
      * The description of the problem.
      * @type {PWSTR}
      */
-    description{
-        get {
-            if(!this.HasProp("__description"))
-                this.__description := PWSTR(this.ptr + 312)
-            return this.__description
-        }
+    description {
+        get => NumGet(this, 312, "ptr")
+        set => NumPut("ptr", value, this, 312)
     }
 
     /**
@@ -189,12 +173,9 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
      * The bucket ID as a string (possibly truncated).
      * @type {PWSTR}
      */
-    bucketIdString{
-        get {
-            if(!this.HasProp("__bucketIdString"))
-                this.__bucketIdString := PWSTR(this.ptr + 320)
-            return this.__bucketIdString
-        }
+    bucketIdString {
+        get => NumGet(this, 320, "ptr")
+        set => NumPut("ptr", value, this, 320)
     }
 
     /**
@@ -212,11 +193,8 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
      * The report key.
      * @type {PWSTR}
      */
-    reportKey{
-        get {
-            if(!this.HasProp("__reportKey"))
-                this.__reportKey := PWSTR(this.ptr + 336)
-            return this.__reportKey
-        }
+    reportKey {
+        get => NumGet(this, 336, "ptr")
+        set => NumPut("ptr", value, this, 336)
     }
 }

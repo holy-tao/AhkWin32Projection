@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Properties
@@ -19,7 +18,7 @@ class DEVPROPCOMPKEY extends Win32Struct
     Key{
         get {
             if(!this.HasProp("__Key"))
-                this.__Key := DEVPROPKEY(this.ptr + 0)
+                this.__Key := DEVPROPKEY(0, this)
             return this.__Key
         }
     }
@@ -35,11 +34,8 @@ class DEVPROPCOMPKEY extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    LocaleName{
-        get {
-            if(!this.HasProp("__LocaleName"))
-                this.__LocaleName := PWSTR(this.ptr + 24)
-            return this.__LocaleName
-        }
+    LocaleName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

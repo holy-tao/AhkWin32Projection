@@ -1,11 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\Com\CY.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\Foundation\CHAR.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 #Include ..\..\..\Foundation\DECIMAL.ahk
 #Include ..\..\Variant\VARIANT.ahk
 
@@ -30,45 +26,33 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PWSTR(this.ptr + 8)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszType{
-        get {
-            if(!this.HasProp("__pszType"))
-                this.__pszType := PWSTR(this.ptr + 16)
-            return this.__pszType
-        }
+    pszType {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszValue{
-        get {
-            if(!this.HasProp("__pszValue"))
-                this.__pszValue := PWSTR(this.ptr + 24)
-            return this.__pszValue
-        }
+    pszValue {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszFullName{
-        get {
-            if(!this.HasProp("__pszFullName"))
-                this.__pszFullName := PWSTR(this.ptr + 32)
-            return this.__pszFullName
-        }
+    pszFullName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -109,7 +93,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     varValue{
         get {
             if(!this.HasProp("__varValue"))
-                this.__varValue := VARIANT(this.ptr + 64)
+                this.__varValue := VARIANT(64, this)
             return this.__varValue
         }
     }

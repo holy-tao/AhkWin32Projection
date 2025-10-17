@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\LIFE_TIME.ahk
 #Include .\DIAG_SOCKADDR.ahk
@@ -25,12 +23,9 @@ class HELPER_ATTRIBUTE extends Win32Struct
      * A pointer to a null-terminated string that contains the name of the attribute.
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 0)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -47,12 +42,9 @@ class HELPER_ATTRIBUTE extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Boolean{
-        get {
-            if(!this.HasProp("__Boolean"))
-                this.__Boolean := BOOL(this.ptr + 16)
-            return this.__Boolean
-        }
+    Boolean {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -122,12 +114,9 @@ class HELPER_ATTRIBUTE extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    PWStr{
-        get {
-            if(!this.HasProp("__PWStr"))
-                this.__PWStr := PWSTR(this.ptr + 16)
-            return this.__PWStr
-        }
+    PWStr {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -144,7 +133,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     LifeTime{
         get {
             if(!this.HasProp("__LifeTime"))
-                this.__LifeTime := LIFE_TIME(this.ptr + 16)
+                this.__LifeTime := LIFE_TIME(16, this)
             return this.__LifeTime
         }
     }
@@ -155,7 +144,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := DIAG_SOCKADDR(this.ptr + 16)
+                this.__Address := DIAG_SOCKADDR(16, this)
             return this.__Address
         }
     }
@@ -166,7 +155,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     OctetString{
         get {
             if(!this.HasProp("__OctetString"))
-                this.__OctetString := OCTET_STRING(this.ptr + 16)
+                this.__OctetString := OCTET_STRING(16, this)
             return this.__OctetString
         }
     }

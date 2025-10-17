@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SERVER_INFO_1541 structure specifies the minimum number of free connection blocks the server sets aside to handle bursts of requests by clients to connect to the server.
@@ -18,11 +17,8 @@ class SERVER_INFO_1541 extends Win32Struct
      * Specifies the minimum number of free connection blocks maintained per endpoint. The server sets these aside to handle bursts of requests by clients to connect to the server.
      * @type {BOOL}
      */
-    sv1541_minfreeconnections{
-        get {
-            if(!this.HasProp("__sv1541_minfreeconnections"))
-                this.__sv1541_minfreeconnections := BOOL(this.ptr + 0)
-            return this.__sv1541_minfreeconnections
-        }
+    sv1541_minfreeconnections {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

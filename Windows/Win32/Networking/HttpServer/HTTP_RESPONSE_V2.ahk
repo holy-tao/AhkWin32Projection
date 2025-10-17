@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_VERSION.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\HTTP_KNOWN_HEADER.ahk
 #Include .\HTTP_RESPONSE_HEADERS.ahk
 #Include .\HTTP_RESPONSE_V1.ahk
@@ -24,7 +23,7 @@ class HTTP_RESPONSE_V2 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := HTTP_RESPONSE_V1(this.ptr + 0)
+                this.__Base := HTTP_RESPONSE_V1(0, this)
             return this.__Base
         }
     }

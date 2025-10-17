@@ -111,7 +111,7 @@ class DDOVERLAYFX extends Win32Struct
     dckDestColorkey{
         get {
             if(!this.HasProp("__dckDestColorkey"))
-                this.__dckDestColorkey := DDCOLORKEY(this.ptr + 48)
+                this.__dckDestColorkey := DDCOLORKEY(48, this)
             return this.__dckDestColorkey
         }
     }
@@ -123,7 +123,7 @@ class DDOVERLAYFX extends Win32Struct
     dckSrcColorkey{
         get {
             if(!this.HasProp("__dckSrcColorkey"))
-                this.__dckSrcColorkey := DDCOLORKEY(this.ptr + 56)
+                this.__dckSrcColorkey := DDCOLORKEY(56, this)
             return this.__dckSrcColorkey
         }
     }

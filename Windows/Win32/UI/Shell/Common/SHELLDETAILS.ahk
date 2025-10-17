@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\STRRET.ahk
 
 /**
@@ -44,7 +43,7 @@ class SHELLDETAILS extends Win32Struct
     str{
         get {
             if(!this.HasProp("__str"))
-                this.__str := STRRET(this.ptr + 8)
+                this.__str := STRRET(8, this)
             return this.__str
         }
     }

@@ -30,7 +30,7 @@ class MPEG_CONTEXT extends Win32Struct
     Demux{
         get {
             if(!this.HasProp("__Demux"))
-                this.__Demux := MPEG_BCS_DEMUX(this.ptr + 4)
+                this.__Demux := MPEG_BCS_DEMUX(4, this)
             return this.__Demux
         }
     }
@@ -41,7 +41,7 @@ class MPEG_CONTEXT extends Win32Struct
     Winsock{
         get {
             if(!this.HasProp("__Winsock"))
-                this.__Winsock := MPEG_WINSOCK(this.ptr + 4)
+                this.__Winsock := MPEG_WINSOCK(4, this)
             return this.__Winsock
         }
     }

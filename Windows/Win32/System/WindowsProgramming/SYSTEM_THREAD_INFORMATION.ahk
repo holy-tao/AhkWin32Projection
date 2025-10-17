@@ -46,7 +46,7 @@ class SYSTEM_THREAD_INFORMATION extends Win32Struct
     ClientId{
         get {
             if(!this.HasProp("__ClientId"))
-                this.__ClientId := CLIENT_ID(this.ptr + 40)
+                this.__ClientId := CLIENT_ID(40, this)
             return this.__ClientId
         }
     }

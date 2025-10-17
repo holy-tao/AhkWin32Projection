@@ -448,7 +448,7 @@ class ONEX_EAP_ERROR extends Win32Struct
     type{
         get {
             if(!this.HasProp("__type"))
-                this.__type := EAP_METHOD_TYPE(this.ptr + 8)
+                this.__type := EAP_METHOD_TYPE(8, this)
             return this.__type
         }
     }
@@ -1276,7 +1276,7 @@ class ONEX_EAP_ERROR extends Win32Struct
     RootCauseString{
         get {
             if(!this.HasProp("__RootCauseString"))
-                this.__RootCauseString := ONEX_VARIABLE_BLOB(this.ptr + 64)
+                this.__RootCauseString := ONEX_VARIABLE_BLOB(64, this)
             return this.__RootCauseString
         }
     }
@@ -1289,7 +1289,7 @@ class ONEX_EAP_ERROR extends Win32Struct
     RepairString{
         get {
             if(!this.HasProp("__RepairString"))
-                this.__RepairString := ONEX_VARIABLE_BLOB(this.ptr + 72)
+                this.__RepairString := ONEX_VARIABLE_BLOB(72, this)
             return this.__RepairString
         }
     }

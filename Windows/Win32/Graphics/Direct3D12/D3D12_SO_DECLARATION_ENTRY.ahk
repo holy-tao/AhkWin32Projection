@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes a vertex element in a vertex buffer in an output slot.
@@ -34,12 +33,9 @@ class D3D12_SO_DECLARATION_ENTRY extends Win32Struct
      *         <b>ComponentCount</b> can be greater than 4 and the described entry will be a gap in the stream out where no data will be written.
      * @type {PSTR}
      */
-    SemanticName{
-        get {
-            if(!this.HasProp("__SemanticName"))
-                this.__SemanticName := PSTR(this.ptr + 8)
-            return this.__SemanticName
-        }
+    SemanticName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

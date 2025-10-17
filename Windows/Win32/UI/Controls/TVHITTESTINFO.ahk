@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include .\HTREEITEM.ahk
 
 /**
  * Contains information used to determine the location of a point relative to a tree-view control.
@@ -24,7 +23,7 @@ class TVHITTESTINFO extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 0)
+                this.__pt := POINT(0, this)
             return this.__pt
         }
     }
@@ -44,11 +43,8 @@ class TVHITTESTINFO extends Win32Struct
      * Handle to the item that occupies the point.
      * @type {HTREEITEM}
      */
-    hItem{
-        get {
-            if(!this.HasProp("__hItem"))
-                this.__hItem := HTREEITEM(this.ptr + 16)
-            return this.__hItem
-        }
+    hItem {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

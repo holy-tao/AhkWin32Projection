@@ -58,7 +58,7 @@ class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
     Buffer{
         get {
             if(!this.HasProp("__Buffer"))
-                this.__Buffer := D3D11_BUFFER_RTV(this.ptr + 8)
+                this.__Buffer := D3D11_BUFFER_RTV(8, this)
             return this.__Buffer
         }
     }
@@ -69,7 +69,7 @@ class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
     Texture1D{
         get {
             if(!this.HasProp("__Texture1D"))
-                this.__Texture1D := D3D11_TEX1D_RTV(this.ptr + 8)
+                this.__Texture1D := D3D11_TEX1D_RTV(8, this)
             return this.__Texture1D
         }
     }
@@ -80,7 +80,7 @@ class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
     Texture1DArray{
         get {
             if(!this.HasProp("__Texture1DArray"))
-                this.__Texture1DArray := D3D11_TEX1D_ARRAY_RTV(this.ptr + 8)
+                this.__Texture1DArray := D3D11_TEX1D_ARRAY_RTV(8, this)
             return this.__Texture1DArray
         }
     }
@@ -91,7 +91,7 @@ class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
     Texture2D{
         get {
             if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D11_TEX2D_RTV1(this.ptr + 8)
+                this.__Texture2D := D3D11_TEX2D_RTV1(8, this)
             return this.__Texture2D
         }
     }
@@ -102,7 +102,7 @@ class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
     Texture2DArray{
         get {
             if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D11_TEX2D_ARRAY_RTV1(this.ptr + 8)
+                this.__Texture2DArray := D3D11_TEX2D_ARRAY_RTV1(8, this)
             return this.__Texture2DArray
         }
     }
@@ -113,7 +113,7 @@ class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
     Texture2DMS{
         get {
             if(!this.HasProp("__Texture2DMS"))
-                this.__Texture2DMS := D3D11_TEX2DMS_RTV(this.ptr + 8)
+                this.__Texture2DMS := D3D11_TEX2DMS_RTV(8, this)
             return this.__Texture2DMS
         }
     }
@@ -124,7 +124,7 @@ class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
     Texture2DMSArray{
         get {
             if(!this.HasProp("__Texture2DMSArray"))
-                this.__Texture2DMSArray := D3D11_TEX2DMS_ARRAY_RTV(this.ptr + 8)
+                this.__Texture2DMSArray := D3D11_TEX2DMS_ARRAY_RTV(8, this)
             return this.__Texture2DMSArray
         }
     }
@@ -135,7 +135,7 @@ class D3D11_RENDER_TARGET_VIEW_DESC1 extends Win32Struct
     Texture3D{
         get {
             if(!this.HasProp("__Texture3D"))
-                this.__Texture3D := D3D11_TEX3D_RTV(this.ptr + 8)
+                this.__Texture3D := D3D11_TEX3D_RTV(8, this)
             return this.__Texture3D
         }
     }

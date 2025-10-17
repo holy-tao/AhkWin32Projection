@@ -38,7 +38,7 @@ class XmlLite {
     static CreateXmlReaderInputWithEncodingCodePage(pInputStream, pMalloc, nEncodingCodePage, fEncodingHint, pwszBaseUri, ppInput) {
         pwszBaseUri := pwszBaseUri is String ? StrPtr(pwszBaseUri) : pwszBaseUri
 
-        result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingCodePage", "ptr", pInputStream, "ptr", pMalloc, "uint", nEncodingCodePage, "ptr", fEncodingHint, "ptr", pwszBaseUri, "ptr", ppInput, "int")
+        result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingCodePage", "ptr", pInputStream, "ptr", pMalloc, "uint", nEncodingCodePage, "int", fEncodingHint, "ptr", pwszBaseUri, "ptr", ppInput, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -59,7 +59,7 @@ class XmlLite {
         pwszEncodingName := pwszEncodingName is String ? StrPtr(pwszEncodingName) : pwszEncodingName
         pwszBaseUri := pwszBaseUri is String ? StrPtr(pwszBaseUri) : pwszBaseUri
 
-        result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingName", "ptr", pInputStream, "ptr", pMalloc, "ptr", pwszEncodingName, "ptr", fEncodingHint, "ptr", pwszBaseUri, "ptr", ppInput, "int")
+        result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingName", "ptr", pInputStream, "ptr", pMalloc, "ptr", pwszEncodingName, "int", fEncodingHint, "ptr", pwszBaseUri, "ptr", ppInput, "int")
         if(result != 0)
             throw OSError(result)
 

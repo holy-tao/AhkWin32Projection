@@ -3,7 +3,6 @@
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\STGMEDIUM.ahk
 
 /**
@@ -38,7 +37,7 @@ class FLAG_STGMEDIUM extends Win32Struct
     Stgmed{
         get {
             if(!this.HasProp("__Stgmed"))
-                this.__Stgmed := STGMEDIUM(this.ptr + 8)
+                this.__Stgmed := STGMEDIUM(8, this)
             return this.__Stgmed
         }
     }

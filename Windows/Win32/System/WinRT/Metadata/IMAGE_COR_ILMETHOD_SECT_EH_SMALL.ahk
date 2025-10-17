@@ -19,7 +19,7 @@ class IMAGE_COR_ILMETHOD_SECT_EH_SMALL extends Win32Struct
     SectSmall{
         get {
             if(!this.HasProp("__SectSmall"))
-                this.__SectSmall := IMAGE_COR_ILMETHOD_SECT_SMALL(this.ptr + 0)
+                this.__SectSmall := IMAGE_COR_ILMETHOD_SECT_SMALL(0, this)
             return this.__SectSmall
         }
     }

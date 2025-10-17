@@ -40,7 +40,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct
     Configuration{
         get {
             if(!this.HasProp("__Configuration"))
-                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(this.ptr + 8)
+                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(8, this)
             return this.__Configuration
         }
     }
@@ -52,7 +52,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct
     DecodeSample{
         get {
             if(!this.HasProp("__DecodeSample"))
-                this.__DecodeSample := D3D12_VIDEO_SAMPLE(this.ptr + 24)
+                this.__DecodeSample := D3D12_VIDEO_SAMPLE(24, this)
             return this.__DecodeSample
         }
     }
@@ -64,7 +64,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct
     OutputFormat{
         get {
             if(!this.HasProp("__OutputFormat"))
-                this.__OutputFormat := D3D12_VIDEO_FORMAT(this.ptr + 40)
+                this.__OutputFormat := D3D12_VIDEO_FORMAT(40, this)
             return this.__OutputFormat
         }
     }
@@ -76,7 +76,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct
     FrameRate{
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(this.ptr + 48)
+                this.__FrameRate := DXGI_RATIONAL(48, this)
             return this.__FrameRate
         }
     }
@@ -106,7 +106,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_CONVERSION_SUPPORT extends Win32Struct
     ScaleSupport{
         get {
             if(!this.HasProp("__ScaleSupport"))
-                this.__ScaleSupport := D3D12_VIDEO_SCALE_SUPPORT(this.ptr + 64)
+                this.__ScaleSupport := D3D12_VIDEO_SCALE_SUPPORT(64, this)
             return this.__ScaleSupport
         }
     }

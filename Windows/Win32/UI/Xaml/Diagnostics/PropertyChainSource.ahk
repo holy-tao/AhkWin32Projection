@@ -31,7 +31,7 @@ class PropertyChainSource extends Win32Struct
     TargetType{
         get {
             if(!this.HasProp("__TargetType"))
-                this.__TargetType := BSTR(this.ptr + 8)
+                this.__TargetType := BSTR(8, this)
             return this.__TargetType
         }
     }
@@ -43,7 +43,7 @@ class PropertyChainSource extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := BSTR(this.ptr + 16)
+                this.__Name := BSTR(16, this)
             return this.__Name
         }
     }
@@ -64,7 +64,7 @@ class PropertyChainSource extends Win32Struct
     SrcInfo{
         get {
             if(!this.HasProp("__SrcInfo"))
-                this.__SrcInfo := SourceInfo(this.ptr + 32)
+                this.__SrcInfo := SourceInfo(32, this)
             return this.__SrcInfo
         }
     }

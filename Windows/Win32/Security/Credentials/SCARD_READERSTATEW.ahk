@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used by functions for tracking smart cards within readers.
@@ -26,12 +25,9 @@ class SCARD_READERSTATEW extends Win32Struct
      * Set the value of this member to "\\\\?PnP?\\Notification" and the values of all other members to zero to be notified of the arrival of a new smart card reader.
      * @type {PWSTR}
      */
-    szReader{
-        get {
-            if(!this.HasProp("__szReader"))
-                this.__szReader := PWSTR(this.ptr + 0)
-            return this.__szReader
-        }
+    szReader {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

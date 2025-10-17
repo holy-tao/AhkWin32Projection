@@ -30,7 +30,7 @@ class D3D12_RAYTRACING_GEOMETRY_AABBS_DESC extends Win32Struct
     AABBs{
         get {
             if(!this.HasProp("__AABBs"))
-                this.__AABBs := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(this.ptr + 8)
+                this.__AABBs := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(8, this)
             return this.__AABBs
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Reserved for system use.
@@ -88,24 +87,18 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
      * Indicates whether a LUN reset is supported.
      * @type {BOOLEAN}
      */
-    LUNResetSupported{
-        get {
-            if(!this.HasProp("__LUNResetSupported"))
-                this.__LUNResetSupported := BOOLEAN(this.ptr + 12)
-            return this.__LUNResetSupported
-        }
+    LUNResetSupported {
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**
      * Indicates whether a target reset is supported.
      * @type {BOOLEAN}
      */
-    TargetResetSupported{
-        get {
-            if(!this.HasProp("__TargetResetSupported"))
-                this.__TargetResetSupported := BOOLEAN(this.ptr + 13)
-            return this.__TargetResetSupported
-        }
+    TargetResetSupported {
+        get => NumGet(this, 13, "char")
+        set => NumPut("char", value, this, 13)
     }
 
     /**
@@ -121,12 +114,9 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
      * 
      * @type {BOOLEAN}
      */
-    ExtraIoInfoSupported{
-        get {
-            if(!this.HasProp("__ExtraIoInfoSupported"))
-                this.__ExtraIoInfoSupported := BOOLEAN(this.ptr + 16)
-            return this.__ExtraIoInfoSupported
-        }
+    ExtraIoInfoSupported {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**

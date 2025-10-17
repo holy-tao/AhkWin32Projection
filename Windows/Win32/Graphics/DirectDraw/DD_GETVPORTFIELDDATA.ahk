@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DD_GETVPORTFIELDDATA structure contains the information required for the driver to determine whether the current field of an interlaced signal is even or odd.
@@ -36,12 +35,9 @@ class DD_GETVPORTFIELDDATA extends Win32Struct
      * Specifies the location in which the driver should indicate the polarity of the field. This member should be set to <b>TRUE</b> if the current field is the even field of an interlaced signal and to <b>FALSE</b> if the current field is the odd field.
      * @type {BOOL}
      */
-    bField{
-        get {
-            if(!this.HasProp("__bField"))
-                this.__bField := BOOL(this.ptr + 16)
-            return this.__bField
-        }
+    bField {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**

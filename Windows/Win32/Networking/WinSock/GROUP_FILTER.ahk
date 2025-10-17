@@ -45,7 +45,7 @@ class GROUP_FILTER extends Win32Struct
     gf_group{
         get {
             if(!this.HasProp("__gf_group"))
-                this.__gf_group := SOCKADDR_STORAGE(this.ptr + 8)
+                this.__gf_group := SOCKADDR_STORAGE(8, this)
             return this.__gf_group
         }
     }

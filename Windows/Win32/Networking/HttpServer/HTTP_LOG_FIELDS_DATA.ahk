@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_LOG_DATA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Used to pass the fields that are logged for an HTTP response when WC3 logging is enabled.
@@ -32,7 +30,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := HTTP_LOG_DATA(this.ptr + 0)
+                this.__Base := HTTP_LOG_DATA(0, this)
             return this.__Base
         }
     }
@@ -149,144 +147,108 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
      * The name of the  user.
      * @type {PWSTR}
      */
-    UserName{
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := PWSTR(this.ptr + 32)
-            return this.__UserName
-        }
+    UserName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * The URI stem.
      * @type {PWSTR}
      */
-    UriStem{
-        get {
-            if(!this.HasProp("__UriStem"))
-                this.__UriStem := PWSTR(this.ptr + 40)
-            return this.__UriStem
-        }
+    UriStem {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * The IP address of the client.
      * @type {PSTR}
      */
-    ClientIp{
-        get {
-            if(!this.HasProp("__ClientIp"))
-                this.__ClientIp := PSTR(this.ptr + 48)
-            return this.__ClientIp
-        }
+    ClientIp {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * The name of the server.
      * @type {PSTR}
      */
-    ServerName{
-        get {
-            if(!this.HasProp("__ServerName"))
-                this.__ServerName := PSTR(this.ptr + 56)
-            return this.__ServerName
-        }
+    ServerName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * The name of the service.
      * @type {PSTR}
      */
-    ServiceName{
-        get {
-            if(!this.HasProp("__ServiceName"))
-                this.__ServiceName := PSTR(this.ptr + 64)
-            return this.__ServiceName
-        }
+    ServiceName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * The IP address of the server.
      * @type {PSTR}
      */
-    ServerIp{
-        get {
-            if(!this.HasProp("__ServerIp"))
-                this.__ServerIp := PSTR(this.ptr + 72)
-            return this.__ServerIp
-        }
+    ServerIp {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * The HTTP method.
      * @type {PSTR}
      */
-    Method{
-        get {
-            if(!this.HasProp("__Method"))
-                this.__Method := PSTR(this.ptr + 80)
-            return this.__Method
-        }
+    Method {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * The URI query.
      * @type {PSTR}
      */
-    UriQuery{
-        get {
-            if(!this.HasProp("__UriQuery"))
-                this.__UriQuery := PSTR(this.ptr + 88)
-            return this.__UriQuery
-        }
+    UriQuery {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * The host information from the request.
      * @type {PSTR}
      */
-    Host{
-        get {
-            if(!this.HasProp("__Host"))
-                this.__Host := PSTR(this.ptr + 96)
-            return this.__Host
-        }
+    Host {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * The user agent name.
      * @type {PSTR}
      */
-    UserAgent{
-        get {
-            if(!this.HasProp("__UserAgent"))
-                this.__UserAgent := PSTR(this.ptr + 104)
-            return this.__UserAgent
-        }
+    UserAgent {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
      * The cookie provided by the application.
      * @type {PSTR}
      */
-    Cookie{
-        get {
-            if(!this.HasProp("__Cookie"))
-                this.__Cookie := PSTR(this.ptr + 112)
-            return this.__Cookie
-        }
+    Cookie {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
      * The referrer.
      * @type {PSTR}
      */
-    Referrer{
-        get {
-            if(!this.HasProp("__Referrer"))
-                this.__Referrer := PSTR(this.ptr + 120)
-            return this.__Referrer
-        }
+    Referrer {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**

@@ -45,7 +45,7 @@ class D2D1_EFFECT_INPUT_DESCRIPTION extends Win32Struct
     inputRectangle{
         get {
             if(!this.HasProp("__inputRectangle"))
-                this.__inputRectangle := D2D_RECT_F(this.ptr + 16)
+                this.__inputRectangle := D2D_RECT_F(16, this)
             return this.__inputRectangle
         }
     }

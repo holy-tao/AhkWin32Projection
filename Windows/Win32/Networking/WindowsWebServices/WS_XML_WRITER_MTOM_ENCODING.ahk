@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_WRITER_ENCODING.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -24,7 +22,7 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
     encoding{
         get {
             if(!this.HasProp("__encoding"))
-                this.__encoding := WS_XML_WRITER_ENCODING(this.ptr + 0)
+                this.__encoding := WS_XML_WRITER_ENCODING(0, this)
             return this.__encoding
         }
     }
@@ -42,12 +40,9 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
      * Specifies whether or not the writer should emit a MIME header.
      * @type {BOOL}
      */
-    writeMimeHeader{
-        get {
-            if(!this.HasProp("__writeMimeHeader"))
-                this.__writeMimeHeader := BOOL(this.ptr + 16)
-            return this.__writeMimeHeader
-        }
+    writeMimeHeader {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -57,7 +52,7 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
     boundary{
         get {
             if(!this.HasProp("__boundary"))
-                this.__boundary := WS_STRING(this.ptr + 24)
+                this.__boundary := WS_STRING(24, this)
             return this.__boundary
         }
     }
@@ -69,7 +64,7 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
     startInfo{
         get {
             if(!this.HasProp("__startInfo"))
-                this.__startInfo := WS_STRING(this.ptr + 40)
+                this.__startInfo := WS_STRING(40, this)
             return this.__startInfo
         }
     }
@@ -81,7 +76,7 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
     startUri{
         get {
             if(!this.HasProp("__startUri"))
-                this.__startUri := WS_STRING(this.ptr + 56)
+                this.__startUri := WS_STRING(56, this)
             return this.__startUri
         }
     }

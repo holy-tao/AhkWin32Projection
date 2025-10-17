@@ -19,7 +19,7 @@ class ICMPV4_ROUTER_ADVERT_HEADER extends Win32Struct
     RaHeader{
         get {
             if(!this.HasProp("__RaHeader"))
-                this.__RaHeader := ICMP_MESSAGE(this.ptr + 0)
+                this.__RaHeader := ICMP_MESSAGE(0, this)
             return this.__RaHeader
         }
     }

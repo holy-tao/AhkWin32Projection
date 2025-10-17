@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
@@ -17,78 +16,57 @@ class PRINTER_INFO_2W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pServerName{
-        get {
-            if(!this.HasProp("__pServerName"))
-                this.__pServerName := PWSTR(this.ptr + 0)
-            return this.__pServerName
-        }
+    pServerName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 8)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pShareName{
-        get {
-            if(!this.HasProp("__pShareName"))
-                this.__pShareName := PWSTR(this.ptr + 16)
-            return this.__pShareName
-        }
+    pShareName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pPortName{
-        get {
-            if(!this.HasProp("__pPortName"))
-                this.__pPortName := PWSTR(this.ptr + 24)
-            return this.__pPortName
-        }
+    pPortName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    pDriverName{
-        get {
-            if(!this.HasProp("__pDriverName"))
-                this.__pDriverName := PWSTR(this.ptr + 32)
-            return this.__pDriverName
-        }
+    pDriverName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    pComment{
-        get {
-            if(!this.HasProp("__pComment"))
-                this.__pComment := PWSTR(this.ptr + 40)
-            return this.__pComment
-        }
+    pComment {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {PWSTR}
      */
-    pLocation{
-        get {
-            if(!this.HasProp("__pLocation"))
-                this.__pLocation := PWSTR(this.ptr + 48)
-            return this.__pLocation
-        }
+    pLocation {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -102,45 +80,33 @@ class PRINTER_INFO_2W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pSepFile{
-        get {
-            if(!this.HasProp("__pSepFile"))
-                this.__pSepFile := PWSTR(this.ptr + 64)
-            return this.__pSepFile
-        }
+    pSepFile {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {PWSTR}
      */
-    pPrintProcessor{
-        get {
-            if(!this.HasProp("__pPrintProcessor"))
-                this.__pPrintProcessor := PWSTR(this.ptr + 72)
-            return this.__pPrintProcessor
-        }
+    pPrintProcessor {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {PWSTR}
      */
-    pDatatype{
-        get {
-            if(!this.HasProp("__pDatatype"))
-                this.__pDatatype := PWSTR(this.ptr + 80)
-            return this.__pDatatype
-        }
+    pDatatype {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * @type {PWSTR}
      */
-    pParameters{
-        get {
-            if(!this.HasProp("__pParameters"))
-                this.__pParameters := PWSTR(this.ptr + 88)
-            return this.__pParameters
-        }
+    pParameters {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -149,7 +115,7 @@ class PRINTER_INFO_2W extends Win32Struct
     pSecurityDescriptor{
         get {
             if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 96)
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(96, this)
             return this.__pSecurityDescriptor
         }
     }

@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -27,7 +26,7 @@ class NMRBAUTOSIZE extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -38,12 +37,9 @@ class NMRBAUTOSIZE extends Win32Struct
      * Member that indicates if the size or layout of the rebar control has changed (nonzero if a change occurred or zero otherwise).
      * @type {BOOL}
      */
-    fChanged{
-        get {
-            if(!this.HasProp("__fChanged"))
-                this.__fChanged := BOOL(this.ptr + 24)
-            return this.__fChanged
-        }
+    fChanged {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -56,7 +52,7 @@ class NMRBAUTOSIZE extends Win32Struct
     rcTarget{
         get {
             if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(this.ptr + 32)
+                this.__rcTarget := RECT(32, this)
             return this.__rcTarget
         }
     }
@@ -71,7 +67,7 @@ class NMRBAUTOSIZE extends Win32Struct
     rcActual{
         get {
             if(!this.HasProp("__rcActual"))
-                this.__rcActual := RECT(this.ptr + 48)
+                this.__rcActual := RECT(48, this)
             return this.__rcActual
         }
     }

@@ -67,7 +67,7 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     Attributes{
         get {
             if(!this.HasProp("__Attributes"))
-                this.__Attributes := %this.__Class%._Attributes(this.ptr + 1)
+                this.__Attributes := %this.__Class%._Attributes(1, this)
             return this.__Attributes
         }
     }

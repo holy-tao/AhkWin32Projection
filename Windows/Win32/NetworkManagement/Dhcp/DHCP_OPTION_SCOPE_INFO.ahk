@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_RESERVED_SCOPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DHCP_OPTION_SCOPE_INFO structure defines information about the options provided for a certain DHCP scope.
@@ -49,7 +48,7 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
         ReservedScopeInfo{
             get {
                 if(!this.HasProp("__ReservedScopeInfo"))
-                    this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE(this.ptr + 0)
+                    this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE(0, this)
                 return this.__ReservedScopeInfo
             }
         }
@@ -57,12 +56,9 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        MScopeInfo{
-            get {
-                if(!this.HasProp("__MScopeInfo"))
-                    this.__MScopeInfo := PWSTR(this.ptr + 0)
-                return this.__MScopeInfo
-            }
+        MScopeInfo {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
     }
@@ -83,7 +79,7 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
     ScopeInfo{
         get {
             if(!this.HasProp("__ScopeInfo"))
-                this.__ScopeInfo := %this.__Class%._DHCP_OPTION_SCOPE_UNION(this.ptr + 8)
+                this.__ScopeInfo := %this.__Class%._DHCP_OPTION_SCOPE_UNION(8, this)
             return this.__ScopeInfo
         }
     }

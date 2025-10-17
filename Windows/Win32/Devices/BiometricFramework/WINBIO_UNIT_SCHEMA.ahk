@@ -113,7 +113,7 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
     FirmwareVersion{
         get {
             if(!this.HasProp("__FirmwareVersion"))
-                this.__FirmwareVersion := WINBIO_VERSION(this.ptr + 2584)
+                this.__FirmwareVersion := WINBIO_VERSION(2584, this)
             return this.__FirmwareVersion
         }
     }

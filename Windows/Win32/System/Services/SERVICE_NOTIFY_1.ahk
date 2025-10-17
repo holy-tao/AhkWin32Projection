@@ -50,7 +50,7 @@ class SERVICE_NOTIFY_1 extends Win32Struct
     ServiceStatus{
         get {
             if(!this.HasProp("__ServiceStatus"))
-                this.__ServiceStatus := SERVICE_STATUS_PROCESS(this.ptr + 32)
+                this.__ServiceStatus := SERVICE_STATUS_PROCESS(32, this)
             return this.__ServiceStatus
         }
     }

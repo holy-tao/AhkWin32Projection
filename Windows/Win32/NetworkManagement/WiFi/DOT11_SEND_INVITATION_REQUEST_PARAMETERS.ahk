@@ -3,7 +3,6 @@
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
 #Include .\DOT11_WFD_INVITATION_FLAGS.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DOT11_WFD_CHANNEL.ahk
 #Include .\DOT11_SSID.ahk
 #Include .\DOT11_WFD_GROUP_ID.ahk
@@ -24,7 +23,7 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -62,7 +61,7 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     MinimumConfigTimeout{
         get {
             if(!this.HasProp("__MinimumConfigTimeout"))
-                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(this.ptr + 16)
+                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(16, this)
             return this.__MinimumConfigTimeout
         }
     }
@@ -73,7 +72,7 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     InvitationFlags{
         get {
             if(!this.HasProp("__InvitationFlags"))
-                this.__InvitationFlags := DOT11_WFD_INVITATION_FLAGS(this.ptr + 18)
+                this.__InvitationFlags := DOT11_WFD_INVITATION_FLAGS(18, this)
             return this.__InvitationFlags
         }
     }
@@ -92,12 +91,9 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bUseGroupBSSID{
-        get {
-            if(!this.HasProp("__bUseGroupBSSID"))
-                this.__bUseGroupBSSID := BOOLEAN(this.ptr + 25)
-            return this.__bUseGroupBSSID
-        }
+    bUseGroupBSSID {
+        get => NumGet(this, 25, "char")
+        set => NumPut("char", value, this, 25)
     }
 
     /**
@@ -106,7 +102,7 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     OperatingChannel{
         get {
             if(!this.HasProp("__OperatingChannel"))
-                this.__OperatingChannel := DOT11_WFD_CHANNEL(this.ptr + 30)
+                this.__OperatingChannel := DOT11_WFD_CHANNEL(30, this)
             return this.__OperatingChannel
         }
     }
@@ -114,12 +110,9 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bUseSpecifiedOperatingChannel{
-        get {
-            if(!this.HasProp("__bUseSpecifiedOperatingChannel"))
-                this.__bUseSpecifiedOperatingChannel := BOOLEAN(this.ptr + 35)
-            return this.__bUseSpecifiedOperatingChannel
-        }
+    bUseSpecifiedOperatingChannel {
+        get => NumGet(this, 35, "char")
+        set => NumPut("char", value, this, 35)
     }
 
     /**
@@ -128,7 +121,7 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     GroupID{
         get {
             if(!this.HasProp("__GroupID"))
-                this.__GroupID := DOT11_WFD_GROUP_ID(this.ptr + 40)
+                this.__GroupID := DOT11_WFD_GROUP_ID(40, this)
             return this.__GroupID
         }
     }
@@ -136,12 +129,9 @@ class DOT11_SEND_INVITATION_REQUEST_PARAMETERS extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bLocalGO{
-        get {
-            if(!this.HasProp("__bLocalGO"))
-                this.__bLocalGO := BOOLEAN(this.ptr + 88)
-            return this.__bLocalGO
-        }
+    bLocalGO {
+        get => NumGet(this, 88, "char")
+        set => NumPut("char", value, this, 88)
     }
 
     /**

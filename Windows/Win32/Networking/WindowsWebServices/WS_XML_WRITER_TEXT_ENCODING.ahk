@@ -21,7 +21,7 @@ class WS_XML_WRITER_TEXT_ENCODING extends Win32Struct
     encoding{
         get {
             if(!this.HasProp("__encoding"))
-                this.__encoding := WS_XML_WRITER_ENCODING(this.ptr + 0)
+                this.__encoding := WS_XML_WRITER_ENCODING(0, this)
             return this.__encoding
         }
     }

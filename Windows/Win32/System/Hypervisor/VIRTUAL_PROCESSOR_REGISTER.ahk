@@ -71,7 +71,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     Reg128{
         get {
             if(!this.HasProp("__Reg128"))
-                this.__Reg128 := %this.__Class%._Reg128(this.ptr + 0)
+                this.__Reg128 := %this.__Class%._Reg128(0, this)
             return this.__Reg128
         }
     }
@@ -348,7 +348,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     Segment{
         get {
             if(!this.HasProp("__Segment"))
-                this.__Segment := %this.__Class%._Segment(this.ptr + 0)
+                this.__Segment := %this.__Class%._Segment(0, this)
             return this.__Segment
         }
     }
@@ -359,7 +359,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     Table{
         get {
             if(!this.HasProp("__Table"))
-                this.__Table := %this.__Class%._Table(this.ptr + 0)
+                this.__Table := %this.__Class%._Table(0, this)
             return this.__Table
         }
     }
@@ -370,7 +370,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     FpControlStatus{
         get {
             if(!this.HasProp("__FpControlStatus"))
-                this.__FpControlStatus := %this.__Class%._FpControlStatus(this.ptr + 0)
+                this.__FpControlStatus := %this.__Class%._FpControlStatus(0, this)
             return this.__FpControlStatus
         }
     }
@@ -381,7 +381,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     XmmControlStatus{
         get {
             if(!this.HasProp("__XmmControlStatus"))
-                this.__XmmControlStatus := %this.__Class%._XmmControlStatus(this.ptr + 0)
+                this.__XmmControlStatus := %this.__Class%._XmmControlStatus(0, this)
             return this.__XmmControlStatus
         }
     }

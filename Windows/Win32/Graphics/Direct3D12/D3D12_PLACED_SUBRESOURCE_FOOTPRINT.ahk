@@ -45,7 +45,7 @@ class D3D12_PLACED_SUBRESOURCE_FOOTPRINT extends Win32Struct
     Footprint{
         get {
             if(!this.HasProp("__Footprint"))
-                this.__Footprint := D3D12_SUBRESOURCE_FOOTPRINT(this.ptr + 8)
+                this.__Footprint := D3D12_SUBRESOURCE_FOOTPRINT(8, this)
             return this.__Footprint
         }
     }

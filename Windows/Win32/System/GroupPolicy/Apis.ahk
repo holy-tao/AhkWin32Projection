@@ -529,7 +529,7 @@ class GroupPolicy {
     static RefreshPolicy(bMachine) {
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\RefreshPolicy", "ptr", bMachine, "ptr")
+        result := DllCall("USERENV.dll\RefreshPolicy", "int", bMachine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -550,7 +550,7 @@ class GroupPolicy {
     static RefreshPolicyEx(bMachine, dwOptions) {
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\RefreshPolicyEx", "ptr", bMachine, "uint", dwOptions, "ptr")
+        result := DllCall("USERENV.dll\RefreshPolicyEx", "int", bMachine, "uint", dwOptions, "int")
         if(A_LastError)
             throw OSError()
 
@@ -570,7 +570,7 @@ class GroupPolicy {
     static EnterCriticalPolicySection(bMachine) {
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\EnterCriticalPolicySection", "ptr", bMachine, "ptr")
+        result := DllCall("USERENV.dll\EnterCriticalPolicySection", "int", bMachine, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -593,7 +593,7 @@ class GroupPolicy {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\LeaveCriticalPolicySection", "ptr", hSection, "ptr")
+        result := DllCall("USERENV.dll\LeaveCriticalPolicySection", "ptr", hSection, "int")
         if(A_LastError)
             throw OSError()
 
@@ -617,7 +617,7 @@ class GroupPolicy {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\RegisterGPNotification", "ptr", hEvent, "ptr", bMachine, "ptr")
+        result := DllCall("USERENV.dll\RegisterGPNotification", "ptr", hEvent, "int", bMachine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -640,7 +640,7 @@ class GroupPolicy {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\UnregisterGPNotification", "ptr", hEvent, "ptr")
+        result := DllCall("USERENV.dll\UnregisterGPNotification", "ptr", hEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -686,7 +686,7 @@ class GroupPolicy {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetGPOListA", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr", pGPOList, "ptr")
+        result := DllCall("USERENV.dll\GetGPOListA", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr", pGPOList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -732,7 +732,7 @@ class GroupPolicy {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetGPOListW", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr", pGPOList, "ptr")
+        result := DllCall("USERENV.dll\GetGPOListW", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr", pGPOList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -755,7 +755,7 @@ class GroupPolicy {
     static FreeGPOListA(pGPOList) {
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\FreeGPOListA", "ptr", pGPOList, "ptr")
+        result := DllCall("USERENV.dll\FreeGPOListA", "ptr", pGPOList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -778,7 +778,7 @@ class GroupPolicy {
     static FreeGPOListW(pGPOList) {
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\FreeGPOListW", "ptr", pGPOList, "ptr")
+        result := DllCall("USERENV.dll\FreeGPOListW", "ptr", pGPOList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -959,7 +959,7 @@ class GroupPolicy {
     static GenerateGPNotification(bMachine, lpwszMgmtProduct, dwMgmtProductOptions) {
         lpwszMgmtProduct := lpwszMgmtProduct is String ? StrPtr(lpwszMgmtProduct) : lpwszMgmtProduct
 
-        result := DllCall("USERENV.dll\GenerateGPNotification", "ptr", bMachine, "ptr", lpwszMgmtProduct, "uint", dwMgmtProductOptions, "uint")
+        result := DllCall("USERENV.dll\GenerateGPNotification", "int", bMachine, "ptr", lpwszMgmtProduct, "uint", dwMgmtProductOptions, "uint")
         return result
     }
 
@@ -1037,7 +1037,7 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetLocalManagedApplications(bUserApps, pdwApps, prgLocalApps) {
-        result := DllCall("ADVAPI32.dll\GetLocalManagedApplications", "ptr", bUserApps, "uint*", pdwApps, "ptr", prgLocalApps, "uint")
+        result := DllCall("ADVAPI32.dll\GetLocalManagedApplications", "int", bUserApps, "uint*", pdwApps, "ptr", prgLocalApps, "uint")
         return result
     }
 
@@ -1090,7 +1090,7 @@ class GroupPolicy {
         lpGPO := lpGPO is String ? StrPtr(lpGPO) : lpGPO
         lpContainer := lpContainer is String ? StrPtr(lpContainer) : lpContainer
 
-        result := DllCall("GPEDIT.dll\CreateGPOLink", "ptr", lpGPO, "ptr", lpContainer, "ptr", fHighPriority, "int")
+        result := DllCall("GPEDIT.dll\CreateGPOLink", "ptr", lpGPO, "ptr", lpContainer, "int", fHighPriority, "int")
         if(result != 0)
             throw OSError(result)
 

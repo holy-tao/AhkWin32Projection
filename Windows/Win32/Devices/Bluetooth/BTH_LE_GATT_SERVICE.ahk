@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\BTH_LE_UUID.ahk
 
 /**
@@ -22,7 +21,7 @@ class BTH_LE_GATT_SERVICE extends Win32Struct
     ServiceUuid{
         get {
             if(!this.HasProp("__ServiceUuid"))
-                this.__ServiceUuid := BTH_LE_UUID(this.ptr + 0)
+                this.__ServiceUuid := BTH_LE_UUID(0, this)
             return this.__ServiceUuid
         }
     }

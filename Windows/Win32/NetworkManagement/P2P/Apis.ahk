@@ -1999,7 +1999,7 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphDeleteRecord(hGraph, pRecordId, fLocal) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphDeleteRecord", "ptr", hGraph, "ptr", pRecordId, "ptr", fLocal, "int")
+        result := DllCall("P2PGRAPH.dll\PeerGraphDeleteRecord", "ptr", hGraph, "ptr", pRecordId, "int", fLocal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2784,7 +2784,7 @@ class P2P {
      * @since windows5.1.2600
      */
     static PeerGraphSetPresence(hGraph, fPresent) {
-        result := DllCall("P2PGRAPH.dll\PeerGraphSetPresence", "ptr", hGraph, "ptr", fPresent, "int")
+        result := DllCall("P2PGRAPH.dll\PeerGraphSetPresence", "ptr", hGraph, "int", fPresent, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5914,7 +5914,7 @@ class P2P {
         pwzXML := pwzXML is String ? StrPtr(pwzXML) : pwzXML
         pwzPassword := pwzPassword is String ? StrPtr(pwzPassword) : pwzPassword
 
-        result := DllCall("P2P.dll\PeerGroupImportConfig", "ptr", pwzXML, "ptr", pwzPassword, "ptr", fOverwrite, "ptr", ppwzIdentity, "ptr", ppwzGroup, "int")
+        result := DllCall("P2P.dll\PeerGroupImportConfig", "ptr", pwzXML, "ptr", pwzPassword, "int", fOverwrite, "ptr", ppwzIdentity, "ptr", ppwzGroup, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10055,7 +10055,7 @@ class P2P {
         pwzCloudName := pwzCloudName is String ? StrPtr(pwzCloudName) : pwzCloudName
         pwzPublishingIdentity := pwzPublishingIdentity is String ? StrPtr(pwzPublishingIdentity) : pwzPublishingIdentity
 
-        result := DllCall("drtprov.dll\DrtCreatePnrpBootstrapResolver", "ptr", fPublish, "ptr", pwzPeerName, "ptr", pwzCloudName, "ptr", pwzPublishingIdentity, "ptr", ppResolver, "int")
+        result := DllCall("drtprov.dll\DrtCreatePnrpBootstrapResolver", "int", fPublish, "ptr", pwzPeerName, "ptr", pwzCloudName, "ptr", pwzPublishingIdentity, "ptr", ppResolver, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -13252,7 +13252,7 @@ class P2P {
      * @since windows8.0
      */
     static PeerDistGetOverlappedResult(lpOverlapped, lpNumberOfBytesTransferred, bWait) {
-        result := DllCall("PeerDist.dll\PeerDistGetOverlappedResult", "ptr", lpOverlapped, "uint*", lpNumberOfBytesTransferred, "ptr", bWait, "ptr")
+        result := DllCall("PeerDist.dll\PeerDistGetOverlappedResult", "ptr", lpOverlapped, "uint*", lpNumberOfBytesTransferred, "int", bWait, "int")
         return result
     }
 

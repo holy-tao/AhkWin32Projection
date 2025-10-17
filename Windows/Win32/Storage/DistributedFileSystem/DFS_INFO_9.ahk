@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
@@ -46,12 +45,9 @@ class DFS_INFO_9 extends Win32Struct
      * where the values of the names are the same as those described previously.
      * @type {PWSTR}
      */
-    EntryPath{
-        get {
-            if(!this.HasProp("__EntryPath"))
-                this.__EntryPath := PWSTR(this.ptr + 0)
-            return this.__EntryPath
-        }
+    EntryPath {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -59,12 +55,9 @@ class DFS_INFO_9 extends Win32Struct
      *       link.
      * @type {PWSTR}
      */
-    Comment{
-        get {
-            if(!this.HasProp("__Comment"))
-                this.__Comment := PWSTR(this.ptr + 8)
-            return this.__Comment
-        }
+    Comment {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -140,7 +133,7 @@ class DFS_INFO_9 extends Win32Struct
     pSecurityDescriptor{
         get {
             if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 48)
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(48, this)
             return this.__pSecurityDescriptor
         }
     }

@@ -22,7 +22,7 @@ class MPEG_DATE_AND_TIME extends Win32Struct
     D{
         get {
             if(!this.HasProp("__D"))
-                this.__D := MPEG_DATE(this.ptr + 0)
+                this.__D := MPEG_DATE(0, this)
             return this.__D
         }
     }
@@ -34,7 +34,7 @@ class MPEG_DATE_AND_TIME extends Win32Struct
     T{
         get {
             if(!this.HasProp("__T"))
-                this.__T := MPEG_TIME(this.ptr + 6)
+                this.__T := MPEG_TIME(6, this)
             return this.__T
         }
     }

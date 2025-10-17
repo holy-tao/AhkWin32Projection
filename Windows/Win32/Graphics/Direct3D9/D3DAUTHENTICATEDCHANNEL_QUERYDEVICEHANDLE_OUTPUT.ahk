@@ -20,7 +20,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYDEVICEHANDLE_OUTPUT extends Win32Struct
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }
@@ -31,7 +31,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYDEVICEHANDLE_OUTPUT extends Win32Struct
     DeviceHandle{
         get {
             if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := HANDLE(this.ptr + 40)
+                this.__DeviceHandle := HANDLE(40, this)
             return this.__DeviceHandle
         }
     }

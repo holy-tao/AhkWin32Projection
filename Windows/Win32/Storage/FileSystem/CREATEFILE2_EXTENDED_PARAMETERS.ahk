@@ -622,7 +622,7 @@ class CREATEFILE2_EXTENDED_PARAMETERS extends Win32Struct
     hTemplateFile{
         get {
             if(!this.HasProp("__hTemplateFile"))
-                this.__hTemplateFile := HANDLE(this.ptr + 24)
+                this.__hTemplateFile := HANDLE(24, this)
             return this.__hTemplateFile
         }
     }

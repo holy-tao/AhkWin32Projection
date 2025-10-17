@@ -37,7 +37,7 @@ class MCI_DGV_RECT_PARMS extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 8)
+                this.__rc := RECT(8, this)
             return this.__rc
         }
     }

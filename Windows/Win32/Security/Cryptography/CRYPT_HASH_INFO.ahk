@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
@@ -20,7 +19,7 @@ class CRYPT_HASH_INFO extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 0)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
             return this.__HashAlgorithm
         }
     }
@@ -31,7 +30,7 @@ class CRYPT_HASH_INFO extends Win32Struct
     Hash{
         get {
             if(!this.HasProp("__Hash"))
-                this.__Hash := CRYPT_INTEGER_BLOB(this.ptr + 24)
+                this.__Hash := CRYPT_INTEGER_BLOB(24, this)
             return this.__Hash
         }
     }

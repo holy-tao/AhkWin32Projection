@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -15,11 +14,8 @@ class SERVER_INFO_1585 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    sv1585_sendsfrompreferredprocessor{
-        get {
-            if(!this.HasProp("__sv1585_sendsfrompreferredprocessor"))
-                this.__sv1585_sendsfrompreferredprocessor := BOOL(this.ptr + 0)
-            return this.__sv1585_sendsfrompreferredprocessor
-        }
+    sv1585_sendsfrompreferredprocessor {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

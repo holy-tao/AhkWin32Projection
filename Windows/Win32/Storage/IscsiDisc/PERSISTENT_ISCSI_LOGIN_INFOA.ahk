@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\ISCSI_TARGET_PORTALA.ahk
 #Include .\ISCSI_LOGIN_OPTIONS.ahk
 
@@ -46,12 +45,9 @@ class PERSISTENT_ISCSI_LOGIN_INFOA extends Win32Struct
      * If set <b>FALSE</b>, the LUNs on the target are reported to the Plug and Play manager for enumeration.
      * @type {BOOLEAN}
      */
-    IsInformationalSession{
-        get {
-            if(!this.HasProp("__IsInformationalSession"))
-                this.__IsInformationalSession := BOOLEAN(this.ptr + 224)
-            return this.__IsInformationalSession
-        }
+    IsInformationalSession {
+        get => NumGet(this, 224, "char")
+        set => NumPut("char", value, this, 224)
     }
 
     /**
@@ -79,7 +75,7 @@ class PERSISTENT_ISCSI_LOGIN_INFOA extends Win32Struct
     TargetPortal{
         get {
             if(!this.HasProp("__TargetPortal"))
-                this.__TargetPortal := ISCSI_TARGET_PORTALA(this.ptr + 488)
+                this.__TargetPortal := ISCSI_TARGET_PORTALA(488, this)
             return this.__TargetPortal
         }
     }
@@ -186,7 +182,7 @@ class PERSISTENT_ISCSI_LOGIN_INFOA extends Win32Struct
     LoginOptions{
         get {
             if(!this.HasProp("__LoginOptions"))
-                this.__LoginOptions := ISCSI_LOGIN_OPTIONS(this.ptr + 1024)
+                this.__LoginOptions := ISCSI_LOGIN_OPTIONS(1024, this)
             return this.__LoginOptions
         }
     }

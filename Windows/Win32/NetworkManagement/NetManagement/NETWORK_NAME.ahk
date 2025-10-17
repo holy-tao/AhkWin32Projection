@@ -18,7 +18,7 @@ class NETWORK_NAME extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := FLAT_STRING(this.ptr + 0)
+                this.__Name := FLAT_STRING(0, this)
             return this.__Name
         }
     }

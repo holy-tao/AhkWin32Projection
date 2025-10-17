@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include .\COMBOBOXEXITEMA.ahk
 
 /**
@@ -33,7 +31,7 @@ class NMCOMBOBOXEXA extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -47,7 +45,7 @@ class NMCOMBOBOXEXA extends Win32Struct
     ceItem{
         get {
             if(!this.HasProp("__ceItem"))
-                this.__ceItem := COMBOBOXEXITEMA(this.ptr + 24)
+                this.__ceItem := COMBOBOXEXITEMA(24, this)
             return this.__ceItem
         }
     }

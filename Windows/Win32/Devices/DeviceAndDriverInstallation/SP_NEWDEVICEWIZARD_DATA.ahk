@@ -28,7 +28,7 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
     ClassInstallHeader{
         get {
             if(!this.HasProp("__ClassInstallHeader"))
-                this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(this.ptr + 0)
+                this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)
             return this.__ClassInstallHeader
         }
     }
@@ -72,7 +72,7 @@ class SP_NEWDEVICEWIZARD_DATA extends Win32Struct
     hwndWizardDlg{
         get {
             if(!this.HasProp("__hwndWizardDlg"))
-                this.__hwndWizardDlg := HWND(this.ptr + 184)
+                this.__hwndWizardDlg := HWND(184, this)
             return this.__hwndWizardDlg
         }
     }

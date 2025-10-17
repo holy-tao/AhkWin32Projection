@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\WINML_TENSOR_VARIABLE_DESC.ahk
 #Include .\WINML_SEQUENCE_VARIABLE_DESC.ahk
 #Include .\WINML_MAP_VARIABLE_DESC.ahk
@@ -23,24 +21,18 @@ class WINML_VARIABLE_DESC extends Win32Struct
      * The name of the variable.
      * @type {PWSTR}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PWSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The description of the variable.
      * @type {PWSTR}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PWSTR(this.ptr + 8)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -56,12 +48,9 @@ class WINML_VARIABLE_DESC extends Win32Struct
      * <b>true</b> if the variable is required; otherwise, <b>false</b>.
      * @type {BOOL}
      */
-    Required{
-        get {
-            if(!this.HasProp("__Required"))
-                this.__Required := BOOL(this.ptr + 20)
-            return this.__Required
-        }
+    Required {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -70,7 +59,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     Tensor{
         get {
             if(!this.HasProp("__Tensor"))
-                this.__Tensor := WINML_TENSOR_VARIABLE_DESC(this.ptr + 24)
+                this.__Tensor := WINML_TENSOR_VARIABLE_DESC(24, this)
             return this.__Tensor
         }
     }
@@ -81,7 +70,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     Sequence{
         get {
             if(!this.HasProp("__Sequence"))
-                this.__Sequence := WINML_SEQUENCE_VARIABLE_DESC(this.ptr + 24)
+                this.__Sequence := WINML_SEQUENCE_VARIABLE_DESC(24, this)
             return this.__Sequence
         }
     }
@@ -92,7 +81,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     Map{
         get {
             if(!this.HasProp("__Map"))
-                this.__Map := WINML_MAP_VARIABLE_DESC(this.ptr + 24)
+                this.__Map := WINML_MAP_VARIABLE_DESC(24, this)
             return this.__Map
         }
     }
@@ -103,7 +92,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     Image{
         get {
             if(!this.HasProp("__Image"))
-                this.__Image := WINML_IMAGE_VARIABLE_DESC(this.ptr + 24)
+                this.__Image := WINML_IMAGE_VARIABLE_DESC(24, this)
             return this.__Image
         }
     }

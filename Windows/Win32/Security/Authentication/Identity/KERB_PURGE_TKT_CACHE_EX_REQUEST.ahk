@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include .\KERB_TICKET_CACHE_INFO_EX.ahk
 
@@ -29,7 +28,7 @@ class KERB_PURGE_TKT_CACHE_EX_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 8)
+                this.__LogonId := LUID(8, this)
             return this.__LogonId
         }
     }
@@ -48,7 +47,7 @@ class KERB_PURGE_TKT_CACHE_EX_REQUEST extends Win32Struct
     TicketTemplate{
         get {
             if(!this.HasProp("__TicketTemplate"))
-                this.__TicketTemplate := KERB_TICKET_CACHE_INFO_EX(this.ptr + 24)
+                this.__TicketTemplate := KERB_TICKET_CACHE_INFO_EX(24, this)
             return this.__TicketTemplate
         }
     }

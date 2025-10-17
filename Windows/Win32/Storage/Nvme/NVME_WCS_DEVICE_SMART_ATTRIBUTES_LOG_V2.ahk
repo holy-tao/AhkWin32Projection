@@ -161,7 +161,7 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2 extends Win32Struct
     BadUserNANDBlockCount{
         get {
             if(!this.HasProp("__BadUserNANDBlockCount"))
-                this.__BadUserNANDBlockCount := %this.__Class%._BadUserNANDBlockCount(this.ptr + 32)
+                this.__BadUserNANDBlockCount := %this.__Class%._BadUserNANDBlockCount(32, this)
             return this.__BadUserNANDBlockCount
         }
     }
@@ -172,7 +172,7 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2 extends Win32Struct
     BadSystemNANDBlockCount{
         get {
             if(!this.HasProp("__BadSystemNANDBlockCount"))
-                this.__BadSystemNANDBlockCount := %this.__Class%._BadSystemNANDBlockCount(this.ptr + 40)
+                this.__BadSystemNANDBlockCount := %this.__Class%._BadSystemNANDBlockCount(40, this)
             return this.__BadSystemNANDBlockCount
         }
     }
@@ -207,7 +207,7 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2 extends Win32Struct
     EndToEndCorrectionCounts{
         get {
             if(!this.HasProp("__EndToEndCorrectionCounts"))
-                this.__EndToEndCorrectionCounts := %this.__Class%._EndToEndCorrectionCounts(this.ptr + 72)
+                this.__EndToEndCorrectionCounts := %this.__Class%._EndToEndCorrectionCounts(72, this)
             return this.__EndToEndCorrectionCounts
         }
     }
@@ -237,7 +237,7 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2 extends Win32Struct
     UserDataEraseCounts{
         get {
             if(!this.HasProp("__UserDataEraseCounts"))
-                this.__UserDataEraseCounts := %this.__Class%._UserDataEraseCounts(this.ptr + 88)
+                this.__UserDataEraseCounts := %this.__Class%._UserDataEraseCounts(88, this)
             return this.__UserDataEraseCounts
         }
     }
@@ -248,7 +248,7 @@ class NVME_WCS_DEVICE_SMART_ATTRIBUTES_LOG_V2 extends Win32Struct
     ThermalThrottling{
         get {
             if(!this.HasProp("__ThermalThrottling"))
-                this.__ThermalThrottling := %this.__Class%._ThermalThrottling(this.ptr + 96)
+                this.__ThermalThrottling := %this.__Class%._ThermalThrottling(96, this)
             return this.__ThermalThrottling
         }
     }

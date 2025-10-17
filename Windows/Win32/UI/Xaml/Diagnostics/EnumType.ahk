@@ -21,7 +21,7 @@ class EnumType extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := BSTR(this.ptr + 0)
+                this.__Name := BSTR(0, this)
             return this.__Name
         }
     }

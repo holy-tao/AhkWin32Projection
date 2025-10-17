@@ -19,7 +19,7 @@ class KSRATE_CAPABILITY extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -30,7 +30,7 @@ class KSRATE_CAPABILITY extends Win32Struct
     Rate{
         get {
             if(!this.HasProp("__Rate"))
-                this.__Rate := KSRATE(this.ptr + 16)
+                this.__Rate := KSRATE(16, this)
             return this.__Rate
         }
     }

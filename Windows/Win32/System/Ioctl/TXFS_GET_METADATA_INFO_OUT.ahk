@@ -42,7 +42,7 @@ class TXFS_GET_METADATA_INFO_OUT extends Win32Struct
     TxfFileId{
         get {
             if(!this.HasProp("__TxfFileId"))
-                this.__TxfFileId := %this.__Class%._TxfFileId(this.ptr + 0)
+                this.__TxfFileId := %this.__Class%._TxfFileId(0, this)
             return this.__TxfFileId
         }
     }

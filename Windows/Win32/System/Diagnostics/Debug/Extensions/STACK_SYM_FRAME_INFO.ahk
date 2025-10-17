@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\BOOL.ahk
 #Include .\DEBUG_STACK_FRAME_EX.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 #Include .\STACK_SRC_INFO.ahk
 
 /**
@@ -21,7 +19,7 @@ class STACK_SYM_FRAME_INFO extends Win32Struct
     StackFrameEx{
         get {
             if(!this.HasProp("__StackFrameEx"))
-                this.__StackFrameEx := DEBUG_STACK_FRAME_EX(this.ptr + 0)
+                this.__StackFrameEx := DEBUG_STACK_FRAME_EX(0, this)
             return this.__StackFrameEx
         }
     }
@@ -32,7 +30,7 @@ class STACK_SYM_FRAME_INFO extends Win32Struct
     SrcInfo{
         get {
             if(!this.HasProp("__SrcInfo"))
-                this.__SrcInfo := STACK_SRC_INFO(this.ptr + 136)
+                this.__SrcInfo := STACK_SRC_INFO(136, this)
             return this.__SrcInfo
         }
     }

@@ -34,7 +34,7 @@ class WINHTTP_PROXY_RESULT_EX extends Win32Struct
     hProxyDetectionHandle{
         get {
             if(!this.HasProp("__hProxyDetectionHandle"))
-                this.__hProxyDetectionHandle := HANDLE(this.ptr + 16)
+                this.__hProxyDetectionHandle := HANDLE(16, this)
             return this.__hProxyDetectionHandle
         }
     }

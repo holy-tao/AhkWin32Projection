@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information about the current state of the system battery.
@@ -10,57 +9,45 @@
  */
 class SYSTEM_BATTERY_STATE extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * If this member is <b>TRUE</b>, the system battery charger is currently operating on external 
      *       power.
      * @type {BOOLEAN}
      */
-    AcOnLine{
-        get {
-            if(!this.HasProp("__AcOnLine"))
-                this.__AcOnLine := BOOLEAN(this.ptr + 0)
-            return this.__AcOnLine
-        }
+    AcOnLine {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
      * If this member is <b>TRUE</b>, at least one battery is present in the system.
      * @type {BOOLEAN}
      */
-    BatteryPresent{
-        get {
-            if(!this.HasProp("__BatteryPresent"))
-                this.__BatteryPresent := BOOLEAN(this.ptr + 1)
-            return this.__BatteryPresent
-        }
+    BatteryPresent {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
      * If this member is <b>TRUE</b>, a battery is currently charging.
      * @type {BOOLEAN}
      */
-    Charging{
-        get {
-            if(!this.HasProp("__Charging"))
-                this.__Charging := BOOLEAN(this.ptr + 2)
-            return this.__Charging
-        }
+    Charging {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 
     /**
      * If this member is <b>TRUE</b>, a battery is currently discharging.
      * @type {BOOLEAN}
      */
-    Discharging{
-        get {
-            if(!this.HasProp("__Discharging"))
-                this.__Discharging := BOOLEAN(this.ptr + 3)
-            return this.__Discharging
-        }
+    Discharging {
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
     }
 
     /**
@@ -70,7 +57,7 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
     Spare1{
         get {
             if(!this.HasProp("__Spare1ProxyArray"))
-                this.__Spare1ProxyArray := Win32FixedArray(this.ptr + 8, 3, BOOLEAN, "")
+                this.__Spare1ProxyArray := Win32FixedArray(this.ptr + 4, 3, BOOLEAN, "")
             return this.__Spare1ProxyArray
         }
     }
@@ -80,8 +67,8 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
      * @type {Integer}
      */
     Tag {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
     }
 
     /**
@@ -89,8 +76,8 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
      * @type {Integer}
      */
     MaxCapacity {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -98,8 +85,8 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
      * @type {Integer}
      */
     RemainingCapacity {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -109,8 +96,8 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
      * @type {Integer}
      */
     Rate {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -118,8 +105,8 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
      * @type {Integer}
      */
     EstimatedTime {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -130,8 +117,8 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
      * @type {Integer}
      */
     DefaultAlert1 {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -142,7 +129,7 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
      * @type {Integer}
      */
     DefaultAlert2 {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

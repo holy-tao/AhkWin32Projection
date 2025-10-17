@@ -35,7 +35,7 @@ class DATETIMEPICKERINFO extends Win32Struct
     rcCheck{
         get {
             if(!this.HasProp("__rcCheck"))
-                this.__rcCheck := RECT(this.ptr + 8)
+                this.__rcCheck := RECT(8, this)
             return this.__rcCheck
         }
     }
@@ -60,7 +60,7 @@ class DATETIMEPICKERINFO extends Win32Struct
     rcButton{
         get {
             if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(this.ptr + 32)
+                this.__rcButton := RECT(32, this)
             return this.__rcButton
         }
     }
@@ -85,7 +85,7 @@ class DATETIMEPICKERINFO extends Win32Struct
     hwndEdit{
         get {
             if(!this.HasProp("__hwndEdit"))
-                this.__hwndEdit := HWND(this.ptr + 56)
+                this.__hwndEdit := HWND(56, this)
             return this.__hwndEdit
         }
     }
@@ -99,7 +99,7 @@ class DATETIMEPICKERINFO extends Win32Struct
     hwndUD{
         get {
             if(!this.HasProp("__hwndUD"))
-                this.__hwndUD := HWND(this.ptr + 64)
+                this.__hwndUD := HWND(64, this)
             return this.__hwndUD
         }
     }
@@ -113,17 +113,13 @@ class DATETIMEPICKERINFO extends Win32Struct
     hwndDropDown{
         get {
             if(!this.HasProp("__hwndDropDown"))
-                this.__hwndDropDown := HWND(this.ptr + 72)
+                this.__hwndDropDown := HWND(72, this)
             return this.__hwndDropDown
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 80
     }
 }

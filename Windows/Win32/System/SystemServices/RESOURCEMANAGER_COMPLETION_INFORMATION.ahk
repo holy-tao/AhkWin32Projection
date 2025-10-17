@@ -18,7 +18,7 @@ class RESOURCEMANAGER_COMPLETION_INFORMATION extends Win32Struct
     IoCompletionPortHandle{
         get {
             if(!this.HasProp("__IoCompletionPortHandle"))
-                this.__IoCompletionPortHandle := HANDLE(this.ptr + 0)
+                this.__IoCompletionPortHandle := HANDLE(0, this)
             return this.__IoCompletionPortHandle
         }
     }

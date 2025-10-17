@@ -34,7 +34,7 @@ class TITLEBARINFOEX extends Win32Struct
     rcTitleBar{
         get {
             if(!this.HasProp("__rcTitleBar"))
-                this.__rcTitleBar := RECT(this.ptr + 8)
+                this.__rcTitleBar := RECT(8, this)
             return this.__rcTitleBar
         }
     }
@@ -129,12 +129,8 @@ class TITLEBARINFOEX extends Win32Struct
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 96
     }
 }

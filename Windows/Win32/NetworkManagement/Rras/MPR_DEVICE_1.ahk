@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MPR_DEVICE_1 structure stores information about a device used for a link in a multilinked demand dial interface. In addition to the information in MPR_DEVICE_0, MPR_DEVICE_1 contains phone-number information.
@@ -46,11 +45,8 @@ class MPR_DEVICE_1 extends Win32Struct
      * Pointer to a list of consecutive null-terminated Unicode strings. The last string is terminated by two consecutive null characters. The strings are alternate phone numbers that the router dials in the order listed if the primary number (see <b>szLocalPhoneNumber</b>) fails to connect.
      * @type {PWSTR}
      */
-    szAlternates{
-        get {
-            if(!this.HasProp("__szAlternates"))
-                this.__szAlternates := PWSTR(this.ptr + 552)
-            return this.__szAlternates
-        }
+    szAlternates {
+        get => NumGet(this, 552, "ptr")
+        set => NumPut("ptr", value, this, 552)
     }
 }

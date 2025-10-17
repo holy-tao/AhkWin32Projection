@@ -34,7 +34,7 @@ class MIB_ANYCASTIPADDRESS_ROW extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR_INET(this.ptr + 0)
+                this.__Address := SOCKADDR_INET(0, this)
             return this.__Address
         }
     }
@@ -46,7 +46,7 @@ class MIB_ANYCASTIPADDRESS_ROW extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 64)
+                this.__InterfaceLuid := NET_LUID_LH(64, this)
             return this.__InterfaceLuid
         }
     }
@@ -67,7 +67,7 @@ class MIB_ANYCASTIPADDRESS_ROW extends Win32Struct
     ScopeId{
         get {
             if(!this.HasProp("__ScopeId"))
-                this.__ScopeId := SCOPE_ID(this.ptr + 84)
+                this.__ScopeId := SCOPE_ID(84, this)
             return this.__ScopeId
         }
     }

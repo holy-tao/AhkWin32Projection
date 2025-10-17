@@ -89,17 +89,13 @@ class SV2CVW2_PARAMS extends Win32Struct
     hwndView{
         get {
             if(!this.HasProp("__hwndView"))
-                this.__hwndView := HWND(this.ptr + 48)
+                this.__hwndView := HWND(48, this)
             return this.__hwndView
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

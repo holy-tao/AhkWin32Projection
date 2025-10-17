@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\System\Com\BLOB.ahk
 #Include .\SERVICE_INFOA.ahk
 
@@ -175,7 +174,7 @@ class NS_SERVICE_INFOA extends Win32Struct
     ServiceInfo{
         get {
             if(!this.HasProp("__ServiceInfo"))
-                this.__ServiceInfo := SERVICE_INFOA(this.ptr + 8)
+                this.__ServiceInfo := SERVICE_INFOA(8, this)
             return this.__ServiceInfo
         }
     }

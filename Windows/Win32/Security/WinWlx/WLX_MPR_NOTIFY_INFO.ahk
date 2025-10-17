@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides identification and authentication information to network providers.
@@ -23,12 +22,9 @@ class WLX_MPR_NOTIFY_INFO extends Win32Struct
      * The string pointed to by <b>pszUserName</b> must be separately allocated by your GINA DLL. It will be deallocated by Winlogon.
      * @type {PWSTR}
      */
-    pszUserName{
-        get {
-            if(!this.HasProp("__pszUserName"))
-                this.__pszUserName := PWSTR(this.ptr + 0)
-            return this.__pszUserName
-        }
+    pszUserName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -40,12 +36,9 @@ class WLX_MPR_NOTIFY_INFO extends Win32Struct
      * The string pointed to by pszDomain must be separately allocated by your GINA DLL. It will be deallocated by Winlogon.
      * @type {PWSTR}
      */
-    pszDomain{
-        get {
-            if(!this.HasProp("__pszDomain"))
-                this.__pszDomain := PWSTR(this.ptr + 8)
-            return this.__pszDomain
-        }
+    pszDomain {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -59,12 +52,9 @@ class WLX_MPR_NOTIFY_INFO extends Win32Struct
      *  For information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @type {PWSTR}
      */
-    pszPassword{
-        get {
-            if(!this.HasProp("__pszPassword"))
-                this.__pszPassword := PWSTR(this.ptr + 16)
-            return this.__pszPassword
-        }
+    pszPassword {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -76,11 +66,8 @@ class WLX_MPR_NOTIFY_INFO extends Win32Struct
      * The string pointed to by <b>pszOldPassword</b> must be separately allocated by your GINA DLL. It will be deallocated by Winlogon.
      * @type {PWSTR}
      */
-    pszOldPassword{
-        get {
-            if(!this.HasProp("__pszOldPassword"))
-                this.__pszOldPassword := PWSTR(this.ptr + 24)
-            return this.__pszOldPassword
-        }
+    pszOldPassword {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

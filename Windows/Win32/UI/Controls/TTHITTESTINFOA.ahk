@@ -4,8 +4,6 @@
 #Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include .\TTTOOLINFOA.ahk
 
 /**
@@ -40,7 +38,7 @@ class TTHITTESTINFOA extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
+                this.__hwnd := HWND(0, this)
             return this.__hwnd
         }
     }
@@ -54,7 +52,7 @@ class TTHITTESTINFOA extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 8)
+                this.__pt := POINT(8, this)
             return this.__pt
         }
     }
@@ -72,7 +70,7 @@ class TTHITTESTINFOA extends Win32Struct
     ti{
         get {
             if(!this.HasProp("__ti"))
-                this.__ti := TTTOOLINFOA(this.ptr + 16)
+                this.__ti := TTTOOLINFOA(16, this)
             return this.__ti
         }
     }

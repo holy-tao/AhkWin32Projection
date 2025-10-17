@@ -21,7 +21,7 @@ class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := VBS_ENCLAVE_REPORT_VARDATA_HEADER(this.ptr + 0)
+                this.__Header := VBS_ENCLAVE_REPORT_VARDATA_HEADER(0, this)
             return this.__Header
         }
     }

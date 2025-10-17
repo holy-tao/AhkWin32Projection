@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_KEY_DSA_KEY_VALUE.ahk
 #Include .\CRYPT_XML_KEY_RSA_KEY_VALUE.ahk
@@ -33,12 +32,9 @@ class CRYPT_XML_KEY_INFO_ITEM extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    wszKeyName{
-        get {
-            if(!this.HasProp("__wszKeyName"))
-                this.__wszKeyName := PWSTR(this.ptr + 8)
-            return this.__wszKeyName
-        }
+    wszKeyName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -47,7 +43,7 @@ class CRYPT_XML_KEY_INFO_ITEM extends Win32Struct
     KeyValue{
         get {
             if(!this.HasProp("__KeyValue"))
-                this.__KeyValue := CRYPT_XML_KEY_VALUE(this.ptr + 8)
+                this.__KeyValue := CRYPT_XML_KEY_VALUE(8, this)
             return this.__KeyValue
         }
     }
@@ -58,7 +54,7 @@ class CRYPT_XML_KEY_INFO_ITEM extends Win32Struct
     RetrievalMethod{
         get {
             if(!this.HasProp("__RetrievalMethod"))
-                this.__RetrievalMethod := CRYPT_XML_BLOB(this.ptr + 8)
+                this.__RetrievalMethod := CRYPT_XML_BLOB(8, this)
             return this.__RetrievalMethod
         }
     }
@@ -69,7 +65,7 @@ class CRYPT_XML_KEY_INFO_ITEM extends Win32Struct
     X509Data{
         get {
             if(!this.HasProp("__X509Data"))
-                this.__X509Data := CRYPT_XML_X509DATA(this.ptr + 8)
+                this.__X509Data := CRYPT_XML_X509DATA(8, this)
             return this.__X509Data
         }
     }
@@ -80,7 +76,7 @@ class CRYPT_XML_KEY_INFO_ITEM extends Win32Struct
     Custom{
         get {
             if(!this.HasProp("__Custom"))
-                this.__Custom := CRYPT_XML_BLOB(this.ptr + 8)
+                this.__Custom := CRYPT_XML_BLOB(8, this)
             return this.__Custom
         }
     }

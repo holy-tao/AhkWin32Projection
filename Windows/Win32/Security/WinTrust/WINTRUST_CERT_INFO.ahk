@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used when calling WinVerifyTrust to verify a CERT_CONTEXT.
@@ -28,12 +27,9 @@ class WINTRUST_CERT_INFO extends Win32Struct
      * [WINTRUST_BLOB_INFO](/windows/desktop/api/wintrust/ns-wintrust-wintrust_blob_info) structure.
      * @type {PWSTR}
      */
-    pcwszDisplayName{
-        get {
-            if(!this.HasProp("__pcwszDisplayName"))
-                this.__pcwszDisplayName := PWSTR(this.ptr + 8)
-            return this.__pcwszDisplayName
-        }
+    pcwszDisplayName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

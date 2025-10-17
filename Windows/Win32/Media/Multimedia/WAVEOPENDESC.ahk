@@ -18,7 +18,7 @@ class WAVEOPENDESC extends Win32Struct
     hWave{
         get {
             if(!this.HasProp("__hWave"))
-                this.__hWave := HWAVE(this.ptr + 0)
+                this.__hWave := HWAVE(0, this)
             return this.__hWave
         }
     }

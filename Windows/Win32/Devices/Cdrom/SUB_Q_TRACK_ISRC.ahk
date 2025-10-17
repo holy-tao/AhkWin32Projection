@@ -18,7 +18,7 @@ class SUB_Q_TRACK_ISRC extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := SUB_Q_HEADER(this.ptr + 0)
+                this.__Header := SUB_Q_HEADER(0, this)
             return this.__Header
         }
     }

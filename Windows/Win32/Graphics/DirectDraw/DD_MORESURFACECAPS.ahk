@@ -31,7 +31,7 @@ class DD_MORESURFACECAPS extends Win32Struct
         ddsCapsEx{
             get {
                 if(!this.HasProp("__ddsCapsEx"))
-                    this.__ddsCapsEx := DDSCAPSEX(this.ptr + 0)
+                    this.__ddsCapsEx := DDSCAPSEX(0, this)
                 return this.__ddsCapsEx
             }
         }
@@ -42,7 +42,7 @@ class DD_MORESURFACECAPS extends Win32Struct
         ddsCapsExAlt{
             get {
                 if(!this.HasProp("__ddsCapsExAlt"))
-                    this.__ddsCapsExAlt := DDSCAPSEX(this.ptr + 16)
+                    this.__ddsCapsExAlt := DDSCAPSEX(16, this)
                 return this.__ddsCapsExAlt
             }
         }
@@ -75,7 +75,7 @@ class DD_MORESURFACECAPS extends Win32Struct
     ddsCapsMore{
         get {
             if(!this.HasProp("__ddsCapsMore"))
-                this.__ddsCapsMore := DDSCAPSEX(this.ptr + 8)
+                this.__ddsCapsMore := DDSCAPSEX(8, this)
             return this.__ddsCapsMore
         }
     }

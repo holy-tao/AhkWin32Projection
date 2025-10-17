@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\VIRTUAL_STORAGE_TYPE.ahk
 
 /**
@@ -93,23 +92,17 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        ParentPath{
-            get {
-                if(!this.HasProp("__ParentPath"))
-                    this.__ParentPath := PWSTR(this.ptr + 24)
-                return this.__ParentPath
-            }
+        ParentPath {
+            get => NumGet(this, 24, "ptr")
+            set => NumPut("ptr", value, this, 24)
         }
     
         /**
          * @type {PWSTR}
          */
-        SourcePath{
-            get {
-                if(!this.HasProp("__SourcePath"))
-                    this.__SourcePath := PWSTR(this.ptr + 32)
-                return this.__SourcePath
-            }
+        SourcePath {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
         }
     
     }
@@ -161,23 +154,17 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        ParentPath{
-            get {
-                if(!this.HasProp("__ParentPath"))
-                    this.__ParentPath := PWSTR(this.ptr + 32)
-                return this.__ParentPath
-            }
+        ParentPath {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
         }
     
         /**
          * @type {PWSTR}
          */
-        SourcePath{
-            get {
-                if(!this.HasProp("__SourcePath"))
-                    this.__SourcePath := PWSTR(this.ptr + 40)
-                return this.__SourcePath
-            }
+        SourcePath {
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
         }
     
         /**
@@ -194,7 +181,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         ParentVirtualStorageType{
             get {
                 if(!this.HasProp("__ParentVirtualStorageType"))
-                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 56)
+                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(56, this)
                 return this.__ParentVirtualStorageType
             }
         }
@@ -205,7 +192,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         SourceVirtualStorageType{
             get {
                 if(!this.HasProp("__SourceVirtualStorageType"))
-                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 72)
+                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(72, this)
                 return this.__SourceVirtualStorageType
             }
         }
@@ -267,23 +254,17 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        ParentPath{
-            get {
-                if(!this.HasProp("__ParentPath"))
-                    this.__ParentPath := PWSTR(this.ptr + 32)
-                return this.__ParentPath
-            }
+        ParentPath {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
         }
     
         /**
          * @type {PWSTR}
          */
-        SourcePath{
-            get {
-                if(!this.HasProp("__SourcePath"))
-                    this.__SourcePath := PWSTR(this.ptr + 40)
-                return this.__SourcePath
-            }
+        SourcePath {
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
         }
     
         /**
@@ -300,7 +281,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         ParentVirtualStorageType{
             get {
                 if(!this.HasProp("__ParentVirtualStorageType"))
-                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 56)
+                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(56, this)
                 return this.__ParentVirtualStorageType
             }
         }
@@ -311,7 +292,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         SourceVirtualStorageType{
             get {
                 if(!this.HasProp("__SourceVirtualStorageType"))
-                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 72)
+                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(72, this)
                 return this.__SourceVirtualStorageType
             }
         }
@@ -327,12 +308,9 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        SourceLimitPath{
-            get {
-                if(!this.HasProp("__SourceLimitPath"))
-                    this.__SourceLimitPath := PWSTR(this.ptr + 96)
-                return this.__SourceLimitPath
-            }
+        SourceLimitPath {
+            get => NumGet(this, 96, "ptr")
+            set => NumPut("ptr", value, this, 96)
         }
     
         /**
@@ -341,7 +319,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         BackingStorageType{
             get {
                 if(!this.HasProp("__BackingStorageType"))
-                    this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 104)
+                    this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(104, this)
                 return this.__BackingStorageType
             }
         }
@@ -395,23 +373,17 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        ParentPath{
-            get {
-                if(!this.HasProp("__ParentPath"))
-                    this.__ParentPath := PWSTR(this.ptr + 32)
-                return this.__ParentPath
-            }
+        ParentPath {
+            get => NumGet(this, 32, "ptr")
+            set => NumPut("ptr", value, this, 32)
         }
     
         /**
          * @type {PWSTR}
          */
-        SourcePath{
-            get {
-                if(!this.HasProp("__SourcePath"))
-                    this.__SourcePath := PWSTR(this.ptr + 40)
-                return this.__SourcePath
-            }
+        SourcePath {
+            get => NumGet(this, 40, "ptr")
+            set => NumPut("ptr", value, this, 40)
         }
     
         /**
@@ -428,7 +400,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         ParentVirtualStorageType{
             get {
                 if(!this.HasProp("__ParentVirtualStorageType"))
-                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 56)
+                    this.__ParentVirtualStorageType := VIRTUAL_STORAGE_TYPE(56, this)
                 return this.__ParentVirtualStorageType
             }
         }
@@ -439,7 +411,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         SourceVirtualStorageType{
             get {
                 if(!this.HasProp("__SourceVirtualStorageType"))
-                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 72)
+                    this.__SourceVirtualStorageType := VIRTUAL_STORAGE_TYPE(72, this)
                 return this.__SourceVirtualStorageType
             }
         }
@@ -455,12 +427,9 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        SourceLimitPath{
-            get {
-                if(!this.HasProp("__SourceLimitPath"))
-                    this.__SourceLimitPath := PWSTR(this.ptr + 96)
-                return this.__SourceLimitPath
-            }
+        SourceLimitPath {
+            get => NumGet(this, 96, "ptr")
+            set => NumPut("ptr", value, this, 96)
         }
     
         /**
@@ -469,7 +438,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         BackingStorageType{
             get {
                 if(!this.HasProp("__BackingStorageType"))
-                    this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 104)
+                    this.__BackingStorageType := VIRTUAL_STORAGE_TYPE(104, this)
                 return this.__BackingStorageType
             }
         }
@@ -498,7 +467,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version1{
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+                this.__Version1 := %this.__Class%._Version1(8, this)
             return this.__Version1
         }
     }
@@ -509,7 +478,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version2{
         get {
             if(!this.HasProp("__Version2"))
-                this.__Version2 := %this.__Class%._Version2(this.ptr + 8)
+                this.__Version2 := %this.__Class%._Version2(8, this)
             return this.__Version2
         }
     }
@@ -520,7 +489,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version3{
         get {
             if(!this.HasProp("__Version3"))
-                this.__Version3 := %this.__Class%._Version3(this.ptr + 8)
+                this.__Version3 := %this.__Class%._Version3(8, this)
             return this.__Version3
         }
     }
@@ -531,7 +500,7 @@ class CREATE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version4{
         get {
             if(!this.HasProp("__Version4"))
-                this.__Version4 := %this.__Class%._Version4(this.ptr + 8)
+                this.__Version4 := %this.__Class%._Version4(8, this)
             return this.__Version4
         }
     }

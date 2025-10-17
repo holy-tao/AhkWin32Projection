@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -39,23 +38,17 @@ class SPLCLIENT_INFO_3_VISTA extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pMachineName{
-        get {
-            if(!this.HasProp("__pMachineName"))
-                this.__pMachineName := PWSTR(this.ptr + 16)
-            return this.__pMachineName
-        }
+    pMachineName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pUserName{
-        get {
-            if(!this.HasProp("__pUserName"))
-                this.__pUserName := PWSTR(this.ptr + 24)
-            return this.__pUserName
-        }
+    pUserName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -98,12 +91,8 @@ class SPLCLIENT_INFO_3_VISTA extends Win32Struct
         set => NumPut("uint", value, this, 48)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

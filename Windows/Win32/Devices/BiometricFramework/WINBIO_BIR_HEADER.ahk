@@ -112,7 +112,7 @@ class WINBIO_BIR_HEADER extends Win32Struct
     ValidityPeriod{
         get {
             if(!this.HasProp("__ValidityPeriod"))
-                this.__ValidityPeriod := %this.__Class%._ValidityPeriod(this.ptr + 24)
+                this.__ValidityPeriod := %this.__Class%._ValidityPeriod(24, this)
             return this.__ValidityPeriod
         }
     }
@@ -123,7 +123,7 @@ class WINBIO_BIR_HEADER extends Win32Struct
     BiometricDataFormat{
         get {
             if(!this.HasProp("__BiometricDataFormat"))
-                this.__BiometricDataFormat := WINBIO_REGISTERED_FORMAT(this.ptr + 40)
+                this.__BiometricDataFormat := WINBIO_REGISTERED_FORMAT(40, this)
             return this.__BiometricDataFormat
         }
     }
@@ -134,7 +134,7 @@ class WINBIO_BIR_HEADER extends Win32Struct
     ProductId{
         get {
             if(!this.HasProp("__ProductId"))
-                this.__ProductId := WINBIO_REGISTERED_FORMAT(this.ptr + 44)
+                this.__ProductId := WINBIO_REGISTERED_FORMAT(44, this)
             return this.__ProductId
         }
     }

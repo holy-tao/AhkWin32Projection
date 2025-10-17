@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\System\Diagnostics\Etw\EVENT_TRACE_HEADER.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -19,7 +18,7 @@ class DXVA2Trace_DecodeDevBeginFrameData extends Win32Struct
     wmiHeader{
         get {
             if(!this.HasProp("__wmiHeader"))
-                this.__wmiHeader := EVENT_TRACE_HEADER(this.ptr + 0)
+                this.__wmiHeader := EVENT_TRACE_HEADER(0, this)
             return this.__wmiHeader
         }
     }
@@ -43,11 +42,8 @@ class DXVA2Trace_DecodeDevBeginFrameData extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Enter{
-        get {
-            if(!this.HasProp("__Enter"))
-                this.__Enter := BOOL(this.ptr + 56)
-            return this.__Enter
-        }
+    Enter {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

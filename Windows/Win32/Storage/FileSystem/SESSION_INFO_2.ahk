@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the session, including name of the computer; name of the user; open files, pipes, and devices on the computer; and the type of client that established the session.
@@ -18,24 +17,18 @@ class SESSION_INFO_2 extends Win32Struct
      * Pointer to a Unicode string specifying the name of the computer that established the session. This string cannot contain a backslash (\\).
      * @type {PWSTR}
      */
-    sesi2_cname{
-        get {
-            if(!this.HasProp("__sesi2_cname"))
-                this.__sesi2_cname := PWSTR(this.ptr + 0)
-            return this.__sesi2_cname
-        }
+    sesi2_cname {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a Unicode string specifying the name of the user who established the session.
      * @type {PWSTR}
      */
-    sesi2_username{
-        get {
-            if(!this.HasProp("__sesi2_username"))
-                this.__sesi2_username := PWSTR(this.ptr + 8)
-            return this.__sesi2_username
-        }
+    sesi2_username {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -130,11 +123,8 @@ class SESSION_INFO_2 extends Win32Struct
      * Sessions from LAN Manager servers running UNIX also will appear as LAN Manager 2.0.
      * @type {PWSTR}
      */
-    sesi2_cltype_name{
-        get {
-            if(!this.HasProp("__sesi2_cltype_name"))
-                this.__sesi2_cltype_name := PWSTR(this.ptr + 32)
-            return this.__sesi2_cltype_name
-        }
+    sesi2_cltype_name {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

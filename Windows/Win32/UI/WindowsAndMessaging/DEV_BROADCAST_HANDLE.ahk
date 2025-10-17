@@ -49,7 +49,7 @@ class DEV_BROADCAST_HANDLE extends Win32Struct
     dbch_handle{
         get {
             if(!this.HasProp("__dbch_handle"))
-                this.__dbch_handle := HANDLE(this.ptr + 16)
+                this.__dbch_handle := HANDLE(16, this)
             return this.__dbch_handle
         }
     }
@@ -62,7 +62,7 @@ class DEV_BROADCAST_HANDLE extends Win32Struct
     dbch_hdevnotify{
         get {
             if(!this.HasProp("__dbch_hdevnotify"))
-                this.__dbch_hdevnotify := HDEVNOTIFY(this.ptr + 24)
+                this.__dbch_hdevnotify := HDEVNOTIFY(24, this)
             return this.__dbch_hdevnotify
         }
     }

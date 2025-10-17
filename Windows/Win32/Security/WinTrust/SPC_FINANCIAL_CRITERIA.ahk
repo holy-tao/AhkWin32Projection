@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -15,22 +14,16 @@ class SPC_FINANCIAL_CRITERIA extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fFinancialInfoAvailable{
-        get {
-            if(!this.HasProp("__fFinancialInfoAvailable"))
-                this.__fFinancialInfoAvailable := BOOL(this.ptr + 0)
-            return this.__fFinancialInfoAvailable
-        }
+    fFinancialInfoAvailable {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * @type {BOOL}
      */
-    fMeetsCriteria{
-        get {
-            if(!this.HasProp("__fMeetsCriteria"))
-                this.__fMeetsCriteria := BOOL(this.ptr + 4)
-            return this.__fMeetsCriteria
-        }
+    fMeetsCriteria {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 }

@@ -232,7 +232,7 @@ class FileHistory {
      * @since windows8.0
      */
     static FhServiceOpenPipe(StartServiceIfStopped, Pipe) {
-        result := DllCall("fhsvcctl.dll\FhServiceOpenPipe", "ptr", StartServiceIfStopped, "ptr", Pipe, "int")
+        result := DllCall("fhsvcctl.dll\FhServiceOpenPipe", "int", StartServiceIfStopped, "ptr", Pipe, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -271,7 +271,7 @@ class FileHistory {
     static FhServiceStartBackup(Pipe, LowPriorityIo) {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
-        result := DllCall("fhsvcctl.dll\FhServiceStartBackup", "ptr", Pipe, "ptr", LowPriorityIo, "int")
+        result := DllCall("fhsvcctl.dll\FhServiceStartBackup", "ptr", Pipe, "int", LowPriorityIo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -292,7 +292,7 @@ class FileHistory {
     static FhServiceStopBackup(Pipe, StopTracking) {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
 
-        result := DllCall("fhsvcctl.dll\FhServiceStopBackup", "ptr", Pipe, "ptr", StopTracking, "int")
+        result := DllCall("fhsvcctl.dll\FhServiceStopBackup", "ptr", Pipe, "int", StopTracking, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -21,7 +21,7 @@ class DIMM_INFO extends Win32Struct
     DimmAddress{
         get {
             if(!this.HasProp("__DimmAddress"))
-                this.__DimmAddress := DIMM_ADDRESS(this.ptr + 0)
+                this.__DimmAddress := DIMM_ADDRESS(0, this)
             return this.__DimmAddress
         }
     }
@@ -32,7 +32,7 @@ class DIMM_INFO extends Win32Struct
     ValidBits{
         get {
             if(!this.HasProp("__ValidBits"))
-                this.__ValidBits := DIMM_ADDR_VALID_BITS(this.ptr + 48)
+                this.__ValidBits := DIMM_ADDR_VALID_BITS(48, this)
             return this.__ValidBits
         }
     }

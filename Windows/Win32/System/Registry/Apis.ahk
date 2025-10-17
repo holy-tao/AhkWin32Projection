@@ -6176,7 +6176,7 @@ class Registry {
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("ADVAPI32.dll\RegNotifyChangeKeyValue", "ptr", hKey, "ptr", bWatchSubtree, "uint", dwNotifyFilter, "ptr", hEvent, "ptr", fAsynchronous, "uint")
+        result := DllCall("ADVAPI32.dll\RegNotifyChangeKeyValue", "ptr", hKey, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr", hEvent, "int", fAsynchronous, "uint")
         return result
     }
 

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about the Windows Sockets implementation.
@@ -94,12 +93,9 @@ class WSADATA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> to retrieve the value of option PVD_CONFIG for vendor-specific information.
      * @type {PSTR}
      */
-    lpVendorInfo{
-        get {
-            if(!this.HasProp("__lpVendorInfo"))
-                this.__lpVendorInfo := PSTR(this.ptr + 8)
-            return this.__lpVendorInfo
-        }
+    lpVendorInfo {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

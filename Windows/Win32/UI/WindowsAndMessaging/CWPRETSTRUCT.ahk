@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LRESULT.ahk
-#Include ..\..\Foundation\LPARAM.ahk
-#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -24,12 +21,9 @@ class CWPRETSTRUCT extends Win32Struct
      * 					<b>message</b> value.
      * @type {LRESULT}
      */
-    lResult{
-        get {
-            if(!this.HasProp("__lResult"))
-                this.__lResult := LRESULT(this.ptr + 0)
-            return this.__lResult
-        }
+    lResult {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -39,12 +33,9 @@ class CWPRETSTRUCT extends Win32Struct
      * 					<b>message</b> value.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 8)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -54,12 +45,9 @@ class CWPRETSTRUCT extends Win32Struct
      * 					<b>message</b> value.
      * @type {WPARAM}
      */
-    wParam{
-        get {
-            if(!this.HasProp("__wParam"))
-                this.__wParam := WPARAM(this.ptr + 16)
-            return this.__wParam
-        }
+    wParam {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -83,7 +71,7 @@ class CWPRETSTRUCT extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 32)
+                this.__hwnd := HWND(32, this)
             return this.__hwnd
         }
     }

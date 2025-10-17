@@ -4,8 +4,6 @@
 #Include ..\..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information that the PrintDlg function uses to initialize the Print Dialog Box. After the user closes the dialog box, the system uses this structure to return information about the user's selections.
@@ -57,7 +55,7 @@ class PRINTDLGW extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
+                this.__hwndOwner := HWND(8, this)
             return this.__hwndOwner
         }
     }
@@ -79,7 +77,7 @@ class PRINTDLGW extends Win32Struct
     hDevMode{
         get {
             if(!this.HasProp("__hDevMode"))
-                this.__hDevMode := HGLOBAL(this.ptr + 16)
+                this.__hDevMode := HGLOBAL(16, this)
             return this.__hDevMode
         }
     }
@@ -97,7 +95,7 @@ class PRINTDLGW extends Win32Struct
     hDevNames{
         get {
             if(!this.HasProp("__hDevNames"))
-                this.__hDevNames := HGLOBAL(this.ptr + 24)
+                this.__hDevNames := HGLOBAL(24, this)
             return this.__hDevNames
         }
     }
@@ -111,7 +109,7 @@ class PRINTDLGW extends Win32Struct
     hDC{
         get {
             if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 32)
+                this.__hDC := HDC(32, this)
             return this.__hDC
         }
     }
@@ -193,7 +191,7 @@ class PRINTDLGW extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 56)
+                this.__hInstance := HINSTANCE(56, this)
             return this.__hInstance
         }
     }
@@ -204,12 +202,9 @@ class PRINTDLGW extends Win32Struct
      * Application-defined data that the system passes to the hook procedure identified by the <b>lpfnPrintHook</b> or <b>lpfnSetupHook</b> member. When the system sends the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message to the hook procedure, the message's <i>lParam</i> parameter is a pointer to the <b>PRINTDLG</b> structure specified when the dialog was created. The hook procedure can use this pointer to get the <b>lCustData</b> value.
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 64)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -240,12 +235,9 @@ class PRINTDLGW extends Win32Struct
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template replaces the default <b>Print</b> dialog box template. This member is ignored unless the <b>PD_ENABLEPRINTTEMPLATE</b> flag is set in the <b>Flags</b> member.
      * @type {PWSTR}
      */
-    lpPrintTemplateName{
-        get {
-            if(!this.HasProp("__lpPrintTemplateName"))
-                this.__lpPrintTemplateName := PWSTR(this.ptr + 88)
-            return this.__lpPrintTemplateName
-        }
+    lpPrintTemplateName {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -254,12 +246,9 @@ class PRINTDLGW extends Win32Struct
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template replaces the default <b>Print Setup</b> dialog box template. This member is ignored unless the <b>PD_ENABLESETUPTEMPLATE</b> flag is set in the <b>Flags</b> member.
      * @type {PWSTR}
      */
-    lpSetupTemplateName{
-        get {
-            if(!this.HasProp("__lpSetupTemplateName"))
-                this.__lpSetupTemplateName := PWSTR(this.ptr + 96)
-            return this.__lpSetupTemplateName
-        }
+    lpSetupTemplateName {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -271,7 +260,7 @@ class PRINTDLGW extends Win32Struct
     hPrintTemplate{
         get {
             if(!this.HasProp("__hPrintTemplate"))
-                this.__hPrintTemplate := HGLOBAL(this.ptr + 104)
+                this.__hPrintTemplate := HGLOBAL(104, this)
             return this.__hPrintTemplate
         }
     }
@@ -285,7 +274,7 @@ class PRINTDLGW extends Win32Struct
     hSetupTemplate{
         get {
             if(!this.HasProp("__hSetupTemplate"))
-                this.__hSetupTemplate := HGLOBAL(this.ptr + 112)
+                this.__hSetupTemplate := HGLOBAL(112, this)
             return this.__hSetupTemplate
         }
     }

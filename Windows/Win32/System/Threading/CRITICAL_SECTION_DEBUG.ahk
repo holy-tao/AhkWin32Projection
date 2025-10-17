@@ -42,7 +42,7 @@ class CRITICAL_SECTION_DEBUG extends Win32Struct
     ProcessLocksList{
         get {
             if(!this.HasProp("__ProcessLocksList"))
-                this.__ProcessLocksList := LIST_ENTRY(this.ptr + 16)
+                this.__ProcessLocksList := LIST_ENTRY(16, this)
             return this.__ProcessLocksList
         }
     }

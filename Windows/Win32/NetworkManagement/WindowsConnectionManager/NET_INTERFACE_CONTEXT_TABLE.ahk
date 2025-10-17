@@ -21,7 +21,7 @@ class NET_INTERFACE_CONTEXT_TABLE extends Win32Struct
     InterfaceContextHandle{
         get {
             if(!this.HasProp("__InterfaceContextHandle"))
-                this.__InterfaceContextHandle := HANDLE(this.ptr + 0)
+                this.__InterfaceContextHandle := HANDLE(0, this)
             return this.__InterfaceContextHandle
         }
     }

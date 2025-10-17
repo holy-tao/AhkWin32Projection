@@ -18,7 +18,7 @@ class XACTTRANSINFO extends Win32Struct
     uow{
         get {
             if(!this.HasProp("__uow"))
-                this.__uow := BOID(this.ptr + 0)
+                this.__uow := BOID(0, this)
             return this.__uow
         }
     }

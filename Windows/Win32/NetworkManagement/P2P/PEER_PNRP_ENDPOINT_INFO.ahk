@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PEER_DATA.ahk
 
 /**
@@ -19,12 +18,9 @@ class PEER_PNRP_ENDPOINT_INFO extends Win32Struct
      * The peer name associated with this peer endpoint.
      * @type {PWSTR}
      */
-    pwzPeerName{
-        get {
-            if(!this.HasProp("__pwzPeerName"))
-                this.__pwzPeerName := PWSTR(this.ptr + 0)
-            return this.__pwzPeerName
-        }
+    pwzPeerName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -49,12 +45,9 @@ class PEER_PNRP_ENDPOINT_INFO extends Win32Struct
      * Pointer to a zero-terminated Unicode string that contains a comment for this peer endpoint.
      * @type {PWSTR}
      */
-    pwzComment{
-        get {
-            if(!this.HasProp("__pwzComment"))
-                this.__pwzComment := PWSTR(this.ptr + 24)
-            return this.__pwzComment
-        }
+    pwzComment {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -65,7 +58,7 @@ class PEER_PNRP_ENDPOINT_INFO extends Win32Struct
     payload{
         get {
             if(!this.HasProp("__payload"))
-                this.__payload := PEER_DATA(this.ptr + 32)
+                this.__payload := PEER_DATA(32, this)
             return this.__payload
         }
     }

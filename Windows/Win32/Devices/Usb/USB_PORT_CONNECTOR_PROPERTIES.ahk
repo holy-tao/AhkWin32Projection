@@ -34,7 +34,7 @@ class USB_PORT_CONNECTOR_PROPERTIES extends Win32Struct
     UsbPortProperties{
         get {
             if(!this.HasProp("__UsbPortProperties"))
-                this.__UsbPortProperties := USB_PORT_PROPERTIES(this.ptr + 8)
+                this.__UsbPortProperties := USB_PORT_PROPERTIES(8, this)
             return this.__UsbPortProperties
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The SWbemRpnEncodedQuery structure contains information from the IWbemQuery::GetAnalysis method when you use the WMIQ_ANALYSIS_RPN_SEQUENCE analysis type. Not all the fields in the structure are used actively, because some are reserved for future use.
@@ -90,12 +89,9 @@ class SWbemRpnEncodedQuery extends Win32Struct
      * Optional FROM path. If not used this field is <b>NULL</b>.
      * @type {PWSTR}
      */
-    m_pszOptionalFromPath{
-        get {
-            if(!this.HasProp("__m_pszOptionalFromPath"))
-                this.__m_pszOptionalFromPath := PWSTR(this.ptr + 56)
-            return this.__m_pszOptionalFromPath
-        }
+    m_pszOptionalFromPath {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

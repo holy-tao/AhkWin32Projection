@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -56,12 +54,9 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszUsageOid{
-        get {
-            if(!this.HasProp("__pszUsageOid"))
-                this.__pszUsageOid := PSTR(this.ptr + 32)
-            return this.__pszUsageOid
-        }
+    pszUsageOid {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -123,12 +118,9 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 96)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -171,12 +163,8 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
         set => NumPut("ptr", value, this, 136)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 144
     }
 }

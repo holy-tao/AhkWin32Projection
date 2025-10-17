@@ -34,7 +34,7 @@ class STORAGE_ENDURANCE_DATA_DESCRIPTOR extends Win32Struct
     EnduranceInfo{
         get {
             if(!this.HasProp("__EnduranceInfo"))
-                this.__EnduranceInfo := STORAGE_ENDURANCE_INFO(this.ptr + 8)
+                this.__EnduranceInfo := STORAGE_ENDURANCE_INFO(8, this)
             return this.__EnduranceInfo
         }
     }

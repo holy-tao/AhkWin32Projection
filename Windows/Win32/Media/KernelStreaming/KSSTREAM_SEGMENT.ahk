@@ -42,7 +42,7 @@ class KSSTREAM_SEGMENT extends Win32Struct
     CompletionEvent{
         get {
             if(!this.HasProp("__CompletionEvent"))
-                this.__CompletionEvent := HANDLE(this.ptr + 24)
+                this.__CompletionEvent := HANDLE(24, this)
             return this.__CompletionEvent
         }
     }

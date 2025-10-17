@@ -26,7 +26,7 @@ class PM_UPDATEINFO extends Win32Struct
     PackagePath{
         get {
             if(!this.HasProp("__PackagePath"))
-                this.__PackagePath := BSTR(this.ptr + 8)
+                this.__PackagePath := BSTR(8, this)
             return this.__PackagePath
         }
     }
@@ -61,7 +61,7 @@ class PM_UPDATEINFO extends Win32Struct
     MarketplaceAppVersion{
         get {
             if(!this.HasProp("__MarketplaceAppVersion"))
-                this.__MarketplaceAppVersion := BSTR(this.ptr + 40)
+                this.__MarketplaceAppVersion := BSTR(40, this)
             return this.__MarketplaceAppVersion
         }
     }

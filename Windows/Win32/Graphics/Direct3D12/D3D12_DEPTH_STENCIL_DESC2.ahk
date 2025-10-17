@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_DEPTH_STENCILOP_DESC1.ahk
 
 /**
@@ -16,12 +15,9 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    DepthEnable{
-        get {
-            if(!this.HasProp("__DepthEnable"))
-                this.__DepthEnable := BOOL(this.ptr + 0)
-            return this.__DepthEnable
-        }
+    DepthEnable {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -43,12 +39,9 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    StencilEnable{
-        get {
-            if(!this.HasProp("__StencilEnable"))
-                this.__StencilEnable := BOOL(this.ptr + 12)
-            return this.__StencilEnable
-        }
+    StencilEnable {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -57,7 +50,7 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     FrontFace{
         get {
             if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC1(this.ptr + 16)
+                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC1(16, this)
             return this.__FrontFace
         }
     }
@@ -68,7 +61,7 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     BackFace{
         get {
             if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC1(this.ptr + 40)
+                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC1(40, this)
             return this.__BackFace
         }
     }
@@ -76,11 +69,8 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    DepthBoundsTestEnable{
-        get {
-            if(!this.HasProp("__DepthBoundsTestEnable"))
-                this.__DepthBoundsTestEnable := BOOL(this.ptr + 60)
-            return this.__DepthBoundsTestEnable
-        }
+    DepthBoundsTestEnable {
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 }

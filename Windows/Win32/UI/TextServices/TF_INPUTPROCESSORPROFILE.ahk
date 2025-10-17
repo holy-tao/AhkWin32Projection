@@ -81,7 +81,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
     hklSubstitute{
         get {
             if(!this.HasProp("__hklSubstitute"))
-                this.__hklSubstitute := HKL(this.ptr + 32)
+                this.__hklSubstitute := HKL(32, this)
             return this.__hklSubstitute
         }
     }
@@ -137,7 +137,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
     hkl{
         get {
             if(!this.HasProp("__hkl"))
-                this.__hkl := HKL(this.ptr + 48)
+                this.__hkl := HKL(48, this)
             return this.__hkl
         }
     }

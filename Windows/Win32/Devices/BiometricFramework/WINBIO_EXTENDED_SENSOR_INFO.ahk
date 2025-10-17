@@ -69,7 +69,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
         FrameSize{
             get {
                 if(!this.HasProp("__FrameSize"))
-                    this.__FrameSize := RECT(this.ptr + 0)
+                    this.__FrameSize := RECT(0, this)
                 return this.__FrameSize
             }
         }
@@ -80,7 +80,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
         FrameOffset{
             get {
                 if(!this.HasProp("__FrameOffset"))
-                    this.__FrameOffset := POINT(this.ptr + 16)
+                    this.__FrameOffset := POINT(16, this)
                 return this.__FrameOffset
             }
         }
@@ -99,7 +99,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
         HardwareInfo{
             get {
                 if(!this.HasProp("__HardwareInfo"))
-                    this.__HardwareInfo := %this.__Class%._HardwareInfo(this.ptr + 32)
+                    this.__HardwareInfo := %this.__Class%._HardwareInfo(32, this)
                 return this.__HardwareInfo
             }
         }
@@ -130,7 +130,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
         FrameSize{
             get {
                 if(!this.HasProp("__FrameSize"))
-                    this.__FrameSize := RECT(this.ptr + 0)
+                    this.__FrameSize := RECT(0, this)
                 return this.__FrameSize
             }
         }
@@ -141,7 +141,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
         FrameOffset{
             get {
                 if(!this.HasProp("__FrameOffset"))
-                    this.__FrameOffset := POINT(this.ptr + 16)
+                    this.__FrameOffset := POINT(16, this)
                 return this.__FrameOffset
             }
         }
@@ -184,7 +184,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     FacialFeatures{
         get {
             if(!this.HasProp("__FacialFeatures"))
-                this.__FacialFeatures := %this.__Class%._FacialFeatures(this.ptr + 8)
+                this.__FacialFeatures := %this.__Class%._FacialFeatures(8, this)
             return this.__FacialFeatures
         }
     }
@@ -195,7 +195,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     Fingerprint{
         get {
             if(!this.HasProp("__Fingerprint"))
-                this.__Fingerprint := %this.__Class%._Fingerprint(this.ptr + 8)
+                this.__Fingerprint := %this.__Class%._Fingerprint(8, this)
             return this.__Fingerprint
         }
     }
@@ -206,7 +206,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     Iris{
         get {
             if(!this.HasProp("__Iris"))
-                this.__Iris := %this.__Class%._Iris(this.ptr + 8)
+                this.__Iris := %this.__Class%._Iris(8, this)
             return this.__Iris
         }
     }
@@ -217,7 +217,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
     Voice{
         get {
             if(!this.HasProp("__Voice"))
-                this.__Voice := %this.__Class%._Voice(this.ptr + 8)
+                this.__Voice := %this.__Class%._Voice(8, this)
             return this.__Voice
         }
     }

@@ -35,7 +35,7 @@ class D3DLIGHT extends Win32Struct
     dcvColor{
         get {
             if(!this.HasProp("__dcvColor"))
-                this.__dcvColor := D3DCOLORVALUE(this.ptr + 8)
+                this.__dcvColor := D3DCOLORVALUE(8, this)
             return this.__dcvColor
         }
     }
@@ -46,7 +46,7 @@ class D3DLIGHT extends Win32Struct
     dvPosition{
         get {
             if(!this.HasProp("__dvPosition"))
-                this.__dvPosition := D3DVECTOR(this.ptr + 24)
+                this.__dvPosition := D3DVECTOR(24, this)
             return this.__dvPosition
         }
     }
@@ -57,7 +57,7 @@ class D3DLIGHT extends Win32Struct
     dvDirection{
         get {
             if(!this.HasProp("__dvDirection"))
-                this.__dvDirection := D3DVECTOR(this.ptr + 40)
+                this.__dvDirection := D3DVECTOR(40, this)
             return this.__dvDirection
         }
     }

@@ -390,7 +390,7 @@ class WebDav {
     static DavCancelConnectionsToServer(lpName, fForce) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("davclnt.dll\DavCancelConnectionsToServer", "ptr", lpName, "ptr", fForce, "uint")
+        result := DllCall("davclnt.dll\DavCancelConnectionsToServer", "ptr", lpName, "int", fForce, "uint")
         return result
     }
 

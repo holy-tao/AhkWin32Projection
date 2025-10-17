@@ -346,7 +346,7 @@ class Recovery {
      * @since windows6.0.6000
      */
     static ApplicationRecoveryFinished(bSuccess) {
-        DllCall("KERNEL32.dll\ApplicationRecoveryFinished", "ptr", bSuccess)
+        DllCall("KERNEL32.dll\ApplicationRecoveryFinished", "int", bSuccess)
     }
 
 ;@endregion Methods

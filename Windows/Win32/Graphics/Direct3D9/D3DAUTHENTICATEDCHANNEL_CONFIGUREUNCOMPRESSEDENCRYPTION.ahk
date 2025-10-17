@@ -20,7 +20,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGUREUNCOMPRESSEDENCRYPTION extends Win32Struc
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(this.ptr + 0)
+                this.__Parameters := D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(0, this)
             return this.__Parameters
         }
     }

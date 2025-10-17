@@ -2322,7 +2322,7 @@ class Audio {
     static sndPlaySoundA(pszSound, fuSound) {
         pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
 
-        result := DllCall("WINMM.dll\sndPlaySoundA", "ptr", pszSound, "uint", fuSound, "ptr")
+        result := DllCall("WINMM.dll\sndPlaySoundA", "ptr", pszSound, "uint", fuSound, "int")
         return result
     }
 
@@ -2335,7 +2335,7 @@ class Audio {
     static sndPlaySoundW(pszSound, fuSound) {
         pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
 
-        result := DllCall("WINMM.dll\sndPlaySoundW", "ptr", pszSound, "uint", fuSound, "ptr")
+        result := DllCall("WINMM.dll\sndPlaySoundW", "ptr", pszSound, "uint", fuSound, "int")
         return result
     }
 
@@ -2350,7 +2350,7 @@ class Audio {
         pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
         hmod := hmod is Win32Handle ? NumGet(hmod, "ptr") : hmod
 
-        result := DllCall("WINMM.dll\PlaySoundA", "ptr", pszSound, "ptr", hmod, "uint", fdwSound, "ptr")
+        result := DllCall("WINMM.dll\PlaySoundA", "ptr", pszSound, "ptr", hmod, "uint", fdwSound, "int")
         return result
     }
 
@@ -2365,7 +2365,7 @@ class Audio {
         pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
         hmod := hmod is Win32Handle ? NumGet(hmod, "ptr") : hmod
 
-        result := DllCall("WINMM.dll\PlaySoundW", "ptr", pszSound, "ptr", hmod, "uint", fdwSound, "ptr")
+        result := DllCall("WINMM.dll\PlaySoundW", "ptr", pszSound, "ptr", hmod, "uint", fdwSound, "int")
         return result
     }
 

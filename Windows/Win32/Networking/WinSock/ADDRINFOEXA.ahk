@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -57,12 +56,9 @@ class ADDRINFOEXA extends Win32Struct
     /**
      * @type {PSTR}
      */
-    ai_canonname{
-        get {
-            if(!this.HasProp("__ai_canonname"))
-                this.__ai_canonname := PSTR(this.ptr + 24)
-            return this.__ai_canonname
-        }
+    ai_canonname {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

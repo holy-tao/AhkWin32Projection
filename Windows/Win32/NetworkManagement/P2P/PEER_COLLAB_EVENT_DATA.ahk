@@ -34,7 +34,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     watchListChangedData{
         get {
             if(!this.HasProp("__watchListChangedData"))
-                this.__watchListChangedData := PEER_EVENT_WATCHLIST_CHANGED_DATA(this.ptr + 8)
+                this.__watchListChangedData := PEER_EVENT_WATCHLIST_CHANGED_DATA(8, this)
             return this.__watchListChangedData
         }
     }
@@ -46,7 +46,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     presenceChangedData{
         get {
             if(!this.HasProp("__presenceChangedData"))
-                this.__presenceChangedData := PEER_EVENT_PRESENCE_CHANGED_DATA(this.ptr + 8)
+                this.__presenceChangedData := PEER_EVENT_PRESENCE_CHANGED_DATA(8, this)
             return this.__presenceChangedData
         }
     }
@@ -58,7 +58,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     applicationChangedData{
         get {
             if(!this.HasProp("__applicationChangedData"))
-                this.__applicationChangedData := PEER_EVENT_APPLICATION_CHANGED_DATA(this.ptr + 8)
+                this.__applicationChangedData := PEER_EVENT_APPLICATION_CHANGED_DATA(8, this)
             return this.__applicationChangedData
         }
     }
@@ -70,7 +70,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     objectChangedData{
         get {
             if(!this.HasProp("__objectChangedData"))
-                this.__objectChangedData := PEER_EVENT_OBJECT_CHANGED_DATA(this.ptr + 8)
+                this.__objectChangedData := PEER_EVENT_OBJECT_CHANGED_DATA(8, this)
             return this.__objectChangedData
         }
     }
@@ -82,7 +82,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     endpointChangedData{
         get {
             if(!this.HasProp("__endpointChangedData"))
-                this.__endpointChangedData := PEER_EVENT_ENDPOINT_CHANGED_DATA(this.ptr + 8)
+                this.__endpointChangedData := PEER_EVENT_ENDPOINT_CHANGED_DATA(8, this)
             return this.__endpointChangedData
         }
     }
@@ -94,7 +94,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     peopleNearMeChangedData{
         get {
             if(!this.HasProp("__peopleNearMeChangedData"))
-                this.__peopleNearMeChangedData := PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA(this.ptr + 8)
+                this.__peopleNearMeChangedData := PEER_EVENT_PEOPLE_NEAR_ME_CHANGED_DATA(8, this)
             return this.__peopleNearMeChangedData
         }
     }
@@ -106,7 +106,7 @@ class PEER_COLLAB_EVENT_DATA extends Win32Struct
     requestStatusChangedData{
         get {
             if(!this.HasProp("__requestStatusChangedData"))
-                this.__requestStatusChangedData := PEER_EVENT_REQUEST_STATUS_CHANGED_DATA(this.ptr + 8)
+                this.__requestStatusChangedData := PEER_EVENT_REQUEST_STATUS_CHANGED_DATA(8, this)
             return this.__requestStatusChangedData
         }
     }

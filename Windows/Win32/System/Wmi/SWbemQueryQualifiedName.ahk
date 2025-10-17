@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SWbemQueryQualifiedName structure stores property names for the IWbemQuery::GetAnalysis method.
@@ -54,12 +53,9 @@ class SWbemQueryQualifiedName extends Win32Struct
      * Unused. Always <b>false</b>.
      * @type {BOOL}
      */
-    m_bArraysUsed{
-        get {
-            if(!this.HasProp("__m_bArraysUsed"))
-                this.__m_bArraysUsed := BOOL(this.ptr + 24)
-            return this.__m_bArraysUsed
-        }
+    m_bArraysUsed {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**

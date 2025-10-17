@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\PSID.ahk
 #Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
 #Include ..\..\Security\TOKEN_USER.ahk
 #Include ..\..\Security\SID_IDENTIFIER_AUTHORITY.ahk
@@ -22,7 +21,7 @@ class SE_TOKEN_USER extends Win32Struct
     TokenUser{
         get {
             if(!this.HasProp("__TokenUser"))
-                this.__TokenUser := TOKEN_USER(this.ptr + 0)
+                this.__TokenUser := TOKEN_USER(0, this)
             return this.__TokenUser
         }
     }
@@ -33,7 +32,7 @@ class SE_TOKEN_USER extends Win32Struct
     User{
         get {
             if(!this.HasProp("__User"))
-                this.__User := SID_AND_ATTRIBUTES(this.ptr + 0)
+                this.__User := SID_AND_ATTRIBUTES(0, this)
             return this.__User
         }
     }
@@ -44,7 +43,7 @@ class SE_TOKEN_USER extends Win32Struct
     Sid{
         get {
             if(!this.HasProp("__Sid"))
-                this.__Sid := SID(this.ptr + 16)
+                this.__Sid := SID(16, this)
             return this.__Sid
         }
     }

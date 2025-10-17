@@ -3869,7 +3869,7 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static FreeADsMem(pMem) {
-        result := DllCall("ACTIVEDS.dll\FreeADsMem", "ptr", pMem, "ptr")
+        result := DllCall("ACTIVEDS.dll\FreeADsMem", "ptr", pMem, "int")
         return result
     }
 
@@ -3913,7 +3913,7 @@ class ActiveDirectory {
     static AllocADsStr(pStr) {
         pStr := pStr is String ? StrPtr(pStr) : pStr
 
-        result := DllCall("ACTIVEDS.dll\AllocADsStr", "ptr", pStr, "ptr")
+        result := DllCall("ACTIVEDS.dll\AllocADsStr", "ptr", pStr, "char*")
         return result
     }
 
@@ -3934,7 +3934,7 @@ class ActiveDirectory {
     static FreeADsStr(pStr) {
         pStr := pStr is String ? StrPtr(pStr) : pStr
 
-        result := DllCall("ACTIVEDS.dll\FreeADsStr", "ptr", pStr, "ptr")
+        result := DllCall("ACTIVEDS.dll\FreeADsStr", "ptr", pStr, "int")
         return result
     }
 
@@ -3957,7 +3957,7 @@ class ActiveDirectory {
     static ReallocADsStr(ppStr, pStr) {
         pStr := pStr is String ? StrPtr(pStr) : pStr
 
-        result := DllCall("ACTIVEDS.dll\ReallocADsStr", "ptr", ppStr, "ptr", pStr, "ptr")
+        result := DllCall("ACTIVEDS.dll\ReallocADsStr", "ptr", ppStr, "ptr", pStr, "int")
         return result
     }
 
@@ -4217,7 +4217,7 @@ class ActiveDirectory {
     static ADsPropGetInitInfo(hNotifyObj, pInitParams) {
         hNotifyObj := hNotifyObj is Win32Handle ? NumGet(hNotifyObj, "ptr") : hNotifyObj
 
-        result := DllCall("dsprop.dll\ADsPropGetInitInfo", "ptr", hNotifyObj, "ptr", pInitParams, "ptr")
+        result := DllCall("dsprop.dll\ADsPropGetInitInfo", "ptr", hNotifyObj, "ptr", pInitParams, "int")
         return result
     }
 
@@ -4234,7 +4234,7 @@ class ActiveDirectory {
         hNotifyObj := hNotifyObj is Win32Handle ? NumGet(hNotifyObj, "ptr") : hNotifyObj
         hPage := hPage is Win32Handle ? NumGet(hPage, "ptr") : hPage
 
-        result := DllCall("dsprop.dll\ADsPropSetHwndWithTitle", "ptr", hNotifyObj, "ptr", hPage, "char*", ptzTitle, "ptr")
+        result := DllCall("dsprop.dll\ADsPropSetHwndWithTitle", "ptr", hNotifyObj, "ptr", hPage, "char*", ptzTitle, "int")
         return result
     }
 
@@ -4250,7 +4250,7 @@ class ActiveDirectory {
         hNotifyObj := hNotifyObj is Win32Handle ? NumGet(hNotifyObj, "ptr") : hNotifyObj
         hPage := hPage is Win32Handle ? NumGet(hPage, "ptr") : hPage
 
-        result := DllCall("dsprop.dll\ADsPropSetHwnd", "ptr", hNotifyObj, "ptr", hPage, "ptr")
+        result := DllCall("dsprop.dll\ADsPropSetHwnd", "ptr", hNotifyObj, "ptr", hPage, "int")
         return result
     }
 
@@ -4265,7 +4265,7 @@ class ActiveDirectory {
     static ADsPropCheckIfWritable(pwzAttr, pWritableAttrs) {
         pwzAttr := pwzAttr is String ? StrPtr(pwzAttr) : pwzAttr
 
-        result := DllCall("dsprop.dll\ADsPropCheckIfWritable", "ptr", pwzAttr, "ptr", pWritableAttrs, "ptr")
+        result := DllCall("dsprop.dll\ADsPropCheckIfWritable", "ptr", pwzAttr, "ptr", pWritableAttrs, "int")
         return result
     }
 
@@ -4280,7 +4280,7 @@ class ActiveDirectory {
     static ADsPropSendErrorMessage(hNotifyObj, pError) {
         hNotifyObj := hNotifyObj is Win32Handle ? NumGet(hNotifyObj, "ptr") : hNotifyObj
 
-        result := DllCall("dsprop.dll\ADsPropSendErrorMessage", "ptr", hNotifyObj, "ptr", pError, "ptr")
+        result := DllCall("dsprop.dll\ADsPropSendErrorMessage", "ptr", hNotifyObj, "ptr", pError, "int")
         return result
     }
 
@@ -4296,7 +4296,7 @@ class ActiveDirectory {
         hNotifyObj := hNotifyObj is Win32Handle ? NumGet(hNotifyObj, "ptr") : hNotifyObj
         hPage := hPage is Win32Handle ? NumGet(hPage, "ptr") : hPage
 
-        result := DllCall("dsprop.dll\ADsPropShowErrorDialog", "ptr", hNotifyObj, "ptr", hPage, "ptr")
+        result := DllCall("dsprop.dll\ADsPropShowErrorDialog", "ptr", hNotifyObj, "ptr", hPage, "int")
         return result
     }
 
@@ -4558,7 +4558,7 @@ class ActiveDirectory {
     static DsCrackUnquotedMangledRdnW(pszRDN, cchRDN, pGuid, peDsMangleFor) {
         pszRDN := pszRDN is String ? StrPtr(pszRDN) : pszRDN
 
-        result := DllCall("DSPARSE.dll\DsCrackUnquotedMangledRdnW", "ptr", pszRDN, "uint", cchRDN, "ptr", pGuid, "int*", peDsMangleFor, "ptr")
+        result := DllCall("DSPARSE.dll\DsCrackUnquotedMangledRdnW", "ptr", pszRDN, "uint", cchRDN, "ptr", pGuid, "int*", peDsMangleFor, "int")
         return result
     }
 
@@ -4577,7 +4577,7 @@ class ActiveDirectory {
     static DsCrackUnquotedMangledRdnA(pszRDN, cchRDN, pGuid, peDsMangleFor) {
         pszRDN := pszRDN is String ? StrPtr(pszRDN) : pszRDN
 
-        result := DllCall("DSPARSE.dll\DsCrackUnquotedMangledRdnA", "ptr", pszRDN, "uint", cchRDN, "ptr", pGuid, "int*", peDsMangleFor, "ptr")
+        result := DllCall("DSPARSE.dll\DsCrackUnquotedMangledRdnA", "ptr", pszRDN, "uint", cchRDN, "ptr", pGuid, "int*", peDsMangleFor, "int")
         return result
     }
 
@@ -4593,7 +4593,7 @@ class ActiveDirectory {
     static DsIsMangledRdnValueW(pszRdn, cRdn, eDsMangleForDesired) {
         pszRdn := pszRdn is String ? StrPtr(pszRdn) : pszRdn
 
-        result := DllCall("DSPARSE.dll\DsIsMangledRdnValueW", "ptr", pszRdn, "uint", cRdn, "int", eDsMangleForDesired, "ptr")
+        result := DllCall("DSPARSE.dll\DsIsMangledRdnValueW", "ptr", pszRdn, "uint", cRdn, "int", eDsMangleForDesired, "int")
         return result
     }
 
@@ -4609,7 +4609,7 @@ class ActiveDirectory {
     static DsIsMangledRdnValueA(pszRdn, cRdn, eDsMangleForDesired) {
         pszRdn := pszRdn is String ? StrPtr(pszRdn) : pszRdn
 
-        result := DllCall("DSPARSE.dll\DsIsMangledRdnValueA", "ptr", pszRdn, "uint", cRdn, "int", eDsMangleForDesired, "ptr")
+        result := DllCall("DSPARSE.dll\DsIsMangledRdnValueA", "ptr", pszRdn, "uint", cRdn, "int", eDsMangleForDesired, "int")
         return result
     }
 
@@ -4624,7 +4624,7 @@ class ActiveDirectory {
     static DsIsMangledDnA(pszDn, eDsMangleFor) {
         pszDn := pszDn is String ? StrPtr(pszDn) : pszDn
 
-        result := DllCall("DSPARSE.dll\DsIsMangledDnA", "ptr", pszDn, "int", eDsMangleFor, "ptr")
+        result := DllCall("DSPARSE.dll\DsIsMangledDnA", "ptr", pszDn, "int", eDsMangleFor, "int")
         return result
     }
 
@@ -4639,7 +4639,7 @@ class ActiveDirectory {
     static DsIsMangledDnW(pszDn, eDsMangleFor) {
         pszDn := pszDn is String ? StrPtr(pszDn) : pszDn
 
-        result := DllCall("DSPARSE.dll\DsIsMangledDnW", "ptr", pszDn, "int", eDsMangleFor, "ptr")
+        result := DllCall("DSPARSE.dll\DsIsMangledDnW", "ptr", pszDn, "int", eDsMangleFor, "int")
         return result
     }
 
@@ -5788,7 +5788,7 @@ class ActiveDirectory {
         DomainDN := DomainDN is String ? StrPtr(DomainDN) : DomainDN
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsRemoveDsServerW", "ptr", hDs, "ptr", ServerDN, "ptr", DomainDN, "ptr", fLastDcInDomain, "ptr", fCommit, "uint")
+        result := DllCall("NTDSAPI.dll\DsRemoveDsServerW", "ptr", hDs, "ptr", ServerDN, "ptr", DomainDN, "ptr", fLastDcInDomain, "int", fCommit, "uint")
         return result
     }
 
@@ -5810,7 +5810,7 @@ class ActiveDirectory {
         DomainDN := DomainDN is String ? StrPtr(DomainDN) : DomainDN
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsRemoveDsServerA", "ptr", hDs, "ptr", ServerDN, "ptr", DomainDN, "ptr", fLastDcInDomain, "ptr", fCommit, "uint")
+        result := DllCall("NTDSAPI.dll\DsRemoveDsServerA", "ptr", hDs, "ptr", ServerDN, "ptr", DomainDN, "ptr", fLastDcInDomain, "int", fCommit, "uint")
         return result
     }
 

@@ -20,7 +20,7 @@ class JET_INSTANCE_INFO_A extends Win32Struct
     hInstanceId{
         get {
             if(!this.HasProp("__hInstanceId"))
-                this.__hInstanceId := JET_INSTANCE(this.ptr + 0)
+                this.__hInstanceId := JET_INSTANCE(0, this)
             return this.__hInstanceId
         }
     }
@@ -39,7 +39,7 @@ class JET_INSTANCE_INFO_A extends Win32Struct
     cDatabases{
         get {
             if(!this.HasProp("__cDatabases"))
-                this.__cDatabases := JET_API_PTR(this.ptr + 16)
+                this.__cDatabases := JET_API_PTR(16, this)
             return this.__cDatabases
         }
     }

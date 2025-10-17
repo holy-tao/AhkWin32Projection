@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains policy information that is passed by the Remote Desktop Services service to the protocol.
@@ -31,24 +30,18 @@ class WTS_POLICY_DATA extends Win32Struct
      * Specifies whether to disable encryption for communication between the client and server.
      * @type {BOOLEAN}
      */
-    fDisableEncryption{
-        get {
-            if(!this.HasProp("__fDisableEncryption"))
-                this.__fDisableEncryption := BOOLEAN(this.ptr + 0)
-            return this.__fDisableEncryption
-        }
+    fDisableEncryption {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
      * Specifies whether to disable automatic reconnect of the client.
      * @type {BOOLEAN}
      */
-    fDisableAutoReconnect{
-        get {
-            if(!this.HasProp("__fDisableAutoReconnect"))
-                this.__fDisableAutoReconnect := BOOLEAN(this.ptr + 1)
-            return this.__fDisableAutoReconnect
-        }
+    fDisableAutoReconnect {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
@@ -73,71 +66,53 @@ class WTS_POLICY_DATA extends Win32Struct
      * Specifies whether to disable printer mapping.
      * @type {BOOLEAN}
      */
-    fDisableCpm{
-        get {
-            if(!this.HasProp("__fDisableCpm"))
-                this.__fDisableCpm := BOOLEAN(this.ptr + 9)
-            return this.__fDisableCpm
-        }
+    fDisableCpm {
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 
     /**
      * Specifies whether to disable drive mapping.
      * @type {BOOLEAN}
      */
-    fDisableCdm{
-        get {
-            if(!this.HasProp("__fDisableCdm"))
-                this.__fDisableCdm := BOOLEAN(this.ptr + 10)
-            return this.__fDisableCdm
-        }
+    fDisableCdm {
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 
     /**
      * Specifies whether to disable COM communication port mapping.
      * @type {BOOLEAN}
      */
-    fDisableCcm{
-        get {
-            if(!this.HasProp("__fDisableCcm"))
-                this.__fDisableCcm := BOOLEAN(this.ptr + 11)
-            return this.__fDisableCcm
-        }
+    fDisableCcm {
+        get => NumGet(this, 11, "char")
+        set => NumPut("char", value, this, 11)
     }
 
     /**
      * Specifies whether to disable LPT (line print terminal) printer redirection.
      * @type {BOOLEAN}
      */
-    fDisableLPT{
-        get {
-            if(!this.HasProp("__fDisableLPT"))
-                this.__fDisableLPT := BOOLEAN(this.ptr + 12)
-            return this.__fDisableLPT
-        }
+    fDisableLPT {
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**
      * Specifies whether to disable clipboard redirection.
      * @type {BOOLEAN}
      */
-    fDisableClip{
-        get {
-            if(!this.HasProp("__fDisableClip"))
-                this.__fDisableClip := BOOLEAN(this.ptr + 13)
-            return this.__fDisableClip
-        }
+    fDisableClip {
+        get => NumGet(this, 13, "char")
+        set => NumPut("char", value, this, 13)
     }
 
     /**
      * Specifies whether to disable Plug and Play redirection.
      * @type {BOOLEAN}
      */
-    fDisablePNPRedir{
-        get {
-            if(!this.HasProp("__fDisablePNPRedir"))
-                this.__fDisablePNPRedir := BOOLEAN(this.ptr + 14)
-            return this.__fDisablePNPRedir
-        }
+    fDisablePNPRedir {
+        get => NumGet(this, 14, "char")
+        set => NumPut("char", value, this, 14)
     }
 }

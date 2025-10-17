@@ -201,7 +201,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct
         ScsiInformation{
             get {
                 if(!this.HasProp("__ScsiInformation"))
-                    this.__ScsiInformation := %this.__Class%._ScsiInformation(this.ptr + 16)
+                    this.__ScsiInformation := %this.__Class%._ScsiInformation(16, this)
                 return this.__ScsiInformation
             }
         }
@@ -214,7 +214,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct
     DiskInfo{
         get {
             if(!this.HasProp("__DiskInfo"))
-                this.__DiskInfo := %this.__Class%._DiskInfo(this.ptr + 0)
+                this.__DiskInfo := %this.__Class%._DiskInfo(0, this)
             return this.__DiskInfo
         }
     }
@@ -225,7 +225,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct
     RemovableDiskInfo{
         get {
             if(!this.HasProp("__RemovableDiskInfo"))
-                this.__RemovableDiskInfo := %this.__Class%._RemovableDiskInfo(this.ptr + 0)
+                this.__RemovableDiskInfo := %this.__Class%._RemovableDiskInfo(0, this)
             return this.__RemovableDiskInfo
         }
     }
@@ -236,7 +236,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct
     TapeInfo{
         get {
             if(!this.HasProp("__TapeInfo"))
-                this.__TapeInfo := %this.__Class%._TapeInfo(this.ptr + 0)
+                this.__TapeInfo := %this.__Class%._TapeInfo(0, this)
             return this.__TapeInfo
         }
     }

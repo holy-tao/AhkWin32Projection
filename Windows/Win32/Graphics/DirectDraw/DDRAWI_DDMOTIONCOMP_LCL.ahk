@@ -51,7 +51,7 @@ class DDRAWI_DDMOTIONCOMP_LCL extends Win32Struct
     ddUncompPixelFormat{
         get {
             if(!this.HasProp("__ddUncompPixelFormat"))
-                this.__ddUncompPixelFormat := DDPIXELFORMAT(this.ptr + 24)
+                this.__ddUncompPixelFormat := DDPIXELFORMAT(24, this)
             return this.__ddUncompPixelFormat
         }
     }
@@ -86,7 +86,7 @@ class DDRAWI_DDMOTIONCOMP_LCL extends Win32Struct
     hMoComp{
         get {
             if(!this.HasProp("__hMoComp"))
-                this.__hMoComp := HANDLE(this.ptr + 72)
+                this.__hMoComp := HANDLE(72, this)
             return this.__hMoComp
         }
     }

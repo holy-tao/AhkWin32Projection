@@ -31,7 +31,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
     hSyncFreq{
         get {
             if(!this.HasProp("__hSyncFreq"))
-                this.__hSyncFreq := DISPLAYCONFIG_RATIONAL(this.ptr + 8)
+                this.__hSyncFreq := DISPLAYCONFIG_RATIONAL(8, this)
             return this.__hSyncFreq
         }
     }
@@ -43,7 +43,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
     vSyncFreq{
         get {
             if(!this.HasProp("__vSyncFreq"))
-                this.__vSyncFreq := DISPLAYCONFIG_RATIONAL(this.ptr + 16)
+                this.__vSyncFreq := DISPLAYCONFIG_RATIONAL(16, this)
             return this.__vSyncFreq
         }
     }
@@ -55,7 +55,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
     activeSize{
         get {
             if(!this.HasProp("__activeSize"))
-                this.__activeSize := DISPLAYCONFIG_2DREGION(this.ptr + 24)
+                this.__activeSize := DISPLAYCONFIG_2DREGION(24, this)
             return this.__activeSize
         }
     }
@@ -67,7 +67,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
     totalSize{
         get {
             if(!this.HasProp("__totalSize"))
-                this.__totalSize := DISPLAYCONFIG_2DREGION(this.ptr + 32)
+                this.__totalSize := DISPLAYCONFIG_2DREGION(32, this)
             return this.__totalSize
         }
     }
@@ -120,7 +120,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
     AdditionalSignalInfo{
         get {
             if(!this.HasProp("__AdditionalSignalInfo"))
-                this.__AdditionalSignalInfo := %this.__Class%._AdditionalSignalInfo(this.ptr + 40)
+                this.__AdditionalSignalInfo := %this.__Class%._AdditionalSignalInfo(40, this)
             return this.__AdditionalSignalInfo
         }
     }

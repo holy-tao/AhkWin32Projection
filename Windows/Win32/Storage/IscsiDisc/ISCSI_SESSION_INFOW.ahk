@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ISCSI_UNIQUE_SESSION_ID.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * ISCSI_SESSION_INFO.
@@ -28,7 +27,7 @@ class ISCSI_SESSION_INFOW extends Win32Struct
     SessionId{
         get {
             if(!this.HasProp("__SessionId"))
-                this.__SessionId := ISCSI_UNIQUE_SESSION_ID(this.ptr + 0)
+                this.__SessionId := ISCSI_UNIQUE_SESSION_ID(0, this)
             return this.__SessionId
         }
     }
@@ -37,36 +36,27 @@ class ISCSI_SESSION_INFOW extends Win32Struct
      * A string that represents the initiator name.
      * @type {PWSTR}
      */
-    InitiatorName{
-        get {
-            if(!this.HasProp("__InitiatorName"))
-                this.__InitiatorName := PWSTR(this.ptr + 16)
-            return this.__InitiatorName
-        }
+    InitiatorName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A string that represents the target node name.
      * @type {PWSTR}
      */
-    TargetNodeName{
-        get {
-            if(!this.HasProp("__TargetNodeName"))
-                this.__TargetNodeName := PWSTR(this.ptr + 24)
-            return this.__TargetNodeName
-        }
+    TargetNodeName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A string that represents the target name.
      * @type {PWSTR}
      */
-    TargetName{
-        get {
-            if(!this.HasProp("__TargetName"))
-                this.__TargetName := PWSTR(this.ptr + 32)
-            return this.__TargetName
-        }
+    TargetName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

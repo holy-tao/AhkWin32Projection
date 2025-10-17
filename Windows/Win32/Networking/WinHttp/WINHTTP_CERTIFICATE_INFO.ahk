@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WINHTTP_CERTIFICATE_INFO structure contains certificate information returned from the server. This structure is used by the WinHttpQueryOption function.
@@ -35,7 +34,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
     ftExpiry{
         get {
             if(!this.HasProp("__ftExpiry"))
-                this.__ftExpiry := FILETIME(this.ptr + 0)
+                this.__ftExpiry := FILETIME(0, this)
             return this.__ftExpiry
         }
     }
@@ -48,7 +47,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
     ftStart{
         get {
             if(!this.HasProp("__ftStart"))
-                this.__ftStart := FILETIME(this.ptr + 8)
+                this.__ftStart := FILETIME(8, this)
             return this.__ftStart
         }
     }
@@ -57,60 +56,45 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
      * A pointer to a buffer that contains the name of the organization, site, and server for which the certificate was issued.
      * @type {PWSTR}
      */
-    lpszSubjectInfo{
-        get {
-            if(!this.HasProp("__lpszSubjectInfo"))
-                this.__lpszSubjectInfo := PWSTR(this.ptr + 16)
-            return this.__lpszSubjectInfo
-        }
+    lpszSubjectInfo {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a buffer that contains the name of the organization, site, and server that issued the certificate.
      * @type {PWSTR}
      */
-    lpszIssuerInfo{
-        get {
-            if(!this.HasProp("__lpszIssuerInfo"))
-                this.__lpszIssuerInfo := PWSTR(this.ptr + 24)
-            return this.__lpszIssuerInfo
-        }
+    lpszIssuerInfo {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * A pointer to a buffer that contains the name of the protocol used to provide the secure connection. This member is not current used.
      * @type {PWSTR}
      */
-    lpszProtocolName{
-        get {
-            if(!this.HasProp("__lpszProtocolName"))
-                this.__lpszProtocolName := PWSTR(this.ptr + 32)
-            return this.__lpszProtocolName
-        }
+    lpszProtocolName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * A pointer to a buffer that contains the name of the algorithm used to sign the certificate. This member is not current used.
      * @type {PWSTR}
      */
-    lpszSignatureAlgName{
-        get {
-            if(!this.HasProp("__lpszSignatureAlgName"))
-                this.__lpszSignatureAlgName := PWSTR(this.ptr + 40)
-            return this.__lpszSignatureAlgName
-        }
+    lpszSignatureAlgName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * A pointer to a buffer that contains the name of the algorithm used to perform encryption over the secure channel (SSL/TLS) connection. This member is not current used.
      * @type {PWSTR}
      */
-    lpszEncryptionAlgName{
-        get {
-            if(!this.HasProp("__lpszEncryptionAlgName"))
-                this.__lpszEncryptionAlgName := PWSTR(this.ptr + 48)
-            return this.__lpszEncryptionAlgName
-        }
+    lpszEncryptionAlgName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

@@ -7275,7 +7275,7 @@ class Identity {
      * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/nf-ntsecapi-rtlgenrandom
      */
     static RtlGenRandom(RandomBuffer, RandomBufferLength) {
-        result := DllCall("ADVAPI32.dll\SystemFunction036", "ptr", RandomBuffer, "uint", RandomBufferLength, "ptr")
+        result := DllCall("ADVAPI32.dll\SystemFunction036", "ptr", RandomBuffer, "uint", RandomBufferLength, "char")
         return result
     }
 
@@ -7290,7 +7290,7 @@ class Identity {
      * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/nf-ntsecapi-rtlencryptmemory
      */
     static RtlEncryptMemory(Memory, MemorySize, OptionFlags) {
-        result := DllCall("ADVAPI32.dll\SystemFunction040", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, "ptr")
+        result := DllCall("ADVAPI32.dll\SystemFunction040", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, "int")
         return result
     }
 
@@ -7305,7 +7305,7 @@ class Identity {
      * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/nf-ntsecapi-rtldecryptmemory
      */
     static RtlDecryptMemory(Memory, MemorySize, OptionFlags) {
-        result := DllCall("ADVAPI32.dll\SystemFunction041", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, "ptr")
+        result := DllCall("ADVAPI32.dll\SystemFunction041", "ptr", Memory, "uint", MemorySize, "uint", OptionFlags, "int")
         return result
     }
 
@@ -7369,7 +7369,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaRegisterLogonProcess(LogonProcessName, LsaHandle, SecurityMode) {
-        result := DllCall("SECUR32.dll\LsaRegisterLogonProcess", "ptr", LogonProcessName, "ptr", LsaHandle, "uint*", SecurityMode, "ptr")
+        result := DllCall("SECUR32.dll\LsaRegisterLogonProcess", "ptr", LogonProcessName, "ptr", LsaHandle, "uint*", SecurityMode, "int")
         return result
     }
 
@@ -7781,7 +7781,7 @@ class Identity {
     static LsaLogonUser(LsaHandle, OriginName, LogonType, AuthenticationPackage, AuthenticationInformation, AuthenticationInformationLength, LocalGroups, SourceContext, ProfileBuffer, ProfileBufferLength, LogonId, Token, Quotas, SubStatus) {
         LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
 
-        result := DllCall("SECUR32.dll\LsaLogonUser", "ptr", LsaHandle, "ptr", OriginName, "int", LogonType, "uint", AuthenticationPackage, "ptr", AuthenticationInformation, "uint", AuthenticationInformationLength, "ptr", LocalGroups, "ptr", SourceContext, "ptr", ProfileBuffer, "uint*", ProfileBufferLength, "ptr", LogonId, "ptr", Token, "ptr", Quotas, "int*", SubStatus, "ptr")
+        result := DllCall("SECUR32.dll\LsaLogonUser", "ptr", LsaHandle, "ptr", OriginName, "int", LogonType, "uint", AuthenticationPackage, "ptr", AuthenticationInformation, "uint", AuthenticationInformationLength, "ptr", LocalGroups, "ptr", SourceContext, "ptr", ProfileBuffer, "uint*", ProfileBufferLength, "ptr", LogonId, "ptr", Token, "ptr", Quotas, "int*", SubStatus, "int")
         return result
     }
 
@@ -7875,7 +7875,7 @@ class Identity {
     static LsaLookupAuthenticationPackage(LsaHandle, PackageName, AuthenticationPackage) {
         LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
 
-        result := DllCall("SECUR32.dll\LsaLookupAuthenticationPackage", "ptr", LsaHandle, "ptr", PackageName, "uint*", AuthenticationPackage, "ptr")
+        result := DllCall("SECUR32.dll\LsaLookupAuthenticationPackage", "ptr", LsaHandle, "ptr", PackageName, "uint*", AuthenticationPackage, "int")
         return result
     }
 
@@ -7893,7 +7893,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaFreeReturnBuffer(Buffer) {
-        result := DllCall("SECUR32.dll\LsaFreeReturnBuffer", "ptr", Buffer, "ptr")
+        result := DllCall("SECUR32.dll\LsaFreeReturnBuffer", "ptr", Buffer, "int")
         return result
     }
 
@@ -7982,7 +7982,7 @@ class Identity {
     static LsaCallAuthenticationPackage(LsaHandle, AuthenticationPackage, ProtocolSubmitBuffer, SubmitBufferLength, ProtocolReturnBuffer, ReturnBufferLength, ProtocolStatus) {
         LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
 
-        result := DllCall("SECUR32.dll\LsaCallAuthenticationPackage", "ptr", LsaHandle, "uint", AuthenticationPackage, "ptr", ProtocolSubmitBuffer, "uint", SubmitBufferLength, "ptr", ProtocolReturnBuffer, "uint*", ReturnBufferLength, "int*", ProtocolStatus, "ptr")
+        result := DllCall("SECUR32.dll\LsaCallAuthenticationPackage", "ptr", LsaHandle, "uint", AuthenticationPackage, "ptr", ProtocolSubmitBuffer, "uint", SubmitBufferLength, "ptr", ProtocolReturnBuffer, "uint*", ReturnBufferLength, "int*", ProtocolStatus, "int")
         return result
     }
 
@@ -8004,7 +8004,7 @@ class Identity {
     static LsaDeregisterLogonProcess(LsaHandle) {
         LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
 
-        result := DllCall("SECUR32.dll\LsaDeregisterLogonProcess", "ptr", LsaHandle, "ptr")
+        result := DllCall("SECUR32.dll\LsaDeregisterLogonProcess", "ptr", LsaHandle, "int")
         return result
     }
 
@@ -8022,7 +8022,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaConnectUntrusted(LsaHandle) {
-        result := DllCall("SECUR32.dll\LsaConnectUntrusted", "ptr", LsaHandle, "ptr")
+        result := DllCall("SECUR32.dll\LsaConnectUntrusted", "ptr", LsaHandle, "int")
         return result
     }
 
@@ -8059,7 +8059,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaFreeMemory(Buffer) {
-        result := DllCall("ADVAPI32.dll\LsaFreeMemory", "ptr", Buffer, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaFreeMemory", "ptr", Buffer, "int")
         return result
     }
 
@@ -8081,7 +8081,7 @@ class Identity {
     static LsaClose(ObjectHandle) {
         ObjectHandle := ObjectHandle is Win32Handle ? NumGet(ObjectHandle, "ptr") : ObjectHandle
 
-        result := DllCall("ADVAPI32.dll\LsaClose", "ptr", ObjectHandle, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaClose", "ptr", ObjectHandle, "int")
         return result
     }
 
@@ -8097,7 +8097,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaEnumerateLogonSessions(LogonSessionCount, LogonSessionList) {
-        result := DllCall("SECUR32.dll\LsaEnumerateLogonSessions", "uint*", LogonSessionCount, "ptr", LogonSessionList, "ptr")
+        result := DllCall("SECUR32.dll\LsaEnumerateLogonSessions", "uint*", LogonSessionCount, "ptr", LogonSessionList, "int")
         return result
     }
 
@@ -8114,7 +8114,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaGetLogonSessionData(LogonId, ppLogonSessionData) {
-        result := DllCall("SECUR32.dll\LsaGetLogonSessionData", "ptr", LogonId, "ptr", ppLogonSessionData, "ptr")
+        result := DllCall("SECUR32.dll\LsaGetLogonSessionData", "ptr", LogonId, "ptr", ppLogonSessionData, "int")
         return result
     }
 
@@ -8141,7 +8141,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaOpenPolicy(SystemName, ObjectAttributes, DesiredAccess, PolicyHandle) {
-        result := DllCall("ADVAPI32.dll\LsaOpenPolicy", "ptr", SystemName, "ptr", ObjectAttributes, "uint", DesiredAccess, "ptr", PolicyHandle, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaOpenPolicy", "ptr", SystemName, "ptr", ObjectAttributes, "uint", DesiredAccess, "ptr", PolicyHandle, "int")
         return result
     }
 
@@ -8153,7 +8153,7 @@ class Identity {
      * @returns {NTSTATUS} 
      */
     static LsaSetCAPs(CAPDNs, CAPDNCount, Flags) {
-        result := DllCall("ADVAPI32.dll\LsaSetCAPs", "ptr", CAPDNs, "uint", CAPDNCount, "uint", Flags, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaSetCAPs", "ptr", CAPDNs, "uint", CAPDNCount, "uint", Flags, "int")
         return result
     }
 
@@ -8169,7 +8169,7 @@ class Identity {
      * @since windows8.0
      */
     static LsaGetAppliedCAPIDs(SystemName, CAPIDs, CAPIDCount) {
-        result := DllCall("ADVAPI32.dll\LsaGetAppliedCAPIDs", "ptr", SystemName, "ptr", CAPIDs, "uint*", CAPIDCount, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaGetAppliedCAPIDs", "ptr", SystemName, "ptr", CAPIDs, "uint*", CAPIDCount, "int")
         return result
     }
 
@@ -8186,7 +8186,7 @@ class Identity {
      * @since windows8.0
      */
     static LsaQueryCAPs(CAPIDs, CAPIDCount, CAPs, CAPCount) {
-        result := DllCall("ADVAPI32.dll\LsaQueryCAPs", "ptr", CAPIDs, "uint", CAPIDCount, "ptr", CAPs, "uint*", CAPCount, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaQueryCAPs", "ptr", CAPIDs, "uint", CAPIDCount, "ptr", CAPs, "uint*", CAPCount, "int")
         return result
     }
 
@@ -8215,7 +8215,7 @@ class Identity {
     static LsaQueryInformationPolicy(PolicyHandle, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaQueryInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaQueryInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
@@ -8238,7 +8238,7 @@ class Identity {
     static LsaSetInformationPolicy(PolicyHandle, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaSetInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaSetInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
@@ -8304,7 +8304,7 @@ class Identity {
     static LsaQueryDomainInformationPolicy(PolicyHandle, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaQueryDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaQueryDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
@@ -8370,7 +8370,7 @@ class Identity {
     static LsaSetDomainInformationPolicy(PolicyHandle, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaSetDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaSetDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
@@ -8392,7 +8392,7 @@ class Identity {
     static LsaRegisterPolicyChangeNotification(InformationClass, NotificationEventHandle) {
         NotificationEventHandle := NotificationEventHandle is Win32Handle ? NumGet(NotificationEventHandle, "ptr") : NotificationEventHandle
 
-        result := DllCall("SECUR32.dll\LsaRegisterPolicyChangeNotification", "int", InformationClass, "ptr", NotificationEventHandle, "ptr")
+        result := DllCall("SECUR32.dll\LsaRegisterPolicyChangeNotification", "int", InformationClass, "ptr", NotificationEventHandle, "int")
         return result
     }
 
@@ -8413,7 +8413,7 @@ class Identity {
     static LsaUnregisterPolicyChangeNotification(InformationClass, NotificationEventHandle) {
         NotificationEventHandle := NotificationEventHandle is Win32Handle ? NumGet(NotificationEventHandle, "ptr") : NotificationEventHandle
 
-        result := DllCall("SECUR32.dll\LsaUnregisterPolicyChangeNotification", "int", InformationClass, "ptr", NotificationEventHandle, "ptr")
+        result := DllCall("SECUR32.dll\LsaUnregisterPolicyChangeNotification", "int", InformationClass, "ptr", NotificationEventHandle, "int")
         return result
     }
 
@@ -8486,7 +8486,7 @@ class Identity {
     static LsaEnumerateTrustedDomains(PolicyHandle, EnumerationContext, Buffer, PreferedMaximumLength, CountReturned) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomains", "ptr", PolicyHandle, "uint*", EnumerationContext, "ptr", Buffer, "uint", PreferedMaximumLength, "uint*", CountReturned, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomains", "ptr", PolicyHandle, "uint*", EnumerationContext, "ptr", Buffer, "uint", PreferedMaximumLength, "uint*", CountReturned, "int")
         return result
     }
 
@@ -8591,7 +8591,7 @@ class Identity {
     static LsaLookupNames(PolicyHandle, Count, Names, ReferencedDomains, Sids) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaLookupNames", "ptr", PolicyHandle, "uint", Count, "ptr", Names, "ptr", ReferencedDomains, "ptr", Sids, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaLookupNames", "ptr", PolicyHandle, "uint", Count, "ptr", Names, "ptr", ReferencedDomains, "ptr", Sids, "int")
         return result
     }
 
@@ -8703,7 +8703,7 @@ class Identity {
     static LsaLookupNames2(PolicyHandle, Flags, Count, Names, ReferencedDomains, Sids) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaLookupNames2", "ptr", PolicyHandle, "uint", Flags, "uint", Count, "ptr", Names, "ptr", ReferencedDomains, "ptr", Sids, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaLookupNames2", "ptr", PolicyHandle, "uint", Flags, "uint", Count, "ptr", Names, "ptr", ReferencedDomains, "ptr", Sids, "int")
         return result
     }
 
@@ -8804,7 +8804,7 @@ class Identity {
     static LsaLookupSids(PolicyHandle, Count, Sids, ReferencedDomains, Names) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaLookupSids", "ptr", PolicyHandle, "uint", Count, "ptr", Sids, "ptr", ReferencedDomains, "ptr", Names, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaLookupSids", "ptr", PolicyHandle, "uint", Count, "ptr", Sids, "ptr", ReferencedDomains, "ptr", Names, "int")
         return result
     }
 
@@ -8943,7 +8943,7 @@ class Identity {
     static LsaLookupSids2(PolicyHandle, LookupOptions, Count, Sids, ReferencedDomains, Names) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaLookupSids2", "ptr", PolicyHandle, "uint", LookupOptions, "uint", Count, "ptr", Sids, "ptr", ReferencedDomains, "ptr", Names, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaLookupSids2", "ptr", PolicyHandle, "uint", LookupOptions, "uint", Count, "ptr", Sids, "ptr", ReferencedDomains, "ptr", Names, "int")
         return result
     }
 
@@ -9012,7 +9012,7 @@ class Identity {
     static LsaEnumerateAccountsWithUserRight(PolicyHandle, UserRight, Buffer, CountReturned) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateAccountsWithUserRight", "ptr", PolicyHandle, "ptr", UserRight, "ptr", Buffer, "uint*", CountReturned, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaEnumerateAccountsWithUserRight", "ptr", PolicyHandle, "ptr", UserRight, "ptr", Buffer, "uint*", CountReturned, "int")
         return result
     }
 
@@ -9039,7 +9039,7 @@ class Identity {
     static LsaEnumerateAccountRights(PolicyHandle, AccountSid, UserRights, CountOfRights) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "ptr", UserRights, "uint*", CountOfRights, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaEnumerateAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "ptr", UserRights, "uint*", CountOfRights, "int")
         return result
     }
 
@@ -9084,7 +9084,7 @@ class Identity {
     static LsaAddAccountRights(PolicyHandle, AccountSid, UserRights, CountOfRights) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaAddAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "ptr", UserRights, "uint", CountOfRights, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaAddAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "ptr", UserRights, "uint", CountOfRights, "int")
         return result
     }
 
@@ -9141,7 +9141,7 @@ class Identity {
     static LsaRemoveAccountRights(PolicyHandle, AccountSid, AllRights, UserRights, CountOfRights) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaRemoveAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "ptr", AllRights, "ptr", UserRights, "uint", CountOfRights, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaRemoveAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "char", AllRights, "ptr", UserRights, "uint", CountOfRights, "int")
         return result
     }
 
@@ -9202,7 +9202,7 @@ class Identity {
     static LsaOpenTrustedDomainByName(PolicyHandle, TrustedDomainName, DesiredAccess, TrustedDomainHandle) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaOpenTrustedDomainByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "uint", DesiredAccess, "ptr", TrustedDomainHandle, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaOpenTrustedDomainByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "uint", DesiredAccess, "ptr", TrustedDomainHandle, "int")
         return result
     }
 
@@ -9232,7 +9232,7 @@ class Identity {
     static LsaQueryTrustedDomainInfo(PolicyHandle, TrustedDomainSid, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfo", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, "ptr", Buffer, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfo", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
@@ -9256,7 +9256,7 @@ class Identity {
     static LsaSetTrustedDomainInformation(PolicyHandle, TrustedDomainSid, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInformation", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, "ptr", Buffer, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInformation", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
@@ -9278,7 +9278,7 @@ class Identity {
     static LsaDeleteTrustedDomain(PolicyHandle, TrustedDomainSid) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaDeleteTrustedDomain", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaDeleteTrustedDomain", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int")
         return result
     }
 
@@ -9340,7 +9340,7 @@ class Identity {
     static LsaQueryTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, "ptr", Buffer, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
@@ -9364,7 +9364,7 @@ class Identity {
     static LsaSetTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, InformationClass, Buffer) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, "ptr", Buffer, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
@@ -9427,7 +9427,7 @@ class Identity {
     static LsaEnumerateTrustedDomainsEx(PolicyHandle, EnumerationContext, Buffer, PreferedMaximumLength, CountReturned) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomainsEx", "ptr", PolicyHandle, "uint*", EnumerationContext, "ptr", Buffer, "uint", PreferedMaximumLength, "uint*", CountReturned, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomainsEx", "ptr", PolicyHandle, "uint*", EnumerationContext, "ptr", Buffer, "uint", PreferedMaximumLength, "uint*", CountReturned, "int")
         return result
     }
 
@@ -9502,7 +9502,7 @@ class Identity {
     static LsaCreateTrustedDomainEx(PolicyHandle, TrustedDomainInformation, AuthenticationInformation, DesiredAccess, TrustedDomainHandle) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaCreateTrustedDomainEx", "ptr", PolicyHandle, "ptr", TrustedDomainInformation, "ptr", AuthenticationInformation, "uint", DesiredAccess, "ptr", TrustedDomainHandle, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaCreateTrustedDomainEx", "ptr", PolicyHandle, "ptr", TrustedDomainInformation, "ptr", AuthenticationInformation, "uint", DesiredAccess, "ptr", TrustedDomainHandle, "int")
         return result
     }
 
@@ -9577,7 +9577,7 @@ class Identity {
     static LsaQueryForestTrustInformation(PolicyHandle, TrustedDomainName, ForestTrustInfo) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaQueryForestTrustInformation", "ptr", PolicyHandle, "ptr", TrustedDomainName, "ptr", ForestTrustInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaQueryForestTrustInformation", "ptr", PolicyHandle, "ptr", TrustedDomainName, "ptr", ForestTrustInfo, "int")
         return result
     }
 
@@ -9630,7 +9630,7 @@ class Identity {
     static LsaSetForestTrustInformation(PolicyHandle, TrustedDomainName, ForestTrustInfo, CheckOnly, CollisionInfo) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaSetForestTrustInformation", "ptr", PolicyHandle, "ptr", TrustedDomainName, "ptr", ForestTrustInfo, "ptr", CheckOnly, "ptr", CollisionInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaSetForestTrustInformation", "ptr", PolicyHandle, "ptr", TrustedDomainName, "ptr", ForestTrustInfo, "char", CheckOnly, "ptr", CollisionInfo, "int")
         return result
     }
 
@@ -9656,7 +9656,7 @@ class Identity {
     static LsaStorePrivateData(PolicyHandle, KeyName, PrivateData) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaStorePrivateData", "ptr", PolicyHandle, "ptr", KeyName, "ptr", PrivateData, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaStorePrivateData", "ptr", PolicyHandle, "ptr", KeyName, "ptr", PrivateData, "int")
         return result
     }
 
@@ -9749,7 +9749,7 @@ class Identity {
     static LsaRetrievePrivateData(PolicyHandle, KeyName, PrivateData) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaRetrievePrivateData", "ptr", PolicyHandle, "ptr", KeyName, "ptr", PrivateData, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaRetrievePrivateData", "ptr", PolicyHandle, "ptr", KeyName, "ptr", PrivateData, "int")
         return result
     }
 
@@ -9762,7 +9762,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaNtStatusToWinError(Status) {
-        result := DllCall("ADVAPI32.dll\LsaNtStatusToWinError", "ptr", Status, "uint")
+        result := DllCall("ADVAPI32.dll\LsaNtStatusToWinError", "int", Status, "uint")
         return result
     }
 
@@ -9777,7 +9777,7 @@ class Identity {
     static LsaQueryForestTrustInformation2(PolicyHandle, TrustedDomainName, HighestRecordType, ForestTrustInfo) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaQueryForestTrustInformation2", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", HighestRecordType, "ptr", ForestTrustInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaQueryForestTrustInformation2", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", HighestRecordType, "ptr", ForestTrustInfo, "int")
         return result
     }
 
@@ -9794,7 +9794,7 @@ class Identity {
     static LsaSetForestTrustInformation2(PolicyHandle, TrustedDomainName, HighestRecordType, ForestTrustInfo, CheckOnly, CollisionInfo) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
-        result := DllCall("ADVAPI32.dll\LsaSetForestTrustInformation2", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", HighestRecordType, "ptr", ForestTrustInfo, "ptr", CheckOnly, "ptr", CollisionInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\LsaSetForestTrustInformation2", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", HighestRecordType, "ptr", ForestTrustInfo, "char", CheckOnly, "ptr", CollisionInfo, "int")
         return result
     }
 
@@ -9845,7 +9845,7 @@ class Identity {
     static AuditSetSystemPolicy(pAuditPolicy, dwPolicyCount) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditSetSystemPolicy", "ptr", pAuditPolicy, "uint", dwPolicyCount, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditSetSystemPolicy", "ptr", pAuditPolicy, "uint", dwPolicyCount, "char")
         if(A_LastError)
             throw OSError()
 
@@ -9912,7 +9912,7 @@ class Identity {
     static AuditSetPerUserPolicy(pSid, pAuditPolicy, dwPolicyCount) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditSetPerUserPolicy", "ptr", pSid, "ptr", pAuditPolicy, "uint", dwPolicyCount, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditSetPerUserPolicy", "ptr", pSid, "ptr", pAuditPolicy, "uint", dwPolicyCount, "char")
         if(A_LastError)
             throw OSError()
 
@@ -9979,7 +9979,7 @@ class Identity {
     static AuditQuerySystemPolicy(pSubCategoryGuids, dwPolicyCount, ppAuditPolicy) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditQuerySystemPolicy", "ptr", pSubCategoryGuids, "uint", dwPolicyCount, "ptr", ppAuditPolicy, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditQuerySystemPolicy", "ptr", pSubCategoryGuids, "uint", dwPolicyCount, "ptr", ppAuditPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10047,7 +10047,7 @@ class Identity {
     static AuditQueryPerUserPolicy(pSid, pSubCategoryGuids, dwPolicyCount, ppAuditPolicy) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditQueryPerUserPolicy", "ptr", pSid, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, "ptr", ppAuditPolicy, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditQueryPerUserPolicy", "ptr", pSid, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, "ptr", ppAuditPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10100,7 +10100,7 @@ class Identity {
     static AuditEnumeratePerUserPolicy(ppAuditSidArray) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditEnumeratePerUserPolicy", "ptr", ppAuditSidArray, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditEnumeratePerUserPolicy", "ptr", ppAuditSidArray, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10168,7 +10168,7 @@ class Identity {
     static AuditComputeEffectivePolicyBySid(pSid, pSubCategoryGuids, dwPolicyCount, ppAuditPolicy) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyBySid", "ptr", pSid, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, "ptr", ppAuditPolicy, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyBySid", "ptr", pSid, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, "ptr", ppAuditPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10238,7 +10238,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyByToken", "ptr", hTokenHandle, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, "ptr", ppAuditPolicy, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyByToken", "ptr", hTokenHandle, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, "ptr", ppAuditPolicy, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10261,7 +10261,7 @@ class Identity {
     static AuditEnumerateCategories(ppAuditCategoriesArray, pdwCountReturned) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditEnumerateCategories", "ptr", ppAuditCategoriesArray, "uint*", pdwCountReturned, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditEnumerateCategories", "ptr", ppAuditCategoriesArray, "uint*", pdwCountReturned, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10286,7 +10286,7 @@ class Identity {
     static AuditEnumerateSubCategories(pAuditCategoryGuid, bRetrieveAllSubCategories, ppAuditSubCategoriesArray, pdwCountReturned) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditEnumerateSubCategories", "ptr", pAuditCategoryGuid, "ptr", bRetrieveAllSubCategories, "ptr", ppAuditSubCategoriesArray, "uint*", pdwCountReturned, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditEnumerateSubCategories", "ptr", pAuditCategoryGuid, "char", bRetrieveAllSubCategories, "ptr", ppAuditSubCategoriesArray, "uint*", pdwCountReturned, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10309,7 +10309,7 @@ class Identity {
     static AuditLookupCategoryNameW(pAuditCategoryGuid, ppszCategoryName) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameW", "ptr", pAuditCategoryGuid, "ptr", ppszCategoryName, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameW", "ptr", pAuditCategoryGuid, "ptr", ppszCategoryName, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10332,7 +10332,7 @@ class Identity {
     static AuditLookupCategoryNameA(pAuditCategoryGuid, ppszCategoryName) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameA", "ptr", pAuditCategoryGuid, "ptr", ppszCategoryName, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameA", "ptr", pAuditCategoryGuid, "ptr", ppszCategoryName, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10355,7 +10355,7 @@ class Identity {
     static AuditLookupSubCategoryNameW(pAuditSubCategoryGuid, ppszSubCategoryName) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameW", "ptr", pAuditSubCategoryGuid, "ptr", ppszSubCategoryName, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameW", "ptr", pAuditSubCategoryGuid, "ptr", ppszSubCategoryName, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10378,7 +10378,7 @@ class Identity {
     static AuditLookupSubCategoryNameA(pAuditSubCategoryGuid, ppszSubCategoryName) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameA", "ptr", pAuditSubCategoryGuid, "ptr", ppszSubCategoryName, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameA", "ptr", pAuditSubCategoryGuid, "ptr", ppszSubCategoryName, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10399,7 +10399,7 @@ class Identity {
     static AuditLookupCategoryIdFromCategoryGuid(pAuditCategoryGuid, pAuditCategoryId) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupCategoryIdFromCategoryGuid", "ptr", pAuditCategoryGuid, "int*", pAuditCategoryId, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditLookupCategoryIdFromCategoryGuid", "ptr", pAuditCategoryGuid, "int*", pAuditCategoryId, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10420,7 +10420,7 @@ class Identity {
     static AuditLookupCategoryGuidFromCategoryId(AuditCategoryId, pAuditCategoryGuid) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupCategoryGuidFromCategoryId", "int", AuditCategoryId, "ptr", pAuditCategoryGuid, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditLookupCategoryGuidFromCategoryId", "int", AuditCategoryId, "ptr", pAuditCategoryGuid, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10474,7 +10474,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditSetSecurity", "uint", SecurityInformation, "ptr", pSecurityDescriptor, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditSetSecurity", "uint", SecurityInformation, "ptr", pSecurityDescriptor, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10526,7 +10526,7 @@ class Identity {
     static AuditQuerySecurity(SecurityInformation, ppSecurityDescriptor) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditQuerySecurity", "uint", SecurityInformation, "ptr", ppSecurityDescriptor, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditQuerySecurity", "uint", SecurityInformation, "ptr", ppSecurityDescriptor, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10580,7 +10580,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclW", "ptr", ObjectTypeName, "ptr", Acl, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclW", "ptr", ObjectTypeName, "ptr", Acl, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10634,7 +10634,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclA", "ptr", ObjectTypeName, "ptr", Acl, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclA", "ptr", ObjectTypeName, "ptr", Acl, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10688,7 +10688,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclW", "ptr", ObjectTypeName, "ptr", Acl, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclW", "ptr", ObjectTypeName, "ptr", Acl, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10742,7 +10742,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclA", "ptr", ObjectTypeName, "ptr", Acl, "ptr")
+        result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclA", "ptr", ObjectTypeName, "ptr", Acl, "char")
         if(A_LastError)
             throw OSError()
 
@@ -11067,7 +11067,7 @@ class Identity {
      * @since windows6.0.6000
      */
     static ChangeAccountPasswordW(pszPackageName, pszDomainName, pszAccountName, pszOldPassword, pszNewPassword, bImpersonating, dwReserved, pOutput) {
-        result := DllCall("SECUR32.dll\ChangeAccountPasswordW", "ushort*", pszPackageName, "ushort*", pszDomainName, "ushort*", pszAccountName, "ushort*", pszOldPassword, "ushort*", pszNewPassword, "ptr", bImpersonating, "uint", dwReserved, "ptr", pOutput, "int")
+        result := DllCall("SECUR32.dll\ChangeAccountPasswordW", "ushort*", pszPackageName, "ushort*", pszDomainName, "ushort*", pszAccountName, "ushort*", pszOldPassword, "ushort*", pszNewPassword, "char", bImpersonating, "uint", dwReserved, "ptr", pOutput, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11091,7 +11091,7 @@ class Identity {
      * @since windows6.0.6000
      */
     static ChangeAccountPasswordA(pszPackageName, pszDomainName, pszAccountName, pszOldPassword, pszNewPassword, bImpersonating, dwReserved, pOutput) {
-        result := DllCall("SECUR32.dll\ChangeAccountPasswordA", "char*", pszPackageName, "char*", pszDomainName, "char*", pszAccountName, "char*", pszOldPassword, "char*", pszNewPassword, "ptr", bImpersonating, "uint", dwReserved, "ptr", pOutput, "int")
+        result := DllCall("SECUR32.dll\ChangeAccountPasswordA", "char*", pszPackageName, "char*", pszDomainName, "char*", pszAccountName, "char*", pszOldPassword, "char*", pszNewPassword, "char", bImpersonating, "uint", dwReserved, "ptr", pOutput, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15388,7 +15388,7 @@ class Identity {
      * @since windows6.1
      */
     static SspiIsAuthIdentityEncrypted(EncryptedAuthData) {
-        result := DllCall("SECUR32.dll\SspiIsAuthIdentityEncrypted", "ptr", EncryptedAuthData, "ptr")
+        result := DllCall("SECUR32.dll\SspiIsAuthIdentityEncrypted", "ptr", EncryptedAuthData, "char")
         return result
     }
 
@@ -15597,7 +15597,7 @@ class Identity {
      * @since windows6.1
      */
     static SspiIsPromptingNeeded(ErrorOrNtStatus) {
-        result := DllCall("credui.dll\SspiIsPromptingNeeded", "uint", ErrorOrNtStatus, "ptr")
+        result := DllCall("credui.dll\SspiIsPromptingNeeded", "uint", ErrorOrNtStatus, "char")
         return result
     }
 
@@ -15746,7 +15746,7 @@ class Identity {
      * @since windows6.0.6000
      */
     static CredMarshalTargetInfo(InTargetInfo, Buffer, BufferSize) {
-        result := DllCall("SECUR32.dll\CredMarshalTargetInfo", "ptr", InTargetInfo, "ushort*", Buffer, "uint*", BufferSize, "ptr")
+        result := DllCall("SECUR32.dll\CredMarshalTargetInfo", "ptr", InTargetInfo, "ushort*", Buffer, "uint*", BufferSize, "int")
         return result
     }
 
@@ -15759,7 +15759,7 @@ class Identity {
      * @returns {NTSTATUS} 
      */
     static CredUnmarshalTargetInfo(Buffer, BufferSize, RetTargetInfo, RetActualSize) {
-        result := DllCall("SECUR32.dll\CredUnmarshalTargetInfo", "ptr", Buffer, "uint", BufferSize, "ptr", RetTargetInfo, "uint*", RetActualSize, "ptr")
+        result := DllCall("SECUR32.dll\CredUnmarshalTargetInfo", "ptr", Buffer, "uint", BufferSize, "ptr", RetTargetInfo, "uint*", RetActualSize, "int")
         return result
     }
 
@@ -15774,7 +15774,7 @@ class Identity {
     static SslEmptyCacheA(pszTargetName, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("SCHANNEL.dll\SslEmptyCacheA", "ptr", pszTargetName, "uint", dwFlags, "ptr")
+        result := DllCall("SCHANNEL.dll\SslEmptyCacheA", "ptr", pszTargetName, "uint", dwFlags, "int")
         return result
     }
 
@@ -15789,7 +15789,7 @@ class Identity {
     static SslEmptyCacheW(pszTargetName, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("SCHANNEL.dll\SslEmptyCacheW", "ptr", pszTargetName, "uint", dwFlags, "ptr")
+        result := DllCall("SCHANNEL.dll\SslEmptyCacheW", "ptr", pszTargetName, "uint", dwFlags, "int")
         return result
     }
 
@@ -15816,7 +15816,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static SslCrackCertificate(pbCertificate, cbCertificate, dwFlags, ppCertificate) {
-        result := DllCall("SCHANNEL.dll\SslCrackCertificate", "char*", pbCertificate, "uint", cbCertificate, "uint", dwFlags, "ptr", ppCertificate, "ptr")
+        result := DllCall("SCHANNEL.dll\SslCrackCertificate", "char*", pbCertificate, "uint", cbCertificate, "uint", dwFlags, "ptr", ppCertificate, "int")
         return result
     }
 
@@ -16176,7 +16176,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\GetUserNameExA", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "ptr")
+        result := DllCall("SECUR32.dll\GetUserNameExA", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16246,7 +16246,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\GetUserNameExW", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "ptr")
+        result := DllCall("SECUR32.dll\GetUserNameExW", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16276,7 +16276,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\GetComputerObjectNameA", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "ptr")
+        result := DllCall("SECUR32.dll\GetComputerObjectNameA", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16306,7 +16306,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\GetComputerObjectNameW", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "ptr")
+        result := DllCall("SECUR32.dll\GetComputerObjectNameW", "int", NameFormat, "ptr", lpNameBuffer, "uint*", nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16342,7 +16342,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\TranslateNameA", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, "uint*", nSize, "ptr")
+        result := DllCall("SECUR32.dll\TranslateNameA", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, "uint*", nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -16378,7 +16378,7 @@ class Identity {
 
         A_LastError := 0
 
-        result := DllCall("SECUR32.dll\TranslateNameW", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, "uint*", nSize, "ptr")
+        result := DllCall("SECUR32.dll\TranslateNameW", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, "uint*", nSize, "char")
         if(A_LastError)
             throw OSError()
 
@@ -19820,7 +19820,7 @@ class Identity {
      * @since windows6.1
      */
     static SendSAS(AsUser) {
-        DllCall("SAS.dll\SendSAS", "ptr", AsUser)
+        DllCall("SAS.dll\SendSAS", "int", AsUser)
     }
 
 ;@endregion Methods

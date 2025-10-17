@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains the security object information.
@@ -24,12 +22,9 @@ class SECURITY_OBJECT extends Win32Struct
      * A pointer to the name.
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 0)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -152,11 +147,8 @@ class SECURITY_OBJECT extends Win32Struct
      * <b>TRUE</b> if the security object represents one of the well-know security objects listed in the <b>Id</b> member.
      * @type {BOOLEAN}
      */
-    fWellKnown{
-        get {
-            if(!this.HasProp("__fWellKnown"))
-                this.__fWellKnown := BOOLEAN(this.ptr + 40)
-            return this.__fWellKnown
-        }
+    fWellKnown {
+        get => NumGet(this, 40, "char")
+        set => NumPut("char", value, this, 40)
     }
 }

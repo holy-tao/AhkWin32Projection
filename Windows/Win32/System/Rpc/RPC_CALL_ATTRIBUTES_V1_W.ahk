@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The RPC_CALL_ATTRIBUTES_V1 structure provides parameters to the RpcServerInqCallAttributes function. Implemented in ANSI and UNICODE versions for Windows XP and Windows Server 2003 operating systems.
@@ -143,11 +142,8 @@ class RPC_CALL_ATTRIBUTES_V1_W extends Win32Struct
      * Specifies whether a <b>Null</b> session is used. Zero indicates the call is not coming over a <b>Null</b> session; any other value indicates a <b>Null</b> session.
      * @type {BOOL}
      */
-    NullSession{
-        get {
-            if(!this.HasProp("__NullSession"))
-                this.__NullSession := BOOL(this.ptr + 48)
-            return this.__NullSession
-        }
+    NullSession {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

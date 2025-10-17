@@ -28,7 +28,7 @@ class DISPLAYCONFIG_PATH_SOURCE_INFO extends Win32Struct
     adapterId{
         get {
             if(!this.HasProp("__adapterId"))
-                this.__adapterId := LUID(this.ptr + 0)
+                this.__adapterId := LUID(0, this)
             return this.__adapterId
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Describes an XML namespace prefix.
@@ -45,11 +44,8 @@ class WSDXML_PREFIX_MAPPING extends Win32Struct
      * The text of the XML prefix.
      * @type {PWSTR}
      */
-    Prefix{
-        get {
-            if(!this.HasProp("__Prefix"))
-                this.__Prefix := PWSTR(this.ptr + 24)
-            return this.__Prefix
-        }
+    Prefix {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

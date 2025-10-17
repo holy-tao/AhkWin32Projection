@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -15,12 +14,9 @@ class AM_AC3_ALTERNATE_AUDIO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fStereo{
-        get {
-            if(!this.HasProp("__fStereo"))
-                this.__fStereo := BOOL(this.ptr + 0)
-            return this.__fStereo
-        }
+    fStereo {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\CONFIG_CI_PROV_INFO_RESULT.ahk
 
 /**
@@ -43,7 +42,7 @@ class CONFIG_CI_PROV_INFO extends Win32Struct
     result{
         get {
             if(!this.HasProp("__result"))
-                this.__result := CONFIG_CI_PROV_INFO_RESULT(this.ptr + 16)
+                this.__result := CONFIG_CI_PROV_INFO_RESULT(16, this)
             return this.__result
         }
     }
@@ -64,12 +63,8 @@ class CONFIG_CI_PROV_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 40)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

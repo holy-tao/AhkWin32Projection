@@ -34,7 +34,7 @@ class OEMDMPARAM extends Win32Struct
     hPrinter{
         get {
             if(!this.HasProp("__hPrinter"))
-                this.__hPrinter := HANDLE(this.ptr + 16)
+                this.__hPrinter := HANDLE(16, this)
             return this.__hPrinter
         }
     }
@@ -45,7 +45,7 @@ class OEMDMPARAM extends Win32Struct
     hModule{
         get {
             if(!this.HasProp("__hModule"))
-                this.__hModule := HANDLE(this.ptr + 24)
+                this.__hModule := HANDLE(24, this)
             return this.__hModule
         }
     }
@@ -90,12 +90,8 @@ class OEMDMPARAM extends Win32Struct
         set => NumPut("uint", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

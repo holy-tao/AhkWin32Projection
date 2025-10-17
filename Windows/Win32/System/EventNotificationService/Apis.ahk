@@ -123,7 +123,7 @@ class EventNotificationService {
 
         A_LastError := 0
 
-        result := DllCall("SensApi.dll\IsDestinationReachableA", "ptr", lpszDestination, "ptr", lpQOCInfo, "ptr")
+        result := DllCall("SensApi.dll\IsDestinationReachableA", "ptr", lpszDestination, "ptr", lpQOCInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -183,7 +183,7 @@ class EventNotificationService {
 
         A_LastError := 0
 
-        result := DllCall("SensApi.dll\IsDestinationReachableW", "ptr", lpszDestination, "ptr", lpQOCInfo, "ptr")
+        result := DllCall("SensApi.dll\IsDestinationReachableW", "ptr", lpszDestination, "ptr", lpQOCInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -231,7 +231,7 @@ class EventNotificationService {
     static IsNetworkAlive(lpdwFlags) {
         A_LastError := 0
 
-        result := DllCall("SensApi.dll\IsNetworkAlive", "uint*", lpdwFlags, "ptr")
+        result := DllCall("SensApi.dll\IsNetworkAlive", "uint*", lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 

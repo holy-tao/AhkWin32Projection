@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.UI.ColorSystem
@@ -23,11 +22,8 @@ class WCS_DEVICE_VCGT_CAPABILITIES extends Win32Struct
     /**
      * @type {BOOL}
      */
-    SupportsVcgt{
-        get {
-            if(!this.HasProp("__SupportsVcgt"))
-                this.__SupportsVcgt := BOOL(this.ptr + 4)
-            return this.__SupportsVcgt
-        }
+    SupportsVcgt {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information about whether files in a stream have been redirected.
@@ -46,11 +45,8 @@ class CSV_QUERY_REDIRECT_STATE extends Win32Struct
      *       <b>FALSE</b>.
      * @type {BOOLEAN}
      */
-    FileRedirected{
-        get {
-            if(!this.HasProp("__FileRedirected"))
-                this.__FileRedirected := BOOLEAN(this.ptr + 8)
-            return this.__FileRedirected
-        }
+    FileRedirected {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 }

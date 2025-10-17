@@ -27,7 +27,7 @@ class WER_REPORT_INFORMATION_V5 extends Win32Struct
     hProcess{
         get {
             if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(this.ptr + 8)
+                this.__hProcess := HANDLE(8, this)
             return this.__hProcess
         }
     }
@@ -78,7 +78,7 @@ class WER_REPORT_INFORMATION_V5 extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 2200)
+                this.__hwndParent := HWND(2200, this)
             return this.__hwndParent
         }
     }
@@ -116,7 +116,7 @@ class WER_REPORT_INFORMATION_V5 extends Win32Struct
     hSnapshot{
         get {
             if(!this.HasProp("__hSnapshot"))
-                this.__hSnapshot := HANDLE(this.ptr + 2480)
+                this.__hSnapshot := HANDLE(2480, this)
             return this.__hSnapshot
         }
     }
@@ -127,7 +127,7 @@ class WER_REPORT_INFORMATION_V5 extends Win32Struct
     hDeleteFilesImpersonationToken{
         get {
             if(!this.HasProp("__hDeleteFilesImpersonationToken"))
-                this.__hDeleteFilesImpersonationToken := HANDLE(this.ptr + 2488)
+                this.__hDeleteFilesImpersonationToken := HANDLE(2488, this)
             return this.__hDeleteFilesImpersonationToken
         }
     }

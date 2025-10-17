@@ -3,7 +3,6 @@
 #Include .\GNSS_SUPL_NI_INFO.ahk
 #Include .\GNSS_CP_NI_INFO.ahk
 #Include .\GNSS_V2UPL_NI_INFO.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
@@ -69,7 +68,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     SuplNiInfo{
         get {
             if(!this.HasProp("__SuplNiInfo"))
-                this.__SuplNiInfo := GNSS_SUPL_NI_INFO(this.ptr + 24)
+                this.__SuplNiInfo := GNSS_SUPL_NI_INFO(24, this)
             return this.__SuplNiInfo
         }
     }
@@ -80,7 +79,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     CpNiInfo{
         get {
             if(!this.HasProp("__CpNiInfo"))
-                this.__CpNiInfo := GNSS_CP_NI_INFO(this.ptr + 24)
+                this.__CpNiInfo := GNSS_CP_NI_INFO(24, this)
             return this.__CpNiInfo
         }
     }
@@ -91,7 +90,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     V2UplNiInfo{
         get {
             if(!this.HasProp("__V2UplNiInfo"))
-                this.__V2UplNiInfo := GNSS_V2UPL_NI_INFO(this.ptr + 24)
+                this.__V2UplNiInfo := GNSS_V2UPL_NI_INFO(24, this)
             return this.__V2UplNiInfo
         }
     }
@@ -107,11 +106,8 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     /**
      * @type {BOOL}
      */
-    EmergencyLocation{
-        get {
-            if(!this.HasProp("__EmergencyLocation"))
-                this.__EmergencyLocation := BOOL(this.ptr + 1596)
-            return this.__EmergencyLocation
-        }
+    EmergencyLocation {
+        get => NumGet(this, 1596, "int")
+        set => NumPut("int", value, this, 1596)
     }
 }

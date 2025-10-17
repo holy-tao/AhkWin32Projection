@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\CHAR.ahk
 #Include ..\..\System\Console\CHAR_INFO.ahk
 #Include ..\..\System\Console\COORD.ahk
 #Include .\FONT_IMAGE_INFO.ahk
@@ -21,7 +20,7 @@ class CHAR_IMAGE_INFO extends Win32Struct
     CharInfo{
         get {
             if(!this.HasProp("__CharInfo"))
-                this.__CharInfo := CHAR_INFO(this.ptr + 0)
+                this.__CharInfo := CHAR_INFO(0, this)
             return this.__CharInfo
         }
     }
@@ -32,7 +31,7 @@ class CHAR_IMAGE_INFO extends Win32Struct
     FontImageInfo{
         get {
             if(!this.HasProp("__FontImageInfo"))
-                this.__FontImageInfo := FONT_IMAGE_INFO(this.ptr + 8)
+                this.__FontImageInfo := FONT_IMAGE_INFO(8, this)
             return this.__FontImageInfo
         }
     }

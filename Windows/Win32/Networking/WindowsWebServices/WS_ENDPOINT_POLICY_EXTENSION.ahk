@@ -54,7 +54,7 @@ class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct
     policyExtension{
         get {
             if(!this.HasProp("__policyExtension"))
-                this.__policyExtension := WS_POLICY_EXTENSION(this.ptr + 0)
+                this.__policyExtension := WS_POLICY_EXTENSION(0, this)
             return this.__policyExtension
         }
     }
@@ -85,7 +85,7 @@ class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct
     out{
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(this.ptr + 24)
+                this.__out := %this.__Class%._out(24, this)
             return this.__out
         }
     }

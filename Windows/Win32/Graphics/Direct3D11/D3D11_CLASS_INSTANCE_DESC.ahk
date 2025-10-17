@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes an HLSL class instance.
@@ -104,11 +103,8 @@ class D3D11_CLASS_INSTANCE_DESC extends Win32Struct
      * True if the class was created; the default value is false.
      * @type {BOOL}
      */
-    Created{
-        get {
-            if(!this.HasProp("__Created"))
-                this.__Created := BOOL(this.ptr + 28)
-            return this.__Created
-        }
+    Created {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 }

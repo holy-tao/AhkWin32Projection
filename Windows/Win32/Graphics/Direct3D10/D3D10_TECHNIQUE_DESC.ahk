@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Describes an effect technique.
@@ -25,12 +24,9 @@ class D3D10_TECHNIQUE_DESC extends Win32Struct
      * A string that contains the technique name; otherwise <b>NULL</b>.
      * @type {PSTR}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

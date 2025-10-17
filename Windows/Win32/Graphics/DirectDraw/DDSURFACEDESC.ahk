@@ -124,7 +124,7 @@ class DDSURFACEDESC extends Win32Struct
     ddckCKDestOverlay{
         get {
             if(!this.HasProp("__ddckCKDestOverlay"))
-                this.__ddckCKDestOverlay := DDCOLORKEY(this.ptr + 48)
+                this.__ddckCKDestOverlay := DDCOLORKEY(48, this)
             return this.__ddckCKDestOverlay
         }
     }
@@ -135,7 +135,7 @@ class DDSURFACEDESC extends Win32Struct
     ddckCKDestBlt{
         get {
             if(!this.HasProp("__ddckCKDestBlt"))
-                this.__ddckCKDestBlt := DDCOLORKEY(this.ptr + 56)
+                this.__ddckCKDestBlt := DDCOLORKEY(56, this)
             return this.__ddckCKDestBlt
         }
     }
@@ -146,7 +146,7 @@ class DDSURFACEDESC extends Win32Struct
     ddckCKSrcOverlay{
         get {
             if(!this.HasProp("__ddckCKSrcOverlay"))
-                this.__ddckCKSrcOverlay := DDCOLORKEY(this.ptr + 64)
+                this.__ddckCKSrcOverlay := DDCOLORKEY(64, this)
             return this.__ddckCKSrcOverlay
         }
     }
@@ -157,7 +157,7 @@ class DDSURFACEDESC extends Win32Struct
     ddckCKSrcBlt{
         get {
             if(!this.HasProp("__ddckCKSrcBlt"))
-                this.__ddckCKSrcBlt := DDCOLORKEY(this.ptr + 72)
+                this.__ddckCKSrcBlt := DDCOLORKEY(72, this)
             return this.__ddckCKSrcBlt
         }
     }
@@ -168,7 +168,7 @@ class DDSURFACEDESC extends Win32Struct
     ddpfPixelFormat{
         get {
             if(!this.HasProp("__ddpfPixelFormat"))
-                this.__ddpfPixelFormat := DDPIXELFORMAT(this.ptr + 80)
+                this.__ddpfPixelFormat := DDPIXELFORMAT(80, this)
             return this.__ddpfPixelFormat
         }
     }
@@ -179,7 +179,7 @@ class DDSURFACEDESC extends Win32Struct
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(this.ptr + 112)
+                this.__ddsCaps := DDSCAPS(112, this)
             return this.__ddsCaps
         }
     }

@@ -131,7 +131,7 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
     ZA{
         get {
             if(!this.HasProp("__ZA"))
-                this.__ZA := %this.__Class%._ZA(this.ptr + 2)
+                this.__ZA := %this.__Class%._ZA(2, this)
             return this.__ZA
         }
     }

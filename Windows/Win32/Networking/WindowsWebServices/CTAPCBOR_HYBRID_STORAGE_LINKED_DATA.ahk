@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -87,12 +86,9 @@ class CTAPCBOR_HYBRID_STORAGE_LINKED_DATA extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszAuthenticatorName{
-        get {
-            if(!this.HasProp("__pwszAuthenticatorName"))
-                this.__pwszAuthenticatorName := PWSTR(this.ptr + 64)
-            return this.__pwszAuthenticatorName
-        }
+    pwszAuthenticatorName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_INVITATION_RESPONSE structure contains a response to an invitation to join a peer collaboration activity.
@@ -28,12 +27,9 @@ class PEER_INVITATION_RESPONSE extends Win32Struct
      * Reserved. This member must be set to <b>NULL</b>, and is set exclusively by the Peer Collaboration infrastructure.
      * @type {PWSTR}
      */
-    pwzMessage{
-        get {
-            if(!this.HasProp("__pwzMessage"))
-                this.__pwzMessage := PWSTR(this.ptr + 8)
-            return this.__pwzMessage
-        }
+    pwzMessage {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

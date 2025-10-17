@@ -18,7 +18,7 @@ class CERT_X942_DH_VALIDATION_PARAMS extends Win32Struct
     seed{
         get {
             if(!this.HasProp("__seed"))
-                this.__seed := CRYPT_BIT_BLOB(this.ptr + 0)
+                this.__seed := CRYPT_BIT_BLOB(0, this)
             return this.__seed
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USE_INFO_2 structure contains information about a connection between a local computer and a shared resource, including connection type, connection status, user name, and domain name.
@@ -28,12 +27,9 @@ class USE_INFO_2 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    ui2_local{
-        get {
-            if(!this.HasProp("__ui2_local"))
-                this.__ui2_local := PWSTR(this.ptr + 0)
-            return this.__ui2_local
-        }
+    ui2_local {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -49,12 +45,9 @@ class USE_INFO_2 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    ui2_remote{
-        get {
-            if(!this.HasProp("__ui2_remote"))
-                this.__ui2_remote := PWSTR(this.ptr + 8)
-            return this.__ui2_remote
-        }
+    ui2_remote {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -65,12 +58,9 @@ class USE_INFO_2 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    ui2_password{
-        get {
-            if(!this.HasProp("__ui2_password"))
-                this.__ui2_password := PWSTR(this.ptr + 16)
-            return this.__ui2_password
-        }
+    ui2_password {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -204,12 +194,9 @@ class USE_INFO_2 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    ui2_username{
-        get {
-            if(!this.HasProp("__ui2_username"))
-                this.__ui2_username := PWSTR(this.ptr + 40)
-            return this.__ui2_username
-        }
+    ui2_username {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -220,11 +207,8 @@ class USE_INFO_2 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    ui2_domainname{
-        get {
-            if(!this.HasProp("__ui2_domainname"))
-                this.__ui2_domainname := PWSTR(this.ptr + 48)
-            return this.__ui2_domainname
-        }
+    ui2_domainname {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

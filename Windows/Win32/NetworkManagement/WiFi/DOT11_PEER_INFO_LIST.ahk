@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\DOT11_PEER_STATISTICS.ahk
 #Include .\DOT11_PEER_INFO.ahk
 
@@ -21,7 +20,7 @@ class DOT11_PEER_INFO_LIST extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }

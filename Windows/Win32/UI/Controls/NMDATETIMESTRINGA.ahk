@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -32,7 +31,7 @@ class NMDATETIMESTRINGA extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -43,12 +42,9 @@ class NMDATETIMESTRINGA extends Win32Struct
      * The address of the zero-terminated string that the user entered.
      * @type {PSTR}
      */
-    pszUserString{
-        get {
-            if(!this.HasProp("__pszUserString"))
-                this.__pszUserString := PSTR(this.ptr + 24)
-            return this.__pszUserString
-        }
+    pszUserString {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -60,7 +56,7 @@ class NMDATETIMESTRINGA extends Win32Struct
     st{
         get {
             if(!this.HasProp("__st"))
-                this.__st := SYSTEMTIME(this.ptr + 32)
+                this.__st := SYSTEMTIME(32, this)
             return this.__st
         }
     }

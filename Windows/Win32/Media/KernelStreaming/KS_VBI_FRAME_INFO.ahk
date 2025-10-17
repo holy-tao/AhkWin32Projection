@@ -59,7 +59,7 @@ class KS_VBI_FRAME_INFO extends Win32Struct
     TvTunerChangeInfo{
         get {
             if(!this.HasProp("__TvTunerChangeInfo"))
-                this.__TvTunerChangeInfo := KS_TVTUNER_CHANGE_INFO(this.ptr + 32)
+                this.__TvTunerChangeInfo := KS_TVTUNER_CHANGE_INFO(32, this)
             return this.__TvTunerChangeInfo
         }
     }
@@ -70,7 +70,7 @@ class KS_VBI_FRAME_INFO extends Win32Struct
     VBIInfoHeader{
         get {
             if(!this.HasProp("__VBIInfoHeader"))
-                this.__VBIInfoHeader := KS_VBIINFOHEADER(this.ptr + 48)
+                this.__VBIInfoHeader := KS_VBIINFOHEADER(48, this)
             return this.__VBIInfoHeader
         }
     }

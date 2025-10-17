@@ -778,7 +778,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpUtilOidToA(Oid) {
-        result := DllCall("snmpapi.dll\SnmpUtilOidToA", "ptr", Oid, "ptr")
+        result := DllCall("snmpapi.dll\SnmpUtilOidToA", "ptr", Oid, "char*")
         return result
     }
 
@@ -800,7 +800,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpUtilIdsToA(Ids, IdLength) {
-        result := DllCall("snmpapi.dll\SnmpUtilIdsToA", "uint*", Ids, "uint", IdLength, "ptr")
+        result := DllCall("snmpapi.dll\SnmpUtilIdsToA", "uint*", Ids, "uint", IdLength, "char*")
         return result
     }
 
@@ -977,7 +977,7 @@ class Snmp {
     static SnmpMgrCtl(session, dwCtlCode, lpvInBuffer, cbInBuffer, lpvOUTBuffer, cbOUTBuffer, lpcbBytesReturned) {
         A_LastError := 0
 
-        result := DllCall("mgmtapi.dll\SnmpMgrCtl", "ptr", session, "uint", dwCtlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOUTBuffer, "uint", cbOUTBuffer, "uint*", lpcbBytesReturned, "ptr")
+        result := DllCall("mgmtapi.dll\SnmpMgrCtl", "ptr", session, "uint", dwCtlCode, "ptr", lpvInBuffer, "uint", cbInBuffer, "ptr", lpvOUTBuffer, "uint", cbOUTBuffer, "uint*", lpcbBytesReturned, "int")
         if(A_LastError)
             throw OSError()
 
@@ -996,7 +996,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrClose(session) {
-        result := DllCall("mgmtapi.dll\SnmpMgrClose", "ptr", session, "ptr")
+        result := DllCall("mgmtapi.dll\SnmpMgrClose", "ptr", session, "int")
         return result
     }
 
@@ -1078,7 +1078,7 @@ class Snmp {
     static SnmpMgrStrToOid(string, oid) {
         string := string is String ? StrPtr(string) : string
 
-        result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", "ptr", string, "ptr", oid, "ptr")
+        result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", "ptr", string, "ptr", oid, "int")
         return result
     }
 
@@ -1093,7 +1093,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrOidToStr(oid, string) {
-        result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, "ptr", string, "ptr")
+        result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", "ptr", oid, "ptr", string, "int")
         return result
     }
 
@@ -1154,7 +1154,7 @@ class Snmp {
     static SnmpMgrTrapListen(phTrapAvailable) {
         A_LastError := 0
 
-        result := DllCall("mgmtapi.dll\SnmpMgrTrapListen", "ptr", phTrapAvailable, "ptr")
+        result := DllCall("mgmtapi.dll\SnmpMgrTrapListen", "ptr", phTrapAvailable, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1219,7 +1219,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrGetTrap(enterprise, IPAddress, genericTrap, specificTrap, timeStamp, variableBindings) {
-        result := DllCall("mgmtapi.dll\SnmpMgrGetTrap", "ptr", enterprise, "ptr", IPAddress, "uint*", genericTrap, "int*", specificTrap, "uint*", timeStamp, "ptr", variableBindings, "ptr")
+        result := DllCall("mgmtapi.dll\SnmpMgrGetTrap", "ptr", enterprise, "ptr", IPAddress, "uint*", genericTrap, "int*", specificTrap, "uint*", timeStamp, "ptr", variableBindings, "int")
         return result
     }
 
@@ -1284,7 +1284,7 @@ class Snmp {
      * @since windows5.0
      */
     static SnmpMgrGetTrapEx(enterprise, agentAddress, sourceAddress, genericTrap, specificTrap, community, timeStamp, variableBindings) {
-        result := DllCall("mgmtapi.dll\SnmpMgrGetTrapEx", "ptr", enterprise, "ptr", agentAddress, "ptr", sourceAddress, "uint*", genericTrap, "int*", specificTrap, "ptr", community, "uint*", timeStamp, "ptr", variableBindings, "ptr")
+        result := DllCall("mgmtapi.dll\SnmpMgrGetTrapEx", "ptr", enterprise, "ptr", agentAddress, "ptr", sourceAddress, "uint*", genericTrap, "int*", specificTrap, "ptr", community, "uint*", timeStamp, "ptr", variableBindings, "int")
         return result
     }
 

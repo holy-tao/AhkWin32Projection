@@ -48,7 +48,7 @@ class ETW_BUFFER_HEADER extends Win32Struct
     ClientContext{
         get {
             if(!this.HasProp("__ClientContext"))
-                this.__ClientContext := ETW_BUFFER_CONTEXT(this.ptr + 40)
+                this.__ClientContext := ETW_BUFFER_CONTEXT(40, this)
             return this.__ClientContext
         }
     }

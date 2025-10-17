@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -39,11 +38,8 @@ class VMEML extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bDiscardable{
-        get {
-            if(!this.HasProp("__bDiscardable"))
-                this.__bDiscardable := BOOL(this.ptr + 20)
-            return this.__bDiscardable
-        }
+    bDiscardable {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

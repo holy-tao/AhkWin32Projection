@@ -93,7 +93,7 @@ class MODULEENTRY32W extends Win32Struct
     hModule{
         get {
             if(!this.HasProp("__hModule"))
-                this.__hModule := HMODULE(this.ptr + 40)
+                this.__hModule := HMODULE(40, this)
             return this.__hModule
         }
     }

@@ -19,7 +19,7 @@ class ICMPV4_ROUTER_SOLICIT extends Win32Struct
     RsHeader{
         get {
             if(!this.HasProp("__RsHeader"))
-                this.__RsHeader := ICMP_MESSAGE(this.ptr + 0)
+                this.__RsHeader := ICMP_MESSAGE(0, this)
             return this.__RsHeader
         }
     }

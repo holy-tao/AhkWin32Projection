@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
@@ -16,44 +14,32 @@ class WINHTTP_EXTENDED_HEADER extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 0)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PSTR}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PSTR(this.ptr + 0)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszValue{
-        get {
-            if(!this.HasProp("__pwszValue"))
-                this.__pwszValue := PWSTR(this.ptr + 8)
-            return this.__pwszValue
-        }
+    pwszValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PSTR}
      */
-    pszValue{
-        get {
-            if(!this.HasProp("__pszValue"))
-                this.__pszValue := PSTR(this.ptr + 8)
-            return this.__pszValue
-        }
+    pszValue {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

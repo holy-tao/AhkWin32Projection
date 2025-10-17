@@ -31,7 +31,7 @@ class TRIGGER_TYPE_UNION extends Win32Struct
     Daily{
         get {
             if(!this.HasProp("__Daily"))
-                this.__Daily := DAILY(this.ptr + 0)
+                this.__Daily := DAILY(0, this)
             return this.__Daily
         }
     }
@@ -44,7 +44,7 @@ class TRIGGER_TYPE_UNION extends Win32Struct
     Weekly{
         get {
             if(!this.HasProp("__Weekly"))
-                this.__Weekly := WEEKLY(this.ptr + 0)
+                this.__Weekly := WEEKLY(0, this)
             return this.__Weekly
         }
     }
@@ -57,7 +57,7 @@ class TRIGGER_TYPE_UNION extends Win32Struct
     MonthlyDate{
         get {
             if(!this.HasProp("__MonthlyDate"))
-                this.__MonthlyDate := MONTHLYDATE(this.ptr + 0)
+                this.__MonthlyDate := MONTHLYDATE(0, this)
             return this.__MonthlyDate
         }
     }
@@ -70,7 +70,7 @@ class TRIGGER_TYPE_UNION extends Win32Struct
     MonthlyDOW{
         get {
             if(!this.HasProp("__MonthlyDOW"))
-                this.__MonthlyDOW := MONTHLYDOW(this.ptr + 0)
+                this.__MonthlyDOW := MONTHLYDOW(0, this)
             return this.__MonthlyDOW
         }
     }

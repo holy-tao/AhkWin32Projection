@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -16,23 +15,17 @@ class PRINTER_INFO_5W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 0)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pPortName{
-        get {
-            if(!this.HasProp("__pPortName"))
-                this.__pPortName := PWSTR(this.ptr + 8)
-            return this.__pPortName
-        }
+    pPortName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -18,7 +18,7 @@ class WGLSWAP extends Win32Struct
     hdc{
         get {
             if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 0)
+                this.__hdc := HDC(0, this)
             return this.__hdc
         }
     }

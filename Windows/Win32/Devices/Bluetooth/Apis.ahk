@@ -4293,7 +4293,7 @@ class Bluetooth {
 
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothFindNextRadio", "ptr", hFind, "ptr", phRadio, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothFindNextRadio", "ptr", hFind, "ptr", phRadio, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4312,7 +4312,7 @@ class Bluetooth {
 
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothFindRadioClose", "ptr", hFind, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothFindRadioClose", "ptr", hFind, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4481,7 +4481,7 @@ class Bluetooth {
 
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothFindNextDevice", "ptr", hFind, "ptr", pbtdi, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothFindNextDevice", "ptr", hFind, "ptr", pbtdi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4500,7 +4500,7 @@ class Bluetooth {
 
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothFindDeviceClose", "ptr", hFind, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothFindDeviceClose", "ptr", hFind, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4669,7 +4669,7 @@ class Bluetooth {
     static BluetoothSelectDevices(pbtsdp) {
         A_LastError := 0
 
-        result := DllCall("bthprops.cpl\BluetoothSelectDevices", "ptr", pbtsdp, "ptr")
+        result := DllCall("bthprops.cpl\BluetoothSelectDevices", "ptr", pbtsdp, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4685,7 +4685,7 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothSelectDevicesFree(pbtsdp) {
-        result := DllCall("bthprops.cpl\BluetoothSelectDevicesFree", "ptr", pbtsdp, "ptr")
+        result := DllCall("bthprops.cpl\BluetoothSelectDevicesFree", "ptr", pbtsdp, "int")
         return result
     }
 
@@ -4702,7 +4702,7 @@ class Bluetooth {
 
         A_LastError := 0
 
-        result := DllCall("bthprops.cpl\BluetoothDisplayDeviceProperties", "ptr", hwndParent, "ptr", pbtdi, "ptr")
+        result := DllCall("bthprops.cpl\BluetoothDisplayDeviceProperties", "ptr", hwndParent, "ptr", pbtdi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5003,7 +5003,7 @@ class Bluetooth {
     static BluetoothEnableDiscovery(hRadio, fEnabled) {
         hRadio := hRadio is Win32Handle ? NumGet(hRadio, "ptr") : hRadio
 
-        result := DllCall("BluetoothApis.dll\BluetoothEnableDiscovery", "ptr", hRadio, "ptr", fEnabled, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothEnableDiscovery", "ptr", hRadio, "int", fEnabled, "int")
         return result
     }
 
@@ -5017,7 +5017,7 @@ class Bluetooth {
     static BluetoothIsDiscoverable(hRadio) {
         hRadio := hRadio is Win32Handle ? NumGet(hRadio, "ptr") : hRadio
 
-        result := DllCall("BluetoothApis.dll\BluetoothIsDiscoverable", "ptr", hRadio, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothIsDiscoverable", "ptr", hRadio, "int")
         return result
     }
 
@@ -5032,7 +5032,7 @@ class Bluetooth {
     static BluetoothEnableIncomingConnections(hRadio, fEnabled) {
         hRadio := hRadio is Win32Handle ? NumGet(hRadio, "ptr") : hRadio
 
-        result := DllCall("BluetoothApis.dll\BluetoothEnableIncomingConnections", "ptr", hRadio, "ptr", fEnabled, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothEnableIncomingConnections", "ptr", hRadio, "int", fEnabled, "int")
         return result
     }
 
@@ -5046,7 +5046,7 @@ class Bluetooth {
     static BluetoothIsConnectable(hRadio) {
         hRadio := hRadio is Win32Handle ? NumGet(hRadio, "ptr") : hRadio
 
-        result := DllCall("BluetoothApis.dll\BluetoothIsConnectable", "ptr", hRadio, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothIsConnectable", "ptr", hRadio, "int")
         return result
     }
 
@@ -5165,7 +5165,7 @@ class Bluetooth {
     static BluetoothUnregisterAuthentication(hRegHandle) {
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothUnregisterAuthentication", "ptr", hRegHandle, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothUnregisterAuthentication", "ptr", hRegHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5491,7 +5491,7 @@ class Bluetooth {
     static BluetoothSdpEnumAttributes(pSDPStream, cbStreamSize, pfnCallback, pvParam) {
         A_LastError := 0
 
-        result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", "ptr", pSDPStream, "uint", cbStreamSize, "ptr", pfnCallback, "ptr", pvParam, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothSdpEnumAttributes", "ptr", pSDPStream, "uint", cbStreamSize, "ptr", pfnCallback, "ptr", pvParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5580,7 +5580,7 @@ class Bluetooth {
      * @since windows6.0.6000
      */
     static BluetoothIsVersionAvailable(MajorVersion, MinorVersion) {
-        result := DllCall("BluetoothApis.dll\BluetoothIsVersionAvailable", "char", MajorVersion, "char", MinorVersion, "ptr")
+        result := DllCall("BluetoothApis.dll\BluetoothIsVersionAvailable", "char", MajorVersion, "char", MinorVersion, "int")
         return result
     }
 

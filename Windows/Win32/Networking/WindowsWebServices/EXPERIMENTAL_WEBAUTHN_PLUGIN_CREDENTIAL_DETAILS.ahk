@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -31,23 +30,17 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszRpId{
-        get {
-            if(!this.HasProp("__pwszRpId"))
-                this.__pwszRpId := PWSTR(this.ptr + 16)
-            return this.__pwszRpId
-        }
+    pwszRpId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszRpName{
-        get {
-            if(!this.HasProp("__pwszRpName"))
-                this.__pwszRpName := PWSTR(this.ptr + 24)
-            return this.__pwszRpName
-        }
+    pwszRpName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -69,22 +62,16 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszUserName{
-        get {
-            if(!this.HasProp("__pwszUserName"))
-                this.__pwszUserName := PWSTR(this.ptr + 48)
-            return this.__pwszUserName
-        }
+    pwszUserName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszUserDisplayName{
-        get {
-            if(!this.HasProp("__pwszUserDisplayName"))
-                this.__pwszUserDisplayName := PWSTR(this.ptr + 56)
-            return this.__pwszUserDisplayName
-        }
+    pwszUserDisplayName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

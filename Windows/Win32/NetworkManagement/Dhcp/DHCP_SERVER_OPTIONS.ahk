@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The DHCP_SERVER_OPTIONS structure specifies requested DHCP Server options.
@@ -100,12 +98,9 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
      * Machine name (host name) of the computer making the request.
      * @type {PSTR}
      */
-    MachineName{
-        get {
-            if(!this.HasProp("__MachineName"))
-                this.__MachineName := PSTR(this.ptr + 72)
-            return this.__MachineName
-        }
+    MachineName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -148,12 +143,9 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
      * Class identifier for the client.
      * @type {PSTR}
      */
-    ClassIdentifier{
-        get {
-            if(!this.HasProp("__ClassIdentifier"))
-                this.__ClassIdentifier := PSTR(this.ptr + 96)
-            return this.__ClassIdentifier
-        }
+    ClassIdentifier {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -214,24 +206,18 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
      * Specifies whether the domain name is requested.
      * @type {BOOLEAN}
      */
-    DSDomainNameRequested{
-        get {
-            if(!this.HasProp("__DSDomainNameRequested"))
-                this.__DSDomainNameRequested := BOOLEAN(this.ptr + 144)
-            return this.__DSDomainNameRequested
-        }
+    DSDomainNameRequested {
+        get => NumGet(this, 144, "char")
+        set => NumPut("char", value, this, 144)
     }
 
     /**
      * Pointer to the domain name.
      * @type {PSTR}
      */
-    DSDomainName{
-        get {
-            if(!this.HasProp("__DSDomainName"))
-                this.__DSDomainName := PSTR(this.ptr + 152)
-            return this.__DSDomainName
-        }
+    DSDomainName {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**

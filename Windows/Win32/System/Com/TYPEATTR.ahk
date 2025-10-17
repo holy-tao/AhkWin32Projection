@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\TYPEDESC.ahk
 #Include .\IDLDESC.ahk
 
@@ -65,12 +64,9 @@ class TYPEATTR extends Win32Struct
      * Reserved.
      * @type {PWSTR}
      */
-    lpstrSchema{
-        get {
-            if(!this.HasProp("__lpstrSchema"))
-                this.__lpstrSchema := PWSTR(this.ptr + 24)
-            return this.__lpstrSchema
-        }
+    lpstrSchema {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -170,7 +166,7 @@ class TYPEATTR extends Win32Struct
     tdescAlias{
         get {
             if(!this.HasProp("__tdescAlias"))
-                this.__tdescAlias := TYPEDESC(this.ptr + 56)
+                this.__tdescAlias := TYPEDESC(56, this)
             return this.__tdescAlias
         }
     }
@@ -182,7 +178,7 @@ class TYPEATTR extends Win32Struct
     idldescType{
         get {
             if(!this.HasProp("__idldescType"))
-                this.__idldescType := IDLDESC(this.ptr + 72)
+                this.__idldescType := IDLDESC(72, this)
             return this.__idldescType
         }
     }

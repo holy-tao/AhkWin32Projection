@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include .\HTREEITEM.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information on a tree-view item change. This structure is sent with the TVN_ITEMCHANGED and TVN_ITEMCHANGING notifications.
@@ -27,7 +25,7 @@ class NMTVITEMCHANGE extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -67,12 +65,9 @@ class NMTVITEMCHANGE extends Win32Struct
      * Handle to the changed tree-view item.
      * @type {HTREEITEM}
      */
-    hItem{
-        get {
-            if(!this.HasProp("__hItem"))
-                this.__hItem := HTREEITEM(this.ptr + 32)
-            return this.__hItem
-        }
+    hItem {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -103,11 +98,8 @@ class NMTVITEMCHANGE extends Win32Struct
      * Reserved for application specific data. For example, a value to associate with the item.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 48)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -72,7 +71,7 @@ class WSACOMPLETION extends Win32Struct
         hWnd{
             get {
                 if(!this.HasProp("__hWnd"))
-                    this.__hWnd := HWND(this.ptr + 0)
+                    this.__hWnd := HWND(0, this)
                 return this.__hWnd
             }
         }
@@ -88,12 +87,9 @@ class WSACOMPLETION extends Win32Struct
         /**
          * @type {WPARAM}
          */
-        context{
-            get {
-                if(!this.HasProp("__context"))
-                    this.__context := WPARAM(this.ptr + 16)
-                return this.__context
-            }
+        context {
+            get => NumGet(this, 16, "ptr")
+            set => NumPut("ptr", value, this, 16)
         }
     
     }
@@ -152,7 +148,7 @@ class WSACOMPLETION extends Win32Struct
         hPort{
             get {
                 if(!this.HasProp("__hPort"))
-                    this.__hPort := HANDLE(this.ptr + 8)
+                    this.__hPort := HANDLE(8, this)
                 return this.__hPort
             }
         }
@@ -173,7 +169,7 @@ class WSACOMPLETION extends Win32Struct
     WindowMessage{
         get {
             if(!this.HasProp("__WindowMessage"))
-                this.__WindowMessage := %this.__Class%._WindowMessage(this.ptr + 8)
+                this.__WindowMessage := %this.__Class%._WindowMessage(8, this)
             return this.__WindowMessage
         }
     }
@@ -184,7 +180,7 @@ class WSACOMPLETION extends Win32Struct
     Event{
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := %this.__Class%._Event(this.ptr + 8)
+                this.__Event := %this.__Class%._Event(8, this)
             return this.__Event
         }
     }
@@ -195,7 +191,7 @@ class WSACOMPLETION extends Win32Struct
     Apc{
         get {
             if(!this.HasProp("__Apc"))
-                this.__Apc := %this.__Class%._Apc(this.ptr + 8)
+                this.__Apc := %this.__Class%._Apc(8, this)
             return this.__Apc
         }
     }
@@ -206,7 +202,7 @@ class WSACOMPLETION extends Win32Struct
     Port{
         get {
             if(!this.HasProp("__Port"))
-                this.__Port := %this.__Class%._Port(this.ptr + 8)
+                this.__Port := %this.__Class%._Port(8, this)
             return this.__Port
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_DATA_TEXT.ahk
 #Include .\WSMAN_DATA_BINARY.ahk
 
@@ -31,7 +30,7 @@ class WSMAN_DATA extends Win32Struct
     text{
         get {
             if(!this.HasProp("__text"))
-                this.__text := WSMAN_DATA_TEXT(this.ptr + 8)
+                this.__text := WSMAN_DATA_TEXT(8, this)
             return this.__text
         }
     }
@@ -42,7 +41,7 @@ class WSMAN_DATA extends Win32Struct
     binaryData{
         get {
             if(!this.HasProp("__binaryData"))
-                this.__binaryData := WSMAN_DATA_BINARY(this.ptr + 8)
+                this.__binaryData := WSMAN_DATA_BINARY(8, this)
             return this.__binaryData
         }
     }

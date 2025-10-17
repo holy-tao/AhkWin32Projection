@@ -75,7 +75,7 @@ class RESOURCE_STATUS extends Win32Struct
     EventHandle{
         get {
             if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := HANDLE(this.ptr + 16)
+                this.__EventHandle := HANDLE(16, this)
             return this.__EventHandle
         }
     }

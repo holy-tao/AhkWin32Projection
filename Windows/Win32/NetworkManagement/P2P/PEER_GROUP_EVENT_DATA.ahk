@@ -4,7 +4,6 @@
 #Include .\PEER_EVENT_INCOMING_DATA.ahk
 #Include .\PEER_EVENT_RECORD_CHANGE_DATA.ahk
 #Include .\PEER_EVENT_CONNECTION_CHANGE_DATA.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PEER_EVENT_MEMBER_CHANGE_DATA.ahk
 
 /**
@@ -42,7 +41,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     incomingData{
         get {
             if(!this.HasProp("__incomingData"))
-                this.__incomingData := PEER_EVENT_INCOMING_DATA(this.ptr + 8)
+                this.__incomingData := PEER_EVENT_INCOMING_DATA(8, this)
             return this.__incomingData
         }
     }
@@ -54,7 +53,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     recordChangeData{
         get {
             if(!this.HasProp("__recordChangeData"))
-                this.__recordChangeData := PEER_EVENT_RECORD_CHANGE_DATA(this.ptr + 8)
+                this.__recordChangeData := PEER_EVENT_RECORD_CHANGE_DATA(8, this)
             return this.__recordChangeData
         }
     }
@@ -66,7 +65,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     connectionChangeData{
         get {
             if(!this.HasProp("__connectionChangeData"))
-                this.__connectionChangeData := PEER_EVENT_CONNECTION_CHANGE_DATA(this.ptr + 8)
+                this.__connectionChangeData := PEER_EVENT_CONNECTION_CHANGE_DATA(8, this)
             return this.__connectionChangeData
         }
     }
@@ -78,7 +77,7 @@ class PEER_GROUP_EVENT_DATA extends Win32Struct
     memberChangeData{
         get {
             if(!this.HasProp("__memberChangeData"))
-                this.__memberChangeData := PEER_EVENT_MEMBER_CHANGE_DATA(this.ptr + 8)
+                this.__memberChangeData := PEER_EVENT_MEMBER_CHANGE_DATA(8, this)
             return this.__memberChangeData
         }
     }

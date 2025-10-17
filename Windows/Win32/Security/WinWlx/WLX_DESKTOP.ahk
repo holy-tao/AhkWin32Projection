@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\System\StationsAndDesktops\HDESK.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used to pass desktop information between your GINA DLL and Winlogon.
@@ -67,7 +66,7 @@ class WLX_DESKTOP extends Win32Struct
     hDesktop{
         get {
             if(!this.HasProp("__hDesktop"))
-                this.__hDesktop := HDESK(this.ptr + 8)
+                this.__hDesktop := HDESK(8, this)
             return this.__hDesktop
         }
     }
@@ -76,11 +75,8 @@ class WLX_DESKTOP extends Win32Struct
      * Name of the desktop.
      * @type {PWSTR}
      */
-    pszDesktopName{
-        get {
-            if(!this.HasProp("__pszDesktopName"))
-                this.__pszDesktopName := PWSTR(this.ptr + 16)
-            return this.__pszDesktopName
-        }
+    pszDesktopName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

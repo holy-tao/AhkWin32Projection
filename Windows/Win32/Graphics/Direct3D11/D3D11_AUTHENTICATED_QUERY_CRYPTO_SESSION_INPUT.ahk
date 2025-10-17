@@ -22,7 +22,7 @@ class D3D11_AUTHENTICATED_QUERY_CRYPTO_SESSION_INPUT extends Win32Struct
     Input{
         get {
             if(!this.HasProp("__Input"))
-                this.__Input := D3D11_AUTHENTICATED_QUERY_INPUT(this.ptr + 0)
+                this.__Input := D3D11_AUTHENTICATED_QUERY_INPUT(0, this)
             return this.__Input
         }
     }
@@ -34,7 +34,7 @@ class D3D11_AUTHENTICATED_QUERY_CRYPTO_SESSION_INPUT extends Win32Struct
     DecoderHandle{
         get {
             if(!this.HasProp("__DecoderHandle"))
-                this.__DecoderHandle := HANDLE(this.ptr + 24)
+                this.__DecoderHandle := HANDLE(24, this)
             return this.__DecoderHandle
         }
     }

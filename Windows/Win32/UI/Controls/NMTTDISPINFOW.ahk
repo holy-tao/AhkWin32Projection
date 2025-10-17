@@ -2,9 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information used in handling the TTN_GETDISPINFO notification code. This structure supersedes the TOOLTIPTEXT structure.
@@ -39,7 +37,7 @@ class NMTTDISPINFOW extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -50,12 +48,9 @@ class NMTTDISPINFOW extends Win32Struct
      * Pointer to a null-terminated string that will be displayed as the tooltip text. If <b>hinst</b> specifies an instance handle, this member must be the identifier of a string resource.
      * @type {PWSTR}
      */
-    lpszText{
-        get {
-            if(!this.HasProp("__lpszText"))
-                this.__lpszText := PWSTR(this.ptr + 24)
-            return this.__lpszText
-        }
+    lpszText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -78,7 +73,7 @@ class NMTTDISPINFOW extends Win32Struct
     hinst{
         get {
             if(!this.HasProp("__hinst"))
-                this.__hinst := HINSTANCE(this.ptr + 192)
+                this.__hinst := HINSTANCE(192, this)
             return this.__hinst
         }
     }
@@ -141,11 +136,8 @@ class NMTTDISPINFOW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Application-defined data associated with the tool.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 208)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 }

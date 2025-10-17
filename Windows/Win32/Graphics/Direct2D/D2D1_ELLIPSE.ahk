@@ -23,7 +23,7 @@ class D2D1_ELLIPSE extends Win32Struct
     point{
         get {
             if(!this.HasProp("__point"))
-                this.__point := D2D_POINT_2F(this.ptr + 0)
+                this.__point := D2D_POINT_2F(0, this)
             return this.__point
         }
     }

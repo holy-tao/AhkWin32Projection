@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_1011 structure contains the full name of a network user. This information level is valid only when you call the NetUserSetInfo function.
@@ -19,11 +18,8 @@ class USER_INFO_1011 extends Win32Struct
      * <b>NetUserSetInfo</b> function. This string can be a null string, or it can have any number of characters before the terminating null character.
      * @type {PWSTR}
      */
-    usri1011_full_name{
-        get {
-            if(!this.HasProp("__usri1011_full_name"))
-                this.__usri1011_full_name := PWSTR(this.ptr + 0)
-            return this.__usri1011_full_name
-        }
+    usri1011_full_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

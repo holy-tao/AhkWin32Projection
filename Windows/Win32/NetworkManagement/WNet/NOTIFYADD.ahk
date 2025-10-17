@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\NETRESOURCEA.ahk
 
 /**
@@ -23,7 +22,7 @@ class NOTIFYADD extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 0)
+                this.__hwndOwner := HWND(0, this)
             return this.__hwndOwner
         }
     }
@@ -36,7 +35,7 @@ class NOTIFYADD extends Win32Struct
     NetResource{
         get {
             if(!this.HasProp("__NetResource"))
-                this.__NetResource := NETRESOURCEA(this.ptr + 8)
+                this.__NetResource := NETRESOURCEA(8, this)
             return this.__NetResource
         }
     }

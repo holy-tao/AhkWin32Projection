@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -47,11 +46,8 @@ class DXVAHDETW_VIDEOPROCESSSTREAMSTATE extends Win32Struct
     /**
      * @type {BOOL}
      */
-    SetState{
-        get {
-            if(!this.HasProp("__SetState"))
-                this.__SetState := BOOL(this.ptr + 20)
-            return this.__SetState
-        }
+    SetState {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

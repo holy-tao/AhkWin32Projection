@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\UI_EVENTPARAMS_COMMAND.ahk
 
 /**
@@ -51,7 +50,7 @@ class UI_EVENTPARAMS extends Win32Struct
     Params{
         get {
             if(!this.HasProp("__Params"))
-                this.__Params := UI_EVENTPARAMS_COMMAND(this.ptr + 8)
+                this.__Params := UI_EVENTPARAMS_COMMAND(8, this)
             return this.__Params
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes whether a GPU profiling technique is supported.
@@ -23,11 +22,8 @@ class D3D11_FEATURE_DATA_MARKER_SUPPORT extends Win32Struct
      * Specifies whether the hardware and driver support a GPU profiling technique that can be used with development tools. The runtime sets this member to <b>TRUE</b> if  the hardware and driver support data marking.
      * @type {BOOL}
      */
-    Profile{
-        get {
-            if(!this.HasProp("__Profile"))
-                this.__Profile := BOOL(this.ptr + 0)
-            return this.__Profile
-        }
+    Profile {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

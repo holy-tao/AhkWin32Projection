@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HMODULE.ahk
 
 /**
@@ -143,12 +142,9 @@ class ACTCTXA extends Win32Struct
      * Null-terminated string specifying the path of the manifest file or PE image to be used to create the activation context. If this path refers to an EXE or DLL file, the  <b>lpResourceName</b> member is required.
      * @type {PSTR}
      */
-    lpSource{
-        get {
-            if(!this.HasProp("__lpSource"))
-                this.__lpSource := PSTR(this.ptr + 8)
-            return this.__lpSource
-        }
+    lpSource {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -186,36 +182,27 @@ class ACTCTXA extends Win32Struct
      * The base directory in which to perform private assembly probing if assemblies in the activation context are not present in the system-wide store.
      * @type {PSTR}
      */
-    lpAssemblyDirectory{
-        get {
-            if(!this.HasProp("__lpAssemblyDirectory"))
-                this.__lpAssemblyDirectory := PSTR(this.ptr + 24)
-            return this.__lpAssemblyDirectory
-        }
+    lpAssemblyDirectory {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated string that contains the resource name to be loaded from the PE specified in <b>hModule</b> or <b>lpSource</b>. If the resource name is an integer, set this member using MAKEINTRESOURCE. This member is required if   <b>lpSource</b> refers to an EXE or DLL.
      * @type {PSTR}
      */
-    lpResourceName{
-        get {
-            if(!this.HasProp("__lpResourceName"))
-                this.__lpResourceName := PSTR(this.ptr + 32)
-            return this.__lpResourceName
-        }
+    lpResourceName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * The name of the current application. If the value of this member is set to null, the name of the executable that launched the current process is used.
      * @type {PSTR}
      */
-    lpApplicationName{
-        get {
-            if(!this.HasProp("__lpApplicationName"))
-                this.__lpApplicationName := PSTR(this.ptr + 40)
-            return this.__lpApplicationName
-        }
+    lpApplicationName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -225,17 +212,13 @@ class ACTCTXA extends Win32Struct
     hModule{
         get {
             if(!this.HasProp("__hModule"))
-                this.__hModule := HMODULE(this.ptr + 48)
+                this.__hModule := HMODULE(48, this)
             return this.__hModule
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

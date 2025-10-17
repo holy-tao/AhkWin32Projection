@@ -48,7 +48,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
     CodecConfiguration{
         get {
             if(!this.HasProp("__CodecConfiguration"))
-                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(this.ptr + 16)
+                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(16, this)
             return this.__CodecConfiguration
         }
     }
@@ -59,7 +59,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
     CodecGopSequence{
         get {
             if(!this.HasProp("__CodecGopSequence"))
-                this.__CodecGopSequence := D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(this.ptr + 32)
+                this.__CodecGopSequence := D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(32, this)
             return this.__CodecGopSequence
         }
     }
@@ -70,7 +70,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
     RateControl{
         get {
             if(!this.HasProp("__RateControl"))
-                this.__RateControl := D3D12_VIDEO_ENCODER_RATE_CONTROL(this.ptr + 48)
+                this.__RateControl := D3D12_VIDEO_ENCODER_RATE_CONTROL(48, this)
             return this.__RateControl
         }
     }
@@ -137,7 +137,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
     SuggestedProfile{
         get {
             if(!this.HasProp("__SuggestedProfile"))
-                this.__SuggestedProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 120)
+                this.__SuggestedProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(120, this)
             return this.__SuggestedProfile
         }
     }
@@ -148,7 +148,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
     SuggestedLevel{
         get {
             if(!this.HasProp("__SuggestedLevel"))
-                this.__SuggestedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(this.ptr + 136)
+                this.__SuggestedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(136, this)
             return this.__SuggestedLevel
         }
     }

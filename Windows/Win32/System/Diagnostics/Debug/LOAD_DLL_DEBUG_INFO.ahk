@@ -23,7 +23,7 @@ class LOAD_DLL_DEBUG_INFO extends Win32Struct
     hFile{
         get {
             if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 0)
+                this.__hFile := HANDLE(0, this)
             return this.__hFile
         }
     }

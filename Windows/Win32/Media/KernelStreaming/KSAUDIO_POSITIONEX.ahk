@@ -34,7 +34,7 @@ class KSAUDIO_POSITIONEX extends Win32Struct
     Position{
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := KSAUDIO_POSITION(this.ptr + 16)
+                this.__Position := KSAUDIO_POSITION(16, this)
             return this.__Position
         }
     }

@@ -22,7 +22,7 @@ class DSOP_FILTER_FLAGS extends Win32Struct
     Uplevel{
         get {
             if(!this.HasProp("__Uplevel"))
-                this.__Uplevel := DSOP_UPLEVEL_FILTER_FLAGS(this.ptr + 0)
+                this.__Uplevel := DSOP_UPLEVEL_FILTER_FLAGS(0, this)
             return this.__Uplevel
         }
     }

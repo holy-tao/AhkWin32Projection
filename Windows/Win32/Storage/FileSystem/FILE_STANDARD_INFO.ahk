@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Receives extended information for the file.
@@ -46,12 +45,9 @@ class FILE_STANDARD_INFO extends Win32Struct
      *       <b>false</b>.
      * @type {BOOLEAN}
      */
-    DeletePending{
-        get {
-            if(!this.HasProp("__DeletePending"))
-                this.__DeletePending := BOOLEAN(this.ptr + 20)
-            return this.__DeletePending
-        }
+    DeletePending {
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
@@ -59,11 +55,8 @@ class FILE_STANDARD_INFO extends Win32Struct
      *       <b>false</b>.
      * @type {BOOLEAN}
      */
-    Directory{
-        get {
-            if(!this.HasProp("__Directory"))
-                this.__Directory := BOOLEAN(this.ptr + 21)
-            return this.__Directory
-        }
+    Directory {
+        get => NumGet(this, 21, "char")
+        set => NumPut("char", value, this, 21)
     }
 }

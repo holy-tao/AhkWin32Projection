@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The LOCALMANAGEDAPPLICATION structure describes a managed application installed for a user or a computer. Returned by the GetLocalManagedApplications function.
@@ -18,36 +17,27 @@ class LOCALMANAGEDAPPLICATION extends Win32Struct
      * This is a Unicode string that gives the user friendly name of the application as it appears in the Application Deployment Editor (ADE).
      * @type {PWSTR}
      */
-    pszDeploymentName{
-        get {
-            if(!this.HasProp("__pszDeploymentName"))
-                this.__pszDeploymentName := PWSTR(this.ptr + 0)
-            return this.__pszDeploymentName
-        }
+    pszDeploymentName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * This is the user-friendly name of the group policy object (GPO) from which the application originates.
      * @type {PWSTR}
      */
-    pszPolicyName{
-        get {
-            if(!this.HasProp("__pszPolicyName"))
-                this.__pszPolicyName := PWSTR(this.ptr + 8)
-            return this.__pszPolicyName
-        }
+    pszPolicyName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * This is a Unicode string that gives the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> product code GUID for the application.
      * @type {PWSTR}
      */
-    pszProductId{
-        get {
-            if(!this.HasProp("__pszProductId"))
-                this.__pszProductId := PWSTR(this.ptr + 16)
-            return this.__pszProductId
-        }
+    pszProductId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

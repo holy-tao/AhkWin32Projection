@@ -31,7 +31,7 @@ class WER_REPORT_INFORMATION extends Win32Struct
     hProcess{
         get {
             if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(this.ptr + 8)
+                this.__hProcess := HANDLE(8, this)
             return this.__hProcess
         }
     }
@@ -88,7 +88,7 @@ class WER_REPORT_INFORMATION extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 2200)
+                this.__hwndParent := HWND(2200, this)
             return this.__hwndParent
         }
     }

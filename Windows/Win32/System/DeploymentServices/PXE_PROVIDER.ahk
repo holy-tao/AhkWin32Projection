@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes a provider.
@@ -29,24 +27,18 @@ class PXE_PROVIDER extends Win32Struct
      *       to the user and must be unique among registered providers.
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 8)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Address of a null-terminated string that specifies the full path to the provider DLL.
      * @type {PWSTR}
      */
-    pwszFilePath{
-        get {
-            if(!this.HasProp("__pwszFilePath"))
-                this.__pwszFilePath := PWSTR(this.ptr + 16)
-            return this.__pwszFilePath
-        }
+    pwszFilePath {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -54,12 +46,9 @@ class PXE_PROVIDER extends Win32Struct
      *       fail.
      * @type {BOOL}
      */
-    bIsCritical{
-        get {
-            if(!this.HasProp("__bIsCritical"))
-                this.__bIsCritical := BOOL(this.ptr + 24)
-            return this.__bIsCritical
-        }
+    bIsCritical {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**

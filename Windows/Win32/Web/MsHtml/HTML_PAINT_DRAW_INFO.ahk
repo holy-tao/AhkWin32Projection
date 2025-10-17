@@ -20,7 +20,7 @@ class HTML_PAINT_DRAW_INFO extends Win32Struct
     rcViewport{
         get {
             if(!this.HasProp("__rcViewport"))
-                this.__rcViewport := RECT(this.ptr + 0)
+                this.__rcViewport := RECT(0, this)
             return this.__rcViewport
         }
     }
@@ -31,7 +31,7 @@ class HTML_PAINT_DRAW_INFO extends Win32Struct
     hrgnUpdate{
         get {
             if(!this.HasProp("__hrgnUpdate"))
-                this.__hrgnUpdate := HRGN(this.ptr + 16)
+                this.__hrgnUpdate := HRGN(16, this)
             return this.__hrgnUpdate
         }
     }
@@ -42,7 +42,7 @@ class HTML_PAINT_DRAW_INFO extends Win32Struct
     xform{
         get {
             if(!this.HasProp("__xform"))
-                this.__xform := HTML_PAINT_XFORM(this.ptr + 24)
+                this.__xform := HTML_PAINT_XFORM(24, this)
             return this.__xform
         }
     }

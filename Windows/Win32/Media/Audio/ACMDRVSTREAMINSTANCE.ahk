@@ -90,7 +90,7 @@ class ACMDRVSTREAMINSTANCE extends Win32Struct
     has{
         get {
             if(!this.HasProp("__has"))
-                this.__has := HACMSTREAM(this.ptr + 64)
+                this.__has := HACMSTREAM(64, this)
             return this.__has
         }
     }

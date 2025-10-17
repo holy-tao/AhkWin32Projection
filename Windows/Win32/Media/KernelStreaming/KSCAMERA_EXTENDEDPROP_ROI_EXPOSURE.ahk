@@ -19,7 +19,7 @@ class KSCAMERA_EXTENDEDPROP_ROI_EXPOSURE extends Win32Struct
     ROIInfo{
         get {
             if(!this.HasProp("__ROIInfo"))
-                this.__ROIInfo := KSCAMERA_EXTENDEDPROP_ROI_INFO(this.ptr + 0)
+                this.__ROIInfo := KSCAMERA_EXTENDEDPROP_ROI_INFO(0, this)
             return this.__ROIInfo
         }
     }

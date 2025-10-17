@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Averages values across the elements within the sliding window over the input tensor.
@@ -107,11 +106,8 @@ class DML_AVERAGE_POOLING_OPERATOR_DESC extends Win32Struct
      * Indicates whether to include the padding elements around the spatial edges when calculating the average value across all elements within the sliding window. When the value is set to **FALSE**, the padding elements are not counted as part of the divisor value of the averaging calculation.
      * @type {BOOL}
      */
-    IncludePadding{
-        get {
-            if(!this.HasProp("__IncludePadding"))
-                this.__IncludePadding := BOOL(this.ptr + 56)
-            return this.__IncludePadding
-        }
+    IncludePadding {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

@@ -18,7 +18,7 @@ class JOB_SET_ARRAY extends Win32Struct
     JobHandle{
         get {
             if(!this.HasProp("__JobHandle"))
-                this.__JobHandle := HANDLE(this.ptr + 0)
+                this.__JobHandle := HANDLE(0, this)
             return this.__JobHandle
         }
     }

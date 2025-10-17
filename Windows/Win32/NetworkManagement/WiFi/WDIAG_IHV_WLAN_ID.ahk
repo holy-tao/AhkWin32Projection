@@ -26,7 +26,7 @@ class WDIAG_IHV_WLAN_ID extends Win32Struct
     Ssid{
         get {
             if(!this.HasProp("__Ssid"))
-                this.__Ssid := DOT11_SSID(this.ptr + 512)
+                this.__Ssid := DOT11_SSID(512, this)
             return this.__Ssid
         }
     }

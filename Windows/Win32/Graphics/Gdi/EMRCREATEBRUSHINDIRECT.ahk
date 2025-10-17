@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 #Include .\LOGBRUSH32.ahk
 
 /**
@@ -23,7 +22,7 @@ class EMRCREATEBRUSHINDIRECT extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -46,7 +45,7 @@ class EMRCREATEBRUSHINDIRECT extends Win32Struct
     lb{
         get {
             if(!this.HasProp("__lb"))
-                this.__lb := LOGBRUSH32(this.ptr + 16)
+                this.__lb := LOGBRUSH32(16, this)
             return this.__lb
         }
     }

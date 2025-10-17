@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Used with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve information about a device's write cache property.
@@ -250,12 +249,9 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
      *       cache. If <b>FALSE</b>, host software cannot flush the device cache.
      * @type {BOOLEAN}
      */
-    FlushCacheSupported{
-        get {
-            if(!this.HasProp("__FlushCacheSupported"))
-                this.__FlushCacheSupported := BOOLEAN(this.ptr + 24)
-            return this.__FlushCacheSupported
-        }
+    FlushCacheSupported {
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 
     /**
@@ -265,12 +261,9 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
      *       the device's power protection characteristics in the registry.
      * @type {BOOLEAN}
      */
-    UserDefinedPowerProtection{
-        get {
-            if(!this.HasProp("__UserDefinedPowerProtection"))
-                this.__UserDefinedPowerProtection := BOOLEAN(this.ptr + 25)
-            return this.__UserDefinedPowerProtection
-        }
+    UserDefinedPowerProtection {
+        get => NumGet(this, 25, "char")
+        set => NumPut("char", value, this, 25)
     }
 
     /**
@@ -279,11 +272,8 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
      *       <b>FALSE</b>, the device does not have a battery backup for the writer cache.
      * @type {BOOLEAN}
      */
-    NVCacheEnabled{
-        get {
-            if(!this.HasProp("__NVCacheEnabled"))
-                this.__NVCacheEnabled := BOOLEAN(this.ptr + 26)
-            return this.__NVCacheEnabled
-        }
+    NVCacheEnabled {
+        get => NumGet(this, 26, "char")
+        set => NumPut("char", value, this, 26)
     }
 }

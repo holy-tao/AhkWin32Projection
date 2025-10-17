@@ -24,7 +24,7 @@ class IMAGEINFO extends Win32Struct
     hbmImage{
         get {
             if(!this.HasProp("__hbmImage"))
-                this.__hbmImage := HBITMAP(this.ptr + 0)
+                this.__hbmImage := HBITMAP(0, this)
             return this.__hbmImage
         }
     }
@@ -38,7 +38,7 @@ class IMAGEINFO extends Win32Struct
     hbmMask{
         get {
             if(!this.HasProp("__hbmMask"))
-                this.__hbmMask := HBITMAP(this.ptr + 8)
+                this.__hbmMask := HBITMAP(8, this)
             return this.__hbmMask
         }
     }
@@ -75,7 +75,7 @@ class IMAGEINFO extends Win32Struct
     rcImage{
         get {
             if(!this.HasProp("__rcImage"))
-                this.__rcImage := RECT(this.ptr + 24)
+                this.__rcImage := RECT(24, this)
             return this.__rcImage
         }
     }

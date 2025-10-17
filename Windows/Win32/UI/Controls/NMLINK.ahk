@@ -26,7 +26,7 @@ class NMLINK extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -41,7 +41,7 @@ class NMLINK extends Win32Struct
     item{
         get {
             if(!this.HasProp("__item"))
-                this.__item := LITEM(this.ptr + 24)
+                this.__item := LITEM(24, this)
             return this.__item
         }
     }

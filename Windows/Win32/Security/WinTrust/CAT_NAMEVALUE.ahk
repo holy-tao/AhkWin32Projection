@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -16,12 +15,9 @@ class CAT_NAMEVALUE extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszTag{
-        get {
-            if(!this.HasProp("__pwszTag"))
-                this.__pwszTag := PWSTR(this.ptr + 0)
-            return this.__pwszTag
-        }
+    pwszTag {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -38,7 +34,7 @@ class CAT_NAMEVALUE extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__Value := CRYPT_INTEGER_BLOB(16, this)
             return this.__Value
         }
     }

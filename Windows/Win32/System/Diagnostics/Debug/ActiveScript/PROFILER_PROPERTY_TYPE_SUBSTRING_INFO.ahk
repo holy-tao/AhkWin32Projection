@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -23,11 +22,8 @@ class PROFILER_PROPERTY_TYPE_SUBSTRING_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    value{
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := PWSTR(this.ptr + 8)
-            return this.__value
-        }
+    value {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

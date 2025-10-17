@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The GROUP_POLICY_OBJECT structure provides information about a GPO in a GPO list.
@@ -59,36 +57,27 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
      * Pointer to a string that specifies the path to the directory service portion of the GPO.
      * @type {PSTR}
      */
-    lpDSPath{
-        get {
-            if(!this.HasProp("__lpDSPath"))
-                this.__lpDSPath := PSTR(this.ptr + 8)
-            return this.__lpDSPath
-        }
+    lpDSPath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a string that specifies the path to the file system portion of the GPO.
      * @type {PSTR}
      */
-    lpFileSysPath{
-        get {
-            if(!this.HasProp("__lpFileSysPath"))
-                this.__lpFileSysPath := PSTR(this.ptr + 16)
-            return this.__lpFileSysPath
-        }
+    lpFileSysPath {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to the display name of the GPO.
      * @type {PSTR}
      */
-    lpDisplayName{
-        get {
-            if(!this.HasProp("__lpDisplayName"))
-                this.__lpDisplayName := PSTR(this.ptr + 24)
-            return this.__lpDisplayName
-        }
+    lpDisplayName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -113,12 +102,9 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
      * User-supplied data.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 88)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -143,35 +129,26 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
      * Extensions that have stored data in this GPO. The format is a string of <b>GUID</b>s grouped in brackets. For more information, see the following Remarks section.
      * @type {PSTR}
      */
-    lpExtensions{
-        get {
-            if(!this.HasProp("__lpExtensions"))
-                this.__lpExtensions := PSTR(this.ptr + 112)
-            return this.__lpExtensions
-        }
+    lpExtensions {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
      * User-supplied data.
      * @type {LPARAM}
      */
-    lParam2{
-        get {
-            if(!this.HasProp("__lParam2"))
-                this.__lParam2 := LPARAM(this.ptr + 120)
-            return this.__lParam2
-        }
+    lParam2 {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
      * Path to the Active Directory site, domain, or organization unit to which this GPO is linked. If the GPO is linked to the local GPO, this member is "Local".
      * @type {PSTR}
      */
-    lpLink{
-        get {
-            if(!this.HasProp("__lpLink"))
-                this.__lpLink := PSTR(this.ptr + 128)
-            return this.__lpLink
-        }
+    lpLink {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

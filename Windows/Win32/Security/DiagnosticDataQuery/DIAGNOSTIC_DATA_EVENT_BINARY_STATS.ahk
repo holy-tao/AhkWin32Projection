@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * A resource that describes this binary and the amount of diagnostic data it has sent.
@@ -22,12 +21,9 @@ class DIAGNOSTIC_DATA_EVENT_BINARY_STATS extends Win32Struct
      * The full name of the module or binary.
      * @type {PWSTR}
      */
-    moduleName{
-        get {
-            if(!this.HasProp("__moduleName"))
-                this.__moduleName := PWSTR(this.ptr + 0)
-            return this.__moduleName
-        }
+    moduleName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -35,12 +31,9 @@ class DIAGNOSTIC_DATA_EVENT_BINARY_STATS extends Win32Struct
      * The friendly name of the module or binary.
      * @type {PWSTR}
      */
-    friendlyModuleName{
-        get {
-            if(!this.HasProp("__friendlyModuleName"))
-                this.__friendlyModuleName := PWSTR(this.ptr + 8)
-            return this.__friendlyModuleName
-        }
+    friendlyModuleName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

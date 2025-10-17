@@ -23,7 +23,7 @@ class IMAGE_COR_ILMETHOD_SECT_EH extends Win32Struct
     Small{
         get {
             if(!this.HasProp("__Small"))
-                this.__Small := IMAGE_COR_ILMETHOD_SECT_EH_SMALL(this.ptr + 0)
+                this.__Small := IMAGE_COR_ILMETHOD_SECT_EH_SMALL(0, this)
             return this.__Small
         }
     }
@@ -34,7 +34,7 @@ class IMAGE_COR_ILMETHOD_SECT_EH extends Win32Struct
     Fat{
         get {
             if(!this.HasProp("__Fat"))
-                this.__Fat := IMAGE_COR_ILMETHOD_SECT_EH_FAT(this.ptr + 0)
+                this.__Fat := IMAGE_COR_ILMETHOD_SECT_EH_FAT(0, this)
             return this.__Fat
         }
     }

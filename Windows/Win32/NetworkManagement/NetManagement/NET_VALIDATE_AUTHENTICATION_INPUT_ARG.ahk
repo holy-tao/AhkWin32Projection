@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\NET_VALIDATE_PERSISTED_FIELDS.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * A client application passes the NET_VALIDATE_AUTHENTICATION_INPUT_ARG structure to the NetValidatePasswordPolicy function when the application requests an authentication validation.
@@ -23,7 +22,7 @@ class NET_VALIDATE_AUTHENTICATION_INPUT_ARG extends Win32Struct
     InputPersistedFields{
         get {
             if(!this.HasProp("__InputPersistedFields"))
-                this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(this.ptr + 0)
+                this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(0, this)
             return this.__InputPersistedFields
         }
     }
@@ -32,11 +31,8 @@ class NET_VALIDATE_AUTHENTICATION_INPUT_ARG extends Win32Struct
      * BOOLEAN value that indicates the result of the client application's authentication of the password supplied by the user. If this parameter is <b>FALSE</b>, the password has not been authenticated.
      * @type {BOOLEAN}
      */
-    PasswordMatched{
-        get {
-            if(!this.HasProp("__PasswordMatched"))
-                this.__PasswordMatched := BOOLEAN(this.ptr + 48)
-            return this.__PasswordMatched
-        }
+    PasswordMatched {
+        get => NumGet(this, 48, "char")
+        set => NumPut("char", value, this, 48)
     }
 }

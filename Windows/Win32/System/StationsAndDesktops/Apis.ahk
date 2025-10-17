@@ -282,7 +282,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\OpenDesktopA", "ptr", lpszDesktop, "uint", dwFlags, "ptr", fInherit, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("USER32.dll\OpenDesktopA", "ptr", lpszDesktop, "uint", dwFlags, "int", fInherit, "uint", dwDesiredAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -329,7 +329,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\OpenDesktopW", "ptr", lpszDesktop, "uint", dwFlags, "ptr", fInherit, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("USER32.dll\OpenDesktopW", "ptr", lpszDesktop, "uint", dwFlags, "int", fInherit, "uint", dwDesiredAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -371,7 +371,7 @@ class StationsAndDesktops {
     static OpenInputDesktop(dwFlags, fInherit, dwDesiredAccess) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\OpenInputDesktop", "uint", dwFlags, "ptr", fInherit, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("USER32.dll\OpenInputDesktop", "uint", dwFlags, "int", fInherit, "uint", dwDesiredAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -404,7 +404,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumDesktopsA", "ptr", hwinsta, "ptr", lpEnumFunc, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\EnumDesktopsA", "ptr", hwinsta, "ptr", lpEnumFunc, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -437,7 +437,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumDesktopsW", "ptr", hwinsta, "ptr", lpEnumFunc, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\EnumDesktopsW", "ptr", hwinsta, "ptr", lpEnumFunc, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -472,7 +472,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumDesktopWindows", "ptr", hDesktop, "ptr", lpfn, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\EnumDesktopWindows", "ptr", hDesktop, "ptr", lpfn, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -504,7 +504,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SwitchDesktop", "ptr", hDesktop, "ptr")
+        result := DllCall("USER32.dll\SwitchDesktop", "ptr", hDesktop, "int")
         if(A_LastError)
             throw OSError()
 
@@ -531,7 +531,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetThreadDesktop", "ptr", hDesktop, "ptr")
+        result := DllCall("USER32.dll\SetThreadDesktop", "ptr", hDesktop, "int")
         if(A_LastError)
             throw OSError()
 
@@ -556,7 +556,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CloseDesktop", "ptr", hDesktop, "ptr")
+        result := DllCall("USER32.dll\CloseDesktop", "ptr", hDesktop, "int")
         if(A_LastError)
             throw OSError()
 
@@ -668,7 +668,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\OpenWindowStationA", "ptr", lpszWinSta, "ptr", fInherit, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("USER32.dll\OpenWindowStationA", "ptr", lpszWinSta, "int", fInherit, "uint", dwDesiredAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -695,7 +695,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\OpenWindowStationW", "ptr", lpszWinSta, "ptr", fInherit, "uint", dwDesiredAccess, "ptr")
+        result := DllCall("USER32.dll\OpenWindowStationW", "ptr", lpszWinSta, "int", fInherit, "uint", dwDesiredAccess, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -719,7 +719,7 @@ class StationsAndDesktops {
     static EnumWindowStationsA(lpEnumFunc, lParam) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumWindowStationsA", "ptr", lpEnumFunc, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\EnumWindowStationsA", "ptr", lpEnumFunc, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -743,7 +743,7 @@ class StationsAndDesktops {
     static EnumWindowStationsW(lpEnumFunc, lParam) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumWindowStationsW", "ptr", lpEnumFunc, "ptr", lParam, "ptr")
+        result := DllCall("USER32.dll\EnumWindowStationsW", "ptr", lpEnumFunc, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -769,7 +769,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CloseWindowStation", "ptr", hWinSta, "ptr")
+        result := DllCall("USER32.dll\CloseWindowStation", "ptr", hWinSta, "int")
         if(A_LastError)
             throw OSError()
 
@@ -796,7 +796,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetProcessWindowStation", "ptr", hWinSta, "ptr")
+        result := DllCall("USER32.dll\SetProcessWindowStation", "ptr", hWinSta, "int")
         if(A_LastError)
             throw OSError()
 
@@ -845,7 +845,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetUserObjectInformationA", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "uint*", lpnLengthNeeded, "ptr")
+        result := DllCall("USER32.dll\GetUserObjectInformationA", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "uint*", lpnLengthNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -875,7 +875,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetUserObjectInformationW", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "uint*", lpnLengthNeeded, "ptr")
+        result := DllCall("USER32.dll\GetUserObjectInformationW", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "uint*", lpnLengthNeeded, "int")
         if(A_LastError)
             throw OSError()
 
@@ -938,7 +938,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetUserObjectInformationA", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "ptr")
+        result := DllCall("USER32.dll\SetUserObjectInformationA", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1001,7 +1001,7 @@ class StationsAndDesktops {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetUserObjectInformationW", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "ptr")
+        result := DllCall("USER32.dll\SetUserObjectInformationW", "ptr", hObj, "int", nIndex, "ptr", pvInfo, "uint", nLength, "int")
         if(A_LastError)
             throw OSError()
 

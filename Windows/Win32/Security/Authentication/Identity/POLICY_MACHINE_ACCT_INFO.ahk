@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\PSID.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -23,11 +22,8 @@ class POLICY_MACHINE_ACCT_INFO extends Win32Struct
     /**
      * @type {PSID}
      */
-    Sid{
-        get {
-            if(!this.HasProp("__Sid"))
-                this.__Sid := PSID(this.ptr + 8)
-            return this.__Sid
-        }
+    Sid {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

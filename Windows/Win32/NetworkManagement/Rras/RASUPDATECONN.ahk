@@ -52,7 +52,7 @@ class RASUPDATECONN extends Win32Struct
     localEndPoint{
         get {
             if(!this.HasProp("__localEndPoint"))
-                this.__localEndPoint := RASTUNNELENDPOINT(this.ptr + 16)
+                this.__localEndPoint := RASTUNNELENDPOINT(16, this)
             return this.__localEndPoint
         }
     }
@@ -63,7 +63,7 @@ class RASUPDATECONN extends Win32Struct
     remoteEndPoint{
         get {
             if(!this.HasProp("__remoteEndPoint"))
-                this.__remoteEndPoint := RASTUNNELENDPOINT(this.ptr + 40)
+                this.__remoteEndPoint := RASTUNNELENDPOINT(40, this)
             return this.__remoteEndPoint
         }
     }

@@ -18,7 +18,7 @@ class WINDOW_BUFFER_SIZE_RECORD extends Win32Struct
     dwSize{
         get {
             if(!this.HasProp("__dwSize"))
-                this.__dwSize := COORD(this.ptr + 0)
+                this.__dwSize := COORD(0, this)
             return this.__dwSize
         }
     }

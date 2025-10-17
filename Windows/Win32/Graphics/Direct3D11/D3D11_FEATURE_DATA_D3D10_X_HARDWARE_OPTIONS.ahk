@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes compute shader and raw and structured buffer support in the current graphics driver.
@@ -26,11 +25,8 @@ class D3D11_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS extends Win32Struct
      * <b>TRUE</b> if compute shaders and raw and structured buffers are supported; otherwise <b>FALSE</b>.
      * @type {BOOL}
      */
-    ComputeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x{
-        get {
-            if(!this.HasProp("__ComputeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x"))
-                this.__ComputeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x := BOOL(this.ptr + 0)
-            return this.__ComputeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x
-        }
+    ComputeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -8,9 +7,9 @@
  */
 class STORAGE_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -39,23 +38,17 @@ class STORAGE_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    RetryFailures{
-        get {
-            if(!this.HasProp("__RetryFailures"))
-                this.__RetryFailures := BOOLEAN(this.ptr + 12)
-            return this.__RetryFailures
-        }
+    RetryFailures {
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    Discardable{
-        get {
-            if(!this.HasProp("__Discardable"))
-                this.__Discardable := BOOLEAN(this.ptr + 13)
-            return this.__Discardable
-        }
+    Discardable {
+        get => NumGet(this, 13, "char")
+        set => NumPut("char", value, this, 13)
     }
 
     /**
@@ -64,7 +57,7 @@ class STORAGE_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 2, BOOLEAN, "")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 2, BOOLEAN, "")
             return this.__Reserved1ProxyArray
         }
     }
@@ -73,15 +66,15 @@ class STORAGE_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
      * @type {Integer}
      */
     AccessType {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     AccessMode {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

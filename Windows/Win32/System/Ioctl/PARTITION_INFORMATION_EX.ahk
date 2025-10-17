@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\PARTITION_INFORMATION_MBR.ahk
 #Include .\PARTITION_INFORMATION_GPT.ahk
 
@@ -62,24 +61,18 @@ class PARTITION_INFORMATION_EX extends Win32Struct
      * If this member is <b>TRUE</b>, the partition is rewritable. The value of this parameter should be set to <b>TRUE</b>.
      * @type {BOOLEAN}
      */
-    RewritePartition{
-        get {
-            if(!this.HasProp("__RewritePartition"))
-                this.__RewritePartition := BOOLEAN(this.ptr + 28)
-            return this.__RewritePartition
-        }
+    RewritePartition {
+        get => NumGet(this, 28, "char")
+        set => NumPut("char", value, this, 28)
     }
 
     /**
      * 
      * @type {BOOLEAN}
      */
-    IsServicePartition{
-        get {
-            if(!this.HasProp("__IsServicePartition"))
-                this.__IsServicePartition := BOOLEAN(this.ptr + 29)
-            return this.__IsServicePartition
-        }
+    IsServicePartition {
+        get => NumGet(this, 29, "char")
+        set => NumPut("char", value, this, 29)
     }
 
     /**
@@ -88,7 +81,7 @@ class PARTITION_INFORMATION_EX extends Win32Struct
     Mbr{
         get {
             if(!this.HasProp("__Mbr"))
-                this.__Mbr := PARTITION_INFORMATION_MBR(this.ptr + 32)
+                this.__Mbr := PARTITION_INFORMATION_MBR(32, this)
             return this.__Mbr
         }
     }
@@ -99,7 +92,7 @@ class PARTITION_INFORMATION_EX extends Win32Struct
     Gpt{
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := PARTITION_INFORMATION_GPT(this.ptr + 32)
+                this.__Gpt := PARTITION_INFORMATION_GPT(32, this)
             return this.__Gpt
         }
     }

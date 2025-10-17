@@ -39,7 +39,7 @@ class DISK_DETECTION_INFO extends Win32Struct
     Int13{
         get {
             if(!this.HasProp("__Int13"))
-                this.__Int13 := DISK_INT13_INFO(this.ptr + 8)
+                this.__Int13 := DISK_INT13_INFO(8, this)
             return this.__Int13
         }
     }
@@ -50,7 +50,7 @@ class DISK_DETECTION_INFO extends Win32Struct
     ExInt13{
         get {
             if(!this.HasProp("__ExInt13"))
-                this.__ExInt13 := DISK_EX_INT13_INFO(this.ptr + 24)
+                this.__ExInt13 := DISK_EX_INT13_INFO(24, this)
             return this.__ExInt13
         }
     }

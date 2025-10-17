@@ -19,7 +19,7 @@ class KSVPSIZE_PROP extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -30,7 +30,7 @@ class KSVPSIZE_PROP extends Win32Struct
     Size{
         get {
             if(!this.HasProp("__Size"))
-                this.__Size := KS_AMVPSIZE(this.ptr + 16)
+                this.__Size := KS_AMVPSIZE(16, this)
             return this.__Size
         }
     }

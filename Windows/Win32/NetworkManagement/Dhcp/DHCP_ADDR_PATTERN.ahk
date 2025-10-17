@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the information regarding the link-layer address/pattern.
@@ -18,12 +17,9 @@ class DHCP_ADDR_PATTERN extends Win32Struct
      * If <b>TRUE</b>, the hardware type member (<b>HWType</b>) will be matched; if <b>FALSE</b>, the hardware type member is ignored.
      * @type {BOOL}
      */
-    MatchHWType{
-        get {
-            if(!this.HasProp("__MatchHWType"))
-                this.__MatchHWType := BOOL(this.ptr + 0)
-            return this.__MatchHWType
-        }
+    MatchHWType {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -39,12 +35,9 @@ class DHCP_ADDR_PATTERN extends Win32Struct
      * If <b>TRUE</b>, <b>Pattern</b> contains a wildcard pattern; if <b>FALSE</b>, <b>Pattern</b> contains a hardware address.
      * @type {BOOL}
      */
-    IsWildcard{
-        get {
-            if(!this.HasProp("__IsWildcard"))
-                this.__IsWildcard := BOOL(this.ptr + 8)
-            return this.__IsWildcard
-        }
+    IsWildcard {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**

@@ -19,7 +19,7 @@ class NDIS_WMI_EVENT_HEADER extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -38,7 +38,7 @@ class NDIS_WMI_EVENT_HEADER extends Win32Struct
     NetLuid{
         get {
             if(!this.HasProp("__NetLuid"))
-                this.__NetLuid := NET_LUID_LH(this.ptr + 8)
+                this.__NetLuid := NET_LUID_LH(8, this)
             return this.__NetLuid
         }
     }

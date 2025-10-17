@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -16,11 +15,8 @@ class PROVIDOR_INFO_2A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pOrder{
-        get {
-            if(!this.HasProp("__pOrder"))
-                this.__pOrder := PSTR(this.ptr + 0)
-            return this.__pOrder
-        }
+    pOrder {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

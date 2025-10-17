@@ -67,7 +67,7 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version1{
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+                this.__Version1 := %this.__Class%._Version1(8, this)
             return this.__Version1
         }
     }
@@ -78,7 +78,7 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version2{
         get {
             if(!this.HasProp("__Version2"))
-                this.__Version2 := %this.__Class%._Version2(this.ptr + 8)
+                this.__Version2 := %this.__Class%._Version2(8, this)
             return this.__Version2
         }
     }

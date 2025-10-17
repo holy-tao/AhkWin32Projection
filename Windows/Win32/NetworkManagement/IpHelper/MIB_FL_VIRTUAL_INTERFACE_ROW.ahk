@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
@@ -27,7 +26,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct
     IfLuid{
         get {
             if(!this.HasProp("__IfLuid"))
-                this.__IfLuid := NET_LUID_LH(this.ptr + 8)
+                this.__IfLuid := NET_LUID_LH(8, this)
             return this.__IfLuid
         }
     }
@@ -70,7 +69,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct
     VirtualIfLuid{
         get {
             if(!this.HasProp("__VirtualIfLuid"))
-                this.__VirtualIfLuid := NET_LUID_LH(this.ptr + 48)
+                this.__VirtualIfLuid := NET_LUID_LH(48, this)
             return this.__VirtualIfLuid
         }
     }
@@ -86,12 +85,9 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    AllowLocalNd{
-        get {
-            if(!this.HasProp("__AllowLocalNd"))
-                this.__AllowLocalNd := BOOLEAN(this.ptr + 68)
-            return this.__AllowLocalNd
-        }
+    AllowLocalNd {
+        get => NumGet(this, 68, "char")
+        set => NumPut("char", value, this, 68)
     }
 
     /**

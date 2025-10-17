@@ -27,7 +27,7 @@ class MCI_ANIM_UPDATE_PARMS extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 8)
+                this.__rc := RECT(8, this)
             return this.__rc
         }
     }
@@ -38,7 +38,7 @@ class MCI_ANIM_UPDATE_PARMS extends Win32Struct
     hDC{
         get {
             if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 24)
+                this.__hDC := HDC(24, this)
             return this.__hDC
         }
     }

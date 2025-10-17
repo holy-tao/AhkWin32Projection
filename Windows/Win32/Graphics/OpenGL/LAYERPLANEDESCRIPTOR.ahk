@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The LAYERPLANEDESCRIPTOR structure describes the pixel format of a drawing surface.
@@ -292,11 +291,8 @@ class LAYERPLANEDESCRIPTOR extends Win32Struct
      * When the LPD_TRANSPARENT flag is set, specifies the transparent color or index value. Typically the value is zero.
      * @type {COLORREF}
      */
-    crTransparent{
-        get {
-            if(!this.HasProp("__crTransparent"))
-                this.__crTransparent := COLORREF(this.ptr + 28)
-            return this.__crTransparent
-        }
+    crTransparent {
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

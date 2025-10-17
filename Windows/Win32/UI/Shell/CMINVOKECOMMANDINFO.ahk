@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -51,7 +50,7 @@ class CMINVOKECOMMANDINFO extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 8)
+                this.__hwnd := HWND(8, this)
             return this.__hwnd
         }
     }
@@ -92,12 +91,9 @@ class CMINVOKECOMMANDINFO extends Win32Struct
      * Alternatively, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(offset) where <i>offset</i> is the menu-identifier offset of the command to carry out. Implementations can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-is_intresource">IS_INTRESOURCE</a> macro to detect that this alternative is being employed. The Shell uses this alternative when the user chooses a menu command.
      * @type {PSTR}
      */
-    lpVerb{
-        get {
-            if(!this.HasProp("__lpVerb"))
-                this.__lpVerb := PSTR(this.ptr + 16)
-            return this.__lpVerb
-        }
+    lpVerb {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -106,12 +102,9 @@ class CMINVOKECOMMANDINFO extends Win32Struct
      * An optional string containing parameters that are passed to the command. The format of this string is determined by the command that is to be invoked. This member is always <b>NULL</b> for menu items inserted by a Shell extension.
      * @type {PSTR}
      */
-    lpParameters{
-        get {
-            if(!this.HasProp("__lpParameters"))
-                this.__lpParameters := PSTR(this.ptr + 24)
-            return this.__lpParameters
-        }
+    lpParameters {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -120,12 +113,9 @@ class CMINVOKECOMMANDINFO extends Win32Struct
      * An optional working directory name. This member is always <b>NULL</b> for menu items inserted by a Shell extension.
      * @type {PSTR}
      */
-    lpDirectory{
-        get {
-            if(!this.HasProp("__lpDirectory"))
-                this.__lpDirectory := PSTR(this.ptr + 32)
-            return this.__lpDirectory
-        }
+    lpDirectory {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -159,17 +149,13 @@ class CMINVOKECOMMANDINFO extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HANDLE(this.ptr + 48)
+                this.__hIcon := HANDLE(48, this)
             return this.__hIcon
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

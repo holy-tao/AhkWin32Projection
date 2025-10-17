@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -71,7 +70,7 @@ class KERB_S4U_LOGON extends Win32Struct
     ClientUpn{
         get {
             if(!this.HasProp("__ClientUpn"))
-                this.__ClientUpn := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__ClientUpn := LSA_UNICODE_STRING(8, this)
             return this.__ClientUpn
         }
     }
@@ -85,7 +84,7 @@ class KERB_S4U_LOGON extends Win32Struct
     ClientRealm{
         get {
             if(!this.HasProp("__ClientRealm"))
-                this.__ClientRealm := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__ClientRealm := LSA_UNICODE_STRING(24, this)
             return this.__ClientRealm
         }
     }

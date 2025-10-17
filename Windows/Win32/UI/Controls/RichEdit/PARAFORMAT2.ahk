@@ -20,7 +20,7 @@ class PARAFORMAT2 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := PARAFORMAT(this.ptr + 0)
+                this.__Base := PARAFORMAT(0, this)
             return this.__Base
         }
     }

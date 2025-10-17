@@ -19,7 +19,7 @@ class USBUSER_ROOTPORT_FEATURE_REQUEST extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(this.ptr + 0)
+                this.__Header := USBUSER_REQUEST_HEADER(0, this)
             return this.__Header
         }
     }
@@ -30,7 +30,7 @@ class USBUSER_ROOTPORT_FEATURE_REQUEST extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := RAW_ROOTPORT_FEATURE(this.ptr + 18)
+                this.__Parameters := RAW_ROOTPORT_FEATURE(18, this)
             return this.__Parameters
         }
     }

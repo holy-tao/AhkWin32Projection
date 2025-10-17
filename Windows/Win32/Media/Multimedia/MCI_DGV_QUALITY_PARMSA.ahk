@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The MCI_DGV_QUALITY_PARMS structure contains parameters for the MCI_QUALITY command for digital-video devices.
@@ -86,12 +85,9 @@ class MCI_DGV_QUALITY_PARMSA extends Win32Struct
      * String naming description.
      * @type {PSTR}
      */
-    lpstrName{
-        get {
-            if(!this.HasProp("__lpstrName"))
-                this.__lpstrName := PSTR(this.ptr + 16)
-            return this.__lpstrName
-        }
+    lpstrName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

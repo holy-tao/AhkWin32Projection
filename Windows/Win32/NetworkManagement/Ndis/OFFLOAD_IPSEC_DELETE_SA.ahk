@@ -18,7 +18,7 @@ class OFFLOAD_IPSEC_DELETE_SA extends Win32Struct
     OffloadHandle{
         get {
             if(!this.HasProp("__OffloadHandle"))
-                this.__OffloadHandle := HANDLE(this.ptr + 0)
+                this.__OffloadHandle := HANDLE(0, this)
             return this.__OffloadHandle
         }
     }

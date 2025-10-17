@@ -27,7 +27,7 @@ class D3DLIGHT9 extends Win32Struct
     Diffuse{
         get {
             if(!this.HasProp("__Diffuse"))
-                this.__Diffuse := D3DCOLORVALUE(this.ptr + 8)
+                this.__Diffuse := D3DCOLORVALUE(8, this)
             return this.__Diffuse
         }
     }
@@ -38,7 +38,7 @@ class D3DLIGHT9 extends Win32Struct
     Specular{
         get {
             if(!this.HasProp("__Specular"))
-                this.__Specular := D3DCOLORVALUE(this.ptr + 24)
+                this.__Specular := D3DCOLORVALUE(24, this)
             return this.__Specular
         }
     }
@@ -49,7 +49,7 @@ class D3DLIGHT9 extends Win32Struct
     Ambient{
         get {
             if(!this.HasProp("__Ambient"))
-                this.__Ambient := D3DCOLORVALUE(this.ptr + 40)
+                this.__Ambient := D3DCOLORVALUE(40, this)
             return this.__Ambient
         }
     }
@@ -60,7 +60,7 @@ class D3DLIGHT9 extends Win32Struct
     Position{
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := D3DVECTOR(this.ptr + 56)
+                this.__Position := D3DVECTOR(56, this)
             return this.__Position
         }
     }
@@ -71,7 +71,7 @@ class D3DLIGHT9 extends Win32Struct
     Direction{
         get {
             if(!this.HasProp("__Direction"))
-                this.__Direction := D3DVECTOR(this.ptr + 72)
+                this.__Direction := D3DVECTOR(72, this)
             return this.__Direction
         }
     }

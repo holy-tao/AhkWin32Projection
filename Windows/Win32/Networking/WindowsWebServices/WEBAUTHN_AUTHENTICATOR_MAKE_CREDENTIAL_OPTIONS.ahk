@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_CREDENTIALS.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -36,7 +35,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     CredentialList{
         get {
             if(!this.HasProp("__CredentialList"))
-                this.__CredentialList := WEBAUTHN_CREDENTIALS(this.ptr + 8)
+                this.__CredentialList := WEBAUTHN_CREDENTIALS(8, this)
             return this.__CredentialList
         }
     }
@@ -47,7 +46,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     Extensions{
         get {
             if(!this.HasProp("__Extensions"))
-                this.__Extensions := WEBAUTHN_EXTENSIONS(this.ptr + 24)
+                this.__Extensions := WEBAUTHN_EXTENSIONS(24, this)
             return this.__Extensions
         }
     }
@@ -63,12 +62,9 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bRequireResidentKey{
-        get {
-            if(!this.HasProp("__bRequireResidentKey"))
-                this.__bRequireResidentKey := BOOL(this.ptr + 44)
-            return this.__bRequireResidentKey
-        }
+    bRequireResidentKey {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -130,34 +126,25 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bPreferResidentKey{
-        get {
-            if(!this.HasProp("__bPreferResidentKey"))
-                this.__bPreferResidentKey := BOOL(this.ptr + 88)
-            return this.__bPreferResidentKey
-        }
+    bPreferResidentKey {
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
      * @type {BOOL}
      */
-    bBrowserInPrivateMode{
-        get {
-            if(!this.HasProp("__bBrowserInPrivateMode"))
-                this.__bBrowserInPrivateMode := BOOL(this.ptr + 92)
-            return this.__bBrowserInPrivateMode
-        }
+    bBrowserInPrivateMode {
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**
      * @type {BOOL}
      */
-    bEnablePrf{
-        get {
-            if(!this.HasProp("__bEnablePrf"))
-                this.__bEnablePrf := BOOL(this.ptr + 96)
-            return this.__bEnablePrf
-        }
+    bEnablePrf {
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 
     /**

@@ -4,7 +4,6 @@
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\ADS_PROV_SPECIFIC.ahk
 #Include .\ADS_TIMESTAMP.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ADS_BACKLINK.ahk
 #Include .\ADS_HOLD.ahk
 #Include .\ADS_EMAIL.ahk
@@ -98,7 +97,7 @@ class ADSVALUE extends Win32Struct
     OctetString{
         get {
             if(!this.HasProp("__OctetString"))
-                this.__OctetString := ADS_OCTET_STRING(this.ptr + 8)
+                this.__OctetString := ADS_OCTET_STRING(8, this)
             return this.__OctetString
         }
     }
@@ -109,7 +108,7 @@ class ADSVALUE extends Win32Struct
     UTCTime{
         get {
             if(!this.HasProp("__UTCTime"))
-                this.__UTCTime := SYSTEMTIME(this.ptr + 8)
+                this.__UTCTime := SYSTEMTIME(8, this)
             return this.__UTCTime
         }
     }
@@ -136,7 +135,7 @@ class ADSVALUE extends Win32Struct
     ProviderSpecific{
         get {
             if(!this.HasProp("__ProviderSpecific"))
-                this.__ProviderSpecific := ADS_PROV_SPECIFIC(this.ptr + 8)
+                this.__ProviderSpecific := ADS_PROV_SPECIFIC(8, this)
             return this.__ProviderSpecific
         }
     }
@@ -179,7 +178,7 @@ class ADSVALUE extends Win32Struct
     Timestamp{
         get {
             if(!this.HasProp("__Timestamp"))
-                this.__Timestamp := ADS_TIMESTAMP(this.ptr + 8)
+                this.__Timestamp := ADS_TIMESTAMP(8, this)
             return this.__Timestamp
         }
     }
@@ -190,7 +189,7 @@ class ADSVALUE extends Win32Struct
     BackLink{
         get {
             if(!this.HasProp("__BackLink"))
-                this.__BackLink := ADS_BACKLINK(this.ptr + 8)
+                this.__BackLink := ADS_BACKLINK(8, this)
             return this.__BackLink
         }
     }
@@ -209,7 +208,7 @@ class ADSVALUE extends Win32Struct
     Hold{
         get {
             if(!this.HasProp("__Hold"))
-                this.__Hold := ADS_HOLD(this.ptr + 8)
+                this.__Hold := ADS_HOLD(8, this)
             return this.__Hold
         }
     }
@@ -244,7 +243,7 @@ class ADSVALUE extends Win32Struct
     Email{
         get {
             if(!this.HasProp("__Email"))
-                this.__Email := ADS_EMAIL(this.ptr + 8)
+                this.__Email := ADS_EMAIL(8, this)
             return this.__Email
         }
     }
@@ -255,7 +254,7 @@ class ADSVALUE extends Win32Struct
     SecurityDescriptor{
         get {
             if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := ADS_NT_SECURITY_DESCRIPTOR(this.ptr + 8)
+                this.__SecurityDescriptor := ADS_NT_SECURITY_DESCRIPTOR(8, this)
             return this.__SecurityDescriptor
         }
     }

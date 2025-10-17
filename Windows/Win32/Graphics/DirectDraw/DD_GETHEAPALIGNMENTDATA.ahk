@@ -64,7 +64,7 @@ class DD_GETHEAPALIGNMENTDATA extends Win32Struct
     Alignment{
         get {
             if(!this.HasProp("__Alignment"))
-                this.__Alignment := HEAPALIGNMENT(this.ptr + 24)
+                this.__Alignment := HEAPALIGNMENT(24, this)
             return this.__Alignment
         }
     }

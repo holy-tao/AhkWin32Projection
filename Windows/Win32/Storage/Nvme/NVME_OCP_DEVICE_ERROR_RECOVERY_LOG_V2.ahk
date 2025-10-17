@@ -27,7 +27,7 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
     PanicResetAction{
         get {
             if(!this.HasProp("__PanicResetAction"))
-                this.__PanicResetAction := NVME_WCS_DEVICE_RESET_ACTION(this.ptr + 2)
+                this.__PanicResetAction := NVME_WCS_DEVICE_RESET_ACTION(2, this)
             return this.__PanicResetAction
         }
     }
@@ -54,7 +54,7 @@ class NVME_OCP_DEVICE_ERROR_RECOVERY_LOG_V2 extends Win32Struct
     DeviceCapabilitiesA{
         get {
             if(!this.HasProp("__DeviceCapabilitiesA"))
-                this.__DeviceCapabilitiesA := NVME_WCS_DEVICE_CAPABILITIES(this.ptr + 16)
+                this.__DeviceCapabilitiesA := NVME_WCS_DEVICE_CAPABILITIES(16, this)
             return this.__DeviceCapabilitiesA
         }
     }

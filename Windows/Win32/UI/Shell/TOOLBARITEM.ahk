@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Graphics\Gdi\HMONITOR.ahk
 
 /**
@@ -37,7 +35,7 @@ class TOOLBARITEM extends Win32Struct
     rcBorderTool{
         get {
             if(!this.HasProp("__rcBorderTool"))
-                this.__rcBorderTool := RECT(this.ptr + 8)
+                this.__rcBorderTool := RECT(8, this)
             return this.__rcBorderTool
         }
     }
@@ -48,12 +46,9 @@ class TOOLBARITEM extends Win32Struct
      * A pointer to a buffer that contains the name of the toolbar item as a Unicode string.
      * @type {PWSTR}
      */
-    pwszItem{
-        get {
-            if(!this.HasProp("__pwszItem"))
-                this.__pwszItem := PWSTR(this.ptr + 24)
-            return this.__pwszItem
-        }
+    pwszItem {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -62,12 +57,9 @@ class TOOLBARITEM extends Win32Struct
      * <b>TRUE</b> if the toolbar item is currently visible; otherwise, <b>FALSE</b>.
      * @type {BOOL}
      */
-    fShow{
-        get {
-            if(!this.HasProp("__fShow"))
-                this.__fShow := BOOL(this.ptr + 32)
-            return this.__fShow
-        }
+    fShow {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -79,7 +71,7 @@ class TOOLBARITEM extends Win32Struct
     hMon{
         get {
             if(!this.HasProp("__hMon"))
-                this.__hMon := HMONITOR(this.ptr + 40)
+                this.__hMon := HMONITOR(40, this)
             return this.__hMon
         }
     }

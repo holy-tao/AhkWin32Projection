@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\COLORREF.ahk
 #Include .\CHARFORMATW.ahk
 
 /**
@@ -36,7 +35,7 @@ class CHARFORMAT2W extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := CHARFORMATW(this.ptr + 0)
+                this.__Base := CHARFORMATW(0, this)
             return this.__Base
         }
     }
@@ -69,12 +68,9 @@ class CHARFORMAT2W extends Win32Struct
      * Background color. To use this member, set the <b>CFM_BACKCOLOR</b> flag in the <b>dwMask</b> member. This member is ignored if the <b>CFE_AUTOBACKCOLOR</b> character effect is specified. To generate a , use the  macro.
      * @type {COLORREF}
      */
-    crBackColor{
-        get {
-            if(!this.HasProp("__crBackColor"))
-                this.__crBackColor := COLORREF(this.ptr + 96)
-            return this.__crBackColor
-        }
+    crBackColor {
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**

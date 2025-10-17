@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -25,12 +23,9 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszFormatType{
-        get {
-            if(!this.HasProp("__pwszFormatType"))
-                this.__pwszFormatType := PWSTR(this.ptr + 8)
-            return this.__pwszFormatType
-        }
+    pwszFormatType {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -119,7 +114,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     Extensions{
         get {
             if(!this.HasProp("__Extensions"))
-                this.__Extensions := WEBAUTHN_EXTENSIONS(this.ptr + 96)
+                this.__Extensions := WEBAUTHN_EXTENSIONS(96, this)
             return this.__Extensions
         }
     }
@@ -135,45 +130,33 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bEpAtt{
-        get {
-            if(!this.HasProp("__bEpAtt"))
-                this.__bEpAtt := BOOL(this.ptr + 116)
-            return this.__bEpAtt
-        }
+    bEpAtt {
+        get => NumGet(this, 116, "int")
+        set => NumPut("int", value, this, 116)
     }
 
     /**
      * @type {BOOL}
      */
-    bLargeBlobSupported{
-        get {
-            if(!this.HasProp("__bLargeBlobSupported"))
-                this.__bLargeBlobSupported := BOOL(this.ptr + 120)
-            return this.__bLargeBlobSupported
-        }
+    bLargeBlobSupported {
+        get => NumGet(this, 120, "int")
+        set => NumPut("int", value, this, 120)
     }
 
     /**
      * @type {BOOL}
      */
-    bResidentKey{
-        get {
-            if(!this.HasProp("__bResidentKey"))
-                this.__bResidentKey := BOOL(this.ptr + 124)
-            return this.__bResidentKey
-        }
+    bResidentKey {
+        get => NumGet(this, 124, "int")
+        set => NumPut("int", value, this, 124)
     }
 
     /**
      * @type {BOOL}
      */
-    bPrfEnabled{
-        get {
-            if(!this.HasProp("__bPrfEnabled"))
-                this.__bPrfEnabled := BOOL(this.ptr + 128)
-            return this.__bPrfEnabled
-        }
+    bPrfEnabled {
+        get => NumGet(this, 128, "int")
+        set => NumPut("int", value, this, 128)
     }
 
     /**

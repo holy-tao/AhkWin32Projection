@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
@@ -58,7 +57,7 @@ class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct
     hCryptProv{
         get {
             if(!this.HasProp("__hCryptProv"))
-                this.__hCryptProv := HCRYPTPROV_LEGACY(this.ptr + 8)
+                this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
             return this.__hCryptProv
         }
     }
@@ -84,7 +83,7 @@ class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct
     ContentEncryptionAlgorithm{
         get {
             if(!this.HasProp("__ContentEncryptionAlgorithm"))
-                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 16)
+                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
             return this.__ContentEncryptionAlgorithm
         }
     }
@@ -124,12 +123,8 @@ class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct
         set => NumPut("uint", value, this, 52)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

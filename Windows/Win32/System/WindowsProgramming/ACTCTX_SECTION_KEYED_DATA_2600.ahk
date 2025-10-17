@@ -82,7 +82,7 @@ class ACTCTX_SECTION_KEYED_DATA_2600 extends Win32Struct
     hActCtx{
         get {
             if(!this.HasProp("__hActCtx"))
-                this.__hActCtx := HANDLE(this.ptr + 56)
+                this.__hActCtx := HANDLE(56, this)
             return this.__hActCtx
         }
     }
@@ -95,12 +95,8 @@ class ACTCTX_SECTION_KEYED_DATA_2600 extends Win32Struct
         set => NumPut("uint", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

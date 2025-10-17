@@ -43,7 +43,7 @@ class GNSS_AGNSS_INJECTPOSITION extends Win32Struct
     BasicData{
         get {
             if(!this.HasProp("__BasicData"))
-                this.__BasicData := GNSS_FIXDATA_BASIC(this.ptr + 16)
+                this.__BasicData := GNSS_FIXDATA_BASIC(16, this)
             return this.__BasicData
         }
     }
@@ -54,7 +54,7 @@ class GNSS_AGNSS_INJECTPOSITION extends Win32Struct
     AccuracyData{
         get {
             if(!this.HasProp("__AccuracyData"))
-                this.__AccuracyData := GNSS_FIXDATA_ACCURACY(this.ptr + 64)
+                this.__AccuracyData := GNSS_FIXDATA_ACCURACY(64, this)
             return this.__AccuracyData
         }
     }

@@ -24,7 +24,7 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct
         requestSecurityTokenProperty{
             get {
                 if(!this.HasProp("__requestSecurityTokenProperty"))
-                    this.__requestSecurityTokenProperty := WS_REQUEST_SECURITY_TOKEN_PROPERTY(this.ptr + 0)
+                    this.__requestSecurityTokenProperty := WS_REQUEST_SECURITY_TOKEN_PROPERTY(0, this)
                 return this.__requestSecurityTokenProperty
             }
         }
@@ -92,7 +92,7 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct
     out{
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(this.ptr + 24)
+                this.__out := %this.__Class%._out(24, this)
             return this.__out
         }
     }

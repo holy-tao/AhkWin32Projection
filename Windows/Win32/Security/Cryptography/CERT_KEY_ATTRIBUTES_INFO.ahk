@@ -22,7 +22,7 @@ class CERT_KEY_ATTRIBUTES_INFO extends Win32Struct
     KeyId{
         get {
             if(!this.HasProp("__KeyId"))
-                this.__KeyId := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__KeyId := CRYPT_INTEGER_BLOB(0, this)
             return this.__KeyId
         }
     }
@@ -40,7 +40,7 @@ class CERT_KEY_ATTRIBUTES_INFO extends Win32Struct
     IntendedKeyUsage{
         get {
             if(!this.HasProp("__IntendedKeyUsage"))
-                this.__IntendedKeyUsage := CRYPT_BIT_BLOB(this.ptr + 16)
+                this.__IntendedKeyUsage := CRYPT_BIT_BLOB(16, this)
             return this.__IntendedKeyUsage
         }
     }

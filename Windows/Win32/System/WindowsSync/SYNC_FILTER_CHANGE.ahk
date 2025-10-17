@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\SYNC_VERSION.ahk
 
 /**
@@ -16,12 +15,9 @@ class SYNC_FILTER_CHANGE extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fMoveIn{
-        get {
-            if(!this.HasProp("__fMoveIn"))
-                this.__fMoveIn := BOOL(this.ptr + 0)
-            return this.__fMoveIn
-        }
+    fMoveIn {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -30,7 +26,7 @@ class SYNC_FILTER_CHANGE extends Win32Struct
     moveVersion{
         get {
             if(!this.HasProp("__moveVersion"))
-                this.__moveVersion := SYNC_VERSION(this.ptr + 8)
+                this.__moveVersion := SYNC_VERSION(8, this)
             return this.__moveVersion
         }
     }

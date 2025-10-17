@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -31,11 +30,8 @@ class KSRTAUDIO_BUFFER32 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    CallMemoryBarrier{
-        get {
-            if(!this.HasProp("__CallMemoryBarrier"))
-                this.__CallMemoryBarrier := BOOL(this.ptr + 8)
-            return this.__CallMemoryBarrier
-        }
+    CallMemoryBarrier {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 }

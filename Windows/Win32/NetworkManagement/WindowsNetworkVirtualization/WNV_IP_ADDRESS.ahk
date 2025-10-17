@@ -26,7 +26,7 @@ class WNV_IP_ADDRESS extends Win32Struct
     v4{
         get {
             if(!this.HasProp("__v4"))
-                this.__v4 := IN_ADDR(this.ptr + 0)
+                this.__v4 := IN_ADDR(0, this)
             return this.__v4
         }
     }
@@ -37,7 +37,7 @@ class WNV_IP_ADDRESS extends Win32Struct
     v6{
         get {
             if(!this.HasProp("__v6"))
-                this.__v6 := IN6_ADDR(this.ptr + 0)
+                this.__v6 := IN6_ADDR(0, this)
             return this.__v6
         }
     }

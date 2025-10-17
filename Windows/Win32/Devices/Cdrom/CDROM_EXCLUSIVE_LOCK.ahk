@@ -18,7 +18,7 @@ class CDROM_EXCLUSIVE_LOCK extends Win32Struct
     Access{
         get {
             if(!this.HasProp("__Access"))
-                this.__Access := CDROM_EXCLUSIVE_ACCESS(this.ptr + 0)
+                this.__Access := CDROM_EXCLUSIVE_ACCESS(0, this)
             return this.__Access
         }
     }

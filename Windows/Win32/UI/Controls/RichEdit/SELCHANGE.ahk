@@ -25,7 +25,7 @@ class SELCHANGE extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -39,7 +39,7 @@ class SELCHANGE extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 24)
+                this.__chrg := CHARRANGE(24, this)
             return this.__chrg
         }
     }

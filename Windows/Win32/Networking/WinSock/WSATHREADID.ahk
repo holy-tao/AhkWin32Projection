@@ -24,7 +24,7 @@ class WSATHREADID extends Win32Struct
     ThreadHandle{
         get {
             if(!this.HasProp("__ThreadHandle"))
-                this.__ThreadHandle := HANDLE(this.ptr + 0)
+                this.__ThreadHandle := HANDLE(0, this)
             return this.__ThreadHandle
         }
     }

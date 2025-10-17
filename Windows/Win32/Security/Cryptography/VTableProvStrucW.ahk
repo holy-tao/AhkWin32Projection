@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -64,11 +63,8 @@ class VTableProvStrucW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszProvName{
-        get {
-            if(!this.HasProp("__pszProvName"))
-                this.__pszProvName := PWSTR(this.ptr + 48)
-            return this.__pszProvName
-        }
+    pszProvName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

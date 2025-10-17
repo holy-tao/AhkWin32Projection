@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a debugging event.
@@ -37,12 +36,9 @@ class IMAGEHLP_CBA_EVENT extends Win32Struct
      * A text description of the error.
      * @type {PSTR}
      */
-    desc{
-        get {
-            if(!this.HasProp("__desc"))
-                this.__desc := PSTR(this.ptr + 8)
-            return this.__desc
-        }
+    desc {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

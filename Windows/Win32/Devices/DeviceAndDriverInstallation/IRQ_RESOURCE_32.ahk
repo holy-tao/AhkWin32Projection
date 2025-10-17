@@ -19,7 +19,7 @@ class IRQ_RESOURCE_32 extends Win32Struct
     IRQ_Header{
         get {
             if(!this.HasProp("__IRQ_Header"))
-                this.__IRQ_Header := IRQ_DES_32(this.ptr + 0)
+                this.__IRQ_Header := IRQ_DES_32(0, this)
             return this.__IRQ_Header
         }
     }

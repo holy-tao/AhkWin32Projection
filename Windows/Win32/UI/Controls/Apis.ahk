@@ -10850,7 +10850,7 @@ class Controls {
     static DestroyPropertySheetPage(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\DestroyPropertySheetPage", "ptr", param0, "ptr")
+        result := DllCall("COMCTL32.dll\DestroyPropertySheetPage", "ptr", param0, "int")
         return result
     }
 
@@ -11022,7 +11022,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static InitCommonControlsEx(picce) {
-        result := DllCall("COMCTL32.dll\InitCommonControlsEx", "ptr", picce, "ptr")
+        result := DllCall("COMCTL32.dll\InitCommonControlsEx", "ptr", picce, "int")
         return result
     }
 
@@ -11068,7 +11068,7 @@ class Controls {
     static ImageList_Destroy(himl) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_Destroy", "ptr", himl, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_Destroy", "ptr", himl, "int")
         return result
     }
 
@@ -11107,7 +11107,7 @@ class Controls {
     static ImageList_SetImageCount(himl, uNewCount) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_SetImageCount", "ptr", himl, "uint", uNewCount, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_SetImageCount", "ptr", himl, "uint", uNewCount, "int")
         return result
     }
 
@@ -11180,7 +11180,7 @@ class Controls {
     static ImageList_SetBkColor(himl, clrBk) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_SetBkColor", "ptr", himl, "ptr", clrBk, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_SetBkColor", "ptr", himl, "uint", clrBk, "uint")
         return result
     }
 
@@ -11198,7 +11198,7 @@ class Controls {
     static ImageList_GetBkColor(himl) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_GetBkColor", "ptr", himl, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_GetBkColor", "ptr", himl, "uint")
         return result
     }
 
@@ -11222,7 +11222,7 @@ class Controls {
     static ImageList_SetOverlayImage(himl, iImage, iOverlay) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_SetOverlayImage", "ptr", himl, "int", iImage, "int", iOverlay, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_SetOverlayImage", "ptr", himl, "int", iImage, "int", iOverlay, "int")
         return result
     }
 
@@ -11254,7 +11254,7 @@ class Controls {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
         hdcDst := hdcDst is Win32Handle ? NumGet(hdcDst, "ptr") : hdcDst
 
-        result := DllCall("COMCTL32.dll\ImageList_Draw", "ptr", himl, "int", i, "ptr", hdcDst, "int", x, "int", y, "uint", fStyle, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_Draw", "ptr", himl, "int", i, "ptr", hdcDst, "int", x, "int", y, "uint", fStyle, "int")
         return result
     }
 
@@ -11283,7 +11283,7 @@ class Controls {
         hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
         hbmMask := hbmMask is Win32Handle ? NumGet(hbmMask, "ptr") : hbmMask
 
-        result := DllCall("COMCTL32.dll\ImageList_Replace", "ptr", himl, "int", i, "ptr", hbmImage, "ptr", hbmMask, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_Replace", "ptr", himl, "int", i, "ptr", hbmImage, "ptr", hbmMask, "int")
         return result
     }
 
@@ -11308,7 +11308,7 @@ class Controls {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
         hbmImage := hbmImage is Win32Handle ? NumGet(hbmImage, "ptr") : hbmImage
 
-        result := DllCall("COMCTL32.dll\ImageList_AddMasked", "ptr", himl, "ptr", hbmImage, "ptr", crMask, "int")
+        result := DllCall("COMCTL32.dll\ImageList_AddMasked", "ptr", himl, "ptr", hbmImage, "uint", crMask, "int")
         return result
     }
 
@@ -11351,7 +11351,7 @@ class Controls {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
         hdcDst := hdcDst is Win32Handle ? NumGet(hdcDst, "ptr") : hdcDst
 
-        result := DllCall("COMCTL32.dll\ImageList_DrawEx", "ptr", himl, "int", i, "ptr", hdcDst, "int", x, "int", y, "int", dx, "int", dy, "ptr", rgbBk, "ptr", rgbFg, "uint", fStyle, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_DrawEx", "ptr", himl, "int", i, "ptr", hdcDst, "int", x, "int", y, "int", dx, "int", dy, "uint", rgbBk, "uint", rgbFg, "uint", fStyle, "int")
         return result
     }
 
@@ -11367,7 +11367,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_DrawIndirect(pimldp) {
-        result := DllCall("COMCTL32.dll\ImageList_DrawIndirect", "ptr", pimldp, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_DrawIndirect", "ptr", pimldp, "int")
         return result
     }
 
@@ -11388,7 +11388,7 @@ class Controls {
     static ImageList_Remove(himl, i) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_Remove", "ptr", himl, "int", i, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_Remove", "ptr", himl, "int", i, "int")
         return result
     }
 
@@ -11502,7 +11502,7 @@ class Controls {
         lpbmp := lpbmp is String ? StrPtr(lpbmp) : lpbmp
         hi := hi is Win32Handle ? NumGet(hi, "ptr") : hi
 
-        result := DllCall("COMCTL32.dll\ImageList_LoadImageA", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "ptr", crMask, "uint", uType, "uint", uFlags, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_LoadImageA", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "uint", crMask, "uint", uType, "uint", uFlags, "ptr")
         return HIMAGELIST({Value: result}, True)
     }
 
@@ -11592,7 +11592,7 @@ class Controls {
         lpbmp := lpbmp is String ? StrPtr(lpbmp) : lpbmp
         hi := hi is Win32Handle ? NumGet(hi, "ptr") : hi
 
-        result := DllCall("COMCTL32.dll\ImageList_LoadImageW", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "ptr", crMask, "uint", uType, "uint", uFlags, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_LoadImageW", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "uint", crMask, "uint", uType, "uint", uFlags, "ptr")
         return HIMAGELIST({Value: result}, True)
     }
 
@@ -11621,7 +11621,7 @@ class Controls {
         himlDst := himlDst is Win32Handle ? NumGet(himlDst, "ptr") : himlDst
         himlSrc := himlSrc is Win32Handle ? NumGet(himlSrc, "ptr") : himlSrc
 
-        result := DllCall("COMCTL32.dll\ImageList_Copy", "ptr", himlDst, "int", iDst, "ptr", himlSrc, "int", iSrc, "uint", uFlags, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_Copy", "ptr", himlDst, "int", iDst, "ptr", himlSrc, "int", iSrc, "uint", uFlags, "int")
         return result
     }
 
@@ -11648,7 +11648,7 @@ class Controls {
     static ImageList_BeginDrag(himlTrack, iTrack, dxHotspot, dyHotspot) {
         himlTrack := himlTrack is Win32Handle ? NumGet(himlTrack, "ptr") : himlTrack
 
-        result := DllCall("COMCTL32.dll\ImageList_BeginDrag", "ptr", himlTrack, "int", iTrack, "int", dxHotspot, "int", dyHotspot, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_BeginDrag", "ptr", himlTrack, "int", iTrack, "int", dxHotspot, "int", dyHotspot, "int")
         return result
     }
 
@@ -11686,7 +11686,7 @@ class Controls {
     static ImageList_DragEnter(hwndLock, x, y) {
         hwndLock := hwndLock is Win32Handle ? NumGet(hwndLock, "ptr") : hwndLock
 
-        result := DllCall("COMCTL32.dll\ImageList_DragEnter", "ptr", hwndLock, "int", x, "int", y, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_DragEnter", "ptr", hwndLock, "int", x, "int", y, "int")
         return result
     }
 
@@ -11704,7 +11704,7 @@ class Controls {
     static ImageList_DragLeave(hwndLock) {
         hwndLock := hwndLock is Win32Handle ? NumGet(hwndLock, "ptr") : hwndLock
 
-        result := DllCall("COMCTL32.dll\ImageList_DragLeave", "ptr", hwndLock, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_DragLeave", "ptr", hwndLock, "int")
         return result
     }
 
@@ -11723,7 +11723,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_DragMove(x, y) {
-        result := DllCall("COMCTL32.dll\ImageList_DragMove", "int", x, "int", y, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_DragMove", "int", x, "int", y, "int")
         return result
     }
 
@@ -11750,7 +11750,7 @@ class Controls {
     static ImageList_SetDragCursorImage(himlDrag, iDrag, dxHotspot, dyHotspot) {
         himlDrag := himlDrag is Win32Handle ? NumGet(himlDrag, "ptr") : himlDrag
 
-        result := DllCall("COMCTL32.dll\ImageList_SetDragCursorImage", "ptr", himlDrag, "int", iDrag, "int", dxHotspot, "int", dyHotspot, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_SetDragCursorImage", "ptr", himlDrag, "int", iDrag, "int", dxHotspot, "int", dyHotspot, "int")
         return result
     }
 
@@ -11766,7 +11766,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_DragShowNolock(fShow) {
-        result := DllCall("COMCTL32.dll\ImageList_DragShowNolock", "ptr", fShow, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_DragShowNolock", "int", fShow, "int")
         return result
     }
 
@@ -11822,7 +11822,7 @@ class Controls {
     static ImageList_Write(himl, pstm) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_Write", "ptr", himl, "ptr", pstm, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_Write", "ptr", himl, "ptr", pstm, "int")
         return result
     }
 
@@ -11963,7 +11963,7 @@ class Controls {
     static ImageList_GetIconSize(himl, cx, cy) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_GetIconSize", "ptr", himl, "int*", cx, "int*", cy, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_GetIconSize", "ptr", himl, "int*", cx, "int*", cy, "int")
         return result
     }
 
@@ -11987,7 +11987,7 @@ class Controls {
     static ImageList_SetIconSize(himl, cx, cy) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_SetIconSize", "ptr", himl, "int", cx, "int", cy, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_SetIconSize", "ptr", himl, "int", cx, "int", cy, "int")
         return result
     }
 
@@ -12011,7 +12011,7 @@ class Controls {
     static ImageList_GetImageInfo(himl, i, pImageInfo) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        result := DllCall("COMCTL32.dll\ImageList_GetImageInfo", "ptr", himl, "int", i, "ptr", pImageInfo, "ptr")
+        result := DllCall("COMCTL32.dll\ImageList_GetImageInfo", "ptr", himl, "int", i, "ptr", pImageInfo, "int")
         return result
     }
 
@@ -12483,7 +12483,7 @@ class Controls {
     static ShowHideMenuCtl(hWnd, uFlags, lpInfo) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("COMCTL32.dll\ShowHideMenuCtl", "ptr", hWnd, "ptr", uFlags, "int*", lpInfo, "ptr")
+        result := DllCall("COMCTL32.dll\ShowHideMenuCtl", "ptr", hWnd, "ptr", uFlags, "int*", lpInfo, "int")
         return result
     }
 
@@ -12527,7 +12527,7 @@ class Controls {
     static MakeDragList(hLB) {
         hLB := hLB is Win32Handle ? NumGet(hLB, "ptr") : hLB
 
-        result := DllCall("COMCTL32.dll\MakeDragList", "ptr", hLB, "ptr")
+        result := DllCall("COMCTL32.dll\MakeDragList", "ptr", hLB, "int")
         return result
     }
 
@@ -12573,7 +12573,7 @@ class Controls {
     static LBItemFromPt(hLB, pt, bAutoScroll) {
         hLB := hLB is Win32Handle ? NumGet(hLB, "ptr") : hLB
 
-        result := DllCall("COMCTL32.dll\LBItemFromPt", "ptr", hLB, "ptr", pt, "ptr", bAutoScroll, "int")
+        result := DllCall("COMCTL32.dll\LBItemFromPt", "ptr", hLB, "ptr", pt, "int", bAutoScroll, "int")
         return result
     }
 
@@ -12987,7 +12987,7 @@ class Controls {
     static DSA_Destroy(hdsa) {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
-        result := DllCall("COMCTL32.dll\DSA_Destroy", "ptr", hdsa, "ptr")
+        result := DllCall("COMCTL32.dll\DSA_Destroy", "ptr", hdsa, "int")
         return result
     }
 
@@ -13029,7 +13029,7 @@ class Controls {
     static DSA_DeleteItem(hdsa, i) {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
-        result := DllCall("COMCTL32.dll\DSA_DeleteItem", "ptr", hdsa, "int", i, "ptr")
+        result := DllCall("COMCTL32.dll\DSA_DeleteItem", "ptr", hdsa, "int", i, "int")
         return result
     }
 
@@ -13047,7 +13047,7 @@ class Controls {
     static DSA_DeleteAllItems(hdsa) {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
-        result := DllCall("COMCTL32.dll\DSA_DeleteAllItems", "ptr", hdsa, "ptr")
+        result := DllCall("COMCTL32.dll\DSA_DeleteAllItems", "ptr", hdsa, "int")
         return result
     }
 
@@ -13135,7 +13135,7 @@ class Controls {
     static DSA_GetItem(hdsa, i, pitem) {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
-        result := DllCall("COMCTL32.dll\DSA_GetItem", "ptr", hdsa, "int", i, "ptr", pitem, "ptr")
+        result := DllCall("COMCTL32.dll\DSA_GetItem", "ptr", hdsa, "int", i, "ptr", pitem, "int")
         return result
     }
 
@@ -13159,7 +13159,7 @@ class Controls {
     static DSA_SetItem(hdsa, i, pitem) {
         hdsa := hdsa is Win32Handle ? NumGet(hdsa, "ptr") : hdsa
 
-        result := DllCall("COMCTL32.dll\DSA_SetItem", "ptr", hdsa, "int", i, "ptr", pitem, "ptr")
+        result := DllCall("COMCTL32.dll\DSA_SetItem", "ptr", hdsa, "int", i, "ptr", pitem, "int")
         return result
     }
 
@@ -13219,7 +13219,7 @@ class Controls {
     static DSA_Sort(pdsa, pfnCompare, lParam) {
         pdsa := pdsa is Win32Handle ? NumGet(pdsa, "ptr") : pdsa
 
-        result := DllCall("COMCTL32.dll\DSA_Sort", "ptr", pdsa, "ptr", pfnCompare, "ptr", lParam, "ptr")
+        result := DllCall("COMCTL32.dll\DSA_Sort", "ptr", pdsa, "ptr", pfnCompare, "ptr", lParam, "int")
         return result
     }
 
@@ -13300,7 +13300,7 @@ class Controls {
     static DPA_Destroy(hdpa) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        result := DllCall("COMCTL32.dll\DPA_Destroy", "ptr", hdpa, "ptr")
+        result := DllCall("COMCTL32.dll\DPA_Destroy", "ptr", hdpa, "int")
         return result
     }
 
@@ -13358,7 +13358,7 @@ class Controls {
     static DPA_DeleteAllPtrs(hdpa) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        result := DllCall("COMCTL32.dll\DPA_DeleteAllPtrs", "ptr", hdpa, "ptr")
+        result := DllCall("COMCTL32.dll\DPA_DeleteAllPtrs", "ptr", hdpa, "int")
         return result
     }
 
@@ -13400,7 +13400,7 @@ class Controls {
     static DPA_Grow(pdpa, cp) {
         pdpa := pdpa is Win32Handle ? NumGet(pdpa, "ptr") : pdpa
 
-        result := DllCall("COMCTL32.dll\DPA_Grow", "ptr", pdpa, "int", cp, "ptr")
+        result := DllCall("COMCTL32.dll\DPA_Grow", "ptr", pdpa, "int", cp, "int")
         return result
     }
 
@@ -13451,7 +13451,7 @@ class Controls {
     static DPA_SetPtr(hdpa, i, p) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        result := DllCall("COMCTL32.dll\DPA_SetPtr", "ptr", hdpa, "int", i, "ptr", p, "ptr")
+        result := DllCall("COMCTL32.dll\DPA_SetPtr", "ptr", hdpa, "int", i, "ptr", p, "int")
         return result
     }
 
@@ -13533,7 +13533,7 @@ class Controls {
     static DPA_Sort(hdpa, pfnCompare, lParam) {
         hdpa := hdpa is Win32Handle ? NumGet(hdpa, "ptr") : hdpa
 
-        result := DllCall("COMCTL32.dll\DPA_Sort", "ptr", hdpa, "ptr", pfnCompare, "ptr", lParam, "ptr")
+        result := DllCall("COMCTL32.dll\DPA_Sort", "ptr", hdpa, "ptr", pfnCompare, "ptr", lParam, "int")
         return result
     }
 
@@ -13790,7 +13790,7 @@ class Controls {
         hdpaDest := hdpaDest is Win32Handle ? NumGet(hdpaDest, "ptr") : hdpaDest
         hdpaSrc := hdpaSrc is Win32Handle ? NumGet(hdpaSrc, "ptr") : hdpaSrc
 
-        result := DllCall("COMCTL32.dll\DPA_Merge", "ptr", hdpaDest, "ptr", hdpaSrc, "uint", dwFlags, "ptr", pfnCompare, "ptr", pfnMerge, "ptr", lParam, "ptr")
+        result := DllCall("COMCTL32.dll\DPA_Merge", "ptr", hdpaDest, "ptr", hdpaSrc, "uint", dwFlags, "ptr", pfnCompare, "ptr", pfnMerge, "ptr", lParam, "int")
         return result
     }
 
@@ -13881,7 +13881,7 @@ class Controls {
     static Str_SetPtrW(ppsz, psz) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("COMCTL32.dll\Str_SetPtrW", "ptr", ppsz, "ptr", psz, "ptr")
+        result := DllCall("COMCTL32.dll\Str_SetPtrW", "ptr", ppsz, "ptr", psz, "int")
         return result
     }
 
@@ -13899,7 +13899,7 @@ class Controls {
     static FlatSB_EnableScrollBar(param0, param1, param2) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_EnableScrollBar", "ptr", param0, "int", param1, "uint", param2, "ptr")
+        result := DllCall("COMCTL32.dll\FlatSB_EnableScrollBar", "ptr", param0, "int", param1, "uint", param2, "int")
         return result
     }
 
@@ -13917,7 +13917,7 @@ class Controls {
     static FlatSB_ShowScrollBar(param0, code, param2) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_ShowScrollBar", "ptr", param0, "int", code, "ptr", param2, "ptr")
+        result := DllCall("COMCTL32.dll\FlatSB_ShowScrollBar", "ptr", param0, "int", code, "int", param2, "int")
         return result
     }
 
@@ -13936,7 +13936,7 @@ class Controls {
     static FlatSB_GetScrollRange(param0, code, param2, param3) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_GetScrollRange", "ptr", param0, "int", code, "int*", param2, "int*", param3, "ptr")
+        result := DllCall("COMCTL32.dll\FlatSB_GetScrollRange", "ptr", param0, "int", code, "int*", param2, "int*", param3, "int")
         return result
     }
 
@@ -13954,7 +13954,7 @@ class Controls {
     static FlatSB_GetScrollInfo(param0, code, param2) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_GetScrollInfo", "ptr", param0, "int", code, "ptr", param2, "ptr")
+        result := DllCall("COMCTL32.dll\FlatSB_GetScrollInfo", "ptr", param0, "int", code, "ptr", param2, "int")
         return result
     }
 
@@ -13992,7 +13992,7 @@ class Controls {
     static FlatSB_GetScrollProp(param0, propIndex, param2) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_GetScrollProp", "ptr", param0, "int", propIndex, "int*", param2, "ptr")
+        result := DllCall("COMCTL32.dll\FlatSB_GetScrollProp", "ptr", param0, "int", propIndex, "int*", param2, "int")
         return result
     }
 
@@ -14015,7 +14015,7 @@ class Controls {
     static FlatSB_SetScrollPos(param0, code, pos, fRedraw) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_SetScrollPos", "ptr", param0, "int", code, "int", pos, "ptr", fRedraw, "int")
+        result := DllCall("COMCTL32.dll\FlatSB_SetScrollPos", "ptr", param0, "int", code, "int", pos, "int", fRedraw, "int")
         return result
     }
 
@@ -14038,7 +14038,7 @@ class Controls {
     static FlatSB_SetScrollInfo(param0, code, psi, fRedraw) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_SetScrollInfo", "ptr", param0, "int", code, "ptr", psi, "ptr", fRedraw, "int")
+        result := DllCall("COMCTL32.dll\FlatSB_SetScrollInfo", "ptr", param0, "int", code, "ptr", psi, "int", fRedraw, "int")
         return result
     }
 
@@ -14064,7 +14064,7 @@ class Controls {
     static FlatSB_SetScrollRange(param0, code, min, max, fRedraw) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_SetScrollRange", "ptr", param0, "int", code, "int", min, "int", max, "ptr", fRedraw, "int")
+        result := DllCall("COMCTL32.dll\FlatSB_SetScrollRange", "ptr", param0, "int", code, "int", min, "int", max, "int", fRedraw, "int")
         return result
     }
 
@@ -14088,7 +14088,7 @@ class Controls {
     static FlatSB_SetScrollProp(param0, index, newValue, param3) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\FlatSB_SetScrollProp", "ptr", param0, "uint", index, "ptr", newValue, "ptr", param3, "ptr")
+        result := DllCall("COMCTL32.dll\FlatSB_SetScrollProp", "ptr", param0, "uint", index, "ptr", newValue, "int", param3, "int")
         return result
     }
 
@@ -14104,7 +14104,7 @@ class Controls {
     static InitializeFlatSB(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := DllCall("COMCTL32.dll\InitializeFlatSB", "ptr", param0, "ptr")
+        result := DllCall("COMCTL32.dll\InitializeFlatSB", "ptr", param0, "int")
         return result
     }
 
@@ -14455,7 +14455,7 @@ class Controls {
         pszText := pszText is String ? StrPtr(pszText) : pszText
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("COMCTL32.dll\DrawShadowText", "ptr", hdc, "ptr", pszText, "uint", cch, "ptr", prc, "uint", dwFlags, "ptr", crText, "ptr", crShadow, "int", ixOffset, "int", iyOffset, "int")
+        result := DllCall("COMCTL32.dll\DrawShadowText", "ptr", hdc, "ptr", pszText, "uint", cch, "ptr", prc, "uint", dwFlags, "uint", crText, "uint", crShadow, "int", ixOffset, "int", iyOffset, "int")
         return result
     }
 
@@ -14501,7 +14501,7 @@ class Controls {
     static BeginPanningFeedback(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UxTheme.dll\BeginPanningFeedback", "ptr", hwnd, "ptr")
+        result := DllCall("UxTheme.dll\BeginPanningFeedback", "ptr", hwnd, "int")
         return result
     }
 
@@ -14528,7 +14528,7 @@ class Controls {
     static UpdatePanningFeedback(hwnd, lTotalOverpanOffsetX, lTotalOverpanOffsetY, fInInertia) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UxTheme.dll\UpdatePanningFeedback", "ptr", hwnd, "int", lTotalOverpanOffsetX, "int", lTotalOverpanOffsetY, "ptr", fInInertia, "ptr")
+        result := DllCall("UxTheme.dll\UpdatePanningFeedback", "ptr", hwnd, "int", lTotalOverpanOffsetX, "int", lTotalOverpanOffsetY, "int", fInInertia, "int")
         return result
     }
 
@@ -14549,7 +14549,7 @@ class Controls {
     static EndPanningFeedback(hwnd, fAnimateBack) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UxTheme.dll\EndPanningFeedback", "ptr", hwnd, "ptr", fAnimateBack, "ptr")
+        result := DllCall("UxTheme.dll\EndPanningFeedback", "ptr", hwnd, "int", fAnimateBack, "int")
         return result
     }
 
@@ -15316,7 +15316,7 @@ class Controls {
     static IsThemePartDefined(hTheme, iPartId, iStateId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UXTHEME.dll\IsThemePartDefined", "ptr", hTheme, "int", iPartId, "int", iStateId, "ptr")
+        result := DllCall("UXTHEME.dll\IsThemePartDefined", "ptr", hTheme, "int", iPartId, "int", iStateId, "int")
         return result
     }
 
@@ -15369,7 +15369,7 @@ class Controls {
     static IsThemeBackgroundPartiallyTransparent(hTheme, iPartId, iStateId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UxTheme.dll\IsThemeBackgroundPartiallyTransparent", "ptr", hTheme, "int", iPartId, "int", iStateId, "ptr")
+        result := DllCall("UxTheme.dll\IsThemeBackgroundPartiallyTransparent", "ptr", hTheme, "int", iPartId, "int", iStateId, "int")
         return result
     }
 
@@ -15865,7 +15865,7 @@ class Controls {
     static GetThemeSysColor(hTheme, iColorId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UxTheme.dll\GetThemeSysColor", "ptr", hTheme, "int", iColorId, "ptr")
+        result := DllCall("UxTheme.dll\GetThemeSysColor", "ptr", hTheme, "int", iColorId, "uint")
         return result
     }
 
@@ -15922,7 +15922,7 @@ class Controls {
     static GetThemeSysBool(hTheme, iBoolId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UxTheme.dll\GetThemeSysBool", "ptr", hTheme, "int", iBoolId, "ptr")
+        result := DllCall("UxTheme.dll\GetThemeSysBool", "ptr", hTheme, "int", iBoolId, "int")
         return result
     }
 
@@ -16190,7 +16190,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static IsThemeActive() {
-        result := DllCall("UXTHEME.dll\IsThemeActive", "ptr")
+        result := DllCall("UXTHEME.dll\IsThemeActive", "int")
         return result
     }
 
@@ -16232,7 +16232,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static IsAppThemed() {
-        result := DllCall("UXTHEME.dll\IsAppThemed", "ptr")
+        result := DllCall("UXTHEME.dll\IsAppThemed", "int")
         return result
     }
 
@@ -16405,7 +16405,7 @@ class Controls {
     static IsThemeDialogTextureEnabled(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UxTheme.dll\IsThemeDialogTextureEnabled", "ptr", hwnd, "ptr")
+        result := DllCall("UxTheme.dll\IsThemeDialogTextureEnabled", "ptr", hwnd, "int")
         return result
     }
 
@@ -16628,7 +16628,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static EnableTheming(fEnable) {
-        result := DllCall("UxTheme.dll\EnableTheming", "ptr", fEnable, "int")
+        result := DllCall("UxTheme.dll\EnableTheming", "int", fEnable, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16899,7 +16899,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static EndBufferedPaint(hBufferedPaint, fUpdateTarget) {
-        result := DllCall("UXTHEME.dll\EndBufferedPaint", "ptr", hBufferedPaint, "ptr", fUpdateTarget, "int")
+        result := DllCall("UXTHEME.dll\EndBufferedPaint", "ptr", hBufferedPaint, "int", fUpdateTarget, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17108,7 +17108,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static EndBufferedAnimation(hbpAnimation, fUpdateTarget) {
-        result := DllCall("UxTheme.dll\EndBufferedAnimation", "ptr", hbpAnimation, "ptr", fUpdateTarget, "int")
+        result := DllCall("UxTheme.dll\EndBufferedAnimation", "ptr", hbpAnimation, "int", fUpdateTarget, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17133,7 +17133,7 @@ class Controls {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hdcTarget := hdcTarget is Win32Handle ? NumGet(hdcTarget, "ptr") : hdcTarget
 
-        result := DllCall("UxTheme.dll\BufferedPaintRenderAnimation", "ptr", hwnd, "ptr", hdcTarget, "ptr")
+        result := DllCall("UxTheme.dll\BufferedPaintRenderAnimation", "ptr", hwnd, "ptr", hdcTarget, "int")
         return result
     }
 
@@ -17146,7 +17146,7 @@ class Controls {
      * @since windows6.0.6000
      */
     static IsCompositionActive() {
-        result := DllCall("UXTHEME.dll\IsCompositionActive", "ptr")
+        result := DllCall("UXTHEME.dll\IsCompositionActive", "int")
         return result
     }
 
@@ -17208,7 +17208,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CheckDlgButton", "ptr", hDlg, "int", nIDButton, "uint", uCheck, "ptr")
+        result := DllCall("USER32.dll\CheckDlgButton", "ptr", hDlg, "int", nIDButton, "uint", uCheck, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17242,7 +17242,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CheckRadioButton", "ptr", hDlg, "int", nIDFirstButton, "int", nIDLastButton, "int", nIDCheckButton, "ptr")
+        result := DllCall("USER32.dll\CheckRadioButton", "ptr", hDlg, "int", nIDFirstButton, "int", nIDLastButton, "int", nIDCheckButton, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17350,7 +17350,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterTouchHitTestingWindow", "ptr", hwnd, "uint", value, "ptr")
+        result := DllCall("USER32.dll\RegisterTouchHitTestingWindow", "ptr", hwnd, "uint", value, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17371,7 +17371,7 @@ class Controls {
     static EvaluateProximityToRect(controlBoundingBox, pHitTestingInput, pProximityEval) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EvaluateProximityToRect", "ptr", controlBoundingBox, "ptr", pHitTestingInput, "ptr", pProximityEval, "ptr")
+        result := DllCall("USER32.dll\EvaluateProximityToRect", "ptr", controlBoundingBox, "ptr", pHitTestingInput, "ptr", pProximityEval, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17397,7 +17397,7 @@ class Controls {
     static EvaluateProximityToPolygon(numVertices, controlPolygon, pHitTestingInput, pProximityEval) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EvaluateProximityToPolygon", "uint", numVertices, "ptr", controlPolygon, "ptr", pHitTestingInput, "ptr", pProximityEval, "ptr")
+        result := DllCall("USER32.dll\EvaluateProximityToPolygon", "uint", numVertices, "ptr", controlPolygon, "ptr", pHitTestingInput, "ptr", pProximityEval, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17440,7 +17440,7 @@ class Controls {
     static GetWindowFeedbackSetting(hwnd, feedback, dwFlags, pSize, config) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("USER32.dll\GetWindowFeedbackSetting", "ptr", hwnd, "int", feedback, "uint", dwFlags, "uint*", pSize, "ptr", config, "ptr")
+        result := DllCall("USER32.dll\GetWindowFeedbackSetting", "ptr", hwnd, "int", feedback, "uint", dwFlags, "uint*", pSize, "ptr", config, "int")
         return result
     }
 
@@ -17458,7 +17458,7 @@ class Controls {
     static SetWindowFeedbackSetting(hwnd, feedback, dwFlags, size, configuration) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("USER32.dll\SetWindowFeedbackSetting", "ptr", hwnd, "int", feedback, "uint", dwFlags, "uint", size, "ptr", configuration, "ptr")
+        result := DllCall("USER32.dll\SetWindowFeedbackSetting", "ptr", hwnd, "int", feedback, "uint", dwFlags, "uint", size, "ptr", configuration, "int")
         return result
     }
 
@@ -17489,7 +17489,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetScrollPos", "ptr", hWnd, "int", nBar, "int", nPos, "ptr", bRedraw, "int")
+        result := DllCall("USER32.dll\SetScrollPos", "ptr", hWnd, "int", nBar, "int", nPos, "int", bRedraw, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17525,7 +17525,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetScrollRange", "ptr", hWnd, "int", nBar, "int", nMinPos, "int", nMaxPos, "ptr", bRedraw, "ptr")
+        result := DllCall("USER32.dll\SetScrollRange", "ptr", hWnd, "int", nBar, "int", nMinPos, "int", nMaxPos, "int", bRedraw, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17555,7 +17555,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShowScrollBar", "ptr", hWnd, "int", wBar, "ptr", bShow, "ptr")
+        result := DllCall("USER32.dll\ShowScrollBar", "ptr", hWnd, "int", wBar, "int", bShow, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17583,7 +17583,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnableScrollBar", "ptr", hWnd, "uint", wSBflags, "uint", wArrows, "ptr")
+        result := DllCall("USER32.dll\EnableScrollBar", "ptr", hWnd, "uint", wSBflags, "uint", wArrows, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17697,7 +17697,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DlgDirSelectExA", "ptr", hwndDlg, "ptr", lpString, "int", chCount, "int", idListBox, "ptr")
+        result := DllCall("USER32.dll\DlgDirSelectExA", "ptr", hwndDlg, "ptr", lpString, "int", chCount, "int", idListBox, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17734,7 +17734,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DlgDirSelectExW", "ptr", hwndDlg, "ptr", lpString, "int", chCount, "int", idListBox, "ptr")
+        result := DllCall("USER32.dll\DlgDirSelectExW", "ptr", hwndDlg, "ptr", lpString, "int", chCount, "int", idListBox, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17859,7 +17859,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DlgDirSelectComboBoxExA", "ptr", hwndDlg, "ptr", lpString, "int", cchOut, "int", idComboBox, "ptr")
+        result := DllCall("USER32.dll\DlgDirSelectComboBoxExA", "ptr", hwndDlg, "ptr", lpString, "int", cchOut, "int", idComboBox, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17896,7 +17896,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DlgDirSelectComboBoxExW", "ptr", hwndDlg, "ptr", lpString, "int", cchOut, "int", idComboBox, "ptr")
+        result := DllCall("USER32.dll\DlgDirSelectComboBoxExW", "ptr", hwndDlg, "ptr", lpString, "int", cchOut, "int", idComboBox, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17930,7 +17930,7 @@ class Controls {
     static SetScrollInfo(hwnd, nBar, lpsi, redraw) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("USER32.dll\SetScrollInfo", "ptr", hwnd, "int", nBar, "ptr", lpsi, "ptr", redraw, "int")
+        result := DllCall("USER32.dll\SetScrollInfo", "ptr", hwnd, "int", nBar, "ptr", lpsi, "int", redraw, "int")
         return result
     }
 
@@ -17955,7 +17955,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetComboBoxInfo", "ptr", hwndCombo, "ptr", pcbi, "ptr")
+        result := DllCall("USER32.dll\GetComboBoxInfo", "ptr", hwndCombo, "ptr", pcbi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -17998,7 +17998,7 @@ class Controls {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterPointerDeviceNotifications", "ptr", window, "ptr", notifyRange, "ptr")
+        result := DllCall("USER32.dll\RegisterPointerDeviceNotifications", "ptr", window, "int", notifyRange, "int")
         if(A_LastError)
             throw OSError()
 

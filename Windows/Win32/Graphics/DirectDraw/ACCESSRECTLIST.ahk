@@ -26,7 +26,7 @@ class ACCESSRECTLIST extends Win32Struct
     rDest{
         get {
             if(!this.HasProp("__rDest"))
-                this.__rDest := RECT(this.ptr + 8)
+                this.__rDest := RECT(8, this)
             return this.__rDest
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents application sequence information relating to WS-Discovery messages.
@@ -61,12 +60,9 @@ class WSD_APP_SEQUENCE extends Win32Struct
      * The sequence identifier.
      * @type {PWSTR}
      */
-    SequenceId{
-        get {
-            if(!this.HasProp("__SequenceId"))
-                this.__SequenceId := PWSTR(this.ptr + 8)
-            return this.__SequenceId
-        }
+    SequenceId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

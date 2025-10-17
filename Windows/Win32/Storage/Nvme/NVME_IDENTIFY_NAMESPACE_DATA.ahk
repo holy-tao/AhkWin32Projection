@@ -466,7 +466,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     NSFEAT{
         get {
             if(!this.HasProp("__NSFEAT"))
-                this.__NSFEAT := %this.__Class%._NSFEAT(this.ptr + 24)
+                this.__NSFEAT := %this.__Class%._NSFEAT(24, this)
             return this.__NSFEAT
         }
     }
@@ -485,7 +485,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     FLBAS{
         get {
             if(!this.HasProp("__FLBAS"))
-                this.__FLBAS := %this.__Class%._FLBAS(this.ptr + 26)
+                this.__FLBAS := %this.__Class%._FLBAS(26, this)
             return this.__FLBAS
         }
     }
@@ -496,7 +496,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     MC{
         get {
             if(!this.HasProp("__MC"))
-                this.__MC := %this.__Class%._MC(this.ptr + 27)
+                this.__MC := %this.__Class%._MC(27, this)
             return this.__MC
         }
     }
@@ -507,7 +507,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     DPC{
         get {
             if(!this.HasProp("__DPC"))
-                this.__DPC := %this.__Class%._DPC(this.ptr + 28)
+                this.__DPC := %this.__Class%._DPC(28, this)
             return this.__DPC
         }
     }
@@ -518,7 +518,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     DPS{
         get {
             if(!this.HasProp("__DPS"))
-                this.__DPS := %this.__Class%._DPS(this.ptr + 29)
+                this.__DPS := %this.__Class%._DPS(29, this)
             return this.__DPS
         }
     }
@@ -529,7 +529,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     NMIC{
         get {
             if(!this.HasProp("__NMIC"))
-                this.__NMIC := %this.__Class%._NMIC(this.ptr + 30)
+                this.__NMIC := %this.__Class%._NMIC(30, this)
             return this.__NMIC
         }
     }
@@ -540,7 +540,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     RESCAP{
         get {
             if(!this.HasProp("__RESCAP"))
-                this.__RESCAP := NVM_RESERVATION_CAPABILITIES(this.ptr + 32)
+                this.__RESCAP := NVM_RESERVATION_CAPABILITIES(32, this)
             return this.__RESCAP
         }
     }
@@ -551,7 +551,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     FPI{
         get {
             if(!this.HasProp("__FPI"))
-                this.__FPI := %this.__Class%._FPI(this.ptr + 34)
+                this.__FPI := %this.__Class%._FPI(34, this)
             return this.__FPI
         }
     }
@@ -562,7 +562,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     DLFEAT{
         get {
             if(!this.HasProp("__DLFEAT"))
-                this.__DLFEAT := %this.__Class%._DLFEAT(this.ptr + 35)
+                this.__DLFEAT := %this.__Class%._DLFEAT(35, this)
             return this.__DLFEAT
         }
     }
@@ -734,7 +734,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     NSATTR{
         get {
             if(!this.HasProp("__NSATTR"))
-                this.__NSATTR := %this.__Class%._NSATTR(this.ptr + 103)
+                this.__NSATTR := %this.__Class%._NSATTR(103, this)
             return this.__NSATTR
         }
     }

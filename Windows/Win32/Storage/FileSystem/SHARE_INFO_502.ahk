@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
@@ -20,12 +19,9 @@ class SHARE_INFO_502 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
      * @type {PWSTR}
      */
-    shi502_netname{
-        get {
-            if(!this.HasProp("__shi502_netname"))
-                this.__shi502_netname := PWSTR(this.ptr + 0)
-            return this.__shi502_netname
-        }
+    shi502_netname {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -42,12 +38,9 @@ class SHARE_INFO_502 extends Win32Struct
      * Pointer to a Unicode string specifying an optional comment about the shared resource.
      * @type {PWSTR}
      */
-    shi502_remark{
-        get {
-            if(!this.HasProp("__shi502_remark"))
-                this.__shi502_remark := PWSTR(this.ptr + 16)
-            return this.__shi502_remark
-        }
+    shi502_remark {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -83,12 +76,9 @@ class SHARE_INFO_502 extends Win32Struct
      * <b>NetShareSetInfo</b> function ignore this member.
      * @type {PWSTR}
      */
-    shi502_path{
-        get {
-            if(!this.HasProp("__shi502_path"))
-                this.__shi502_path := PWSTR(this.ptr + 40)
-            return this.__shi502_path
-        }
+    shi502_path {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -101,12 +91,9 @@ class SHARE_INFO_502 extends Win32Struct
      * <b>NetShareSetInfo</b> function ignore this member.
      * @type {PWSTR}
      */
-    shi502_passwd{
-        get {
-            if(!this.HasProp("__shi502_passwd"))
-                this.__shi502_passwd := PWSTR(this.ptr + 48)
-            return this.__shi502_passwd
-        }
+    shi502_passwd {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -127,7 +114,7 @@ class SHARE_INFO_502 extends Win32Struct
     shi502_security_descriptor{
         get {
             if(!this.HasProp("__shi502_security_descriptor"))
-                this.__shi502_security_descriptor := PSECURITY_DESCRIPTOR(this.ptr + 64)
+                this.__shi502_security_descriptor := PSECURITY_DESCRIPTOR(64, this)
             return this.__shi502_security_descriptor
         }
     }

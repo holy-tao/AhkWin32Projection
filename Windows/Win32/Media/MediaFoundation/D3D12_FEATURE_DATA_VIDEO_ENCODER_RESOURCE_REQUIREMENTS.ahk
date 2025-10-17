@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -36,7 +35,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS extends Win32Struct
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__Profile
         }
     }
@@ -55,7 +54,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS extends Win32Struct
     PictureTargetResolution{
         get {
             if(!this.HasProp("__PictureTargetResolution"))
-                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 32)
+                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(32, this)
             return this.__PictureTargetResolution
         }
     }
@@ -63,12 +62,9 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsSupported{
-        get {
-            if(!this.HasProp("__IsSupported"))
-                this.__IsSupported := BOOL(this.ptr + 40)
-            return this.__IsSupported
-        }
+    IsSupported {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**

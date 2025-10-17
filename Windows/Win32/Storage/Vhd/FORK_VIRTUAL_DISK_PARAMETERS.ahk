@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Vhd
@@ -27,12 +26,9 @@ class FORK_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        ForkedVirtualDiskPath{
-            get {
-                if(!this.HasProp("__ForkedVirtualDiskPath"))
-                    this.__ForkedVirtualDiskPath := PWSTR(this.ptr + 0)
-                return this.__ForkedVirtualDiskPath
-            }
+        ForkedVirtualDiskPath {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
     }
@@ -43,7 +39,7 @@ class FORK_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version1{
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+                this.__Version1 := %this.__Class%._Version1(8, this)
             return this.__Version1
         }
     }

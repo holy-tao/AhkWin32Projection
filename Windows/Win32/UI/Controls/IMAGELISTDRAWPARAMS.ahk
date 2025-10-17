@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HIMAGELIST.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information about an image list draw operation and is used with the IImageList::Draw function.
@@ -44,7 +43,7 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
     himl{
         get {
             if(!this.HasProp("__himl"))
-                this.__himl := HIMAGELIST(this.ptr + 8)
+                this.__himl := HIMAGELIST(8, this)
             return this.__himl
         }
     }
@@ -69,7 +68,7 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
     hdcDst{
         get {
             if(!this.HasProp("__hdcDst"))
-                this.__hdcDst := HDC(this.ptr + 24)
+                this.__hdcDst := HDC(24, this)
             return this.__hdcDst
         }
     }
@@ -144,24 +143,18 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * @type {COLORREF}
      */
-    rgbBk{
-        get {
-            if(!this.HasProp("__rgbBk"))
-                this.__rgbBk := COLORREF(this.ptr + 56)
-            return this.__rgbBk
-        }
+    rgbBk {
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * @type {COLORREF}
      */
-    rgbFg{
-        get {
-            if(!this.HasProp("__rgbFg"))
-                this.__rgbFg := COLORREF(this.ptr + 60)
-            return this.__rgbFg
-        }
+    rgbFg {
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -375,20 +368,13 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
      * A color used for the <b>glow</b> and <b>shadow</b> effects. You must use comctl32.dll version 6 to use this member. See the Remarks.
      * @type {COLORREF}
      */
-    crEffect{
-        get {
-            if(!this.HasProp("__crEffect"))
-                this.__crEffect := COLORREF(this.ptr + 80)
-            return this.__crEffect
-        }
+    crEffect {
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 88
     }
 }

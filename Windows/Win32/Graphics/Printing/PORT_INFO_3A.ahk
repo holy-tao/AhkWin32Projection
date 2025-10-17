@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -24,12 +23,9 @@ class PORT_INFO_3A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszStatus{
-        get {
-            if(!this.HasProp("__pszStatus"))
-                this.__pszStatus := PSTR(this.ptr + 8)
-            return this.__pszStatus
-        }
+    pszStatus {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

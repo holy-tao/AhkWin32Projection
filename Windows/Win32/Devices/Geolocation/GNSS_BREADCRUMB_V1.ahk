@@ -18,7 +18,7 @@ class GNSS_BREADCRUMB_V1 extends Win32Struct
     FixTimeStamp{
         get {
             if(!this.HasProp("__FixTimeStamp"))
-                this.__FixTimeStamp := FILETIME(this.ptr + 0)
+                this.__FixTimeStamp := FILETIME(0, this)
             return this.__FixTimeStamp
         }
     }

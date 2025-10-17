@@ -21,7 +21,7 @@ class WS_UNKNOWN_ENDPOINT_IDENTITY extends Win32Struct
     identity{
         get {
             if(!this.HasProp("__identity"))
-                this.__identity := WS_ENDPOINT_IDENTITY(this.ptr + 0)
+                this.__identity := WS_ENDPOINT_IDENTITY(0, this)
             return this.__identity
         }
     }

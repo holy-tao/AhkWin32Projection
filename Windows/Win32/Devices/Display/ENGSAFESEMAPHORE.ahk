@@ -30,7 +30,7 @@ class ENGSAFESEMAPHORE extends Win32Struct
     hsem{
         get {
             if(!this.HasProp("__hsem"))
-                this.__hsem := HSEMAPHORE(this.ptr + 0)
+                this.__hsem := HSEMAPHORE(0, this)
             return this.__hsem
         }
     }

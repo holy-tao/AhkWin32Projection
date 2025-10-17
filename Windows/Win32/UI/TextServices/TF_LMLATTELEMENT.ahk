@@ -56,7 +56,7 @@ class TF_LMLATTELEMENT extends Win32Struct
     bstrText{
         get {
             if(!this.HasProp("__bstrText"))
-                this.__bstrText := BSTR(this.ptr + 16)
+                this.__bstrText := BSTR(16, this)
             return this.__bstrText
         }
     }

@@ -3,7 +3,6 @@
 #Include .\HCONV.ahk
 #Include .\HSZ.ahk
 #Include .\HCONVLIST.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include .\CONVCONTEXT.ahk
 #Include ..\..\Foundation\HWND.ahk
@@ -51,7 +50,7 @@ class CONVINFO extends Win32Struct
     hConvPartner{
         get {
             if(!this.HasProp("__hConvPartner"))
-                this.__hConvPartner := HCONV(this.ptr + 16)
+                this.__hConvPartner := HCONV(16, this)
             return this.__hConvPartner
         }
     }
@@ -65,7 +64,7 @@ class CONVINFO extends Win32Struct
     hszSvcPartner{
         get {
             if(!this.HasProp("__hszSvcPartner"))
-                this.__hszSvcPartner := HSZ(this.ptr + 24)
+                this.__hszSvcPartner := HSZ(24, this)
             return this.__hszSvcPartner
         }
     }
@@ -79,7 +78,7 @@ class CONVINFO extends Win32Struct
     hszServiceReq{
         get {
             if(!this.HasProp("__hszServiceReq"))
-                this.__hszServiceReq := HSZ(this.ptr + 32)
+                this.__hszServiceReq := HSZ(32, this)
             return this.__hszServiceReq
         }
     }
@@ -93,7 +92,7 @@ class CONVINFO extends Win32Struct
     hszTopic{
         get {
             if(!this.HasProp("__hszTopic"))
-                this.__hszTopic := HSZ(this.ptr + 40)
+                this.__hszTopic := HSZ(40, this)
             return this.__hszTopic
         }
     }
@@ -107,7 +106,7 @@ class CONVINFO extends Win32Struct
     hszItem{
         get {
             if(!this.HasProp("__hszItem"))
-                this.__hszItem := HSZ(this.ptr + 48)
+                this.__hszItem := HSZ(48, this)
             return this.__hszItem
         }
     }
@@ -170,7 +169,7 @@ class CONVINFO extends Win32Struct
     hConvList{
         get {
             if(!this.HasProp("__hConvList"))
-                this.__hConvList := HCONVLIST(this.ptr + 80)
+                this.__hConvList := HCONVLIST(80, this)
             return this.__hConvList
         }
     }
@@ -184,7 +183,7 @@ class CONVINFO extends Win32Struct
     ConvCtxt{
         get {
             if(!this.HasProp("__ConvCtxt"))
-                this.__ConvCtxt := CONVCONTEXT(this.ptr + 88)
+                this.__ConvCtxt := CONVCONTEXT(88, this)
             return this.__ConvCtxt
         }
     }
@@ -198,7 +197,7 @@ class CONVINFO extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 128)
+                this.__hwnd := HWND(128, this)
             return this.__hwnd
         }
     }
@@ -212,7 +211,7 @@ class CONVINFO extends Win32Struct
     hwndPartner{
         get {
             if(!this.HasProp("__hwndPartner"))
-                this.__hwndPartner := HWND(this.ptr + 136)
+                this.__hwndPartner := HWND(136, this)
             return this.__hwndPartner
         }
     }

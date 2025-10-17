@@ -1,9 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Defines the options for the DrawThemeTextEx function.
@@ -203,12 +200,9 @@ class DTTOPTS extends Win32Struct
      * Specifies the color of the text that will be drawn.
      * @type {COLORREF}
      */
-    crText{
-        get {
-            if(!this.HasProp("__crText"))
-                this.__crText := COLORREF(this.ptr + 8)
-            return this.__crText
-        }
+    crText {
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -217,12 +211,9 @@ class DTTOPTS extends Win32Struct
      * Specifies the color of the outline that will be drawn around the text.
      * @type {COLORREF}
      */
-    crBorder{
-        get {
-            if(!this.HasProp("__crBorder"))
-                this.__crBorder := COLORREF(this.ptr + 12)
-            return this.__crBorder
-        }
+    crBorder {
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -231,12 +222,9 @@ class DTTOPTS extends Win32Struct
      * Specifies the color of the shadow that will be drawn behind the text.
      * @type {COLORREF}
      */
-    crShadow{
-        get {
-            if(!this.HasProp("__crShadow"))
-                this.__crShadow := COLORREF(this.ptr + 16)
-            return this.__crShadow
-        }
+    crShadow {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -257,7 +245,7 @@ class DTTOPTS extends Win32Struct
     ptShadowOffset{
         get {
             if(!this.HasProp("__ptShadowOffset"))
-                this.__ptShadowOffset := POINT(this.ptr + 24)
+                this.__ptShadowOffset := POINT(24, this)
             return this.__ptShadowOffset
         }
     }
@@ -312,12 +300,9 @@ class DTTOPTS extends Win32Struct
      * If <b>TRUE</b>, text will be drawn on top of the shadow and outline effects. If <b>FALSE</b>, just the shadow and outline effects will be drawn.
      * @type {BOOL}
      */
-    fApplyOverlay{
-        get {
-            if(!this.HasProp("__fApplyOverlay"))
-                this.__fApplyOverlay := BOOL(this.ptr + 48)
-            return this.__fApplyOverlay
-        }
+    fApplyOverlay {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -348,11 +333,8 @@ class DTTOPTS extends Win32Struct
      * Parameter for callback back function specified by <b>pfnDrawTextCallback</b>.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 64)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

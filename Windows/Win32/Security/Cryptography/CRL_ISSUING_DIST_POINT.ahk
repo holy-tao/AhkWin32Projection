@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_ALT_NAME_INFO.ahk
 #Include .\CRL_DIST_POINT_NAME.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 
 /**
@@ -25,7 +24,7 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
     DistPointName{
         get {
             if(!this.HasProp("__DistPointName"))
-                this.__DistPointName := CRL_DIST_POINT_NAME(this.ptr + 0)
+                this.__DistPointName := CRL_DIST_POINT_NAME(0, this)
             return this.__DistPointName
         }
     }
@@ -34,24 +33,18 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
      * <b>BOOL</b> flag. <b>TRUE</b> if only user certificates are contained in the CRL.
      * @type {BOOL}
      */
-    fOnlyContainsUserCerts{
-        get {
-            if(!this.HasProp("__fOnlyContainsUserCerts"))
-                this.__fOnlyContainsUserCerts := BOOL(this.ptr + 24)
-            return this.__fOnlyContainsUserCerts
-        }
+    fOnlyContainsUserCerts {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * <b>BOOL</b> flag. <b>TRUE</b> if only CA certificates are contained in the CRL.
      * @type {BOOL}
      */
-    fOnlyContainsCACerts{
-        get {
-            if(!this.HasProp("__fOnlyContainsCACerts"))
-                this.__fOnlyContainsCACerts := BOOL(this.ptr + 28)
-            return this.__fOnlyContainsCACerts
-        }
+    fOnlyContainsCACerts {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -62,7 +55,7 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
     OnlySomeReasonFlags{
         get {
             if(!this.HasProp("__OnlySomeReasonFlags"))
-                this.__OnlySomeReasonFlags := CRYPT_BIT_BLOB(this.ptr + 32)
+                this.__OnlySomeReasonFlags := CRYPT_BIT_BLOB(32, this)
             return this.__OnlySomeReasonFlags
         }
     }
@@ -71,11 +64,8 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
      * <b>BOOL</b> flag. <b>TRUE</b> if this is an indirect CRL.
      * @type {BOOL}
      */
-    fIndirectCRL{
-        get {
-            if(!this.HasProp("__fIndirectCRL"))
-                this.__fIndirectCRL := BOOL(this.ptr + 56)
-            return this.__fIndirectCRL
-        }
+    fIndirectCRL {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Is used to store credential name information.
@@ -23,11 +22,8 @@ class IKEEXT_NAME_CREDENTIAL0 extends Win32Struct
      * Name of the principal.
      * @type {PWSTR}
      */
-    principalName{
-        get {
-            if(!this.HasProp("__principalName"))
-                this.__principalName := PWSTR(this.ptr + 0)
-            return this.__principalName
-        }
+    principalName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

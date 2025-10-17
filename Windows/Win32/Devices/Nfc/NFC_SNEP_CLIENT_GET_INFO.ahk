@@ -26,7 +26,7 @@ class NFC_SNEP_CLIENT_GET_INFO extends Win32Struct
     sGetPayload{
         get {
             if(!this.HasProp("__sGetPayload"))
-                this.__sGetPayload := NFC_DATA_BUFFER(this.ptr + 8)
+                this.__sGetPayload := NFC_DATA_BUFFER(8, this)
             return this.__sGetPayload
         }
     }

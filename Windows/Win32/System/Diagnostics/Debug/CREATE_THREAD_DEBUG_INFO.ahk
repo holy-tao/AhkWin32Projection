@@ -21,7 +21,7 @@ class CREATE_THREAD_DEBUG_INFO extends Win32Struct
     hThread{
         get {
             if(!this.HasProp("__hThread"))
-                this.__hThread := HANDLE(this.ptr + 0)
+                this.__hThread := HANDLE(0, this)
             return this.__hThread
         }
     }

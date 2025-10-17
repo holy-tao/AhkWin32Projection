@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -21,12 +19,9 @@ class CRYPT_TIMESTAMP_PARA extends Win32Struct
      * should be provided.
      * @type {PSTR}
      */
-    pszTSAPolicyId{
-        get {
-            if(!this.HasProp("__pszTSAPolicyId"))
-                this.__pszTSAPolicyId := PSTR(this.ptr + 0)
-            return this.__pszTSAPolicyId
-        }
+    pszTSAPolicyId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -34,12 +29,9 @@ class CRYPT_TIMESTAMP_PARA extends Win32Struct
      * used to sign the time stamp token in the response .
      * @type {BOOL}
      */
-    fRequestCerts{
-        get {
-            if(!this.HasProp("__fRequestCerts"))
-                this.__fRequestCerts := BOOL(this.ptr + 8)
-            return this.__fRequestCerts
-        }
+    fRequestCerts {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -50,7 +42,7 @@ class CRYPT_TIMESTAMP_PARA extends Win32Struct
     Nonce{
         get {
             if(!this.HasProp("__Nonce"))
-                this.__Nonce := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__Nonce := CRYPT_INTEGER_BLOB(16, this)
             return this.__Nonce
         }
     }

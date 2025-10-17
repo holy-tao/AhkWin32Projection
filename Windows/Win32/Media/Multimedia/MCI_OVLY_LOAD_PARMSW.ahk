@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -25,12 +24,9 @@ class MCI_OVLY_LOAD_PARMSW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpfilename{
-        get {
-            if(!this.HasProp("__lpfilename"))
-                this.__lpfilename := PWSTR(this.ptr + 8)
-            return this.__lpfilename
-        }
+    lpfilename {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -39,7 +35,7 @@ class MCI_OVLY_LOAD_PARMSW extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 16)
+                this.__rc := RECT(16, this)
             return this.__rc
         }
     }

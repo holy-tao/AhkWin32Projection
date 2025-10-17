@@ -72,7 +72,7 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
     StorageOffloadZeroDataToken{
         get {
             if(!this.HasProp("__StorageOffloadZeroDataToken"))
-                this.__StorageOffloadZeroDataToken := %this.__Class%._StorageOffloadZeroDataToken(this.ptr + 8)
+                this.__StorageOffloadZeroDataToken := %this.__Class%._StorageOffloadZeroDataToken(8, this)
             return this.__StorageOffloadZeroDataToken
         }
     }

@@ -46,7 +46,7 @@ class MIB_TCP6ROW2 extends Win32Struct
     LocalAddr{
         get {
             if(!this.HasProp("__LocalAddr"))
-                this.__LocalAddr := IN6_ADDR(this.ptr + 0)
+                this.__LocalAddr := IN6_ADDR(0, this)
             return this.__LocalAddr
         }
     }
@@ -84,7 +84,7 @@ class MIB_TCP6ROW2 extends Win32Struct
     RemoteAddr{
         get {
             if(!this.HasProp("__RemoteAddr"))
-                this.__RemoteAddr := IN6_ADDR(this.ptr + 24)
+                this.__RemoteAddr := IN6_ADDR(24, this)
             return this.__RemoteAddr
         }
     }

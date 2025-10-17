@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\Gdi\HMONITOR.ahk
 
 /**
@@ -42,7 +41,7 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
     DesktopCoordinates{
         get {
             if(!this.HasProp("__DesktopCoordinates"))
-                this.__DesktopCoordinates := RECT(this.ptr + 64)
+                this.__DesktopCoordinates := RECT(64, this)
             return this.__DesktopCoordinates
         }
     }
@@ -53,12 +52,9 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
      * True if the output is attached to the desktop; otherwise, false.
      * @type {BOOL}
      */
-    AttachedToDesktop{
-        get {
-            if(!this.HasProp("__AttachedToDesktop"))
-                this.__AttachedToDesktop := BOOL(this.ptr + 80)
-            return this.__AttachedToDesktop
-        }
+    AttachedToDesktop {
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
@@ -81,7 +77,7 @@ class DXGI_OUTPUT_DESC1 extends Win32Struct
     Monitor{
         get {
             if(!this.HasProp("__Monitor"))
-                this.__Monitor := HMONITOR(this.ptr + 88)
+                this.__Monitor := HMONITOR(88, this)
             return this.__Monitor
         }
     }

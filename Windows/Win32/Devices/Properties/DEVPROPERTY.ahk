@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DEVPROPCOMPKEY.ahk
 
 /**
@@ -20,7 +19,7 @@ class DEVPROPERTY extends Win32Struct
     CompKey{
         get {
             if(!this.HasProp("__CompKey"))
-                this.__CompKey := DEVPROPCOMPKEY(this.ptr + 0)
+                this.__CompKey := DEVPROPCOMPKEY(0, this)
             return this.__CompKey
         }
     }

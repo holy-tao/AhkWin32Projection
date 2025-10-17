@@ -27,7 +27,7 @@ class DOT11_DEFAULT_WEP_OFFLOAD extends Win32Struct
     hOffloadContext{
         get {
             if(!this.HasProp("__hOffloadContext"))
-                this.__hOffloadContext := HANDLE(this.ptr + 8)
+                this.__hOffloadContext := HANDLE(8, this)
             return this.__hOffloadContext
         }
     }
@@ -38,7 +38,7 @@ class DOT11_DEFAULT_WEP_OFFLOAD extends Win32Struct
     hOffload{
         get {
             if(!this.HasProp("__hOffload"))
-                this.__hOffload := HANDLE(this.ptr + 16)
+                this.__hOffload := HANDLE(16, this)
             return this.__hOffload
         }
     }

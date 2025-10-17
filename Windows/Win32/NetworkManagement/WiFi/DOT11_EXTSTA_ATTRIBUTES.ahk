@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -19,7 +18,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -107,12 +106,9 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bStrictlyOrderedServiceClassImplemented{
-        get {
-            if(!this.HasProp("__bStrictlyOrderedServiceClassImplemented"))
-                this.__bStrictlyOrderedServiceClassImplemented := BOOLEAN(this.ptr + 44)
-            return this.__bStrictlyOrderedServiceClassImplemented
-        }
+    bStrictlyOrderedServiceClassImplemented {
+        get => NumGet(this, 44, "char")
+        set => NumPut("char", value, this, 44)
     }
 
     /**
@@ -126,12 +122,9 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bSafeModeImplemented{
-        get {
-            if(!this.HasProp("__bSafeModeImplemented"))
-                this.__bSafeModeImplemented := BOOLEAN(this.ptr + 46)
-            return this.__bSafeModeImplemented
-        }
+    bSafeModeImplemented {
+        get => NumGet(this, 46, "char")
+        set => NumPut("char", value, this, 46)
     }
 
     /**
@@ -217,12 +210,9 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bAutoPowerSaveMode{
-        get {
-            if(!this.HasProp("__bAutoPowerSaveMode"))
-                this.__bAutoPowerSaveMode := BOOLEAN(this.ptr + 128)
-            return this.__bAutoPowerSaveMode
-        }
+    bAutoPowerSaveMode {
+        get => NumGet(this, 128, "char")
+        set => NumPut("char", value, this, 128)
     }
 
     /**
@@ -236,12 +226,9 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bMFPCapable{
-        get {
-            if(!this.HasProp("__bMFPCapable"))
-                this.__bMFPCapable := BOOLEAN(this.ptr + 136)
-            return this.__bMFPCapable
-        }
+    bMFPCapable {
+        get => NumGet(this, 136, "char")
+        set => NumPut("char", value, this, 136)
     }
 
     /**
@@ -263,55 +250,40 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bNeighborReportSupported{
-        get {
-            if(!this.HasProp("__bNeighborReportSupported"))
-                this.__bNeighborReportSupported := BOOLEAN(this.ptr + 152)
-            return this.__bNeighborReportSupported
-        }
+    bNeighborReportSupported {
+        get => NumGet(this, 152, "char")
+        set => NumPut("char", value, this, 152)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bAPChannelReportSupported{
-        get {
-            if(!this.HasProp("__bAPChannelReportSupported"))
-                this.__bAPChannelReportSupported := BOOLEAN(this.ptr + 153)
-            return this.__bAPChannelReportSupported
-        }
+    bAPChannelReportSupported {
+        get => NumGet(this, 153, "char")
+        set => NumPut("char", value, this, 153)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bActionFramesSupported{
-        get {
-            if(!this.HasProp("__bActionFramesSupported"))
-                this.__bActionFramesSupported := BOOLEAN(this.ptr + 154)
-            return this.__bActionFramesSupported
-        }
+    bActionFramesSupported {
+        get => NumGet(this, 154, "char")
+        set => NumPut("char", value, this, 154)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bANQPQueryOffloadSupported{
-        get {
-            if(!this.HasProp("__bANQPQueryOffloadSupported"))
-                this.__bANQPQueryOffloadSupported := BOOLEAN(this.ptr + 155)
-            return this.__bANQPQueryOffloadSupported
-        }
+    bANQPQueryOffloadSupported {
+        get => NumGet(this, 155, "char")
+        set => NumPut("char", value, this, 155)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bHESSIDConnectionSupported{
-        get {
-            if(!this.HasProp("__bHESSIDConnectionSupported"))
-                this.__bHESSIDConnectionSupported := BOOLEAN(this.ptr + 156)
-            return this.__bHESSIDConnectionSupported
-        }
+    bHESSIDConnectionSupported {
+        get => NumGet(this, 156, "char")
+        set => NumPut("char", value, this, 156)
     }
 }

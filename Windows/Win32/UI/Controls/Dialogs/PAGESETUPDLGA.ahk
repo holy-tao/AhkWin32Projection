@@ -5,8 +5,6 @@
 #Include ..\..\..\Foundation\POINT.ahk
 #Include ..\..\..\Foundation\RECT.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information the PageSetupDlg function uses to initialize the Page Setup dialog box. After the user closes the dialog box, the system returns information about the user-defined page parameters in this structure.
@@ -56,7 +54,7 @@ class PAGESETUPDLGA extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
+                this.__hwndOwner := HWND(8, this)
             return this.__hwndOwner
         }
     }
@@ -70,7 +68,7 @@ class PAGESETUPDLGA extends Win32Struct
     hDevMode{
         get {
             if(!this.HasProp("__hDevMode"))
-                this.__hDevMode := HGLOBAL(this.ptr + 16)
+                this.__hDevMode := HGLOBAL(16, this)
             return this.__hDevMode
         }
     }
@@ -85,7 +83,7 @@ class PAGESETUPDLGA extends Win32Struct
     hDevNames{
         get {
             if(!this.HasProp("__hDevNames"))
-                this.__hDevNames := HGLOBAL(this.ptr + 24)
+                this.__hDevNames := HGLOBAL(24, this)
             return this.__hDevNames
         }
     }
@@ -108,7 +106,7 @@ class PAGESETUPDLGA extends Win32Struct
     ptPaperSize{
         get {
             if(!this.HasProp("__ptPaperSize"))
-                this.__ptPaperSize := POINT(this.ptr + 40)
+                this.__ptPaperSize := POINT(40, this)
             return this.__ptPaperSize
         }
     }
@@ -122,7 +120,7 @@ class PAGESETUPDLGA extends Win32Struct
     rtMinMargin{
         get {
             if(!this.HasProp("__rtMinMargin"))
-                this.__rtMinMargin := RECT(this.ptr + 48)
+                this.__rtMinMargin := RECT(48, this)
             return this.__rtMinMargin
         }
     }
@@ -136,7 +134,7 @@ class PAGESETUPDLGA extends Win32Struct
     rtMargin{
         get {
             if(!this.HasProp("__rtMargin"))
-                this.__rtMargin := RECT(this.ptr + 64)
+                this.__rtMargin := RECT(64, this)
             return this.__rtMargin
         }
     }
@@ -150,7 +148,7 @@ class PAGESETUPDLGA extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 80)
+                this.__hInstance := HINSTANCE(80, this)
             return this.__hInstance
         }
     }
@@ -161,12 +159,9 @@ class PAGESETUPDLGA extends Win32Struct
      * Application-defined data that the system passes to the hook procedure identified by the <b>lpfnPageSetupHook</b> member. When the system sends the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message to the hook procedure, the message's <i>lParam</i> parameter is a pointer to the <b>PAGESETUPDLG</b> structure specified when the dialog was created. The hook procedure can use this pointer to get the <b>lCustData</b> value.
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 88)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -197,12 +192,9 @@ class PAGESETUPDLGA extends Win32Struct
      * The name of the dialog box template resource in the module identified by the <b>hInstance</b> member. This template is substituted for the standard dialog box template. For numbered dialog box resources, <b>lpPageSetupTemplateName</b> can be a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored unless the <b>PSD_ENABLEPAGESETUPTEMPLATE</b> flag is set in the <b>Flags</b> member.
      * @type {PSTR}
      */
-    lpPageSetupTemplateName{
-        get {
-            if(!this.HasProp("__lpPageSetupTemplateName"))
-                this.__lpPageSetupTemplateName := PSTR(this.ptr + 112)
-            return this.__lpPageSetupTemplateName
-        }
+    lpPageSetupTemplateName {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -214,7 +206,7 @@ class PAGESETUPDLGA extends Win32Struct
     hPageSetupTemplate{
         get {
             if(!this.HasProp("__hPageSetupTemplate"))
-                this.__hPageSetupTemplate := HGLOBAL(this.ptr + 120)
+                this.__hPageSetupTemplate := HGLOBAL(120, this)
             return this.__hPageSetupTemplate
         }
     }

@@ -3,7 +3,6 @@
 #Include .\EMR.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include .\XFORM.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
@@ -21,7 +20,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -32,7 +31,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     rclBounds{
         get {
             if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(this.ptr + 8)
+                this.__rclBounds := RECTL(8, this)
             return this.__rclBounds
         }
     }
@@ -99,7 +98,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     xformSrc{
         get {
             if(!this.HasProp("__xformSrc"))
-                this.__xformSrc := XFORM(this.ptr + 56)
+                this.__xformSrc := XFORM(56, this)
             return this.__xformSrc
         }
     }
@@ -107,12 +106,9 @@ class EMRTRANSPARENTBLT extends Win32Struct
     /**
      * @type {COLORREF}
      */
-    crBkColorSrc{
-        get {
-            if(!this.HasProp("__crBkColorSrc"))
-                this.__crBkColorSrc := COLORREF(this.ptr + 80)
-            return this.__crBkColorSrc
-        }
+    crBkColorSrc {
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**

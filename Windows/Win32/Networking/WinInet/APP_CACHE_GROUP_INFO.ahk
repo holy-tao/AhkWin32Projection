@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -16,12 +15,9 @@ class APP_CACHE_GROUP_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszManifestUrl{
-        get {
-            if(!this.HasProp("__pwszManifestUrl"))
-                this.__pwszManifestUrl := PWSTR(this.ptr + 0)
-            return this.__pwszManifestUrl
-        }
+    pwszManifestUrl {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -30,7 +26,7 @@ class APP_CACHE_GROUP_INFO extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(this.ptr + 8)
+                this.__ftLastAccessTime := FILETIME(8, this)
             return this.__ftLastAccessTime
         }
     }

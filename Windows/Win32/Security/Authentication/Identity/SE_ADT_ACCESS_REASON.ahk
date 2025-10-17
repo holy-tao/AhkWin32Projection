@@ -53,7 +53,7 @@ class SE_ADT_ACCESS_REASON extends Win32Struct
     SecurityDescriptor{
         get {
             if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 144)
+                this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(144, this)
             return this.__SecurityDescriptor
         }
     }

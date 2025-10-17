@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 #Include .\OCSP_SIGNATURE_INFO.ahk
@@ -34,7 +33,7 @@ class OCSP_BASIC_SIGNED_RESPONSE_INFO extends Win32Struct
     ToBeSigned{
         get {
             if(!this.HasProp("__ToBeSigned"))
-                this.__ToBeSigned := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__ToBeSigned := CRYPT_INTEGER_BLOB(0, this)
             return this.__ToBeSigned
         }
     }
@@ -46,7 +45,7 @@ class OCSP_BASIC_SIGNED_RESPONSE_INFO extends Win32Struct
     SignatureInfo{
         get {
             if(!this.HasProp("__SignatureInfo"))
-                this.__SignatureInfo := OCSP_SIGNATURE_INFO(this.ptr + 16)
+                this.__SignatureInfo := OCSP_SIGNATURE_INFO(16, this)
             return this.__SignatureInfo
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Enables or disables the maintenance mode on a cluster shared volume (CSV).
@@ -19,12 +18,9 @@ class CLUS_CSV_MAINTENANCE_MODE_INFO extends Win32Struct
      *       <b>FALSE</b> disables it.
      * @type {BOOL}
      */
-    InMaintenance{
-        get {
-            if(!this.HasProp("__InMaintenance"))
-                this.__InMaintenance := BOOL(this.ptr + 0)
-            return this.__InMaintenance
-        }
+    InMaintenance {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information the IOCTL_CHANGER_EXCHANGE_MEDIUM control code uses to move a piece of media to a destination, and the piece of media originally in the first destination to a second destination.
@@ -23,7 +22,7 @@ class CHANGER_EXCHANGE_MEDIUM extends Win32Struct
     Transport{
         get {
             if(!this.HasProp("__Transport"))
-                this.__Transport := CHANGER_ELEMENT(this.ptr + 0)
+                this.__Transport := CHANGER_ELEMENT(0, this)
             return this.__Transport
         }
     }
@@ -36,7 +35,7 @@ class CHANGER_EXCHANGE_MEDIUM extends Win32Struct
     Source{
         get {
             if(!this.HasProp("__Source"))
-                this.__Source := CHANGER_ELEMENT(this.ptr + 8)
+                this.__Source := CHANGER_ELEMENT(8, this)
             return this.__Source
         }
     }
@@ -49,7 +48,7 @@ class CHANGER_EXCHANGE_MEDIUM extends Win32Struct
     Destination1{
         get {
             if(!this.HasProp("__Destination1"))
-                this.__Destination1 := CHANGER_ELEMENT(this.ptr + 16)
+                this.__Destination1 := CHANGER_ELEMENT(16, this)
             return this.__Destination1
         }
     }
@@ -62,7 +61,7 @@ class CHANGER_EXCHANGE_MEDIUM extends Win32Struct
     Destination2{
         get {
             if(!this.HasProp("__Destination2"))
-                this.__Destination2 := CHANGER_ELEMENT(this.ptr + 24)
+                this.__Destination2 := CHANGER_ELEMENT(24, this)
             return this.__Destination2
         }
     }
@@ -72,12 +71,9 @@ class CHANGER_EXCHANGE_MEDIUM extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_MEDIUM_FLIP.
      * @type {BOOLEAN}
      */
-    Flip1{
-        get {
-            if(!this.HasProp("__Flip1"))
-                this.__Flip1 := BOOLEAN(this.ptr + 32)
-            return this.__Flip1
-        }
+    Flip1 {
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 
     /**
@@ -85,11 +81,8 @@ class CHANGER_EXCHANGE_MEDIUM extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_MEDIUM_FLIP.
      * @type {BOOLEAN}
      */
-    Flip2{
-        get {
-            if(!this.HasProp("__Flip2"))
-                this.__Flip2 := BOOLEAN(this.ptr + 33)
-            return this.__Flip2
-        }
+    Flip2 {
+        get => NumGet(this, 33, "char")
+        set => NumPut("char", value, this, 33)
     }
 }

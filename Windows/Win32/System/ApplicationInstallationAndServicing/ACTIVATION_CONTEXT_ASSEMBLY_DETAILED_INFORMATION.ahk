@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION structure is used by the QueryActCtxW function.
@@ -226,48 +225,36 @@ class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION extends Win32Struct
      * Pointer to a null-terminated string that contains a textually-encoded format of the assembly's identity.
      * @type {PWSTR}
      */
-    lpAssemblyEncodedAssemblyIdentity{
-        get {
-            if(!this.HasProp("__lpAssemblyEncodedAssemblyIdentity"))
-                this.__lpAssemblyEncodedAssemblyIdentity := PWSTR(this.ptr + 64)
-            return this.__lpAssemblyEncodedAssemblyIdentity
-        }
+    lpAssemblyEncodedAssemblyIdentity {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * Pointer to a null-terminated string that indicates the original path to this assembly's manifest.
      * @type {PWSTR}
      */
-    lpAssemblyManifestPath{
-        get {
-            if(!this.HasProp("__lpAssemblyManifestPath"))
-                this.__lpAssemblyManifestPath := PWSTR(this.ptr + 72)
-            return this.__lpAssemblyManifestPath
-        }
+    lpAssemblyManifestPath {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * Pointer to a null-terminated string that indicates the path of whatever policy assembly was used to determine that this version of the assembly should be loaded. If this member is null, no policy was used to decide to load this version.
      * @type {PWSTR}
      */
-    lpAssemblyPolicyPath{
-        get {
-            if(!this.HasProp("__lpAssemblyPolicyPath"))
-                this.__lpAssemblyPolicyPath := PWSTR(this.ptr + 80)
-            return this.__lpAssemblyPolicyPath
-        }
+    lpAssemblyPolicyPath {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * Pointer to a null-terminated string that indicates the folder from which this assembly was loaded.
      * @type {PWSTR}
      */
-    lpAssemblyDirectoryName{
-        get {
-            if(!this.HasProp("__lpAssemblyDirectoryName"))
-                this.__lpAssemblyDirectoryName := PWSTR(this.ptr + 88)
-            return this.__lpAssemblyDirectoryName
-        }
+    lpAssemblyDirectoryName {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**

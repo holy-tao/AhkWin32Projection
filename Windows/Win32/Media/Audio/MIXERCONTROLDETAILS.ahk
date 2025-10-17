@@ -90,7 +90,7 @@ class MIXERCONTROLDETAILS extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 16)
+                this.__hwndOwner := HWND(16, this)
             return this.__hwndOwner
         }
     }

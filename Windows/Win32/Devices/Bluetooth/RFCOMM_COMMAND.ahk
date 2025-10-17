@@ -28,7 +28,7 @@ class RFCOMM_COMMAND extends Win32Struct
     MSC{
         get {
             if(!this.HasProp("__MSC"))
-                this.__MSC := RFCOMM_MSC_DATA(this.ptr + 7)
+                this.__MSC := RFCOMM_MSC_DATA(7, this)
             return this.__MSC
         }
     }
@@ -39,7 +39,7 @@ class RFCOMM_COMMAND extends Win32Struct
     RLS{
         get {
             if(!this.HasProp("__RLS"))
-                this.__RLS := RFCOMM_RLS_DATA(this.ptr + 7)
+                this.__RLS := RFCOMM_RLS_DATA(7, this)
             return this.__RLS
         }
     }
@@ -50,7 +50,7 @@ class RFCOMM_COMMAND extends Win32Struct
     RPN{
         get {
             if(!this.HasProp("__RPN"))
-                this.__RPN := RFCOMM_RPN_DATA(this.ptr + 7)
+                this.__RPN := RFCOMM_RPN_DATA(7, this)
             return this.__RPN
         }
     }

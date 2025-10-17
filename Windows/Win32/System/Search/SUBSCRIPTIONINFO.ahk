@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\BSTR.ahk
 
 /**
@@ -72,45 +71,33 @@ class SUBSCRIPTIONINFO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bMailNotification{
-        get {
-            if(!this.HasProp("__bMailNotification"))
-                this.__bMailNotification := BOOL(this.ptr + 40)
-            return this.__bMailNotification
-        }
+    bMailNotification {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * @type {BOOL}
      */
-    bGleam{
-        get {
-            if(!this.HasProp("__bGleam"))
-                this.__bGleam := BOOL(this.ptr + 44)
-            return this.__bGleam
-        }
+    bGleam {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
      * @type {BOOL}
      */
-    bChangesOnly{
-        get {
-            if(!this.HasProp("__bChangesOnly"))
-                this.__bChangesOnly := BOOL(this.ptr + 48)
-            return this.__bChangesOnly
-        }
+    bChangesOnly {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * @type {BOOL}
      */
-    bNeedPassword{
-        get {
-            if(!this.HasProp("__bNeedPassword"))
-                this.__bNeedPassword := BOOL(this.ptr + 52)
-            return this.__bNeedPassword
-        }
+    bNeedPassword {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -127,7 +114,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     bstrUserName{
         get {
             if(!this.HasProp("__bstrUserName"))
-                this.__bstrUserName := BSTR(this.ptr + 64)
+                this.__bstrUserName := BSTR(64, this)
             return this.__bstrUserName
         }
     }
@@ -138,7 +125,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     bstrPassword{
         get {
             if(!this.HasProp("__bstrPassword"))
-                this.__bstrPassword := BSTR(this.ptr + 72)
+                this.__bstrPassword := BSTR(72, this)
             return this.__bstrPassword
         }
     }
@@ -149,7 +136,7 @@ class SUBSCRIPTIONINFO extends Win32Struct
     bstrFriendlyName{
         get {
             if(!this.HasProp("__bstrFriendlyName"))
-                this.__bstrFriendlyName := BSTR(this.ptr + 80)
+                this.__bstrFriendlyName := BSTR(80, this)
             return this.__bstrFriendlyName
         }
     }
@@ -186,12 +173,8 @@ class SUBSCRIPTIONINFO extends Win32Struct
         set => NumPut("uint", value, this, 100)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 104
     }
 }

@@ -2,9 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\NET_VALIDATE_PERSISTED_FIELDS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\NET_VALIDATE_PASSWORD_HASH.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * A client application passes the NET_VALIDATE_PASSWORD_RESET_INPUT_ARG structure to the NetValidatePasswordPolicy function when the application requests a password reset validation.
@@ -25,7 +23,7 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
     InputPersistedFields{
         get {
             if(!this.HasProp("__InputPersistedFields"))
-                this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(this.ptr + 0)
+                this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(0, this)
             return this.__InputPersistedFields
         }
     }
@@ -34,24 +32,18 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
      * Pointer to a Unicode string specifying the new password, in plaintext format.
      * @type {PWSTR}
      */
-    ClearPassword{
-        get {
-            if(!this.HasProp("__ClearPassword"))
-                this.__ClearPassword := PWSTR(this.ptr + 48)
-            return this.__ClearPassword
-        }
+    ClearPassword {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Pointer to a Unicode string specifying the name of the user account.
      * @type {PWSTR}
      */
-    UserAccountName{
-        get {
-            if(!this.HasProp("__UserAccountName"))
-                this.__UserAccountName := PWSTR(this.ptr + 56)
-            return this.__UserAccountName
-        }
+    UserAccountName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -61,7 +53,7 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
     HashedPassword{
         get {
             if(!this.HasProp("__HashedPassword"))
-                this.__HashedPassword := NET_VALIDATE_PASSWORD_HASH(this.ptr + 64)
+                this.__HashedPassword := NET_VALIDATE_PASSWORD_HASH(64, this)
             return this.__HashedPassword
         }
     }
@@ -70,23 +62,17 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
      * BOOLEAN value that indicates whether the user must change his or her password at the next logon. If this parameter is <b>TRUE</b>, the user must change the password at the next logon.
      * @type {BOOLEAN}
      */
-    PasswordMustChangeAtNextLogon{
-        get {
-            if(!this.HasProp("__PasswordMustChangeAtNextLogon"))
-                this.__PasswordMustChangeAtNextLogon := BOOLEAN(this.ptr + 80)
-            return this.__PasswordMustChangeAtNextLogon
-        }
+    PasswordMustChangeAtNextLogon {
+        get => NumGet(this, 80, "char")
+        set => NumPut("char", value, this, 80)
     }
 
     /**
      * BOOLEAN value that can reset the "lockout state" of the user account. If this member is <b>TRUE</b>,  the account will no longer be locked out.  Note that an application cannot directly lock out an account.  An account can be locked out only as a result of exceeding the maximum number of invalid password authentications allowed for the account.
      * @type {BOOLEAN}
      */
-    ClearLockout{
-        get {
-            if(!this.HasProp("__ClearLockout"))
-                this.__ClearLockout := BOOLEAN(this.ptr + 81)
-            return this.__ClearLockout
-        }
+    ClearLockout {
+        get => NumGet(this, 81, "char")
+        set => NumPut("char", value, this, 81)
     }
 }

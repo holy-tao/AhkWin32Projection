@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains and receives display information for a toolbar item. This structure is used with the TBN_GETDISPINFO notification code.
@@ -32,7 +31,7 @@ class NMTBDISPINFOA extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -85,12 +84,9 @@ class NMTBDISPINFOA extends Win32Struct
      * Pointer to a character buffer that receives the item's text.
      * @type {PSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PSTR(this.ptr + 48)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

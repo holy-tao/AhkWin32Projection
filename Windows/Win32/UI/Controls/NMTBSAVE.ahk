@@ -25,7 +25,7 @@ class NMTBSAVE extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -100,7 +100,7 @@ class NMTBSAVE extends Win32Struct
     tbButton{
         get {
             if(!this.HasProp("__tbButton"))
-                this.__tbButton := TBBUTTON(this.ptr + 56)
+                this.__tbButton := TBBUTTON(56, this)
             return this.__tbButton
         }
     }

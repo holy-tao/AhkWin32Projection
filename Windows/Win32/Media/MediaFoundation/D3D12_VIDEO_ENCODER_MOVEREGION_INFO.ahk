@@ -34,7 +34,7 @@ class D3D12_VIDEO_ENCODER_MOVEREGION_INFO extends Win32Struct
     MotionSearchModeConfiguration{
         get {
             if(!this.HasProp("__MotionSearchModeConfiguration"))
-                this.__MotionSearchModeConfiguration := D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG(this.ptr + 16)
+                this.__MotionSearchModeConfiguration := D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG(16, this)
             return this.__MotionSearchModeConfiguration
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\TRUSTEE_W.ahk
 
 /**
@@ -28,7 +27,7 @@ class ACTRL_ACCESS_ENTRYW extends Win32Struct
     Trustee{
         get {
             if(!this.HasProp("__Trustee"))
-                this.__Trustee := TRUSTEE_W(this.ptr + 0)
+                this.__Trustee := TRUSTEE_W(0, this)
             return this.__Trustee
         }
     }
@@ -80,11 +79,8 @@ class ACTRL_ACCESS_ENTRYW extends Win32Struct
      * A pointer to a null-terminated string that identifies the object types that can inherit the entry. If you are using this structure with the COM implementation of <a href="https://docs.microsoft.com/windows/desktop/api/iaccess/nn-iaccess-iaccesscontrol">IAccessControl</a>, this member must be <b>NULL</b>.
      * @type {PWSTR}
      */
-    lpInheritProperty{
-        get {
-            if(!this.HasProp("__lpInheritProperty"))
-                this.__lpInheritProperty := PWSTR(this.ptr + 48)
-            return this.__lpInheritProperty
-        }
+    lpInheritProperty {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

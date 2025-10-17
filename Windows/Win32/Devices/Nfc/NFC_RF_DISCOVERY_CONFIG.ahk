@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
@@ -31,12 +30,9 @@ class NFC_RF_DISCOVERY_CONFIG extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    fDisableCardEmulation{
-        get {
-            if(!this.HasProp("__fDisableCardEmulation"))
-                this.__fDisableCardEmulation := BOOLEAN(this.ptr + 8)
-            return this.__fDisableCardEmulation
-        }
+    fDisableCardEmulation {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -50,12 +46,9 @@ class NFC_RF_DISCOVERY_CONFIG extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    fNfcIPTgtModeDisable{
-        get {
-            if(!this.HasProp("__fNfcIPTgtModeDisable"))
-                this.__fNfcIPTgtModeDisable := BOOLEAN(this.ptr + 10)
-            return this.__fNfcIPTgtModeDisable
-        }
+    fNfcIPTgtModeDisable {
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 
     /**

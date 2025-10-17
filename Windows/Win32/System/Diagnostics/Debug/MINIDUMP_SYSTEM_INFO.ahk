@@ -177,7 +177,7 @@ class MINIDUMP_SYSTEM_INFO extends Win32Struct
     Cpu{
         get {
             if(!this.HasProp("__Cpu"))
-                this.__Cpu := CPU_INFORMATION(this.ptr + 32)
+                this.__Cpu := CPU_INFORMATION(32, this)
             return this.__Cpu
         }
     }

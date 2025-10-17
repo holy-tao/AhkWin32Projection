@@ -30,7 +30,7 @@ class OCSP_SIGNED_REQUEST_INFO extends Win32Struct
     ToBeSigned{
         get {
             if(!this.HasProp("__ToBeSigned"))
-                this.__ToBeSigned := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__ToBeSigned := CRYPT_INTEGER_BLOB(0, this)
             return this.__ToBeSigned
         }
     }

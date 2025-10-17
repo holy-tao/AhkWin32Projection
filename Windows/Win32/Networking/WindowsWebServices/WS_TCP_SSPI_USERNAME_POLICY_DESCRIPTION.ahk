@@ -25,7 +25,7 @@ class WS_TCP_SSPI_USERNAME_POLICY_DESCRIPTION extends Win32Struct
     channelProperties{
         get {
             if(!this.HasProp("__channelProperties"))
-                this.__channelProperties := WS_CHANNEL_PROPERTIES(this.ptr + 0)
+                this.__channelProperties := WS_CHANNEL_PROPERTIES(0, this)
             return this.__channelProperties
         }
     }
@@ -37,7 +37,7 @@ class WS_TCP_SSPI_USERNAME_POLICY_DESCRIPTION extends Win32Struct
     securityProperties{
         get {
             if(!this.HasProp("__securityProperties"))
-                this.__securityProperties := WS_SECURITY_PROPERTIES(this.ptr + 16)
+                this.__securityProperties := WS_SECURITY_PROPERTIES(16, this)
             return this.__securityProperties
         }
     }
@@ -49,7 +49,7 @@ class WS_TCP_SSPI_USERNAME_POLICY_DESCRIPTION extends Win32Struct
     sspiTransportSecurityBinding{
         get {
             if(!this.HasProp("__sspiTransportSecurityBinding"))
-                this.__sspiTransportSecurityBinding := WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION(this.ptr + 32)
+                this.__sspiTransportSecurityBinding := WS_SSPI_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION(32, this)
             return this.__sspiTransportSecurityBinding
         }
     }
@@ -61,7 +61,7 @@ class WS_TCP_SSPI_USERNAME_POLICY_DESCRIPTION extends Win32Struct
     usernameMessageSecurityBinding{
         get {
             if(!this.HasProp("__usernameMessageSecurityBinding"))
-                this.__usernameMessageSecurityBinding := WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(this.ptr + 48)
+                this.__usernameMessageSecurityBinding := WS_USERNAME_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(48, this)
             return this.__usernameMessageSecurityBinding
         }
     }

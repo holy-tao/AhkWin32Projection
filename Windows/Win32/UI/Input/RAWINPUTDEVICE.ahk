@@ -61,7 +61,7 @@ class RAWINPUTDEVICE extends Win32Struct
     hwndTarget{
         get {
             if(!this.HasProp("__hwndTarget"))
-                this.__hwndTarget := HWND(this.ptr + 8)
+                this.__hwndTarget := HWND(8, this)
             return this.__hwndTarget
         }
     }

@@ -40,7 +40,7 @@ class GESTURENOTIFYSTRUCT extends Win32Struct
     hwndTarget{
         get {
             if(!this.HasProp("__hwndTarget"))
-                this.__hwndTarget := HWND(this.ptr + 8)
+                this.__hwndTarget := HWND(8, this)
             return this.__hwndTarget
         }
     }
@@ -52,7 +52,7 @@ class GESTURENOTIFYSTRUCT extends Win32Struct
     ptsLocation{
         get {
             if(!this.HasProp("__ptsLocation"))
-                this.__ptsLocation := POINTS(this.ptr + 16)
+                this.__ptsLocation := POINTS(16, this)
             return this.__ptsLocation
         }
     }
@@ -66,12 +66,8 @@ class GESTURENOTIFYSTRUCT extends Win32Struct
         set => NumPut("uint", value, this, 20)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 24
     }
 }

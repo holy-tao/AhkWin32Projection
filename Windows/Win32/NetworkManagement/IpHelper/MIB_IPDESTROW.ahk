@@ -18,7 +18,7 @@ class MIB_IPDESTROW extends Win32Struct
     ForwardRow{
         get {
             if(!this.HasProp("__ForwardRow"))
-                this.__ForwardRow := MIB_IPFORWARDROW(this.ptr + 0)
+                this.__ForwardRow := MIB_IPFORWARDROW(0, this)
             return this.__ForwardRow
         }
     }

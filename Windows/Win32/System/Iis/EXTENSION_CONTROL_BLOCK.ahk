@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HCONN.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -32,12 +30,9 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     /**
      * @type {HCONN}
      */
-    ConnID{
-        get {
-            if(!this.HasProp("__ConnID"))
-                this.__ConnID := HCONN(this.ptr + 8)
-            return this.__ConnID
-        }
+    ConnID {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -59,45 +54,33 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     /**
      * @type {PSTR}
      */
-    lpszMethod{
-        get {
-            if(!this.HasProp("__lpszMethod"))
-                this.__lpszMethod := PSTR(this.ptr + 184)
-            return this.__lpszMethod
-        }
+    lpszMethod {
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
      * @type {PSTR}
      */
-    lpszQueryString{
-        get {
-            if(!this.HasProp("__lpszQueryString"))
-                this.__lpszQueryString := PSTR(this.ptr + 192)
-            return this.__lpszQueryString
-        }
+    lpszQueryString {
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
      * @type {PSTR}
      */
-    lpszPathInfo{
-        get {
-            if(!this.HasProp("__lpszPathInfo"))
-                this.__lpszPathInfo := PSTR(this.ptr + 200)
-            return this.__lpszPathInfo
-        }
+    lpszPathInfo {
+        get => NumGet(this, 200, "ptr")
+        set => NumPut("ptr", value, this, 200)
     }
 
     /**
      * @type {PSTR}
      */
-    lpszPathTranslated{
-        get {
-            if(!this.HasProp("__lpszPathTranslated"))
-                this.__lpszPathTranslated := PSTR(this.ptr + 208)
-            return this.__lpszPathTranslated
-        }
+    lpszPathTranslated {
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**
@@ -127,12 +110,9 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     /**
      * @type {PSTR}
      */
-    lpszContentType{
-        get {
-            if(!this.HasProp("__lpszContentType"))
-                this.__lpszContentType := PSTR(this.ptr + 232)
-            return this.__lpszContentType
-        }
+    lpszContentType {
+        get => NumGet(this, 232, "ptr")
+        set => NumPut("ptr", value, this, 232)
     }
 
     /**
@@ -167,12 +147,8 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
         set => NumPut("ptr", value, this, 264)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 272
     }
 }

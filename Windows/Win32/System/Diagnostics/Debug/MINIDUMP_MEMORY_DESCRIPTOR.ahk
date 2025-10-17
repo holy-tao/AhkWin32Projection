@@ -45,7 +45,7 @@ class MINIDUMP_MEMORY_DESCRIPTOR extends Win32Struct
     Memory{
         get {
             if(!this.HasProp("__Memory"))
-                this.__Memory := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 8)
+                this.__Memory := MINIDUMP_LOCATION_DESCRIPTOR(8, this)
             return this.__Memory
         }
     }

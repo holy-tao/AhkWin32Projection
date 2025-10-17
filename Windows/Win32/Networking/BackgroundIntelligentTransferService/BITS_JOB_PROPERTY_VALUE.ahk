@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Provides the property value of the BITS job based on the value of the BITS_JOB_PROPERTY_ID enumeration.
@@ -47,12 +46,9 @@ class BITS_JOB_PROPERTY_VALUE extends Win32Struct
      * This value is also used when using the <b>BITS_JOB_PROPERTY_ON_DEMAND_MODE</b>  to specify whether the BITS job is in on demand or not.
      * @type {BOOL}
      */
-    Enable{
-        get {
-            if(!this.HasProp("__Enable"))
-                this.__Enable := BOOL(this.ptr + 0)
-            return this.__Enable
-        }
+    Enable {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

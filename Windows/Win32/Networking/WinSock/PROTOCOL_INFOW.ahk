@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a protocol.
@@ -297,11 +296,8 @@ class PROTOCOL_INFOW extends Win32Struct
      * Pointer to a zero-terminated string that supplies a name for the protocol; for example, "SPX2."
      * @type {PWSTR}
      */
-    lpProtocol{
-        get {
-            if(!this.HasProp("__lpProtocol"))
-                this.__lpProtocol := PWSTR(this.ptr + 32)
-            return this.__lpProtocol
-        }
+    lpProtocol {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PEER_NODE_INFO structure contains information that is specific to a particular node in a peer graph.
@@ -36,12 +35,9 @@ class PEER_NODE_INFO extends Win32Struct
      * Specifies the ID of this peer. This value is set for the application by the Peer Graphing Infrastructure. when the application creates or opens a peer graph.
      * @type {PWSTR}
      */
-    pwzPeerId{
-        get {
-            if(!this.HasProp("__pwzPeerId"))
-                this.__pwzPeerId := PWSTR(this.ptr + 16)
-            return this.__pwzPeerId
-        }
+    pwzPeerId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -67,11 +63,8 @@ class PEER_NODE_INFO extends Win32Struct
      * Points to a string  that contains the  attributes that describe this particular node. This string is a free-form text string that is specific to the application. This parameter is optional; the default value is <b>NULL</b>.
      * @type {PWSTR}
      */
-    pwzAttributes{
-        get {
-            if(!this.HasProp("__pwzAttributes"))
-                this.__pwzAttributes := PWSTR(this.ptr + 40)
-            return this.__pwzAttributes
-        }
+    pwzAttributes {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

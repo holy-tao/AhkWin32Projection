@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies certificate selection &quot;subject&quot; criteria for an authentication method.
@@ -31,11 +30,8 @@ class IKEEXT_CERT_NAME0 extends Win32Struct
      * The string to be used for matching the "subject" criteria.
      * @type {PWSTR}
      */
-    certName{
-        get {
-            if(!this.HasProp("__certName"))
-                this.__certName := PWSTR(this.ptr + 8)
-            return this.__certName
-        }
+    certName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -26,7 +26,7 @@ class NVME_SANITIZE_STATUS_LOG extends Win32Struct
     SSTAT{
         get {
             if(!this.HasProp("__SSTAT"))
-                this.__SSTAT := NVME_SANITIZE_STATUS(this.ptr + 2)
+                this.__SSTAT := NVME_SANITIZE_STATUS(2, this)
             return this.__SSTAT
         }
     }

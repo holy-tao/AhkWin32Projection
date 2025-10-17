@@ -20,7 +20,7 @@ class BIND_OPTS3 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := BIND_OPTS2(this.ptr + 0)
+                this.__Base := BIND_OPTS2(0, this)
             return this.__Base
         }
     }
@@ -31,7 +31,7 @@ class BIND_OPTS3 extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 40)
+                this.__hwnd := HWND(40, this)
             return this.__hwnd
         }
     }

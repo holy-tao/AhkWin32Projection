@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DATABLOCK_HEADER.ahk
 #Include ..\..\System\Console\COORD.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Holds an extra data block used by IShellLinkDataList. It holds console properties.
@@ -13,7 +11,7 @@
  */
 class NT_CONSOLE_PROPS extends Win32Struct
 {
-    static sizeof => 272
+    static sizeof => 208
 
     static packingSize => 8
 
@@ -26,7 +24,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     dbh{
         get {
             if(!this.HasProp("__dbh"))
-                this.__dbh := DATABLOCK_HEADER(this.ptr + 0)
+                this.__dbh := DATABLOCK_HEADER(0, this)
             return this.__dbh
         }
     }
@@ -62,7 +60,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     dwScreenBufferSize{
         get {
             if(!this.HasProp("__dwScreenBufferSize"))
-                this.__dwScreenBufferSize := COORD(this.ptr + 12)
+                this.__dwScreenBufferSize := COORD(12, this)
             return this.__dwScreenBufferSize
         }
     }
@@ -76,7 +74,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     dwWindowSize{
         get {
             if(!this.HasProp("__dwWindowSize"))
-                this.__dwWindowSize := COORD(this.ptr + 16)
+                this.__dwWindowSize := COORD(16, this)
             return this.__dwWindowSize
         }
     }
@@ -90,7 +88,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     dwWindowOrigin{
         get {
             if(!this.HasProp("__dwWindowOrigin"))
-                this.__dwWindowOrigin := COORD(this.ptr + 20)
+                this.__dwWindowOrigin := COORD(20, this)
             return this.__dwWindowOrigin
         }
     }
@@ -126,7 +124,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     dwFontSize{
         get {
             if(!this.HasProp("__dwFontSize"))
-                this.__dwFontSize := COORD(this.ptr + 32)
+                this.__dwFontSize := COORD(32, this)
             return this.__dwFontSize
         }
     }
@@ -181,12 +179,9 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * A boolean value that is set to <b>TRUE</b> if the console is in full-screen mode, or <b>FALSE</b> otherwise.
      * @type {BOOL}
      */
-    bFullScreen{
-        get {
-            if(!this.HasProp("__bFullScreen"))
-                this.__bFullScreen := BOOL(this.ptr + 112)
-            return this.__bFullScreen
-        }
+    bFullScreen {
+        get => NumGet(this, 112, "int")
+        set => NumPut("int", value, this, 112)
     }
 
     /**
@@ -195,12 +190,9 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * A boolean value that is set to <b>TRUE</b> if the console is in quick-edit mode, or <b>FALSE</b> otherwise.
      * @type {BOOL}
      */
-    bQuickEdit{
-        get {
-            if(!this.HasProp("__bQuickEdit"))
-                this.__bQuickEdit := BOOL(this.ptr + 116)
-            return this.__bQuickEdit
-        }
+    bQuickEdit {
+        get => NumGet(this, 116, "int")
+        set => NumPut("int", value, this, 116)
     }
 
     /**
@@ -209,12 +201,9 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * A boolean value that is set to <b>TRUE</b> if the console is in insert mode, or <b>FALSE</b> otherwise.
      * @type {BOOL}
      */
-    bInsertMode{
-        get {
-            if(!this.HasProp("__bInsertMode"))
-                this.__bInsertMode := BOOL(this.ptr + 120)
-            return this.__bInsertMode
-        }
+    bInsertMode {
+        get => NumGet(this, 120, "int")
+        set => NumPut("int", value, this, 120)
     }
 
     /**
@@ -223,12 +212,9 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * A boolean value that is set to <b>TRUE</b> if the console is in auto-position mode, or <b>FALSE</b> otherwise.
      * @type {BOOL}
      */
-    bAutoPosition{
-        get {
-            if(!this.HasProp("__bAutoPosition"))
-                this.__bAutoPosition := BOOL(this.ptr + 124)
-            return this.__bAutoPosition
-        }
+    bAutoPosition {
+        get => NumGet(this, 124, "int")
+        set => NumPut("int", value, this, 124)
     }
 
     /**
@@ -259,12 +245,9 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * A boolean value that is set to <b>TRUE</b> if old duplicate history lists should be discarded, or <b>FALSE</b> otherwise.
      * @type {BOOL}
      */
-    bHistoryNoDup{
-        get {
-            if(!this.HasProp("__bHistoryNoDup"))
-                this.__bHistoryNoDup := BOOL(this.ptr + 136)
-            return this.__bHistoryNoDup
-        }
+    bHistoryNoDup {
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -276,7 +259,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     ColorTable{
         get {
             if(!this.HasProp("__ColorTableProxyArray"))
-                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 144, 16, COLORREF, "")
+                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 140, 16, COLORREF, "")
             return this.__ColorTableProxyArray
         }
     }

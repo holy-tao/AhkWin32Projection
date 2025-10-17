@@ -51,7 +51,7 @@ class WindowsFirewall {
     static NcIsValidConnectionName(pszwName) {
         pszwName := pszwName is String ? StrPtr(pszwName) : pszwName
 
-        result := DllCall("Netshell.dll\NcIsValidConnectionName", "ptr", pszwName, "ptr")
+        result := DllCall("Netshell.dll\NcIsValidConnectionName", "ptr", pszwName, "int")
         return result
     }
 
@@ -91,7 +91,7 @@ class WindowsFirewall {
         packageFolder := packageFolder is String ? StrPtr(packageFolder) : packageFolder
         displayName := displayName is String ? StrPtr(displayName) : displayName
 
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationSetupAppContainerBinaries", "ptr", applicationContainerSid, "ptr", packageFullName, "ptr", packageFolder, "ptr", displayName, "ptr", bBinariesFullyComputed, "ptr", binaries, "uint", binariesCount, "int")
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationSetupAppContainerBinaries", "ptr", applicationContainerSid, "ptr", packageFullName, "ptr", packageFolder, "ptr", displayName, "int", bBinariesFullyComputed, "ptr", binaries, "uint", binariesCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -400,7 +400,7 @@ class WindowsFirewall {
     static NetworkIsolationGetEnterpriseIdClose(hOperation, bWaitForOperation) {
         hOperation := hOperation is Win32Handle ? NumGet(hOperation, "ptr") : hOperation
 
-        result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdClose", "ptr", hOperation, "ptr", bWaitForOperation, "uint")
+        result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdClose", "ptr", hOperation, "int", bWaitForOperation, "uint")
         return result
     }
 

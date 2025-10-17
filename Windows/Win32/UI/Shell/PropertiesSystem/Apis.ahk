@@ -609,7 +609,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetItemPropertyHandler(punkItem, fReadWrite, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandler", "ptr", punkItem, "ptr", fReadWrite, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandler", "ptr", punkItem, "int", fReadWrite, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -646,7 +646,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetItemPropertyHandlerWithCreateObject(punkItem, fReadWrite, punkCreateObject, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandlerWithCreateObject", "ptr", punkItem, "ptr", fReadWrite, "ptr", punkCreateObject, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandlerWithCreateObject", "ptr", punkItem, "int", fReadWrite, "ptr", punkCreateObject, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1792,7 +1792,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteBOOL(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteBOOL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteBOOL", "ptr", propBag, "ptr", propName, "int", value, "int")
         if(result != 0)
             throw OSError(result)
 

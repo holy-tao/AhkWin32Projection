@@ -26,7 +26,7 @@ class SECPKG_REDIRECTED_LOGON_BUFFER extends Win32Struct
     RedirectedLogonHandle{
         get {
             if(!this.HasProp("__RedirectedLogonHandle"))
-                this.__RedirectedLogonHandle := HANDLE(this.ptr + 8)
+                this.__RedirectedLogonHandle := HANDLE(8, this)
             return this.__RedirectedLogonHandle
         }
     }

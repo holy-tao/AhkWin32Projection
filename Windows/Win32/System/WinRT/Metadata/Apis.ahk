@@ -1512,7 +1512,7 @@ class Metadata {
     static RoParameterizedTypeExtraGetTypeSignature(extra) {
         extra := extra is Win32Handle ? NumGet(extra, "ptr") : extra
 
-        result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoParameterizedTypeExtraGetTypeSignature", "ptr", extra, "ptr")
+        result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoParameterizedTypeExtraGetTypeSignature", "ptr", extra, "char*")
         return result
     }
 

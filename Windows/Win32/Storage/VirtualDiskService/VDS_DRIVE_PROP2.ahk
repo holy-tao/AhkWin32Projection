@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of a drive object. This structure is identical to the VDS_DRIVE_PROP structure, except that it includes the enclosure number, bus type, and spindle speed as members.
@@ -40,24 +39,18 @@ class VDS_DRIVE_PROP2 extends Win32Struct
      * A <b>NULL</b>-terminated wide-character string that contains the name of the drive.
      * @type {PWSTR}
      */
-    pwszFriendlyName{
-        get {
-            if(!this.HasProp("__pwszFriendlyName"))
-                this.__pwszFriendlyName := PWSTR(this.ptr + 16)
-            return this.__pwszFriendlyName
-        }
+    pwszFriendlyName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains the drive identifier.
      * @type {PWSTR}
      */
-    pwszIdentification{
-        get {
-            if(!this.HasProp("__pwszIdentification"))
-                this.__pwszIdentification := PWSTR(this.ptr + 24)
-            return this.__pwszIdentification
-        }
+    pwszIdentification {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

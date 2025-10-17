@@ -34,7 +34,7 @@ class NDR64_VAR_ARRAY_HEADER_FORMAT extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := NDR64_ARRAY_FLAGS(this.ptr + 2)
+                this.__Flags := NDR64_ARRAY_FLAGS(2, this)
             return this.__Flags
         }
     }

@@ -34,7 +34,7 @@ class WIA_DITHER_PATTERN_DATA extends Win32Struct
     bstrPatternName{
         get {
             if(!this.HasProp("__bstrPatternName"))
-                this.__bstrPatternName := BSTR(this.ptr + 8)
+                this.__bstrPatternName := BSTR(8, this)
             return this.__bstrPatternName
         }
     }

@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\HTREEITEM.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Specifies or receives attributes of a tree-view item. This structure is identical to the TV_ITEM structure, but it has been renamed to follow current naming conventions. New applications should use this structure.
@@ -37,12 +34,9 @@ class TVITEMW extends Win32Struct
      * Handle to the item.
      * @type {HTREEITEM}
      */
-    hItem{
-        get {
-            if(!this.HasProp("__hItem"))
-                this.__hItem := HTREEITEM(this.ptr + 8)
-            return this.__hItem
-        }
+    hItem {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -97,12 +91,9 @@ class TVITEMW extends Win32Struct
      * Pointer to a null-terminated string that contains the item text if the structure specifies item attributes. If this member is the LPSTR_TEXTCALLBACK value, the parent window is responsible for storing the name. In this case, the tree-view control sends the parent window a <a href="https://docs.microsoft.com/windows/desktop/Controls/tvn-getdispinfo">TVN_GETDISPINFO</a> notification code when it needs the item text for displaying, sorting, or editing and a <a href="https://docs.microsoft.com/windows/desktop/Controls/tvn-setdispinfo">TVN_SETDISPINFO</a> notification code when the item text changes. If the structure is receiving item attributes, this member is the address of the buffer that receives the item text. Note that although the tree-view control allows any length string to be stored as item text, only the first 260 characters are displayed.
      * @type {PWSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PWSTR(this.ptr + 24)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -154,11 +145,8 @@ class TVITEMW extends Win32Struct
      * A value to associate with the item.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 48)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

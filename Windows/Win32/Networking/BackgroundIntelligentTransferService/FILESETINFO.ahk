@@ -21,7 +21,7 @@ class FILESETINFO extends Win32Struct
     bstrRemoteFile{
         get {
             if(!this.HasProp("__bstrRemoteFile"))
-                this.__bstrRemoteFile := BSTR(this.ptr + 0)
+                this.__bstrRemoteFile := BSTR(0, this)
             return this.__bstrRemoteFile
         }
     }
@@ -33,7 +33,7 @@ class FILESETINFO extends Win32Struct
     bstrLocalFile{
         get {
             if(!this.HasProp("__bstrLocalFile"))
-                this.__bstrLocalFile := BSTR(this.ptr + 8)
+                this.__bstrLocalFile := BSTR(8, this)
             return this.__bstrLocalFile
         }
     }

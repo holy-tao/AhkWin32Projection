@@ -29,7 +29,7 @@ class APO_NOTIFICATION_DESCRIPTOR extends Win32Struct
     audioEndpointVolume{
         get {
             if(!this.HasProp("__audioEndpointVolume"))
-                this.__audioEndpointVolume := AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR(this.ptr + 8)
+                this.__audioEndpointVolume := AUDIO_ENDPOINT_VOLUME_APO_NOTIFICATION_DESCRIPTOR(8, this)
             return this.__audioEndpointVolume
         }
     }
@@ -40,7 +40,7 @@ class APO_NOTIFICATION_DESCRIPTOR extends Win32Struct
     audioEndpointPropertyChange{
         get {
             if(!this.HasProp("__audioEndpointPropertyChange"))
-                this.__audioEndpointPropertyChange := AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(this.ptr + 8)
+                this.__audioEndpointPropertyChange := AUDIO_ENDPOINT_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(8, this)
             return this.__audioEndpointPropertyChange
         }
     }
@@ -51,7 +51,7 @@ class APO_NOTIFICATION_DESCRIPTOR extends Win32Struct
     audioSystemEffectsPropertyChange{
         get {
             if(!this.HasProp("__audioSystemEffectsPropertyChange"))
-                this.__audioSystemEffectsPropertyChange := AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(this.ptr + 8)
+                this.__audioSystemEffectsPropertyChange := AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_APO_NOTIFICATION_DESCRIPTOR(8, this)
             return this.__audioSystemEffectsPropertyChange
         }
     }
@@ -62,7 +62,7 @@ class APO_NOTIFICATION_DESCRIPTOR extends Win32Struct
     audioMicrophoneBoost{
         get {
             if(!this.HasProp("__audioMicrophoneBoost"))
-                this.__audioMicrophoneBoost := AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR(this.ptr + 8)
+                this.__audioMicrophoneBoost := AUDIO_MICROPHONE_BOOST_APO_NOTIFICATION_DESCRIPTOR(8, this)
             return this.__audioMicrophoneBoost
         }
     }

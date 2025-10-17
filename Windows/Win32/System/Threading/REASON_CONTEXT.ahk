@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HMODULE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a power request. This structure is used by the PowerCreateRequest and SetWaitableTimerEx functions.
@@ -44,7 +43,7 @@ class REASON_CONTEXT extends Win32Struct
         LocalizedReasonModule{
             get {
                 if(!this.HasProp("__LocalizedReasonModule"))
-                    this.__LocalizedReasonModule := HMODULE(this.ptr + 0)
+                    this.__LocalizedReasonModule := HMODULE(0, this)
                 return this.__LocalizedReasonModule
             }
         }
@@ -81,7 +80,7 @@ class REASON_CONTEXT extends Win32Struct
     Detailed{
         get {
             if(!this.HasProp("__Detailed"))
-                this.__Detailed := %this.__Class%._Detailed(this.ptr + 8)
+                this.__Detailed := %this.__Class%._Detailed(8, this)
             return this.__Detailed
         }
     }
@@ -89,11 +88,8 @@ class REASON_CONTEXT extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    SimpleReasonString{
-        get {
-            if(!this.HasProp("__SimpleReasonString"))
-                this.__SimpleReasonString := PWSTR(this.ptr + 8)
-            return this.__SimpleReasonString
-        }
+    SimpleReasonString {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

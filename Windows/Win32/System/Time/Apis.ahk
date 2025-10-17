@@ -89,7 +89,7 @@ class Time {
     static SystemTimeToTzSpecificLocalTime(lpTimeZoneInformation, lpUniversalTime, lpLocalTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTime", "ptr", lpTimeZoneInformation, "ptr", lpUniversalTime, "ptr", lpLocalTime, "ptr")
+        result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTime", "ptr", lpTimeZoneInformation, "ptr", lpUniversalTime, "ptr", lpLocalTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -117,7 +117,7 @@ class Time {
     static TzSpecificLocalTimeToSystemTime(lpTimeZoneInformation, lpLocalTime, lpUniversalTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTime", "ptr", lpTimeZoneInformation, "ptr", lpLocalTime, "ptr", lpUniversalTime, "ptr")
+        result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTime", "ptr", lpTimeZoneInformation, "ptr", lpLocalTime, "ptr", lpUniversalTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -142,7 +142,7 @@ class Time {
     static FileTimeToSystemTime(lpFileTime, lpSystemTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FileTimeToSystemTime", "ptr", lpFileTime, "ptr", lpSystemTime, "ptr")
+        result := DllCall("KERNEL32.dll\FileTimeToSystemTime", "ptr", lpFileTime, "ptr", lpSystemTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -174,7 +174,7 @@ class Time {
     static SystemTimeToFileTime(lpSystemTime, lpFileTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SystemTimeToFileTime", "ptr", lpSystemTime, "ptr", lpFileTime, "ptr")
+        result := DllCall("KERNEL32.dll\SystemTimeToFileTime", "ptr", lpSystemTime, "ptr", lpFileTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -266,7 +266,7 @@ class Time {
     static SetTimeZoneInformation(lpTimeZoneInformation) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetTimeZoneInformation", "ptr", lpTimeZoneInformation, "ptr")
+        result := DllCall("KERNEL32.dll\SetTimeZoneInformation", "ptr", lpTimeZoneInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -286,7 +286,7 @@ class Time {
     static SetDynamicTimeZoneInformation(lpTimeZoneInformation) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetDynamicTimeZoneInformation", "ptr", lpTimeZoneInformation, "ptr")
+        result := DllCall("KERNEL32.dll\SetDynamicTimeZoneInformation", "ptr", lpTimeZoneInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -378,7 +378,7 @@ class Time {
     static GetTimeZoneInformationForYear(wYear, pdtzi, ptzi) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetTimeZoneInformationForYear", "ushort", wYear, "ptr", pdtzi, "ptr", ptzi, "ptr")
+        result := DllCall("KERNEL32.dll\GetTimeZoneInformationForYear", "ushort", wYear, "ptr", pdtzi, "ptr", ptzi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -483,7 +483,7 @@ class Time {
     static SystemTimeToTzSpecificLocalTimeEx(lpTimeZoneInformation, lpUniversalTime, lpLocalTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTimeEx", "ptr", lpTimeZoneInformation, "ptr", lpUniversalTime, "ptr", lpLocalTime, "ptr")
+        result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTimeEx", "ptr", lpTimeZoneInformation, "ptr", lpUniversalTime, "ptr", lpLocalTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -505,7 +505,7 @@ class Time {
     static TzSpecificLocalTimeToSystemTimeEx(lpTimeZoneInformation, lpLocalTime, lpUniversalTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTimeEx", "ptr", lpTimeZoneInformation, "ptr", lpLocalTime, "ptr", lpUniversalTime, "ptr")
+        result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTimeEx", "ptr", lpTimeZoneInformation, "ptr", lpLocalTime, "ptr", lpUniversalTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -520,7 +520,7 @@ class Time {
      * @returns {BOOL} 
      */
     static LocalFileTimeToLocalSystemTime(timeZoneInformation, localFileTime, localSystemTime) {
-        result := DllCall("KERNEL32.dll\LocalFileTimeToLocalSystemTime", "ptr", timeZoneInformation, "ptr", localFileTime, "ptr", localSystemTime, "ptr")
+        result := DllCall("KERNEL32.dll\LocalFileTimeToLocalSystemTime", "ptr", timeZoneInformation, "ptr", localFileTime, "ptr", localSystemTime, "int")
         return result
     }
 
@@ -532,7 +532,7 @@ class Time {
      * @returns {BOOL} 
      */
     static LocalSystemTimeToLocalFileTime(timeZoneInformation, localSystemTime, localFileTime) {
-        result := DllCall("KERNEL32.dll\LocalSystemTimeToLocalFileTime", "ptr", timeZoneInformation, "ptr", localSystemTime, "ptr", localFileTime, "ptr")
+        result := DllCall("KERNEL32.dll\LocalSystemTimeToLocalFileTime", "ptr", timeZoneInformation, "ptr", localSystemTime, "ptr", localFileTime, "int")
         return result
     }
 

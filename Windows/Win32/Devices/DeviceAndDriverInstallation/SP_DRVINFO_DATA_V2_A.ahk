@@ -67,7 +67,7 @@ class SP_DRVINFO_DATA_V2_A extends Win32Struct
     DriverDate{
         get {
             if(!this.HasProp("__DriverDate"))
-                this.__DriverDate := FILETIME(this.ptr + 784)
+                this.__DriverDate := FILETIME(784, this)
             return this.__DriverDate
         }
     }
@@ -80,12 +80,8 @@ class SP_DRVINFO_DATA_V2_A extends Win32Struct
         set => NumPut("uint", value, this, 792)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 800
     }
 }

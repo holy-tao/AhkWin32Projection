@@ -228,7 +228,7 @@ class smiVALUE extends Win32Struct
     hNumber{
         get {
             if(!this.HasProp("__hNumber"))
-                this.__hNumber := smiCNTR64(this.ptr + 8)
+                this.__hNumber := smiCNTR64(8, this)
             return this.__hNumber
         }
     }
@@ -239,7 +239,7 @@ class smiVALUE extends Win32Struct
     string{
         get {
             if(!this.HasProp("__string"))
-                this.__string := smiOCTETS(this.ptr + 8)
+                this.__string := smiOCTETS(8, this)
             return this.__string
         }
     }
@@ -250,7 +250,7 @@ class smiVALUE extends Win32Struct
     oid{
         get {
             if(!this.HasProp("__oid"))
-                this.__oid := smiOID(this.ptr + 8)
+                this.__oid := smiOID(8, this)
             return this.__oid
         }
     }

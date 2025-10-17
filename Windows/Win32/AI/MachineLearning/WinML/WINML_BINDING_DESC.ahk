@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\WINML_TENSOR_BINDING_DESC.ahk
 #Include .\WINML_SEQUENCE_BINDING_DESC.ahk
 #Include .\WINML_MAP_BINDING_DESC.ahk
@@ -23,12 +22,9 @@ class WINML_BINDING_DESC extends Win32Struct
      * The name of the WinML binding.
      * @type {PWSTR}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PWSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -46,7 +42,7 @@ class WINML_BINDING_DESC extends Win32Struct
     Tensor{
         get {
             if(!this.HasProp("__Tensor"))
-                this.__Tensor := WINML_TENSOR_BINDING_DESC(this.ptr + 16)
+                this.__Tensor := WINML_TENSOR_BINDING_DESC(16, this)
             return this.__Tensor
         }
     }
@@ -57,7 +53,7 @@ class WINML_BINDING_DESC extends Win32Struct
     Sequence{
         get {
             if(!this.HasProp("__Sequence"))
-                this.__Sequence := WINML_SEQUENCE_BINDING_DESC(this.ptr + 16)
+                this.__Sequence := WINML_SEQUENCE_BINDING_DESC(16, this)
             return this.__Sequence
         }
     }
@@ -68,7 +64,7 @@ class WINML_BINDING_DESC extends Win32Struct
     Map{
         get {
             if(!this.HasProp("__Map"))
-                this.__Map := WINML_MAP_BINDING_DESC(this.ptr + 16)
+                this.__Map := WINML_MAP_BINDING_DESC(16, this)
             return this.__Map
         }
     }
@@ -79,7 +75,7 @@ class WINML_BINDING_DESC extends Win32Struct
     Image{
         get {
             if(!this.HasProp("__Image"))
-                this.__Image := WINML_IMAGE_BINDING_DESC(this.ptr + 16)
+                this.__Image := WINML_IMAGE_BINDING_DESC(16, this)
             return this.__Image
         }
     }
@@ -90,7 +86,7 @@ class WINML_BINDING_DESC extends Win32Struct
     Resource{
         get {
             if(!this.HasProp("__Resource"))
-                this.__Resource := WINML_RESOURCE_BINDING_DESC(this.ptr + 16)
+                this.__Resource := WINML_RESOURCE_BINDING_DESC(16, this)
             return this.__Resource
         }
     }

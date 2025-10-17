@@ -42,7 +42,7 @@ class AACS_READ_BINDING_NONCE extends Win32Struct
     Handle{
         get {
             if(!this.HasProp("__Handle"))
-                this.__Handle := HANDLE(this.ptr + 16)
+                this.__Handle := HANDLE(16, this)
             return this.__Handle
         }
     }

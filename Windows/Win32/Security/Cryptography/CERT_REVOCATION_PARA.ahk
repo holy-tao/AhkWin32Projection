@@ -66,7 +66,7 @@ class CERT_REVOCATION_PARA extends Win32Struct
     hCrlStore{
         get {
             if(!this.HasProp("__hCrlStore"))
-                this.__hCrlStore := HCERTSTORE(this.ptr + 32)
+                this.__hCrlStore := HCERTSTORE(32, this)
             return this.__hCrlStore
         }
     }
@@ -80,12 +80,8 @@ class CERT_REVOCATION_PARA extends Win32Struct
         set => NumPut("ptr", value, this, 40)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

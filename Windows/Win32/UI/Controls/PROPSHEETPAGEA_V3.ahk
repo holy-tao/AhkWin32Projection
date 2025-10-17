@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -38,7 +36,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 8)
+                this.__hInstance := HINSTANCE(8, this)
             return this.__hInstance
         }
     }
@@ -46,12 +44,9 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszTemplate{
-        get {
-            if(!this.HasProp("__pszTemplate"))
-                this.__pszTemplate := PSTR(this.ptr + 16)
-            return this.__pszTemplate
-        }
+    pszTemplate {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -68,7 +63,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 24)
+                this.__hIcon := HICON(24, this)
             return this.__hIcon
         }
     }
@@ -76,23 +71,17 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszIcon{
-        get {
-            if(!this.HasProp("__pszIcon"))
-                this.__pszIcon := PSTR(this.ptr + 24)
-            return this.__pszIcon
-        }
+    pszIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    pszTitle{
-        get {
-            if(!this.HasProp("__pszTitle"))
-                this.__pszTitle := PSTR(this.ptr + 32)
-            return this.__pszTitle
-        }
+    pszTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -106,12 +95,9 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 48)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -133,23 +119,17 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszHeaderTitle{
-        get {
-            if(!this.HasProp("__pszHeaderTitle"))
-                this.__pszHeaderTitle := PSTR(this.ptr + 72)
-            return this.__pszHeaderTitle
-        }
+    pszHeaderTitle {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {PSTR}
      */
-    pszHeaderSubTitle{
-        get {
-            if(!this.HasProp("__pszHeaderSubTitle"))
-                this.__pszHeaderSubTitle := PSTR(this.ptr + 80)
-            return this.__pszHeaderSubTitle
-        }
+    pszHeaderSubTitle {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -158,7 +138,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     hActCtx{
         get {
             if(!this.HasProp("__hActCtx"))
-                this.__hActCtx := HANDLE(this.ptr + 88)
+                this.__hActCtx := HANDLE(88, this)
             return this.__hActCtx
         }
     }

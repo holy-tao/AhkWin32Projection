@@ -66,7 +66,7 @@ class STORAGE_ENDURANCE_INFO extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(this.ptr + 8)
+                this.__Flags := %this.__Class%._Flags(8, this)
             return this.__Flags
         }
     }

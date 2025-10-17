@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains information about a registry value. The RegQueryMultipleValues function uses this structure.
@@ -25,12 +24,9 @@ class VALENTA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regquerymultiplevaluesa">RegQueryMultipleValues</a>.
      * @type {PSTR}
      */
-    ve_valuename{
-        get {
-            if(!this.HasProp("__ve_valuename"))
-                this.__ve_valuename := PSTR(this.ptr + 0)
-            return this.__ve_valuename
-        }
+    ve_valuename {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

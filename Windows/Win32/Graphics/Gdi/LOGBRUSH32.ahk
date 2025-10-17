@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The LOGBRUSH32 structure defines the style, color, and pattern of a physical brush.
@@ -77,12 +76,9 @@ class LOGBRUSH32 extends Win32Struct
      * The color in which the brush is to be drawn. If <b>lbStyle</b> is the BS_HOLLOW or BS_PATTERN style, <b>lbColor</b> is ignored.
      * @type {COLORREF}
      */
-    lbColor{
-        get {
-            if(!this.HasProp("__lbColor"))
-                this.__lbColor := COLORREF(this.ptr + 4)
-            return this.__lbColor
-        }
+    lbColor {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11
@@ -15,12 +14,9 @@ class D3D11_FEATURE_DATA_DISPLAYABLE extends Win32Struct
     /**
      * @type {BOOL}
      */
-    DisplayableTexture{
-        get {
-            if(!this.HasProp("__DisplayableTexture"))
-                this.__DisplayableTexture := BOOL(this.ptr + 0)
-            return this.__DisplayableTexture
-        }
+    DisplayableTexture {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

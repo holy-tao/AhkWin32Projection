@@ -154,7 +154,7 @@ class GUEST_OS_INFO extends Win32Struct
     ClosedSource{
         get {
             if(!this.HasProp("__ClosedSource"))
-                this.__ClosedSource := %this.__Class%._ClosedSource(this.ptr + 0)
+                this.__ClosedSource := %this.__Class%._ClosedSource(0, this)
             return this.__ClosedSource
         }
     }
@@ -165,7 +165,7 @@ class GUEST_OS_INFO extends Win32Struct
     OpenSource{
         get {
             if(!this.HasProp("__OpenSource"))
-                this.__OpenSource := %this.__Class%._OpenSource(this.ptr + 0)
+                this.__OpenSource := %this.__Class%._OpenSource(0, this)
             return this.__OpenSource
         }
     }

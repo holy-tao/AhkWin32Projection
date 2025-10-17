@@ -18,7 +18,7 @@ class DEVICE_DATA_SET_REPAIR_OUTPUT extends Win32Struct
     ParityExtent{
         get {
             if(!this.HasProp("__ParityExtent"))
-                this.__ParityExtent := DEVICE_DATA_SET_RANGE(this.ptr + 0)
+                this.__ParityExtent := DEVICE_DATA_SET_RANGE(0, this)
             return this.__ParityExtent
         }
     }

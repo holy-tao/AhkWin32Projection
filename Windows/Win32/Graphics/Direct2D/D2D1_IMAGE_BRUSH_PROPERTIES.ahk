@@ -23,7 +23,7 @@ class D2D1_IMAGE_BRUSH_PROPERTIES extends Win32Struct
     sourceRectangle{
         get {
             if(!this.HasProp("__sourceRectangle"))
-                this.__sourceRectangle := D2D_RECT_F(this.ptr + 0)
+                this.__sourceRectangle := D2D_RECT_F(0, this)
             return this.__sourceRectangle
         }
     }

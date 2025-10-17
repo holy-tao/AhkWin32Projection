@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Note  This structure is deprecated.  Contains parameters used in the UiaFind function.
@@ -31,12 +30,9 @@ class UiaFindParams extends Win32Struct
      * <b>TRUE</b> to return only the first matching element; <b>FALSE</b> to return all matching elements.
      * @type {BOOL}
      */
-    FindFirst{
-        get {
-            if(!this.HasProp("__FindFirst"))
-                this.__FindFirst := BOOL(this.ptr + 4)
-            return this.__FindFirst
-        }
+    FindFirst {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -45,12 +41,9 @@ class UiaFindParams extends Win32Struct
      * <b>TRUE</b> to exclude the root element; otherwise <b>FALSE</b>.
      * @type {BOOL}
      */
-    ExcludeRoot{
-        get {
-            if(!this.HasProp("__ExcludeRoot"))
-                this.__ExcludeRoot := BOOL(this.ptr + 8)
-            return this.__ExcludeRoot
-        }
+    ExcludeRoot {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**

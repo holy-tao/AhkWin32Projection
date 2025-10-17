@@ -26,7 +26,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     dpcLineCaps{
         get {
             if(!this.HasProp("__dpcLineCaps"))
-                this.__dpcLineCaps := D3DPRIMCAPS(this.ptr + 8)
+                this.__dpcLineCaps := D3DPRIMCAPS(8, this)
             return this.__dpcLineCaps
         }
     }
@@ -37,7 +37,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     dpcTriCaps{
         get {
             if(!this.HasProp("__dpcTriCaps"))
-                this.__dpcTriCaps := D3DPRIMCAPS(this.ptr + 64)
+                this.__dpcTriCaps := D3DPRIMCAPS(64, this)
             return this.__dpcTriCaps
         }
     }

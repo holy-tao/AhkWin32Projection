@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\LUID.ahk
 #Include .\DISPLAYCONFIG_RATIONAL.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DISPLAYCONFIG_PATH_TARGET_INFO structure contains target information for a single path.
@@ -32,7 +31,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
     adapterId{
         get {
             if(!this.HasProp("__adapterId"))
-                this.__adapterId := LUID(this.ptr + 0)
+                this.__adapterId := LUID(0, this)
             return this.__adapterId
         }
     }
@@ -115,7 +114,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
     refreshRate{
         get {
             if(!this.HasProp("__refreshRate"))
-                this.__refreshRate := DISPLAYCONFIG_RATIONAL(this.ptr + 32)
+                this.__refreshRate := DISPLAYCONFIG_RATIONAL(32, this)
             return this.__refreshRate
         }
     }
@@ -135,12 +134,9 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
      * Because the asynchronous nature of display topology changes when a monitor is removed, a path might still be marked as active even though the monitor has been removed. In such a case, <b>targetAvailable</b> could be <b>FALSE</b> for an active path. This is typically a transient situation that will change after the operating system  takes action on the monitor removal.
      * @type {BOOL}
      */
-    targetAvailable{
-        get {
-            if(!this.HasProp("__targetAvailable"))
-                this.__targetAvailable := BOOL(this.ptr + 44)
-            return this.__targetAvailable
-        }
+    targetAvailable {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**

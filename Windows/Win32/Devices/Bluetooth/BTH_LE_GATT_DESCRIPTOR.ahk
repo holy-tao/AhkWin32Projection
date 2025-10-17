@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\BTH_LE_UUID.ahk
 
 /**
@@ -49,7 +48,7 @@ class BTH_LE_GATT_DESCRIPTOR extends Win32Struct
     DescriptorUuid{
         get {
             if(!this.HasProp("__DescriptorUuid"))
-                this.__DescriptorUuid := BTH_LE_UUID(this.ptr + 8)
+                this.__DescriptorUuid := BTH_LE_UUID(8, this)
             return this.__DescriptorUuid
         }
     }

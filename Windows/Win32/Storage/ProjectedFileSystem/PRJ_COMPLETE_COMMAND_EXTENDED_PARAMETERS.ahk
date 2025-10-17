@@ -53,7 +53,7 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
         DirEntryBufferHandle{
             get {
                 if(!this.HasProp("__DirEntryBufferHandle"))
-                    this.__DirEntryBufferHandle := PRJ_DIR_ENTRY_BUFFER_HANDLE(this.ptr + 0)
+                    this.__DirEntryBufferHandle := PRJ_DIR_ENTRY_BUFFER_HANDLE(0, this)
                 return this.__DirEntryBufferHandle
             }
         }
@@ -66,7 +66,7 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
     Notification{
         get {
             if(!this.HasProp("__Notification"))
-                this.__Notification := %this.__Class%._Notification(this.ptr + 8)
+                this.__Notification := %this.__Class%._Notification(8, this)
             return this.__Notification
         }
     }
@@ -77,7 +77,7 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
     Enumeration{
         get {
             if(!this.HasProp("__Enumeration"))
-                this.__Enumeration := %this.__Class%._Enumeration(this.ptr + 8)
+                this.__Enumeration := %this.__Class%._Enumeration(8, this)
             return this.__Enumeration
         }
     }

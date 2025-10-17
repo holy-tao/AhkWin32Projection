@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
@@ -31,33 +30,24 @@ class REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszUserName{
-        get {
-            if(!this.HasProp("__pszUserName"))
-                this.__pszUserName := PWSTR(this.ptr + 8)
-            return this.__pszUserName
-        }
+    pszUserName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszPassword{
-        get {
-            if(!this.HasProp("__pszPassword"))
-                this.__pszPassword := PWSTR(this.ptr + 16)
-            return this.__pszPassword
-        }
+    pszPassword {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszDomain{
-        get {
-            if(!this.HasProp("__pszDomain"))
-                this.__pszDomain := PWSTR(this.ptr + 24)
-            return this.__pszDomain
-        }
+    pszDomain {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Represents the action the service controller should take on each failure of a service. A service is considered failed when it terminates without reporting a status of SERVICE_STOPPED to the service controller.
@@ -53,12 +52,9 @@ class SERVICE_FAILURE_ACTIONSA extends Win32Struct
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
      * @type {PSTR}
      */
-    lpRebootMsg{
-        get {
-            if(!this.HasProp("__lpRebootMsg"))
-                this.__lpRebootMsg := PSTR(this.ptr + 8)
-            return this.__lpRebootMsg
-        }
+    lpRebootMsg {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -71,12 +67,9 @@ class SERVICE_FAILURE_ACTIONSA extends Win32Struct
      * If this value is <b>NULL</b>, the command is unchanged. If the value is an empty string (""), the command is deleted and no program is run when the service fails.
      * @type {PSTR}
      */
-    lpCommand{
-        get {
-            if(!this.HasProp("__lpCommand"))
-                this.__lpCommand := PSTR(this.ptr + 16)
-            return this.__lpCommand
-        }
+    lpCommand {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

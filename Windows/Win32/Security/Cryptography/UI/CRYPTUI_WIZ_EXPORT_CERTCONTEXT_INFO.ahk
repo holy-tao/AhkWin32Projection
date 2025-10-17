@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function when a certificate is the object being exported.
@@ -37,36 +35,27 @@ class CRYPTUI_WIZ_EXPORT_CERTCONTEXT_INFO extends Win32Struct
      * Indicates whether the certificate chain should be exported in addition to the certificate. Contains nonzero to export the chain or zero to not export the chain.
      * @type {BOOL}
      */
-    fExportChain{
-        get {
-            if(!this.HasProp("__fExportChain"))
-                this.__fExportChain := BOOL(this.ptr + 8)
-            return this.__fExportChain
-        }
+    fExportChain {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * Indicates whether the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> should be exported in addition to the certificate. Contains nonzero to export the private key or zero to not export the private key.
      * @type {BOOL}
      */
-    fExportPrivateKeys{
-        get {
-            if(!this.HasProp("__fExportPrivateKeys"))
-                this.__fExportPrivateKeys := BOOL(this.ptr + 12)
-            return this.__fExportPrivateKeys
-        }
+    fExportPrivateKeys {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the password used to access the private key.  This is required if <b>fExportPrivateKeys</b> is nonzero and is otherwise ignored.
      * @type {PWSTR}
      */
-    pwszPassword{
-        get {
-            if(!this.HasProp("__pwszPassword"))
-                this.__pwszPassword := PWSTR(this.ptr + 16)
-            return this.__pwszPassword
-        }
+    pwszPassword {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -75,11 +64,8 @@ class CRYPTUI_WIZ_EXPORT_CERTCONTEXT_INFO extends Win32Struct
      * <b>Note</b>  We recommend that you set this to nonzero; otherwise, a substantially weaker encryption algorithm is used in the export process.
      * @type {BOOL}
      */
-    fStrongEncryption{
-        get {
-            if(!this.HasProp("__fStrongEncryption"))
-                this.__fStrongEncryption := BOOL(this.ptr + 24)
-            return this.__fStrongEncryption
-        }
+    fStrongEncryption {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

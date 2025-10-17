@@ -77,7 +77,7 @@ class SCHANNEL_CRED extends Win32Struct
     hRootStore{
         get {
             if(!this.HasProp("__hRootStore"))
-                this.__hRootStore := HCERTSTORE(this.ptr + 16)
+                this.__hRootStore := HCERTSTORE(16, this)
             return this.__hRootStore
         }
     }

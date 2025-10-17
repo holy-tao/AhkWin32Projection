@@ -26,7 +26,7 @@ class RPC_SYNTAX_IDENTIFIER extends Win32Struct
     SyntaxVersion{
         get {
             if(!this.HasProp("__SyntaxVersion"))
-                this.__SyntaxVersion := RPC_VERSION(this.ptr + 8)
+                this.__SyntaxVersion := RPC_VERSION(8, this)
             return this.__SyntaxVersion
         }
     }

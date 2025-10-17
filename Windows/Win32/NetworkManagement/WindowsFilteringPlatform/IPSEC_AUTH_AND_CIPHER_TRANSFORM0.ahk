@@ -29,7 +29,7 @@ class IPSEC_AUTH_AND_CIPHER_TRANSFORM0 extends Win32Struct
     authTransform{
         get {
             if(!this.HasProp("__authTransform"))
-                this.__authTransform := IPSEC_AUTH_TRANSFORM0(this.ptr + 0)
+                this.__authTransform := IPSEC_AUTH_TRANSFORM0(0, this)
             return this.__authTransform
         }
     }
@@ -41,7 +41,7 @@ class IPSEC_AUTH_AND_CIPHER_TRANSFORM0 extends Win32Struct
     cipherTransform{
         get {
             if(!this.HasProp("__cipherTransform"))
-                this.__cipherTransform := IPSEC_CIPHER_TRANSFORM0(this.ptr + 16)
+                this.__cipherTransform := IPSEC_CIPHER_TRANSFORM0(16, this)
             return this.__cipherTransform
         }
     }

@@ -3,7 +3,6 @@
 #Include .\D3D_OMAC.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -21,7 +20,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(this.ptr + 0)
+                this.__Parameters := D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(0, this)
             return this.__Parameters
         }
     }
@@ -40,7 +39,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE extends Win32Struct
     ProcessHandle{
         get {
             if(!this.HasProp("__ProcessHandle"))
-                this.__ProcessHandle := HANDLE(this.ptr + 48)
+                this.__ProcessHandle := HANDLE(48, this)
             return this.__ProcessHandle
         }
     }
@@ -48,11 +47,8 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE extends Win32Struct
     /**
      * @type {BOOL}
      */
-    AllowAccess{
-        get {
-            if(!this.HasProp("__AllowAccess"))
-                this.__AllowAccess := BOOL(this.ptr + 56)
-            return this.__AllowAccess
-        }
+    AllowAccess {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

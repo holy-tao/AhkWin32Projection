@@ -527,7 +527,7 @@ class Com {
     static CoLoadLibrary(lpszLibName, bAutoFree) {
         lpszLibName := lpszLibName is String ? StrPtr(lpszLibName) : lpszLibName
 
-        result := DllCall("OLE32.dll\CoLoadLibrary", "ptr", lpszLibName, "ptr", bAutoFree, "ptr")
+        result := DllCall("OLE32.dll\CoLoadLibrary", "ptr", lpszLibName, "int", bAutoFree, "ptr")
         return HINSTANCE({Value: result}, True)
     }
 
@@ -656,7 +656,7 @@ class Com {
      * @since windows5.0
      */
     static CoIsOle1Class(rclsid) {
-        result := DllCall("ole32.dll\CoIsOle1Class", "ptr", rclsid, "ptr")
+        result := DllCall("ole32.dll\CoIsOle1Class", "ptr", rclsid, "int")
         return result
     }
 
@@ -729,7 +729,7 @@ class Com {
      * @since windows5.0
      */
     static CoFileTimeToDosDateTime(lpFileTime, lpDosDate, lpDosTime) {
-        result := DllCall("OLE32.dll\CoFileTimeToDosDateTime", "ptr", lpFileTime, "ushort*", lpDosDate, "ushort*", lpDosTime, "ptr")
+        result := DllCall("OLE32.dll\CoFileTimeToDosDateTime", "ptr", lpFileTime, "ushort*", lpDosDate, "ushort*", lpDosTime, "int")
         return result
     }
 
@@ -743,7 +743,7 @@ class Com {
      * @since windows5.0
      */
     static CoDosDateTimeToFileTime(nDosDate, nDosTime, lpFileTime) {
-        result := DllCall("OLE32.dll\CoDosDateTimeToFileTime", "ushort", nDosDate, "ushort", nDosTime, "ptr", lpFileTime, "ptr")
+        result := DllCall("OLE32.dll\CoDosDateTimeToFileTime", "ushort", nDosDate, "ushort", nDosTime, "ptr", lpFileTime, "int")
         return result
     }
 
@@ -1228,7 +1228,7 @@ class Com {
      * @since windows5.0
      */
     static MonikerRelativePathTo(pmkSrc, pmkDest, ppmkRelPath, dwReserved) {
-        result := DllCall("ole32.dll\MonikerRelativePathTo", "ptr", pmkSrc, "ptr", pmkDest, "ptr", ppmkRelPath, "ptr", dwReserved, "int")
+        result := DllCall("ole32.dll\MonikerRelativePathTo", "ptr", pmkSrc, "ptr", pmkDest, "ptr", ppmkRelPath, "int", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2445,7 +2445,7 @@ class Com {
      * @since windows5.0
      */
     static CoLockObjectExternal(pUnk, fLock, fLastUnlockReleases) {
-        result := DllCall("OLE32.dll\CoLockObjectExternal", "ptr", pUnk, "ptr", fLock, "ptr", fLastUnlockReleases, "int")
+        result := DllCall("OLE32.dll\CoLockObjectExternal", "ptr", pUnk, "int", fLock, "int", fLastUnlockReleases, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2460,7 +2460,7 @@ class Com {
      * @since windows5.0
      */
     static CoIsHandlerConnected(pUnk) {
-        result := DllCall("OLE32.dll\CoIsHandlerConnected", "ptr", pUnk, "ptr")
+        result := DllCall("OLE32.dll\CoIsHandlerConnected", "ptr", pUnk, "int")
         return result
     }
 

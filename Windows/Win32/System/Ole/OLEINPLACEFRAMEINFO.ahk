@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\WindowsAndMessaging\HACCEL.ahk
 
@@ -34,12 +33,9 @@ class OLEINPLACEFRAMEINFO extends Win32Struct
      * Indicates whether the container is an MDI application.
      * @type {BOOL}
      */
-    fMDIApp{
-        get {
-            if(!this.HasProp("__fMDIApp"))
-                this.__fMDIApp := BOOL(this.ptr + 4)
-            return this.__fMDIApp
-        }
+    fMDIApp {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -49,7 +45,7 @@ class OLEINPLACEFRAMEINFO extends Win32Struct
     hwndFrame{
         get {
             if(!this.HasProp("__hwndFrame"))
-                this.__hwndFrame := HWND(this.ptr + 8)
+                this.__hwndFrame := HWND(8, this)
             return this.__hwndFrame
         }
     }
@@ -61,7 +57,7 @@ class OLEINPLACEFRAMEINFO extends Win32Struct
     haccel{
         get {
             if(!this.HasProp("__haccel"))
-                this.__haccel := HACCEL(this.ptr + 16)
+                this.__haccel := HACCEL(16, this)
             return this.__haccel
         }
     }

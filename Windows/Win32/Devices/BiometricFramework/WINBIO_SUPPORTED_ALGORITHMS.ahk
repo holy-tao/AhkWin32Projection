@@ -42,7 +42,7 @@ class WINBIO_SUPPORTED_ALGORITHMS extends Win32Struct
     AlgorithmData{
         get {
             if(!this.HasProp("__AlgorithmData"))
-                this.__AlgorithmData := WINBIO_DATA(this.ptr + 16)
+                this.__AlgorithmData := WINBIO_DATA(16, this)
             return this.__AlgorithmData
         }
     }

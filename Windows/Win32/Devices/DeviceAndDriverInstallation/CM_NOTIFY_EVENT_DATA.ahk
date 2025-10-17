@@ -119,7 +119,7 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct
     DeviceInterface{
         get {
             if(!this.HasProp("__DeviceInterface"))
-                this.__DeviceInterface := %this.__Class%._DeviceInterface(this.ptr + 8)
+                this.__DeviceInterface := %this.__Class%._DeviceInterface(8, this)
             return this.__DeviceInterface
         }
     }
@@ -130,7 +130,7 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct
     DeviceHandle{
         get {
             if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := %this.__Class%._DeviceHandle(this.ptr + 8)
+                this.__DeviceHandle := %this.__Class%._DeviceHandle(8, this)
             return this.__DeviceHandle
         }
     }
@@ -141,7 +141,7 @@ class CM_NOTIFY_EVENT_DATA extends Win32Struct
     DeviceInstance{
         get {
             if(!this.HasProp("__DeviceInstance"))
-                this.__DeviceInstance := %this.__Class%._DeviceInstance(this.ptr + 8)
+                this.__DeviceInstance := %this.__Class%._DeviceInstance(8, this)
             return this.__DeviceInstance
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\VMRFrequency.ahk
 
 /**
@@ -46,12 +45,9 @@ class VMRVideoDesc extends Win32Struct
      * 
      * @type {BOOL}
      */
-    SingleFieldPerSample{
-        get {
-            if(!this.HasProp("__SingleFieldPerSample"))
-                this.__SingleFieldPerSample := BOOL(this.ptr + 12)
-            return this.__SingleFieldPerSample
-        }
+    SingleFieldPerSample {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -70,7 +66,7 @@ class VMRVideoDesc extends Win32Struct
     InputSampleFreq{
         get {
             if(!this.HasProp("__InputSampleFreq"))
-                this.__InputSampleFreq := VMRFrequency(this.ptr + 24)
+                this.__InputSampleFreq := VMRFrequency(24, this)
             return this.__InputSampleFreq
         }
     }
@@ -83,7 +79,7 @@ class VMRVideoDesc extends Win32Struct
     OutputFrameFreq{
         get {
             if(!this.HasProp("__OutputFrameFreq"))
-                this.__OutputFrameFreq := VMRFrequency(this.ptr + 32)
+                this.__OutputFrameFreq := VMRFrequency(32, this)
             return this.__OutputFrameFreq
         }
     }

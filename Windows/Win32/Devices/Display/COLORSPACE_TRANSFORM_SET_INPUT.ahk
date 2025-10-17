@@ -32,7 +32,7 @@ class COLORSPACE_TRANSFORM_SET_INPUT extends Win32Struct
     OutputWireFormatExpected{
         get {
             if(!this.HasProp("__OutputWireFormatExpected"))
-                this.__OutputWireFormatExpected := OUTPUT_WIRE_FORMAT(this.ptr + 8)
+                this.__OutputWireFormatExpected := OUTPUT_WIRE_FORMAT(8, this)
             return this.__OutputWireFormatExpected
         }
     }
@@ -43,7 +43,7 @@ class COLORSPACE_TRANSFORM_SET_INPUT extends Win32Struct
     ColorSpaceTransform{
         get {
             if(!this.HasProp("__ColorSpaceTransform"))
-                this.__ColorSpaceTransform := COLORSPACE_TRANSFORM(this.ptr + 16)
+                this.__ColorSpaceTransform := COLORSPACE_TRANSFORM(16, this)
             return this.__ColorSpaceTransform
         }
     }

@@ -55,7 +55,7 @@ class MARK_HANDLE_INFO extends Win32Struct
     VolumeHandle{
         get {
             if(!this.HasProp("__VolumeHandle"))
-                this.__VolumeHandle := HANDLE(this.ptr + 8)
+                this.__VolumeHandle := HANDLE(8, this)
             return this.__VolumeHandle
         }
     }

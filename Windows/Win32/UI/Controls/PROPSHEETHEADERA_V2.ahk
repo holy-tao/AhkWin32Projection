@@ -3,7 +3,6 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
@@ -39,7 +38,7 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
+                this.__hwndParent := HWND(8, this)
             return this.__hwndParent
         }
     }
@@ -50,7 +49,7 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 16)
+                this.__hInstance := HINSTANCE(16, this)
             return this.__hInstance
         }
     }
@@ -61,7 +60,7 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 24)
+                this.__hIcon := HICON(24, this)
             return this.__hIcon
         }
     }
@@ -69,23 +68,17 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszIcon{
-        get {
-            if(!this.HasProp("__pszIcon"))
-                this.__pszIcon := PSTR(this.ptr + 24)
-            return this.__pszIcon
-        }
+    pszIcon {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    pszCaption{
-        get {
-            if(!this.HasProp("__pszCaption"))
-                this.__pszCaption := PSTR(this.ptr + 32)
-            return this.__pszCaption
-        }
+    pszCaption {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -107,12 +100,9 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pStartPage{
-        get {
-            if(!this.HasProp("__pStartPage"))
-                this.__pStartPage := PSTR(this.ptr + 48)
-            return this.__pStartPage
-        }
+    pStartPage {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -145,7 +135,7 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     hbmWatermark{
         get {
             if(!this.HasProp("__hbmWatermark"))
-                this.__hbmWatermark := HBITMAP(this.ptr + 72)
+                this.__hbmWatermark := HBITMAP(72, this)
             return this.__hbmWatermark
         }
     }
@@ -153,12 +143,9 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszbmWatermark{
-        get {
-            if(!this.HasProp("__pszbmWatermark"))
-                this.__pszbmWatermark := PSTR(this.ptr + 72)
-            return this.__pszbmWatermark
-        }
+    pszbmWatermark {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -167,7 +154,7 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     hplWatermark{
         get {
             if(!this.HasProp("__hplWatermark"))
-                this.__hplWatermark := HPALETTE(this.ptr + 80)
+                this.__hplWatermark := HPALETTE(80, this)
             return this.__hplWatermark
         }
     }
@@ -178,7 +165,7 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     hbmHeader{
         get {
             if(!this.HasProp("__hbmHeader"))
-                this.__hbmHeader := HBITMAP(this.ptr + 88)
+                this.__hbmHeader := HBITMAP(88, this)
             return this.__hbmHeader
         }
     }
@@ -186,11 +173,8 @@ class PROPSHEETHEADERA_V2 extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszbmHeader{
-        get {
-            if(!this.HasProp("__pszbmHeader"))
-                this.__pszbmHeader := PSTR(this.ptr + 88)
-            return this.__pszbmHeader
-        }
+    pszbmHeader {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 }

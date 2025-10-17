@@ -187,7 +187,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
     Supported{
         get {
             if(!this.HasProp("__Supported"))
-                this.__Supported := %this.__Class%._Supported(this.ptr + 0)
+                this.__Supported := %this.__Class%._Supported(0, this)
             return this.__Supported
         }
     }
@@ -198,7 +198,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
     IPv4AH{
         get {
             if(!this.HasProp("__IPv4AH"))
-                this.__IPv4AH := %this.__Class%._IPv4AH(this.ptr + 24)
+                this.__IPv4AH := %this.__Class%._IPv4AH(24, this)
             return this.__IPv4AH
         }
     }
@@ -209,7 +209,7 @@ class NDIS_WMI_IPSEC_OFFLOAD_V1 extends Win32Struct
     IPv4ESP{
         get {
             if(!this.HasProp("__IPv4ESP"))
-                this.__IPv4ESP := %this.__Class%._IPv4ESP(this.ptr + 48)
+                this.__IPv4ESP := %this.__Class%._IPv4ESP(48, this)
             return this.__IPv4ESP
         }
     }

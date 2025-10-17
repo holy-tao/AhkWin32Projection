@@ -21,7 +21,7 @@ class WS_TCP_POLICY_DESCRIPTION extends Win32Struct
     channelProperties{
         get {
             if(!this.HasProp("__channelProperties"))
-                this.__channelProperties := WS_CHANNEL_PROPERTIES(this.ptr + 0)
+                this.__channelProperties := WS_CHANNEL_PROPERTIES(0, this)
             return this.__channelProperties
         }
     }

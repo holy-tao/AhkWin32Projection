@@ -35,7 +35,7 @@ class RECO_LATTICE_COLUMN extends Win32Struct
     cpProp{
         get {
             if(!this.HasProp("__cpProp"))
-                this.__cpProp := RECO_LATTICE_PROPERTIES(this.ptr + 8)
+                this.__cpProp := RECO_LATTICE_PROPERTIES(8, this)
             return this.__cpProp
         }
     }

@@ -1722,7 +1722,7 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsFindAttribute(reader, localName, ns, required, attributeIndex, error) {
-        result := DllCall("webservices.dll\WsFindAttribute", "ptr", reader, "ptr", localName, "ptr", ns, "ptr", required, "uint*", attributeIndex, "ptr", error, "int")
+        result := DllCall("webservices.dll\WsFindAttribute", "ptr", reader, "ptr", localName, "ptr", ns, "int", required, "uint*", attributeIndex, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2558,7 +2558,7 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsWriteXmlnsAttribute(writer, prefix, ns, singleQuote, error) {
-        result := DllCall("webservices.dll\WsWriteXmlnsAttribute", "ptr", writer, "ptr", prefix, "ptr", ns, "ptr", singleQuote, "ptr", error, "int")
+        result := DllCall("webservices.dll\WsWriteXmlnsAttribute", "ptr", writer, "ptr", prefix, "ptr", ns, "int", singleQuote, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2637,7 +2637,7 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsWriteStartAttribute(writer, prefix, localName, ns, singleQuote, error) {
-        result := DllCall("webservices.dll\WsWriteStartAttribute", "ptr", writer, "ptr", prefix, "ptr", localName, "ptr", ns, "ptr", singleQuote, "ptr", error, "int")
+        result := DllCall("webservices.dll\WsWriteStartAttribute", "ptr", writer, "ptr", prefix, "ptr", localName, "ptr", ns, "int", singleQuote, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3603,7 +3603,7 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsGetPrefixFromNamespace(writer, ns, required, prefix, error) {
-        result := DllCall("webservices.dll\WsGetPrefixFromNamespace", "ptr", writer, "ptr", ns, "ptr", required, "ptr", prefix, "ptr", error, "int")
+        result := DllCall("webservices.dll\WsGetPrefixFromNamespace", "ptr", writer, "ptr", ns, "int", required, "ptr", prefix, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3899,7 +3899,7 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsGetNamespaceFromPrefix(reader, prefix, required, ns, error) {
-        result := DllCall("webservices.dll\WsGetNamespaceFromPrefix", "ptr", reader, "ptr", prefix, "ptr", required, "ptr", ns, "ptr", error, "int")
+        result := DllCall("webservices.dll\WsGetNamespaceFromPrefix", "ptr", reader, "ptr", prefix, "int", required, "ptr", ns, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15049,7 +15049,7 @@ class WindowsWebServices {
      * @since windows6.1
      */
     static WsMatchPolicyAlternative(policy, alternativeIndex, policyConstraints, matchRequired, heap, error) {
-        result := DllCall("webservices.dll\WsMatchPolicyAlternative", "ptr", policy, "uint", alternativeIndex, "ptr", policyConstraints, "ptr", matchRequired, "ptr", heap, "ptr", error, "int")
+        result := DllCall("webservices.dll\WsMatchPolicyAlternative", "ptr", policy, "uint", alternativeIndex, "ptr", policyConstraints, "int", matchRequired, "ptr", heap, "ptr", error, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15388,7 +15388,7 @@ class WindowsWebServices {
      * @returns {PWSTR} 
      */
     static WebAuthNGetErrorName(hr) {
-        result := DllCall("webauthn.dll\WebAuthNGetErrorName", "int", hr, "ptr")
+        result := DllCall("webauthn.dll\WebAuthNGetErrorName", "int", hr, "char*")
         return result
     }
 

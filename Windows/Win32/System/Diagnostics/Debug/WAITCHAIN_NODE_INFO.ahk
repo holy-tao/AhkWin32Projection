@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a node in a wait chain.
@@ -55,12 +54,9 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
         /**
          * @type {BOOL}
          */
-        Alertable{
-            get {
-                if(!this.HasProp("__Alertable"))
-                    this.__Alertable := BOOL(this.ptr + 264)
-                return this.__Alertable
-            }
+        Alertable {
+            get => NumGet(this, 264, "int")
+            set => NumPut("int", value, this, 264)
         }
     
     }
@@ -109,7 +105,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
     LockObject{
         get {
             if(!this.HasProp("__LockObject"))
-                this.__LockObject := %this.__Class%._LockObject(this.ptr + 8)
+                this.__LockObject := %this.__Class%._LockObject(8, this)
             return this.__LockObject
         }
     }
@@ -120,7 +116,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
     ThreadObject{
         get {
             if(!this.HasProp("__ThreadObject"))
-                this.__ThreadObject := %this.__Class%._ThreadObject(this.ptr + 8)
+                this.__ThreadObject := %this.__Class%._ThreadObject(8, this)
             return this.__ThreadObject
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The USER_INFO_1013 structure contains reserved information for network accounts. This information level is valid only when you call the NetUserSetInfo function.
@@ -23,11 +22,8 @@ class USER_INFO_1013 extends Win32Struct
      * The system components that use this member are services for Macintosh, file and print services for NetWare, and the Remote Access Server (RAS).
      * @type {PWSTR}
      */
-    usri1013_parms{
-        get {
-            if(!this.HasProp("__usri1013_parms"))
-                this.__usri1013_parms := PWSTR(this.ptr + 0)
-            return this.__usri1013_parms
-        }
+    usri1013_parms {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

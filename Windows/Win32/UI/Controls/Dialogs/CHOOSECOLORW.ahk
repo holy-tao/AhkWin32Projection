@@ -1,9 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\COLORREF.ahk
-#Include ..\..\..\Foundation\LPARAM.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
@@ -30,7 +27,7 @@ class CHOOSECOLORW extends Win32Struct
     hwndOwner{
         get {
             if(!this.HasProp("__hwndOwner"))
-                this.__hwndOwner := HWND(this.ptr + 8)
+                this.__hwndOwner := HWND(8, this)
             return this.__hwndOwner
         }
     }
@@ -41,7 +38,7 @@ class CHOOSECOLORW extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HWND(this.ptr + 16)
+                this.__hInstance := HWND(16, this)
             return this.__hInstance
         }
     }
@@ -49,12 +46,9 @@ class CHOOSECOLORW extends Win32Struct
     /**
      * @type {COLORREF}
      */
-    rgbResult{
-        get {
-            if(!this.HasProp("__rgbResult"))
-                this.__rgbResult := COLORREF(this.ptr + 24)
-            return this.__rgbResult
-        }
+    rgbResult {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -76,12 +70,9 @@ class CHOOSECOLORW extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 48)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -95,11 +86,8 @@ class CHOOSECOLORW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpTemplateName{
-        get {
-            if(!this.HasProp("__lpTemplateName"))
-                this.__lpTemplateName := PWSTR(this.ptr + 64)
-            return this.__lpTemplateName
-        }
+    lpTemplateName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

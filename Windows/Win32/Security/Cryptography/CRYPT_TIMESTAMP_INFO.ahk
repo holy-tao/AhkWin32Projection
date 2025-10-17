@@ -1,10 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains a signed data content type in Cryptographic Message Syntax (CMS) format.
@@ -49,12 +47,9 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
      * Optional. A pointer to a null-terminated string that specifies the Time Stamping Authority (TSA) policy under which the time stamp token was provided. This value must correspond with the value passed  in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_request">CRYPT_TIMESTAMP_REQUEST</a> structure.
      * @type {PSTR}
      */
-    pszTSAPolicyId{
-        get {
-            if(!this.HasProp("__pszTSAPolicyId"))
-                this.__pszTSAPolicyId := PSTR(this.ptr + 8)
-            return this.__pszTSAPolicyId
-        }
+    pszTSAPolicyId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -64,7 +59,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 16)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
             return this.__HashAlgorithm
         }
     }
@@ -76,7 +71,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
     HashedMessage{
         get {
             if(!this.HasProp("__HashedMessage"))
-                this.__HashedMessage := CRYPT_INTEGER_BLOB(this.ptr + 40)
+                this.__HashedMessage := CRYPT_INTEGER_BLOB(40, this)
             return this.__HashedMessage
         }
     }
@@ -88,7 +83,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumber"))
-                this.__SerialNumber := CRYPT_INTEGER_BLOB(this.ptr + 56)
+                this.__SerialNumber := CRYPT_INTEGER_BLOB(56, this)
             return this.__SerialNumber
         }
     }
@@ -100,7 +95,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
     ftTime{
         get {
             if(!this.HasProp("__ftTime"))
-                this.__ftTime := FILETIME(this.ptr + 72)
+                this.__ftTime := FILETIME(72, this)
             return this.__ftTime
         }
     }
@@ -118,12 +113,9 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
      * This member is reserved.
      * @type {BOOL}
      */
-    fOrdering{
-        get {
-            if(!this.HasProp("__fOrdering"))
-                this.__fOrdering := BOOL(this.ptr + 88)
-            return this.__fOrdering
-        }
+    fOrdering {
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
@@ -134,7 +126,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
     Nonce{
         get {
             if(!this.HasProp("__Nonce"))
-                this.__Nonce := CRYPT_INTEGER_BLOB(this.ptr + 96)
+                this.__Nonce := CRYPT_INTEGER_BLOB(96, this)
             return this.__Nonce
         }
     }
@@ -146,7 +138,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
     Tsa{
         get {
             if(!this.HasProp("__Tsa"))
-                this.__Tsa := CRYPT_INTEGER_BLOB(this.ptr + 112)
+                this.__Tsa := CRYPT_INTEGER_BLOB(112, this)
             return this.__Tsa
         }
     }

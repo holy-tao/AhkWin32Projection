@@ -21,7 +21,7 @@ class MI_InstanceExFT extends Win32Struct
     parent{
         get {
             if(!this.HasProp("__parent"))
-                this.__parent := MI_InstanceFT(this.ptr + 0)
+                this.__parent := MI_InstanceFT(0, this)
             return this.__parent
         }
     }

@@ -4,7 +4,6 @@
 #Include .\PANOSE.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The OUTLINETEXTMETRIC structure contains metrics describing a TrueType font.
@@ -49,7 +48,7 @@ class OUTLINETEXTMETRICA extends Win32Struct
     otmTextMetrics{
         get {
             if(!this.HasProp("__otmTextMetrics"))
-                this.__otmTextMetrics := TEXTMETRICA(this.ptr + 8)
+                this.__otmTextMetrics := TEXTMETRICA(8, this)
             return this.__otmTextMetrics
         }
     }
@@ -70,7 +69,7 @@ class OUTLINETEXTMETRICA extends Win32Struct
     otmPanoseNumber{
         get {
             if(!this.HasProp("__otmPanoseNumber"))
-                this.__otmPanoseNumber := PANOSE(this.ptr + 72)
+                this.__otmPanoseNumber := PANOSE(72, this)
             return this.__otmPanoseNumber
         }
     }
@@ -212,7 +211,7 @@ class OUTLINETEXTMETRICA extends Win32Struct
     otmrcFontBox{
         get {
             if(!this.HasProp("__otmrcFontBox"))
-                this.__otmrcFontBox := RECT(this.ptr + 128)
+                this.__otmrcFontBox := RECT(128, this)
             return this.__otmrcFontBox
         }
     }
@@ -260,7 +259,7 @@ class OUTLINETEXTMETRICA extends Win32Struct
     otmptSubscriptSize{
         get {
             if(!this.HasProp("__otmptSubscriptSize"))
-                this.__otmptSubscriptSize := POINT(this.ptr + 160)
+                this.__otmptSubscriptSize := POINT(160, this)
             return this.__otmptSubscriptSize
         }
     }
@@ -272,7 +271,7 @@ class OUTLINETEXTMETRICA extends Win32Struct
     otmptSubscriptOffset{
         get {
             if(!this.HasProp("__otmptSubscriptOffset"))
-                this.__otmptSubscriptOffset := POINT(this.ptr + 168)
+                this.__otmptSubscriptOffset := POINT(168, this)
             return this.__otmptSubscriptOffset
         }
     }
@@ -284,7 +283,7 @@ class OUTLINETEXTMETRICA extends Win32Struct
     otmptSuperscriptSize{
         get {
             if(!this.HasProp("__otmptSuperscriptSize"))
-                this.__otmptSuperscriptSize := POINT(this.ptr + 176)
+                this.__otmptSuperscriptSize := POINT(176, this)
             return this.__otmptSuperscriptSize
         }
     }
@@ -296,7 +295,7 @@ class OUTLINETEXTMETRICA extends Win32Struct
     otmptSuperscriptOffset{
         get {
             if(!this.HasProp("__otmptSuperscriptOffset"))
-                this.__otmptSuperscriptOffset := POINT(this.ptr + 184)
+                this.__otmptSuperscriptOffset := POINT(184, this)
             return this.__otmptSuperscriptOffset
         }
     }
@@ -341,47 +340,35 @@ class OUTLINETEXTMETRICA extends Win32Struct
      * The offset from the beginning of the structure to a string specifying the family name for the font.
      * @type {PSTR}
      */
-    otmpFamilyName{
-        get {
-            if(!this.HasProp("__otmpFamilyName"))
-                this.__otmpFamilyName := PSTR(this.ptr + 208)
-            return this.__otmpFamilyName
-        }
+    otmpFamilyName {
+        get => NumGet(this, 208, "ptr")
+        set => NumPut("ptr", value, this, 208)
     }
 
     /**
      * The offset from the beginning of the structure to a string specifying the typeface name for the font. (This typeface name corresponds to the name specified in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.)
      * @type {PSTR}
      */
-    otmpFaceName{
-        get {
-            if(!this.HasProp("__otmpFaceName"))
-                this.__otmpFaceName := PSTR(this.ptr + 216)
-            return this.__otmpFaceName
-        }
+    otmpFaceName {
+        get => NumGet(this, 216, "ptr")
+        set => NumPut("ptr", value, this, 216)
     }
 
     /**
      * The offset from the beginning of the structure to a string specifying the style name for the font.
      * @type {PSTR}
      */
-    otmpStyleName{
-        get {
-            if(!this.HasProp("__otmpStyleName"))
-                this.__otmpStyleName := PSTR(this.ptr + 224)
-            return this.__otmpStyleName
-        }
+    otmpStyleName {
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 
     /**
      * The offset from the beginning of the structure to a string specifying the full name for the font. This name is unique for the font and often contains a version number or other identifying information.
      * @type {PSTR}
      */
-    otmpFullName{
-        get {
-            if(!this.HasProp("__otmpFullName"))
-                this.__otmpFullName := PSTR(this.ptr + 232)
-            return this.__otmpFullName
-        }
+    otmpFullName {
+        get => NumGet(this, 232, "ptr")
+        set => NumPut("ptr", value, this, 232)
     }
 }

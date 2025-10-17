@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -25,111 +24,81 @@ class DRIVER_INFO_6W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 8)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pEnvironment{
-        get {
-            if(!this.HasProp("__pEnvironment"))
-                this.__pEnvironment := PWSTR(this.ptr + 16)
-            return this.__pEnvironment
-        }
+    pEnvironment {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pDriverPath{
-        get {
-            if(!this.HasProp("__pDriverPath"))
-                this.__pDriverPath := PWSTR(this.ptr + 24)
-            return this.__pDriverPath
-        }
+    pDriverPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    pDataFile{
-        get {
-            if(!this.HasProp("__pDataFile"))
-                this.__pDataFile := PWSTR(this.ptr + 32)
-            return this.__pDataFile
-        }
+    pDataFile {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    pConfigFile{
-        get {
-            if(!this.HasProp("__pConfigFile"))
-                this.__pConfigFile := PWSTR(this.ptr + 40)
-            return this.__pConfigFile
-        }
+    pConfigFile {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {PWSTR}
      */
-    pHelpFile{
-        get {
-            if(!this.HasProp("__pHelpFile"))
-                this.__pHelpFile := PWSTR(this.ptr + 48)
-            return this.__pHelpFile
-        }
+    pHelpFile {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {PWSTR}
      */
-    pDependentFiles{
-        get {
-            if(!this.HasProp("__pDependentFiles"))
-                this.__pDependentFiles := PWSTR(this.ptr + 56)
-            return this.__pDependentFiles
-        }
+    pDependentFiles {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {PWSTR}
      */
-    pMonitorName{
-        get {
-            if(!this.HasProp("__pMonitorName"))
-                this.__pMonitorName := PWSTR(this.ptr + 64)
-            return this.__pMonitorName
-        }
+    pMonitorName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {PWSTR}
      */
-    pDefaultDataType{
-        get {
-            if(!this.HasProp("__pDefaultDataType"))
-                this.__pDefaultDataType := PWSTR(this.ptr + 72)
-            return this.__pDefaultDataType
-        }
+    pDefaultDataType {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszzPreviousNames{
-        get {
-            if(!this.HasProp("__pszzPreviousNames"))
-                this.__pszzPreviousNames := PWSTR(this.ptr + 80)
-            return this.__pszzPreviousNames
-        }
+    pszzPreviousNames {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -138,7 +107,7 @@ class DRIVER_INFO_6W extends Win32Struct
     ftDriverDate{
         get {
             if(!this.HasProp("__ftDriverDate"))
-                this.__ftDriverDate := FILETIME(this.ptr + 88)
+                this.__ftDriverDate := FILETIME(88, this)
             return this.__ftDriverDate
         }
     }
@@ -154,44 +123,32 @@ class DRIVER_INFO_6W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszMfgName{
-        get {
-            if(!this.HasProp("__pszMfgName"))
-                this.__pszMfgName := PWSTR(this.ptr + 104)
-            return this.__pszMfgName
-        }
+    pszMfgName {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszOEMUrl{
-        get {
-            if(!this.HasProp("__pszOEMUrl"))
-                this.__pszOEMUrl := PWSTR(this.ptr + 112)
-            return this.__pszOEMUrl
-        }
+    pszOEMUrl {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszHardwareID{
-        get {
-            if(!this.HasProp("__pszHardwareID"))
-                this.__pszHardwareID := PWSTR(this.ptr + 120)
-            return this.__pszHardwareID
-        }
+    pszHardwareID {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszProvider{
-        get {
-            if(!this.HasProp("__pszProvider"))
-                this.__pszProvider := PWSTR(this.ptr + 128)
-            return this.__pszProvider
-        }
+    pszProvider {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

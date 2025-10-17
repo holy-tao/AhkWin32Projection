@@ -59,7 +59,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         EnrollmentRequirements{
             get {
                 if(!this.HasProp("__EnrollmentRequirements"))
-                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(this.ptr + 4)
+                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(4, this)
                 return this.__EnrollmentRequirements
             }
         }
@@ -138,7 +138,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         EnrollmentRequirements{
             get {
                 if(!this.HasProp("__EnrollmentRequirements"))
-                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(this.ptr + 8)
+                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(8, this)
                 return this.__EnrollmentRequirements
             }
         }
@@ -177,7 +177,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         EnrollmentRequirements{
             get {
                 if(!this.HasProp("__EnrollmentRequirements"))
-                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(this.ptr + 4)
+                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(4, this)
                 return this.__EnrollmentRequirements
             }
         }
@@ -216,7 +216,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         EnrollmentRequirements{
             get {
                 if(!this.HasProp("__EnrollmentRequirements"))
-                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(this.ptr + 4)
+                    this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(4, this)
                 return this.__EnrollmentRequirements
             }
         }
@@ -237,7 +237,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
     FacialFeatures{
         get {
             if(!this.HasProp("__FacialFeatures"))
-                this.__FacialFeatures := %this.__Class%._FacialFeatures(this.ptr + 8)
+                this.__FacialFeatures := %this.__Class%._FacialFeatures(8, this)
             return this.__FacialFeatures
         }
     }
@@ -248,7 +248,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
     Fingerprint{
         get {
             if(!this.HasProp("__Fingerprint"))
-                this.__Fingerprint := %this.__Class%._Fingerprint(this.ptr + 8)
+                this.__Fingerprint := %this.__Class%._Fingerprint(8, this)
             return this.__Fingerprint
         }
     }
@@ -259,7 +259,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
     Iris{
         get {
             if(!this.HasProp("__Iris"))
-                this.__Iris := %this.__Class%._Iris(this.ptr + 8)
+                this.__Iris := %this.__Class%._Iris(8, this)
             return this.__Iris
         }
     }
@@ -270,7 +270,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
     Voice{
         get {
             if(!this.HasProp("__Voice"))
-                this.__Voice := %this.__Class%._Voice(this.ptr + 8)
+                this.__Voice := %this.__Class%._Voice(8, this)
             return this.__Voice
         }
     }

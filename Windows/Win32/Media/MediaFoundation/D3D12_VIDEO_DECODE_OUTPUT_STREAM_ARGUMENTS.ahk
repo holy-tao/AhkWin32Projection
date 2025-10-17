@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS.ahk
 
 /**
@@ -43,7 +42,7 @@ class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS extends Win32Struct
     ConversionArguments{
         get {
             if(!this.HasProp("__ConversionArguments"))
-                this.__ConversionArguments := D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS(this.ptr + 16)
+                this.__ConversionArguments := D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS(16, this)
             return this.__ConversionArguments
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -23,12 +22,9 @@ class CHAR_INFO extends Win32Struct
     /**
      * @type {CHAR}
      */
-    AsciiChar{
-        get {
-            if(!this.HasProp("__AsciiChar"))
-                this.__AsciiChar := CHAR(this.ptr + 0)
-            return this.__AsciiChar
-        }
+    AsciiChar {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**

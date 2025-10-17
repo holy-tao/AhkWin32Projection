@@ -45,7 +45,7 @@ class WSD_SECURITY_SIGNATURE_VALIDATION extends Win32Struct
     hSigningCertStore{
         get {
             if(!this.HasProp("__hSigningCertStore"))
-                this.__hSigningCertStore := HCERTSTORE(this.ptr + 16)
+                this.__hSigningCertStore := HCERTSTORE(16, this)
             return this.__hSigningCertStore
         }
     }

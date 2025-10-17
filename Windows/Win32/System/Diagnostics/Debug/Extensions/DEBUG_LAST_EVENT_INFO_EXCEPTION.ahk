@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\NTSTATUS.ahk
 #Include ..\EXCEPTION_RECORD64.ahk
 
 /**
@@ -19,7 +18,7 @@ class DEBUG_LAST_EVENT_INFO_EXCEPTION extends Win32Struct
     ExceptionRecord{
         get {
             if(!this.HasProp("__ExceptionRecord"))
-                this.__ExceptionRecord := EXCEPTION_RECORD64(this.ptr + 0)
+                this.__ExceptionRecord := EXCEPTION_RECORD64(0, this)
             return this.__ExceptionRecord
         }
     }

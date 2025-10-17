@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -15,11 +14,8 @@ class SERVER_INFO_1566 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    sv1566_removeduplicatesearches{
-        get {
-            if(!this.HasProp("__sv1566_removeduplicatesearches"))
-                this.__sv1566_removeduplicatesearches := BOOL(this.ptr + 0)
-            return this.__sv1566_removeduplicatesearches
-        }
+    sv1566_removeduplicatesearches {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

@@ -23,7 +23,7 @@ class WINDOWPOS extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
+                this.__hwnd := HWND(0, this)
             return this.__hwnd
         }
     }
@@ -37,7 +37,7 @@ class WINDOWPOS extends Win32Struct
     hwndInsertAfter{
         get {
             if(!this.HasProp("__hwndInsertAfter"))
-                this.__hwndInsertAfter := HWND(this.ptr + 8)
+                this.__hwndInsertAfter := HWND(8, this)
             return this.__hwndInsertAfter
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -37,12 +36,9 @@ class PEER_INVITATION_INFO extends Win32Struct
      * Pointer to a Unicode string that specifies the PNRP cloud name.
      * @type {PWSTR}
      */
-    pwzCloudName{
-        get {
-            if(!this.HasProp("__pwzCloudName"))
-                this.__pwzCloudName := PWSTR(this.ptr + 8)
-            return this.__pwzCloudName
-        }
+    pwzCloudName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -133,72 +129,54 @@ class PEER_INVITATION_INFO extends Win32Struct
      * Pointer to a Unicode string that specifies the peer name of the peer group.
      * @type {PWSTR}
      */
-    pwzGroupPeerName{
-        get {
-            if(!this.HasProp("__pwzGroupPeerName"))
-                this.__pwzGroupPeerName := PWSTR(this.ptr + 24)
-            return this.__pwzGroupPeerName
-        }
+    pwzGroupPeerName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a Unicode string that specifies the PNRP name of the peer issuing the invitation.
      * @type {PWSTR}
      */
-    pwzIssuerPeerName{
-        get {
-            if(!this.HasProp("__pwzIssuerPeerName"))
-                this.__pwzIssuerPeerName := PWSTR(this.ptr + 32)
-            return this.__pwzIssuerPeerName
-        }
+    pwzIssuerPeerName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Pointer to a Unicode string that specifies the PNRP name of the peer that receives the invitation.
      * @type {PWSTR}
      */
-    pwzSubjectPeerName{
-        get {
-            if(!this.HasProp("__pwzSubjectPeerName"))
-                this.__pwzSubjectPeerName := PWSTR(this.ptr + 40)
-            return this.__pwzSubjectPeerName
-        }
+    pwzSubjectPeerName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer group.
      * @type {PWSTR}
      */
-    pwzGroupFriendlyName{
-        get {
-            if(!this.HasProp("__pwzGroupFriendlyName"))
-                this.__pwzGroupFriendlyName := PWSTR(this.ptr + 48)
-            return this.__pwzGroupFriendlyName
-        }
+    pwzGroupFriendlyName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer issuing the invitation.
      * @type {PWSTR}
      */
-    pwzIssuerFriendlyName{
-        get {
-            if(!this.HasProp("__pwzIssuerFriendlyName"))
-                this.__pwzIssuerFriendlyName := PWSTR(this.ptr + 56)
-            return this.__pwzIssuerFriendlyName
-        }
+    pwzIssuerFriendlyName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer that receives the invitation.
      * @type {PWSTR}
      */
-    pwzSubjectFriendlyName{
-        get {
-            if(!this.HasProp("__pwzSubjectFriendlyName"))
-                this.__pwzSubjectFriendlyName := PWSTR(this.ptr + 64)
-            return this.__pwzSubjectFriendlyName
-        }
+    pwzSubjectFriendlyName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -208,7 +186,7 @@ class PEER_INVITATION_INFO extends Win32Struct
     ftValidityStart{
         get {
             if(!this.HasProp("__ftValidityStart"))
-                this.__ftValidityStart := FILETIME(this.ptr + 72)
+                this.__ftValidityStart := FILETIME(72, this)
             return this.__ftValidityStart
         }
     }
@@ -220,7 +198,7 @@ class PEER_INVITATION_INFO extends Win32Struct
     ftValidityEnd{
         get {
             if(!this.HasProp("__ftValidityEnd"))
-                this.__ftValidityEnd := FILETIME(this.ptr + 80)
+                this.__ftValidityEnd := FILETIME(80, this)
             return this.__ftValidityEnd
         }
     }

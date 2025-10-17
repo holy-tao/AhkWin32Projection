@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\HCERTSTORE.ahk
 
 /**
@@ -30,12 +29,9 @@ class CRYPTUI_WIZ_EXPORT_INFO extends Win32Struct
      * displayed to the user as the default file name. This member is required if the <b>CRYPTUI_WIZ_NO_UI</b> flag is set.  This member is otherwise optional.
      * @type {PWSTR}
      */
-    pwszExportFileName{
-        get {
-            if(!this.HasProp("__pwszExportFileName"))
-                this.__pwszExportFileName := PWSTR(this.ptr + 8)
-            return this.__pwszExportFileName
-        }
+    pwszExportFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -77,7 +73,7 @@ class CRYPTUI_WIZ_EXPORT_INFO extends Win32Struct
     hCertStore{
         get {
             if(!this.HasProp("__hCertStore"))
-                this.__hCertStore := HCERTSTORE(this.ptr + 24)
+                this.__hCertStore := HCERTSTORE(24, this)
             return this.__hCertStore
         }
     }

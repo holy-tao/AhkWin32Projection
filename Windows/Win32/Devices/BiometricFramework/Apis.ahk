@@ -890,7 +890,7 @@ class BiometricFramework {
     static WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen, FrameworkHandle) {
         TargetWindow := TargetWindow is Win32Handle ? NumGet(TargetWindow, "ptr") : TargetWindow
 
-        result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "ptr", AsynchronousOpen, "uint*", FrameworkHandle, "int")
+        result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "int", AsynchronousOpen, "uint*", FrameworkHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1650,7 +1650,7 @@ class BiometricFramework {
     static WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen, SessionHandle) {
         TargetWindow := TargetWindow is Win32Handle ? NumGet(TargetWindow, "ptr") : TargetWindow
 
-        result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, "uint*", UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "ptr", AsynchronousOpen, "uint*", SessionHandle, "int")
+        result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, "uint*", UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "int", AsynchronousOpen, "uint*", SessionHandle, "int")
         if(result != 0)
             throw OSError(result)
 

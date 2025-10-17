@@ -21,7 +21,7 @@ class PrimaryXYZColors extends Win32Struct
     red{
         get {
             if(!this.HasProp("__red"))
-                this.__red := XYZColorF(this.ptr + 0)
+                this.__red := XYZColorF(0, this)
             return this.__red
         }
     }
@@ -33,7 +33,7 @@ class PrimaryXYZColors extends Win32Struct
     yellow{
         get {
             if(!this.HasProp("__yellow"))
-                this.__yellow := XYZColorF(this.ptr + 16)
+                this.__yellow := XYZColorF(16, this)
             return this.__yellow
         }
     }
@@ -45,7 +45,7 @@ class PrimaryXYZColors extends Win32Struct
     green{
         get {
             if(!this.HasProp("__green"))
-                this.__green := XYZColorF(this.ptr + 32)
+                this.__green := XYZColorF(32, this)
             return this.__green
         }
     }
@@ -57,7 +57,7 @@ class PrimaryXYZColors extends Win32Struct
     cyan{
         get {
             if(!this.HasProp("__cyan"))
-                this.__cyan := XYZColorF(this.ptr + 48)
+                this.__cyan := XYZColorF(48, this)
             return this.__cyan
         }
     }
@@ -69,7 +69,7 @@ class PrimaryXYZColors extends Win32Struct
     blue{
         get {
             if(!this.HasProp("__blue"))
-                this.__blue := XYZColorF(this.ptr + 64)
+                this.__blue := XYZColorF(64, this)
             return this.__blue
         }
     }
@@ -81,7 +81,7 @@ class PrimaryXYZColors extends Win32Struct
     magenta{
         get {
             if(!this.HasProp("__magenta"))
-                this.__magenta := XYZColorF(this.ptr + 80)
+                this.__magenta := XYZColorF(80, this)
             return this.__magenta
         }
     }
@@ -93,7 +93,7 @@ class PrimaryXYZColors extends Win32Struct
     black{
         get {
             if(!this.HasProp("__black"))
-                this.__black := XYZColorF(this.ptr + 96)
+                this.__black := XYZColorF(96, this)
             return this.__black
         }
     }
@@ -105,7 +105,7 @@ class PrimaryXYZColors extends Win32Struct
     white{
         get {
             if(!this.HasProp("__white"))
-                this.__white := XYZColorF(this.ptr + 112)
+                this.__white := XYZColorF(112, this)
             return this.__white
         }
     }

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information about an item in a ComboBoxEx control.
@@ -48,12 +46,9 @@ class COMBOBOXEXITEMA extends Win32Struct
      * 					<b>cchTextMax</b>. If this member is set to LPSTR_TEXTCALLBACK, the control will request the information by using the <a href="https://docs.microsoft.com/windows/desktop/Controls/cben-getdispinfo">CBEN_GETDISPINFO</a> notification codes.
      * @type {PSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PSTR(this.ptr + 16)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -117,11 +112,8 @@ class COMBOBOXEXITEMA extends Win32Struct
      * A value specific to the item.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 48)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

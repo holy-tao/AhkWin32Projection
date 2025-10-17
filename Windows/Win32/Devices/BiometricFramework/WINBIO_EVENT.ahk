@@ -60,7 +60,7 @@ class WINBIO_EVENT extends Win32Struct
         Identity{
             get {
                 if(!this.HasProp("__Identity"))
-                    this.__Identity := WINBIO_IDENTITY(this.ptr + 8)
+                    this.__Identity := WINBIO_IDENTITY(8, this)
                 return this.__Identity
             }
         }
@@ -103,7 +103,7 @@ class WINBIO_EVENT extends Win32Struct
     Unclaimed{
         get {
             if(!this.HasProp("__Unclaimed"))
-                this.__Unclaimed := %this.__Class%._Unclaimed(this.ptr + 8)
+                this.__Unclaimed := %this.__Class%._Unclaimed(8, this)
             return this.__Unclaimed
         }
     }
@@ -114,7 +114,7 @@ class WINBIO_EVENT extends Win32Struct
     UnclaimedIdentify{
         get {
             if(!this.HasProp("__UnclaimedIdentify"))
-                this.__UnclaimedIdentify := %this.__Class%._UnclaimedIdentify(this.ptr + 8)
+                this.__UnclaimedIdentify := %this.__Class%._UnclaimedIdentify(8, this)
             return this.__UnclaimedIdentify
         }
     }
@@ -125,7 +125,7 @@ class WINBIO_EVENT extends Win32Struct
     Error{
         get {
             if(!this.HasProp("__Error"))
-                this.__Error := %this.__Class%._Error(this.ptr + 8)
+                this.__Error := %this.__Class%._Error(8, this)
             return this.__Error
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information about a disk partition.
@@ -69,24 +68,18 @@ class PARTITION_INFORMATION extends Win32Struct
      * If this member is <b>TRUE</b>, the partition is bootable.
      * @type {BOOLEAN}
      */
-    BootIndicator{
-        get {
-            if(!this.HasProp("__BootIndicator"))
-                this.__BootIndicator := BOOLEAN(this.ptr + 25)
-            return this.__BootIndicator
-        }
+    BootIndicator {
+        get => NumGet(this, 25, "char")
+        set => NumPut("char", value, this, 25)
     }
 
     /**
      * If this member is <b>TRUE</b>, the partition is of a recognized type.
      * @type {BOOLEAN}
      */
-    RecognizedPartition{
-        get {
-            if(!this.HasProp("__RecognizedPartition"))
-                this.__RecognizedPartition := BOOLEAN(this.ptr + 26)
-            return this.__RecognizedPartition
-        }
+    RecognizedPartition {
+        get => NumGet(this, 26, "char")
+        set => NumPut("char", value, this, 26)
     }
 
     /**
@@ -94,11 +87,8 @@ class PARTITION_INFORMATION extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_set_drive_layout">IOCTL_DISK_SET_DRIVE_LAYOUT</a>), the system uses this member to determine which partitions have changed and need their information rewritten.
      * @type {BOOLEAN}
      */
-    RewritePartition{
-        get {
-            if(!this.HasProp("__RewritePartition"))
-                this.__RewritePartition := BOOLEAN(this.ptr + 27)
-            return this.__RewritePartition
-        }
+    RewritePartition {
+        get => NumGet(this, 27, "char")
+        set => NumPut("char", value, this, 27)
     }
 }

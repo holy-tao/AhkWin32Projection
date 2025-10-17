@@ -21,7 +21,7 @@ class WS_XML_WRITER_STREAM_OUTPUT extends Win32Struct
     output{
         get {
             if(!this.HasProp("__output"))
-                this.__output := WS_XML_WRITER_OUTPUT(this.ptr + 0)
+                this.__output := WS_XML_WRITER_OUTPUT(0, this)
             return this.__output
         }
     }

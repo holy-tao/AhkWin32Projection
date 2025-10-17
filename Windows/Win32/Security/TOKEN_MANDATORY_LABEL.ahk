@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\PSID.ahk
 #Include .\SID_AND_ATTRIBUTES.ahk
 
 /**
@@ -22,7 +21,7 @@ class TOKEN_MANDATORY_LABEL extends Win32Struct
     Label{
         get {
             if(!this.HasProp("__Label"))
-                this.__Label := SID_AND_ATTRIBUTES(this.ptr + 0)
+                this.__Label := SID_AND_ATTRIBUTES(0, this)
             return this.__Label
         }
     }

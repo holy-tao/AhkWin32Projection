@@ -26,7 +26,7 @@ class IPSEC_DOSP_STATE_ENUM_TEMPLATE0 extends Win32Struct
     publicV6AddrMask{
         get {
             if(!this.HasProp("__publicV6AddrMask"))
-                this.__publicV6AddrMask := FWP_V6_ADDR_AND_MASK(this.ptr + 0)
+                this.__publicV6AddrMask := FWP_V6_ADDR_AND_MASK(0, this)
             return this.__publicV6AddrMask
         }
     }
@@ -38,7 +38,7 @@ class IPSEC_DOSP_STATE_ENUM_TEMPLATE0 extends Win32Struct
     internalV6AddrMask{
         get {
             if(!this.HasProp("__internalV6AddrMask"))
-                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(this.ptr + 24)
+                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(24, this)
             return this.__internalV6AddrMask
         }
     }

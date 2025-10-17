@@ -18,7 +18,7 @@ class CLS_IO_STATISTICS extends Win32Struct
     hdrIoStats{
         get {
             if(!this.HasProp("__hdrIoStats"))
-                this.__hdrIoStats := CLS_IO_STATISTICS_HEADER(this.ptr + 0)
+                this.__hdrIoStats := CLS_IO_STATISTICS_HEADER(0, this)
             return this.__hdrIoStats
         }
     }

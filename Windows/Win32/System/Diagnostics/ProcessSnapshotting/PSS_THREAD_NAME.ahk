@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
@@ -23,11 +22,8 @@ class PSS_THREAD_NAME extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    ThreadName{
-        get {
-            if(!this.HasProp("__ThreadName"))
-                this.__ThreadName := PWSTR(this.ptr + 8)
-            return this.__ThreadName
-        }
+    ThreadName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

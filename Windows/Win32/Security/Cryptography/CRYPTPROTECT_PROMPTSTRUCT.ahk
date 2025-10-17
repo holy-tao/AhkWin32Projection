@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides the text of a prompt and information about when and where that prompt is to be displayed when using the CryptProtectData and CryptUnprotectData functions.
@@ -67,7 +66,7 @@ class CRYPTPROTECT_PROMPTSTRUCT extends Win32Struct
     hwndApp{
         get {
             if(!this.HasProp("__hwndApp"))
-                this.__hwndApp := HWND(this.ptr + 8)
+                this.__hwndApp := HWND(8, this)
             return this.__hwndApp
         }
     }
@@ -76,20 +75,13 @@ class CRYPTPROTECT_PROMPTSTRUCT extends Win32Struct
      * A string containing the text of a prompt to be displayed.
      * @type {PWSTR}
      */
-    szPrompt{
-        get {
-            if(!this.HasProp("__szPrompt"))
-                this.__szPrompt := PWSTR(this.ptr + 16)
-            return this.__szPrompt
-        }
+    szPrompt {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 24
     }
 }

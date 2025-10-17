@@ -76,7 +76,7 @@ class NEWCPLINFOA extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 24)
+                this.__hIcon := HICON(24, this)
             return this.__hIcon
         }
     }

@@ -36,7 +36,7 @@ class INPUT extends Win32Struct
     mi{
         get {
             if(!this.HasProp("__mi"))
-                this.__mi := MOUSEINPUT(this.ptr + 8)
+                this.__mi := MOUSEINPUT(8, this)
             return this.__mi
         }
     }
@@ -47,7 +47,7 @@ class INPUT extends Win32Struct
     ki{
         get {
             if(!this.HasProp("__ki"))
-                this.__ki := KEYBDINPUT(this.ptr + 8)
+                this.__ki := KEYBDINPUT(8, this)
             return this.__ki
         }
     }
@@ -58,7 +58,7 @@ class INPUT extends Win32Struct
     hi{
         get {
             if(!this.HasProp("__hi"))
-                this.__hi := HARDWAREINPUT(this.ptr + 8)
+                this.__hi := HARDWAREINPUT(8, this)
             return this.__hi
         }
     }

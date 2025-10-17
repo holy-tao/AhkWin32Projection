@@ -77,7 +77,7 @@ class WEB_SOCKET_BUFFER extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data(this.ptr + 0)
+                this.__Data := %this.__Class%._Data(0, this)
             return this.__Data
         }
     }
@@ -89,7 +89,7 @@ class WEB_SOCKET_BUFFER extends Win32Struct
     CloseStatus{
         get {
             if(!this.HasProp("__CloseStatus"))
-                this.__CloseStatus := %this.__Class%._CloseStatus(this.ptr + 0)
+                this.__CloseStatus := %this.__Class%._CloseStatus(0, this)
             return this.__CloseStatus
         }
     }

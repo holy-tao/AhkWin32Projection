@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -27,12 +26,9 @@ class userCLIPFORMAT extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        pwszName{
-            get {
-                if(!this.HasProp("__pwszName"))
-                    this.__pwszName := PWSTR(this.ptr + 0)
-                return this.__pwszName
-            }
+        pwszName {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
     }
@@ -51,7 +47,7 @@ class userCLIPFORMAT extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u(this.ptr + 8)
+                this.__u := %this.__Class%._u(8, this)
             return this.__u
         }
     }

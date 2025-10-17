@@ -42,7 +42,7 @@ class VIDEO_WIN32K_CALLBACKS extends Win32Struct
     pPhysDeviceObject{
         get {
             if(!this.HasProp("__pPhysDeviceObject"))
-                this.__pPhysDeviceObject := HANDLE(this.ptr + 24)
+                this.__pPhysDeviceObject := HANDLE(24, this)
             return this.__pPhysDeviceObject
         }
     }

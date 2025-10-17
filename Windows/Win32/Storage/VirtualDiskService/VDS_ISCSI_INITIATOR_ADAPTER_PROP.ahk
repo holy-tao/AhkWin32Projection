@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the properties of an iSCSI initiator adapter.
@@ -27,11 +26,8 @@ class VDS_ISCSI_INITIATOR_ADAPTER_PROP extends Win32Struct
      * A null-terminated, human-readable string that is the name of the initiator adapter.
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 8)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

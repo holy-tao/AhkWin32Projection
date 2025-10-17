@@ -19,7 +19,7 @@ class NDR64_CONFORMANT_STRING_FORMAT extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDR64_STRING_HEADER_FORMAT(this.ptr + 0)
+                this.__Header := NDR64_STRING_HEADER_FORMAT(0, this)
             return this.__Header
         }
     }

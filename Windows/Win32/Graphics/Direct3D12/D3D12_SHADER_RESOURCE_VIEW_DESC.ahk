@@ -66,7 +66,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     Buffer{
         get {
             if(!this.HasProp("__Buffer"))
-                this.__Buffer := D3D12_BUFFER_SRV(this.ptr + 16)
+                this.__Buffer := D3D12_BUFFER_SRV(16, this)
             return this.__Buffer
         }
     }
@@ -77,7 +77,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     Texture1D{
         get {
             if(!this.HasProp("__Texture1D"))
-                this.__Texture1D := D3D12_TEX1D_SRV(this.ptr + 16)
+                this.__Texture1D := D3D12_TEX1D_SRV(16, this)
             return this.__Texture1D
         }
     }
@@ -88,7 +88,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     Texture1DArray{
         get {
             if(!this.HasProp("__Texture1DArray"))
-                this.__Texture1DArray := D3D12_TEX1D_ARRAY_SRV(this.ptr + 16)
+                this.__Texture1DArray := D3D12_TEX1D_ARRAY_SRV(16, this)
             return this.__Texture1DArray
         }
     }
@@ -99,7 +99,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     Texture2D{
         get {
             if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D12_TEX2D_SRV(this.ptr + 16)
+                this.__Texture2D := D3D12_TEX2D_SRV(16, this)
             return this.__Texture2D
         }
     }
@@ -110,7 +110,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     Texture2DArray{
         get {
             if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D12_TEX2D_ARRAY_SRV(this.ptr + 16)
+                this.__Texture2DArray := D3D12_TEX2D_ARRAY_SRV(16, this)
             return this.__Texture2DArray
         }
     }
@@ -121,7 +121,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     Texture2DMS{
         get {
             if(!this.HasProp("__Texture2DMS"))
-                this.__Texture2DMS := D3D12_TEX2DMS_SRV(this.ptr + 16)
+                this.__Texture2DMS := D3D12_TEX2DMS_SRV(16, this)
             return this.__Texture2DMS
         }
     }
@@ -132,7 +132,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     Texture2DMSArray{
         get {
             if(!this.HasProp("__Texture2DMSArray"))
-                this.__Texture2DMSArray := D3D12_TEX2DMS_ARRAY_SRV(this.ptr + 16)
+                this.__Texture2DMSArray := D3D12_TEX2DMS_ARRAY_SRV(16, this)
             return this.__Texture2DMSArray
         }
     }
@@ -143,7 +143,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     Texture3D{
         get {
             if(!this.HasProp("__Texture3D"))
-                this.__Texture3D := D3D12_TEX3D_SRV(this.ptr + 16)
+                this.__Texture3D := D3D12_TEX3D_SRV(16, this)
             return this.__Texture3D
         }
     }
@@ -154,7 +154,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     TextureCube{
         get {
             if(!this.HasProp("__TextureCube"))
-                this.__TextureCube := D3D12_TEXCUBE_SRV(this.ptr + 16)
+                this.__TextureCube := D3D12_TEXCUBE_SRV(16, this)
             return this.__TextureCube
         }
     }
@@ -165,7 +165,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     TextureCubeArray{
         get {
             if(!this.HasProp("__TextureCubeArray"))
-                this.__TextureCubeArray := D3D12_TEXCUBE_ARRAY_SRV(this.ptr + 16)
+                this.__TextureCubeArray := D3D12_TEXCUBE_ARRAY_SRV(16, this)
             return this.__TextureCubeArray
         }
     }
@@ -176,7 +176,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     RaytracingAccelerationStructure{
         get {
             if(!this.HasProp("__RaytracingAccelerationStructure"))
-                this.__RaytracingAccelerationStructure := D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV(this.ptr + 16)
+                this.__RaytracingAccelerationStructure := D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV(16, this)
             return this.__RaytracingAccelerationStructure
         }
     }

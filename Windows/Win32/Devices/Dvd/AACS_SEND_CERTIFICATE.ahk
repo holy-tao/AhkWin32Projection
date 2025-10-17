@@ -26,7 +26,7 @@ class AACS_SEND_CERTIFICATE extends Win32Struct
     Certificate{
         get {
             if(!this.HasProp("__Certificate"))
-                this.__Certificate := AACS_CERTIFICATE(this.ptr + 8)
+                this.__Certificate := AACS_CERTIFICATE(8, this)
             return this.__Certificate
         }
     }

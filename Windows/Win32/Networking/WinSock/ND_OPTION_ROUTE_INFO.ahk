@@ -83,7 +83,7 @@ class ND_OPTION_ROUTE_INFO extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(this.ptr + 3)
+                this.__Flags := %this.__Class%._Flags(3, this)
             return this.__Flags
         }
     }
@@ -102,7 +102,7 @@ class ND_OPTION_ROUTE_INFO extends Win32Struct
     nd_opt_ri_prefix{
         get {
             if(!this.HasProp("__nd_opt_ri_prefix"))
-                this.__nd_opt_ri_prefix := IN6_ADDR(this.ptr + 8)
+                this.__nd_opt_ri_prefix := IN6_ADDR(8, this)
             return this.__nd_opt_ri_prefix
         }
     }

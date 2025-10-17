@@ -61,7 +61,7 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
     MbrPartInfo{
         get {
             if(!this.HasProp("__MbrPartInfo"))
-                this.__MbrPartInfo := %this.__Class%._MbrPartInfo(this.ptr + 8)
+                this.__MbrPartInfo := %this.__Class%._MbrPartInfo(8, this)
             return this.__MbrPartInfo
         }
     }
@@ -72,7 +72,7 @@ class CHANGE_PARTITION_TYPE_PARAMETERS extends Win32Struct
     GptPartInfo{
         get {
             if(!this.HasProp("__GptPartInfo"))
-                this.__GptPartInfo := %this.__Class%._GptPartInfo(this.ptr + 8)
+                this.__GptPartInfo := %this.__Class%._GptPartInfo(8, this)
             return this.__GptPartInfo
         }
     }

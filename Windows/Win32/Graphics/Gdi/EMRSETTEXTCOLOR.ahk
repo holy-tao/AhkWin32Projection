@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
@@ -19,7 +18,7 @@ class EMRSETTEXTCOLOR extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -27,11 +26,8 @@ class EMRSETTEXTCOLOR extends Win32Struct
     /**
      * @type {COLORREF}
      */
-    crColor{
-        get {
-            if(!this.HasProp("__crColor"))
-                this.__crColor := COLORREF(this.ptr + 8)
-            return this.__crColor
-        }
+    crColor {
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 }

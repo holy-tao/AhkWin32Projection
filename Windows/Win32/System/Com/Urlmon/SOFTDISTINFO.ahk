@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about a software update.
@@ -54,12 +53,9 @@ class SOFTDISTINFO extends Win32Struct
      * A string that contains the contents of the TITLE flag from the associated .cdf file.
      * @type {PWSTR}
      */
-    szTitle{
-        get {
-            if(!this.HasProp("__szTitle"))
-                this.__szTitle := PWSTR(this.ptr + 16)
-            return this.__szTitle
-        }
+    szTitle {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -68,12 +64,9 @@ class SOFTDISTINFO extends Win32Struct
      * A string that contains the contents of the ABSTRACT flag from the associated .cdf file.
      * @type {PWSTR}
      */
-    szAbstract{
-        get {
-            if(!this.HasProp("__szAbstract"))
-                this.__szAbstract := PWSTR(this.ptr + 24)
-            return this.__szAbstract
-        }
+    szAbstract {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -82,12 +75,9 @@ class SOFTDISTINFO extends Win32Struct
      * A string that contains the URL of the webpage to advertise or install the update.
      * @type {PWSTR}
      */
-    szHREF{
-        get {
-            if(!this.HasProp("__szHREF"))
-                this.__szHREF := PWSTR(this.ptr + 32)
-            return this.__szHREF
-        }
+    szHREF {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -167,12 +157,8 @@ class SOFTDISTINFO extends Win32Struct
         set => NumPut("uint", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

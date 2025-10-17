@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Controls\HIMAGELIST.ahk
 
 /**
@@ -54,12 +53,9 @@ class NSTCCUSTOMDRAW extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the item text, if the structure specifies item attributes.
      * @type {PWSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PWSTR(this.ptr + 16)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -82,7 +78,7 @@ class NSTCCUSTOMDRAW extends Win32Struct
     himl{
         get {
             if(!this.HasProp("__himl"))
-                this.__himl := HIMAGELIST(this.ptr + 32)
+                this.__himl := HIMAGELIST(32, this)
             return this.__himl
         }
     }

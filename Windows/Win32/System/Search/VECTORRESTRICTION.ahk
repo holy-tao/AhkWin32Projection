@@ -18,7 +18,7 @@ class VECTORRESTRICTION extends Win32Struct
     Node{
         get {
             if(!this.HasProp("__Node"))
-                this.__Node := NODERESTRICTION(this.ptr + 0)
+                this.__Node := NODERESTRICTION(0, this)
             return this.__Node
         }
     }

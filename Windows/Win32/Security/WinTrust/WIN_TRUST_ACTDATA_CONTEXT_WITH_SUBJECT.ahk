@@ -18,7 +18,7 @@ class WIN_TRUST_ACTDATA_CONTEXT_WITH_SUBJECT extends Win32Struct
     hClientToken{
         get {
             if(!this.HasProp("__hClientToken"))
-                this.__hClientToken := HANDLE(this.ptr + 0)
+                this.__hClientToken := HANDLE(0, this)
             return this.__hClientToken
         }
     }

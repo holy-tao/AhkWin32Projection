@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -28,12 +27,9 @@ class DD_MAPMEMORYDATA extends Win32Struct
      * Specifies the memory operation that the driver should perform. A value of <b>TRUE</b> indicates that the driver should map memory; <b>FALSE</b> means that the driver should unmap memory.
      * @type {BOOL}
      */
-    bMap{
-        get {
-            if(!this.HasProp("__bMap"))
-                this.__bMap := BOOL(this.ptr + 8)
-            return this.__bMap
-        }
+    bMap {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -43,7 +39,7 @@ class DD_MAPMEMORYDATA extends Win32Struct
     hProcess{
         get {
             if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(this.ptr + 16)
+                this.__hProcess := HANDLE(16, this)
             return this.__hProcess
         }
     }

@@ -21,7 +21,7 @@ class SpatialAudioHrtfDirectivityCone extends Win32Struct
     directivity{
         get {
             if(!this.HasProp("__directivity"))
-                this.__directivity := SpatialAudioHrtfDirectivity(this.ptr + 0)
+                this.__directivity := SpatialAudioHrtfDirectivity(0, this)
             return this.__directivity
         }
     }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\ADDRESS64.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 #Include .\KDHELP64.ahk
 
 /**
@@ -31,7 +30,7 @@ class STACKFRAME_EX extends Win32Struct
     AddrPC{
         get {
             if(!this.HasProp("__AddrPC"))
-                this.__AddrPC := ADDRESS64(this.ptr + 0)
+                this.__AddrPC := ADDRESS64(0, this)
             return this.__AddrPC
         }
     }
@@ -44,7 +43,7 @@ class STACKFRAME_EX extends Win32Struct
     AddrReturn{
         get {
             if(!this.HasProp("__AddrReturn"))
-                this.__AddrReturn := ADDRESS64(this.ptr + 16)
+                this.__AddrReturn := ADDRESS64(16, this)
             return this.__AddrReturn
         }
     }
@@ -64,7 +63,7 @@ class STACKFRAME_EX extends Win32Struct
     AddrFrame{
         get {
             if(!this.HasProp("__AddrFrame"))
-                this.__AddrFrame := ADDRESS64(this.ptr + 32)
+                this.__AddrFrame := ADDRESS64(32, this)
             return this.__AddrFrame
         }
     }
@@ -84,7 +83,7 @@ class STACKFRAME_EX extends Win32Struct
     AddrStack{
         get {
             if(!this.HasProp("__AddrStack"))
-                this.__AddrStack := ADDRESS64(this.ptr + 48)
+                this.__AddrStack := ADDRESS64(48, this)
             return this.__AddrStack
         }
     }
@@ -97,7 +96,7 @@ class STACKFRAME_EX extends Win32Struct
     AddrBStore{
         get {
             if(!this.HasProp("__AddrBStore"))
-                this.__AddrBStore := ADDRESS64(this.ptr + 64)
+                this.__AddrBStore := ADDRESS64(64, this)
             return this.__AddrBStore
         }
     }
@@ -128,24 +127,18 @@ class STACKFRAME_EX extends Win32Struct
      * This member is <b>TRUE</b> if this is a WOW far call.
      * @type {BOOL}
      */
-    Far{
-        get {
-            if(!this.HasProp("__Far"))
-                this.__Far := BOOL(this.ptr + 120)
-            return this.__Far
-        }
+    Far {
+        get => NumGet(this, 120, "int")
+        set => NumPut("int", value, this, 120)
     }
 
     /**
      * This member is <b>TRUE</b> if this is a virtual frame.
      * @type {BOOL}
      */
-    Virtual{
-        get {
-            if(!this.HasProp("__Virtual"))
-                this.__Virtual := BOOL(this.ptr + 124)
-            return this.__Virtual
-        }
+    Virtual {
+        get => NumGet(this, 124, "int")
+        set => NumPut("int", value, this, 124)
     }
 
     /**
@@ -169,7 +162,7 @@ class STACKFRAME_EX extends Win32Struct
     KdHelp{
         get {
             if(!this.HasProp("__KdHelp"))
-                this.__KdHelp := KDHELP64(this.ptr + 152)
+                this.__KdHelp := KDHELP64(152, this)
             return this.__KdHelp
         }
     }

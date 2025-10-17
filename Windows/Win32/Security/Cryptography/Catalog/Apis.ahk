@@ -139,7 +139,7 @@ class Catalog {
     static CryptCATClose(hCatalog) {
         hCatalog := hCatalog is Win32Handle ? NumGet(hCatalog, "ptr") : hCatalog
 
-        result := DllCall("WINTRUST.dll\CryptCATClose", "ptr", hCatalog, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATClose", "ptr", hCatalog, "int")
         return result
     }
 
@@ -215,7 +215,7 @@ class Catalog {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATPersistStore", "ptr", hCatalog, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATPersistStore", "ptr", hCatalog, "int")
         if(A_LastError)
             throw OSError()
 
@@ -754,7 +754,7 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATCDFClose(pCDF) {
-        result := DllCall("WINTRUST.dll\CryptCATCDFClose", "ptr", pCDF, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATCDFClose", "ptr", pCDF, "int")
         return result
     }
 
@@ -809,7 +809,7 @@ class Catalog {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
-        result := DllCall("WINTRUST.dll\IsCatalogFile", "ptr", hFile, "ptr", pwszFileName, "ptr")
+        result := DllCall("WINTRUST.dll\IsCatalogFile", "ptr", hFile, "ptr", pwszFileName, "int")
         return result
     }
 
@@ -828,7 +828,7 @@ class Catalog {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext", "ptr*", phCatAdmin, "ptr", pgSubsystem, "uint", dwFlags, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext", "ptr*", phCatAdmin, "ptr", pgSubsystem, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -899,7 +899,7 @@ class Catalog {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext2", "ptr*", phCatAdmin, "ptr", pgSubsystem, "ptr", pwszHashAlgorithm, "ptr", pStrongHashPolicy, "uint", dwFlags, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext2", "ptr*", phCatAdmin, "ptr", pgSubsystem, "ptr", pwszHashAlgorithm, "ptr", pStrongHashPolicy, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -915,7 +915,7 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATAdminReleaseContext(hCatAdmin, dwFlags) {
-        result := DllCall("WINTRUST.dll\CryptCATAdminReleaseContext", "ptr", hCatAdmin, "uint", dwFlags, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATAdminReleaseContext", "ptr", hCatAdmin, "uint", dwFlags, "int")
         return result
     }
 
@@ -929,7 +929,7 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATAdminReleaseCatalogContext(hCatAdmin, hCatInfo, dwFlags) {
-        result := DllCall("WINTRUST.dll\CryptCATAdminReleaseCatalogContext", "ptr", hCatAdmin, "ptr", hCatInfo, "uint", dwFlags, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATAdminReleaseCatalogContext", "ptr", hCatAdmin, "ptr", hCatInfo, "uint", dwFlags, "int")
         return result
     }
 
@@ -971,7 +971,7 @@ class Catalog {
 
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
-        result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle", "ptr", hFile, "uint*", pcbHash, "ptr", pbHash, "uint", dwFlags, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle", "ptr", hFile, "uint*", pcbHash, "ptr", pbHash, "uint", dwFlags, "int")
         return result
     }
 
@@ -1043,7 +1043,7 @@ class Catalog {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle2", "ptr", hCatAdmin, "ptr", hFile, "uint*", pcbHash, "ptr", pbHash, "uint", dwFlags, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle2", "ptr", hCatAdmin, "ptr", hFile, "uint*", pcbHash, "ptr", pbHash, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1091,7 +1091,7 @@ class Catalog {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATAdminRemoveCatalog", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "uint", dwFlags, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATAdminRemoveCatalog", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1112,7 +1112,7 @@ class Catalog {
     static CryptCATCatalogInfoFromContext(hCatInfo, psCatInfo, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATCatalogInfoFromContext", "ptr", hCatInfo, "ptr", psCatInfo, "uint", dwFlags, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATCatalogInfoFromContext", "ptr", hCatInfo, "ptr", psCatInfo, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1136,7 +1136,7 @@ class Catalog {
 
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptCATAdminResolveCatalogPath", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "ptr", psCatInfo, "uint", dwFlags, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATAdminResolveCatalogPath", "ptr", hCatAdmin, "ptr", pwszCatalogFile, "ptr", psCatInfo, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1150,7 +1150,7 @@ class Catalog {
      * @returns {BOOL} 
      */
     static CryptCATAdminPauseServiceForBackup(dwFlags, fResume) {
-        result := DllCall("WINTRUST.dll\CryptCATAdminPauseServiceForBackup", "uint", dwFlags, "ptr", fResume, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATAdminPauseServiceForBackup", "uint", dwFlags, "int", fResume, "int")
         return result
     }
 
@@ -1167,7 +1167,7 @@ class Catalog {
     static CryptCATCDFEnumMembersByCDFTagEx(pCDF, pwszPrevCDFTag, pfnParseError, ppMember, fContinueOnError, pvReserved) {
         pwszPrevCDFTag := pwszPrevCDFTag is String ? StrPtr(pwszPrevCDFTag) : pwszPrevCDFTag
 
-        result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembersByCDFTagEx", "ptr", pCDF, "ptr", pwszPrevCDFTag, "ptr", pfnParseError, "ptr", ppMember, "ptr", fContinueOnError, "ptr", pvReserved, "ptr")
+        result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembersByCDFTagEx", "ptr", pCDF, "ptr", pwszPrevCDFTag, "ptr", pfnParseError, "ptr", ppMember, "int", fContinueOnError, "ptr", pvReserved, "char*")
         return result
     }
 

@@ -44,7 +44,7 @@ class DIDEVICEIMAGEINFOW extends Win32Struct
     rcOverlay{
         get {
             if(!this.HasProp("__rcOverlay"))
-                this.__rcOverlay := RECT(this.ptr + 528)
+                this.__rcOverlay := RECT(528, this)
             return this.__rcOverlay
         }
     }
@@ -82,7 +82,7 @@ class DIDEVICEIMAGEINFOW extends Win32Struct
     rcCalloutRect{
         get {
             if(!this.HasProp("__rcCalloutRect"))
-                this.__rcCalloutRect := RECT(this.ptr + 592)
+                this.__rcCalloutRect := RECT(592, this)
             return this.__rcCalloutRect
         }
     }

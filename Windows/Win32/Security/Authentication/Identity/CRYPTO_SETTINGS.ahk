@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -44,7 +43,7 @@ class CRYPTO_SETTINGS extends Win32Struct
     strCngAlgId{
         get {
             if(!this.HasProp("__strCngAlgId"))
-                this.__strCngAlgId := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__strCngAlgId := LSA_UNICODE_STRING(8, this)
             return this.__strCngAlgId
         }
     }

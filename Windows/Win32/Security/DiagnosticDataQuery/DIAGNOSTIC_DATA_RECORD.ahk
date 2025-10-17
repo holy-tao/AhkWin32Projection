@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * This resource describes an individual diagnostic data record (event).
@@ -59,12 +57,9 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
      * The full event name.
      * @type {PWSTR}
      */
-    fullEventName{
-        get {
-            if(!this.HasProp("__fullEventName"))
-                this.__fullEventName := PWSTR(this.ptr + 24)
-            return this.__fullEventName
-        }
+    fullEventName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -72,12 +67,9 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
      * The provider group GUID for this event.
      * @type {PWSTR}
      */
-    providerGroupGuid{
-        get {
-            if(!this.HasProp("__providerGroupGuid"))
-                this.__providerGroupGuid := PWSTR(this.ptr + 32)
-            return this.__providerGroupGuid
-        }
+    providerGroupGuid {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -85,12 +77,9 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
      * The name of the producer associated with this event.
      * @type {PWSTR}
      */
-    producerName{
-        get {
-            if(!this.HasProp("__producerName"))
-                this.__producerName := PWSTR(this.ptr + 40)
-            return this.__producerName
-        }
+    producerName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -138,47 +127,35 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
      * `TRUE` if this record is core data. `FALSE` otherwise.
      * @type {BOOL}
      */
-    isCoreData{
-        get {
-            if(!this.HasProp("__isCoreData"))
-                this.__isCoreData := BOOL(this.ptr + 76)
-            return this.__isCoreData
-        }
+    isCoreData {
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
      * 
      * @type {PWSTR}
      */
-    extra1{
-        get {
-            if(!this.HasProp("__extra1"))
-                this.__extra1 := PWSTR(this.ptr + 80)
-            return this.__extra1
-        }
+    extra1 {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * 
      * @type {PWSTR}
      */
-    extra2{
-        get {
-            if(!this.HasProp("__extra2"))
-                this.__extra2 := PWSTR(this.ptr + 88)
-            return this.__extra2
-        }
+    extra2 {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * 
      * @type {PWSTR}
      */
-    extra3{
-        get {
-            if(!this.HasProp("__extra3"))
-                this.__extra3 := PWSTR(this.ptr + 96)
-            return this.__extra3
-        }
+    extra3 {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 }

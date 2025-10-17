@@ -34,7 +34,7 @@ class WINBIO_CALIBRATION_INFO extends Win32Struct
     CalibrationData{
         get {
             if(!this.HasProp("__CalibrationData"))
-                this.__CalibrationData := WINBIO_DATA(this.ptr + 8)
+                this.__CalibrationData := WINBIO_DATA(8, this)
             return this.__CalibrationData
         }
     }

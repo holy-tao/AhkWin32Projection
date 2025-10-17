@@ -23,7 +23,7 @@ class TOKEN_LINKED_TOKEN extends Win32Struct
     LinkedToken{
         get {
             if(!this.HasProp("__LinkedToken"))
-                this.__LinkedToken := HANDLE(this.ptr + 0)
+                this.__LinkedToken := HANDLE(0, this)
             return this.__LinkedToken
         }
     }

@@ -19,7 +19,7 @@ class ND_ROUTER_SOLICIT_HEADER extends Win32Struct
     nd_rs_hdr{
         get {
             if(!this.HasProp("__nd_rs_hdr"))
-                this.__nd_rs_hdr := ICMP_MESSAGE(this.ptr + 0)
+                this.__nd_rs_hdr := ICMP_MESSAGE(0, this)
             return this.__nd_rs_hdr
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the blend state.
@@ -60,9 +59,9 @@
  */
 class D3D10_BLEND_DESC extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
@@ -70,12 +69,9 @@ class D3D10_BLEND_DESC extends Win32Struct
      * Determines whether or not to use <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-blend-state">alpha-to-coverage</a> as a multisampling technique when setting a pixel to a rendertarget.
      * @type {BOOL}
      */
-    AlphaToCoverageEnable{
-        get {
-            if(!this.HasProp("__AlphaToCoverageEnable"))
-                this.__AlphaToCoverageEnable := BOOL(this.ptr + 0)
-            return this.__AlphaToCoverageEnable
-        }
+    AlphaToCoverageEnable {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -87,7 +83,7 @@ class D3D10_BLEND_DESC extends Win32Struct
     BlendEnable{
         get {
             if(!this.HasProp("__BlendEnableProxyArray"))
-                this.__BlendEnableProxyArray := Win32FixedArray(this.ptr + 8, 8, BOOL, "")
+                this.__BlendEnableProxyArray := Win32FixedArray(this.ptr + 4, 8, BOOL, "")
             return this.__BlendEnableProxyArray
         }
     }
@@ -99,8 +95,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     SrcBlend {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -110,8 +106,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     DestBlend {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -121,8 +117,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     BlendOp {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -132,8 +128,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     SrcBlendAlpha {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -143,8 +139,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     DestBlendAlpha {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -154,8 +150,8 @@ class D3D10_BLEND_DESC extends Win32Struct
      * @type {Integer}
      */
     BlendOpAlpha {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -167,7 +163,7 @@ class D3D10_BLEND_DESC extends Win32Struct
     RenderTargetWriteMask{
         get {
             if(!this.HasProp("__RenderTargetWriteMaskProxyArray"))
-                this.__RenderTargetWriteMaskProxyArray := Win32FixedArray(this.ptr + 96, 8, Primitive, "char")
+                this.__RenderTargetWriteMaskProxyArray := Win32FixedArray(this.ptr + 60, 8, Primitive, "char")
             return this.__RenderTargetWriteMaskProxyArray
         }
     }

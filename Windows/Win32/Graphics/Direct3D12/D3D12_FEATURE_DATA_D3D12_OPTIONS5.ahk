@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Indicates the level of support that the adapter provides for render passes, ray tracing, and shader-resource view tier 3 tiled resources.
@@ -23,12 +22,9 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS5 extends Win32Struct
      * A boolean value indicating whether the options require shader-resource view tier 3 tiled resource support. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tiled_resources_tier">D3D12_TILED_RESOURCES_TIER</a>.
      * @type {BOOL}
      */
-    SRVOnlyTiledResourceTier3{
-        get {
-            if(!this.HasProp("__SRVOnlyTiledResourceTier3"))
-                this.__SRVOnlyTiledResourceTier3 := BOOL(this.ptr + 0)
-            return this.__SRVOnlyTiledResourceTier3
-        }
+    SRVOnlyTiledResourceTier3 {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

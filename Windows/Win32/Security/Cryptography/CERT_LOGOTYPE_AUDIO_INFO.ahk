@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains more detailed information about an audio logotype.
@@ -54,11 +53,8 @@ class CERT_LOGOTYPE_AUDIO_INFO extends Win32Struct
      * The address of a null-terminated IA5 string that contains the RFC 3066 language identifier that specifies the language of the audio. This member is optional and may be <b>NULL</b>.
      * @type {PWSTR}
      */
-    pwszLanguage{
-        get {
-            if(!this.HasProp("__pwszLanguage"))
-                this.__pwszLanguage := PWSTR(this.ptr + 16)
-            return this.__pwszLanguage
-        }
+    pwszLanguage {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

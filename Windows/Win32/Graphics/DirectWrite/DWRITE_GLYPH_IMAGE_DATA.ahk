@@ -59,7 +59,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
     pixelSize{
         get {
             if(!this.HasProp("__pixelSize"))
-                this.__pixelSize := D2D_SIZE_U(this.ptr + 24)
+                this.__pixelSize := D2D_SIZE_U(24, this)
             return this.__pixelSize
         }
     }
@@ -71,7 +71,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
     horizontalLeftOrigin{
         get {
             if(!this.HasProp("__horizontalLeftOrigin"))
-                this.__horizontalLeftOrigin := POINT(this.ptr + 32)
+                this.__horizontalLeftOrigin := POINT(32, this)
             return this.__horizontalLeftOrigin
         }
     }
@@ -83,7 +83,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
     horizontalRightOrigin{
         get {
             if(!this.HasProp("__horizontalRightOrigin"))
-                this.__horizontalRightOrigin := POINT(this.ptr + 40)
+                this.__horizontalRightOrigin := POINT(40, this)
             return this.__horizontalRightOrigin
         }
     }
@@ -95,7 +95,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
     verticalTopOrigin{
         get {
             if(!this.HasProp("__verticalTopOrigin"))
-                this.__verticalTopOrigin := POINT(this.ptr + 48)
+                this.__verticalTopOrigin := POINT(48, this)
             return this.__verticalTopOrigin
         }
     }
@@ -107,7 +107,7 @@ class DWRITE_GLYPH_IMAGE_DATA extends Win32Struct
     verticalBottomOrigin{
         get {
             if(!this.HasProp("__verticalBottomOrigin"))
-                this.__verticalBottomOrigin := POINT(this.ptr + 56)
+                this.__verticalBottomOrigin := POINT(56, this)
             return this.__verticalBottomOrigin
         }
     }

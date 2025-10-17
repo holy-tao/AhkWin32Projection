@@ -25,7 +25,7 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
     hFile{
         get {
             if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 0)
+                this.__hFile := HANDLE(0, this)
             return this.__hFile
         }
     }
@@ -38,7 +38,7 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
     hProcess{
         get {
             if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(this.ptr + 8)
+                this.__hProcess := HANDLE(8, this)
             return this.__hProcess
         }
     }
@@ -55,7 +55,7 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
     hThread{
         get {
             if(!this.HasProp("__hThread"))
-                this.__hThread := HANDLE(this.ptr + 16)
+                this.__hThread := HANDLE(16, this)
             return this.__hThread
         }
     }

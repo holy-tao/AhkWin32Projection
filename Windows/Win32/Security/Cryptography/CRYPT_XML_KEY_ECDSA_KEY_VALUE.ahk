@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_BLOB.ahk
 
@@ -20,12 +19,9 @@ class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the named curve.
      * @type {PWSTR}
      */
-    wszNamedCurve{
-        get {
-            if(!this.HasProp("__wszNamedCurve"))
-                this.__wszNamedCurve := PWSTR(this.ptr + 0)
-            return this.__wszNamedCurve
-        }
+    wszNamedCurve {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -35,7 +31,7 @@ class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct
     X{
         get {
             if(!this.HasProp("__X"))
-                this.__X := CRYPT_XML_DATA_BLOB(this.ptr + 8)
+                this.__X := CRYPT_XML_DATA_BLOB(8, this)
             return this.__X
         }
     }
@@ -47,7 +43,7 @@ class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct
     Y{
         get {
             if(!this.HasProp("__Y"))
-                this.__Y := CRYPT_XML_DATA_BLOB(this.ptr + 24)
+                this.__Y := CRYPT_XML_DATA_BLOB(24, this)
             return this.__Y
         }
     }
@@ -59,7 +55,7 @@ class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct
     ExplicitPara{
         get {
             if(!this.HasProp("__ExplicitPara"))
-                this.__ExplicitPara := CRYPT_XML_BLOB(this.ptr + 40)
+                this.__ExplicitPara := CRYPT_XML_BLOB(40, this)
             return this.__ExplicitPara
         }
     }

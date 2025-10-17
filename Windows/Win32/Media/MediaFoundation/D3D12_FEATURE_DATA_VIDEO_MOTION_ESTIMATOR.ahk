@@ -62,7 +62,7 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR extends Win32Struct
     SizeRange{
         get {
             if(!this.HasProp("__SizeRange"))
-                this.__SizeRange := D3D12_VIDEO_SIZE_RANGE(this.ptr + 16)
+                this.__SizeRange := D3D12_VIDEO_SIZE_RANGE(16, this)
             return this.__SizeRange
         }
     }

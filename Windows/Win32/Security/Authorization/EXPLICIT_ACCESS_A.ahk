@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\TRUSTEE_A.ahk
 
 /**
@@ -59,7 +58,7 @@ class EXPLICIT_ACCESS_A extends Win32Struct
     Trustee{
         get {
             if(!this.HasProp("__Trustee"))
-                this.__Trustee := TRUSTEE_A(this.ptr + 16)
+                this.__Trustee := TRUSTEE_A(16, this)
             return this.__Trustee
         }
     }

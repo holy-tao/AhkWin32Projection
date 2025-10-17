@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -28,72 +27,54 @@ class CAPDRIVERCAPS extends Win32Struct
      * Video-overlay flag. The value of this member is <b>TRUE</b> if the device supports video overlay.
      * @type {BOOL}
      */
-    fHasOverlay{
-        get {
-            if(!this.HasProp("__fHasOverlay"))
-                this.__fHasOverlay := BOOL(this.ptr + 4)
-            return this.__fHasOverlay
-        }
+    fHasOverlay {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
      * Video source dialog flag. The value of this member is <b>TRUE</b> if the device supports a dialog box for selecting and controlling the video source.
      * @type {BOOL}
      */
-    fHasDlgVideoSource{
-        get {
-            if(!this.HasProp("__fHasDlgVideoSource"))
-                this.__fHasDlgVideoSource := BOOL(this.ptr + 8)
-            return this.__fHasDlgVideoSource
-        }
+    fHasDlgVideoSource {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * Video format dialog flag. The value of this member is <b>TRUE</b> if the device supports a dialog box for selecting the video format.
      * @type {BOOL}
      */
-    fHasDlgVideoFormat{
-        get {
-            if(!this.HasProp("__fHasDlgVideoFormat"))
-                this.__fHasDlgVideoFormat := BOOL(this.ptr + 12)
-            return this.__fHasDlgVideoFormat
-        }
+    fHasDlgVideoFormat {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
      * Video display dialog flag. The value of this member is <b>TRUE</b> if the device supports a dialog box for controlling the redisplay of video from the capture frame buffer.
      * @type {BOOL}
      */
-    fHasDlgVideoDisplay{
-        get {
-            if(!this.HasProp("__fHasDlgVideoDisplay"))
-                this.__fHasDlgVideoDisplay := BOOL(this.ptr + 16)
-            return this.__fHasDlgVideoDisplay
-        }
+    fHasDlgVideoDisplay {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * Capture initialization flag. The value of this member is <b>TRUE</b> if a capture device has been successfully connected.
      * @type {BOOL}
      */
-    fCaptureInitialized{
-        get {
-            if(!this.HasProp("__fCaptureInitialized"))
-                this.__fCaptureInitialized := BOOL(this.ptr + 20)
-            return this.__fCaptureInitialized
-        }
+    fCaptureInitialized {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
      * Driver palette flag. The value of this member is <b>TRUE</b> if the driver can create palettes.
      * @type {BOOL}
      */
-    fDriverSuppliesPalettes{
-        get {
-            if(!this.HasProp("__fDriverSuppliesPalettes"))
-                this.__fDriverSuppliesPalettes := BOOL(this.ptr + 24)
-            return this.__fDriverSuppliesPalettes
-        }
+    fDriverSuppliesPalettes {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -103,7 +84,7 @@ class CAPDRIVERCAPS extends Win32Struct
     hVideoIn{
         get {
             if(!this.HasProp("__hVideoIn"))
-                this.__hVideoIn := HANDLE(this.ptr + 32)
+                this.__hVideoIn := HANDLE(32, this)
             return this.__hVideoIn
         }
     }
@@ -115,7 +96,7 @@ class CAPDRIVERCAPS extends Win32Struct
     hVideoOut{
         get {
             if(!this.HasProp("__hVideoOut"))
-                this.__hVideoOut := HANDLE(this.ptr + 40)
+                this.__hVideoOut := HANDLE(40, this)
             return this.__hVideoOut
         }
     }
@@ -127,7 +108,7 @@ class CAPDRIVERCAPS extends Win32Struct
     hVideoExtIn{
         get {
             if(!this.HasProp("__hVideoExtIn"))
-                this.__hVideoExtIn := HANDLE(this.ptr + 48)
+                this.__hVideoExtIn := HANDLE(48, this)
             return this.__hVideoExtIn
         }
     }
@@ -139,7 +120,7 @@ class CAPDRIVERCAPS extends Win32Struct
     hVideoExtOut{
         get {
             if(!this.HasProp("__hVideoExtOut"))
-                this.__hVideoExtOut := HANDLE(this.ptr + 56)
+                this.__hVideoExtOut := HANDLE(56, this)
             return this.__hVideoExtOut
         }
     }

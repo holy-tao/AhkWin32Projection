@@ -18,7 +18,7 @@ class IPV4_TIMESTAMP_OPTION extends Win32Struct
     OptionHeader{
         get {
             if(!this.HasProp("__OptionHeader"))
-                this.__OptionHeader := IPV4_OPTION_HEADER(this.ptr + 0)
+                this.__OptionHeader := IPV4_OPTION_HEADER(0, this)
             return this.__OptionHeader
         }
     }

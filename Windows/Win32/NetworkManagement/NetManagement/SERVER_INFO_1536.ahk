@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The SERVER_INFO_1536 structure specifies whether the server allows clients to use opportunistic locks (oplocks) on files.
@@ -18,11 +17,8 @@ class SERVER_INFO_1536 extends Win32Struct
      * Specifies whether the server allows clients to use oplocks on files. Opportunistic locks are a significant performance enhancement, but have the potential to cause lost cached data on some networks, particularly wide-area networks.
      * @type {BOOL}
      */
-    sv1536_enableoplocks{
-        get {
-            if(!this.HasProp("__sv1536_enableoplocks"))
-                this.__sv1536_enableoplocks := BOOL(this.ptr + 0)
-            return this.__sv1536_enableoplocks
-        }
+    sv1536_enableoplocks {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information about the display of groups in a list-view control.
@@ -89,12 +88,9 @@ class LVGROUPMETRICS extends Win32Struct
      * Specifies the color of the left border. Not implemented.
      * @type {COLORREF}
      */
-    crLeft{
-        get {
-            if(!this.HasProp("__crLeft"))
-                this.__crLeft := COLORREF(this.ptr + 24)
-            return this.__crLeft
-        }
+    crLeft {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -103,12 +99,9 @@ class LVGROUPMETRICS extends Win32Struct
      * Specifies the color of the top border. Not implemented.
      * @type {COLORREF}
      */
-    crTop{
-        get {
-            if(!this.HasProp("__crTop"))
-                this.__crTop := COLORREF(this.ptr + 28)
-            return this.__crTop
-        }
+    crTop {
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -117,12 +110,9 @@ class LVGROUPMETRICS extends Win32Struct
      * Specifies the color of the right border. Not implemented.
      * @type {COLORREF}
      */
-    crRight{
-        get {
-            if(!this.HasProp("__crRight"))
-                this.__crRight := COLORREF(this.ptr + 32)
-            return this.__crRight
-        }
+    crRight {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -131,12 +121,9 @@ class LVGROUPMETRICS extends Win32Struct
      * Specifies the color of the bottom border. Not implemented.
      * @type {COLORREF}
      */
-    crBottom{
-        get {
-            if(!this.HasProp("__crBottom"))
-                this.__crBottom := COLORREF(this.ptr + 36)
-            return this.__crBottom
-        }
+    crBottom {
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -145,12 +132,9 @@ class LVGROUPMETRICS extends Win32Struct
      * Specifies the color of the header text. Not implemented.
      * @type {COLORREF}
      */
-    crHeader{
-        get {
-            if(!this.HasProp("__crHeader"))
-                this.__crHeader := COLORREF(this.ptr + 40)
-            return this.__crHeader
-        }
+    crHeader {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -159,20 +143,13 @@ class LVGROUPMETRICS extends Win32Struct
      * Specifies the color of the footer text. Not implemented.
      * @type {COLORREF}
      */
-    crFooter{
-        get {
-            if(!this.HasProp("__crFooter"))
-                this.__crFooter := COLORREF(this.ptr + 44)
-            return this.__crFooter
-        }
+    crFooter {
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

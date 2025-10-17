@@ -36,7 +36,7 @@ class PSS_AUXILIARY_PAGE_ENTRY extends Win32Struct
     BasicInformation{
         get {
             if(!this.HasProp("__BasicInformation"))
-                this.__BasicInformation := MEMORY_BASIC_INFORMATION(this.ptr + 8)
+                this.__BasicInformation := MEMORY_BASIC_INFORMATION(8, this)
             return this.__BasicInformation
         }
     }
@@ -48,7 +48,7 @@ class PSS_AUXILIARY_PAGE_ENTRY extends Win32Struct
     CaptureTime{
         get {
             if(!this.HasProp("__CaptureTime"))
-                this.__CaptureTime := FILETIME(this.ptr + 56)
+                this.__CaptureTime := FILETIME(56, this)
             return this.__CaptureTime
         }
     }

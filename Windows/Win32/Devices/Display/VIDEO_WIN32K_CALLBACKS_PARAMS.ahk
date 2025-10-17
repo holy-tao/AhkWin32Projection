@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -47,44 +46,32 @@ class VIDEO_WIN32K_CALLBACKS_PARAMS extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    LockUserSession{
-        get {
-            if(!this.HasProp("__LockUserSession"))
-                this.__LockUserSession := BOOLEAN(this.ptr + 28)
-            return this.__LockUserSession
-        }
+    LockUserSession {
+        get => NumGet(this, 28, "char")
+        set => NumPut("char", value, this, 28)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    IsPostDevice{
-        get {
-            if(!this.HasProp("__IsPostDevice"))
-                this.__IsPostDevice := BOOLEAN(this.ptr + 29)
-            return this.__IsPostDevice
-        }
+    IsPostDevice {
+        get => NumGet(this, 29, "char")
+        set => NumPut("char", value, this, 29)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    SurpriseRemoval{
-        get {
-            if(!this.HasProp("__SurpriseRemoval"))
-                this.__SurpriseRemoval := BOOLEAN(this.ptr + 30)
-            return this.__SurpriseRemoval
-        }
+    SurpriseRemoval {
+        get => NumGet(this, 30, "char")
+        set => NumPut("char", value, this, 30)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    WaitForQueueReady{
-        get {
-            if(!this.HasProp("__WaitForQueueReady"))
-                this.__WaitForQueueReady := BOOLEAN(this.ptr + 31)
-            return this.__WaitForQueueReady
-        }
+    WaitForQueueReady {
+        get => NumGet(this, 31, "char")
+        set => NumPut("char", value, this, 31)
     }
 }

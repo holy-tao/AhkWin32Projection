@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * The PROPSPEC structure is used by many of the methods of IPropertyStorage to specify a property either by its property identifier (ID) or the associated string name.
@@ -39,11 +38,8 @@ class PROPSPEC extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpwstr{
-        get {
-            if(!this.HasProp("__lpwstr"))
-                this.__lpwstr := PWSTR(this.ptr + 8)
-            return this.__lpwstr
-        }
+    lpwstr {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

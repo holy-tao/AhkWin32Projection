@@ -42,7 +42,7 @@ class CONSOLE_GRAPHICS_BUFFER_INFO extends Win32Struct
     hMutex{
         get {
             if(!this.HasProp("__hMutex"))
-                this.__hMutex := HANDLE(this.ptr + 24)
+                this.__hMutex := HANDLE(24, this)
             return this.__hMutex
         }
     }

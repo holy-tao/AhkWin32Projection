@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D11_DEPTH_STENCILOP_DESC.ahk
 
 /**
@@ -108,12 +107,9 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
      * Enable depth testing.
      * @type {BOOL}
      */
-    DepthEnable{
-        get {
-            if(!this.HasProp("__DepthEnable"))
-                this.__DepthEnable := BOOL(this.ptr + 0)
-            return this.__DepthEnable
-        }
+    DepthEnable {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -144,12 +140,9 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
      * Enable stencil testing.
      * @type {BOOL}
      */
-    StencilEnable{
-        get {
-            if(!this.HasProp("__StencilEnable"))
-                this.__StencilEnable := BOOL(this.ptr + 12)
-            return this.__StencilEnable
-        }
+    StencilEnable {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -183,7 +176,7 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
     FrontFace{
         get {
             if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D11_DEPTH_STENCILOP_DESC(this.ptr + 24)
+                this.__FrontFace := D3D11_DEPTH_STENCILOP_DESC(24, this)
             return this.__FrontFace
         }
     }
@@ -197,7 +190,7 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
     BackFace{
         get {
             if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D11_DEPTH_STENCILOP_DESC(this.ptr + 40)
+                this.__BackFace := D3D11_DEPTH_STENCILOP_DESC(40, this)
             return this.__BackFace
         }
     }

@@ -18,7 +18,7 @@ class USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE_INPUT extends Win32Struct
     Route{
         get {
             if(!this.HasProp("__Route"))
-                this.__Route := USB4_HRD_DEBUG_ROUTE_STRING(this.ptr + 0)
+                this.__Route := USB4_HRD_DEBUG_ROUTE_STRING(0, this)
             return this.__Route
         }
     }

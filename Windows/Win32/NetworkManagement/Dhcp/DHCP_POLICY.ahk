@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DHCP_POLICY structure defines a DHCP server policy.
@@ -19,24 +17,18 @@ class DHCP_POLICY extends Win32Struct
      * Pointer to a null-terminated Unicode string that represents the DHCP server policy name.
      * @type {PWSTR}
      */
-    PolicyName{
-        get {
-            if(!this.HasProp("__PolicyName"))
-                this.__PolicyName := PWSTR(this.ptr + 0)
-            return this.__PolicyName
-        }
+    PolicyName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * <b>TRUE</b> if the DHCP server policy is global. Otherwise, it is <b>FALSE</b>.
      * @type {BOOL}
      */
-    IsGlobalPolicy{
-        get {
-            if(!this.HasProp("__IsGlobalPolicy"))
-                this.__IsGlobalPolicy := BOOL(this.ptr + 8)
-            return this.__IsGlobalPolicy
-        }
+    IsGlobalPolicy {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -88,23 +80,17 @@ class DHCP_POLICY extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the description of the DHCP server policy.
      * @type {PWSTR}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PWSTR(this.ptr + 48)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * <b>TRUE</b> if the policy is enabled. Otherwise, it is <b>FALSE</b>.
      * @type {BOOL}
      */
-    Enabled{
-        get {
-            if(!this.HasProp("__Enabled"))
-                this.__Enabled := BOOL(this.ptr + 56)
-            return this.__Enabled
-        }
+    Enabled {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

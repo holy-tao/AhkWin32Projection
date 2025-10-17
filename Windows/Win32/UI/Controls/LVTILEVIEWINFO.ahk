@@ -58,7 +58,7 @@ class LVTILEVIEWINFO extends Win32Struct
     sizeTile{
         get {
             if(!this.HasProp("__sizeTile"))
-                this.__sizeTile := SIZE(this.ptr + 16)
+                this.__sizeTile := SIZE(16, this)
             return this.__sizeTile
         }
     }
@@ -84,17 +84,13 @@ class LVTILEVIEWINFO extends Win32Struct
     rcLabelMargin{
         get {
             if(!this.HasProp("__rcLabelMargin"))
-                this.__rcLabelMargin := RECT(this.ptr + 32)
+                this.__rcLabelMargin := RECT(32, this)
             return this.__rcLabelMargin
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

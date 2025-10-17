@@ -28,7 +28,7 @@ class QCMINFO extends Win32Struct
     hmenu{
         get {
             if(!this.HasProp("__hmenu"))
-                this.__hmenu := HMENU(this.ptr + 0)
+                this.__hmenu := HMENU(0, this)
             return this.__hmenu
         }
     }

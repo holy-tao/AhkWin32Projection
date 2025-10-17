@@ -37,7 +37,7 @@ class WTSINFOEXW extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := WTSINFOEX_LEVEL_W(this.ptr + 8)
+                this.__Data := WTSINFOEX_LEVEL_W(8, this)
             return this.__Data
         }
     }

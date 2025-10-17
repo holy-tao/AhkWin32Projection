@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\KSDATAFORMAT.ahk
 
 /**
@@ -20,7 +19,7 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     Identifier{
         get {
             if(!this.HasProp("__Identifier"))
-                this.__Identifier := KSIDENTIFIER(this.ptr + 0)
+                this.__Identifier := KSIDENTIFIER(0, this)
             return this.__Identifier
         }
     }
@@ -36,12 +35,9 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Looped{
-        get {
-            if(!this.HasProp("__Looped"))
-                this.__Looped := BOOL(this.ptr + 20)
-            return this.__Looped
-        }
+    Looped {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -55,12 +51,9 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     /**
      * @type {BOOL}
      */
-    InROM{
-        get {
-            if(!this.HasProp("__InROM"))
-                this.__InROM := BOOL(this.ptr + 28)
-            return this.__InROM
-        }
+    InROM {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -69,7 +62,7 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     Format{
         get {
             if(!this.HasProp("__Format"))
-                this.__Format := KSDATAFORMAT(this.ptr + 32)
+                this.__Format := KSDATAFORMAT(32, this)
             return this.__Format
         }
     }

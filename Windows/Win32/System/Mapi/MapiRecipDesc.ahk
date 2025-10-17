@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * A MapiRecipDesc structure contains information about a message sender or recipient. For Unicode support, use the MapiRecipDescW structure.
@@ -88,12 +87,9 @@ class MapiRecipDesc extends Win32Struct
      * Pointer to the display name of the message recipient or sender.
      * @type {PSTR}
      */
-    lpszName{
-        get {
-            if(!this.HasProp("__lpszName"))
-                this.__lpszName := PSTR(this.ptr + 8)
-            return this.__lpszName
-        }
+    lpszName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -102,12 +98,9 @@ class MapiRecipDesc extends Win32Struct
      * The format of the address is <i>address type</i>:<i>email address</i>. Examples of valid addresses are FAX:206-555-1212 and SMTP:M@X.COM.
      * @type {PSTR}
      */
-    lpszAddress{
-        get {
-            if(!this.HasProp("__lpszAddress"))
-                this.__lpszAddress := PSTR(this.ptr + 16)
-            return this.__lpszAddress
-        }
+    lpszAddress {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

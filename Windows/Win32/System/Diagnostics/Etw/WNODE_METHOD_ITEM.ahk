@@ -19,7 +19,7 @@ class WNODE_METHOD_ITEM extends Win32Struct
     WnodeHeader{
         get {
             if(!this.HasProp("__WnodeHeader"))
-                this.__WnodeHeader := WNODE_HEADER(this.ptr + 0)
+                this.__WnodeHeader := WNODE_HEADER(0, this)
             return this.__WnodeHeader
         }
     }

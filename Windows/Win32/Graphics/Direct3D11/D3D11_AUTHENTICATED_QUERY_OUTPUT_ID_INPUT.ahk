@@ -22,7 +22,7 @@ class D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_INPUT extends Win32Struct
     Input{
         get {
             if(!this.HasProp("__Input"))
-                this.__Input := D3D11_AUTHENTICATED_QUERY_INPUT(this.ptr + 0)
+                this.__Input := D3D11_AUTHENTICATED_QUERY_INPUT(0, this)
             return this.__Input
         }
     }
@@ -34,7 +34,7 @@ class D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_INPUT extends Win32Struct
     DeviceHandle{
         get {
             if(!this.HasProp("__DeviceHandle"))
-                this.__DeviceHandle := HANDLE(this.ptr + 24)
+                this.__DeviceHandle := HANDLE(24, this)
             return this.__DeviceHandle
         }
     }
@@ -46,7 +46,7 @@ class D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_INPUT extends Win32Struct
     CryptoSessionHandle{
         get {
             if(!this.HasProp("__CryptoSessionHandle"))
-                this.__CryptoSessionHandle := HANDLE(this.ptr + 32)
+                this.__CryptoSessionHandle := HANDLE(32, this)
             return this.__CryptoSessionHandle
         }
     }

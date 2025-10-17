@@ -19,7 +19,7 @@ class CERT_CONTEXT_EX extends Win32Struct
     CertContext{
         get {
             if(!this.HasProp("__CertContext"))
-                this.__CertContext := CERT_CONTEXT(this.ptr + 0)
+                this.__CertContext := CERT_CONTEXT(0, this)
             return this.__CertContext
         }
     }

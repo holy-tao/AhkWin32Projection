@@ -325,7 +325,7 @@ class CONTEXT extends Win32Struct
     FltSave{
         get {
             if(!this.HasProp("__FltSave"))
-                this.__FltSave := XSAVE_FORMAT(this.ptr + 256)
+                this.__FltSave := XSAVE_FORMAT(256, this)
             return this.__FltSave
         }
     }
@@ -358,7 +358,7 @@ class CONTEXT extends Win32Struct
     Xmm0{
         get {
             if(!this.HasProp("__Xmm0"))
-                this.__Xmm0 := M128A(this.ptr + 336)
+                this.__Xmm0 := M128A(336, this)
             return this.__Xmm0
         }
     }
@@ -369,7 +369,7 @@ class CONTEXT extends Win32Struct
     Xmm1{
         get {
             if(!this.HasProp("__Xmm1"))
-                this.__Xmm1 := M128A(this.ptr + 352)
+                this.__Xmm1 := M128A(352, this)
             return this.__Xmm1
         }
     }
@@ -380,7 +380,7 @@ class CONTEXT extends Win32Struct
     Xmm2{
         get {
             if(!this.HasProp("__Xmm2"))
-                this.__Xmm2 := M128A(this.ptr + 368)
+                this.__Xmm2 := M128A(368, this)
             return this.__Xmm2
         }
     }
@@ -391,7 +391,7 @@ class CONTEXT extends Win32Struct
     Xmm3{
         get {
             if(!this.HasProp("__Xmm3"))
-                this.__Xmm3 := M128A(this.ptr + 384)
+                this.__Xmm3 := M128A(384, this)
             return this.__Xmm3
         }
     }
@@ -402,7 +402,7 @@ class CONTEXT extends Win32Struct
     Xmm4{
         get {
             if(!this.HasProp("__Xmm4"))
-                this.__Xmm4 := M128A(this.ptr + 400)
+                this.__Xmm4 := M128A(400, this)
             return this.__Xmm4
         }
     }
@@ -413,7 +413,7 @@ class CONTEXT extends Win32Struct
     Xmm5{
         get {
             if(!this.HasProp("__Xmm5"))
-                this.__Xmm5 := M128A(this.ptr + 416)
+                this.__Xmm5 := M128A(416, this)
             return this.__Xmm5
         }
     }
@@ -424,7 +424,7 @@ class CONTEXT extends Win32Struct
     Xmm6{
         get {
             if(!this.HasProp("__Xmm6"))
-                this.__Xmm6 := M128A(this.ptr + 432)
+                this.__Xmm6 := M128A(432, this)
             return this.__Xmm6
         }
     }
@@ -435,7 +435,7 @@ class CONTEXT extends Win32Struct
     Xmm7{
         get {
             if(!this.HasProp("__Xmm7"))
-                this.__Xmm7 := M128A(this.ptr + 448)
+                this.__Xmm7 := M128A(448, this)
             return this.__Xmm7
         }
     }
@@ -446,7 +446,7 @@ class CONTEXT extends Win32Struct
     Xmm8{
         get {
             if(!this.HasProp("__Xmm8"))
-                this.__Xmm8 := M128A(this.ptr + 464)
+                this.__Xmm8 := M128A(464, this)
             return this.__Xmm8
         }
     }
@@ -457,7 +457,7 @@ class CONTEXT extends Win32Struct
     Xmm9{
         get {
             if(!this.HasProp("__Xmm9"))
-                this.__Xmm9 := M128A(this.ptr + 480)
+                this.__Xmm9 := M128A(480, this)
             return this.__Xmm9
         }
     }
@@ -468,7 +468,7 @@ class CONTEXT extends Win32Struct
     Xmm10{
         get {
             if(!this.HasProp("__Xmm10"))
-                this.__Xmm10 := M128A(this.ptr + 496)
+                this.__Xmm10 := M128A(496, this)
             return this.__Xmm10
         }
     }
@@ -479,7 +479,7 @@ class CONTEXT extends Win32Struct
     Xmm11{
         get {
             if(!this.HasProp("__Xmm11"))
-                this.__Xmm11 := M128A(this.ptr + 512)
+                this.__Xmm11 := M128A(512, this)
             return this.__Xmm11
         }
     }
@@ -490,7 +490,7 @@ class CONTEXT extends Win32Struct
     Xmm12{
         get {
             if(!this.HasProp("__Xmm12"))
-                this.__Xmm12 := M128A(this.ptr + 528)
+                this.__Xmm12 := M128A(528, this)
             return this.__Xmm12
         }
     }
@@ -501,7 +501,7 @@ class CONTEXT extends Win32Struct
     Xmm13{
         get {
             if(!this.HasProp("__Xmm13"))
-                this.__Xmm13 := M128A(this.ptr + 544)
+                this.__Xmm13 := M128A(544, this)
             return this.__Xmm13
         }
     }
@@ -512,7 +512,7 @@ class CONTEXT extends Win32Struct
     Xmm14{
         get {
             if(!this.HasProp("__Xmm14"))
-                this.__Xmm14 := M128A(this.ptr + 560)
+                this.__Xmm14 := M128A(560, this)
             return this.__Xmm14
         }
     }
@@ -523,7 +523,7 @@ class CONTEXT extends Win32Struct
     Xmm15{
         get {
             if(!this.HasProp("__Xmm15"))
-                this.__Xmm15 := M128A(this.ptr + 576)
+                this.__Xmm15 := M128A(576, this)
             return this.__Xmm15
         }
     }

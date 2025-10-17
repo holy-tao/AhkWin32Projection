@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.DeviceManager
@@ -15,12 +14,9 @@ class WMFILECAPABILITIES extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszMimeType{
-        get {
-            if(!this.HasProp("__pwszMimeType"))
-                this.__pwszMimeType := PWSTR(this.ptr + 0)
-            return this.__pwszMimeType
-        }
+    pwszMimeType {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

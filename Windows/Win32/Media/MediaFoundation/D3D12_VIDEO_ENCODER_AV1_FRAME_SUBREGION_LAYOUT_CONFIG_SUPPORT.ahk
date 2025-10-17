@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES.ahk
 
 /**
@@ -16,12 +15,9 @@ class D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT extends Win3
     /**
      * @type {BOOL}
      */
-    Use128SuperBlocks{
-        get {
-            if(!this.HasProp("__Use128SuperBlocks"))
-                this.__Use128SuperBlocks := BOOL(this.ptr + 0)
-            return this.__Use128SuperBlocks
-        }
+    Use128SuperBlocks {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -30,7 +26,7 @@ class D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT extends Win3
     TilesConfiguration{
         get {
             if(!this.HasProp("__TilesConfiguration"))
-                this.__TilesConfiguration := D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES(this.ptr + 8)
+                this.__TilesConfiguration := D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES(8, this)
             return this.__TilesConfiguration
         }
     }

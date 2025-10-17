@@ -23,7 +23,7 @@ class NT_FE_CONSOLE_PROPS extends Win32Struct
     dbh{
         get {
             if(!this.HasProp("__dbh"))
-                this.__dbh := DATABLOCK_HEADER(this.ptr + 0)
+                this.__dbh := DATABLOCK_HEADER(0, this)
             return this.__dbh
         }
     }

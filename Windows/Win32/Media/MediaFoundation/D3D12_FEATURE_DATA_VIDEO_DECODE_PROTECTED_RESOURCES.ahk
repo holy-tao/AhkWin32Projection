@@ -26,7 +26,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_PROTECTED_RESOURCES extends Win32Struct
     Configuration{
         get {
             if(!this.HasProp("__Configuration"))
-                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(this.ptr + 8)
+                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(8, this)
             return this.__Configuration
         }
     }

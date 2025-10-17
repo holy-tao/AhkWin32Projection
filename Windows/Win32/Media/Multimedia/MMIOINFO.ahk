@@ -51,7 +51,7 @@ class MMIOINFO extends Win32Struct
     htask{
         get {
             if(!this.HasProp("__htask"))
-                this.__htask := HTASK(this.ptr + 24)
+                this.__htask := HTASK(24, this)
             return this.__htask
         }
     }
@@ -145,7 +145,7 @@ class MMIOINFO extends Win32Struct
     hmmio{
         get {
             if(!this.HasProp("__hmmio"))
-                this.__hmmio := HMMIO(this.ptr + 104)
+                this.__hmmio := HMMIO(104, this)
             return this.__hmmio
         }
     }

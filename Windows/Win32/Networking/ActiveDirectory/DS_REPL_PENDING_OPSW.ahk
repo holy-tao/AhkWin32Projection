@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DS_REPL_OPW.ahk
 
 /**
@@ -23,7 +22,7 @@ class DS_REPL_PENDING_OPSW extends Win32Struct
     ftimeCurrentOpStarted{
         get {
             if(!this.HasProp("__ftimeCurrentOpStarted"))
-                this.__ftimeCurrentOpStarted := FILETIME(this.ptr + 0)
+                this.__ftimeCurrentOpStarted := FILETIME(0, this)
             return this.__ftimeCurrentOpStarted
         }
     }

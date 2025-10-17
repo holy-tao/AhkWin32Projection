@@ -1725,7 +1725,7 @@ class Dhcp {
     static Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdParams, buffer, pSize) {
         adapterName := adapterName is String ? StrPtr(adapterName) : adapterName
 
-        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "ptr", forceNewInform, "ptr", reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, "char*", buffer, "uint*", pSize, "uint")
+        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "int", forceNewInform, "ptr", reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, "char*", buffer, "uint*", pSize, "uint")
         return result
     }
 
@@ -2216,7 +2216,7 @@ class Dhcp {
     static DhcpAddFilterV4(ServerIpAddress, AddFilterInfo, ForceFlag) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpAddFilterV4", "ptr", ServerIpAddress, "ptr", AddFilterInfo, "ptr", ForceFlag, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpAddFilterV4", "ptr", ServerIpAddress, "ptr", AddFilterInfo, "int", ForceFlag, "uint")
         return result
     }
 
@@ -4850,7 +4850,7 @@ class Dhcp {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
         SuperScopeName := SuperScopeName is String ? StrPtr(SuperScopeName) : SuperScopeName
 
-        result := DllCall("DHCPSAPI.dll\DhcpSetSuperScopeV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", SuperScopeName, "ptr", ChangeExisting, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpSetSuperScopeV4", "ptr", ServerIpAddress, "uint", SubnetAddress, "ptr", SuperScopeName, "int", ChangeExisting, "uint")
         return result
     }
 
@@ -11088,7 +11088,7 @@ class Dhcp {
         PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
         Description := Description is String ? StrPtr(Description) : Description
 
-        result := DllCall("DHCPSAPI.dll\DhcpHlprCreateV4Policy", "ptr", PolicyName, "ptr", fGlobalPolicy, "uint", Subnet, "uint", ProcessingOrder, "int", RootOperator, "ptr", Description, "ptr", Enabled, "ptr", Policy, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpHlprCreateV4Policy", "ptr", PolicyName, "int", fGlobalPolicy, "uint", Subnet, "uint", ProcessingOrder, "int", RootOperator, "ptr", Description, "int", Enabled, "ptr", Policy, "uint")
         return result
     }
 
@@ -11108,7 +11108,7 @@ class Dhcp {
         PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
         Description := Description is String ? StrPtr(Description) : Description
 
-        result := DllCall("DHCPSAPI.dll\DhcpHlprCreateV4PolicyEx", "ptr", PolicyName, "ptr", fGlobalPolicy, "uint", Subnet, "uint", ProcessingOrder, "int", RootOperator, "ptr", Description, "ptr", Enabled, "ptr", Policy, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpHlprCreateV4PolicyEx", "ptr", PolicyName, "int", fGlobalPolicy, "uint", Subnet, "uint", ProcessingOrder, "int", RootOperator, "ptr", Description, "int", Enabled, "ptr", Policy, "uint")
         return result
     }
 
@@ -11419,7 +11419,7 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpHlprIsV4PolicySingleUC(Policy) {
-        result := DllCall("DHCPSAPI.dll\DhcpHlprIsV4PolicySingleUC", "ptr", Policy, "ptr")
+        result := DllCall("DHCPSAPI.dll\DhcpHlprIsV4PolicySingleUC", "ptr", Policy, "int")
         return result
     }
 
@@ -11472,7 +11472,7 @@ class Dhcp {
     static DhcpV4QueryPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddress, Enabled) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4QueryPolicyEnforcement", "ptr", ServerIpAddress, "ptr", fGlobalPolicy, "uint", SubnetAddress, "ptr", Enabled, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4QueryPolicyEnforcement", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", Enabled, "uint")
         return result
     }
 
@@ -11520,7 +11520,7 @@ class Dhcp {
     static DhcpV4SetPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddress, Enable) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicyEnforcement", "ptr", ServerIpAddress, "ptr", fGlobalPolicy, "uint", SubnetAddress, "ptr", Enable, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicyEnforcement", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "int", Enable, "uint")
         return result
     }
 
@@ -11532,7 +11532,7 @@ class Dhcp {
      * @since windowsserver2012
      */
     static DhcpHlprIsV4PolicyWellFormed(pPolicy) {
-        result := DllCall("DHCPSAPI.dll\DhcpHlprIsV4PolicyWellFormed", "ptr", pPolicy, "ptr")
+        result := DllCall("DHCPSAPI.dll\DhcpHlprIsV4PolicyWellFormed", "ptr", pPolicy, "int")
         return result
     }
 
@@ -11792,7 +11792,7 @@ class Dhcp {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
         PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4GetPolicy", "ptr", ServerIpAddress, "ptr", fGlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4GetPolicy", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
         return result
     }
 
@@ -11909,7 +11909,7 @@ class Dhcp {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
         PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicy", "ptr", ServerIpAddress, "uint", FieldsModified, "ptr", fGlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicy", "ptr", ServerIpAddress, "uint", FieldsModified, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
         return result
     }
 
@@ -11969,7 +11969,7 @@ class Dhcp {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
         PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4DeletePolicy", "ptr", ServerIpAddress, "ptr", fGlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4DeletePolicy", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "uint")
         return result
     }
 
@@ -12023,7 +12023,7 @@ class Dhcp {
     static DhcpV4EnumPolicies(ServerIpAddress, ResumeHandle, PreferredMaximum, fGlobalPolicy, SubnetAddress, EnumInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4EnumPolicies", "ptr", ServerIpAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", fGlobalPolicy, "uint", SubnetAddress, "ptr", EnumInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4EnumPolicies", "ptr", ServerIpAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", EnumInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 
@@ -12215,7 +12215,7 @@ class Dhcp {
     static DhcpV6SetStatelessStoreParams(ServerIpAddress, fServerLevel, SubnetAddress, FieldModified, Params) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV6SetStatelessStoreParams", "ptr", ServerIpAddress, "ptr", fServerLevel, "ptr", SubnetAddress, "uint", FieldModified, "ptr", Params, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV6SetStatelessStoreParams", "ptr", ServerIpAddress, "int", fServerLevel, "ptr", SubnetAddress, "uint", FieldModified, "ptr", Params, "uint")
         return result
     }
 
@@ -12264,7 +12264,7 @@ class Dhcp {
     static DhcpV6GetStatelessStoreParams(ServerIpAddress, fServerLevel, SubnetAddress, Params) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV6GetStatelessStoreParams", "ptr", ServerIpAddress, "ptr", fServerLevel, "ptr", SubnetAddress, "ptr", Params, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV6GetStatelessStoreParams", "ptr", ServerIpAddress, "int", fServerLevel, "ptr", SubnetAddress, "ptr", Params, "uint")
         return result
     }
 
@@ -12743,7 +12743,7 @@ class Dhcp {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
         PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4GetPolicyEx", "ptr", ServerIpAddress, "ptr", GlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4GetPolicyEx", "ptr", ServerIpAddress, "int", GlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
         return result
     }
 
@@ -12761,7 +12761,7 @@ class Dhcp {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
         PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicyEx", "ptr", ServerIpAddress, "uint", FieldsModified, "ptr", GlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicyEx", "ptr", ServerIpAddress, "uint", FieldsModified, "int", GlobalPolicy, "uint", SubnetAddress, "ptr", PolicyName, "ptr", Policy, "uint")
         return result
     }
 
@@ -12780,7 +12780,7 @@ class Dhcp {
     static DhcpV4EnumPoliciesEx(ServerIpAddress, ResumeHandle, PreferredMaximum, GlobalPolicy, SubnetAddress, EnumInfo, ElementsRead, ElementsTotal) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4EnumPoliciesEx", "ptr", ServerIpAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "ptr", GlobalPolicy, "uint", SubnetAddress, "ptr", EnumInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpV4EnumPoliciesEx", "ptr", ServerIpAddress, "uint*", ResumeHandle, "uint", PreferredMaximum, "int", GlobalPolicy, "uint", SubnetAddress, "ptr", EnumInfo, "uint*", ElementsRead, "uint*", ElementsTotal, "uint")
         return result
     }
 

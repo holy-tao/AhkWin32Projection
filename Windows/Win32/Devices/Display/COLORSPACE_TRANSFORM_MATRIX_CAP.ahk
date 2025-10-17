@@ -53,7 +53,7 @@ class COLORSPACE_TRANSFORM_MATRIX_CAP extends Win32Struct
     DataCap{
         get {
             if(!this.HasProp("__DataCap"))
-                this.__DataCap := COLORSPACE_TRANSFORM_DATA_CAP(this.ptr + 8)
+                this.__DataCap := COLORSPACE_TRANSFORM_DATA_CAP(8, this)
             return this.__DataCap
         }
     }

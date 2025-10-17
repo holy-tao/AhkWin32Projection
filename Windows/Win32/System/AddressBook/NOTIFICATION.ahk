@@ -5,9 +5,7 @@
 #Include .\OBJECT_NOTIFICATION.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\SBinary.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SShortArray.ahk
 #Include .\SLongArray.ahk
 #Include .\SRealArray.ahk
@@ -59,7 +57,7 @@ class NOTIFICATION extends Win32Struct
     err{
         get {
             if(!this.HasProp("__err"))
-                this.__err := ERROR_NOTIFICATION(this.ptr + 8)
+                this.__err := ERROR_NOTIFICATION(8, this)
             return this.__err
         }
     }
@@ -70,7 +68,7 @@ class NOTIFICATION extends Win32Struct
     newmail{
         get {
             if(!this.HasProp("__newmail"))
-                this.__newmail := NEWMAIL_NOTIFICATION(this.ptr + 8)
+                this.__newmail := NEWMAIL_NOTIFICATION(8, this)
             return this.__newmail
         }
     }
@@ -81,7 +79,7 @@ class NOTIFICATION extends Win32Struct
     obj{
         get {
             if(!this.HasProp("__obj"))
-                this.__obj := OBJECT_NOTIFICATION(this.ptr + 8)
+                this.__obj := OBJECT_NOTIFICATION(8, this)
             return this.__obj
         }
     }
@@ -92,7 +90,7 @@ class NOTIFICATION extends Win32Struct
     tab{
         get {
             if(!this.HasProp("__tab"))
-                this.__tab := TABLE_NOTIFICATION(this.ptr + 8)
+                this.__tab := TABLE_NOTIFICATION(8, this)
             return this.__tab
         }
     }
@@ -103,7 +101,7 @@ class NOTIFICATION extends Win32Struct
     ext{
         get {
             if(!this.HasProp("__ext"))
-                this.__ext := EXTENDED_NOTIFICATION(this.ptr + 8)
+                this.__ext := EXTENDED_NOTIFICATION(8, this)
             return this.__ext
         }
     }
@@ -114,7 +112,7 @@ class NOTIFICATION extends Win32Struct
     statobj{
         get {
             if(!this.HasProp("__statobj"))
-                this.__statobj := STATUS_OBJECT_NOTIFICATION(this.ptr + 8)
+                this.__statobj := STATUS_OBJECT_NOTIFICATION(8, this)
             return this.__statobj
         }
     }

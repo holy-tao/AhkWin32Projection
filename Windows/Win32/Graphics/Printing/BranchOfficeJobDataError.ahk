@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -23,45 +22,33 @@ class BranchOfficeJobDataError extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pDocumentName{
-        get {
-            if(!this.HasProp("__pDocumentName"))
-                this.__pDocumentName := PWSTR(this.ptr + 8)
-            return this.__pDocumentName
-        }
+    pDocumentName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pUserName{
-        get {
-            if(!this.HasProp("__pUserName"))
-                this.__pUserName := PWSTR(this.ptr + 16)
-            return this.__pUserName
-        }
+    pUserName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 24)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    pDataType{
-        get {
-            if(!this.HasProp("__pDataType"))
-                this.__pDataType := PWSTR(this.ptr + 32)
-            return this.__pDataType
-        }
+    pDataType {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -99,33 +86,24 @@ class BranchOfficeJobDataError extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pMachineName{
-        get {
-            if(!this.HasProp("__pMachineName"))
-                this.__pMachineName := PWSTR(this.ptr + 64)
-            return this.__pMachineName
-        }
+    pMachineName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {PWSTR}
      */
-    pJobError{
-        get {
-            if(!this.HasProp("__pJobError"))
-                this.__pJobError := PWSTR(this.ptr + 72)
-            return this.__pJobError
-        }
+    pJobError {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {PWSTR}
      */
-    pErrorDescription{
-        get {
-            if(!this.HasProp("__pErrorDescription"))
-                this.__pErrorDescription := PWSTR(this.ptr + 80)
-            return this.__pErrorDescription
-        }
+    pErrorDescription {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

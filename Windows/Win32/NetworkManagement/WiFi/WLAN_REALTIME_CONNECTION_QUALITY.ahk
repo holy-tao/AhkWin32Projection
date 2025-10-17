@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\WLAN_RATE_SET.ahk
 #Include .\WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO.ahk
 
@@ -49,12 +48,9 @@ class WLAN_REALTIME_CONNECTION_QUALITY extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bIsMLOConnection{
-        get {
-            if(!this.HasProp("__bIsMLOConnection"))
-                this.__bIsMLOConnection := BOOL(this.ptr + 16)
-            return this.__bIsMLOConnection
-        }
+    bIsMLOConnection {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**

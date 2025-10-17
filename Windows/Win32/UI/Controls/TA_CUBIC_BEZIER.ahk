@@ -18,7 +18,7 @@ class TA_CUBIC_BEZIER extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := TA_TIMINGFUNCTION(this.ptr + 0)
+                this.__header := TA_TIMINGFUNCTION(0, this)
             return this.__header
         }
     }

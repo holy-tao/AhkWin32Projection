@@ -30,7 +30,7 @@ class TF_LBBALLOONINFO extends Win32Struct
     bstrText{
         get {
             if(!this.HasProp("__bstrText"))
-                this.__bstrText := BSTR(this.ptr + 8)
+                this.__bstrText := BSTR(8, this)
             return this.__bstrText
         }
     }

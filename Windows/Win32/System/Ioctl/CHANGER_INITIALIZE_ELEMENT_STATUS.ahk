@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
 #Include .\CHANGER_ELEMENT_LIST.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Represents the status of all media changer elements or the specified elements of a particular type.
@@ -30,7 +29,7 @@ class CHANGER_INITIALIZE_ELEMENT_STATUS extends Win32Struct
     ElementList{
         get {
             if(!this.HasProp("__ElementList"))
-                this.__ElementList := CHANGER_ELEMENT_LIST(this.ptr + 0)
+                this.__ElementList := CHANGER_ELEMENT_LIST(0, this)
             return this.__ElementList
         }
     }
@@ -45,11 +44,8 @@ class CHANGER_INITIALIZE_ELEMENT_STATUS extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a>.
      * @type {BOOLEAN}
      */
-    BarCodeScan{
-        get {
-            if(!this.HasProp("__BarCodeScan"))
-                this.__BarCodeScan := BOOLEAN(this.ptr + 16)
-            return this.__BarCodeScan
-        }
+    BarCodeScan {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 }

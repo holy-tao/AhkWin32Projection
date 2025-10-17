@@ -46,7 +46,7 @@ class RAS_CONNECTION_3 extends Win32Struct
     hConnection{
         get {
             if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(this.ptr + 8)
+                this.__hConnection := HANDLE(8, this)
             return this.__hConnection
         }
     }
@@ -86,7 +86,7 @@ class RAS_CONNECTION_3 extends Win32Struct
     PppInfo3{
         get {
             if(!this.HasProp("__PppInfo3"))
-                this.__PppInfo3 := PPP_INFO_3(this.ptr + 544)
+                this.__PppInfo3 := PPP_INFO_3(544, this)
             return this.__PppInfo3
         }
     }
@@ -107,7 +107,7 @@ class RAS_CONNECTION_3 extends Win32Struct
     timer{
         get {
             if(!this.HasProp("__timer"))
-                this.__timer := FILETIME(this.ptr + 792)
+                this.__timer := FILETIME(792, this)
             return this.__timer
         }
     }

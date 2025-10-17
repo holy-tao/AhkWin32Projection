@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -34,11 +33,8 @@ class DOT11_RESET_REQUEST extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bSetDefaultMIB{
-        get {
-            if(!this.HasProp("__bSetDefaultMIB"))
-                this.__bSetDefaultMIB := BOOLEAN(this.ptr + 10)
-            return this.__bSetDefaultMIB
-        }
+    bSetDefaultMIB {
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 }

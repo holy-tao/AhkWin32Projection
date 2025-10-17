@@ -3,7 +3,6 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information about an LVN_ITEMACTIVATE notification code.
@@ -27,7 +26,7 @@ class NMITEMACTIVATE extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -98,7 +97,7 @@ class NMITEMACTIVATE extends Win32Struct
     ptAction{
         get {
             if(!this.HasProp("__ptAction"))
-                this.__ptAction := POINT(this.ptr + 48)
+                this.__ptAction := POINT(48, this)
             return this.__ptAction
         }
     }
@@ -109,12 +108,9 @@ class NMITEMACTIVATE extends Win32Struct
      * Application-defined value of the item. This member is undefined for notification codes that do not use it.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 56)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

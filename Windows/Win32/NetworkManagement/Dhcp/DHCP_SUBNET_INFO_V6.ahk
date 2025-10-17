@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_IPV6_ADDRESS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about an IPv6 subnet.
@@ -22,7 +21,7 @@ class DHCP_SUBNET_INFO_V6 extends Win32Struct
     SubnetAddress{
         get {
             if(!this.HasProp("__SubnetAddress"))
-                this.__SubnetAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                this.__SubnetAddress := DHCP_IPV6_ADDRESS(0, this)
             return this.__SubnetAddress
         }
     }
@@ -49,24 +48,18 @@ class DHCP_SUBNET_INFO_V6 extends Win32Struct
      * Pointer to a null-terminated Unicode string that contains the name of the IPv6 prefix.
      * @type {PWSTR}
      */
-    SubnetName{
-        get {
-            if(!this.HasProp("__SubnetName"))
-                this.__SubnetName := PWSTR(this.ptr + 24)
-            return this.__SubnetName
-        }
+    SubnetName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that contains an optional comment for the IPv6 prefix.
      * @type {PWSTR}
      */
-    SubnetComment{
-        get {
-            if(!this.HasProp("__SubnetComment"))
-                this.__SubnetComment := PWSTR(this.ptr + 32)
-            return this.__SubnetComment
-        }
+    SubnetComment {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**

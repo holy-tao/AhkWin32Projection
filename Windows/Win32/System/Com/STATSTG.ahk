@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -21,12 +20,9 @@ class STATSTG extends Win32Struct
      * <b>STATSTG</b> structure, except for calls to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstatstg">IEnumSTATSTG::Next</a>, which provides no way to specify this value.
      * @type {PWSTR}
      */
-    pwcsName{
-        get {
-            if(!this.HasProp("__pwcsName"))
-                this.__pwcsName := PWSTR(this.ptr + 0)
-            return this.__pwcsName
-        }
+    pwcsName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -55,7 +51,7 @@ class STATSTG extends Win32Struct
     mtime{
         get {
             if(!this.HasProp("__mtime"))
-                this.__mtime := FILETIME(this.ptr + 24)
+                this.__mtime := FILETIME(24, this)
             return this.__mtime
         }
     }
@@ -67,7 +63,7 @@ class STATSTG extends Win32Struct
     ctime{
         get {
             if(!this.HasProp("__ctime"))
-                this.__ctime := FILETIME(this.ptr + 32)
+                this.__ctime := FILETIME(32, this)
             return this.__ctime
         }
     }
@@ -79,7 +75,7 @@ class STATSTG extends Win32Struct
     atime{
         get {
             if(!this.HasProp("__atime"))
-                this.__atime := FILETIME(this.ptr + 40)
+                this.__atime := FILETIME(40, this)
             return this.__atime
         }
     }
@@ -132,12 +128,8 @@ class STATSTG extends Win32Struct
         set => NumPut("uint", value, this, 68)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

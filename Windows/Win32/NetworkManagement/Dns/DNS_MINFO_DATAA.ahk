@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The DNS_MINFO_DATA structure represents a DNS mail information (MINFO) record as specified in section 3.3.7 of RFC 1035.
@@ -29,23 +28,17 @@ class DNS_MINFO_DATAA extends Win32Struct
      * A pointer to a string that represents the <a href="https://docs.microsoft.com/windows/win32/dns/f-gly">fully qualified domain name</a> (FQDN) of the mailbox responsible for the mailing list or mailbox specified in the record's owner name.
      * @type {PSTR}
      */
-    pNameMailbox{
-        get {
-            if(!this.HasProp("__pNameMailbox"))
-                this.__pNameMailbox := PSTR(this.ptr + 0)
-            return this.__pNameMailbox
-        }
+    pNameMailbox {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A pointer to a string that represents the FQDN of the mailbox to receive error messages related to the mailing list.
      * @type {PSTR}
      */
-    pNameErrorsMailbox{
-        get {
-            if(!this.HasProp("__pNameErrorsMailbox"))
-                this.__pNameErrorsMailbox := PSTR(this.ptr + 8)
-            return this.__pNameErrorsMailbox
-        }
+    pNameErrorsMailbox {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

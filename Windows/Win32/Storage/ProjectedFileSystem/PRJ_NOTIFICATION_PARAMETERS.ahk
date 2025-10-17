@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Extra parameters for notifications.
@@ -49,12 +48,9 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
         /**
          * @type {BOOLEAN}
          */
-        IsFileModified{
-            get {
-                if(!this.HasProp("__IsFileModified"))
-                    this.__IsFileModified := BOOLEAN(this.ptr + 0)
-                return this.__IsFileModified
-            }
+        IsFileModified {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
         }
     
     }
@@ -66,7 +62,7 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
     PostCreate{
         get {
             if(!this.HasProp("__PostCreate"))
-                this.__PostCreate := %this.__Class%._PostCreate(this.ptr + 0)
+                this.__PostCreate := %this.__Class%._PostCreate(0, this)
             return this.__PostCreate
         }
     }
@@ -78,7 +74,7 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
     FileRenamed{
         get {
             if(!this.HasProp("__FileRenamed"))
-                this.__FileRenamed := %this.__Class%._FileRenamed(this.ptr + 0)
+                this.__FileRenamed := %this.__Class%._FileRenamed(0, this)
             return this.__FileRenamed
         }
     }
@@ -90,7 +86,7 @@ class PRJ_NOTIFICATION_PARAMETERS extends Win32Struct
     FileDeletedOnHandleClose{
         get {
             if(!this.HasProp("__FileDeletedOnHandleClose"))
-                this.__FileDeletedOnHandleClose := %this.__Class%._FileDeletedOnHandleClose(this.ptr + 0)
+                this.__FileDeletedOnHandleClose := %this.__Class%._FileDeletedOnHandleClose(0, this)
             return this.__FileDeletedOnHandleClose
         }
     }

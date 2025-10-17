@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3DPRIMCAPS.ahk
 
 /**
@@ -32,12 +31,9 @@ class D3DFINDDEVICESEARCH extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bHardware{
-        get {
-            if(!this.HasProp("__bHardware"))
-                this.__bHardware := BOOL(this.ptr + 8)
-            return this.__bHardware
-        }
+    bHardware {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -70,7 +66,7 @@ class D3DFINDDEVICESEARCH extends Win32Struct
     dpcPrimCaps{
         get {
             if(!this.HasProp("__dpcPrimCaps"))
-                this.__dpcPrimCaps := D3DPRIMCAPS(this.ptr + 32)
+                this.__dpcPrimCaps := D3DPRIMCAPS(32, this)
             return this.__dpcPrimCaps
         }
     }

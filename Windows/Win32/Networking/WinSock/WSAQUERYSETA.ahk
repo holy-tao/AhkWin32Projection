@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Provides relevant information about a given service, including service class ID, service name, applicable namespace identifier and protocol information, as well as a set of transport addresses at which the service listens.
@@ -48,12 +47,9 @@ class WSAQUERYSETA extends Win32Struct
      * A pointer to an optional NULL-terminated string  that contains service name. The semantics for using wildcards within the string are not defined, but can be supported by certain namespace providers.
      * @type {PSTR}
      */
-    lpszServiceInstanceName{
-        get {
-            if(!this.HasProp("__lpszServiceInstanceName"))
-                this.__lpszServiceInstanceName := PSTR(this.ptr + 8)
-            return this.__lpszServiceInstanceName
-        }
+    lpszServiceInstanceName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -84,12 +80,9 @@ class WSAQUERYSETA extends Win32Struct
      * This member is ignored for queries.
      * @type {PSTR}
      */
-    lpszComment{
-        get {
-            if(!this.HasProp("__lpszComment"))
-                this.__lpszComment := PSTR(this.ptr + 32)
-            return this.__lpszComment
-        }
+    lpszComment {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -202,12 +195,9 @@ class WSAQUERYSETA extends Win32Struct
      * A pointer to an optional starting point of the query in a hierarchical namespace.
      * @type {PSTR}
      */
-    lpszContext{
-        get {
-            if(!this.HasProp("__lpszContext"))
-                this.__lpszContext := PSTR(this.ptr + 56)
-            return this.__lpszContext
-        }
+    lpszContext {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -239,12 +229,9 @@ class WSAQUERYSETA extends Win32Struct
      * A pointer to an optional NULL-terminated query string. Some namespaces, such as Whois++, support enriched SQL-like queries that are contained in a simple text string. This parameter is used to specify that string.
      * @type {PSTR}
      */
-    lpszQueryString{
-        get {
-            if(!this.HasProp("__lpszQueryString"))
-                this.__lpszQueryString := PSTR(this.ptr + 80)
-            return this.__lpszQueryString
-        }
+    lpszQueryString {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**

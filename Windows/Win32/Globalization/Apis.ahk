@@ -4462,7 +4462,7 @@ class Globalization {
     static TranslateCharsetInfo(lpSrc, lpCs, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\TranslateCharsetInfo", "uint*", lpSrc, "ptr", lpCs, "uint", dwFlags, "ptr")
+        result := DllCall("GDI32.dll\TranslateCharsetInfo", "uint*", lpSrc, "ptr", lpCs, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5014,7 +5014,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CompareStringOrdinal", "ptr", lpString1, "int", cchCount1, "ptr", lpString2, "int", cchCount2, "ptr", bIgnoreCase, "int")
+        result := DllCall("KERNEL32.dll\CompareStringOrdinal", "ptr", lpString1, "int", cchCount1, "ptr", lpString2, "int", cchCount2, "int", bIgnoreCase, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5144,7 +5144,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetStringTypeExW", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ushort*", lpCharType, "ptr")
+        result := DllCall("KERNEL32.dll\GetStringTypeExW", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ushort*", lpCharType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5208,7 +5208,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetStringTypeW", "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ushort*", lpCharType, "ptr")
+        result := DllCall("KERNEL32.dll\GetStringTypeW", "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ushort*", lpCharType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5479,7 +5479,7 @@ class Globalization {
      * @since windows5.0
      */
     static IsValidCodePage(CodePage) {
-        result := DllCall("KERNEL32.dll\IsValidCodePage", "uint", CodePage, "ptr")
+        result := DllCall("KERNEL32.dll\IsValidCodePage", "uint", CodePage, "int")
         return result
     }
 
@@ -5521,7 +5521,7 @@ class Globalization {
     static GetCPInfo(CodePage, lpCPInfo) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCPInfo", "uint", CodePage, "ptr", lpCPInfo, "ptr")
+        result := DllCall("KERNEL32.dll\GetCPInfo", "uint", CodePage, "ptr", lpCPInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5592,7 +5592,7 @@ class Globalization {
     static GetCPInfoExA(CodePage, dwFlags, lpCPInfoEx) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCPInfoExA", "uint", CodePage, "uint", dwFlags, "ptr", lpCPInfoEx, "ptr")
+        result := DllCall("KERNEL32.dll\GetCPInfoExA", "uint", CodePage, "uint", dwFlags, "ptr", lpCPInfoEx, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5663,7 +5663,7 @@ class Globalization {
     static GetCPInfoExW(CodePage, dwFlags, lpCPInfoEx) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCPInfoExW", "uint", CodePage, "uint", dwFlags, "ptr", lpCPInfoEx, "ptr")
+        result := DllCall("KERNEL32.dll\GetCPInfoExW", "uint", CodePage, "uint", dwFlags, "ptr", lpCPInfoEx, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6098,7 +6098,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetLocaleInfoA", "uint", Locale, "uint", LCType, "ptr", lpLCData, "ptr")
+        result := DllCall("KERNEL32.dll\SetLocaleInfoA", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6153,7 +6153,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetLocaleInfoW", "uint", Locale, "uint", LCType, "ptr", lpLCData, "ptr")
+        result := DllCall("KERNEL32.dll\SetLocaleInfoW", "uint", Locale, "uint", LCType, "ptr", lpLCData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6330,7 +6330,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetCalendarInfoA", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "ptr")
+        result := DllCall("KERNEL32.dll\SetCalendarInfoA", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6389,7 +6389,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetCalendarInfoW", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "ptr")
+        result := DllCall("KERNEL32.dll\SetCalendarInfoW", "uint", Locale, "uint", Calendar, "uint", CalType, "ptr", lpCalData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6408,7 +6408,7 @@ class Globalization {
     static IsDBCSLeadByte(TestChar) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsDBCSLeadByte", "char", TestChar, "ptr")
+        result := DllCall("KERNEL32.dll\IsDBCSLeadByte", "char", TestChar, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6473,7 +6473,7 @@ class Globalization {
     static IsDBCSLeadByteEx(CodePage, TestChar) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsDBCSLeadByteEx", "uint", CodePage, "char", TestChar, "ptr")
+        result := DllCall("KERNEL32.dll\IsDBCSLeadByteEx", "uint", CodePage, "char", TestChar, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6937,7 +6937,7 @@ class Globalization {
     static EnumCalendarInfoA(lpCalInfoEnumProc, Locale, Calendar, CalType) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumCalendarInfoA", "ptr", lpCalInfoEnumProc, "uint", Locale, "uint", Calendar, "uint", CalType, "ptr")
+        result := DllCall("KERNEL32.dll\EnumCalendarInfoA", "ptr", lpCalInfoEnumProc, "uint", Locale, "uint", Calendar, "uint", CalType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6983,7 +6983,7 @@ class Globalization {
     static EnumCalendarInfoW(lpCalInfoEnumProc, Locale, Calendar, CalType) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumCalendarInfoW", "ptr", lpCalInfoEnumProc, "uint", Locale, "uint", Calendar, "uint", CalType, "ptr")
+        result := DllCall("KERNEL32.dll\EnumCalendarInfoW", "ptr", lpCalInfoEnumProc, "uint", Locale, "uint", Calendar, "uint", CalType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7033,7 +7033,7 @@ class Globalization {
     static EnumCalendarInfoExA(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumCalendarInfoExA", "ptr", lpCalInfoEnumProcEx, "uint", Locale, "uint", Calendar, "uint", CalType, "ptr")
+        result := DllCall("KERNEL32.dll\EnumCalendarInfoExA", "ptr", lpCalInfoEnumProcEx, "uint", Locale, "uint", Calendar, "uint", CalType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7083,7 +7083,7 @@ class Globalization {
     static EnumCalendarInfoExW(lpCalInfoEnumProcEx, Locale, Calendar, CalType) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumCalendarInfoExW", "ptr", lpCalInfoEnumProcEx, "uint", Locale, "uint", Calendar, "uint", CalType, "ptr")
+        result := DllCall("KERNEL32.dll\EnumCalendarInfoExW", "ptr", lpCalInfoEnumProcEx, "uint", Locale, "uint", Calendar, "uint", CalType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7128,7 +7128,7 @@ class Globalization {
     static EnumTimeFormatsA(lpTimeFmtEnumProc, Locale, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumTimeFormatsA", "ptr", lpTimeFmtEnumProc, "uint", Locale, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnumTimeFormatsA", "ptr", lpTimeFmtEnumProc, "uint", Locale, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7173,7 +7173,7 @@ class Globalization {
     static EnumTimeFormatsW(lpTimeFmtEnumProc, Locale, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumTimeFormatsW", "ptr", lpTimeFmtEnumProc, "uint", Locale, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnumTimeFormatsW", "ptr", lpTimeFmtEnumProc, "uint", Locale, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7218,7 +7218,7 @@ class Globalization {
     static EnumDateFormatsA(lpDateFmtEnumProc, Locale, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumDateFormatsA", "ptr", lpDateFmtEnumProc, "uint", Locale, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnumDateFormatsA", "ptr", lpDateFmtEnumProc, "uint", Locale, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7263,7 +7263,7 @@ class Globalization {
     static EnumDateFormatsW(lpDateFmtEnumProc, Locale, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumDateFormatsW", "ptr", lpDateFmtEnumProc, "uint", Locale, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnumDateFormatsW", "ptr", lpDateFmtEnumProc, "uint", Locale, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7312,7 +7312,7 @@ class Globalization {
     static EnumDateFormatsExA(lpDateFmtEnumProcEx, Locale, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumDateFormatsExA", "ptr", lpDateFmtEnumProcEx, "uint", Locale, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnumDateFormatsExA", "ptr", lpDateFmtEnumProcEx, "uint", Locale, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7361,7 +7361,7 @@ class Globalization {
     static EnumDateFormatsExW(lpDateFmtEnumProcEx, Locale, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumDateFormatsExW", "ptr", lpDateFmtEnumProcEx, "uint", Locale, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnumDateFormatsExW", "ptr", lpDateFmtEnumProcEx, "uint", Locale, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7377,7 +7377,7 @@ class Globalization {
      * @since windows5.0
      */
     static IsValidLanguageGroup(LanguageGroup, dwFlags) {
-        result := DllCall("KERNEL32.dll\IsValidLanguageGroup", "uint", LanguageGroup, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\IsValidLanguageGroup", "uint", LanguageGroup, "uint", dwFlags, "int")
         return result
     }
 
@@ -7427,7 +7427,7 @@ class Globalization {
     static GetNLSVersion(Function, Locale, lpVersionInformation) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNLSVersion", "uint", Function, "uint", Locale, "ptr", lpVersionInformation, "ptr")
+        result := DllCall("KERNEL32.dll\GetNLSVersion", "uint", Function, "uint", Locale, "ptr", lpVersionInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7470,7 +7470,7 @@ class Globalization {
      * @since windows5.0
      */
     static IsValidLocale(Locale, dwFlags) {
-        result := DllCall("KERNEL32.dll\IsValidLocale", "uint", Locale, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\IsValidLocale", "uint", Locale, "uint", dwFlags, "int")
         return result
     }
 
@@ -7657,7 +7657,7 @@ class Globalization {
     static EnumSystemGeoID(GeoClass, ParentGeoId, lpGeoEnumProc) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemGeoID", "uint", GeoClass, "int", ParentGeoId, "ptr", lpGeoEnumProc, "ptr")
+        result := DllCall("KERNEL32.dll\EnumSystemGeoID", "uint", GeoClass, "int", ParentGeoId, "ptr", lpGeoEnumProc, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7705,7 +7705,7 @@ class Globalization {
     static EnumSystemGeoNames(geoClass, geoEnumProc, data) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemGeoNames", "uint", geoClass, "ptr", geoEnumProc, "ptr", data, "ptr")
+        result := DllCall("KERNEL32.dll\EnumSystemGeoNames", "uint", geoClass, "ptr", geoEnumProc, "ptr", data, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7809,7 +7809,7 @@ class Globalization {
     static SetUserGeoID(GeoId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetUserGeoID", "int", GeoId, "ptr")
+        result := DllCall("KERNEL32.dll\SetUserGeoID", "int", GeoId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7870,7 +7870,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetUserGeoName", "ptr", geoName, "ptr")
+        result := DllCall("KERNEL32.dll\SetUserGeoName", "ptr", geoName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7969,7 +7969,7 @@ class Globalization {
      * @since windows5.0
      */
     static SetThreadLocale(Locale) {
-        result := DllCall("KERNEL32.dll\SetThreadLocale", "uint", Locale, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadLocale", "uint", Locale, "int")
         return result
     }
 
@@ -8118,7 +8118,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessPreferredUILanguages", "uint", dwFlags, "uint*", pulNumLanguages, "ptr", pwszLanguagesBuffer, "uint*", pcchLanguagesBuffer, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessPreferredUILanguages", "uint", dwFlags, "uint*", pulNumLanguages, "ptr", pwszLanguagesBuffer, "uint*", pcchLanguagesBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8175,7 +8175,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessPreferredUILanguages", "uint", dwFlags, "ptr", pwszLanguagesBuffer, "uint*", pulNumLanguages, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessPreferredUILanguages", "uint", dwFlags, "ptr", pwszLanguagesBuffer, "uint*", pulNumLanguages, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8210,7 +8210,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetUserPreferredUILanguages", "uint", dwFlags, "uint*", pulNumLanguages, "ptr", pwszLanguagesBuffer, "uint*", pcchLanguagesBuffer, "ptr")
+        result := DllCall("KERNEL32.dll\GetUserPreferredUILanguages", "uint", dwFlags, "uint*", pulNumLanguages, "ptr", pwszLanguagesBuffer, "uint*", pcchLanguagesBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8290,7 +8290,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemPreferredUILanguages", "uint", dwFlags, "uint*", pulNumLanguages, "ptr", pwszLanguagesBuffer, "uint*", pcchLanguagesBuffer, "ptr")
+        result := DllCall("KERNEL32.dll\GetSystemPreferredUILanguages", "uint", dwFlags, "uint*", pulNumLanguages, "ptr", pwszLanguagesBuffer, "uint*", pcchLanguagesBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8399,7 +8399,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadPreferredUILanguages", "uint", dwFlags, "uint*", pulNumLanguages, "ptr", pwszLanguagesBuffer, "uint*", pcchLanguagesBuffer, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadPreferredUILanguages", "uint", dwFlags, "uint*", pulNumLanguages, "ptr", pwszLanguagesBuffer, "uint*", pcchLanguagesBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8496,7 +8496,7 @@ class Globalization {
     static SetThreadPreferredUILanguages(dwFlags, pwszLanguagesBuffer, pulNumLanguages) {
         pwszLanguagesBuffer := pwszLanguagesBuffer is String ? StrPtr(pwszLanguagesBuffer) : pwszLanguagesBuffer
 
-        result := DllCall("KERNEL32.dll\SetThreadPreferredUILanguages", "uint", dwFlags, "ptr", pwszLanguagesBuffer, "uint*", pulNumLanguages, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadPreferredUILanguages", "uint", dwFlags, "ptr", pwszLanguagesBuffer, "uint*", pulNumLanguages, "int")
         return result
     }
 
@@ -8537,7 +8537,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileMUIInfo", "uint", dwFlags, "ptr", pcwszFilePath, "ptr", pFileMUIInfo, "uint*", pcbFileMUIInfo, "ptr")
+        result := DllCall("KERNEL32.dll\GetFileMUIInfo", "uint", dwFlags, "ptr", pcwszFilePath, "ptr", pFileMUIInfo, "uint*", pcbFileMUIInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8675,7 +8675,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFileMUIPath", "uint", dwFlags, "ptr", pcwszFilePath, "ptr", pwszLanguage, "uint*", pcchLanguage, "ptr", pwszFileMUIPath, "uint*", pcchFileMUIPath, "uint*", pululEnumerator, "ptr")
+        result := DllCall("KERNEL32.dll\GetFileMUIPath", "uint", dwFlags, "ptr", pcwszFilePath, "ptr", pwszLanguage, "uint*", pcchLanguage, "ptr", pwszFileMUIPath, "uint*", pcchFileMUIPath, "uint*", pululEnumerator, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8805,7 +8805,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetUILanguageInfo", "uint", dwFlags, "ptr", pwmszLanguage, "ptr", pwszFallbackLanguages, "uint*", pcchFallbackLanguages, "uint*", pAttributes, "ptr")
+        result := DllCall("KERNEL32.dll\GetUILanguageInfo", "uint", dwFlags, "ptr", pwmszLanguage, "ptr", pwszFallbackLanguages, "uint*", pcchFallbackLanguages, "uint*", pAttributes, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8823,7 +8823,7 @@ class Globalization {
     static SetThreadPreferredUILanguages2(flags, languages, numLanguagesSet, snapshot) {
         languages := languages is String ? StrPtr(languages) : languages
 
-        result := DllCall("KERNEL32.dll\SetThreadPreferredUILanguages2", "uint", flags, "ptr", languages, "uint*", numLanguagesSet, "ptr", snapshot, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadPreferredUILanguages2", "uint", flags, "ptr", languages, "uint*", numLanguagesSet, "ptr", snapshot, "int")
         return result
     }
 
@@ -8854,7 +8854,7 @@ class Globalization {
         pcwstrNewLanguage := pcwstrNewLanguage is String ? StrPtr(pcwstrNewLanguage) : pcwstrNewLanguage
         pcwstrPreviousLanguage := pcwstrPreviousLanguage is String ? StrPtr(pcwstrPreviousLanguage) : pcwstrPreviousLanguage
 
-        result := DllCall("KERNEL32.dll\NotifyUILanguageChange", "uint", dwFlags, "ptr", pcwstrNewLanguage, "ptr", pcwstrPreviousLanguage, "uint", dwReserved, "uint*", pdwStatusRtrn, "ptr")
+        result := DllCall("KERNEL32.dll\NotifyUILanguageChange", "uint", dwFlags, "ptr", pcwstrNewLanguage, "ptr", pcwstrPreviousLanguage, "uint", dwReserved, "uint*", pdwStatusRtrn, "int")
         return result
     }
 
@@ -8870,7 +8870,7 @@ class Globalization {
     static GetStringTypeExA(Locale, dwInfoType, lpSrcStr, cchSrc, lpCharType) {
         lpSrcStr := lpSrcStr is String ? StrPtr(lpSrcStr) : lpSrcStr
 
-        result := DllCall("KERNEL32.dll\GetStringTypeExA", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ushort*", lpCharType, "ptr")
+        result := DllCall("KERNEL32.dll\GetStringTypeExA", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ushort*", lpCharType, "int")
         return result
     }
 
@@ -8917,7 +8917,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetStringTypeA", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ushort*", lpCharType, "ptr")
+        result := DllCall("KERNEL32.dll\GetStringTypeA", "uint", Locale, "uint", dwInfoType, "ptr", lpSrcStr, "int", cchSrc, "ushort*", lpCharType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9016,7 +9016,7 @@ class Globalization {
     static EnumSystemLocalesA(lpLocaleEnumProc, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemLocalesA", "ptr", lpLocaleEnumProc, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnumSystemLocalesA", "ptr", lpLocaleEnumProc, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9077,7 +9077,7 @@ class Globalization {
     static EnumSystemLocalesW(lpLocaleEnumProc, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemLocalesW", "ptr", lpLocaleEnumProc, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnumSystemLocalesW", "ptr", lpLocaleEnumProc, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9102,7 +9102,7 @@ class Globalization {
     static EnumSystemLanguageGroupsA(lpLanguageGroupEnumProc, dwFlags, lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", "ptr", lpLanguageGroupEnumProc, "uint", dwFlags, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsA", "ptr", lpLanguageGroupEnumProc, "uint", dwFlags, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9127,7 +9127,7 @@ class Globalization {
     static EnumSystemLanguageGroupsW(lpLanguageGroupEnumProc, dwFlags, lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", "ptr", lpLanguageGroupEnumProc, "uint", dwFlags, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumSystemLanguageGroupsW", "ptr", lpLanguageGroupEnumProc, "uint", dwFlags, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9153,7 +9153,7 @@ class Globalization {
     static EnumLanguageGroupLocalesA(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesA", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9179,7 +9179,7 @@ class Globalization {
     static EnumLanguageGroupLocalesW(lpLangGroupLocaleEnumProc, LanguageGroup, dwFlags, lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumLanguageGroupLocalesW", "ptr", lpLangGroupLocaleEnumProc, "uint", LanguageGroup, "uint", dwFlags, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9277,7 +9277,7 @@ class Globalization {
     static EnumUILanguagesA(lpUILanguageEnumProc, dwFlags, lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumUILanguagesA", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumUILanguagesA", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9375,7 +9375,7 @@ class Globalization {
     static EnumUILanguagesW(lpUILanguageEnumProc, dwFlags, lParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumUILanguagesW", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumUILanguagesW", "ptr", lpUILanguageEnumProc, "uint", dwFlags, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9399,7 +9399,7 @@ class Globalization {
     static EnumSystemCodePagesA(lpCodePageEnumProc, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemCodePagesA", "ptr", lpCodePageEnumProc, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnumSystemCodePagesA", "ptr", lpCodePageEnumProc, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9423,7 +9423,7 @@ class Globalization {
     static EnumSystemCodePagesW(lpCodePageEnumProc, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemCodePagesW", "ptr", lpCodePageEnumProc, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnumSystemCodePagesW", "ptr", lpCodePageEnumProc, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9654,7 +9654,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsNormalizedString", "int", NormForm, "ptr", lpString, "int", cwLength, "ptr")
+        result := DllCall("KERNEL32.dll\IsNormalizedString", "int", NormForm, "ptr", lpString, "int", cwLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9703,7 +9703,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VerifyScripts", "uint", dwFlags, "ptr", lpLocaleScripts, "int", cchLocaleScripts, "ptr", lpTestScripts, "int", cchTestScripts, "ptr")
+        result := DllCall("KERNEL32.dll\VerifyScripts", "uint", dwFlags, "ptr", lpLocaleScripts, "int", cchLocaleScripts, "ptr", lpTestScripts, "int", cchTestScripts, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10065,7 +10065,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsNLSDefinedString", "uint", Function, "uint", dwFlags, "ptr", lpVersionInformation, "ptr", lpString, "int", cchStr, "ptr")
+        result := DllCall("KERNEL32.dll\IsNLSDefinedString", "uint", Function, "uint", dwFlags, "ptr", lpVersionInformation, "ptr", lpString, "int", cchStr, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10107,7 +10107,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNLSVersionEx", "uint", function, "ptr", lpLocaleName, "ptr", lpVersionInformation, "ptr")
+        result := DllCall("KERNEL32.dll\GetNLSVersionEx", "uint", function, "ptr", lpLocaleName, "ptr", lpVersionInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10572,7 +10572,7 @@ class Globalization {
     static IsValidLocaleName(lpLocaleName) {
         lpLocaleName := lpLocaleName is String ? StrPtr(lpLocaleName) : lpLocaleName
 
-        result := DllCall("KERNEL32.dll\IsValidLocaleName", "ptr", lpLocaleName, "ptr")
+        result := DllCall("KERNEL32.dll\IsValidLocaleName", "ptr", lpLocaleName, "int")
         return result
     }
 
@@ -10612,7 +10612,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", "ptr", pCalInfoEnumProcExEx, "ptr", lpLocaleName, "uint", Calendar, "ptr", lpReserved, "uint", CalType, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumCalendarInfoExEx", "ptr", pCalInfoEnumProcExEx, "ptr", lpLocaleName, "uint", Calendar, "ptr", lpReserved, "uint", CalType, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10652,7 +10652,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", "ptr", lpDateFmtEnumProcExEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumDateFormatsExEx", "ptr", lpDateFmtEnumProcExEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10691,7 +10691,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", "ptr", lpTimeFmtEnumProcEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", lParam, "ptr")
+        result := DllCall("KERNEL32.dll\EnumTimeFormatsEx", "ptr", lpTimeFmtEnumProcEx, "ptr", lpLocaleName, "uint", dwFlags, "ptr", lParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10736,7 +10736,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", "ptr", lpLocaleEnumProcEx, "uint", dwFlags, "ptr", lParam, "ptr", lpReserved, "ptr")
+        result := DllCall("KERNEL32.dll\EnumSystemLocalesEx", "ptr", lpLocaleEnumProcEx, "uint", dwFlags, "ptr", lParam, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11077,7 +11077,7 @@ class Globalization {
      * @since windows5.0
      */
     static ScriptCPtoX(iCP, fTrailing, cChars, cGlyphs, pwLogClust, psva, piAdvance, psa, piX) {
-        result := DllCall("USP10.dll\ScriptCPtoX", "int", iCP, "ptr", fTrailing, "int", cChars, "int", cGlyphs, "ushort*", pwLogClust, "ptr", psva, "int*", piAdvance, "ptr", psa, "int*", piX, "int")
+        result := DllCall("USP10.dll\ScriptCPtoX", "int", iCP, "int", fTrailing, "int", cChars, "int", cGlyphs, "ushort*", pwLogClust, "ptr", psva, "int*", piAdvance, "ptr", psa, "int*", piX, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11558,7 +11558,7 @@ class Globalization {
      * @since windows5.0
      */
     static ScriptStringCPtoX(ssa, icp, fTrailing, pX) {
-        result := DllCall("USP10.dll\ScriptStringCPtoX", "ptr", ssa, "int", icp, "ptr", fTrailing, "int*", pX, "int")
+        result := DllCall("USP10.dll\ScriptStringCPtoX", "ptr", ssa, "int", icp, "int", fTrailing, "int*", pX, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -11629,7 +11629,7 @@ class Globalization {
      * @since windows5.0
      */
     static ScriptStringOut(ssa, iX, iY, uOptions, prc, iMinSel, iMaxSel, fDisabled) {
-        result := DllCall("USP10.dll\ScriptStringOut", "ptr", ssa, "int", iX, "int", iY, "uint", uOptions, "ptr", prc, "int", iMinSel, "int", iMaxSel, "ptr", fDisabled, "int")
+        result := DllCall("USP10.dll\ScriptStringOut", "ptr", ssa, "int", iX, "int", iY, "uint", uOptions, "ptr", prc, "int", iMinSel, "int", iMaxSel, "int", fDisabled, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12099,7 +12099,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static u_errorName(code) {
-        result := DllCall("icuuc.dll\u_errorName", "int", code, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_errorName", "int", code, "CDecl char*")
         return result
     }
 
@@ -12184,7 +12184,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static utrace_functionName(fnNumber) {
-        result := DllCall("icuuc.dll\utrace_functionName", "int", fnNumber, "CDecl ptr")
+        result := DllCall("icuuc.dll\utrace_functionName", "int", fnNumber, "CDecl char*")
         return result
     }
 
@@ -12224,7 +12224,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static uscript_getName(scriptCode) {
-        result := DllCall("icuuc.dll\uscript_getName", "int", scriptCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\uscript_getName", "int", scriptCode, "CDecl char*")
         return result
     }
 
@@ -12234,7 +12234,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static uscript_getShortName(scriptCode) {
-        result := DllCall("icuuc.dll\uscript_getShortName", "int", scriptCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\uscript_getShortName", "int", scriptCode, "CDecl char*")
         return result
     }
 
@@ -12454,7 +12454,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static uenum_next(en, resultLength, status) {
-        result := DllCall("icuuc.dll\uenum_next", "ptr", en, "int*", resultLength, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\uenum_next", "ptr", en, "int*", resultLength, "int*", status, "CDecl char*")
         return result
     }
 
@@ -12497,7 +12497,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static uloc_getDefault() {
-        result := DllCall("icuuc.dll\uloc_getDefault", "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_getDefault", "CDecl char*")
         return result
     }
 
@@ -12617,7 +12617,7 @@ class Globalization {
     static uloc_getISO3Language(localeID) {
         localeID := localeID is String ? StrPtr(localeID) : localeID
 
-        result := DllCall("icuuc.dll\uloc_getISO3Language", "ptr", localeID, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_getISO3Language", "ptr", localeID, "CDecl char*")
         return result
     }
 
@@ -12629,7 +12629,7 @@ class Globalization {
     static uloc_getISO3Country(localeID) {
         localeID := localeID is String ? StrPtr(localeID) : localeID
 
-        result := DllCall("icuuc.dll\uloc_getISO3Country", "ptr", localeID, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_getISO3Country", "ptr", localeID, "CDecl char*")
         return result
     }
 
@@ -12772,7 +12772,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static uloc_getAvailable(n) {
-        result := DllCall("icuuc.dll\uloc_getAvailable", "int", n, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_getAvailable", "int", n, "CDecl char*")
         return result
     }
 
@@ -13058,7 +13058,7 @@ class Globalization {
     static uloc_toUnicodeLocaleKey(keyword) {
         keyword := keyword is String ? StrPtr(keyword) : keyword
 
-        result := DllCall("icuuc.dll\uloc_toUnicodeLocaleKey", "ptr", keyword, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_toUnicodeLocaleKey", "ptr", keyword, "CDecl char*")
         return result
     }
 
@@ -13072,7 +13072,7 @@ class Globalization {
         keyword := keyword is String ? StrPtr(keyword) : keyword
         value := value is String ? StrPtr(value) : value
 
-        result := DllCall("icuuc.dll\uloc_toUnicodeLocaleType", "ptr", keyword, "ptr", value, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_toUnicodeLocaleType", "ptr", keyword, "ptr", value, "CDecl char*")
         return result
     }
 
@@ -13084,7 +13084,7 @@ class Globalization {
     static uloc_toLegacyKey(keyword) {
         keyword := keyword is String ? StrPtr(keyword) : keyword
 
-        result := DllCall("icuuc.dll\uloc_toLegacyKey", "ptr", keyword, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_toLegacyKey", "ptr", keyword, "CDecl char*")
         return result
     }
 
@@ -13098,7 +13098,7 @@ class Globalization {
         keyword := keyword is String ? StrPtr(keyword) : keyword
         value := value is String ? StrPtr(value) : value
 
-        result := DllCall("icuuc.dll\uloc_toLegacyType", "ptr", keyword, "ptr", value, "CDecl ptr")
+        result := DllCall("icuuc.dll\uloc_toLegacyType", "ptr", keyword, "ptr", value, "CDecl char*")
         return result
     }
 
@@ -13173,7 +13173,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ures_getLocaleByType(resourceBundle, type, status) {
-        result := DllCall("icuuc.dll\ures_getLocaleByType", "ptr", resourceBundle, "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getLocaleByType", "ptr", resourceBundle, "int", type, "int*", status, "CDecl char*")
         return result
     }
 
@@ -13201,7 +13201,7 @@ class Globalization {
     static ures_getUTF8String(resB, dest, length, forceCopy, status) {
         dest := dest is String ? StrPtr(dest) : dest
 
-        result := DllCall("icuuc.dll\ures_getUTF8String", "ptr", resB, "ptr", dest, "int*", length, "char", forceCopy, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getUTF8String", "ptr", resB, "ptr", dest, "int*", length, "char", forceCopy, "int*", status, "CDecl char*")
         return result
     }
 
@@ -13277,7 +13277,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ures_getKey(resourceBundle) {
-        result := DllCall("icuuc.dll\ures_getKey", "ptr", resourceBundle, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getKey", "ptr", resourceBundle, "CDecl char*")
         return result
     }
 
@@ -13364,7 +13364,7 @@ class Globalization {
     static ures_getUTF8StringByIndex(resB, stringIndex, dest, pLength, forceCopy, status) {
         dest := dest is String ? StrPtr(dest) : dest
 
-        result := DllCall("icuuc.dll\ures_getUTF8StringByIndex", "ptr", resB, "int", stringIndex, "ptr", dest, "int*", pLength, "char", forceCopy, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getUTF8StringByIndex", "ptr", resB, "int", stringIndex, "ptr", dest, "int*", pLength, "char", forceCopy, "int*", status, "CDecl char*")
         return result
     }
 
@@ -13412,7 +13412,7 @@ class Globalization {
         key := key is String ? StrPtr(key) : key
         dest := dest is String ? StrPtr(dest) : dest
 
-        result := DllCall("icuuc.dll\ures_getUTF8StringByKey", "ptr", resB, "ptr", key, "ptr", dest, "int*", pLength, "char", forceCopy, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ures_getUTF8StringByKey", "ptr", resB, "ptr", key, "ptr", dest, "int*", pLength, "char", forceCopy, "int*", status, "CDecl char*")
         return result
     }
 
@@ -13458,7 +13458,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static uldn_getLocale(ldn) {
-        result := DllCall("icuuc.dll\uldn_getLocale", "ptr", ldn, "CDecl ptr")
+        result := DllCall("icuuc.dll\uldn_getLocale", "ptr", ldn, "CDecl char*")
         return result
     }
 
@@ -14454,7 +14454,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucnv_getName(converter, err) {
-        result := DllCall("icuuc.dll\ucnv_getName", "ptr", converter, "int*", err, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_getName", "ptr", converter, "int*", err, "CDecl char*")
         return result
     }
 
@@ -14755,7 +14755,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucnv_getAvailableName(n) {
-        result := DllCall("icuuc.dll\ucnv_getAvailableName", "int", n, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_getAvailableName", "int", n, "CDecl char*")
         return result
     }
 
@@ -14792,7 +14792,7 @@ class Globalization {
     static ucnv_getAlias(alias, n, pErrorCode) {
         alias := alias is String ? StrPtr(alias) : alias
 
-        result := DllCall("icuuc.dll\ucnv_getAlias", "ptr", alias, "ushort", n, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_getAlias", "ptr", alias, "ushort", n, "int*", pErrorCode, "CDecl char*")
         return result
     }
 
@@ -14840,7 +14840,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucnv_getStandard(n, pErrorCode) {
-        result := DllCall("icuuc.dll\ucnv_getStandard", "ushort", n, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_getStandard", "ushort", n, "int*", pErrorCode, "CDecl char*")
         return result
     }
 
@@ -14855,7 +14855,7 @@ class Globalization {
         name := name is String ? StrPtr(name) : name
         standard := standard is String ? StrPtr(standard) : standard
 
-        result := DllCall("icuuc.dll\ucnv_getStandardName", "ptr", name, "ptr", standard, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_getStandardName", "ptr", name, "ptr", standard, "int*", pErrorCode, "CDecl char*")
         return result
     }
 
@@ -14870,7 +14870,7 @@ class Globalization {
         alias := alias is String ? StrPtr(alias) : alias
         standard := standard is String ? StrPtr(standard) : standard
 
-        result := DllCall("icuuc.dll\ucnv_getCanonicalName", "ptr", alias, "ptr", standard, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_getCanonicalName", "ptr", alias, "ptr", standard, "int*", pErrorCode, "CDecl char*")
         return result
     }
 
@@ -14879,7 +14879,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucnv_getDefaultName() {
-        result := DllCall("icuuc.dll\ucnv_getDefaultName", "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_getDefaultName", "CDecl char*")
         return result
     }
 
@@ -14946,7 +14946,7 @@ class Globalization {
     static ucnv_detectUnicodeSignature(source, sourceLength, signatureLength, pErrorCode) {
         source := source is String ? StrPtr(source) : source
 
-        result := DllCall("icuuc.dll\ucnv_detectUnicodeSignature", "ptr", source, "int", sourceLength, "int*", signatureLength, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucnv_detectUnicodeSignature", "ptr", source, "int", sourceLength, "int*", signatureLength, "int*", pErrorCode, "CDecl char*")
         return result
     }
 
@@ -15562,7 +15562,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static u_getPropertyName(property, nameChoice) {
-        result := DllCall("icuuc.dll\u_getPropertyName", "int", property, "int", nameChoice, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_getPropertyName", "int", property, "int", nameChoice, "CDecl char*")
         return result
     }
 
@@ -15586,7 +15586,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static u_getPropertyValueName(property, value, nameChoice) {
-        result := DllCall("icuuc.dll\u_getPropertyValueName", "int", property, "int", value, "int", nameChoice, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_getPropertyValueName", "int", property, "int", value, "int", nameChoice, "CDecl char*")
         return result
     }
 
@@ -17986,7 +17986,7 @@ class Globalization {
     static u_austrcpy(dst, src) {
         dst := dst is String ? StrPtr(dst) : dst
 
-        result := DllCall("icuuc.dll\u_austrcpy", "ptr", dst, "ushort*", src, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_austrcpy", "ptr", dst, "ushort*", src, "CDecl char*")
         return result
     }
 
@@ -18000,7 +18000,7 @@ class Globalization {
     static u_austrncpy(dst, src, n) {
         dst := dst is String ? StrPtr(dst) : dst
 
-        result := DllCall("icuuc.dll\u_austrncpy", "ptr", dst, "ushort*", src, "int", n, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_austrncpy", "ptr", dst, "ushort*", src, "int", n, "CDecl char*")
         return result
     }
 
@@ -18219,7 +18219,7 @@ class Globalization {
     static u_strToWCS(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
         dest := dest is String ? StrPtr(dest) : dest
 
-        result := DllCall("icuuc.dll\u_strToWCS", "ptr", dest, "int", destCapacity, "int*", pDestLength, "ushort*", src, "int", srcLength, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_strToWCS", "ptr", dest, "int", destCapacity, "int*", pDestLength, "ushort*", src, "int", srcLength, "int*", pErrorCode, "CDecl char*")
         return result
     }
 
@@ -18253,7 +18253,7 @@ class Globalization {
     static u_strToUTF8(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
         dest := dest is String ? StrPtr(dest) : dest
 
-        result := DllCall("icuuc.dll\u_strToUTF8", "ptr", dest, "int", destCapacity, "int*", pDestLength, "ushort*", src, "int", srcLength, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_strToUTF8", "ptr", dest, "int", destCapacity, "int*", pDestLength, "ushort*", src, "int", srcLength, "int*", pErrorCode, "CDecl char*")
         return result
     }
 
@@ -18289,7 +18289,7 @@ class Globalization {
     static u_strToUTF8WithSub(dest, destCapacity, pDestLength, src, srcLength, subchar, pNumSubstitutions, pErrorCode) {
         dest := dest is String ? StrPtr(dest) : dest
 
-        result := DllCall("icuuc.dll\u_strToUTF8WithSub", "ptr", dest, "int", destCapacity, "int*", pDestLength, "ushort*", src, "int", srcLength, "int", subchar, "int*", pNumSubstitutions, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_strToUTF8WithSub", "ptr", dest, "int", destCapacity, "int*", pDestLength, "ushort*", src, "int", srcLength, "int", subchar, "int*", pNumSubstitutions, "int*", pErrorCode, "CDecl char*")
         return result
     }
 
@@ -18406,7 +18406,7 @@ class Globalization {
     static u_strToJavaModifiedUTF8(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
         dest := dest is String ? StrPtr(dest) : dest
 
-        result := DllCall("icuuc.dll\u_strToJavaModifiedUTF8", "ptr", dest, "int", destCapacity, "int*", pDestLength, "ushort*", src, "int", srcLength, "int*", pErrorCode, "CDecl ptr")
+        result := DllCall("icuuc.dll\u_strToJavaModifiedUTF8", "ptr", dest, "int", destCapacity, "int*", pDestLength, "ushort*", src, "int", srcLength, "int*", pErrorCode, "CDecl char*")
         return result
     }
 
@@ -18458,7 +18458,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucasemap_getLocale(csm) {
-        result := DllCall("icuuc.dll\ucasemap_getLocale", "ptr", csm, "CDecl ptr")
+        result := DllCall("icuuc.dll\ucasemap_getLocale", "ptr", csm, "CDecl char*")
         return result
     }
 
@@ -18995,7 +18995,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ubrk_getAvailable(index) {
-        result := DllCall("icuuc.dll\ubrk_getAvailable", "int", index, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_getAvailable", "int", index, "CDecl char*")
         return result
     }
 
@@ -19050,7 +19050,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ubrk_getLocaleByType(bi, type, status) {
-        result := DllCall("icuuc.dll\ubrk_getLocaleByType", "ptr", bi, "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuuc.dll\ubrk_getLocaleByType", "ptr", bi, "int", type, "int*", status, "CDecl char*")
         return result
     }
 
@@ -19319,7 +19319,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucal_getAvailable(localeIndex) {
-        result := DllCall("icuin.dll\ucal_getAvailable", "int", localeIndex, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_getAvailable", "int", localeIndex, "CDecl char*")
         return result
     }
 
@@ -19492,7 +19492,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucal_getLocaleByType(cal, type, status) {
-        result := DllCall("icuin.dll\ucal_getLocaleByType", "ptr", cal, "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_getLocaleByType", "ptr", cal, "int", type, "int*", status, "CDecl char*")
         return result
     }
 
@@ -19502,7 +19502,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucal_getTZDataVersion(status) {
-        result := DllCall("icuin.dll\ucal_getTZDataVersion", "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_getTZDataVersion", "int*", status, "CDecl char*")
         return result
     }
 
@@ -19528,7 +19528,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucal_getType(cal, status) {
-        result := DllCall("icuin.dll\ucal_getType", "ptr", cal, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucal_getType", "ptr", cal, "int*", status, "CDecl char*")
         return result
     }
 
@@ -19873,7 +19873,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucol_getAvailable(localeIndex) {
-        result := DllCall("icuin.dll\ucol_getAvailable", "int", localeIndex, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getAvailable", "int", localeIndex, "CDecl char*")
         return result
     }
 
@@ -20146,7 +20146,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucol_getLocaleByType(coll, type, status) {
-        result := DllCall("icuin.dll\ucol_getLocaleByType", "ptr", coll, "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucol_getLocaleByType", "ptr", coll, "int", type, "int*", status, "CDecl char*")
         return result
     }
 
@@ -20402,7 +20402,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucsdet_getName(ucsm, status) {
-        result := DllCall("icuin.dll\ucsdet_getName", "ptr", ucsm, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucsdet_getName", "ptr", ucsm, "int*", status, "CDecl char*")
         return result
     }
 
@@ -20424,7 +20424,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ucsdet_getLanguage(ucsm, status) {
-        result := DllCall("icuin.dll\ucsdet_getLanguage", "ptr", ucsm, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ucsdet_getLanguage", "ptr", ucsm, "int*", status, "CDecl char*")
         return result
     }
 
@@ -20642,7 +20642,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static ufmt_getDecNumChars(fmt, len, status) {
-        result := DllCall("icuin.dll\ufmt_getDecNumChars", "ptr", fmt, "int*", len, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\ufmt_getDecNumChars", "ptr", fmt, "int*", len, "int*", status, "CDecl char*")
         return result
     }
 
@@ -21363,7 +21363,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static umsg_getLocale(fmt) {
-        result := DllCall("icuin.dll\umsg_getLocale", "ptr", fmt, "CDecl ptr")
+        result := DllCall("icuin.dll\umsg_getLocale", "ptr", fmt, "CDecl char*")
         return result
     }
 
@@ -21717,7 +21717,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static unum_getAvailable(localeIndex) {
-        result := DllCall("icuin.dll\unum_getAvailable", "int", localeIndex, "CDecl ptr")
+        result := DllCall("icuin.dll\unum_getAvailable", "int", localeIndex, "CDecl char*")
         return result
     }
 
@@ -21850,7 +21850,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static unum_getLocaleByType(fmt, type, status) {
-        result := DllCall("icuin.dll\unum_getLocaleByType", "ptr", fmt, "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\unum_getLocaleByType", "ptr", fmt, "int", type, "int*", status, "CDecl char*")
         return result
     }
 
@@ -22137,7 +22137,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static udat_getAvailable(localeIndex) {
-        result := DllCall("icuin.dll\udat_getAvailable", "int", localeIndex, "CDecl ptr")
+        result := DllCall("icuin.dll\udat_getAvailable", "int", localeIndex, "CDecl char*")
         return result
     }
 
@@ -22246,7 +22246,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static udat_getLocaleByType(fmt, type, status) {
-        result := DllCall("icuin.dll\udat_getLocaleByType", "ptr", fmt, "int", type, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\udat_getLocaleByType", "ptr", fmt, "int", type, "int*", status, "CDecl char*")
         return result
     }
 
@@ -22922,7 +22922,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static unumsys_getName(unumsys) {
-        result := DllCall("icuin.dll\unumsys_getName", "ptr", unumsys, "CDecl ptr")
+        result := DllCall("icuin.dll\unumsys_getName", "ptr", unumsys, "CDecl char*")
         return result
     }
 
@@ -23902,7 +23902,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static uregion_getRegionCode(uregion) {
-        result := DllCall("icuin.dll\uregion_getRegionCode", "ptr", uregion, "CDecl ptr")
+        result := DllCall("icuin.dll\uregion_getRegionCode", "ptr", uregion, "CDecl char*")
         return result
     }
 
@@ -24463,7 +24463,7 @@ class Globalization {
      * @returns {PSTR} 
      */
     static uspoof_getAllowedLocales(sc, status) {
-        result := DllCall("icuin.dll\uspoof_getAllowedLocales", "ptr", sc, "int*", status, "CDecl ptr")
+        result := DllCall("icuin.dll\uspoof_getAllowedLocales", "ptr", sc, "int*", status, "CDecl char*")
         return result
     }
 
@@ -24981,7 +24981,7 @@ class Globalization {
      * @returns {BOOL} 
      */
     static GetCalendarSupportedDateRange(Calendar, lpCalMinDateTime, lpCalMaxDateTime) {
-        result := DllCall("KERNEL32.dll\GetCalendarSupportedDateRange", "uint", Calendar, "ptr", lpCalMinDateTime, "ptr", lpCalMaxDateTime, "ptr")
+        result := DllCall("KERNEL32.dll\GetCalendarSupportedDateRange", "uint", Calendar, "ptr", lpCalMinDateTime, "ptr", lpCalMaxDateTime, "int")
         return result
     }
 
@@ -25000,7 +25000,7 @@ class Globalization {
         lpFormat := lpFormat is String ? StrPtr(lpFormat) : lpFormat
         lpDateStr := lpDateStr is String ? StrPtr(lpDateStr) : lpDateStr
 
-        result := DllCall("KERNEL32.dll\GetCalendarDateFormatEx", "ptr", lpszLocale, "uint", dwFlags, "ptr", lpCalDateTime, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, "ptr")
+        result := DllCall("KERNEL32.dll\GetCalendarDateFormatEx", "ptr", lpszLocale, "uint", dwFlags, "ptr", lpCalDateTime, "ptr", lpFormat, "ptr", lpDateStr, "int", cchDate, "int")
         return result
     }
 
@@ -25012,7 +25012,7 @@ class Globalization {
      * @returns {BOOL} 
      */
     static ConvertSystemTimeToCalDateTime(lpSysTime, calId, lpCalDateTime) {
-        result := DllCall("KERNEL32.dll\ConvertSystemTimeToCalDateTime", "ptr", lpSysTime, "uint", calId, "ptr", lpCalDateTime, "ptr")
+        result := DllCall("KERNEL32.dll\ConvertSystemTimeToCalDateTime", "ptr", lpSysTime, "uint", calId, "ptr", lpCalDateTime, "int")
         return result
     }
 
@@ -25022,7 +25022,7 @@ class Globalization {
      * @returns {BOOL} 
      */
     static UpdateCalendarDayOfWeek(lpCalDateTime) {
-        result := DllCall("KERNEL32.dll\UpdateCalendarDayOfWeek", "ptr", lpCalDateTime, "ptr")
+        result := DllCall("KERNEL32.dll\UpdateCalendarDayOfWeek", "ptr", lpCalDateTime, "int")
         return result
     }
 
@@ -25034,7 +25034,7 @@ class Globalization {
      * @returns {BOOL} 
      */
     static AdjustCalendarDate(lpCalDateTime, calUnit, amount) {
-        result := DllCall("KERNEL32.dll\AdjustCalendarDate", "ptr", lpCalDateTime, "int", calUnit, "int", amount, "ptr")
+        result := DllCall("KERNEL32.dll\AdjustCalendarDate", "ptr", lpCalDateTime, "int", calUnit, "int", amount, "int")
         return result
     }
 
@@ -25045,7 +25045,7 @@ class Globalization {
      * @returns {BOOL} 
      */
     static ConvertCalDateTimeToSystemTime(lpCalDateTime, lpSysTime) {
-        result := DllCall("KERNEL32.dll\ConvertCalDateTimeToSystemTime", "ptr", lpCalDateTime, "ptr", lpSysTime, "ptr")
+        result := DllCall("KERNEL32.dll\ConvertCalDateTimeToSystemTime", "ptr", lpCalDateTime, "ptr", lpSysTime, "int")
         return result
     }
 
@@ -25057,7 +25057,7 @@ class Globalization {
      * @returns {BOOL} 
      */
     static IsCalendarLeapYear(calId, year, era) {
-        result := DllCall("KERNEL32.dll\IsCalendarLeapYear", "uint", calId, "uint", year, "uint", era, "ptr")
+        result := DllCall("KERNEL32.dll\IsCalendarLeapYear", "uint", calId, "uint", year, "uint", era, "int")
         return result
     }
 
@@ -25134,7 +25134,7 @@ class Globalization {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindStringOrdinal", "uint", dwFindStringOrdinalFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, "ptr", bIgnoreCase, "int")
+        result := DllCall("KERNEL32.dll\FindStringOrdinal", "uint", dwFindStringOrdinalFlags, "ptr", lpStringSource, "int", cchSource, "ptr", lpStringValue, "int", cchValue, "int", bIgnoreCase, "int")
         if(A_LastError)
             throw OSError()
 
@@ -25277,7 +25277,7 @@ class Globalization {
         lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-        result := DllCall("KERNEL32.dll\lstrcpynA", "ptr", lpString1, "ptr", lpString2, "int", iMaxLength, "ptr")
+        result := DllCall("KERNEL32.dll\lstrcpynA", "ptr", lpString1, "ptr", lpString2, "int", iMaxLength, "char*")
         return result
     }
 
@@ -25313,7 +25313,7 @@ class Globalization {
         lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-        result := DllCall("KERNEL32.dll\lstrcpynW", "ptr", lpString1, "ptr", lpString2, "int", iMaxLength, "ptr")
+        result := DllCall("KERNEL32.dll\lstrcpynW", "ptr", lpString1, "ptr", lpString2, "int", iMaxLength, "char*")
         return result
     }
 
@@ -25341,7 +25341,7 @@ class Globalization {
         lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-        result := DllCall("KERNEL32.dll\lstrcpyA", "ptr", lpString1, "ptr", lpString2, "ptr")
+        result := DllCall("KERNEL32.dll\lstrcpyA", "ptr", lpString1, "ptr", lpString2, "char*")
         return result
     }
 
@@ -25369,7 +25369,7 @@ class Globalization {
         lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-        result := DllCall("KERNEL32.dll\lstrcpyW", "ptr", lpString1, "ptr", lpString2, "ptr")
+        result := DllCall("KERNEL32.dll\lstrcpyW", "ptr", lpString1, "ptr", lpString2, "char*")
         return result
     }
 
@@ -25396,7 +25396,7 @@ class Globalization {
         lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-        result := DllCall("KERNEL32.dll\lstrcatA", "ptr", lpString1, "ptr", lpString2, "ptr")
+        result := DllCall("KERNEL32.dll\lstrcatA", "ptr", lpString1, "ptr", lpString2, "char*")
         return result
     }
 
@@ -25423,7 +25423,7 @@ class Globalization {
         lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
         lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
-        result := DllCall("KERNEL32.dll\lstrcatW", "ptr", lpString1, "ptr", lpString2, "ptr")
+        result := DllCall("KERNEL32.dll\lstrcatW", "ptr", lpString1, "ptr", lpString2, "char*")
         return result
     }
 
@@ -25475,7 +25475,7 @@ class Globalization {
      * @since windows5.0
      */
     static IsTextUnicode(lpv, iSize, lpiResult) {
-        result := DllCall("ADVAPI32.dll\IsTextUnicode", "ptr", lpv, "int", iSize, "uint*", lpiResult, "ptr")
+        result := DllCall("ADVAPI32.dll\IsTextUnicode", "ptr", lpv, "int", iSize, "uint*", lpiResult, "int")
         return result
     }
 

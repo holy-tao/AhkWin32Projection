@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\TS_SELECTIONSTYLE.ahk
 
 /**
@@ -40,7 +39,7 @@ class TS_SELECTION_ACP extends Win32Struct
     style{
         get {
             if(!this.HasProp("__style"))
-                this.__style := TS_SELECTIONSTYLE(this.ptr + 8)
+                this.__style := TS_SELECTIONSTYLE(8, this)
             return this.__style
         }
     }

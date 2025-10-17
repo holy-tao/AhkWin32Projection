@@ -1,11 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 #Include .\CERT_PUBLIC_KEY_INFO.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information stored in the Netscape key generation request. The subject and subject public key BLOBs are encoded.
@@ -35,7 +33,7 @@ class CERT_KEYGEN_REQUEST_INFO extends Win32Struct
     SubjectPublicKeyInfo{
         get {
             if(!this.HasProp("__SubjectPublicKeyInfo"))
-                this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(this.ptr + 8)
+                this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(8, this)
             return this.__SubjectPublicKeyInfo
         }
     }
@@ -44,11 +42,8 @@ class CERT_KEYGEN_REQUEST_INFO extends Win32Struct
      * A random printable string. This string is used by the server to ensure that the key that it is certifying matches the client on the page.
      * @type {PWSTR}
      */
-    pwszChallengeString{
-        get {
-            if(!this.HasProp("__pwszChallengeString"))
-                this.__pwszChallengeString := PWSTR(this.ptr + 56)
-            return this.__pwszChallengeString
-        }
+    pwszChallengeString {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

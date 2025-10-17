@@ -93,7 +93,7 @@ class SLIST_HEADER extends Win32Struct
     HeaderX64{
         get {
             if(!this.HasProp("__HeaderX64"))
-                this.__HeaderX64 := %this.__Class%._HeaderX64(this.ptr + 0)
+                this.__HeaderX64 := %this.__Class%._HeaderX64(0, this)
             return this.__HeaderX64
         }
     }

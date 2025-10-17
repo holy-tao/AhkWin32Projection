@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADS_HOLD structure is an ADSI representation of the Hold attribute syntax.
@@ -18,12 +17,9 @@ class ADS_HOLD extends Win32Struct
      * The null-terminated Unicode string that contains the name of an object put on hold.
      * @type {PWSTR}
      */
-    ObjectName{
-        get {
-            if(!this.HasProp("__ObjectName"))
-                this.__ObjectName := PWSTR(this.ptr + 0)
-            return this.__ObjectName
-        }
+    ObjectName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

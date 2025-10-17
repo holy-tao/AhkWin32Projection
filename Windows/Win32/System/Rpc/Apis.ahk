@@ -16581,7 +16581,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcAsyncCancelCall(pAsync, fAbort) {
-        result := DllCall("RPCRT4.dll\RpcAsyncCancelCall", "ptr", pAsync, "ptr", fAbort, "int")
+        result := DllCall("RPCRT4.dll\RpcAsyncCancelCall", "ptr", pAsync, "int", fAbort, "int")
         return result
     }
 
@@ -16631,7 +16631,7 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcErrorGetNextRecord(EnumHandle, CopyStrings, ErrorInfo) {
-        result := DllCall("RPCRT4.dll\RpcErrorGetNextRecord", "ptr", EnumHandle, "ptr", CopyStrings, "ptr", ErrorInfo, "int")
+        result := DllCall("RPCRT4.dll\RpcErrorGetNextRecord", "ptr", EnumHandle, "int", CopyStrings, "ptr", ErrorInfo, "int")
         return result
     }
 
@@ -16807,7 +16807,7 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcGetAuthorizationContextForClient(ClientBinding, ImpersonateOnReturn, Reserved1, pExpirationTime, Reserved2, Reserved3, Reserved4, pAuthzClientContext) {
-        result := DllCall("RPCRT4.dll\RpcGetAuthorizationContextForClient", "ptr", ClientBinding, "ptr", ImpersonateOnReturn, "ptr", Reserved1, "int64*", pExpirationTime, "ptr", Reserved2, "uint", Reserved3, "ptr", Reserved4, "ptr", pAuthzClientContext, "int")
+        result := DllCall("RPCRT4.dll\RpcGetAuthorizationContextForClient", "ptr", ClientBinding, "int", ImpersonateOnReturn, "ptr", Reserved1, "int64*", pExpirationTime, "ptr", Reserved2, "uint", Reserved3, "ptr", Reserved4, "ptr", pAuthzClientContext, "int")
         return result
     }
 

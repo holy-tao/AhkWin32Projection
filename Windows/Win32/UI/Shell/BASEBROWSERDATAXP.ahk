@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -20,7 +18,7 @@ class BASEBROWSERDATAXP extends Win32Struct
     _hwnd{
         get {
             if(!this.HasProp("___hwnd"))
-                this.___hwnd := HWND(this.ptr + 0)
+                this.___hwnd := HWND(0, this)
             return this.___hwnd
         }
     }
@@ -145,7 +143,7 @@ class BASEBROWSERDATAXP extends Win32Struct
     _hwndView{
         get {
             if(!this.HasProp("___hwndView"))
-                this.___hwndView := HWND(this.ptr + 104)
+                this.___hwndView := HWND(104, this)
             return this.___hwndView
         }
     }
@@ -153,12 +151,9 @@ class BASEBROWSERDATAXP extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    _pszTitleCur{
-        get {
-            if(!this.HasProp("___pszTitleCur"))
-                this.___pszTitleCur := PWSTR(this.ptr + 112)
-            return this.___pszTitleCur
-        }
+    _pszTitleCur {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -191,7 +186,7 @@ class BASEBROWSERDATAXP extends Win32Struct
     _hwndViewPending{
         get {
             if(!this.HasProp("___hwndViewPending"))
-                this.___hwndViewPending := HWND(this.ptr + 144)
+                this.___hwndViewPending := HWND(144, this)
             return this.___hwndViewPending
         }
     }
@@ -199,34 +194,25 @@ class BASEBROWSERDATAXP extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    _pszTitlePending{
-        get {
-            if(!this.HasProp("___pszTitlePending"))
-                this.___pszTitlePending := PWSTR(this.ptr + 152)
-            return this.___pszTitlePending
-        }
+    _pszTitlePending {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 
     /**
      * @type {BOOL}
      */
-    _fIsViewMSHTML{
-        get {
-            if(!this.HasProp("___fIsViewMSHTML"))
-                this.___fIsViewMSHTML := BOOL(this.ptr + 160)
-            return this.___fIsViewMSHTML
-        }
+    _fIsViewMSHTML {
+        get => NumGet(this, 160, "int")
+        set => NumPut("int", value, this, 160)
     }
 
     /**
      * @type {BOOL}
      */
-    _fPrivacyImpacted{
-        get {
-            if(!this.HasProp("___fPrivacyImpacted"))
-                this.___fPrivacyImpacted := BOOL(this.ptr + 164)
-            return this.___fPrivacyImpacted
-        }
+    _fPrivacyImpacted {
+        get => NumGet(this, 164, "int")
+        set => NumPut("int", value, this, 164)
     }
 
     /**
@@ -251,7 +237,7 @@ class BASEBROWSERDATAXP extends Win32Struct
     _hwndFrame{
         get {
             if(!this.HasProp("___hwndFrame"))
-                this.___hwndFrame := HWND(this.ptr + 184)
+                this.___hwndFrame := HWND(184, this)
             return this.___hwndFrame
         }
     }

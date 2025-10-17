@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS.ahk
 #Include .\D3D12_RENDER_PASS_ENDING_ACCESS_PRESERVE_LOCAL_PARAMETERS.ahk
 
@@ -31,7 +30,7 @@ class D3D12_RENDER_PASS_ENDING_ACCESS extends Win32Struct
     Resolve{
         get {
             if(!this.HasProp("__Resolve"))
-                this.__Resolve := D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS(this.ptr + 8)
+                this.__Resolve := D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS(8, this)
             return this.__Resolve
         }
     }
@@ -42,7 +41,7 @@ class D3D12_RENDER_PASS_ENDING_ACCESS extends Win32Struct
     PreserveLocal{
         get {
             if(!this.HasProp("__PreserveLocal"))
-                this.__PreserveLocal := D3D12_RENDER_PASS_ENDING_ACCESS_PRESERVE_LOCAL_PARAMETERS(this.ptr + 8)
+                this.__PreserveLocal := D3D12_RENDER_PASS_ENDING_ACCESS_PRESERVE_LOCAL_PARAMETERS(8, this)
             return this.__PreserveLocal
         }
     }

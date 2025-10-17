@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Kernel\LIST_ENTRY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\UNICODE_STRING.ahk
 
 /**
@@ -31,7 +30,7 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     InMemoryOrderLinks{
         get {
             if(!this.HasProp("__InMemoryOrderLinks"))
-                this.__InMemoryOrderLinks := LIST_ENTRY(this.ptr + 16)
+                this.__InMemoryOrderLinks := LIST_ENTRY(16, this)
             return this.__InMemoryOrderLinks
         }
     }
@@ -72,7 +71,7 @@ class LDR_DATA_TABLE_ENTRY extends Win32Struct
     FullDllName{
         get {
             if(!this.HasProp("__FullDllName"))
-                this.__FullDllName := UNICODE_STRING(this.ptr + 72)
+                this.__FullDllName := UNICODE_STRING(72, this)
             return this.__FullDllName
         }
     }

@@ -45,7 +45,7 @@ class MSV1_0_SUPPLEMENTAL_CREDENTIAL_V2 extends Win32Struct
     CredentialKey{
         get {
             if(!this.HasProp("__CredentialKey"))
-                this.__CredentialKey := MSV1_0_CREDENTIAL_KEY(this.ptr + 24)
+                this.__CredentialKey := MSV1_0_CREDENTIAL_KEY(24, this)
             return this.__CredentialKey
         }
     }

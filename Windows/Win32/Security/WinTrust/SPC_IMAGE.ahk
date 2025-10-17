@@ -26,7 +26,7 @@ class SPC_IMAGE extends Win32Struct
     Bitmap{
         get {
             if(!this.HasProp("__Bitmap"))
-                this.__Bitmap := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Bitmap := CRYPT_INTEGER_BLOB(8, this)
             return this.__Bitmap
         }
     }
@@ -37,7 +37,7 @@ class SPC_IMAGE extends Win32Struct
     Metafile{
         get {
             if(!this.HasProp("__Metafile"))
-                this.__Metafile := CRYPT_INTEGER_BLOB(this.ptr + 24)
+                this.__Metafile := CRYPT_INTEGER_BLOB(24, this)
             return this.__Metafile
         }
     }
@@ -48,7 +48,7 @@ class SPC_IMAGE extends Win32Struct
     EnhancedMetafile{
         get {
             if(!this.HasProp("__EnhancedMetafile"))
-                this.__EnhancedMetafile := CRYPT_INTEGER_BLOB(this.ptr + 40)
+                this.__EnhancedMetafile := CRYPT_INTEGER_BLOB(40, this)
             return this.__EnhancedMetafile
         }
     }
@@ -59,7 +59,7 @@ class SPC_IMAGE extends Win32Struct
     GifFile{
         get {
             if(!this.HasProp("__GifFile"))
-                this.__GifFile := CRYPT_INTEGER_BLOB(this.ptr + 56)
+                this.__GifFile := CRYPT_INTEGER_BLOB(56, this)
             return this.__GifFile
         }
     }

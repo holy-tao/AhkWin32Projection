@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains raw SCSI virtual disk request parameters.
@@ -30,12 +29,9 @@ class RAW_SCSI_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         /**
          * @type {BOOL}
          */
-        RSVDHandle{
-            get {
-                if(!this.HasProp("__RSVDHandle"))
-                    this.__RSVDHandle := BOOL(this.ptr + 0)
-                return this.__RSVDHandle
-            }
+        RSVDHandle {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
         }
     
         /**
@@ -110,7 +106,7 @@ class RAW_SCSI_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version1{
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+                this.__Version1 := %this.__Class%._Version1(8, this)
             return this.__Version1
         }
     }

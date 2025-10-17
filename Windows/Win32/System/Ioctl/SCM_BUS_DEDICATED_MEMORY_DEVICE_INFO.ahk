@@ -75,7 +75,7 @@ class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(this.ptr + 12)
+                this.__Flags := %this.__Class%._Flags(12, this)
             return this.__Flags
         }
     }

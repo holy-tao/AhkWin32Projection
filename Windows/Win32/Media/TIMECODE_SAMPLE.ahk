@@ -35,7 +35,7 @@ class TIMECODE_SAMPLE extends Win32Struct
     timecode{
         get {
             if(!this.HasProp("__timecode"))
-                this.__timecode := TIMECODE(this.ptr + 8)
+                this.__timecode := TIMECODE(8, this)
             return this.__timecode
         }
     }

@@ -21,7 +21,7 @@ class PrimaryJabColors extends Win32Struct
     red{
         get {
             if(!this.HasProp("__red"))
-                this.__red := JabColorF(this.ptr + 0)
+                this.__red := JabColorF(0, this)
             return this.__red
         }
     }
@@ -33,7 +33,7 @@ class PrimaryJabColors extends Win32Struct
     yellow{
         get {
             if(!this.HasProp("__yellow"))
-                this.__yellow := JabColorF(this.ptr + 16)
+                this.__yellow := JabColorF(16, this)
             return this.__yellow
         }
     }
@@ -45,7 +45,7 @@ class PrimaryJabColors extends Win32Struct
     green{
         get {
             if(!this.HasProp("__green"))
-                this.__green := JabColorF(this.ptr + 32)
+                this.__green := JabColorF(32, this)
             return this.__green
         }
     }
@@ -57,7 +57,7 @@ class PrimaryJabColors extends Win32Struct
     cyan{
         get {
             if(!this.HasProp("__cyan"))
-                this.__cyan := JabColorF(this.ptr + 48)
+                this.__cyan := JabColorF(48, this)
             return this.__cyan
         }
     }
@@ -69,7 +69,7 @@ class PrimaryJabColors extends Win32Struct
     blue{
         get {
             if(!this.HasProp("__blue"))
-                this.__blue := JabColorF(this.ptr + 64)
+                this.__blue := JabColorF(64, this)
             return this.__blue
         }
     }
@@ -81,7 +81,7 @@ class PrimaryJabColors extends Win32Struct
     magenta{
         get {
             if(!this.HasProp("__magenta"))
-                this.__magenta := JabColorF(this.ptr + 80)
+                this.__magenta := JabColorF(80, this)
             return this.__magenta
         }
     }
@@ -93,7 +93,7 @@ class PrimaryJabColors extends Win32Struct
     black{
         get {
             if(!this.HasProp("__black"))
-                this.__black := JabColorF(this.ptr + 96)
+                this.__black := JabColorF(96, this)
             return this.__black
         }
     }
@@ -105,7 +105,7 @@ class PrimaryJabColors extends Win32Struct
     white{
         get {
             if(!this.HasProp("__white"))
-                this.__white := JabColorF(this.ptr + 112)
+                this.__white := JabColorF(112, this)
             return this.__white
         }
     }

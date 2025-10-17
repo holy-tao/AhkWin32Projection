@@ -47,7 +47,7 @@ class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS extends Win32Struct
     ReferenceFrames{
         get {
             if(!this.HasProp("__ReferenceFrames"))
-                this.__ReferenceFrames := D3D12_VIDEO_DECODE_REFERENCE_FRAMES(this.ptr + 88)
+                this.__ReferenceFrames := D3D12_VIDEO_DECODE_REFERENCE_FRAMES(88, this)
             return this.__ReferenceFrames
         }
     }
@@ -59,7 +59,7 @@ class D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS extends Win32Struct
     CompressedBitstream{
         get {
             if(!this.HasProp("__CompressedBitstream"))
-                this.__CompressedBitstream := D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM(this.ptr + 120)
+                this.__CompressedBitstream := D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM(120, this)
             return this.__CompressedBitstream
         }
     }

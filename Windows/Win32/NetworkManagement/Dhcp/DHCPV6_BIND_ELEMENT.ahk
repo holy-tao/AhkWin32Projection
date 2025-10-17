@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\DHCP_IPV6_ADDRESS.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines an IPv6 interface binding for the DHCP server over which it receives DHCPv6 packets.
@@ -48,12 +46,9 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
      * If <b>TRUE</b>, the interface is bound to the DHCPv6 server; if <b>FALSE</b>, it is not.
      * @type {BOOL}
      */
-    fBoundToDHCPServer{
-        get {
-            if(!this.HasProp("__fBoundToDHCPServer"))
-                this.__fBoundToDHCPServer := BOOL(this.ptr + 4)
-            return this.__fBoundToDHCPServer
-        }
+    fBoundToDHCPServer {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -63,7 +58,7 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
     AdapterPrimaryAddress{
         get {
             if(!this.HasProp("__AdapterPrimaryAddress"))
-                this.__AdapterPrimaryAddress := DHCP_IPV6_ADDRESS(this.ptr + 8)
+                this.__AdapterPrimaryAddress := DHCP_IPV6_ADDRESS(8, this)
             return this.__AdapterPrimaryAddress
         }
     }
@@ -75,7 +70,7 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
     AdapterSubnetAddress{
         get {
             if(!this.HasProp("__AdapterSubnetAddress"))
-                this.__AdapterSubnetAddress := DHCP_IPV6_ADDRESS(this.ptr + 24)
+                this.__AdapterSubnetAddress := DHCP_IPV6_ADDRESS(24, this)
             return this.__AdapterSubnetAddress
         }
     }
@@ -84,12 +79,9 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
      * Pointer to a null-terminated Unicode string that specifies the name assigned to this interface.
      * @type {PWSTR}
      */
-    IfDescription{
-        get {
-            if(!this.HasProp("__IfDescription"))
-                this.__IfDescription := PWSTR(this.ptr + 40)
-            return this.__IfDescription
-        }
+    IfDescription {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

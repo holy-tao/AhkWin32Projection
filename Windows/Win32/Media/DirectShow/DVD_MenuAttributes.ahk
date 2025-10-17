@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\DVD_VideoAttributes.ahk
 #Include .\DVD_AudioAttributes.ahk
 #Include .\DVD_SubpictureAttributes.ahk
@@ -13,7 +12,7 @@
  */
 class DVD_MenuAttributes extends Win32Struct
 {
-    static sizeof => 184
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -39,7 +38,7 @@ class DVD_MenuAttributes extends Win32Struct
     VideoAttributes{
         get {
             if(!this.HasProp("__VideoAttributes"))
-                this.__VideoAttributes := DVD_VideoAttributes(this.ptr + 64)
+                this.__VideoAttributes := DVD_VideoAttributes(32, this)
             return this.__VideoAttributes
         }
     }
@@ -48,12 +47,9 @@ class DVD_MenuAttributes extends Win32Struct
      * A variable of type BOOL indicating whether the menu has an audio stream.
      * @type {BOOL}
      */
-    fAudioPresent{
-        get {
-            if(!this.HasProp("__fAudioPresent"))
-                this.__fAudioPresent := BOOL(this.ptr + 116)
-            return this.__fAudioPresent
-        }
+    fAudioPresent {
+        get => NumGet(this, 84, "int")
+        set => NumPut("int", value, this, 84)
     }
 
     /**
@@ -63,7 +59,7 @@ class DVD_MenuAttributes extends Win32Struct
     AudioAttributes{
         get {
             if(!this.HasProp("__AudioAttributes"))
-                this.__AudioAttributes := DVD_AudioAttributes(this.ptr + 120)
+                this.__AudioAttributes := DVD_AudioAttributes(88, this)
             return this.__AudioAttributes
         }
     }
@@ -72,12 +68,9 @@ class DVD_MenuAttributes extends Win32Struct
      * A variable of type BOOL indicating whether the menu has a subpicture stream.
      * @type {BOOL}
      */
-    fSubpicturePresent{
-        get {
-            if(!this.HasProp("__fSubpicturePresent"))
-                this.__fSubpicturePresent := BOOL(this.ptr + 160)
-            return this.__fSubpicturePresent
-        }
+    fSubpicturePresent {
+        get => NumGet(this, 128, "int")
+        set => NumPut("int", value, this, 128)
     }
 
     /**
@@ -87,7 +80,7 @@ class DVD_MenuAttributes extends Win32Struct
     SubpictureAttributes{
         get {
             if(!this.HasProp("__SubpictureAttributes"))
-                this.__SubpictureAttributes := DVD_SubpictureAttributes(this.ptr + 168)
+                this.__SubpictureAttributes := DVD_SubpictureAttributes(136, this)
             return this.__SubpictureAttributes
         }
     }

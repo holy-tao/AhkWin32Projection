@@ -57,7 +57,7 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct
     ddUncompPixelFormat{
         get {
             if(!this.HasProp("__ddUncompPixelFormat"))
-                this.__ddUncompPixelFormat := DDPIXELFORMAT(this.ptr + 24)
+                this.__ddUncompPixelFormat := DDPIXELFORMAT(24, this)
             return this.__ddUncompPixelFormat
         }
     }

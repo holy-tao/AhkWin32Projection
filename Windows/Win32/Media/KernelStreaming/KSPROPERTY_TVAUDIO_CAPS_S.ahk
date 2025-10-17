@@ -18,7 +18,7 @@ class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -37,7 +37,7 @@ class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
     InputMedium{
         get {
             if(!this.HasProp("__InputMedium"))
-                this.__InputMedium := KSIDENTIFIER(this.ptr + 24)
+                this.__InputMedium := KSIDENTIFIER(24, this)
             return this.__InputMedium
         }
     }
@@ -48,7 +48,7 @@ class KSPROPERTY_TVAUDIO_CAPS_S extends Win32Struct
     OutputMedium{
         get {
             if(!this.HasProp("__OutputMedium"))
-                this.__OutputMedium := KSIDENTIFIER(this.ptr + 40)
+                this.__OutputMedium := KSIDENTIFIER(40, this)
             return this.__OutputMedium
         }
     }

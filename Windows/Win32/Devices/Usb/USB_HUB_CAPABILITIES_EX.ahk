@@ -18,7 +18,7 @@ class USB_HUB_CAPABILITIES_EX extends Win32Struct
     CapabilityFlags{
         get {
             if(!this.HasProp("__CapabilityFlags"))
-                this.__CapabilityFlags := USB_HUB_CAP_FLAGS(this.ptr + 0)
+                this.__CapabilityFlags := USB_HUB_CAP_FLAGS(0, this)
             return this.__CapabilityFlags
         }
     }

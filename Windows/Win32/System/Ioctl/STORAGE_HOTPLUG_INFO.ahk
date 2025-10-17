@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Provides information about the hotplug information of a device.
@@ -54,12 +53,9 @@ class STORAGE_HOTPLUG_INFO extends Win32Struct
      *       removable.
      * @type {BOOLEAN}
      */
-    MediaRemovable{
-        get {
-            if(!this.HasProp("__MediaRemovable"))
-                this.__MediaRemovable := BOOLEAN(this.ptr + 4)
-            return this.__MediaRemovable
-        }
+    MediaRemovable {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**
@@ -67,12 +63,9 @@ class STORAGE_HOTPLUG_INFO extends Win32Struct
      *       lockable.
      * @type {BOOLEAN}
      */
-    MediaHotplug{
-        get {
-            if(!this.HasProp("__MediaHotplug"))
-                this.__MediaHotplug := BOOLEAN(this.ptr + 5)
-            return this.__MediaHotplug
-        }
+    MediaHotplug {
+        get => NumGet(this, 5, "char")
+        set => NumPut("char", value, this, 5)
     }
 
     /**
@@ -80,23 +73,17 @@ class STORAGE_HOTPLUG_INFO extends Win32Struct
      *       hotplug device.
      * @type {BOOLEAN}
      */
-    DeviceHotplug{
-        get {
-            if(!this.HasProp("__DeviceHotplug"))
-                this.__DeviceHotplug := BOOLEAN(this.ptr + 6)
-            return this.__DeviceHotplug
-        }
+    DeviceHotplug {
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
     }
 
     /**
      * Reserved; set the value to <b>NULL</b>.
      * @type {BOOLEAN}
      */
-    WriteCacheEnableOverride{
-        get {
-            if(!this.HasProp("__WriteCacheEnableOverride"))
-                this.__WriteCacheEnableOverride := BOOLEAN(this.ptr + 7)
-            return this.__WriteCacheEnableOverride
-        }
+    WriteCacheEnableOverride {
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
     }
 }

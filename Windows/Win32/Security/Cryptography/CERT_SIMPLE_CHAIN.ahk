@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_TRUST_STATUS.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CERT_SIMPLE_CHAIN structure contains an array of chain elements and a summary trust status for the chain that the array represents.
@@ -31,7 +30,7 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
     TrustStatus{
         get {
             if(!this.HasProp("__TrustStatus"))
-                this.__TrustStatus := CERT_TRUST_STATUS(this.ptr + 8)
+                this.__TrustStatus := CERT_TRUST_STATUS(8, this)
             return this.__TrustStatus
         }
     }
@@ -67,12 +66,9 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
      * BOOL. If <b>TRUE</b>, <b>dwRevocationFreshnessTime</b> has been calculated.
      * @type {BOOL}
      */
-    fHasRevocationFreshnessTime{
-        get {
-            if(!this.HasProp("__fHasRevocationFreshnessTime"))
-                this.__fHasRevocationFreshnessTime := BOOL(this.ptr + 40)
-            return this.__fHasRevocationFreshnessTime
-        }
+    fHasRevocationFreshnessTime {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -85,12 +81,8 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
         set => NumPut("uint", value, this, 44)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

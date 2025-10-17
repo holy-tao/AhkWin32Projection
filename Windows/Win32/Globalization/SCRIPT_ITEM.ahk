@@ -31,7 +31,7 @@ class SCRIPT_ITEM extends Win32Struct
     a{
         get {
             if(!this.HasProp("__a"))
-                this.__a := SCRIPT_ANALYSIS(this.ptr + 4)
+                this.__a := SCRIPT_ANALYSIS(4, this)
             return this.__a
         }
     }

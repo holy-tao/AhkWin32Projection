@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\NS_INFOA.ahk
 
 /**
@@ -49,34 +48,25 @@ class NETRESOURCE2A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    lpLocalName{
-        get {
-            if(!this.HasProp("__lpLocalName"))
-                this.__lpLocalName := PSTR(this.ptr + 16)
-            return this.__lpLocalName
-        }
+    lpLocalName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    lpRemoteName{
-        get {
-            if(!this.HasProp("__lpRemoteName"))
-                this.__lpRemoteName := PSTR(this.ptr + 24)
-            return this.__lpRemoteName
-        }
+    lpRemoteName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    lpComment{
-        get {
-            if(!this.HasProp("__lpComment"))
-                this.__lpComment := PSTR(this.ptr + 32)
-            return this.__lpComment
-        }
+    lpComment {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -85,7 +75,7 @@ class NETRESOURCE2A extends Win32Struct
     ns_info{
         get {
             if(!this.HasProp("__ns_info"))
-                this.__ns_info := NS_INFOA(this.ptr + 40)
+                this.__ns_info := NS_INFOA(40, this)
             return this.__ns_info
         }
     }

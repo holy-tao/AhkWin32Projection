@@ -178,7 +178,7 @@ class Sip {
     static CryptSIPGetSignedDataMsg(pSubjectInfo, pdwEncodingType, dwIndex, pcbSignedDataMsg, pbSignedDataMsg) {
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPGetSignedDataMsg", "ptr", pSubjectInfo, "uint*", pdwEncodingType, "uint", dwIndex, "uint*", pcbSignedDataMsg, "char*", pbSignedDataMsg, "ptr")
+        result := DllCall("WINTRUST.dll\CryptSIPGetSignedDataMsg", "ptr", pSubjectInfo, "uint*", pdwEncodingType, "uint", dwIndex, "uint*", pcbSignedDataMsg, "char*", pbSignedDataMsg, "int")
         if(A_LastError)
             throw OSError()
 
@@ -251,7 +251,7 @@ class Sip {
     static CryptSIPPutSignedDataMsg(pSubjectInfo, dwEncodingType, pdwIndex, cbSignedDataMsg, pbSignedDataMsg) {
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPPutSignedDataMsg", "ptr", pSubjectInfo, "uint", dwEncodingType, "uint*", pdwIndex, "uint", cbSignedDataMsg, "char*", pbSignedDataMsg, "ptr")
+        result := DllCall("WINTRUST.dll\CryptSIPPutSignedDataMsg", "ptr", pSubjectInfo, "uint", dwEncodingType, "uint*", pdwIndex, "uint", cbSignedDataMsg, "char*", pbSignedDataMsg, "int")
         if(A_LastError)
             throw OSError()
 
@@ -337,7 +337,7 @@ class Sip {
     static CryptSIPCreateIndirectData(pSubjectInfo, pcbIndirectData, pIndirectData) {
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPCreateIndirectData", "ptr", pSubjectInfo, "uint*", pcbIndirectData, "ptr", pIndirectData, "ptr")
+        result := DllCall("WINTRUST.dll\CryptSIPCreateIndirectData", "ptr", pSubjectInfo, "uint*", pcbIndirectData, "ptr", pIndirectData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -389,7 +389,7 @@ class Sip {
     static CryptSIPVerifyIndirectData(pSubjectInfo, pIndirectData) {
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPVerifyIndirectData", "ptr", pSubjectInfo, "ptr", pIndirectData, "ptr")
+        result := DllCall("WINTRUST.dll\CryptSIPVerifyIndirectData", "ptr", pSubjectInfo, "ptr", pIndirectData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -409,7 +409,7 @@ class Sip {
     static CryptSIPRemoveSignedDataMsg(pSubjectInfo, dwIndex) {
         A_LastError := 0
 
-        result := DllCall("WINTRUST.dll\CryptSIPRemoveSignedDataMsg", "ptr", pSubjectInfo, "uint", dwIndex, "ptr")
+        result := DllCall("WINTRUST.dll\CryptSIPRemoveSignedDataMsg", "ptr", pSubjectInfo, "uint", dwIndex, "int")
         if(A_LastError)
             throw OSError()
 
@@ -430,7 +430,7 @@ class Sip {
     static CryptSIPLoad(pgSubject, dwFlags, pSipDispatch) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSIPLoad", "ptr", pgSubject, "uint", dwFlags, "ptr", pSipDispatch, "ptr")
+        result := DllCall("CRYPT32.dll\CryptSIPLoad", "ptr", pgSubject, "uint", dwFlags, "ptr", pSipDispatch, "int")
         if(A_LastError)
             throw OSError()
 
@@ -454,7 +454,7 @@ class Sip {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSIPRetrieveSubjectGuid", "ptr", FileName, "ptr", hFileIn, "ptr", pgSubject, "ptr")
+        result := DllCall("CRYPT32.dll\CryptSIPRetrieveSubjectGuid", "ptr", FileName, "ptr", hFileIn, "ptr", pgSubject, "int")
         if(A_LastError)
             throw OSError()
 
@@ -499,7 +499,7 @@ class Sip {
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSIPRetrieveSubjectGuidForCatalogFile", "ptr", FileName, "ptr", hFileIn, "ptr", pgSubject, "ptr")
+        result := DllCall("CRYPT32.dll\CryptSIPRetrieveSubjectGuidForCatalogFile", "ptr", FileName, "ptr", hFileIn, "ptr", pgSubject, "int")
         if(A_LastError)
             throw OSError()
 
@@ -516,7 +516,7 @@ class Sip {
     static CryptSIPAddProvider(psNewProv) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSIPAddProvider", "ptr", psNewProv, "ptr")
+        result := DllCall("CRYPT32.dll\CryptSIPAddProvider", "ptr", psNewProv, "int")
         if(A_LastError)
             throw OSError()
 
@@ -533,7 +533,7 @@ class Sip {
     static CryptSIPRemoveProvider(pgProv) {
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CryptSIPRemoveProvider", "ptr", pgProv, "ptr")
+        result := DllCall("CRYPT32.dll\CryptSIPRemoveProvider", "ptr", pgProv, "int")
         if(A_LastError)
             throw OSError()
 
@@ -554,7 +554,7 @@ class Sip {
      * @since windows8.0
      */
     static CryptSIPGetCaps(pSubjInfo, pCaps) {
-        result := DllCall("WINTRUST.dll\CryptSIPGetCaps", "ptr", pSubjInfo, "ptr", pCaps, "ptr")
+        result := DllCall("WINTRUST.dll\CryptSIPGetCaps", "ptr", pSubjInfo, "ptr", pCaps, "int")
         return result
     }
 
@@ -568,7 +568,7 @@ class Sip {
      * @returns {BOOL} 
      */
     static CryptSIPGetSealedDigest(pSubjectInfo, pSig, dwSig, pbDigest, pcbDigest) {
-        result := DllCall("WINTRUST.dll\CryptSIPGetSealedDigest", "ptr", pSubjectInfo, "char*", pSig, "uint", dwSig, "char*", pbDigest, "uint*", pcbDigest, "ptr")
+        result := DllCall("WINTRUST.dll\CryptSIPGetSealedDigest", "ptr", pSubjectInfo, "char*", pSig, "uint", dwSig, "char*", pbDigest, "uint*", pcbDigest, "int")
         return result
     }
 

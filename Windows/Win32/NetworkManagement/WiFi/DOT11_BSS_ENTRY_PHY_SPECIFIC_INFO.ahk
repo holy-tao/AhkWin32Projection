@@ -55,7 +55,7 @@ class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO extends Win32Struct
     FHSS{
         get {
             if(!this.HasProp("__FHSS"))
-                this.__FHSS := %this.__Class%._FHSS(this.ptr + 0)
+                this.__FHSS := %this.__Class%._FHSS(0, this)
             return this.__FHSS
         }
     }

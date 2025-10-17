@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Do not use. Used by the Windows Address Book (WAB) to initialize user's IContextMenu Interface and IShellPropSheetExt Interface implementations.
@@ -70,12 +69,9 @@ class WABEXTDISPLAY extends Win32Struct
      * Variable of type <b>BOOL</b> that specifies the read-only property on certain kinds of objects, such as the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference">VCARD_NAME</a> attribute, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> search results, and <a href="https://docs.microsoft.com/">one-off</a> MailUser. This member is relevant only for <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellpropsheetext">IShellPropSheetExt Interface</a>. If this flag is set to true, one's property sheet must set all its controls to a read-only or disabled mode, typically in response to the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message. Setting  controls to a read-only state makes the user experience more consistent.
      * @type {BOOL}
      */
-    fReadOnly{
-        get {
-            if(!this.HasProp("__fReadOnly"))
-                this.__fReadOnly := BOOL(this.ptr + 32)
-            return this.__fReadOnly
-        }
+    fReadOnly {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
@@ -84,12 +80,9 @@ class WABEXTDISPLAY extends Win32Struct
      * Variable of type <b>BOOL</b> that specifies the flag indicating that a change has been made to your property sheet. This member is relevant for <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellpropsheetext">IShellPropSheetExt Interface</a> only. Any time the user makes a change such as adding, editing or deleting data on your property sheet, you must set this flag to true to signal to the WAB that the data on your property sheet has changed. If this flag is not set, the WAB may not persist the changes the user made to your property sheet.
      * @type {BOOL}
      */
-    fDataChanged{
-        get {
-            if(!this.HasProp("__fDataChanged"))
-                this.__fDataChanged := BOOL(this.ptr + 36)
-            return this.__fDataChanged
-        }
+    fDataChanged {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -125,12 +118,8 @@ class WABEXTDISPLAY extends Win32Struct
         set => NumPut("ptr", value, this, 56)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 64
     }
 }

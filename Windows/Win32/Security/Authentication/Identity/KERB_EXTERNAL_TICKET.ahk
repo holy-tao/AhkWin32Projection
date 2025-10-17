@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include .\KERB_CRYPTO_KEY.ahk
 
@@ -51,7 +50,7 @@ class KERB_EXTERNAL_TICKET extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__DomainName := LSA_UNICODE_STRING(24, this)
             return this.__DomainName
         }
     }
@@ -63,7 +62,7 @@ class KERB_EXTERNAL_TICKET extends Win32Struct
     TargetDomainName{
         get {
             if(!this.HasProp("__TargetDomainName"))
-                this.__TargetDomainName := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__TargetDomainName := LSA_UNICODE_STRING(40, this)
             return this.__TargetDomainName
         }
     }
@@ -75,7 +74,7 @@ class KERB_EXTERNAL_TICKET extends Win32Struct
     AltTargetDomainName{
         get {
             if(!this.HasProp("__AltTargetDomainName"))
-                this.__AltTargetDomainName := LSA_UNICODE_STRING(this.ptr + 56)
+                this.__AltTargetDomainName := LSA_UNICODE_STRING(56, this)
             return this.__AltTargetDomainName
         }
     }
@@ -87,7 +86,7 @@ class KERB_EXTERNAL_TICKET extends Win32Struct
     SessionKey{
         get {
             if(!this.HasProp("__SessionKey"))
-                this.__SessionKey := KERB_CRYPTO_KEY(this.ptr + 72)
+                this.__SessionKey := KERB_CRYPTO_KEY(72, this)
             return this.__SessionKey
         }
     }

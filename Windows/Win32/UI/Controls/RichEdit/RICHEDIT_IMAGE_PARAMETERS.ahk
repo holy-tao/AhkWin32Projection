@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines the attributes of an image to be inserted by the EM_INSERTIMAGE message.
@@ -54,12 +53,9 @@ class RICHEDIT_IMAGE_PARAMETERS extends Win32Struct
      * The alternate text for the image.
      * @type {PWSTR}
      */
-    pwszAlternateText{
-        get {
-            if(!this.HasProp("__pwszAlternateText"))
-                this.__pwszAlternateText := PWSTR(this.ptr + 16)
-            return this.__pwszAlternateText
-        }
+    pwszAlternateText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

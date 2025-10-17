@@ -2,7 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
@@ -20,7 +19,7 @@ class GROUPTYPINGCHANGE extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -28,11 +27,8 @@ class GROUPTYPINGCHANGE extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fGroupTyping{
-        get {
-            if(!this.HasProp("__fGroupTyping"))
-                this.__fGroupTyping := BOOL(this.ptr + 24)
-            return this.__fGroupTyping
-        }
+    fGroupTyping {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

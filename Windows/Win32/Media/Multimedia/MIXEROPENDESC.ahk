@@ -18,7 +18,7 @@ class MIXEROPENDESC extends Win32Struct
     hmx{
         get {
             if(!this.HasProp("__hmx"))
-                this.__hmx := HMIXER(this.ptr + 0)
+                this.__hmx := HMIXER(0, this)
             return this.__hmx
         }
     }

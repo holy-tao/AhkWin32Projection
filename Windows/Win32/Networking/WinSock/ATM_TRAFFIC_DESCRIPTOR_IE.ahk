@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\ATM_TD.ahk
 
 /**
@@ -19,7 +18,7 @@ class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct
     Forward{
         get {
             if(!this.HasProp("__Forward"))
-                this.__Forward := ATM_TD(this.ptr + 0)
+                this.__Forward := ATM_TD(0, this)
             return this.__Forward
         }
     }
@@ -30,7 +29,7 @@ class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct
     Backward{
         get {
             if(!this.HasProp("__Backward"))
-                this.__Backward := ATM_TD(this.ptr + 32)
+                this.__Backward := ATM_TD(32, this)
             return this.__Backward
         }
     }
@@ -38,11 +37,8 @@ class ATM_TRAFFIC_DESCRIPTOR_IE extends Win32Struct
     /**
      * @type {BOOL}
      */
-    BestEffort{
-        get {
-            if(!this.HasProp("__BestEffort"))
-                this.__BestEffort := BOOL(this.ptr + 60)
-            return this.__BestEffort
-        }
+    BestEffort {
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 }

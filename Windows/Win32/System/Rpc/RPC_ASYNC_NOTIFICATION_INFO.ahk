@@ -38,7 +38,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         hThread{
             get {
                 if(!this.HasProp("__hThread"))
-                    this.__hThread := HANDLE(this.ptr + 8)
+                    this.__hThread := HANDLE(8, this)
                 return this.__hThread
             }
         }
@@ -55,7 +55,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         hIOPort{
             get {
                 if(!this.HasProp("__hIOPort"))
-                    this.__hIOPort := HANDLE(this.ptr + 0)
+                    this.__hIOPort := HANDLE(0, this)
                 return this.__hIOPort
             }
         }
@@ -96,7 +96,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         hWnd{
             get {
                 if(!this.HasProp("__hWnd"))
-                    this.__hWnd := HWND(this.ptr + 0)
+                    this.__hWnd := HWND(0, this)
                 return this.__hWnd
             }
         }
@@ -118,7 +118,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     APC{
         get {
             if(!this.HasProp("__APC"))
-                this.__APC := %this.__Class%._APC(this.ptr + 0)
+                this.__APC := %this.__Class%._APC(0, this)
             return this.__APC
         }
     }
@@ -130,7 +130,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     IOC{
         get {
             if(!this.HasProp("__IOC"))
-                this.__IOC := %this.__Class%._IOC(this.ptr + 0)
+                this.__IOC := %this.__Class%._IOC(0, this)
             return this.__IOC
         }
     }
@@ -141,7 +141,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     IntPtr{
         get {
             if(!this.HasProp("__IntPtr"))
-                this.__IntPtr := %this.__Class%._IntPtr(this.ptr + 0)
+                this.__IntPtr := %this.__Class%._IntPtr(0, this)
             return this.__IntPtr
         }
     }
@@ -153,7 +153,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     hEvent{
         get {
             if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(this.ptr + 0)
+                this.__hEvent := HANDLE(0, this)
             return this.__hEvent
         }
     }

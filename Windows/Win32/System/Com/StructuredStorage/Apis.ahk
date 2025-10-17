@@ -556,7 +556,7 @@ class StructuredStorage {
     static CreateStreamOnHGlobal(hGlobal, fDeleteOnRelease, ppstm) {
         hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
 
-        result := DllCall("OLE32.dll\CreateStreamOnHGlobal", "ptr", hGlobal, "ptr", fDeleteOnRelease, "ptr", ppstm, "int")
+        result := DllCall("OLE32.dll\CreateStreamOnHGlobal", "ptr", hGlobal, "int", fDeleteOnRelease, "ptr", ppstm, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1121,7 +1121,7 @@ class StructuredStorage {
     static CreateILockBytesOnHGlobal(hGlobal, fDeleteOnRelease, pplkbyt) {
         hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
 
-        result := DllCall("OLE32.dll\CreateILockBytesOnHGlobal", "ptr", hGlobal, "ptr", fDeleteOnRelease, "ptr", pplkbyt, "int")
+        result := DllCall("OLE32.dll\CreateILockBytesOnHGlobal", "ptr", hGlobal, "int", fDeleteOnRelease, "ptr", pplkbyt, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1160,7 +1160,7 @@ class StructuredStorage {
     static StgConvertVariantToProperty(pvar, CodePage, pprop, pcb, pid, pcIndirect) {
         static fReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("ole32.dll\StgConvertVariantToProperty", "ptr", pvar, "ushort", CodePage, "ptr", pprop, "uint*", pcb, "uint", pid, "ptr", fReserved, "uint*", pcIndirect, "ptr")
+        result := DllCall("ole32.dll\StgConvertVariantToProperty", "ptr", pvar, "ushort", CodePage, "ptr", pprop, "uint*", pcb, "uint", pid, "char", fReserved, "uint*", pcIndirect, "ptr")
         return result
     }
 
@@ -1175,7 +1175,7 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgConvertPropertyToVariant(pprop, CodePage, pvar, pma) {
-        result := DllCall("ole32.dll\StgConvertPropertyToVariant", "ptr", pprop, "ushort", CodePage, "ptr", pvar, "ptr", pma, "ptr")
+        result := DllCall("ole32.dll\StgConvertPropertyToVariant", "ptr", pprop, "ushort", CodePage, "ptr", pvar, "ptr", pma, "char")
         return result
     }
 
@@ -1285,7 +1285,7 @@ class StructuredStorage {
      * @since windows5.0
      */
     static SetConvertStg(pStg, fConvert) {
-        result := DllCall("OLE32.dll\SetConvertStg", "ptr", pStg, "ptr", fConvert, "int")
+        result := DllCall("OLE32.dll\SetConvertStg", "ptr", pStg, "int", fConvert, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1824,7 +1824,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToBooleanWithDefault(propvarIn, fDefault) {
-        result := DllCall("PROPSYS.dll\PropVariantToBooleanWithDefault", "ptr", propvarIn, "ptr", fDefault, "ptr")
+        result := DllCall("PROPSYS.dll\PropVariantToBooleanWithDefault", "ptr", propvarIn, "int", fDefault, "int")
         return result
     }
 
@@ -1978,7 +1978,7 @@ class StructuredStorage {
     static PropVariantToStringWithDefault(propvarIn, pszDefault) {
         pszDefault := pszDefault is String ? StrPtr(pszDefault) : pszDefault
 
-        result := DllCall("PROPSYS.dll\PropVariantToStringWithDefault", "ptr", propvarIn, "ptr", pszDefault, "ptr")
+        result := DllCall("PROPSYS.dll\PropVariantToStringWithDefault", "ptr", propvarIn, "ptr", pszDefault, "char*")
         return result
     }
 

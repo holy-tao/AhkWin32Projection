@@ -3,7 +3,6 @@
 #Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
 #Include .\D3D12_VIDEO_DECODER_HEAP_DESC.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -21,7 +20,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE1 extends Win32Struct
     VideoDecoderHeapDesc{
         get {
             if(!this.HasProp("__VideoDecoderHeapDesc"))
-                this.__VideoDecoderHeapDesc := D3D12_VIDEO_DECODER_HEAP_DESC(this.ptr + 0)
+                this.__VideoDecoderHeapDesc := D3D12_VIDEO_DECODER_HEAP_DESC(0, this)
             return this.__VideoDecoderHeapDesc
         }
     }
@@ -29,12 +28,9 @@ class D3D12_FEATURE_DATA_VIDEO_DECODER_HEAP_SIZE1 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Protected{
-        get {
-            if(!this.HasProp("__Protected"))
-                this.__Protected := BOOL(this.ptr + 56)
-            return this.__Protected
-        }
+    Protected {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**

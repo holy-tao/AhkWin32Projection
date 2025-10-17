@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -19,7 +18,7 @@ class DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -54,23 +53,17 @@ class DOT11_INCOMING_ASSOC_COMPLETION_PARAMETERS extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bReAssocReq{
-        get {
-            if(!this.HasProp("__bReAssocReq"))
-                this.__bReAssocReq := BOOLEAN(this.ptr + 17)
-            return this.__bReAssocReq
-        }
+    bReAssocReq {
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bReAssocResp{
-        get {
-            if(!this.HasProp("__bReAssocResp"))
-                this.__bReAssocResp := BOOLEAN(this.ptr + 18)
-            return this.__bReAssocResp
-        }
+    bReAssocResp {
+        get => NumGet(this, 18, "char")
+        set => NumPut("char", value, this, 18)
     }
 
     /**

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_ENDPOINT_IDENTITY.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -23,7 +22,7 @@ class WS_DNS_ENDPOINT_IDENTITY extends Win32Struct
     identity{
         get {
             if(!this.HasProp("__identity"))
-                this.__identity := WS_ENDPOINT_IDENTITY(this.ptr + 0)
+                this.__identity := WS_ENDPOINT_IDENTITY(0, this)
             return this.__identity
         }
     }
@@ -37,7 +36,7 @@ class WS_DNS_ENDPOINT_IDENTITY extends Win32Struct
     dns{
         get {
             if(!this.HasProp("__dns"))
-                this.__dns := WS_STRING(this.ptr + 8)
+                this.__dns := WS_STRING(8, this)
             return this.__dns
         }
     }

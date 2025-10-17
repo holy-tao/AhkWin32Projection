@@ -39,7 +39,7 @@ class SmartCardApplication extends Win32Struct
     pbstrApplicationName{
         get {
             if(!this.HasProp("__pbstrApplicationName"))
-                this.__pbstrApplicationName := BSTR(this.ptr + 8)
+                this.__pbstrApplicationName := BSTR(8, this)
             return this.__pbstrApplicationName
         }
     }
@@ -51,7 +51,7 @@ class SmartCardApplication extends Win32Struct
     pbstrApplicationURL{
         get {
             if(!this.HasProp("__pbstrApplicationURL"))
-                this.__pbstrApplicationURL := BSTR(this.ptr + 16)
+                this.__pbstrApplicationURL := BSTR(16, this)
             return this.__pbstrApplicationURL
         }
     }

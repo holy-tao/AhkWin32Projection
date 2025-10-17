@@ -18,7 +18,7 @@ class IMAGEHLP_SYMBOL64_PACKAGE extends Win32Struct
     sym{
         get {
             if(!this.HasProp("__sym"))
-                this.__sym := IMAGEHLP_SYMBOL64(this.ptr + 0)
+                this.__sym := IMAGEHLP_SYMBOL64(0, this)
             return this.__sym
         }
     }

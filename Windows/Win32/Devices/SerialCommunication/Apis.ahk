@@ -738,7 +738,7 @@ class SerialCommunication {
     static ComDBClaimPort(HComDB, ComNumber, ForceClaim, Forced) {
         HComDB := HComDB is Win32Handle ? NumGet(HComDB, "ptr") : HComDB
 
-        result := DllCall("MSPORTS.dll\ComDBClaimPort", "ptr", HComDB, "uint", ComNumber, "ptr", ForceClaim, "ptr", Forced, "int")
+        result := DllCall("MSPORTS.dll\ComDBClaimPort", "ptr", HComDB, "uint", ComNumber, "int", ForceClaim, "ptr", Forced, "int")
         return result
     }
 

@@ -29,7 +29,7 @@ class RAS_CONNECTION_EX extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := MPRAPI_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := MPRAPI_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -122,7 +122,7 @@ class RAS_CONNECTION_EX extends Win32Struct
     probationTime{
         get {
             if(!this.HasProp("__probationTime"))
-                this.__probationTime := FILETIME(this.ptr + 1128)
+                this.__probationTime := FILETIME(1128, this)
             return this.__probationTime
         }
     }
@@ -269,7 +269,7 @@ class RAS_CONNECTION_EX extends Win32Struct
     ProjectionInfo{
         get {
             if(!this.HasProp("__ProjectionInfo"))
-                this.__ProjectionInfo := PROJECTION_INFO(this.ptr + 1448)
+                this.__ProjectionInfo := PROJECTION_INFO(1448, this)
             return this.__ProjectionInfo
         }
     }
@@ -281,7 +281,7 @@ class RAS_CONNECTION_EX extends Win32Struct
     hConnection{
         get {
             if(!this.HasProp("__hConnection"))
-                this.__hConnection := HANDLE(this.ptr + 1648)
+                this.__hConnection := HANDLE(1648, this)
             return this.__hConnection
         }
     }
@@ -293,7 +293,7 @@ class RAS_CONNECTION_EX extends Win32Struct
     hInterface{
         get {
             if(!this.HasProp("__hInterface"))
-                this.__hInterface := HANDLE(this.ptr + 1656)
+                this.__hInterface := HANDLE(1656, this)
             return this.__hInterface
         }
     }

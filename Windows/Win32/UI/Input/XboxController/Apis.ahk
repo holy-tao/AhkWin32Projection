@@ -124,7 +124,7 @@ class XboxController {
      * @see https://docs.microsoft.com/windows/win32/api//xinput/nf-xinput-xinputenable
      */
     static XInputEnable(enable) {
-        DllCall("xinput1_4.dll\XInputEnable", "ptr", enable)
+        DllCall("xinput1_4.dll\XInputEnable", "int", enable)
     }
 
     /**

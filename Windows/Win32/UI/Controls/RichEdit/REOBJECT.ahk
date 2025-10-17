@@ -94,7 +94,7 @@ class REOBJECT extends Win32Struct
     sizel{
         get {
             if(!this.HasProp("__sizel"))
-                this.__sizel := SIZE(this.ptr + 40)
+                this.__sizel := SIZE(40, this)
             return this.__sizel
         }
     }

@@ -614,7 +614,7 @@ class SystemInformation {
     static GlobalMemoryStatusEx(lpBuffer) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GlobalMemoryStatusEx", "ptr", lpBuffer, "ptr")
+        result := DllCall("KERNEL32.dll\GlobalMemoryStatusEx", "ptr", lpBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -688,7 +688,7 @@ class SystemInformation {
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-isusercetavailableinenvironment
      */
     static IsUserCetAvailableInEnvironment(UserCetEnvironment) {
-        result := DllCall("KERNEL32.dll\IsUserCetAvailableInEnvironment", "uint", UserCetEnvironment, "ptr")
+        result := DllCall("KERNEL32.dll\IsUserCetAvailableInEnvironment", "uint", UserCetEnvironment, "int")
         return result
     }
 
@@ -699,7 +699,7 @@ class SystemInformation {
      * @returns {BOOL} 
      */
     static GetSystemLeapSecondInformation(Enabled, Flags) {
-        result := DllCall("KERNEL32.dll\GetSystemLeapSecondInformation", "ptr", Enabled, "uint*", Flags, "ptr")
+        result := DllCall("KERNEL32.dll\GetSystemLeapSecondInformation", "ptr", Enabled, "uint*", Flags, "int")
         return result
     }
 
@@ -737,7 +737,7 @@ class SystemInformation {
     static SetLocalTime(lpSystemTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetLocalTime", "ptr", lpSystemTime, "ptr")
+        result := DllCall("KERNEL32.dll\SetLocalTime", "ptr", lpSystemTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -787,7 +787,7 @@ class SystemInformation {
     static GetSystemTimeAdjustment(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "ptr")
+        result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -812,7 +812,7 @@ class SystemInformation {
     static GetSystemTimeAdjustmentPrecise(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "ptr")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1123,7 +1123,7 @@ class SystemInformation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetComputerNameExA", "int", NameType, "ptr", lpBuffer, "uint*", nSize, "ptr")
+        result := DllCall("KERNEL32.dll\GetComputerNameExA", "int", NameType, "ptr", lpBuffer, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1272,7 +1272,7 @@ class SystemInformation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetComputerNameExW", "int", NameType, "ptr", lpBuffer, "uint*", nSize, "ptr")
+        result := DllCall("KERNEL32.dll\GetComputerNameExW", "int", NameType, "ptr", lpBuffer, "uint*", nSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1295,7 +1295,7 @@ class SystemInformation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetComputerNameExW", "int", NameType, "ptr", lpBuffer, "ptr")
+        result := DllCall("KERNEL32.dll\SetComputerNameExW", "int", NameType, "ptr", lpBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1322,7 +1322,7 @@ class SystemInformation {
     static SetSystemTime(lpSystemTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetSystemTime", "ptr", lpSystemTime, "ptr")
+        result := DllCall("KERNEL32.dll\SetSystemTime", "ptr", lpSystemTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1352,7 +1352,7 @@ class SystemInformation {
     static GetVersionExA(lpVersionInformation) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVersionExA", "ptr", lpVersionInformation, "ptr")
+        result := DllCall("KERNEL32.dll\GetVersionExA", "ptr", lpVersionInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1382,7 +1382,7 @@ class SystemInformation {
     static GetVersionExW(lpVersionInformation) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetVersionExW", "ptr", lpVersionInformation, "ptr")
+        result := DllCall("KERNEL32.dll\GetVersionExW", "ptr", lpVersionInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1403,7 +1403,7 @@ class SystemInformation {
     static GetLogicalProcessorInformation(Buffer, ReturnedLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer, "uint*", ReturnedLength, "ptr")
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer, "uint*", ReturnedLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1498,7 +1498,7 @@ class SystemInformation {
     static GetLogicalProcessorInformationEx(RelationshipType, Buffer, ReturnedLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer, "uint*", ReturnedLength, "ptr")
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer, "uint*", ReturnedLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1562,7 +1562,7 @@ class SystemInformation {
      * @since windows6.0.6000
      */
     static GetProductInfo(dwOSMajorVersion, dwOSMinorVersion, dwSpMajorVersion, dwSpMinorVersion, pdwReturnedProductType) {
-        result := DllCall("KERNEL32.dll\GetProductInfo", "uint", dwOSMajorVersion, "uint", dwOSMinorVersion, "uint", dwSpMajorVersion, "uint", dwSpMinorVersion, "uint*", pdwReturnedProductType, "ptr")
+        result := DllCall("KERNEL32.dll\GetProductInfo", "uint", dwOSMajorVersion, "uint", dwOSMinorVersion, "uint", dwSpMajorVersion, "uint", dwSpMinorVersion, "uint*", pdwReturnedProductType, "int")
         return result
     }
 
@@ -1594,7 +1594,7 @@ class SystemInformation {
      * @returns {BOOL} 
      */
     static GetOsSafeBootMode(Flags) {
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-0.dll\GetOsSafeBootMode", "uint*", Flags, "ptr")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-0.dll\GetOsSafeBootMode", "uint*", Flags, "int")
         return result
     }
 
@@ -1666,7 +1666,7 @@ class SystemInformation {
         Hostname := Hostname is String ? StrPtr(Hostname) : Hostname
         ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameExW", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "ptr")
+        result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameExW", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "int")
         return result
     }
 
@@ -1714,7 +1714,7 @@ class SystemInformation {
     static GetPhysicallyInstalledSystemMemory(TotalMemoryInKilobytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetPhysicallyInstalledSystemMemory", "uint*", TotalMemoryInKilobytes, "ptr")
+        result := DllCall("KERNEL32.dll\GetPhysicallyInstalledSystemMemory", "uint*", TotalMemoryInKilobytes, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1731,7 +1731,7 @@ class SystemInformation {
     static SetComputerNameEx2W(NameType, Flags, lpBuffer) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-        result := DllCall("KERNEL32.dll\SetComputerNameEx2W", "int", NameType, "uint", Flags, "ptr", lpBuffer, "ptr")
+        result := DllCall("KERNEL32.dll\SetComputerNameEx2W", "int", NameType, "uint", Flags, "ptr", lpBuffer, "int")
         return result
     }
 
@@ -1761,7 +1761,7 @@ class SystemInformation {
     static SetSystemTimeAdjustment(dwTimeAdjustment, bTimeAdjustmentDisabled) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetSystemTimeAdjustment", "uint", dwTimeAdjustment, "ptr", bTimeAdjustmentDisabled, "ptr")
+        result := DllCall("KERNEL32.dll\SetSystemTimeAdjustment", "uint", dwTimeAdjustment, "int", bTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1786,7 +1786,7 @@ class SystemInformation {
     static SetSystemTimeAdjustmentPrecise(dwTimeAdjustment, bTimeAdjustmentDisabled) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\SetSystemTimeAdjustmentPrecise", "uint", dwTimeAdjustment, "ptr", bTimeAdjustmentDisabled, "ptr")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\SetSystemTimeAdjustmentPrecise", "uint", dwTimeAdjustment, "int", bTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1809,7 +1809,7 @@ class SystemInformation {
     static GetProcessorSystemCycleTime(Group, Buffer, ReturnedLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer, "uint*", ReturnedLength, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer, "uint*", ReturnedLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1822,7 +1822,7 @@ class SystemInformation {
      * @returns {BOOL} 
      */
     static GetOsManufacturingMode(pbEnabled) {
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetOsManufacturingMode", "ptr", pbEnabled, "ptr")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetOsManufacturingMode", "ptr", pbEnabled, "int")
         return result
     }
 
@@ -1862,7 +1862,7 @@ class SystemInformation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetComputerNameA", "ptr", lpComputerName, "ptr")
+        result := DllCall("KERNEL32.dll\SetComputerNameA", "ptr", lpComputerName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1890,7 +1890,7 @@ class SystemInformation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetComputerNameW", "ptr", lpComputerName, "ptr")
+        result := DllCall("KERNEL32.dll\SetComputerNameW", "ptr", lpComputerName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1913,7 +1913,7 @@ class SystemInformation {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetComputerNameExA", "int", NameType, "ptr", lpBuffer, "ptr")
+        result := DllCall("KERNEL32.dll\SetComputerNameExA", "int", NameType, "ptr", lpBuffer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1943,7 +1943,7 @@ class SystemInformation {
 
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        result := DllCall("KERNEL32.dll\GetSystemCpuSetInformation", "ptr", Information, "uint", BufferLength, "uint*", ReturnedLength, "ptr", Process, "uint", Flags, "ptr")
+        result := DllCall("KERNEL32.dll\GetSystemCpuSetInformation", "ptr", Information, "uint", BufferLength, "uint*", ReturnedLength, "ptr", Process, "uint", Flags, "int")
         return result
     }
 
@@ -2076,7 +2076,7 @@ class SystemInformation {
      * @returns {BOOLEAN} 
      */
     static RtlGetProductInfo(OSMajorVersion, OSMinorVersion, SpMajorVersion, SpMinorVersion, ReturnedProductType) {
-        result := DllCall("ntdll.dll\RtlGetProductInfo", "uint", OSMajorVersion, "uint", OSMinorVersion, "uint", SpMajorVersion, "uint", SpMinorVersion, "uint*", ReturnedProductType, "ptr")
+        result := DllCall("ntdll.dll\RtlGetProductInfo", "uint", OSMajorVersion, "uint", OSMinorVersion, "uint", SpMajorVersion, "uint", SpMinorVersion, "uint*", ReturnedProductType, "char")
         return result
     }
 
@@ -2245,7 +2245,7 @@ class SystemInformation {
     static GetFirmwareType(FirmwareType) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetFirmwareType", "int*", FirmwareType, "ptr")
+        result := DllCall("KERNEL32.dll\GetFirmwareType", "int*", FirmwareType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2278,7 +2278,7 @@ class SystemInformation {
     static VerifyVersionInfoA(lpVersionInformation, dwTypeMask, dwlConditionMask) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VerifyVersionInfoA", "ptr", lpVersionInformation, "uint", dwTypeMask, "uint", dwlConditionMask, "ptr")
+        result := DllCall("KERNEL32.dll\VerifyVersionInfoA", "ptr", lpVersionInformation, "uint", dwTypeMask, "uint", dwlConditionMask, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2311,7 +2311,7 @@ class SystemInformation {
     static VerifyVersionInfoW(lpVersionInformation, dwTypeMask, dwlConditionMask) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\VerifyVersionInfoW", "ptr", lpVersionInformation, "uint", dwTypeMask, "uint", dwlConditionMask, "ptr")
+        result := DllCall("KERNEL32.dll\VerifyVersionInfoW", "ptr", lpVersionInformation, "uint", dwTypeMask, "uint", dwlConditionMask, "int")
         if(A_LastError)
             throw OSError()
 

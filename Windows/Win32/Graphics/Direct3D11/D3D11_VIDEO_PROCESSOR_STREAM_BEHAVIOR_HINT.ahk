@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Provides information about the input streams passed into the ID3DVideoContext1::VideoProcessorGetBehaviorHints method.
@@ -18,12 +17,9 @@ class D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT extends Win32Struct
      * A value indicating whether this input stream should be used to compute behavior hints. Set to true if the stream should be used to compute behavior hints; otherwise, set to false.
      * @type {BOOL}
      */
-    Enable{
-        get {
-            if(!this.HasProp("__Enable"))
-                this.__Enable := BOOL(this.ptr + 0)
-            return this.__Enable
-        }
+    Enable {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

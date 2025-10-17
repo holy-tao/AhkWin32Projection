@@ -19,7 +19,7 @@ class MXDC_S0PAGE_RESOURCE_ESCAPE_T extends Win32Struct
     mxdcEscape{
         get {
             if(!this.HasProp("__mxdcEscape"))
-                this.__mxdcEscape := MXDC_ESCAPE_HEADER_T(this.ptr + 0)
+                this.__mxdcEscape := MXDC_ESCAPE_HEADER_T(0, this)
             return this.__mxdcEscape
         }
     }
@@ -30,7 +30,7 @@ class MXDC_S0PAGE_RESOURCE_ESCAPE_T extends Win32Struct
     xpsS0PageResourcePassthrough{
         get {
             if(!this.HasProp("__xpsS0PageResourcePassthrough"))
-                this.__xpsS0PageResourcePassthrough := MXDC_XPS_S0PAGE_RESOURCE_T(this.ptr + 16)
+                this.__xpsS0PageResourcePassthrough := MXDC_XPS_S0PAGE_RESOURCE_T(16, this)
             return this.__xpsS0PageResourcePassthrough
         }
     }

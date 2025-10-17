@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -16,12 +15,9 @@ class PRINTER_INFO_7A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszObjectGUID{
-        get {
-            if(!this.HasProp("__pszObjectGUID"))
-                this.__pszObjectGUID := PSTR(this.ptr + 0)
-            return this.__pszObjectGUID
-        }
+    pszObjectGUID {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

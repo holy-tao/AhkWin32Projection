@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
 
 /**
@@ -16,12 +15,9 @@ class DBCOLUMNINFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 0)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -86,7 +82,7 @@ class DBCOLUMNINFO extends Win32Struct
     columnid{
         get {
             if(!this.HasProp("__columnid"))
-                this.__columnid := DBID(this.ptr + 48)
+                this.__columnid := DBID(48, this)
             return this.__columnid
         }
     }

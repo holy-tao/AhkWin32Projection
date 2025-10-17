@@ -27,7 +27,7 @@ class EMRTEXT extends Win32Struct
     ptlReference{
         get {
             if(!this.HasProp("__ptlReference"))
-                this.__ptlReference := POINTL(this.ptr + 0)
+                this.__ptlReference := POINTL(0, this)
             return this.__ptlReference
         }
     }
@@ -66,7 +66,7 @@ class EMRTEXT extends Win32Struct
     rcl{
         get {
             if(!this.HasProp("__rcl"))
-                this.__rcl := RECTL(this.ptr + 24)
+                this.__rcl := RECTL(24, this)
             return this.__rcl
         }
     }

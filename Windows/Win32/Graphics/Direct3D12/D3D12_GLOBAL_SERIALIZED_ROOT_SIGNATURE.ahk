@@ -18,7 +18,7 @@ class D3D12_GLOBAL_SERIALIZED_ROOT_SIGNATURE extends Win32Struct
     Desc{
         get {
             if(!this.HasProp("__Desc"))
-                this.__Desc := D3D12_SERIALIZED_ROOT_SIGNATURE_DESC(this.ptr + 0)
+                this.__Desc := D3D12_SERIALIZED_ROOT_SIGNATURE_DESC(0, this)
             return this.__Desc
         }
     }

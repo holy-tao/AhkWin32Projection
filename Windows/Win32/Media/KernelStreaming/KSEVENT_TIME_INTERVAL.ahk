@@ -19,7 +19,7 @@ class KSEVENT_TIME_INTERVAL extends Win32Struct
     EventData{
         get {
             if(!this.HasProp("__EventData"))
-                this.__EventData := KSEVENTDATA(this.ptr + 0)
+                this.__EventData := KSEVENTDATA(0, this)
             return this.__EventData
         }
     }

@@ -19,7 +19,7 @@ class LOOPEDSTREAMING_POSITION_EVENT_DATA extends Win32Struct
     KsEventData{
         get {
             if(!this.HasProp("__KsEventData"))
-                this.__KsEventData := KSEVENTDATA(this.ptr + 0)
+                this.__KsEventData := KSEVENTDATA(0, this)
             return this.__KsEventData
         }
     }

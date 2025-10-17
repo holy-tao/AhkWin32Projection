@@ -138,7 +138,7 @@ class TOUCHINPUT extends Win32Struct
     hSource{
         get {
             if(!this.HasProp("__hSource"))
-                this.__hSource := HANDLE(this.ptr + 8)
+                this.__hSource := HANDLE(8, this)
             return this.__hSource
         }
     }

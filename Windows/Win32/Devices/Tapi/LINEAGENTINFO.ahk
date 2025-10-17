@@ -77,7 +77,7 @@ class LINEAGENTINFO extends Win32Struct
     cyOverallCallRate{
         get {
             if(!this.HasProp("__cyOverallCallRate"))
-                this.__cyOverallCallRate := CY(this.ptr + 24)
+                this.__cyOverallCallRate := CY(24, this)
             return this.__cyOverallCallRate
         }
     }

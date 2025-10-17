@@ -21,7 +21,7 @@ class RTM_NEXTHOP_INFO extends Win32Struct
     NextHopAddress{
         get {
             if(!this.HasProp("__NextHopAddress"))
-                this.__NextHopAddress := RTM_NET_ADDRESS(this.ptr + 0)
+                this.__NextHopAddress := RTM_NET_ADDRESS(0, this)
             return this.__NextHopAddress
         }
     }

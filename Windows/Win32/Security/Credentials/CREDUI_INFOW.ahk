@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
@@ -38,7 +37,7 @@ class CREDUI_INFOW extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
+                this.__hwndParent := HWND(8, this)
             return this.__hwndParent
         }
     }
@@ -47,24 +46,18 @@ class CREDUI_INFOW extends Win32Struct
      * Pointer to a string containing a brief message to display in the dialog box. The length of this string should not exceed CREDUI_MAX_MESSAGE_LENGTH.
      * @type {PWSTR}
      */
-    pszMessageText{
-        get {
-            if(!this.HasProp("__pszMessageText"))
-                this.__pszMessageText := PWSTR(this.ptr + 16)
-            return this.__pszMessageText
-        }
+    pszMessageText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a string containing the title for the dialog box. The length of this string should not exceed CREDUI_MAX_CAPTION_LENGTH.
      * @type {PWSTR}
      */
-    pszCaptionText{
-        get {
-            if(!this.HasProp("__pszCaptionText"))
-                this.__pszCaptionText := PWSTR(this.ptr + 24)
-            return this.__pszCaptionText
-        }
+    pszCaptionText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -74,17 +67,13 @@ class CREDUI_INFOW extends Win32Struct
     hbmBanner{
         get {
             if(!this.HasProp("__hbmBanner"))
-                this.__hbmBanner := HBITMAP(this.ptr + 32)
+                this.__hbmBanner := HBITMAP(32, this)
             return this.__hbmBanner
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

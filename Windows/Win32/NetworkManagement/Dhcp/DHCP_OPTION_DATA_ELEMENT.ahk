@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DWORD_DWORD.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DHCP_BINARY_DATA.ahk
 
 /**
@@ -50,7 +49,7 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
         DWordDWordOption{
             get {
                 if(!this.HasProp("__DWordDWordOption"))
-                    this.__DWordDWordOption := DWORD_DWORD(this.ptr + 0)
+                    this.__DWordDWordOption := DWORD_DWORD(0, this)
                 return this.__DWordDWordOption
             }
         }
@@ -66,12 +65,9 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        StringDataOption{
-            get {
-                if(!this.HasProp("__StringDataOption"))
-                    this.__StringDataOption := PWSTR(this.ptr + 0)
-                return this.__StringDataOption
-            }
+        StringDataOption {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
         /**
@@ -80,7 +76,7 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
         BinaryDataOption{
             get {
                 if(!this.HasProp("__BinaryDataOption"))
-                    this.__BinaryDataOption := DHCP_BINARY_DATA(this.ptr + 0)
+                    this.__BinaryDataOption := DHCP_BINARY_DATA(0, this)
                 return this.__BinaryDataOption
             }
         }
@@ -91,7 +87,7 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
         EncapsulatedDataOption{
             get {
                 if(!this.HasProp("__EncapsulatedDataOption"))
-                    this.__EncapsulatedDataOption := DHCP_BINARY_DATA(this.ptr + 0)
+                    this.__EncapsulatedDataOption := DHCP_BINARY_DATA(0, this)
                 return this.__EncapsulatedDataOption
             }
         }
@@ -99,12 +95,9 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        Ipv6AddressDataOption{
-            get {
-                if(!this.HasProp("__Ipv6AddressDataOption"))
-                    this.__Ipv6AddressDataOption := PWSTR(this.ptr + 0)
-                return this.__Ipv6AddressDataOption
-            }
+        Ipv6AddressDataOption {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
     }
@@ -125,7 +118,7 @@ class DHCP_OPTION_DATA_ELEMENT extends Win32Struct
     Element{
         get {
             if(!this.HasProp("__Element"))
-                this.__Element := %this.__Class%.DHCP_OPTION_ELEMENT_UNION(this.ptr + 8)
+                this.__Element := %this.__Class%.DHCP_OPTION_ELEMENT_UNION(8, this)
             return this.__Element
         }
     }

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -16,22 +14,16 @@ class TOKEN_BNO_ISOLATION_INFORMATION extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    IsolationPrefix{
-        get {
-            if(!this.HasProp("__IsolationPrefix"))
-                this.__IsolationPrefix := PWSTR(this.ptr + 0)
-            return this.__IsolationPrefix
-        }
+    IsolationPrefix {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    IsolationEnabled{
-        get {
-            if(!this.HasProp("__IsolationEnabled"))
-                this.__IsolationEnabled := BOOLEAN(this.ptr + 8)
-            return this.__IsolationEnabled
-        }
+    IsolationEnabled {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 }

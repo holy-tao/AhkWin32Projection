@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -32,11 +31,8 @@ class NS_INFOW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpNameSpace{
-        get {
-            if(!this.HasProp("__lpNameSpace"))
-                this.__lpNameSpace := PWSTR(this.ptr + 8)
-            return this.__lpNameSpace
-        }
+    lpNameSpace {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

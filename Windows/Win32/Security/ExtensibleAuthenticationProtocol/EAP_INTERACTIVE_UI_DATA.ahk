@@ -75,7 +75,7 @@ class EAP_INTERACTIVE_UI_DATA extends Win32Struct
     pbUiData{
         get {
             if(!this.HasProp("__pbUiData"))
-                this.__pbUiData := EAP_UI_DATA_FORMAT(this.ptr + 16)
+                this.__pbUiData := EAP_UI_DATA_FORMAT(16, this)
             return this.__pbUiData
         }
     }

@@ -18,7 +18,7 @@ class DCIOFFSCREEN extends Win32Struct
     dciInfo{
         get {
             if(!this.HasProp("__dciInfo"))
-                this.__dciInfo := DCISURFACEINFO(this.ptr + 0)
+                this.__dciInfo := DCISURFACEINFO(0, this)
             return this.__dciInfo
         }
     }

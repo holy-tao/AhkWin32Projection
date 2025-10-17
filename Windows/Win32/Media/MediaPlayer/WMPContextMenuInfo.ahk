@@ -35,7 +35,7 @@ class WMPContextMenuInfo extends Win32Struct
     bstrMenuText{
         get {
             if(!this.HasProp("__bstrMenuText"))
-                this.__bstrMenuText := BSTR(this.ptr + 8)
+                this.__bstrMenuText := BSTR(8, this)
             return this.__bstrMenuText
         }
     }
@@ -47,7 +47,7 @@ class WMPContextMenuInfo extends Win32Struct
     bstrHelpText{
         get {
             if(!this.HasProp("__bstrHelpText"))
-                this.__bstrHelpText := BSTR(this.ptr + 16)
+                this.__bstrHelpText := BSTR(16, this)
             return this.__bstrHelpText
         }
     }

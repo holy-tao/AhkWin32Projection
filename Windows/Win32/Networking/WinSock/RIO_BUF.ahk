@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RIO_BUFFERID.ahk
 
 /**
  * Specifies a portion of a registered buffer used for sending or receiving network data with the Winsock registered I/O extensions.
@@ -29,12 +28,9 @@ class RIO_BUF extends Win32Struct
      * The registered buffer descriptor for a Winsock registered I/O buffer used with send and receive requests.
      * @type {RIO_BUFFERID}
      */
-    BufferId{
-        get {
-            if(!this.HasProp("__BufferId"))
-                this.__BufferId := RIO_BUFFERID(this.ptr + 0)
-            return this.__BufferId
-        }
+    BufferId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

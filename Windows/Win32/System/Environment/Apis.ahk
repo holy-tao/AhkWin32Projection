@@ -108,7 +108,7 @@ class Environment {
     static SetEnvironmentStringsW(NewEnvironment) {
         NewEnvironment := NewEnvironment is String ? StrPtr(NewEnvironment) : NewEnvironment
 
-        result := DllCall("KERNEL32.dll\SetEnvironmentStringsW", "ptr", NewEnvironment, "ptr")
+        result := DllCall("KERNEL32.dll\SetEnvironmentStringsW", "ptr", NewEnvironment, "int")
         return result
     }
 
@@ -119,7 +119,7 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetCommandLineA() {
-        result := DllCall("KERNEL32.dll\GetCommandLineA", "ptr")
+        result := DllCall("KERNEL32.dll\GetCommandLineA", "char*")
         return result
     }
 
@@ -130,7 +130,7 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetCommandLineW() {
-        result := DllCall("KERNEL32.dll\GetCommandLineW", "ptr")
+        result := DllCall("KERNEL32.dll\GetCommandLineW", "char*")
         return result
     }
 
@@ -143,7 +143,7 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetEnvironmentStrings() {
-        result := DllCall("KERNEL32.dll\GetEnvironmentStrings", "ptr")
+        result := DllCall("KERNEL32.dll\GetEnvironmentStrings", "char*")
         return result
     }
 
@@ -156,7 +156,7 @@ class Environment {
      * @since windows5.1.2600
      */
     static GetEnvironmentStringsW() {
-        result := DllCall("KERNEL32.dll\GetEnvironmentStringsW", "ptr")
+        result := DllCall("KERNEL32.dll\GetEnvironmentStringsW", "char*")
         return result
     }
 
@@ -176,7 +176,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FreeEnvironmentStringsA", "ptr", penv, "ptr")
+        result := DllCall("KERNEL32.dll\FreeEnvironmentStringsA", "ptr", penv, "int")
         if(A_LastError)
             throw OSError()
 
@@ -199,7 +199,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FreeEnvironmentStringsW", "ptr", penv, "ptr")
+        result := DllCall("KERNEL32.dll\FreeEnvironmentStringsW", "ptr", penv, "int")
         if(A_LastError)
             throw OSError()
 
@@ -284,7 +284,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetEnvironmentVariableA", "ptr", lpName, "ptr", lpValue, "ptr")
+        result := DllCall("KERNEL32.dll\SetEnvironmentVariableA", "ptr", lpName, "ptr", lpValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -314,7 +314,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetEnvironmentVariableW", "ptr", lpName, "ptr", lpValue, "ptr")
+        result := DllCall("KERNEL32.dll\SetEnvironmentVariableW", "ptr", lpName, "ptr", lpValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -393,7 +393,7 @@ class Environment {
     static SetCurrentDirectoryA(lpPathName) {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
-        result := DllCall("KERNEL32.dll\SetCurrentDirectoryA", "ptr", lpPathName, "ptr")
+        result := DllCall("KERNEL32.dll\SetCurrentDirectoryA", "ptr", lpPathName, "int")
         return result
     }
 
@@ -405,7 +405,7 @@ class Environment {
     static SetCurrentDirectoryW(lpPathName) {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
 
-        result := DllCall("KERNEL32.dll\SetCurrentDirectoryW", "ptr", lpPathName, "ptr")
+        result := DllCall("KERNEL32.dll\SetCurrentDirectoryW", "ptr", lpPathName, "int")
         return result
     }
 
@@ -445,7 +445,7 @@ class Environment {
     static NeedCurrentDirectoryForExePathA(ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\NeedCurrentDirectoryForExePathA", "ptr", ExeName, "ptr")
+        result := DllCall("KERNEL32.dll\NeedCurrentDirectoryForExePathA", "ptr", ExeName, "int")
         return result
     }
 
@@ -459,7 +459,7 @@ class Environment {
     static NeedCurrentDirectoryForExePathW(ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\NeedCurrentDirectoryForExePathW", "ptr", ExeName, "ptr")
+        result := DllCall("KERNEL32.dll\NeedCurrentDirectoryForExePathW", "ptr", ExeName, "int")
         return result
     }
 
@@ -491,7 +491,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\CreateEnvironmentBlock", "ptr", lpEnvironment, "ptr", hToken, "ptr", bInherit, "ptr")
+        result := DllCall("USERENV.dll\CreateEnvironmentBlock", "ptr", lpEnvironment, "ptr", hToken, "int", bInherit, "int")
         if(A_LastError)
             throw OSError()
 
@@ -513,7 +513,7 @@ class Environment {
     static DestroyEnvironmentBlock(lpEnvironment) {
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\DestroyEnvironmentBlock", "ptr", lpEnvironment, "ptr")
+        result := DllCall("USERENV.dll\DestroyEnvironmentBlock", "ptr", lpEnvironment, "int")
         if(A_LastError)
             throw OSError()
 
@@ -551,7 +551,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserA", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "ptr")
+        result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserA", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -589,7 +589,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserW", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "ptr")
+        result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserW", "ptr", hToken, "ptr", lpSrc, "ptr", lpDest, "uint", dwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -655,7 +655,7 @@ class Environment {
     static IsEnclaveTypeSupported(flEnclaveType) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsEnclaveTypeSupported", "uint", flEnclaveType, "ptr")
+        result := DllCall("KERNEL32.dll\IsEnclaveTypeSupported", "uint", flEnclaveType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -824,7 +824,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadEnclaveData", "ptr", hProcess, "ptr", lpAddress, "ptr", lpBuffer, "ptr", nSize, "uint", flProtect, "ptr", lpPageInformation, "uint", dwInfoLength, "ptr*", lpNumberOfBytesWritten, "uint*", lpEnclaveError, "ptr")
+        result := DllCall("KERNEL32.dll\LoadEnclaveData", "ptr", hProcess, "ptr", lpAddress, "ptr", lpBuffer, "ptr", nSize, "uint", flProtect, "ptr", lpPageInformation, "uint", dwInfoLength, "ptr*", lpNumberOfBytesWritten, "uint*", lpEnclaveError, "int")
         if(A_LastError)
             throw OSError()
 
@@ -899,7 +899,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError, "ptr")
+        result := DllCall("KERNEL32.dll\InitializeEnclave", "ptr", hProcess, "ptr", lpAddress, "ptr", lpEnclaveInformation, "uint", dwInfoLength, "uint*", lpEnclaveError, "int")
         if(A_LastError)
             throw OSError()
 
@@ -918,7 +918,7 @@ class Environment {
     static LoadEnclaveImageA(lpEnclaveAddress, lpImageName) {
         lpImageName := lpImageName is String ? StrPtr(lpImageName) : lpImageName
 
-        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageA", "ptr", lpEnclaveAddress, "ptr", lpImageName, "ptr")
+        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageA", "ptr", lpEnclaveAddress, "ptr", lpImageName, "int")
         return result
     }
 
@@ -936,7 +936,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageW", "ptr", lpEnclaveAddress, "ptr", lpImageName, "ptr")
+        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageW", "ptr", lpEnclaveAddress, "ptr", lpImageName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -961,7 +961,7 @@ class Environment {
     static CallEnclave(lpRoutine, lpParameter, fWaitForThread, lpReturnValue) {
         A_LastError := 0
 
-        result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, "ptr", lpParameter, "ptr", fWaitForThread, "ptr", lpReturnValue, "ptr")
+        result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, "ptr", lpParameter, "int", fWaitForThread, "ptr", lpReturnValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -980,7 +980,7 @@ class Environment {
     static TerminateEnclave(lpAddress, fWait) {
         A_LastError := 0
 
-        result := DllCall("vertdll.dll\TerminateEnclave", "ptr", lpAddress, "ptr", fWait, "ptr")
+        result := DllCall("vertdll.dll\TerminateEnclave", "ptr", lpAddress, "int", fWait, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1018,7 +1018,7 @@ class Environment {
     static DeleteEnclave(lpAddress) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\DeleteEnclave", "ptr", lpAddress, "ptr")
+        result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\DeleteEnclave", "ptr", lpAddress, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1190,7 +1190,7 @@ class Environment {
      * @returns {BOOLEAN} 
      */
     static EnclaveUsesAttestedKeys() {
-        result := DllCall("vertdll.dll\EnclaveUsesAttestedKeys", "ptr")
+        result := DllCall("vertdll.dll\EnclaveUsesAttestedKeys", "char")
         return result
     }
 

@@ -27,7 +27,7 @@ class DXGI_OUTDUPL_MOVE_RECT extends Win32Struct
     SourcePoint{
         get {
             if(!this.HasProp("__SourcePoint"))
-                this.__SourcePoint := POINT(this.ptr + 0)
+                this.__SourcePoint := POINT(0, this)
             return this.__SourcePoint
         }
     }
@@ -39,7 +39,7 @@ class DXGI_OUTDUPL_MOVE_RECT extends Win32Struct
     DestinationRect{
         get {
             if(!this.HasProp("__DestinationRect"))
-                this.__DestinationRect := RECT(this.ptr + 8)
+                this.__DestinationRect := RECT(8, this)
             return this.__DestinationRect
         }
     }

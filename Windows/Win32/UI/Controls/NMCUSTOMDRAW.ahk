@@ -4,7 +4,6 @@
 #Include .\NMHDR.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code.
@@ -31,7 +30,7 @@ class NMCUSTOMDRAW extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -54,7 +53,7 @@ class NMCUSTOMDRAW extends Win32Struct
     hdc{
         get {
             if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 32)
+                this.__hdc := HDC(32, this)
             return this.__hdc
         }
     }
@@ -68,7 +67,7 @@ class NMCUSTOMDRAW extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 40)
+                this.__rc := RECT(40, this)
             return this.__rc
         }
     }
@@ -246,11 +245,8 @@ class NMCUSTOMDRAW extends Win32Struct
      * Application-defined item data.
      * @type {LPARAM}
      */
-    lItemlParam{
-        get {
-            if(!this.HasProp("__lItemlParam"))
-                this.__lItemlParam := LPARAM(this.ptr + 72)
-            return this.__lItemlParam
-        }
+    lItemlParam {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

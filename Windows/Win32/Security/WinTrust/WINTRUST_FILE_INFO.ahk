@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -28,12 +27,9 @@ class WINTRUST_FILE_INFO extends Win32Struct
      * Full path and file name of the file to be verified. This parameter cannot be <b>NULL</b>.
      * @type {PWSTR}
      */
-    pcwszFilePath{
-        get {
-            if(!this.HasProp("__pcwszFilePath"))
-                this.__pcwszFilePath := PWSTR(this.ptr + 8)
-            return this.__pcwszFilePath
-        }
+    pcwszFilePath {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -43,7 +39,7 @@ class WINTRUST_FILE_INFO extends Win32Struct
     hFile{
         get {
             if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 16)
+                this.__hFile := HANDLE(16, this)
             return this.__hFile
         }
     }

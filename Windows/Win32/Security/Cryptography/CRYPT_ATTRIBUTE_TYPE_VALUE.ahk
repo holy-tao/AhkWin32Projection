@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -19,12 +18,9 @@ class CRYPT_ATTRIBUTE_TYPE_VALUE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">Object identifier</a> (OID) that specifies the attribute type data contained in the <b>Value</b> BLOB.
      * @type {PSTR}
      */
-    pszObjId{
-        get {
-            if(!this.HasProp("__pszObjId"))
-                this.__pszObjId := PSTR(this.ptr + 0)
-            return this.__pszObjId
-        }
+    pszObjId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -34,7 +30,7 @@ class CRYPT_ATTRIBUTE_TYPE_VALUE extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Value := CRYPT_INTEGER_BLOB(8, this)
             return this.__Value
         }
     }

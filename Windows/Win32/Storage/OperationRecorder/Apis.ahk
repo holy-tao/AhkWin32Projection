@@ -18,7 +18,7 @@ class OperationRecorder {
      * @since windows8.0
      */
     static OperationStart(OperationStartParams) {
-        result := DllCall("ADVAPI32.dll\OperationStart", "ptr", OperationStartParams, "ptr")
+        result := DllCall("ADVAPI32.dll\OperationStart", "ptr", OperationStartParams, "int")
         return result
     }
 
@@ -30,7 +30,7 @@ class OperationRecorder {
      * @since windows8.0
      */
     static OperationEnd(OperationEndParams) {
-        result := DllCall("ADVAPI32.dll\OperationEnd", "ptr", OperationEndParams, "ptr")
+        result := DllCall("ADVAPI32.dll\OperationEnd", "ptr", OperationEndParams, "int")
         return result
     }
 

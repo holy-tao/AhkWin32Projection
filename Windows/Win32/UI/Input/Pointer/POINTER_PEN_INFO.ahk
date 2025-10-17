@@ -31,7 +31,7 @@ class POINTER_PEN_INFO extends Win32Struct
     pointerInfo{
         get {
             if(!this.HasProp("__pointerInfo"))
-                this.__pointerInfo := POINTER_INFO(this.ptr + 0)
+                this.__pointerInfo := POINTER_INFO(0, this)
             return this.__pointerInfo
         }
     }

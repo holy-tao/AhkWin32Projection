@@ -97,7 +97,7 @@ class WHV_X64_PENDING_EXCEPTION_EVENT extends Win32Struct
     AsUINT128{
         get {
             if(!this.HasProp("__AsUINT128"))
-                this.__AsUINT128 := WHV_UINT128(this.ptr + 0)
+                this.__AsUINT128 := WHV_UINT128(0, this)
             return this.__AsUINT128
         }
     }

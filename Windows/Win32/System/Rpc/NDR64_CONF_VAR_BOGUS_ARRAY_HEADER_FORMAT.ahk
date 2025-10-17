@@ -19,7 +19,7 @@ class NDR64_CONF_VAR_BOGUS_ARRAY_HEADER_FORMAT extends Win32Struct
     FixedArrayFormat{
         get {
             if(!this.HasProp("__FixedArrayFormat"))
-                this.__FixedArrayFormat := NDR64_BOGUS_ARRAY_HEADER_FORMAT(this.ptr + 0)
+                this.__FixedArrayFormat := NDR64_BOGUS_ARRAY_HEADER_FORMAT(0, this)
             return this.__FixedArrayFormat
         }
     }

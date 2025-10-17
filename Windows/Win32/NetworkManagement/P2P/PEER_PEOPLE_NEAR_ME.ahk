@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
@@ -23,12 +22,9 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct
      * Zero-terminated Unicode string that contains the nickname of the contact.
      * @type {PWSTR}
      */
-    pwzNickName{
-        get {
-            if(!this.HasProp("__pwzNickName"))
-                this.__pwzNickName := PWSTR(this.ptr + 0)
-            return this.__pwzNickName
-        }
+    pwzNickName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -39,7 +35,7 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct
     endpoint{
         get {
             if(!this.HasProp("__endpoint"))
-                this.__endpoint := PEER_ENDPOINT(this.ptr + 8)
+                this.__endpoint := PEER_ENDPOINT(8, this)
             return this.__endpoint
         }
     }

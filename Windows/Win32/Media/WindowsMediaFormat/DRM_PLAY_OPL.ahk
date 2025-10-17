@@ -23,7 +23,7 @@ class DRM_PLAY_OPL extends Win32Struct
     minOPL{
         get {
             if(!this.HasProp("__minOPL"))
-                this.__minOPL := DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS(this.ptr + 0)
+                this.__minOPL := DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS(0, this)
             return this.__minOPL
         }
     }
@@ -35,7 +35,7 @@ class DRM_PLAY_OPL extends Win32Struct
     oplIdReserved{
         get {
             if(!this.HasProp("__oplIdReserved"))
-                this.__oplIdReserved := DRM_OPL_OUTPUT_IDS(this.ptr + 16)
+                this.__oplIdReserved := DRM_OPL_OUTPUT_IDS(16, this)
             return this.__oplIdReserved
         }
     }
@@ -47,7 +47,7 @@ class DRM_PLAY_OPL extends Win32Struct
     vopi{
         get {
             if(!this.HasProp("__vopi"))
-                this.__vopi := DRM_VIDEO_OUTPUT_PROTECTION_IDS(this.ptr + 32)
+                this.__vopi := DRM_VIDEO_OUTPUT_PROTECTION_IDS(32, this)
             return this.__vopi
         }
     }

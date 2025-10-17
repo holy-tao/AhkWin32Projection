@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -47,12 +46,9 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * If the <b>JobType</b> member is equal to the <b>JT_RECEIVE</b> job type, <b>CallerId</b> is a pointer to a null-terminated character string that identifies the calling device that sent the active fax document. This string can include the telephone number of the calling device.
      * @type {PWSTR}
      */
-    CallerId{
-        get {
-            if(!this.HasProp("__CallerId"))
-                this.__CallerId := PWSTR(this.ptr + 8)
-            return this.__CallerId
-        }
+    CallerId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -61,12 +57,9 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the called station identifier of the device.
      * @type {PWSTR}
      */
-    Csid{
-        get {
-            if(!this.HasProp("__Csid"))
-                this.__Csid := PWSTR(this.ptr + 16)
-            return this.__Csid
-        }
+    Csid {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -97,12 +90,9 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the name of the fax device of interest.
      * @type {PWSTR}
      */
-    DeviceName{
-        get {
-            if(!this.HasProp("__DeviceName"))
-                this.__DeviceName := PWSTR(this.ptr + 32)
-            return this.__DeviceName
-        }
+    DeviceName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -111,12 +101,9 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * Pointer to a constant null-terminated character string to associate with the fax document that the device is currently sending or receiving. This is the user-friendly name that appears in the print spooler.
      * @type {PWSTR}
      */
-    DocumentName{
-        get {
-            if(!this.HasProp("__DocumentName"))
-                this.__DocumentName := PWSTR(this.ptr + 40)
-            return this.__DocumentName
-        }
+    DocumentName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -136,12 +123,9 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * If the <b>JobType</b> member is equal to the <b>JT_SEND</b> job type, <b>PhoneNumber</b> is a pointer to a constant null-terminated character string that is the fax number dialed for the outgoing fax transmission.
      * @type {PWSTR}
      */
-    PhoneNumber{
-        get {
-            if(!this.HasProp("__PhoneNumber"))
-                this.__PhoneNumber := PWSTR(this.ptr + 56)
-            return this.__PhoneNumber
-        }
+    PhoneNumber {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -156,12 +140,9 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * where <c>Canonical-Phone-Number</code> is defined in the <a href="https://docs.microsoft.com/windows/desktop/Tapi/address-ovr">Address</a> topic of the TAPI documentation (see the Canonical Address subheading); and <code>Additional-Routing-Info</c> is the <i>subaddress</i> of a Canonical Address, and uses the subaddress format.
      * @type {PWSTR}
      */
-    RoutingString{
-        get {
-            if(!this.HasProp("__RoutingString"))
-                this.__RoutingString := PWSTR(this.ptr + 64)
-            return this.__RoutingString
-        }
+    RoutingString {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -170,12 +151,9 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the name of the sender who initiated the fax transmission.
      * @type {PWSTR}
      */
-    SenderName{
-        get {
-            if(!this.HasProp("__SenderName"))
-                this.__SenderName := PWSTR(this.ptr + 72)
-            return this.__SenderName
-        }
+    SenderName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -184,12 +162,9 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
      * @type {PWSTR}
      */
-    RecipientName{
-        get {
-            if(!this.HasProp("__RecipientName"))
-                this.__RecipientName := PWSTR(this.ptr + 80)
-            return this.__RecipientName
-        }
+    RecipientName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -212,7 +187,7 @@ class FAX_DEVICE_STATUSW extends Win32Struct
     StartTime{
         get {
             if(!this.HasProp("__StartTime"))
-                this.__StartTime := FILETIME(this.ptr + 96)
+                this.__StartTime := FILETIME(96, this)
             return this.__StartTime
         }
     }
@@ -234,12 +209,9 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * This member must be <b>NULL</b>.
      * @type {PWSTR}
      */
-    StatusString{
-        get {
-            if(!this.HasProp("__StatusString"))
-                this.__StatusString := PWSTR(this.ptr + 112)
-            return this.__StatusString
-        }
+    StatusString {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -251,7 +223,7 @@ class FAX_DEVICE_STATUSW extends Win32Struct
     SubmittedTime{
         get {
             if(!this.HasProp("__SubmittedTime"))
-                this.__SubmittedTime := FILETIME(this.ptr + 120)
+                this.__SubmittedTime := FILETIME(120, this)
             return this.__SubmittedTime
         }
     }
@@ -273,12 +245,9 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the transmitting station identifier (TSID). This identifier is usually a telephone number.
      * @type {PWSTR}
      */
-    Tsid{
-        get {
-            if(!this.HasProp("__Tsid"))
-                this.__Tsid := PWSTR(this.ptr + 136)
-            return this.__Tsid
-        }
+    Tsid {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -287,11 +256,8 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * Pointer to a constant null-terminated character string that specifies the name of the user who submitted the active fax job.
      * @type {PWSTR}
      */
-    UserName{
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := PWSTR(this.ptr + 144)
-            return this.__UserName
-        }
+    UserName {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
@@ -20,7 +19,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 0)
+                this.__LogonId := LUID(0, this)
             return this.__LogonId
         }
     }
@@ -44,34 +43,25 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    HasTcbPrivilege{
-        get {
-            if(!this.HasProp("__HasTcbPrivilege"))
-                this.__HasTcbPrivilege := BOOLEAN(this.ptr + 16)
-            return this.__HasTcbPrivilege
-        }
+    HasTcbPrivilege {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    Impersonating{
-        get {
-            if(!this.HasProp("__Impersonating"))
-                this.__Impersonating := BOOLEAN(this.ptr + 17)
-            return this.__Impersonating
-        }
+    Impersonating {
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    Restricted{
-        get {
-            if(!this.HasProp("__Restricted"))
-                this.__Restricted := BOOLEAN(this.ptr + 18)
-            return this.__Restricted
-        }
+    Restricted {
+        get => NumGet(this, 18, "char")
+        set => NumPut("char", value, this, 18)
     }
 
     /**
@@ -96,7 +86,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     ClientToken{
         get {
             if(!this.HasProp("__ClientToken"))
-                this.__ClientToken := HANDLE(this.ptr + 24)
+                this.__ClientToken := HANDLE(24, this)
             return this.__ClientToken
         }
     }
@@ -107,7 +97,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     IdentificationLogonId{
         get {
             if(!this.HasProp("__IdentificationLogonId"))
-                this.__IdentificationLogonId := LUID(this.ptr + 32)
+                this.__IdentificationLogonId := LUID(32, this)
             return this.__IdentificationLogonId
         }
     }
@@ -118,7 +108,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     IdentificationToken{
         get {
             if(!this.HasProp("__IdentificationToken"))
-                this.__IdentificationToken := HANDLE(this.ptr + 40)
+                this.__IdentificationToken := HANDLE(40, this)
             return this.__IdentificationToken
         }
     }

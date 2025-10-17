@@ -20,7 +20,7 @@ class KSPROPERTY_VBICODECFILTERING_STATISTICS_CC_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -31,7 +31,7 @@ class KSPROPERTY_VBICODECFILTERING_STATISTICS_CC_S extends Win32Struct
     Statistics{
         get {
             if(!this.HasProp("__Statistics"))
-                this.__Statistics := VBICODECFILTERING_STATISTICS_CC(this.ptr + 16)
+                this.__Statistics := VBICODECFILTERING_STATISTICS_CC(16, this)
             return this.__Statistics
         }
     }

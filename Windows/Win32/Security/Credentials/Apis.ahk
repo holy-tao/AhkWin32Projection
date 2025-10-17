@@ -1074,7 +1074,7 @@ class Credentials {
     static CredWriteW(Credential, Flags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredWriteW", "ptr", Credential, "uint", Flags, "ptr")
+        result := DllCall("ADVAPI32.dll\CredWriteW", "ptr", Credential, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1217,7 +1217,7 @@ class Credentials {
     static CredWriteA(Credential, Flags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredWriteA", "ptr", Credential, "uint", Flags, "ptr")
+        result := DllCall("ADVAPI32.dll\CredWriteA", "ptr", Credential, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1263,7 +1263,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredReadW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1309,7 +1309,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredReadA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1379,7 +1379,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredEnumerateW", "ptr", Filter, "uint", Flags, "uint*", Count, "ptr", Credential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredEnumerateW", "ptr", Filter, "uint", Flags, "uint*", Count, "ptr", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1449,7 +1449,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredEnumerateA", "ptr", Filter, "uint", Flags, "uint*", Count, "ptr", Credential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredEnumerateA", "ptr", Filter, "uint", Flags, "uint*", Count, "ptr", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1590,7 +1590,7 @@ class Credentials {
     static CredWriteDomainCredentialsW(TargetInfo, Credential, Flags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredWriteDomainCredentialsW", "ptr", TargetInfo, "ptr", Credential, "uint", Flags, "ptr")
+        result := DllCall("ADVAPI32.dll\CredWriteDomainCredentialsW", "ptr", TargetInfo, "ptr", Credential, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1731,7 +1731,7 @@ class Credentials {
     static CredWriteDomainCredentialsA(TargetInfo, Credential, Flags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredWriteDomainCredentialsA", "ptr", TargetInfo, "ptr", Credential, "uint", Flags, "ptr")
+        result := DllCall("ADVAPI32.dll\CredWriteDomainCredentialsA", "ptr", TargetInfo, "ptr", Credential, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1800,7 +1800,7 @@ class Credentials {
     static CredReadDomainCredentialsW(TargetInfo, Flags, Count, Credential) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsW", "ptr", TargetInfo, "uint", Flags, "uint*", Count, "ptr", Credential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsW", "ptr", TargetInfo, "uint", Flags, "uint*", Count, "ptr", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1869,7 +1869,7 @@ class Credentials {
     static CredReadDomainCredentialsA(TargetInfo, Flags, Count, Credential) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsA", "ptr", TargetInfo, "uint", Flags, "uint*", Count, "ptr", Credential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsA", "ptr", TargetInfo, "uint", Flags, "uint*", Count, "ptr", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1916,7 +1916,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredDeleteW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr")
+        result := DllCall("ADVAPI32.dll\CredDeleteW", "ptr", TargetName, "uint", Type, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1963,7 +1963,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredDeleteA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr")
+        result := DllCall("ADVAPI32.dll\CredDeleteA", "ptr", TargetName, "uint", Type, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2014,7 +2014,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredRenameW", "ptr", OldTargetName, "ptr", NewTargetName, "uint", Type, "uint", Flags, "ptr")
+        result := DllCall("ADVAPI32.dll\CredRenameW", "ptr", OldTargetName, "ptr", NewTargetName, "uint", Type, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2065,7 +2065,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredRenameA", "ptr", OldTargetName, "ptr", NewTargetName, "uint", Type, "uint", Flags, "ptr")
+        result := DllCall("ADVAPI32.dll\CredRenameA", "ptr", OldTargetName, "ptr", NewTargetName, "uint", Type, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2104,7 +2104,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredGetTargetInfoW", "ptr", TargetName, "uint", Flags, "ptr", TargetInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\CredGetTargetInfoW", "ptr", TargetName, "uint", Flags, "ptr", TargetInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2143,7 +2143,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredGetTargetInfoA", "ptr", TargetName, "uint", Flags, "ptr", TargetInfo, "ptr")
+        result := DllCall("ADVAPI32.dll\CredGetTargetInfoA", "ptr", TargetName, "uint", Flags, "ptr", TargetInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2174,7 +2174,7 @@ class Credentials {
     static CredMarshalCredentialW(CredType, Credential, MarshaledCredential) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredMarshalCredentialW", "int", CredType, "ptr", Credential, "ptr", MarshaledCredential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredMarshalCredentialW", "int", CredType, "ptr", Credential, "ptr", MarshaledCredential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2205,7 +2205,7 @@ class Credentials {
     static CredMarshalCredentialA(CredType, Credential, MarshaledCredential) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredMarshalCredentialA", "int", CredType, "ptr", Credential, "ptr", MarshaledCredential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredMarshalCredentialA", "int", CredType, "ptr", Credential, "ptr", MarshaledCredential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2235,7 +2235,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialW", "ptr", MarshaledCredential, "int*", CredType, "ptr", Credential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialW", "ptr", MarshaledCredential, "int*", CredType, "ptr", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2265,7 +2265,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialA", "ptr", MarshaledCredential, "int*", CredType, "ptr", Credential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialA", "ptr", MarshaledCredential, "int*", CredType, "ptr", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2282,7 +2282,7 @@ class Credentials {
     static CredIsMarshaledCredentialW(MarshaledCredential) {
         MarshaledCredential := MarshaledCredential is String ? StrPtr(MarshaledCredential) : MarshaledCredential
 
-        result := DllCall("ADVAPI32.dll\CredIsMarshaledCredentialW", "ptr", MarshaledCredential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredIsMarshaledCredentialW", "ptr", MarshaledCredential, "int")
         return result
     }
 
@@ -2296,7 +2296,7 @@ class Credentials {
     static CredIsMarshaledCredentialA(MarshaledCredential) {
         MarshaledCredential := MarshaledCredential is String ? StrPtr(MarshaledCredential) : MarshaledCredential
 
-        result := DllCall("ADVAPI32.dll\CredIsMarshaledCredentialA", "ptr", MarshaledCredential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredIsMarshaledCredentialA", "ptr", MarshaledCredential, "int")
         return result
     }
 
@@ -2385,7 +2385,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("credui.dll\CredUnPackAuthenticationBufferW", "uint", dwFlags, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "ptr", pszUserName, "uint*", pcchMaxUserName, "ptr", pszDomainName, "uint*", pcchMaxDomainName, "ptr", pszPassword, "uint*", pcchMaxPassword, "ptr")
+        result := DllCall("credui.dll\CredUnPackAuthenticationBufferW", "uint", dwFlags, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "ptr", pszUserName, "uint*", pcchMaxUserName, "ptr", pszDomainName, "uint*", pcchMaxDomainName, "ptr", pszPassword, "uint*", pcchMaxPassword, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2477,7 +2477,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("credui.dll\CredUnPackAuthenticationBufferA", "uint", dwFlags, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "ptr", pszUserName, "uint*", pcchlMaxUserName, "ptr", pszDomainName, "uint*", pcchMaxDomainName, "ptr", pszPassword, "uint*", pcchMaxPassword, "ptr")
+        result := DllCall("credui.dll\CredUnPackAuthenticationBufferA", "uint", dwFlags, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "ptr", pszUserName, "uint*", pcchlMaxUserName, "ptr", pszDomainName, "uint*", pcchMaxDomainName, "ptr", pszPassword, "uint*", pcchMaxPassword, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2585,7 +2585,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("credui.dll\CredPackAuthenticationBufferW", "uint", dwFlags, "ptr", pszUserName, "ptr", pszPassword, "ptr", pPackedCredentials, "uint*", pcbPackedCredentials, "ptr")
+        result := DllCall("credui.dll\CredPackAuthenticationBufferW", "uint", dwFlags, "ptr", pszUserName, "ptr", pszPassword, "ptr", pPackedCredentials, "uint*", pcbPackedCredentials, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2693,7 +2693,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("credui.dll\CredPackAuthenticationBufferA", "uint", dwFlags, "ptr", pszUserName, "ptr", pszPassword, "ptr", pPackedCredentials, "uint*", pcbPackedCredentials, "ptr")
+        result := DllCall("credui.dll\CredPackAuthenticationBufferA", "uint", dwFlags, "ptr", pszUserName, "ptr", pszPassword, "ptr", pPackedCredentials, "uint*", pcbPackedCredentials, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2721,7 +2721,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredProtectW", "ptr", fAsSelf, "ptr", pszCredentials, "uint", cchCredentials, "ptr", pszProtectedCredentials, "uint*", pcchMaxChars, "int*", ProtectionType, "ptr")
+        result := DllCall("ADVAPI32.dll\CredProtectW", "int", fAsSelf, "ptr", pszCredentials, "uint", cchCredentials, "ptr", pszProtectedCredentials, "uint*", pcchMaxChars, "int*", ProtectionType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2749,7 +2749,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredProtectA", "ptr", fAsSelf, "ptr", pszCredentials, "uint", cchCredentials, "ptr", pszProtectedCredentials, "uint*", pcchMaxChars, "int*", ProtectionType, "ptr")
+        result := DllCall("ADVAPI32.dll\CredProtectA", "int", fAsSelf, "ptr", pszCredentials, "uint", cchCredentials, "ptr", pszProtectedCredentials, "uint*", pcchMaxChars, "int*", ProtectionType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2807,7 +2807,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredUnprotectW", "ptr", fAsSelf, "ptr", pszProtectedCredentials, "uint", cchProtectedCredentials, "ptr", pszCredentials, "uint*", pcchMaxChars, "ptr")
+        result := DllCall("ADVAPI32.dll\CredUnprotectW", "int", fAsSelf, "ptr", pszProtectedCredentials, "uint", cchProtectedCredentials, "ptr", pszCredentials, "uint*", pcchMaxChars, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2865,7 +2865,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredUnprotectA", "ptr", fAsSelf, "ptr", pszProtectedCredentials, "uint", cchProtectedCredentials, "ptr", pszCredentials, "uint*", pcchMaxChars, "ptr")
+        result := DllCall("ADVAPI32.dll\CredUnprotectA", "int", fAsSelf, "ptr", pszProtectedCredentials, "uint", cchProtectedCredentials, "ptr", pszCredentials, "uint*", pcchMaxChars, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2888,7 +2888,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredIsProtectedW", "ptr", pszProtectedCredentials, "int*", pProtectionType, "ptr")
+        result := DllCall("ADVAPI32.dll\CredIsProtectedW", "ptr", pszProtectedCredentials, "int*", pProtectionType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2911,7 +2911,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredIsProtectedA", "ptr", pszProtectedCredentials, "int*", pProtectionType, "ptr")
+        result := DllCall("ADVAPI32.dll\CredIsProtectedA", "ptr", pszProtectedCredentials, "int*", pProtectionType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2938,7 +2938,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredFindBestCredentialW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredFindBestCredentialW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2965,7 +2965,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredFindBestCredentialA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "ptr")
+        result := DllCall("ADVAPI32.dll\CredFindBestCredentialA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3058,7 +3058,7 @@ class Credentials {
     static CredGetSessionTypes(MaximumPersistCount, MaximumPersist) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredGetSessionTypes", "uint", MaximumPersistCount, "uint*", MaximumPersist, "ptr")
+        result := DllCall("ADVAPI32.dll\CredGetSessionTypes", "uint", MaximumPersistCount, "uint*", MaximumPersist, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3785,7 +3785,7 @@ class Credentials {
     static CredUIConfirmCredentialsW(pszTargetName, bConfirm) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("credui.dll\CredUIConfirmCredentialsW", "ptr", pszTargetName, "ptr", bConfirm, "uint")
+        result := DllCall("credui.dll\CredUIConfirmCredentialsW", "ptr", pszTargetName, "int", bConfirm, "uint")
         return result
     }
 
@@ -3840,7 +3840,7 @@ class Credentials {
     static CredUIConfirmCredentialsA(pszTargetName, bConfirm) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("credui.dll\CredUIConfirmCredentialsA", "ptr", pszTargetName, "ptr", bConfirm, "uint")
+        result := DllCall("credui.dll\CredUIConfirmCredentialsA", "ptr", pszTargetName, "int", bConfirm, "uint")
         return result
     }
 
@@ -3859,7 +3859,7 @@ class Credentials {
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        result := DllCall("credui.dll\CredUIStoreSSOCredW", "ptr", pszRealm, "ptr", pszUsername, "ptr", pszPassword, "ptr", bPersist, "uint")
+        result := DllCall("credui.dll\CredUIStoreSSOCredW", "ptr", pszRealm, "ptr", pszUsername, "ptr", pszPassword, "int", bPersist, "uint")
         return result
     }
 

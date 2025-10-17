@@ -7,7 +7,6 @@
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Stores information about an IP path entry.
@@ -41,7 +40,7 @@ class MIB_IPPATH_ROW extends Win32Struct
     Source{
         get {
             if(!this.HasProp("__Source"))
-                this.__Source := SOCKADDR_INET(this.ptr + 0)
+                this.__Source := SOCKADDR_INET(0, this)
             return this.__Source
         }
     }
@@ -55,7 +54,7 @@ class MIB_IPPATH_ROW extends Win32Struct
     Destination{
         get {
             if(!this.HasProp("__Destination"))
-                this.__Destination := SOCKADDR_INET(this.ptr + 64)
+                this.__Destination := SOCKADDR_INET(64, this)
             return this.__Destination
         }
     }
@@ -69,7 +68,7 @@ class MIB_IPPATH_ROW extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 128)
+                this.__InterfaceLuid := NET_LUID_LH(128, this)
             return this.__InterfaceLuid
         }
     }
@@ -94,7 +93,7 @@ class MIB_IPPATH_ROW extends Win32Struct
     CurrentNextHop{
         get {
             if(!this.HasProp("__CurrentNextHop"))
-                this.__CurrentNextHop := SOCKADDR_INET(this.ptr + 152)
+                this.__CurrentNextHop := SOCKADDR_INET(152, this)
             return this.__CurrentNextHop
         }
     }
@@ -154,12 +153,9 @@ class MIB_IPPATH_ROW extends Win32Struct
      * A value that indicates if the destination IP address is reachable for this IP path entry.
      * @type {BOOLEAN}
      */
-    IsReachable{
-        get {
-            if(!this.HasProp("__IsReachable"))
-                this.__IsReachable := BOOLEAN(this.ptr + 232)
-            return this.__IsReachable
-        }
+    IsReachable {
+        get => NumGet(this, 232, "char")
+        set => NumPut("char", value, this, 232)
     }
 
     /**

@@ -76,7 +76,7 @@ class SCANINFO extends Win32Struct
     IntensityRange{
         get {
             if(!this.HasProp("__IntensityRange"))
-                this.__IntensityRange := RANGEVALUE(this.ptr + 32)
+                this.__IntensityRange := RANGEVALUE(32, this)
             return this.__IntensityRange
         }
     }
@@ -87,7 +87,7 @@ class SCANINFO extends Win32Struct
     ContrastRange{
         get {
             if(!this.HasProp("__ContrastRange"))
-                this.__ContrastRange := RANGEVALUE(this.ptr + 48)
+                this.__ContrastRange := RANGEVALUE(48, this)
             return this.__ContrastRange
         }
     }
@@ -186,7 +186,7 @@ class SCANINFO extends Win32Struct
     Window{
         get {
             if(!this.HasProp("__Window"))
-                this.__Window := SCANWINDOW(this.ptr + 104)
+                this.__Window := SCANWINDOW(104, this)
             return this.__Window
         }
     }

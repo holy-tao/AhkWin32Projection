@@ -19,7 +19,7 @@ class SHELLHOOKINFO extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
+                this.__hwnd := HWND(0, this)
             return this.__hwnd
         }
     }
@@ -30,7 +30,7 @@ class SHELLHOOKINFO extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 8)
+                this.__rc := RECT(8, this)
             return this.__rc
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The NETSETUP_PROVISIONING_PARAMS structure contains information that is used when creating a provisioning package using the NetCreateProvisionPackage function.
@@ -64,24 +63,18 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
      * A pointer to a <b>NULL</b>-terminated character string that specifies the name of the domain where the computer account is created.
      * @type {PWSTR}
      */
-    lpDomain{
-        get {
-            if(!this.HasProp("__lpDomain"))
-                this.__lpDomain := PWSTR(this.ptr + 8)
-            return this.__lpDomain
-        }
+    lpDomain {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a <b>NULL</b>-terminated character string that specifies the short name of the machine from which the computer account attribute sAMAccountName is derived by appending a '$'. This parameter must contain a valid DNS or NetBIOS machine name.
      * @type {PWSTR}
      */
-    lpHostName{
-        get {
-            if(!this.HasProp("__lpHostName"))
-                this.__lpHostName := PWSTR(this.ptr + 16)
-            return this.__lpHostName
-        }
+    lpHostName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -90,24 +83,18 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
      * If this parameter is <b>NULL</b>, the well known computer object container will be used as published in the domain.
      * @type {PWSTR}
      */
-    lpMachineAccountOU{
-        get {
-            if(!this.HasProp("__lpMachineAccountOU"))
-                this.__lpMachineAccountOU := PWSTR(this.ptr + 24)
-            return this.__lpMachineAccountOU
-        }
+    lpMachineAccountOU {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * An optional pointer to a <b>NULL</b>-terminated character string that contains the name of the domain controller to target.
      * @type {PWSTR}
      */
-    lpDcName{
-        get {
-            if(!this.HasProp("__lpDcName"))
-                this.__lpDcName := PWSTR(this.ptr + 32)
-            return this.__lpDcName
-        }
+    lpDcName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -179,35 +166,26 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
      * TBD
      * @type {PWSTR}
      */
-    lpNetbiosName{
-        get {
-            if(!this.HasProp("__lpNetbiosName"))
-                this.__lpNetbiosName := PWSTR(this.ptr + 96)
-            return this.__lpNetbiosName
-        }
+    lpNetbiosName {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * TBD
      * @type {PWSTR}
      */
-    lpSiteName{
-        get {
-            if(!this.HasProp("__lpSiteName"))
-                this.__lpSiteName := PWSTR(this.ptr + 104)
-            return this.__lpSiteName
-        }
+    lpSiteName {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
      * TBD
      * @type {PWSTR}
      */
-    lpPrimaryDNSDomain{
-        get {
-            if(!this.HasProp("__lpPrimaryDNSDomain"))
-                this.__lpPrimaryDNSDomain := PWSTR(this.ptr + 112)
-            return this.__lpPrimaryDNSDomain
-        }
+    lpPrimaryDNSDomain {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 }

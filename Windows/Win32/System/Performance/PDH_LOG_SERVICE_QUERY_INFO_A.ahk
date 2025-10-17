@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -41,34 +40,25 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    szLogFileCaption{
-        get {
-            if(!this.HasProp("__szLogFileCaption"))
-                this.__szLogFileCaption := PSTR(this.ptr + 16)
-            return this.__szLogFileCaption
-        }
+    szLogFileCaption {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    szDefaultDir{
-        get {
-            if(!this.HasProp("__szDefaultDir"))
-                this.__szDefaultDir := PSTR(this.ptr + 24)
-            return this.__szDefaultDir
-        }
+    szDefaultDir {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    szBaseFileName{
-        get {
-            if(!this.HasProp("__szBaseFileName"))
-                this.__szBaseFileName := PSTR(this.ptr + 32)
-            return this.__szBaseFileName
-        }
+    szBaseFileName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -106,23 +96,17 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    PdlCommandFilename{
-        get {
-            if(!this.HasProp("__PdlCommandFilename"))
-                this.__PdlCommandFilename := PSTR(this.ptr + 56)
-            return this.__PdlCommandFilename
-        }
+    PdlCommandFilename {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {PSTR}
      */
-    PdlCounterList{
-        get {
-            if(!this.HasProp("__PdlCounterList"))
-                this.__PdlCounterList := PSTR(this.ptr + 64)
-            return this.__PdlCounterList
-        }
+    PdlCounterList {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -147,7 +131,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     PdlLogStartTime{
         get {
             if(!this.HasProp("__PdlLogStartTime"))
-                this.__PdlLogStartTime := FILETIME(this.ptr + 80)
+                this.__PdlLogStartTime := FILETIME(80, this)
             return this.__PdlLogStartTime
         }
     }
@@ -158,7 +142,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     PdlLogEndTime{
         get {
             if(!this.HasProp("__PdlLogEndTime"))
-                this.__PdlLogEndTime := FILETIME(this.ptr + 88)
+                this.__PdlLogEndTime := FILETIME(88, this)
             return this.__PdlLogEndTime
         }
     }
@@ -238,11 +222,8 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    TlLogFileName{
-        get {
-            if(!this.HasProp("__TlLogFileName"))
-                this.__TlLogFileName := PSTR(this.ptr + 88)
-            return this.__TlLogFileName
-        }
+    TlLogFileName {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 }

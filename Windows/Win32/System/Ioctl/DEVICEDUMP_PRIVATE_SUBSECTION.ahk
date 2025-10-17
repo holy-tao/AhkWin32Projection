@@ -26,7 +26,7 @@ class DEVICEDUMP_PRIVATE_SUBSECTION extends Win32Struct
     GPLogId{
         get {
             if(!this.HasProp("__GPLogId"))
-                this.__GPLogId := GP_LOG_PAGE_DESCRIPTOR(this.ptr + 4)
+                this.__GPLogId := GP_LOG_PAGE_DESCRIPTOR(4, this)
             return this.__GPLogId
         }
     }

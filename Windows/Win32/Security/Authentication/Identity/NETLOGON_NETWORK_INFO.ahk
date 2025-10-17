@@ -1,10 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include .\NETLOGON_LOGON_IDENTITY_INFO.ahk
 #Include .\CLEAR_BLOCK.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 #Include .\LSA_STRING.ahk
 
 /**
@@ -23,7 +21,7 @@ class NETLOGON_NETWORK_INFO extends Win32Struct
     Identity{
         get {
             if(!this.HasProp("__Identity"))
-                this.__Identity := NETLOGON_LOGON_IDENTITY_INFO(this.ptr + 0)
+                this.__Identity := NETLOGON_LOGON_IDENTITY_INFO(0, this)
             return this.__Identity
         }
     }
@@ -34,7 +32,7 @@ class NETLOGON_NETWORK_INFO extends Win32Struct
     LmChallenge{
         get {
             if(!this.HasProp("__LmChallenge"))
-                this.__LmChallenge := CLEAR_BLOCK(this.ptr + 64)
+                this.__LmChallenge := CLEAR_BLOCK(64, this)
             return this.__LmChallenge
         }
     }
@@ -45,7 +43,7 @@ class NETLOGON_NETWORK_INFO extends Win32Struct
     NtChallengeResponse{
         get {
             if(!this.HasProp("__NtChallengeResponse"))
-                this.__NtChallengeResponse := LSA_STRING(this.ptr + 80)
+                this.__NtChallengeResponse := LSA_STRING(80, this)
             return this.__NtChallengeResponse
         }
     }
@@ -56,7 +54,7 @@ class NETLOGON_NETWORK_INFO extends Win32Struct
     LmChallengeResponse{
         get {
             if(!this.HasProp("__LmChallengeResponse"))
-                this.__LmChallengeResponse := LSA_STRING(this.ptr + 96)
+                this.__LmChallengeResponse := LSA_STRING(96, this)
             return this.__LmChallengeResponse
         }
     }

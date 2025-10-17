@@ -18,7 +18,7 @@ class TRANSACTION_BIND_INFORMATION extends Win32Struct
     TmHandle{
         get {
             if(!this.HasProp("__TmHandle"))
-                this.__TmHandle := HANDLE(this.ptr + 0)
+                this.__TmHandle := HANDLE(0, this)
             return this.__TmHandle
         }
     }

@@ -1,14 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\CHAR.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\..\System\Com\BLOB.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\CAC.ahk
 #Include ..\..\System\Com\StructuredStorage\CAUB.ahk
 #Include ..\..\System\Com\StructuredStorage\CAI.ahk
@@ -49,12 +45,9 @@ class WMDM_PROP_DESC extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszPropName{
-        get {
-            if(!this.HasProp("__pwszPropName"))
-                this.__pwszPropName := PWSTR(this.ptr + 0)
-            return this.__pwszPropName
-        }
+    pwszPropName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -71,7 +64,7 @@ class WMDM_PROP_DESC extends Win32Struct
     ValidValuesRange{
         get {
             if(!this.HasProp("__ValidValuesRange"))
-                this.__ValidValuesRange := WMDM_PROP_VALUES_RANGE(this.ptr + 16)
+                this.__ValidValuesRange := WMDM_PROP_VALUES_RANGE(16, this)
             return this.__ValidValuesRange
         }
     }
@@ -82,7 +75,7 @@ class WMDM_PROP_DESC extends Win32Struct
     EnumeratedValidValues{
         get {
             if(!this.HasProp("__EnumeratedValidValues"))
-                this.__EnumeratedValidValues := WMDM_PROP_VALUES_ENUM(this.ptr + 16)
+                this.__EnumeratedValidValues := WMDM_PROP_VALUES_ENUM(16, this)
             return this.__EnumeratedValidValues
         }
     }

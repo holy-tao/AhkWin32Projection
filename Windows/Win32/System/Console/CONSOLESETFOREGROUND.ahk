@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -19,7 +18,7 @@ class CONSOLESETFOREGROUND extends Win32Struct
     hProcess{
         get {
             if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(this.ptr + 0)
+                this.__hProcess := HANDLE(0, this)
             return this.__hProcess
         }
     }
@@ -27,11 +26,8 @@ class CONSOLESETFOREGROUND extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bForeground{
-        get {
-            if(!this.HasProp("__bForeground"))
-                this.__bForeground := BOOL(this.ptr + 8)
-            return this.__bForeground
-        }
+    bForeground {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 }

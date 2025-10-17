@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a vSwitch event.
@@ -39,12 +37,9 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
      * GUID that identifies a vSwitch.
      * @type {PWSTR}
      */
-    vSwitchId{
-        get {
-            if(!this.HasProp("__vSwitchId"))
-                this.__vSwitchId := PWSTR(this.ptr + 8)
-            return this.__vSwitchId
-        }
+    vSwitchId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     class _positionInfo extends Win32Struct {
@@ -76,12 +71,9 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
         /**
          * @type {BOOL}
          */
-        inRequiredPosition{
-            get {
-                if(!this.HasProp("__inRequiredPosition"))
-                    this.__inRequiredPosition := BOOL(this.ptr + 0)
-                return this.__inRequiredPosition
-            }
+        inRequiredPosition {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
         }
     
         /**
@@ -108,7 +100,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
     positionInfo{
         get {
             if(!this.HasProp("__positionInfo"))
-                this.__positionInfo := %this.__Class%._positionInfo(this.ptr + 16)
+                this.__positionInfo := %this.__Class%._positionInfo(16, this)
             return this.__positionInfo
         }
     }
@@ -119,7 +111,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
     reorderInfo{
         get {
             if(!this.HasProp("__reorderInfo"))
-                this.__reorderInfo := %this.__Class%._reorderInfo(this.ptr + 16)
+                this.__reorderInfo := %this.__Class%._reorderInfo(16, this)
             return this.__reorderInfo
         }
     }

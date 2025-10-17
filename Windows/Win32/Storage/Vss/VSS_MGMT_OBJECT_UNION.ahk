@@ -20,7 +20,7 @@ class VSS_MGMT_OBJECT_UNION extends Win32Struct
     Vol{
         get {
             if(!this.HasProp("__Vol"))
-                this.__Vol := VSS_VOLUME_PROP(this.ptr + 0)
+                this.__Vol := VSS_VOLUME_PROP(0, this)
             return this.__Vol
         }
     }
@@ -31,7 +31,7 @@ class VSS_MGMT_OBJECT_UNION extends Win32Struct
     DiffVol{
         get {
             if(!this.HasProp("__DiffVol"))
-                this.__DiffVol := VSS_DIFF_VOLUME_PROP(this.ptr + 0)
+                this.__DiffVol := VSS_DIFF_VOLUME_PROP(0, this)
             return this.__DiffVol
         }
     }
@@ -42,7 +42,7 @@ class VSS_MGMT_OBJECT_UNION extends Win32Struct
     DiffArea{
         get {
             if(!this.HasProp("__DiffArea"))
-                this.__DiffArea := VSS_DIFF_AREA_PROP(this.ptr + 0)
+                this.__DiffArea := VSS_DIFF_AREA_PROP(0, this)
             return this.__DiffArea
         }
     }

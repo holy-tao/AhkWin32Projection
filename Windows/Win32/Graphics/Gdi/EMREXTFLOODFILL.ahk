@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
 #Include ..\..\Foundation\POINTL.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * The EMREXTFLOODFILL structure contains members for the ExtFloodFill enhanced metafile record.
@@ -23,7 +22,7 @@ class EMREXTFLOODFILL extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -35,7 +34,7 @@ class EMREXTFLOODFILL extends Win32Struct
     ptlStart{
         get {
             if(!this.HasProp("__ptlStart"))
-                this.__ptlStart := POINTL(this.ptr + 8)
+                this.__ptlStart := POINTL(8, this)
             return this.__ptlStart
         }
     }
@@ -44,12 +43,9 @@ class EMREXTFLOODFILL extends Win32Struct
      * Color of fill. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @type {COLORREF}
      */
-    crColor{
-        get {
-            if(!this.HasProp("__crColor"))
-                this.__crColor := COLORREF(this.ptr + 16)
-            return this.__crColor
-        }
+    crColor {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**

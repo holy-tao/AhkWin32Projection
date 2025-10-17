@@ -98,7 +98,7 @@ class OS_INFO_v1 extends Win32Struct
     Version{
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := %this.__Class%._Version(this.ptr + 8)
+                this.__Version := %this.__Class%._Version(8, this)
             return this.__Version
         }
     }
@@ -133,7 +133,7 @@ class OS_INFO_v1 extends Win32Struct
     s{
         get {
             if(!this.HasProp("__s"))
-                this.__s := %this.__Class%._s(this.ptr + 24)
+                this.__s := %this.__Class%._s(24, this)
             return this.__s
         }
     }

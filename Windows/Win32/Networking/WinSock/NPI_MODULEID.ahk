@@ -42,7 +42,7 @@ class NPI_MODULEID extends Win32Struct
     IfLuid{
         get {
             if(!this.HasProp("__IfLuid"))
-                this.__IfLuid := LUID(this.ptr + 8)
+                this.__IfLuid := LUID(8, this)
             return this.__IfLuid
         }
     }

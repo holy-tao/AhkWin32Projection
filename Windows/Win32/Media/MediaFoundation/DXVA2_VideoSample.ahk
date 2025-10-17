@@ -42,7 +42,7 @@ class DXVA2_VideoSample extends Win32Struct
     SampleFormat{
         get {
             if(!this.HasProp("__SampleFormat"))
-                this.__SampleFormat := DXVA2_ExtendedFormat(this.ptr + 16)
+                this.__SampleFormat := DXVA2_ExtendedFormat(16, this)
             return this.__SampleFormat
         }
     }
@@ -63,7 +63,7 @@ class DXVA2_VideoSample extends Win32Struct
     SrcRect{
         get {
             if(!this.HasProp("__SrcRect"))
-                this.__SrcRect := RECT(this.ptr + 32)
+                this.__SrcRect := RECT(32, this)
             return this.__SrcRect
         }
     }
@@ -75,7 +75,7 @@ class DXVA2_VideoSample extends Win32Struct
     DstRect{
         get {
             if(!this.HasProp("__DstRect"))
-                this.__DstRect := RECT(this.ptr + 48)
+                this.__DstRect := RECT(48, this)
             return this.__DstRect
         }
     }
@@ -99,7 +99,7 @@ class DXVA2_VideoSample extends Win32Struct
     PlanarAlpha{
         get {
             if(!this.HasProp("__PlanarAlpha"))
-                this.__PlanarAlpha := DXVA2_Fixed32(this.ptr + 192)
+                this.__PlanarAlpha := DXVA2_Fixed32(192, this)
             return this.__PlanarAlpha
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -16,12 +15,9 @@ class ADDJOB_INFO_1W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    Path{
-        get {
-            if(!this.HasProp("__Path"))
-                this.__Path := PWSTR(this.ptr + 0)
-            return this.__Path
-        }
+    Path {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

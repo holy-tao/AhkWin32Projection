@@ -30,7 +30,7 @@ class PACKET_PROPERTY extends Win32Struct
     PropertyMetrics{
         get {
             if(!this.HasProp("__PropertyMetrics"))
-                this.__PropertyMetrics := PROPERTY_METRICS(this.ptr + 8)
+                this.__PropertyMetrics := PROPERTY_METRICS(8, this)
             return this.__PropertyMetrics
         }
     }

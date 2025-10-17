@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Provides detail about each adapter's architectural details, so that your application can better optimize for certain adapter properties.
@@ -82,12 +81,9 @@ class D3D12_FEATURE_DATA_ARCHITECTURE1 extends Win32Struct
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support a tile-based renderer.
      * @type {BOOL}
      */
-    TileBasedRenderer{
-        get {
-            if(!this.HasProp("__TileBasedRenderer"))
-                this.__TileBasedRenderer := BOOL(this.ptr + 4)
-            return this.__TileBasedRenderer
-        }
+    TileBasedRenderer {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -95,12 +91,9 @@ class D3D12_FEATURE_DATA_ARCHITECTURE1 extends Win32Struct
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support UMA.
      * @type {BOOL}
      */
-    UMA{
-        get {
-            if(!this.HasProp("__UMA"))
-                this.__UMA := BOOL(this.ptr + 8)
-            return this.__UMA
-        }
+    UMA {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -108,12 +101,9 @@ class D3D12_FEATURE_DATA_ARCHITECTURE1 extends Win32Struct
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support cache-coherent UMA.
      * @type {BOOL}
      */
-    CacheCoherentUMA{
-        get {
-            if(!this.HasProp("__CacheCoherentUMA"))
-                this.__CacheCoherentUMA := BOOL(this.ptr + 12)
-            return this.__CacheCoherentUMA
-        }
+    CacheCoherentUMA {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -125,11 +115,8 @@ class D3D12_FEATURE_DATA_ARCHITECTURE1 extends Win32Struct
      * If <b>TRUE</b>, the application must take care to no use memory with these page table properties with the GPU, as the GPU might trigger these page table properties in unexpected ways. For example, GPU write operations might be coarser than the application expects, particularly writes from within shaders. Certain write-watch pages migth appear dirty, even when it isn't obvious how GPU writes may have affected them. GPU operations associated with upload and readback heap usage scenarios work well with write-watch pages, but might occasionally generate false positives that can be safely ignored.
      * @type {BOOL}
      */
-    IsolatedMMU{
-        get {
-            if(!this.HasProp("__IsolatedMMU"))
-                this.__IsolatedMMU := BOOL(this.ptr + 16)
-            return this.__IsolatedMMU
-        }
+    IsolatedMMU {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 }

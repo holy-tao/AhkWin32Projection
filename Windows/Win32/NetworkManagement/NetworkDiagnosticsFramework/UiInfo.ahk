@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ShellCommandInfo.ahk
 
 /**
@@ -24,12 +23,9 @@ class UiInfo extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwzNull{
-        get {
-            if(!this.HasProp("__pwzNull"))
-                this.__pwzNull := PWSTR(this.ptr + 8)
-            return this.__pwzNull
-        }
+    pwzNull {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -38,7 +34,7 @@ class UiInfo extends Win32Struct
     ShellInfo{
         get {
             if(!this.HasProp("__ShellInfo"))
-                this.__ShellInfo := ShellCommandInfo(this.ptr + 8)
+                this.__ShellInfo := ShellCommandInfo(8, this)
             return this.__ShellInfo
         }
     }
@@ -46,22 +42,16 @@ class UiInfo extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwzHelpUrl{
-        get {
-            if(!this.HasProp("__pwzHelpUrl"))
-                this.__pwzHelpUrl := PWSTR(this.ptr + 8)
-            return this.__pwzHelpUrl
-        }
+    pwzHelpUrl {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwzDui{
-        get {
-            if(!this.HasProp("__pwzDui"))
-                this.__pwzDui := PWSTR(this.ptr + 8)
-            return this.__pwzDui
-        }
+    pwzDui {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

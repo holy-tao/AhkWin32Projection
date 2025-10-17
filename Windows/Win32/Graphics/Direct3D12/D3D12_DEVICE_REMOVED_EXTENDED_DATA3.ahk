@@ -27,7 +27,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA3 extends Win32Struct
     AutoBreadcrumbsOutput{
         get {
             if(!this.HasProp("__AutoBreadcrumbsOutput"))
-                this.__AutoBreadcrumbsOutput := D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1(this.ptr + 8)
+                this.__AutoBreadcrumbsOutput := D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1(8, this)
             return this.__AutoBreadcrumbsOutput
         }
     }
@@ -38,7 +38,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA3 extends Win32Struct
     PageFaultOutput{
         get {
             if(!this.HasProp("__PageFaultOutput"))
-                this.__PageFaultOutput := D3D12_DRED_PAGE_FAULT_OUTPUT2(this.ptr + 16)
+                this.__PageFaultOutput := D3D12_DRED_PAGE_FAULT_OUTPUT2(16, this)
             return this.__PageFaultOutput
         }
     }

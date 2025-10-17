@@ -3,7 +3,6 @@
 #Include .\CTL_USAGE.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
 /**
@@ -56,7 +55,7 @@ class CTL_INFO extends Win32Struct
     SubjectUsage{
         get {
             if(!this.HasProp("__SubjectUsage"))
-                this.__SubjectUsage := CTL_USAGE(this.ptr + 8)
+                this.__SubjectUsage := CTL_USAGE(8, this)
             return this.__SubjectUsage
         }
     }
@@ -69,7 +68,7 @@ class CTL_INFO extends Win32Struct
     ListIdentifier{
         get {
             if(!this.HasProp("__ListIdentifier"))
-                this.__ListIdentifier := CRYPT_INTEGER_BLOB(this.ptr + 24)
+                this.__ListIdentifier := CRYPT_INTEGER_BLOB(24, this)
             return this.__ListIdentifier
         }
     }
@@ -81,7 +80,7 @@ class CTL_INFO extends Win32Struct
     SequenceNumber{
         get {
             if(!this.HasProp("__SequenceNumber"))
-                this.__SequenceNumber := CRYPT_INTEGER_BLOB(this.ptr + 40)
+                this.__SequenceNumber := CRYPT_INTEGER_BLOB(40, this)
             return this.__SequenceNumber
         }
     }
@@ -93,7 +92,7 @@ class CTL_INFO extends Win32Struct
     ThisUpdate{
         get {
             if(!this.HasProp("__ThisUpdate"))
-                this.__ThisUpdate := FILETIME(this.ptr + 56)
+                this.__ThisUpdate := FILETIME(56, this)
             return this.__ThisUpdate
         }
     }
@@ -105,7 +104,7 @@ class CTL_INFO extends Win32Struct
     NextUpdate{
         get {
             if(!this.HasProp("__NextUpdate"))
-                this.__NextUpdate := FILETIME(this.ptr + 64)
+                this.__NextUpdate := FILETIME(64, this)
             return this.__NextUpdate
         }
     }
@@ -117,7 +116,7 @@ class CTL_INFO extends Win32Struct
     SubjectAlgorithm{
         get {
             if(!this.HasProp("__SubjectAlgorithm"))
-                this.__SubjectAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 72)
+                this.__SubjectAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(72, this)
             return this.__SubjectAlgorithm
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\OCSP_CERT_ID.ahk
@@ -25,7 +24,7 @@ class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct
     CertId{
         get {
             if(!this.HasProp("__CertId"))
-                this.__CertId := OCSP_CERT_ID(this.ptr + 0)
+                this.__CertId := OCSP_CERT_ID(0, this)
             return this.__CertId
         }
     }
@@ -99,7 +98,7 @@ class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct
     ThisUpdate{
         get {
             if(!this.HasProp("__ThisUpdate"))
-                this.__ThisUpdate := FILETIME(this.ptr + 88)
+                this.__ThisUpdate := FILETIME(88, this)
             return this.__ThisUpdate
         }
     }
@@ -111,7 +110,7 @@ class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct
     NextUpdate{
         get {
             if(!this.HasProp("__NextUpdate"))
-                this.__NextUpdate := FILETIME(this.ptr + 96)
+                this.__NextUpdate := FILETIME(96, this)
             return this.__NextUpdate
         }
     }

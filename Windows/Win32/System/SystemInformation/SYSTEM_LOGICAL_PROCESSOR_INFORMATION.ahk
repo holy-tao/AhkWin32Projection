@@ -126,7 +126,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     ProcessorCore{
         get {
             if(!this.HasProp("__ProcessorCore"))
-                this.__ProcessorCore := %this.__Class%._ProcessorCore(this.ptr + 16)
+                this.__ProcessorCore := %this.__Class%._ProcessorCore(16, this)
             return this.__ProcessorCore
         }
     }
@@ -137,7 +137,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     NumaNode{
         get {
             if(!this.HasProp("__NumaNode"))
-                this.__NumaNode := %this.__Class%._NumaNode(this.ptr + 16)
+                this.__NumaNode := %this.__Class%._NumaNode(16, this)
             return this.__NumaNode
         }
     }
@@ -148,7 +148,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     Cache{
         get {
             if(!this.HasProp("__Cache"))
-                this.__Cache := CACHE_DESCRIPTOR(this.ptr + 16)
+                this.__Cache := CACHE_DESCRIPTOR(16, this)
             return this.__Cache
         }
     }

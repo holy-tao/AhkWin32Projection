@@ -30,7 +30,7 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
     sftVerifyAsOf{
         get {
             if(!this.HasProp("__sftVerifyAsOf"))
-                this.__sftVerifyAsOf := FILETIME(this.ptr + 8)
+                this.__sftVerifyAsOf := FILETIME(8, this)
             return this.__sftVerifyAsOf
         }
     }

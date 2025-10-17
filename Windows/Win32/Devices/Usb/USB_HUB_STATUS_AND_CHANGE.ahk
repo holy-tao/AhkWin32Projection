@@ -27,7 +27,7 @@ class USB_HUB_STATUS_AND_CHANGE extends Win32Struct
     HubStatus{
         get {
             if(!this.HasProp("__HubStatus"))
-                this.__HubStatus := USB_HUB_STATUS(this.ptr + 0)
+                this.__HubStatus := USB_HUB_STATUS(0, this)
             return this.__HubStatus
         }
     }
@@ -38,7 +38,7 @@ class USB_HUB_STATUS_AND_CHANGE extends Win32Struct
     HubChange{
         get {
             if(!this.HasProp("__HubChange"))
-                this.__HubChange := USB_HUB_CHANGE(this.ptr + 4)
+                this.__HubChange := USB_HUB_CHANGE(4, this)
             return this.__HubChange
         }
     }

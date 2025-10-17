@@ -240,7 +240,7 @@ class MIXERLINEA extends Win32Struct
     Target{
         get {
             if(!this.HasProp("__Target"))
-                this.__Target := %this.__Class%._Target(this.ptr + 128)
+                this.__Target := %this.__Class%._Target(128, this)
             return this.__Target
         }
     }

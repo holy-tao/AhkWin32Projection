@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\SPGRAMMARHANDLE.ahk
 #Include .\SPRECORESULTINFO.ahk
 
@@ -20,7 +19,7 @@ class SPRECORESULTINFOEX extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := SPRECORESULTINFO(this.ptr + 0)
+                this.__Base := SPRECORESULTINFO(0, this)
             return this.__Base
         }
     }

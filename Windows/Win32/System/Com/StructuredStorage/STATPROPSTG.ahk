@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains data about a single property in a property set. This data is the property ID and type tag, and the optional string name that may be associated with the property.
@@ -19,12 +18,9 @@ class STATPROPSTG extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @type {PWSTR}
      */
-    lpwstrName{
-        get {
-            if(!this.HasProp("__lpwstrName"))
-                this.__lpwstrName := PWSTR(this.ptr + 0)
-            return this.__lpwstrName
-        }
+    lpwstrName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

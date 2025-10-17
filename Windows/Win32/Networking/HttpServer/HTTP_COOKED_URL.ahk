@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a validated, canonical, UTF-16 Unicode-encoded URL request string together with pointers into it and element lengths.
@@ -59,47 +58,35 @@ class HTTP_COOKED_URL extends Win32Struct
      * Pointer to the scheme element at the beginning of the URL (must be either "http://..." or "https://...").
      * @type {PWSTR}
      */
-    pFullUrl{
-        get {
-            if(!this.HasProp("__pFullUrl"))
-                this.__pFullUrl := PWSTR(this.ptr + 8)
-            return this.__pFullUrl
-        }
+    pFullUrl {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to the first character in the host element, immediately following the double slashes at the end of the scheme element.
      * @type {PWSTR}
      */
-    pHost{
-        get {
-            if(!this.HasProp("__pHost"))
-                this.__pHost := PWSTR(this.ptr + 16)
-            return this.__pHost
-        }
+    pHost {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to the third forward slash ("/") in the string. In a UrlPrefix string, this is the slash immediately preceding the relativeUri element.
      * @type {PWSTR}
      */
-    pAbsPath{
-        get {
-            if(!this.HasProp("__pAbsPath"))
-                this.__pAbsPath := PWSTR(this.ptr + 24)
-            return this.__pAbsPath
-        }
+    pAbsPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to the first question mark (?) in the string, or <b>NULL</b> if there is none.
      * @type {PWSTR}
      */
-    pQueryString{
-        get {
-            if(!this.HasProp("__pQueryString"))
-                this.__pQueryString := PWSTR(this.ptr + 32)
-            return this.__pQueryString
-        }
+    pQueryString {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

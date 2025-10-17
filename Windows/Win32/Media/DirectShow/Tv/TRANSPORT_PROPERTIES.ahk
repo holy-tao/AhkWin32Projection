@@ -66,7 +66,7 @@ class TRANSPORT_PROPERTIES extends Win32Struct
     Others{
         get {
             if(!this.HasProp("__Others"))
-                this.__Others := %this.__Class%._Others(this.ptr + 16)
+                this.__Others := %this.__Class%._Others(16, this)
             return this.__Others
         }
     }

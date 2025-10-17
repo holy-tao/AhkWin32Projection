@@ -21,7 +21,7 @@ class EAP_METHOD_TYPE extends Win32Struct
     eapType{
         get {
             if(!this.HasProp("__eapType"))
-                this.__eapType := EAP_TYPE(this.ptr + 0)
+                this.__eapType := EAP_TYPE(0, this)
             return this.__eapType
         }
     }

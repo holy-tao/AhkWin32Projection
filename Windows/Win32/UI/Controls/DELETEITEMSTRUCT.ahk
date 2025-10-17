@@ -54,7 +54,7 @@ class DELETEITEMSTRUCT extends Win32Struct
     hwndItem{
         get {
             if(!this.HasProp("__hwndItem"))
-                this.__hwndItem := HWND(this.ptr + 16)
+                this.__hwndItem := HWND(16, this)
             return this.__hwndItem
         }
     }

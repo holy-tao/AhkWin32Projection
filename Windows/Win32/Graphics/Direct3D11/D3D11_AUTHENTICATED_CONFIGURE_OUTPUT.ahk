@@ -22,7 +22,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_OUTPUT extends Win32Struct
     omac{
         get {
             if(!this.HasProp("__omac"))
-                this.__omac := D3D11_OMAC(this.ptr + 0)
+                this.__omac := D3D11_OMAC(0, this)
             return this.__omac
         }
     }
@@ -43,7 +43,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_OUTPUT extends Win32Struct
     hChannel{
         get {
             if(!this.HasProp("__hChannel"))
-                this.__hChannel := HANDLE(this.ptr + 24)
+                this.__hChannel := HANDLE(24, this)
             return this.__hChannel
         }
     }

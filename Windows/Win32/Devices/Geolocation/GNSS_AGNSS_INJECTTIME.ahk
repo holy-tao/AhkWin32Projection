@@ -34,7 +34,7 @@ class GNSS_AGNSS_INJECTTIME extends Win32Struct
     UtcTime{
         get {
             if(!this.HasProp("__UtcTime"))
-                this.__UtcTime := FILETIME(this.ptr + 8)
+                this.__UtcTime := FILETIME(8, this)
             return this.__UtcTime
         }
     }

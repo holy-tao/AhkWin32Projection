@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains additional properties related to those in DWRITE_GLYPH_RUN.
@@ -20,12 +19,9 @@ class DWRITE_GLYPH_RUN_DESCRIPTION extends Win32Struct
      * An array of characters containing the locale name associated with this run.
      * @type {PWSTR}
      */
-    localeName{
-        get {
-            if(!this.HasProp("__localeName"))
-                this.__localeName := PWSTR(this.ptr + 0)
-            return this.__localeName
-        }
+    localeName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -34,12 +30,9 @@ class DWRITE_GLYPH_RUN_DESCRIPTION extends Win32Struct
      * An array of characters containing the text associated with the glyphs.
      * @type {PWSTR}
      */
-    string{
-        get {
-            if(!this.HasProp("__string"))
-                this.__string := PWSTR(this.ptr + 8)
-            return this.__string
-        }
+    string {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

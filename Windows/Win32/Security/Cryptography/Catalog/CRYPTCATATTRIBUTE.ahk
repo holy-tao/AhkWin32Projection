@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * The CRYPTCATATTRIBUTE structure defines a catalog attribute. This structure is used by the CryptCATEnumerateAttr and CryptCATEnumerateCatAttr functions.
@@ -27,12 +26,9 @@ class CRYPTCATATTRIBUTE extends Win32Struct
      * A pointer to a null-terminated string that contains the reference tag value.
      * @type {PWSTR}
      */
-    pwszReferenceTag{
-        get {
-            if(!this.HasProp("__pwszReferenceTag"))
-                this.__pwszReferenceTag := PWSTR(this.ptr + 8)
-            return this.__pwszReferenceTag
-        }
+    pwszReferenceTag {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

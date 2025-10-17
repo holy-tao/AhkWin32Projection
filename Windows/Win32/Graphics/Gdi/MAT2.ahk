@@ -26,7 +26,7 @@ class MAT2 extends Win32Struct
     eM11{
         get {
             if(!this.HasProp("__eM11"))
-                this.__eM11 := FIXED(this.ptr + 0)
+                this.__eM11 := FIXED(0, this)
             return this.__eM11
         }
     }
@@ -38,7 +38,7 @@ class MAT2 extends Win32Struct
     eM12{
         get {
             if(!this.HasProp("__eM12"))
-                this.__eM12 := FIXED(this.ptr + 4)
+                this.__eM12 := FIXED(4, this)
             return this.__eM12
         }
     }
@@ -50,7 +50,7 @@ class MAT2 extends Win32Struct
     eM21{
         get {
             if(!this.HasProp("__eM21"))
-                this.__eM21 := FIXED(this.ptr + 8)
+                this.__eM21 := FIXED(8, this)
             return this.__eM21
         }
     }
@@ -62,7 +62,7 @@ class MAT2 extends Win32Struct
     eM22{
         get {
             if(!this.HasProp("__eM22"))
-                this.__eM22 := FIXED(this.ptr + 12)
+                this.__eM22 := FIXED(12, this)
             return this.__eM22
         }
     }

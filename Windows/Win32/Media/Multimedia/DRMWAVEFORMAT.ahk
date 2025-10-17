@@ -18,7 +18,7 @@ class DRMWAVEFORMAT extends Win32Struct
     wfx{
         get {
             if(!this.HasProp("__wfx"))
-                this.__wfx := WAVEFORMATEX(this.ptr + 0)
+                this.__wfx := WAVEFORMATEX(0, this)
             return this.__wfx
         }
     }
@@ -45,7 +45,7 @@ class DRMWAVEFORMAT extends Win32Struct
     wfxSecure{
         get {
             if(!this.HasProp("__wfxSecure"))
-                this.__wfxSecure := WAVEFORMATEX(this.ptr + 32)
+                this.__wfxSecure := WAVEFORMATEX(32, this)
             return this.__wfxSecure
         }
     }

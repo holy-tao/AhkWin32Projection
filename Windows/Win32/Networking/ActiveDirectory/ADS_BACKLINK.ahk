@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADS_BACKLINK structure is an ADSI representation of the Back Link attribute syntax.
@@ -32,11 +31,8 @@ class ADS_BACKLINK extends Win32Struct
      * The null-terminated Unicode string that specifies the name of an object to which the <b>Back Link</b> attribute is attached.
      * @type {PWSTR}
      */
-    ObjectName{
-        get {
-            if(!this.HasProp("__ObjectName"))
-                this.__ObjectName := PWSTR(this.ptr + 8)
-            return this.__ObjectName
-        }
+    ObjectName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

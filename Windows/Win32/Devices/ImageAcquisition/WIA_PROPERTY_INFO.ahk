@@ -212,7 +212,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
         Nom{
             get {
                 if(!this.HasProp("__Nom"))
-                    this.__Nom := BSTR(this.ptr + 8)
+                    this.__Nom := BSTR(8, this)
                 return this.__Nom
             }
         }
@@ -269,7 +269,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     Range{
         get {
             if(!this.HasProp("__Range"))
-                this.__Range := %this.__Class%._Range(this.ptr + 8)
+                this.__Range := %this.__Class%._Range(8, this)
             return this.__Range
         }
     }
@@ -280,7 +280,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     RangeFloat{
         get {
             if(!this.HasProp("__RangeFloat"))
-                this.__RangeFloat := %this.__Class%._RangeFloat(this.ptr + 8)
+                this.__RangeFloat := %this.__Class%._RangeFloat(8, this)
             return this.__RangeFloat
         }
     }
@@ -291,7 +291,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     List{
         get {
             if(!this.HasProp("__List"))
-                this.__List := %this.__Class%._List(this.ptr + 8)
+                this.__List := %this.__Class%._List(8, this)
             return this.__List
         }
     }
@@ -302,7 +302,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     ListFloat{
         get {
             if(!this.HasProp("__ListFloat"))
-                this.__ListFloat := %this.__Class%._ListFloat(this.ptr + 8)
+                this.__ListFloat := %this.__Class%._ListFloat(8, this)
             return this.__ListFloat
         }
     }
@@ -313,7 +313,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     ListGuid{
         get {
             if(!this.HasProp("__ListGuid"))
-                this.__ListGuid := %this.__Class%._ListGuid(this.ptr + 8)
+                this.__ListGuid := %this.__Class%._ListGuid(8, this)
             return this.__ListGuid
         }
     }
@@ -324,7 +324,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     ListBStr{
         get {
             if(!this.HasProp("__ListBStr"))
-                this.__ListBStr := %this.__Class%._ListBStr(this.ptr + 8)
+                this.__ListBStr := %this.__Class%._ListBStr(8, this)
             return this.__ListBStr
         }
     }
@@ -335,7 +335,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     Flag{
         get {
             if(!this.HasProp("__Flag"))
-                this.__Flag := %this.__Class%._Flag(this.ptr + 8)
+                this.__Flag := %this.__Class%._Flag(8, this)
             return this.__Flag
         }
     }
@@ -346,7 +346,7 @@ class WIA_PROPERTY_INFO extends Win32Struct
     None{
         get {
             if(!this.HasProp("__None"))
-                this.__None := %this.__Class%._None(this.ptr + 8)
+                this.__None := %this.__Class%._None(8, this)
             return this.__None
         }
     }

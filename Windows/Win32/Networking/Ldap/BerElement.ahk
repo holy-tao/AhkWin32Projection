@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * C++ class object that performs basic encoding rules (BER) encoding.
@@ -29,11 +28,8 @@ class BerElement extends Win32Struct
      * Pointer to an opaque buffer. Do not attempt to access it.
      * @type {PSTR}
      */
-    opaque{
-        get {
-            if(!this.HasProp("__opaque"))
-                this.__opaque := PSTR(this.ptr + 0)
-            return this.__opaque
-        }
+    opaque {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

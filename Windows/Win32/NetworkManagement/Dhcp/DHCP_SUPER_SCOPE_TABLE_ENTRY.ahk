@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines a subnet entry within the superscope table.
@@ -45,11 +44,8 @@ class DHCP_SUPER_SCOPE_TABLE_ENTRY extends Win32Struct
      * Unicode string that contains the name assigned to this subnet entry within the superscope.
      * @type {PWSTR}
      */
-    SuperScopeName{
-        get {
-            if(!this.HasProp("__SuperScopeName"))
-                this.__SuperScopeName := PWSTR(this.ptr + 16)
-            return this.__SuperScopeName
-        }
+    SuperScopeName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

@@ -107,7 +107,7 @@ class SAFER_IDENTIFICATION_HEADER extends Win32Struct
     lastModified{
         get {
             if(!this.HasProp("__lastModified"))
-                this.__lastModified := FILETIME(this.ptr + 16)
+                this.__lastModified := FILETIME(16, this)
             return this.__lastModified
         }
     }

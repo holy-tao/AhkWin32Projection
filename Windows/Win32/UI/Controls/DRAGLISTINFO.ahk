@@ -33,7 +33,7 @@ class DRAGLISTINFO extends Win32Struct
     hWnd{
         get {
             if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 8)
+                this.__hWnd := HWND(8, this)
             return this.__hWnd
         }
     }
@@ -47,7 +47,7 @@ class DRAGLISTINFO extends Win32Struct
     ptCursor{
         get {
             if(!this.HasProp("__ptCursor"))
-                this.__ptCursor := POINT(this.ptr + 16)
+                this.__ptCursor := POINT(16, this)
             return this.__ptCursor
         }
     }

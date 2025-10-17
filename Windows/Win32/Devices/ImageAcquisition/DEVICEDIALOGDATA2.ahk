@@ -43,7 +43,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 24)
+                this.__hwndParent := HWND(24, this)
             return this.__hwndParent
         }
     }
@@ -54,7 +54,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
     bstrFolderName{
         get {
             if(!this.HasProp("__bstrFolderName"))
-                this.__bstrFolderName := BSTR(this.ptr + 32)
+                this.__bstrFolderName := BSTR(32, this)
             return this.__bstrFolderName
         }
     }
@@ -65,7 +65,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
     bstrFilename{
         get {
             if(!this.HasProp("__bstrFilename"))
-                this.__bstrFilename := BSTR(this.ptr + 40)
+                this.__bstrFilename := BSTR(40, this)
             return this.__bstrFilename
         }
     }
@@ -94,12 +94,8 @@ class DEVICEDIALOGDATA2 extends Win32Struct
         set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

@@ -22,7 +22,7 @@ class MOUSEHOOKSTRUCTEX extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := MOUSEHOOKSTRUCT(this.ptr + 0)
+                this.__Base := MOUSEHOOKSTRUCT(0, this)
             return this.__Base
         }
     }

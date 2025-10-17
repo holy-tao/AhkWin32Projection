@@ -32,7 +32,7 @@ class COLORINFO extends Win32Struct
     Red{
         get {
             if(!this.HasProp("__Red"))
-                this.__Red := CIECHROMA(this.ptr + 0)
+                this.__Red := CIECHROMA(0, this)
             return this.__Red
         }
     }
@@ -44,7 +44,7 @@ class COLORINFO extends Win32Struct
     Green{
         get {
             if(!this.HasProp("__Green"))
-                this.__Green := CIECHROMA(this.ptr + 16)
+                this.__Green := CIECHROMA(16, this)
             return this.__Green
         }
     }
@@ -56,7 +56,7 @@ class COLORINFO extends Win32Struct
     Blue{
         get {
             if(!this.HasProp("__Blue"))
-                this.__Blue := CIECHROMA(this.ptr + 32)
+                this.__Blue := CIECHROMA(32, this)
             return this.__Blue
         }
     }
@@ -68,7 +68,7 @@ class COLORINFO extends Win32Struct
     Cyan{
         get {
             if(!this.HasProp("__Cyan"))
-                this.__Cyan := CIECHROMA(this.ptr + 48)
+                this.__Cyan := CIECHROMA(48, this)
             return this.__Cyan
         }
     }
@@ -80,7 +80,7 @@ class COLORINFO extends Win32Struct
     Magenta{
         get {
             if(!this.HasProp("__Magenta"))
-                this.__Magenta := CIECHROMA(this.ptr + 64)
+                this.__Magenta := CIECHROMA(64, this)
             return this.__Magenta
         }
     }
@@ -92,7 +92,7 @@ class COLORINFO extends Win32Struct
     Yellow{
         get {
             if(!this.HasProp("__Yellow"))
-                this.__Yellow := CIECHROMA(this.ptr + 80)
+                this.__Yellow := CIECHROMA(80, this)
             return this.__Yellow
         }
     }
@@ -106,7 +106,7 @@ class COLORINFO extends Win32Struct
     AlignmentWhite{
         get {
             if(!this.HasProp("__AlignmentWhite"))
-                this.__AlignmentWhite := CIECHROMA(this.ptr + 96)
+                this.__AlignmentWhite := CIECHROMA(96, this)
             return this.__AlignmentWhite
         }
     }

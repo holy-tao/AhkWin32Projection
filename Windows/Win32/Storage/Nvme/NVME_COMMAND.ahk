@@ -101,7 +101,7 @@ class NVME_COMMAND extends Win32Struct
     CDW0{
         get {
             if(!this.HasProp("__CDW0"))
-                this.__CDW0 := NVME_COMMAND_DWORD0(this.ptr + 0)
+                this.__CDW0 := NVME_COMMAND_DWORD0(0, this)
             return this.__CDW0
         }
     }
@@ -224,7 +224,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_IDENTIFY(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_IDENTIFY(0, this)
                 return this.__CDW10
             }
         }
@@ -235,7 +235,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_IDENTIFY(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_IDENTIFY(8, this)
                 return this.__CDW11
             }
         }
@@ -270,7 +270,7 @@ class NVME_COMMAND extends Win32Struct
         CDW14_V20{
             get {
                 if(!this.HasProp("__CDW14_V20"))
-                    this.__CDW14_V20 := NVME_CDW14_IDENTIFY(this.ptr + 32)
+                    this.__CDW14_V20 := NVME_CDW14_IDENTIFY(32, this)
                 return this.__CDW14_V20
             }
         }
@@ -295,7 +295,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_ABORT(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_ABORT(0, this)
                 return this.__CDW10
             }
         }
@@ -352,7 +352,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_GET_FEATURES(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_GET_FEATURES(0, this)
                 return this.__CDW10
             }
         }
@@ -363,7 +363,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_FEATURES(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_FEATURES(8, this)
                 return this.__CDW11
             }
         }
@@ -412,7 +412,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_SET_FEATURES(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_SET_FEATURES(0, this)
                 return this.__CDW10
             }
         }
@@ -423,7 +423,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_FEATURES(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_FEATURES(8, this)
                 return this.__CDW11
             }
         }
@@ -434,7 +434,7 @@ class NVME_COMMAND extends Win32Struct
         CDW12{
             get {
                 if(!this.HasProp("__CDW12"))
-                    this.__CDW12 := NVME_CDW12_FEATURES(this.ptr + 176)
+                    this.__CDW12 := NVME_CDW12_FEATURES(176, this)
                 return this.__CDW12
             }
         }
@@ -445,7 +445,7 @@ class NVME_COMMAND extends Win32Struct
         CDW13{
             get {
                 if(!this.HasProp("__CDW13"))
-                    this.__CDW13 := NVME_CDW13_FEATURES(this.ptr + 192)
+                    this.__CDW13 := NVME_CDW13_FEATURES(192, this)
                 return this.__CDW13
             }
         }
@@ -456,7 +456,7 @@ class NVME_COMMAND extends Win32Struct
         CDW14{
             get {
                 if(!this.HasProp("__CDW14"))
-                    this.__CDW14 := NVME_CDW14_FEATURES(this.ptr + 208)
+                    this.__CDW14 := NVME_CDW14_FEATURES(208, this)
                 return this.__CDW14
             }
         }
@@ -467,7 +467,7 @@ class NVME_COMMAND extends Win32Struct
         CDW15{
             get {
                 if(!this.HasProp("__CDW15"))
-                    this.__CDW15 := NVME_CDW15_FEATURES(this.ptr + 224)
+                    this.__CDW15 := NVME_CDW15_FEATURES(224, this)
                 return this.__CDW15
             }
         }
@@ -484,7 +484,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_GET_LOG_PAGE(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_GET_LOG_PAGE(0, this)
                 return this.__CDW10
             }
         }
@@ -495,7 +495,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10_V121{
             get {
                 if(!this.HasProp("__CDW10_V121"))
-                    this.__CDW10_V121 := NVME_CDW10_GET_LOG_PAGE_V121(this.ptr + 0)
+                    this.__CDW10_V121 := NVME_CDW10_GET_LOG_PAGE_V121(0, this)
                 return this.__CDW10_V121
             }
         }
@@ -506,7 +506,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10_V13{
             get {
                 if(!this.HasProp("__CDW10_V13"))
-                    this.__CDW10_V13 := NVME_CDW10_GET_LOG_PAGE_V13(this.ptr + 0)
+                    this.__CDW10_V13 := NVME_CDW10_GET_LOG_PAGE_V13(0, this)
                 return this.__CDW10_V13
             }
         }
@@ -517,7 +517,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10_V20{
             get {
                 if(!this.HasProp("__CDW10_V20"))
-                    this.__CDW10_V20 := NVME_CDW10_GET_LOG_PAGE_V20(this.ptr + 0)
+                    this.__CDW10_V20 := NVME_CDW10_GET_LOG_PAGE_V20(0, this)
                 return this.__CDW10_V20
             }
         }
@@ -528,7 +528,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_GET_LOG_PAGE(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_GET_LOG_PAGE(8, this)
                 return this.__CDW11
             }
         }
@@ -539,7 +539,7 @@ class NVME_COMMAND extends Win32Struct
         CDW12{
             get {
                 if(!this.HasProp("__CDW12"))
-                    this.__CDW12 := NVME_CDW12_GET_LOG_PAGE(this.ptr + 16)
+                    this.__CDW12 := NVME_CDW12_GET_LOG_PAGE(16, this)
                 return this.__CDW12
             }
         }
@@ -550,7 +550,7 @@ class NVME_COMMAND extends Win32Struct
         CDW13{
             get {
                 if(!this.HasProp("__CDW13"))
-                    this.__CDW13 := NVME_CDW13_GET_LOG_PAGE(this.ptr + 24)
+                    this.__CDW13 := NVME_CDW13_GET_LOG_PAGE(24, this)
                 return this.__CDW13
             }
         }
@@ -561,7 +561,7 @@ class NVME_COMMAND extends Win32Struct
         CDW14{
             get {
                 if(!this.HasProp("__CDW14"))
-                    this.__CDW14 := NVME_CDW14_GET_LOG_PAGE(this.ptr + 32)
+                    this.__CDW14 := NVME_CDW14_GET_LOG_PAGE(32, this)
                 return this.__CDW14
             }
         }
@@ -572,7 +572,7 @@ class NVME_COMMAND extends Win32Struct
         CDW14_V20{
             get {
                 if(!this.HasProp("__CDW14_V20"))
-                    this.__CDW14_V20 := NVME_CDW14_GET_LOG_PAGE_V20(this.ptr + 32)
+                    this.__CDW14_V20 := NVME_CDW14_GET_LOG_PAGE_V20(32, this)
                 return this.__CDW14_V20
             }
         }
@@ -597,7 +597,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_CREATE_IO_QUEUE(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_CREATE_IO_QUEUE(0, this)
                 return this.__CDW10
             }
         }
@@ -608,7 +608,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_CREATE_IO_CQ(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_CREATE_IO_CQ(8, this)
                 return this.__CDW11
             }
         }
@@ -657,7 +657,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_CREATE_IO_QUEUE(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_CREATE_IO_QUEUE(0, this)
                 return this.__CDW10
             }
         }
@@ -668,7 +668,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_CREATE_IO_SQ(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_CREATE_IO_SQ(8, this)
                 return this.__CDW11
             }
         }
@@ -717,7 +717,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_DATASET_MANAGEMENT(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_DATASET_MANAGEMENT(0, this)
                 return this.__CDW10
             }
         }
@@ -728,7 +728,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_DATASET_MANAGEMENT(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_DATASET_MANAGEMENT(8, this)
                 return this.__CDW11
             }
         }
@@ -777,7 +777,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_SECURITY_SEND_RECEIVE(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_SECURITY_SEND_RECEIVE(0, this)
                 return this.__CDW10
             }
         }
@@ -788,7 +788,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_SECURITY_SEND(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_SECURITY_SEND(8, this)
                 return this.__CDW11
             }
         }
@@ -837,7 +837,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_SECURITY_SEND_RECEIVE(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_SECURITY_SEND_RECEIVE(0, this)
                 return this.__CDW10
             }
         }
@@ -848,7 +848,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_SECURITY_RECEIVE(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_SECURITY_RECEIVE(8, this)
                 return this.__CDW11
             }
         }
@@ -897,7 +897,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_FIRMWARE_DOWNLOAD(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_FIRMWARE_DOWNLOAD(0, this)
                 return this.__CDW10
             }
         }
@@ -908,7 +908,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_FIRMWARE_DOWNLOAD(this.ptr + 4)
+                    this.__CDW11 := NVME_CDW11_FIRMWARE_DOWNLOAD(4, this)
                 return this.__CDW11
             }
         }
@@ -957,7 +957,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_FIRMWARE_ACTIVATE(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_FIRMWARE_ACTIVATE(0, this)
                 return this.__CDW10
             }
         }
@@ -1014,7 +1014,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_FORMAT_NVM(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_FORMAT_NVM(0, this)
                 return this.__CDW10
             }
         }
@@ -1071,7 +1071,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_DIRECTIVE_RECEIVE(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_DIRECTIVE_RECEIVE(0, this)
                 return this.__CDW10
             }
         }
@@ -1082,7 +1082,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_DIRECTIVE_RECEIVE(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_DIRECTIVE_RECEIVE(8, this)
                 return this.__CDW11
             }
         }
@@ -1093,7 +1093,7 @@ class NVME_COMMAND extends Win32Struct
         CDW12{
             get {
                 if(!this.HasProp("__CDW12"))
-                    this.__CDW12 := NVME_CDW12_DIRECTIVE_RECEIVE(this.ptr + 16)
+                    this.__CDW12 := NVME_CDW12_DIRECTIVE_RECEIVE(16, this)
                 return this.__CDW12
             }
         }
@@ -1134,7 +1134,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_DIRECTIVE_SEND(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_DIRECTIVE_SEND(0, this)
                 return this.__CDW10
             }
         }
@@ -1145,7 +1145,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_DIRECTIVE_SEND(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_DIRECTIVE_SEND(8, this)
                 return this.__CDW11
             }
         }
@@ -1156,7 +1156,7 @@ class NVME_COMMAND extends Win32Struct
         CDW12{
             get {
                 if(!this.HasProp("__CDW12"))
-                    this.__CDW12 := NVME_CDW12_DIRECTIVE_SEND(this.ptr + 16)
+                    this.__CDW12 := NVME_CDW12_DIRECTIVE_SEND(16, this)
                 return this.__CDW12
             }
         }
@@ -1197,7 +1197,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_SANITIZE(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_SANITIZE(0, this)
                 return this.__CDW10
             }
         }
@@ -1208,7 +1208,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_SANITIZE(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_SANITIZE(8, this)
                 return this.__CDW11
             }
         }
@@ -1273,7 +1273,7 @@ class NVME_COMMAND extends Win32Struct
         CDW12{
             get {
                 if(!this.HasProp("__CDW12"))
-                    this.__CDW12 := NVME_CDW12_READ_WRITE(this.ptr + 8)
+                    this.__CDW12 := NVME_CDW12_READ_WRITE(8, this)
                 return this.__CDW12
             }
         }
@@ -1284,7 +1284,7 @@ class NVME_COMMAND extends Win32Struct
         CDW13{
             get {
                 if(!this.HasProp("__CDW13"))
-                    this.__CDW13 := NVME_CDW13_READ_WRITE(this.ptr + 16)
+                    this.__CDW13 := NVME_CDW13_READ_WRITE(16, this)
                 return this.__CDW13
             }
         }
@@ -1303,7 +1303,7 @@ class NVME_COMMAND extends Win32Struct
         CDW15{
             get {
                 if(!this.HasProp("__CDW15"))
-                    this.__CDW15 := NVME_CDW15_READ_WRITE(this.ptr + 32)
+                    this.__CDW15 := NVME_CDW15_READ_WRITE(32, this)
                 return this.__CDW15
             }
         }
@@ -1320,7 +1320,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_RESERVATION_ACQUIRE(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_RESERVATION_ACQUIRE(0, this)
                 return this.__CDW10
             }
         }
@@ -1377,7 +1377,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_RESERVATION_REGISTER(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_RESERVATION_REGISTER(0, this)
                 return this.__CDW10
             }
         }
@@ -1434,7 +1434,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_RESERVATION_RELEASE(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_RESERVATION_RELEASE(0, this)
                 return this.__CDW10
             }
         }
@@ -1491,7 +1491,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_RESERVATION_REPORT(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_RESERVATION_REPORT(0, this)
                 return this.__CDW10
             }
         }
@@ -1502,7 +1502,7 @@ class NVME_COMMAND extends Win32Struct
         CDW11{
             get {
                 if(!this.HasProp("__CDW11"))
-                    this.__CDW11 := NVME_CDW11_RESERVATION_REPORT(this.ptr + 8)
+                    this.__CDW11 := NVME_CDW11_RESERVATION_REPORT(8, this)
                 return this.__CDW11
             }
         }
@@ -1551,7 +1551,7 @@ class NVME_COMMAND extends Win32Struct
         CDW1011{
             get {
                 if(!this.HasProp("__CDW1011"))
-                    this.__CDW1011 := NVME_CDW10_ZONE_MANAGEMENT_SEND(this.ptr + 0)
+                    this.__CDW1011 := NVME_CDW10_ZONE_MANAGEMENT_SEND(0, this)
                 return this.__CDW1011
             }
         }
@@ -1570,7 +1570,7 @@ class NVME_COMMAND extends Win32Struct
         CDW13{
             get {
                 if(!this.HasProp("__CDW13"))
-                    this.__CDW13 := NVME_CDW13_ZONE_MANAGEMENT_SEND(this.ptr + 16)
+                    this.__CDW13 := NVME_CDW13_ZONE_MANAGEMENT_SEND(16, this)
                 return this.__CDW13
             }
         }
@@ -1603,7 +1603,7 @@ class NVME_COMMAND extends Win32Struct
         CDW1011{
             get {
                 if(!this.HasProp("__CDW1011"))
-                    this.__CDW1011 := NVME_CDW10_ZONE_MANAGEMENT_RECEIVE(this.ptr + 0)
+                    this.__CDW1011 := NVME_CDW10_ZONE_MANAGEMENT_RECEIVE(0, this)
                 return this.__CDW1011
             }
         }
@@ -1622,7 +1622,7 @@ class NVME_COMMAND extends Win32Struct
         CDW13{
             get {
                 if(!this.HasProp("__CDW13"))
-                    this.__CDW13 := NVME_CDW13_ZONE_MANAGEMENT_RECEIVE(this.ptr + 16)
+                    this.__CDW13 := NVME_CDW13_ZONE_MANAGEMENT_RECEIVE(16, this)
                 return this.__CDW13
             }
         }
@@ -1655,7 +1655,7 @@ class NVME_COMMAND extends Win32Struct
         CDW1011{
             get {
                 if(!this.HasProp("__CDW1011"))
-                    this.__CDW1011 := NVME_CDW10_ZONE_APPEND(this.ptr + 0)
+                    this.__CDW1011 := NVME_CDW10_ZONE_APPEND(0, this)
                 return this.__CDW1011
             }
         }
@@ -1666,7 +1666,7 @@ class NVME_COMMAND extends Win32Struct
         CDW12{
             get {
                 if(!this.HasProp("__CDW12"))
-                    this.__CDW12 := NVME_CDW12_ZONE_APPEND(this.ptr + 8)
+                    this.__CDW12 := NVME_CDW12_ZONE_APPEND(8, this)
                 return this.__CDW12
             }
         }
@@ -1693,7 +1693,7 @@ class NVME_COMMAND extends Win32Struct
         CDW15{
             get {
                 if(!this.HasProp("__CDW15"))
-                    this.__CDW15 := NVME_CDW15_ZONE_APPEND(this.ptr + 24)
+                    this.__CDW15 := NVME_CDW15_ZONE_APPEND(24, this)
                 return this.__CDW15
             }
         }
@@ -1710,7 +1710,7 @@ class NVME_COMMAND extends Win32Struct
         CDW10{
             get {
                 if(!this.HasProp("__CDW10"))
-                    this.__CDW10 := NVME_CDW10_DEVICE_SELF_TEST(this.ptr + 0)
+                    this.__CDW10 := NVME_CDW10_DEVICE_SELF_TEST(0, this)
                 return this.__CDW10
             }
         }
@@ -1817,7 +1817,7 @@ class NVME_COMMAND extends Win32Struct
     GENERAL{
         get {
             if(!this.HasProp("__GENERAL"))
-                this.__GENERAL := %this.__Class%._GENERAL(this.ptr + 48)
+                this.__GENERAL := %this.__Class%._GENERAL(48, this)
             return this.__GENERAL
         }
     }
@@ -1828,7 +1828,7 @@ class NVME_COMMAND extends Win32Struct
     IDENTIFY{
         get {
             if(!this.HasProp("__IDENTIFY"))
-                this.__IDENTIFY := %this.__Class%._IDENTIFY(this.ptr + 48)
+                this.__IDENTIFY := %this.__Class%._IDENTIFY(48, this)
             return this.__IDENTIFY
         }
     }
@@ -1839,7 +1839,7 @@ class NVME_COMMAND extends Win32Struct
     ABORT{
         get {
             if(!this.HasProp("__ABORT"))
-                this.__ABORT := %this.__Class%._ABORT(this.ptr + 48)
+                this.__ABORT := %this.__Class%._ABORT(48, this)
             return this.__ABORT
         }
     }
@@ -1850,7 +1850,7 @@ class NVME_COMMAND extends Win32Struct
     GETFEATURES{
         get {
             if(!this.HasProp("__GETFEATURES"))
-                this.__GETFEATURES := %this.__Class%._GETFEATURES(this.ptr + 48)
+                this.__GETFEATURES := %this.__Class%._GETFEATURES(48, this)
             return this.__GETFEATURES
         }
     }
@@ -1861,7 +1861,7 @@ class NVME_COMMAND extends Win32Struct
     SETFEATURES{
         get {
             if(!this.HasProp("__SETFEATURES"))
-                this.__SETFEATURES := %this.__Class%._SETFEATURES(this.ptr + 48)
+                this.__SETFEATURES := %this.__Class%._SETFEATURES(48, this)
             return this.__SETFEATURES
         }
     }
@@ -1872,7 +1872,7 @@ class NVME_COMMAND extends Win32Struct
     GETLOGPAGE{
         get {
             if(!this.HasProp("__GETLOGPAGE"))
-                this.__GETLOGPAGE := %this.__Class%._GETLOGPAGE(this.ptr + 48)
+                this.__GETLOGPAGE := %this.__Class%._GETLOGPAGE(48, this)
             return this.__GETLOGPAGE
         }
     }
@@ -1883,7 +1883,7 @@ class NVME_COMMAND extends Win32Struct
     CREATEIOCQ{
         get {
             if(!this.HasProp("__CREATEIOCQ"))
-                this.__CREATEIOCQ := %this.__Class%._CREATEIOCQ(this.ptr + 48)
+                this.__CREATEIOCQ := %this.__Class%._CREATEIOCQ(48, this)
             return this.__CREATEIOCQ
         }
     }
@@ -1894,7 +1894,7 @@ class NVME_COMMAND extends Win32Struct
     CREATEIOSQ{
         get {
             if(!this.HasProp("__CREATEIOSQ"))
-                this.__CREATEIOSQ := %this.__Class%._CREATEIOSQ(this.ptr + 48)
+                this.__CREATEIOSQ := %this.__Class%._CREATEIOSQ(48, this)
             return this.__CREATEIOSQ
         }
     }
@@ -1905,7 +1905,7 @@ class NVME_COMMAND extends Win32Struct
     DATASETMANAGEMENT{
         get {
             if(!this.HasProp("__DATASETMANAGEMENT"))
-                this.__DATASETMANAGEMENT := %this.__Class%._DATASETMANAGEMENT(this.ptr + 48)
+                this.__DATASETMANAGEMENT := %this.__Class%._DATASETMANAGEMENT(48, this)
             return this.__DATASETMANAGEMENT
         }
     }
@@ -1916,7 +1916,7 @@ class NVME_COMMAND extends Win32Struct
     SECURITYSEND{
         get {
             if(!this.HasProp("__SECURITYSEND"))
-                this.__SECURITYSEND := %this.__Class%._SECURITYSEND(this.ptr + 48)
+                this.__SECURITYSEND := %this.__Class%._SECURITYSEND(48, this)
             return this.__SECURITYSEND
         }
     }
@@ -1927,7 +1927,7 @@ class NVME_COMMAND extends Win32Struct
     SECURITYRECEIVE{
         get {
             if(!this.HasProp("__SECURITYRECEIVE"))
-                this.__SECURITYRECEIVE := %this.__Class%._SECURITYRECEIVE(this.ptr + 48)
+                this.__SECURITYRECEIVE := %this.__Class%._SECURITYRECEIVE(48, this)
             return this.__SECURITYRECEIVE
         }
     }
@@ -1938,7 +1938,7 @@ class NVME_COMMAND extends Win32Struct
     FIRMWAREDOWNLOAD{
         get {
             if(!this.HasProp("__FIRMWAREDOWNLOAD"))
-                this.__FIRMWAREDOWNLOAD := %this.__Class%._FIRMWAREDOWNLOAD(this.ptr + 48)
+                this.__FIRMWAREDOWNLOAD := %this.__Class%._FIRMWAREDOWNLOAD(48, this)
             return this.__FIRMWAREDOWNLOAD
         }
     }
@@ -1949,7 +1949,7 @@ class NVME_COMMAND extends Win32Struct
     FIRMWAREACTIVATE{
         get {
             if(!this.HasProp("__FIRMWAREACTIVATE"))
-                this.__FIRMWAREACTIVATE := %this.__Class%._FIRMWAREACTIVATE(this.ptr + 48)
+                this.__FIRMWAREACTIVATE := %this.__Class%._FIRMWAREACTIVATE(48, this)
             return this.__FIRMWAREACTIVATE
         }
     }
@@ -1960,7 +1960,7 @@ class NVME_COMMAND extends Win32Struct
     FORMATNVM{
         get {
             if(!this.HasProp("__FORMATNVM"))
-                this.__FORMATNVM := %this.__Class%._FORMATNVM(this.ptr + 48)
+                this.__FORMATNVM := %this.__Class%._FORMATNVM(48, this)
             return this.__FORMATNVM
         }
     }
@@ -1971,7 +1971,7 @@ class NVME_COMMAND extends Win32Struct
     DIRECTIVERECEIVE{
         get {
             if(!this.HasProp("__DIRECTIVERECEIVE"))
-                this.__DIRECTIVERECEIVE := %this.__Class%._DIRECTIVERECEIVE(this.ptr + 48)
+                this.__DIRECTIVERECEIVE := %this.__Class%._DIRECTIVERECEIVE(48, this)
             return this.__DIRECTIVERECEIVE
         }
     }
@@ -1982,7 +1982,7 @@ class NVME_COMMAND extends Win32Struct
     DIRECTIVESEND{
         get {
             if(!this.HasProp("__DIRECTIVESEND"))
-                this.__DIRECTIVESEND := %this.__Class%._DIRECTIVESEND(this.ptr + 48)
+                this.__DIRECTIVESEND := %this.__Class%._DIRECTIVESEND(48, this)
             return this.__DIRECTIVESEND
         }
     }
@@ -1993,7 +1993,7 @@ class NVME_COMMAND extends Win32Struct
     SANITIZE{
         get {
             if(!this.HasProp("__SANITIZE"))
-                this.__SANITIZE := %this.__Class%._SANITIZE(this.ptr + 48)
+                this.__SANITIZE := %this.__Class%._SANITIZE(48, this)
             return this.__SANITIZE
         }
     }
@@ -2004,7 +2004,7 @@ class NVME_COMMAND extends Win32Struct
     READWRITE{
         get {
             if(!this.HasProp("__READWRITE"))
-                this.__READWRITE := %this.__Class%._READWRITE(this.ptr + 48)
+                this.__READWRITE := %this.__Class%._READWRITE(48, this)
             return this.__READWRITE
         }
     }
@@ -2015,7 +2015,7 @@ class NVME_COMMAND extends Win32Struct
     RESERVATIONACQUIRE{
         get {
             if(!this.HasProp("__RESERVATIONACQUIRE"))
-                this.__RESERVATIONACQUIRE := %this.__Class%._RESERVATIONACQUIRE(this.ptr + 48)
+                this.__RESERVATIONACQUIRE := %this.__Class%._RESERVATIONACQUIRE(48, this)
             return this.__RESERVATIONACQUIRE
         }
     }
@@ -2026,7 +2026,7 @@ class NVME_COMMAND extends Win32Struct
     RESERVATIONREGISTER{
         get {
             if(!this.HasProp("__RESERVATIONREGISTER"))
-                this.__RESERVATIONREGISTER := %this.__Class%._RESERVATIONREGISTER(this.ptr + 48)
+                this.__RESERVATIONREGISTER := %this.__Class%._RESERVATIONREGISTER(48, this)
             return this.__RESERVATIONREGISTER
         }
     }
@@ -2037,7 +2037,7 @@ class NVME_COMMAND extends Win32Struct
     RESERVATIONRELEASE{
         get {
             if(!this.HasProp("__RESERVATIONRELEASE"))
-                this.__RESERVATIONRELEASE := %this.__Class%._RESERVATIONRELEASE(this.ptr + 48)
+                this.__RESERVATIONRELEASE := %this.__Class%._RESERVATIONRELEASE(48, this)
             return this.__RESERVATIONRELEASE
         }
     }
@@ -2048,7 +2048,7 @@ class NVME_COMMAND extends Win32Struct
     RESERVATIONREPORT{
         get {
             if(!this.HasProp("__RESERVATIONREPORT"))
-                this.__RESERVATIONREPORT := %this.__Class%._RESERVATIONREPORT(this.ptr + 48)
+                this.__RESERVATIONREPORT := %this.__Class%._RESERVATIONREPORT(48, this)
             return this.__RESERVATIONREPORT
         }
     }
@@ -2059,7 +2059,7 @@ class NVME_COMMAND extends Win32Struct
     ZONEMANAGEMENTSEND{
         get {
             if(!this.HasProp("__ZONEMANAGEMENTSEND"))
-                this.__ZONEMANAGEMENTSEND := %this.__Class%._ZONEMANAGEMENTSEND(this.ptr + 48)
+                this.__ZONEMANAGEMENTSEND := %this.__Class%._ZONEMANAGEMENTSEND(48, this)
             return this.__ZONEMANAGEMENTSEND
         }
     }
@@ -2070,7 +2070,7 @@ class NVME_COMMAND extends Win32Struct
     ZONEMANAGEMENTRECEIVE{
         get {
             if(!this.HasProp("__ZONEMANAGEMENTRECEIVE"))
-                this.__ZONEMANAGEMENTRECEIVE := %this.__Class%._ZONEMANAGEMENTRECEIVE(this.ptr + 48)
+                this.__ZONEMANAGEMENTRECEIVE := %this.__Class%._ZONEMANAGEMENTRECEIVE(48, this)
             return this.__ZONEMANAGEMENTRECEIVE
         }
     }
@@ -2081,7 +2081,7 @@ class NVME_COMMAND extends Win32Struct
     ZONEAPPEND{
         get {
             if(!this.HasProp("__ZONEAPPEND"))
-                this.__ZONEAPPEND := %this.__Class%._ZONEAPPEND(this.ptr + 48)
+                this.__ZONEAPPEND := %this.__Class%._ZONEAPPEND(48, this)
             return this.__ZONEAPPEND
         }
     }
@@ -2092,7 +2092,7 @@ class NVME_COMMAND extends Win32Struct
     DEVICESELFTEST{
         get {
             if(!this.HasProp("__DEVICESELFTEST"))
-                this.__DEVICESELFTEST := %this.__Class%._DEVICESELFTEST(this.ptr + 48)
+                this.__DEVICESELFTEST := %this.__Class%._DEVICESELFTEST(48, this)
             return this.__DEVICESELFTEST
         }
     }
@@ -2103,7 +2103,7 @@ class NVME_COMMAND extends Win32Struct
     VENDORSPECIFIC{
         get {
             if(!this.HasProp("__VENDORSPECIFIC"))
-                this.__VENDORSPECIFIC := %this.__Class%._VENDORSPECIFIC(this.ptr + 48)
+                this.__VENDORSPECIFIC := %this.__Class%._VENDORSPECIFIC(48, this)
             return this.__VENDORSPECIFIC
         }
     }

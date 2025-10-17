@@ -73,7 +73,7 @@ class VIDEOMEMORYINFO extends Win32Struct
     ddpfDisplay{
         get {
             if(!this.HasProp("__ddpfDisplay"))
-                this.__ddpfDisplay := DDPIXELFORMAT(this.ptr + 24)
+                this.__ddpfDisplay := DDPIXELFORMAT(24, this)
             return this.__ddpfDisplay
         }
     }

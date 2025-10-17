@@ -115,7 +115,7 @@ class Multicast {
      * @since windows5.0
      */
     static McastEnumerateScopes(AddrFamily, ReQuery, pScopeList, pScopeLen, pScopeCount) {
-        result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", "ushort", AddrFamily, "ptr", ReQuery, "ptr", pScopeList, "uint*", pScopeLen, "uint*", pScopeCount, "uint")
+        result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", "ushort", AddrFamily, "int", ReQuery, "ptr", pScopeList, "uint*", pScopeLen, "uint*", pScopeCount, "uint")
         return result
     }
 

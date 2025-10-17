@@ -27,7 +27,7 @@ class PROCESS_INFORMATION extends Win32Struct
     hProcess{
         get {
             if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(this.ptr + 0)
+                this.__hProcess := HANDLE(0, this)
             return this.__hProcess
         }
     }
@@ -39,7 +39,7 @@ class PROCESS_INFORMATION extends Win32Struct
     hThread{
         get {
             if(!this.HasProp("__hThread"))
-                this.__hThread := HANDLE(this.ptr + 8)
+                this.__hThread := HANDLE(8, this)
             return this.__hThread
         }
     }

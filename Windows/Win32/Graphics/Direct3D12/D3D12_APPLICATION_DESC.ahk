@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\D3D12_VERSION_NUMBER.ahk
 
 /**
@@ -16,23 +15,17 @@ class D3D12_APPLICATION_DESC extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pExeFilename{
-        get {
-            if(!this.HasProp("__pExeFilename"))
-                this.__pExeFilename := PWSTR(this.ptr + 0)
-            return this.__pExeFilename
-        }
+    pExeFilename {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 8)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -41,7 +34,7 @@ class D3D12_APPLICATION_DESC extends Win32Struct
     Version{
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := D3D12_VERSION_NUMBER(this.ptr + 16)
+                this.__Version := D3D12_VERSION_NUMBER(16, this)
             return this.__Version
         }
     }
@@ -49,12 +42,9 @@ class D3D12_APPLICATION_DESC extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pEngineName{
-        get {
-            if(!this.HasProp("__pEngineName"))
-                this.__pEngineName := PWSTR(this.ptr + 32)
-            return this.__pEngineName
-        }
+    pEngineName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -63,7 +53,7 @@ class D3D12_APPLICATION_DESC extends Win32Struct
     EngineVersion{
         get {
             if(!this.HasProp("__EngineVersion"))
-                this.__EngineVersion := D3D12_VERSION_NUMBER(this.ptr + 40)
+                this.__EngineVersion := D3D12_VERSION_NUMBER(40, this)
             return this.__EngineVersion
         }
     }

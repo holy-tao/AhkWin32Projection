@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
@@ -23,23 +22,17 @@ class CODEBASEHOLD extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    szDistUnit{
-        get {
-            if(!this.HasProp("__szDistUnit"))
-                this.__szDistUnit := PWSTR(this.ptr + 8)
-            return this.__szDistUnit
-        }
+    szDistUnit {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    szCodeBase{
-        get {
-            if(!this.HasProp("__szCodeBase"))
-                this.__szCodeBase := PWSTR(this.ptr + 16)
-            return this.__szCodeBase
-        }
+    szCodeBase {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -66,12 +59,8 @@ class CODEBASEHOLD extends Win32Struct
         set => NumPut("uint", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

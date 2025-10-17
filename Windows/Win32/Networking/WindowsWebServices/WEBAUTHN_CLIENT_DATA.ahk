@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -39,11 +38,8 @@ class WEBAUTHN_CLIENT_DATA extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszHashAlgId{
-        get {
-            if(!this.HasProp("__pwszHashAlgId"))
-                this.__pwszHashAlgId := PWSTR(this.ptr + 16)
-            return this.__pwszHashAlgId
-        }
+    pwszHashAlgId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

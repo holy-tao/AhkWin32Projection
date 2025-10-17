@@ -33,7 +33,7 @@ class NLM_DATAPLAN_STATUS extends Win32Struct
     UsageData{
         get {
             if(!this.HasProp("__UsageData"))
-                this.__UsageData := NLM_USAGE_DATA(this.ptr + 8)
+                this.__UsageData := NLM_USAGE_DATA(8, this)
             return this.__UsageData
         }
     }
@@ -72,7 +72,7 @@ class NLM_DATAPLAN_STATUS extends Win32Struct
     NextBillingCycle{
         get {
             if(!this.HasProp("__NextBillingCycle"))
-                this.__NextBillingCycle := FILETIME(this.ptr + 40)
+                this.__NextBillingCycle := FILETIME(40, this)
             return this.__NextBillingCycle
         }
     }

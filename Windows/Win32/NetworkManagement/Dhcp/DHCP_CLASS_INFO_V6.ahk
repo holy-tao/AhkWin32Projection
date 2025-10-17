@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the information for a particular DHCPv6 user class or vendor class.
@@ -19,24 +17,18 @@ class DHCP_CLASS_INFO_V6 extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the class name.
      * @type {PWSTR}
      */
-    ClassName{
-        get {
-            if(!this.HasProp("__ClassName"))
-                this.__ClassName := PWSTR(this.ptr + 0)
-            return this.__ClassName
-        }
+    ClassName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the comment for the class.
      * @type {PWSTR}
      */
-    ClassComment{
-        get {
-            if(!this.HasProp("__ClassComment"))
-                this.__ClassComment := PWSTR(this.ptr + 8)
-            return this.__ClassComment
-        }
+    ClassComment {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -52,12 +44,9 @@ class DHCP_CLASS_INFO_V6 extends Win32Struct
      * If <b>TRUE</b>, this information applies to a vendor class; if <b>FALSE</b>, it applies to a user class.
      * @type {BOOL}
      */
-    IsVendor{
-        get {
-            if(!this.HasProp("__IsVendor"))
-                this.__IsVendor := BOOL(this.ptr + 20)
-            return this.__IsVendor
-        }
+    IsVendor {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**

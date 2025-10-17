@@ -18,7 +18,7 @@ class NVME_CDW12_DIRECTIVE_SEND extends Win32Struct
     EnableDirective{
         get {
             if(!this.HasProp("__EnableDirective"))
-                this.__EnableDirective := NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE(this.ptr + 0)
+                this.__EnableDirective := NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE(0, this)
             return this.__EnableDirective
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -47,12 +46,9 @@ class STARTUPINFOW extends Win32Struct
      * Reserved; must be NULL.
      * @type {PWSTR}
      */
-    lpReserved{
-        get {
-            if(!this.HasProp("__lpReserved"))
-                this.__lpReserved := PWSTR(this.ptr + 8)
-            return this.__lpReserved
-        }
+    lpReserved {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -61,24 +57,18 @@ class STARTUPINFOW extends Win32Struct
      * For more information, see [Thread Connection to a Desktop](/windows/desktop/winstation/thread-connection-to-a-desktop).
      * @type {PWSTR}
      */
-    lpDesktop{
-        get {
-            if(!this.HasProp("__lpDesktop"))
-                this.__lpDesktop := PWSTR(this.ptr + 16)
-            return this.__lpDesktop
-        }
+    lpDesktop {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * For console processes, this is the title displayed in the title bar if a new console window is created. If NULL, the name of the executable file is used as the window title instead. This parameter must be NULL for GUI or console processes that do not create a new console window.
      * @type {PWSTR}
      */
-    lpTitle{
-        get {
-            if(!this.HasProp("__lpTitle"))
-                this.__lpTitle := PWSTR(this.ptr + 24)
-            return this.__lpTitle
-        }
+    lpTitle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -217,7 +207,7 @@ class STARTUPINFOW extends Win32Struct
     hStdInput{
         get {
             if(!this.HasProp("__hStdInput"))
-                this.__hStdInput := HANDLE(this.ptr + 80)
+                this.__hStdInput := HANDLE(80, this)
             return this.__hStdInput
         }
     }
@@ -231,7 +221,7 @@ class STARTUPINFOW extends Win32Struct
     hStdOutput{
         get {
             if(!this.HasProp("__hStdOutput"))
-                this.__hStdOutput := HANDLE(this.ptr + 88)
+                this.__hStdOutput := HANDLE(88, this)
             return this.__hStdOutput
         }
     }
@@ -243,7 +233,7 @@ class STARTUPINFOW extends Win32Struct
     hStdError{
         get {
             if(!this.HasProp("__hStdError"))
-                this.__hStdError := HANDLE(this.ptr + 96)
+                this.__hStdError := HANDLE(96, this)
             return this.__hStdError
         }
     }

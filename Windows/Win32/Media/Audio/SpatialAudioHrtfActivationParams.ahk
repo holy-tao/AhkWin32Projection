@@ -66,7 +66,7 @@ class SpatialAudioHrtfActivationParams extends Win32Struct
     EventHandle{
         get {
             if(!this.HasProp("__EventHandle"))
-                this.__EventHandle := HANDLE(this.ptr + 24)
+                this.__EventHandle := HANDLE(24, this)
             return this.__EventHandle
         }
     }

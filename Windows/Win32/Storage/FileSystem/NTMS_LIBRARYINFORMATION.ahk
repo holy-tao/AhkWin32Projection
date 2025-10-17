@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The NTMS_LIBRARYINFORMATION structure defines properties specific to a library object.
@@ -54,24 +53,18 @@ class NTMS_LIBRARYINFORMATION extends Win32Struct
      * Used by drives that require cleaning under robotics control. If <b>TRUE</b>, automatic drive cleaning operations are enabled.
      * @type {BOOL}
      */
-    LibrarySupportsDriveCleaning{
-        get {
-            if(!this.HasProp("__LibrarySupportsDriveCleaning"))
-                this.__LibrarySupportsDriveCleaning := BOOL(this.ptr + 24)
-            return this.__LibrarySupportsDriveCleaning
-        }
+    LibrarySupportsDriveCleaning {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * Returns <b>TRUE</b> if a bar code reader is installed in a library; otherwise returns <b>FALSE</b>.
      * @type {BOOL}
      */
-    BarCodeReaderInstalled{
-        get {
-            if(!this.HasProp("__BarCodeReaderInstalled"))
-                this.__BarCodeReaderInstalled := BOOL(this.ptr + 28)
-            return this.__BarCodeReaderInstalled
-        }
+    BarCodeReaderInstalled {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -222,12 +215,9 @@ class NTMS_LIBRARYINFORMATION extends Win32Struct
      * If this member is <b>TRUE</b>, a full inventory will be performed if a mount fails. The failure may be either hardware or label mismatch. For ATAPI CD libraries, this parameter cannot be disabled. The default is <b>TRUE</b>. Large library owners should disable this feature.
      * @type {BOOL}
      */
-    AutoRecovery{
-        get {
-            if(!this.HasProp("__AutoRecovery"))
-                this.__AutoRecovery := BOOL(this.ptr + 104)
-            return this.__AutoRecovery
-        }
+    AutoRecovery {
+        get => NumGet(this, 104, "int")
+        set => NumPut("int", value, this, 104)
     }
 
     /**

@@ -89,7 +89,7 @@ class TRANSMIT_PACKETS_ELEMENT extends Win32Struct
     hFile{
         get {
             if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 16)
+                this.__hFile := HANDLE(16, this)
             return this.__hFile
         }
     }

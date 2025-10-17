@@ -83,7 +83,7 @@ class ChannelInfo extends Win32Struct
     DVB{
         get {
             if(!this.HasProp("__DVB"))
-                this.__DVB := %this.__Class%._DVB(this.ptr + 8)
+                this.__DVB := %this.__Class%._DVB(8, this)
             return this.__DVB
         }
     }
@@ -94,7 +94,7 @@ class ChannelInfo extends Win32Struct
     DC{
         get {
             if(!this.HasProp("__DC"))
-                this.__DC := %this.__Class%._DC(this.ptr + 8)
+                this.__DC := %this.__Class%._DC(8, this)
             return this.__DC
         }
     }
@@ -105,7 +105,7 @@ class ChannelInfo extends Win32Struct
     ATSC{
         get {
             if(!this.HasProp("__ATSC"))
-                this.__ATSC := %this.__Class%._ATSC(this.ptr + 8)
+                this.__ATSC := %this.__Class%._ATSC(8, this)
             return this.__ATSC
         }
     }

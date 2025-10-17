@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -39,22 +38,16 @@ class SPSHORTCUTPAIR extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszDisplay{
-        get {
-            if(!this.HasProp("__pszDisplay"))
-                this.__pszDisplay := PWSTR(this.ptr + 16)
-            return this.__pszDisplay
-        }
+    pszDisplay {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszSpoken{
-        get {
-            if(!this.HasProp("__pszSpoken"))
-                this.__pszSpoken := PWSTR(this.ptr + 24)
-            return this.__pszSpoken
-        }
+    pszSpoken {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

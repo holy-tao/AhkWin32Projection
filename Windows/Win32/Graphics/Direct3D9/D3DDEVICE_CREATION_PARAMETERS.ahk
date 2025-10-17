@@ -34,7 +34,7 @@ class D3DDEVICE_CREATION_PARAMETERS extends Win32Struct
     hFocusWindow{
         get {
             if(!this.HasProp("__hFocusWindow"))
-                this.__hFocusWindow := HWND(this.ptr + 8)
+                this.__hFocusWindow := HWND(8, this)
             return this.__hFocusWindow
         }
     }

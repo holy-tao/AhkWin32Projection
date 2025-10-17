@@ -21,7 +21,7 @@ class CERT_ISSUER_SERIAL_NUMBER extends Win32Struct
     Issuer{
         get {
             if(!this.HasProp("__Issuer"))
-                this.__Issuer := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__Issuer := CRYPT_INTEGER_BLOB(0, this)
             return this.__Issuer
         }
     }
@@ -33,7 +33,7 @@ class CERT_ISSUER_SERIAL_NUMBER extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumber"))
-                this.__SerialNumber := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__SerialNumber := CRYPT_INTEGER_BLOB(16, this)
             return this.__SerialNumber
         }
     }

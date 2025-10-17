@@ -3,7 +3,6 @@
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains the information needed to create a drag image.
@@ -43,7 +42,7 @@ class SHDRAGIMAGE extends Win32Struct
     sizeDragImage{
         get {
             if(!this.HasProp("__sizeDragImage"))
-                this.__sizeDragImage := SIZE(this.ptr + 0)
+                this.__sizeDragImage := SIZE(0, this)
             return this.__sizeDragImage
         }
     }
@@ -57,7 +56,7 @@ class SHDRAGIMAGE extends Win32Struct
     ptOffset{
         get {
             if(!this.HasProp("__ptOffset"))
-                this.__ptOffset := POINT(this.ptr + 8)
+                this.__ptOffset := POINT(8, this)
             return this.__ptOffset
         }
     }
@@ -71,7 +70,7 @@ class SHDRAGIMAGE extends Win32Struct
     hbmpDragImage{
         get {
             if(!this.HasProp("__hbmpDragImage"))
-                this.__hbmpDragImage := HBITMAP(this.ptr + 16)
+                this.__hbmpDragImage := HBITMAP(16, this)
             return this.__hbmpDragImage
         }
     }
@@ -82,11 +81,8 @@ class SHDRAGIMAGE extends Win32Struct
      * The color used by the control to fill the background of the drag image.
      * @type {COLORREF}
      */
-    crColorKey{
-        get {
-            if(!this.HasProp("__crColorKey"))
-                this.__crColorKey := COLORREF(this.ptr + 24)
-            return this.__crColorKey
-        }
+    crColorKey {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 }

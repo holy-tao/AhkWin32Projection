@@ -57,7 +57,7 @@ class PROJECTION_INFO extends Win32Struct
     PppProjectionInfo{
         get {
             if(!this.HasProp("__PppProjectionInfo"))
-                this.__PppProjectionInfo := PPP_PROJECTION_INFO(this.ptr + 8)
+                this.__PppProjectionInfo := PPP_PROJECTION_INFO(8, this)
             return this.__PppProjectionInfo
         }
     }
@@ -68,7 +68,7 @@ class PROJECTION_INFO extends Win32Struct
     Ikev2ProjectionInfo{
         get {
             if(!this.HasProp("__Ikev2ProjectionInfo"))
-                this.__Ikev2ProjectionInfo := IKEV2_PROJECTION_INFO(this.ptr + 8)
+                this.__Ikev2ProjectionInfo := IKEV2_PROJECTION_INFO(8, this)
             return this.__Ikev2ProjectionInfo
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\MMC_TASK_DISPLAY_BITMAP.ahk
 #Include .\MMC_TASK_DISPLAY_SYMBOL.ahk
 
@@ -32,7 +31,7 @@ class MMC_TASK_DISPLAY_OBJECT extends Win32Struct
     uBitmap{
         get {
             if(!this.HasProp("__uBitmap"))
-                this.__uBitmap := MMC_TASK_DISPLAY_BITMAP(this.ptr + 8)
+                this.__uBitmap := MMC_TASK_DISPLAY_BITMAP(8, this)
             return this.__uBitmap
         }
     }
@@ -43,7 +42,7 @@ class MMC_TASK_DISPLAY_OBJECT extends Win32Struct
     uSymbol{
         get {
             if(!this.HasProp("__uSymbol"))
-                this.__uSymbol := MMC_TASK_DISPLAY_SYMBOL(this.ptr + 8)
+                this.__uSymbol := MMC_TASK_DISPLAY_SYMBOL(8, this)
             return this.__uSymbol
         }
     }

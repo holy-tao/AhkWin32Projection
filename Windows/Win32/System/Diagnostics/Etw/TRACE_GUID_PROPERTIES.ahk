@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The TRACE_GUID_PROPERTIES structure contains information about an event trace provider.
@@ -70,11 +69,8 @@ class TRACE_GUID_PROPERTIES extends Win32Struct
      * If this member is <b>TRUE</b>, the element identified by the <b>Guid</b> member is currently enabled for the session identified by the <b>LoggerId</b> member. If this member is <b>FALSE</b>, all other members have no meaning and should be zero.
      * @type {BOOLEAN}
      */
-    IsEnable{
-        get {
-            if(!this.HasProp("__IsEnable"))
-                this.__IsEnable := BOOLEAN(this.ptr + 24)
-            return this.__IsEnable
-        }
+    IsEnable {
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 }

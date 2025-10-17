@@ -26,7 +26,7 @@ class NFC_REMOTE_DEV_RECV_INFO extends Win32Struct
     sRecvBuffer{
         get {
             if(!this.HasProp("__sRecvBuffer"))
-                this.__sRecvBuffer := NFC_DATA_BUFFER(this.ptr + 8)
+                this.__sRecvBuffer := NFC_DATA_BUFFER(8, this)
             return this.__sRecvBuffer
         }
     }

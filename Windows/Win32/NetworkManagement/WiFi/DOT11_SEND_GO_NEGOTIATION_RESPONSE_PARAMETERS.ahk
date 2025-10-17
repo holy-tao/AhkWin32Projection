@@ -5,7 +5,6 @@
 #Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
 #Include .\DOT11_SSID.ahk
 #Include .\DOT11_WFD_GROUP_ID.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -23,7 +22,7 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -77,7 +76,7 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
     GroupOwnerIntent{
         get {
             if(!this.HasProp("__GroupOwnerIntent"))
-                this.__GroupOwnerIntent := DOT11_WFD_GO_INTENT(this.ptr + 29)
+                this.__GroupOwnerIntent := DOT11_WFD_GO_INTENT(29, this)
             return this.__GroupOwnerIntent
         }
     }
@@ -88,7 +87,7 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
     MinimumConfigTimeout{
         get {
             if(!this.HasProp("__MinimumConfigTimeout"))
-                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(this.ptr + 30)
+                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(30, this)
             return this.__MinimumConfigTimeout
         }
     }
@@ -118,7 +117,7 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
     GroupID{
         get {
             if(!this.HasProp("__GroupID"))
-                this.__GroupID := DOT11_WFD_GROUP_ID(this.ptr + 40)
+                this.__GroupID := DOT11_WFD_GROUP_ID(40, this)
             return this.__GroupID
         }
     }
@@ -126,12 +125,9 @@ class DOT11_SEND_GO_NEGOTIATION_RESPONSE_PARAMETERS extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bUseGroupID{
-        get {
-            if(!this.HasProp("__bUseGroupID"))
-                this.__bUseGroupID := BOOLEAN(this.ptr + 88)
-            return this.__bUseGroupID
-        }
+    bUseGroupID {
+        get => NumGet(this, 88, "char")
+        set => NumPut("char", value, this, 88)
     }
 
     /**

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The MCI_DGV_WINDOW_PARMS structure contains parameters for MCI_WINDOW command for digital-video devices.
@@ -44,7 +43,7 @@ class MCI_DGV_WINDOW_PARMSW extends Win32Struct
     hWnd{
         get {
             if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 8)
+                this.__hWnd := HWND(8, this)
             return this.__hWnd
         }
     }
@@ -62,11 +61,8 @@ class MCI_DGV_WINDOW_PARMSW extends Win32Struct
      * Window caption.
      * @type {PWSTR}
      */
-    lpstrText{
-        get {
-            if(!this.HasProp("__lpstrText"))
-                this.__lpstrText := PWSTR(this.ptr + 24)
-            return this.__lpstrText
-        }
+    lpstrText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

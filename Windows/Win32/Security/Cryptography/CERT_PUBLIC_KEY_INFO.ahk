@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
@@ -24,7 +23,7 @@ class CERT_PUBLIC_KEY_INFO extends Win32Struct
     Algorithm{
         get {
             if(!this.HasProp("__Algorithm"))
-                this.__Algorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 0)
+                this.__Algorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
             return this.__Algorithm
         }
     }
@@ -36,7 +35,7 @@ class CERT_PUBLIC_KEY_INFO extends Win32Struct
     PublicKey{
         get {
             if(!this.HasProp("__PublicKey"))
-                this.__PublicKey := CRYPT_BIT_BLOB(this.ptr + 24)
+                this.__PublicKey := CRYPT_BIT_BLOB(24, this)
             return this.__PublicKey
         }
     }

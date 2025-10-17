@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * Contains private key information needed to authenticate a client or server.
@@ -45,11 +44,8 @@ class SCH_CRED_SECRET_PRIVKEY extends Win32Struct
      * Pointer to a null-terminated string that Schannel uses to decrypt the private key.
      * @type {PSTR}
      */
-    pszPassword{
-        get {
-            if(!this.HasProp("__pszPassword"))
-                this.__pszPassword := PSTR(this.ptr + 24)
-            return this.__pszPassword
-        }
+    pszPassword {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

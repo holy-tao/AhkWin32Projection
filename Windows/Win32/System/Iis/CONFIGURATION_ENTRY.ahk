@@ -18,7 +18,7 @@ class CONFIGURATION_ENTRY extends Win32Struct
     bstrKey{
         get {
             if(!this.HasProp("__bstrKey"))
-                this.__bstrKey := BSTR(this.ptr + 0)
+                this.__bstrKey := BSTR(0, this)
             return this.__bstrKey
         }
     }
@@ -29,7 +29,7 @@ class CONFIGURATION_ENTRY extends Win32Struct
     bstrValue{
         get {
             if(!this.HasProp("__bstrValue"))
-                this.__bstrValue := BSTR(this.ptr + 8)
+                this.__bstrValue := BSTR(8, this)
             return this.__bstrValue
         }
     }

@@ -66,7 +66,7 @@ class VMR9VideoStreamInfo extends Win32Struct
     rNormal{
         get {
             if(!this.HasProp("__rNormal"))
-                this.__rNormal := VMR9NormalizedRect(this.ptr + 24)
+                this.__rNormal := VMR9NormalizedRect(24, this)
             return this.__rNormal
         }
     }

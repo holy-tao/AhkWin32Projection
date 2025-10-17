@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information used to change a password.
@@ -32,7 +30,7 @@ class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__DomainName := LSA_UNICODE_STRING(8, this)
             return this.__DomainName
         }
     }
@@ -44,7 +42,7 @@ class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
     AccountName{
         get {
             if(!this.HasProp("__AccountName"))
-                this.__AccountName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__AccountName := LSA_UNICODE_STRING(24, this)
             return this.__AccountName
         }
     }
@@ -56,7 +54,7 @@ class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
     OldPassword{
         get {
             if(!this.HasProp("__OldPassword"))
-                this.__OldPassword := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__OldPassword := LSA_UNICODE_STRING(40, this)
             return this.__OldPassword
         }
     }
@@ -68,7 +66,7 @@ class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
     NewPassword{
         get {
             if(!this.HasProp("__NewPassword"))
-                this.__NewPassword := LSA_UNICODE_STRING(this.ptr + 56)
+                this.__NewPassword := LSA_UNICODE_STRING(56, this)
             return this.__NewPassword
         }
     }
@@ -77,11 +75,8 @@ class KERB_CHANGEPASSWORD_REQUEST extends Win32Struct
      * TRUE if the client is impersonating another <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security principal</a>. Otherwise, false.
      * @type {BOOLEAN}
      */
-    Impersonating{
-        get {
-            if(!this.HasProp("__Impersonating"))
-                this.__Impersonating := BOOLEAN(this.ptr + 72)
-            return this.__Impersonating
-        }
+    Impersonating {
+        get => NumGet(this, 72, "char")
+        set => NumPut("char", value, this, 72)
     }
 }

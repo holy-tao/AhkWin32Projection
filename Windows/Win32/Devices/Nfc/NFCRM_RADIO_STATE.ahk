@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
@@ -15,11 +14,8 @@ class NFCRM_RADIO_STATE extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    MediaRadioOn{
-        get {
-            if(!this.HasProp("__MediaRadioOn"))
-                this.__MediaRadioOn := BOOLEAN(this.ptr + 0)
-            return this.__MediaRadioOn
-        }
+    MediaRadioOn {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 }

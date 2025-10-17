@@ -47,7 +47,7 @@ class DISPLAYCONFIG_MODE_INFO extends Win32Struct
     adapterId{
         get {
             if(!this.HasProp("__adapterId"))
-                this.__adapterId := LUID(this.ptr + 8)
+                this.__adapterId := LUID(8, this)
             return this.__adapterId
         }
     }
@@ -58,7 +58,7 @@ class DISPLAYCONFIG_MODE_INFO extends Win32Struct
     targetMode{
         get {
             if(!this.HasProp("__targetMode"))
-                this.__targetMode := DISPLAYCONFIG_TARGET_MODE(this.ptr + 16)
+                this.__targetMode := DISPLAYCONFIG_TARGET_MODE(16, this)
             return this.__targetMode
         }
     }
@@ -69,7 +69,7 @@ class DISPLAYCONFIG_MODE_INFO extends Win32Struct
     sourceMode{
         get {
             if(!this.HasProp("__sourceMode"))
-                this.__sourceMode := DISPLAYCONFIG_SOURCE_MODE(this.ptr + 16)
+                this.__sourceMode := DISPLAYCONFIG_SOURCE_MODE(16, this)
             return this.__sourceMode
         }
     }
@@ -80,7 +80,7 @@ class DISPLAYCONFIG_MODE_INFO extends Win32Struct
     desktopImageInfo{
         get {
             if(!this.HasProp("__desktopImageInfo"))
-                this.__desktopImageInfo := DISPLAYCONFIG_DESKTOP_IMAGE_INFO(this.ptr + 16)
+                this.__desktopImageInfo := DISPLAYCONFIG_DESKTOP_IMAGE_INFO(16, this)
             return this.__desktopImageInfo
         }
     }

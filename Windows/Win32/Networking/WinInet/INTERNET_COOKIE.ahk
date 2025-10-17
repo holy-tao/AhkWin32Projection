@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -23,45 +22,33 @@ class INTERNET_COOKIE extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszName{
-        get {
-            if(!this.HasProp("__pszName"))
-                this.__pszName := PSTR(this.ptr + 8)
-            return this.__pszName
-        }
+    pszName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PSTR}
      */
-    pszData{
-        get {
-            if(!this.HasProp("__pszData"))
-                this.__pszData := PSTR(this.ptr + 16)
-            return this.__pszData
-        }
+    pszData {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    pszDomain{
-        get {
-            if(!this.HasProp("__pszDomain"))
-                this.__pszDomain := PSTR(this.ptr + 24)
-            return this.__pszDomain
-        }
+    pszDomain {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    pszPath{
-        get {
-            if(!this.HasProp("__pszPath"))
-                this.__pszPath := PSTR(this.ptr + 32)
-            return this.__pszPath
-        }
+    pszPath {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -83,31 +70,21 @@ class INTERNET_COOKIE extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszUrl{
-        get {
-            if(!this.HasProp("__pszUrl"))
-                this.__pszUrl := PSTR(this.ptr + 56)
-            return this.__pszUrl
-        }
+    pszUrl {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {PSTR}
      */
-    pszP3PPolicy{
-        get {
-            if(!this.HasProp("__pszP3PPolicy"))
-                this.__pszP3PPolicy := PSTR(this.ptr + 64)
-            return this.__pszP3PPolicy
-        }
+    pszP3PPolicy {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -35,7 +34,7 @@ class HSE_TF_INFO extends Win32Struct
     hFile{
         get {
             if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 16)
+                this.__hFile := HANDLE(16, this)
             return this.__hFile
         }
     }
@@ -43,12 +42,9 @@ class HSE_TF_INFO extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszStatusCode{
-        get {
-            if(!this.HasProp("__pszStatusCode"))
-                this.__pszStatusCode := PSTR(this.ptr + 24)
-            return this.__pszStatusCode
-        }
+    pszStatusCode {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

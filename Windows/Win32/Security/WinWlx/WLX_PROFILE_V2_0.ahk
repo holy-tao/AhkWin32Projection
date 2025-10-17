@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains profile information in addition to the information provided by WLX_PROFILE_V1_0.
@@ -40,12 +39,9 @@ class WLX_PROFILE_V2_0 extends Win32Struct
      * The string pointed to by <b>pszProfile</b> must be separately allocated by your GINA DLL. It will be deallocated by Winlogon.
      * @type {PWSTR}
      */
-    pszProfile{
-        get {
-            if(!this.HasProp("__pszProfile"))
-                this.__pszProfile := PWSTR(this.ptr + 8)
-            return this.__pszProfile
-        }
+    pszProfile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -57,12 +53,9 @@ class WLX_PROFILE_V2_0 extends Win32Struct
      * The string pointed to by <b>pszPolicy</b> must be separately allocated by your <a href="https://docs.microsoft.com/windows/desktop/SecGloss/g-gly">GINA</a> DLL. It will be deallocated by <a href="https://docs.microsoft.com/windows/desktop/SecGloss/w-gly">Winlogon</a>.
      * @type {PWSTR}
      */
-    pszPolicy{
-        get {
-            if(!this.HasProp("__pszPolicy"))
-                this.__pszPolicy := PWSTR(this.ptr + 16)
-            return this.__pszPolicy
-        }
+    pszPolicy {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -74,12 +67,9 @@ class WLX_PROFILE_V2_0 extends Win32Struct
      * The string pointed to by <b>pszNetworkDefaultUserProfile</b> must be separately allocated by your GINA DLL. It will be deallocated by Winlogon.
      * @type {PWSTR}
      */
-    pszNetworkDefaultUserProfile{
-        get {
-            if(!this.HasProp("__pszNetworkDefaultUserProfile"))
-                this.__pszNetworkDefaultUserProfile := PWSTR(this.ptr + 24)
-            return this.__pszNetworkDefaultUserProfile
-        }
+    pszNetworkDefaultUserProfile {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -91,12 +81,9 @@ class WLX_PROFILE_V2_0 extends Win32Struct
      * The string pointed to by <b>pszServerName</b> must be separately allocated by your GINA DLL. It will be deallocated by Winlogon.
      * @type {PWSTR}
      */
-    pszServerName{
-        get {
-            if(!this.HasProp("__pszServerName"))
-                this.__pszServerName := PWSTR(this.ptr + 32)
-            return this.__pszServerName
-        }
+    pszServerName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -121,11 +108,8 @@ class WLX_PROFILE_V2_0 extends Win32Struct
      * ```
      * @type {PWSTR}
      */
-    pszEnvironment{
-        get {
-            if(!this.HasProp("__pszEnvironment"))
-                this.__pszEnvironment := PWSTR(this.ptr + 40)
-            return this.__pszEnvironment
-        }
+    pszEnvironment {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

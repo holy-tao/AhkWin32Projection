@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * Specifies features of the storage object, such as sector size, in the StgCreateStorageEx and StgOpenStorageEx functions.
@@ -62,11 +61,8 @@ class STGOPTIONS extends Win32Struct
      * <b>In Windows XP and later:  </b>The <b>pwcsTemplateFile</b> member is only valid if version 2 or later is specified in the <b>usVersion</b> member.
      * @type {PWSTR}
      */
-    pwcsTemplateFile{
-        get {
-            if(!this.HasProp("__pwcsTemplateFile"))
-                this.__pwcsTemplateFile := PWSTR(this.ptr + 8)
-            return this.__pwcsTemplateFile
-        }
+    pwcsTemplateFile {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

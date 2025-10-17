@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\PDH_FMT_COUNTERVALUE.ahk
 
 /**
@@ -21,12 +19,9 @@ class PDH_FMT_COUNTERVALUE_ITEM_W extends Win32Struct
      * Pointer to a null-terminated string that specifies the instance name of the counter. The string is appended to the end of this structure.
      * @type {PWSTR}
      */
-    szName{
-        get {
-            if(!this.HasProp("__szName"))
-                this.__szName := PWSTR(this.ptr + 0)
-            return this.__szName
-        }
+    szName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -36,7 +31,7 @@ class PDH_FMT_COUNTERVALUE_ITEM_W extends Win32Struct
     FmtValue{
         get {
             if(!this.HasProp("__FmtValue"))
-                this.__FmtValue := PDH_FMT_COUNTERVALUE(this.ptr + 8)
+                this.__FmtValue := PDH_FMT_COUNTERVALUE(8, this)
             return this.__FmtValue
         }
     }

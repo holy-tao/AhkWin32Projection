@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
 #Include .\GNSS_FIXDATA_BASIC.ahk
 #Include .\GNSS_FIXDATA_ACCURACY.ahk
 #Include .\GNSS_SATELLITEINFO.ahk
@@ -48,7 +46,7 @@ class GNSS_FIXDATA extends Win32Struct
     FixTimeStamp{
         get {
             if(!this.HasProp("__FixTimeStamp"))
-                this.__FixTimeStamp := FILETIME(this.ptr + 16)
+                this.__FixTimeStamp := FILETIME(16, this)
             return this.__FixTimeStamp
         }
     }
@@ -56,23 +54,17 @@ class GNSS_FIXDATA extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsFinalFix{
-        get {
-            if(!this.HasProp("__IsFinalFix"))
-                this.__IsFinalFix := BOOL(this.ptr + 24)
-            return this.__IsFinalFix
-        }
+    IsFinalFix {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * @type {NTSTATUS}
      */
-    FixStatus{
-        get {
-            if(!this.HasProp("__FixStatus"))
-                this.__FixStatus := NTSTATUS(this.ptr + 28)
-            return this.__FixStatus
-        }
+    FixStatus {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -89,7 +81,7 @@ class GNSS_FIXDATA extends Win32Struct
     BasicData{
         get {
             if(!this.HasProp("__BasicData"))
-                this.__BasicData := GNSS_FIXDATA_BASIC(this.ptr + 40)
+                this.__BasicData := GNSS_FIXDATA_BASIC(40, this)
             return this.__BasicData
         }
     }
@@ -100,7 +92,7 @@ class GNSS_FIXDATA extends Win32Struct
     AccuracyData{
         get {
             if(!this.HasProp("__AccuracyData"))
-                this.__AccuracyData := GNSS_FIXDATA_ACCURACY(this.ptr + 88)
+                this.__AccuracyData := GNSS_FIXDATA_ACCURACY(88, this)
             return this.__AccuracyData
         }
     }
@@ -111,7 +103,7 @@ class GNSS_FIXDATA extends Win32Struct
     SatelliteData{
         get {
             if(!this.HasProp("__SatelliteData"))
-                this.__SatelliteData := GNSS_FIXDATA_SATELLITE(this.ptr + 152)
+                this.__SatelliteData := GNSS_FIXDATA_SATELLITE(152, this)
             return this.__SatelliteData
         }
     }

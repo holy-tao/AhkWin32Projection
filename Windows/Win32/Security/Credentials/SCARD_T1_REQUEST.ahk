@@ -18,7 +18,7 @@ class SCARD_T1_REQUEST extends Win32Struct
     ioRequest{
         get {
             if(!this.HasProp("__ioRequest"))
-                this.__ioRequest := SCARD_IO_REQUEST(this.ptr + 0)
+                this.__ioRequest := SCARD_IO_REQUEST(0, this)
             return this.__ioRequest
         }
     }

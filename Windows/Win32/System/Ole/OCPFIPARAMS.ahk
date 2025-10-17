@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains parameters used to invoke a property sheet dialog box through the OleCreatePropertyFrameIndirect function.
@@ -31,7 +30,7 @@ class OCPFIPARAMS extends Win32Struct
     hWndOwner{
         get {
             if(!this.HasProp("__hWndOwner"))
-                this.__hWndOwner := HWND(this.ptr + 8)
+                this.__hWndOwner := HWND(8, this)
             return this.__hWndOwner
         }
     }
@@ -58,12 +57,9 @@ class OCPFIPARAMS extends Win32Struct
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/nf-wtypesbase-olestr">OLESTR</a> that contains the caption of the dialog.
      * @type {PWSTR}
      */
-    lpszCaption{
-        get {
-            if(!this.HasProp("__lpszCaption"))
-                this.__lpszCaption := PWSTR(this.ptr + 24)
-            return this.__lpszCaption
-        }
+    lpszCaption {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

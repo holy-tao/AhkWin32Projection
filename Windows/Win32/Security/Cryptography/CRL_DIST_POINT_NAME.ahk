@@ -71,7 +71,7 @@ class CRL_DIST_POINT_NAME extends Win32Struct
     FullName{
         get {
             if(!this.HasProp("__FullName"))
-                this.__FullName := CERT_ALT_NAME_INFO(this.ptr + 8)
+                this.__FullName := CERT_ALT_NAME_INFO(8, this)
             return this.__FullName
         }
     }

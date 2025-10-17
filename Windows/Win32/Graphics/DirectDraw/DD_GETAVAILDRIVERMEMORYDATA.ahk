@@ -30,7 +30,7 @@ class DD_GETAVAILDRIVERMEMORYDATA extends Win32Struct
     DDSCaps{
         get {
             if(!this.HasProp("__DDSCaps"))
-                this.__DDSCaps := DDSCAPS(this.ptr + 8)
+                this.__DDSCaps := DDSCAPS(8, this)
             return this.__DDSCaps
         }
     }

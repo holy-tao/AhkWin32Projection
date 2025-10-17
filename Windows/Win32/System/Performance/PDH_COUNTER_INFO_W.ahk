@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\PDH_DATA_ITEM_PATH_ELEMENTS_W.ahk
 #Include .\PDH_COUNTER_PATH_ELEMENTS_W.ahk
 
@@ -101,12 +100,9 @@ class PDH_COUNTER_INFO_W extends Win32Struct
      * <b>Null</b>-terminated string that specifies the full counter path. The string follows this structure in memory.
      * @type {PWSTR}
      */
-    szFullPath{
-        get {
-            if(!this.HasProp("__szFullPath"))
-                this.__szFullPath := PWSTR(this.ptr + 40)
-            return this.__szFullPath
-        }
+    szFullPath {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -115,7 +111,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     DataItemPath{
         get {
             if(!this.HasProp("__DataItemPath"))
-                this.__DataItemPath := PDH_DATA_ITEM_PATH_ELEMENTS_W(this.ptr + 48)
+                this.__DataItemPath := PDH_DATA_ITEM_PATH_ELEMENTS_W(48, this)
             return this.__DataItemPath
         }
     }
@@ -126,7 +122,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     CounterPath{
         get {
             if(!this.HasProp("__CounterPath"))
-                this.__CounterPath := PDH_COUNTER_PATH_ELEMENTS_W(this.ptr + 48)
+                this.__CounterPath := PDH_COUNTER_PATH_ELEMENTS_W(48, this)
             return this.__CounterPath
         }
     }
@@ -134,45 +130,33 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    szMachineName{
-        get {
-            if(!this.HasProp("__szMachineName"))
-                this.__szMachineName := PWSTR(this.ptr + 48)
-            return this.__szMachineName
-        }
+    szMachineName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {PWSTR}
      */
-    szObjectName{
-        get {
-            if(!this.HasProp("__szObjectName"))
-                this.__szObjectName := PWSTR(this.ptr + 56)
-            return this.__szObjectName
-        }
+    szObjectName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {PWSTR}
      */
-    szInstanceName{
-        get {
-            if(!this.HasProp("__szInstanceName"))
-                this.__szInstanceName := PWSTR(this.ptr + 64)
-            return this.__szInstanceName
-        }
+    szInstanceName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {PWSTR}
      */
-    szParentInstance{
-        get {
-            if(!this.HasProp("__szParentInstance"))
-                this.__szParentInstance := PWSTR(this.ptr + 72)
-            return this.__szParentInstance
-        }
+    szParentInstance {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -186,24 +170,18 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    szCounterName{
-        get {
-            if(!this.HasProp("__szCounterName"))
-                this.__szCounterName := PWSTR(this.ptr + 88)
-            return this.__szCounterName
-        }
+    szCounterName {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * Help text that describes the counter. Is <b>NULL</b> if the source is a log file.
      * @type {PWSTR}
      */
-    szExplainText{
-        get {
-            if(!this.HasProp("__szExplainText"))
-                this.__szExplainText := PWSTR(this.ptr + 96)
-            return this.__szExplainText
-        }
+    szExplainText {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**

@@ -35,7 +35,7 @@ class WINHTTP_CONNECTION_INFO extends Win32Struct
     LocalAddress{
         get {
             if(!this.HasProp("__LocalAddress"))
-                this.__LocalAddress := SOCKADDR_STORAGE(this.ptr + 8)
+                this.__LocalAddress := SOCKADDR_STORAGE(8, this)
             return this.__LocalAddress
         }
     }
@@ -47,17 +47,13 @@ class WINHTTP_CONNECTION_INFO extends Win32Struct
     RemoteAddress{
         get {
             if(!this.HasProp("__RemoteAddress"))
-                this.__RemoteAddress := SOCKADDR_STORAGE(this.ptr + 256)
+                this.__RemoteAddress := SOCKADDR_STORAGE(256, this)
             return this.__RemoteAddress
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 504
     }
 }

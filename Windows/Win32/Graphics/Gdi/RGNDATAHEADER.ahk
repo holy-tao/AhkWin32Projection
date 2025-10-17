@@ -57,7 +57,7 @@ class RGNDATAHEADER extends Win32Struct
     rcBound{
         get {
             if(!this.HasProp("__rcBound"))
-                this.__rcBound := RECT(this.ptr + 16)
+                this.__rcBound := RECT(16, this)
             return this.__rcBound
         }
     }

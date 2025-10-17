@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used to define a query form added to the query dialog box with the CQAddFormsProc callback function.
@@ -49,7 +48,7 @@ class CQFORM extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 16)
+                this.__hIcon := HICON(16, this)
             return this.__hIcon
         }
     }
@@ -58,11 +57,8 @@ class CQFORM extends Win32Struct
      * Pointer to a null-terminated Unicode string that contains the title of the query form.
      * @type {PWSTR}
      */
-    pszTitle{
-        get {
-            if(!this.HasProp("__pszTitle"))
-                this.__pszTitle := PWSTR(this.ptr + 24)
-            return this.__pszTitle
-        }
+    pszTitle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

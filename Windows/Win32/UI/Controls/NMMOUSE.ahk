@@ -3,7 +3,6 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information used with mouse notification messages.
@@ -26,7 +25,7 @@ class NMMOUSE extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -62,7 +61,7 @@ class NMMOUSE extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 40)
+                this.__pt := POINT(40, this)
             return this.__pt
         }
     }
@@ -73,11 +72,8 @@ class NMMOUSE extends Win32Struct
      * Carries information about where on the item or control the cursor is pointing.
      * @type {LPARAM}
      */
-    dwHitInfo{
-        get {
-            if(!this.HasProp("__dwHitInfo"))
-                this.__dwHitInfo := LPARAM(this.ptr + 48)
-            return this.__dwHitInfo
-        }
+    dwHitInfo {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

@@ -28,7 +28,7 @@ class D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS extends Win32Struct
     SequenceControlDesc{
         get {
             if(!this.HasProp("__SequenceControlDesc"))
-                this.__SequenceControlDesc := D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC(this.ptr + 0)
+                this.__SequenceControlDesc := D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC(0, this)
             return this.__SequenceControlDesc
         }
     }
@@ -39,7 +39,7 @@ class D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS extends Win32Struct
     PictureControlDesc{
         get {
             if(!this.HasProp("__PictureControlDesc"))
-                this.__PictureControlDesc := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC(this.ptr + 96)
+                this.__PictureControlDesc := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC(96, this)
             return this.__PictureControlDesc
         }
     }

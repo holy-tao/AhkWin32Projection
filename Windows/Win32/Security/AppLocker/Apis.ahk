@@ -333,7 +333,7 @@ class AppLocker {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferGetPolicyInformation", "uint", dwScopeId, "int", SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, "uint*", InfoBufferRetSize, "ptr", lpReserved, "ptr")
+        result := DllCall("ADVAPI32.dll\SaferGetPolicyInformation", "uint", dwScopeId, "int", SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, "uint*", InfoBufferRetSize, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -457,7 +457,7 @@ class AppLocker {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferSetPolicyInformation", "uint", dwScopeId, "int", SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, "ptr", lpReserved, "ptr")
+        result := DllCall("ADVAPI32.dll\SaferSetPolicyInformation", "uint", dwScopeId, "int", SaferPolicyInfoClass, "uint", InfoBufferSize, "ptr", InfoBuffer, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -591,7 +591,7 @@ class AppLocker {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferCreateLevel", "uint", dwScopeId, "uint", dwLevelId, "uint", OpenFlags, "ptr", pLevelHandle, "ptr", lpReserved, "ptr")
+        result := DllCall("ADVAPI32.dll\SaferCreateLevel", "uint", dwScopeId, "uint", dwLevelId, "uint", OpenFlags, "ptr", pLevelHandle, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -611,7 +611,7 @@ class AppLocker {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferCloseLevel", "ptr", hLevelHandle, "ptr")
+        result := DllCall("ADVAPI32.dll\SaferCloseLevel", "ptr", hLevelHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -635,7 +635,7 @@ class AppLocker {
     static SaferIdentifyLevel(dwNumProperties, pCodeProperties, pLevelHandle, lpReserved) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferIdentifyLevel", "uint", dwNumProperties, "ptr", pCodeProperties, "ptr", pLevelHandle, "ptr", lpReserved, "ptr")
+        result := DllCall("ADVAPI32.dll\SaferIdentifyLevel", "uint", dwNumProperties, "ptr", pCodeProperties, "ptr", pLevelHandle, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -661,7 +661,7 @@ class AppLocker {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferComputeTokenFromLevel", "ptr", LevelHandle, "ptr", InAccessToken, "ptr", OutAccessToken, "uint", dwFlags, "ptr", lpReserved, "ptr")
+        result := DllCall("ADVAPI32.dll\SaferComputeTokenFromLevel", "ptr", LevelHandle, "ptr", InAccessToken, "ptr", OutAccessToken, "uint", dwFlags, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -744,7 +744,7 @@ class AppLocker {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", "ptr", LevelHandle, "int", dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, "uint*", lpdwOutBufferSize, "ptr")
+        result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", "ptr", LevelHandle, "int", dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, "uint*", lpdwOutBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -826,7 +826,7 @@ class AppLocker {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferSetLevelInformation", "ptr", LevelHandle, "int", dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, "ptr")
+        result := DllCall("ADVAPI32.dll\SaferSetLevelInformation", "ptr", LevelHandle, "int", dwInfoType, "ptr", lpQueryBuffer, "uint", dwInBufferSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -850,7 +850,7 @@ class AppLocker {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SaferRecordEventLogEntry", "ptr", hLevel, "ptr", szTargetPath, "ptr", lpReserved, "ptr")
+        result := DllCall("ADVAPI32.dll\SaferRecordEventLogEntry", "ptr", hLevel, "ptr", szTargetPath, "ptr", lpReserved, "int")
         if(A_LastError)
             throw OSError()
 
@@ -870,7 +870,7 @@ class AppLocker {
     static SaferiIsExecutableFileType(szFullPathname, bFromShellExecute) {
         szFullPathname := szFullPathname is String ? StrPtr(szFullPathname) : szFullPathname
 
-        result := DllCall("ADVAPI32.dll\SaferiIsExecutableFileType", "ptr", szFullPathname, "ptr", bFromShellExecute, "ptr")
+        result := DllCall("ADVAPI32.dll\SaferiIsExecutableFileType", "ptr", szFullPathname, "char", bFromShellExecute, "int")
         return result
     }
 

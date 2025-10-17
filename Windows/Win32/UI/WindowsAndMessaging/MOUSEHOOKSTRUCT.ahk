@@ -24,7 +24,7 @@ class MOUSEHOOKSTRUCT extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 0)
+                this.__pt := POINT(0, this)
             return this.__pt
         }
     }
@@ -38,7 +38,7 @@ class MOUSEHOOKSTRUCT extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 8)
+                this.__hwnd := HWND(8, this)
             return this.__hwnd
         }
     }

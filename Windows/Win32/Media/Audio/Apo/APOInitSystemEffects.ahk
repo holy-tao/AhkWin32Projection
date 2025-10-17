@@ -21,7 +21,7 @@ class APOInitSystemEffects extends Win32Struct
     APOInit{
         get {
             if(!this.HasProp("__APOInit"))
-                this.__APOInit := APOInitBaseStruct(this.ptr + 0)
+                this.__APOInit := APOInitBaseStruct(0, this)
             return this.__APOInit
         }
     }

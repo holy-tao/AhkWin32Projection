@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Specifies or receives the attributes of a list-view item. This structure has been updated to support a new mask value (LVIF_INDENT) that enables item indenting. This structure supersedes the LV_ITEM structure.
@@ -240,12 +238,9 @@ class LVITEMA extends Win32Struct
      * Do not set <b>pszText</b> to LPSTR_TEXTCALLBACK if the list-view control has the <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-window-styles">LVS_SORTASCENDING</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-window-styles">LVS_SORTDESCENDING</a> style.
      * @type {PSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PSTR(this.ptr + 24)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -285,12 +280,9 @@ class LVITEMA extends Win32Struct
      * Value specific to the item. If you use the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-sortitems">LVM_SORTITEMS</a> message, the list-view control passes this value to the application-defined comparison function. You can also use the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-finditem">LVM_FINDITEM</a> message to search a list-view control for an item with a specified <b>lParam</b> value.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 40)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

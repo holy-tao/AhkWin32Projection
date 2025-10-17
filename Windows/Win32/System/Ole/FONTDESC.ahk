@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\CY.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains parameters used to create a font object through the OleCreateFontIndirect function.
@@ -31,12 +29,9 @@ class FONTDESC extends Win32Struct
      * cySize
      * @type {PWSTR}
      */
-    lpstrName{
-        get {
-            if(!this.HasProp("__lpstrName"))
-                this.__lpstrName := PWSTR(this.ptr + 8)
-            return this.__lpstrName
-        }
+    lpstrName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -46,7 +41,7 @@ class FONTDESC extends Win32Struct
     cySize{
         get {
             if(!this.HasProp("__cySize"))
-                this.__cySize := CY(this.ptr + 16)
+                this.__cySize := CY(16, this)
             return this.__cySize
         }
     }
@@ -73,35 +68,26 @@ class FONTDESC extends Win32Struct
      * Initial italic state of the font.
      * @type {BOOL}
      */
-    fItalic{
-        get {
-            if(!this.HasProp("__fItalic"))
-                this.__fItalic := BOOL(this.ptr + 36)
-            return this.__fItalic
-        }
+    fItalic {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
      * Initial underline state of the font.
      * @type {BOOL}
      */
-    fUnderline{
-        get {
-            if(!this.HasProp("__fUnderline"))
-                this.__fUnderline := BOOL(this.ptr + 40)
-            return this.__fUnderline
-        }
+    fUnderline {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * Initial strikethrough state of the font.
      * @type {BOOL}
      */
-    fStrikethrough{
-        get {
-            if(!this.HasProp("__fStrikethrough"))
-                this.__fStrikethrough := BOOL(this.ptr + 44)
-            return this.__fStrikethrough
-        }
+    fStrikethrough {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 }

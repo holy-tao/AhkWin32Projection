@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -16,23 +15,17 @@ class ENDPOINTADDRESS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    serviceUrl{
-        get {
-            if(!this.HasProp("__serviceUrl"))
-                this.__serviceUrl := PWSTR(this.ptr + 0)
-            return this.__serviceUrl
-        }
+    serviceUrl {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    policyUrl{
-        get {
-            if(!this.HasProp("__policyUrl"))
-                this.__policyUrl := PWSTR(this.ptr + 8)
-            return this.__policyUrl
-        }
+    policyUrl {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -41,7 +34,7 @@ class ENDPOINTADDRESS extends Win32Struct
     rawCertificate{
         get {
             if(!this.HasProp("__rawCertificate"))
-                this.__rawCertificate := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__rawCertificate := CRYPT_INTEGER_BLOB(16, this)
             return this.__rawCertificate
         }
     }

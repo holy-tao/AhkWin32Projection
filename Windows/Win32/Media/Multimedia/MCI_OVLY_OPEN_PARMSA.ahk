@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -33,34 +32,25 @@ class MCI_OVLY_OPEN_PARMSA extends Win32Struct
     /**
      * @type {PSTR}
      */
-    lpstrDeviceType{
-        get {
-            if(!this.HasProp("__lpstrDeviceType"))
-                this.__lpstrDeviceType := PSTR(this.ptr + 16)
-            return this.__lpstrDeviceType
-        }
+    lpstrDeviceType {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    lpstrElementName{
-        get {
-            if(!this.HasProp("__lpstrElementName"))
-                this.__lpstrElementName := PSTR(this.ptr + 24)
-            return this.__lpstrElementName
-        }
+    lpstrElementName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    lpstrAlias{
-        get {
-            if(!this.HasProp("__lpstrAlias"))
-                this.__lpstrAlias := PSTR(this.ptr + 32)
-            return this.__lpstrAlias
-        }
+    lpstrAlias {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -77,7 +67,7 @@ class MCI_OVLY_OPEN_PARMSA extends Win32Struct
     hWndParent{
         get {
             if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(this.ptr + 48)
+                this.__hWndParent := HWND(48, this)
             return this.__hWndParent
         }
     }

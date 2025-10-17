@@ -3,7 +3,6 @@
 #Include .\WER_REPORT_PARAMETER.ahk
 #Include .\WER_REPORT_SIGNATURE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
@@ -21,7 +20,7 @@ class WER_REPORT_METADATA_V3 extends Win32Struct
     Signature{
         get {
             if(!this.HasProp("__Signature"))
-                this.__Signature := WER_REPORT_SIGNATURE(this.ptr + 0)
+                this.__Signature := WER_REPORT_SIGNATURE(0, this)
             return this.__Signature
         }
     }
@@ -48,7 +47,7 @@ class WER_REPORT_METADATA_V3 extends Win32Struct
     CreationTime{
         get {
             if(!this.HasProp("__CreationTime"))
-                this.__CreationTime := FILETIME(this.ptr + 232)
+                this.__CreationTime := FILETIME(232, this)
             return this.__CreationTime
         }
     }
@@ -104,12 +103,9 @@ class WER_REPORT_METADATA_V3 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    FileNames{
-        get {
-            if(!this.HasProp("__FileNames"))
-                this.__FileNames := PWSTR(this.ptr + 792)
-            return this.__FileNames
-        }
+    FileNames {
+        get => NumGet(this, 792, "ptr")
+        set => NumPut("ptr", value, this, 792)
     }
 
     /**

@@ -41,7 +41,7 @@ class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
     PA{
         get {
             if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(this.ptr + 8)
+                this.__PA := WNV_IP_ADDRESS(8, this)
             return this.__PA
         }
     }

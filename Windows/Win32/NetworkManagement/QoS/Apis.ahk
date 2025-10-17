@@ -2344,7 +2344,7 @@ class QoS {
      * @since windows6.0.6000
      */
     static QOSCreateHandle(Version, QOSHandle) {
-        result := DllCall("qwave.dll\QOSCreateHandle", "ptr", Version, "ptr", QOSHandle, "ptr")
+        result := DllCall("qwave.dll\QOSCreateHandle", "ptr", Version, "ptr", QOSHandle, "int")
         return result
     }
 
@@ -2378,7 +2378,7 @@ class QoS {
     static QOSCloseHandle(QOSHandle) {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSCloseHandle", "ptr", QOSHandle, "ptr")
+        result := DllCall("qwave.dll\QOSCloseHandle", "ptr", QOSHandle, "int")
         return result
     }
 
@@ -2503,7 +2503,7 @@ class QoS {
 
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSStartTrackingClient", "ptr", QOSHandle, "ptr", DestAddr, "uint", Flags, "ptr")
+        result := DllCall("qwave.dll\QOSStartTrackingClient", "ptr", QOSHandle, "ptr", DestAddr, "uint", Flags, "int")
         return result
     }
 
@@ -2606,7 +2606,7 @@ class QoS {
 
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSStopTrackingClient", "ptr", QOSHandle, "ptr", DestAddr, "uint", Flags, "ptr")
+        result := DllCall("qwave.dll\QOSStopTrackingClient", "ptr", QOSHandle, "ptr", DestAddr, "uint", Flags, "int")
         return result
     }
 
@@ -2712,7 +2712,7 @@ class QoS {
     static QOSEnumerateFlows(QOSHandle, Size, Buffer) {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSEnumerateFlows", "ptr", QOSHandle, "uint*", Size, "ptr", Buffer, "ptr")
+        result := DllCall("qwave.dll\QOSEnumerateFlows", "ptr", QOSHandle, "uint*", Size, "ptr", Buffer, "int")
         return result
     }
 
@@ -2883,7 +2883,7 @@ class QoS {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
         Socket := Socket is Win32Handle ? NumGet(Socket, "ptr") : Socket
 
-        result := DllCall("qwave.dll\QOSAddSocketToFlow", "ptr", QOSHandle, "ptr", Socket, "ptr", DestAddr, "int", TrafficType, "uint", Flags, "uint*", FlowId, "ptr")
+        result := DllCall("qwave.dll\QOSAddSocketToFlow", "ptr", QOSHandle, "ptr", Socket, "ptr", DestAddr, "int", TrafficType, "uint", Flags, "uint*", FlowId, "int")
         return result
     }
 
@@ -3001,7 +3001,7 @@ class QoS {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
         Socket := Socket is Win32Handle ? NumGet(Socket, "ptr") : Socket
 
-        result := DllCall("qwave.dll\QOSRemoveSocketFromFlow", "ptr", QOSHandle, "ptr", Socket, "uint", FlowId, "uint", Flags, "ptr")
+        result := DllCall("qwave.dll\QOSRemoveSocketFromFlow", "ptr", QOSHandle, "ptr", Socket, "uint", FlowId, "uint", Flags, "int")
         return result
     }
 
@@ -3249,7 +3249,7 @@ class QoS {
 
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSSetFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "ptr")
+        result := DllCall("qwave.dll\QOSSetFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
         return result
     }
 
@@ -3514,7 +3514,7 @@ class QoS {
     static QOSQueryFlow(QOSHandle, FlowId, Operation, Size, Buffer, Flags, Overlapped) {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSQueryFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint*", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "ptr")
+        result := DllCall("qwave.dll\QOSQueryFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint*", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
         return result
     }
 
@@ -3713,7 +3713,7 @@ class QoS {
 
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSNotifyFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint*", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "ptr")
+        result := DllCall("qwave.dll\QOSNotifyFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint*", Size, "ptr", Buffer, "uint", Flags, "ptr", Overlapped, "int")
         return result
     }
 
@@ -3814,7 +3814,7 @@ class QoS {
     static QOSCancel(QOSHandle, Overlapped) {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSCancel", "ptr", QOSHandle, "ptr", Overlapped, "ptr")
+        result := DllCall("qwave.dll\QOSCancel", "ptr", QOSHandle, "ptr", Overlapped, "int")
         return result
     }
 
@@ -4303,7 +4303,7 @@ class QoS {
     static TcQueryInterface(IfcHandle, pGuidParam, NotifyChange, pBufferSize, Buffer) {
         IfcHandle := IfcHandle is Win32Handle ? NumGet(IfcHandle, "ptr") : IfcHandle
 
-        result := DllCall("TRAFFIC.dll\TcQueryInterface", "ptr", IfcHandle, "ptr", pGuidParam, "ptr", NotifyChange, "uint*", pBufferSize, "ptr", Buffer, "uint")
+        result := DllCall("TRAFFIC.dll\TcQueryInterface", "ptr", IfcHandle, "ptr", pGuidParam, "char", NotifyChange, "uint*", pBufferSize, "ptr", Buffer, "uint")
         return result
     }
 

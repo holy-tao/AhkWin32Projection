@@ -21,7 +21,7 @@ class D2D1_POINT_DESCRIPTION extends Win32Struct
     point{
         get {
             if(!this.HasProp("__point"))
-                this.__point := D2D_POINT_2F(this.ptr + 0)
+                this.__point := D2D_POINT_2F(0, this)
             return this.__point
         }
     }
@@ -33,7 +33,7 @@ class D2D1_POINT_DESCRIPTION extends Win32Struct
     unitTangentVector{
         get {
             if(!this.HasProp("__unitTangentVector"))
-                this.__unitTangentVector := D2D_POINT_2F(this.ptr + 8)
+                this.__unitTangentVector := D2D_POINT_2F(8, this)
             return this.__unitTangentVector
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
@@ -15,12 +14,9 @@ class POWER_MONITOR_INVOCATION extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    Console{
-        get {
-            if(!this.HasProp("__Console"))
-                this.__Console := BOOLEAN(this.ptr + 0)
-            return this.__Console
-        }
+    Console {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**

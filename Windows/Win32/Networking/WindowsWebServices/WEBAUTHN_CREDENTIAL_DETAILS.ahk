@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -56,34 +54,25 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bRemovable{
-        get {
-            if(!this.HasProp("__bRemovable"))
-                this.__bRemovable := BOOL(this.ptr + 32)
-            return this.__bRemovable
-        }
+    bRemovable {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {BOOL}
      */
-    bBackedUp{
-        get {
-            if(!this.HasProp("__bBackedUp"))
-                this.__bBackedUp := BOOL(this.ptr + 36)
-            return this.__bBackedUp
-        }
+    bBackedUp {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
      * @type {PWSTR}
      */
-    EXPERIMENTAL_pwszAuthenticatorName{
-        get {
-            if(!this.HasProp("__EXPERIMENTAL_pwszAuthenticatorName"))
-                this.__EXPERIMENTAL_pwszAuthenticatorName := PWSTR(this.ptr + 40)
-            return this.__EXPERIMENTAL_pwszAuthenticatorName
-        }
+    EXPERIMENTAL_pwszAuthenticatorName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

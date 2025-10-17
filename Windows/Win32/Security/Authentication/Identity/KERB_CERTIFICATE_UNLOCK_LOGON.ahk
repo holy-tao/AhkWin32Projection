@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include .\KERB_CERTIFICATE_LOGON.ahk
 #Include ..\..\..\Foundation\LUID.ahk
@@ -26,7 +25,7 @@ class KERB_CERTIFICATE_UNLOCK_LOGON extends Win32Struct
     Logon{
         get {
             if(!this.HasProp("__Logon"))
-                this.__Logon := KERB_CERTIFICATE_LOGON(this.ptr + 0)
+                this.__Logon := KERB_CERTIFICATE_LOGON(0, this)
             return this.__Logon
         }
     }
@@ -38,7 +37,7 @@ class KERB_CERTIFICATE_UNLOCK_LOGON extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 72)
+                this.__LogonId := LUID(72, this)
             return this.__LogonId
         }
     }

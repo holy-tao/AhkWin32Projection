@@ -89,7 +89,7 @@ class IN_ADDR extends Win32Struct
     S_un_b{
         get {
             if(!this.HasProp("__S_un_b"))
-                this.__S_un_b := %this.__Class%._S_un_b(this.ptr + 0)
+                this.__S_un_b := %this.__Class%._S_un_b(0, this)
             return this.__S_un_b
         }
     }
@@ -100,7 +100,7 @@ class IN_ADDR extends Win32Struct
     S_un_w{
         get {
             if(!this.HasProp("__S_un_w"))
-                this.__S_un_w := %this.__Class%._S_un_w(this.ptr + 0)
+                this.__S_un_w := %this.__Class%._S_un_w(0, this)
             return this.__S_un_w
         }
     }

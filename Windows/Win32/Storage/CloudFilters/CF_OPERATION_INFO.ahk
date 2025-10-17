@@ -43,7 +43,7 @@ class CF_OPERATION_INFO extends Win32Struct
     ConnectionKey{
         get {
             if(!this.HasProp("__ConnectionKey"))
-                this.__ConnectionKey := CF_CONNECTION_KEY(this.ptr + 8)
+                this.__ConnectionKey := CF_CONNECTION_KEY(8, this)
             return this.__ConnectionKey
         }
     }

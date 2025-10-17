@@ -27,7 +27,7 @@ class NgcTicketContext extends Win32Struct
     hKey{
         get {
             if(!this.HasProp("__hKey"))
-                this.__hKey := NCRYPT_KEY_HANDLE(this.ptr + 96)
+                this.__hKey := NCRYPT_KEY_HANDLE(96, this)
             return this.__hKey
         }
     }
@@ -38,7 +38,7 @@ class NgcTicketContext extends Win32Struct
     hImpersonateToken{
         get {
             if(!this.HasProp("__hImpersonateToken"))
-                this.__hImpersonateToken := HANDLE(this.ptr + 104)
+                this.__hImpersonateToken := HANDLE(104, this)
             return this.__hImpersonateToken
         }
     }

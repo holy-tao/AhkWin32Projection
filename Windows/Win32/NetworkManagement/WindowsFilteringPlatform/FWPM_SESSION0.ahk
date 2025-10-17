@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Stores the state associated with a client session.
@@ -46,7 +44,7 @@ class FWPM_SESSION0 extends Win32Struct
     displayData{
         get {
             if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(this.ptr + 8)
+                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
             return this.__displayData
         }
     }
@@ -122,23 +120,17 @@ class FWPM_SESSION0 extends Win32Struct
      * User name of the client.
      * @type {PWSTR}
      */
-    username{
-        get {
-            if(!this.HasProp("__username"))
-                this.__username := PWSTR(this.ptr + 48)
-            return this.__username
-        }
+    username {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * TRUE if this is a kernel-mode client.
      * @type {BOOL}
      */
-    kernelMode{
-        get {
-            if(!this.HasProp("__kernelMode"))
-                this.__kernelMode := BOOL(this.ptr + 56)
-            return this.__kernelMode
-        }
+    kernelMode {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

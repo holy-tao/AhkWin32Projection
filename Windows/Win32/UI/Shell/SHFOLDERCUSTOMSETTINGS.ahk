@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Holds custom folder settings. This structure is used with the SHGetSetFolderCustomSettings function.
@@ -55,12 +54,9 @@ class SHFOLDERCUSTOMSETTINGS extends Win32Struct
      * A pointer to a null-terminated string containing the path to the folder's <a href="https://docs.microsoft.com/windows/desktop/lwef/web-view">WebView template</a>.
      * @type {PWSTR}
      */
-    pszWebViewTemplate{
-        get {
-            if(!this.HasProp("__pszWebViewTemplate"))
-                this.__pszWebViewTemplate := PWSTR(this.ptr + 16)
-            return this.__pszWebViewTemplate
-        }
+    pszWebViewTemplate {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -80,12 +76,9 @@ class SHFOLDERCUSTOMSETTINGS extends Win32Struct
      * A pointer to a null-terminated buffer containing the WebView template version.
      * @type {PWSTR}
      */
-    pszWebViewTemplateVersion{
-        get {
-            if(!this.HasProp("__pszWebViewTemplateVersion"))
-                this.__pszWebViewTemplateVersion := PWSTR(this.ptr + 32)
-            return this.__pszWebViewTemplateVersion
-        }
+    pszWebViewTemplateVersion {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -94,12 +87,9 @@ class SHFOLDERCUSTOMSETTINGS extends Win32Struct
      * A pointer to a null-terminated buffer containing the text of the folder's infotip.
      * @type {PWSTR}
      */
-    pszInfoTip{
-        get {
-            if(!this.HasProp("__pszInfoTip"))
-                this.__pszInfoTip := PWSTR(this.ptr + 40)
-            return this.__pszInfoTip
-        }
+    pszInfoTip {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -141,12 +131,9 @@ class SHFOLDERCUSTOMSETTINGS extends Win32Struct
      * A pointer to a null-terminated buffer containing the path to file containing the folder's icon.
      * @type {PWSTR}
      */
-    pszIconFile{
-        get {
-            if(!this.HasProp("__pszIconFile"))
-                this.__pszIconFile := PWSTR(this.ptr + 72)
-            return this.__pszIconFile
-        }
+    pszIconFile {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -177,12 +164,9 @@ class SHFOLDERCUSTOMSETTINGS extends Win32Struct
      * A pointer to a null-terminated buffer containing the path to the file containing the folder's logo image. This is the image used in thumbnail views.
      * @type {PWSTR}
      */
-    pszLogo{
-        get {
-            if(!this.HasProp("__pszLogo"))
-                this.__pszLogo := PWSTR(this.ptr + 88)
-            return this.__pszLogo
-        }
+    pszLogo {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**

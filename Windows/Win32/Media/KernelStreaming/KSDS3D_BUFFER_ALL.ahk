@@ -18,7 +18,7 @@ class KSDS3D_BUFFER_ALL extends Win32Struct
     Position{
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := DS3DVECTOR(this.ptr + 0)
+                this.__Position := DS3DVECTOR(0, this)
             return this.__Position
         }
     }
@@ -29,7 +29,7 @@ class KSDS3D_BUFFER_ALL extends Win32Struct
     Velocity{
         get {
             if(!this.HasProp("__Velocity"))
-                this.__Velocity := DS3DVECTOR(this.ptr + 16)
+                this.__Velocity := DS3DVECTOR(16, this)
             return this.__Velocity
         }
     }
@@ -56,7 +56,7 @@ class KSDS3D_BUFFER_ALL extends Win32Struct
     ConeOrientation{
         get {
             if(!this.HasProp("__ConeOrientation"))
-                this.__ConeOrientation := DS3DVECTOR(this.ptr + 40)
+                this.__ConeOrientation := DS3DVECTOR(40, this)
             return this.__ConeOrientation
         }
     }

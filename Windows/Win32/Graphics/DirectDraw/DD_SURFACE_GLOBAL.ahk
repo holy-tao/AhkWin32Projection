@@ -139,7 +139,7 @@ class DD_SURFACE_GLOBAL extends Win32Struct
     ddpfSurface{
         get {
             if(!this.HasProp("__ddpfSurface"))
-                this.__ddpfSurface := DDPIXELFORMAT(this.ptr + 56)
+                this.__ddpfSurface := DDPIXELFORMAT(56, this)
             return this.__ddpfSurface
         }
     }
@@ -160,7 +160,7 @@ class DD_SURFACE_GLOBAL extends Win32Struct
     hCreatorProcess{
         get {
             if(!this.HasProp("__hCreatorProcess"))
-                this.__hCreatorProcess := HANDLE(this.ptr + 96)
+                this.__hCreatorProcess := HANDLE(96, this)
             return this.__hCreatorProcess
         }
     }

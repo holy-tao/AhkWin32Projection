@@ -26,7 +26,7 @@ class IKEEXT_STATISTICS1 extends Win32Struct
     ikeStatistics{
         get {
             if(!this.HasProp("__ikeStatistics"))
-                this.__ikeStatistics := IKEEXT_KEYMODULE_STATISTICS1(this.ptr + 0)
+                this.__ikeStatistics := IKEEXT_KEYMODULE_STATISTICS1(0, this)
             return this.__ikeStatistics
         }
     }
@@ -40,7 +40,7 @@ class IKEEXT_STATISTICS1 extends Win32Struct
     authipStatistics{
         get {
             if(!this.HasProp("__authipStatistics"))
-                this.__authipStatistics := IKEEXT_KEYMODULE_STATISTICS1(this.ptr + 544)
+                this.__authipStatistics := IKEEXT_KEYMODULE_STATISTICS1(544, this)
             return this.__authipStatistics
         }
     }
@@ -54,7 +54,7 @@ class IKEEXT_STATISTICS1 extends Win32Struct
     ikeV2Statistics{
         get {
             if(!this.HasProp("__ikeV2Statistics"))
-                this.__ikeV2Statistics := IKEEXT_KEYMODULE_STATISTICS1(this.ptr + 1088)
+                this.__ikeV2Statistics := IKEEXT_KEYMODULE_STATISTICS1(1088, this)
             return this.__ikeV2Statistics
         }
     }
@@ -68,7 +68,7 @@ class IKEEXT_STATISTICS1 extends Win32Struct
     commonStatistics{
         get {
             if(!this.HasProp("__commonStatistics"))
-                this.__commonStatistics := IKEEXT_COMMON_STATISTICS1(this.ptr + 1632)
+                this.__commonStatistics := IKEEXT_COMMON_STATISTICS1(1632, this)
             return this.__commonStatistics
         }
     }

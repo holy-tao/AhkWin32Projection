@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents the hang monitoring configuration for a COM+ component.
@@ -18,24 +17,18 @@ class ComponentHangMonitorInfo extends Win32Struct
      * Indicates whether the component is configured for hang monitoring.
      * @type {BOOL}
      */
-    IsMonitored{
-        get {
-            if(!this.HasProp("__IsMonitored"))
-                this.__IsMonitored := BOOL(this.ptr + 0)
-            return this.__IsMonitored
-        }
+    IsMonitored {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * Indicates whether the hang monitoring configuration for the component specifies the process will be terminated on a hang. This member is meaningful only if <b>IsMonitored</b> is <b>TRUE</b>.
      * @type {BOOL}
      */
-    TerminateOnHang{
-        get {
-            if(!this.HasProp("__TerminateOnHang"))
-                this.__TerminateOnHang := BOOL(this.ptr + 4)
-            return this.__TerminateOnHang
-        }
+    TerminateOnHang {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**

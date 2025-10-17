@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include .\HTREEITEM.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains an explanation of why the draw of an icon or overlay tree item failed.
@@ -27,7 +25,7 @@ class NMTVASYNCDRAW extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -61,12 +59,9 @@ class NMTVASYNCDRAW extends Win32Struct
      * Handle of the tree item that failed to draw.
      * @type {HTREEITEM}
      */
-    hItem{
-        get {
-            if(!this.HasProp("__hItem"))
-                this.__hItem := HTREEITEM(this.ptr + 40)
-            return this.__hItem
-        }
+    hItem {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -75,12 +70,9 @@ class NMTVASYNCDRAW extends Win32Struct
      * Data for <b>hItem</b>. This is the same data for the item that is retrieved with the message <a href="https://docs.microsoft.com/windows/desktop/Controls/tvm-getitem">TVM_GETITEM</a> using the appropriate <b>mask</b> in structure <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitema">TVITEM</a>. This data is parent specific; the parent can store information that helps it identify the tree item or other information. Data is provided in <b>lParam</b> for convenience, so that the parent does not need to send message <b>TVM_GETITEM</b>.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 48)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**

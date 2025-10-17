@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3DTRANSFORMCAPS.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3DLIGHTINGCAPS.ahk
 #Include .\D3DPRIMCAPS.ahk
 
@@ -53,7 +52,7 @@ class D3DDEVICEDESC extends Win32Struct
     dtcTransformCaps{
         get {
             if(!this.HasProp("__dtcTransformCaps"))
-                this.__dtcTransformCaps := D3DTRANSFORMCAPS(this.ptr + 16)
+                this.__dtcTransformCaps := D3DTRANSFORMCAPS(16, this)
             return this.__dtcTransformCaps
         }
     }
@@ -61,12 +60,9 @@ class D3DDEVICEDESC extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bClipping{
-        get {
-            if(!this.HasProp("__bClipping"))
-                this.__bClipping := BOOL(this.ptr + 24)
-            return this.__bClipping
-        }
+    bClipping {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -75,7 +71,7 @@ class D3DDEVICEDESC extends Win32Struct
     dlcLightingCaps{
         get {
             if(!this.HasProp("__dlcLightingCaps"))
-                this.__dlcLightingCaps := D3DLIGHTINGCAPS(this.ptr + 32)
+                this.__dlcLightingCaps := D3DLIGHTINGCAPS(32, this)
             return this.__dlcLightingCaps
         }
     }
@@ -86,7 +82,7 @@ class D3DDEVICEDESC extends Win32Struct
     dpcLineCaps{
         get {
             if(!this.HasProp("__dpcLineCaps"))
-                this.__dpcLineCaps := D3DPRIMCAPS(this.ptr + 48)
+                this.__dpcLineCaps := D3DPRIMCAPS(48, this)
             return this.__dpcLineCaps
         }
     }
@@ -97,7 +93,7 @@ class D3DDEVICEDESC extends Win32Struct
     dpcTriCaps{
         get {
             if(!this.HasProp("__dpcTriCaps"))
-                this.__dpcTriCaps := D3DPRIMCAPS(this.ptr + 104)
+                this.__dpcTriCaps := D3DPRIMCAPS(104, this)
             return this.__dpcTriCaps
         }
     }

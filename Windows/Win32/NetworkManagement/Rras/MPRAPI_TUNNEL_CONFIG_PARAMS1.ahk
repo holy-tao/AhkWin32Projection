@@ -6,7 +6,6 @@
 #Include .\PPTP_CONFIG_PARAMS.ahk
 #Include .\L2TP_TUNNEL_CONFIG_PARAMS2.ahk
 #Include .\L2TP_CONFIG_PARAMS1.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\SSTP_CERT_INFO.ahk
 #Include .\SSTP_CONFIG_PARAMS.ahk
 #Include .\GRE_CONFIG_PARAMS0.ahk
@@ -30,7 +29,7 @@ class MPRAPI_TUNNEL_CONFIG_PARAMS1 extends Win32Struct
     IkeConfigParams{
         get {
             if(!this.HasProp("__IkeConfigParams"))
-                this.__IkeConfigParams := IKEV2_CONFIG_PARAMS(this.ptr + 0)
+                this.__IkeConfigParams := IKEV2_CONFIG_PARAMS(0, this)
             return this.__IkeConfigParams
         }
     }
@@ -42,7 +41,7 @@ class MPRAPI_TUNNEL_CONFIG_PARAMS1 extends Win32Struct
     PptpConfigParams{
         get {
             if(!this.HasProp("__PptpConfigParams"))
-                this.__PptpConfigParams := PPTP_CONFIG_PARAMS(this.ptr + 120)
+                this.__PptpConfigParams := PPTP_CONFIG_PARAMS(120, this)
             return this.__PptpConfigParams
         }
     }
@@ -54,7 +53,7 @@ class MPRAPI_TUNNEL_CONFIG_PARAMS1 extends Win32Struct
     L2tpConfigParams{
         get {
             if(!this.HasProp("__L2tpConfigParams"))
-                this.__L2tpConfigParams := L2TP_CONFIG_PARAMS1(this.ptr + 128)
+                this.__L2tpConfigParams := L2TP_CONFIG_PARAMS1(128, this)
             return this.__L2tpConfigParams
         }
     }
@@ -66,7 +65,7 @@ class MPRAPI_TUNNEL_CONFIG_PARAMS1 extends Win32Struct
     SstpConfigParams{
         get {
             if(!this.HasProp("__SstpConfigParams"))
-                this.__SstpConfigParams := SSTP_CONFIG_PARAMS(this.ptr + 176)
+                this.__SstpConfigParams := SSTP_CONFIG_PARAMS(176, this)
             return this.__SstpConfigParams
         }
     }
@@ -78,7 +77,7 @@ class MPRAPI_TUNNEL_CONFIG_PARAMS1 extends Win32Struct
     GREConfigParams{
         get {
             if(!this.HasProp("__GREConfigParams"))
-                this.__GREConfigParams := GRE_CONFIG_PARAMS0(this.ptr + 216)
+                this.__GREConfigParams := GRE_CONFIG_PARAMS0(216, this)
             return this.__GREConfigParams
         }
     }

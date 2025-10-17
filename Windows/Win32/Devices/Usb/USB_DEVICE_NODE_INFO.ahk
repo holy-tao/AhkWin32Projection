@@ -7,7 +7,6 @@
 #Include .\USB_PIPE_INFO.ahk
 #Include .\USB_DEVICE_INFO.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\USB_HUB_CAPABILITIES.ahk
 #Include .\USB_HUB_PORT_INFORMATION.ahk
 #Include .\USB_HUB_DEVICE_INFO.ahk
@@ -64,7 +63,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     BusAddress{
         get {
             if(!this.HasProp("__BusAddress"))
-                this.__BusAddress := USB_TOPOLOGY_ADDRESS(this.ptr + 96)
+                this.__BusAddress := USB_TOPOLOGY_ADDRESS(96, this)
             return this.__BusAddress
         }
     }
@@ -75,7 +74,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     UsbDeviceInfo{
         get {
             if(!this.HasProp("__UsbDeviceInfo"))
-                this.__UsbDeviceInfo := USB_DEVICE_INFO(this.ptr + 128)
+                this.__UsbDeviceInfo := USB_DEVICE_INFO(128, this)
             return this.__UsbDeviceInfo
         }
     }
@@ -86,7 +85,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     HubDeviceInfo{
         get {
             if(!this.HasProp("__HubDeviceInfo"))
-                this.__HubDeviceInfo := USB_HUB_DEVICE_INFO(this.ptr + 128)
+                this.__HubDeviceInfo := USB_HUB_DEVICE_INFO(128, this)
             return this.__HubDeviceInfo
         }
     }
@@ -97,7 +96,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     CompositeDeviceInfo{
         get {
             if(!this.HasProp("__CompositeDeviceInfo"))
-                this.__CompositeDeviceInfo := USB_COMPOSITE_DEVICE_INFO(this.ptr + 128)
+                this.__CompositeDeviceInfo := USB_COMPOSITE_DEVICE_INFO(128, this)
             return this.__CompositeDeviceInfo
         }
     }
@@ -108,7 +107,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     ControllerDeviceInfo{
         get {
             if(!this.HasProp("__ControllerDeviceInfo"))
-                this.__ControllerDeviceInfo := USB_CONTROLLER_DEVICE_INFO(this.ptr + 128)
+                this.__ControllerDeviceInfo := USB_CONTROLLER_DEVICE_INFO(128, this)
             return this.__ControllerDeviceInfo
         }
     }

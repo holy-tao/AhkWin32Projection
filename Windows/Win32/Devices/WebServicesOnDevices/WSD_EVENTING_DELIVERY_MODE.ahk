@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents the delivery mode used in a WS-Eventing Subscribe message.
@@ -35,12 +34,9 @@ class WSD_EVENTING_DELIVERY_MODE extends Win32Struct
      * </table>
      * @type {PWSTR}
      */
-    Mode{
-        get {
-            if(!this.HasProp("__Mode"))
-                this.__Mode := PWSTR(this.ptr + 0)
-            return this.__Mode
-        }
+    Mode {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

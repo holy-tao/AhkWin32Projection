@@ -68,7 +68,7 @@ class BM_REQUEST_TYPE extends Win32Struct
     s{
         get {
             if(!this.HasProp("__s"))
-                this.__s := %this.__Class%._BM(this.ptr + 0)
+                this.__s := %this.__Class%._BM(0, this)
             return this.__s
         }
     }

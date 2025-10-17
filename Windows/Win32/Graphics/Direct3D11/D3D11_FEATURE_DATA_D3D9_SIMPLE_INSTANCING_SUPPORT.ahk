@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes whether simple instancing is supported.
@@ -26,11 +25,8 @@ class D3D11_FEATURE_DATA_D3D9_SIMPLE_INSTANCING_SUPPORT extends Win32Struct
      * Specifies whether the hardware and driver support simple instancing. The runtime sets this member to <b>TRUE</b> if  the hardware and driver support simple instancing.
      * @type {BOOL}
      */
-    SimpleInstancingSupported{
-        get {
-            if(!this.HasProp("__SimpleInstancingSupported"))
-                this.__SimpleInstancingSupported := BOOL(this.ptr + 0)
-            return this.__SimpleInstancingSupported
-        }
+    SimpleInstancingSupported {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

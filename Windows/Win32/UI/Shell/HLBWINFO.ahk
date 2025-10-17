@@ -35,7 +35,7 @@ class HLBWINFO extends Win32Struct
     rcFramePos{
         get {
             if(!this.HasProp("__rcFramePos"))
-                this.__rcFramePos := RECT(this.ptr + 8)
+                this.__rcFramePos := RECT(8, this)
             return this.__rcFramePos
         }
     }
@@ -46,7 +46,7 @@ class HLBWINFO extends Win32Struct
     rcDocPos{
         get {
             if(!this.HasProp("__rcDocPos"))
-                this.__rcDocPos := RECT(this.ptr + 24)
+                this.__rcDocPos := RECT(24, this)
             return this.__rcDocPos
         }
     }
@@ -57,17 +57,13 @@ class HLBWINFO extends Win32Struct
     hltbinfo{
         get {
             if(!this.HasProp("__hltbinfo"))
-                this.__hltbinfo := HLTBINFO(this.ptr + 40)
+                this.__hltbinfo := HLTBINFO(40, this)
             return this.__hltbinfo
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 64
     }
 }

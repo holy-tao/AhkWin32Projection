@@ -2776,7 +2776,7 @@ class TabletPC {
     static AdviseInkChange(hrc, bNewStroke) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\AdviseInkChange", "ptr", hrc, "ptr", bNewStroke, "int")
+        result := DllCall("inkobjcore.dll\AdviseInkChange", "ptr", hrc, "int", bNewStroke, "int")
         if(result != 0)
             throw OSError(result)
 

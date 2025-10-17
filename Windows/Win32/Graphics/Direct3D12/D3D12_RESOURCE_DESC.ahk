@@ -191,7 +191,7 @@ class D3D12_RESOURCE_DESC extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(this.ptr + 40)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(40, this)
             return this.__SampleDesc
         }
     }

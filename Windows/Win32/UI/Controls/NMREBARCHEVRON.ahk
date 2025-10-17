@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -27,7 +26,7 @@ class NMREBARCHEVRON extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -60,12 +59,9 @@ class NMREBARCHEVRON extends Win32Struct
      * Application-defined value associated with the band.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 32)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -78,7 +74,7 @@ class NMREBARCHEVRON extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 40)
+                this.__rc := RECT(40, this)
             return this.__rc
         }
     }
@@ -90,11 +86,8 @@ class NMREBARCHEVRON extends Win32Struct
      * 					<i>lAppValue</i> value. Otherwise, it is set to zero.
      * @type {LPARAM}
      */
-    lParamNM{
-        get {
-            if(!this.HasProp("__lParamNM"))
-                this.__lParamNM := LPARAM(this.ptr + 56)
-            return this.__lParamNM
-        }
+    lParamNM {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

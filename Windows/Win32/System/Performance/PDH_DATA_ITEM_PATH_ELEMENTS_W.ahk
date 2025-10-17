@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The PDH_DATA_ITEM_PATH_ELEMENTS structure contains the path elements of a specific data item.
@@ -19,12 +18,9 @@ class PDH_DATA_ITEM_PATH_ELEMENTS_W extends Win32Struct
      * Pointer to a null-terminated string that specifies the name of the computer where the data item resides.
      * @type {PWSTR}
      */
-    szMachineName{
-        get {
-            if(!this.HasProp("__szMachineName"))
-                this.__szMachineName := PWSTR(this.ptr + 0)
-            return this.__szMachineName
-        }
+    szMachineName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -49,11 +45,8 @@ class PDH_DATA_ITEM_PATH_ELEMENTS_W extends Win32Struct
      * Pointer to a null-terminated string that specifies the name of the data item instance.
      * @type {PWSTR}
      */
-    szInstanceName{
-        get {
-            if(!this.HasProp("__szInstanceName"))
-                this.__szInstanceName := PWSTR(this.ptr + 24)
-            return this.__szInstanceName
-        }
+    szInstanceName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

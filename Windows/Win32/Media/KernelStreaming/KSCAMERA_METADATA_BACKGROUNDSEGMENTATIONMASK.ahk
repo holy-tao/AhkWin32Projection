@@ -20,7 +20,7 @@ class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := KSCAMERA_METADATA_ITEMHEADER(this.ptr + 0)
+                this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)
             return this.__Header
         }
     }
@@ -31,7 +31,7 @@ class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
     MaskCoverageBoundingBox{
         get {
             if(!this.HasProp("__MaskCoverageBoundingBox"))
-                this.__MaskCoverageBoundingBox := RECT(this.ptr + 8)
+                this.__MaskCoverageBoundingBox := RECT(8, this)
             return this.__MaskCoverageBoundingBox
         }
     }
@@ -42,7 +42,7 @@ class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
     MaskResolution{
         get {
             if(!this.HasProp("__MaskResolution"))
-                this.__MaskResolution := SIZE(this.ptr + 24)
+                this.__MaskResolution := SIZE(24, this)
             return this.__MaskResolution
         }
     }
@@ -53,7 +53,7 @@ class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
     ForegroundBoundingBox{
         get {
             if(!this.HasProp("__ForegroundBoundingBox"))
-                this.__ForegroundBoundingBox := RECT(this.ptr + 32)
+                this.__ForegroundBoundingBox := RECT(32, this)
             return this.__ForegroundBoundingBox
         }
     }

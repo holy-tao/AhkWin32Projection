@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The details of the sync provider and sync root to be registered.
@@ -32,24 +31,18 @@ class CF_SYNC_REGISTRATION extends Win32Struct
      * The name of the sync provider. This is a user friendly string with a maximum length of 255 characters.
      * @type {PWSTR}
      */
-    ProviderName{
-        get {
-            if(!this.HasProp("__ProviderName"))
-                this.__ProviderName := PWSTR(this.ptr + 8)
-            return this.__ProviderName
-        }
+    ProviderName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The version of the sync provider. This is a user friendly string with a maximum length of 255 characters.
      * @type {PWSTR}
      */
-    ProviderVersion{
-        get {
-            if(!this.HasProp("__ProviderVersion"))
-                this.__ProviderVersion := PWSTR(this.ptr + 16)
-            return this.__ProviderVersion
-        }
+    ProviderVersion {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

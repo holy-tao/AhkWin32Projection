@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains the output for the FSCTL_IS_VOLUME_OWNED_BYCSVFS control code that determines whether a volume is owned by CSVFS.
@@ -19,11 +18,8 @@ class CSV_IS_OWNED_BY_CSVFS extends Win32Struct
      *       <b>FALSE</b>.
      * @type {BOOLEAN}
      */
-    OwnedByCSVFS{
-        get {
-            if(!this.HasProp("__OwnedByCSVFS"))
-                this.__OwnedByCSVFS := BOOLEAN(this.ptr + 0)
-            return this.__OwnedByCSVFS
-        }
+    OwnedByCSVFS {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 }

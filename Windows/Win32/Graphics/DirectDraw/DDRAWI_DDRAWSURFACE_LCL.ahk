@@ -85,7 +85,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(this.ptr + 52)
+                this.__ddsCaps := DDSCAPS(52, this)
             return this.__ddsCaps
         }
     }
@@ -144,7 +144,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     ddckCKDestBlt{
         get {
             if(!this.HasProp("__ddckCKDestBlt"))
-                this.__ddckCKDestBlt := DDCOLORKEY(this.ptr + 80)
+                this.__ddckCKDestBlt := DDCOLORKEY(80, this)
             return this.__ddckCKDestBlt
         }
     }
@@ -155,7 +155,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     ddckCKSrcBlt{
         get {
             if(!this.HasProp("__ddckCKSrcBlt"))
-                this.__ddckCKSrcBlt := DDCOLORKEY(this.ptr + 88)
+                this.__ddckCKSrcBlt := DDCOLORKEY(88, this)
             return this.__ddckCKSrcBlt
         }
     }
@@ -182,7 +182,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     ddckCKSrcOverlay{
         get {
             if(!this.HasProp("__ddckCKSrcOverlay"))
-                this.__ddckCKSrcOverlay := DDCOLORKEY(this.ptr + 112)
+                this.__ddckCKSrcOverlay := DDCOLORKEY(112, this)
             return this.__ddckCKSrcOverlay
         }
     }
@@ -193,7 +193,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     ddckCKDestOverlay{
         get {
             if(!this.HasProp("__ddckCKDestOverlay"))
-                this.__ddckCKDestOverlay := DDCOLORKEY(this.ptr + 120)
+                this.__ddckCKDestOverlay := DDCOLORKEY(120, this)
             return this.__ddckCKDestOverlay
         }
     }
@@ -212,7 +212,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     dbnOverlayNode{
         get {
             if(!this.HasProp("__dbnOverlayNode"))
-                this.__dbnOverlayNode := DBLNODE(this.ptr + 136)
+                this.__dbnOverlayNode := DBLNODE(136, this)
             return this.__dbnOverlayNode
         }
     }
@@ -223,7 +223,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     rcOverlaySrc{
         get {
             if(!this.HasProp("__rcOverlaySrc"))
-                this.__rcOverlaySrc := RECT(this.ptr + 168)
+                this.__rcOverlaySrc := RECT(168, this)
             return this.__rcOverlaySrc
         }
     }
@@ -234,7 +234,7 @@ class DDRAWI_DDRAWSURFACE_LCL extends Win32Struct
     rcOverlayDest{
         get {
             if(!this.HasProp("__rcOverlayDest"))
-                this.__rcOverlayDest := RECT(this.ptr + 184)
+                this.__rcOverlayDest := RECT(184, this)
             return this.__rcOverlayDest
         }
     }

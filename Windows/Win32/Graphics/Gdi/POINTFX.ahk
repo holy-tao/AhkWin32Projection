@@ -26,7 +26,7 @@ class POINTFX extends Win32Struct
     x{
         get {
             if(!this.HasProp("__x"))
-                this.__x := FIXED(this.ptr + 0)
+                this.__x := FIXED(0, this)
             return this.__x
         }
     }
@@ -38,7 +38,7 @@ class POINTFX extends Win32Struct
     y{
         get {
             if(!this.HasProp("__y"))
-                this.__y := FIXED(this.ptr + 4)
+                this.__y := FIXED(4, this)
             return this.__y
         }
     }

@@ -18,7 +18,7 @@ class ImgErrorInfo extends Win32Struct
     description{
         get {
             if(!this.HasProp("__description"))
-                this.__description := BSTR(this.ptr + 0)
+                this.__description := BSTR(0, this)
             return this.__description
         }
     }
@@ -45,7 +45,7 @@ class ImgErrorInfo extends Win32Struct
     helpFile{
         get {
             if(!this.HasProp("__helpFile"))
-                this.__helpFile := BSTR(this.ptr + 24)
+                this.__helpFile := BSTR(24, this)
             return this.__helpFile
         }
     }
@@ -56,7 +56,7 @@ class ImgErrorInfo extends Win32Struct
     source{
         get {
             if(!this.HasProp("__source"))
-                this.__source := BSTR(this.ptr + 32)
+                this.__source := BSTR(32, this)
             return this.__source
         }
     }
@@ -67,7 +67,7 @@ class ImgErrorInfo extends Win32Struct
     devDescription{
         get {
             if(!this.HasProp("__devDescription"))
-                this.__devDescription := BSTR(this.ptr + 40)
+                this.__devDescription := BSTR(40, this)
             return this.__devDescription
         }
     }
@@ -102,7 +102,7 @@ class ImgErrorInfo extends Win32Struct
     userFallback{
         get {
             if(!this.HasProp("__userFallback"))
-                this.__userFallback := BSTR(this.ptr + 72)
+                this.__userFallback := BSTR(72, this)
             return this.__userFallback
         }
     }

@@ -21,7 +21,7 @@ class ROI_AREA extends Win32Struct
     rect{
         get {
             if(!this.HasProp("__rect"))
-                this.__rect := RECT(this.ptr + 0)
+                this.__rect := RECT(0, this)
             return this.__rect
         }
     }

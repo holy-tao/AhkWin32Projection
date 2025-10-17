@@ -19,7 +19,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT extends Win32Struct
     omac{
         get {
             if(!this.HasProp("__omac"))
-                this.__omac := D3D_OMAC(this.ptr + 0)
+                this.__omac := D3D_OMAC(0, this)
             return this.__omac
         }
     }
@@ -38,7 +38,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT extends Win32Struct
     hChannel{
         get {
             if(!this.HasProp("__hChannel"))
-                this.__hChannel := HANDLE(this.ptr + 24)
+                this.__hChannel := HANDLE(24, this)
             return this.__hChannel
         }
     }

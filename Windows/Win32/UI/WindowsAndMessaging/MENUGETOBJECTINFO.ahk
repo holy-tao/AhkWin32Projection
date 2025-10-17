@@ -54,7 +54,7 @@ class MENUGETOBJECTINFO extends Win32Struct
     hmenu{
         get {
             if(!this.HasProp("__hmenu"))
-                this.__hmenu := HMENU(this.ptr + 8)
+                this.__hmenu := HMENU(8, this)
             return this.__hmenu
         }
     }

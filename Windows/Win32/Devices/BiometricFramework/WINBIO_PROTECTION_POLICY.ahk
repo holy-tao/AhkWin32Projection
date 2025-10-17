@@ -26,7 +26,7 @@ class WINBIO_PROTECTION_POLICY extends Win32Struct
     Identity{
         get {
             if(!this.HasProp("__Identity"))
-                this.__Identity := WINBIO_IDENTITY(this.ptr + 8)
+                this.__Identity := WINBIO_IDENTITY(8, this)
             return this.__Identity
         }
     }

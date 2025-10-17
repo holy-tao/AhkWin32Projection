@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BLUETOOTH_ADDRESS.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -28,7 +27,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := BLUETOOTH_ADDRESS(this.ptr + 8)
+                this.__Address := BLUETOOTH_ADDRESS(8, this)
             return this.__Address
         }
     }
@@ -44,34 +43,25 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fConnected{
-        get {
-            if(!this.HasProp("__fConnected"))
-                this.__fConnected := BOOL(this.ptr + 28)
-            return this.__fConnected
-        }
+    fConnected {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
      * @type {BOOL}
      */
-    fRemembered{
-        get {
-            if(!this.HasProp("__fRemembered"))
-                this.__fRemembered := BOOL(this.ptr + 32)
-            return this.__fRemembered
-        }
+    fRemembered {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {BOOL}
      */
-    fAuthenticated{
-        get {
-            if(!this.HasProp("__fAuthenticated"))
-                this.__fAuthenticated := BOOL(this.ptr + 36)
-            return this.__fAuthenticated
-        }
+    fAuthenticated {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -80,7 +70,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     stLastSeen{
         get {
             if(!this.HasProp("__stLastSeen"))
-                this.__stLastSeen := SYSTEMTIME(this.ptr + 40)
+                this.__stLastSeen := SYSTEMTIME(40, this)
             return this.__stLastSeen
         }
     }
@@ -91,7 +81,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     stLastUsed{
         get {
             if(!this.HasProp("__stLastUsed"))
-                this.__stLastUsed := SYSTEMTIME(this.ptr + 56)
+                this.__stLastUsed := SYSTEMTIME(56, this)
             return this.__stLastUsed
         }
     }

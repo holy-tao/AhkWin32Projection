@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IP_ADDRESS_STRING.ahk
 #Include .\IP_ADDR_STRING.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a particular network adapter on the local computer.
@@ -241,7 +240,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     IpAddressList{
         get {
             if(!this.HasProp("__IpAddressList"))
-                this.__IpAddressList := IP_ADDR_STRING(this.ptr + 832)
+                this.__IpAddressList := IP_ADDR_STRING(832, this)
             return this.__IpAddressList
         }
     }
@@ -255,7 +254,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     GatewayList{
         get {
             if(!this.HasProp("__GatewayList"))
-                this.__GatewayList := IP_ADDR_STRING(this.ptr + 912)
+                this.__GatewayList := IP_ADDR_STRING(912, this)
             return this.__GatewayList
         }
     }
@@ -271,7 +270,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     DhcpServer{
         get {
             if(!this.HasProp("__DhcpServer"))
-                this.__DhcpServer := IP_ADDR_STRING(this.ptr + 992)
+                this.__DhcpServer := IP_ADDR_STRING(992, this)
             return this.__DhcpServer
         }
     }
@@ -282,12 +281,9 @@ class IP_ADAPTER_INFO extends Win32Struct
      * An option value that specifies whether this adapter uses the Windows Internet Name Service (WINS).
      * @type {BOOL}
      */
-    HaveWins{
-        get {
-            if(!this.HasProp("__HaveWins"))
-                this.__HaveWins := BOOL(this.ptr + 1072)
-            return this.__HaveWins
-        }
+    HaveWins {
+        get => NumGet(this, 1072, "int")
+        set => NumPut("int", value, this, 1072)
     }
 
     /**
@@ -301,7 +297,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     PrimaryWinsServer{
         get {
             if(!this.HasProp("__PrimaryWinsServer"))
-                this.__PrimaryWinsServer := IP_ADDR_STRING(this.ptr + 1080)
+                this.__PrimaryWinsServer := IP_ADDR_STRING(1080, this)
             return this.__PrimaryWinsServer
         }
     }
@@ -317,7 +313,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     SecondaryWinsServer{
         get {
             if(!this.HasProp("__SecondaryWinsServer"))
-                this.__SecondaryWinsServer := IP_ADDR_STRING(this.ptr + 1160)
+                this.__SecondaryWinsServer := IP_ADDR_STRING(1160, this)
             return this.__SecondaryWinsServer
         }
     }

@@ -23,7 +23,7 @@ class DIBSECTION extends Win32Struct
     dsBm{
         get {
             if(!this.HasProp("__dsBm"))
-                this.__dsBm := BITMAP(this.ptr + 0)
+                this.__dsBm := BITMAP(0, this)
             return this.__dsBm
         }
     }
@@ -35,7 +35,7 @@ class DIBSECTION extends Win32Struct
     dsBmih{
         get {
             if(!this.HasProp("__dsBmih"))
-                this.__dsBmih := BITMAPINFOHEADER(this.ptr + 32)
+                this.__dsBmih := BITMAPINFOHEADER(32, this)
             return this.__dsBmih
         }
     }
@@ -61,7 +61,7 @@ class DIBSECTION extends Win32Struct
     dshSection{
         get {
             if(!this.HasProp("__dshSection"))
-                this.__dshSection := HANDLE(this.ptr + 88)
+                this.__dshSection := HANDLE(88, this)
             return this.__dshSection
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\BTH_LE_UUID.ahk
 
 /**
@@ -31,7 +30,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     DescriptorUuid{
         get {
             if(!this.HasProp("__DescriptorUuid"))
-                this.__DescriptorUuid := BTH_LE_UUID(this.ptr + 8)
+                this.__DescriptorUuid := BTH_LE_UUID(8, this)
             return this.__DescriptorUuid
         }
     }
@@ -43,23 +42,17 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         /**
          * @type {BOOLEAN}
          */
-        IsReliableWriteEnabled{
-            get {
-                if(!this.HasProp("__IsReliableWriteEnabled"))
-                    this.__IsReliableWriteEnabled := BOOLEAN(this.ptr + 0)
-                return this.__IsReliableWriteEnabled
-            }
+        IsReliableWriteEnabled {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
         }
     
         /**
          * @type {BOOLEAN}
          */
-        IsAuxiliariesWritable{
-            get {
-                if(!this.HasProp("__IsAuxiliariesWritable"))
-                    this.__IsAuxiliariesWritable := BOOLEAN(this.ptr + 1)
-                return this.__IsAuxiliariesWritable
-            }
+        IsAuxiliariesWritable {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
         }
     
     }
@@ -71,23 +64,17 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         /**
          * @type {BOOLEAN}
          */
-        IsSubscribeToNotification{
-            get {
-                if(!this.HasProp("__IsSubscribeToNotification"))
-                    this.__IsSubscribeToNotification := BOOLEAN(this.ptr + 0)
-                return this.__IsSubscribeToNotification
-            }
+        IsSubscribeToNotification {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
         }
     
         /**
          * @type {BOOLEAN}
          */
-        IsSubscribeToIndication{
-            get {
-                if(!this.HasProp("__IsSubscribeToIndication"))
-                    this.__IsSubscribeToIndication := BOOLEAN(this.ptr + 1)
-                return this.__IsSubscribeToIndication
-            }
+        IsSubscribeToIndication {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
         }
     
     }
@@ -99,12 +86,9 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         /**
          * @type {BOOLEAN}
          */
-        IsBroadcast{
-            get {
-                if(!this.HasProp("__IsBroadcast"))
-                    this.__IsBroadcast := BOOLEAN(this.ptr + 0)
-                return this.__IsBroadcast
-            }
+        IsBroadcast {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
         }
     
     }
@@ -135,7 +119,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         Unit{
             get {
                 if(!this.HasProp("__Unit"))
-                    this.__Unit := BTH_LE_UUID(this.ptr + 8)
+                    this.__Unit := BTH_LE_UUID(8, this)
                 return this.__Unit
             }
         }
@@ -154,7 +138,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         Description{
             get {
                 if(!this.HasProp("__Description"))
-                    this.__Description := BTH_LE_UUID(this.ptr + 32)
+                    this.__Description := BTH_LE_UUID(32, this)
                 return this.__Description
             }
         }
@@ -167,7 +151,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     CharacteristicExtendedProperties{
         get {
             if(!this.HasProp("__CharacteristicExtendedProperties"))
-                this.__CharacteristicExtendedProperties := %this.__Class%._CharacteristicExtendedProperties(this.ptr + 24)
+                this.__CharacteristicExtendedProperties := %this.__Class%._CharacteristicExtendedProperties(24, this)
             return this.__CharacteristicExtendedProperties
         }
     }
@@ -178,7 +162,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     ClientCharacteristicConfiguration{
         get {
             if(!this.HasProp("__ClientCharacteristicConfiguration"))
-                this.__ClientCharacteristicConfiguration := %this.__Class%._ClientCharacteristicConfiguration(this.ptr + 24)
+                this.__ClientCharacteristicConfiguration := %this.__Class%._ClientCharacteristicConfiguration(24, this)
             return this.__ClientCharacteristicConfiguration
         }
     }
@@ -189,7 +173,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     ServerCharacteristicConfiguration{
         get {
             if(!this.HasProp("__ServerCharacteristicConfiguration"))
-                this.__ServerCharacteristicConfiguration := %this.__Class%._ServerCharacteristicConfiguration(this.ptr + 24)
+                this.__ServerCharacteristicConfiguration := %this.__Class%._ServerCharacteristicConfiguration(24, this)
             return this.__ServerCharacteristicConfiguration
         }
     }
@@ -200,7 +184,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     CharacteristicFormat{
         get {
             if(!this.HasProp("__CharacteristicFormat"))
-                this.__CharacteristicFormat := %this.__Class%._CharacteristicFormat(this.ptr + 24)
+                this.__CharacteristicFormat := %this.__Class%._CharacteristicFormat(24, this)
             return this.__CharacteristicFormat
         }
     }

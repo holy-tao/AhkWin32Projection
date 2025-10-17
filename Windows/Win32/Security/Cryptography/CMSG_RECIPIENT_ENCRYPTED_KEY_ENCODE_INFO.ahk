@@ -34,7 +34,7 @@ class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO extends Win32Struct
     RecipientPublicKey{
         get {
             if(!this.HasProp("__RecipientPublicKey"))
-                this.__RecipientPublicKey := CRYPT_BIT_BLOB(this.ptr + 8)
+                this.__RecipientPublicKey := CRYPT_BIT_BLOB(8, this)
             return this.__RecipientPublicKey
         }
     }
@@ -46,7 +46,7 @@ class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO extends Win32Struct
     RecipientId{
         get {
             if(!this.HasProp("__RecipientId"))
-                this.__RecipientId := CERT_ID(this.ptr + 32)
+                this.__RecipientId := CERT_ID(32, this)
             return this.__RecipientId
         }
     }
@@ -58,7 +58,7 @@ class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO extends Win32Struct
     Date{
         get {
             if(!this.HasProp("__Date"))
-                this.__Date := FILETIME(this.ptr + 72)
+                this.__Date := FILETIME(72, this)
             return this.__Date
         }
     }
@@ -72,12 +72,8 @@ class CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 80)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 88
     }
 }

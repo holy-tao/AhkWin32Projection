@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
@@ -72,7 +71,7 @@ class CERT_INFO extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumber"))
-                this.__SerialNumber := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__SerialNumber := CRYPT_INTEGER_BLOB(8, this)
             return this.__SerialNumber
         }
     }
@@ -84,7 +83,7 @@ class CERT_INFO extends Win32Struct
     SignatureAlgorithm{
         get {
             if(!this.HasProp("__SignatureAlgorithm"))
-                this.__SignatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 24)
+                this.__SignatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(24, this)
             return this.__SignatureAlgorithm
         }
     }
@@ -96,7 +95,7 @@ class CERT_INFO extends Win32Struct
     Issuer{
         get {
             if(!this.HasProp("__Issuer"))
-                this.__Issuer := CRYPT_INTEGER_BLOB(this.ptr + 48)
+                this.__Issuer := CRYPT_INTEGER_BLOB(48, this)
             return this.__Issuer
         }
     }
@@ -108,7 +107,7 @@ class CERT_INFO extends Win32Struct
     NotBefore{
         get {
             if(!this.HasProp("__NotBefore"))
-                this.__NotBefore := FILETIME(this.ptr + 64)
+                this.__NotBefore := FILETIME(64, this)
             return this.__NotBefore
         }
     }
@@ -120,7 +119,7 @@ class CERT_INFO extends Win32Struct
     NotAfter{
         get {
             if(!this.HasProp("__NotAfter"))
-                this.__NotAfter := FILETIME(this.ptr + 72)
+                this.__NotAfter := FILETIME(72, this)
             return this.__NotAfter
         }
     }
@@ -132,7 +131,7 @@ class CERT_INFO extends Win32Struct
     Subject{
         get {
             if(!this.HasProp("__Subject"))
-                this.__Subject := CRYPT_INTEGER_BLOB(this.ptr + 80)
+                this.__Subject := CRYPT_INTEGER_BLOB(80, this)
             return this.__Subject
         }
     }
@@ -144,7 +143,7 @@ class CERT_INFO extends Win32Struct
     SubjectPublicKeyInfo{
         get {
             if(!this.HasProp("__SubjectPublicKeyInfo"))
-                this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(this.ptr + 96)
+                this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(96, this)
             return this.__SubjectPublicKeyInfo
         }
     }
@@ -156,7 +155,7 @@ class CERT_INFO extends Win32Struct
     IssuerUniqueId{
         get {
             if(!this.HasProp("__IssuerUniqueId"))
-                this.__IssuerUniqueId := CRYPT_BIT_BLOB(this.ptr + 144)
+                this.__IssuerUniqueId := CRYPT_BIT_BLOB(144, this)
             return this.__IssuerUniqueId
         }
     }
@@ -168,7 +167,7 @@ class CERT_INFO extends Win32Struct
     SubjectUniqueId{
         get {
             if(!this.HasProp("__SubjectUniqueId"))
-                this.__SubjectUniqueId := CRYPT_BIT_BLOB(this.ptr + 168)
+                this.__SubjectUniqueId := CRYPT_BIT_BLOB(168, this)
             return this.__SubjectUniqueId
         }
     }

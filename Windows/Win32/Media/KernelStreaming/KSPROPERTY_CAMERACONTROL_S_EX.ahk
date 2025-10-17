@@ -19,7 +19,7 @@ class KSPROPERTY_CAMERACONTROL_S_EX extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -54,7 +54,7 @@ class KSPROPERTY_CAMERACONTROL_S_EX extends Win32Struct
     FocusRect{
         get {
             if(!this.HasProp("__FocusRect"))
-                this.__FocusRect := RECT(this.ptr + 32)
+                this.__FocusRect := RECT(32, this)
             return this.__FocusRect
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The WSANSCLASSINFO structure provides individual parameter information for a specific Windows Sockets namespace.
@@ -31,12 +30,9 @@ class WSANSCLASSINFOW extends Win32Struct
      * String value associated with the parameter, such as SAPID, TCPPORT, and so forth.
      * @type {PWSTR}
      */
-    lpszName{
-        get {
-            if(!this.HasProp("__lpszName"))
-                this.__lpszName := PWSTR(this.ptr + 0)
-            return this.__lpszName
-        }
+    lpszName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

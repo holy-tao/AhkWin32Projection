@@ -18,7 +18,7 @@ class MLDV2_REPORT_HEADER extends Win32Struct
     IcmpHeader{
         get {
             if(!this.HasProp("__IcmpHeader"))
-                this.__IcmpHeader := ICMP_HEADER(this.ptr + 0)
+                this.__IcmpHeader := ICMP_HEADER(0, this)
             return this.__IcmpHeader
         }
     }

@@ -21,7 +21,7 @@ class SECPKG_WOW_CLIENT_DLL extends Win32Struct
     WowClientDllPath{
         get {
             if(!this.HasProp("__WowClientDllPath"))
-                this.__WowClientDllPath := SECURITY_STRING(this.ptr + 0)
+                this.__WowClientDllPath := SECURITY_STRING(0, this)
             return this.__WowClientDllPath
         }
     }

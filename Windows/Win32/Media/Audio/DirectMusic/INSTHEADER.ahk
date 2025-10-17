@@ -26,7 +26,7 @@ class INSTHEADER extends Win32Struct
     Locale{
         get {
             if(!this.HasProp("__Locale"))
-                this.__Locale := MIDILOCALE(this.ptr + 8)
+                this.__Locale := MIDILOCALE(8, this)
             return this.__Locale
         }
     }

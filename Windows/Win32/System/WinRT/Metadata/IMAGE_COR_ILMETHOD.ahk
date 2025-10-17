@@ -19,7 +19,7 @@ class IMAGE_COR_ILMETHOD extends Win32Struct
     Tiny{
         get {
             if(!this.HasProp("__Tiny"))
-                this.__Tiny := IMAGE_COR_ILMETHOD_TINY(this.ptr + 0)
+                this.__Tiny := IMAGE_COR_ILMETHOD_TINY(0, this)
             return this.__Tiny
         }
     }
@@ -30,7 +30,7 @@ class IMAGE_COR_ILMETHOD extends Win32Struct
     Fat{
         get {
             if(!this.HasProp("__Fat"))
-                this.__Fat := IMAGE_COR_ILMETHOD_FAT(this.ptr + 0)
+                this.__Fat := IMAGE_COR_ILMETHOD_FAT(0, this)
             return this.__Fat
         }
     }

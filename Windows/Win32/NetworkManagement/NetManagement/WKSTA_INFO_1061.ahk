@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -15,11 +14,8 @@ class WKSTA_INFO_1061 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    wki1061_use_512_byte_max_transfer{
-        get {
-            if(!this.HasProp("__wki1061_use_512_byte_max_transfer"))
-                this.__wki1061_use_512_byte_max_transfer := BOOL(this.ptr + 0)
-            return this.__wki1061_use_512_byte_max_transfer
-        }
+    wki1061_use_512_byte_max_transfer {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

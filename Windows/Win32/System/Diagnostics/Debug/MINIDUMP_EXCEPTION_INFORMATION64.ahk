@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
@@ -39,11 +38,8 @@ class MINIDUMP_EXCEPTION_INFORMATION64 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    ClientPointers{
-        get {
-            if(!this.HasProp("__ClientPointers"))
-                this.__ClientPointers := BOOL(this.ptr + 24)
-            return this.__ClientPointers
-        }
+    ClientPointers {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

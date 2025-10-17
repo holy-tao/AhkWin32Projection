@@ -31,7 +31,7 @@ class INTERFACE_INFO extends Win32Struct
     iiAddress{
         get {
             if(!this.HasProp("__iiAddress"))
-                this.__iiAddress := sockaddr_gen(this.ptr + 8)
+                this.__iiAddress := sockaddr_gen(8, this)
             return this.__iiAddress
         }
     }
@@ -42,7 +42,7 @@ class INTERFACE_INFO extends Win32Struct
     iiBroadcastAddress{
         get {
             if(!this.HasProp("__iiBroadcastAddress"))
-                this.__iiBroadcastAddress := sockaddr_gen(this.ptr + 88)
+                this.__iiBroadcastAddress := sockaddr_gen(88, this)
             return this.__iiBroadcastAddress
         }
     }
@@ -53,7 +53,7 @@ class INTERFACE_INFO extends Win32Struct
     iiNetmask{
         get {
             if(!this.HasProp("__iiNetmask"))
-                this.__iiNetmask := sockaddr_gen(this.ptr + 168)
+                this.__iiNetmask := sockaddr_gen(168, this)
             return this.__iiNetmask
         }
     }

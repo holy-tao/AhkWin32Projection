@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DS_REPL_CURSOR_3 structure contains inbound replication state data with respect to all replicas of a given naming context, as returned by the DsReplicaGetInfo2 function.
@@ -40,7 +39,7 @@ class DS_REPL_CURSOR_3W extends Win32Struct
     ftimeLastSyncSuccess{
         get {
             if(!this.HasProp("__ftimeLastSyncSuccess"))
-                this.__ftimeLastSyncSuccess := FILETIME(this.ptr + 16)
+                this.__ftimeLastSyncSuccess := FILETIME(16, this)
             return this.__ftimeLastSyncSuccess
         }
     }
@@ -49,11 +48,8 @@ class DS_REPL_CURSOR_3W extends Win32Struct
      * Pointer to  a null-terminated string that contains the distinguished name of the directory service agent that corresponds to the source server to which this replication state data applies.
      * @type {PWSTR}
      */
-    pszSourceDsaDN{
-        get {
-            if(!this.HasProp("__pszSourceDsaDN"))
-                this.__pszSourceDsaDN := PWSTR(this.ptr + 24)
-            return this.__pszSourceDsaDN
-        }
+    pszSourceDsaDN {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

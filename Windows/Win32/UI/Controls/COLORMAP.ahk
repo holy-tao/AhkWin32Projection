@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information used by the CreateMappedBitmap function to map the colors of the bitmap.
@@ -20,12 +19,9 @@ class COLORMAP extends Win32Struct
      * Color to map from.
      * @type {COLORREF}
      */
-    from{
-        get {
-            if(!this.HasProp("__from"))
-                this.__from := COLORREF(this.ptr + 0)
-            return this.__from
-        }
+    from {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
     }
 
     /**
@@ -34,11 +30,8 @@ class COLORMAP extends Win32Struct
      * Color to map to.
      * @type {COLORREF}
      */
-    to{
-        get {
-            if(!this.HasProp("__to"))
-                this.__to := COLORREF(this.ptr + 4)
-            return this.__to
-        }
+    to {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 }

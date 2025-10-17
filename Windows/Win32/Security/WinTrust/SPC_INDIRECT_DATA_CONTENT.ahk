@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
 #Include ..\Cryptography\CRYPT_ATTRIBUTE_TYPE_VALUE.ahk
 #Include ..\Cryptography\CRYPT_ALGORITHM_IDENTIFIER.ahk
@@ -24,7 +23,7 @@ class SPC_INDIRECT_DATA_CONTENT extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := CRYPT_ATTRIBUTE_TYPE_VALUE(this.ptr + 0)
+                this.__Data := CRYPT_ATTRIBUTE_TYPE_VALUE(0, this)
             return this.__Data
         }
     }
@@ -36,7 +35,7 @@ class SPC_INDIRECT_DATA_CONTENT extends Win32Struct
     DigestAlgorithm{
         get {
             if(!this.HasProp("__DigestAlgorithm"))
-                this.__DigestAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 24)
+                this.__DigestAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(24, this)
             return this.__DigestAlgorithm
         }
     }
@@ -48,7 +47,7 @@ class SPC_INDIRECT_DATA_CONTENT extends Win32Struct
     Digest{
         get {
             if(!this.HasProp("__Digest"))
-                this.__Digest := CRYPT_INTEGER_BLOB(this.ptr + 48)
+                this.__Digest := CRYPT_INTEGER_BLOB(48, this)
             return this.__Digest
         }
     }

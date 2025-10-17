@@ -22,7 +22,7 @@ class WS_XML_TIMESPAN_TEXT extends Win32Struct
     text{
         get {
             if(!this.HasProp("__text"))
-                this.__text := WS_XML_TEXT(this.ptr + 0)
+                this.__text := WS_XML_TEXT(0, this)
             return this.__text
         }
     }
@@ -34,7 +34,7 @@ class WS_XML_TIMESPAN_TEXT extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := WS_TIMESPAN(this.ptr + 8)
+                this.__value := WS_TIMESPAN(8, this)
             return this.__value
         }
     }

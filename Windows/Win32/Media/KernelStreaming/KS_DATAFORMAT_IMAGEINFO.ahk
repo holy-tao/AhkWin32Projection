@@ -19,7 +19,7 @@ class KS_DATAFORMAT_IMAGEINFO extends Win32Struct
     DataFormat{
         get {
             if(!this.HasProp("__DataFormat"))
-                this.__DataFormat := KSDATAFORMAT(this.ptr + 0)
+                this.__DataFormat := KSDATAFORMAT(0, this)
             return this.__DataFormat
         }
     }
@@ -30,7 +30,7 @@ class KS_DATAFORMAT_IMAGEINFO extends Win32Struct
     ImageInfoHeader{
         get {
             if(!this.HasProp("__ImageInfoHeader"))
-                this.__ImageInfoHeader := KS_BITMAPINFOHEADER(this.ptr + 48)
+                this.__ImageInfoHeader := KS_BITMAPINFOHEADER(48, this)
             return this.__ImageInfoHeader
         }
     }

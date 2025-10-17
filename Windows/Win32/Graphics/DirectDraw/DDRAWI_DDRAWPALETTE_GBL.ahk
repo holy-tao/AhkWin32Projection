@@ -66,7 +66,7 @@ class DDRAWI_DDRAWPALETTE_GBL extends Win32Struct
     hHELGDIPalette{
         get {
             if(!this.HasProp("__hHELGDIPalette"))
-                this.__hHELGDIPalette := HPALETTE(this.ptr + 32)
+                this.__hHELGDIPalette := HPALETTE(32, this)
             return this.__hHELGDIPalette
         }
     }

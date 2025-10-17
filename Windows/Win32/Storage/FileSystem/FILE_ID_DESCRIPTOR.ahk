@@ -98,7 +98,7 @@ class FILE_ID_DESCRIPTOR extends Win32Struct
     ExtendedFileId{
         get {
             if(!this.HasProp("__ExtendedFileId"))
-                this.__ExtendedFileId := FILE_ID_128(this.ptr + 8)
+                this.__ExtendedFileId := FILE_ID_128(8, this)
             return this.__ExtendedFileId
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DFS_TARGET_PRIORITY.ahk
 
 /**
@@ -33,24 +32,18 @@ class DFS_STORAGE_INFO_1 extends Win32Struct
      * Pointer to a null-terminated Unicode string that specifies the DFS root target or link target server name.
      * @type {PWSTR}
      */
-    ServerName{
-        get {
-            if(!this.HasProp("__ServerName"))
-                this.__ServerName := PWSTR(this.ptr + 8)
-            return this.__ServerName
-        }
+    ServerName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the DFS root target or link target share name.
      * @type {PWSTR}
      */
-    ShareName{
-        get {
-            if(!this.HasProp("__ShareName"))
-                this.__ShareName := PWSTR(this.ptr + 16)
-            return this.__ShareName
-        }
+    ShareName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -60,7 +53,7 @@ class DFS_STORAGE_INFO_1 extends Win32Struct
     TargetPriority{
         get {
             if(!this.HasProp("__TargetPriority"))
-                this.__TargetPriority := DFS_TARGET_PRIORITY(this.ptr + 24)
+                this.__TargetPriority := DFS_TARGET_PRIORITY(24, this)
             return this.__TargetPriority
         }
     }

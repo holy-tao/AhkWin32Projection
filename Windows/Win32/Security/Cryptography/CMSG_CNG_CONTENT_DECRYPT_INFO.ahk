@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\NCRYPT_KEY_HANDLE.ahk
@@ -34,7 +33,7 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
     ContentEncryptionAlgorithm{
         get {
             if(!this.HasProp("__ContentEncryptionAlgorithm"))
-                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 8)
+                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
             return this.__ContentEncryptionAlgorithm
         }
     }
@@ -64,7 +63,7 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
     hNCryptKey{
         get {
             if(!this.HasProp("__hNCryptKey"))
-                this.__hNCryptKey := NCRYPT_KEY_HANDLE(this.ptr + 48)
+                this.__hNCryptKey := NCRYPT_KEY_HANDLE(48, this)
             return this.__hNCryptKey
         }
     }
@@ -94,7 +93,7 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
     hCNGContentEncryptKey{
         get {
             if(!this.HasProp("__hCNGContentEncryptKey"))
-                this.__hCNGContentEncryptKey := BCRYPT_KEY_HANDLE(this.ptr + 72)
+                this.__hCNGContentEncryptKey := BCRYPT_KEY_HANDLE(72, this)
             return this.__hCNGContentEncryptKey
         }
     }
@@ -108,12 +107,8 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 80)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 88
     }
 }

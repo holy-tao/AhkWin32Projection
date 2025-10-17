@@ -11089,7 +11089,7 @@ class MediaFoundation {
      * @since windows6.1
      */
     static MFGetTopoNodeCurrentType(pNode, dwStreamIndex, fOutput, ppType) {
-        result := DllCall("MF.dll\MFGetTopoNodeCurrentType", "ptr", pNode, "uint", dwStreamIndex, "ptr", fOutput, "ptr", ppType, "int")
+        result := DllCall("MF.dll\MFGetTopoNodeCurrentType", "ptr", pNode, "uint", dwStreamIndex, "int", fOutput, "ptr", ppType, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15185,7 +15185,7 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCreateDXSurfaceBuffer(riid, punkSurface, fBottomUpWhenLinear, ppBuffer) {
-        result := DllCall("MFPlat.dll\MFCreateDXSurfaceBuffer", "ptr", riid, "ptr", punkSurface, "ptr", fBottomUpWhenLinear, "ptr", ppBuffer, "int")
+        result := DllCall("MFPlat.dll\MFCreateDXSurfaceBuffer", "ptr", riid, "ptr", punkSurface, "int", fBottomUpWhenLinear, "ptr", ppBuffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15224,7 +15224,7 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFCreateDXGISurfaceBuffer(riid, punkSurface, uSubresourceIndex, fBottomUpWhenLinear, ppBuffer) {
-        result := DllCall("MFPlat.dll\MFCreateDXGISurfaceBuffer", "ptr", riid, "ptr", punkSurface, "uint", uSubresourceIndex, "ptr", fBottomUpWhenLinear, "ptr", ppBuffer, "int")
+        result := DllCall("MFPlat.dll\MFCreateDXGISurfaceBuffer", "ptr", riid, "ptr", punkSurface, "uint", uSubresourceIndex, "int", fBottomUpWhenLinear, "ptr", ppBuffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16929,7 +16929,7 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFCompareFullToPartialMediaType(pMFTypeFull, pMFTypePartial) {
-        result := DllCall("MFPlat.dll\MFCompareFullToPartialMediaType", "ptr", pMFTypeFull, "ptr", pMFTypePartial, "ptr")
+        result := DllCall("MFPlat.dll\MFCompareFullToPartialMediaType", "ptr", pMFTypeFull, "ptr", pMFTypePartial, "int")
         return result
     }
 
@@ -17065,7 +17065,7 @@ class MediaFoundation {
      * @since windows6.0.6000
      */
     static MFIsFormatYUV(Format) {
-        result := DllCall("EVR.dll\MFIsFormatYUV", "uint", Format, "ptr")
+        result := DllCall("EVR.dll\MFIsFormatYUV", "uint", Format, "int")
         return result
     }
 
@@ -17405,7 +17405,7 @@ class MediaFoundation {
      * @since windows8.0
      */
     static MFCreate2DMediaBuffer(dwWidth, dwHeight, dwFourCC, fBottomUp, ppBuffer) {
-        result := DllCall("MFPlat.dll\MFCreate2DMediaBuffer", "uint", dwWidth, "uint", dwHeight, "uint", dwFourCC, "ptr", fBottomUp, "ptr", ppBuffer, "int")
+        result := DllCall("MFPlat.dll\MFCreate2DMediaBuffer", "uint", dwWidth, "uint", dwHeight, "uint", dwFourCC, "int", fBottomUp, "ptr", ppBuffer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17907,7 +17907,7 @@ class MediaFoundation {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("MFPlay.dll\MFPCreateMediaPlayer", "ptr", pwszURL, "ptr", fStartPlayback, "int", creationOptions, "ptr", pCallback, "ptr", hWnd, "ptr", ppMediaPlayer, "int")
+        result := DllCall("MFPlay.dll\MFPCreateMediaPlayer", "ptr", pwszURL, "int", fStartPlayback, "int", creationOptions, "ptr", pCallback, "ptr", hWnd, "ptr", ppMediaPlayer, "int")
         if(result != 0)
             throw OSError(result)
 

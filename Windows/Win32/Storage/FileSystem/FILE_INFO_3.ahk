@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the identification number and other pertinent information about files, devices, and pipes.
@@ -47,12 +46,9 @@ class FILE_INFO_3 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    fi3_pathname{
-        get {
-            if(!this.HasProp("__fi3_pathname"))
-                this.__fi3_pathname := PWSTR(this.ptr + 16)
-            return this.__fi3_pathname
-        }
+    fi3_pathname {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -61,11 +57,8 @@ class FILE_INFO_3 extends Win32Struct
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
      * @type {PWSTR}
      */
-    fi3_username{
-        get {
-            if(!this.HasProp("__fi3_username"))
-                this.__fi3_username := PWSTR(this.ptr + 24)
-            return this.__fi3_username
-        }
+    fi3_username {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes device temperature data. Returned as part of STORAGE_TEMPERATURE_DATA_DESCRIPTOR when querying for temperature data with an IOCTL_STORAGE_QUERY_PROPERTY request.
@@ -54,36 +53,27 @@ class STORAGE_TEMPERATURE_INFO extends Win32Struct
      * Indicates if <i>OverThreshold</i> can be changed by using <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_storage_set_temperature_threshold">IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD</a>.
      * @type {BOOLEAN}
      */
-    OverThresholdChangable{
-        get {
-            if(!this.HasProp("__OverThresholdChangable"))
-                this.__OverThresholdChangable := BOOLEAN(this.ptr + 8)
-            return this.__OverThresholdChangable
-        }
+    OverThresholdChangable {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
      * Indicates if <i>UnderThreshold</i> can be changed by using <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_storage_set_temperature_threshold">IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD</a>.
      * @type {BOOLEAN}
      */
-    UnderThresholdChangable{
-        get {
-            if(!this.HasProp("__UnderThresholdChangable"))
-                this.__UnderThresholdChangable := BOOLEAN(this.ptr + 9)
-            return this.__UnderThresholdChangable
-        }
+    UnderThresholdChangable {
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 
     /**
      * Indicates if a notification will be generated when the current temperature crosses a threshold.
      * @type {BOOLEAN}
      */
-    EventGenerated{
-        get {
-            if(!this.HasProp("__EventGenerated"))
-                this.__EventGenerated := BOOLEAN(this.ptr + 10)
-            return this.__EventGenerated
-        }
+    EventGenerated {
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 
     /**

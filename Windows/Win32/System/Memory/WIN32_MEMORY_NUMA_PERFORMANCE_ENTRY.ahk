@@ -83,7 +83,7 @@ class WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(this.ptr + 9)
+                this.__Flags := %this.__Class%._Flags(9, this)
             return this.__Flags
         }
     }

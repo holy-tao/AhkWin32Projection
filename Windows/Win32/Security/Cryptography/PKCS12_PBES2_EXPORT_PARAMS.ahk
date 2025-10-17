@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -31,11 +30,8 @@ class PKCS12_PBES2_EXPORT_PARAMS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszPbes2Alg{
-        get {
-            if(!this.HasProp("__pwszPbes2Alg"))
-                this.__pwszPbes2Alg := PWSTR(this.ptr + 16)
-            return this.__pwszPbes2Alg
-        }
+    pwszPbes2Alg {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

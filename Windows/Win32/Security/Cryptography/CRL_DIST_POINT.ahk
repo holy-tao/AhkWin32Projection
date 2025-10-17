@@ -24,7 +24,7 @@ class CRL_DIST_POINT extends Win32Struct
     DistPointName{
         get {
             if(!this.HasProp("__DistPointName"))
-                this.__DistPointName := CRL_DIST_POINT_NAME(this.ptr + 0)
+                this.__DistPointName := CRL_DIST_POINT_NAME(0, this)
             return this.__DistPointName
         }
     }
@@ -54,7 +54,7 @@ class CRL_DIST_POINT extends Win32Struct
     ReasonFlags{
         get {
             if(!this.HasProp("__ReasonFlags"))
-                this.__ReasonFlags := CRYPT_BIT_BLOB(this.ptr + 24)
+                this.__ReasonFlags := CRYPT_BIT_BLOB(24, this)
             return this.__ReasonFlags
         }
     }
@@ -67,7 +67,7 @@ class CRL_DIST_POINT extends Win32Struct
     CRLIssuer{
         get {
             if(!this.HasProp("__CRLIssuer"))
-                this.__CRLIssuer := CERT_ALT_NAME_INFO(this.ptr + 48)
+                this.__CRLIssuer := CERT_ALT_NAME_INFO(48, this)
             return this.__CRLIssuer
         }
     }

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\POWER_ACTION_POLICY.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\SYSTEM_POWER_LEVEL.ahk
 
 /**
@@ -33,7 +32,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     PowerButton{
         get {
             if(!this.HasProp("__PowerButton"))
-                this.__PowerButton := POWER_ACTION_POLICY(this.ptr + 8)
+                this.__PowerButton := POWER_ACTION_POLICY(8, this)
             return this.__PowerButton
         }
     }
@@ -46,7 +45,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     SleepButton{
         get {
             if(!this.HasProp("__SleepButton"))
-                this.__SleepButton := POWER_ACTION_POLICY(this.ptr + 24)
+                this.__SleepButton := POWER_ACTION_POLICY(24, this)
             return this.__SleepButton
         }
     }
@@ -59,7 +58,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     LidClose{
         get {
             if(!this.HasProp("__LidClose"))
-                this.__LidClose := POWER_ACTION_POLICY(this.ptr + 40)
+                this.__LidClose := POWER_ACTION_POLICY(40, this)
             return this.__LidClose
         }
     }
@@ -91,7 +90,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     Idle{
         get {
             if(!this.HasProp("__Idle"))
-                this.__Idle := POWER_ACTION_POLICY(this.ptr + 64)
+                this.__Idle := POWER_ACTION_POLICY(64, this)
             return this.__Idle
         }
     }
@@ -229,12 +228,9 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * If this member is <b>TRUE</b>, the system includes support for display dimming.
      * @type {BOOLEAN}
      */
-    VideoDimDisplay{
-        get {
-            if(!this.HasProp("__VideoDimDisplay"))
-                this.__VideoDimDisplay := BOOLEAN(this.ptr + 148)
-            return this.__VideoDimDisplay
-        }
+    VideoDimDisplay {
+        get => NumGet(this, 148, "char")
+        set => NumPut("char", value, this, 148)
     }
 
     /**
@@ -262,12 +258,9 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * If this member is <b>TRUE</b>, the system will turn on cooling fans and run the processor at full speed when passive cooling is specified. This causes the operating system to be biased toward using the fan and running the processor at full speed.
      * @type {BOOLEAN}
      */
-    OptimizeForPower{
-        get {
-            if(!this.HasProp("__OptimizeForPower"))
-                this.__OptimizeForPower := BOOLEAN(this.ptr + 168)
-            return this.__OptimizeForPower
-        }
+    OptimizeForPower {
+        get => NumGet(this, 168, "char")
+        set => NumPut("char", value, this, 168)
     }
 
     /**
@@ -305,7 +298,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     OverThrottled{
         get {
             if(!this.HasProp("__OverThrottled"))
-                this.__OverThrottled := POWER_ACTION_POLICY(this.ptr + 176)
+                this.__OverThrottled := POWER_ACTION_POLICY(176, this)
             return this.__OverThrottled
         }
     }

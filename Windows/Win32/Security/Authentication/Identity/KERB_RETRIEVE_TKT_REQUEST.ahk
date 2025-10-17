@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include ..\..\Credentials\SecHandle.ahk
 
@@ -33,7 +32,7 @@ class KERB_RETRIEVE_TKT_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 8)
+                this.__LogonId := LUID(8, this)
             return this.__LogonId
         }
     }
@@ -45,7 +44,7 @@ class KERB_RETRIEVE_TKT_REQUEST extends Win32Struct
     TargetName{
         get {
             if(!this.HasProp("__TargetName"))
-                this.__TargetName := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__TargetName := LSA_UNICODE_STRING(16, this)
             return this.__TargetName
         }
     }
@@ -206,7 +205,7 @@ class KERB_RETRIEVE_TKT_REQUEST extends Win32Struct
     CredentialsHandle{
         get {
             if(!this.HasProp("__CredentialsHandle"))
-                this.__CredentialsHandle := SecHandle(this.ptr + 48)
+                this.__CredentialsHandle := SecHandle(48, this)
             return this.__CredentialsHandle
         }
     }

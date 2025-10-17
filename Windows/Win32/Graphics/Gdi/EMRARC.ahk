@@ -23,7 +23,7 @@ class EMRARC extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -35,7 +35,7 @@ class EMRARC extends Win32Struct
     rclBox{
         get {
             if(!this.HasProp("__rclBox"))
-                this.__rclBox := RECTL(this.ptr + 8)
+                this.__rclBox := RECTL(8, this)
             return this.__rclBox
         }
     }
@@ -47,7 +47,7 @@ class EMRARC extends Win32Struct
     ptlStart{
         get {
             if(!this.HasProp("__ptlStart"))
-                this.__ptlStart := POINTL(this.ptr + 24)
+                this.__ptlStart := POINTL(24, this)
             return this.__ptlStart
         }
     }
@@ -59,7 +59,7 @@ class EMRARC extends Win32Struct
     ptlEnd{
         get {
             if(!this.HasProp("__ptlEnd"))
-                this.__ptlEnd := POINTL(this.ptr + 32)
+                this.__ptlEnd := POINTL(32, this)
             return this.__ptlEnd
         }
     }

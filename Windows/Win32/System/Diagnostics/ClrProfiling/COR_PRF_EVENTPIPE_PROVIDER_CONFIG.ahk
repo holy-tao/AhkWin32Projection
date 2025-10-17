@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -15,12 +14,9 @@ class COR_PRF_EVENTPIPE_PROVIDER_CONFIG extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    providerName{
-        get {
-            if(!this.HasProp("__providerName"))
-                this.__providerName := PWSTR(this.ptr + 0)
-            return this.__providerName
-        }
+    providerName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -42,11 +38,8 @@ class COR_PRF_EVENTPIPE_PROVIDER_CONFIG extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    filterData{
-        get {
-            if(!this.HasProp("__filterData"))
-                this.__filterData := PWSTR(this.ptr + 24)
-            return this.__filterData
-        }
+    filterData {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\CHAR.ahk
 #Include .\KEY_EVENT_RECORD.ahk
 #Include .\COORD.ahk
 #Include .\MOUSE_EVENT_RECORD.ahk
@@ -33,7 +31,7 @@ class INPUT_RECORD extends Win32Struct
     KeyEvent{
         get {
             if(!this.HasProp("__KeyEvent"))
-                this.__KeyEvent := KEY_EVENT_RECORD(this.ptr + 8)
+                this.__KeyEvent := KEY_EVENT_RECORD(8, this)
             return this.__KeyEvent
         }
     }
@@ -44,7 +42,7 @@ class INPUT_RECORD extends Win32Struct
     MouseEvent{
         get {
             if(!this.HasProp("__MouseEvent"))
-                this.__MouseEvent := MOUSE_EVENT_RECORD(this.ptr + 8)
+                this.__MouseEvent := MOUSE_EVENT_RECORD(8, this)
             return this.__MouseEvent
         }
     }
@@ -55,7 +53,7 @@ class INPUT_RECORD extends Win32Struct
     WindowBufferSizeEvent{
         get {
             if(!this.HasProp("__WindowBufferSizeEvent"))
-                this.__WindowBufferSizeEvent := WINDOW_BUFFER_SIZE_RECORD(this.ptr + 8)
+                this.__WindowBufferSizeEvent := WINDOW_BUFFER_SIZE_RECORD(8, this)
             return this.__WindowBufferSizeEvent
         }
     }
@@ -66,7 +64,7 @@ class INPUT_RECORD extends Win32Struct
     MenuEvent{
         get {
             if(!this.HasProp("__MenuEvent"))
-                this.__MenuEvent := MENU_EVENT_RECORD(this.ptr + 8)
+                this.__MenuEvent := MENU_EVENT_RECORD(8, this)
             return this.__MenuEvent
         }
     }
@@ -77,7 +75,7 @@ class INPUT_RECORD extends Win32Struct
     FocusEvent{
         get {
             if(!this.HasProp("__FocusEvent"))
-                this.__FocusEvent := FOCUS_EVENT_RECORD(this.ptr + 8)
+                this.__FocusEvent := FOCUS_EVENT_RECORD(8, this)
             return this.__FocusEvent
         }
     }

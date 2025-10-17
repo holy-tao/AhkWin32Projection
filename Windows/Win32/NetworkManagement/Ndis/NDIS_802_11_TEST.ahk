@@ -36,7 +36,7 @@ class NDIS_802_11_TEST extends Win32Struct
     AuthenticationEvent{
         get {
             if(!this.HasProp("__AuthenticationEvent"))
-                this.__AuthenticationEvent := NDIS_802_11_AUTHENTICATION_EVENT(this.ptr + 8)
+                this.__AuthenticationEvent := NDIS_802_11_AUTHENTICATION_EVENT(8, this)
             return this.__AuthenticationEvent
         }
     }

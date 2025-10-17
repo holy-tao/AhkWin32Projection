@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information about a system appbar message.
@@ -36,7 +35,7 @@ class APPBARDATA extends Win32Struct
     hWnd{
         get {
             if(!this.HasProp("__hWnd"))
-                this.__hWnd := HWND(this.ptr + 8)
+                this.__hWnd := HWND(8, this)
             return this.__hWnd
         }
     }
@@ -102,7 +101,7 @@ class APPBARDATA extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 24)
+                this.__rc := RECT(24, this)
             return this.__rc
         }
     }
@@ -128,20 +127,13 @@ class APPBARDATA extends Win32Struct
      * See the individual message pages for details.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 40)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

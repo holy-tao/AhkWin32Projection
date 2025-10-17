@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -23,11 +22,8 @@ class DVBScramblingControlSpanningEvent extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fScrambled{
-        get {
-            if(!this.HasProp("__fScrambled"))
-                this.__fScrambled := BOOL(this.ptr + 4)
-            return this.__fScrambled
-        }
+    fScrambled {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 }

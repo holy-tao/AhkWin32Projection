@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes the partition to be erased.
@@ -27,11 +26,8 @@ class TAPE_ERASE extends Win32Struct
      * If this member is <b>TRUE</b>, return as soon as the erase operation begins. Otherwise, return when the operation has been completed.
      * @type {BOOLEAN}
      */
-    Immediate{
-        get {
-            if(!this.HasProp("__Immediate"))
-                this.__Immediate := BOOLEAN(this.ptr + 4)
-            return this.__Immediate
-        }
+    Immediate {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 }

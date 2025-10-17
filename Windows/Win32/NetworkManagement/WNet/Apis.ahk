@@ -2600,7 +2600,7 @@ class WNet {
     static WNetCancelConnectionA(lpName, fForce) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("MPR.dll\WNetCancelConnectionA", "ptr", lpName, "ptr", fForce, "uint")
+        result := DllCall("MPR.dll\WNetCancelConnectionA", "ptr", lpName, "int", fForce, "uint")
         return result
     }
 
@@ -2697,7 +2697,7 @@ class WNet {
     static WNetCancelConnectionW(lpName, fForce) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("MPR.dll\WNetCancelConnectionW", "ptr", lpName, "ptr", fForce, "uint")
+        result := DllCall("MPR.dll\WNetCancelConnectionW", "ptr", lpName, "int", fForce, "uint")
         return result
     }
 
@@ -2834,7 +2834,7 @@ class WNet {
     static WNetCancelConnection2A(lpName, dwFlags, fForce) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("MPR.dll\WNetCancelConnection2A", "ptr", lpName, "uint", dwFlags, "ptr", fForce, "uint")
+        result := DllCall("MPR.dll\WNetCancelConnection2A", "ptr", lpName, "uint", dwFlags, "int", fForce, "uint")
         return result
     }
 
@@ -2971,7 +2971,7 @@ class WNet {
     static WNetCancelConnection2W(lpName, dwFlags, fForce) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("MPR.dll\WNetCancelConnection2W", "ptr", lpName, "uint", dwFlags, "ptr", fForce, "uint")
+        result := DllCall("MPR.dll\WNetCancelConnection2W", "ptr", lpName, "uint", dwFlags, "int", fForce, "uint")
         return result
     }
 
@@ -6823,7 +6823,7 @@ class WNet {
     static NPCancelConnection(lpName, fForce) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("davclnt.dll\NPCancelConnection", "ptr", lpName, "ptr", fForce, "uint")
+        result := DllCall("davclnt.dll\NPCancelConnection", "ptr", lpName, "int", fForce, "uint")
         return result
     }
 
@@ -6837,7 +6837,7 @@ class WNet {
     static NPCancelConnection2(lpName, fForce, dwFlags) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("NTLANMAN.dll\NPCancelConnection2", "ptr", lpName, "ptr", fForce, "uint", dwFlags, "uint")
+        result := DllCall("NTLANMAN.dll\NPCancelConnection2", "ptr", lpName, "int", fForce, "uint", dwFlags, "uint")
         return result
     }
 

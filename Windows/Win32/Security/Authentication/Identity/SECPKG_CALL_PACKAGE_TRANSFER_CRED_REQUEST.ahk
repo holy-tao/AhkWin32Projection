@@ -26,7 +26,7 @@ class SECPKG_CALL_PACKAGE_TRANSFER_CRED_REQUEST extends Win32Struct
     OriginLogonId{
         get {
             if(!this.HasProp("__OriginLogonId"))
-                this.__OriginLogonId := LUID(this.ptr + 8)
+                this.__OriginLogonId := LUID(8, this)
             return this.__OriginLogonId
         }
     }
@@ -37,7 +37,7 @@ class SECPKG_CALL_PACKAGE_TRANSFER_CRED_REQUEST extends Win32Struct
     DestinationLogonId{
         get {
             if(!this.HasProp("__DestinationLogonId"))
-                this.__DestinationLogonId := LUID(this.ptr + 16)
+                this.__DestinationLogonId := LUID(16, this)
             return this.__DestinationLogonId
         }
     }

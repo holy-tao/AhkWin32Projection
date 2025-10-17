@@ -50,7 +50,7 @@ class WHV_X64_CPUID_RESULT2 extends Win32Struct
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := WHV_CPUID_OUTPUT(this.ptr + 16)
+                this.__Output := WHV_CPUID_OUTPUT(16, this)
             return this.__Output
         }
     }
@@ -61,7 +61,7 @@ class WHV_X64_CPUID_RESULT2 extends Win32Struct
     Mask{
         get {
             if(!this.HasProp("__Mask"))
-                this.__Mask := WHV_CPUID_OUTPUT(this.ptr + 32)
+                this.__Mask := WHV_CPUID_OUTPUT(32, this)
             return this.__Mask
         }
     }

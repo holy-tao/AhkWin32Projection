@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 
@@ -26,12 +25,9 @@ class FORM_INFO_2A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PSTR(this.ptr + 8)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -40,7 +36,7 @@ class FORM_INFO_2A extends Win32Struct
     Size{
         get {
             if(!this.HasProp("__Size"))
-                this.__Size := SIZE(this.ptr + 16)
+                this.__Size := SIZE(16, this)
             return this.__Size
         }
     }
@@ -51,7 +47,7 @@ class FORM_INFO_2A extends Win32Struct
     ImageableArea{
         get {
             if(!this.HasProp("__ImageableArea"))
-                this.__ImageableArea := RECTL(this.ptr + 24)
+                this.__ImageableArea := RECTL(24, this)
             return this.__ImageableArea
         }
     }
@@ -59,12 +55,9 @@ class FORM_INFO_2A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pKeyword{
-        get {
-            if(!this.HasProp("__pKeyword"))
-                this.__pKeyword := PSTR(this.ptr + 40)
-            return this.__pKeyword
-        }
+    pKeyword {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -78,12 +71,9 @@ class FORM_INFO_2A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pMuiDll{
-        get {
-            if(!this.HasProp("__pMuiDll"))
-                this.__pMuiDll := PSTR(this.ptr + 56)
-            return this.__pMuiDll
-        }
+    pMuiDll {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -97,12 +87,9 @@ class FORM_INFO_2A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pDisplayName{
-        get {
-            if(!this.HasProp("__pDisplayName"))
-                this.__pDisplayName := PSTR(this.ptr + 72)
-            return this.__pDisplayName
-        }
+    pDisplayName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**

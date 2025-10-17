@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -48,12 +46,9 @@ class SecPkgCred_ClientCertPolicy extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fCheckRevocationFreshnessTime{
-        get {
-            if(!this.HasProp("__fCheckRevocationFreshnessTime"))
-                this.__fCheckRevocationFreshnessTime := BOOL(this.ptr + 24)
-            return this.__fCheckRevocationFreshnessTime
-        }
+    fCheckRevocationFreshnessTime {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -67,33 +62,24 @@ class SecPkgCred_ClientCertPolicy extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fOmitUsageCheck{
-        get {
-            if(!this.HasProp("__fOmitUsageCheck"))
-                this.__fOmitUsageCheck := BOOL(this.ptr + 32)
-            return this.__fOmitUsageCheck
-        }
+    fOmitUsageCheck {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszSslCtlStoreName{
-        get {
-            if(!this.HasProp("__pwszSslCtlStoreName"))
-                this.__pwszSslCtlStoreName := PWSTR(this.ptr + 40)
-            return this.__pwszSslCtlStoreName
-        }
+    pwszSslCtlStoreName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszSslCtlIdentifier{
-        get {
-            if(!this.HasProp("__pwszSslCtlIdentifier"))
-                this.__pwszSslCtlIdentifier := PWSTR(this.ptr + 48)
-            return this.__pwszSslCtlIdentifier
-        }
+    pwszSslCtlIdentifier {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

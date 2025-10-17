@@ -22,7 +22,7 @@ class HTTP_BINDING_INFO extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(this.ptr + 0)
+                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
             return this.__Flags
         }
     }
@@ -34,7 +34,7 @@ class HTTP_BINDING_INFO extends Win32Struct
     RequestQueueHandle{
         get {
             if(!this.HasProp("__RequestQueueHandle"))
-                this.__RequestQueueHandle := HANDLE(this.ptr + 8)
+                this.__RequestQueueHandle := HANDLE(8, this)
             return this.__RequestQueueHandle
         }
     }

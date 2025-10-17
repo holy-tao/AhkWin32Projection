@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -15,22 +14,16 @@ class POLICY_AUDIT_FULL_QUERY_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    ShutDownOnFull{
-        get {
-            if(!this.HasProp("__ShutDownOnFull"))
-                this.__ShutDownOnFull := BOOLEAN(this.ptr + 0)
-            return this.__ShutDownOnFull
-        }
+    ShutDownOnFull {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    LogIsFull{
-        get {
-            if(!this.HasProp("__LogIsFull"))
-                this.__LogIsFull := BOOLEAN(this.ptr + 1)
-            return this.__LogIsFull
-        }
+    LogIsFull {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information used to control the I/O rate for a job. This structure is used by the SetIoRateControlInformationJobObject and QueryIoRateControlInformationJobObject functions.
@@ -60,12 +59,9 @@ class JOBOBJECT_IO_RATE_CONTROL_INFORMATION extends Win32Struct
      * If this member is <b>NULL</b>, the policy for the I/O rate applies to all of the volumes for the operating system. For example, if this member is <b>NULL</b> and the <b>MaxIops</b> member is 100, the maximum limit for the I/O rate for each volume is set to 100 IOPS, instead of setting an aggregate limit for the I/O rate across all volumes of 100 IOPS.
      * @type {PWSTR}
      */
-    VolumeName{
-        get {
-            if(!this.HasProp("__VolumeName"))
-                this.__VolumeName := PWSTR(this.ptr + 24)
-            return this.__VolumeName
-        }
+    VolumeName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

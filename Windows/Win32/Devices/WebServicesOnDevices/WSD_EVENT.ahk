@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSD_HANDLER_CONTEXT.ahk
 
 /**
@@ -37,12 +36,9 @@ class WSD_EVENT extends Win32Struct
      * Pointer to the protocol string when dispatch by tags is required.
      * @type {PWSTR}
      */
-    DispatchTag{
-        get {
-            if(!this.HasProp("__DispatchTag"))
-                this.__DispatchTag := PWSTR(this.ptr + 8)
-            return this.__DispatchTag
-        }
+    DispatchTag {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -52,7 +48,7 @@ class WSD_EVENT extends Win32Struct
     HandlerContext{
         get {
             if(!this.HasProp("__HandlerContext"))
-                this.__HandlerContext := WSD_HANDLER_CONTEXT(this.ptr + 16)
+                this.__HandlerContext := WSD_HANDLER_CONTEXT(16, this)
             return this.__HandlerContext
         }
     }

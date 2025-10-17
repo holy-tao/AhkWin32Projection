@@ -56,7 +56,7 @@ class MONERRSTRUCT extends Win32Struct
     hTask{
         get {
             if(!this.HasProp("__hTask"))
-                this.__hTask := HANDLE(this.ptr + 16)
+                this.__hTask := HANDLE(16, this)
             return this.__hTask
         }
     }

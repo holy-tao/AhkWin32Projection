@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -91,12 +90,9 @@ class DEBUG_VALUE extends Win32Struct
     /**
      * @type {BOOL}
      */
-    Nat{
-        get {
-            if(!this.HasProp("__Nat"))
-                this.__Nat := BOOL(this.ptr + 8)
-            return this.__Nat
-        }
+    Nat {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -220,7 +216,7 @@ class DEBUG_VALUE extends Win32Struct
     I64Parts32{
         get {
             if(!this.HasProp("__I64Parts32"))
-                this.__I64Parts32 := %this.__Class%._I64Parts32(this.ptr + 0)
+                this.__I64Parts32 := %this.__Class%._I64Parts32(0, this)
             return this.__I64Parts32
         }
     }
@@ -231,7 +227,7 @@ class DEBUG_VALUE extends Win32Struct
     F128Parts64{
         get {
             if(!this.HasProp("__F128Parts64"))
-                this.__F128Parts64 := %this.__Class%._F128Parts64(this.ptr + 0)
+                this.__F128Parts64 := %this.__Class%._F128Parts64(0, this)
             return this.__F128Parts64
         }
     }

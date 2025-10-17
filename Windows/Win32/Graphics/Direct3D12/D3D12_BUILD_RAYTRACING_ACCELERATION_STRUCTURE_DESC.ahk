@@ -35,7 +35,7 @@ class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC extends Win32Struct
     Inputs{
         get {
             if(!this.HasProp("__Inputs"))
-                this.__Inputs := D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS(this.ptr + 8)
+                this.__Inputs := D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS(8, this)
             return this.__Inputs
         }
     }

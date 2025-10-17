@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -40,12 +39,9 @@ class DOC_INFO_INTERNAL extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bLowILJob{
-        get {
-            if(!this.HasProp("__bLowILJob"))
-                this.__bLowILJob := BOOL(this.ptr + 24)
-            return this.__bLowILJob
-        }
+    bLowILJob {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -54,7 +50,7 @@ class DOC_INFO_INTERNAL extends Win32Struct
     hTokenLowIL{
         get {
             if(!this.HasProp("__hTokenLowIL"))
-                this.__hTokenLowIL := HANDLE(this.ptr + 32)
+                this.__hTokenLowIL := HANDLE(32, this)
             return this.__hTokenLowIL
         }
     }

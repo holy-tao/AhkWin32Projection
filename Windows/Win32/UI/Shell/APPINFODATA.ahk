@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Provides information about a published application to the Add/Remove Programs Control Panel utility.
@@ -42,12 +41,9 @@ class APPINFODATA extends Win32Struct
      * A pointer to a string that contains the application display name. Memory for this string must be allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @type {PWSTR}
      */
-    pszDisplayName{
-        get {
-            if(!this.HasProp("__pszDisplayName"))
-                this.__pszDisplayName := PWSTR(this.ptr + 8)
-            return this.__pszDisplayName
-        }
+    pszDisplayName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -56,24 +52,18 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszVersion{
-        get {
-            if(!this.HasProp("__pszVersion"))
-                this.__pszVersion := PWSTR(this.ptr + 16)
-            return this.__pszVersion
-        }
+    pszVersion {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * 
      * @type {PWSTR}
      */
-    pszPublisher{
-        get {
-            if(!this.HasProp("__pszPublisher"))
-                this.__pszPublisher := PWSTR(this.ptr + 24)
-            return this.__pszPublisher
-        }
+    pszPublisher {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -82,12 +72,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszProductID{
-        get {
-            if(!this.HasProp("__pszProductID"))
-                this.__pszProductID := PWSTR(this.ptr + 32)
-            return this.__pszProductID
-        }
+    pszProductID {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -96,12 +83,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszRegisteredOwner{
-        get {
-            if(!this.HasProp("__pszRegisteredOwner"))
-                this.__pszRegisteredOwner := PWSTR(this.ptr + 40)
-            return this.__pszRegisteredOwner
-        }
+    pszRegisteredOwner {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -110,12 +94,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszRegisteredCompany{
-        get {
-            if(!this.HasProp("__pszRegisteredCompany"))
-                this.__pszRegisteredCompany := PWSTR(this.ptr + 48)
-            return this.__pszRegisteredCompany
-        }
+    pszRegisteredCompany {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -128,12 +109,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszLanguage{
-        get {
-            if(!this.HasProp("__pszLanguage"))
-                this.__pszLanguage := PWSTR(this.ptr + 56)
-            return this.__pszLanguage
-        }
+    pszLanguage {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -142,12 +120,9 @@ class APPINFODATA extends Win32Struct
      * A URL to support information. This string is displayed as a link with the application name in Control Panel Add/Remove Programs. Memory for this string must be allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @type {PWSTR}
      */
-    pszSupportUrl{
-        get {
-            if(!this.HasProp("__pszSupportUrl"))
-                this.__pszSupportUrl := PWSTR(this.ptr + 64)
-            return this.__pszSupportUrl
-        }
+    pszSupportUrl {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -156,12 +131,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszSupportTelephone{
-        get {
-            if(!this.HasProp("__pszSupportTelephone"))
-                this.__pszSupportTelephone := PWSTR(this.ptr + 72)
-            return this.__pszSupportTelephone
-        }
+    pszSupportTelephone {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
@@ -170,12 +142,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszHelpLink{
-        get {
-            if(!this.HasProp("__pszHelpLink"))
-                this.__pszHelpLink := PWSTR(this.ptr + 80)
-            return this.__pszHelpLink
-        }
+    pszHelpLink {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -184,12 +153,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszInstallLocation{
-        get {
-            if(!this.HasProp("__pszInstallLocation"))
-                this.__pszInstallLocation := PWSTR(this.ptr + 88)
-            return this.__pszInstallLocation
-        }
+    pszInstallLocation {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -198,12 +164,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszInstallSource{
-        get {
-            if(!this.HasProp("__pszInstallSource"))
-                this.__pszInstallSource := PWSTR(this.ptr + 96)
-            return this.__pszInstallSource
-        }
+    pszInstallSource {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -212,12 +175,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszInstallDate{
-        get {
-            if(!this.HasProp("__pszInstallDate"))
-                this.__pszInstallDate := PWSTR(this.ptr + 104)
-            return this.__pszInstallDate
-        }
+    pszInstallDate {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -226,12 +186,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszContact{
-        get {
-            if(!this.HasProp("__pszContact"))
-                this.__pszContact := PWSTR(this.ptr + 112)
-            return this.__pszContact
-        }
+    pszContact {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -240,12 +197,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszComments{
-        get {
-            if(!this.HasProp("__pszComments"))
-                this.__pszComments := PWSTR(this.ptr + 120)
-            return this.__pszComments
-        }
+    pszComments {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -254,12 +208,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszImage{
-        get {
-            if(!this.HasProp("__pszImage"))
-                this.__pszImage := PWSTR(this.ptr + 128)
-            return this.__pszImage
-        }
+    pszImage {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
@@ -268,12 +219,9 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszReadmeUrl{
-        get {
-            if(!this.HasProp("__pszReadmeUrl"))
-                this.__pszReadmeUrl := PWSTR(this.ptr + 136)
-            return this.__pszReadmeUrl
-        }
+    pszReadmeUrl {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -282,20 +230,13 @@ class APPINFODATA extends Win32Struct
      * Not applicable to published applications.
      * @type {PWSTR}
      */
-    pszUpdateInfoUrl{
-        get {
-            if(!this.HasProp("__pszUpdateInfoUrl"))
-                this.__pszUpdateInfoUrl := PWSTR(this.ptr + 144)
-            return this.__pszUpdateInfoUrl
-        }
+    pszUpdateInfoUrl {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 152
     }
 }

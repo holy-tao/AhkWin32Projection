@@ -27,7 +27,7 @@ class AAL_PARAMETERS_IE extends Win32Struct
     AAL5Parameters{
         get {
             if(!this.HasProp("__AAL5Parameters"))
-                this.__AAL5Parameters := AAL5_PARAMETERS(this.ptr + 8)
+                this.__AAL5Parameters := AAL5_PARAMETERS(8, this)
             return this.__AAL5Parameters
         }
     }
@@ -38,7 +38,7 @@ class AAL_PARAMETERS_IE extends Win32Struct
     AALUserParameters{
         get {
             if(!this.HasProp("__AALUserParameters"))
-                this.__AALUserParameters := AALUSER_PARAMETERS(this.ptr + 8)
+                this.__AALUserParameters := AALUSER_PARAMETERS(8, this)
             return this.__AALUserParameters
         }
     }

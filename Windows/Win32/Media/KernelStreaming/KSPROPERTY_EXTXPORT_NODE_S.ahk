@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
 #Include .\KSP_NODE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\MEDIUM_INFO.ahk
 #Include .\TRANSPORT_STATE.ahk
 
@@ -22,7 +21,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     NodeProperty{
         get {
             if(!this.HasProp("__NodeProperty"))
-                this.__NodeProperty := KSP_NODE(this.ptr + 0)
+                this.__NodeProperty := KSP_NODE(0, this)
             return this.__NodeProperty
         }
     }
@@ -120,7 +119,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     MediumInfo{
         get {
             if(!this.HasProp("__MediumInfo"))
-                this.__MediumInfo := MEDIUM_INFO(this.ptr + 24)
+                this.__MediumInfo := MEDIUM_INFO(24, this)
             return this.__MediumInfo
         }
     }
@@ -131,7 +130,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     XPrtState{
         get {
             if(!this.HasProp("__XPrtState"))
-                this.__XPrtState := TRANSPORT_STATE(this.ptr + 24)
+                this.__XPrtState := TRANSPORT_STATE(24, this)
             return this.__XPrtState
         }
     }
@@ -142,7 +141,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     Timecode{
         get {
             if(!this.HasProp("__Timecode"))
-                this.__Timecode := %this.__Class%._Timecode(this.ptr + 24)
+                this.__Timecode := %this.__Class%._Timecode(24, this)
             return this.__Timecode
         }
     }
@@ -169,7 +168,7 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     RawAVC{
         get {
             if(!this.HasProp("__RawAVC"))
-                this.__RawAVC := %this.__Class%._RawAVC(this.ptr + 24)
+                this.__RawAVC := %this.__Class%._RawAVC(24, this)
             return this.__RawAVC
         }
     }

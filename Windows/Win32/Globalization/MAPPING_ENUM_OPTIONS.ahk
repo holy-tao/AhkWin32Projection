@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Foundation\PWSTR.ahk
 
 /**
  * Contains options used by the MappingGetServices function to enumerate ELS services.
@@ -32,60 +31,45 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
      * Optional. Pointer to a service category, for example, "Language Detection". The application must set this member to <b>NULL</b> if the service category is not a search criterion.
      * @type {PWSTR}
      */
-    pszCategory{
-        get {
-            if(!this.HasProp("__pszCategory"))
-                this.__pszCategory := PWSTR(this.ptr + 8)
-            return this.__pszCategory
-        }
+    pszCategory {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Optional. Pointer to an input language string, following the IETF naming convention, that identifies the input language that services should accept. The application can set this member to <b>NULL</b> if the supported input language is not a search criterion.
      * @type {PWSTR}
      */
-    pszInputLanguage{
-        get {
-            if(!this.HasProp("__pszInputLanguage"))
-                this.__pszInputLanguage := PWSTR(this.ptr + 16)
-            return this.__pszInputLanguage
-        }
+    pszInputLanguage {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Optional. Pointer to an output language string, following the IETF naming convention, that identifies the output language that services use to retrieve results. The application can set this member to <b>NULL</b> if the output language is not a search criterion.
      * @type {PWSTR}
      */
-    pszOutputLanguage{
-        get {
-            if(!this.HasProp("__pszOutputLanguage"))
-                this.__pszOutputLanguage := PWSTR(this.ptr + 24)
-            return this.__pszOutputLanguage
-        }
+    pszOutputLanguage {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Optional. Pointer to a standard Unicode script name that can be accepted by services. The application set this member to <b>NULL</b> if the input script is not a search criterion.
      * @type {PWSTR}
      */
-    pszInputScript{
-        get {
-            if(!this.HasProp("__pszInputScript"))
-                this.__pszInputScript := PWSTR(this.ptr + 32)
-            return this.__pszInputScript
-        }
+    pszInputScript {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Optional. Pointer to a standard Unicode script name used by services. The application can set this member to <b>NULL</b> if the output script is not a search criterion.
      * @type {PWSTR}
      */
-    pszOutputScript{
-        get {
-            if(!this.HasProp("__pszOutputScript"))
-                this.__pszOutputScript := PWSTR(this.ptr + 40)
-            return this.__pszOutputScript
-        }
+    pszOutputScript {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -95,24 +79,18 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
      * <div> </div>
      * @type {PWSTR}
      */
-    pszInputContentType{
-        get {
-            if(!this.HasProp("__pszInputContentType"))
-                this.__pszInputContentType := PWSTR(this.ptr + 48)
-            return this.__pszInputContentType
-        }
+    pszInputContentType {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * Optional. Pointer to a string, following the format of the MIME content types, that identifies the format in which the services retrieve data. The application can set this member to <b>NULL</b> if the output content type is not a search criterion.
      * @type {PWSTR}
      */
-    pszOutputContentType{
-        get {
-            if(!this.HasProp("__pszOutputContentType"))
-                this.__pszOutputContentType := PWSTR(this.ptr + 56)
-            return this.__pszOutputContentType
-        }
+    pszOutputContentType {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**

@@ -153,7 +153,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
         hSourceFile{
             get {
                 if(!this.HasProp("__hSourceFile"))
-                    this.__hSourceFile := HANDLE(this.ptr + 8)
+                    this.__hSourceFile := HANDLE(8, this)
                 return this.__hSourceFile
             }
         }
@@ -164,7 +164,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
         hDestinationFile{
             get {
                 if(!this.HasProp("__hDestinationFile"))
-                    this.__hDestinationFile := HANDLE(this.ptr + 16)
+                    this.__hDestinationFile := HANDLE(16, this)
                 return this.__hDestinationFile
             }
         }
@@ -229,7 +229,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
         hSourceFile{
             get {
                 if(!this.HasProp("__hSourceFile"))
-                    this.__hSourceFile := HANDLE(this.ptr + 8)
+                    this.__hSourceFile := HANDLE(8, this)
                 return this.__hSourceFile
             }
         }
@@ -240,7 +240,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
         hDestinationFile{
             get {
                 if(!this.HasProp("__hDestinationFile"))
-                    this.__hDestinationFile := HANDLE(this.ptr + 16)
+                    this.__hDestinationFile := HANDLE(16, this)
                 return this.__hDestinationFile
             }
         }
@@ -321,7 +321,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
         hSourceFile{
             get {
                 if(!this.HasProp("__hSourceFile"))
-                    this.__hSourceFile := HANDLE(this.ptr + 8)
+                    this.__hSourceFile := HANDLE(8, this)
                 return this.__hSourceFile
             }
         }
@@ -332,7 +332,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
         hDestinationFile{
             get {
                 if(!this.HasProp("__hDestinationFile"))
-                    this.__hDestinationFile := HANDLE(this.ptr + 16)
+                    this.__hDestinationFile := HANDLE(16, this)
                 return this.__hDestinationFile
             }
         }
@@ -381,7 +381,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
         hSourceFile{
             get {
                 if(!this.HasProp("__hSourceFile"))
-                    this.__hSourceFile := HANDLE(this.ptr + 8)
+                    this.__hSourceFile := HANDLE(8, this)
                 return this.__hSourceFile
             }
         }
@@ -392,7 +392,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
         hDestinationFile{
             get {
                 if(!this.HasProp("__hDestinationFile"))
-                    this.__hDestinationFile := HANDLE(this.ptr + 16)
+                    this.__hDestinationFile := HANDLE(16, this)
                 return this.__hDestinationFile
             }
         }
@@ -529,7 +529,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     ChunkStarted{
         get {
             if(!this.HasProp("__ChunkStarted"))
-                this.__ChunkStarted := %this.__Class%._ChunkStarted(this.ptr + 8)
+                this.__ChunkStarted := %this.__Class%._ChunkStarted(8, this)
             return this.__ChunkStarted
         }
     }
@@ -540,7 +540,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     ChunkFinished{
         get {
             if(!this.HasProp("__ChunkFinished"))
-                this.__ChunkFinished := %this.__Class%._ChunkFinished(this.ptr + 8)
+                this.__ChunkFinished := %this.__Class%._ChunkFinished(8, this)
             return this.__ChunkFinished
         }
     }
@@ -551,7 +551,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     StreamStarted{
         get {
             if(!this.HasProp("__StreamStarted"))
-                this.__StreamStarted := %this.__Class%._StreamStarted(this.ptr + 8)
+                this.__StreamStarted := %this.__Class%._StreamStarted(8, this)
             return this.__StreamStarted
         }
     }
@@ -562,7 +562,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     StreamFinished{
         get {
             if(!this.HasProp("__StreamFinished"))
-                this.__StreamFinished := %this.__Class%._StreamFinished(this.ptr + 8)
+                this.__StreamFinished := %this.__Class%._StreamFinished(8, this)
             return this.__StreamFinished
         }
     }
@@ -573,7 +573,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     PollContinue{
         get {
             if(!this.HasProp("__PollContinue"))
-                this.__PollContinue := %this.__Class%._PollContinue(this.ptr + 8)
+                this.__PollContinue := %this.__Class%._PollContinue(8, this)
             return this.__PollContinue
         }
     }
@@ -584,7 +584,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     Error{
         get {
             if(!this.HasProp("__Error"))
-                this.__Error := %this.__Class%._Error(this.ptr + 8)
+                this.__Error := %this.__Class%._Error(8, this)
             return this.__Error
         }
     }

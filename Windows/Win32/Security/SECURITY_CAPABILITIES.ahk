@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include .\PSID.ahk
 
 /**
  * Defines the security capabilities of the app container.
@@ -18,12 +17,9 @@ class SECURITY_CAPABILITIES extends Win32Struct
      * The SID of the app container.
      * @type {PSID}
      */
-    AppContainerSid{
-        get {
-            if(!this.HasProp("__AppContainerSid"))
-                this.__AppContainerSid := PSID(this.ptr + 0)
-            return this.__AppContainerSid
-        }
+    AppContainerSid {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

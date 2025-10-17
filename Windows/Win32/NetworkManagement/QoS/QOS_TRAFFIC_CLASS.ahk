@@ -35,7 +35,7 @@ class QOS_TRAFFIC_CLASS extends Win32Struct
     ObjectHdr{
         get {
             if(!this.HasProp("__ObjectHdr"))
-                this.__ObjectHdr := QOS_OBJECT_HDR(this.ptr + 0)
+                this.__ObjectHdr := QOS_OBJECT_HDR(0, this)
             return this.__ObjectHdr
         }
     }

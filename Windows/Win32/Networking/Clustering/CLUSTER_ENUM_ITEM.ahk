@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the properties of a cluster object. This structure is used to enumerate clusters in the ClusterEnumEx and ClusterNodeEnumEx functions.
@@ -45,12 +44,9 @@ class CLUSTER_ENUM_ITEM extends Win32Struct
      * The ID of the cluster.
      * @type {PWSTR}
      */
-    lpszId{
-        get {
-            if(!this.HasProp("__lpszId"))
-                this.__lpszId := PWSTR(this.ptr + 16)
-            return this.__lpszId
-        }
+    lpszId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -66,11 +62,8 @@ class CLUSTER_ENUM_ITEM extends Win32Struct
      * The name of the cluster.
      * @type {PWSTR}
      */
-    lpszName{
-        get {
-            if(!this.HasProp("__lpszName"))
-                this.__lpszName := PWSTR(this.ptr + 32)
-            return this.__lpszName
-        }
+    lpszName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

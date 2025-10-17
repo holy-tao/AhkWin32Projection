@@ -3551,7 +3551,7 @@ class Direct3D9 {
      * @returns {BOOL} 
      */
     static D3DPERF_QueryRepeatFrame() {
-        result := DllCall("d3d9.dll\D3DPERF_QueryRepeatFrame", "ptr")
+        result := DllCall("d3d9.dll\D3DPERF_QueryRepeatFrame", "int")
         return result
     }
 

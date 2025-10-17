@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
@@ -16,23 +14,17 @@ class SWbemRpnConst extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    m_pszStrVal{
-        get {
-            if(!this.HasProp("__m_pszStrVal"))
-                this.__m_pszStrVal := PWSTR(this.ptr + 0)
-            return this.__m_pszStrVal
-        }
+    m_pszStrVal {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {BOOL}
      */
-    m_bBoolVal{
-        get {
-            if(!this.HasProp("__m_bBoolVal"))
-                this.__m_bBoolVal := BOOL(this.ptr + 0)
-            return this.__m_bBoolVal
-        }
+    m_bBoolVal {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

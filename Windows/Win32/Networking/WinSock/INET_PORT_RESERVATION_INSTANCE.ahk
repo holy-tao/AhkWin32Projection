@@ -31,7 +31,7 @@ class INET_PORT_RESERVATION_INSTANCE extends Win32Struct
     Reservation{
         get {
             if(!this.HasProp("__Reservation"))
-                this.__Reservation := INET_PORT_RANGE(this.ptr + 0)
+                this.__Reservation := INET_PORT_RANGE(0, this)
             return this.__Reservation
         }
     }
@@ -43,7 +43,7 @@ class INET_PORT_RESERVATION_INSTANCE extends Win32Struct
     Token{
         get {
             if(!this.HasProp("__Token"))
-                this.__Token := INET_PORT_RESERVATION_TOKEN(this.ptr + 8)
+                this.__Token := INET_PORT_RESERVATION_TOKEN(8, this)
             return this.__Token
         }
     }

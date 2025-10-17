@@ -21,7 +21,7 @@ class VDS_PATH_INFO extends Win32Struct
     pathId{
         get {
             if(!this.HasProp("__pathId"))
-                this.__pathId := VDS_PATH_ID(this.ptr + 0)
+                this.__pathId := VDS_PATH_ID(0, this)
             return this.__pathId
         }
     }

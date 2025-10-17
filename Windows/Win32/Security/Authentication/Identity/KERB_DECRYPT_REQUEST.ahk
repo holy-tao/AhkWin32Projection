@@ -27,7 +27,7 @@ class KERB_DECRYPT_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 8)
+                this.__LogonId := LUID(8, this)
             return this.__LogonId
         }
     }
@@ -62,7 +62,7 @@ class KERB_DECRYPT_REQUEST extends Win32Struct
     Key{
         get {
             if(!this.HasProp("__Key"))
-                this.__Key := KERB_CRYPTO_KEY(this.ptr + 32)
+                this.__Key := KERB_CRYPTO_KEY(32, this)
             return this.__Key
         }
     }

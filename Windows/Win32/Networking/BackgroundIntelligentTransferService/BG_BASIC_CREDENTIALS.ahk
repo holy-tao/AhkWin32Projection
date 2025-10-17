@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The BG_BASIC_CREDENTIALS structure identifies the user name and password to authenticate.
@@ -44,12 +43,9 @@ class BG_BASIC_CREDENTIALS extends Win32Struct
      * If <strong>NULL</strong>, default credentials for this session context are used.
      * @type {PWSTR}
      */
-    UserName{
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := PWSTR(this.ptr + 0)
-            return this.__UserName
-        }
+    UserName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -58,11 +54,8 @@ class BG_BASIC_CREDENTIALS extends Win32Struct
      * Live ID encoded passwords are supported through Negotiate 2. For more information about Live IDs, see the <a href="https://docs.microsoft.com/office/">Windows Live ID SDK</a>.
      * @type {PWSTR}
      */
-    Password{
-        get {
-            if(!this.HasProp("__Password"))
-                this.__Password := PWSTR(this.ptr + 8)
-            return this.__Password
-        }
+    Password {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

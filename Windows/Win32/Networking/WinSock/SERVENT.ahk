@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The servent structure is used to store or return the name and service number for a given service name.
@@ -18,12 +17,9 @@ class SERVENT extends Win32Struct
      * The official name of the service.
      * @type {PSTR}
      */
-    s_name{
-        get {
-            if(!this.HasProp("__s_name"))
-                this.__s_name := PSTR(this.ptr + 0)
-            return this.__s_name
-        }
+    s_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -39,12 +35,9 @@ class SERVENT extends Win32Struct
      * The name of the protocol to use when contacting the service.
      * @type {PSTR}
      */
-    s_proto{
-        get {
-            if(!this.HasProp("__s_proto"))
-                this.__s_proto := PSTR(this.ptr + 16)
-            return this.__s_proto
-        }
+    s_proto {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

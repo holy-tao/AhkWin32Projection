@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The InternetCookieHistory structure contains the cookie history.
@@ -23,47 +22,35 @@ class InternetCookieHistory extends Win32Struct
      * If true, the cookie was accepted.
      * @type {BOOL}
      */
-    fAccepted{
-        get {
-            if(!this.HasProp("__fAccepted"))
-                this.__fAccepted := BOOL(this.ptr + 0)
-            return this.__fAccepted
-        }
+    fAccepted {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * If true, the cookie was leashed.
      * @type {BOOL}
      */
-    fLeashed{
-        get {
-            if(!this.HasProp("__fLeashed"))
-                this.__fLeashed := BOOL(this.ptr + 4)
-            return this.__fLeashed
-        }
+    fLeashed {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
      * If true, the cookie was downgraded.
      * @type {BOOL}
      */
-    fDowngraded{
-        get {
-            if(!this.HasProp("__fDowngraded"))
-                this.__fDowngraded := BOOL(this.ptr + 8)
-            return this.__fDowngraded
-        }
+    fDowngraded {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * If true, the cookie was rejected.
      * @type {BOOL}
      */
-    fRejected{
-        get {
-            if(!this.HasProp("__fRejected"))
-                this.__fRejected := BOOL(this.ptr + 12)
-            return this.__fRejected
-        }
+    fRejected {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 }

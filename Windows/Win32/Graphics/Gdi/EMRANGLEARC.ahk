@@ -22,7 +22,7 @@ class EMRANGLEARC extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -34,7 +34,7 @@ class EMRANGLEARC extends Win32Struct
     ptlCenter{
         get {
             if(!this.HasProp("__ptlCenter"))
-                this.__ptlCenter := POINTL(this.ptr + 8)
+                this.__ptlCenter := POINTL(8, this)
             return this.__ptlCenter
         }
     }

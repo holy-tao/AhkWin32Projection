@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the default string values for user and vendor class names.
@@ -18,23 +17,17 @@ class DHCP_SERVER_SPECIFIC_STRINGS extends Win32Struct
      * Pointer to a Unicode string that specifies the default vendor class name for the DHCP server.
      * @type {PWSTR}
      */
-    DefaultVendorClassName{
-        get {
-            if(!this.HasProp("__DefaultVendorClassName"))
-                this.__DefaultVendorClassName := PWSTR(this.ptr + 0)
-            return this.__DefaultVendorClassName
-        }
+    DefaultVendorClassName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a Unicode string that specifies the default user class name for the DHCP server.
      * @type {PWSTR}
      */
-    DefaultUserClassName{
-        get {
-            if(!this.HasProp("__DefaultUserClassName"))
-                this.__DefaultUserClassName := PWSTR(this.ptr + 8)
-            return this.__DefaultUserClassName
-        }
+    DefaultUserClassName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

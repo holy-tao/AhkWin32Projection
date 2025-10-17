@@ -34,7 +34,7 @@ class MODULEENTRY extends Win32Struct
     hModule{
         get {
             if(!this.HasProp("__hModule"))
-                this.__hModule := HANDLE(this.ptr + 24)
+                this.__hModule := HANDLE(24, this)
             return this.__hModule
         }
     }

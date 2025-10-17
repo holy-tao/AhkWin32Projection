@@ -22,7 +22,7 @@ class D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS extends Win32Struct
     ClearValue{
         get {
             if(!this.HasProp("__ClearValue"))
-                this.__ClearValue := D3D12_CLEAR_VALUE(this.ptr + 0)
+                this.__ClearValue := D3D12_CLEAR_VALUE(0, this)
             return this.__ClearValue
         }
     }

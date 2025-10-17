@@ -45,7 +45,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
     hRestrictedRoot{
         get {
             if(!this.HasProp("__hRestrictedRoot"))
-                this.__hRestrictedRoot := HCERTSTORE(this.ptr + 8)
+                this.__hRestrictedRoot := HCERTSTORE(8, this)
             return this.__hRestrictedRoot
         }
     }
@@ -57,7 +57,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
     hRestrictedTrust{
         get {
             if(!this.HasProp("__hRestrictedTrust"))
-                this.__hRestrictedTrust := HCERTSTORE(this.ptr + 16)
+                this.__hRestrictedTrust := HCERTSTORE(16, this)
             return this.__hRestrictedTrust
         }
     }
@@ -69,7 +69,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
     hRestrictedOther{
         get {
             if(!this.HasProp("__hRestrictedOther"))
-                this.__hRestrictedOther := HCERTSTORE(this.ptr + 24)
+                this.__hRestrictedOther := HCERTSTORE(24, this)
             return this.__hRestrictedOther
         }
     }
@@ -215,7 +215,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
     hExclusiveRoot{
         get {
             if(!this.HasProp("__hExclusiveRoot"))
-                this.__hExclusiveRoot := HCERTSTORE(this.ptr + 64)
+                this.__hExclusiveRoot := HCERTSTORE(64, this)
             return this.__hExclusiveRoot
         }
     }
@@ -229,7 +229,7 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
     hExclusiveTrustedPeople{
         get {
             if(!this.HasProp("__hExclusiveTrustedPeople"))
-                this.__hExclusiveTrustedPeople := HCERTSTORE(this.ptr + 72)
+                this.__hExclusiveTrustedPeople := HCERTSTORE(72, this)
             return this.__hExclusiveTrustedPeople
         }
     }
@@ -267,12 +267,8 @@ class CERT_CHAIN_ENGINE_CONFIG extends Win32Struct
         set => NumPut("uint", value, this, 80)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 88
     }
 }

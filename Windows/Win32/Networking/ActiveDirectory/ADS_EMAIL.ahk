@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The ADS_EMAIL structure is an ADSI representation of the EMail Address attribute syntax.
@@ -18,12 +17,9 @@ class ADS_EMAIL extends Win32Struct
      * The null-terminated Unicode string that contains the user address.
      * @type {PWSTR}
      */
-    Address{
-        get {
-            if(!this.HasProp("__Address"))
-                this.__Address := PWSTR(this.ptr + 0)
-            return this.__Address
-        }
+    Address {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

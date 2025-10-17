@@ -21,7 +21,7 @@ class IPSEC_GETSPI1 extends Win32Struct
     inboundIpsecTraffic{
         get {
             if(!this.HasProp("__inboundIpsecTraffic"))
-                this.__inboundIpsecTraffic := IPSEC_TRAFFIC1(this.ptr + 0)
+                this.__inboundIpsecTraffic := IPSEC_TRAFFIC1(0, this)
             return this.__inboundIpsecTraffic
         }
     }

@@ -276,7 +276,7 @@ class Fxc {
     static D3DWriteBlobToFile(pBlob, pFileName, bOverwrite) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DWriteBlobToFile", "ptr", pBlob, "ptr", pFileName, "ptr", bOverwrite, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DWriteBlobToFile", "ptr", pBlob, "ptr", pFileName, "int", bOverwrite, "int")
         if(result != 0)
             throw OSError(result)
 

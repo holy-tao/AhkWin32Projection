@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -15,12 +14,9 @@ class REPL_IDIR_INFO_1 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    rpid1_dirname{
-        get {
-            if(!this.HasProp("__rpid1_dirname"))
-                this.__rpid1_dirname := PWSTR(this.ptr + 0)
-            return this.__rpid1_dirname
-        }
+    rpid1_dirname {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -34,12 +30,9 @@ class REPL_IDIR_INFO_1 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    rpid1_mastername{
-        get {
-            if(!this.HasProp("__rpid1_mastername"))
-                this.__rpid1_mastername := PWSTR(this.ptr + 16)
-            return this.__rpid1_mastername
-        }
+    rpid1_mastername {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

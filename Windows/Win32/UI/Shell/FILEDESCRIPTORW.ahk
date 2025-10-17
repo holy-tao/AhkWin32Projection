@@ -58,7 +58,7 @@ class FILEDESCRIPTORW extends Win32Struct
     sizel{
         get {
             if(!this.HasProp("__sizel"))
-                this.__sizel := SIZE(this.ptr + 16)
+                this.__sizel := SIZE(16, this)
             return this.__sizel
         }
     }
@@ -72,7 +72,7 @@ class FILEDESCRIPTORW extends Win32Struct
     pointl{
         get {
             if(!this.HasProp("__pointl"))
-                this.__pointl := POINTL(this.ptr + 24)
+                this.__pointl := POINTL(24, this)
             return this.__pointl
         }
     }
@@ -97,7 +97,7 @@ class FILEDESCRIPTORW extends Win32Struct
     ftCreationTime{
         get {
             if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(this.ptr + 40)
+                this.__ftCreationTime := FILETIME(40, this)
             return this.__ftCreationTime
         }
     }
@@ -111,7 +111,7 @@ class FILEDESCRIPTORW extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(this.ptr + 48)
+                this.__ftLastAccessTime := FILETIME(48, this)
             return this.__ftLastAccessTime
         }
     }
@@ -125,7 +125,7 @@ class FILEDESCRIPTORW extends Win32Struct
     ftLastWriteTime{
         get {
             if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(this.ptr + 56)
+                this.__ftLastWriteTime := FILETIME(56, this)
             return this.__ftLastWriteTime
         }
     }

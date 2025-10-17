@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\DICOLORSET.ahk
 
@@ -34,12 +33,9 @@ class DICONFIGUREDEVICESPARAMSW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lptszUserNames{
-        get {
-            if(!this.HasProp("__lptszUserNames"))
-                this.__lptszUserNames := PWSTR(this.ptr + 8)
-            return this.__lptszUserNames
-        }
+    lptszUserNames {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -64,7 +60,7 @@ class DICONFIGUREDEVICESPARAMSW extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 32)
+                this.__hwnd := HWND(32, this)
             return this.__hwnd
         }
     }
@@ -75,7 +71,7 @@ class DICONFIGUREDEVICESPARAMSW extends Win32Struct
     dics{
         get {
             if(!this.HasProp("__dics"))
-                this.__dics := DICOLORSET(this.ptr + 40)
+                this.__dics := DICOLORSET(40, this)
             return this.__dics
         }
     }

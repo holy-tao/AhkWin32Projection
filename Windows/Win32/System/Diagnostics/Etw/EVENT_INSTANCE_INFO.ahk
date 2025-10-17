@@ -26,7 +26,7 @@ class EVENT_INSTANCE_INFO extends Win32Struct
     RegHandle{
         get {
             if(!this.HasProp("__RegHandle"))
-                this.__RegHandle := HANDLE(this.ptr + 0)
+                this.__RegHandle := HANDLE(0, this)
             return this.__RegHandle
         }
     }

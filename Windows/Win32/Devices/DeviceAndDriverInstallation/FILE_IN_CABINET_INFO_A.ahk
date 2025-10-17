@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -16,12 +15,9 @@ class FILE_IN_CABINET_INFO_A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    NameInCabinet{
-        get {
-            if(!this.HasProp("__NameInCabinet"))
-                this.__NameInCabinet := PSTR(this.ptr + 0)
-            return this.__NameInCabinet
-        }
+    NameInCabinet {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

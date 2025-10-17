@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about the enabling and disabling of the allow and deny filter lists.
@@ -18,23 +17,17 @@ class DHCP_FILTER_GLOBAL_INFO extends Win32Struct
      * If <b>TRUE</b>, the allow list is enabled; if <b>FALSE</b>, it is disabled.
      * @type {BOOL}
      */
-    EnforceAllowList{
-        get {
-            if(!this.HasProp("__EnforceAllowList"))
-                this.__EnforceAllowList := BOOL(this.ptr + 0)
-            return this.__EnforceAllowList
-        }
+    EnforceAllowList {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
      * If <b>TRUE</b>, the deny list is enabled; if <b>FALSE</b>, it is disabled.
      * @type {BOOL}
      */
-    EnforceDenyList{
-        get {
-            if(!this.HasProp("__EnforceDenyList"))
-                this.__EnforceDenyList := BOOL(this.ptr + 4)
-            return this.__EnforceDenyList
-        }
+    EnforceDenyList {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 }

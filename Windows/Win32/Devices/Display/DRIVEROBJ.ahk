@@ -57,7 +57,7 @@ class DRIVEROBJ extends Win32Struct
     hdev{
         get {
             if(!this.HasProp("__hdev"))
-                this.__hdev := HDEV(this.ptr + 16)
+                this.__hdev := HDEV(16, this)
             return this.__hdev
         }
     }
@@ -69,7 +69,7 @@ class DRIVEROBJ extends Win32Struct
     dhpdev{
         get {
             if(!this.HasProp("__dhpdev"))
-                this.__dhpdev := DHPDEV(this.ptr + 24)
+                this.__dhpdev := DHPDEV(24, this)
             return this.__dhpdev
         }
     }

@@ -20,7 +20,7 @@ class JET_BKINFO extends Win32Struct
     lgposMark{
         get {
             if(!this.HasProp("__lgposMark"))
-                this.__lgposMark := JET_LGPOS(this.ptr + 0)
+                this.__lgposMark := JET_LGPOS(0, this)
             return this.__lgposMark
         }
     }
@@ -31,7 +31,7 @@ class JET_BKINFO extends Win32Struct
     logtimeMark{
         get {
             if(!this.HasProp("__logtimeMark"))
-                this.__logtimeMark := JET_LOGTIME(this.ptr + 8)
+                this.__logtimeMark := JET_LOGTIME(8, this)
             return this.__logtimeMark
         }
     }
@@ -42,7 +42,7 @@ class JET_BKINFO extends Win32Struct
     bklogtimeMark{
         get {
             if(!this.HasProp("__bklogtimeMark"))
-                this.__bklogtimeMark := JET_BKLOGTIME(this.ptr + 8)
+                this.__bklogtimeMark := JET_BKLOGTIME(8, this)
             return this.__bklogtimeMark
         }
     }

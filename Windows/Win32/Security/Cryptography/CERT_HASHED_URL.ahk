@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a hashed URL.
@@ -24,7 +22,7 @@ class CERT_HASHED_URL extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 0)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
             return this.__HashAlgorithm
         }
     }
@@ -36,7 +34,7 @@ class CERT_HASHED_URL extends Win32Struct
     Hash{
         get {
             if(!this.HasProp("__Hash"))
-                this.__Hash := CRYPT_INTEGER_BLOB(this.ptr + 24)
+                this.__Hash := CRYPT_INTEGER_BLOB(24, this)
             return this.__Hash
         }
     }
@@ -45,11 +43,8 @@ class CERT_HASHED_URL extends Win32Struct
      * The address of a null-terminated Unicode string that contains the URL. This member is optional for biometric data and may be <b>NULL</b>.
      * @type {PWSTR}
      */
-    pwszUrl{
-        get {
-            if(!this.HasProp("__pwszUrl"))
-                this.__pwszUrl := PWSTR(this.ptr + 40)
-            return this.__pwszUrl
-        }
+    pwszUrl {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

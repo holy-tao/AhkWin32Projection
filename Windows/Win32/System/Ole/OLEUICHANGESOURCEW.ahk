@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRSRC.ahk
 
@@ -88,7 +86,7 @@ class OLEUICHANGESOURCEW extends Win32Struct
     hWndOwner{
         get {
             if(!this.HasProp("__hWndOwner"))
-                this.__hWndOwner := HWND(this.ptr + 8)
+                this.__hWndOwner := HWND(8, this)
             return this.__hWndOwner
         }
     }
@@ -97,12 +95,9 @@ class OLEUICHANGESOURCEW extends Win32Struct
      * Pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Change Source</b>.
      * @type {PWSTR}
      */
-    lpszCaption{
-        get {
-            if(!this.HasProp("__lpszCaption"))
-                this.__lpszCaption := PWSTR(this.ptr + 16)
-            return this.__lpszCaption
-        }
+    lpszCaption {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -118,12 +113,9 @@ class OLEUICHANGESOURCEW extends Win32Struct
      * Application-defined data that the library passes to the hook function pointed to by the [OLEUICHANGEICON](./nf-oledlg-oleuichangeicona.md) structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.
      * @type {LPARAM}
      */
-    lCustData{
-        get {
-            if(!this.HasProp("__lCustData"))
-                this.__lCustData := LPARAM(this.ptr + 32)
-            return this.__lCustData
-        }
+    lCustData {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -133,7 +125,7 @@ class OLEUICHANGESOURCEW extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 40)
+                this.__hInstance := HINSTANCE(40, this)
             return this.__hInstance
         }
     }
@@ -142,12 +134,9 @@ class OLEUICHANGESOURCEW extends Win32Struct
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Convert</b> dialog box template.
      * @type {PWSTR}
      */
-    lpszTemplate{
-        get {
-            if(!this.HasProp("__lpszTemplate"))
-                this.__lpszTemplate := PWSTR(this.ptr + 48)
-            return this.__lpszTemplate
-        }
+    lpszTemplate {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -157,7 +146,7 @@ class OLEUICHANGESOURCEW extends Win32Struct
     hResource{
         get {
             if(!this.HasProp("__hResource"))
-                this.__hResource := HRSRC(this.ptr + 56)
+                this.__hResource := HRSRC(56, this)
             return this.__hResource
         }
     }
@@ -205,12 +194,9 @@ class OLEUICHANGESOURCEW extends Win32Struct
      * Pointer to the complete source display name.
      * @type {PWSTR}
      */
-    lpszDisplayName{
-        get {
-            if(!this.HasProp("__lpszDisplayName"))
-                this.__lpszDisplayName := PWSTR(this.ptr + 104)
-            return this.__lpszDisplayName
-        }
+    lpszDisplayName {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -226,23 +212,17 @@ class OLEUICHANGESOURCEW extends Win32Struct
      * Pointer to the prefix of the source that was changed from.
      * @type {PWSTR}
      */
-    lpszFrom{
-        get {
-            if(!this.HasProp("__lpszFrom"))
-                this.__lpszFrom := PWSTR(this.ptr + 120)
-            return this.__lpszFrom
-        }
+    lpszFrom {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
      * Pointer to the prefix of the source to be changed to.
      * @type {PWSTR}
      */
-    lpszTo{
-        get {
-            if(!this.HasProp("__lpszTo"))
-                this.__lpszTo := PWSTR(this.ptr + 128)
-            return this.__lpszTo
-        }
+    lpszTo {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

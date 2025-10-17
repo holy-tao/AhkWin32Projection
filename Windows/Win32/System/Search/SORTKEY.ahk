@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 
@@ -20,7 +19,7 @@ class SORTKEY extends Win32Struct
     propColumn{
         get {
             if(!this.HasProp("__propColumn"))
-                this.__propColumn := FULLPROPSPEC(this.ptr + 0)
+                this.__propColumn := FULLPROPSPEC(0, this)
             return this.__propColumn
         }
     }

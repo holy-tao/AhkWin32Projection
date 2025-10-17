@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Use this structure to specify one or more ALink names or KLink keywords that you want to search for.
@@ -51,12 +50,9 @@ class HH_AKLINK extends Win32Struct
      * This parameter must be set to FALSE.
      * @type {BOOL}
      */
-    fReserved{
-        get {
-            if(!this.HasProp("__fReserved"))
-                this.__fReserved := BOOL(this.ptr + 4)
-            return this.__fReserved
-        }
+    fReserved {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -115,11 +111,8 @@ class HH_AKLINK extends Win32Struct
      * Specifies whether to display the keyword in the Index tab of the HTML Help Viewer if the lookup fails. The value of <i>pszWindow</i> specifies the Help Viewer.
      * @type {BOOL}
      */
-    fIndexOnFail{
-        get {
-            if(!this.HasProp("__fIndexOnFail"))
-                this.__fIndexOnFail := BOOL(this.ptr + 48)
-            return this.__fIndexOnFail
-        }
+    fIndexOnFail {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

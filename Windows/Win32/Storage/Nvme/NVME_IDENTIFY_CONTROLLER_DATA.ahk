@@ -1733,7 +1733,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     CMIC{
         get {
             if(!this.HasProp("__CMIC"))
-                this.__CMIC := %this.__Class%._CMIC(this.ptr + 76)
+                this.__CMIC := %this.__Class%._CMIC(76, this)
             return this.__CMIC
         }
     }
@@ -1784,7 +1784,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     OAES{
         get {
             if(!this.HasProp("__OAES"))
-                this.__OAES := %this.__Class%._OAES(this.ptr + 92)
+                this.__OAES := %this.__Class%._OAES(92, this)
             return this.__OAES
         }
     }
@@ -1795,7 +1795,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     CTRATT{
         get {
             if(!this.HasProp("__CTRATT"))
-                this.__CTRATT := %this.__Class%._CTRATT(this.ptr + 96)
+                this.__CTRATT := %this.__Class%._CTRATT(96, this)
             return this.__CTRATT
         }
     }
@@ -1806,7 +1806,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     RRLS{
         get {
             if(!this.HasProp("__RRLS"))
-                this.__RRLS := %this.__Class%._RRLS(this.ptr + 100)
+                this.__RRLS := %this.__Class%._RRLS(100, this)
             return this.__RRLS
         }
     }
@@ -1917,7 +1917,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     OACS{
         get {
             if(!this.HasProp("__OACS"))
-                this.__OACS := %this.__Class%._OACS(this.ptr + 256)
+                this.__OACS := %this.__Class%._OACS(256, this)
             return this.__OACS
         }
     }
@@ -1944,7 +1944,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     FRMW{
         get {
             if(!this.HasProp("__FRMW"))
-                this.__FRMW := %this.__Class%._FRMW(this.ptr + 260)
+                this.__FRMW := %this.__Class%._FRMW(260, this)
             return this.__FRMW
         }
     }
@@ -1955,7 +1955,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     LPA{
         get {
             if(!this.HasProp("__LPA"))
-                this.__LPA := %this.__Class%._LPA(this.ptr + 261)
+                this.__LPA := %this.__Class%._LPA(261, this)
             return this.__LPA
         }
     }
@@ -1982,7 +1982,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     AVSCC{
         get {
             if(!this.HasProp("__AVSCC"))
-                this.__AVSCC := %this.__Class%._AVSCC(this.ptr + 264)
+                this.__AVSCC := %this.__Class%._AVSCC(264, this)
             return this.__AVSCC
         }
     }
@@ -1993,7 +1993,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     APSTA{
         get {
             if(!this.HasProp("__APSTA"))
-                this.__APSTA := %this.__Class%._APSTA(this.ptr + 265)
+                this.__APSTA := %this.__Class%._APSTA(265, this)
             return this.__APSTA
         }
     }
@@ -2066,7 +2066,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     RPMBS{
         get {
             if(!this.HasProp("__RPMBS"))
-                this.__RPMBS := %this.__Class%._RPMBS(this.ptr + 312)
+                this.__RPMBS := %this.__Class%._RPMBS(312, this)
             return this.__RPMBS
         }
     }
@@ -2109,7 +2109,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     HCTMA{
         get {
             if(!this.HasProp("__HCTMA"))
-                this.__HCTMA := %this.__Class%._HCTMA(this.ptr + 322)
+                this.__HCTMA := %this.__Class%._HCTMA(322, this)
             return this.__HCTMA
         }
     }
@@ -2136,7 +2136,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     SANICAP{
         get {
             if(!this.HasProp("__SANICAP"))
-                this.__SANICAP := %this.__Class%._SANICAP(this.ptr + 328)
+                this.__SANICAP := %this.__Class%._SANICAP(328, this)
             return this.__SANICAP
         }
     }
@@ -2187,7 +2187,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     ANACAP{
         get {
             if(!this.HasProp("__ANACAP"))
-                this.__ANACAP := %this.__Class%._ANACAP(this.ptr + 343)
+                this.__ANACAP := %this.__Class%._ANACAP(343, this)
             return this.__ANACAP
         }
     }
@@ -2263,7 +2263,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     SQES{
         get {
             if(!this.HasProp("__SQES"))
-                this.__SQES := %this.__Class%._SQES(this.ptr + 512)
+                this.__SQES := %this.__Class%._SQES(512, this)
             return this.__SQES
         }
     }
@@ -2274,7 +2274,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     CQES{
         get {
             if(!this.HasProp("__CQES"))
-                this.__CQES := %this.__Class%._CQES(this.ptr + 513)
+                this.__CQES := %this.__Class%._CQES(513, this)
             return this.__CQES
         }
     }
@@ -2301,7 +2301,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     ONCS{
         get {
             if(!this.HasProp("__ONCS"))
-                this.__ONCS := %this.__Class%._ONCS(this.ptr + 520)
+                this.__ONCS := %this.__Class%._ONCS(520, this)
             return this.__ONCS
         }
     }
@@ -2312,7 +2312,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     FUSES{
         get {
             if(!this.HasProp("__FUSES"))
-                this.__FUSES := %this.__Class%._FUSES(this.ptr + 522)
+                this.__FUSES := %this.__Class%._FUSES(522, this)
             return this.__FUSES
         }
     }
@@ -2323,7 +2323,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     FNA{
         get {
             if(!this.HasProp("__FNA"))
-                this.__FNA := %this.__Class%._FNA(this.ptr + 524)
+                this.__FNA := %this.__Class%._FNA(524, this)
             return this.__FNA
         }
     }
@@ -2334,7 +2334,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     VWC{
         get {
             if(!this.HasProp("__VWC"))
-                this.__VWC := %this.__Class%._VWC(this.ptr + 525)
+                this.__VWC := %this.__Class%._VWC(525, this)
             return this.__VWC
         }
     }
@@ -2361,7 +2361,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     NVSCC{
         get {
             if(!this.HasProp("__NVSCC"))
-                this.__NVSCC := %this.__Class%._NVSCC(this.ptr + 530)
+                this.__NVSCC := %this.__Class%._NVSCC(530, this)
             return this.__NVSCC
         }
     }
@@ -2372,7 +2372,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     NWPC{
         get {
             if(!this.HasProp("__NWPC"))
-                this.__NWPC := %this.__Class%._NWPC(this.ptr + 531)
+                this.__NWPC := %this.__Class%._NWPC(531, this)
             return this.__NWPC
         }
     }
@@ -2399,7 +2399,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     SGLS{
         get {
             if(!this.HasProp("__SGLS"))
-                this.__SGLS := %this.__Class%._SGLS(this.ptr + 536)
+                this.__SGLS := %this.__Class%._SGLS(536, this)
             return this.__SGLS
         }
     }
@@ -2494,7 +2494,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     FCATT{
         get {
             if(!this.HasProp("__FCATT"))
-                this.__FCATT := %this.__Class%._FCATT(this.ptr + 1802)
+                this.__FCATT := %this.__Class%._FCATT(1802, this)
             return this.__FCATT
         }
     }
@@ -2513,7 +2513,7 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     OFCS{
         get {
             if(!this.HasProp("__OFCS"))
-                this.__OFCS := %this.__Class%._OFCS(this.ptr + 1804)
+                this.__OFCS := %this.__Class%._OFCS(1804, this)
             return this.__OFCS
         }
     }

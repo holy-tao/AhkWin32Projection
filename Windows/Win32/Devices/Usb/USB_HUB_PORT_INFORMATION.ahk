@@ -18,7 +18,7 @@ class USB_HUB_PORT_INFORMATION extends Win32Struct
     DeviceState{
         get {
             if(!this.HasProp("__DeviceState"))
-                this.__DeviceState := USB_DEVICE_STATE(this.ptr + 0)
+                this.__DeviceState := USB_DEVICE_STATE(0, this)
             return this.__DeviceState
         }
     }

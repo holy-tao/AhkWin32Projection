@@ -33,7 +33,7 @@ class WNDOBJ extends Win32Struct
     coClient{
         get {
             if(!this.HasProp("__coClient"))
-                this.__coClient := CLIPOBJ(this.ptr + 0)
+                this.__coClient := CLIPOBJ(0, this)
             return this.__coClient
         }
     }
@@ -54,7 +54,7 @@ class WNDOBJ extends Win32Struct
     rclClient{
         get {
             if(!this.HasProp("__rclClient"))
-                this.__rclClient := RECTL(this.ptr + 40)
+                this.__rclClient := RECTL(40, this)
             return this.__rclClient
         }
     }

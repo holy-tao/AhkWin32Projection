@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
@@ -39,12 +38,9 @@ class WSMAN_SHELL_STARTUP_INFO_V10 extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    workingDirectory{
-        get {
-            if(!this.HasProp("__workingDirectory"))
-                this.__workingDirectory := PWSTR(this.ptr + 24)
-            return this.__workingDirectory
-        }
+    workingDirectory {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

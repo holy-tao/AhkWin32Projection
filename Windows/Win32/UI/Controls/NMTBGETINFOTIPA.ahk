@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains and receives infotip information for a toolbar item. This structure is used with the TBN_GETINFOTIP notification code.
@@ -33,7 +31,7 @@ class NMTBGETINFOTIPA extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -44,12 +42,9 @@ class NMTBGETINFOTIPA extends Win32Struct
      * Address of a character buffer that receives the infotip text.
      * @type {PSTR}
      */
-    pszText{
-        get {
-            if(!this.HasProp("__pszText"))
-                this.__pszText := PSTR(this.ptr + 24)
-            return this.__pszText
-        }
+    pszText {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -83,11 +78,8 @@ class NMTBGETINFOTIPA extends Win32Struct
      * The application-defined value associated with the item for which infotip information is being requested. This member is filled in by the control before sending the notification code.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 40)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

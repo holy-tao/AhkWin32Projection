@@ -38,7 +38,7 @@ class Pointer {
     static InitializeTouchInjection(maxCount, dwMode) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\InitializeTouchInjection", "uint", maxCount, "uint", dwMode, "ptr")
+        result := DllCall("USER32.dll\InitializeTouchInjection", "uint", maxCount, "uint", dwMode, "int")
         if(A_LastError)
             throw OSError()
 
@@ -60,7 +60,7 @@ class Pointer {
     static InjectTouchInput(count, contacts) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\InjectTouchInput", "uint", count, "ptr", contacts, "ptr")
+        result := DllCall("USER32.dll\InjectTouchInput", "uint", count, "ptr", contacts, "int")
         if(A_LastError)
             throw OSError()
 
@@ -80,7 +80,7 @@ class Pointer {
     static GetPointerType(pointerId, pointerType) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerType", "uint", pointerId, "int*", pointerType, "ptr")
+        result := DllCall("USER32.dll\GetPointerType", "uint", pointerId, "int*", pointerType, "int")
         if(A_LastError)
             throw OSError()
 
@@ -100,7 +100,7 @@ class Pointer {
     static GetPointerCursorId(pointerId, cursorId) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerCursorId", "uint", pointerId, "uint*", cursorId, "ptr")
+        result := DllCall("USER32.dll\GetPointerCursorId", "uint", pointerId, "uint*", cursorId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -120,7 +120,7 @@ class Pointer {
     static GetPointerInfo(pointerId, pointerInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerInfo", "uint", pointerId, "ptr", pointerInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerInfo", "uint", pointerId, "ptr", pointerInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -141,7 +141,7 @@ class Pointer {
     static GetPointerInfoHistory(pointerId, entriesCount, pointerInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerInfoHistory", "uint", pointerId, "uint*", entriesCount, "ptr", pointerInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerInfoHistory", "uint", pointerId, "uint*", entriesCount, "ptr", pointerInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -162,7 +162,7 @@ class Pointer {
     static GetPointerFrameInfo(pointerId, pointerCount, pointerInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFrameInfo", "uint", pointerId, "uint*", pointerCount, "ptr", pointerInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerFrameInfo", "uint", pointerId, "uint*", pointerCount, "ptr", pointerInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -186,7 +186,7 @@ class Pointer {
     static GetPointerFrameInfoHistory(pointerId, entriesCount, pointerCount, pointerInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFrameInfoHistory", "uint", pointerId, "uint*", entriesCount, "uint*", pointerCount, "ptr", pointerInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerFrameInfoHistory", "uint", pointerId, "uint*", entriesCount, "uint*", pointerCount, "ptr", pointerInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -206,7 +206,7 @@ class Pointer {
     static GetPointerTouchInfo(pointerId, touchInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerTouchInfo", "uint", pointerId, "ptr", touchInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerTouchInfo", "uint", pointerId, "ptr", touchInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -227,7 +227,7 @@ class Pointer {
     static GetPointerTouchInfoHistory(pointerId, entriesCount, touchInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerTouchInfoHistory", "uint", pointerId, "uint*", entriesCount, "ptr", touchInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerTouchInfoHistory", "uint", pointerId, "uint*", entriesCount, "ptr", touchInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -248,7 +248,7 @@ class Pointer {
     static GetPointerFrameTouchInfo(pointerId, pointerCount, touchInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFrameTouchInfo", "uint", pointerId, "uint*", pointerCount, "ptr", touchInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerFrameTouchInfo", "uint", pointerId, "uint*", pointerCount, "ptr", touchInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -272,7 +272,7 @@ class Pointer {
     static GetPointerFrameTouchInfoHistory(pointerId, entriesCount, pointerCount, touchInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFrameTouchInfoHistory", "uint", pointerId, "uint*", entriesCount, "uint*", pointerCount, "ptr", touchInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerFrameTouchInfoHistory", "uint", pointerId, "uint*", entriesCount, "uint*", pointerCount, "ptr", touchInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -292,7 +292,7 @@ class Pointer {
     static GetPointerPenInfo(pointerId, penInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerPenInfo", "uint", pointerId, "ptr", penInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerPenInfo", "uint", pointerId, "ptr", penInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -322,7 +322,7 @@ class Pointer {
     static GetPointerPenInfoHistory(pointerId, entriesCount, penInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerPenInfoHistory", "uint", pointerId, "uint*", entriesCount, "ptr", penInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerPenInfoHistory", "uint", pointerId, "uint*", entriesCount, "ptr", penInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -343,7 +343,7 @@ class Pointer {
     static GetPointerFramePenInfo(pointerId, pointerCount, penInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFramePenInfo", "uint", pointerId, "uint*", pointerCount, "ptr", penInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerFramePenInfo", "uint", pointerId, "uint*", pointerCount, "ptr", penInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -368,7 +368,7 @@ class Pointer {
     static GetPointerFramePenInfoHistory(pointerId, entriesCount, pointerCount, penInfo) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerFramePenInfoHistory", "uint", pointerId, "uint*", entriesCount, "uint*", pointerCount, "ptr", penInfo, "ptr")
+        result := DllCall("USER32.dll\GetPointerFramePenInfoHistory", "uint", pointerId, "uint*", entriesCount, "uint*", pointerCount, "ptr", penInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -387,7 +387,7 @@ class Pointer {
     static SkipPointerFrameMessages(pointerId) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SkipPointerFrameMessages", "uint", pointerId, "ptr")
+        result := DllCall("USER32.dll\SkipPointerFrameMessages", "uint", pointerId, "int")
         if(A_LastError)
             throw OSError()
 
@@ -420,7 +420,7 @@ class Pointer {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\InjectSyntheticPointerInput", "ptr", device, "ptr", pointerInfo, "uint", count, "ptr")
+        result := DllCall("USER32.dll\InjectSyntheticPointerInput", "ptr", device, "ptr", pointerInfo, "uint", count, "int")
         if(A_LastError)
             throw OSError()
 
@@ -452,7 +452,7 @@ class Pointer {
     static EnableMouseInPointer(fEnable) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnableMouseInPointer", "ptr", fEnable, "ptr")
+        result := DllCall("USER32.dll\EnableMouseInPointer", "int", fEnable, "int")
         if(A_LastError)
             throw OSError()
 
@@ -468,7 +468,7 @@ class Pointer {
      * @since windows8.0
      */
     static IsMouseInPointerEnabled() {
-        result := DllCall("USER32.dll\IsMouseInPointerEnabled", "ptr")
+        result := DllCall("USER32.dll\IsMouseInPointerEnabled", "int")
         return result
     }
 
@@ -490,7 +490,7 @@ class Pointer {
     static GetPointerInputTransform(pointerId, historyCount, inputTransform) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerInputTransform", "uint", pointerId, "uint", historyCount, "ptr", inputTransform, "ptr")
+        result := DllCall("USER32.dll\GetPointerInputTransform", "uint", pointerId, "uint", historyCount, "ptr", inputTransform, "int")
         if(A_LastError)
             throw OSError()
 
@@ -510,7 +510,7 @@ class Pointer {
     static GetPointerDevices(deviceCount, pointerDevices) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerDevices", "uint*", deviceCount, "ptr", pointerDevices, "ptr")
+        result := DllCall("USER32.dll\GetPointerDevices", "uint*", deviceCount, "ptr", pointerDevices, "int")
         if(A_LastError)
             throw OSError()
 
@@ -532,7 +532,7 @@ class Pointer {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerDevice", "ptr", device, "ptr", pointerDevice, "ptr")
+        result := DllCall("USER32.dll\GetPointerDevice", "ptr", device, "ptr", pointerDevice, "int")
         if(A_LastError)
             throw OSError()
 
@@ -559,7 +559,7 @@ class Pointer {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerDeviceProperties", "ptr", device, "uint*", propertyCount, "ptr", pointerProperties, "ptr")
+        result := DllCall("USER32.dll\GetPointerDeviceProperties", "ptr", device, "uint*", propertyCount, "ptr", pointerProperties, "int")
         if(A_LastError)
             throw OSError()
 
@@ -580,7 +580,7 @@ class Pointer {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerDeviceRects", "ptr", device, "ptr", pointerDeviceRect, "ptr", displayRect, "ptr")
+        result := DllCall("USER32.dll\GetPointerDeviceRects", "ptr", device, "ptr", pointerDeviceRect, "ptr", displayRect, "int")
         if(A_LastError)
             throw OSError()
 
@@ -601,7 +601,7 @@ class Pointer {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetPointerDeviceCursors", "ptr", device, "uint*", cursorCount, "ptr", deviceCursors, "ptr")
+        result := DllCall("USER32.dll\GetPointerDeviceCursors", "ptr", device, "uint*", cursorCount, "ptr", deviceCursors, "int")
         if(A_LastError)
             throw OSError()
 
@@ -622,7 +622,7 @@ class Pointer {
     static GetRawPointerDeviceData(pointerId, historyCount, propertiesCount, pProperties, pValues) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetRawPointerDeviceData", "uint", pointerId, "uint", historyCount, "uint", propertiesCount, "ptr", pProperties, "int*", pValues, "ptr")
+        result := DllCall("USER32.dll\GetRawPointerDeviceData", "uint", pointerId, "uint", historyCount, "uint", propertiesCount, "ptr", pProperties, "int*", pValues, "int")
         if(A_LastError)
             throw OSError()
 

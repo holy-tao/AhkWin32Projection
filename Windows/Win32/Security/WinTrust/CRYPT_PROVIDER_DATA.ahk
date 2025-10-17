@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -39,12 +37,9 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
      * A Boolean value that indicates whether the trust provider opened the file handle, if applicable.
      * @type {BOOL}
      */
-    fOpenedFile{
-        get {
-            if(!this.HasProp("__fOpenedFile"))
-                this.__fOpenedFile := BOOL(this.ptr + 16)
-            return this.__fOpenedFile
-        }
+    fOpenedFile {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -54,7 +49,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
     hWndParent{
         get {
             if(!this.HasProp("__hWndParent"))
-                this.__hWndParent := HWND(this.ptr + 24)
+                this.__hWndParent := HWND(24, this)
             return this.__hWndParent
         }
     }
@@ -224,24 +219,18 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
      * A pointer to a null-terminated string that contains the usage <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).
      * @type {PSTR}
      */
-    pszUsageOID{
-        get {
-            if(!this.HasProp("__pszUsageOID"))
-                this.__pszUsageOID := PSTR(this.ptr + 168)
-            return this.__pszUsageOID
-        }
+    pszUsageOID {
+        get => NumGet(this, 168, "ptr")
+        set => NumPut("ptr", value, this, 168)
     }
 
     /**
      * A Boolean value that indicates whether state was maintained for catalog files.
      * @type {BOOL}
      */
-    fRecallWithState{
-        get {
-            if(!this.HasProp("__fRecallWithState"))
-                this.__fRecallWithState := BOOL(this.ptr + 176)
-            return this.__fRecallWithState
-        }
+    fRecallWithState {
+        get => NumGet(this, 176, "int")
+        set => NumPut("int", value, this, 176)
     }
 
     /**
@@ -251,7 +240,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
     sftSystemTime{
         get {
             if(!this.HasProp("__sftSystemTime"))
-                this.__sftSystemTime := FILETIME(this.ptr + 184)
+                this.__sftSystemTime := FILETIME(184, this)
             return this.__sftSystemTime
         }
     }
@@ -260,12 +249,9 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
      * A pointer to a null-terminated string that represents the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust list</a> (CTL) signer usage OID.
      * @type {PSTR}
      */
-    pszCTLSignerUsageOID{
-        get {
-            if(!this.HasProp("__pszCTLSignerUsageOID"))
-                this.__pszCTLSignerUsageOID := PSTR(this.ptr + 192)
-            return this.__pszCTLSignerUsageOID
-        }
+    pszCTLSignerUsageOID {
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**

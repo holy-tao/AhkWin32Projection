@@ -574,7 +574,7 @@ class RightsManagement {
      * @see https://docs.microsoft.com/windows/win32/api//msdrm/nf-msdrm-drmregistercontent
      */
     static DRMRegisterContent(fRegister) {
-        result := DllCall("msdrm.dll\DRMRegisterContent", "ptr", fRegister, "int")
+        result := DllCall("msdrm.dll\DRMRegisterContent", "int", fRegister, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1690,7 +1690,7 @@ class RightsManagement {
         wszPublicKey := wszPublicKey is String ? StrPtr(wszPublicKey) : wszPublicKey
         wszDigestAlgorithm := wszDigestAlgorithm is String ? StrPtr(wszDigestAlgorithm) : wszDigestAlgorithm
 
-        result := DllCall("msdrm.dll\DRMSetUsagePolicy", "uint", hIssuanceLicense, "int", eUsagePolicyType, "ptr", fDelete, "ptr", fExclusion, "ptr", wszName, "ptr", wszMinVersion, "ptr", wszMaxVersion, "ptr", wszPublicKey, "ptr", wszDigestAlgorithm, "char*", pbDigest, "uint", cbDigest, "int")
+        result := DllCall("msdrm.dll\DRMSetUsagePolicy", "uint", hIssuanceLicense, "int", eUsagePolicyType, "int", fDelete, "int", fExclusion, "ptr", wszName, "ptr", wszMinVersion, "ptr", wszMaxVersion, "ptr", wszPublicKey, "ptr", wszDigestAlgorithm, "char*", pbDigest, "uint", cbDigest, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1719,7 +1719,7 @@ class RightsManagement {
         wszName := wszName is String ? StrPtr(wszName) : wszName
         wszPublicKey := wszPublicKey is String ? StrPtr(wszPublicKey) : wszPublicKey
 
-        result := DllCall("msdrm.dll\DRMSetRevocationPoint", "uint", hIssuanceLicense, "ptr", fDelete, "ptr", wszId, "ptr", wszIdType, "ptr", wszURL, "ptr", pstFrequency, "ptr", wszName, "ptr", wszPublicKey, "int")
+        result := DllCall("msdrm.dll\DRMSetRevocationPoint", "uint", hIssuanceLicense, "int", fDelete, "ptr", wszId, "ptr", wszIdType, "ptr", wszURL, "ptr", pstFrequency, "ptr", wszName, "ptr", wszPublicKey, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1741,7 +1741,7 @@ class RightsManagement {
         wszName := wszName is String ? StrPtr(wszName) : wszName
         wszValue := wszValue is String ? StrPtr(wszValue) : wszValue
 
-        result := DllCall("msdrm.dll\DRMSetApplicationSpecificData", "uint", hIssuanceLicense, "ptr", fDelete, "ptr", wszName, "ptr", wszValue, "int")
+        result := DllCall("msdrm.dll\DRMSetApplicationSpecificData", "uint", hIssuanceLicense, "int", fDelete, "ptr", wszName, "ptr", wszValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1764,7 +1764,7 @@ class RightsManagement {
         wszName := wszName is String ? StrPtr(wszName) : wszName
         wszDescription := wszDescription is String ? StrPtr(wszDescription) : wszDescription
 
-        result := DllCall("msdrm.dll\DRMSetNameAndDescription", "uint", hIssuanceLicense, "ptr", fDelete, "uint", lcid, "ptr", wszName, "ptr", wszDescription, "int")
+        result := DllCall("msdrm.dll\DRMSetNameAndDescription", "uint", hIssuanceLicense, "int", fDelete, "uint", lcid, "ptr", wszName, "ptr", wszDescription, "int")
         if(result != 0)
             throw OSError(result)
 

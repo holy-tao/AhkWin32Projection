@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Cabinets
@@ -135,12 +134,9 @@ class FDIDECRYPT extends Win32Struct
         /**
          * @type {BOOL}
          */
-        fSplit{
-            get {
-                if(!this.HasProp("__fSplit"))
-                    this.__fSplit := BOOL(this.ptr + 28)
-                return this.__fSplit
-            }
+        fSplit {
+            get => NumGet(this, 28, "int")
+            set => NumPut("int", value, this, 28)
         }
     
         /**
@@ -159,7 +155,7 @@ class FDIDECRYPT extends Win32Struct
     cabinet{
         get {
             if(!this.HasProp("__cabinet"))
-                this.__cabinet := %this.__Class%._cabinet(this.ptr + 16)
+                this.__cabinet := %this.__Class%._cabinet(16, this)
             return this.__cabinet
         }
     }
@@ -170,7 +166,7 @@ class FDIDECRYPT extends Win32Struct
     folder{
         get {
             if(!this.HasProp("__folder"))
-                this.__folder := %this.__Class%._folder(this.ptr + 16)
+                this.__folder := %this.__Class%._folder(16, this)
             return this.__folder
         }
     }
@@ -181,7 +177,7 @@ class FDIDECRYPT extends Win32Struct
     decrypt{
         get {
             if(!this.HasProp("__decrypt"))
-                this.__decrypt := %this.__Class%._decrypt(this.ptr + 16)
+                this.__decrypt := %this.__Class%._decrypt(16, this)
             return this.__decrypt
         }
     }

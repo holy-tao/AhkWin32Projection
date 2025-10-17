@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\PSID.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
@@ -20,12 +18,9 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
      * The identifier of the central access policy.
      * @type {PSID}
      */
-    CAPID{
-        get {
-            if(!this.HasProp("__CAPID"))
-                this.__CAPID := PSID(this.ptr + 0)
-            return this.__CAPID
-        }
+    CAPID {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -35,7 +30,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__Name := LSA_UNICODE_STRING(8, this)
             return this.__Name
         }
     }
@@ -47,7 +42,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
     Description{
         get {
             if(!this.HasProp("__Description"))
-                this.__Description := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__Description := LSA_UNICODE_STRING(24, this)
             return this.__Description
         }
     }
@@ -59,7 +54,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
     ChangeId{
         get {
             if(!this.HasProp("__ChangeId"))
-                this.__ChangeId := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__ChangeId := LSA_UNICODE_STRING(40, this)
             return this.__ChangeId
         }
     }

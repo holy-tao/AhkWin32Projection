@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\Networking\WinSock\NL_BANDWIDTH_INFORMATION.ahk
 
 /**
@@ -32,7 +31,7 @@ class MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES extends Win32Struct
     InboundBandwidthInformation{
         get {
             if(!this.HasProp("__InboundBandwidthInformation"))
-                this.__InboundBandwidthInformation := NL_BANDWIDTH_INFORMATION(this.ptr + 0)
+                this.__InboundBandwidthInformation := NL_BANDWIDTH_INFORMATION(0, this)
             return this.__InboundBandwidthInformation
         }
     }
@@ -44,7 +43,7 @@ class MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES extends Win32Struct
     OutboundBandwidthInformation{
         get {
             if(!this.HasProp("__OutboundBandwidthInformation"))
-                this.__OutboundBandwidthInformation := NL_BANDWIDTH_INFORMATION(this.ptr + 24)
+                this.__OutboundBandwidthInformation := NL_BANDWIDTH_INFORMATION(24, this)
             return this.__OutboundBandwidthInformation
         }
     }

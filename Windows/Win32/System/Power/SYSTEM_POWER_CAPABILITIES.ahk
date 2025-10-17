@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\BATTERY_REPORTING_SCALE.ahk
 
 /**
@@ -19,120 +18,90 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      * If this member is <b>TRUE</b>, there is a system power button.
      * @type {BOOLEAN}
      */
-    PowerButtonPresent{
-        get {
-            if(!this.HasProp("__PowerButtonPresent"))
-                this.__PowerButtonPresent := BOOLEAN(this.ptr + 0)
-            return this.__PowerButtonPresent
-        }
+    PowerButtonPresent {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
      * If this member is <b>TRUE</b>, there is a system sleep button.
      * @type {BOOLEAN}
      */
-    SleepButtonPresent{
-        get {
-            if(!this.HasProp("__SleepButtonPresent"))
-                this.__SleepButtonPresent := BOOLEAN(this.ptr + 1)
-            return this.__SleepButtonPresent
-        }
+    SleepButtonPresent {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
      * If this member is <b>TRUE</b>, there is a lid switch.
      * @type {BOOLEAN}
      */
-    LidPresent{
-        get {
-            if(!this.HasProp("__LidPresent"))
-                this.__LidPresent := BOOLEAN(this.ptr + 2)
-            return this.__LidPresent
-        }
+    LidPresent {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S1</a>.
      * @type {BOOLEAN}
      */
-    SystemS1{
-        get {
-            if(!this.HasProp("__SystemS1"))
-                this.__SystemS1 := BOOLEAN(this.ptr + 3)
-            return this.__SystemS1
-        }
+    SystemS1 {
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
     }
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S2</a>.
      * @type {BOOLEAN}
      */
-    SystemS2{
-        get {
-            if(!this.HasProp("__SystemS2"))
-                this.__SystemS2 := BOOLEAN(this.ptr + 4)
-            return this.__SystemS2
-        }
+    SystemS2 {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S3</a>.
      * @type {BOOLEAN}
      */
-    SystemS3{
-        get {
-            if(!this.HasProp("__SystemS3"))
-                this.__SystemS3 := BOOLEAN(this.ptr + 5)
-            return this.__SystemS3
-        }
+    SystemS3 {
+        get => NumGet(this, 5, "char")
+        set => NumPut("char", value, this, 5)
     }
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S4</a> (hibernation).
      * @type {BOOLEAN}
      */
-    SystemS4{
-        get {
-            if(!this.HasProp("__SystemS4"))
-                this.__SystemS4 := BOOLEAN(this.ptr + 6)
-            return this.__SystemS4
-        }
+    SystemS4 {
+        get => NumGet(this, 6, "char")
+        set => NumPut("char", value, this, 6)
     }
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">power off state S5</a> (soft off).
      * @type {BOOLEAN}
      */
-    SystemS5{
-        get {
-            if(!this.HasProp("__SystemS5"))
-                this.__SystemS5 := BOOLEAN(this.ptr + 7)
-            return this.__SystemS5
-        }
+    SystemS5 {
+        get => NumGet(this, 7, "char")
+        set => NumPut("char", value, this, 7)
     }
 
     /**
      * If this member is <b>TRUE</b>, the system hibernation file is present.
      * @type {BOOLEAN}
      */
-    HiberFilePresent{
-        get {
-            if(!this.HasProp("__HiberFilePresent"))
-                this.__HiberFilePresent := BOOLEAN(this.ptr + 8)
-            return this.__HiberFilePresent
-        }
+    HiberFilePresent {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
      * If this member is <b>TRUE</b>, the system supports wake capabilities.
      * @type {BOOLEAN}
      */
-    FullWake{
-        get {
-            if(!this.HasProp("__FullWake"))
-                this.__FullWake := BOOLEAN(this.ptr + 9)
-            return this.__FullWake
-        }
+    FullWake {
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 
     /**
@@ -140,12 +109,9 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      *       capabilities.
      * @type {BOOLEAN}
      */
-    VideoDimPresent{
-        get {
-            if(!this.HasProp("__VideoDimPresent"))
-                this.__VideoDimPresent := BOOLEAN(this.ptr + 10)
-            return this.__VideoDimPresent
-        }
+    VideoDimPresent {
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 
     /**
@@ -153,12 +119,9 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      *       features.
      * @type {BOOLEAN}
      */
-    ApmPresent{
-        get {
-            if(!this.HasProp("__ApmPresent"))
-                this.__ApmPresent := BOOLEAN(this.ptr + 11)
-            return this.__ApmPresent
-        }
+    ApmPresent {
+        get => NumGet(this, 11, "char")
+        set => NumPut("char", value, this, 11)
     }
 
     /**
@@ -166,36 +129,27 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      *       (UPS).
      * @type {BOOLEAN}
      */
-    UpsPresent{
-        get {
-            if(!this.HasProp("__UpsPresent"))
-                this.__UpsPresent := BOOLEAN(this.ptr + 12)
-            return this.__UpsPresent
-        }
+    UpsPresent {
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 
     /**
      * If this member is <b>TRUE</b>, the system supports thermal zones.
      * @type {BOOLEAN}
      */
-    ThermalControl{
-        get {
-            if(!this.HasProp("__ThermalControl"))
-                this.__ThermalControl := BOOLEAN(this.ptr + 13)
-            return this.__ThermalControl
-        }
+    ThermalControl {
+        get => NumGet(this, 13, "char")
+        set => NumPut("char", value, this, 13)
     }
 
     /**
      * If this member is <b>TRUE</b>, the system supports processor throttling.
      * @type {BOOLEAN}
      */
-    ProcessorThrottle{
-        get {
-            if(!this.HasProp("__ProcessorThrottle"))
-                this.__ProcessorThrottle := BOOLEAN(this.ptr + 14)
-            return this.__ProcessorThrottle
-        }
+    ProcessorThrottle {
+        get => NumGet(this, 14, "char")
+        set => NumPut("char", value, this, 14)
     }
 
     /**
@@ -220,48 +174,36 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      * If this member is <b>TRUE</b>, the system supports the <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">hybrid sleep state</a>.
      * @type {BOOLEAN}
      */
-    FastSystemS4{
-        get {
-            if(!this.HasProp("__FastSystemS4"))
-                this.__FastSystemS4 := BOOLEAN(this.ptr + 17)
-            return this.__FastSystemS4
-        }
+    FastSystemS4 {
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 
     /**
      * 
      * @type {BOOLEAN}
      */
-    Hiberboot{
-        get {
-            if(!this.HasProp("__Hiberboot"))
-                this.__Hiberboot := BOOLEAN(this.ptr + 18)
-            return this.__Hiberboot
-        }
+    Hiberboot {
+        get => NumGet(this, 18, "char")
+        set => NumPut("char", value, this, 18)
     }
 
     /**
      * If this member is <b>TRUE</b>, the platform has support for ACPI wake alarm devices.  For more details on wake alarm devices, please see the ACPI specification section 9.18.
      * @type {BOOLEAN}
      */
-    WakeAlarmPresent{
-        get {
-            if(!this.HasProp("__WakeAlarmPresent"))
-                this.__WakeAlarmPresent := BOOLEAN(this.ptr + 19)
-            return this.__WakeAlarmPresent
-        }
+    WakeAlarmPresent {
+        get => NumGet(this, 19, "char")
+        set => NumPut("char", value, this, 19)
     }
 
     /**
      * If this member is <b>TRUE</b>, the system supports the S0 low power idle model.
      * @type {BOOLEAN}
      */
-    AoAc{
-        get {
-            if(!this.HasProp("__AoAc"))
-                this.__AoAc := BOOLEAN(this.ptr + 20)
-            return this.__AoAc
-        }
+    AoAc {
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
@@ -269,12 +211,9 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      *       fixed disk devices.
      * @type {BOOLEAN}
      */
-    DiskSpinDown{
-        get {
-            if(!this.HasProp("__DiskSpinDown"))
-                this.__DiskSpinDown := BOOLEAN(this.ptr + 21)
-            return this.__DiskSpinDown
-        }
+    DiskSpinDown {
+        get => NumGet(this, 21, "char")
+        set => NumPut("char", value, this, 21)
     }
 
     /**
@@ -290,12 +229,9 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      * 
      * @type {BOOLEAN}
      */
-    AoAcConnectivitySupported{
-        get {
-            if(!this.HasProp("__AoAcConnectivitySupported"))
-                this.__AoAcConnectivitySupported := BOOLEAN(this.ptr + 23)
-            return this.__AoAcConnectivitySupported
-        }
+    AoAcConnectivitySupported {
+        get => NumGet(this, 23, "char")
+        set => NumPut("char", value, this, 23)
     }
 
     /**
@@ -314,12 +250,9 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      * If this member is <b>TRUE</b>, there are one or more batteries in the system.
      * @type {BOOLEAN}
      */
-    SystemBatteriesPresent{
-        get {
-            if(!this.HasProp("__SystemBatteriesPresent"))
-                this.__SystemBatteriesPresent := BOOLEAN(this.ptr + 30)
-            return this.__SystemBatteriesPresent
-        }
+    SystemBatteriesPresent {
+        get => NumGet(this, 30, "char")
+        set => NumPut("char", value, this, 30)
     }
 
     /**
@@ -327,12 +260,9 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      *       are used in uninterruptible power supplies (UPS).
      * @type {BOOLEAN}
      */
-    BatteriesAreShortTerm{
-        get {
-            if(!this.HasProp("__BatteriesAreShortTerm"))
-                this.__BatteriesAreShortTerm := BOOLEAN(this.ptr + 31)
-            return this.__BatteriesAreShortTerm
-        }
+    BatteriesAreShortTerm {
+        get => NumGet(this, 31, "char")
+        set => NumPut("char", value, this, 31)
     }
 
     /**

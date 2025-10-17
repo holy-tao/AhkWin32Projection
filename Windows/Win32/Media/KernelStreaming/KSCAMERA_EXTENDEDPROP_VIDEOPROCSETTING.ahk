@@ -50,7 +50,7 @@ class KSCAMERA_EXTENDEDPROP_VIDEOPROCSETTING extends Win32Struct
     VideoProc{
         get {
             if(!this.HasProp("__VideoProc"))
-                this.__VideoProc := KSCAMERA_EXTENDEDPROP_VALUE(this.ptr + 16)
+                this.__VideoProc := KSCAMERA_EXTENDEDPROP_VALUE(16, this)
             return this.__VideoProc
         }
     }

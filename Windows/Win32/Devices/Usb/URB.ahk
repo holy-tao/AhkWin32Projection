@@ -42,7 +42,7 @@ class URB extends Win32Struct
     UrbHeader{
         get {
             if(!this.HasProp("__UrbHeader"))
-                this.__UrbHeader := _URB_HEADER(this.ptr + 0)
+                this.__UrbHeader := _URB_HEADER(0, this)
             return this.__UrbHeader
         }
     }
@@ -53,7 +53,7 @@ class URB extends Win32Struct
     UrbSelectInterface{
         get {
             if(!this.HasProp("__UrbSelectInterface"))
-                this.__UrbSelectInterface := _URB_SELECT_INTERFACE(this.ptr + 0)
+                this.__UrbSelectInterface := _URB_SELECT_INTERFACE(0, this)
             return this.__UrbSelectInterface
         }
     }
@@ -64,7 +64,7 @@ class URB extends Win32Struct
     UrbSelectConfiguration{
         get {
             if(!this.HasProp("__UrbSelectConfiguration"))
-                this.__UrbSelectConfiguration := _URB_SELECT_CONFIGURATION(this.ptr + 0)
+                this.__UrbSelectConfiguration := _URB_SELECT_CONFIGURATION(0, this)
             return this.__UrbSelectConfiguration
         }
     }
@@ -75,7 +75,7 @@ class URB extends Win32Struct
     UrbPipeRequest{
         get {
             if(!this.HasProp("__UrbPipeRequest"))
-                this.__UrbPipeRequest := _URB_PIPE_REQUEST(this.ptr + 0)
+                this.__UrbPipeRequest := _URB_PIPE_REQUEST(0, this)
             return this.__UrbPipeRequest
         }
     }
@@ -86,7 +86,7 @@ class URB extends Win32Struct
     UrbFrameLengthControl{
         get {
             if(!this.HasProp("__UrbFrameLengthControl"))
-                this.__UrbFrameLengthControl := _URB_FRAME_LENGTH_CONTROL(this.ptr + 0)
+                this.__UrbFrameLengthControl := _URB_FRAME_LENGTH_CONTROL(0, this)
             return this.__UrbFrameLengthControl
         }
     }
@@ -97,7 +97,7 @@ class URB extends Win32Struct
     UrbGetFrameLength{
         get {
             if(!this.HasProp("__UrbGetFrameLength"))
-                this.__UrbGetFrameLength := _URB_GET_FRAME_LENGTH(this.ptr + 0)
+                this.__UrbGetFrameLength := _URB_GET_FRAME_LENGTH(0, this)
             return this.__UrbGetFrameLength
         }
     }
@@ -108,7 +108,7 @@ class URB extends Win32Struct
     UrbSetFrameLength{
         get {
             if(!this.HasProp("__UrbSetFrameLength"))
-                this.__UrbSetFrameLength := _URB_SET_FRAME_LENGTH(this.ptr + 0)
+                this.__UrbSetFrameLength := _URB_SET_FRAME_LENGTH(0, this)
             return this.__UrbSetFrameLength
         }
     }
@@ -119,7 +119,7 @@ class URB extends Win32Struct
     UrbGetCurrentFrameNumber{
         get {
             if(!this.HasProp("__UrbGetCurrentFrameNumber"))
-                this.__UrbGetCurrentFrameNumber := _URB_GET_CURRENT_FRAME_NUMBER(this.ptr + 0)
+                this.__UrbGetCurrentFrameNumber := _URB_GET_CURRENT_FRAME_NUMBER(0, this)
             return this.__UrbGetCurrentFrameNumber
         }
     }
@@ -130,7 +130,7 @@ class URB extends Win32Struct
     UrbControlTransfer{
         get {
             if(!this.HasProp("__UrbControlTransfer"))
-                this.__UrbControlTransfer := _URB_CONTROL_TRANSFER(this.ptr + 0)
+                this.__UrbControlTransfer := _URB_CONTROL_TRANSFER(0, this)
             return this.__UrbControlTransfer
         }
     }
@@ -141,7 +141,7 @@ class URB extends Win32Struct
     UrbControlTransferEx{
         get {
             if(!this.HasProp("__UrbControlTransferEx"))
-                this.__UrbControlTransferEx := _URB_CONTROL_TRANSFER_EX(this.ptr + 0)
+                this.__UrbControlTransferEx := _URB_CONTROL_TRANSFER_EX(0, this)
             return this.__UrbControlTransferEx
         }
     }
@@ -152,7 +152,7 @@ class URB extends Win32Struct
     UrbBulkOrInterruptTransfer{
         get {
             if(!this.HasProp("__UrbBulkOrInterruptTransfer"))
-                this.__UrbBulkOrInterruptTransfer := _URB_BULK_OR_INTERRUPT_TRANSFER(this.ptr + 0)
+                this.__UrbBulkOrInterruptTransfer := _URB_BULK_OR_INTERRUPT_TRANSFER(0, this)
             return this.__UrbBulkOrInterruptTransfer
         }
     }
@@ -163,7 +163,7 @@ class URB extends Win32Struct
     UrbIsochronousTransfer{
         get {
             if(!this.HasProp("__UrbIsochronousTransfer"))
-                this.__UrbIsochronousTransfer := _URB_ISOCH_TRANSFER(this.ptr + 0)
+                this.__UrbIsochronousTransfer := _URB_ISOCH_TRANSFER(0, this)
             return this.__UrbIsochronousTransfer
         }
     }
@@ -174,7 +174,7 @@ class URB extends Win32Struct
     UrbControlDescriptorRequest{
         get {
             if(!this.HasProp("__UrbControlDescriptorRequest"))
-                this.__UrbControlDescriptorRequest := _URB_CONTROL_DESCRIPTOR_REQUEST(this.ptr + 0)
+                this.__UrbControlDescriptorRequest := _URB_CONTROL_DESCRIPTOR_REQUEST(0, this)
             return this.__UrbControlDescriptorRequest
         }
     }
@@ -185,7 +185,7 @@ class URB extends Win32Struct
     UrbControlGetStatusRequest{
         get {
             if(!this.HasProp("__UrbControlGetStatusRequest"))
-                this.__UrbControlGetStatusRequest := _URB_CONTROL_GET_STATUS_REQUEST(this.ptr + 0)
+                this.__UrbControlGetStatusRequest := _URB_CONTROL_GET_STATUS_REQUEST(0, this)
             return this.__UrbControlGetStatusRequest
         }
     }
@@ -196,7 +196,7 @@ class URB extends Win32Struct
     UrbControlFeatureRequest{
         get {
             if(!this.HasProp("__UrbControlFeatureRequest"))
-                this.__UrbControlFeatureRequest := _URB_CONTROL_FEATURE_REQUEST(this.ptr + 0)
+                this.__UrbControlFeatureRequest := _URB_CONTROL_FEATURE_REQUEST(0, this)
             return this.__UrbControlFeatureRequest
         }
     }
@@ -207,7 +207,7 @@ class URB extends Win32Struct
     UrbControlVendorClassRequest{
         get {
             if(!this.HasProp("__UrbControlVendorClassRequest"))
-                this.__UrbControlVendorClassRequest := _URB_CONTROL_VENDOR_OR_CLASS_REQUEST(this.ptr + 0)
+                this.__UrbControlVendorClassRequest := _URB_CONTROL_VENDOR_OR_CLASS_REQUEST(0, this)
             return this.__UrbControlVendorClassRequest
         }
     }
@@ -218,7 +218,7 @@ class URB extends Win32Struct
     UrbControlGetInterfaceRequest{
         get {
             if(!this.HasProp("__UrbControlGetInterfaceRequest"))
-                this.__UrbControlGetInterfaceRequest := _URB_CONTROL_GET_INTERFACE_REQUEST(this.ptr + 0)
+                this.__UrbControlGetInterfaceRequest := _URB_CONTROL_GET_INTERFACE_REQUEST(0, this)
             return this.__UrbControlGetInterfaceRequest
         }
     }
@@ -229,7 +229,7 @@ class URB extends Win32Struct
     UrbControlGetConfigurationRequest{
         get {
             if(!this.HasProp("__UrbControlGetConfigurationRequest"))
-                this.__UrbControlGetConfigurationRequest := _URB_CONTROL_GET_CONFIGURATION_REQUEST(this.ptr + 0)
+                this.__UrbControlGetConfigurationRequest := _URB_CONTROL_GET_CONFIGURATION_REQUEST(0, this)
             return this.__UrbControlGetConfigurationRequest
         }
     }
@@ -240,7 +240,7 @@ class URB extends Win32Struct
     UrbOSFeatureDescriptorRequest{
         get {
             if(!this.HasProp("__UrbOSFeatureDescriptorRequest"))
-                this.__UrbOSFeatureDescriptorRequest := _URB_OS_FEATURE_DESCRIPTOR_REQUEST(this.ptr + 0)
+                this.__UrbOSFeatureDescriptorRequest := _URB_OS_FEATURE_DESCRIPTOR_REQUEST(0, this)
             return this.__UrbOSFeatureDescriptorRequest
         }
     }
@@ -251,7 +251,7 @@ class URB extends Win32Struct
     UrbOpenStaticStreams{
         get {
             if(!this.HasProp("__UrbOpenStaticStreams"))
-                this.__UrbOpenStaticStreams := _URB_OPEN_STATIC_STREAMS(this.ptr + 0)
+                this.__UrbOpenStaticStreams := _URB_OPEN_STATIC_STREAMS(0, this)
             return this.__UrbOpenStaticStreams
         }
     }
@@ -262,7 +262,7 @@ class URB extends Win32Struct
     UrbGetIsochPipeTransferPathDelays{
         get {
             if(!this.HasProp("__UrbGetIsochPipeTransferPathDelays"))
-                this.__UrbGetIsochPipeTransferPathDelays := _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS(this.ptr + 0)
+                this.__UrbGetIsochPipeTransferPathDelays := _URB_GET_ISOCH_PIPE_TRANSFER_PATH_DELAYS(0, this)
             return this.__UrbGetIsochPipeTransferPathDelays
         }
     }

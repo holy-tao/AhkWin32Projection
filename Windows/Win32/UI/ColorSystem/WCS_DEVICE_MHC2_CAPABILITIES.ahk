@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.UI.ColorSystem
@@ -23,12 +22,9 @@ class WCS_DEVICE_MHC2_CAPABILITIES extends Win32Struct
     /**
      * @type {BOOL}
      */
-    SupportsMhc2{
-        get {
-            if(!this.HasProp("__SupportsMhc2"))
-                this.__SupportsMhc2 := BOOL(this.ptr + 4)
-            return this.__SupportsMhc2
-        }
+    SupportsMhc2 {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**

@@ -320,7 +320,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     MftWritesUserLevel{
         get {
             if(!this.HasProp("__MftWritesUserLevel"))
-                this.__MftWritesUserLevel := %this.__Class%._MftWritesUserLevel(this.ptr + 40)
+                this.__MftWritesUserLevel := %this.__Class%._MftWritesUserLevel(40, this)
             return this.__MftWritesUserLevel
         }
     }
@@ -377,7 +377,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     Mft2WritesUserLevel{
         get {
             if(!this.HasProp("__Mft2WritesUserLevel"))
-                this.__Mft2WritesUserLevel := %this.__Class%._Mft2WritesUserLevel(this.ptr + 88)
+                this.__Mft2WritesUserLevel := %this.__Class%._Mft2WritesUserLevel(88, this)
             return this.__Mft2WritesUserLevel
         }
     }
@@ -515,7 +515,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     BitmapWritesUserLevel{
         get {
             if(!this.HasProp("__BitmapWritesUserLevel"))
-                this.__BitmapWritesUserLevel := %this.__Class%._BitmapWritesUserLevel(this.ptr + 200)
+                this.__BitmapWritesUserLevel := %this.__Class%._BitmapWritesUserLevel(200, this)
             return this.__BitmapWritesUserLevel
         }
     }
@@ -590,7 +590,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     MftBitmapWritesUserLevel{
         get {
             if(!this.HasProp("__MftBitmapWritesUserLevel"))
-                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(this.ptr + 264)
+                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(264, this)
             return this.__MftBitmapWritesUserLevel
         }
     }
@@ -674,7 +674,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     Allocate{
         get {
             if(!this.HasProp("__Allocate"))
-                this.__Allocate := %this.__Class%._Allocate(this.ptr + 344)
+                this.__Allocate := %this.__Class%._Allocate(344, this)
             return this.__Allocate
         }
     }

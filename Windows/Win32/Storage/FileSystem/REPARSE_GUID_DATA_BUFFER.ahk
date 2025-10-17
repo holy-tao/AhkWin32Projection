@@ -87,7 +87,7 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct
     GenericReparseBuffer{
         get {
             if(!this.HasProp("__GenericReparseBuffer"))
-                this.__GenericReparseBuffer := %this.__Class%._GenericReparseBuffer(this.ptr + 16)
+                this.__GenericReparseBuffer := %this.__Class%._GenericReparseBuffer(16, this)
             return this.__GenericReparseBuffer
         }
     }

@@ -26,7 +26,7 @@ class WINBIO_PIPELINE extends Win32Struct
     SensorHandle{
         get {
             if(!this.HasProp("__SensorHandle"))
-                this.__SensorHandle := HANDLE(this.ptr + 0)
+                this.__SensorHandle := HANDLE(0, this)
             return this.__SensorHandle
         }
     }
@@ -38,7 +38,7 @@ class WINBIO_PIPELINE extends Win32Struct
     EngineHandle{
         get {
             if(!this.HasProp("__EngineHandle"))
-                this.__EngineHandle := HANDLE(this.ptr + 8)
+                this.__EngineHandle := HANDLE(8, this)
             return this.__EngineHandle
         }
     }
@@ -50,7 +50,7 @@ class WINBIO_PIPELINE extends Win32Struct
     StorageHandle{
         get {
             if(!this.HasProp("__StorageHandle"))
-                this.__StorageHandle := HANDLE(this.ptr + 16)
+                this.__StorageHandle := HANDLE(16, this)
             return this.__StorageHandle
         }
     }

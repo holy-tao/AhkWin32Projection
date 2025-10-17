@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -31,23 +30,17 @@ class CSV_QUERY_VOLUME_REDIRECT_STATE extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    IsDiskConnected{
-        get {
-            if(!this.HasProp("__IsDiskConnected"))
-                this.__IsDiskConnected := BOOLEAN(this.ptr + 8)
-            return this.__IsDiskConnected
-        }
+    IsDiskConnected {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    ClusterEnableDirectIo{
-        get {
-            if(!this.HasProp("__ClusterEnableDirectIo"))
-                this.__ClusterEnableDirectIo := BOOLEAN(this.ptr + 9)
-            return this.__ClusterEnableDirectIo
-        }
+    ClusterEnableDirectIo {
+        get => NumGet(this, 9, "char")
+        set => NumPut("char", value, this, 9)
     }
 
     /**

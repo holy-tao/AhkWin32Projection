@@ -309,7 +309,7 @@ class FONTOBJ extends Win32Struct
     sizLogResPpi{
         get {
             if(!this.HasProp("__sizLogResPpi"))
-                this.__sizLogResPpi := SIZE(this.ptr + 32)
+                this.__sizLogResPpi := SIZE(32, this)
             return this.__sizLogResPpi
         }
     }

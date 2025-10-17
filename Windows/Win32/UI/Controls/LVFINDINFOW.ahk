@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -37,12 +35,9 @@ class LVFINDINFOW extends Win32Struct
      * Address of a null-terminated string to compare with the item text. It is valid only if LVFI_STRING or LVFI_PARTIAL is set in the <b>flags</b> member.
      * @type {PWSTR}
      */
-    psz{
-        get {
-            if(!this.HasProp("__psz"))
-                this.__psz := PWSTR(this.ptr + 8)
-            return this.__psz
-        }
+    psz {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -51,12 +46,9 @@ class LVFINDINFOW extends Win32Struct
      * Value to compare with the <b>lParam</b> member of a list-view item's <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a> structure. It is valid only if LVFI_PARAM is set in the <b>flags</b> member.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 16)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -69,7 +61,7 @@ class LVFINDINFOW extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 24)
+                this.__pt := POINT(24, this)
             return this.__pt
         }
     }

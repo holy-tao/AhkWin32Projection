@@ -20,7 +20,7 @@ class KSPROPERTY_TIMECODE_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -31,7 +31,7 @@ class KSPROPERTY_TIMECODE_S extends Win32Struct
     TimecodeSamp{
         get {
             if(!this.HasProp("__TimecodeSamp"))
-                this.__TimecodeSamp := TIMECODE_SAMPLE(this.ptr + 16)
+                this.__TimecodeSamp := TIMECODE_SAMPLE(16, this)
             return this.__TimecodeSamp
         }
     }

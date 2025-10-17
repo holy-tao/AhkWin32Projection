@@ -78,7 +78,7 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     manipulation{
         get {
             if(!this.HasProp("__manipulation"))
-                this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(this.ptr + 32)
+                this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(32, this)
             return this.__manipulation
         }
     }
@@ -89,7 +89,7 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     tap{
         get {
             if(!this.HasProp("__tap"))
-                this.__tap := INTERACTION_ARGUMENTS_TAP(this.ptr + 32)
+                this.__tap := INTERACTION_ARGUMENTS_TAP(32, this)
             return this.__tap
         }
     }
@@ -100,7 +100,7 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     crossSlide{
         get {
             if(!this.HasProp("__crossSlide"))
-                this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(this.ptr + 32)
+                this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(32, this)
             return this.__crossSlide
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Provides information about a provider certificate.
@@ -36,48 +35,36 @@ class CRYPT_PROVIDER_CERT extends Win32Struct
      * Boolean value that indicates whether the certificate is a commercial certificate.
      * @type {BOOL}
      */
-    fCommercial{
-        get {
-            if(!this.HasProp("__fCommercial"))
-                this.__fCommercial := BOOL(this.ptr + 16)
-            return this.__fCommercial
-        }
+    fCommercial {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * Boolean value that indicates whether the certificate is a trusted root certificate.
      * @type {BOOL}
      */
-    fTrustedRoot{
-        get {
-            if(!this.HasProp("__fTrustedRoot"))
-                this.__fTrustedRoot := BOOL(this.ptr + 20)
-            return this.__fTrustedRoot
-        }
+    fTrustedRoot {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
      * Boolean value that indicates whether the certificate is self-signed.
      * @type {BOOL}
      */
-    fSelfSigned{
-        get {
-            if(!this.HasProp("__fSelfSigned"))
-                this.__fSelfSigned := BOOL(this.ptr + 24)
-            return this.__fSelfSigned
-        }
+    fSelfSigned {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * Boolean value that indicates whether the certificate is a test certificate.
      * @type {BOOL}
      */
-    fTestCert{
-        get {
-            if(!this.HasProp("__fTestCert"))
-                this.__fTestCert := BOOL(this.ptr + 28)
-            return this.__fTestCert
-        }
+    fTestCert {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -195,12 +182,9 @@ class CRYPT_PROVIDER_CERT extends Win32Struct
      * Boolean value that specifies whether the certificate is a trust list signer certificate.
      * @type {BOOL}
      */
-    fTrustListSignerCert{
-        get {
-            if(!this.HasProp("__fTrustListSignerCert"))
-                this.__fTrustListSignerCert := BOOL(this.ptr + 56)
-            return this.__fTrustListSignerCert
-        }
+    fTrustListSignerCert {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -225,12 +209,9 @@ class CRYPT_PROVIDER_CERT extends Win32Struct
      * Boolean value that indicates whether the certificate trust is cyclical.
      * @type {BOOL}
      */
-    fIsCyclic{
-        get {
-            if(!this.HasProp("__fIsCyclic"))
-                this.__fIsCyclic := BOOL(this.ptr + 76)
-            return this.__fIsCyclic
-        }
+    fIsCyclic {
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**

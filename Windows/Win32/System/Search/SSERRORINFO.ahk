@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
@@ -15,34 +14,25 @@ class SSERRORINFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszMessage{
-        get {
-            if(!this.HasProp("__pwszMessage"))
-                this.__pwszMessage := PWSTR(this.ptr + 0)
-            return this.__pwszMessage
-        }
+    pwszMessage {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszServer{
-        get {
-            if(!this.HasProp("__pwszServer"))
-                this.__pwszServer := PWSTR(this.ptr + 8)
-            return this.__pwszServer
-        }
+    pwszServer {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pwszProcedure{
-        get {
-            if(!this.HasProp("__pwszProcedure"))
-                this.__pwszProcedure := PWSTR(this.ptr + 16)
-            return this.__pwszProcedure
-        }
+    pwszProcedure {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

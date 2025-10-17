@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -81,23 +80,17 @@ class RPC_CALL_ATTRIBUTES_V3_A extends Win32Struct
     /**
      * @type {BOOL}
      */
-    NullSession{
-        get {
-            if(!this.HasProp("__NullSession"))
-                this.__NullSession := BOOL(this.ptr + 48)
-            return this.__NullSession
-        }
+    NullSession {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * @type {BOOL}
      */
-    KernelModeCaller{
-        get {
-            if(!this.HasProp("__KernelModeCaller"))
-                this.__KernelModeCaller := BOOL(this.ptr + 52)
-            return this.__KernelModeCaller
-        }
+    KernelModeCaller {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -122,7 +115,7 @@ class RPC_CALL_ATTRIBUTES_V3_A extends Win32Struct
     ClientPID{
         get {
             if(!this.HasProp("__ClientPID"))
-                this.__ClientPID := HANDLE(this.ptr + 64)
+                this.__ClientPID := HANDLE(64, this)
             return this.__ClientPID
         }
     }

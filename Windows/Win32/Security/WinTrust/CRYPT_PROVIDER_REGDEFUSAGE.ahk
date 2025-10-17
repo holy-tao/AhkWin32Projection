@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Used by the WintrustAddDefaultForUsage function to register callback information about a provider's default usage.
@@ -37,35 +35,26 @@ class CRYPT_PROVIDER_REGDEFUSAGE extends Win32Struct
      * Pointer to the name of the provider DLL.
      * @type {PWSTR}
      */
-    pwszDllName{
-        get {
-            if(!this.HasProp("__pwszDllName"))
-                this.__pwszDllName := PWSTR(this.ptr + 16)
-            return this.__pwszDllName
-        }
+    pwszDllName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to the name of the function that loads the callback data to be returned when the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-wintrustgetdefaultforusage">WintrustGetDefaultForUsage</a> function is called with the <i>dwAction</i> parameter set to <b>DWACTION_ALLOCANDFILL</b>. This information also exists in the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-wintrust_data">WINTRUST_DATA</a> structure.
      * @type {PSTR}
      */
-    pwszLoadCallbackDataFunctionName{
-        get {
-            if(!this.HasProp("__pwszLoadCallbackDataFunctionName"))
-                this.__pwszLoadCallbackDataFunctionName := PSTR(this.ptr + 24)
-            return this.__pwszLoadCallbackDataFunctionName
-        }
+    pwszLoadCallbackDataFunctionName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to the name of the function that frees allocated memory when the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-wintrustgetdefaultforusage">WintrustGetDefaultForUsage</a> function is called with the <i>dwAction</i> parameter set to <b>DWACTION_FREE</b>. This information also exists in the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-wintrust_data">WINTRUST_DATA</a> structure.
      * @type {PSTR}
      */
-    pwszFreeCallbackDataFunctionName{
-        get {
-            if(!this.HasProp("__pwszFreeCallbackDataFunctionName"))
-                this.__pwszFreeCallbackDataFunctionName := PSTR(this.ptr + 32)
-            return this.__pwszFreeCallbackDataFunctionName
-        }
+    pwszFreeCallbackDataFunctionName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

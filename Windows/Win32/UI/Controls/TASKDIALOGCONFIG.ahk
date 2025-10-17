@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
@@ -37,7 +36,7 @@ class TASKDIALOGCONFIG extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
+                this.__hwndParent := HWND(8, this)
             return this.__hwndParent
         }
     }
@@ -51,7 +50,7 @@ class TASKDIALOGCONFIG extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 16)
+                this.__hInstance := HINSTANCE(16, this)
             return this.__hInstance
         }
     }
@@ -349,12 +348,9 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Pointer that references the string to be used for the task dialog title.  This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If this parameter is <b>NULL</b>, the filename of the executable program is used.
      * @type {PWSTR}
      */
-    pszWindowTitle{
-        get {
-            if(!this.HasProp("__pszWindowTitle"))
-                this.__pszWindowTitle := PWSTR(this.ptr + 32)
-            return this.__pszWindowTitle
-        }
+    pszWindowTitle {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -363,7 +359,7 @@ class TASKDIALOGCONFIG extends Win32Struct
     hMainIcon{
         get {
             if(!this.HasProp("__hMainIcon"))
-                this.__hMainIcon := HICON(this.ptr + 40)
+                this.__hMainIcon := HICON(40, this)
             return this.__hMainIcon
         }
     }
@@ -371,12 +367,9 @@ class TASKDIALOGCONFIG extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszMainIcon{
-        get {
-            if(!this.HasProp("__pszMainIcon"))
-                this.__pszMainIcon := PWSTR(this.ptr + 40)
-            return this.__pszMainIcon
-        }
+    pszMainIcon {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -385,12 +378,9 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Pointer that references the string to be used for the main instruction. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
      * @type {PWSTR}
      */
-    pszMainInstruction{
-        get {
-            if(!this.HasProp("__pszMainInstruction"))
-                this.__pszMainInstruction := PWSTR(this.ptr + 48)
-            return this.__pszMainInstruction
-        }
+    pszMainInstruction {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -399,12 +389,9 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Pointer that references the string to be used for the dialog's primary content. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If the ENABLE_HYPERLINKS flag is specified for the <b>dwFlags</b> member, then this string may contain hyperlinks in the form: &lt;A HREF="executablestring"&gt;Hyperlink Text&lt;/A&gt;.  <b>WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.</b>
      * @type {PWSTR}
      */
-    pszContent{
-        get {
-            if(!this.HasProp("__pszContent"))
-                this.__pszContent := PWSTR(this.ptr + 56)
-            return this.__pszContent
-        }
+    pszContent {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -509,12 +496,9 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Pointer that references the string to be used to label the verification checkbox. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If this parameter is <b>NULL</b>, the verification checkbox is not displayed in the task dialog. If the <i>pfVerificationFlagChecked</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-taskdialogindirect">TaskDialogIndirect</a> is <b>NULL</b>, the checkbox is not enabled.
      * @type {PWSTR}
      */
-    pszVerificationText{
-        get {
-            if(!this.HasProp("__pszVerificationText"))
-                this.__pszVerificationText := PWSTR(this.ptr + 104)
-            return this.__pszVerificationText
-        }
+    pszVerificationText {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -523,12 +507,9 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Pointer that references the string to be used for displaying additional information. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.   The additional information is displayed either immediately below the content or below the footer text depending on whether the TDF_EXPAND_FOOTER_AREA flag is specified.  If the TDF_ENABLE_HYPERLINKS flag is specified for the <b>dwFlags</b> member, then this string may contain hyperlinks in the form: &lt;A HREF="executablestring"&gt;Hyperlink Text&lt;/A&gt;. <b>WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.</b>
      * @type {PWSTR}
      */
-    pszExpandedInformation{
-        get {
-            if(!this.HasProp("__pszExpandedInformation"))
-                this.__pszExpandedInformation := PWSTR(this.ptr + 112)
-            return this.__pszExpandedInformation
-        }
+    pszExpandedInformation {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
     }
 
     /**
@@ -537,12 +518,9 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Pointer that references the string to be used to label the button for collapsing the expandable information. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored when the <b>pszExpandedInformation</b> member is <b>NULL</b>.  If this member is <b>NULL</b> and the <b>pszCollapsedControlText</b> is specified, then the <b>pszCollapsedControlText</b> value will be used for this member as well.
      * @type {PWSTR}
      */
-    pszExpandedControlText{
-        get {
-            if(!this.HasProp("__pszExpandedControlText"))
-                this.__pszExpandedControlText := PWSTR(this.ptr + 120)
-            return this.__pszExpandedControlText
-        }
+    pszExpandedControlText {
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -551,12 +529,9 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Pointer that references the string to be used to label the button for expanding the expandable information. This parameter can be either a null-terminated string or an integer resource identifier passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored when the <b>pszExpandedInformation</b> member is <b>NULL</b>.  If this member is <b>NULL</b> and the <b>pszCollapsedControlText</b> is specified, then the <b>pszCollapsedControlText</b> value will be used for this member as well.
      * @type {PWSTR}
      */
-    pszCollapsedControlText{
-        get {
-            if(!this.HasProp("__pszCollapsedControlText"))
-                this.__pszCollapsedControlText := PWSTR(this.ptr + 128)
-            return this.__pszCollapsedControlText
-        }
+    pszCollapsedControlText {
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
@@ -565,7 +540,7 @@ class TASKDIALOGCONFIG extends Win32Struct
     hFooterIcon{
         get {
             if(!this.HasProp("__hFooterIcon"))
-                this.__hFooterIcon := HICON(this.ptr + 136)
+                this.__hFooterIcon := HICON(136, this)
             return this.__hFooterIcon
         }
     }
@@ -573,12 +548,9 @@ class TASKDIALOGCONFIG extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszFooterIcon{
-        get {
-            if(!this.HasProp("__pszFooterIcon"))
-                this.__pszFooterIcon := PWSTR(this.ptr + 136)
-            return this.__pszFooterIcon
-        }
+    pszFooterIcon {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 
     /**
@@ -598,12 +570,9 @@ class TASKDIALOGCONFIG extends Win32Struct
      * <div> </div>
      * @type {PWSTR}
      */
-    pszFooter{
-        get {
-            if(!this.HasProp("__pszFooter"))
-                this.__pszFooter := PWSTR(this.ptr + 144)
-            return this.__pszFooter
-        }
+    pszFooter {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
@@ -639,12 +608,8 @@ class TASKDIALOGCONFIG extends Win32Struct
         set => NumPut("uint", value, this, 168)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 176
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DNS_RECORD_FLAGS.ahk
 #Include .\DNS_A_DATA.ahk
 #Include .\DNS_SOA_DATAW.ahk
@@ -21,7 +20,6 @@
 #Include .\DNS_OPT_DATA.ahk
 #Include .\DNS_DS_DATA.ahk
 #Include .\DNS_NSEC_DATAW.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\DNS_TKEY_DATAW.ahk
 #Include .\DNS_TSIG_DATAW.ahk
 #Include .\DNS_WINS_DATA.ahk
@@ -30,7 +28,6 @@
 #Include .\DNS_NSEC3_DATA.ahk
 #Include .\DNS_NSEC3PARAM_DATA.ahk
 #Include .\DNS_TLSA_DATA.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\DNS_SVCB_DATA.ahk
 #Include .\DNS_UNKNOWN_DATA.ahk
 
@@ -75,12 +72,9 @@ class DNS_RECORDW extends Win32Struct
      * A pointer to a string that represents the domain name of the record set. This must be in the string format that corresponds to the function called, such as ANSI, Unicode, or UTF8.
      * @type {PWSTR}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PWSTR(this.ptr + 8)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -127,7 +121,7 @@ class DNS_RECORDW extends Win32Struct
     S{
         get {
             if(!this.HasProp("__S"))
-                this.__S := DNS_RECORD_FLAGS(this.ptr + 20)
+                this.__S := DNS_RECORD_FLAGS(20, this)
             return this.__S
         }
     }
@@ -156,7 +150,7 @@ class DNS_RECORDW extends Win32Struct
     A{
         get {
             if(!this.HasProp("__A"))
-                this.__A := DNS_A_DATA(this.ptr + 32)
+                this.__A := DNS_A_DATA(32, this)
             return this.__A
         }
     }
@@ -167,7 +161,7 @@ class DNS_RECORDW extends Win32Struct
     SOA{
         get {
             if(!this.HasProp("__SOA"))
-                this.__SOA := DNS_SOA_DATAW(this.ptr + 32)
+                this.__SOA := DNS_SOA_DATAW(32, this)
             return this.__SOA
         }
     }
@@ -178,7 +172,7 @@ class DNS_RECORDW extends Win32Struct
     PTR{
         get {
             if(!this.HasProp("__PTR"))
-                this.__PTR := DNS_PTR_DATAW(this.ptr + 32)
+                this.__PTR := DNS_PTR_DATAW(32, this)
             return this.__PTR
         }
     }
@@ -189,7 +183,7 @@ class DNS_RECORDW extends Win32Struct
     NS{
         get {
             if(!this.HasProp("__NS"))
-                this.__NS := DNS_PTR_DATAW(this.ptr + 32)
+                this.__NS := DNS_PTR_DATAW(32, this)
             return this.__NS
         }
     }
@@ -200,7 +194,7 @@ class DNS_RECORDW extends Win32Struct
     CNAME{
         get {
             if(!this.HasProp("__CNAME"))
-                this.__CNAME := DNS_PTR_DATAW(this.ptr + 32)
+                this.__CNAME := DNS_PTR_DATAW(32, this)
             return this.__CNAME
         }
     }
@@ -211,7 +205,7 @@ class DNS_RECORDW extends Win32Struct
     DNAME{
         get {
             if(!this.HasProp("__DNAME"))
-                this.__DNAME := DNS_PTR_DATAW(this.ptr + 32)
+                this.__DNAME := DNS_PTR_DATAW(32, this)
             return this.__DNAME
         }
     }
@@ -222,7 +216,7 @@ class DNS_RECORDW extends Win32Struct
     MB{
         get {
             if(!this.HasProp("__MB"))
-                this.__MB := DNS_PTR_DATAW(this.ptr + 32)
+                this.__MB := DNS_PTR_DATAW(32, this)
             return this.__MB
         }
     }
@@ -233,7 +227,7 @@ class DNS_RECORDW extends Win32Struct
     MD{
         get {
             if(!this.HasProp("__MD"))
-                this.__MD := DNS_PTR_DATAW(this.ptr + 32)
+                this.__MD := DNS_PTR_DATAW(32, this)
             return this.__MD
         }
     }
@@ -244,7 +238,7 @@ class DNS_RECORDW extends Win32Struct
     MF{
         get {
             if(!this.HasProp("__MF"))
-                this.__MF := DNS_PTR_DATAW(this.ptr + 32)
+                this.__MF := DNS_PTR_DATAW(32, this)
             return this.__MF
         }
     }
@@ -255,7 +249,7 @@ class DNS_RECORDW extends Win32Struct
     MG{
         get {
             if(!this.HasProp("__MG"))
-                this.__MG := DNS_PTR_DATAW(this.ptr + 32)
+                this.__MG := DNS_PTR_DATAW(32, this)
             return this.__MG
         }
     }
@@ -266,7 +260,7 @@ class DNS_RECORDW extends Win32Struct
     MR{
         get {
             if(!this.HasProp("__MR"))
-                this.__MR := DNS_PTR_DATAW(this.ptr + 32)
+                this.__MR := DNS_PTR_DATAW(32, this)
             return this.__MR
         }
     }
@@ -277,7 +271,7 @@ class DNS_RECORDW extends Win32Struct
     MINFO{
         get {
             if(!this.HasProp("__MINFO"))
-                this.__MINFO := DNS_MINFO_DATAW(this.ptr + 32)
+                this.__MINFO := DNS_MINFO_DATAW(32, this)
             return this.__MINFO
         }
     }
@@ -288,7 +282,7 @@ class DNS_RECORDW extends Win32Struct
     RP{
         get {
             if(!this.HasProp("__RP"))
-                this.__RP := DNS_MINFO_DATAW(this.ptr + 32)
+                this.__RP := DNS_MINFO_DATAW(32, this)
             return this.__RP
         }
     }
@@ -299,7 +293,7 @@ class DNS_RECORDW extends Win32Struct
     MX{
         get {
             if(!this.HasProp("__MX"))
-                this.__MX := DNS_MX_DATAW(this.ptr + 32)
+                this.__MX := DNS_MX_DATAW(32, this)
             return this.__MX
         }
     }
@@ -310,7 +304,7 @@ class DNS_RECORDW extends Win32Struct
     AFSDB{
         get {
             if(!this.HasProp("__AFSDB"))
-                this.__AFSDB := DNS_MX_DATAW(this.ptr + 32)
+                this.__AFSDB := DNS_MX_DATAW(32, this)
             return this.__AFSDB
         }
     }
@@ -321,7 +315,7 @@ class DNS_RECORDW extends Win32Struct
     RT{
         get {
             if(!this.HasProp("__RT"))
-                this.__RT := DNS_MX_DATAW(this.ptr + 32)
+                this.__RT := DNS_MX_DATAW(32, this)
             return this.__RT
         }
     }
@@ -332,7 +326,7 @@ class DNS_RECORDW extends Win32Struct
     HINFO{
         get {
             if(!this.HasProp("__HINFO"))
-                this.__HINFO := DNS_TXT_DATAW(this.ptr + 32)
+                this.__HINFO := DNS_TXT_DATAW(32, this)
             return this.__HINFO
         }
     }
@@ -343,7 +337,7 @@ class DNS_RECORDW extends Win32Struct
     ISDN{
         get {
             if(!this.HasProp("__ISDN"))
-                this.__ISDN := DNS_TXT_DATAW(this.ptr + 32)
+                this.__ISDN := DNS_TXT_DATAW(32, this)
             return this.__ISDN
         }
     }
@@ -354,7 +348,7 @@ class DNS_RECORDW extends Win32Struct
     TXT{
         get {
             if(!this.HasProp("__TXT"))
-                this.__TXT := DNS_TXT_DATAW(this.ptr + 32)
+                this.__TXT := DNS_TXT_DATAW(32, this)
             return this.__TXT
         }
     }
@@ -365,7 +359,7 @@ class DNS_RECORDW extends Win32Struct
     X25{
         get {
             if(!this.HasProp("__X25"))
-                this.__X25 := DNS_TXT_DATAW(this.ptr + 32)
+                this.__X25 := DNS_TXT_DATAW(32, this)
             return this.__X25
         }
     }
@@ -376,7 +370,7 @@ class DNS_RECORDW extends Win32Struct
     Null{
         get {
             if(!this.HasProp("__Null"))
-                this.__Null := DNS_NULL_DATA(this.ptr + 32)
+                this.__Null := DNS_NULL_DATA(32, this)
             return this.__Null
         }
     }
@@ -387,7 +381,7 @@ class DNS_RECORDW extends Win32Struct
     WKS{
         get {
             if(!this.HasProp("__WKS"))
-                this.__WKS := DNS_WKS_DATA(this.ptr + 32)
+                this.__WKS := DNS_WKS_DATA(32, this)
             return this.__WKS
         }
     }
@@ -398,7 +392,7 @@ class DNS_RECORDW extends Win32Struct
     AAAA{
         get {
             if(!this.HasProp("__AAAA"))
-                this.__AAAA := DNS_AAAA_DATA(this.ptr + 32)
+                this.__AAAA := DNS_AAAA_DATA(32, this)
             return this.__AAAA
         }
     }
@@ -409,7 +403,7 @@ class DNS_RECORDW extends Win32Struct
     KEY{
         get {
             if(!this.HasProp("__KEY"))
-                this.__KEY := DNS_KEY_DATA(this.ptr + 32)
+                this.__KEY := DNS_KEY_DATA(32, this)
             return this.__KEY
         }
     }
@@ -420,7 +414,7 @@ class DNS_RECORDW extends Win32Struct
     SIG{
         get {
             if(!this.HasProp("__SIG"))
-                this.__SIG := DNS_SIG_DATAW(this.ptr + 32)
+                this.__SIG := DNS_SIG_DATAW(32, this)
             return this.__SIG
         }
     }
@@ -431,7 +425,7 @@ class DNS_RECORDW extends Win32Struct
     ATMA{
         get {
             if(!this.HasProp("__ATMA"))
-                this.__ATMA := DNS_ATMA_DATA(this.ptr + 32)
+                this.__ATMA := DNS_ATMA_DATA(32, this)
             return this.__ATMA
         }
     }
@@ -442,7 +436,7 @@ class DNS_RECORDW extends Win32Struct
     NXT{
         get {
             if(!this.HasProp("__NXT"))
-                this.__NXT := DNS_NXT_DATAW(this.ptr + 32)
+                this.__NXT := DNS_NXT_DATAW(32, this)
             return this.__NXT
         }
     }
@@ -453,7 +447,7 @@ class DNS_RECORDW extends Win32Struct
     SRV{
         get {
             if(!this.HasProp("__SRV"))
-                this.__SRV := DNS_SRV_DATAW(this.ptr + 32)
+                this.__SRV := DNS_SRV_DATAW(32, this)
             return this.__SRV
         }
     }
@@ -464,7 +458,7 @@ class DNS_RECORDW extends Win32Struct
     NAPTR{
         get {
             if(!this.HasProp("__NAPTR"))
-                this.__NAPTR := DNS_NAPTR_DATAW(this.ptr + 32)
+                this.__NAPTR := DNS_NAPTR_DATAW(32, this)
             return this.__NAPTR
         }
     }
@@ -475,7 +469,7 @@ class DNS_RECORDW extends Win32Struct
     OPT{
         get {
             if(!this.HasProp("__OPT"))
-                this.__OPT := DNS_OPT_DATA(this.ptr + 32)
+                this.__OPT := DNS_OPT_DATA(32, this)
             return this.__OPT
         }
     }
@@ -486,7 +480,7 @@ class DNS_RECORDW extends Win32Struct
     DS{
         get {
             if(!this.HasProp("__DS"))
-                this.__DS := DNS_DS_DATA(this.ptr + 32)
+                this.__DS := DNS_DS_DATA(32, this)
             return this.__DS
         }
     }
@@ -497,7 +491,7 @@ class DNS_RECORDW extends Win32Struct
     RRSIG{
         get {
             if(!this.HasProp("__RRSIG"))
-                this.__RRSIG := DNS_SIG_DATAW(this.ptr + 32)
+                this.__RRSIG := DNS_SIG_DATAW(32, this)
             return this.__RRSIG
         }
     }
@@ -508,7 +502,7 @@ class DNS_RECORDW extends Win32Struct
     NSEC{
         get {
             if(!this.HasProp("__NSEC"))
-                this.__NSEC := DNS_NSEC_DATAW(this.ptr + 32)
+                this.__NSEC := DNS_NSEC_DATAW(32, this)
             return this.__NSEC
         }
     }
@@ -519,7 +513,7 @@ class DNS_RECORDW extends Win32Struct
     DNSKEY{
         get {
             if(!this.HasProp("__DNSKEY"))
-                this.__DNSKEY := DNS_KEY_DATA(this.ptr + 32)
+                this.__DNSKEY := DNS_KEY_DATA(32, this)
             return this.__DNSKEY
         }
     }
@@ -530,7 +524,7 @@ class DNS_RECORDW extends Win32Struct
     TKEY{
         get {
             if(!this.HasProp("__TKEY"))
-                this.__TKEY := DNS_TKEY_DATAW(this.ptr + 32)
+                this.__TKEY := DNS_TKEY_DATAW(32, this)
             return this.__TKEY
         }
     }
@@ -541,7 +535,7 @@ class DNS_RECORDW extends Win32Struct
     TSIG{
         get {
             if(!this.HasProp("__TSIG"))
-                this.__TSIG := DNS_TSIG_DATAW(this.ptr + 32)
+                this.__TSIG := DNS_TSIG_DATAW(32, this)
             return this.__TSIG
         }
     }
@@ -552,7 +546,7 @@ class DNS_RECORDW extends Win32Struct
     WINS{
         get {
             if(!this.HasProp("__WINS"))
-                this.__WINS := DNS_WINS_DATA(this.ptr + 32)
+                this.__WINS := DNS_WINS_DATA(32, this)
             return this.__WINS
         }
     }
@@ -563,7 +557,7 @@ class DNS_RECORDW extends Win32Struct
     WINSR{
         get {
             if(!this.HasProp("__WINSR"))
-                this.__WINSR := DNS_WINSR_DATAW(this.ptr + 32)
+                this.__WINSR := DNS_WINSR_DATAW(32, this)
             return this.__WINSR
         }
     }
@@ -574,7 +568,7 @@ class DNS_RECORDW extends Win32Struct
     NBSTAT{
         get {
             if(!this.HasProp("__NBSTAT"))
-                this.__NBSTAT := DNS_WINSR_DATAW(this.ptr + 32)
+                this.__NBSTAT := DNS_WINSR_DATAW(32, this)
             return this.__NBSTAT
         }
     }
@@ -585,7 +579,7 @@ class DNS_RECORDW extends Win32Struct
     DHCID{
         get {
             if(!this.HasProp("__DHCID"))
-                this.__DHCID := DNS_DHCID_DATA(this.ptr + 32)
+                this.__DHCID := DNS_DHCID_DATA(32, this)
             return this.__DHCID
         }
     }
@@ -596,7 +590,7 @@ class DNS_RECORDW extends Win32Struct
     NSEC3{
         get {
             if(!this.HasProp("__NSEC3"))
-                this.__NSEC3 := DNS_NSEC3_DATA(this.ptr + 32)
+                this.__NSEC3 := DNS_NSEC3_DATA(32, this)
             return this.__NSEC3
         }
     }
@@ -607,7 +601,7 @@ class DNS_RECORDW extends Win32Struct
     NSEC3PARAM{
         get {
             if(!this.HasProp("__NSEC3PARAM"))
-                this.__NSEC3PARAM := DNS_NSEC3PARAM_DATA(this.ptr + 32)
+                this.__NSEC3PARAM := DNS_NSEC3PARAM_DATA(32, this)
             return this.__NSEC3PARAM
         }
     }
@@ -618,7 +612,7 @@ class DNS_RECORDW extends Win32Struct
     TLSA{
         get {
             if(!this.HasProp("__TLSA"))
-                this.__TLSA := DNS_TLSA_DATA(this.ptr + 32)
+                this.__TLSA := DNS_TLSA_DATA(32, this)
             return this.__TLSA
         }
     }
@@ -629,7 +623,7 @@ class DNS_RECORDW extends Win32Struct
     SVCB{
         get {
             if(!this.HasProp("__SVCB"))
-                this.__SVCB := DNS_SVCB_DATA(this.ptr + 32)
+                this.__SVCB := DNS_SVCB_DATA(32, this)
             return this.__SVCB
         }
     }
@@ -640,7 +634,7 @@ class DNS_RECORDW extends Win32Struct
     UNKNOWN{
         get {
             if(!this.HasProp("__UNKNOWN"))
-                this.__UNKNOWN := DNS_UNKNOWN_DATA(this.ptr + 32)
+                this.__UNKNOWN := DNS_UNKNOWN_DATA(32, this)
             return this.__UNKNOWN
         }
     }

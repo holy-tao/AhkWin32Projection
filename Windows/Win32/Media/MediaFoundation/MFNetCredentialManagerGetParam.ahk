@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the authentication information for the credential manager.
@@ -28,72 +26,54 @@ class MFNetCredentialManagerGetParam extends Win32Struct
      * Set this flag to <b>TRUE</b> if the currently logged on user's credentials should be used as the default credentials.
      * @type {BOOL}
      */
-    fAllowLoggedOnUser{
-        get {
-            if(!this.HasProp("__fAllowLoggedOnUser"))
-                this.__fAllowLoggedOnUser := BOOL(this.ptr + 4)
-            return this.__fAllowLoggedOnUser
-        }
+    fAllowLoggedOnUser {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
      * If <b>TRUE</b>, the authentication package will send unencrypted credentials over the network. Otherwise, the authentication package encrypts the credentials.
      * @type {BOOL}
      */
-    fClearTextPackage{
-        get {
-            if(!this.HasProp("__fClearTextPackage"))
-                this.__fClearTextPackage := BOOL(this.ptr + 8)
-            return this.__fClearTextPackage
-        }
+    fClearTextPackage {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * The original URL that requires authentication.
      * @type {PWSTR}
      */
-    pszUrl{
-        get {
-            if(!this.HasProp("__pszUrl"))
-                this.__pszUrl := PWSTR(this.ptr + 16)
-            return this.__pszUrl
-        }
+    pszUrl {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * The name of the site or proxy that requires authentication.
      * @type {PWSTR}
      */
-    pszSite{
-        get {
-            if(!this.HasProp("__pszSite"))
-                this.__pszSite := PWSTR(this.ptr + 24)
-            return this.__pszSite
-        }
+    pszSite {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * The name of the realm for this authentication.
      * @type {PWSTR}
      */
-    pszRealm{
-        get {
-            if(!this.HasProp("__pszRealm"))
-                this.__pszRealm := PWSTR(this.ptr + 32)
-            return this.__pszRealm
-        }
+    pszRealm {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * The name of the authentication package. For example, "Digest" or "MBS_BASIC".
      * @type {PWSTR}
      */
-    pszPackage{
-        get {
-            if(!this.HasProp("__pszPackage"))
-                this.__pszPackage := PWSTR(this.ptr + 40)
-            return this.__pszPackage
-        }
+    pszPackage {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

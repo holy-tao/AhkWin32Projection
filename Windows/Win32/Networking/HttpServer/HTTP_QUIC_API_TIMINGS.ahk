@@ -19,7 +19,7 @@ class HTTP_QUIC_API_TIMINGS extends Win32Struct
     ConnectionTimings{
         get {
             if(!this.HasProp("__ConnectionTimings"))
-                this.__ConnectionTimings := HTTP_QUIC_CONNECTION_API_TIMINGS(this.ptr + 0)
+                this.__ConnectionTimings := HTTP_QUIC_CONNECTION_API_TIMINGS(0, this)
             return this.__ConnectionTimings
         }
     }
@@ -30,7 +30,7 @@ class HTTP_QUIC_API_TIMINGS extends Win32Struct
     StreamTimings{
         get {
             if(!this.HasProp("__StreamTimings"))
-                this.__StreamTimings := HTTP_QUIC_STREAM_API_TIMINGS(this.ptr + 240)
+                this.__StreamTimings := HTTP_QUIC_STREAM_API_TIMINGS(240, this)
             return this.__StreamTimings
         }
     }

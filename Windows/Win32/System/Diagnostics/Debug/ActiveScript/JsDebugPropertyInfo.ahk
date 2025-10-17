@@ -18,7 +18,7 @@ class JsDebugPropertyInfo extends Win32Struct
     name{
         get {
             if(!this.HasProp("__name"))
-                this.__name := BSTR(this.ptr + 0)
+                this.__name := BSTR(0, this)
             return this.__name
         }
     }
@@ -29,7 +29,7 @@ class JsDebugPropertyInfo extends Win32Struct
     type{
         get {
             if(!this.HasProp("__type"))
-                this.__type := BSTR(this.ptr + 8)
+                this.__type := BSTR(8, this)
             return this.__type
         }
     }
@@ -40,7 +40,7 @@ class JsDebugPropertyInfo extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := BSTR(this.ptr + 16)
+                this.__value := BSTR(16, this)
             return this.__value
         }
     }
@@ -51,7 +51,7 @@ class JsDebugPropertyInfo extends Win32Struct
     fullName{
         get {
             if(!this.HasProp("__fullName"))
-                this.__fullName := BSTR(this.ptr + 24)
+                this.__fullName := BSTR(24, this)
             return this.__fullName
         }
     }

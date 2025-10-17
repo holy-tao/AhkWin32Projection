@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains information needed by the IOCTL_CHANGER_SET_POSITION control code to set the changer's robotic transport mechanism to the specified element address.
@@ -23,7 +22,7 @@ class CHANGER_SET_POSITION extends Win32Struct
     Transport{
         get {
             if(!this.HasProp("__Transport"))
-                this.__Transport := CHANGER_ELEMENT(this.ptr + 0)
+                this.__Transport := CHANGER_ELEMENT(0, this)
             return this.__Transport
         }
     }
@@ -35,7 +34,7 @@ class CHANGER_SET_POSITION extends Win32Struct
     Destination{
         get {
             if(!this.HasProp("__Destination"))
-                this.__Destination := CHANGER_ELEMENT(this.ptr + 8)
+                this.__Destination := CHANGER_ELEMENT(8, this)
             return this.__Destination
         }
     }
@@ -45,11 +44,8 @@ class CHANGER_SET_POSITION extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_MEDIUM_FLIP.
      * @type {BOOLEAN}
      */
-    Flip{
-        get {
-            if(!this.HasProp("__Flip"))
-                this.__Flip := BOOLEAN(this.ptr + 16)
-            return this.__Flip
-        }
+    Flip {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * Specifies a keyword to search for and the keyword table to be searched by Windows Help.
@@ -37,12 +36,9 @@ class MULTIKEYHELPA extends Win32Struct
      * A single character that identifies the keyword table to search.
      * @type {CHAR}
      */
-    mkKeylist{
-        get {
-            if(!this.HasProp("__mkKeylist"))
-                this.__mkKeylist := CHAR(this.ptr + 4)
-            return this.__mkKeylist
-        }
+    mkKeylist {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**

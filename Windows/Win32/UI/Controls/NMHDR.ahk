@@ -23,7 +23,7 @@ class NMHDR extends Win32Struct
     hwndFrom{
         get {
             if(!this.HasProp("__hwndFrom"))
-                this.__hwndFrom := HWND(this.ptr + 0)
+                this.__hwndFrom := HWND(0, this)
             return this.__hwndFrom
         }
     }

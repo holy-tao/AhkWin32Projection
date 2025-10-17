@@ -44,7 +44,7 @@ class SMDATA extends Win32Struct
     hmenu{
         get {
             if(!this.HasProp("__hmenu"))
-                this.__hmenu := HMENU(this.ptr + 8)
+                this.__hmenu := HMENU(8, this)
             return this.__hmenu
         }
     }
@@ -58,7 +58,7 @@ class SMDATA extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 16)
+                this.__hwnd := HWND(16, this)
             return this.__hwnd
         }
     }

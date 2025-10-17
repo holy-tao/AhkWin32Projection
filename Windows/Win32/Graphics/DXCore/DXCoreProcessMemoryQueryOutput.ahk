@@ -18,7 +18,7 @@ class DXCoreProcessMemoryQueryOutput extends Win32Struct
     memoryUsage{
         get {
             if(!this.HasProp("__memoryUsage"))
-                this.__memoryUsage := DXCoreMemoryUsage(this.ptr + 0)
+                this.__memoryUsage := DXCoreMemoryUsage(0, this)
             return this.__memoryUsage
         }
     }

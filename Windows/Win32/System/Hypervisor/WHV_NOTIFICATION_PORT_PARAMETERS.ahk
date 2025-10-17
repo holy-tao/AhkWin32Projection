@@ -48,7 +48,7 @@ class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct
     Doorbell{
         get {
             if(!this.HasProp("__Doorbell"))
-                this.__Doorbell := WHV_DOORBELL_MATCH_DATA(this.ptr + 8)
+                this.__Doorbell := WHV_DOORBELL_MATCH_DATA(8, this)
             return this.__Doorbell
         }
     }
@@ -59,7 +59,7 @@ class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct
     Event{
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := %this.__Class%._Event(this.ptr + 8)
+                this.__Event := %this.__Class%._Event(8, this)
             return this.__Event
         }
     }

@@ -175,7 +175,7 @@ class DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR extends Win32Struct
     Dvdrom{
         get {
             if(!this.HasProp("__Dvdrom"))
-                this.__Dvdrom := %this.__Class%._Dvdrom(this.ptr + 0)
+                this.__Dvdrom := %this.__Class%._Dvdrom(0, this)
             return this.__Dvdrom
         }
     }
@@ -186,7 +186,7 @@ class DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR extends Win32Struct
     DvdRecordable_Version1{
         get {
             if(!this.HasProp("__DvdRecordable_Version1"))
-                this.__DvdRecordable_Version1 := %this.__Class%._DvdRecordable_Version1(this.ptr + 0)
+                this.__DvdRecordable_Version1 := %this.__Class%._DvdRecordable_Version1(0, this)
             return this.__DvdRecordable_Version1
         }
     }
@@ -197,7 +197,7 @@ class DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR extends Win32Struct
     Dvdram{
         get {
             if(!this.HasProp("__Dvdram"))
-                this.__Dvdram := %this.__Class%._Dvdram(this.ptr + 0)
+                this.__Dvdram := %this.__Class%._Dvdram(0, this)
             return this.__Dvdram
         }
     }
@@ -208,7 +208,7 @@ class DVD_COPYRIGHT_MANAGEMENT_DESCRIPTOR extends Win32Struct
     DvdRecordable{
         get {
             if(!this.HasProp("__DvdRecordable"))
-                this.__DvdRecordable := %this.__Class%._DvdRecordable(this.ptr + 0)
+                this.__DvdRecordable := %this.__Class%._DvdRecordable(0, this)
             return this.__DvdRecordable
         }
     }

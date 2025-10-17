@@ -48,7 +48,7 @@ class LINEATTRS extends Win32Struct
     elWidth{
         get {
             if(!this.HasProp("__elWidth"))
-                this.__elWidth := FLOAT_LONG(this.ptr + 16)
+                this.__elWidth := FLOAT_LONG(16, this)
             return this.__elWidth
         }
     }
@@ -91,7 +91,7 @@ class LINEATTRS extends Win32Struct
     elStyleState{
         get {
             if(!this.HasProp("__elStyleState"))
-                this.__elStyleState := FLOAT_LONG(this.ptr + 40)
+                this.__elStyleState := FLOAT_LONG(40, this)
             return this.__elStyleState
         }
     }

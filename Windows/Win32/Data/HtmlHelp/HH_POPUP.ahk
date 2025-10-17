@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\Foundation\COLORREF.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -33,7 +32,7 @@ class HH_POPUP extends Win32Struct
     hinst{
         get {
             if(!this.HasProp("__hinst"))
-                this.__hinst := HINSTANCE(this.ptr + 8)
+                this.__hinst := HINSTANCE(8, this)
             return this.__hinst
         }
     }
@@ -63,7 +62,7 @@ class HH_POPUP extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 32)
+                this.__pt := POINT(32, this)
             return this.__pt
         }
     }
@@ -72,24 +71,18 @@ class HH_POPUP extends Win32Struct
      * Specifies the RGB value to use for the foreground color of the pop-up window. To use the system color for the window text, specify -1.
      * @type {COLORREF}
      */
-    clrForeground{
-        get {
-            if(!this.HasProp("__clrForeground"))
-                this.__clrForeground := COLORREF(this.ptr + 40)
-            return this.__clrForeground
-        }
+    clrForeground {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * Specifies the RGB value to use for the background color of the pop-up window. To use the system color for the window background, specify -1.
      * @type {COLORREF}
      */
-    clrBackground{
-        get {
-            if(!this.HasProp("__clrBackground"))
-                this.__clrBackground := COLORREF(this.ptr + 44)
-            return this.__clrBackground
-        }
+    clrBackground {
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -99,7 +92,7 @@ class HH_POPUP extends Win32Struct
     rcMargins{
         get {
             if(!this.HasProp("__rcMargins"))
-                this.__rcMargins := RECT(this.ptr + 48)
+                this.__rcMargins := RECT(48, this)
             return this.__rcMargins
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information that identifies a particular file. It is used by IColumnProvider::GetItemData when requesting data for a particular file.
@@ -51,12 +50,9 @@ class SHCOLUMNDATA extends Win32Struct
      * A pointer to a null-terminated Unicode string with a file name extension.
      * @type {PWSTR}
      */
-    pwszExt{
-        get {
-            if(!this.HasProp("__pwszExt"))
-                this.__pwszExt := PWSTR(this.ptr + 16)
-            return this.__pwszExt
-        }
+    pwszExt {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

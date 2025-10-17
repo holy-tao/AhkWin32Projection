@@ -75,7 +75,7 @@ class DISK_PARTITION_INFO extends Win32Struct
     Mbr{
         get {
             if(!this.HasProp("__Mbr"))
-                this.__Mbr := %this.__Class%._Mbr(this.ptr + 8)
+                this.__Mbr := %this.__Class%._Mbr(8, this)
             return this.__Mbr
         }
     }
@@ -86,7 +86,7 @@ class DISK_PARTITION_INFO extends Win32Struct
     Gpt{
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := %this.__Class%._Gpt(this.ptr + 8)
+                this.__Gpt := %this.__Class%._Gpt(8, this)
             return this.__Gpt
         }
     }

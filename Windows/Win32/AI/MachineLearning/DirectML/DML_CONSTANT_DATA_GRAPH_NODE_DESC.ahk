@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
@@ -31,11 +30,8 @@ class DML_CONSTANT_DATA_GRAPH_NODE_DESC extends Win32Struct
     /**
      * @type {PSTR}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PSTR(this.ptr + 16)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

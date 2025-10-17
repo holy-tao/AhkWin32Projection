@@ -61,7 +61,7 @@ class _wireSAFEARRAY extends Win32Struct
     uArrayStructs{
         get {
             if(!this.HasProp("__uArrayStructs"))
-                this.__uArrayStructs := SAFEARRAYUNION(this.ptr + 16)
+                this.__uArrayStructs := SAFEARRAYUNION(16, this)
             return this.__uArrayStructs
         }
     }

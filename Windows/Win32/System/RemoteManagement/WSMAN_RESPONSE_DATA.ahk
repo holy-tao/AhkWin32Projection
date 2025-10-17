@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_DATA_TEXT.ahk
 #Include .\WSMAN_DATA_BINARY.ahk
 #Include .\WSMAN_DATA.ahk
@@ -27,7 +26,7 @@ class WSMAN_RESPONSE_DATA extends Win32Struct
     receiveData{
         get {
             if(!this.HasProp("__receiveData"))
-                this.__receiveData := WSMAN_RECEIVE_DATA_RESULT(this.ptr + 0)
+                this.__receiveData := WSMAN_RECEIVE_DATA_RESULT(0, this)
             return this.__receiveData
         }
     }
@@ -39,7 +38,7 @@ class WSMAN_RESPONSE_DATA extends Win32Struct
     connectData{
         get {
             if(!this.HasProp("__connectData"))
-                this.__connectData := WSMAN_CONNECT_DATA(this.ptr + 0)
+                this.__connectData := WSMAN_CONNECT_DATA(0, this)
             return this.__connectData
         }
     }
@@ -51,7 +50,7 @@ class WSMAN_RESPONSE_DATA extends Win32Struct
     createData{
         get {
             if(!this.HasProp("__createData"))
-                this.__createData := WSMAN_CREATE_SHELL_DATA(this.ptr + 0)
+                this.__createData := WSMAN_CREATE_SHELL_DATA(0, this)
             return this.__createData
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * A MapiMessage structure contains information about a message. For Unicode support, use the MapiMessageW structure.
@@ -28,60 +27,45 @@ class MapiMessage extends Win32Struct
      * Pointer to the text string describing the message subject, typically limited to 256 characters or less. If this member is empty or <b>NULL</b>, the user has not entered subject text.
      * @type {PSTR}
      */
-    lpszSubject{
-        get {
-            if(!this.HasProp("__lpszSubject"))
-                this.__lpszSubject := PSTR(this.ptr + 8)
-            return this.__lpszSubject
-        }
+    lpszSubject {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a string containing the message text. If this member is empty or <b>NULL</b>, there is no message text.
      * @type {PSTR}
      */
-    lpszNoteText{
-        get {
-            if(!this.HasProp("__lpszNoteText"))
-                this.__lpszNoteText := PSTR(this.ptr + 16)
-            return this.__lpszNoteText
-        }
+    lpszNoteText {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a string indicating a non-IPM type of message. Client applications can select message types for their non-IPM messages. Clients that only support IPM messages can ignore the <b>lpszMessageType</b> member when reading messages and set it to empty or <b>NULL</b> when sending messages.
      * @type {PSTR}
      */
-    lpszMessageType{
-        get {
-            if(!this.HasProp("__lpszMessageType"))
-                this.__lpszMessageType := PSTR(this.ptr + 24)
-            return this.__lpszMessageType
-        }
+    lpszMessageType {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a string indicating the date when the message was received. The format is YYYY/MM/DD HH:MM, using a 24-hour clock.
      * @type {PSTR}
      */
-    lpszDateReceived{
-        get {
-            if(!this.HasProp("__lpszDateReceived"))
-                this.__lpszDateReceived := PSTR(this.ptr + 32)
-            return this.__lpszDateReceived
-        }
+    lpszDateReceived {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Pointer to a string identifying the conversation thread to which the message belongs. Some messaging systems can ignore and not return this member.
      * @type {PSTR}
      */
-    lpszConversationID{
-        get {
-            if(!this.HasProp("__lpszConversationID"))
-                this.__lpszConversationID := PSTR(this.ptr + 40)
-            return this.__lpszConversationID
-        }
+    lpszConversationID {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

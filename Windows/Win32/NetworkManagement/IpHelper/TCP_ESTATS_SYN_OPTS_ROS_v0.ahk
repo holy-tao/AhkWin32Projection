@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains read-only static information for extended TCP statistics on SYN exchange for a TCP connection.
@@ -80,12 +79,9 @@ class TCP_ESTATS_SYN_OPTS_ROS_v0 extends Win32Struct
      *            state, then this member is set to <b>TRUE</b>. Otherwise, this member is set to <b>FALSE</b>.
      * @type {BOOLEAN}
      */
-    ActiveOpen{
-        get {
-            if(!this.HasProp("__ActiveOpen"))
-                this.__ActiveOpen := BOOLEAN(this.ptr + 0)
-            return this.__ActiveOpen
-        }
+    ActiveOpen {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**

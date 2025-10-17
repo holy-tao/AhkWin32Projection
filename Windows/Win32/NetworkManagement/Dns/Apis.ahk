@@ -1708,7 +1708,7 @@ class Dns {
      * @since windows5.0
      */
     static DnsRecordCompare(pRecord1, pRecord2) {
-        result := DllCall("DNSAPI.dll\DnsRecordCompare", "ptr", pRecord1, "ptr", pRecord2, "ptr")
+        result := DllCall("DNSAPI.dll\DnsRecordCompare", "ptr", pRecord1, "ptr", pRecord2, "int")
         return result
     }
 
@@ -1723,7 +1723,7 @@ class Dns {
      * @since windows5.0
      */
     static DnsRecordSetCompare(pRR1, pRR2, ppDiff1, ppDiff2) {
-        result := DllCall("DNSAPI.dll\DnsRecordSetCompare", "ptr", pRR1, "ptr", pRR2, "ptr", ppDiff1, "ptr", ppDiff2, "ptr")
+        result := DllCall("DNSAPI.dll\DnsRecordSetCompare", "ptr", pRR1, "ptr", pRR2, "ptr", ppDiff1, "ptr", ppDiff2, "int")
         return result
     }
 
@@ -2208,7 +2208,7 @@ class Dns {
         pName1 := pName1 is String ? StrPtr(pName1) : pName1
         pName2 := pName2 is String ? StrPtr(pName2) : pName2
 
-        result := DllCall("DNSAPI.dll\DnsNameCompare_A", "ptr", pName1, "ptr", pName2, "ptr")
+        result := DllCall("DNSAPI.dll\DnsNameCompare_A", "ptr", pName1, "ptr", pName2, "int")
         return result
     }
 
@@ -2224,7 +2224,7 @@ class Dns {
         pName1 := pName1 is String ? StrPtr(pName1) : pName1
         pName2 := pName2 is String ? StrPtr(pName2) : pName2
 
-        result := DllCall("DNSAPI.dll\DnsNameCompare_W", "ptr", pName1, "ptr", pName2, "ptr")
+        result := DllCall("DNSAPI.dll\DnsNameCompare_W", "ptr", pName1, "ptr", pName2, "int")
         return result
     }
 
@@ -2243,7 +2243,7 @@ class Dns {
     static DnsWriteQuestionToBuffer_W(pDnsBuffer, pdwBufferSize, pszName, wType, Xid, fRecursionDesired) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("DNSAPI.dll\DnsWriteQuestionToBuffer_W", "ptr", pDnsBuffer, "uint*", pdwBufferSize, "ptr", pszName, "ushort", wType, "ushort", Xid, "ptr", fRecursionDesired, "ptr")
+        result := DllCall("DNSAPI.dll\DnsWriteQuestionToBuffer_W", "ptr", pDnsBuffer, "uint*", pdwBufferSize, "ptr", pszName, "ushort", wType, "ushort", Xid, "int", fRecursionDesired, "int")
         return result
     }
 
@@ -2262,7 +2262,7 @@ class Dns {
     static DnsWriteQuestionToBuffer_UTF8(pDnsBuffer, pdwBufferSize, pszName, wType, Xid, fRecursionDesired) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("DNSAPI.dll\DnsWriteQuestionToBuffer_UTF8", "ptr", pDnsBuffer, "uint*", pdwBufferSize, "ptr", pszName, "ushort", wType, "ushort", Xid, "ptr", fRecursionDesired, "ptr")
+        result := DllCall("DNSAPI.dll\DnsWriteQuestionToBuffer_UTF8", "ptr", pDnsBuffer, "uint*", pdwBufferSize, "ptr", pszName, "ushort", wType, "ushort", Xid, "int", fRecursionDesired, "int")
         return result
     }
 

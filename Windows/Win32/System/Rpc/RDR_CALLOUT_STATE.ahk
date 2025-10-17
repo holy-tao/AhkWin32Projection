@@ -115,7 +115,7 @@ class RDR_CALLOUT_STATE extends Win32Struct
     Interface{
         get {
             if(!this.HasProp("__Interface"))
-                this.__Interface := RPC_SYNTAX_IDENTIFIER(this.ptr + 80)
+                this.__Interface := RPC_SYNTAX_IDENTIFIER(80, this)
             return this.__Interface
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 
 /**
@@ -96,7 +95,7 @@ class CONVCONTEXT extends Win32Struct
     qos{
         get {
             if(!this.HasProp("__qos"))
-                this.__qos := SECURITY_QUALITY_OF_SERVICE(this.ptr + 24)
+                this.__qos := SECURITY_QUALITY_OF_SERVICE(24, this)
             return this.__qos
         }
     }

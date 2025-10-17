@@ -124,7 +124,7 @@ class OS_INFO extends Win32Struct
     s{
         get {
             if(!this.HasProp("__s"))
-                this.__s := %this.__Class%._s(this.ptr + 28)
+                this.__s := %this.__Class%._s(28, this)
             return this.__s
         }
     }

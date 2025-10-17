@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USBUSER_REQUEST_HEADER.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\USB_DRIVER_VERSION_PARAMETERS.ahk
 
 /**
@@ -28,7 +27,7 @@ class USBUSER_GET_DRIVER_VERSION extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(this.ptr + 0)
+                this.__Header := USBUSER_REQUEST_HEADER(0, this)
             return this.__Header
         }
     }
@@ -40,7 +39,7 @@ class USBUSER_GET_DRIVER_VERSION extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := USB_DRIVER_VERSION_PARAMETERS(this.ptr + 16)
+                this.__Parameters := USB_DRIVER_VERSION_PARAMETERS(16, this)
             return this.__Parameters
         }
     }

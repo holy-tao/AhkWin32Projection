@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Foundation\PWSTR.ahk
 
 /**
  * Contains text recognition results for a recognized text subrange. An array of structures of this type is retrieved by an Extended Linguistic Services (ELS) service in a MAPPING_PROPERTY_BAG structure.
@@ -42,12 +41,9 @@ class MAPPING_DATA_RANGE extends Win32Struct
      * Reserved.
      * @type {PWSTR}
      */
-    pszDescription{
-        get {
-            if(!this.HasProp("__pszDescription"))
-                this.__pszDescription := PWSTR(this.ptr + 8)
-            return this.__pszDescription
-        }
+    pszDescription {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -84,12 +80,9 @@ class MAPPING_DATA_RANGE extends Win32Struct
      * <div> </div>
      * @type {PWSTR}
      */
-    pszContentType{
-        get {
-            if(!this.HasProp("__pszContentType"))
-                this.__pszContentType := PWSTR(this.ptr + 40)
-            return this.__pszContentType
-        }
+    pszContentType {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

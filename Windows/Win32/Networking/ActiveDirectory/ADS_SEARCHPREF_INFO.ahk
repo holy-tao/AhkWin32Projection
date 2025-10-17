@@ -4,7 +4,6 @@
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\ADS_PROV_SPECIFIC.ahk
 #Include .\ADS_TIMESTAMP.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\ADS_BACKLINK.ahk
 #Include .\ADS_HOLD.ahk
 #Include .\ADS_EMAIL.ahk
@@ -153,7 +152,7 @@ class ADS_SEARCHPREF_INFO extends Win32Struct
     vValue{
         get {
             if(!this.HasProp("__vValue"))
-                this.__vValue := ADSVALUE(this.ptr + 8)
+                this.__vValue := ADSVALUE(8, this)
             return this.__vValue
         }
     }

@@ -50,7 +50,7 @@ class WHV_X64_RDTSC_CONTEXT extends Win32Struct
     RdtscInfo{
         get {
             if(!this.HasProp("__RdtscInfo"))
-                this.__RdtscInfo := WHV_X64_RDTSC_INFO(this.ptr + 32)
+                this.__RdtscInfo := WHV_X64_RDTSC_INFO(32, this)
             return this.__RdtscInfo
         }
     }

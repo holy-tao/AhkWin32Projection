@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\COLORREF.ahk
 
 /**
  * Defines the attributes of cells in a table row.
@@ -155,12 +154,9 @@ class TABLECELLPARMS extends Win32Struct
      * Left border color (\clbrdrl\brdrcf).
      * @type {COLORREF}
      */
-    crBrdrLeft{
-        get {
-            if(!this.HasProp("__crBrdrLeft"))
-                this.__crBrdrLeft := COLORREF(this.ptr + 16)
-            return this.__crBrdrLeft
-        }
+    crBrdrLeft {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -169,12 +165,9 @@ class TABLECELLPARMS extends Win32Struct
      * Top border color (\clbrdrt\brdrcf).
      * @type {COLORREF}
      */
-    crBrdrTop{
-        get {
-            if(!this.HasProp("__crBrdrTop"))
-                this.__crBrdrTop := COLORREF(this.ptr + 20)
-            return this.__crBrdrTop
-        }
+    crBrdrTop {
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -183,12 +176,9 @@ class TABLECELLPARMS extends Win32Struct
      * Right border color (\clbrdrr\brdrcf).
      * @type {COLORREF}
      */
-    crBrdrRight{
-        get {
-            if(!this.HasProp("__crBrdrRight"))
-                this.__crBrdrRight := COLORREF(this.ptr + 24)
-            return this.__crBrdrRight
-        }
+    crBrdrRight {
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -197,12 +187,9 @@ class TABLECELLPARMS extends Win32Struct
      * Bottom border color (\clbrdrb\brdrcf).
      * @type {COLORREF}
      */
-    crBrdrBottom{
-        get {
-            if(!this.HasProp("__crBrdrBottom"))
-                this.__crBrdrBottom := COLORREF(this.ptr + 28)
-            return this.__crBrdrBottom
-        }
+    crBrdrBottom {
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -211,12 +198,9 @@ class TABLECELLPARMS extends Win32Struct
      * Background color (\clcbpat).
      * @type {COLORREF}
      */
-    crBackPat{
-        get {
-            if(!this.HasProp("__crBackPat"))
-                this.__crBackPat := COLORREF(this.ptr + 32)
-            return this.__crBackPat
-        }
+    crBackPat {
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -225,11 +209,8 @@ class TABLECELLPARMS extends Win32Struct
      * Foreground color (\clcfpat).
      * @type {COLORREF}
      */
-    crForePat{
-        get {
-            if(!this.HasProp("__crForePat"))
-                this.__crForePat := COLORREF(this.ptr + 36)
-            return this.__crForePat
-        }
+    crForePat {
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

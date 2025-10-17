@@ -21,7 +21,7 @@ class TXFS_SAVEPOINT_INFORMATION extends Win32Struct
     KtmTransaction{
         get {
             if(!this.HasProp("__KtmTransaction"))
-                this.__KtmTransaction := HANDLE(this.ptr + 0)
+                this.__KtmTransaction := HANDLE(0, this)
             return this.__KtmTransaction
         }
     }

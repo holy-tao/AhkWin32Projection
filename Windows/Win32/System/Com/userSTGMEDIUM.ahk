@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -55,12 +54,9 @@ class userSTGMEDIUM extends Win32Struct
             /**
              * @type {PWSTR}
              */
-            lpszFileName{
-                get {
-                    if(!this.HasProp("__lpszFileName"))
-                        this.__lpszFileName := PWSTR(this.ptr + 0)
-                    return this.__lpszFileName
-                }
+            lpszFileName {
+                get => NumGet(this, 0, "ptr")
+                set => NumPut("ptr", value, this, 0)
             }
         
             /**
@@ -95,7 +91,7 @@ class userSTGMEDIUM extends Win32Struct
         u{
             get {
                 if(!this.HasProp("__u"))
-                    this.__u := %this.__Class%._u(this.ptr + 8)
+                    this.__u := %this.__Class%._u(8, this)
                 return this.__u
             }
         }
@@ -108,7 +104,7 @@ class userSTGMEDIUM extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._STGMEDIUM_UNION(this.ptr + 0)
+                this.__u := %this.__Class%._STGMEDIUM_UNION(0, this)
             return this.__u
         }
     }

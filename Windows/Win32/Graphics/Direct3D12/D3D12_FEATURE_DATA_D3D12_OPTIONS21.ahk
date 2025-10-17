@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -31,22 +30,16 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS21 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    SampleCmpGradientAndBiasSupported{
-        get {
-            if(!this.HasProp("__SampleCmpGradientAndBiasSupported"))
-                this.__SampleCmpGradientAndBiasSupported := BOOL(this.ptr + 8)
-            return this.__SampleCmpGradientAndBiasSupported
-        }
+    SampleCmpGradientAndBiasSupported {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
      * @type {BOOL}
      */
-    ExtendedCommandInfoSupported{
-        get {
-            if(!this.HasProp("__ExtendedCommandInfoSupported"))
-                this.__ExtendedCommandInfoSupported := BOOL(this.ptr + 12)
-            return this.__ExtendedCommandInfoSupported
-        }
+    ExtendedCommandInfoSupported {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 }

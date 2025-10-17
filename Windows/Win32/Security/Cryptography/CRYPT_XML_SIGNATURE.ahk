@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_XML_BLOB.ahk
 #Include .\CRYPT_XML_ALGORITHM.ahk
 #Include .\CRYPT_XML_SIGNED_INFO.ahk
@@ -40,12 +39,9 @@ class CRYPT_XML_SIGNATURE extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the value of the <b>Id</b> attribute.
      * @type {PWSTR}
      */
-    wszId{
-        get {
-            if(!this.HasProp("__wszId"))
-                this.__wszId := PWSTR(this.ptr + 16)
-            return this.__wszId
-        }
+    wszId {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -58,7 +54,7 @@ class CRYPT_XML_SIGNATURE extends Win32Struct
     SignedInfo{
         get {
             if(!this.HasProp("__SignedInfo"))
-                this.__SignedInfo := CRYPT_XML_SIGNED_INFO(this.ptr + 24)
+                this.__SignedInfo := CRYPT_XML_SIGNED_INFO(24, this)
             return this.__SignedInfo
         }
     }
@@ -70,7 +66,7 @@ class CRYPT_XML_SIGNATURE extends Win32Struct
     SignatureValue{
         get {
             if(!this.HasProp("__SignatureValue"))
-                this.__SignatureValue := CRYPT_INTEGER_BLOB(this.ptr + 136)
+                this.__SignatureValue := CRYPT_INTEGER_BLOB(136, this)
             return this.__SignatureValue
         }
     }
@@ -102,12 +98,8 @@ class CRYPT_XML_SIGNATURE extends Win32Struct
         set => NumPut("ptr", value, this, 168)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 176
     }
 }

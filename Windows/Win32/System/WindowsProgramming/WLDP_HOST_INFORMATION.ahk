@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -32,12 +31,9 @@ class WLDP_HOST_INFORMATION extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    szSource{
-        get {
-            if(!this.HasProp("__szSource"))
-                this.__szSource := PWSTR(this.ptr + 8)
-            return this.__szSource
-        }
+    szSource {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -46,7 +42,7 @@ class WLDP_HOST_INFORMATION extends Win32Struct
     hSource{
         get {
             if(!this.HasProp("__hSource"))
-                this.__hSource := HANDLE(this.ptr + 16)
+                this.__hSource := HANDLE(16, this)
             return this.__hSource
         }
     }

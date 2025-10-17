@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The FAX_LOG_CATEGORY structure describes one logging category.
@@ -33,12 +32,9 @@ class FAX_LOG_CATEGORYA extends Win32Struct
      * Pointer to a constant null-terminated character string that is a descriptive name for the logging category.
      * @type {PSTR}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := PSTR(this.ptr + 0)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

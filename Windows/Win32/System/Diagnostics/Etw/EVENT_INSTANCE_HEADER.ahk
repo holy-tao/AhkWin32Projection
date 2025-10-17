@@ -96,7 +96,7 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
     Class{
         get {
             if(!this.HasProp("__Class"))
-                this.__Class := %this.__Class%._Class(this.ptr + 4)
+                this.__Class := %this.__Class%._Class(4, this)
             return this.__Class
         }
     }

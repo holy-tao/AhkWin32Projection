@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the raw input data coming from the specified mouse.
@@ -66,11 +65,8 @@ class RID_DEVICE_INFO_MOUSE extends Win32Struct
      * <b>Windows XP:</b> This member is only supported starting with Windows Vista.
      * @type {BOOL}
      */
-    fHasHorizontalWheel{
-        get {
-            if(!this.HasProp("__fHasHorizontalWheel"))
-                this.__fHasHorizontalWheel := BOOL(this.ptr + 12)
-            return this.__fHasHorizontalWheel
-        }
+    fHasHorizontalWheel {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 }

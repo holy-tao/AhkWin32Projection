@@ -21,7 +21,7 @@ class SourceInfo extends Win32Struct
     FileName{
         get {
             if(!this.HasProp("__FileName"))
-                this.__FileName := BSTR(this.ptr + 0)
+                this.__FileName := BSTR(0, this)
             return this.__FileName
         }
     }
@@ -60,7 +60,7 @@ class SourceInfo extends Win32Struct
     Hash{
         get {
             if(!this.HasProp("__Hash"))
-                this.__Hash := BSTR(this.ptr + 24)
+                this.__Hash := BSTR(24, this)
             return this.__Hash
         }
     }

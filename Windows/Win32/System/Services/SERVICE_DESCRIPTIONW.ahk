@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains a service description.
@@ -44,11 +43,8 @@ class SERVICE_DESCRIPTIONW extends Win32Struct
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
      * @type {PWSTR}
      */
-    lpDescription{
-        get {
-            if(!this.HasProp("__lpDescription"))
-                this.__lpDescription := PWSTR(this.ptr + 0)
-            return this.__lpDescription
-        }
+    lpDescription {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 }

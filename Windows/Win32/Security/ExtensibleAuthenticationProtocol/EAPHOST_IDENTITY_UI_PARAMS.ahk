@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EAP_TYPE.ahk
 #Include .\EAP_METHOD_TYPE.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -20,7 +19,7 @@ class EAPHOST_IDENTITY_UI_PARAMS extends Win32Struct
     eapMethodType{
         get {
             if(!this.HasProp("__eapMethodType"))
-                this.__eapMethodType := EAP_METHOD_TYPE(this.ptr + 0)
+                this.__eapMethodType := EAP_METHOD_TYPE(0, this)
             return this.__eapMethodType
         }
     }
@@ -84,12 +83,9 @@ class EAPHOST_IDENTITY_UI_PARAMS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszIdentity{
-        get {
-            if(!this.HasProp("__pwszIdentity"))
-                this.__pwszIdentity := PWSTR(this.ptr + 64)
-            return this.__pwszIdentity
-        }
+    pwszIdentity {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**

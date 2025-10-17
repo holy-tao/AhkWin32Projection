@@ -32,7 +32,7 @@ class DIJOYUSERVALUES extends Win32Struct
     ruv{
         get {
             if(!this.HasProp("__ruv"))
-                this.__ruv := JOYREGUSERVALUES(this.ptr + 8)
+                this.__ruv := JOYREGUSERVALUES(8, this)
             return this.__ruv
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -24,55 +23,40 @@ class DRIVER_INFO_2A extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pName{
-        get {
-            if(!this.HasProp("__pName"))
-                this.__pName := PSTR(this.ptr + 8)
-            return this.__pName
-        }
+    pName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PSTR}
      */
-    pEnvironment{
-        get {
-            if(!this.HasProp("__pEnvironment"))
-                this.__pEnvironment := PSTR(this.ptr + 16)
-            return this.__pEnvironment
-        }
+    pEnvironment {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PSTR}
      */
-    pDriverPath{
-        get {
-            if(!this.HasProp("__pDriverPath"))
-                this.__pDriverPath := PSTR(this.ptr + 24)
-            return this.__pDriverPath
-        }
+    pDriverPath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PSTR}
      */
-    pDataFile{
-        get {
-            if(!this.HasProp("__pDataFile"))
-                this.__pDataFile := PSTR(this.ptr + 32)
-            return this.__pDataFile
-        }
+    pDataFile {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PSTR}
      */
-    pConfigFile{
-        get {
-            if(!this.HasProp("__pConfigFile"))
-                this.__pConfigFile := PSTR(this.ptr + 40)
-            return this.__pConfigFile
-        }
+    pConfigFile {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 }

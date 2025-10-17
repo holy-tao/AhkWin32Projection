@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -82,12 +81,9 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    RuntimeFwActivationSupported{
-        get {
-            if(!this.HasProp("__RuntimeFwActivationSupported"))
-                this.__RuntimeFwActivationSupported := BOOLEAN(this.ptr + 8)
-            return this.__RuntimeFwActivationSupported
-        }
+    RuntimeFwActivationSupported {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -104,7 +100,7 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
     FirmwareActivationCapability{
         get {
             if(!this.HasProp("__FirmwareActivationCapability"))
-                this.__FirmwareActivationCapability := %this.__Class%._FirmwareActivationCapability(this.ptr + 16)
+                this.__FirmwareActivationCapability := %this.__Class%._FirmwareActivationCapability(16, this)
             return this.__FirmwareActivationCapability
         }
     }

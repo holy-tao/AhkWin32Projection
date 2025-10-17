@@ -21,7 +21,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
     P{
         get {
             if(!this.HasProp("__P"))
-                this.__P := CRYPT_XML_DATA_BLOB(this.ptr + 0)
+                this.__P := CRYPT_XML_DATA_BLOB(0, this)
             return this.__P
         }
     }
@@ -33,7 +33,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
     Q{
         get {
             if(!this.HasProp("__Q"))
-                this.__Q := CRYPT_XML_DATA_BLOB(this.ptr + 16)
+                this.__Q := CRYPT_XML_DATA_BLOB(16, this)
             return this.__Q
         }
     }
@@ -45,7 +45,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
     G{
         get {
             if(!this.HasProp("__G"))
-                this.__G := CRYPT_XML_DATA_BLOB(this.ptr + 32)
+                this.__G := CRYPT_XML_DATA_BLOB(32, this)
             return this.__G
         }
     }
@@ -57,7 +57,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
     Y{
         get {
             if(!this.HasProp("__Y"))
-                this.__Y := CRYPT_XML_DATA_BLOB(this.ptr + 48)
+                this.__Y := CRYPT_XML_DATA_BLOB(48, this)
             return this.__Y
         }
     }
@@ -69,7 +69,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
     J{
         get {
             if(!this.HasProp("__J"))
-                this.__J := CRYPT_XML_DATA_BLOB(this.ptr + 64)
+                this.__J := CRYPT_XML_DATA_BLOB(64, this)
             return this.__J
         }
     }
@@ -81,7 +81,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
     Seed{
         get {
             if(!this.HasProp("__Seed"))
-                this.__Seed := CRYPT_XML_DATA_BLOB(this.ptr + 80)
+                this.__Seed := CRYPT_XML_DATA_BLOB(80, this)
             return this.__Seed
         }
     }
@@ -93,7 +93,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
     Counter{
         get {
             if(!this.HasProp("__Counter"))
-                this.__Counter := CRYPT_XML_DATA_BLOB(this.ptr + 96)
+                this.__Counter := CRYPT_XML_DATA_BLOB(96, this)
             return this.__Counter
         }
     }

@@ -22,7 +22,7 @@ class DISPLAYCONFIG_DESKTOP_IMAGE_INFO extends Win32Struct
     PathSourceSize{
         get {
             if(!this.HasProp("__PathSourceSize"))
-                this.__PathSourceSize := POINTL(this.ptr + 0)
+                this.__PathSourceSize := POINTL(0, this)
             return this.__PathSourceSize
         }
     }
@@ -34,7 +34,7 @@ class DISPLAYCONFIG_DESKTOP_IMAGE_INFO extends Win32Struct
     DesktopImageRegion{
         get {
             if(!this.HasProp("__DesktopImageRegion"))
-                this.__DesktopImageRegion := RECTL(this.ptr + 8)
+                this.__DesktopImageRegion := RECTL(8, this)
             return this.__DesktopImageRegion
         }
     }
@@ -46,7 +46,7 @@ class DISPLAYCONFIG_DESKTOP_IMAGE_INFO extends Win32Struct
     DesktopImageClip{
         get {
             if(!this.HasProp("__DesktopImageClip"))
-                this.__DesktopImageClip := RECTL(this.ptr + 24)
+                this.__DesktopImageClip := RECTL(24, this)
             return this.__DesktopImageClip
         }
     }

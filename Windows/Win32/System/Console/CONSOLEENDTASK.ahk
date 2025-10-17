@@ -19,7 +19,7 @@ class CONSOLEENDTASK extends Win32Struct
     ProcessId{
         get {
             if(!this.HasProp("__ProcessId"))
-                this.__ProcessId := HANDLE(this.ptr + 0)
+                this.__ProcessId := HANDLE(0, this)
             return this.__ProcessId
         }
     }
@@ -30,7 +30,7 @@ class CONSOLEENDTASK extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 8)
+                this.__hwnd := HWND(8, this)
             return this.__hwnd
         }
     }

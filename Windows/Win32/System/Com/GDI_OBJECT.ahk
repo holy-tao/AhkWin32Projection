@@ -55,7 +55,7 @@ class GDI_OBJECT extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u(this.ptr + 8)
+                this.__u := %this.__Class%._u(8, this)
             return this.__u
         }
     }

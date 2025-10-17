@@ -64,7 +64,7 @@ class CERT_CONTEXT extends Win32Struct
     hCertStore{
         get {
             if(!this.HasProp("__hCertStore"))
-                this.__hCertStore := HCERTSTORE(this.ptr + 32)
+                this.__hCertStore := HCERTSTORE(32, this)
             return this.__hCertStore
         }
     }

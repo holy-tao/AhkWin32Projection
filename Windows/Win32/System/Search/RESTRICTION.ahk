@@ -3,19 +3,15 @@
 #Include .\NODERESTRICTION.ahk
 #Include .\VECTORRESTRICTION.ahk
 #Include .\NOTRESTRICTION.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 #Include .\CONTENTRESTRICTION.ahk
 #Include .\NATLANGUAGERESTRICTION.ahk
-#Include ..\..\Foundation\CHAR.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\Com\BLOB.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\Com\StructuredStorage\CAC.ahk
 #Include ..\Com\StructuredStorage\CAUB.ahk
 #Include ..\Com\StructuredStorage\CAI.ahk
@@ -62,7 +58,7 @@ class RESTRICTION extends Win32Struct
         ar{
             get {
                 if(!this.HasProp("__ar"))
-                    this.__ar := NODERESTRICTION(this.ptr + 0)
+                    this.__ar := NODERESTRICTION(0, this)
                 return this.__ar
             }
         }
@@ -73,7 +69,7 @@ class RESTRICTION extends Win32Struct
         orRestriction{
             get {
                 if(!this.HasProp("__orRestriction"))
-                    this.__orRestriction := NODERESTRICTION(this.ptr + 0)
+                    this.__orRestriction := NODERESTRICTION(0, this)
                 return this.__orRestriction
             }
         }
@@ -84,7 +80,7 @@ class RESTRICTION extends Win32Struct
         pxr{
             get {
                 if(!this.HasProp("__pxr"))
-                    this.__pxr := NODERESTRICTION(this.ptr + 0)
+                    this.__pxr := NODERESTRICTION(0, this)
                 return this.__pxr
             }
         }
@@ -95,7 +91,7 @@ class RESTRICTION extends Win32Struct
         vr{
             get {
                 if(!this.HasProp("__vr"))
-                    this.__vr := VECTORRESTRICTION(this.ptr + 0)
+                    this.__vr := VECTORRESTRICTION(0, this)
                 return this.__vr
             }
         }
@@ -106,7 +102,7 @@ class RESTRICTION extends Win32Struct
         nr{
             get {
                 if(!this.HasProp("__nr"))
-                    this.__nr := NOTRESTRICTION(this.ptr + 0)
+                    this.__nr := NOTRESTRICTION(0, this)
                 return this.__nr
             }
         }
@@ -117,7 +113,7 @@ class RESTRICTION extends Win32Struct
         cr{
             get {
                 if(!this.HasProp("__cr"))
-                    this.__cr := CONTENTRESTRICTION(this.ptr + 0)
+                    this.__cr := CONTENTRESTRICTION(0, this)
                 return this.__cr
             }
         }
@@ -128,7 +124,7 @@ class RESTRICTION extends Win32Struct
         nlr{
             get {
                 if(!this.HasProp("__nlr"))
-                    this.__nlr := NATLANGUAGERESTRICTION(this.ptr + 0)
+                    this.__nlr := NATLANGUAGERESTRICTION(0, this)
                 return this.__nlr
             }
         }
@@ -139,7 +135,7 @@ class RESTRICTION extends Win32Struct
         pr{
             get {
                 if(!this.HasProp("__pr"))
-                    this.__pr := PROPERTYRESTRICTION(this.ptr + 0)
+                    this.__pr := PROPERTYRESTRICTION(0, this)
                 return this.__pr
             }
         }
@@ -168,7 +164,7 @@ class RESTRICTION extends Win32Struct
     res{
         get {
             if(!this.HasProp("__res"))
-                this.__res := %this.__Class%._URes(this.ptr + 8)
+                this.__res := %this.__Class%._URes(8, this)
             return this.__res
         }
     }

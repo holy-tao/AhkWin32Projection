@@ -20,7 +20,7 @@ class DWRITE_TEXT_METRICS1 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := DWRITE_TEXT_METRICS(this.ptr + 0)
+                this.__Base := DWRITE_TEXT_METRICS(0, this)
             return this.__Base
         }
     }

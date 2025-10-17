@@ -27,7 +27,7 @@ class DDHAL_GETAVAILDRIVERMEMORYDATA extends Win32Struct
     DDSCaps{
         get {
             if(!this.HasProp("__DDSCaps"))
-                this.__DDSCaps := DDSCAPS(this.ptr + 8)
+                this.__DDSCaps := DDSCAPS(8, this)
             return this.__DDSCaps
         }
     }
@@ -70,7 +70,7 @@ class DDHAL_GETAVAILDRIVERMEMORYDATA extends Win32Struct
     ddsCapsEx{
         get {
             if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(this.ptr + 32)
+                this.__ddsCapsEx := DDSCAPSEX(32, this)
             return this.__ddsCapsEx
         }
     }

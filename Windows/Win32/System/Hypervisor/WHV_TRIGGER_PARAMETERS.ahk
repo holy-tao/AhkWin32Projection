@@ -73,7 +73,7 @@ class WHV_TRIGGER_PARAMETERS extends Win32Struct
     Interrupt{
         get {
             if(!this.HasProp("__Interrupt"))
-                this.__Interrupt := WHV_INTERRUPT_CONTROL(this.ptr + 8)
+                this.__Interrupt := WHV_INTERRUPT_CONTROL(8, this)
             return this.__Interrupt
         }
     }
@@ -84,7 +84,7 @@ class WHV_TRIGGER_PARAMETERS extends Win32Struct
     SynicEvent{
         get {
             if(!this.HasProp("__SynicEvent"))
-                this.__SynicEvent := WHV_SYNIC_EVENT_PARAMETERS(this.ptr + 8)
+                this.__SynicEvent := WHV_SYNIC_EVENT_PARAMETERS(8, this)
             return this.__SynicEvent
         }
     }
@@ -95,7 +95,7 @@ class WHV_TRIGGER_PARAMETERS extends Win32Struct
     DeviceInterrupt{
         get {
             if(!this.HasProp("__DeviceInterrupt"))
-                this.__DeviceInterrupt := %this.__Class%._DeviceInterrupt(this.ptr + 8)
+                this.__DeviceInterrupt := %this.__Class%._DeviceInterrupt(8, this)
             return this.__DeviceInterrupt
         }
     }

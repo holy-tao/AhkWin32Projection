@@ -1,12 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
 #Include ..\Diagnostics\Debug\EXCEPTION_RECORD.ahk
 #Include ..\Diagnostics\Debug\ARM64_NT_NEON128.ahk
 #Include ..\Diagnostics\Debug\CONTEXT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the exception information that you use to determine whether you want to claim the crash.
@@ -36,7 +33,7 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
     hProcess{
         get {
             if(!this.HasProp("__hProcess"))
-                this.__hProcess := HANDLE(this.ptr + 8)
+                this.__hProcess := HANDLE(8, this)
             return this.__hProcess
         }
     }
@@ -48,7 +45,7 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
     hThread{
         get {
             if(!this.HasProp("__hThread"))
-                this.__hThread := HANDLE(this.ptr + 16)
+                this.__hThread := HANDLE(16, this)
             return this.__hThread
         }
     }
@@ -60,7 +57,7 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
     exceptionRecord{
         get {
             if(!this.HasProp("__exceptionRecord"))
-                this.__exceptionRecord := EXCEPTION_RECORD(this.ptr + 24)
+                this.__exceptionRecord := EXCEPTION_RECORD(24, this)
             return this.__exceptionRecord
         }
     }
@@ -72,7 +69,7 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
     context{
         get {
             if(!this.HasProp("__context"))
-                this.__context := CONTEXT(this.ptr + 176)
+                this.__context := CONTEXT(176, this)
             return this.__context
         }
     }
@@ -81,23 +78,17 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
      * A pointer to a constant, null-terminated string that contains the size of the exception information.
      * @type {PWSTR}
      */
-    pwszReportId{
-        get {
-            if(!this.HasProp("__pwszReportId"))
-                this.__pwszReportId := PWSTR(this.ptr + 832)
-            return this.__pwszReportId
-        }
+    pwszReportId {
+        get => NumGet(this, 832, "ptr")
+        set => NumPut("ptr", value, this, 832)
     }
 
     /**
      * @type {BOOL}
      */
-    bIsFatal{
-        get {
-            if(!this.HasProp("__bIsFatal"))
-                this.__bIsFatal := BOOL(this.ptr + 840)
-            return this.__bIsFatal
-        }
+    bIsFatal {
+        get => NumGet(this, 840, "int")
+        set => NumPut("int", value, this, 840)
     }
 
     /**

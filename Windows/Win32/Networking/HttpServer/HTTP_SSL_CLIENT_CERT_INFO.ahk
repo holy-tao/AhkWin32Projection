@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains data about a Secure Sockets Layer (SSL) client certificate that can be used to determine whether the certificate is valid.
@@ -64,7 +63,7 @@ class HTTP_SSL_CLIENT_CERT_INFO extends Win32Struct
     Token{
         get {
             if(!this.HasProp("__Token"))
-                this.__Token := HANDLE(this.ptr + 16)
+                this.__Token := HANDLE(16, this)
             return this.__Token
         }
     }
@@ -73,11 +72,8 @@ class HTTP_SSL_CLIENT_CERT_INFO extends Win32Struct
      * Reserved.
      * @type {BOOLEAN}
      */
-    CertDeniedByMapper{
-        get {
-            if(!this.HasProp("__CertDeniedByMapper"))
-                this.__CertDeniedByMapper := BOOLEAN(this.ptr + 24)
-            return this.__CertDeniedByMapper
-        }
+    CertDeniedByMapper {
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 }

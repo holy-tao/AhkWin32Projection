@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -39,12 +38,9 @@ class TCP_INFO_v2 extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    TimestampsEnabled{
-        get {
-            if(!this.HasProp("__TimestampsEnabled"))
-                this.__TimestampsEnabled := BOOLEAN(this.ptr + 16)
-            return this.__TimestampsEnabled
-        }
+    TimestampsEnabled {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
@@ -250,12 +246,9 @@ class TCP_INFO_v2 extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    EcnNegotiated{
-        get {
-            if(!this.HasProp("__EcnNegotiated"))
-                this.__EcnNegotiated := BOOLEAN(this.ptr + 140)
-            return this.__EcnNegotiated
-        }
+    EcnNegotiated {
+        get => NumGet(this, 140, "char")
+        set => NumPut("char", value, this, 140)
     }
 
     /**

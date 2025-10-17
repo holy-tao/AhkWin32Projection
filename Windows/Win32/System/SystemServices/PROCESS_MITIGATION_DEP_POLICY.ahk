@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Contains process mitigation policy settings for data execution prevention (DEP).
@@ -62,11 +61,8 @@ class PROCESS_MITIGATION_DEP_POLICY extends Win32Struct
      * DEP is permanently enabled and cannot be disabled if this field is set to TRUE.
      * @type {BOOLEAN}
      */
-    Permanent{
-        get {
-            if(!this.HasProp("__Permanent"))
-                this.__Permanent := BOOLEAN(this.ptr + 4)
-            return this.__Permanent
-        }
+    Permanent {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 }

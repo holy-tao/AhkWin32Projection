@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Identifies the user account, group account, or logon session to which an access control entry (ACE) applies.
@@ -99,11 +98,8 @@ class TRUSTEE_W extends Win32Struct
      * A pointer to a buffer that identifies the trustee and, optionally, contains information about object-specific ACEs. The type of data depends on the value of the <b>TrusteeForm</b> member.
      * @type {PWSTR}
      */
-    ptstrName{
-        get {
-            if(!this.HasProp("__ptstrName"))
-                this.__ptstrName := PWSTR(this.ptr + 24)
-            return this.__ptstrName
-        }
+    ptstrName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains configuration information for an installed service. It is used by the QueryServiceConfig function.
@@ -59,12 +58,9 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct
      * The path can also include arguments for an auto-start service. These arguments are passed to the service entry point (typically the <b>main</b> function).
      * @type {PWSTR}
      */
-    lpBinaryPathName{
-        get {
-            if(!this.HasProp("__lpBinaryPathName"))
-                this.__lpBinaryPathName := PWSTR(this.ptr + 16)
-            return this.__lpBinaryPathName
-        }
+    lpBinaryPathName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -79,12 +75,9 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct
      * <b>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\ServiceGroupOrder</b>
      * @type {PWSTR}
      */
-    lpLoadOrderGroup{
-        get {
-            if(!this.HasProp("__lpLoadOrderGroup"))
-                this.__lpLoadOrderGroup := PWSTR(this.ptr + 24)
-            return this.__lpLoadOrderGroup
-        }
+    lpLoadOrderGroup {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -107,12 +100,9 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct
      * A pointer to an array of null-separated names of services or load ordering groups that must start before this service. The array is doubly null-terminated. If the pointer is <b>NULL</b> or if it points to an empty string, the service has no dependencies. If a group name is specified, it must be prefixed by the <b>SC_GROUP_IDENTIFIER</b> (defined in WinSvc.h) character to differentiate it from a service name, because services and service groups share the same name space. Dependency on a service means that this service can only run if the service it depends on is running. Dependency on a group means that this service can run if at least one member of the group is running after an attempt to start all members of the group.
      * @type {PWSTR}
      */
-    lpDependencies{
-        get {
-            if(!this.HasProp("__lpDependencies"))
-                this.__lpDependencies := PWSTR(this.ptr + 40)
-            return this.__lpDependencies
-        }
+    lpDependencies {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -125,12 +115,9 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct
      * If the service type is <b>SERVICE_KERNEL_DRIVER</b> or <b>SERVICE_FILE_SYSTEM_DRIVER</b>, this member is the driver object name (that is, \FileSystem\Rdr or \Driver\Xns) which the input and output (I/O) system uses to load the device driver. If this member is NULL, the driver is to be run with a default object name created by the I/O system, based on the service name.
      * @type {PWSTR}
      */
-    lpServiceStartName{
-        get {
-            if(!this.HasProp("__lpServiceStartName"))
-                this.__lpServiceStartName := PWSTR(this.ptr + 48)
-            return this.__lpServiceStartName
-        }
+    lpServiceStartName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -145,11 +132,8 @@ class QUERY_SERVICE_CONFIGW extends Win32Struct
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
      * @type {PWSTR}
      */
-    lpDisplayName{
-        get {
-            if(!this.HasProp("__lpDisplayName"))
-                this.__lpDisplayName := PWSTR(this.ptr + 56)
-            return this.__lpDisplayName
-        }
+    lpDisplayName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

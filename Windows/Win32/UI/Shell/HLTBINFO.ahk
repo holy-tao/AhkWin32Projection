@@ -26,7 +26,7 @@ class HLTBINFO extends Win32Struct
     rcTbPos{
         get {
             if(!this.HasProp("__rcTbPos"))
-                this.__rcTbPos := RECT(this.ptr + 8)
+                this.__rcTbPos := RECT(8, this)
             return this.__rcTbPos
         }
     }

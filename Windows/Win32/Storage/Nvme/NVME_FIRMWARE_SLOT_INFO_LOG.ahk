@@ -68,7 +68,7 @@ class NVME_FIRMWARE_SLOT_INFO_LOG extends Win32Struct
     AFI{
         get {
             if(!this.HasProp("__AFI"))
-                this.__AFI := %this.__Class%._AFI(this.ptr + 0)
+                this.__AFI := %this.__Class%._AFI(0, this)
             return this.__AFI
         }
     }

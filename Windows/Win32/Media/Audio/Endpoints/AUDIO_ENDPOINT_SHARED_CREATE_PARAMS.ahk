@@ -42,7 +42,7 @@ class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS extends Win32Struct
     wfxDeviceFormat{
         get {
             if(!this.HasProp("__wfxDeviceFormat"))
-                this.__wfxDeviceFormat := WAVEFORMATEX(this.ptr + 16)
+                this.__wfxDeviceFormat := WAVEFORMATEX(16, this)
             return this.__wfxDeviceFormat
         }
     }

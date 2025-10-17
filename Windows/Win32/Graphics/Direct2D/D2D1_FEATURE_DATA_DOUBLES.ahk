@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Describes the support for doubles in shaders.
@@ -22,11 +21,8 @@ class D2D1_FEATURE_DATA_DOUBLES extends Win32Struct
      * TRUE is doubles are supported within the shaders.
      * @type {BOOL}
      */
-    doublePrecisionFloatShaderOps{
-        get {
-            if(!this.HasProp("__doublePrecisionFloatShaderOps"))
-                this.__doublePrecisionFloatShaderOps := BOOL(this.ptr + 0)
-            return this.__doublePrecisionFloatShaderOps
-        }
+    doublePrecisionFloatShaderOps {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

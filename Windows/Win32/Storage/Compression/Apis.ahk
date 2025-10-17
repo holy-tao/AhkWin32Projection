@@ -42,7 +42,7 @@ class Compression {
     static CreateCompressor(Algorithm, AllocationRoutines, CompressorHandle) {
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\CreateCompressor", "uint", Algorithm, "ptr", AllocationRoutines, "ptr", CompressorHandle, "ptr")
+        result := DllCall("Cabinet.dll\CreateCompressor", "uint", Algorithm, "ptr", AllocationRoutines, "ptr", CompressorHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -64,7 +64,7 @@ class Compression {
 
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\SetCompressorInformation", "ptr", CompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "ptr")
+        result := DllCall("Cabinet.dll\SetCompressorInformation", "ptr", CompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -86,7 +86,7 @@ class Compression {
 
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\QueryCompressorInformation", "ptr", CompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "ptr")
+        result := DllCall("Cabinet.dll\QueryCompressorInformation", "ptr", CompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -110,7 +110,7 @@ class Compression {
 
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\Compress", "ptr", CompressorHandle, "ptr", UncompressedData, "ptr", UncompressedDataSize, "ptr", CompressedBuffer, "ptr", CompressedBufferSize, "ptr*", CompressedDataSize, "ptr")
+        result := DllCall("Cabinet.dll\Compress", "ptr", CompressorHandle, "ptr", UncompressedData, "ptr", UncompressedDataSize, "ptr", CompressedBuffer, "ptr", CompressedBufferSize, "ptr*", CompressedDataSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -129,7 +129,7 @@ class Compression {
 
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\ResetCompressor", "ptr", CompressorHandle, "ptr")
+        result := DllCall("Cabinet.dll\ResetCompressor", "ptr", CompressorHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -148,7 +148,7 @@ class Compression {
 
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\CloseCompressor", "ptr", CompressorHandle, "ptr")
+        result := DllCall("Cabinet.dll\CloseCompressor", "ptr", CompressorHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -167,7 +167,7 @@ class Compression {
     static CreateDecompressor(Algorithm, AllocationRoutines, DecompressorHandle) {
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\CreateDecompressor", "uint", Algorithm, "ptr", AllocationRoutines, "ptr", DecompressorHandle, "ptr")
+        result := DllCall("Cabinet.dll\CreateDecompressor", "uint", Algorithm, "ptr", AllocationRoutines, "ptr", DecompressorHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -189,7 +189,7 @@ class Compression {
 
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\SetDecompressorInformation", "ptr", DecompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "ptr")
+        result := DllCall("Cabinet.dll\SetDecompressorInformation", "ptr", DecompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -211,7 +211,7 @@ class Compression {
 
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\QueryDecompressorInformation", "ptr", DecompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "ptr")
+        result := DllCall("Cabinet.dll\QueryDecompressorInformation", "ptr", DecompressorHandle, "int", CompressInformationClass, "ptr", CompressInformation, "ptr", CompressInformationSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -235,7 +235,7 @@ class Compression {
 
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\Decompress", "ptr", DecompressorHandle, "ptr", CompressedData, "ptr", CompressedDataSize, "ptr", UncompressedBuffer, "ptr", UncompressedBufferSize, "ptr*", UncompressedDataSize, "ptr")
+        result := DllCall("Cabinet.dll\Decompress", "ptr", DecompressorHandle, "ptr", CompressedData, "ptr", CompressedDataSize, "ptr", UncompressedBuffer, "ptr", UncompressedBufferSize, "ptr*", UncompressedDataSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -254,7 +254,7 @@ class Compression {
 
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\ResetDecompressor", "ptr", DecompressorHandle, "ptr")
+        result := DllCall("Cabinet.dll\ResetDecompressor", "ptr", DecompressorHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -273,7 +273,7 @@ class Compression {
 
         A_LastError := 0
 
-        result := DllCall("Cabinet.dll\CloseDecompressor", "ptr", DecompressorHandle, "ptr")
+        result := DllCall("Cabinet.dll\CloseDecompressor", "ptr", DecompressorHandle, "int")
         if(A_LastError)
             throw OSError()
 

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
@@ -21,12 +20,9 @@ class ICONINFO extends Win32Struct
      * Specifies whether this structure defines an icon or a cursor. A value of <b>TRUE</b> specifies an icon; <b>FALSE</b> specifies a cursor.
      * @type {BOOL}
      */
-    fIcon{
-        get {
-            if(!this.HasProp("__fIcon"))
-                this.__fIcon := BOOL(this.ptr + 0)
-            return this.__fIcon
-        }
+    fIcon {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -60,7 +56,7 @@ class ICONINFO extends Win32Struct
     hbmMask{
         get {
             if(!this.HasProp("__hbmMask"))
-                this.__hbmMask := HBITMAP(this.ptr + 16)
+                this.__hbmMask := HBITMAP(16, this)
             return this.__hbmMask
         }
     }
@@ -74,7 +70,7 @@ class ICONINFO extends Win32Struct
     hbmColor{
         get {
             if(!this.HasProp("__hbmColor"))
-                this.__hbmColor := HBITMAP(this.ptr + 24)
+                this.__hbmColor := HBITMAP(24, this)
             return this.__hbmColor
         }
     }

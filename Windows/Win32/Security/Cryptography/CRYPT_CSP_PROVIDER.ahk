@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 
 /**
@@ -24,12 +23,9 @@ class CRYPT_CSP_PROVIDER extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pwszProviderName{
-        get {
-            if(!this.HasProp("__pwszProviderName"))
-                this.__pwszProviderName := PWSTR(this.ptr + 8)
-            return this.__pwszProviderName
-        }
+    pwszProviderName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -38,7 +34,7 @@ class CRYPT_CSP_PROVIDER extends Win32Struct
     Signature{
         get {
             if(!this.HasProp("__Signature"))
-                this.__Signature := CRYPT_BIT_BLOB(this.ptr + 16)
+                this.__Signature := CRYPT_BIT_BLOB(16, this)
             return this.__Signature
         }
     }

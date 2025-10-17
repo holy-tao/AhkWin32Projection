@@ -32,7 +32,7 @@ class D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES extends Win32Struct
     LoopFilter{
         get {
             if(!this.HasProp("__LoopFilter"))
-                this.__LoopFilter := D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG(this.ptr + 8)
+                this.__LoopFilter := D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG(8, this)
             return this.__LoopFilter
         }
     }
@@ -43,7 +43,7 @@ class D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES extends Win32Struct
     LoopFilterDelta{
         get {
             if(!this.HasProp("__LoopFilterDelta"))
-                this.__LoopFilterDelta := D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG(this.ptr + 152)
+                this.__LoopFilterDelta := D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_DELTA_CONFIG(152, this)
             return this.__LoopFilterDelta
         }
     }
@@ -54,7 +54,7 @@ class D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES extends Win32Struct
     Quantization{
         get {
             if(!this.HasProp("__Quantization"))
-                this.__Quantization := D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG(this.ptr + 176)
+                this.__Quantization := D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_CONFIG(176, this)
             return this.__Quantization
         }
     }
@@ -65,7 +65,7 @@ class D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES extends Win32Struct
     QuantizationDelta{
         get {
             if(!this.HasProp("__QuantizationDelta"))
-                this.__QuantizationDelta := D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG(this.ptr + 256)
+                this.__QuantizationDelta := D3D12_VIDEO_ENCODER_CODEC_AV1_QUANTIZATION_DELTA_CONFIG(256, this)
             return this.__QuantizationDelta
         }
     }
@@ -76,7 +76,7 @@ class D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES extends Win32Struct
     CDEF{
         get {
             if(!this.HasProp("__CDEF"))
-                this.__CDEF := D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG(this.ptr + 272)
+                this.__CDEF := D3D12_VIDEO_ENCODER_AV1_CDEF_CONFIG(272, this)
             return this.__CDEF
         }
     }
@@ -87,7 +87,7 @@ class D3D12_VIDEO_ENCODER_AV1_POST_ENCODE_VALUES extends Win32Struct
     SegmentationConfig{
         get {
             if(!this.HasProp("__SegmentationConfig"))
-                this.__SegmentationConfig := D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG(this.ptr + 544)
+                this.__SegmentationConfig := D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG(544, this)
             return this.__SegmentationConfig
         }
     }

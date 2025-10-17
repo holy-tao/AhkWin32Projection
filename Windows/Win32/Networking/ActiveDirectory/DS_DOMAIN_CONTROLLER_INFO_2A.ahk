@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DS_DOMAIN_CONTROLLER_INFO_2 structure contains data about a domain controller. This structure is returned by the DsGetDomainControllerInfo function.
@@ -32,120 +30,90 @@ class DS_DOMAIN_CONTROLLER_INFO_2A extends Win32Struct
      * Pointer to a null-terminated string that specifies the NetBIOS name of the domain controller.
      * @type {PSTR}
      */
-    NetbiosName{
-        get {
-            if(!this.HasProp("__NetbiosName"))
-                this.__NetbiosName := PSTR(this.ptr + 0)
-            return this.__NetbiosName
-        }
+    NetbiosName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the DNS host name of the domain controller.
      * @type {PSTR}
      */
-    DnsHostName{
-        get {
-            if(!this.HasProp("__DnsHostName"))
-                this.__DnsHostName := PSTR(this.ptr + 8)
-            return this.__DnsHostName
-        }
+    DnsHostName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the site to which the domain controller belongs.
      * @type {PSTR}
      */
-    SiteName{
-        get {
-            if(!this.HasProp("__SiteName"))
-                this.__SiteName := PSTR(this.ptr + 16)
-            return this.__SiteName
-        }
+    SiteName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the site object on the domain controller.
      * @type {PSTR}
      */
-    SiteObjectName{
-        get {
-            if(!this.HasProp("__SiteObjectName"))
-                this.__SiteObjectName := PSTR(this.ptr + 24)
-            return this.__SiteObjectName
-        }
+    SiteObjectName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the computer object on the domain controller.
      * @type {PSTR}
      */
-    ComputerObjectName{
-        get {
-            if(!this.HasProp("__ComputerObjectName"))
-                this.__ComputerObjectName := PSTR(this.ptr + 32)
-            return this.__ComputerObjectName
-        }
+    ComputerObjectName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the server object on the domain controller.
      * @type {PSTR}
      */
-    ServerObjectName{
-        get {
-            if(!this.HasProp("__ServerObjectName"))
-                this.__ServerObjectName := PSTR(this.ptr + 40)
-            return this.__ServerObjectName
-        }
+    ServerObjectName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the NTDS DSA object on the domain controller.
      * @type {PSTR}
      */
-    NtdsDsaObjectName{
-        get {
-            if(!this.HasProp("__NtdsDsaObjectName"))
-                this.__NtdsDsaObjectName := PSTR(this.ptr + 48)
-            return this.__NtdsDsaObjectName
-        }
+    NtdsDsaObjectName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * A Boolean value that indicates whether or not this domain controller is the primary domain controller. If this value is <b>TRUE</b>, the domain controller is the primary domain controller; otherwise, the domain controller is not the primary domain controller.
      * @type {BOOL}
      */
-    fIsPdc{
-        get {
-            if(!this.HasProp("__fIsPdc"))
-                this.__fIsPdc := BOOL(this.ptr + 56)
-            return this.__fIsPdc
-        }
+    fIsPdc {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
      * A Boolean value that indicates whether or not the domain controller is enabled. If this value is <b>TRUE</b>, the domain controller is enabled; otherwise, it is not enabled.
      * @type {BOOL}
      */
-    fDsEnabled{
-        get {
-            if(!this.HasProp("__fDsEnabled"))
-                this.__fDsEnabled := BOOL(this.ptr + 60)
-            return this.__fDsEnabled
-        }
+    fDsEnabled {
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 
     /**
      * A Boolean value that indicates whether or not the domain controller is global catalog server. If this value is <b>TRUE</b>, the domain controller is a global catalog server; otherwise, it is not a global catalog server.
      * @type {BOOL}
      */
-    fIsGc{
-        get {
-            if(!this.HasProp("__fIsGc"))
-                this.__fIsGc := BOOL(this.ptr + 64)
-            return this.__fIsGc
-        }
+    fIsGc {
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**

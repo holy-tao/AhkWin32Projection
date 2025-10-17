@@ -18,7 +18,7 @@ class KSPROPERTY_TUNER_IF_MEDIUM_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -29,7 +29,7 @@ class KSPROPERTY_TUNER_IF_MEDIUM_S extends Win32Struct
     IFMedium{
         get {
             if(!this.HasProp("__IFMedium"))
-                this.__IFMedium := KSIDENTIFIER(this.ptr + 16)
+                this.__IFMedium := KSIDENTIFIER(16, this)
             return this.__IFMedium
         }
     }

@@ -1481,7 +1481,7 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static HdvCreateGuestMemoryAperture(requestor, guestPhysicalAddress, byteCount, writeProtected, mappedAddress) {
-        result := DllCall("vmdevicehost.dll\HdvCreateGuestMemoryAperture", "ptr", requestor, "uint", guestPhysicalAddress, "uint", byteCount, "ptr", writeProtected, "ptr", mappedAddress, "int")
+        result := DllCall("vmdevicehost.dll\HdvCreateGuestMemoryAperture", "ptr", requestor, "uint", guestPhysicalAddress, "uint", byteCount, "int", writeProtected, "ptr", mappedAddress, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1843,7 +1843,7 @@ class Hypervisor {
      * @returns {HRESULT} 
      */
     static ForceNestedHostMode(vmSavedStateDumpHandle, vpId, hostMode, oldMode) {
-        result := DllCall("VmSavedStateDumpProvider.dll\ForceNestedHostMode", "ptr", vmSavedStateDumpHandle, "uint", vpId, "ptr", hostMode, "ptr", oldMode, "int")
+        result := DllCall("VmSavedStateDumpProvider.dll\ForceNestedHostMode", "ptr", vmSavedStateDumpHandle, "uint", vpId, "int", hostMode, "ptr", oldMode, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2062,7 +2062,7 @@ class Hypervisor {
     static LoadSavedStateSymbolProvider(vmSavedStateDumpHandle, userSymbols, force) {
         userSymbols := userSymbols is String ? StrPtr(userSymbols) : userSymbols
 
-        result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateSymbolProvider", "ptr", vmSavedStateDumpHandle, "ptr", userSymbols, "ptr", force, "int")
+        result := DllCall("VmSavedStateDumpProvider.dll\LoadSavedStateSymbolProvider", "ptr", vmSavedStateDumpHandle, "ptr", userSymbols, "int", force, "int")
         if(result != 0)
             throw OSError(result)
 

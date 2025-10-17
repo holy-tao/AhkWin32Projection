@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -23,23 +22,17 @@ class APPLYCANDEXPARAM extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpwstrDisplay{
-        get {
-            if(!this.HasProp("__lpwstrDisplay"))
-                this.__lpwstrDisplay := PWSTR(this.ptr + 8)
-            return this.__lpwstrDisplay
-        }
+    lpwstrDisplay {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    lpwstrReading{
-        get {
-            if(!this.HasProp("__lpwstrReading"))
-                this.__lpwstrReading := PWSTR(this.ptr + 16)
-            return this.__lpwstrReading
-        }
+    lpwstrReading {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

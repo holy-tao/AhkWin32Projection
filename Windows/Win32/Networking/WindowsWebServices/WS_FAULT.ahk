@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -83,7 +82,7 @@ class WS_FAULT extends Win32Struct
     actor{
         get {
             if(!this.HasProp("__actor"))
-                this.__actor := WS_STRING(this.ptr + 24)
+                this.__actor := WS_STRING(24, this)
             return this.__actor
         }
     }
@@ -99,7 +98,7 @@ class WS_FAULT extends Win32Struct
     node{
         get {
             if(!this.HasProp("__node"))
-                this.__node := WS_STRING(this.ptr + 40)
+                this.__node := WS_STRING(40, this)
             return this.__node
         }
     }

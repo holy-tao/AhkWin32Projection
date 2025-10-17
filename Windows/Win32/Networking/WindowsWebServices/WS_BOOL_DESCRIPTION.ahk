@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies constraints on the set of values which can be deserialized.
@@ -18,11 +17,8 @@ class WS_BOOL_DESCRIPTION extends Win32Struct
      * Specifies the required value.
      * @type {BOOL}
      */
-    value{
-        get {
-            if(!this.HasProp("__value"))
-                this.__value := BOOL(this.ptr + 0)
-            return this.__value
-        }
+    value {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 }

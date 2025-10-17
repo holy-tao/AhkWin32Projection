@@ -1,8 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The RESULTDATAITEM structure specifies or receives the attributes of result items in the result pane of the snap-in.
@@ -32,12 +29,9 @@ class RESULTDATAITEM extends Win32Struct
      * <b>TRUE</b> if the <b>lParam</b> member refers to a scope item. <b>FALSE</b> if the <b>lParam</b> member refers to a result item.
      * @type {BOOL}
      */
-    bScopeItem{
-        get {
-            if(!this.HasProp("__bScopeItem"))
-                this.__bScopeItem := BOOL(this.ptr + 4)
-            return this.__bScopeItem
-        }
+    bScopeItem {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -81,12 +75,9 @@ class RESULTDATAITEM extends Win32Struct
      * <b>MMC_TEXTCALLBACK</b> is introduced in MMC version 1.2.
      * @type {PWSTR}
      */
-    str{
-        get {
-            if(!this.HasProp("__str"))
-                this.__str := PWSTR(this.ptr + 24)
-            return this.__str
-        }
+    str {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -114,12 +105,9 @@ class RESULTDATAITEM extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-querydataobject">IComponent::QueryDataObject</a>.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 40)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**

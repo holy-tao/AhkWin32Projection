@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Describes the tape drive. It is used by the GetTapeParameters function.
@@ -18,48 +17,36 @@ class TAPE_GET_DRIVE_PARAMETERS extends Win32Struct
      * If this member is <b>TRUE</b>, the device supports hardware error correction. Otherwise, it does not.
      * @type {BOOLEAN}
      */
-    ECC{
-        get {
-            if(!this.HasProp("__ECC"))
-                this.__ECC := BOOLEAN(this.ptr + 0)
-            return this.__ECC
-        }
+    ECC {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**
      * If this member is <b>TRUE</b>, hardware data compression is enabled. Otherwise, it is disabled.
      * @type {BOOLEAN}
      */
-    Compression{
-        get {
-            if(!this.HasProp("__Compression"))
-                this.__Compression := BOOLEAN(this.ptr + 1)
-            return this.__Compression
-        }
+    Compression {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
     }
 
     /**
      * If this member is <b>TRUE</b>, data padding is enabled. Otherwise, it is disabled. Data padding keeps the tape streaming at a constant speed.
      * @type {BOOLEAN}
      */
-    DataPadding{
-        get {
-            if(!this.HasProp("__DataPadding"))
-                this.__DataPadding := BOOLEAN(this.ptr + 2)
-            return this.__DataPadding
-        }
+    DataPadding {
+        get => NumGet(this, 2, "char")
+        set => NumPut("char", value, this, 2)
     }
 
     /**
      * If this member is <b>TRUE</b>, setmark reporting is enabled. Otherwise, it is disabled.
      * @type {BOOLEAN}
      */
-    ReportSetmarks{
-        get {
-            if(!this.HasProp("__ReportSetmarks"))
-                this.__ReportSetmarks := BOOLEAN(this.ptr + 3)
-            return this.__ReportSetmarks
-        }
+    ReportSetmarks {
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
     }
 
     /**

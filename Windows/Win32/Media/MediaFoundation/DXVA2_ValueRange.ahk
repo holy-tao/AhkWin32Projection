@@ -26,7 +26,7 @@ class DXVA2_ValueRange extends Win32Struct
     MinValue{
         get {
             if(!this.HasProp("__MinValue"))
-                this.__MinValue := DXVA2_Fixed32(this.ptr + 0)
+                this.__MinValue := DXVA2_Fixed32(0, this)
             return this.__MinValue
         }
     }
@@ -38,7 +38,7 @@ class DXVA2_ValueRange extends Win32Struct
     MaxValue{
         get {
             if(!this.HasProp("__MaxValue"))
-                this.__MaxValue := DXVA2_Fixed32(this.ptr + 4)
+                this.__MaxValue := DXVA2_Fixed32(4, this)
             return this.__MaxValue
         }
     }
@@ -50,7 +50,7 @@ class DXVA2_ValueRange extends Win32Struct
     DefaultValue{
         get {
             if(!this.HasProp("__DefaultValue"))
-                this.__DefaultValue := DXVA2_Fixed32(this.ptr + 8)
+                this.__DefaultValue := DXVA2_Fixed32(8, this)
             return this.__DefaultValue
         }
     }
@@ -62,7 +62,7 @@ class DXVA2_ValueRange extends Win32Struct
     StepSize{
         get {
             if(!this.HasProp("__StepSize"))
-                this.__StepSize := DXVA2_Fixed32(this.ptr + 12)
+                this.__StepSize := DXVA2_Fixed32(12, this)
             return this.__StepSize
         }
     }

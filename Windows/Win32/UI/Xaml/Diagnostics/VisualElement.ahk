@@ -31,7 +31,7 @@ class VisualElement extends Win32Struct
     SrcInfo{
         get {
             if(!this.HasProp("__SrcInfo"))
-                this.__SrcInfo := SourceInfo(this.ptr + 8)
+                this.__SrcInfo := SourceInfo(8, this)
             return this.__SrcInfo
         }
     }
@@ -43,7 +43,7 @@ class VisualElement extends Win32Struct
     Type{
         get {
             if(!this.HasProp("__Type"))
-                this.__Type := BSTR(this.ptr + 40)
+                this.__Type := BSTR(40, this)
             return this.__Type
         }
     }
@@ -55,7 +55,7 @@ class VisualElement extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := BSTR(this.ptr + 48)
+                this.__Name := BSTR(48, this)
             return this.__Name
         }
     }

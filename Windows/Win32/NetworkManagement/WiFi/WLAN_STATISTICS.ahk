@@ -49,7 +49,7 @@ class WLAN_STATISTICS extends Win32Struct
     MacUcastCounters{
         get {
             if(!this.HasProp("__MacUcastCounters"))
-                this.__MacUcastCounters := WLAN_MAC_FRAME_STATISTICS(this.ptr + 24)
+                this.__MacUcastCounters := WLAN_MAC_FRAME_STATISTICS(24, this)
             return this.__MacUcastCounters
         }
     }
@@ -61,7 +61,7 @@ class WLAN_STATISTICS extends Win32Struct
     MacMcastCounters{
         get {
             if(!this.HasProp("__MacMcastCounters"))
-                this.__MacMcastCounters := WLAN_MAC_FRAME_STATISTICS(this.ptr + 120)
+                this.__MacMcastCounters := WLAN_MAC_FRAME_STATISTICS(120, this)
             return this.__MacMcastCounters
         }
     }

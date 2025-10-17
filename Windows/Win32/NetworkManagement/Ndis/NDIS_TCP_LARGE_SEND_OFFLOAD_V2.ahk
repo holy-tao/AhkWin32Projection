@@ -104,7 +104,7 @@ class NDIS_TCP_LARGE_SEND_OFFLOAD_V2 extends Win32Struct
     IPv4{
         get {
             if(!this.HasProp("__IPv4"))
-                this.__IPv4 := %this.__Class%._IPv4(this.ptr + 0)
+                this.__IPv4 := %this.__Class%._IPv4(0, this)
             return this.__IPv4
         }
     }
@@ -115,7 +115,7 @@ class NDIS_TCP_LARGE_SEND_OFFLOAD_V2 extends Win32Struct
     IPv6{
         get {
             if(!this.HasProp("__IPv6"))
-                this.__IPv6 := %this.__Class%._IPv6(this.ptr + 16)
+                this.__IPv6 := %this.__Class%._IPv6(16, this)
             return this.__IPv6
         }
     }

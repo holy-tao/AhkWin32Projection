@@ -43,7 +43,7 @@ class WNV_OBJECT_CHANGE_PARAM extends Win32Struct
     ProviderAddressChange{
         get {
             if(!this.HasProp("__ProviderAddressChange"))
-                this.__ProviderAddressChange := WNV_PROVIDER_ADDRESS_CHANGE_PARAM(this.ptr + 8)
+                this.__ProviderAddressChange := WNV_PROVIDER_ADDRESS_CHANGE_PARAM(8, this)
             return this.__ProviderAddressChange
         }
     }
@@ -54,7 +54,7 @@ class WNV_OBJECT_CHANGE_PARAM extends Win32Struct
     CustomerAddressChange{
         get {
             if(!this.HasProp("__CustomerAddressChange"))
-                this.__CustomerAddressChange := WNV_CUSTOMER_ADDRESS_CHANGE_PARAM(this.ptr + 8)
+                this.__CustomerAddressChange := WNV_CUSTOMER_ADDRESS_CHANGE_PARAM(8, this)
             return this.__CustomerAddressChange
         }
     }

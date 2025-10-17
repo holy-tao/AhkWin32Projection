@@ -22,7 +22,7 @@ class EMRSETVIEWPORTORGEX extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -34,7 +34,7 @@ class EMRSETVIEWPORTORGEX extends Win32Struct
     ptlOrigin{
         get {
             if(!this.HasProp("__ptlOrigin"))
-                this.__ptlOrigin := POINTL(this.ptr + 8)
+                this.__ptlOrigin := POINTL(8, this)
             return this.__ptlOrigin
         }
     }

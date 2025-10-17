@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information about the class, title, owner, location, and size of a multiple-document interface (MDI) child window.
@@ -37,12 +35,9 @@ class MDICREATESTRUCTW extends Win32Struct
      * The name of the window class of the MDI child window. The class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function.
      * @type {PWSTR}
      */
-    szClass{
-        get {
-            if(!this.HasProp("__szClass"))
-                this.__szClass := PWSTR(this.ptr + 0)
-            return this.__szClass
-        }
+    szClass {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -51,12 +46,9 @@ class MDICREATESTRUCTW extends Win32Struct
      * The title of the MDI child window. The system displays the title in the child window's title bar.
      * @type {PWSTR}
      */
-    szTitle{
-        get {
-            if(!this.HasProp("__szTitle"))
-                this.__szTitle := PWSTR(this.ptr + 8)
-            return this.__szTitle
-        }
+    szTitle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -68,7 +60,7 @@ class MDICREATESTRUCTW extends Win32Struct
     hOwner{
         get {
             if(!this.HasProp("__hOwner"))
-                this.__hOwner := HANDLE(this.ptr + 16)
+                this.__hOwner := HANDLE(16, this)
             return this.__hOwner
         }
     }
@@ -132,11 +124,8 @@ class MDICREATESTRUCTW extends Win32Struct
      * An application-defined value.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 48)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

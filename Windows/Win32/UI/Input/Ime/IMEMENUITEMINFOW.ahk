@@ -63,7 +63,7 @@ class IMEMENUITEMINFOW extends Win32Struct
     hbmpChecked{
         get {
             if(!this.HasProp("__hbmpChecked"))
-                this.__hbmpChecked := HBITMAP(this.ptr + 16)
+                this.__hbmpChecked := HBITMAP(16, this)
             return this.__hbmpChecked
         }
     }
@@ -75,7 +75,7 @@ class IMEMENUITEMINFOW extends Win32Struct
     hbmpUnchecked{
         get {
             if(!this.HasProp("__hbmpUnchecked"))
-                this.__hbmpUnchecked := HBITMAP(this.ptr + 24)
+                this.__hbmpUnchecked := HBITMAP(24, this)
             return this.__hbmpUnchecked
         }
     }
@@ -105,17 +105,13 @@ class IMEMENUITEMINFOW extends Win32Struct
     hbmpItem{
         get {
             if(!this.HasProp("__hbmpItem"))
-                this.__hbmpItem := HBITMAP(this.ptr + 200)
+                this.__hbmpItem := HBITMAP(200, this)
             return this.__hbmpItem
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 208
     }
 }

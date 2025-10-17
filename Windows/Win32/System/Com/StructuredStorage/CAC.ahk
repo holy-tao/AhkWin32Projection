@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
@@ -23,11 +22,8 @@ class CAC extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pElems{
-        get {
-            if(!this.HasProp("__pElems"))
-                this.__pElems := PSTR(this.ptr + 8)
-            return this.__pElems
-        }
+    pElems {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

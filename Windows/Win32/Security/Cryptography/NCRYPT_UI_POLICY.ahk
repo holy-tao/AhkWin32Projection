@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Used with the NCRYPT_UI_POLICY_PROPERTY property to contain strong key user interface information for a key.
@@ -76,35 +75,26 @@ class NCRYPT_UI_POLICY extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the text that will be used in the title of the strong key dialog box when the key is completed. If this member is <b>NULL</b>, a default creation title will be used in the strong key dialog box.  This member is only used on key finalization.
      * @type {PWSTR}
      */
-    pszCreationTitle{
-        get {
-            if(!this.HasProp("__pszCreationTitle"))
-                this.__pszCreationTitle := PWSTR(this.ptr + 8)
-            return this.__pszCreationTitle
-        }
+    pszCreationTitle {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the text that will be displayed in the strong key dialog box as the name of the key. If this member is <b>NULL</b>, a default name will be used in the strong key dialog box.  This member is used both when the key is completed and when the key is used.
      * @type {PWSTR}
      */
-    pszFriendlyName{
-        get {
-            if(!this.HasProp("__pszFriendlyName"))
-                this.__pszFriendlyName := PWSTR(this.ptr + 16)
-            return this.__pszFriendlyName
-        }
+    pszFriendlyName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the text that will be displayed in the strong key dialog box as the description of the key. If this member is <b>NULL</b>, a default description will be used in the strong key dialog box.  This member is used both when the key is completed and when the key is used.
      * @type {PWSTR}
      */
-    pszDescription{
-        get {
-            if(!this.HasProp("__pszDescription"))
-                this.__pszDescription := PWSTR(this.ptr + 24)
-            return this.__pszDescription
-        }
+    pszDescription {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

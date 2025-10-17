@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains data used by SHAddToRecentDocs to identify both an item, in this case through an IShellLink, and the process that it is associated with.
@@ -47,11 +46,8 @@ class SHARDAPPIDINFOLINK extends Win32Struct
      * The application-defined AppUserModelID associated with the item.
      * @type {PWSTR}
      */
-    pszAppID{
-        get {
-            if(!this.HasProp("__pszAppID"))
-                this.__pszAppID := PWSTR(this.ptr + 8)
-            return this.__pszAppID
-        }
+    pszAppID {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

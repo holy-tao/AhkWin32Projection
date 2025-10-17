@@ -1,9 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Security\PSID.ahk
 #Include .\EVT_HANDLE.ahk
 
 /**
@@ -21,12 +17,9 @@ class EVT_VARIANT extends Win32Struct
     /**
      * @type {BOOL}
      */
-    BooleanVal{
-        get {
-            if(!this.HasProp("__BooleanVal"))
-                this.__BooleanVal := BOOL(this.ptr + 0)
-            return this.__BooleanVal
-        }
+    BooleanVal {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -136,23 +129,17 @@ class EVT_VARIANT extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    StringVal{
-        get {
-            if(!this.HasProp("__StringVal"))
-                this.__StringVal := PWSTR(this.ptr + 0)
-            return this.__StringVal
-        }
+    StringVal {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PSTR}
      */
-    AnsiStringVal{
-        get {
-            if(!this.HasProp("__AnsiStringVal"))
-                this.__AnsiStringVal := PSTR(this.ptr + 0)
-            return this.__AnsiStringVal
-        }
+    AnsiStringVal {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -166,12 +153,9 @@ class EVT_VARIANT extends Win32Struct
     /**
      * @type {PSID}
      */
-    SidVal{
-        get {
-            if(!this.HasProp("__SidVal"))
-                this.__SidVal := PSID(this.ptr + 0)
-            return this.__SidVal
-        }
+    SidVal {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -332,7 +316,7 @@ class EVT_VARIANT extends Win32Struct
     EvtHandleVal{
         get {
             if(!this.HasProp("__EvtHandleVal"))
-                this.__EvtHandleVal := EVT_HANDLE(this.ptr + 0)
+                this.__EvtHandleVal := EVT_HANDLE(0, this)
             return this.__EvtHandleVal
         }
     }
@@ -340,12 +324,9 @@ class EVT_VARIANT extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    XmlVal{
-        get {
-            if(!this.HasProp("__XmlVal"))
-                this.__XmlVal := PWSTR(this.ptr + 0)
-            return this.__XmlVal
-        }
+    XmlVal {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

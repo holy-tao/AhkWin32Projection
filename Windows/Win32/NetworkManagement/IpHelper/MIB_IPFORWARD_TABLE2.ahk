@@ -8,7 +8,6 @@
 #Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include .\IP_ADDRESS_PREFIX.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\MIB_IPFORWARD_ROW2.ahk
 
 /**

@@ -50,7 +50,7 @@ class CREDSSP_CRED_EX extends Win32Struct
     Cred{
         get {
             if(!this.HasProp("__Cred"))
-                this.__Cred := CREDSSP_CRED(this.ptr + 16)
+                this.__Cred := CREDSSP_CRED(16, this)
             return this.__Cred
         }
     }

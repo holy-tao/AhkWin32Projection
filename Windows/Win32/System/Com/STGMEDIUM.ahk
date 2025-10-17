@@ -3,7 +3,6 @@
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -29,7 +28,7 @@ class STGMEDIUM extends Win32Struct
     hBitmap{
         get {
             if(!this.HasProp("__hBitmap"))
-                this.__hBitmap := HBITMAP(this.ptr + 8)
+                this.__hBitmap := HBITMAP(8, this)
             return this.__hBitmap
         }
     }
@@ -48,7 +47,7 @@ class STGMEDIUM extends Win32Struct
     hEnhMetaFile{
         get {
             if(!this.HasProp("__hEnhMetaFile"))
-                this.__hEnhMetaFile := HENHMETAFILE(this.ptr + 8)
+                this.__hEnhMetaFile := HENHMETAFILE(8, this)
             return this.__hEnhMetaFile
         }
     }
@@ -59,7 +58,7 @@ class STGMEDIUM extends Win32Struct
     hGlobal{
         get {
             if(!this.HasProp("__hGlobal"))
-                this.__hGlobal := HGLOBAL(this.ptr + 8)
+                this.__hGlobal := HGLOBAL(8, this)
             return this.__hGlobal
         }
     }
@@ -67,12 +66,9 @@ class STGMEDIUM extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpszFileName{
-        get {
-            if(!this.HasProp("__lpszFileName"))
-                this.__lpszFileName := PWSTR(this.ptr + 8)
-            return this.__lpszFileName
-        }
+    lpszFileName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

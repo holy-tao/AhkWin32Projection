@@ -19,7 +19,7 @@ class KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -30,7 +30,7 @@ class KSRTAUDIO_NOTIFICATION_EVENT_PROPERTY extends Win32Struct
     NotificationEvent{
         get {
             if(!this.HasProp("__NotificationEvent"))
-                this.__NotificationEvent := HANDLE(this.ptr + 16)
+                this.__NotificationEvent := HANDLE(16, this)
             return this.__NotificationEvent
         }
     }

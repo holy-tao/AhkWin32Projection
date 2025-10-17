@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
@@ -31,12 +30,9 @@ class D3D12_RASTERIZER_DESC1 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    FrontCounterClockwise{
-        get {
-            if(!this.HasProp("__FrontCounterClockwise"))
-                this.__FrontCounterClockwise := BOOL(this.ptr + 8)
-            return this.__FrontCounterClockwise
-        }
+    FrontCounterClockwise {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -66,34 +62,25 @@ class D3D12_RASTERIZER_DESC1 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    DepthClipEnable{
-        get {
-            if(!this.HasProp("__DepthClipEnable"))
-                this.__DepthClipEnable := BOOL(this.ptr + 24)
-            return this.__DepthClipEnable
-        }
+    DepthClipEnable {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * @type {BOOL}
      */
-    MultisampleEnable{
-        get {
-            if(!this.HasProp("__MultisampleEnable"))
-                this.__MultisampleEnable := BOOL(this.ptr + 28)
-            return this.__MultisampleEnable
-        }
+    MultisampleEnable {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
      * @type {BOOL}
      */
-    AntialiasedLineEnable{
-        get {
-            if(!this.HasProp("__AntialiasedLineEnable"))
-                this.__AntialiasedLineEnable := BOOL(this.ptr + 32)
-            return this.__AntialiasedLineEnable
-        }
+    AntialiasedLineEnable {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**

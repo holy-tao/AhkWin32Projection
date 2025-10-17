@@ -23,7 +23,7 @@ class RAWINPUTDEVICELIST extends Win32Struct
     hDevice{
         get {
             if(!this.HasProp("__hDevice"))
-                this.__hDevice := HANDLE(this.ptr + 0)
+                this.__hDevice := HANDLE(0, this)
             return this.__hDevice
         }
     }

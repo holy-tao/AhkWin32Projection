@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -23,12 +22,9 @@ class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_H264 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsLongTermReference{
-        get {
-            if(!this.HasProp("__IsLongTermReference"))
-                this.__IsLongTermReference := BOOL(this.ptr + 4)
-            return this.__IsLongTermReference
-        }
+    IsLongTermReference {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**

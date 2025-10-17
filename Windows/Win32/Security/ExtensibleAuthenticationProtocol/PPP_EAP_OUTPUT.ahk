@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The authentication protocol uses the PPP_EAP_OUTPUT structure to communicate requests and status information to the Connection Manager on return from calls to RasEapMakeMessage.
@@ -88,12 +87,9 @@ class PPP_EAP_OUTPUT extends Win32Struct
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/raseapif/nf-raseapif-raseapinvokeinteractiveui">RasEapInvokeInteractiveUI</a> function provided by the authentication protocol.
      * @type {BOOL}
      */
-    fInvokeInteractiveUI{
-        get {
-            if(!this.HasProp("__fInvokeInteractiveUI"))
-                this.__fInvokeInteractiveUI := BOOL(this.ptr + 24)
-            return this.__fInvokeInteractiveUI
-        }
+    fInvokeInteractiveUI {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -121,12 +117,9 @@ class PPP_EAP_OUTPUT extends Win32Struct
      * Specifies whether RAS should save the information pointed to by the <b>pConnectionData</b> member. If <b>fSaveConnectionData</b> is <b>TRUE</b>, RAS will save the data in the phone book. Only valid for the process that is being authenticated.
      * @type {BOOL}
      */
-    fSaveConnectionData{
-        get {
-            if(!this.HasProp("__fSaveConnectionData"))
-                this.__fSaveConnectionData := BOOL(this.ptr + 44)
-            return this.__fSaveConnectionData
-        }
+    fSaveConnectionData {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -152,12 +145,9 @@ class PPP_EAP_OUTPUT extends Win32Struct
      * Specifies whether RAS should save the user data pointed to by the <b>pUserData</b> member. If this parameter is <b>TRUE</b>, RAS saves the user-specific data in the registry under <b>HKEY_CURRENT_USER</b>.
      * @type {BOOL}
      */
-    fSaveUserData{
-        get {
-            if(!this.HasProp("__fSaveUserData"))
-                this.__fSaveUserData := BOOL(this.ptr + 60)
-            return this.__fSaveUserData
-        }
+    fSaveUserData {
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 
     /**
@@ -192,11 +182,8 @@ class PPP_EAP_OUTPUT extends Win32Struct
      * 
      * @type {BOOL}
      */
-    fSaveToCredMan{
-        get {
-            if(!this.HasProp("__fSaveToCredMan"))
-                this.__fSaveToCredMan := BOOL(this.ptr + 88)
-            return this.__fSaveToCredMan
-        }
+    fSaveToCredMan {
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 }

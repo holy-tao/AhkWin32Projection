@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains algorithm information.
@@ -27,24 +26,18 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the URI associated with the attribute of the <b>SignatureMethod</b> or <b>DigestMethod</b> element of the XML signature.
      * @type {PWSTR}
      */
-    wszAlgorithmURI{
-        get {
-            if(!this.HasProp("__wszAlgorithmURI"))
-                this.__wszAlgorithmURI := PWSTR(this.ptr + 8)
-            return this.__wszAlgorithmURI
-        }
+    wszAlgorithmURI {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * Optional. A pointer to a null-terminated Unicode string that contains the display name of the algorithm.
      * @type {PWSTR}
      */
-    wszName{
-        get {
-            if(!this.HasProp("__wszName"))
-                this.__wszName := PWSTR(this.ptr + 16)
-            return this.__wszName
-        }
+    wszName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -64,12 +57,9 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
      * <div> </div>
      * @type {PWSTR}
      */
-    wszCNGAlgid{
-        get {
-            if(!this.HasProp("__wszCNGAlgid"))
-                this.__wszCNGAlgid := PWSTR(this.ptr + 32)
-            return this.__wszCNGAlgid
-        }
+    wszCNGAlgid {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -80,12 +70,9 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
      * <div> </div>
      * @type {PWSTR}
      */
-    wszCNGExtraAlgid{
-        get {
-            if(!this.HasProp("__wszCNGExtraAlgid"))
-                this.__wszCNGExtraAlgid := PWSTR(this.ptr + 40)
-            return this.__wszCNGExtraAlgid
-        }
+    wszCNGExtraAlgid {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -128,12 +115,8 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -15,12 +14,9 @@ class HTTP_FILTER_AUTHENT extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszUser{
-        get {
-            if(!this.HasProp("__pszUser"))
-                this.__pszUser := PSTR(this.ptr + 0)
-            return this.__pszUser
-        }
+    pszUser {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -34,12 +30,9 @@ class HTTP_FILTER_AUTHENT extends Win32Struct
     /**
      * @type {PSTR}
      */
-    pszPassword{
-        get {
-            if(!this.HasProp("__pszPassword"))
-                this.__pszPassword := PSTR(this.ptr + 16)
-            return this.__pszPassword
-        }
+    pszPassword {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**

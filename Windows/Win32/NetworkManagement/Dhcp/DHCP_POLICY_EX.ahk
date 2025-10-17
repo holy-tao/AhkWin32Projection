@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
@@ -16,23 +14,17 @@ class DHCP_POLICY_EX extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    PolicyName{
-        get {
-            if(!this.HasProp("__PolicyName"))
-                this.__PolicyName := PWSTR(this.ptr + 0)
-            return this.__PolicyName
-        }
+    PolicyName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {BOOL}
      */
-    IsGlobalPolicy{
-        get {
-            if(!this.HasProp("__IsGlobalPolicy"))
-                this.__IsGlobalPolicy := BOOL(this.ptr + 8)
-            return this.__IsGlobalPolicy
-        }
+    IsGlobalPolicy {
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -78,23 +70,17 @@ class DHCP_POLICY_EX extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    Description{
-        get {
-            if(!this.HasProp("__Description"))
-                this.__Description := PWSTR(this.ptr + 48)
-            return this.__Description
-        }
+    Description {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {BOOL}
      */
-    Enabled{
-        get {
-            if(!this.HasProp("__Enabled"))
-                this.__Enabled := BOOL(this.ptr + 56)
-            return this.__Enabled
-        }
+    Enabled {
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**

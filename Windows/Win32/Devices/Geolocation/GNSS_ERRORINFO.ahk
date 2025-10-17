@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
@@ -39,12 +38,9 @@ class GNSS_ERRORINFO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsRecoverable{
-        get {
-            if(!this.HasProp("__IsRecoverable"))
-                this.__IsRecoverable := BOOL(this.ptr + 12)
-            return this.__IsRecoverable
-        }
+    IsRecoverable {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**

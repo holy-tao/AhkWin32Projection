@@ -18,7 +18,7 @@ class ACTIVATION_CONTEXT_BASIC_INFORMATION extends Win32Struct
     hActCtx{
         get {
             if(!this.HasProp("__hActCtx"))
-                this.__hActCtx := HANDLE(this.ptr + 0)
+                this.__hActCtx := HANDLE(0, this)
             return this.__hActCtx
         }
     }

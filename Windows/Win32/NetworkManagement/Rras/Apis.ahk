@@ -4477,7 +4477,7 @@ class Rras {
     static RasSetEntryDialParamsA(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := DllCall("RASAPI32.dll\RasSetEntryDialParamsA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
+        result := DllCall("RASAPI32.dll\RasSetEntryDialParamsA", "ptr", param0, "ptr", param1, "int", param2, "uint")
         return result
     }
 
@@ -4535,7 +4535,7 @@ class Rras {
     static RasSetEntryDialParamsW(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := DllCall("RASAPI32.dll\RasSetEntryDialParamsW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
+        result := DllCall("RASAPI32.dll\RasSetEntryDialParamsW", "ptr", param0, "ptr", param1, "int", param2, "uint")
         return result
     }
 
@@ -5920,7 +5920,7 @@ class Rras {
         param0 := param0 is String ? StrPtr(param0) : param0
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := DllCall("RASAPI32.dll\RasSetCredentialsA", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "uint")
+        result := DllCall("RASAPI32.dll\RasSetCredentialsA", "ptr", param0, "ptr", param1, "ptr", param2, "int", param3, "uint")
         return result
     }
 
@@ -5990,7 +5990,7 @@ class Rras {
         param0 := param0 is String ? StrPtr(param0) : param0
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        result := DllCall("RASAPI32.dll\RasSetCredentialsW", "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "uint")
+        result := DllCall("RASAPI32.dll\RasSetCredentialsW", "ptr", param0, "ptr", param1, "ptr", param2, "int", param3, "uint")
         return result
     }
 
@@ -6699,7 +6699,7 @@ class Rras {
      * @since windows5.0
      */
     static RasSetAutodialEnableA(param0, param1) {
-        result := DllCall("RASAPI32.dll\RasSetAutodialEnableA", "uint", param0, "ptr", param1, "uint")
+        result := DllCall("RASAPI32.dll\RasSetAutodialEnableA", "uint", param0, "int", param1, "uint")
         return result
     }
 
@@ -6714,7 +6714,7 @@ class Rras {
      * @since windows5.0
      */
     static RasSetAutodialEnableW(param0, param1) {
-        result := DllCall("RASAPI32.dll\RasSetAutodialEnableW", "uint", param0, "ptr", param1, "uint")
+        result := DllCall("RASAPI32.dll\RasSetAutodialEnableW", "uint", param0, "int", param1, "uint")
         return result
     }
 
@@ -8391,7 +8391,7 @@ class Rras {
         lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
         lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-        result := DllCall("RASDLG.dll\RasPhonebookDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "ptr")
+        result := DllCall("RASDLG.dll\RasPhonebookDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
         return result
     }
 
@@ -8425,7 +8425,7 @@ class Rras {
         lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
         lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-        result := DllCall("RASDLG.dll\RasPhonebookDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "ptr")
+        result := DllCall("RASDLG.dll\RasPhonebookDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
         return result
     }
 
@@ -8458,7 +8458,7 @@ class Rras {
         lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
         lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-        result := DllCall("RASDLG.dll\RasEntryDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "ptr")
+        result := DllCall("RASDLG.dll\RasEntryDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
         return result
     }
 
@@ -8491,7 +8491,7 @@ class Rras {
         lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
         lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-        result := DllCall("RASDLG.dll\RasEntryDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "ptr")
+        result := DllCall("RASDLG.dll\RasEntryDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpInfo, "int")
         return result
     }
 
@@ -8515,7 +8515,7 @@ class Rras {
         lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
         lpszPhoneNumber := lpszPhoneNumber is String ? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
 
-        result := DllCall("RASDLG.dll\RasDialDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, "ptr", lpInfo, "ptr")
+        result := DllCall("RASDLG.dll\RasDialDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, "ptr", lpInfo, "int")
         return result
     }
 
@@ -8539,7 +8539,7 @@ class Rras {
         lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
         lpszPhoneNumber := lpszPhoneNumber is String ? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
 
-        result := DllCall("RASDLG.dll\RasDialDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, "ptr", lpInfo, "ptr")
+        result := DllCall("RASDLG.dll\RasDialDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, "ptr", lpInfo, "int")
         return result
     }
 
@@ -10135,7 +10135,7 @@ class Rras {
         hRasServer := hRasServer is Win32Handle ? NumGet(hRasServer, "ptr") : hRasServer
         hRasConnection := hRasConnection is Win32Handle ? NumGet(hRasConnection, "ptr") : hRasConnection
 
-        result := DllCall("MPRAPI.dll\MprAdminConnectionRemoveQuarantine", "ptr", hRasServer, "ptr", hRasConnection, "ptr", fIsIpAddress, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminConnectionRemoveQuarantine", "ptr", hRasServer, "ptr", hRasConnection, "int", fIsIpAddress, "uint")
         return result
     }
 
@@ -10475,7 +10475,7 @@ class Rras {
     static MprAdminIsServiceRunning(lpwsServerName) {
         lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
-        result := DllCall("MPRAPI.dll\MprAdminIsServiceRunning", "ptr", lpwsServerName, "ptr")
+        result := DllCall("MPRAPI.dll\MprAdminIsServiceRunning", "ptr", lpwsServerName, "int")
         return result
     }
 
@@ -11042,7 +11042,7 @@ class Rras {
         pszDomain := pszDomain is String ? StrPtr(pszDomain) : pszDomain
         pszMachine := pszMachine is String ? StrPtr(pszMachine) : pszMachine
 
-        result := DllCall("MPRAPI.dll\MprAdminEstablishDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, "ptr", bEnable, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminEstablishDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, "int", bEnable, "uint")
         return result
     }
 
@@ -11586,7 +11586,7 @@ class Rras {
     static MprAdminInterfaceGetHandle(hMprServer, lpwsInterfaceName, phInterface, fIncludeClientInterfaces) {
         lpwsInterfaceName := lpwsInterfaceName is String ? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetHandle", "ptr", hMprServer, "ptr", lpwsInterfaceName, "ptr", phInterface, "ptr", fIncludeClientInterfaces, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceGetHandle", "ptr", hMprServer, "ptr", lpwsInterfaceName, "ptr", phInterface, "int", fIncludeClientInterfaces, "uint")
         return result
     }
 
@@ -13281,7 +13281,7 @@ class Rras {
         hInterface := hInterface is Win32Handle ? NumGet(hInterface, "ptr") : hInterface
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("MPRAPI.dll\MprAdminInterfaceConnect", "ptr", hMprServer, "ptr", hInterface, "ptr", hEvent, "ptr", fSynchronous, "uint")
+        result := DllCall("MPRAPI.dll\MprAdminInterfaceConnect", "ptr", hMprServer, "ptr", hInterface, "ptr", hEvent, "int", fSynchronous, "uint")
         return result
     }
 
@@ -18852,7 +18852,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmRegisterEntity(RtmEntityInfo, ExportMethods, EventCallback, ReserveOpaquePointer, RtmRegProfile, RtmRegHandle) {
-        result := DllCall("rtm.dll\RtmRegisterEntity", "ptr", RtmEntityInfo, "ptr", ExportMethods, "ptr", EventCallback, "ptr", ReserveOpaquePointer, "ptr", RtmRegProfile, "ptr*", RtmRegHandle, "uint")
+        result := DllCall("rtm.dll\RtmRegisterEntity", "ptr", RtmEntityInfo, "ptr", ExportMethods, "ptr", EventCallback, "int", ReserveOpaquePointer, "ptr", RtmRegProfile, "ptr*", RtmRegHandle, "uint")
         return result
     }
 
@@ -19027,7 +19027,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmLockDestination(RtmRegHandle, DestHandle, Exclusive, LockDest) {
-        result := DllCall("rtm.dll\RtmLockDestination", "ptr", RtmRegHandle, "ptr", DestHandle, "ptr", Exclusive, "ptr", LockDest, "uint")
+        result := DllCall("rtm.dll\RtmLockDestination", "ptr", RtmRegHandle, "ptr", DestHandle, "int", Exclusive, "int", LockDest, "uint")
         return result
     }
 
@@ -19989,7 +19989,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmLockRoute(RtmRegHandle, RouteHandle, Exclusive, LockRoute, RoutePointer) {
-        result := DllCall("rtm.dll\RtmLockRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, "ptr", Exclusive, "ptr", LockRoute, "ptr", RoutePointer, "uint")
+        result := DllCall("rtm.dll\RtmLockRoute", "ptr", RtmRegHandle, "ptr", RouteHandle, "int", Exclusive, "int", LockRoute, "ptr", RoutePointer, "uint")
         return result
     }
 
@@ -20673,7 +20673,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmLockNextHop(RtmRegHandle, NextHopHandle, Exclusive, LockNextHop, NextHopPointer) {
-        result := DllCall("rtm.dll\RtmLockNextHop", "ptr", RtmRegHandle, "ptr", NextHopHandle, "ptr", Exclusive, "ptr", LockNextHop, "ptr", NextHopPointer, "uint")
+        result := DllCall("rtm.dll\RtmLockNextHop", "ptr", RtmRegHandle, "ptr", NextHopHandle, "int", Exclusive, "int", LockNextHop, "ptr", NextHopPointer, "uint")
         return result
     }
 
@@ -21920,7 +21920,7 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmMarkDestForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, MarkDest) {
-        result := DllCall("rtm.dll\RtmMarkDestForChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, "ptr", MarkDest, "uint")
+        result := DllCall("rtm.dll\RtmMarkDestForChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, "int", MarkDest, "uint")
         return result
     }
 

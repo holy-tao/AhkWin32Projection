@@ -84,7 +84,7 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
     Status{
         get {
             if(!this.HasProp("__Status"))
-                this.__Status := NVME_COMMAND_STATUS(this.ptr + 12)
+                this.__Status := NVME_COMMAND_STATUS(12, this)
             return this.__Status
         }
     }
@@ -95,7 +95,7 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
     ParameterErrorLocation{
         get {
             if(!this.HasProp("__ParameterErrorLocation"))
-                this.__ParameterErrorLocation := %this.__Class%._ParameterErrorLocation(this.ptr + 16)
+                this.__ParameterErrorLocation := %this.__Class%._ParameterErrorLocation(16, this)
             return this.__ParameterErrorLocation
         }
     }

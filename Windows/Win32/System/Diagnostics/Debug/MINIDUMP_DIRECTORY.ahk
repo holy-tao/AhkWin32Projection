@@ -37,7 +37,7 @@ class MINIDUMP_DIRECTORY extends Win32Struct
     Location{
         get {
             if(!this.HasProp("__Location"))
-                this.__Location := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 8)
+                this.__Location := MINIDUMP_LOCATION_DESCRIPTOR(8, this)
             return this.__Location
         }
     }

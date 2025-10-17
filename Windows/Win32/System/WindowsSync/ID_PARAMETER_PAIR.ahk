@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents the format of a synchronization entity ID.
@@ -18,12 +17,9 @@ class ID_PARAMETER_PAIR extends Win32Struct
      * <b>TRUE</b> if the ID is variable length; otherwise, <b>FALSE</b>.
      * @type {BOOL}
      */
-    fIsVariable{
-        get {
-            if(!this.HasProp("__fIsVariable"))
-                this.__fIsVariable := BOOL(this.ptr + 0)
-            return this.__fIsVariable
-        }
+    fIsVariable {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

@@ -46,7 +46,7 @@ class MINIDUMP_EXCEPTION_STREAM extends Win32Struct
     ExceptionRecord{
         get {
             if(!this.HasProp("__ExceptionRecord"))
-                this.__ExceptionRecord := MINIDUMP_EXCEPTION(this.ptr + 8)
+                this.__ExceptionRecord := MINIDUMP_EXCEPTION(8, this)
             return this.__ExceptionRecord
         }
     }
@@ -59,7 +59,7 @@ class MINIDUMP_EXCEPTION_STREAM extends Win32Struct
     ThreadContext{
         get {
             if(!this.HasProp("__ThreadContext"))
-                this.__ThreadContext := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 160)
+                this.__ThreadContext := MINIDUMP_LOCATION_DESCRIPTOR(160, this)
             return this.__ThreadContext
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\CHAR.ahk
 
 /**
  * Defines the control setting for a serial communications device.
@@ -446,60 +445,45 @@ class DCB extends Win32Struct
      * The value of the XON character for both transmission and reception.
      * @type {CHAR}
      */
-    XonChar{
-        get {
-            if(!this.HasProp("__XonChar"))
-                this.__XonChar := CHAR(this.ptr + 21)
-            return this.__XonChar
-        }
+    XonChar {
+        get => NumGet(this, 21, "char")
+        set => NumPut("char", value, this, 21)
     }
 
     /**
      * The value of the XOFF character for both transmission and reception.
      * @type {CHAR}
      */
-    XoffChar{
-        get {
-            if(!this.HasProp("__XoffChar"))
-                this.__XoffChar := CHAR(this.ptr + 22)
-            return this.__XoffChar
-        }
+    XoffChar {
+        get => NumGet(this, 22, "char")
+        set => NumPut("char", value, this, 22)
     }
 
     /**
      * The value of the character used to replace bytes received with a parity error.
      * @type {CHAR}
      */
-    ErrorChar{
-        get {
-            if(!this.HasProp("__ErrorChar"))
-                this.__ErrorChar := CHAR(this.ptr + 23)
-            return this.__ErrorChar
-        }
+    ErrorChar {
+        get => NumGet(this, 23, "char")
+        set => NumPut("char", value, this, 23)
     }
 
     /**
      * The value of the character used to signal the end of data.
      * @type {CHAR}
      */
-    EofChar{
-        get {
-            if(!this.HasProp("__EofChar"))
-                this.__EofChar := CHAR(this.ptr + 24)
-            return this.__EofChar
-        }
+    EofChar {
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 
     /**
      * The value of the character used to signal an event.
      * @type {CHAR}
      */
-    EvtChar{
-        get {
-            if(!this.HasProp("__EvtChar"))
-                this.__EvtChar := CHAR(this.ptr + 25)
-            return this.__EvtChar
-        }
+    EvtChar {
+        get => NumGet(this, 25, "char")
+        set => NumPut("char", value, this, 25)
     }
 
     /**

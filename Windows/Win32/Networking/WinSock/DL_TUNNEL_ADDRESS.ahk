@@ -26,7 +26,7 @@ class DL_TUNNEL_ADDRESS extends Win32Struct
     ScopeId{
         get {
             if(!this.HasProp("__ScopeId"))
-                this.__ScopeId := SCOPE_ID(this.ptr + 4)
+                this.__ScopeId := SCOPE_ID(4, this)
             return this.__ScopeId
         }
     }

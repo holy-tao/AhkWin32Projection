@@ -18,7 +18,7 @@ class ISCSI_CONNECTION_INFO_EX extends Win32Struct
     ConnectionId{
         get {
             if(!this.HasProp("__ConnectionId"))
-                this.__ConnectionId := ISCSI_UNIQUE_SESSION_ID(this.ptr + 0)
+                this.__ConnectionId := ISCSI_UNIQUE_SESSION_ID(0, this)
             return this.__ConnectionId
         }
     }

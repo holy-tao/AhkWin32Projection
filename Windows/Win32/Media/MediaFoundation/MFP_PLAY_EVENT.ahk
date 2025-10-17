@@ -26,7 +26,7 @@ class MFP_PLAY_EVENT extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := MFP_EVENT_HEADER(this.ptr + 0)
+                this.__header := MFP_EVENT_HEADER(0, this)
             return this.__header
         }
     }

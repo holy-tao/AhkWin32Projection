@@ -5,7 +5,6 @@
 #Include ..\..\Foundation\RECT.ahk
 #Include .\D3D12_VIDEO_PROCESS_TRANSFORM.ahk
 #Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\D3D12_VIDEO_PROCESS_ALPHA_BLENDING.ahk
 
 /**
@@ -42,7 +41,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 extends Win32Struct
     Transform{
         get {
             if(!this.HasProp("__Transform"))
-                this.__Transform := D3D12_VIDEO_PROCESS_TRANSFORM(this.ptr + 16)
+                this.__Transform := D3D12_VIDEO_PROCESS_TRANSFORM(16, this)
             return this.__Transform
         }
     }
@@ -63,7 +62,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 extends Win32Struct
     RateInfo{
         get {
             if(!this.HasProp("__RateInfo"))
-                this.__RateInfo := D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE(this.ptr + 64)
+                this.__RateInfo := D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE(64, this)
             return this.__RateInfo
         }
     }
@@ -87,7 +86,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1 extends Win32Struct
     AlphaBlending{
         get {
             if(!this.HasProp("__AlphaBlending"))
-                this.__AlphaBlending := D3D12_VIDEO_PROCESS_ALPHA_BLENDING(this.ptr + 200)
+                this.__AlphaBlending := D3D12_VIDEO_PROCESS_ALPHA_BLENDING(200, this)
             return this.__AlphaBlending
         }
     }

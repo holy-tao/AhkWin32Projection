@@ -27,7 +27,7 @@ class RASTUNNELENDPOINT extends Win32Struct
     ipv4{
         get {
             if(!this.HasProp("__ipv4"))
-                this.__ipv4 := IN_ADDR(this.ptr + 8)
+                this.__ipv4 := IN_ADDR(8, this)
             return this.__ipv4
         }
     }
@@ -38,7 +38,7 @@ class RASTUNNELENDPOINT extends Win32Struct
     ipv6{
         get {
             if(!this.HasProp("__ipv6"))
-                this.__ipv6 := IN6_ADDR(this.ptr + 8)
+                this.__ipv6 := IN6_ADDR(8, this)
             return this.__ipv6
         }
     }

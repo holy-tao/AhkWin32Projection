@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -59,7 +58,7 @@ class NTMS_ASYNC_IO extends Win32Struct
     hEvent{
         get {
             if(!this.HasProp("__hEvent"))
-                this.__hEvent := HANDLE(this.ptr + 32)
+                this.__hEvent := HANDLE(32, this)
             return this.__hEvent
         }
     }
@@ -67,11 +66,8 @@ class NTMS_ASYNC_IO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bOnStateChange{
-        get {
-            if(!this.HasProp("__bOnStateChange"))
-                this.__bOnStateChange := BOOL(this.ptr + 40)
-            return this.__bOnStateChange
-        }
+    bOnStateChange {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

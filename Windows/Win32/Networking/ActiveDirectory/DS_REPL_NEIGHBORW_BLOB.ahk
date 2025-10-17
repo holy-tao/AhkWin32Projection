@@ -129,7 +129,7 @@ class DS_REPL_NEIGHBORW_BLOB extends Win32Struct
     ftimeLastSyncSuccess{
         get {
             if(!this.HasProp("__ftimeLastSyncSuccess"))
-                this.__ftimeLastSyncSuccess := FILETIME(this.ptr + 72)
+                this.__ftimeLastSyncSuccess := FILETIME(72, this)
             return this.__ftimeLastSyncSuccess
         }
     }
@@ -141,7 +141,7 @@ class DS_REPL_NEIGHBORW_BLOB extends Win32Struct
     ftimeLastSyncAttempt{
         get {
             if(!this.HasProp("__ftimeLastSyncAttempt"))
-                this.__ftimeLastSyncAttempt := FILETIME(this.ptr + 80)
+                this.__ftimeLastSyncAttempt := FILETIME(80, this)
             return this.__ftimeLastSyncAttempt
         }
     }

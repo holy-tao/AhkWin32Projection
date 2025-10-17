@@ -67,7 +67,7 @@ class NET_LUID_LH extends Win32Struct
     Info{
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := %this.__Class%._Info(this.ptr + 0)
+                this.__Info := %this.__Class%._Info(0, this)
             return this.__Info
         }
     }

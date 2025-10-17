@@ -21,7 +21,7 @@ class HTTP_CONNECTION_LIMIT_INFO extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := HTTP_PROPERTY_FLAGS(this.ptr + 0)
+                this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
             return this.__Flags
         }
     }

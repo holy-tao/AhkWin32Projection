@@ -1,13 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\VARIANT_BOOL.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\CHAR.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Stores information about properties in the Windows Property System, and is used by the IItemPropertyBag interface.
@@ -33,7 +29,7 @@ class ITEMPROP extends Win32Struct
     variantValue{
         get {
             if(!this.HasProp("__variantValue"))
-                this.__variantValue := VARIANT(this.ptr + 0)
+                this.__variantValue := VARIANT(0, this)
             return this.__variantValue
         }
     }
@@ -42,11 +38,8 @@ class ITEMPROP extends Win32Struct
      * 
      * @type {PWSTR}
      */
-    pwszName{
-        get {
-            if(!this.HasProp("__pwszName"))
-                this.__pwszName := PWSTR(this.ptr + 24)
-            return this.__pwszName
-        }
+    pwszName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

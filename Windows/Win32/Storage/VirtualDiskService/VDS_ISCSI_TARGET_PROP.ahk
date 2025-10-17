@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the properties of an iSCSI target.
@@ -28,12 +26,9 @@ class VDS_ISCSI_TARGET_PROP extends Win32Struct
      * A null-terminated, human-readable string that is the iSCSI name of the target.
      * @type {PWSTR}
      */
-    pwszIscsiName{
-        get {
-            if(!this.HasProp("__pwszIscsiName"))
-                this.__pwszIscsiName := PWSTR(this.ptr + 8)
-            return this.__pwszIscsiName
-        }
+    pwszIscsiName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -41,23 +36,17 @@ class VDS_ISCSI_TARGET_PROP extends Win32Struct
      *      iSCSI alias.
      * @type {PWSTR}
      */
-    pwszFriendlyName{
-        get {
-            if(!this.HasProp("__pwszFriendlyName"))
-                this.__pwszFriendlyName := PWSTR(this.ptr + 16)
-            return this.__pwszFriendlyName
-        }
+    pwszFriendlyName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * If <b>TRUE</b>, a CHAP shared secret is required to login to this target.
      * @type {BOOL}
      */
-    bChapEnabled{
-        get {
-            if(!this.HasProp("__bChapEnabled"))
-                this.__bChapEnabled := BOOL(this.ptr + 24)
-            return this.__bChapEnabled
-        }
+    bChapEnabled {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

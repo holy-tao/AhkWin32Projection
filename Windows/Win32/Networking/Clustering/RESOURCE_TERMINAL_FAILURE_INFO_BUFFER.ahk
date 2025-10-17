@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Represents a buffer for a terminal failure for a resource.
@@ -18,12 +17,9 @@ class RESOURCE_TERMINAL_FAILURE_INFO_BUFFER extends Win32Struct
      * <b>TRUE</b> if the resource  failure is a terminal failure; otherwise, <b>FALSE</b>.
      * @type {BOOL}
      */
-    isTerminalFailure{
-        get {
-            if(!this.HasProp("__isTerminalFailure"))
-                this.__isTerminalFailure := BOOL(this.ptr + 0)
-            return this.__isTerminalFailure
-        }
+    isTerminalFailure {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**

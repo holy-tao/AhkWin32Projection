@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage device descriptor data for a device.
@@ -69,12 +68,9 @@ class STORAGE_DEVICE_DESCRIPTOR extends Win32Struct
      *       removable.
      * @type {BOOLEAN}
      */
-    RemovableMedia{
-        get {
-            if(!this.HasProp("__RemovableMedia"))
-                this.__RemovableMedia := BOOLEAN(this.ptr + 10)
-            return this.__RemovableMedia
-        }
+    RemovableMedia {
+        get => NumGet(this, 10, "char")
+        set => NumPut("char", value, this, 10)
     }
 
     /**
@@ -83,12 +79,9 @@ class STORAGE_DEVICE_DESCRIPTOR extends Win32Struct
      *       queuing or the equivalent.
      * @type {BOOLEAN}
      */
-    CommandQueueing{
-        get {
-            if(!this.HasProp("__CommandQueueing"))
-                this.__CommandQueueing := BOOLEAN(this.ptr + 11)
-            return this.__CommandQueueing
-        }
+    CommandQueueing {
+        get => NumGet(this, 11, "char")
+        set => NumPut("char", value, this, 11)
     }
 
     /**

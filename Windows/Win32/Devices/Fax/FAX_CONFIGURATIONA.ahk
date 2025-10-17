@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\FAX_TIME.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The FAX_CONFIGURATION structure contains information about the global configuration settings of a fax server.
@@ -79,12 +77,9 @@ class FAX_CONFIGURATIONA extends Win32Struct
      * Specifies a Boolean variable that indicates whether the fax server should generate a brand (banner) at the top of outgoing fax transmissions. If this member is <b>TRUE</b>, the fax server generates a brand that contains transmission-related information like the transmitting station identifier, date, time, and page count.
      * @type {BOOL}
      */
-    Branding{
-        get {
-            if(!this.HasProp("__Branding"))
-                this.__Branding := BOOL(this.ptr + 16)
-            return this.__Branding
-        }
+    Branding {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -93,12 +88,9 @@ class FAX_CONFIGURATIONA extends Win32Struct
      * Specifies a Boolean variable that indicates whether the fax server will use the device's transmitting station identifier instead of the value specified in the <b>Tsid</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_job_parama">FAX_JOB_PARAM</a> structure. If this member is <b>TRUE</b>, the server uses the device's transmitting station identifier.
      * @type {BOOL}
      */
-    UseDeviceTsid{
-        get {
-            if(!this.HasProp("__UseDeviceTsid"))
-                this.__UseDeviceTsid := BOOL(this.ptr + 20)
-            return this.__UseDeviceTsid
-        }
+    UseDeviceTsid {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -107,12 +99,9 @@ class FAX_CONFIGURATIONA extends Win32Struct
      * Specifies a Boolean variable that indicates whether fax client applications can include a user-designed cover page with the fax transmission. If this member is <b>TRUE</b>, the client must use a common cover page stored on the fax server. If this member is <b>FALSE</b>, the client can use a personal cover page file.
      * @type {BOOL}
      */
-    ServerCp{
-        get {
-            if(!this.HasProp("__ServerCp"))
-                this.__ServerCp := BOOL(this.ptr + 24)
-            return this.__ServerCp
-        }
+    ServerCp {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -121,12 +110,9 @@ class FAX_CONFIGURATIONA extends Win32Struct
      * Specifies a Boolean variable that indicates whether the fax server has paused the fax job queue. If this member is <b>TRUE</b>, the queue has been paused.
      * @type {BOOL}
      */
-    PauseServerQueue{
-        get {
-            if(!this.HasProp("__PauseServerQueue"))
-                this.__PauseServerQueue := BOOL(this.ptr + 28)
-            return this.__PauseServerQueue
-        }
+    PauseServerQueue {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -138,7 +124,7 @@ class FAX_CONFIGURATIONA extends Win32Struct
     StartCheapTime{
         get {
             if(!this.HasProp("__StartCheapTime"))
-                this.__StartCheapTime := FAX_TIME(this.ptr + 32)
+                this.__StartCheapTime := FAX_TIME(32, this)
             return this.__StartCheapTime
         }
     }
@@ -152,7 +138,7 @@ class FAX_CONFIGURATIONA extends Win32Struct
     StopCheapTime{
         get {
             if(!this.HasProp("__StopCheapTime"))
-                this.__StopCheapTime := FAX_TIME(this.ptr + 36)
+                this.__StopCheapTime := FAX_TIME(36, this)
             return this.__StopCheapTime
         }
     }
@@ -163,12 +149,9 @@ class FAX_CONFIGURATIONA extends Win32Struct
      * Specifies a Boolean variable that indicates whether the fax server should archive outgoing fax transmissions. If this member is <b>TRUE</b>, the server archives outgoing transmissions in the directory specified by the <b>ArchiveDirectory</b> member.
      * @type {BOOL}
      */
-    ArchiveOutgoingFaxes{
-        get {
-            if(!this.HasProp("__ArchiveOutgoingFaxes"))
-                this.__ArchiveOutgoingFaxes := BOOL(this.ptr + 40)
-            return this.__ArchiveOutgoingFaxes
-        }
+    ArchiveOutgoingFaxes {
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -177,23 +160,17 @@ class FAX_CONFIGURATIONA extends Win32Struct
      * Pointer to a constant null-terminated character string that contains the fully qualified path of the directory in which outgoing fax transmissions will be archived. The path can be a UNC path or a path beginning with a drive letter. The fax server ignores this member if the <b>ArchiveOutgoingFaxes</b> member is <b>FALSE</b>. This member can be <b>NULL</b> if the <b>ArchiveOutgoingFaxes</b> member is <b>FALSE</b>.
      * @type {PSTR}
      */
-    ArchiveDirectory{
-        get {
-            if(!this.HasProp("__ArchiveDirectory"))
-                this.__ArchiveDirectory := PSTR(this.ptr + 48)
-            return this.__ArchiveDirectory
-        }
+    ArchiveDirectory {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * 
      * @type {PSTR}
      */
-    Reserved{
-        get {
-            if(!this.HasProp("__Reserved"))
-                this.__Reserved := PSTR(this.ptr + 56)
-            return this.__Reserved
-        }
+    Reserved {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

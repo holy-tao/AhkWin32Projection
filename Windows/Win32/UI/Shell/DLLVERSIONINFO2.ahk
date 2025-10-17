@@ -27,7 +27,7 @@ class DLLVERSIONINFO2 extends Win32Struct
     info1{
         get {
             if(!this.HasProp("__info1"))
-                this.__info1 := DLLVERSIONINFO(this.ptr + 0)
+                this.__info1 := DLLVERSIONINFO(0, this)
             return this.__info1
         }
     }

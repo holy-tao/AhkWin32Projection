@@ -22,7 +22,7 @@ class GLYPHBITS extends Win32Struct
     ptlOrigin{
         get {
             if(!this.HasProp("__ptlOrigin"))
-                this.__ptlOrigin := POINTL(this.ptr + 0)
+                this.__ptlOrigin := POINTL(0, this)
             return this.__ptlOrigin
         }
     }
@@ -34,7 +34,7 @@ class GLYPHBITS extends Win32Struct
     sizlBitmap{
         get {
             if(!this.HasProp("__sizlBitmap"))
-                this.__sizlBitmap := SIZE(this.ptr + 8)
+                this.__sizlBitmap := SIZE(8, this)
             return this.__sizlBitmap
         }
     }

@@ -21,7 +21,7 @@ class D3D12_DXIL_LIBRARY_DESC extends Win32Struct
     DXILLibrary{
         get {
             if(!this.HasProp("__DXILLibrary"))
-                this.__DXILLibrary := D3D12_SHADER_BYTECODE(this.ptr + 0)
+                this.__DXILLibrary := D3D12_SHADER_BYTECODE(0, this)
             return this.__DXILLibrary
         }
     }

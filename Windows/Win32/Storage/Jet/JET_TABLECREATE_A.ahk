@@ -99,7 +99,7 @@ class JET_TABLECREATE_A extends Win32Struct
     tableid{
         get {
             if(!this.HasProp("__tableid"))
-                this.__tableid := JET_TABLEID(this.ptr + 64)
+                this.__tableid := JET_TABLEID(64, this)
             return this.__tableid
         }
     }

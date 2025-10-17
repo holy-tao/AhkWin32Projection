@@ -18,7 +18,7 @@ class WINHTTP_PROTOCOL_ASYNC_RESULT extends Win32Struct
     AsyncResult{
         get {
             if(!this.HasProp("__AsyncResult"))
-                this.__AsyncResult := WINHTTP_ASYNC_RESULT(this.ptr + 0)
+                this.__AsyncResult := WINHTTP_ASYNC_RESULT(0, this)
             return this.__AsyncResult
         }
     }

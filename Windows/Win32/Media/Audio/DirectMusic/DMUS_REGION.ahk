@@ -21,7 +21,7 @@ class DMUS_REGION extends Win32Struct
     RangeKey{
         get {
             if(!this.HasProp("__RangeKey"))
-                this.__RangeKey := RGNRANGE(this.ptr + 0)
+                this.__RangeKey := RGNRANGE(0, this)
             return this.__RangeKey
         }
     }
@@ -32,7 +32,7 @@ class DMUS_REGION extends Win32Struct
     RangeVelocity{
         get {
             if(!this.HasProp("__RangeVelocity"))
-                this.__RangeVelocity := RGNRANGE(this.ptr + 4)
+                this.__RangeVelocity := RGNRANGE(4, this)
             return this.__RangeVelocity
         }
     }
@@ -83,7 +83,7 @@ class DMUS_REGION extends Win32Struct
     WaveLink{
         get {
             if(!this.HasProp("__WaveLink"))
-                this.__WaveLink := WAVELINK(this.ptr + 24)
+                this.__WaveLink := WAVELINK(24, this)
             return this.__WaveLink
         }
     }
@@ -94,7 +94,7 @@ class DMUS_REGION extends Win32Struct
     WSMP{
         get {
             if(!this.HasProp("__WSMP"))
-                this.__WSMP := WSMPL(this.ptr + 40)
+                this.__WSMP := WSMPL(40, this)
             return this.__WSMP
         }
     }

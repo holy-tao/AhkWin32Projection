@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES.ahk
 #Include .\INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES.ahk
 
@@ -33,12 +32,9 @@ class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
      * A value of **TRUE** indicates that the network adapter driver is capable of generating a hardware cross timestamp. A cross timestamp refers to a set of network interface card (NIC) hardware timestamp and system timestamp(s) obtained very close to one another. A value of **FALSE** indicates that this capability doesn't exist.
      * @type {BOOLEAN}
      */
-    SupportsCrossTimestamp{
-        get {
-            if(!this.HasProp("__SupportsCrossTimestamp"))
-                this.__SupportsCrossTimestamp := BOOLEAN(this.ptr + 8)
-            return this.__SupportsCrossTimestamp
-        }
+    SupportsCrossTimestamp {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -50,7 +46,7 @@ class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
     HardwareCapabilities{
         get {
             if(!this.HasProp("__HardwareCapabilities"))
-                this.__HardwareCapabilities := INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES(this.ptr + 16)
+                this.__HardwareCapabilities := INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES(16, this)
             return this.__HardwareCapabilities
         }
     }
@@ -64,7 +60,7 @@ class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
     SoftwareCapabilities{
         get {
             if(!this.HasProp("__SoftwareCapabilities"))
-                this.__SoftwareCapabilities := INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES(this.ptr + 27)
+                this.__SoftwareCapabilities := INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES(27, this)
             return this.__SoftwareCapabilities
         }
     }

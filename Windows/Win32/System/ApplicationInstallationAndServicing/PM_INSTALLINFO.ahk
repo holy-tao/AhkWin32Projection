@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -27,7 +26,7 @@ class PM_INSTALLINFO extends Win32Struct
     PackagePath{
         get {
             if(!this.HasProp("__PackagePath"))
-                this.__PackagePath := BSTR(this.ptr + 8)
+                this.__PackagePath := BSTR(8, this)
             return this.__PackagePath
         }
     }
@@ -59,12 +58,9 @@ class PM_INSTALLINFO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsUninstallDisabled{
-        get {
-            if(!this.HasProp("__IsUninstallDisabled"))
-                this.__IsUninstallDisabled := BOOL(this.ptr + 36)
-            return this.__IsUninstallDisabled
-        }
+    IsUninstallDisabled {
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -89,7 +85,7 @@ class PM_INSTALLINFO extends Win32Struct
     MarketplaceAppVersion{
         get {
             if(!this.HasProp("__MarketplaceAppVersion"))
-                this.__MarketplaceAppVersion := BSTR(this.ptr + 56)
+                this.__MarketplaceAppVersion := BSTR(56, this)
             return this.__MarketplaceAppVersion
         }
     }

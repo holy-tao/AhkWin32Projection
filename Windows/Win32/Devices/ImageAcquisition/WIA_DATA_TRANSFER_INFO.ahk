@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The WIA_DATA_TRANSFER_INFO structure is used by applications to describe the buffer used to retrieve bands of data from Windows Image Acquisition (WIA) devices. It is primarily used in conjunction with the methods of the IWiaDataTransfer interface.
@@ -53,12 +52,9 @@ class WIA_DATA_TRANSFER_INFO extends Win32Struct
      * Contains <b>TRUE</b> if the device is double buffered, <b>FALSE</b> if the device is not double buffered.
      * @type {BOOL}
      */
-    bDoubleBuffer{
-        get {
-            if(!this.HasProp("__bDoubleBuffer"))
-                this.__bDoubleBuffer := BOOL(this.ptr + 12)
-            return this.__bDoubleBuffer
-        }
+    bDoubleBuffer {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**

@@ -28,7 +28,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     bthAddressRemote{
         get {
             if(!this.HasProp("__bthAddressRemote"))
-                this.__bthAddressRemote := BLUETOOTH_ADDRESS(this.ptr + 0)
+                this.__bthAddressRemote := BLUETOOTH_ADDRESS(0, this)
             return this.__bthAddressRemote
         }
     }
@@ -51,7 +51,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     pinInfo{
         get {
             if(!this.HasProp("__pinInfo"))
-                this.__pinInfo := BLUETOOTH_PIN_INFO(this.ptr + 24)
+                this.__pinInfo := BLUETOOTH_PIN_INFO(24, this)
             return this.__pinInfo
         }
     }
@@ -62,7 +62,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     oobInfo{
         get {
             if(!this.HasProp("__oobInfo"))
-                this.__oobInfo := BLUETOOTH_OOB_DATA_INFO(this.ptr + 24)
+                this.__oobInfo := BLUETOOTH_OOB_DATA_INFO(24, this)
             return this.__oobInfo
         }
     }
@@ -73,7 +73,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     numericCompInfo{
         get {
             if(!this.HasProp("__numericCompInfo"))
-                this.__numericCompInfo := BLUETOOTH_NUMERIC_COMPARISON_INFO(this.ptr + 24)
+                this.__numericCompInfo := BLUETOOTH_NUMERIC_COMPARISON_INFO(24, this)
             return this.__numericCompInfo
         }
     }
@@ -84,7 +84,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     passkeyInfo{
         get {
             if(!this.HasProp("__passkeyInfo"))
-                this.__passkeyInfo := BLUETOOTH_PASSKEY_INFO(this.ptr + 24)
+                this.__passkeyInfo := BLUETOOTH_PASSKEY_INFO(24, this)
             return this.__passkeyInfo
         }
     }

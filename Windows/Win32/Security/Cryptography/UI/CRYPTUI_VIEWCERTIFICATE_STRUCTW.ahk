@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about a certificate to view. This structure is used in the CryptUIDlgViewCertificate function.
@@ -39,7 +37,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
     hwndParent{
         get {
             if(!this.HasProp("__hwndParent"))
-                this.__hwndParent := HWND(this.ptr + 8)
+                this.__hwndParent := HWND(8, this)
             return this.__hwndParent
         }
     }
@@ -57,12 +55,9 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
      * A pointer to a null-terminated string that contains the title for the window.
      * @type {PWSTR}
      */
-    szTitle{
-        get {
-            if(!this.HasProp("__szTitle"))
-                this.__szTitle := PWSTR(this.ptr + 24)
-            return this.__szTitle
-        }
+    szTitle {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -106,7 +101,7 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
     hWVTStateData{
         get {
             if(!this.HasProp("__hWVTStateData"))
-                this.__hWVTStateData := HANDLE(this.ptr + 56)
+                this.__hWVTStateData := HANDLE(56, this)
             return this.__hWVTStateData
         }
     }
@@ -115,12 +110,9 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
      * If <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> was called, this is the result of whether the certificate was trusted.
      * @type {BOOL}
      */
-    fpCryptProviderDataTrustedUsage{
-        get {
-            if(!this.HasProp("__fpCryptProviderDataTrustedUsage"))
-                this.__fpCryptProviderDataTrustedUsage := BOOL(this.ptr + 64)
-            return this.__fpCryptProviderDataTrustedUsage
-        }
+    fpCryptProviderDataTrustedUsage {
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
@@ -145,12 +137,9 @@ class CRYPTUI_VIEWCERTIFICATE_STRUCTW extends Win32Struct
      * <b>TRUE</b> if a countersignature is being viewed.  If  this is <b>TRUE</b>, <b>idxCounterSigner</b> must be valid.
      * @type {BOOL}
      */
-    fCounterSigner{
-        get {
-            if(!this.HasProp("__fCounterSigner"))
-                this.__fCounterSigner := BOOL(this.ptr + 76)
-            return this.__fCounterSigner
-        }
+    fCounterSigner {
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**

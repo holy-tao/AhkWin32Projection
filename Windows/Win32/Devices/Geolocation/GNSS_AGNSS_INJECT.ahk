@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\NTSTATUS.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\GNSS_AGNSS_INJECTTIME.ahk
 #Include .\GNSS_FIXDATA_BASIC.ahk
@@ -45,12 +44,9 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     /**
      * @type {NTSTATUS}
      */
-    InjectionStatus{
-        get {
-            if(!this.HasProp("__InjectionStatus"))
-                this.__InjectionStatus := NTSTATUS(this.ptr + 12)
-            return this.__InjectionStatus
-        }
+    InjectionStatus {
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -78,7 +74,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     Time{
         get {
             if(!this.HasProp("__Time"))
-                this.__Time := GNSS_AGNSS_INJECTTIME(this.ptr + 536)
+                this.__Time := GNSS_AGNSS_INJECTTIME(536, this)
             return this.__Time
         }
     }
@@ -89,7 +85,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     Position{
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := GNSS_AGNSS_INJECTPOSITION(this.ptr + 536)
+                this.__Position := GNSS_AGNSS_INJECTPOSITION(536, this)
             return this.__Position
         }
     }
@@ -100,7 +96,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     BlobData{
         get {
             if(!this.HasProp("__BlobData"))
-                this.__BlobData := GNSS_AGNSS_INJECTBLOB(this.ptr + 536)
+                this.__BlobData := GNSS_AGNSS_INJECTBLOB(536, this)
             return this.__BlobData
         }
     }

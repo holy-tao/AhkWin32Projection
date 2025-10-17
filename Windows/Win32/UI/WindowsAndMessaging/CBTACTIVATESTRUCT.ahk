@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -21,12 +20,9 @@ class CBTACTIVATESTRUCT extends Win32Struct
      * This member is <b>TRUE</b> if a mouse click is causing the activation or <b>FALSE</b> if it is not.
      * @type {BOOL}
      */
-    fMouse{
-        get {
-            if(!this.HasProp("__fMouse"))
-                this.__fMouse := BOOL(this.ptr + 0)
-            return this.__fMouse
-        }
+    fMouse {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -38,7 +34,7 @@ class CBTACTIVATESTRUCT extends Win32Struct
     hWndActive{
         get {
             if(!this.HasProp("__hWndActive"))
-                this.__hWndActive := HWND(this.ptr + 8)
+                this.__hWndActive := HWND(8, this)
             return this.__hWndActive
         }
     }

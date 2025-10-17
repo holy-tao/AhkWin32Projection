@@ -32,7 +32,7 @@ class TBADDBITMAP extends Win32Struct
     hInst{
         get {
             if(!this.HasProp("__hInst"))
-                this.__hInst := HINSTANCE(this.ptr + 0)
+                this.__hInst := HINSTANCE(0, this)
             return this.__hInst
         }
     }

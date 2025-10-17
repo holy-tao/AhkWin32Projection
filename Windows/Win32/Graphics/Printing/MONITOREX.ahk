@@ -26,7 +26,7 @@ class MONITOREX extends Win32Struct
     Monitor{
         get {
             if(!this.HasProp("__Monitor"))
-                this.__Monitor := MONITOR(this.ptr + 8)
+                this.__Monitor := MONITOR(8, this)
             return this.__Monitor
         }
     }

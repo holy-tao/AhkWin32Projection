@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * The USB_BUS_STATISTICS_0 structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve bus statistics.
@@ -133,12 +132,9 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
      * A Boolean value that indicates whether the root hub is enabled. If <b>TRUE</b>, he root hub is enabled. If <b>FALSE</b>, the root hub is disabled.
      * @type {BOOLEAN}
      */
-    RootHubEnabled{
-        get {
-            if(!this.HasProp("__RootHubEnabled"))
-                this.__RootHubEnabled := BOOLEAN(this.ptr + 56)
-            return this.__RootHubEnabled
-        }
+    RootHubEnabled {
+        get => NumGet(this, 56, "char")
+        set => NumPut("char", value, this, 56)
     }
 
     /**

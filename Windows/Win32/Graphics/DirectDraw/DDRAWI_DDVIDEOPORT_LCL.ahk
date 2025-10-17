@@ -30,7 +30,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct
     ddvpDesc{
         get {
             if(!this.HasProp("__ddvpDesc"))
-                this.__ddvpDesc := DDVIDEOPORTDESC(this.ptr + 8)
+                this.__ddvpDesc := DDVIDEOPORTDESC(8, this)
             return this.__ddvpDesc
         }
     }
@@ -41,7 +41,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct
     ddvpInfo{
         get {
             if(!this.HasProp("__ddvpInfo"))
-                this.__ddvpInfo := DDVIDEOPORTINFO(this.ptr + 88)
+                this.__ddvpInfo := DDVIDEOPORTINFO(88, this)
             return this.__ddvpInfo
         }
     }
@@ -140,7 +140,7 @@ class DDRAWI_DDVIDEOPORT_LCL extends Win32Struct
     hDDVideoPort{
         get {
             if(!this.HasProp("__hDDVideoPort"))
-                this.__hDDVideoPort := HANDLE(this.ptr + 248)
+                this.__hDDVideoPort := HANDLE(248, this)
             return this.__hDDVideoPort
         }
     }

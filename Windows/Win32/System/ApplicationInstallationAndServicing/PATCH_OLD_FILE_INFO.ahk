@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -25,23 +23,17 @@ class PATCH_OLD_FILE_INFO extends Win32Struct
     /**
      * @type {PSTR}
      */
-    OldFileNameA{
-        get {
-            if(!this.HasProp("__OldFileNameA"))
-                this.__OldFileNameA := PSTR(this.ptr + 8)
-            return this.__OldFileNameA
-        }
+    OldFileNameA {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    OldFileNameW{
-        get {
-            if(!this.HasProp("__OldFileNameW"))
-                this.__OldFileNameW := PWSTR(this.ptr + 8)
-            return this.__OldFileNameW
-        }
+    OldFileNameW {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -50,7 +42,7 @@ class PATCH_OLD_FILE_INFO extends Win32Struct
     OldFileHandle{
         get {
             if(!this.HasProp("__OldFileHandle"))
-                this.__OldFileHandle := HANDLE(this.ptr + 8)
+                this.__OldFileHandle := HANDLE(8, this)
             return this.__OldFileHandle
         }
     }

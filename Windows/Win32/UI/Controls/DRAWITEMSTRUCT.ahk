@@ -237,7 +237,7 @@ class DRAWITEMSTRUCT extends Win32Struct
     hwndItem{
         get {
             if(!this.HasProp("__hwndItem"))
-                this.__hwndItem := HWND(this.ptr + 24)
+                this.__hwndItem := HWND(24, this)
             return this.__hwndItem
         }
     }
@@ -251,7 +251,7 @@ class DRAWITEMSTRUCT extends Win32Struct
     hDC{
         get {
             if(!this.HasProp("__hDC"))
-                this.__hDC := HDC(this.ptr + 32)
+                this.__hDC := HDC(32, this)
             return this.__hDC
         }
     }
@@ -265,7 +265,7 @@ class DRAWITEMSTRUCT extends Win32Struct
     rcItem{
         get {
             if(!this.HasProp("__rcItem"))
-                this.__rcItem := RECT(this.ptr + 40)
+                this.__rcItem := RECT(40, this)
             return this.__rcItem
         }
     }

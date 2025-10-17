@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The DHCP_FAILOVER_RELATIONSHIP structure defines information about a DHCPv4 server failover relationship.
@@ -90,36 +89,27 @@ class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
      * Pointer to a null-terminated Unicode string that represents the unique failover relationship name.
      * @type {PWSTR}
      */
-    RelationshipName{
-        get {
-            if(!this.HasProp("__RelationshipName"))
-                this.__RelationshipName := PWSTR(this.ptr + 32)
-            return this.__RelationshipName
-        }
+    RelationshipName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that represents the primary server hostname.
      * @type {PWSTR}
      */
-    PrimaryServerName{
-        get {
-            if(!this.HasProp("__PrimaryServerName"))
-                this.__PrimaryServerName := PWSTR(this.ptr + 40)
-            return this.__PrimaryServerName
-        }
+    PrimaryServerName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * Pointer to a null-terminated Unicode string that represents the secondary server hostname.
      * @type {PWSTR}
      */
-    SecondaryServerName{
-        get {
-            if(!this.HasProp("__SecondaryServerName"))
-                this.__SecondaryServerName := PWSTR(this.ptr + 48)
-            return this.__SecondaryServerName
-        }
+    SecondaryServerName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -144,11 +134,8 @@ class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
      * A pointer to a null-terminated Unicode string that represents the shared secret key associated with the failover relationship.
      * @type {PWSTR}
      */
-    SharedSecret{
-        get {
-            if(!this.HasProp("__SharedSecret"))
-                this.__SharedSecret := PWSTR(this.ptr + 72)
-            return this.__SharedSecret
-        }
+    SharedSecret {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

@@ -40,7 +40,7 @@ class DSQUERYPARAMS extends Win32Struct
     hInstance{
         get {
             if(!this.HasProp("__hInstance"))
-                this.__hInstance := HINSTANCE(this.ptr + 8)
+                this.__hInstance := HINSTANCE(8, this)
             return this.__hInstance
         }
     }

@@ -39,7 +39,7 @@ class AMVAUncompDataInfo extends Win32Struct
     ddUncompPixelFormat{
         get {
             if(!this.HasProp("__ddUncompPixelFormat"))
-                this.__ddUncompPixelFormat := DDPIXELFORMAT(this.ptr + 8)
+                this.__ddUncompPixelFormat := DDPIXELFORMAT(8, this)
             return this.__ddUncompPixelFormat
         }
     }

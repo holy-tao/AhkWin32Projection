@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Represents a single localized string.
@@ -23,23 +22,17 @@ class WSD_LOCALIZED_STRING extends Win32Struct
      * The standard language code used for localization. Valid language codes are specified in <a href="https://www.ietf.org/rfc/rfc1766.txt">RFC 1766</a>.
      * @type {PWSTR}
      */
-    lang{
-        get {
-            if(!this.HasProp("__lang"))
-                this.__lang := PWSTR(this.ptr + 0)
-            return this.__lang
-        }
+    lang {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The string data in the localized language.
      * @type {PWSTR}
      */
-    String{
-        get {
-            if(!this.HasProp("__String"))
-                this.__String := PWSTR(this.ptr + 8)
-            return this.__String
-        }
+    String {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

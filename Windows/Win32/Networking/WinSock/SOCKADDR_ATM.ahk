@@ -28,7 +28,7 @@ class SOCKADDR_ATM extends Win32Struct
     satm_number{
         get {
             if(!this.HasProp("__satm_number"))
-                this.__satm_number := ATM_ADDRESS(this.ptr + 8)
+                this.__satm_number := ATM_ADDRESS(8, this)
             return this.__satm_number
         }
     }
@@ -39,7 +39,7 @@ class SOCKADDR_ATM extends Win32Struct
     satm_blli{
         get {
             if(!this.HasProp("__satm_blli"))
-                this.__satm_blli := ATM_BLLI(this.ptr + 40)
+                this.__satm_blli := ATM_BLLI(40, this)
             return this.__satm_blli
         }
     }
@@ -50,7 +50,7 @@ class SOCKADDR_ATM extends Win32Struct
     satm_bhli{
         get {
             if(!this.HasProp("__satm_bhli"))
-                this.__satm_bhli := ATM_BHLI(this.ptr + 72)
+                this.__satm_bhli := ATM_BHLI(72, this)
             return this.__satm_bhli
         }
     }

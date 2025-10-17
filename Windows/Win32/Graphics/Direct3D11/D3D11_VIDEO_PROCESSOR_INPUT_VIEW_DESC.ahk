@@ -38,7 +38,7 @@ class D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC extends Win32Struct
     Texture2D{
         get {
             if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D11_TEX2D_VPIV(this.ptr + 8)
+                this.__Texture2D := D3D11_TEX2D_VPIV(8, this)
             return this.__Texture2D
         }
     }

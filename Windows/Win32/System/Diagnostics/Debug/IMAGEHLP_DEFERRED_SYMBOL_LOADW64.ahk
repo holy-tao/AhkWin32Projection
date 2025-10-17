@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BOOLEAN.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
@@ -72,12 +71,9 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOADW64 extends Win32Struct
      * If this member is <b>TRUE</b>, the operation should be performed again. Otherwise, it should not.
      * @type {BOOLEAN}
      */
-    Reparse{
-        get {
-            if(!this.HasProp("__Reparse"))
-                this.__Reparse := BOOLEAN(this.ptr + 546)
-            return this.__Reparse
-        }
+    Reparse {
+        get => NumGet(this, 546, "char")
+        set => NumPut("char", value, this, 546)
     }
 
     /**
@@ -87,7 +83,7 @@ class IMAGEHLP_DEFERRED_SYMBOL_LOADW64 extends Win32Struct
     hFile{
         get {
             if(!this.HasProp("__hFile"))
-                this.__hFile := HANDLE(this.ptr + 552)
+                this.__hFile := HANDLE(552, this)
             return this.__hFile
         }
     }

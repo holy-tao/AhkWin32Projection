@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
@@ -26,12 +25,9 @@ class PERBANDINFO extends Win32Struct
      * If <b>TRUE</b>, GDI redraws the previous band. If <b>FALSE</b>, GDI draws the next band.
      * @type {BOOL}
      */
-    bRepeatThisBand{
-        get {
-            if(!this.HasProp("__bRepeatThisBand"))
-                this.__bRepeatThisBand := BOOL(this.ptr + 0)
-            return this.__bRepeatThisBand
-        }
+    bRepeatThisBand {
+        get => NumGet(this, 0, "int")
+        set => NumPut("int", value, this, 0)
     }
 
     /**
@@ -41,7 +37,7 @@ class PERBANDINFO extends Win32Struct
     szlBand{
         get {
             if(!this.HasProp("__szlBand"))
-                this.__szlBand := SIZE(this.ptr + 8)
+                this.__szlBand := SIZE(8, this)
             return this.__szlBand
         }
     }

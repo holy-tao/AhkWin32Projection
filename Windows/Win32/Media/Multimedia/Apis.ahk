@@ -23378,7 +23378,7 @@ class Multimedia {
     static mciGetErrorStringA(mcierr, pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := DllCall("WINMM.dll\mciGetErrorStringA", "uint", mcierr, "ptr", pszText, "uint", cchText, "ptr")
+        result := DllCall("WINMM.dll\mciGetErrorStringA", "uint", mcierr, "ptr", pszText, "uint", cchText, "int")
         return result
     }
 
@@ -23392,7 +23392,7 @@ class Multimedia {
     static mciGetErrorStringW(mcierr, pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := DllCall("WINMM.dll\mciGetErrorStringW", "uint", mcierr, "ptr", pszText, "uint", cchText, "ptr")
+        result := DllCall("WINMM.dll\mciGetErrorStringW", "uint", mcierr, "ptr", pszText, "uint", cchText, "int")
         return result
     }
 
@@ -23404,7 +23404,7 @@ class Multimedia {
      * @returns {BOOL} 
      */
     static mciSetYieldProc(mciId, fpYieldProc, dwYieldData) {
-        result := DllCall("WINMM.dll\mciSetYieldProc", "uint", mciId, "ptr", fpYieldProc, "uint", dwYieldData, "ptr")
+        result := DllCall("WINMM.dll\mciSetYieldProc", "uint", mciId, "ptr", fpYieldProc, "uint", dwYieldData, "int")
         return result
     }
 
@@ -23461,7 +23461,7 @@ class Multimedia {
      * @returns {BOOL} 
      */
     static mciSetDriverData(wDeviceID, dwData) {
-        result := DllCall("WINMM.dll\mciSetDriverData", "uint", wDeviceID, "ptr", dwData, "ptr")
+        result := DllCall("WINMM.dll\mciSetDriverData", "uint", wDeviceID, "ptr", dwData, "int")
         return result
     }
 
@@ -23485,7 +23485,7 @@ class Multimedia {
     static mciDriverNotify(hwndCallback, wDeviceID, uStatus) {
         hwndCallback := hwndCallback is Win32Handle ? NumGet(hwndCallback, "ptr") : hwndCallback
 
-        result := DllCall("WINMM.dll\mciDriverNotify", "ptr", hwndCallback, "uint", wDeviceID, "uint", uStatus, "ptr")
+        result := DllCall("WINMM.dll\mciDriverNotify", "ptr", hwndCallback, "uint", wDeviceID, "uint", uStatus, "int")
         return result
     }
 
@@ -23495,7 +23495,7 @@ class Multimedia {
      * @returns {BOOL} 
      */
     static mciFreeCommandResource(wTable) {
-        result := DllCall("WINMM.dll\mciFreeCommandResource", "uint", wTable, "ptr")
+        result := DllCall("WINMM.dll\mciFreeCommandResource", "uint", wTable, "int")
         return result
     }
 
@@ -23705,7 +23705,7 @@ class Multimedia {
     static DriverCallback(dwCallback, dwFlags, hDevice, dwMsg, dwUser, dwParam1, dwParam2) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := DllCall("WINMM.dll\DriverCallback", "ptr", dwCallback, "uint", dwFlags, "ptr", hDevice, "uint", dwMsg, "ptr", dwUser, "ptr", dwParam1, "ptr", dwParam2, "ptr")
+        result := DllCall("WINMM.dll\DriverCallback", "ptr", dwCallback, "uint", dwFlags, "ptr", hDevice, "uint", dwMsg, "ptr", dwUser, "ptr", dwParam1, "ptr", dwParam2, "int")
         return result
     }
 
@@ -25107,7 +25107,7 @@ class Multimedia {
     static joySetCapture(hwnd, uJoyID, uPeriod, fChanged) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("WINMM.dll\joySetCapture", "ptr", hwnd, "uint", uJoyID, "uint", uPeriod, "ptr", fChanged, "uint")
+        result := DllCall("WINMM.dll\joySetCapture", "ptr", hwnd, "uint", uJoyID, "uint", uPeriod, "int", fChanged, "uint")
         return result
     }
 
@@ -25172,7 +25172,7 @@ class Multimedia {
      * @since windows5.0
      */
     static ICInfo(fccType, fccHandler, lpicinfo) {
-        result := DllCall("MSVFW32.dll\ICInfo", "uint", fccType, "uint", fccHandler, "ptr", lpicinfo, "ptr")
+        result := DllCall("MSVFW32.dll\ICInfo", "uint", fccType, "uint", fccHandler, "ptr", lpicinfo, "int")
         return result
     }
 
@@ -25207,7 +25207,7 @@ class Multimedia {
     static ICInstall(fccType, fccHandler, lParam, szDesc, wFlags) {
         szDesc := szDesc is String ? StrPtr(szDesc) : szDesc
 
-        result := DllCall("MSVFW32.dll\ICInstall", "uint", fccType, "uint", fccHandler, "ptr", lParam, "ptr", szDesc, "uint", wFlags, "ptr")
+        result := DllCall("MSVFW32.dll\ICInstall", "uint", fccType, "uint", fccHandler, "ptr", lParam, "ptr", szDesc, "uint", wFlags, "int")
         return result
     }
 
@@ -25221,7 +25221,7 @@ class Multimedia {
      * @since windows5.0
      */
     static ICRemove(fccType, fccHandler, wFlags) {
-        result := DllCall("MSVFW32.dll\ICRemove", "uint", fccType, "uint", fccHandler, "uint", wFlags, "ptr")
+        result := DllCall("MSVFW32.dll\ICRemove", "uint", fccType, "uint", fccHandler, "uint", wFlags, "int")
         return result
     }
 
@@ -25739,7 +25739,7 @@ class Multimedia {
         lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("MSVFW32.dll\ICCompressorChoose", "ptr", hwnd, "uint", uiFlags, "ptr", pvIn, "ptr", lpData, "ptr", pc, "ptr", lpszTitle, "ptr")
+        result := DllCall("MSVFW32.dll\ICCompressorChoose", "ptr", hwnd, "uint", uiFlags, "ptr", pvIn, "ptr", lpData, "ptr", pc, "ptr", lpszTitle, "int")
         return result
     }
 
@@ -25752,7 +25752,7 @@ class Multimedia {
      * @since windows5.0
      */
     static ICSeqCompressFrameStart(pc, lpbiIn) {
-        result := DllCall("MSVFW32.dll\ICSeqCompressFrameStart", "ptr", pc, "ptr", lpbiIn, "ptr")
+        result := DllCall("MSVFW32.dll\ICSeqCompressFrameStart", "ptr", pc, "ptr", lpbiIn, "int")
         return result
     }
 
@@ -25814,7 +25814,7 @@ class Multimedia {
      * @since windows5.0
      */
     static DrawDibClose(hdd) {
-        result := DllCall("MSVFW32.dll\DrawDibClose", "ptr", hdd, "ptr")
+        result := DllCall("MSVFW32.dll\DrawDibClose", "ptr", hdd, "int")
         return result
     }
 
@@ -25856,7 +25856,7 @@ class Multimedia {
     static DrawDibSetPalette(hdd, hpal) {
         hpal := hpal is Win32Handle ? NumGet(hpal, "ptr") : hpal
 
-        result := DllCall("MSVFW32.dll\DrawDibSetPalette", "ptr", hdd, "ptr", hpal, "ptr")
+        result := DllCall("MSVFW32.dll\DrawDibSetPalette", "ptr", hdd, "ptr", hpal, "int")
         return result
     }
 
@@ -25871,7 +25871,7 @@ class Multimedia {
      * @since windows5.0
      */
     static DrawDibChangePalette(hdd, iStart, iLen, lppe) {
-        result := DllCall("MSVFW32.dll\DrawDibChangePalette", "ptr", hdd, "int", iStart, "int", iLen, "ptr", lppe, "ptr")
+        result := DllCall("MSVFW32.dll\DrawDibChangePalette", "ptr", hdd, "int", iStart, "int", iLen, "ptr", lppe, "int")
         return result
     }
 
@@ -25887,7 +25887,7 @@ class Multimedia {
     static DrawDibRealize(hdd, hdc, fBackground) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("MSVFW32.dll\DrawDibRealize", "ptr", hdd, "ptr", hdc, "ptr", fBackground, "uint")
+        result := DllCall("MSVFW32.dll\DrawDibRealize", "ptr", hdd, "ptr", hdc, "int", fBackground, "uint")
         return result
     }
 
@@ -25900,7 +25900,7 @@ class Multimedia {
      * @since windows5.0
      */
     static DrawDibStart(hdd, rate) {
-        result := DllCall("MSVFW32.dll\DrawDibStart", "ptr", hdd, "uint", rate, "ptr")
+        result := DllCall("MSVFW32.dll\DrawDibStart", "ptr", hdd, "uint", rate, "int")
         return result
     }
 
@@ -25912,7 +25912,7 @@ class Multimedia {
      * @since windows5.0
      */
     static DrawDibStop(hdd) {
-        result := DllCall("MSVFW32.dll\DrawDibStop", "ptr", hdd, "ptr")
+        result := DllCall("MSVFW32.dll\DrawDibStop", "ptr", hdd, "int")
         return result
     }
 
@@ -25983,7 +25983,7 @@ class Multimedia {
     static DrawDibBegin(hdd, hdc, dxDst, dyDst, lpbi, dxSrc, dySrc, wFlags) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("MSVFW32.dll\DrawDibBegin", "ptr", hdd, "ptr", hdc, "int", dxDst, "int", dyDst, "ptr", lpbi, "int", dxSrc, "int", dySrc, "uint", wFlags, "ptr")
+        result := DllCall("MSVFW32.dll\DrawDibBegin", "ptr", hdd, "ptr", hdc, "int", dxDst, "int", dyDst, "ptr", lpbi, "int", dxSrc, "int", dySrc, "uint", wFlags, "int")
         return result
     }
 
@@ -26057,7 +26057,7 @@ class Multimedia {
     static DrawDibDraw(hdd, hdc, xDst, yDst, dxDst, dyDst, lpbi, lpBits, xSrc, ySrc, dxSrc, dySrc, wFlags) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("MSVFW32.dll\DrawDibDraw", "ptr", hdd, "ptr", hdc, "int", xDst, "int", yDst, "int", dxDst, "int", dyDst, "ptr", lpbi, "ptr", lpBits, "int", xSrc, "int", ySrc, "int", dxSrc, "int", dySrc, "uint", wFlags, "ptr")
+        result := DllCall("MSVFW32.dll\DrawDibDraw", "ptr", hdd, "ptr", hdc, "int", xDst, "int", yDst, "int", dxDst, "int", dyDst, "ptr", lpbi, "ptr", lpBits, "int", xSrc, "int", ySrc, "int", dxSrc, "int", dySrc, "uint", wFlags, "int")
         return result
     }
 
@@ -26069,7 +26069,7 @@ class Multimedia {
      * @since windows5.0
      */
     static DrawDibEnd(hdd) {
-        result := DllCall("MSVFW32.dll\DrawDibEnd", "ptr", hdd, "ptr")
+        result := DllCall("MSVFW32.dll\DrawDibEnd", "ptr", hdd, "int")
         return result
     }
 
@@ -26082,7 +26082,7 @@ class Multimedia {
      * @since windows5.0
      */
     static DrawDibTime(hdd, lpddtime) {
-        result := DllCall("MSVFW32.dll\DrawDibTime", "ptr", hdd, "ptr", lpddtime, "ptr")
+        result := DllCall("MSVFW32.dll\DrawDibTime", "ptr", hdd, "ptr", lpddtime, "int")
         return result
     }
 
@@ -27420,7 +27420,7 @@ class Multimedia {
     static AVIBuildFilterW(lpszFilter, cbFilter, fSaving) {
         lpszFilter := lpszFilter is String ? StrPtr(lpszFilter) : lpszFilter
 
-        result := DllCall("AVIFIL32.dll\AVIBuildFilterW", "ptr", lpszFilter, "int", cbFilter, "ptr", fSaving, "int")
+        result := DllCall("AVIFIL32.dll\AVIBuildFilterW", "ptr", lpszFilter, "int", cbFilter, "int", fSaving, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27468,7 +27468,7 @@ class Multimedia {
     static AVIBuildFilterA(lpszFilter, cbFilter, fSaving) {
         lpszFilter := lpszFilter is String ? StrPtr(lpszFilter) : lpszFilter
 
-        result := DllCall("AVIFIL32.dll\AVIBuildFilterA", "ptr", lpszFilter, "int", cbFilter, "ptr", fSaving, "int")
+        result := DllCall("AVIFIL32.dll\AVIBuildFilterA", "ptr", lpszFilter, "int", cbFilter, "int", fSaving, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27920,7 +27920,7 @@ class Multimedia {
      * @since windows5.0
      */
     static MCIWndRegisterClass() {
-        result := DllCall("MSVFW32.dll\MCIWndRegisterClass", "CDecl ptr")
+        result := DllCall("MSVFW32.dll\MCIWndRegisterClass", "CDecl int")
         return result
     }
 
@@ -27963,7 +27963,7 @@ class Multimedia {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
         lpszVer := lpszVer is String ? StrPtr(lpszVer) : lpszVer
 
-        result := DllCall("AVICAP32.dll\capGetDriverDescriptionA", "uint", wDriverIndex, "ptr", lpszName, "int", cbName, "ptr", lpszVer, "int", cbVer, "ptr")
+        result := DllCall("AVICAP32.dll\capGetDriverDescriptionA", "uint", wDriverIndex, "ptr", lpszName, "int", cbName, "ptr", lpszVer, "int", cbVer, "int")
         return result
     }
 
@@ -28006,7 +28006,7 @@ class Multimedia {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
         lpszVer := lpszVer is String ? StrPtr(lpszVer) : lpszVer
 
-        result := DllCall("AVICAP32.dll\capGetDriverDescriptionW", "uint", wDriverIndex, "ptr", lpszName, "int", cbName, "ptr", lpszVer, "int", cbVer, "ptr")
+        result := DllCall("AVICAP32.dll\capGetDriverDescriptionW", "uint", wDriverIndex, "ptr", lpszName, "int", cbName, "ptr", lpszVer, "int", cbVer, "int")
         return result
     }
 
@@ -28018,7 +28018,7 @@ class Multimedia {
      * @since windows5.0
      */
     static GetOpenFileNamePreviewA(lpofn) {
-        result := DllCall("MSVFW32.dll\GetOpenFileNamePreviewA", "ptr", lpofn, "ptr")
+        result := DllCall("MSVFW32.dll\GetOpenFileNamePreviewA", "ptr", lpofn, "int")
         return result
     }
 
@@ -28030,7 +28030,7 @@ class Multimedia {
      * @since windows5.0
      */
     static GetSaveFileNamePreviewA(lpofn) {
-        result := DllCall("MSVFW32.dll\GetSaveFileNamePreviewA", "ptr", lpofn, "ptr")
+        result := DllCall("MSVFW32.dll\GetSaveFileNamePreviewA", "ptr", lpofn, "int")
         return result
     }
 
@@ -28042,7 +28042,7 @@ class Multimedia {
      * @since windows5.0
      */
     static GetOpenFileNamePreviewW(lpofn) {
-        result := DllCall("MSVFW32.dll\GetOpenFileNamePreviewW", "ptr", lpofn, "ptr")
+        result := DllCall("MSVFW32.dll\GetOpenFileNamePreviewW", "ptr", lpofn, "int")
         return result
     }
 
@@ -28054,7 +28054,7 @@ class Multimedia {
      * @since windows5.0
      */
     static GetSaveFileNamePreviewW(lpofn) {
-        result := DllCall("MSVFW32.dll\GetSaveFileNamePreviewW", "ptr", lpofn, "ptr")
+        result := DllCall("MSVFW32.dll\GetSaveFileNamePreviewW", "ptr", lpofn, "int")
         return result
     }
 
@@ -28088,7 +28088,7 @@ class Multimedia {
      * @see https://docs.microsoft.com/windows/win32/api//mmddk/nf-mmddk-mmtasksignal
      */
     static mmTaskSignal(h) {
-        result := DllCall("WINMM.dll\mmTaskSignal", "uint", h, "ptr")
+        result := DllCall("WINMM.dll\mmTaskSignal", "uint", h, "int")
         return result
     }
 

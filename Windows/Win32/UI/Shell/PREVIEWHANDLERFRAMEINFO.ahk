@@ -23,7 +23,7 @@ class PREVIEWHANDLERFRAMEINFO extends Win32Struct
     haccel{
         get {
             if(!this.HasProp("__haccel"))
-                this.__haccel := HACCEL(this.ptr + 0)
+                this.__haccel := HACCEL(0, this)
             return this.__haccel
         }
     }

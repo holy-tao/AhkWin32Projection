@@ -1,10 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PSTR.ahk
 #Include .\EVENT_TRACE_HEADER.ahk
 #Include .\ETW_BUFFER_CONTEXT.ahk
 #Include .\EVENT_TRACE.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Time\TIME_ZONE_INFORMATION.ahk
 #Include .\TRACE_LOGFILE_HEADER.ahk
@@ -53,12 +51,9 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * The user consuming the events must have permissions to read the file.
      * @type {PSTR}
      */
-    LogFileName{
-        get {
-            if(!this.HasProp("__LogFileName"))
-                this.__LogFileName := PSTR(this.ptr + 0)
-            return this.__LogFileName
-        }
+    LogFileName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -71,12 +66,9 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * <b>Windows XP and Windows 2000:  </b>Anyone can consume real time events.
      * @type {PSTR}
      */
-    LoggerName{
-        get {
-            if(!this.HasProp("__LoggerName"))
-                this.__LoggerName := PSTR(this.ptr + 8)
-            return this.__LoggerName
-        }
+    LoggerName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -121,7 +113,7 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
     CurrentEvent{
         get {
             if(!this.HasProp("__CurrentEvent"))
-                this.__CurrentEvent := EVENT_TRACE(this.ptr + 32)
+                this.__CurrentEvent := EVENT_TRACE(32, this)
             return this.__CurrentEvent
         }
     }
@@ -134,7 +126,7 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
     LogfileHeader{
         get {
             if(!this.HasProp("__LogfileHeader"))
-                this.__LogfileHeader := TRACE_LOGFILE_HEADER(this.ptr + 104)
+                this.__LogfileHeader := TRACE_LOGFILE_HEADER(104, this)
             return this.__LogfileHeader
         }
     }

@@ -26,7 +26,7 @@ class DebugPropertyInfo extends Win32Struct
     m_bstrName{
         get {
             if(!this.HasProp("__m_bstrName"))
-                this.__m_bstrName := BSTR(this.ptr + 8)
+                this.__m_bstrName := BSTR(8, this)
             return this.__m_bstrName
         }
     }
@@ -37,7 +37,7 @@ class DebugPropertyInfo extends Win32Struct
     m_bstrType{
         get {
             if(!this.HasProp("__m_bstrType"))
-                this.__m_bstrType := BSTR(this.ptr + 16)
+                this.__m_bstrType := BSTR(16, this)
             return this.__m_bstrType
         }
     }
@@ -48,7 +48,7 @@ class DebugPropertyInfo extends Win32Struct
     m_bstrValue{
         get {
             if(!this.HasProp("__m_bstrValue"))
-                this.__m_bstrValue := BSTR(this.ptr + 24)
+                this.__m_bstrValue := BSTR(24, this)
             return this.__m_bstrValue
         }
     }
@@ -59,7 +59,7 @@ class DebugPropertyInfo extends Win32Struct
     m_bstrFullName{
         get {
             if(!this.HasProp("__m_bstrFullName"))
-                this.__m_bstrFullName := BSTR(this.ptr + 32)
+                this.__m_bstrFullName := BSTR(32, this)
             return this.__m_bstrFullName
         }
     }

@@ -26,7 +26,7 @@ class PSS_VA_CLONE_INFORMATION extends Win32Struct
     VaCloneHandle{
         get {
             if(!this.HasProp("__VaCloneHandle"))
-                this.__VaCloneHandle := HANDLE(this.ptr + 0)
+                this.__VaCloneHandle := HANDLE(0, this)
             return this.__VaCloneHandle
         }
     }

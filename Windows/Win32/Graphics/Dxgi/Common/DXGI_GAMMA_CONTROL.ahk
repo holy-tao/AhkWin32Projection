@@ -18,7 +18,7 @@ class DXGI_GAMMA_CONTROL extends Win32Struct
     Scale{
         get {
             if(!this.HasProp("__Scale"))
-                this.__Scale := DXGI_RGB(this.ptr + 0)
+                this.__Scale := DXGI_RGB(0, this)
             return this.__Scale
         }
     }
@@ -29,7 +29,7 @@ class DXGI_GAMMA_CONTROL extends Win32Struct
     Offset{
         get {
             if(!this.HasProp("__Offset"))
-                this.__Offset := DXGI_RGB(this.ptr + 16)
+                this.__Offset := DXGI_RGB(16, this)
             return this.__Offset
         }
     }

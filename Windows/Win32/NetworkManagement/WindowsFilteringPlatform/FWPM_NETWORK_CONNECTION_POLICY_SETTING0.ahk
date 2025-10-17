@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\FWP_VALUE0.ahk
 
 /**
@@ -27,7 +26,7 @@ class FWPM_NETWORK_CONNECTION_POLICY_SETTING0 extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := FWP_VALUE0(this.ptr + 8)
+                this.__value := FWP_VALUE0(8, this)
             return this.__value
         }
     }

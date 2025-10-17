@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * A security binding constraint that corresponds to the WS_SSL_TRANSPORT_SECURITY_BINDING.
@@ -22,12 +21,9 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
         /**
          * @type {BOOL}
          */
-        clientCertCredentialRequired{
-            get {
-                if(!this.HasProp("__clientCertCredentialRequired"))
-                    this.__clientCertCredentialRequired := BOOL(this.ptr + 0)
-                return this.__clientCertCredentialRequired
-            }
+        clientCertCredentialRequired {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
         }
     
     }
@@ -43,7 +39,7 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     bindingConstraint{
         get {
             if(!this.HasProp("__bindingConstraint"))
-                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(this.ptr + 0)
+                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(0, this)
             return this.__bindingConstraint
         }
     }
@@ -56,7 +52,7 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     out{
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(this.ptr + 24)
+                this.__out := %this.__Class%._out(24, this)
             return this.__out
         }
     }

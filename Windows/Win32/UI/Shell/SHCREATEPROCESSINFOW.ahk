@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the information needed by SHCreateProcessAsUserW to create a process.
@@ -61,7 +59,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 8)
+                this.__hwnd := HWND(8, this)
             return this.__hwnd
         }
     }
@@ -75,12 +73,9 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * <div> </div>
      * @type {PWSTR}
      */
-    pszFile{
-        get {
-            if(!this.HasProp("__pszFile"))
-                this.__pszFile := PWSTR(this.ptr + 16)
-            return this.__pszFile
-        }
+    pszFile {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -89,12 +84,9 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * A pointer to a null-terminated Unicode string containing the application parameters. The parameters must be separated by spaces.
      * @type {PWSTR}
      */
-    pszParameters{
-        get {
-            if(!this.HasProp("__pszParameters"))
-                this.__pszParameters := PWSTR(this.ptr + 24)
-            return this.__pszParameters
-        }
+    pszParameters {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -103,12 +95,9 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * A null-terminated Unicode string that contains the current directory.
      * @type {PWSTR}
      */
-    pszCurrentDirectory{
-        get {
-            if(!this.HasProp("__pszCurrentDirectory"))
-                this.__pszCurrentDirectory := PWSTR(this.ptr + 32)
-            return this.__pszCurrentDirectory
-        }
+    pszCurrentDirectory {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -120,7 +109,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
     hUserToken{
         get {
             if(!this.HasProp("__hUserToken"))
-                this.__hUserToken := HANDLE(this.ptr + 40)
+                this.__hUserToken := HANDLE(40, this)
             return this.__hUserToken
         }
     }
@@ -157,12 +146,9 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * An indicator for whether the new process inherits handles from the calling process. If set to <b>TRUE</b>, each inheritable open handle in the calling process is inherited by the new process. Inherited handles have the same value and access privileges as the original handles.
      * @type {BOOL}
      */
-    bInheritHandles{
-        get {
-            if(!this.HasProp("__bInheritHandles"))
-                this.__bInheritHandles := BOOL(this.ptr + 64)
-            return this.__bInheritHandles
-        }
+    bInheritHandles {
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
@@ -198,12 +184,8 @@ class SHCREATEPROCESSINFOW extends Win32Struct
         set => NumPut("ptr", value, this, 80)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 88
     }
 }

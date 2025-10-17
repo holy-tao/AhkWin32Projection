@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains format data for a binary stream in an Advanced Streaming Format (ASF) file.
@@ -46,24 +45,18 @@ class MT_ARBITRARY_HEADER extends Win32Struct
      *           Otherwise, samples have variable size.
      * @type {BOOL}
      */
-    bFixedSizeSamples{
-        get {
-            if(!this.HasProp("__bFixedSizeSamples"))
-                this.__bFixedSizeSamples := BOOL(this.ptr + 16)
-            return this.__bFixedSizeSamples
-        }
+    bFixedSizeSamples {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
      * If <b>TRUE</b>, the data in this stream uses temporal compression. Otherwise, samples are independent of each other.
      * @type {BOOL}
      */
-    bTemporalCompression{
-        get {
-            if(!this.HasProp("__bTemporalCompression"))
-                this.__bTemporalCompression := BOOL(this.ptr + 20)
-            return this.__bTemporalCompression
-        }
+    bTemporalCompression {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**

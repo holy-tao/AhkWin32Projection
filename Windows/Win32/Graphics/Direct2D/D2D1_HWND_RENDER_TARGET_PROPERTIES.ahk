@@ -32,7 +32,7 @@ class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
+                this.__hwnd := HWND(0, this)
             return this.__hwnd
         }
     }
@@ -46,7 +46,7 @@ class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct
     pixelSize{
         get {
             if(!this.HasProp("__pixelSize"))
-                this.__pixelSize := D2D_SIZE_U(this.ptr + 8)
+                this.__pixelSize := D2D_SIZE_U(8, this)
             return this.__pixelSize
         }
     }

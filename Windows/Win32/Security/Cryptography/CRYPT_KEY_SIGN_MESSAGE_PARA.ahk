@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NCRYPT_KEY_HANDLE.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
@@ -49,7 +48,7 @@ class CRYPT_KEY_SIGN_MESSAGE_PARA extends Win32Struct
     hNCryptKey{
         get {
             if(!this.HasProp("__hNCryptKey"))
-                this.__hNCryptKey := NCRYPT_KEY_HANDLE(this.ptr + 8)
+                this.__hNCryptKey := NCRYPT_KEY_HANDLE(8, this)
             return this.__hNCryptKey
         }
     }
@@ -70,7 +69,7 @@ class CRYPT_KEY_SIGN_MESSAGE_PARA extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 24)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(24, this)
             return this.__HashAlgorithm
         }
     }
@@ -91,17 +90,13 @@ class CRYPT_KEY_SIGN_MESSAGE_PARA extends Win32Struct
     PubKeyAlgorithm{
         get {
             if(!this.HasProp("__PubKeyAlgorithm"))
-                this.__PubKeyAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 56)
+                this.__PubKeyAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(56, this)
             return this.__PubKeyAlgorithm
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 80
     }
 }

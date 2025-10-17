@@ -53,7 +53,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     QPMap{
         get {
             if(!this.HasProp("__QPMap"))
-                this.__QPMap := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP(this.ptr + 16)
+                this.__QPMap := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP(16, this)
             return this.__QPMap
         }
     }
@@ -64,7 +64,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     DirtyRegions{
         get {
             if(!this.HasProp("__DirtyRegions"))
-                this.__DirtyRegions := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS(this.ptr + 24)
+                this.__DirtyRegions := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS(24, this)
             return this.__DirtyRegions
         }
     }
@@ -75,7 +75,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     MotionSearch{
         get {
             if(!this.HasProp("__MotionSearch"))
-                this.__MotionSearch := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH(this.ptr + 32)
+                this.__MotionSearch := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH(32, this)
             return this.__MotionSearch
         }
     }
@@ -86,7 +86,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     FrameAnalysis{
         get {
             if(!this.HasProp("__FrameAnalysis"))
-                this.__FrameAnalysis := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS(this.ptr + 56)
+                this.__FrameAnalysis := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS(56, this)
             return this.__FrameAnalysis
         }
     }

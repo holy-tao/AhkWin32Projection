@@ -74,7 +74,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     Subresources{
         get {
             if(!this.HasProp("__Subresources"))
-                this.__Subresources := D3D12_BARRIER_SUBRESOURCE_RANGE(this.ptr + 32)
+                this.__Subresources := D3D12_BARRIER_SUBRESOURCE_RANGE(32, this)
             return this.__Subresources
         }
     }

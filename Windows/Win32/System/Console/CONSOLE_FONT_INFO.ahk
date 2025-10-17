@@ -26,7 +26,7 @@ class CONSOLE_FONT_INFO extends Win32Struct
     dwFontSize{
         get {
             if(!this.HasProp("__dwFontSize"))
-                this.__dwFontSize := COORD(this.ptr + 4)
+                this.__dwFontSize := COORD(4, this)
             return this.__dwFontSize
         }
     }

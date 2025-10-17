@@ -18,7 +18,7 @@ class ETW_BUFFER_CALLBACK_INFORMATION extends Win32Struct
     TraceHandle{
         get {
             if(!this.HasProp("__TraceHandle"))
-                this.__TraceHandle := PROCESSTRACE_HANDLE(this.ptr + 0)
+                this.__TraceHandle := PROCESSTRACE_HANDLE(0, this)
             return this.__TraceHandle
         }
     }

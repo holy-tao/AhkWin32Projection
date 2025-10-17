@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSMAN_DATA_TEXT.ahk
 #Include .\WSMAN_DATA_BINARY.ahk
 #Include .\WSMAN_DATA.ahk
@@ -21,7 +20,7 @@ class WSMAN_CREATE_SHELL_DATA extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := WSMAN_DATA(this.ptr + 0)
+                this.__data := WSMAN_DATA(0, this)
             return this.__data
         }
     }

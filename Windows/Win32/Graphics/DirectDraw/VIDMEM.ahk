@@ -50,7 +50,7 @@ class VIDMEM extends Win32Struct
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(this.ptr + 28)
+                this.__ddsCaps := DDSCAPS(28, this)
             return this.__ddsCaps
         }
     }
@@ -61,7 +61,7 @@ class VIDMEM extends Win32Struct
     ddsCapsAlt{
         get {
             if(!this.HasProp("__ddsCapsAlt"))
-                this.__ddsCapsAlt := DDSCAPS(this.ptr + 32)
+                this.__ddsCapsAlt := DDSCAPS(32, this)
             return this.__ddsCapsAlt
         }
     }

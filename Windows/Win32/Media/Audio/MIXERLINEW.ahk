@@ -240,7 +240,7 @@ class MIXERLINEW extends Win32Struct
     Target{
         get {
             if(!this.HasProp("__Target"))
-                this.__Target := %this.__Class%._Target(this.ptr + 208)
+                this.__Target := %this.__Class%._Target(208, this)
             return this.__Target
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * The RPC_C_OPT_COOKIE_AUTH_DESCRIPTOR structure contains a cookie that is inserted into the header of RPC/HTTP traffic.
@@ -31,11 +30,8 @@ class RPC_C_OPT_COOKIE_AUTH_DESCRIPTOR extends Win32Struct
      * A null-terminated string that contains the cookie.
      * @type {PSTR}
      */
-    Buffer{
-        get {
-            if(!this.HasProp("__Buffer"))
-                this.__Buffer := PSTR(this.ptr + 8)
-            return this.__Buffer
-        }
+    Buffer {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

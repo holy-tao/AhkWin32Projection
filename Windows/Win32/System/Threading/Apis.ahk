@@ -1207,7 +1207,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessWorkingSetSize", "ptr", hProcess, "ptr*", lpMinimumWorkingSetSize, "ptr*", lpMaximumWorkingSetSize, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessWorkingSetSize", "ptr", hProcess, "ptr*", lpMinimumWorkingSetSize, "ptr*", lpMaximumWorkingSetSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1245,7 +1245,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessWorkingSetSize", "ptr", hProcess, "ptr", dwMinimumWorkingSetSize, "ptr", dwMaximumWorkingSetSize, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessWorkingSetSize", "ptr", hProcess, "ptr", dwMinimumWorkingSetSize, "ptr", dwMaximumWorkingSetSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1338,7 +1338,7 @@ class Threading {
     static FlsSetValue(dwFlsIndex, lpFlsData) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FlsSetValue", "uint", dwFlsIndex, "ptr", lpFlsData, "ptr")
+        result := DllCall("KERNEL32.dll\FlsSetValue", "uint", dwFlsIndex, "ptr", lpFlsData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1359,7 +1359,7 @@ class Threading {
     static FlsFree(dwFlsIndex) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FlsFree", "uint", dwFlsIndex, "ptr")
+        result := DllCall("KERNEL32.dll\FlsFree", "uint", dwFlsIndex, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1373,7 +1373,7 @@ class Threading {
      * @since windows6.0.6000
      */
     static IsThreadAFiber() {
-        result := DllCall("KERNEL32.dll\IsThreadAFiber", "ptr")
+        result := DllCall("KERNEL32.dll\IsThreadAFiber", "int")
         return result
     }
 
@@ -1471,7 +1471,7 @@ class Threading {
      * @since windows6.1
      */
     static TryAcquireSRWLockExclusive(SRWLock) {
-        result := DllCall("KERNEL32.dll\TryAcquireSRWLockExclusive", "ptr", SRWLock, "ptr")
+        result := DllCall("KERNEL32.dll\TryAcquireSRWLockExclusive", "ptr", SRWLock, "char")
         return result
     }
 
@@ -1485,7 +1485,7 @@ class Threading {
      * @since windows6.1
      */
     static TryAcquireSRWLockShared(SRWLock) {
-        result := DllCall("KERNEL32.dll\TryAcquireSRWLockShared", "ptr", SRWLock, "ptr")
+        result := DllCall("KERNEL32.dll\TryAcquireSRWLockShared", "ptr", SRWLock, "char")
         return result
     }
 
@@ -1556,7 +1556,7 @@ class Threading {
     static InitializeCriticalSectionAndSpinCount(lpCriticalSection, dwSpinCount) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeCriticalSectionAndSpinCount", "ptr", lpCriticalSection, "uint", dwSpinCount, "ptr")
+        result := DllCall("KERNEL32.dll\InitializeCriticalSectionAndSpinCount", "ptr", lpCriticalSection, "uint", dwSpinCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1595,7 +1595,7 @@ class Threading {
     static InitializeCriticalSectionEx(lpCriticalSection, dwSpinCount, Flags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeCriticalSectionEx", "ptr", lpCriticalSection, "uint", dwSpinCount, "uint", Flags, "ptr")
+        result := DllCall("KERNEL32.dll\InitializeCriticalSectionEx", "ptr", lpCriticalSection, "uint", dwSpinCount, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1625,7 +1625,7 @@ class Threading {
      * @since windows5.1.2600
      */
     static TryEnterCriticalSection(lpCriticalSection) {
-        result := DllCall("KERNEL32.dll\TryEnterCriticalSection", "ptr", lpCriticalSection, "ptr")
+        result := DllCall("KERNEL32.dll\TryEnterCriticalSection", "ptr", lpCriticalSection, "int")
         return result
     }
 
@@ -1689,7 +1689,7 @@ class Threading {
     static InitOnceExecuteOnce(InitOnce, InitFn, Parameter, Context) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", "ptr", InitOnce, "ptr", InitFn, "ptr", Parameter, "ptr", Context, "ptr")
+        result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", "ptr", InitOnce, "ptr", InitFn, "ptr", Parameter, "ptr", Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1750,7 +1750,7 @@ class Threading {
     static InitOnceBeginInitialize(lpInitOnce, dwFlags, fPending, lpContext) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceBeginInitialize", "ptr", lpInitOnce, "uint", dwFlags, "ptr", fPending, "ptr", lpContext, "ptr")
+        result := DllCall("KERNEL32.dll\InitOnceBeginInitialize", "ptr", lpInitOnce, "uint", dwFlags, "ptr", fPending, "ptr", lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1801,7 +1801,7 @@ class Threading {
     static InitOnceComplete(lpInitOnce, dwFlags, lpContext) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceComplete", "ptr", lpInitOnce, "uint", dwFlags, "ptr", lpContext, "ptr")
+        result := DllCall("KERNEL32.dll\InitOnceComplete", "ptr", lpInitOnce, "uint", dwFlags, "ptr", lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1882,7 +1882,7 @@ class Threading {
     static SleepConditionVariableCS(ConditionVariable, CriticalSection, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SleepConditionVariableCS", "ptr", ConditionVariable, "ptr", CriticalSection, "uint", dwMilliseconds, "ptr")
+        result := DllCall("KERNEL32.dll\SleepConditionVariableCS", "ptr", ConditionVariable, "ptr", CriticalSection, "uint", dwMilliseconds, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1907,7 +1907,7 @@ class Threading {
     static SleepConditionVariableSRW(ConditionVariable, SRWLock, dwMilliseconds, Flags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SleepConditionVariableSRW", "ptr", ConditionVariable, "ptr", SRWLock, "uint", dwMilliseconds, "uint", Flags, "ptr")
+        result := DllCall("KERNEL32.dll\SleepConditionVariableSRW", "ptr", ConditionVariable, "ptr", SRWLock, "uint", dwMilliseconds, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1937,7 +1937,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetEvent", "ptr", hEvent, "ptr")
+        result := DllCall("KERNEL32.dll\SetEvent", "ptr", hEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1967,7 +1967,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ResetEvent", "ptr", hEvent, "ptr")
+        result := DllCall("KERNEL32.dll\ResetEvent", "ptr", hEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1995,7 +1995,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReleaseSemaphore", "ptr", hSemaphore, "int", lReleaseCount, "int*", lpPreviousCount, "ptr")
+        result := DllCall("KERNEL32.dll\ReleaseSemaphore", "ptr", hSemaphore, "int", lReleaseCount, "int*", lpPreviousCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2020,7 +2020,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ReleaseMutex", "ptr", hMutex, "ptr")
+        result := DllCall("KERNEL32.dll\ReleaseMutex", "ptr", hMutex, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2138,7 +2138,7 @@ class Threading {
      * @since windows5.1.2600
      */
     static SleepEx(dwMilliseconds, bAlertable) {
-        result := DllCall("KERNEL32.dll\SleepEx", "uint", dwMilliseconds, "ptr", bAlertable, "uint")
+        result := DllCall("KERNEL32.dll\SleepEx", "uint", dwMilliseconds, "int", bAlertable, "uint")
         return result
     }
 
@@ -2244,7 +2244,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitForSingleObjectEx", "ptr", hHandle, "uint", dwMilliseconds, "ptr", bAlertable, "uint")
+        result := DllCall("KERNEL32.dll\WaitForSingleObjectEx", "ptr", hHandle, "uint", dwMilliseconds, "int", bAlertable, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2361,7 +2361,7 @@ class Threading {
     static WaitForMultipleObjectsEx(nCount, lpHandles, bWaitAll, dwMilliseconds, bAlertable) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitForMultipleObjectsEx", "uint", nCount, "ptr", lpHandles, "ptr", bWaitAll, "uint", dwMilliseconds, "ptr", bAlertable, "uint")
+        result := DllCall("KERNEL32.dll\WaitForMultipleObjectsEx", "uint", nCount, "ptr", lpHandles, "int", bWaitAll, "uint", dwMilliseconds, "int", bAlertable, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -2407,7 +2407,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateMutexA", "ptr", lpMutexAttributes, "ptr", bInitialOwner, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateMutexA", "ptr", lpMutexAttributes, "int", bInitialOwner, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2454,7 +2454,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateMutexW", "ptr", lpMutexAttributes, "ptr", bInitialOwner, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateMutexW", "ptr", lpMutexAttributes, "int", bInitialOwner, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2491,7 +2491,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenMutexW", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenMutexW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2552,7 +2552,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateEventA", "ptr", lpEventAttributes, "ptr", bManualReset, "ptr", bInitialState, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateEventA", "ptr", lpEventAttributes, "int", bManualReset, "int", bInitialState, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2613,7 +2613,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateEventW", "ptr", lpEventAttributes, "ptr", bManualReset, "ptr", bInitialState, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateEventW", "ptr", lpEventAttributes, "int", bManualReset, "int", bInitialState, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2645,7 +2645,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenEventA", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenEventA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2677,7 +2677,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenEventW", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenEventW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2712,7 +2712,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenSemaphoreW", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenSemaphoreW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2745,7 +2745,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenWaitableTimerW", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpTimerName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenWaitableTimerW", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpTimerName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2781,7 +2781,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetWaitableTimerEx", "ptr", hTimer, "int64*", lpDueTime, "int", lPeriod, "ptr", pfnCompletionRoutine, "ptr", lpArgToCompletionRoutine, "ptr", WakeContext, "uint", TolerableDelay, "ptr")
+        result := DllCall("KERNEL32.dll\SetWaitableTimerEx", "ptr", hTimer, "int64*", lpDueTime, "int", lPeriod, "ptr", pfnCompletionRoutine, "ptr", lpArgToCompletionRoutine, "ptr", WakeContext, "uint", TolerableDelay, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2821,7 +2821,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetWaitableTimer", "ptr", hTimer, "int64*", lpDueTime, "int", lPeriod, "ptr", pfnCompletionRoutine, "ptr", lpArgToCompletionRoutine, "ptr", fResume, "ptr")
+        result := DllCall("KERNEL32.dll\SetWaitableTimer", "ptr", hTimer, "int64*", lpDueTime, "int", lPeriod, "ptr", pfnCompletionRoutine, "ptr", lpArgToCompletionRoutine, "int", fResume, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2846,7 +2846,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CancelWaitableTimer", "ptr", hTimer, "ptr")
+        result := DllCall("KERNEL32.dll\CancelWaitableTimer", "ptr", hTimer, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3251,7 +3251,7 @@ class Threading {
      * @since windows8.0
      */
     static EnterSynchronizationBarrier(lpBarrier, dwFlags) {
-        result := DllCall("KERNEL32.dll\EnterSynchronizationBarrier", "ptr", lpBarrier, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\EnterSynchronizationBarrier", "ptr", lpBarrier, "uint", dwFlags, "int")
         return result
     }
 
@@ -3275,7 +3275,7 @@ class Threading {
     static InitializeSynchronizationBarrier(lpBarrier, lTotalThreads, lSpinCount) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeSynchronizationBarrier", "ptr", lpBarrier, "int", lTotalThreads, "int", lSpinCount, "ptr")
+        result := DllCall("KERNEL32.dll\InitializeSynchronizationBarrier", "ptr", lpBarrier, "int", lTotalThreads, "int", lSpinCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3290,7 +3290,7 @@ class Threading {
      * @since windows8.0
      */
     static DeleteSynchronizationBarrier(lpBarrier) {
-        result := DllCall("KERNEL32.dll\DeleteSynchronizationBarrier", "ptr", lpBarrier, "ptr")
+        result := DllCall("KERNEL32.dll\DeleteSynchronizationBarrier", "ptr", lpBarrier, "int")
         return result
     }
 
@@ -3349,7 +3349,7 @@ class Threading {
     static WaitOnAddress(Address, CompareAddress, AddressSize, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-synch-l1-2-0.dll\WaitOnAddress", "ptr", Address, "ptr", CompareAddress, "ptr", AddressSize, "uint", dwMilliseconds, "ptr")
+        result := DllCall("api-ms-win-core-synch-l1-2-0.dll\WaitOnAddress", "ptr", Address, "ptr", CompareAddress, "ptr", AddressSize, "uint", dwMilliseconds, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3485,7 +3485,7 @@ class Threading {
     static WaitForMultipleObjects(nCount, lpHandles, bWaitAll, dwMilliseconds) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\WaitForMultipleObjects", "uint", nCount, "ptr", lpHandles, "ptr", bWaitAll, "uint", dwMilliseconds, "uint")
+        result := DllCall("KERNEL32.dll\WaitForMultipleObjects", "uint", nCount, "ptr", lpHandles, "int", bWaitAll, "uint", dwMilliseconds, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -3568,7 +3568,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateWaitableTimerW", "ptr", lpTimerAttributes, "ptr", bManualReset, "ptr", lpTimerName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateWaitableTimerW", "ptr", lpTimerAttributes, "int", bManualReset, "ptr", lpTimerName, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -3702,7 +3702,7 @@ class Threading {
     static QueueUserAPC2(ApcRoutine, Thread, Data, Flags) {
         Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
 
-        result := DllCall("KERNEL32.dll\QueueUserAPC2", "ptr", ApcRoutine, "ptr", Thread, "ptr", Data, "int", Flags, "ptr")
+        result := DllCall("KERNEL32.dll\QueueUserAPC2", "ptr", ApcRoutine, "ptr", Thread, "ptr", Data, "int", Flags, "int")
         return result
     }
 
@@ -3730,7 +3730,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessTimes", "ptr", hProcess, "ptr", lpCreationTime, "ptr", lpExitTime, "ptr", lpKernelTime, "ptr", lpUserTime, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessTimes", "ptr", hProcess, "ptr", lpCreationTime, "ptr", lpExitTime, "ptr", lpKernelTime, "ptr", lpUserTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3823,7 +3823,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TerminateProcess", "ptr", hProcess, "uint", uExitCode, "ptr")
+        result := DllCall("KERNEL32.dll\TerminateProcess", "ptr", hProcess, "uint", uExitCode, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3851,7 +3851,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetExitCodeProcess", "ptr", hProcess, "uint*", lpExitCode, "ptr")
+        result := DllCall("KERNEL32.dll\GetExitCodeProcess", "ptr", hProcess, "uint*", lpExitCode, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3868,7 +3868,7 @@ class Threading {
      * @since windows5.1.2600
      */
     static SwitchToThread() {
-        result := DllCall("KERNEL32.dll\SwitchToThread", "ptr")
+        result := DllCall("KERNEL32.dll\SwitchToThread", "int")
         return result
     }
 
@@ -4076,7 +4076,7 @@ class Threading {
     static OpenThread(dwDesiredAccess, bInheritHandle, dwThreadId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenThread", "uint", dwDesiredAccess, "ptr", bInheritHandle, "uint", dwThreadId, "ptr")
+        result := DllCall("KERNEL32.dll\OpenThread", "uint", dwDesiredAccess, "int", bInheritHandle, "uint", dwThreadId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -4104,7 +4104,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadPriority", "ptr", hThread, "int", nPriority, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadPriority", "ptr", hThread, "int", nPriority, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4130,7 +4130,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadPriorityBoost", "ptr", hThread, "ptr", bDisablePriorityBoost, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadPriorityBoost", "ptr", hThread, "int", bDisablePriorityBoost, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4156,7 +4156,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadPriorityBoost", "ptr", hThread, "ptr", pDisablePriorityBoost, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadPriorityBoost", "ptr", hThread, "ptr", pDisablePriorityBoost, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4360,7 +4360,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TerminateThread", "ptr", hThread, "uint", dwExitCode, "ptr")
+        result := DllCall("KERNEL32.dll\TerminateThread", "ptr", hThread, "uint", dwExitCode, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4388,7 +4388,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetExitCodeThread", "ptr", hThread, "uint*", lpExitCode, "ptr")
+        result := DllCall("KERNEL32.dll\GetExitCodeThread", "ptr", hThread, "uint*", lpExitCode, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4506,7 +4506,7 @@ class Threading {
     static TlsSetValue(dwTlsIndex, lpTlsValue) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TlsSetValue", "uint", dwTlsIndex, "ptr", lpTlsValue, "ptr")
+        result := DllCall("KERNEL32.dll\TlsSetValue", "uint", dwTlsIndex, "ptr", lpTlsValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4527,7 +4527,7 @@ class Threading {
     static TlsFree(dwTlsIndex) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TlsFree", "uint", dwTlsIndex, "ptr")
+        result := DllCall("KERNEL32.dll\TlsFree", "uint", dwTlsIndex, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4660,7 +4660,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateProcessA", "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "ptr", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
+        result := DllCall("KERNEL32.dll\CreateProcessA", "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4797,7 +4797,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateProcessW", "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "ptr", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
+        result := DllCall("KERNEL32.dll\CreateProcessW", "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4903,7 +4903,7 @@ class Threading {
     static SetProcessShutdownParameters(dwLevel, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessShutdownParameters", "uint", dwLevel, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessShutdownParameters", "uint", dwLevel, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5087,7 +5087,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateProcessAsUserW", "ptr", hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "ptr", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
+        result := DllCall("ADVAPI32.dll\CreateProcessAsUserW", "ptr", hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5121,7 +5121,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SetThreadToken", "ptr", Thread, "ptr", Token, "ptr")
+        result := DllCall("ADVAPI32.dll\SetThreadToken", "ptr", Thread, "ptr", Token, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5151,7 +5151,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenProcessToken", "ptr", ProcessHandle, "uint", DesiredAccess, "ptr", TokenHandle, "ptr")
+        result := DllCall("ADVAPI32.dll\OpenProcessToken", "ptr", ProcessHandle, "uint", DesiredAccess, "ptr", TokenHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5186,7 +5186,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenThreadToken", "ptr", ThreadHandle, "uint", DesiredAccess, "ptr", OpenAsSelf, "ptr", TokenHandle, "ptr")
+        result := DllCall("ADVAPI32.dll\OpenThreadToken", "ptr", ThreadHandle, "uint", DesiredAccess, "int", OpenAsSelf, "ptr", TokenHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5215,7 +5215,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetPriorityClass", "ptr", hProcess, "uint", dwPriorityClass, "ptr")
+        result := DllCall("KERNEL32.dll\SetPriorityClass", "ptr", hProcess, "uint", dwPriorityClass, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5352,7 +5352,7 @@ class Threading {
     static SetThreadStackGuarantee(StackSizeInBytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadStackGuarantee", "uint*", StackSizeInBytes, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadStackGuarantee", "uint*", StackSizeInBytes, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5466,7 +5466,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitializeProcThreadAttributeList", "ptr", lpAttributeList, "uint", dwAttributeCount, "uint", dwFlags, "ptr*", lpSize, "ptr")
+        result := DllCall("KERNEL32.dll\InitializeProcThreadAttributeList", "ptr", lpAttributeList, "uint", dwAttributeCount, "uint", dwFlags, "ptr*", lpSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5507,7 +5507,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UpdateProcThreadAttribute", "ptr", lpAttributeList, "uint", dwFlags, "ptr", Attribute, "ptr", lpValue, "ptr", cbSize, "ptr", lpPreviousValue, "ptr*", lpReturnSize, "ptr")
+        result := DllCall("KERNEL32.dll\UpdateProcThreadAttribute", "ptr", lpAttributeList, "uint", dwFlags, "ptr", Attribute, "ptr", lpValue, "ptr", cbSize, "ptr", lpPreviousValue, "ptr*", lpReturnSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5533,7 +5533,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessDynamicEHContinuationTargets", "ptr", Process, "ushort", NumberOfTargets, "ptr", Targets, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessDynamicEHContinuationTargets", "ptr", Process, "ushort", NumberOfTargets, "ptr", Targets, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5557,7 +5557,7 @@ class Threading {
     static SetProcessDynamicEnforcedCetCompatibleRanges(Process, NumberOfRanges, Ranges) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        result := DllCall("KERNEL32.dll\SetProcessDynamicEnforcedCetCompatibleRanges", "ptr", Process, "ushort", NumberOfRanges, "ptr", Ranges, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessDynamicEnforcedCetCompatibleRanges", "ptr", Process, "ushort", NumberOfRanges, "ptr", Ranges, "int")
         return result
     }
 
@@ -5577,7 +5577,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessAffinityUpdateMode", "ptr", hProcess, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessAffinityUpdateMode", "ptr", hProcess, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5601,7 +5601,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryProcessAffinityUpdateMode", "ptr", hProcess, "uint*", lpdwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\QueryProcessAffinityUpdateMode", "ptr", hProcess, "uint*", lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5748,7 +5748,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessMitigationPolicy", "ptr", hProcess, "int", MitigationPolicy, "ptr", lpBuffer, "ptr", dwLength, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessMitigationPolicy", "ptr", hProcess, "int", MitigationPolicy, "ptr", lpBuffer, "ptr", dwLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5789,7 +5789,7 @@ class Threading {
     static SetProcessMitigationPolicy(MitigationPolicy, lpBuffer, dwLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessMitigationPolicy", "int", MitigationPolicy, "ptr", lpBuffer, "ptr", dwLength, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessMitigationPolicy", "int", MitigationPolicy, "ptr", lpBuffer, "ptr", dwLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5820,7 +5820,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadTimes", "ptr", hThread, "ptr", lpCreationTime, "ptr", lpExitTime, "ptr", lpKernelTime, "ptr", lpUserTime, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadTimes", "ptr", hThread, "ptr", lpCreationTime, "ptr", lpExitTime, "ptr", lpKernelTime, "ptr", lpUserTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5849,7 +5849,7 @@ class Threading {
     static OpenProcess(dwDesiredAccess, bInheritHandle, dwProcessId) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\OpenProcess", "uint", dwDesiredAccess, "ptr", bInheritHandle, "uint", dwProcessId, "ptr")
+        result := DllCall("KERNEL32.dll\OpenProcess", "uint", dwDesiredAccess, "int", bInheritHandle, "uint", dwProcessId, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5868,7 +5868,7 @@ class Threading {
      * @since windows5.0
      */
     static IsProcessorFeaturePresent(ProcessorFeature) {
-        result := DllCall("KERNEL32.dll\IsProcessorFeaturePresent", "uint", ProcessorFeature, "ptr")
+        result := DllCall("KERNEL32.dll\IsProcessorFeaturePresent", "uint", ProcessorFeature, "int")
         return result
     }
 
@@ -5891,7 +5891,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessHandleCount", "ptr", hProcess, "uint*", pdwHandleCount, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessHandleCount", "ptr", hProcess, "uint*", pdwHandleCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5925,7 +5925,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadIdealProcessorEx", "ptr", hThread, "ptr", lpIdealProcessor, "ptr", lpPreviousIdealProcessor, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadIdealProcessorEx", "ptr", hThread, "ptr", lpIdealProcessor, "ptr", lpPreviousIdealProcessor, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5947,7 +5947,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadIdealProcessorEx", "ptr", hThread, "ptr", lpIdealProcessor, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadIdealProcessorEx", "ptr", hThread, "ptr", lpIdealProcessor, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5984,7 +5984,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessPriorityBoost", "ptr", hProcess, "ptr", pDisablePriorityBoost, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessPriorityBoost", "ptr", hProcess, "ptr", pDisablePriorityBoost, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6008,7 +6008,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessPriorityBoost", "ptr", hProcess, "ptr", bDisablePriorityBoost, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessPriorityBoost", "ptr", hProcess, "int", bDisablePriorityBoost, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6030,7 +6030,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadIOPendingFlag", "ptr", hThread, "ptr", lpIOIsPending, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadIOPendingFlag", "ptr", hThread, "ptr", lpIOIsPending, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6051,7 +6051,7 @@ class Threading {
     static GetSystemTimes(lpIdleTime, lpKernelTime, lpUserTime) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemTimes", "ptr", lpIdleTime, "ptr", lpKernelTime, "ptr", lpUserTime, "ptr")
+        result := DllCall("KERNEL32.dll\GetSystemTimes", "ptr", lpIdleTime, "ptr", lpKernelTime, "ptr", lpUserTime, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6084,7 +6084,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetThreadInformation", "ptr", hThread, "int", ThreadInformationClass, "ptr", ThreadInformation, "uint", ThreadInformationSize, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadInformation", "ptr", hThread, "int", ThreadInformationClass, "ptr", ThreadInformation, "uint", ThreadInformationSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6117,7 +6117,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadInformation", "ptr", hThread, "int", ThreadInformationClass, "ptr", ThreadInformation, "uint", ThreadInformationSize, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadInformation", "ptr", hThread, "int", ThreadInformationClass, "ptr", ThreadInformation, "uint", ThreadInformationSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6137,7 +6137,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsProcessCritical", "ptr", hProcess, "ptr", Critical, "ptr")
+        result := DllCall("KERNEL32.dll\IsProcessCritical", "ptr", hProcess, "ptr", Critical, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6156,7 +6156,7 @@ class Threading {
     static SetProtectedPolicy(PolicyGuid, PolicyValue, OldPolicyValue) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProtectedPolicy", "ptr", PolicyGuid, "ptr", PolicyValue, "ptr*", OldPolicyValue, "ptr")
+        result := DllCall("KERNEL32.dll\SetProtectedPolicy", "ptr", PolicyGuid, "ptr", PolicyValue, "ptr*", OldPolicyValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6172,7 +6172,7 @@ class Threading {
      * @since windows8.1
      */
     static QueryProtectedPolicy(PolicyGuid, PolicyValue) {
-        result := DllCall("KERNEL32.dll\QueryProtectedPolicy", "ptr", PolicyGuid, "ptr*", PolicyValue, "ptr")
+        result := DllCall("KERNEL32.dll\QueryProtectedPolicy", "ptr", PolicyGuid, "ptr*", PolicyValue, "int")
         return result
     }
 
@@ -6245,7 +6245,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessInformation", "ptr", hProcess, "int", ProcessInformationClass, "ptr", ProcessInformation, "uint", ProcessInformationSize, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessInformation", "ptr", hProcess, "int", ProcessInformationClass, "ptr", ProcessInformation, "uint", ProcessInformationSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6313,7 +6313,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessInformation", "ptr", hProcess, "int", ProcessInformationClass, "ptr", ProcessInformation, "uint", ProcessInformationSize, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessInformation", "ptr", hProcess, "int", ProcessInformationClass, "ptr", ProcessInformation, "uint", ProcessInformationSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6332,7 +6332,7 @@ class Threading {
     static GetProcessDefaultCpuSets(Process, CpuSetIds, CpuSetIdCount, RequiredIdCount) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSets", "ptr", Process, "uint*", CpuSetIds, "uint", CpuSetIdCount, "uint*", RequiredIdCount, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSets", "ptr", Process, "uint*", CpuSetIds, "uint", CpuSetIdCount, "uint*", RequiredIdCount, "int")
         return result
     }
 
@@ -6347,7 +6347,7 @@ class Threading {
     static SetProcessDefaultCpuSets(Process, CpuSetIds, CpuSetIdCount) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSets", "ptr", Process, "uint*", CpuSetIds, "uint", CpuSetIdCount, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSets", "ptr", Process, "uint*", CpuSetIds, "uint", CpuSetIdCount, "int")
         return result
     }
 
@@ -6363,7 +6363,7 @@ class Threading {
     static GetThreadSelectedCpuSets(Thread, CpuSetIds, CpuSetIdCount, RequiredIdCount) {
         Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
 
-        result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSets", "ptr", Thread, "uint*", CpuSetIds, "uint", CpuSetIdCount, "uint*", RequiredIdCount, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSets", "ptr", Thread, "uint*", CpuSetIds, "uint", CpuSetIdCount, "uint*", RequiredIdCount, "int")
         return result
     }
 
@@ -6378,7 +6378,7 @@ class Threading {
     static SetThreadSelectedCpuSets(Thread, CpuSetIds, CpuSetIdCount) {
         Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
 
-        result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSets", "ptr", Thread, "uint*", CpuSetIds, "uint", CpuSetIdCount, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSets", "ptr", Thread, "uint*", CpuSetIds, "uint", CpuSetIdCount, "int")
         return result
     }
 
@@ -6524,7 +6524,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateProcessAsUserA", "ptr", hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "ptr", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
+        result := DllCall("ADVAPI32.dll\CreateProcessAsUserA", "ptr", hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, "ptr", lpProcessAttributes, "ptr", lpThreadAttributes, "int", bInheritHandles, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6628,7 +6628,7 @@ class Threading {
     static GetProcessShutdownParameters(lpdwLevel, lpdwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessShutdownParameters", "uint*", lpdwLevel, "uint*", lpdwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessShutdownParameters", "uint*", lpdwLevel, "uint*", lpdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6651,7 +6651,7 @@ class Threading {
     static GetProcessDefaultCpuSetMasks(Process, CpuSetMasks, CpuSetMaskCount, RequiredMaskCount) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSetMasks", "ptr", Process, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ushort*", RequiredMaskCount, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSetMasks", "ptr", Process, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ushort*", RequiredMaskCount, "int")
         return result
     }
 
@@ -6666,7 +6666,7 @@ class Threading {
     static SetProcessDefaultCpuSetMasks(Process, CpuSetMasks, CpuSetMaskCount) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSetMasks", "ptr", Process, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSetMasks", "ptr", Process, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "int")
         return result
     }
 
@@ -6688,7 +6688,7 @@ class Threading {
     static GetThreadSelectedCpuSetMasks(Thread, CpuSetMasks, CpuSetMaskCount, RequiredMaskCount) {
         Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
 
-        result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSetMasks", "ptr", Thread, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ushort*", RequiredMaskCount, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSetMasks", "ptr", Thread, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ushort*", RequiredMaskCount, "int")
         return result
     }
 
@@ -6705,7 +6705,7 @@ class Threading {
     static SetThreadSelectedCpuSetMasks(Thread, CpuSetMasks, CpuSetMaskCount) {
         Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
 
-        result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSetMasks", "ptr", Thread, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSetMasks", "ptr", Thread, "ptr", CpuSetMasks, "ushort", CpuSetMaskCount, "int")
         return result
     }
 
@@ -6793,7 +6793,7 @@ class Threading {
     static QueueUserWorkItem(Function, Context, Flags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueueUserWorkItem", "ptr", Function, "ptr", Context, "uint", Flags, "ptr")
+        result := DllCall("KERNEL32.dll\QueueUserWorkItem", "ptr", Function, "ptr", Context, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6824,7 +6824,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UnregisterWaitEx", "ptr", WaitHandle, "ptr", CompletionEvent, "ptr")
+        result := DllCall("KERNEL32.dll\UnregisterWaitEx", "ptr", WaitHandle, "ptr", CompletionEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6875,7 +6875,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateTimerQueueTimer", "ptr", phNewTimer, "ptr", TimerQueue, "ptr", Callback, "ptr", Parameter, "uint", DueTime, "uint", Period, "uint", Flags, "ptr")
+        result := DllCall("KERNEL32.dll\CreateTimerQueueTimer", "ptr", phNewTimer, "ptr", TimerQueue, "ptr", Callback, "ptr", Parameter, "uint", DueTime, "uint", Period, "uint", Flags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6910,7 +6910,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ChangeTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "uint", DueTime, "uint", Period, "ptr")
+        result := DllCall("KERNEL32.dll\ChangeTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "uint", DueTime, "uint", Period, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6950,7 +6950,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "ptr", CompletionEvent, "ptr")
+        result := DllCall("KERNEL32.dll\DeleteTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "ptr", CompletionEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -6973,7 +6973,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteTimerQueue", "ptr", TimerQueue, "ptr")
+        result := DllCall("KERNEL32.dll\DeleteTimerQueue", "ptr", TimerQueue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7005,7 +7005,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteTimerQueueEx", "ptr", TimerQueue, "ptr", CompletionEvent, "ptr")
+        result := DllCall("KERNEL32.dll\DeleteTimerQueueEx", "ptr", TimerQueue, "ptr", CompletionEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7069,7 +7069,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadpoolThreadMinimum", "ptr", ptpp, "uint", cthrdMic, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadpoolThreadMinimum", "ptr", ptpp, "uint", cthrdMic, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7092,7 +7092,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetThreadpoolStackInformation", "ptr", ptpp, "ptr", ptpsi, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadpoolStackInformation", "ptr", ptpp, "ptr", ptpsi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7115,7 +7115,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryThreadpoolStackInformation", "ptr", ptpp, "ptr", ptpsi, "ptr")
+        result := DllCall("KERNEL32.dll\QueryThreadpoolStackInformation", "ptr", ptpp, "ptr", ptpsi, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7194,7 +7194,7 @@ class Threading {
     static CloseThreadpoolCleanupGroupMembers(ptpcg, fCancelPendingCallbacks, pvCleanupContext) {
         ptpcg := ptpcg is Win32Handle ? NumGet(ptpcg, "ptr") : ptpcg
 
-        DllCall("KERNEL32.dll\CloseThreadpoolCleanupGroupMembers", "ptr", ptpcg, "ptr", fCancelPendingCallbacks, "ptr", pvCleanupContext)
+        DllCall("KERNEL32.dll\CloseThreadpoolCleanupGroupMembers", "ptr", ptpcg, "int", fCancelPendingCallbacks, "ptr", pvCleanupContext)
     }
 
     /**
@@ -7330,7 +7330,7 @@ class Threading {
     static CallbackMayRunLong(pci) {
         pci := pci is Win32Handle ? NumGet(pci, "ptr") : pci
 
-        result := DllCall("KERNEL32.dll\CallbackMayRunLong", "ptr", pci, "ptr")
+        result := DllCall("KERNEL32.dll\CallbackMayRunLong", "ptr", pci, "int")
         return result
     }
 
@@ -7374,7 +7374,7 @@ class Threading {
     static TrySubmitThreadpoolCallback(pfns, pv, pcbe) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\TrySubmitThreadpoolCallback", "ptr", pfns, "ptr", pv, "ptr", pcbe, "ptr")
+        result := DllCall("KERNEL32.dll\TrySubmitThreadpoolCallback", "ptr", pfns, "ptr", pv, "ptr", pcbe, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7441,7 +7441,7 @@ class Threading {
     static WaitForThreadpoolWorkCallbacks(pwk, fCancelPendingCallbacks) {
         pwk := pwk is Win32Handle ? NumGet(pwk, "ptr") : pwk
 
-        DllCall("KERNEL32.dll\WaitForThreadpoolWorkCallbacks", "ptr", pwk, "ptr", fCancelPendingCallbacks)
+        DllCall("KERNEL32.dll\WaitForThreadpoolWorkCallbacks", "ptr", pwk, "int", fCancelPendingCallbacks)
     }
 
     /**
@@ -7532,7 +7532,7 @@ class Threading {
     static IsThreadpoolTimerSet(pti) {
         pti := pti is Win32Handle ? NumGet(pti, "ptr") : pti
 
-        result := DllCall("KERNEL32.dll\IsThreadpoolTimerSet", "ptr", pti, "ptr")
+        result := DllCall("KERNEL32.dll\IsThreadpoolTimerSet", "ptr", pti, "int")
         return result
     }
 
@@ -7552,7 +7552,7 @@ class Threading {
     static WaitForThreadpoolTimerCallbacks(pti, fCancelPendingCallbacks) {
         pti := pti is Win32Handle ? NumGet(pti, "ptr") : pti
 
-        DllCall("KERNEL32.dll\WaitForThreadpoolTimerCallbacks", "ptr", pti, "ptr", fCancelPendingCallbacks)
+        DllCall("KERNEL32.dll\WaitForThreadpoolTimerCallbacks", "ptr", pti, "int", fCancelPendingCallbacks)
     }
 
     /**
@@ -7662,7 +7662,7 @@ class Threading {
     static WaitForThreadpoolWaitCallbacks(pwa, fCancelPendingCallbacks) {
         pwa := pwa is Win32Handle ? NumGet(pwa, "ptr") : pwa
 
-        DllCall("KERNEL32.dll\WaitForThreadpoolWaitCallbacks", "ptr", pwa, "ptr", fCancelPendingCallbacks)
+        DllCall("KERNEL32.dll\WaitForThreadpoolWaitCallbacks", "ptr", pwa, "int", fCancelPendingCallbacks)
     }
 
     /**
@@ -7788,7 +7788,7 @@ class Threading {
     static WaitForThreadpoolIoCallbacks(pio, fCancelPendingCallbacks) {
         pio := pio is Win32Handle ? NumGet(pio, "ptr") : pio
 
-        DllCall("KERNEL32.dll\WaitForThreadpoolIoCallbacks", "ptr", pio, "ptr", fCancelPendingCallbacks)
+        DllCall("KERNEL32.dll\WaitForThreadpoolIoCallbacks", "ptr", pio, "int", fCancelPendingCallbacks)
     }
 
     /**
@@ -7836,7 +7836,7 @@ class Threading {
     static SetThreadpoolTimerEx(pti, pftDueTime, msPeriod, msWindowLength) {
         pti := pti is Win32Handle ? NumGet(pti, "ptr") : pti
 
-        result := DllCall("KERNEL32.dll\SetThreadpoolTimerEx", "ptr", pti, "ptr", pftDueTime, "uint", msPeriod, "uint", msWindowLength, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadpoolTimerEx", "ptr", pti, "ptr", pftDueTime, "uint", msPeriod, "uint", msWindowLength, "int")
         return result
     }
 
@@ -7869,7 +7869,7 @@ class Threading {
         pwa := pwa is Win32Handle ? NumGet(pwa, "ptr") : pwa
         h := h is Win32Handle ? NumGet(h, "ptr") : h
 
-        result := DllCall("KERNEL32.dll\SetThreadpoolWaitEx", "ptr", pwa, "ptr", h, "ptr", pftTimeout, "ptr", Reserved, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadpoolWaitEx", "ptr", pwa, "ptr", h, "ptr", pftTimeout, "ptr", Reserved, "int")
         return result
     }
 
@@ -7891,7 +7891,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsWow64Process", "ptr", hProcess, "ptr", Wow64Process, "ptr")
+        result := DllCall("KERNEL32.dll\IsWow64Process", "ptr", hProcess, "ptr", Wow64Process, "int")
         if(A_LastError)
             throw OSError()
 
@@ -7925,7 +7925,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsWow64Process2", "ptr", hProcess, "ushort*", pProcessMachine, "ushort*", pNativeMachine, "ptr")
+        result := DllCall("KERNEL32.dll\IsWow64Process2", "ptr", hProcess, "ushort*", pProcessMachine, "ushort*", pNativeMachine, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8007,7 +8007,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ClosePrivateNamespace", "ptr", Handle, "uint", Flags, "ptr")
+        result := DllCall("KERNEL32.dll\ClosePrivateNamespace", "ptr", Handle, "uint", Flags, "char")
         if(A_LastError)
             throw OSError()
 
@@ -8044,7 +8044,7 @@ class Threading {
     static AddSIDToBoundaryDescriptor(BoundaryDescriptor, RequiredSid) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AddSIDToBoundaryDescriptor", "ptr", BoundaryDescriptor, "ptr", RequiredSid, "ptr")
+        result := DllCall("KERNEL32.dll\AddSIDToBoundaryDescriptor", "ptr", BoundaryDescriptor, "ptr", RequiredSid, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8082,7 +8082,7 @@ class Threading {
     static GetNumaHighestNodeNumber(HighestNodeNumber) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaHighestNodeNumber", "uint*", HighestNodeNumber, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaHighestNodeNumber", "uint*", HighestNodeNumber, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8102,7 +8102,7 @@ class Threading {
      * @since windows6.1
      */
     static GetNumaNodeProcessorMaskEx(Node, ProcessorMask) {
-        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMaskEx", "ushort", Node, "ptr", ProcessorMask, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMaskEx", "ushort", Node, "ptr", ProcessorMask, "int")
         return result
     }
 
@@ -8128,7 +8128,7 @@ class Threading {
      * @see https://docs.microsoft.com/windows/win32/api//systemtopologyapi/nf-systemtopologyapi-getnumanodeprocessormask2
      */
     static GetNumaNodeProcessorMask2(NodeNumber, ProcessorMasks, ProcessorMaskCount, RequiredMaskCount) {
-        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask2", "ushort", NodeNumber, "ptr", ProcessorMasks, "ushort", ProcessorMaskCount, "ushort*", RequiredMaskCount, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask2", "ushort", NodeNumber, "ptr", ProcessorMasks, "ushort", ProcessorMaskCount, "ushort*", RequiredMaskCount, "int")
         return result
     }
 
@@ -8143,7 +8143,7 @@ class Threading {
      * @since windows6.1
      */
     static GetNumaProximityNodeEx(ProximityId, NodeNumber) {
-        result := DllCall("KERNEL32.dll\GetNumaProximityNodeEx", "uint", ProximityId, "ushort*", NodeNumber, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaProximityNodeEx", "uint", ProximityId, "ushort*", NodeNumber, "int")
         return result
     }
 
@@ -8166,7 +8166,7 @@ class Threading {
     static GetProcessGroupAffinity(hProcess, GroupCount, GroupArray) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
-        result := DllCall("KERNEL32.dll\GetProcessGroupAffinity", "ptr", hProcess, "ushort*", GroupCount, "ushort*", GroupArray, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessGroupAffinity", "ptr", hProcess, "ushort*", GroupCount, "ushort*", GroupArray, "int")
         return result
     }
 
@@ -8186,7 +8186,7 @@ class Threading {
     static GetThreadGroupAffinity(hThread, GroupAffinity) {
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
-        result := DllCall("KERNEL32.dll\GetThreadGroupAffinity", "ptr", hThread, "ptr", GroupAffinity, "ptr")
+        result := DllCall("KERNEL32.dll\GetThreadGroupAffinity", "ptr", hThread, "ptr", GroupAffinity, "int")
         return result
     }
 
@@ -8207,7 +8207,7 @@ class Threading {
     static SetThreadGroupAffinity(hThread, GroupAffinity, PreviousGroupAffinity) {
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
-        result := DllCall("KERNEL32.dll\SetThreadGroupAffinity", "ptr", hThread, "ptr", GroupAffinity, "ptr", PreviousGroupAffinity, "ptr")
+        result := DllCall("KERNEL32.dll\SetThreadGroupAffinity", "ptr", hThread, "ptr", GroupAffinity, "ptr", PreviousGroupAffinity, "int")
         return result
     }
 
@@ -8498,7 +8498,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRevertMmThreadCharacteristics", "ptr", AvrtHandle, "ptr")
+        result := DllCall("AVRT.dll\AvRevertMmThreadCharacteristics", "ptr", AvrtHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8521,7 +8521,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvSetMmThreadPriority", "ptr", AvrtHandle, "int", Priority, "ptr")
+        result := DllCall("AVRT.dll\AvSetMmThreadPriority", "ptr", AvrtHandle, "int", Priority, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8558,7 +8558,7 @@ class Threading {
     static AvRtCreateThreadOrderingGroup(Context, Period, ThreadOrderingGuid, Timeout) {
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroup", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "ptr")
+        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroup", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8598,7 +8598,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExA", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "ptr", TaskName, "ptr")
+        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExA", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "ptr", TaskName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8638,7 +8638,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExW", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "ptr", TaskName, "ptr")
+        result := DllCall("AVRT.dll\AvRtCreateThreadOrderingGroupExW", "ptr", Context, "int64*", Period, "ptr", ThreadOrderingGuid, "int64*", Timeout, "ptr", TaskName, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8660,7 +8660,7 @@ class Threading {
     static AvRtJoinThreadOrderingGroup(Context, ThreadOrderingGuid, Before) {
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtJoinThreadOrderingGroup", "ptr", Context, "ptr", ThreadOrderingGuid, "ptr", Before, "ptr")
+        result := DllCall("AVRT.dll\AvRtJoinThreadOrderingGroup", "ptr", Context, "ptr", ThreadOrderingGuid, "int", Before, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8682,7 +8682,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtWaitOnThreadOrderingGroup", "ptr", Context, "ptr")
+        result := DllCall("AVRT.dll\AvRtWaitOnThreadOrderingGroup", "ptr", Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8704,7 +8704,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtLeaveThreadOrderingGroup", "ptr", Context, "ptr")
+        result := DllCall("AVRT.dll\AvRtLeaveThreadOrderingGroup", "ptr", Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8726,7 +8726,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvRtDeleteThreadOrderingGroup", "ptr", Context, "ptr")
+        result := DllCall("AVRT.dll\AvRtDeleteThreadOrderingGroup", "ptr", Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -8749,7 +8749,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("AVRT.dll\AvQuerySystemResponsiveness", "ptr", AvrtHandle, "uint*", SystemResponsivenessValue, "ptr")
+        result := DllCall("AVRT.dll\AvQuerySystemResponsiveness", "ptr", AvrtHandle, "uint*", SystemResponsivenessValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9330,7 +9330,7 @@ class Threading {
      * @since windows8.1
      */
     static RtwqSetLongRunning(workQueueId, enable) {
-        result := DllCall("RTWorkQ.dll\RtwqSetLongRunning", "uint", workQueueId, "ptr", enable, "int")
+        result := DllCall("RTWorkQ.dll\RtwqSetLongRunning", "uint", workQueueId, "int", enable, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9420,7 +9420,7 @@ class Threading {
      * @since windows5.1.2600
      */
     static AttachThreadInput(idAttach, idAttachTo, fAttach) {
-        result := DllCall("USER32.dll\AttachThreadInput", "uint", idAttach, "uint", idAttachTo, "ptr", fAttach, "ptr")
+        result := DllCall("USER32.dll\AttachThreadInput", "uint", idAttach, "uint", idAttachTo, "int", fAttach, "int")
         return result
     }
 
@@ -9522,7 +9522,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\IsImmersiveProcess", "ptr", hProcess, "ptr")
+        result := DllCall("USER32.dll\IsImmersiveProcess", "ptr", hProcess, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9542,7 +9542,7 @@ class Threading {
     static SetProcessRestrictionExemption(fEnableExemption) {
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetProcessRestrictionExemption", "ptr", fEnableExemption, "ptr")
+        result := DllCall("USER32.dll\SetProcessRestrictionExemption", "int", fEnableExemption, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9573,7 +9573,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessAffinityMask", "ptr", hProcess, "ptr*", lpProcessAffinityMask, "ptr*", lpSystemAffinityMask, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessAffinityMask", "ptr", hProcess, "ptr*", lpProcessAffinityMask, "ptr*", lpSystemAffinityMask, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9603,7 +9603,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessAffinityMask", "ptr", hProcess, "ptr", dwProcessAffinityMask, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessAffinityMask", "ptr", hProcess, "ptr", dwProcessAffinityMask, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9630,7 +9630,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessIoCounters", "ptr", hProcess, "ptr", lpIoCounters, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessIoCounters", "ptr", hProcess, "ptr", lpIoCounters, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9705,7 +9705,7 @@ class Threading {
     static ConvertFiberToThread() {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ConvertFiberToThread", "ptr")
+        result := DllCall("KERNEL32.dll\ConvertFiberToThread", "int")
         if(A_LastError)
             throw OSError()
 
@@ -9842,7 +9842,7 @@ class Threading {
     static CreateUmsCompletionList(UmsCompletionList) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateUmsCompletionList", "ptr", UmsCompletionList, "ptr")
+        result := DllCall("KERNEL32.dll\CreateUmsCompletionList", "ptr", UmsCompletionList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9885,7 +9885,7 @@ class Threading {
     static DequeueUmsCompletionListItems(UmsCompletionList, WaitTimeOut, UmsThreadList) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DequeueUmsCompletionListItems", "ptr", UmsCompletionList, "uint", WaitTimeOut, "ptr", UmsThreadList, "ptr")
+        result := DllCall("KERNEL32.dll\DequeueUmsCompletionListItems", "ptr", UmsCompletionList, "uint", WaitTimeOut, "ptr", UmsThreadList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9905,7 +9905,7 @@ class Threading {
     static GetUmsCompletionListEvent(UmsCompletionList, UmsCompletionEvent) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetUmsCompletionListEvent", "ptr", UmsCompletionList, "ptr", UmsCompletionEvent, "ptr")
+        result := DllCall("KERNEL32.dll\GetUmsCompletionListEvent", "ptr", UmsCompletionList, "ptr", UmsCompletionEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9942,7 +9942,7 @@ class Threading {
     static ExecuteUmsThread(UmsThread) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ExecuteUmsThread", "ptr", UmsThread, "ptr")
+        result := DllCall("KERNEL32.dll\ExecuteUmsThread", "ptr", UmsThread, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9961,7 +9961,7 @@ class Threading {
     static UmsThreadYield(SchedulerParam) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UmsThreadYield", "ptr", SchedulerParam, "ptr")
+        result := DllCall("KERNEL32.dll\UmsThreadYield", "ptr", SchedulerParam, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9980,7 +9980,7 @@ class Threading {
     static DeleteUmsCompletionList(UmsCompletionList) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteUmsCompletionList", "ptr", UmsCompletionList, "ptr")
+        result := DllCall("KERNEL32.dll\DeleteUmsCompletionList", "ptr", UmsCompletionList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10073,7 +10073,7 @@ class Threading {
     static QueryUmsThreadInformation(UmsThread, UmsThreadInfoClass, UmsThreadInformation, UmsThreadInformationLength, ReturnLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryUmsThreadInformation", "ptr", UmsThread, "int", UmsThreadInfoClass, "ptr", UmsThreadInformation, "uint", UmsThreadInformationLength, "uint*", ReturnLength, "ptr")
+        result := DllCall("KERNEL32.dll\QueryUmsThreadInformation", "ptr", UmsThread, "int", UmsThreadInfoClass, "ptr", UmsThreadInformation, "uint", UmsThreadInformationLength, "uint*", ReturnLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10124,7 +10124,7 @@ class Threading {
     static SetUmsThreadInformation(UmsThread, UmsThreadInfoClass, UmsThreadInformation, UmsThreadInformationLength) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetUmsThreadInformation", "ptr", UmsThread, "int", UmsThreadInfoClass, "ptr", UmsThreadInformation, "uint", UmsThreadInformationLength, "ptr")
+        result := DllCall("KERNEL32.dll\SetUmsThreadInformation", "ptr", UmsThread, "int", UmsThreadInfoClass, "ptr", UmsThreadInformation, "uint", UmsThreadInformationLength, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10143,7 +10143,7 @@ class Threading {
     static DeleteUmsThreadContext(UmsThread) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeleteUmsThreadContext", "ptr", UmsThread, "ptr")
+        result := DllCall("KERNEL32.dll\DeleteUmsThreadContext", "ptr", UmsThread, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10180,7 +10180,7 @@ class Threading {
     static CreateUmsThreadContext(lpUmsThread) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateUmsThreadContext", "ptr", lpUmsThread, "ptr")
+        result := DllCall("KERNEL32.dll\CreateUmsThreadContext", "ptr", lpUmsThread, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10199,7 +10199,7 @@ class Threading {
     static EnterUmsSchedulingMode(SchedulerStartupInfo) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnterUmsSchedulingMode", "ptr", SchedulerStartupInfo, "ptr")
+        result := DllCall("KERNEL32.dll\EnterUmsSchedulingMode", "ptr", SchedulerStartupInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10217,7 +10217,7 @@ class Threading {
     static GetUmsSystemThreadInformation(ThreadHandle, SystemThreadInfo) {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
 
-        result := DllCall("KERNEL32.dll\GetUmsSystemThreadInformation", "ptr", ThreadHandle, "ptr", SystemThreadInfo, "ptr")
+        result := DllCall("KERNEL32.dll\GetUmsSystemThreadInformation", "ptr", ThreadHandle, "ptr", SystemThreadInfo, "int")
         return result
     }
 
@@ -10265,7 +10265,7 @@ class Threading {
     static SetProcessDEPPolicy(dwFlags) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SetProcessDEPPolicy", "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\SetProcessDEPPolicy", "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10330,7 +10330,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessDEPPolicy", "ptr", hProcess, "uint*", lpFlags, "ptr", lpPermanent, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcessDEPPolicy", "ptr", hProcess, "uint*", lpFlags, "ptr", lpPermanent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10360,7 +10360,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\PulseEvent", "ptr", hEvent, "ptr")
+        result := DllCall("KERNEL32.dll\PulseEvent", "ptr", hEvent, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10548,7 +10548,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SignalObjectAndWait", "ptr", hObjectToSignal, "ptr", hObjectToWaitOn, "uint", dwMilliseconds, "ptr", bAlertable, "uint")
+        result := DllCall("KERNEL32.dll\SignalObjectAndWait", "ptr", hObjectToSignal, "ptr", hObjectToWaitOn, "uint", dwMilliseconds, "int", bAlertable, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -10608,7 +10608,7 @@ class Threading {
     static CreateWaitableTimerA(lpTimerAttributes, bManualReset, lpTimerName) {
         lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
-        result := DllCall("KERNEL32.dll\CreateWaitableTimerA", "ptr", lpTimerAttributes, "ptr", bManualReset, "ptr", lpTimerName, "ptr")
+        result := DllCall("KERNEL32.dll\CreateWaitableTimerA", "ptr", lpTimerAttributes, "int", bManualReset, "ptr", lpTimerName, "ptr")
         return HANDLE({Value: result}, True)
     }
 
@@ -10622,7 +10622,7 @@ class Threading {
     static OpenWaitableTimerA(dwDesiredAccess, bInheritHandle, lpTimerName) {
         lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
-        result := DllCall("KERNEL32.dll\OpenWaitableTimerA", "uint", dwDesiredAccess, "ptr", bInheritHandle, "ptr", lpTimerName, "ptr")
+        result := DllCall("KERNEL32.dll\OpenWaitableTimerA", "uint", dwDesiredAccess, "int", bInheritHandle, "ptr", lpTimerName, "ptr")
         return HANDLE({Value: result}, True)
     }
 
@@ -10709,7 +10709,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryFullProcessImageNameA", "ptr", hProcess, "uint", dwFlags, "ptr", lpExeName, "uint*", lpdwSize, "ptr")
+        result := DllCall("KERNEL32.dll\QueryFullProcessImageNameA", "ptr", hProcess, "uint", dwFlags, "ptr", lpExeName, "uint*", lpdwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10736,7 +10736,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryFullProcessImageNameW", "ptr", hProcess, "uint", dwFlags, "ptr", lpExeName, "uint*", lpdwSize, "ptr")
+        result := DllCall("KERNEL32.dll\QueryFullProcessImageNameW", "ptr", hProcess, "uint", dwFlags, "ptr", lpExeName, "uint*", lpdwSize, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10882,7 +10882,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateProcessWithLogonW", "ptr", lpUsername, "ptr", lpDomain, "ptr", lpPassword, "uint", dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
+        result := DllCall("ADVAPI32.dll\CreateProcessWithLogonW", "ptr", lpUsername, "ptr", lpDomain, "ptr", lpPassword, "uint", dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11012,7 +11012,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateProcessWithTokenW", "ptr", hToken, "uint", dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "ptr")
+        result := DllCall("ADVAPI32.dll\CreateProcessWithTokenW", "ptr", hToken, "uint", dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, "uint", dwCreationFlags, "ptr", lpEnvironment, "ptr", lpCurrentDirectory, "ptr", lpStartupInfo, "ptr", lpProcessInformation, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11049,7 +11049,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RegisterWaitForSingleObject", "ptr", phNewWaitObject, "ptr", hObject, "ptr", Callback, "ptr", Context, "uint", dwMilliseconds, "uint", dwFlags, "ptr")
+        result := DllCall("KERNEL32.dll\RegisterWaitForSingleObject", "ptr", phNewWaitObject, "ptr", hObject, "ptr", Callback, "ptr", Context, "uint", dwMilliseconds, "uint", dwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11072,7 +11072,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\UnregisterWait", "ptr", WaitHandle, "ptr")
+        result := DllCall("KERNEL32.dll\UnregisterWait", "ptr", WaitHandle, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11092,7 +11092,7 @@ class Threading {
     static SetTimerQueueTimer(TimerQueue, Callback, Parameter, DueTime, Period, PreferIo) {
         TimerQueue := TimerQueue is Win32Handle ? NumGet(TimerQueue, "ptr") : TimerQueue
 
-        result := DllCall("KERNEL32.dll\SetTimerQueueTimer", "ptr", TimerQueue, "ptr", Callback, "ptr", Parameter, "uint", DueTime, "uint", Period, "ptr", PreferIo, "ptr")
+        result := DllCall("KERNEL32.dll\SetTimerQueueTimer", "ptr", TimerQueue, "ptr", Callback, "ptr", Parameter, "uint", DueTime, "uint", Period, "int", PreferIo, "ptr")
         return HANDLE({Value: result}, True)
     }
 
@@ -11106,7 +11106,7 @@ class Threading {
         TimerQueue := TimerQueue is Win32Handle ? NumGet(TimerQueue, "ptr") : TimerQueue
         Timer := Timer is Win32Handle ? NumGet(Timer, "ptr") : Timer
 
-        result := DllCall("KERNEL32.dll\CancelTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "ptr")
+        result := DllCall("KERNEL32.dll\CancelTimerQueueTimer", "ptr", TimerQueue, "ptr", Timer, "int")
         return result
     }
 
@@ -11195,7 +11195,7 @@ class Threading {
     static AddIntegrityLabelToBoundaryDescriptor(BoundaryDescriptor, IntegrityLabel) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AddIntegrityLabelToBoundaryDescriptor", "ptr", BoundaryDescriptor, "ptr", IntegrityLabel, "ptr")
+        result := DllCall("KERNEL32.dll\AddIntegrityLabelToBoundaryDescriptor", "ptr", BoundaryDescriptor, "ptr", IntegrityLabel, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11282,7 +11282,7 @@ class Threading {
     static GetNumaProcessorNode(Processor, NodeNumber) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaProcessorNode", "char", Processor, "char*", NodeNumber, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaProcessorNode", "char", Processor, "char*", NodeNumber, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11304,7 +11304,7 @@ class Threading {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaNodeNumberFromHandle", "ptr", hFile, "ushort*", NodeNumber, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaNodeNumberFromHandle", "ptr", hFile, "ushort*", NodeNumber, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11324,7 +11324,7 @@ class Threading {
     static GetNumaProcessorNodeEx(Processor, NodeNumber) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaProcessorNodeEx", "ptr", Processor, "ushort*", NodeNumber, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaProcessorNodeEx", "ptr", Processor, "ushort*", NodeNumber, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11349,7 +11349,7 @@ class Threading {
     static GetNumaNodeProcessorMask(Node, ProcessorMask) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask", "char", Node, "uint*", ProcessorMask, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask", "char", Node, "uint*", ProcessorMask, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11370,7 +11370,7 @@ class Threading {
     static GetNumaAvailableMemoryNode(Node, AvailableBytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNode", "char", Node, "uint*", AvailableBytes, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNode", "char", Node, "uint*", AvailableBytes, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11390,7 +11390,7 @@ class Threading {
     static GetNumaAvailableMemoryNodeEx(Node, AvailableBytes) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNodeEx", "ushort", Node, "uint*", AvailableBytes, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaAvailableMemoryNodeEx", "ushort", Node, "uint*", AvailableBytes, "int")
         if(A_LastError)
             throw OSError()
 
@@ -11410,7 +11410,7 @@ class Threading {
     static GetNumaProximityNode(ProximityId, NodeNumber) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetNumaProximityNode", "uint", ProximityId, "char*", NodeNumber, "ptr")
+        result := DllCall("KERNEL32.dll\GetNumaProximityNode", "uint", ProximityId, "char*", NodeNumber, "int")
         if(A_LastError)
             throw OSError()
 

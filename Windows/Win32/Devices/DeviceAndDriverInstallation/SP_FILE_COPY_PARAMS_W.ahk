@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
@@ -32,78 +31,57 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    SourceRootPath{
-        get {
-            if(!this.HasProp("__SourceRootPath"))
-                this.__SourceRootPath := PWSTR(this.ptr + 16)
-            return this.__SourceRootPath
-        }
+    SourceRootPath {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    SourcePath{
-        get {
-            if(!this.HasProp("__SourcePath"))
-                this.__SourcePath := PWSTR(this.ptr + 24)
-            return this.__SourcePath
-        }
+    SourcePath {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    SourceFilename{
-        get {
-            if(!this.HasProp("__SourceFilename"))
-                this.__SourceFilename := PWSTR(this.ptr + 32)
-            return this.__SourceFilename
-        }
+    SourceFilename {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    SourceDescription{
-        get {
-            if(!this.HasProp("__SourceDescription"))
-                this.__SourceDescription := PWSTR(this.ptr + 40)
-            return this.__SourceDescription
-        }
+    SourceDescription {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {PWSTR}
      */
-    SourceTagfile{
-        get {
-            if(!this.HasProp("__SourceTagfile"))
-                this.__SourceTagfile := PWSTR(this.ptr + 48)
-            return this.__SourceTagfile
-        }
+    SourceTagfile {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {PWSTR}
      */
-    TargetDirectory{
-        get {
-            if(!this.HasProp("__TargetDirectory"))
-                this.__TargetDirectory := PWSTR(this.ptr + 56)
-            return this.__TargetDirectory
-        }
+    TargetDirectory {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {PWSTR}
      */
-    TargetFilename{
-        get {
-            if(!this.HasProp("__TargetFilename"))
-                this.__TargetFilename := PWSTR(this.ptr + 64)
-            return this.__TargetFilename
-        }
+    TargetFilename {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
@@ -125,20 +103,13 @@ class SP_FILE_COPY_PARAMS_W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    SecurityDescriptor{
-        get {
-            if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := PWSTR(this.ptr + 88)
-            return this.__SecurityDescriptor
-        }
+    SecurityDescriptor {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 96
     }
 }

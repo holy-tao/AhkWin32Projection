@@ -37,7 +37,7 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS extends Win32Struct
     TargetRectangle{
         get {
             if(!this.HasProp("__TargetRectangle"))
-                this.__TargetRectangle := RECT(this.ptr + 16)
+                this.__TargetRectangle := RECT(16, this)
             return this.__TargetRectangle
         }
     }

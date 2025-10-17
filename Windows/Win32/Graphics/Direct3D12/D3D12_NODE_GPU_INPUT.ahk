@@ -34,7 +34,7 @@ class D3D12_NODE_GPU_INPUT extends Win32Struct
     Records{
         get {
             if(!this.HasProp("__Records"))
-                this.__Records := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(this.ptr + 8)
+                this.__Records := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(8, this)
             return this.__Records
         }
     }

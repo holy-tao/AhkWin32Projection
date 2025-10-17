@@ -3,7 +3,6 @@
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
 #Include .\D3D12_VIDEO_ENCODER_HEAP_DESC1.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
@@ -21,7 +20,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE1 extends Win32Struct
     HeapDesc{
         get {
             if(!this.HasProp("__HeapDesc"))
-                this.__HeapDesc := D3D12_VIDEO_ENCODER_HEAP_DESC1(this.ptr + 0)
+                this.__HeapDesc := D3D12_VIDEO_ENCODER_HEAP_DESC1(0, this)
             return this.__HeapDesc
         }
     }
@@ -29,12 +28,9 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE1 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    IsSupported{
-        get {
-            if(!this.HasProp("__IsSupported"))
-                this.__IsSupported := BOOL(this.ptr + 72)
-            return this.__IsSupported
-        }
+    IsSupported {
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**

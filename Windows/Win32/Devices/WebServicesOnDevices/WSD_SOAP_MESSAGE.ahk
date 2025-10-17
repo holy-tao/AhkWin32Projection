@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WSD_HEADER_RELATESTO.ahk
 #Include .\WSD_SOAP_HEADER.ahk
 
@@ -23,7 +22,7 @@ class WSD_SOAP_MESSAGE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := WSD_SOAP_HEADER(this.ptr + 0)
+                this.__Header := WSD_SOAP_HEADER(0, this)
             return this.__Header
         }
     }

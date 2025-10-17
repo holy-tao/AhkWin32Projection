@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains information about media specific module (MSM) connection related notifications.
@@ -51,7 +50,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(this.ptr + 520)
+                this.__dot11Ssid := DOT11_SSID(520, this)
             return this.__dot11Ssid
         }
     }
@@ -81,12 +80,9 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * Indicates whether security is enabled for this connection.  If <b>TRUE</b>, security is enabled.
      * @type {BOOL}
      */
-    bSecurityEnabled{
-        get {
-            if(!this.HasProp("__bSecurityEnabled"))
-                this.__bSecurityEnabled := BOOL(this.ptr + 568)
-            return this.__bSecurityEnabled
-        }
+    bSecurityEnabled {
+        get => NumGet(this, 568, "int")
+        set => NumPut("int", value, this, 568)
     }
 
     /**
@@ -95,24 +91,18 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * After the first peer joins the network, the interface state of the machine that created the ad hoc network changes from wlan_interface_state_ad_hoc_network_formed to wlan_interface_state_connected.
      * @type {BOOL}
      */
-    bFirstPeer{
-        get {
-            if(!this.HasProp("__bFirstPeer"))
-                this.__bFirstPeer := BOOL(this.ptr + 572)
-            return this.__bFirstPeer
-        }
+    bFirstPeer {
+        get => NumGet(this, 572, "int")
+        set => NumPut("int", value, this, 572)
     }
 
     /**
      * Indicates whether the peer is the last to leave the ad hoc network created by the machine. If <b>TRUE</b>, the peer is the last to leave. After the last peer leaves the network, the interface state of the machine that created the ad hoc network changes from wlan_interface_state_connected to wlan_interface_state_ad_hoc_network_formed.
      * @type {BOOL}
      */
-    bLastPeer{
-        get {
-            if(!this.HasProp("__bLastPeer"))
-                this.__bLastPeer := BOOL(this.ptr + 576)
-            return this.__bLastPeer
-        }
+    bLastPeer {
+        get => NumGet(this, 576, "int")
+        set => NumPut("int", value, this, 576)
     }
 
     /**

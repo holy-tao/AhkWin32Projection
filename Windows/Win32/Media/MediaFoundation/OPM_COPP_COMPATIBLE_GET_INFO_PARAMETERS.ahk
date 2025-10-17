@@ -26,7 +26,7 @@ class OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS extends Win32Struct
     rnRandomNumber{
         get {
             if(!this.HasProp("__rnRandomNumber"))
-                this.__rnRandomNumber := OPM_RANDOM_NUMBER(this.ptr + 0)
+                this.__rnRandomNumber := OPM_RANDOM_NUMBER(0, this)
             return this.__rnRandomNumber
         }
     }

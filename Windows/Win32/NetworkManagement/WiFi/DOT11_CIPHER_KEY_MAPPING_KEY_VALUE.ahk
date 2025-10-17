@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -42,23 +41,17 @@ class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    bDelete{
-        get {
-            if(!this.HasProp("__bDelete"))
-                this.__bDelete := BOOLEAN(this.ptr + 16)
-            return this.__bDelete
-        }
+    bDelete {
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {BOOLEAN}
      */
-    bStatic{
-        get {
-            if(!this.HasProp("__bStatic"))
-                this.__bStatic := BOOLEAN(this.ptr + 17)
-            return this.__bStatic
-        }
+    bStatic {
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 
     /**

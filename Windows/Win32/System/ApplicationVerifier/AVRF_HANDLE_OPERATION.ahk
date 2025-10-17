@@ -66,7 +66,7 @@ class AVRF_HANDLE_OPERATION extends Win32Struct
     BackTraceInformation{
         get {
             if(!this.HasProp("__BackTraceInformation"))
-                this.__BackTraceInformation := AVRF_BACKTRACE_INFORMATION(this.ptr + 24)
+                this.__BackTraceInformation := AVRF_BACKTRACE_INFORMATION(24, this)
             return this.__BackTraceInformation
         }
     }

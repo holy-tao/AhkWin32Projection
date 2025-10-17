@@ -22,7 +22,7 @@ class RSVP_POLICY_INFO extends Win32Struct
     ObjectHdr{
         get {
             if(!this.HasProp("__ObjectHdr"))
-                this.__ObjectHdr := QOS_OBJECT_HDR(this.ptr + 0)
+                this.__ObjectHdr := QOS_OBJECT_HDR(0, this)
             return this.__ObjectHdr
         }
     }

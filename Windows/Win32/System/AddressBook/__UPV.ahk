@@ -2,9 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\SBinary.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\SShortArray.ahk
 #Include .\SLongArray.ahk
 #Include .\SRealArray.ahk
@@ -82,7 +80,7 @@ class __UPV extends Win32Struct
     cur{
         get {
             if(!this.HasProp("__cur"))
-                this.__cur := CY(this.ptr + 0)
+                this.__cur := CY(0, this)
             return this.__cur
         }
     }
@@ -101,7 +99,7 @@ class __UPV extends Win32Struct
     ft{
         get {
             if(!this.HasProp("__ft"))
-                this.__ft := FILETIME(this.ptr + 0)
+                this.__ft := FILETIME(0, this)
             return this.__ft
         }
     }
@@ -109,12 +107,9 @@ class __UPV extends Win32Struct
     /**
      * @type {PSTR}
      */
-    lpszA{
-        get {
-            if(!this.HasProp("__lpszA"))
-                this.__lpszA := PSTR(this.ptr + 0)
-            return this.__lpszA
-        }
+    lpszA {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -123,7 +118,7 @@ class __UPV extends Win32Struct
     bin{
         get {
             if(!this.HasProp("__bin"))
-                this.__bin := SBinary(this.ptr + 0)
+                this.__bin := SBinary(0, this)
             return this.__bin
         }
     }
@@ -131,12 +126,9 @@ class __UPV extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpszW{
-        get {
-            if(!this.HasProp("__lpszW"))
-                this.__lpszW := PWSTR(this.ptr + 0)
-            return this.__lpszW
-        }
+    lpszW {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -161,7 +153,7 @@ class __UPV extends Win32Struct
     MVi{
         get {
             if(!this.HasProp("__MVi"))
-                this.__MVi := SShortArray(this.ptr + 0)
+                this.__MVi := SShortArray(0, this)
             return this.__MVi
         }
     }
@@ -172,7 +164,7 @@ class __UPV extends Win32Struct
     MVl{
         get {
             if(!this.HasProp("__MVl"))
-                this.__MVl := SLongArray(this.ptr + 0)
+                this.__MVl := SLongArray(0, this)
             return this.__MVl
         }
     }
@@ -183,7 +175,7 @@ class __UPV extends Win32Struct
     MVflt{
         get {
             if(!this.HasProp("__MVflt"))
-                this.__MVflt := SRealArray(this.ptr + 0)
+                this.__MVflt := SRealArray(0, this)
             return this.__MVflt
         }
     }
@@ -194,7 +186,7 @@ class __UPV extends Win32Struct
     MVdbl{
         get {
             if(!this.HasProp("__MVdbl"))
-                this.__MVdbl := SDoubleArray(this.ptr + 0)
+                this.__MVdbl := SDoubleArray(0, this)
             return this.__MVdbl
         }
     }
@@ -205,7 +197,7 @@ class __UPV extends Win32Struct
     MVcur{
         get {
             if(!this.HasProp("__MVcur"))
-                this.__MVcur := SCurrencyArray(this.ptr + 0)
+                this.__MVcur := SCurrencyArray(0, this)
             return this.__MVcur
         }
     }
@@ -216,7 +208,7 @@ class __UPV extends Win32Struct
     MVat{
         get {
             if(!this.HasProp("__MVat"))
-                this.__MVat := SAppTimeArray(this.ptr + 0)
+                this.__MVat := SAppTimeArray(0, this)
             return this.__MVat
         }
     }
@@ -227,7 +219,7 @@ class __UPV extends Win32Struct
     MVft{
         get {
             if(!this.HasProp("__MVft"))
-                this.__MVft := SDateTimeArray(this.ptr + 0)
+                this.__MVft := SDateTimeArray(0, this)
             return this.__MVft
         }
     }
@@ -238,7 +230,7 @@ class __UPV extends Win32Struct
     MVbin{
         get {
             if(!this.HasProp("__MVbin"))
-                this.__MVbin := SBinaryArray(this.ptr + 0)
+                this.__MVbin := SBinaryArray(0, this)
             return this.__MVbin
         }
     }
@@ -249,7 +241,7 @@ class __UPV extends Win32Struct
     MVszA{
         get {
             if(!this.HasProp("__MVszA"))
-                this.__MVszA := SLPSTRArray(this.ptr + 0)
+                this.__MVszA := SLPSTRArray(0, this)
             return this.__MVszA
         }
     }
@@ -260,7 +252,7 @@ class __UPV extends Win32Struct
     MVszW{
         get {
             if(!this.HasProp("__MVszW"))
-                this.__MVszW := SWStringArray(this.ptr + 0)
+                this.__MVszW := SWStringArray(0, this)
             return this.__MVszW
         }
     }
@@ -271,7 +263,7 @@ class __UPV extends Win32Struct
     MVguid{
         get {
             if(!this.HasProp("__MVguid"))
-                this.__MVguid := SGuidArray(this.ptr + 0)
+                this.__MVguid := SGuidArray(0, this)
             return this.__MVguid
         }
     }
@@ -282,7 +274,7 @@ class __UPV extends Win32Struct
     MVli{
         get {
             if(!this.HasProp("__MVli"))
-                this.__MVli := SLargeIntegerArray(this.ptr + 0)
+                this.__MVli := SLargeIntegerArray(0, this)
             return this.__MVli
         }
     }

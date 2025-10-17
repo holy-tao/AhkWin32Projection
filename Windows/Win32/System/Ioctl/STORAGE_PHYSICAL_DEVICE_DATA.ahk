@@ -57,7 +57,7 @@ class STORAGE_PHYSICAL_DEVICE_DATA extends Win32Struct
     SpecVersion{
         get {
             if(!this.HasProp("__SpecVersion"))
-                this.__SpecVersion := STORAGE_SPEC_VERSION(this.ptr + 16)
+                this.__SpecVersion := STORAGE_SPEC_VERSION(16, this)
             return this.__SpecVersion
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\WS_STRING.ahk
 #Include .\WS_ENDPOINT_ADDRESS.ahk
 
@@ -23,7 +22,7 @@ class WS_METADATA_ENDPOINT extends Win32Struct
     endpointAddress{
         get {
             if(!this.HasProp("__endpointAddress"))
-                this.__endpointAddress := WS_ENDPOINT_ADDRESS(this.ptr + 0)
+                this.__endpointAddress := WS_ENDPOINT_ADDRESS(0, this)
             return this.__endpointAddress
         }
     }

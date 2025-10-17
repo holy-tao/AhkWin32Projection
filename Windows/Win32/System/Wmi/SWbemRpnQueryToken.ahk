@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\SWbemRpnConst.ahk
 
 /**
@@ -86,7 +84,7 @@ class SWbemRpnQueryToken extends Win32Struct
     m_Const{
         get {
             if(!this.HasProp("__m_Const"))
-                this.__m_Const := SWbemRpnConst(this.ptr + 40)
+                this.__m_Const := SWbemRpnConst(40, this)
             return this.__m_Const
         }
     }
@@ -107,7 +105,7 @@ class SWbemRpnQueryToken extends Win32Struct
     m_Const2{
         get {
             if(!this.HasProp("__m_Const2"))
-                this.__m_Const2 := SWbemRpnConst(this.ptr + 96)
+                this.__m_Const2 := SWbemRpnConst(96, this)
             return this.__m_Const2
         }
     }
@@ -116,23 +114,17 @@ class SWbemRpnQueryToken extends Win32Struct
      * Specifies a function on the right of the operator in a WHERE clause. If there is no function on the right of the operator in this token, this field is <b>NULL</b>.
      * @type {PWSTR}
      */
-    m_pszRightFunc{
-        get {
-            if(!this.HasProp("__m_pszRightFunc"))
-                this.__m_pszRightFunc := PWSTR(this.ptr + 144)
-            return this.__m_pszRightFunc
-        }
+    m_pszRightFunc {
+        get => NumGet(this, 144, "ptr")
+        set => NumPut("ptr", value, this, 144)
     }
 
     /**
      * Specifies a function on the left of the operator in a WHERE clause. If there is no function on the left of the operator in this token, this field is <b>NULL</b>.
      * @type {PWSTR}
      */
-    m_pszLeftFunc{
-        get {
-            if(!this.HasProp("__m_pszLeftFunc"))
-                this.__m_pszLeftFunc := PWSTR(this.ptr + 152)
-            return this.__m_pszLeftFunc
-        }
+    m_pszLeftFunc {
+        get => NumGet(this, 152, "ptr")
+        set => NumPut("ptr", value, this, 152)
     }
 }

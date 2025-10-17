@@ -354,7 +354,7 @@ class ProjectedFileSystem {
         fileNameToCheck := fileNameToCheck is String ? StrPtr(fileNameToCheck) : fileNameToCheck
         pattern := pattern is String ? StrPtr(pattern) : pattern
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjFileNameMatch", "ptr", fileNameToCheck, "ptr", pattern, "ptr")
+        result := DllCall("PROJECTEDFSLIB.dll\PrjFileNameMatch", "ptr", fileNameToCheck, "ptr", pattern, "char")
         return result
     }
 
@@ -388,7 +388,7 @@ class ProjectedFileSystem {
     static PrjDoesNameContainWildCards(fileName) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjDoesNameContainWildCards", "ptr", fileName, "ptr")
+        result := DllCall("PROJECTEDFSLIB.dll\PrjDoesNameContainWildCards", "ptr", fileName, "char")
         return result
     }
 

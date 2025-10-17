@@ -19,7 +19,7 @@ class KSPROPERTY_VBICODECFILTERING_CC_SUBSTREAMS_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -30,7 +30,7 @@ class KSPROPERTY_VBICODECFILTERING_CC_SUBSTREAMS_S extends Win32Struct
     Substreams{
         get {
             if(!this.HasProp("__Substreams"))
-                this.__Substreams := VBICODECFILTERING_CC_SUBSTREAMS(this.ptr + 16)
+                this.__Substreams := VBICODECFILTERING_CC_SUBSTREAMS(16, this)
             return this.__Substreams
         }
     }

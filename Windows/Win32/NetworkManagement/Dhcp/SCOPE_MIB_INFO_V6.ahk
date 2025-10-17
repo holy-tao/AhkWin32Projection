@@ -18,7 +18,7 @@ class SCOPE_MIB_INFO_V6 extends Win32Struct
     Subnet{
         get {
             if(!this.HasProp("__Subnet"))
-                this.__Subnet := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                this.__Subnet := DHCP_IPV6_ADDRESS(0, this)
             return this.__Subnet
         }
     }

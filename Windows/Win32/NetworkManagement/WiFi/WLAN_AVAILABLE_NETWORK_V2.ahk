@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\DOT11_ACCESSNETWORKOPTIONS.ahk
 #Include .\DOT11_VENUEINFO.ahk
 
@@ -29,7 +28,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(this.ptr + 512)
+                this.__dot11Ssid := DOT11_SSID(512, this)
             return this.__dot11Ssid
         }
     }
@@ -53,12 +52,9 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bNetworkConnectable{
-        get {
-            if(!this.HasProp("__bNetworkConnectable"))
-                this.__bNetworkConnectable := BOOL(this.ptr + 556)
-            return this.__bNetworkConnectable
-        }
+    bNetworkConnectable {
+        get => NumGet(this, 556, "int")
+        set => NumPut("int", value, this, 556)
     }
 
     /**
@@ -91,12 +87,9 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bMorePhyTypes{
-        get {
-            if(!this.HasProp("__bMorePhyTypes"))
-                this.__bMorePhyTypes := BOOL(this.ptr + 600)
-            return this.__bMorePhyTypes
-        }
+    bMorePhyTypes {
+        get => NumGet(this, 600, "int")
+        set => NumPut("int", value, this, 600)
     }
 
     /**
@@ -110,12 +103,9 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bSecurityEnabled{
-        get {
-            if(!this.HasProp("__bSecurityEnabled"))
-                this.__bSecurityEnabled := BOOL(this.ptr + 608)
-            return this.__bSecurityEnabled
-        }
+    bSecurityEnabled {
+        get => NumGet(this, 608, "int")
+        set => NumPut("int", value, this, 608)
     }
 
     /**
@@ -148,7 +138,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     AccessNetworkOptions{
         get {
             if(!this.HasProp("__AccessNetworkOptions"))
-                this.__AccessNetworkOptions := DOT11_ACCESSNETWORKOPTIONS(this.ptr + 625)
+                this.__AccessNetworkOptions := DOT11_ACCESSNETWORKOPTIONS(625, this)
             return this.__AccessNetworkOptions
         }
     }
@@ -170,7 +160,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     VenueInfo{
         get {
             if(!this.HasProp("__VenueInfo"))
-                this.__VenueInfo := DOT11_VENUEINFO(this.ptr + 636)
+                this.__VenueInfo := DOT11_VENUEINFO(636, this)
             return this.__VenueInfo
         }
     }

@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CTL_USAGE.ahk
 #Include .\CERT_USAGE_MATCH.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The CERT_CHAIN_PARA structure establishes the searching and matching criteria to be used in building a certificate chain.
@@ -56,7 +55,7 @@ class CERT_CHAIN_PARA extends Win32Struct
     RequestedUsage{
         get {
             if(!this.HasProp("__RequestedUsage"))
-                this.__RequestedUsage := CERT_USAGE_MATCH(this.ptr + 8)
+                this.__RequestedUsage := CERT_USAGE_MATCH(8, this)
             return this.__RequestedUsage
         }
     }
@@ -71,7 +70,7 @@ class CERT_CHAIN_PARA extends Win32Struct
     RequestedIssuancePolicy{
         get {
             if(!this.HasProp("__RequestedIssuancePolicy"))
-                this.__RequestedIssuancePolicy := CERT_USAGE_MATCH(this.ptr + 32)
+                this.__RequestedIssuancePolicy := CERT_USAGE_MATCH(32, this)
             return this.__RequestedIssuancePolicy
         }
     }
@@ -95,12 +94,9 @@ class CERT_CHAIN_PARA extends Win32Struct
      * <div> </div>
      * @type {BOOL}
      */
-    fCheckRevocationFreshnessTime{
-        get {
-            if(!this.HasProp("__fCheckRevocationFreshnessTime"))
-                this.__fCheckRevocationFreshnessTime := BOOL(this.ptr + 60)
-            return this.__fCheckRevocationFreshnessTime
-        }
+    fCheckRevocationFreshnessTime {
+        get => NumGet(this, 60, "int")
+        set => NumPut("int", value, this, 60)
     }
 
     /**
@@ -176,12 +172,8 @@ class CERT_CHAIN_PARA extends Win32Struct
         set => NumPut("uint", value, this, 88)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 96
     }
 }

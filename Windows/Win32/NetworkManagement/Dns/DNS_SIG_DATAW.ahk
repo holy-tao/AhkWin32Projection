@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -80,12 +79,9 @@ class DNS_SIG_DATAW extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pNameSigner{
-        get {
-            if(!this.HasProp("__pNameSigner"))
-                this.__pNameSigner := PWSTR(this.ptr + 24)
-            return this.__pNameSigner
-        }
+    pNameSigner {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

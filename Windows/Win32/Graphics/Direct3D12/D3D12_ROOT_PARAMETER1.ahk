@@ -38,7 +38,7 @@ class D3D12_ROOT_PARAMETER1 extends Win32Struct
     DescriptorTable{
         get {
             if(!this.HasProp("__DescriptorTable"))
-                this.__DescriptorTable := D3D12_ROOT_DESCRIPTOR_TABLE1(this.ptr + 8)
+                this.__DescriptorTable := D3D12_ROOT_DESCRIPTOR_TABLE1(8, this)
             return this.__DescriptorTable
         }
     }
@@ -49,7 +49,7 @@ class D3D12_ROOT_PARAMETER1 extends Win32Struct
     Constants{
         get {
             if(!this.HasProp("__Constants"))
-                this.__Constants := D3D12_ROOT_CONSTANTS(this.ptr + 8)
+                this.__Constants := D3D12_ROOT_CONSTANTS(8, this)
             return this.__Constants
         }
     }
@@ -60,7 +60,7 @@ class D3D12_ROOT_PARAMETER1 extends Win32Struct
     Descriptor{
         get {
             if(!this.HasProp("__Descriptor"))
-                this.__Descriptor := D3D12_ROOT_DESCRIPTOR1(this.ptr + 8)
+                this.__Descriptor := D3D12_ROOT_DESCRIPTOR1(8, this)
             return this.__Descriptor
         }
     }

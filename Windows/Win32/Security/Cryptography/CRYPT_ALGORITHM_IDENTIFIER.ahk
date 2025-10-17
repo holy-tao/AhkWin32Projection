@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -19,12 +18,9 @@ class CRYPT_ALGORITHM_IDENTIFIER extends Win32Struct
      * 
      * @type {PSTR}
      */
-    pszObjId{
-        get {
-            if(!this.HasProp("__pszObjId"))
-                this.__pszObjId := PSTR(this.ptr + 0)
-            return this.__pszObjId
-        }
+    pszObjId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -117,7 +113,7 @@ class CRYPT_ALGORITHM_IDENTIFIER extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Parameters := CRYPT_INTEGER_BLOB(8, this)
             return this.__Parameters
         }
     }

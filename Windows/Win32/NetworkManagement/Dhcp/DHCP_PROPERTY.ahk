@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include .\DHCP_BINARY_DATA.ahk
 
 /**
@@ -44,12 +43,9 @@ class DHCP_PROPERTY extends Win32Struct
         /**
          * @type {PWSTR}
          */
-        StringValue{
-            get {
-                if(!this.HasProp("__StringValue"))
-                    this.__StringValue := PWSTR(this.ptr + 0)
-                return this.__StringValue
-            }
+        StringValue {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
     
         /**
@@ -58,7 +54,7 @@ class DHCP_PROPERTY extends Win32Struct
         BinaryValue{
             get {
                 if(!this.HasProp("__BinaryValue"))
-                    this.__BinaryValue := DHCP_BINARY_DATA(this.ptr + 0)
+                    this.__BinaryValue := DHCP_BINARY_DATA(0, this)
                 return this.__BinaryValue
             }
         }
@@ -87,7 +83,7 @@ class DHCP_PROPERTY extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := %this.__Class%._DHCP_PROPERTY_VALUE_UNION(this.ptr + 8)
+                this.__Value := %this.__Class%._DHCP_PROPERTY_VALUE_UNION(8, this)
             return this.__Value
         }
     }

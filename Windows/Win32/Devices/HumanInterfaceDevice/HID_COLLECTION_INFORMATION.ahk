@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
@@ -23,12 +22,9 @@ class HID_COLLECTION_INFORMATION extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    Polled{
-        get {
-            if(!this.HasProp("__Polled"))
-                this.__Polled := BOOLEAN(this.ptr + 4)
-            return this.__Polled
-        }
+    Polled {
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**

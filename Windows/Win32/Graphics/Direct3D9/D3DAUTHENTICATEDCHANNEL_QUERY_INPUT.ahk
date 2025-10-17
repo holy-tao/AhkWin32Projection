@@ -26,7 +26,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERY_INPUT extends Win32Struct
     hChannel{
         get {
             if(!this.HasProp("__hChannel"))
-                this.__hChannel := HANDLE(this.ptr + 8)
+                this.__hChannel := HANDLE(8, this)
             return this.__hChannel
         }
     }

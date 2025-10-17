@@ -19,7 +19,7 @@ class NVME_ZONE_EXTENDED_REPORT_ZONE_DESC extends Win32Struct
     ZoneDescriptor{
         get {
             if(!this.HasProp("__ZoneDescriptor"))
-                this.__ZoneDescriptor := NVME_ZONE_DESCRIPTOR(this.ptr + 0)
+                this.__ZoneDescriptor := NVME_ZONE_DESCRIPTOR(0, this)
             return this.__ZoneDescriptor
         }
     }

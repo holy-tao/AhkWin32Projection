@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VDS_PATH_ID.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines the load balance policy as it applies to a particular path.
@@ -22,7 +21,7 @@ class VDS_PATH_POLICY extends Win32Struct
     pathId{
         get {
             if(!this.HasProp("__pathId"))
-                this.__pathId := VDS_PATH_ID(this.ptr + 0)
+                this.__pathId := VDS_PATH_ID(0, this)
             return this.__pathId
         }
     }
@@ -31,12 +30,9 @@ class VDS_PATH_POLICY extends Win32Struct
      * If set, indicates that the path is a primary path for MPIO.
      * @type {BOOL}
      */
-    bPrimaryPath{
-        get {
-            if(!this.HasProp("__bPrimaryPath"))
-                this.__bPrimaryPath := BOOL(this.ptr + 16)
-            return this.__bPrimaryPath
-        }
+    bPrimaryPath {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**

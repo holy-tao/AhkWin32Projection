@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
@@ -39,11 +38,8 @@ class KSRTAUDIO_GETREADPACKET_INFO extends Win32Struct
     /**
      * @type {BOOL}
      */
-    MoreData{
-        get {
-            if(!this.HasProp("__MoreData"))
-                this.__MoreData := BOOL(this.ptr + 16)
-            return this.__MoreData
-        }
+    MoreData {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 }

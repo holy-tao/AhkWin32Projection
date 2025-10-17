@@ -3247,7 +3247,7 @@ class HttpServer {
      * @see https://docs.microsoft.com/windows/win32/api//http/nf-http-httpisfeaturesupported
      */
     static HttpIsFeatureSupported(FeatureId) {
-        result := DllCall("HTTPAPI.dll\HttpIsFeatureSupported", "int", FeatureId, "ptr")
+        result := DllCall("HTTPAPI.dll\HttpIsFeatureSupported", "int", FeatureId, "int")
         return result
     }
 

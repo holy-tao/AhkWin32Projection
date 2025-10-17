@@ -32,7 +32,7 @@ class DFS_INFO_150 extends Win32Struct
     pSecurityDescriptor{
         get {
             if(!this.HasProp("__pSecurityDescriptor"))
-                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(this.ptr + 8)
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(8, this)
             return this.__pSecurityDescriptor
         }
     }

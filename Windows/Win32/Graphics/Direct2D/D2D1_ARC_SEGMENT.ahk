@@ -24,7 +24,7 @@ class D2D1_ARC_SEGMENT extends Win32Struct
     point{
         get {
             if(!this.HasProp("__point"))
-                this.__point := D2D_POINT_2F(this.ptr + 0)
+                this.__point := D2D_POINT_2F(0, this)
             return this.__point
         }
     }
@@ -38,7 +38,7 @@ class D2D1_ARC_SEGMENT extends Win32Struct
     size{
         get {
             if(!this.HasProp("__size"))
-                this.__size := D2D_SIZE_F(this.ptr + 8)
+                this.__size := D2D_SIZE_F(8, this)
             return this.__size
         }
     }

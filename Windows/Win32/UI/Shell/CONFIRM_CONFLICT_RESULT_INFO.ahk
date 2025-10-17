@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Defines conflict result information structure.
@@ -20,12 +19,9 @@ class CONFIRM_CONFLICT_RESULT_INFO extends Win32Struct
      * The new item name.
      * @type {PWSTR}
      */
-    pszNewName{
-        get {
-            if(!this.HasProp("__pszNewName"))
-                this.__pszNewName := PWSTR(this.ptr + 0)
-            return this.__pszNewName
-        }
+    pszNewName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

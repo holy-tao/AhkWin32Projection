@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Use this structure for full-text search.
@@ -27,12 +26,9 @@ class HH_FTS_QUERY extends Win32Struct
      * TRUE if all strings are Unicode.
      * @type {BOOL}
      */
-    fUniCodeStrings{
-        get {
-            if(!this.HasProp("__fUniCodeStrings"))
-                this.__fUniCodeStrings := BOOL(this.ptr + 4)
-            return this.__fUniCodeStrings
-        }
+    fUniCodeStrings {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -57,36 +53,27 @@ class HH_FTS_QUERY extends Win32Struct
      * TRUE for StemmedSearch only.
      * @type {BOOL}
      */
-    fStemmedSearch{
-        get {
-            if(!this.HasProp("__fStemmedSearch"))
-                this.__fStemmedSearch := BOOL(this.ptr + 20)
-            return this.__fStemmedSearch
-        }
+    fStemmedSearch {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
      * TRUE for Title search only.
      * @type {BOOL}
      */
-    fTitleOnly{
-        get {
-            if(!this.HasProp("__fTitleOnly"))
-                this.__fTitleOnly := BOOL(this.ptr + 24)
-            return this.__fTitleOnly
-        }
+    fTitleOnly {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * TRUE to initiate the search.
      * @type {BOOL}
      */
-    fExecute{
-        get {
-            if(!this.HasProp("__fExecute"))
-                this.__fExecute := BOOL(this.ptr + 28)
-            return this.__fExecute
-        }
+    fExecute {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**

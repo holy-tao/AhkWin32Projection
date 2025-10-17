@@ -18,7 +18,7 @@ class SPRECORESULTTIMES extends Win32Struct
     ftStreamTime{
         get {
             if(!this.HasProp("__ftStreamTime"))
-                this.__ftStreamTime := FILETIME(this.ptr + 0)
+                this.__ftStreamTime := FILETIME(0, this)
             return this.__ftStreamTime
         }
     }

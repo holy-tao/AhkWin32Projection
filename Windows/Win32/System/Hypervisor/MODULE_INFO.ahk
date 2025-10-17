@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\DOS_IMAGE_INFO.ahk
 
 /**
@@ -16,12 +15,9 @@ class MODULE_INFO extends Win32Struct
     /**
      * @type {PSTR}
      */
-    ProcessImageName{
-        get {
-            if(!this.HasProp("__ProcessImageName"))
-                this.__ProcessImageName := PSTR(this.ptr + 0)
-            return this.__ProcessImageName
-        }
+    ProcessImageName {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -30,7 +26,7 @@ class MODULE_INFO extends Win32Struct
     Image{
         get {
             if(!this.HasProp("__Image"))
-                this.__Image := DOS_IMAGE_INFO(this.ptr + 8)
+                this.__Image := DOS_IMAGE_INFO(8, this)
             return this.__Image
         }
     }

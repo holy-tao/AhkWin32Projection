@@ -26,7 +26,7 @@ class LLFILETIME extends Win32Struct
     ft{
         get {
             if(!this.HasProp("__ft"))
-                this.__ft := FILETIME(this.ptr + 0)
+                this.__ft := FILETIME(0, this)
             return this.__ft
         }
     }

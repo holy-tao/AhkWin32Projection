@@ -66,7 +66,7 @@ class WHV_X64_XMM_CONTROL_STATUS_REGISTER extends Win32Struct
     AsUINT128{
         get {
             if(!this.HasProp("__AsUINT128"))
-                this.__AsUINT128 := WHV_UINT128(this.ptr + 0)
+                this.__AsUINT128 := WHV_UINT128(0, this)
             return this.__AsUINT128
         }
     }

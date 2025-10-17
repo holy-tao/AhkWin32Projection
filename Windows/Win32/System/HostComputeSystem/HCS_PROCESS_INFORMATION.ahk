@@ -34,7 +34,7 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
     StdInput{
         get {
             if(!this.HasProp("__StdInput"))
-                this.__StdInput := HANDLE(this.ptr + 8)
+                this.__StdInput := HANDLE(8, this)
             return this.__StdInput
         }
     }
@@ -45,7 +45,7 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
     StdOutput{
         get {
             if(!this.HasProp("__StdOutput"))
-                this.__StdOutput := HANDLE(this.ptr + 16)
+                this.__StdOutput := HANDLE(16, this)
             return this.__StdOutput
         }
     }
@@ -56,7 +56,7 @@ class HCS_PROCESS_INFORMATION extends Win32Struct
     StdError{
         get {
             if(!this.HasProp("__StdError"))
-                this.__StdError := HANDLE(this.ptr + 24)
+                this.__StdError := HANDLE(24, this)
             return this.__StdError
         }
     }

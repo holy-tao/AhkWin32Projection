@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include .\INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS.ahk
 
 /**
@@ -27,7 +26,7 @@ class INFORMATIONCARD_HASH_CRYPTO_PARAMETERS extends Win32Struct
     transform{
         get {
             if(!this.HasProp("__transform"))
-                this.__transform := INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS(this.ptr + 8)
+                this.__transform := INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS(8, this)
             return this.__transform
         }
     }

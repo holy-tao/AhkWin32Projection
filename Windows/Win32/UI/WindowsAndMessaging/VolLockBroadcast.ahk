@@ -18,7 +18,7 @@ class VolLockBroadcast extends Win32Struct
     vlb_dbh{
         get {
             if(!this.HasProp("__vlb_dbh"))
-                this.__vlb_dbh := DEV_BROADCAST_HDR(this.ptr + 0)
+                this.__vlb_dbh := DEV_BROADCAST_HDR(0, this)
             return this.__vlb_dbh
         }
     }

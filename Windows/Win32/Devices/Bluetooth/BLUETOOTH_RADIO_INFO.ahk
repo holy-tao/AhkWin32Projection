@@ -30,7 +30,7 @@ class BLUETOOTH_RADIO_INFO extends Win32Struct
     address{
         get {
             if(!this.HasProp("__address"))
-                this.__address := BLUETOOTH_ADDRESS(this.ptr + 8)
+                this.__address := BLUETOOTH_ADDRESS(8, this)
             return this.__address
         }
     }

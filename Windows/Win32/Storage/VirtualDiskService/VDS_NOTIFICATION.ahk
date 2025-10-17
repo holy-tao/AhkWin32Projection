@@ -240,7 +240,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Pack{
         get {
             if(!this.HasProp("__Pack"))
-                this.__Pack := VDS_PACK_NOTIFICATION(this.ptr + 8)
+                this.__Pack := VDS_PACK_NOTIFICATION(8, this)
             return this.__Pack
         }
     }
@@ -251,7 +251,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Disk{
         get {
             if(!this.HasProp("__Disk"))
-                this.__Disk := VDS_DISK_NOTIFICATION(this.ptr + 8)
+                this.__Disk := VDS_DISK_NOTIFICATION(8, this)
             return this.__Disk
         }
     }
@@ -262,7 +262,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Volume{
         get {
             if(!this.HasProp("__Volume"))
-                this.__Volume := VDS_VOLUME_NOTIFICATION(this.ptr + 8)
+                this.__Volume := VDS_VOLUME_NOTIFICATION(8, this)
             return this.__Volume
         }
     }
@@ -273,7 +273,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Partition{
         get {
             if(!this.HasProp("__Partition"))
-                this.__Partition := VDS_PARTITION_NOTIFICATION(this.ptr + 8)
+                this.__Partition := VDS_PARTITION_NOTIFICATION(8, this)
             return this.__Partition
         }
     }
@@ -284,7 +284,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Letter{
         get {
             if(!this.HasProp("__Letter"))
-                this.__Letter := VDS_DRIVE_LETTER_NOTIFICATION(this.ptr + 8)
+                this.__Letter := VDS_DRIVE_LETTER_NOTIFICATION(8, this)
             return this.__Letter
         }
     }
@@ -295,7 +295,7 @@ class VDS_NOTIFICATION extends Win32Struct
     FileSystem{
         get {
             if(!this.HasProp("__FileSystem"))
-                this.__FileSystem := VDS_FILE_SYSTEM_NOTIFICATION(this.ptr + 8)
+                this.__FileSystem := VDS_FILE_SYSTEM_NOTIFICATION(8, this)
             return this.__FileSystem
         }
     }
@@ -306,7 +306,7 @@ class VDS_NOTIFICATION extends Win32Struct
     MountPoint{
         get {
             if(!this.HasProp("__MountPoint"))
-                this.__MountPoint := VDS_MOUNT_POINT_NOTIFICATION(this.ptr + 8)
+                this.__MountPoint := VDS_MOUNT_POINT_NOTIFICATION(8, this)
             return this.__MountPoint
         }
     }
@@ -317,7 +317,7 @@ class VDS_NOTIFICATION extends Win32Struct
     SubSystem{
         get {
             if(!this.HasProp("__SubSystem"))
-                this.__SubSystem := VDS_SUB_SYSTEM_NOTIFICATION(this.ptr + 8)
+                this.__SubSystem := VDS_SUB_SYSTEM_NOTIFICATION(8, this)
             return this.__SubSystem
         }
     }
@@ -328,7 +328,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Controller{
         get {
             if(!this.HasProp("__Controller"))
-                this.__Controller := VDS_CONTROLLER_NOTIFICATION(this.ptr + 8)
+                this.__Controller := VDS_CONTROLLER_NOTIFICATION(8, this)
             return this.__Controller
         }
     }
@@ -339,7 +339,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Drive{
         get {
             if(!this.HasProp("__Drive"))
-                this.__Drive := VDS_DRIVE_NOTIFICATION(this.ptr + 8)
+                this.__Drive := VDS_DRIVE_NOTIFICATION(8, this)
             return this.__Drive
         }
     }
@@ -350,7 +350,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Lun{
         get {
             if(!this.HasProp("__Lun"))
-                this.__Lun := VDS_LUN_NOTIFICATION(this.ptr + 8)
+                this.__Lun := VDS_LUN_NOTIFICATION(8, this)
             return this.__Lun
         }
     }
@@ -361,7 +361,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Port{
         get {
             if(!this.HasProp("__Port"))
-                this.__Port := VDS_PORT_NOTIFICATION(this.ptr + 8)
+                this.__Port := VDS_PORT_NOTIFICATION(8, this)
             return this.__Port
         }
     }
@@ -372,7 +372,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Portal{
         get {
             if(!this.HasProp("__Portal"))
-                this.__Portal := VDS_PORTAL_NOTIFICATION(this.ptr + 8)
+                this.__Portal := VDS_PORTAL_NOTIFICATION(8, this)
             return this.__Portal
         }
     }
@@ -383,7 +383,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Target{
         get {
             if(!this.HasProp("__Target"))
-                this.__Target := VDS_TARGET_NOTIFICATION(this.ptr + 8)
+                this.__Target := VDS_TARGET_NOTIFICATION(8, this)
             return this.__Target
         }
     }
@@ -394,7 +394,7 @@ class VDS_NOTIFICATION extends Win32Struct
     PortalGroup{
         get {
             if(!this.HasProp("__PortalGroup"))
-                this.__PortalGroup := VDS_PORTAL_GROUP_NOTIFICATION(this.ptr + 8)
+                this.__PortalGroup := VDS_PORTAL_GROUP_NOTIFICATION(8, this)
             return this.__PortalGroup
         }
     }
@@ -405,7 +405,7 @@ class VDS_NOTIFICATION extends Win32Struct
     Service{
         get {
             if(!this.HasProp("__Service"))
-                this.__Service := VDS_SERVICE_NOTIFICATION(this.ptr + 8)
+                this.__Service := VDS_SERVICE_NOTIFICATION(8, this)
             return this.__Service
         }
     }

@@ -2,7 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\WCM_TIME_INTERVAL.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Specifies information about the billing cycle.
@@ -25,7 +24,7 @@ class WCM_BILLING_CYCLE_INFO extends Win32Struct
     StartDate{
         get {
             if(!this.HasProp("__StartDate"))
-                this.__StartDate := FILETIME(this.ptr + 0)
+                this.__StartDate := FILETIME(0, this)
             return this.__StartDate
         }
     }
@@ -39,7 +38,7 @@ class WCM_BILLING_CYCLE_INFO extends Win32Struct
     Duration{
         get {
             if(!this.HasProp("__Duration"))
-                this.__Duration := WCM_TIME_INTERVAL(this.ptr + 8)
+                this.__Duration := WCM_TIME_INTERVAL(8, this)
             return this.__Duration
         }
     }
@@ -50,11 +49,8 @@ class WCM_BILLING_CYCLE_INFO extends Win32Struct
      * True if at the end of the billing cycle, a new billing cycle of the same duration will start. False if the service will terminate at the end of the billing cycle.
      * @type {BOOL}
      */
-    Reset{
-        get {
-            if(!this.HasProp("__Reset"))
-                this.__Reset := BOOL(this.ptr + 24)
-            return this.__Reset
-        }
+    Reset {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

@@ -18,7 +18,7 @@ class KSE_PIN extends Win32Struct
     Event{
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := KSIDENTIFIER(this.ptr + 0)
+                this.__Event := KSIDENTIFIER(0, this)
             return this.__Event
         }
     }

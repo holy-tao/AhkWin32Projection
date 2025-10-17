@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
-#Include ..\..\Foundation\PSTR.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include .\LVFINDINFOA.ahk
 
@@ -35,7 +33,7 @@ class NMLVFINDITEMA extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -61,7 +59,7 @@ class NMLVFINDITEMA extends Win32Struct
     lvfi{
         get {
             if(!this.HasProp("__lvfi"))
-                this.__lvfi := LVFINDINFOA(this.ptr + 32)
+                this.__lvfi := LVFINDINFOA(32, this)
             return this.__lvfi
         }
     }

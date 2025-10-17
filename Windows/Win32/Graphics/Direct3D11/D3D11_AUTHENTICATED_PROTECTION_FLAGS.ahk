@@ -65,7 +65,7 @@ class D3D11_AUTHENTICATED_PROTECTION_FLAGS extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(this.ptr + 0)
+                this.__Flags := %this.__Class%._Flags(0, this)
             return this.__Flags
         }
     }

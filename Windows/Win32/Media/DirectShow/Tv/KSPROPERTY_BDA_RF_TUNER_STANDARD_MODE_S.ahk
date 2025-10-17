@@ -2,7 +2,6 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
 #Include ..\..\KernelStreaming\KSP_NODE.ahk
-#Include ..\..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -20,7 +19,7 @@ class KSPROPERTY_BDA_RF_TUNER_STANDARD_MODE_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSP_NODE(this.ptr + 0)
+                this.__Property := KSP_NODE(0, this)
             return this.__Property
         }
     }
@@ -28,11 +27,8 @@ class KSPROPERTY_BDA_RF_TUNER_STANDARD_MODE_S extends Win32Struct
     /**
      * @type {BOOL}
      */
-    AutoDetect{
-        get {
-            if(!this.HasProp("__AutoDetect"))
-                this.__AutoDetect := BOOL(this.ptr + 24)
-            return this.__AutoDetect
-        }
+    AutoDetect {
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

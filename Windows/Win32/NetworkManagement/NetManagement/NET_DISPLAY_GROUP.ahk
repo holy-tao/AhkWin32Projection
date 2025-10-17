@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * The NET_DISPLAY_GROUP structure contains information that an account manager can access to determine information about group accounts.
@@ -20,12 +19,9 @@ class NET_DISPLAY_GROUP extends Win32Struct
      * A pointer to a Unicode string that specifies the name of the group.
      * @type {PWSTR}
      */
-    grpi3_name{
-        get {
-            if(!this.HasProp("__grpi3_name"))
-                this.__grpi3_name := PWSTR(this.ptr + 0)
-            return this.__grpi3_name
-        }
+    grpi3_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -34,12 +30,9 @@ class NET_DISPLAY_GROUP extends Win32Struct
      * A pointer to a Unicode string that contains a comment associated with the group. This string can be a null string, or it can have any number of characters before the terminating null character.
      * @type {PWSTR}
      */
-    grpi3_comment{
-        get {
-            if(!this.HasProp("__grpi3_comment"))
-                this.__grpi3_comment := PWSTR(this.ptr + 8)
-            return this.__grpi3_comment
-        }
+    grpi3_comment {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

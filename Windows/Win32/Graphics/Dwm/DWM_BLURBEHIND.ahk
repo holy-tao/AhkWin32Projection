@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 #Include ..\Gdi\HRGN.ahk
 
 /**
@@ -28,12 +27,9 @@ class DWM_BLURBEHIND extends Win32Struct
      * <b>TRUE</b> to register the window handle to DWM blur behind; <b>FALSE</b> to unregister the window handle from DWM blur behind.
      * @type {BOOL}
      */
-    fEnable{
-        get {
-            if(!this.HasProp("__fEnable"))
-                this.__fEnable := BOOL(this.ptr + 4)
-            return this.__fEnable
-        }
+    fEnable {
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -43,7 +39,7 @@ class DWM_BLURBEHIND extends Win32Struct
     hRgnBlur{
         get {
             if(!this.HasProp("__hRgnBlur"))
-                this.__hRgnBlur := HRGN(this.ptr + 8)
+                this.__hRgnBlur := HRGN(8, this)
             return this.__hRgnBlur
         }
     }
@@ -52,11 +48,8 @@ class DWM_BLURBEHIND extends Win32Struct
      * <b>TRUE</b> if the window's colorization should transition to match the maximized windows; otherwise, <b>FALSE</b>.
      * @type {BOOL}
      */
-    fTransitionOnMaximized{
-        get {
-            if(!this.HasProp("__fTransitionOnMaximized"))
-                this.__fTransitionOnMaximized := BOOL(this.ptr + 16)
-            return this.__fTransitionOnMaximized
-        }
+    fTransitionOnMaximized {
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 }

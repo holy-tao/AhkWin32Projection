@@ -23,7 +23,7 @@ class IKEEXT_COMMON_STATISTICS0 extends Win32Struct
     v4Statistics{
         get {
             if(!this.HasProp("__v4Statistics"))
-                this.__v4Statistics := IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0(this.ptr + 0)
+                this.__v4Statistics := IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0(0, this)
             return this.__v4Statistics
         }
     }
@@ -37,7 +37,7 @@ class IKEEXT_COMMON_STATISTICS0 extends Win32Struct
     v6Statistics{
         get {
             if(!this.HasProp("__v6Statistics"))
-                this.__v6Statistics := IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0(this.ptr + 8)
+                this.__v6Statistics := IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS0(8, this)
             return this.__v6Statistics
         }
     }

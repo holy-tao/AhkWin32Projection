@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -39,11 +38,8 @@ class USB_COMPOSITE_FUNCTION_INFO extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    FunctionIsIdle{
-        get {
-            if(!this.HasProp("__FunctionIsIdle"))
-                this.__FunctionIsIdle := BOOLEAN(this.ptr + 3)
-            return this.__FunctionIsIdle
-        }
+    FunctionIsIdle {
+        get => NumGet(this, 3, "char")
+        set => NumPut("char", value, this, 3)
     }
 }

@@ -138,7 +138,7 @@ class ICDRAWBEGIN extends Win32Struct
     hpal{
         get {
             if(!this.HasProp("__hpal"))
-                this.__hpal := HPALETTE(this.ptr + 8)
+                this.__hpal := HPALETTE(8, this)
             return this.__hpal
         }
     }
@@ -150,7 +150,7 @@ class ICDRAWBEGIN extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 16)
+                this.__hwnd := HWND(16, this)
             return this.__hwnd
         }
     }
@@ -162,7 +162,7 @@ class ICDRAWBEGIN extends Win32Struct
     hdc{
         get {
             if(!this.HasProp("__hdc"))
-                this.__hdc := HDC(this.ptr + 24)
+                this.__hdc := HDC(24, this)
             return this.__hdc
         }
     }

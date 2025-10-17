@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 #Include .\NVCACHE_PRIORITY_LEVEL_DESCRIPTOR.ahk
 
 /**
@@ -181,12 +180,9 @@ class HYBRID_INFORMATION extends Win32Struct
         /**
          * @type {BOOLEAN}
          */
-        MaxPriorityBehavior{
-            get {
-                if(!this.HasProp("__MaxPriorityBehavior"))
-                    this.__MaxPriorityBehavior := BOOLEAN(this.ptr + 1)
-                return this.__MaxPriorityBehavior
-            }
+        MaxPriorityBehavior {
+            get => NumGet(this, 1, "char")
+            set => NumPut("char", value, this, 1)
         }
     
         /**
@@ -227,7 +223,7 @@ class HYBRID_INFORMATION extends Win32Struct
         SupportedCommands{
             get {
                 if(!this.HasProp("__SupportedCommands"))
-                    this.__SupportedCommands := %this.__Class%._SupportedCommands(this.ptr + 16)
+                    this.__SupportedCommands := %this.__Class%._SupportedCommands(16, this)
                 return this.__SupportedCommands
             }
         }
@@ -264,12 +260,9 @@ class HYBRID_INFORMATION extends Win32Struct
     /**
      * @type {BOOLEAN}
      */
-    HybridSupported{
-        get {
-            if(!this.HasProp("__HybridSupported"))
-                this.__HybridSupported := BOOLEAN(this.ptr + 8)
-            return this.__HybridSupported
-        }
+    HybridSupported {
+        get => NumGet(this, 8, "char")
+        set => NumPut("char", value, this, 8)
     }
 
     /**
@@ -318,7 +311,7 @@ class HYBRID_INFORMATION extends Win32Struct
     Attributes{
         get {
             if(!this.HasProp("__Attributes"))
-                this.__Attributes := %this.__Class%._Attributes(this.ptr + 40)
+                this.__Attributes := %this.__Class%._Attributes(40, this)
             return this.__Attributes
         }
     }
@@ -329,7 +322,7 @@ class HYBRID_INFORMATION extends Win32Struct
     Priorities{
         get {
             if(!this.HasProp("__Priorities"))
-                this.__Priorities := %this.__Class%._Priorities(this.ptr + 48)
+                this.__Priorities := %this.__Class%._Priorities(48, this)
             return this.__Priorities
         }
     }

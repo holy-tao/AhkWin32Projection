@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains data for a router demand-dial interface.
@@ -51,7 +49,7 @@ class MPR_INTERFACE_2 extends Win32Struct
     hInterface{
         get {
             if(!this.HasProp("__hInterface"))
-                this.__hInterface := HANDLE(this.ptr + 520)
+                this.__hInterface := HANDLE(520, this)
             return this.__hInterface
         }
     }
@@ -60,12 +58,9 @@ class MPR_INTERFACE_2 extends Win32Struct
      * A value that specifies whether the interface is enabled. This value is <b>TRUE</b> if the interface is enabled, <b>FALSE</b> if the interface is administratively disabled.
      * @type {BOOL}
      */
-    fEnabled{
-        get {
-            if(!this.HasProp("__fEnabled"))
-                this.__fEnabled := BOOL(this.ptr + 528)
-            return this.__fEnabled
-        }
+    fEnabled {
+        get => NumGet(this, 528, "int")
+        set => NumPut("int", value, this, 528)
     }
 
     /**
@@ -404,12 +399,9 @@ class MPR_INTERFACE_2 extends Win32Struct
      * A pointer to a list of consecutive null-terminated Unicode strings. The last string is terminated by two consecutive null characters. The strings are alternate phone numbers that the router dials, in the order listed, if the primary number fails to connect. For more information, see <b>szLocalPhoneNumber</b>.
      * @type {PWSTR}
      */
-    szAlternates{
-        get {
-            if(!this.HasProp("__szAlternates"))
-                this.__szAlternates := PWSTR(this.ptr + 816)
-            return this.__szAlternates
-        }
+    szAlternates {
+        get => NumGet(this, 816, "ptr")
+        set => NumPut("ptr", value, this, 816)
     }
 
     /**

@@ -19,7 +19,7 @@ class KSMULTIPLE_DATA_PROP extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -30,7 +30,7 @@ class KSMULTIPLE_DATA_PROP extends Win32Struct
     MultipleItem{
         get {
             if(!this.HasProp("__MultipleItem"))
-                this.__MultipleItem := KSMULTIPLE_ITEM(this.ptr + 16)
+                this.__MultipleItem := KSMULTIPLE_ITEM(16, this)
             return this.__MultipleItem
         }
     }

@@ -19,7 +19,7 @@ class NDR64_FIXED_REPEAT_FORMAT extends Win32Struct
     RepeatFormat{
         get {
             if(!this.HasProp("__RepeatFormat"))
-                this.__RepeatFormat := NDR64_REPEAT_FORMAT(this.ptr + 0)
+                this.__RepeatFormat := NDR64_REPEAT_FORMAT(0, this)
             return this.__RepeatFormat
         }
     }

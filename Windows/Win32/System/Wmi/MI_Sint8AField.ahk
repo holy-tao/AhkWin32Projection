@@ -21,7 +21,7 @@ class MI_Sint8AField extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := MI_Sint8A(this.ptr + 0)
+                this.__value := MI_Sint8A(0, this)
             return this.__value
         }
     }

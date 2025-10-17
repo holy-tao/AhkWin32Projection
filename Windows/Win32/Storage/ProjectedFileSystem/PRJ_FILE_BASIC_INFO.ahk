@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOLEAN.ahk
 
 /**
  * Basic information about an item.
@@ -18,12 +17,9 @@ class PRJ_FILE_BASIC_INFO extends Win32Struct
      * Specifies whether the item is a directory.
      * @type {BOOLEAN}
      */
-    IsDirectory{
-        get {
-            if(!this.HasProp("__IsDirectory"))
-                this.__IsDirectory := BOOLEAN(this.ptr + 0)
-            return this.__IsDirectory
-        }
+    IsDirectory {
+        get => NumGet(this, 0, "char")
+        set => NumPut("char", value, this, 0)
     }
 
     /**

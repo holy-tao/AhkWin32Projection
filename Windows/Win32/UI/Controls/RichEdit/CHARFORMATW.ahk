@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\COLORREF.ahk
 
 /**
  * Contains information about character formatting in a rich edit control.
@@ -84,12 +83,9 @@ class CHARFORMATW extends Win32Struct
      * Text color. This member is ignored if the CFE_AUTOCOLOR character effect is specified. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @type {COLORREF}
      */
-    crTextColor{
-        get {
-            if(!this.HasProp("__crTextColor"))
-                this.__crTextColor := COLORREF(this.ptr + 20)
-            return this.__crTextColor
-        }
+    crTextColor {
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -125,12 +121,8 @@ class CHARFORMATW extends Win32Struct
         set => StrPut(value, this.ptr + 26, 31, "UTF-16")
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 92
     }
 }

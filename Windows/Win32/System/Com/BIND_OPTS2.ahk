@@ -18,7 +18,7 @@ class BIND_OPTS2 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := BIND_OPTS(this.ptr + 0)
+                this.__Base := BIND_OPTS(0, this)
             return this.__Base
         }
     }

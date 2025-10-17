@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
@@ -25,12 +24,9 @@ class SHARE_INFO_503 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
      * @type {PWSTR}
      */
-    shi503_netname{
-        get {
-            if(!this.HasProp("__shi503_netname"))
-                this.__shi503_netname := PWSTR(this.ptr + 0)
-            return this.__shi503_netname
-        }
+    shi503_netname {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -47,12 +43,9 @@ class SHARE_INFO_503 extends Win32Struct
      * A pointer to a Unicode string specifying an optional comment about the shared resource.
      * @type {PWSTR}
      */
-    shi503_remark{
-        get {
-            if(!this.HasProp("__shi503_remark"))
-                this.__shi503_remark := PWSTR(this.ptr + 16)
-            return this.__shi503_remark
-        }
+    shi503_remark {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -96,12 +89,9 @@ class SHARE_INFO_503 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
      * @type {PWSTR}
      */
-    shi503_path{
-        get {
-            if(!this.HasProp("__shi503_path"))
-                this.__shi503_path := PWSTR(this.ptr + 40)
-            return this.__shi503_path
-        }
+    shi503_path {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -114,24 +104,18 @@ class SHARE_INFO_503 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
      * @type {PWSTR}
      */
-    shi503_passwd{
-        get {
-            if(!this.HasProp("__shi503_passwd"))
-                this.__shi503_passwd := PWSTR(this.ptr + 48)
-            return this.__shi503_passwd
-        }
+    shi503_passwd {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the shared resource resides. A value of "*" indicates no configured server name.
      * @type {PWSTR}
      */
-    shi503_servername{
-        get {
-            if(!this.HasProp("__shi503_servername"))
-                this.__shi503_servername := PWSTR(this.ptr + 56)
-            return this.__shi503_servername
-        }
+    shi503_servername {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -152,7 +136,7 @@ class SHARE_INFO_503 extends Win32Struct
     shi503_security_descriptor{
         get {
             if(!this.HasProp("__shi503_security_descriptor"))
-                this.__shi503_security_descriptor := PSECURITY_DESCRIPTOR(this.ptr + 72)
+                this.__shi503_security_descriptor := PSECURITY_DESCRIPTOR(72, this)
             return this.__shi503_security_descriptor
         }
     }

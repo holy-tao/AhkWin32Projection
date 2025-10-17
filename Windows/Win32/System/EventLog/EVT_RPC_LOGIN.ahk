@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains the information used to connect to a remote computer.
@@ -25,48 +24,36 @@ class EVT_RPC_LOGIN extends Win32Struct
      * The name of the remote computer to connect to.
      * @type {PWSTR}
      */
-    Server{
-        get {
-            if(!this.HasProp("__Server"))
-                this.__Server := PWSTR(this.ptr + 0)
-            return this.__Server
-        }
+    Server {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * The user name to use to connect to the remote computer.
      * @type {PWSTR}
      */
-    User{
-        get {
-            if(!this.HasProp("__User"))
-                this.__User := PWSTR(this.ptr + 8)
-            return this.__User
-        }
+    User {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * The domain to which the user account belongs. Optional.
      * @type {PWSTR}
      */
-    Domain{
-        get {
-            if(!this.HasProp("__Domain"))
-                this.__Domain := PWSTR(this.ptr + 16)
-            return this.__Domain
-        }
+    Domain {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * The password for the user account.
      * @type {PWSTR}
      */
-    Password{
-        get {
-            if(!this.HasProp("__Password"))
-                this.__Password := PWSTR(this.ptr + 24)
-            return this.__Password
-        }
+    Password {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

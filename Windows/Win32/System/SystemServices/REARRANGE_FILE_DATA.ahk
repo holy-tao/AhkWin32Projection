@@ -34,7 +34,7 @@ class REARRANGE_FILE_DATA extends Win32Struct
     SourceFileHandle{
         get {
             if(!this.HasProp("__SourceFileHandle"))
-                this.__SourceFileHandle := HANDLE(this.ptr + 16)
+                this.__SourceFileHandle := HANDLE(16, this)
             return this.__SourceFileHandle
         }
     }

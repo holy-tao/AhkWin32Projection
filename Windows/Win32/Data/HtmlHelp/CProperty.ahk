@@ -1,7 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
@@ -40,12 +38,9 @@ class CProperty extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpszwData{
-        get {
-            if(!this.HasProp("__lpszwData"))
-                this.__lpszwData := PWSTR(this.ptr + 16)
-            return this.__lpszwData
-        }
+    lpszwData {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -67,11 +62,8 @@ class CProperty extends Win32Struct
     /**
      * @type {BOOL}
      */
-    fPersist{
-        get {
-            if(!this.HasProp("__fPersist"))
-                this.__fPersist := BOOL(this.ptr + 28)
-            return this.__fPersist
-        }
+    fPersist {
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 }

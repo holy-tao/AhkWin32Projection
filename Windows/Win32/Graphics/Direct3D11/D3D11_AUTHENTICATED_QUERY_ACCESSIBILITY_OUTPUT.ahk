@@ -3,7 +3,6 @@
 #Include .\D3D11_OMAC.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Contains the response to a D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_ATTRIBUTES query.
@@ -24,7 +23,7 @@ class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_OUTPUT extends Win32Struct
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }
@@ -42,23 +41,17 @@ class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_OUTPUT extends Win32Struct
      * If <b>TRUE</b>, contiguous blocks of video memory may be accessible to the CPU or the bus.
      * @type {BOOL}
      */
-    AccessibleInContiguousBlocks{
-        get {
-            if(!this.HasProp("__AccessibleInContiguousBlocks"))
-                this.__AccessibleInContiguousBlocks := BOOL(this.ptr + 44)
-            return this.__AccessibleInContiguousBlocks
-        }
+    AccessibleInContiguousBlocks {
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
      * If <b>TRUE</b>, non-contiguous blocks of video memory may be accessible to the CPU or the bus.
      * @type {BOOL}
      */
-    AccessibleInNonContiguousBlocks{
-        get {
-            if(!this.HasProp("__AccessibleInNonContiguousBlocks"))
-                this.__AccessibleInNonContiguousBlocks := BOOL(this.ptr + 48)
-            return this.__AccessibleInNonContiguousBlocks
-        }
+    AccessibleInNonContiguousBlocks {
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 }

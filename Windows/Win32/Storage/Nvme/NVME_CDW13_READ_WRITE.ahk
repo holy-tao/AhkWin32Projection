@@ -68,7 +68,7 @@ class NVME_CDW13_READ_WRITE extends Win32Struct
     DSM{
         get {
             if(!this.HasProp("__DSM"))
-                this.__DSM := %this.__Class%._DSM(this.ptr + 0)
+                this.__DSM := %this.__Class%._DSM(0, this)
             return this.__DSM
         }
     }

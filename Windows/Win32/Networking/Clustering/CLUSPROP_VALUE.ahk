@@ -82,7 +82,7 @@ class CLUSPROP_VALUE extends Win32Struct
     Syntax{
         get {
             if(!this.HasProp("__Syntax"))
-                this.__Syntax := CLUSPROP_SYNTAX(this.ptr + 0)
+                this.__Syntax := CLUSPROP_SYNTAX(0, this)
             return this.__Syntax
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -15,12 +14,9 @@ class PROTOENT extends Win32Struct
     /**
      * @type {PSTR}
      */
-    p_name{
-        get {
-            if(!this.HasProp("__p_name"))
-                this.__p_name := PSTR(this.ptr + 0)
-            return this.__p_name
-        }
+    p_name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

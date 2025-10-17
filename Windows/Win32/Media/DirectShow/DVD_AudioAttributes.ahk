@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * The DVD_AudioAttributes structure is used in IDvdInfo2::GetAudioAttributes to receive the various audio attributes of the disc.
@@ -63,12 +62,9 @@ class DVD_AudioAttributes extends Win32Struct
      * Indicates whether multichannel attributes are present. If <b>TRUE</b>, it means there is additional mixing information available, such as for SurroundSound. Call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-gettitleattributes">IDvdInfo2::GetTitleAttributes</a> to retrieve the multichannel information.
      * @type {BOOL}
      */
-    fHasMultichannelInfo{
-        get {
-            if(!this.HasProp("__fHasMultichannelInfo"))
-                this.__fHasMultichannelInfo := BOOL(this.ptr + 20)
-            return this.__fHasMultichannelInfo
-        }
+    fHasMultichannelInfo {
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**

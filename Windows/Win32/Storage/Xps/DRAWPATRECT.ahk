@@ -26,7 +26,7 @@ class DRAWPATRECT extends Win32Struct
     ptPosition{
         get {
             if(!this.HasProp("__ptPosition"))
-                this.__ptPosition := POINT(this.ptr + 0)
+                this.__ptPosition := POINT(0, this)
             return this.__ptPosition
         }
     }
@@ -38,7 +38,7 @@ class DRAWPATRECT extends Win32Struct
     ptSize{
         get {
             if(!this.HasProp("__ptSize"))
-                this.__ptSize := POINT(this.ptr + 8)
+                this.__ptSize := POINT(8, this)
             return this.__ptSize
         }
     }

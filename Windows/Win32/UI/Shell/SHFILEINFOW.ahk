@@ -34,7 +34,7 @@ class SHFILEINFOW extends Win32Struct
     hIcon{
         get {
             if(!this.HasProp("__hIcon"))
-                this.__hIcon := HICON(this.ptr + 0)
+                this.__hIcon := HICON(0, this)
             return this.__hIcon
         }
     }

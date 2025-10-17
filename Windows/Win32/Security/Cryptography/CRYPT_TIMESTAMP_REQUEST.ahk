@@ -1,9 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
-#Include ..\..\Foundation\BOOL.ahk
 
 /**
  * Defines a time stamp request structure that corresponds to the Abstract Syntax Notation One (ASN.1) definition of a TimeStampReq type.
@@ -33,7 +31,7 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 8)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
             return this.__HashAlgorithm
         }
     }
@@ -45,7 +43,7 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
     HashedMessage{
         get {
             if(!this.HasProp("__HashedMessage"))
-                this.__HashedMessage := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__HashedMessage := CRYPT_INTEGER_BLOB(32, this)
             return this.__HashedMessage
         }
     }
@@ -54,12 +52,9 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
      * Optional. A pointer to a null-terminated string that specifies the Time Stamping Authority (TSA) policy under which the time stamp token should be provided.
      * @type {PSTR}
      */
-    pszTSAPolicyId{
-        get {
-            if(!this.HasProp("__pszTSAPolicyId"))
-                this.__pszTSAPolicyId := PSTR(this.ptr + 48)
-            return this.__pszTSAPolicyId
-        }
+    pszTSAPolicyId {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -70,7 +65,7 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
     Nonce{
         get {
             if(!this.HasProp("__Nonce"))
-                this.__Nonce := CRYPT_INTEGER_BLOB(this.ptr + 56)
+                this.__Nonce := CRYPT_INTEGER_BLOB(56, this)
             return this.__Nonce
         }
     }
@@ -79,12 +74,9 @@ class CRYPT_TIMESTAMP_REQUEST extends Win32Struct
      * A Boolean value that indicates whether the TSA must include the certificates used to sign the time stamp token in the response.
      * @type {BOOL}
      */
-    fCertReq{
-        get {
-            if(!this.HasProp("__fCertReq"))
-                this.__fCertReq := BOOL(this.ptr + 72)
-            return this.__fCertReq
-        }
+    fCertReq {
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**

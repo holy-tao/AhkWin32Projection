@@ -1,8 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
-#Include ..\..\Foundation\WPARAM.ahk
-#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -26,7 +24,7 @@ class MSG extends Win32Struct
     hwnd{
         get {
             if(!this.HasProp("__hwnd"))
-                this.__hwnd := HWND(this.ptr + 0)
+                this.__hwnd := HWND(0, this)
             return this.__hwnd
         }
     }
@@ -49,12 +47,9 @@ class MSG extends Win32Struct
      * 					<b>message</b> member.
      * @type {WPARAM}
      */
-    wParam{
-        get {
-            if(!this.HasProp("__wParam"))
-                this.__wParam := WPARAM(this.ptr + 16)
-            return this.__wParam
-        }
+    wParam {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -64,12 +59,9 @@ class MSG extends Win32Struct
      * 					<b>message</b> member.
      * @type {LPARAM}
      */
-    lParam{
-        get {
-            if(!this.HasProp("__lParam"))
-                this.__lParam := LPARAM(this.ptr + 24)
-            return this.__lParam
-        }
+    lParam {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -92,7 +84,7 @@ class MSG extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 40)
+                this.__pt := POINT(40, this)
             return this.__pt
         }
     }

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -31,12 +30,9 @@ class PROFILER_HEAP_OBJECT_OPTIONAL_INFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    functionName{
-        get {
-            if(!this.HasProp("__functionName"))
-                this.__functionName := PWSTR(this.ptr + 8)
-            return this.__functionName
-        }
+    functionName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**

@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -16,56 +15,41 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszSessionId{
-        get {
-            if(!this.HasProp("__pszSessionId"))
-                this.__pszSessionId := PWSTR(this.ptr + 0)
-            return this.__pszSessionId
-        }
+    pszSessionId {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszSiteName{
-        get {
-            if(!this.HasProp("__pszSiteName"))
-                this.__pszSiteName := PWSTR(this.ptr + 8)
-            return this.__pszSiteName
-        }
+    pszSiteName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszUserName{
-        get {
-            if(!this.HasProp("__pszUserName"))
-                this.__pszUserName := PWSTR(this.ptr + 16)
-            return this.__pszUserName
-        }
+    pszUserName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszHostName{
-        get {
-            if(!this.HasProp("__pszHostName"))
-                this.__pszHostName := PWSTR(this.ptr + 24)
-            return this.__pszHostName
-        }
+    pszHostName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszRemoteIpAddress{
-        get {
-            if(!this.HasProp("__pszRemoteIpAddress"))
-                this.__pszRemoteIpAddress := PWSTR(this.ptr + 32)
-            return this.__pszRemoteIpAddress
-        }
+    pszRemoteIpAddress {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -79,12 +63,9 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszLocalIpAddress{
-        get {
-            if(!this.HasProp("__pszLocalIpAddress"))
-                this.__pszLocalIpAddress := PWSTR(this.ptr + 48)
-            return this.__pszLocalIpAddress
-        }
+    pszLocalIpAddress {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -114,45 +95,33 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pszCommand{
-        get {
-            if(!this.HasProp("__pszCommand"))
-                this.__pszCommand := PWSTR(this.ptr + 80)
-            return this.__pszCommand
-        }
+    pszCommand {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszCommandParameters{
-        get {
-            if(!this.HasProp("__pszCommandParameters"))
-                this.__pszCommandParameters := PWSTR(this.ptr + 88)
-            return this.__pszCommandParameters
-        }
+    pszCommandParameters {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszFullPath{
-        get {
-            if(!this.HasProp("__pszFullPath"))
-                this.__pszFullPath := PWSTR(this.ptr + 96)
-            return this.__pszFullPath
-        }
+    pszFullPath {
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszPhysicalPath{
-        get {
-            if(!this.HasProp("__pszPhysicalPath"))
-                this.__pszPhysicalPath := PWSTR(this.ptr + 104)
-            return this.__pszPhysicalPath
-        }
+    pszPhysicalPath {
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -185,7 +154,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     SessionStartTime{
         get {
             if(!this.HasProp("__SessionStartTime"))
-                this.__SessionStartTime := FILETIME(this.ptr + 128)
+                this.__SessionStartTime := FILETIME(128, this)
             return this.__SessionStartTime
         }
     }

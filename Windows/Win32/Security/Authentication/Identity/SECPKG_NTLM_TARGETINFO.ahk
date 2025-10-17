@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\PWSTR.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
 
 /**
@@ -24,56 +23,41 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    MsvAvNbComputerName{
-        get {
-            if(!this.HasProp("__MsvAvNbComputerName"))
-                this.__MsvAvNbComputerName := PWSTR(this.ptr + 8)
-            return this.__MsvAvNbComputerName
-        }
+    MsvAvNbComputerName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    MsvAvNbDomainName{
-        get {
-            if(!this.HasProp("__MsvAvNbDomainName"))
-                this.__MsvAvNbDomainName := PWSTR(this.ptr + 16)
-            return this.__MsvAvNbDomainName
-        }
+    MsvAvNbDomainName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    MsvAvDnsComputerName{
-        get {
-            if(!this.HasProp("__MsvAvDnsComputerName"))
-                this.__MsvAvDnsComputerName := PWSTR(this.ptr + 24)
-            return this.__MsvAvDnsComputerName
-        }
+    MsvAvDnsComputerName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    MsvAvDnsDomainName{
-        get {
-            if(!this.HasProp("__MsvAvDnsDomainName"))
-                this.__MsvAvDnsDomainName := PWSTR(this.ptr + 32)
-            return this.__MsvAvDnsDomainName
-        }
+    MsvAvDnsDomainName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    MsvAvDnsTreeName{
-        get {
-            if(!this.HasProp("__MsvAvDnsTreeName"))
-                this.__MsvAvDnsTreeName := PWSTR(this.ptr + 40)
-            return this.__MsvAvDnsTreeName
-        }
+    MsvAvDnsTreeName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -90,7 +74,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     MsvAvTimestamp{
         get {
             if(!this.HasProp("__MsvAvTimestamp"))
-                this.__MsvAvTimestamp := FILETIME(this.ptr + 56)
+                this.__MsvAvTimestamp := FILETIME(56, this)
             return this.__MsvAvTimestamp
         }
     }
@@ -98,11 +82,8 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    MsvAvTargetName{
-        get {
-            if(!this.HasProp("__MsvAvTargetName"))
-                this.__MsvAvTargetName := PWSTR(this.ptr + 64)
-            return this.__MsvAvTargetName
-        }
+    MsvAvTargetName {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

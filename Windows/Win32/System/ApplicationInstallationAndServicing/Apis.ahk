@@ -7007,7 +7007,7 @@ class ApplicationInstallationAndServicing {
         szIconFolder := szIconFolder is String ? StrPtr(szIconFolder) : szIconFolder
         hRegData := hRegData is Win32Handle ? NumGet(hRegData, "ptr") : hRegData
 
-        result := DllCall("msi.dll\MsiProcessAdvertiseScriptA", "ptr", szScriptFile, "ptr", szIconFolder, "ptr", hRegData, "ptr", fShortcuts, "ptr", fRemoveItems, "uint")
+        result := DllCall("msi.dll\MsiProcessAdvertiseScriptA", "ptr", szScriptFile, "ptr", szIconFolder, "ptr", hRegData, "int", fShortcuts, "int", fRemoveItems, "uint")
         return result
     }
 
@@ -7095,7 +7095,7 @@ class ApplicationInstallationAndServicing {
         szIconFolder := szIconFolder is String ? StrPtr(szIconFolder) : szIconFolder
         hRegData := hRegData is Win32Handle ? NumGet(hRegData, "ptr") : hRegData
 
-        result := DllCall("msi.dll\MsiProcessAdvertiseScriptW", "ptr", szScriptFile, "ptr", szIconFolder, "ptr", hRegData, "ptr", fShortcuts, "ptr", fRemoveItems, "uint")
+        result := DllCall("msi.dll\MsiProcessAdvertiseScriptW", "ptr", szScriptFile, "ptr", szIconFolder, "ptr", hRegData, "int", fShortcuts, "int", fRemoveItems, "uint")
         return result
     }
 
@@ -7184,7 +7184,7 @@ class ApplicationInstallationAndServicing {
     static MsiAdvertiseScriptA(szScriptFile, dwFlags, phRegData, fRemoveItems) {
         szScriptFile := szScriptFile is String ? StrPtr(szScriptFile) : szScriptFile
 
-        result := DllCall("msi.dll\MsiAdvertiseScriptA", "ptr", szScriptFile, "uint", dwFlags, "ptr", phRegData, "ptr", fRemoveItems, "uint")
+        result := DllCall("msi.dll\MsiAdvertiseScriptA", "ptr", szScriptFile, "uint", dwFlags, "ptr", phRegData, "int", fRemoveItems, "uint")
         return result
     }
 
@@ -7273,7 +7273,7 @@ class ApplicationInstallationAndServicing {
     static MsiAdvertiseScriptW(szScriptFile, dwFlags, phRegData, fRemoveItems) {
         szScriptFile := szScriptFile is String ? StrPtr(szScriptFile) : szScriptFile
 
-        result := DllCall("msi.dll\MsiAdvertiseScriptW", "ptr", szScriptFile, "uint", dwFlags, "ptr", phRegData, "ptr", fRemoveItems, "uint")
+        result := DllCall("msi.dll\MsiAdvertiseScriptW", "ptr", szScriptFile, "uint", dwFlags, "ptr", phRegData, "int", fRemoveItems, "uint")
         return result
     }
 
@@ -27235,7 +27235,7 @@ class ApplicationInstallationAndServicing {
     static MsiRecordIsNull(hRecord, iField) {
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
 
-        result := DllCall("msi.dll\MsiRecordIsNull", "ptr", hRecord, "uint", iField, "ptr")
+        result := DllCall("msi.dll\MsiRecordIsNull", "ptr", hRecord, "uint", iField, "int")
         return result
     }
 
@@ -27562,7 +27562,7 @@ class ApplicationInstallationAndServicing {
     static MsiGetMode(hInstall, eRunMode) {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiGetMode", "ptr", hInstall, "int", eRunMode, "ptr")
+        result := DllCall("msi.dll\MsiGetMode", "ptr", hInstall, "int", eRunMode, "int")
         return result
     }
 
@@ -27578,7 +27578,7 @@ class ApplicationInstallationAndServicing {
     static MsiSetMode(hInstall, eRunMode, fState) {
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
-        result := DllCall("msi.dll\MsiSetMode", "ptr", hInstall, "int", eRunMode, "ptr", fState, "uint")
+        result := DllCall("msi.dll\MsiSetMode", "ptr", hInstall, "int", eRunMode, "int", fState, "uint")
         return result
     }
 
@@ -28824,7 +28824,7 @@ class ApplicationInstallationAndServicing {
 
         A_LastError := 0
 
-        result := DllCall("sfc.dll\SfcGetNextProtectedFile", "ptr", RpcHandle, "ptr", ProtFileData, "ptr")
+        result := DllCall("sfc.dll\SfcGetNextProtectedFile", "ptr", RpcHandle, "ptr", ProtFileData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -28845,7 +28845,7 @@ class ApplicationInstallationAndServicing {
         ProtFileName := ProtFileName is String ? StrPtr(ProtFileName) : ProtFileName
         RpcHandle := RpcHandle is Win32Handle ? NumGet(RpcHandle, "ptr") : RpcHandle
 
-        result := DllCall("sfc.dll\SfcIsFileProtected", "ptr", RpcHandle, "ptr", ProtFileName, "ptr")
+        result := DllCall("sfc.dll\SfcIsFileProtected", "ptr", RpcHandle, "ptr", ProtFileName, "int")
         return result
     }
 
@@ -28913,7 +28913,7 @@ class ApplicationInstallationAndServicing {
         SubKeyName := SubKeyName is String ? StrPtr(SubKeyName) : SubKeyName
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
 
-        result := DllCall("sfc.dll\SfcIsKeyProtected", "ptr", KeyHandle, "ptr", SubKeyName, "uint", KeySam, "ptr")
+        result := DllCall("sfc.dll\SfcIsKeyProtected", "ptr", KeyHandle, "ptr", SubKeyName, "uint", KeySam, "int")
         return result
     }
 
@@ -28928,7 +28928,7 @@ class ApplicationInstallationAndServicing {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
         pszError := pszError is String ? StrPtr(pszError) : pszError
 
-        result := DllCall("sfc.dll\SfpVerifyFile", "ptr", pszFileName, "ptr", pszError, "uint", dwErrSize, "ptr")
+        result := DllCall("sfc.dll\SfpVerifyFile", "ptr", pszFileName, "ptr", pszError, "uint", dwErrSize, "int")
         return result
     }
 
@@ -28946,7 +28946,7 @@ class ApplicationInstallationAndServicing {
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
 
-        result := DllCall("mspatchc.dll\CreatePatchFileA", "ptr", OldFileName, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr")
+        result := DllCall("mspatchc.dll\CreatePatchFileA", "ptr", OldFileName, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "int")
         return result
     }
 
@@ -28964,7 +28964,7 @@ class ApplicationInstallationAndServicing {
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
 
-        result := DllCall("mspatchc.dll\CreatePatchFileW", "ptr", OldFileName, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr")
+        result := DllCall("mspatchc.dll\CreatePatchFileW", "ptr", OldFileName, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "int")
         return result
     }
 
@@ -28982,7 +28982,7 @@ class ApplicationInstallationAndServicing {
         NewFileHandle := NewFileHandle is Win32Handle ? NumGet(NewFileHandle, "ptr") : NewFileHandle
         PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
 
-        result := DllCall("mspatchc.dll\CreatePatchFileByHandles", "ptr", OldFileHandle, "ptr", NewFileHandle, "ptr", PatchFileHandle, "uint", OptionFlags, "ptr", OptionData, "ptr")
+        result := DllCall("mspatchc.dll\CreatePatchFileByHandles", "ptr", OldFileHandle, "ptr", NewFileHandle, "ptr", PatchFileHandle, "uint", OptionFlags, "ptr", OptionData, "int")
         return result
     }
 
@@ -29002,7 +29002,7 @@ class ApplicationInstallationAndServicing {
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
 
-        result := DllCall("mspatchc.dll\CreatePatchFileExA", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
+        result := DllCall("mspatchc.dll\CreatePatchFileExA", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
 
@@ -29022,7 +29022,7 @@ class ApplicationInstallationAndServicing {
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
 
-        result := DllCall("mspatchc.dll\CreatePatchFileExW", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
+        result := DllCall("mspatchc.dll\CreatePatchFileExW", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileName, "ptr", PatchFileName, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
 
@@ -29042,7 +29042,7 @@ class ApplicationInstallationAndServicing {
         NewFileHandle := NewFileHandle is Win32Handle ? NumGet(NewFileHandle, "ptr") : NewFileHandle
         PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
 
-        result := DllCall("mspatchc.dll\CreatePatchFileByHandlesEx", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileHandle, "ptr", PatchFileHandle, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
+        result := DllCall("mspatchc.dll\CreatePatchFileByHandlesEx", "uint", OldFileCount, "ptr", OldFileInfoArray, "ptr", NewFileHandle, "ptr", PatchFileHandle, "uint", OptionFlags, "ptr", OptionData, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
 
@@ -29056,7 +29056,7 @@ class ApplicationInstallationAndServicing {
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
         PatchHeaderFileName := PatchHeaderFileName is String ? StrPtr(PatchHeaderFileName) : PatchHeaderFileName
 
-        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileA", "ptr", PatchFileName, "ptr", PatchHeaderFileName, "ptr")
+        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileA", "ptr", PatchFileName, "ptr", PatchHeaderFileName, "int")
         return result
     }
 
@@ -29070,7 +29070,7 @@ class ApplicationInstallationAndServicing {
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
         PatchHeaderFileName := PatchHeaderFileName is String ? StrPtr(PatchHeaderFileName) : PatchHeaderFileName
 
-        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileW", "ptr", PatchFileName, "ptr", PatchHeaderFileName, "ptr")
+        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileW", "ptr", PatchFileName, "ptr", PatchHeaderFileName, "int")
         return result
     }
 
@@ -29084,7 +29084,7 @@ class ApplicationInstallationAndServicing {
         PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
         PatchHeaderFileHandle := PatchHeaderFileHandle is Win32Handle ? NumGet(PatchHeaderFileHandle, "ptr") : PatchHeaderFileHandle
 
-        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileByHandles", "ptr", PatchFileHandle, "ptr", PatchHeaderFileHandle, "ptr")
+        result := DllCall("mspatchc.dll\ExtractPatchHeaderToFileByHandles", "ptr", PatchFileHandle, "ptr", PatchHeaderFileHandle, "int")
         return result
     }
 
@@ -29099,7 +29099,7 @@ class ApplicationInstallationAndServicing {
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
         OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
 
-        result := DllCall("mspatcha.dll\TestApplyPatchToFileA", "ptr", PatchFileName, "ptr", OldFileName, "uint", ApplyOptionFlags, "ptr")
+        result := DllCall("mspatcha.dll\TestApplyPatchToFileA", "ptr", PatchFileName, "ptr", OldFileName, "uint", ApplyOptionFlags, "int")
         return result
     }
 
@@ -29114,7 +29114,7 @@ class ApplicationInstallationAndServicing {
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
         OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
 
-        result := DllCall("mspatcha.dll\TestApplyPatchToFileW", "ptr", PatchFileName, "ptr", OldFileName, "uint", ApplyOptionFlags, "ptr")
+        result := DllCall("mspatcha.dll\TestApplyPatchToFileW", "ptr", PatchFileName, "ptr", OldFileName, "uint", ApplyOptionFlags, "int")
         return result
     }
 
@@ -29129,7 +29129,7 @@ class ApplicationInstallationAndServicing {
         PatchFileHandle := PatchFileHandle is Win32Handle ? NumGet(PatchFileHandle, "ptr") : PatchFileHandle
         OldFileHandle := OldFileHandle is Win32Handle ? NumGet(OldFileHandle, "ptr") : OldFileHandle
 
-        result := DllCall("mspatcha.dll\TestApplyPatchToFileByHandles", "ptr", PatchFileHandle, "ptr", OldFileHandle, "uint", ApplyOptionFlags, "ptr")
+        result := DllCall("mspatcha.dll\TestApplyPatchToFileByHandles", "ptr", PatchFileHandle, "ptr", OldFileHandle, "uint", ApplyOptionFlags, "int")
         return result
     }
 
@@ -29144,7 +29144,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static TestApplyPatchToFileByBuffers(PatchFileBuffer, PatchFileSize, OldFileBuffer, OldFileSize, NewFileSize, ApplyOptionFlags) {
-        result := DllCall("mspatcha.dll\TestApplyPatchToFileByBuffers", "ptr", PatchFileBuffer, "uint", PatchFileSize, "ptr", OldFileBuffer, "uint", OldFileSize, "uint*", NewFileSize, "uint", ApplyOptionFlags, "ptr")
+        result := DllCall("mspatcha.dll\TestApplyPatchToFileByBuffers", "ptr", PatchFileBuffer, "uint", PatchFileSize, "ptr", OldFileBuffer, "uint", OldFileSize, "uint*", NewFileSize, "uint", ApplyOptionFlags, "int")
         return result
     }
 
@@ -29161,7 +29161,7 @@ class ApplicationInstallationAndServicing {
         OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "int")
         return result
     }
 
@@ -29178,7 +29178,7 @@ class ApplicationInstallationAndServicing {
         OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "int")
         return result
     }
 
@@ -29195,7 +29195,7 @@ class ApplicationInstallationAndServicing {
         OldFileHandle := OldFileHandle is Win32Handle ? NumGet(OldFileHandle, "ptr") : OldFileHandle
         NewFileHandle := NewFileHandle is Win32Handle ? NumGet(NewFileHandle, "ptr") : NewFileHandle
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileByHandles", "ptr", PatchFileHandle, "ptr", OldFileHandle, "ptr", NewFileHandle, "uint", ApplyOptionFlags, "ptr")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileByHandles", "ptr", PatchFileHandle, "ptr", OldFileHandle, "ptr", NewFileHandle, "uint", ApplyOptionFlags, "int")
         return result
     }
 
@@ -29214,7 +29214,7 @@ class ApplicationInstallationAndServicing {
         OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileExA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileExA", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
 
@@ -29233,7 +29233,7 @@ class ApplicationInstallationAndServicing {
         OldFileName := OldFileName is String ? StrPtr(OldFileName) : OldFileName
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileExW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileExW", "ptr", PatchFileName, "ptr", OldFileName, "ptr", NewFileName, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
 
@@ -29252,7 +29252,7 @@ class ApplicationInstallationAndServicing {
         OldFileHandle := OldFileHandle is Win32Handle ? NumGet(OldFileHandle, "ptr") : OldFileHandle
         NewFileHandle := NewFileHandle is Win32Handle ? NumGet(NewFileHandle, "ptr") : NewFileHandle
 
-        result := DllCall("mspatcha.dll\ApplyPatchToFileByHandlesEx", "ptr", PatchFileHandle, "ptr", OldFileHandle, "ptr", NewFileHandle, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileByHandlesEx", "ptr", PatchFileHandle, "ptr", OldFileHandle, "ptr", NewFileHandle, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
 
@@ -29272,7 +29272,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static ApplyPatchToFileByBuffers(PatchFileMapped, PatchFileSize, OldFileMapped, OldFileSize, NewFileBuffer, NewFileBufferSize, NewFileActualSize, NewFileTime, ApplyOptionFlags, ProgressCallback, CallbackContext) {
-        result := DllCall("mspatcha.dll\ApplyPatchToFileByBuffers", "ptr", PatchFileMapped, "uint", PatchFileSize, "ptr", OldFileMapped, "uint", OldFileSize, "ptr", NewFileBuffer, "uint", NewFileBufferSize, "uint*", NewFileActualSize, "ptr", NewFileTime, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "ptr")
+        result := DllCall("mspatcha.dll\ApplyPatchToFileByBuffers", "ptr", PatchFileMapped, "uint", PatchFileSize, "ptr", OldFileMapped, "uint", OldFileSize, "ptr", NewFileBuffer, "uint", NewFileBufferSize, "uint*", NewFileActualSize, "ptr", NewFileTime, "uint", ApplyOptionFlags, "ptr", ProgressCallback, "ptr", CallbackContext, "int")
         return result
     }
 
@@ -29292,7 +29292,7 @@ class ApplicationInstallationAndServicing {
     static GetFilePatchSignatureA(FileName, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureA", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "ptr")
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureA", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
 
@@ -29312,7 +29312,7 @@ class ApplicationInstallationAndServicing {
     static GetFilePatchSignatureW(FileName, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureW", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "ptr")
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureW", "ptr", FileName, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
 
@@ -29332,7 +29332,7 @@ class ApplicationInstallationAndServicing {
     static GetFilePatchSignatureByHandle(FileHandle, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
 
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureByHandle", "ptr", FileHandle, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "ptr")
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureByHandle", "ptr", FileHandle, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
 
@@ -29351,7 +29351,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static GetFilePatchSignatureByBuffer(FileBufferWritable, FileSize, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
-        result := DllCall("mspatcha.dll\GetFilePatchSignatureByBuffer", "ptr", FileBufferWritable, "uint", FileSize, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "ptr")
+        result := DllCall("mspatcha.dll\GetFilePatchSignatureByBuffer", "ptr", FileBufferWritable, "uint", FileSize, "uint", OptionFlags, "ptr", OptionData, "uint", IgnoreRangeCount, "ptr", IgnoreRangeArray, "uint", RetainRangeCount, "ptr", RetainRangeArray, "uint", SignatureBufferSize, "ptr", SignatureBuffer, "int")
         return result
     }
 
@@ -29381,7 +29381,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static GetDeltaInfoB(Delta, lpHeaderInfo) {
-        result := DllCall("msdelta.dll\GetDeltaInfoB", "ptr", Delta, "ptr", lpHeaderInfo, "ptr")
+        result := DllCall("msdelta.dll\GetDeltaInfoB", "ptr", Delta, "ptr", lpHeaderInfo, "int")
         return result
     }
 
@@ -29394,7 +29394,7 @@ class ApplicationInstallationAndServicing {
     static GetDeltaInfoA(lpDeltaName, lpHeaderInfo) {
         lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
 
-        result := DllCall("msdelta.dll\GetDeltaInfoA", "ptr", lpDeltaName, "ptr", lpHeaderInfo, "ptr")
+        result := DllCall("msdelta.dll\GetDeltaInfoA", "ptr", lpDeltaName, "ptr", lpHeaderInfo, "int")
         return result
     }
 
@@ -29407,7 +29407,7 @@ class ApplicationInstallationAndServicing {
     static GetDeltaInfoW(lpDeltaName, lpHeaderInfo) {
         lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
 
-        result := DllCall("msdelta.dll\GetDeltaInfoW", "ptr", lpDeltaName, "ptr", lpHeaderInfo, "ptr")
+        result := DllCall("msdelta.dll\GetDeltaInfoW", "ptr", lpDeltaName, "ptr", lpHeaderInfo, "int")
         return result
     }
 
@@ -29422,7 +29422,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static ApplyDeltaGetReverseB(ApplyFlags, Source, Delta, lpReverseFileTime, lpTarget, lpTargetReverse) {
-        result := DllCall("msdelta.dll\ApplyDeltaGetReverseB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpReverseFileTime, "ptr", lpTarget, "ptr", lpTargetReverse, "ptr")
+        result := DllCall("msdelta.dll\ApplyDeltaGetReverseB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpReverseFileTime, "ptr", lpTarget, "ptr", lpTargetReverse, "int")
         return result
     }
 
@@ -29435,7 +29435,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static ApplyDeltaB(ApplyFlags, Source, Delta, lpTarget) {
-        result := DllCall("msdelta.dll\ApplyDeltaB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "ptr")
+        result := DllCall("msdelta.dll\ApplyDeltaB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "int")
         return result
     }
 
@@ -29449,7 +29449,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static ApplyDeltaProvidedB(ApplyFlags, Source, Delta, lpTarget, uTargetSize) {
-        result := DllCall("msdelta.dll\ApplyDeltaProvidedB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "ptr", uTargetSize, "ptr")
+        result := DllCall("msdelta.dll\ApplyDeltaProvidedB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "ptr", uTargetSize, "int")
         return result
     }
 
@@ -29466,7 +29466,7 @@ class ApplicationInstallationAndServicing {
         lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
         lpTargetName := lpTargetName is String ? StrPtr(lpTargetName) : lpTargetName
 
-        result := DllCall("msdelta.dll\ApplyDeltaA", "int64", ApplyFlags, "ptr", lpSourceName, "ptr", lpDeltaName, "ptr", lpTargetName, "ptr")
+        result := DllCall("msdelta.dll\ApplyDeltaA", "int64", ApplyFlags, "ptr", lpSourceName, "ptr", lpDeltaName, "ptr", lpTargetName, "int")
         return result
     }
 
@@ -29483,7 +29483,7 @@ class ApplicationInstallationAndServicing {
         lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
         lpTargetName := lpTargetName is String ? StrPtr(lpTargetName) : lpTargetName
 
-        result := DllCall("msdelta.dll\ApplyDeltaW", "int64", ApplyFlags, "ptr", lpSourceName, "ptr", lpDeltaName, "ptr", lpTargetName, "ptr")
+        result := DllCall("msdelta.dll\ApplyDeltaW", "int64", ApplyFlags, "ptr", lpSourceName, "ptr", lpDeltaName, "ptr", lpTargetName, "int")
         return result
     }
 
@@ -29503,7 +29503,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static CreateDeltaB(FileTypeSet, SetFlags, ResetFlags, Source, Target, SourceOptions, TargetOptions, GlobalOptions, lpTargetFileTime, HashAlgId, lpDelta) {
-        result := DllCall("msdelta.dll\CreateDeltaB", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", Source, "ptr", Target, "ptr", SourceOptions, "ptr", TargetOptions, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDelta, "ptr")
+        result := DllCall("msdelta.dll\CreateDeltaB", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", Source, "ptr", Target, "ptr", SourceOptions, "ptr", TargetOptions, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDelta, "int")
         return result
     }
 
@@ -29529,7 +29529,7 @@ class ApplicationInstallationAndServicing {
         lpTargetOptionsName := lpTargetOptionsName is String ? StrPtr(lpTargetOptionsName) : lpTargetOptionsName
         lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
 
-        result := DllCall("msdelta.dll\CreateDeltaA", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", lpSourceName, "ptr", lpTargetName, "ptr", lpSourceOptionsName, "ptr", lpTargetOptionsName, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDeltaName, "ptr")
+        result := DllCall("msdelta.dll\CreateDeltaA", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", lpSourceName, "ptr", lpTargetName, "ptr", lpSourceOptionsName, "ptr", lpTargetOptionsName, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDeltaName, "int")
         return result
     }
 
@@ -29555,7 +29555,7 @@ class ApplicationInstallationAndServicing {
         lpTargetOptionsName := lpTargetOptionsName is String ? StrPtr(lpTargetOptionsName) : lpTargetOptionsName
         lpDeltaName := lpDeltaName is String ? StrPtr(lpDeltaName) : lpDeltaName
 
-        result := DllCall("msdelta.dll\CreateDeltaW", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", lpSourceName, "ptr", lpTargetName, "ptr", lpSourceOptionsName, "ptr", lpTargetOptionsName, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDeltaName, "ptr")
+        result := DllCall("msdelta.dll\CreateDeltaW", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", lpSourceName, "ptr", lpTargetName, "ptr", lpSourceOptionsName, "ptr", lpTargetOptionsName, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDeltaName, "int")
         return result
     }
 
@@ -29568,7 +29568,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static GetDeltaSignatureB(FileTypeSet, HashAlgId, Source, lpHash) {
-        result := DllCall("msdelta.dll\GetDeltaSignatureB", "int64", FileTypeSet, "uint", HashAlgId, "ptr", Source, "ptr", lpHash, "ptr")
+        result := DllCall("msdelta.dll\GetDeltaSignatureB", "int64", FileTypeSet, "uint", HashAlgId, "ptr", Source, "ptr", lpHash, "int")
         return result
     }
 
@@ -29583,7 +29583,7 @@ class ApplicationInstallationAndServicing {
     static GetDeltaSignatureA(FileTypeSet, HashAlgId, lpSourceName, lpHash) {
         lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
 
-        result := DllCall("msdelta.dll\GetDeltaSignatureA", "int64", FileTypeSet, "uint", HashAlgId, "ptr", lpSourceName, "ptr", lpHash, "ptr")
+        result := DllCall("msdelta.dll\GetDeltaSignatureA", "int64", FileTypeSet, "uint", HashAlgId, "ptr", lpSourceName, "ptr", lpHash, "int")
         return result
     }
 
@@ -29598,7 +29598,7 @@ class ApplicationInstallationAndServicing {
     static GetDeltaSignatureW(FileTypeSet, HashAlgId, lpSourceName, lpHash) {
         lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
 
-        result := DllCall("msdelta.dll\GetDeltaSignatureW", "int64", FileTypeSet, "uint", HashAlgId, "ptr", lpSourceName, "ptr", lpHash, "ptr")
+        result := DllCall("msdelta.dll\GetDeltaSignatureW", "int64", FileTypeSet, "uint", HashAlgId, "ptr", lpSourceName, "ptr", lpHash, "int")
         return result
     }
 
@@ -29612,7 +29612,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static DeltaNormalizeProvidedB(FileTypeSet, NormalizeFlags, NormalizeOptions, lpSource, uSourceSize) {
-        result := DllCall("msdelta.dll\DeltaNormalizeProvidedB", "int64", FileTypeSet, "int64", NormalizeFlags, "ptr", NormalizeOptions, "ptr", lpSource, "ptr", uSourceSize, "ptr")
+        result := DllCall("msdelta.dll\DeltaNormalizeProvidedB", "int64", FileTypeSet, "int64", NormalizeFlags, "ptr", NormalizeOptions, "ptr", lpSource, "ptr", uSourceSize, "int")
         return result
     }
 
@@ -29622,7 +29622,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} 
      */
     static DeltaFree(lpMemory) {
-        result := DllCall("msdelta.dll\DeltaFree", "ptr", lpMemory, "ptr")
+        result := DllCall("msdelta.dll\DeltaFree", "ptr", lpMemory, "int")
         return result
     }
 
@@ -29722,7 +29722,7 @@ class ApplicationInstallationAndServicing {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ZombifyActCtx", "ptr", hActCtx, "ptr")
+        result := DllCall("KERNEL32.dll\ZombifyActCtx", "ptr", hActCtx, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29748,7 +29748,7 @@ class ApplicationInstallationAndServicing {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\ActivateActCtx", "ptr", hActCtx, "ptr*", lpCookie, "ptr")
+        result := DllCall("KERNEL32.dll\ActivateActCtx", "ptr", hActCtx, "ptr*", lpCookie, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29820,7 +29820,7 @@ class ApplicationInstallationAndServicing {
     static DeactivateActCtx(dwFlags, ulCookie) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DeactivateActCtx", "uint", dwFlags, "ptr", ulCookie, "ptr")
+        result := DllCall("KERNEL32.dll\DeactivateActCtx", "uint", dwFlags, "ptr", ulCookie, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29843,7 +29843,7 @@ class ApplicationInstallationAndServicing {
     static GetCurrentActCtx(lphActCtx) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetCurrentActCtx", "ptr", lphActCtx, "ptr")
+        result := DllCall("KERNEL32.dll\GetCurrentActCtx", "ptr", lphActCtx, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29906,7 +29906,7 @@ class ApplicationInstallationAndServicing {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindActCtxSectionStringA", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "ptr")
+        result := DllCall("KERNEL32.dll\FindActCtxSectionStringA", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -29969,7 +29969,7 @@ class ApplicationInstallationAndServicing {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindActCtxSectionStringW", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "ptr")
+        result := DllCall("KERNEL32.dll\FindActCtxSectionStringW", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpStringToFind, "ptr", ReturnedData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30034,7 +30034,7 @@ class ApplicationInstallationAndServicing {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindActCtxSectionGuid", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpGuidToFind, "ptr", ReturnedData, "ptr")
+        result := DllCall("KERNEL32.dll\FindActCtxSectionGuid", "uint", dwFlags, "ptr", lpExtensionGuid, "uint", ulSectionId, "ptr", lpGuidToFind, "ptr", ReturnedData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30240,7 +30240,7 @@ class ApplicationInstallationAndServicing {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryActCtxW", "uint", dwFlags, "ptr", hActCtx, "ptr", pvSubInstance, "uint", ulInfoClass, "ptr", pvBuffer, "ptr", cbBuffer, "ptr*", pcbWrittenOrRequired, "ptr")
+        result := DllCall("KERNEL32.dll\QueryActCtxW", "uint", dwFlags, "ptr", hActCtx, "ptr", pvSubInstance, "uint", ulInfoClass, "ptr", pvBuffer, "ptr", cbBuffer, "ptr*", pcbWrittenOrRequired, "int")
         if(A_LastError)
             throw OSError()
 
@@ -30275,7 +30275,7 @@ class ApplicationInstallationAndServicing {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryActCtxSettingsW", "uint", dwFlags, "ptr", hActCtx, "ptr", settingsNameSpace, "ptr", settingName, "ptr", pvBuffer, "ptr", dwBuffer, "ptr*", pdwWrittenOrRequired, "ptr")
+        result := DllCall("KERNEL32.dll\QueryActCtxSettingsW", "uint", dwFlags, "ptr", hActCtx, "ptr", settingsNameSpace, "ptr", settingName, "ptr", pvBuffer, "ptr", dwBuffer, "ptr*", pdwWrittenOrRequired, "int")
         if(A_LastError)
             throw OSError()
 

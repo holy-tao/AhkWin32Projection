@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -23,22 +22,16 @@ class ModuleBindInfo extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    lpAssemblyIdentity{
-        get {
-            if(!this.HasProp("__lpAssemblyIdentity"))
-                this.__lpAssemblyIdentity := PWSTR(this.ptr + 8)
-            return this.__lpAssemblyIdentity
-        }
+    lpAssemblyIdentity {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    lpModuleName{
-        get {
-            if(!this.HasProp("__lpModuleName"))
-                this.__lpModuleName := PWSTR(this.ptr + 16)
-            return this.__lpModuleName
-        }
+    lpModuleName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

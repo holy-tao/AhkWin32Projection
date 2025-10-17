@@ -2,8 +2,6 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Registry\HKEY.ahk
-#Include ..\..\Foundation\BOOL.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -29,7 +27,7 @@ class MONITORINIT extends Win32Struct
     hSpooler{
         get {
             if(!this.HasProp("__hSpooler"))
-                this.__hSpooler := HANDLE(this.ptr + 8)
+                this.__hSpooler := HANDLE(8, this)
             return this.__hSpooler
         }
     }
@@ -40,7 +38,7 @@ class MONITORINIT extends Win32Struct
     hckRegistryRoot{
         get {
             if(!this.HasProp("__hckRegistryRoot"))
-                this.__hckRegistryRoot := HKEY(this.ptr + 16)
+                this.__hckRegistryRoot := HKEY(16, this)
             return this.__hckRegistryRoot
         }
     }
@@ -56,31 +54,21 @@ class MONITORINIT extends Win32Struct
     /**
      * @type {BOOL}
      */
-    bLocal{
-        get {
-            if(!this.HasProp("__bLocal"))
-                this.__bLocal := BOOL(this.ptr + 32)
-            return this.__bLocal
-        }
+    bLocal {
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    pszServerName{
-        get {
-            if(!this.HasProp("__pszServerName"))
-                this.__pszServerName := PWSTR(this.ptr + 40)
-            return this.__pszServerName
-        }
+    pszServerName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

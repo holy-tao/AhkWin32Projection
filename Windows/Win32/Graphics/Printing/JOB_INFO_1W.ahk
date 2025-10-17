@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -25,67 +24,49 @@ class JOB_INFO_1W extends Win32Struct
     /**
      * @type {PWSTR}
      */
-    pPrinterName{
-        get {
-            if(!this.HasProp("__pPrinterName"))
-                this.__pPrinterName := PWSTR(this.ptr + 8)
-            return this.__pPrinterName
-        }
+    pPrinterName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {PWSTR}
      */
-    pMachineName{
-        get {
-            if(!this.HasProp("__pMachineName"))
-                this.__pMachineName := PWSTR(this.ptr + 16)
-            return this.__pMachineName
-        }
+    pMachineName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {PWSTR}
      */
-    pUserName{
-        get {
-            if(!this.HasProp("__pUserName"))
-                this.__pUserName := PWSTR(this.ptr + 24)
-            return this.__pUserName
-        }
+    pUserName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {PWSTR}
      */
-    pDocument{
-        get {
-            if(!this.HasProp("__pDocument"))
-                this.__pDocument := PWSTR(this.ptr + 32)
-            return this.__pDocument
-        }
+    pDocument {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {PWSTR}
      */
-    pDatatype{
-        get {
-            if(!this.HasProp("__pDatatype"))
-                this.__pDatatype := PWSTR(this.ptr + 40)
-            return this.__pDatatype
-        }
+    pDatatype {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {PWSTR}
      */
-    pStatus{
-        get {
-            if(!this.HasProp("__pStatus"))
-                this.__pStatus := PWSTR(this.ptr + 48)
-            return this.__pStatus
-        }
+    pStatus {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -134,7 +115,7 @@ class JOB_INFO_1W extends Win32Struct
     Submitted{
         get {
             if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(this.ptr + 80)
+                this.__Submitted := SYSTEMTIME(80, this)
             return this.__Submitted
         }
     }

@@ -21,7 +21,7 @@ class WS_HTTP_HEADER_MAPPING extends Win32Struct
     headerName{
         get {
             if(!this.HasProp("__headerName"))
-                this.__headerName := WS_XML_STRING(this.ptr + 0)
+                this.__headerName := WS_XML_STRING(0, this)
             return this.__headerName
         }
     }

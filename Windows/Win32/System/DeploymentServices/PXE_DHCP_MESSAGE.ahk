@@ -175,7 +175,7 @@ class PXE_DHCP_MESSAGE extends Win32Struct
     Option{
         get {
             if(!this.HasProp("__Option"))
-                this.__Option := PXE_DHCP_OPTION(this.ptr + 240)
+                this.__Option := PXE_DHCP_OPTION(240, this)
             return this.__Option
         }
     }

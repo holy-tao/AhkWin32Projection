@@ -50,7 +50,7 @@ class DVD_COPY_PROTECT_KEY extends Win32Struct
     FileHandle{
         get {
             if(!this.HasProp("__FileHandle"))
-                this.__FileHandle := HANDLE(this.ptr + 16)
+                this.__FileHandle := HANDLE(16, this)
             return this.__FileHandle
         }
     }

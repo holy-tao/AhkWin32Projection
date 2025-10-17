@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PSTR.ahk
 
 /**
  * Contains data for a connection that uses Secure Sockets Layer (SSL), obtained through the SSL handshake.
@@ -61,24 +60,18 @@ class HTTP_SSL_INFO extends Win32Struct
      * A pointer to a null-terminated string of octets that specifies the name of the entity that issued the certificate.
      * @type {PSTR}
      */
-    pServerCertIssuer{
-        get {
-            if(!this.HasProp("__pServerCertIssuer"))
-                this.__pServerCertIssuer := PSTR(this.ptr + 16)
-            return this.__pServerCertIssuer
-        }
+    pServerCertIssuer {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * A pointer to a null-terminated string of octets that specifies the name of the entity to which the certificate belongs.
      * @type {PSTR}
      */
-    pServerCertSubject{
-        get {
-            if(!this.HasProp("__pServerCertSubject"))
-                this.__pServerCertSubject := PSTR(this.ptr + 24)
-            return this.__pServerCertSubject
-        }
+    pServerCertSubject {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**

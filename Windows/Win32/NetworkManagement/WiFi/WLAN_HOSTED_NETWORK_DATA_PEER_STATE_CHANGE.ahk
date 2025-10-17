@@ -26,7 +26,7 @@ class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE extends Win32Struct
     OldState{
         get {
             if(!this.HasProp("__OldState"))
-                this.__OldState := WLAN_HOSTED_NETWORK_PEER_STATE(this.ptr + 0)
+                this.__OldState := WLAN_HOSTED_NETWORK_PEER_STATE(0, this)
             return this.__OldState
         }
     }
@@ -38,7 +38,7 @@ class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE extends Win32Struct
     NewState{
         get {
             if(!this.HasProp("__NewState"))
-                this.__NewState := WLAN_HOSTED_NETWORK_PEER_STATE(this.ptr + 16)
+                this.__NewState := WLAN_HOSTED_NETWORK_PEER_STATE(16, this)
             return this.__NewState
         }
     }

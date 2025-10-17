@@ -1,6 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\PWSTR.ahk
 
 /**
  * Contains information about the specified server, including name, platform, type of server, attributes, and associated software.
@@ -102,12 +101,9 @@ class SERVER_INFO_102 extends Win32Struct
      * A pointer to a Unicode string specifying the name of a server.
      * @type {PWSTR}
      */
-    sv102_name{
-        get {
-            if(!this.HasProp("__sv102_name"))
-                this.__sv102_name := PWSTR(this.ptr + 8)
-            return this.__sv102_name
-        }
+    sv102_name {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
@@ -153,12 +149,9 @@ class SERVER_INFO_102 extends Win32Struct
      * A pointer to a Unicode string specifying a comment describing the server. The comment can be null.
      * @type {PWSTR}
      */
-    sv102_comment{
-        get {
-            if(!this.HasProp("__sv102_comment"))
-                this.__sv102_comment := PWSTR(this.ptr + 32)
-            return this.__sv102_comment
-        }
+    sv102_comment {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -234,11 +227,8 @@ class SERVER_INFO_102 extends Win32Struct
      * A pointer to a Unicode string specifying the path to user directories.
      * @type {PWSTR}
      */
-    sv102_userpath{
-        get {
-            if(!this.HasProp("__sv102_userpath"))
-                this.__sv102_userpath := PWSTR(this.ptr + 64)
-            return this.__sv102_userpath
-        }
+    sv102_userpath {
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 }

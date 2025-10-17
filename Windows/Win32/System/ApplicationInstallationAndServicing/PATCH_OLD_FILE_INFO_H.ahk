@@ -26,7 +26,7 @@ class PATCH_OLD_FILE_INFO_H extends Win32Struct
     OldFileHandle{
         get {
             if(!this.HasProp("__OldFileHandle"))
-                this.__OldFileHandle := HANDLE(this.ptr + 8)
+                this.__OldFileHandle := HANDLE(8, this)
             return this.__OldFileHandle
         }
     }

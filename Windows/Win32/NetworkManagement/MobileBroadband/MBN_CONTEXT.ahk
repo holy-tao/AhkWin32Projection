@@ -41,7 +41,7 @@ class MBN_CONTEXT extends Win32Struct
     accessString{
         get {
             if(!this.HasProp("__accessString"))
-                this.__accessString := BSTR(this.ptr + 8)
+                this.__accessString := BSTR(8, this)
             return this.__accessString
         }
     }
@@ -55,7 +55,7 @@ class MBN_CONTEXT extends Win32Struct
     userName{
         get {
             if(!this.HasProp("__userName"))
-                this.__userName := BSTR(this.ptr + 16)
+                this.__userName := BSTR(16, this)
             return this.__userName
         }
     }
@@ -69,7 +69,7 @@ class MBN_CONTEXT extends Win32Struct
     password{
         get {
             if(!this.HasProp("__password"))
-                this.__password := BSTR(this.ptr + 24)
+                this.__password := BSTR(24, this)
             return this.__password
         }
     }

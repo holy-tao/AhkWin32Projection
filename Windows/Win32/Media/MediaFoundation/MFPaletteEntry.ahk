@@ -28,7 +28,7 @@ class MFPaletteEntry extends Win32Struct
     ARGB{
         get {
             if(!this.HasProp("__ARGB"))
-                this.__ARGB := MFARGB(this.ptr + 0)
+                this.__ARGB := MFARGB(0, this)
             return this.__ARGB
         }
     }
@@ -40,7 +40,7 @@ class MFPaletteEntry extends Win32Struct
     AYCbCr{
         get {
             if(!this.HasProp("__AYCbCr"))
-                this.__AYCbCr := MFAYUVSample(this.ptr + 0)
+                this.__AYCbCr := MFAYUVSample(0, this)
             return this.__AYCbCr
         }
     }

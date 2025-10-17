@@ -31,7 +31,7 @@ class INTERNET_CACHE_TIMESTAMPS extends Win32Struct
     ftExpires{
         get {
             if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(this.ptr + 0)
+                this.__ftExpires := FILETIME(0, this)
             return this.__ftExpires
         }
     }
@@ -43,7 +43,7 @@ class INTERNET_CACHE_TIMESTAMPS extends Win32Struct
     ftLastModified{
         get {
             if(!this.HasProp("__ftLastModified"))
-                this.__ftLastModified := FILETIME(this.ptr + 8)
+                this.__ftLastModified := FILETIME(8, this)
             return this.__ftLastModified
         }
     }
